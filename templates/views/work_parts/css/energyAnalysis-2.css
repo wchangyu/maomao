@@ -1,0 +1,144 @@
+.typee{
+	width: 40px;
+	height: 70px;
+	margin-left: 10%;
+	float: left;
+	margin-top: 3%;
+}
+.electricity{
+	background: url(../img/electricity_hover.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.water{
+	background: url(../img/water.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.right-top{
+	width: 98%;
+	height: 50%;
+	background: #ffffff;
+	margin-left: 8px;
+}
+.right-header{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #808080;
+	line-height: 30px;
+}
+.right-header-right{
+	width: 485px;
+	height: 100%;
+	float: right;
+}
+.header-right-lists{
+	float: left;
+	margin-right: 10px;
+}
+
+.pic-one{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-1.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+.pic-two{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-2.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+.pic-three{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-3.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+.type option{
+	height: 30px;
+	width :60px;
+	color: #333;
+}
+.type{
+	width: 100px;
+}
+.header-one{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-two{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-three{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.warp{
+	width: 100% !important;
+	height: 100%;
+}
+.content-main-1{
+	height: 25% !important;
+}
+.content-main-2{
+	height: 40% !important;
+}
+.electricity_aa_4{
+	margin-left:30%;
+}
+.electricityWord{
+	margin-top:50px;
+	text-align:center;
+}
+.main-left-middle{
+	height:90%;
+}
+.left-middle-tab{
+	background:#7f7f7f;
+	color:#ffffff;
+	margin-left:19px;
+	margin-left:39%;
+}
+.tree-2{
+	height:80%;
+	margin-top:10px;
+	display: block;
+}
+.header-right-lists-1{
+	width:230px;
+}
+.comparisonAndAnalysis{
+	width:100%;
+	height:100%;
+	float:left;
+	position:relative;
+}
+.rheader-content-right-header{
+	width:100%;
+	float:left;
+	border-bottom:1px solid #ccc;
+}
+#rheader-content-14{
+	width:100%;
+	height:300px;
+}
+.content-main-3{
+    height: 20% !important;
+}

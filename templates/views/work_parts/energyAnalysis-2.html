@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用能分析-横向对比</title>
+	<link rel="stylesheet" href="./css/index.css">
+	<link rel="stylesheet" href="./zTree/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./zTree/css/style.css">
+	<link rel="stylesheet" href="./css/energyAnalysis-2.css">
+	<link rel="stylesheet" href="./work_parts/select-time/css/style.css" media="screen" type="text/css" />
+	<script src="./js/jquery-1.11.2.js"></script>
+	<script src="./js/echarts.min.js"></script>
+	<script src="./js/energyAnalysis-2.js"></script>
+</head>
+<body>
+	<div class="total-warp">
+		<div class="container warp">
+			<!-- 左边选择区域 -->
+			<div class="content-main-left">
+				<!-- 能耗种类 -->
+				<div class="content-main content-main-1">
+					<div class="main-left-top1">
+						<!-- 标题 -->
+						<div class="left-middle-header">能耗种类</div>
+						<!-- 电 -->
+						<div class="electricity typee electricity_aa_4">
+							<!-- 文字 -->
+							<p class="electricityWord">电</p>
+						</div>
+						<!-- 水 -->
+						<div class="typee water water_aa_4">
+							<!-- 文字 -->
+							<p class="electricityWord">水</p>
+						</div>
+					</div>
+				</div>
+				<!-- 对象选择 -->
+				<div class="content-main content-main-2">
+					<div class="main-left-middle">
+						<!-- 标题 -->
+						<div class="left-middle-header">对象选择</div>
+						<!-- 区域位置按钮 -->
+						<div class="left-middle-tab">区域位置</div>
+						<!-- 区域位置内容 -->
+						<div class="tree tree-2">
+							    <ul>
+							    	<li>
+							    		<span><i class="icon-folder-open"></i>变电所1</span>
+							    		<ul>
+							    			<li>
+							    				<span><i class="icon-minus-sign"></i>变压器1</span>
+							    			</li>
+							    			<li>
+							    				<span><i class="icon-minus-sign"></i>变压器2</span>
+							    			</li>
+							    		</ul>
+							    	</li>
+							    </ul>
+						</div>
+						<script type="text/javascript">
+								$(function(){
+								    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+								    $('.tree li.parent_li > span').on('click', function (e) {
+								        var children = $(this).parent('li.parent_li').find(' > ul > li');
+								        if (children.is(":visible")) {
+								            children.hide('fast');
+								            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+								        } else {
+								            children.show('fast');
+								            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+								        }
+								        e.stopPropagation();
+								    });
+								});
+						</script>
+					</div>	
+				</div>
+				<!-- 时段选择 -->
+				<div class="content-main">
+					<!-- 时间插件 -->
+					<div class="select-times">
+						<!-- 标题 -->
+						<div class="left-middle-header">时段选择</div>
+						<!-- 时间部分 -->
+						<div id='wrapper'>
+							<!-- 选择下拉框 -->
+							<select class='custom-date' name='select'>
+								<option value='7'>7 Days</option>
+								<option value='30'>30 Days</option>
+								<option selected='selected' value='90'>90 Days</option>
+								<option value='180'>180 Days</option>
+								<option value='365'>365 Days</option>
+								<option value='custom'>Custom</option>
+							</select>
+							<div class="buttons">
+								<button class="btns">APPLY</button>
+							</div>							
+						</div>
+	  				</div>
+	  				<script src='./work_parts/select-time/js/jquery.js'></script>
+	 				<script src="./work_parts/select-time/js/index.js"></script>
+				</div>
+			</div>
+			<!-- 右边主体数据部分 -->
+			<div class="content-main-right content-main-right_aa_4">
+				<div class="right-content"class="row">
+					<!-- 标题 -->
+					<div class="left-middle-header">
+						<div class="header-one">电</div>
+						<div class="header-two">ICU-造血干细胞</div>
+						<div class="header-three">2014-01-01-2014-12-30</div>
+					</div>
+					<!-- 用电曲线 -->
+					<div  class="right-top">
+						<!-- 标题 -->
+						<div class="right-header">用电曲线
+							<!-- 标题右边 -->
+							<ul class="right-header-right">
+								<!-- 数据间隔 -->
+								<li class="header-right-lists header-right-lists-1">
+									<span>数据间隔：</span>
+									<select name="type"class="type">
+										<option value="">60min</option>
+										<option value=""></option>
+									</select>
+								</li>
+								<!-- 单位 -->
+								<li class="header-right-lists">单位：kWs</li>
+								<!-- 图一 -->
+								<li class="header-right-lists pic-one"></li>
+								<!-- 图二 -->
+								<li class="header-right-lists pic-two"></li>
+								<!-- 图三 -->
+								<li class="header-right-lists pic-three"></li>
+							</ul>
+						</div>
+						<!-- 内容 -->
+						<div class="rheader-content">
+							<!-- 用电曲线折线图 -->
+							<div class="rheader-content-left col-lg-10"id="rheader-content-14"></div>
+						</div>
+					</div>
+					<!-- 对比分析 -->
+					<div  class="right-top">
+						<div class="rheader-content">
+							<div class="comparisonAndAnalysis">
+								<div class="rheader-content-right-header">对比分析
+								</div>
+								<!-- 表格 -->
+								<div class="contrast-table">
+									<table class="table table-striped">
+	   									<caption>条纹表格布局</caption>
+										<thead>
+											<tr>
+											    <th>对比对象</th>
+											    <th>面积/m²</th>
+											    <th>床位/个</th>
+											    <th>装机功率/kW</th>
+											    <th>累计用电量/kWh</th>
+											    <th>用电峰值/kWh</th>
+											    <th>用电谷值/kWh</th>
+											    <th>用电平均值/kWh</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+											    <td>ICU</td>
+											    <td>500</td>
+											    <td>150</td>
+											    <td>500</td>
+											    <td>67</td>
+											    <td>67</td>
+											    <td>67</td>
+											    <td>67</td>
+											</tr>
+											<tr>
+											    <td>造血干细胞</td>
+											    <td>300</td>
+											    <td>20</td>
+											    <td>400</td>
+											    <td>52</td>
+											    <td>52</td>
+											    <td>52</td>
+											    <td>52</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

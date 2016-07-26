@@ -1,0 +1,230 @@
+.right-header-right{
+    width: 465px;
+    height: 100%;
+    float: right;
+}
+.pic-one{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-1.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-two{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-2.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-three{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-3.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.header-right-lists{
+    float: left;
+    margin-right: 10px;
+}
+.right-header{
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+    text-indent: 20px;
+}
+.header-one{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-two{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-three{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.boiler-left{
+    width: 400px;
+    height: 600px;
+    background: red;
+    float: left;
+    background: url(../img/tree-img1.png)no-repeat 0px -90px;
+}
+.boiler-left-top{
+    width: 400px;
+    height: 100px;
+    position: relative;
+}
+.boiler-left-top span{
+    position: absolute;
+    left: 20px;
+    top: 40px;
+}
+.boiler-left-top span:nth-child(2){
+    left: 75px;
+    top: 40px;
+}
+.boiler-left-top span:nth-child(3){
+    left:100px;
+    top: 20px;
+}
+.boiler-left-top span:nth-child(4){
+    width: 80px;
+    height: 2px;
+    background: #337ab7;
+    left: 90px;
+    top: 45px;
+}
+.boiler-left-top span:nth-child(5){
+    top: 60px;
+    left: 101px;
+}
+.boiler-left-top span:nth-child(6){
+    top: 40px;
+    left: 180px;
+}
+.boiler-left-top span:nth-child(7){
+    width: 80px;
+    height: 30px;
+    border:2px solid #333;
+    left:200px;
+    top: 35px;
+    background: #ffffa6;
+    text-align: center;
+    line-height: 24px;
+    font-size: 1.5rem;
+}
+.boiler-left-top span:nth-child(8){
+    width: 120px;
+    height: 50px;
+    border: 2px solid #333;
+    left: 45px;
+    top: 170px;
+    background: #ffffa6;
+    text-align: center;
+    padding-top: 5px;
+}
+.boiler-left-top span:nth-child(9){
+    width: 60px;
+    height: 60px;
+    border: 2px solid #333;
+    top: 282px;
+    left: 15px;
+    text-align: center;
+}
+.boiler-left-top span:nth-child(10){
+    width: 60px;
+    height: 60px;
+    border: 2px solid #333;
+    top: 282px;
+    left: 135px;
+    text-align: center;
+}
+.wrap{
+    width:100% !important;
+    height:100%;
+}
+.content-main-1{
+    height: 70% !important;
+}
+.main-left-middle{
+    height:90%;
+}
+.tree-2{
+    height: 80%;
+    display: block;
+}
+.right-content{
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+.right-header-right{
+    width:260px !important;
+}
+.header-right-lists-1{
+    width:130px;
+}
+.boiler-left{
+    margin-left:20px;
+}
+.systemHeatBalanceRate{
+    height:40px;
+    width:400px;
+    position:absolute;
+    top:400px;
+    line-height:40px;
+}
+.systemHeatBalanceRate span{
+    height:40px;
+    width:100px;
+    text-align:center;
+    font-size:1.8rem;
+    font-weight:bold;
+    margin-top:-40px;
+    margin-left:100px;
+}
+.rangeOfCriteria{
+    width:500px;
+    height:80px;
+    position:absolute;
+    top:540px;
+}
+.range-li-1{
+    width:150px;
+    height:20px;
+    margin-bottom:10px;
+    float:left;
+}
+.range-li-2{
+    width:170px;
+    height:20px;
+    margin-bottom:10px;
+    float:left;
+}
+.range-li-3{
+    width:180px;
+    height:20px;
+    margin-bottom:10px;
+    float:left;
+}
+.boiler-left-1{
+    background:#fff;
+    width:60%;
+    height: 50%;
+}
+#rheader-content-51{
+    width:90%;
+    height:400px;
+    margin-right:0px;
+}
+.rheader-content-lis-1{
+    width:440px;
+    background:#fff;
+    height:80px;
+}
+.checkButton{
+    width:440px;
+    height:80px;
+    margin-top:10px;
+    margin-left:60px;
+}
+.checkbox-inline-1{
+    margin-left:10px;
+}

@@ -1,0 +1,49 @@
+{
+  "allEnergyType": {
+    "comment": "注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位",
+    "alltypes": [
+      {
+        "etid": "01",
+        "etname": "电",
+        "etunit": "kWh"
+      },
+      {
+        "etid": "211",
+        "etname": "水",
+        "etunit": "t"
+      },
+      {
+        "etid": "311",
+        "etname": "气",
+        "etunit": "m3"
+      },
+      {
+        "etid": "412",
+        "etname": "暖",
+        "etunit": "MJ"
+      },
+      {
+        "etid": "511",
+        "etname": "冷",
+        "etunit": "MJ"
+      }
+    ]
+  },
+  "officeEnergyType": {
+    "comment": "注释项:分户能耗类型，分别为EType，能耗分类名，单位",
+    "alltypes": [
+      {
+        "etid": 4,
+        "etname": "电",
+        "etunit": "kWh"
+      },
+      {
+        "etid": 5,
+        "etname": "水",
+        "etunit": "m3"
+      }
+    ]
+  },
+  "apiUriPrefix":"http://211.100.28.180/BEEWebAPI/api/",
+    "apiUriPrefix2":"http://localhost:9515/api/"
+}

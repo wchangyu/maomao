@@ -1,0 +1,117 @@
+.typee{
+	width: 40px;
+	height: 70px;
+	margin-left: 10%;
+	float: left;
+	margin-top: 3%;
+}
+.electricity{
+	background: url(../img/electricity_hover.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.water{
+	background: url(../img/water.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.header-one{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-two{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-three{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+
+#energy-parts-total,#energy-parts-totals{
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    margin: -200px;
+    z-index: 10;
+}
+#energy-parts-one,#energy-parts-ones{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 5%;
+	left: 5%;
+}
+#energy-parts-two,#energy-parts-twos{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left:5%;
+	top: 60%;
+} 
+#energy-parts-three,#energy-parts-threes{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	top: 5%;
+	left: 100% !important;
+}
+#energy-parts-four,#energy-parts-fours{
+	width: 300px;
+	height: 300px;
+	position: absolute;
+	left: 100% !important;
+	top: 60%;
+}
+.warp{
+	width:100% !important;
+	height:100%;
+}
+.content-main-1{
+	height: 25% !important;
+}
+.content-main-2{
+	height: 40% !important;
+}
+.left-middle-tab_aa_6{
+	background:#7f7f7f;
+	color:#ffffff;
+	line-height:25px;
+	margin-left:22%;
+}
+.left-middle-tab_aa_6-1{
+	line-height:25px;
+	margin-left: 20px;
+}
+.electricity_aa_6{
+	margin-left: 30%;
+}
+.content-main-right_aa_6{
+	background:#fff;
+	height:100% !important;
+}
+.right-content{
+	height:100%;
+	position:relative;
+}
+.energy-parts{
+	height:100% !important;
+}
+.energy-parts-left{
+	height:100% !important;
+	width:30%;
+}
+.tree-6{
+    width: 85% !important;
+}
+.energy-parts-total{
+    float: left;
+}

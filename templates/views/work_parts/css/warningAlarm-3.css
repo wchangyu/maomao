@@ -1,0 +1,22 @@
+.content-main-contents-header{
+    margin-bottom: 0px;
+    text-align: center;
+    height: 30px;
+}
+.main-contents-header-lists{
+    height: 30px;
+    line-height: 30px;
+    margin-left: 5px;
+    width: 100px;
+    background:#808080;
+    color:#fff;
+}
+.wrap{
+    height: 100%;
+    width: 100%;
+}
+.main-contents-table{
+    position:absolute;
+    width:95%;
+    margin-left:30px;
+}

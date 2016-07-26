@@ -1,0 +1,66 @@
+.warp{
+	width: 100% !important;
+	height: 100%;
+}
+.typee{
+	width: 40px;
+	height: 70px;
+	margin-left: 10%;
+	float: left;
+	margin-top: 3%;
+}
+.electricity{
+	background: url(../img/electricity_hover.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+	margin-left: 30%;
+}
+.water{
+	background: url(../img/water.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.header-one{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-two{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.header-three{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+}
+.tree-6{
+	width: 85% !important;
+}
+.content-main-1{
+	height: 15% !important;
+}
+.content-main-2{
+	height: 60% !important;
+}
+.energy-parts{
+	width: 100% !important;
+	height: 100%;
+}
+.right-content{
+	width: 100%;
+	height: 100% !important;
+}
+.content-main-right .row{
+	height: 100% !important;
+}
+#mulberryFigure{
+	width: 70%;
+	height: 70%;
+	margin: 0 auto;
+	margin-top: 80px;
+}

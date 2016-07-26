@@ -1,0 +1,147 @@
+.right-top{
+    width: 98%;
+    height: 50%;
+    background: #ffffff;
+    margin-left: 8px;
+}
+.right-header{
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+.right-header-right{
+    width: 465px;
+    height: 100%;
+    float: right;
+}
+.header-right-lists{
+    float: left;
+    margin-right: 10px;
+}
+.pic-one{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-1.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-two{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-2.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-three{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-3.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.header-one{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-two{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-three{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.wrap{
+    width: 100%;
+    height: 100%;
+}
+.content-main-1{
+    height:75% !important;
+}
+.main-left-middle{
+    min-height:385px;
+    height:90%;
+}
+.tree-2{
+    height:80%;
+    margin-top:50px;
+    display: block;
+}
+.content-main-2{
+    height:25% !important;
+}
+.right-content{
+    height:695px;
+}
+.right-top{
+    height: 50% !important;
+    width: 100%;
+}
+.rheader-content{
+    height: 95% !important;
+}
+.right-header-right{
+    margin-left:100px;
+    width:240px;
+}
+.table-striped{
+    margin-bottom: 0 !important;
+}
+.table-striped tr{
+    padding: 2px;
+}
+.table-striped th{
+    padding:2px;
+}
+.table-striped td{
+    padding:2px;
+}
+.right-top-1{
+    margin-top: 50px !important;
+}
+.right-header-1{
+    margin:0px;
+}
+.rheader-content-left{
+    width:100%;
+    height:300px;
+    font-size:1.3rem;
+}
+.refrigerationStation{
+    width:50px;
+    height:100%;
+    float:left;
+    font-size:1.5rem;
+    letter-spacing: 50px;
+    padding-left:15px;
+    padding-top:80px;
+}
+#table-1{
+    width:95%;
+    height:100%;
+    float:right !important;
+    margin:0px;
+}
+#table-1 ul{
+    width:100%;
+    height:33px;
+    line-height:33px;
+    margin-bottom:0;
+}
+.modificationTime{
+    display: inline-block !important;
+    margin-right: 40px;
+}

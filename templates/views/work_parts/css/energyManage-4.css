@@ -1,0 +1,228 @@
+.typee{
+    width: 40px;
+    height: 70px;
+    margin-left: 10%;
+    float: left;
+    margin-top: 3%;
+    cursor: pointer;
+}
+.electricity{
+    background: url(../img/electricity_hover.png)no-repeat;
+    background-size: 50px;
+    background-position: top center;
+}
+.water{
+    background: url(../img/water.png)no-repeat;
+    background-size: 50px;
+    background-position: top center;
+}
+.right-top{
+    width: 98%;
+    height: 320px !important;
+    background: #ffffff;
+    margin-left: 8px;
+}
+.right-header{
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+.right-header-right{
+    width: 465px;
+    height: 100%;
+    float: right;
+}
+.header-right-lists{
+    float: left;
+    margin-right: 10px;
+}
+.pic-one{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-1.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-two{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-2.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-three{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-3.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.type option{
+    height: 30px;
+    width :60px;
+    color: #333;
+}
+.type{
+    width: 100px;
+}
+.header-one{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-two{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-three{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.rheader-content-right{
+    background: #deebf7;
+    border-radius: 30px !important;
+    background: url(../img/message.png)no-repeat #deebf7;
+    background-size: 100px;
+    background-position: 10px 20px;
+}
+.wrap{
+    width: 100% !important;
+    height: 100%;
+}
+.content-main-1{
+    height: 25% !important;
+}
+.electricity_aa_2{
+    cursor:pointer;
+    margin-left:30%;
+}
+.electricityWord{
+    margin-top:50px;
+    text-align:center;
+}
+.content-main-2{
+    width:100%;
+    height:40% !important;
+}
+.main-left-middle{
+    height:100%;
+}
+.left-middle-tab_aa_7-1{
+    background:#7f7f7f;
+    color:#ffffff;
+    margin-left:3% !important;
+}
+.right-content{
+    height:100%;
+}
+.right-top{
+    margin-left:10px;
+}
+.right-header-right{
+    margin-left:100px;
+    width:240px;
+}
+.rheader-content{
+    margin-top:20px;
+    height:260px !important;
+    width:100%;
+}
+.rheader-content-left{
+    width:70% !important;
+    height:300px;
+    float:left;
+}
+.rheader-content-right{
+    float:right !important;
+    width:200px !important;
+    min-height:260px !important;
+}
+.rheader-content-rights{
+    position:relative;
+    width:100%;
+    height:89%;
+    margin-top:0;
+    float:right;
+}
+.rheader-content-rights-span-1{
+    color:#ffffff;
+    position:absolute;
+    top:32px;
+    font-size:1.2rem;
+}
+.rheader-content-rights-span-2{
+    color:#019cdf;
+    position:absolute;
+    top:72px;
+    left:15px;
+    font-size:1.3rem;
+    font-weight:bold;
+}
+.rheader-content-rights-span-3{
+    font-size:1rem;
+    margin-left: -30px !important;
+}
+.rheader-content-rights-span-4{
+    position:absolute;
+    top:122px;
+    left: -15px;
+}
+.rights-up{
+    background:url(../img/prompt-arrow2.png)no-repeat 0px 3px;
+    background-size:20px;
+    width:20px;
+    height:25px;
+    position:absolute;
+    top:120px;
+    left:67px;
+}
+.rights-up-value{
+    color:#019cdf;
+    font-weight:bold;
+    font-size:1.3rem;
+    position:absolute;
+    top:125px;
+    left:87px;
+}
+.yearQuota{
+    width:140px;
+    height:90px;
+    float:left;
+    background:#ffe9af;
+    border-radius:20px !important;
+    position:absolute;
+    top:170px;
+    text-align:center;
+    padding-top:5px;
+    left:20px;
+}
+.left-middle-tab_aa_7-2{
+    margin-left:11px;
+}
+.tree-7{
+    height:80%;
+    margin-top:50px;
+}
+.tree-7-1{
+    height:80%;
+    display:none;
+    margin-top:50px;
+}
+#rheader-content-74{
+    height: 260px !important;
+}
+.content-main-right{
+    overflow: scroll;
+}

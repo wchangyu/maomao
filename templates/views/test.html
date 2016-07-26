@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../assets/local/scripts/moment.js"></script>
+
+</head>
+<body>
+
+<script>
+    var date = date || new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var day = date.getDate();
+    var weekday = date.getDay();
+
+    var mDate = moment(date);
+    var daysInMonth = mDate.daysInMonth();
+    //本月1号
+    var monthFirtsDay = mDate.startOf('month');
+
+    var monthLastDay = mDate.endOf('month');
+    //上月当天
+    var lastMonth = mDate.subtract(1,'months');
+    //上月1号
+    var lastMonthFirstDay = lastMonth.startOf('month');
+    //上月最后一天
+    var lastMonthLastDay = lastMonth.endOf('month');
+
+    //去年当天
+    var lastYear = mDate.subtract(1,'years');
+
+    //去年开始
+    var lastYearFirstDay = lastYear.startOf('year');
+
+    //去年底
+    var lastYearLastDay = lastYear.endOf('year');
+
+    //上周一
+    var lastMonday = mDate.days(-6);
+    //上周日
+    var lastSunday = mDate.days(0);
+
+    mDate.format('YYYY/MM/DD');
+
+</script>
+</body>
+</html>

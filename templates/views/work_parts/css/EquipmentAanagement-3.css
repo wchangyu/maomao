@@ -1,0 +1,200 @@
+.right-header{
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+.wrap{
+    width: 100%;
+    height: 100%;
+    font-family: 微软雅黑;
+}
+li{
+    list-style: none;
+}
+.singlePage{
+    width:50%;
+    height:100%;
+    float:left;
+}
+.singlePageContent{
+    width:580px;
+    height:100%;
+    display:inline-block;
+    border-right:1px solid #333;
+    border:1px solid #333;
+}
+.right-header{
+    text-indent:20px;
+    margin-bottom:10px;
+}
+.aLine{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aLine select{
+    font-size: 12px;
+}
+.aLine-1{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aLine-1 input{
+    font-size: 12px;
+    height:25px;
+    margin-bottom:0px;
+}
+.aLine-1 select{
+    font-size: 12px;
+}
+.aLine-2{
+    height:30px;
+    line-height:30px;
+    width:90%;
+    float:left;
+    margin-bottom:10px;
+}
+.aLine-2 input{
+    height:25px;
+    margin-bottom:0px;
+}
+.aLine-2 textarea{
+    margin-left:110px;
+    margin-top:-30px;
+    width:280px;
+    height:100px;
+    font-size: 12px;
+
+}
+.aLine-3{
+    height:30px;
+    line-height:30px;
+    width:90%;
+    float:left;
+    margin-bottom:10px;
+    margin-top:67px;
+}
+.aLine-3 input{
+    height:25px;
+    margin-bottom:0px;
+    font-size: 12px;
+}
+.aLine-4{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aLine-4 textarea{
+    margin-left:110px;
+    margin-top:-30px;
+    width:280px;
+    height:100px;
+    font-size: 12px;
+}
+.placeholderBox{
+    height:30px;
+    line-height:30px;
+    width:45%;
+    float:left;
+    margin-bottom:10px;
+    margin-top:65px;
+    margin-left:10px;
+}
+.aLine-5{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-left:0px;
+    margin-bottom:10px;
+}
+.aLine-5 select{
+    width:100px;
+    font-size: 12px;
+}
+.aline-6{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-left:0px;
+    margin-bottom:10px;
+}
+.aline-6 select{
+    width:100px;
+    font-size: 12px;
+}
+.aline-7{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aline-7 input{
+    height:25px;
+    margin-bottom:0px;
+    font-size: 12px;
+}
+.aline-8{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aline-8 input{
+    font-size: 12px;
+    height:25px;
+    margin-bottom:0px;
+}
+.aline-9{
+    height:30px;
+    line-height:30px;
+    width:50%;
+    float:left;
+    margin-bottom:10px;
+}
+.aline-9 input{
+    height:25px;
+    margin-bottom:0px;
+    width:180px;
+    font-size: 12px;
+}
+.aline-9 select{
+    font-size: 12px;
+}
+.operatingButton{
+    height:30px;
+    line-height:30px;
+    width:80%;
+    float:left;
+    margin-bottom:10px;
+    margin-top:30px;
+    margin-left:38px;
+}
+.newButton{
+    margin-top:0;
+    height:35px;
+    margin-left:200px;
+}
+.editButton{
+    margin-top:0;
+    height:35px;
+}
+.theConfirmButton{
+    margin-top:0;
+    height:35px;
+}
+.cancelButton{
+    margin-top:0;
+    height:35px;
+}
