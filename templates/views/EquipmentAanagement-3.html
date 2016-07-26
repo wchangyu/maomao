@@ -23,10 +23,10 @@
     <link rel="stylesheet" href="./work_parts/_css/index.css">
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
-    <link rel="stylesheet" href="./work_parts/css/warningAlarm-4.css">
+    <link rel="stylesheet" href="./work_parts/css/EquipmentAanagement-3.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
-    <script src="./work_parts/js/warningAlarm-4.js"></script>
+    <script src="./work_parts/js/EquipmentAanagement-3.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -285,7 +285,7 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-               预警报警设置<small>全院</small>
+                维修维保记录<small>全院</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -295,11 +295,11 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">预警报警</a>
+                        <a href="#">设备管理</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">预警报警设置</a>
+                        <a href="#">维修维保记录</a>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -332,223 +332,241 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="container wrap">
-                            <div class="content-main-right content-main-right_aa_19">
-                                <div class="right-content">
-                                    <!-- 预警条件设置 -->
-                                    <div  class="right-top">
-                                        <!-- 标题 -->
-                                        <div class="right-header">预警条件设置
-                                            <ul class="right-header-right">
-                                                <li class="header-right-lists header-right-lists19"style="">电</li>
-                                                <li class="header-right-lists header-right-lists19 header-right-lists19-1">水</li>
-                                                <li class="header-right-lists pic-one"></li>
-                                                <li class="header-right-lists pic-two"></li>
-                                                <li class="header-right-lists pic-three"></li>
-                                            </ul>
+                            <div class="content-main-right row">
+                                <div class="col-lg-6 singlePage">
+                                    <div class="singlePageContent">
+                                        <div class="right-header">故障维修录入
                                         </div>
-                                        <!-- 内容 -->
-                                        <div class="rheader-content rheader-content_aa_19 row">
-                                            <!-- 左 -->
-                                            <div class="rheader-content-left col-lg-6">
-                                                <table class="table table-condensed table-1">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style=""><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                        <ul>
+                                            <li class="aLine">
+                                                设备ID&nbsp;
+                                                <select>
+                                                    <option>100101</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aLine-1 aLine">
+                                                设备型号&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备名称&nbsp;
+                                                <select>
+                                                    <option>内科楼直燃机1</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aLine-1">
+                                                出厂日期&nbsp;
+                                                <input type="text" placeholder="2007.03">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备品牌&nbsp;
+                                                <input type="text" placeholder="远大">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备位置&nbsp;
+                                                <input type="text" placeholder="内科楼冷冻站
+								">
+                                            </li>
+                                            <li class="aLine-2">
+                                                本次故障发生时间
+                                                <input type="text" placeholder="2015.07.03
+								">
+                                            </li>
+                                            <li class="aLine-2">
+                                                本次故障情况描述
+					            <textarea type="">冷凝器高压报警
+							    </textarea>
+                                            </li>
+                                            <li class="aLine-3">
+                                                本次故障排除时间
+                                                <input type="text" placeholder="2015.07.03
+								">
+                                            </li>
+                                            <li class="aLine-4">
+                                                排除故障情况描述
+					            <textarea type="" class="">冷却水回水温度偏高，冷凝器压力无法下降。经排查，冷却水管路过滤器堵塞，拆下清洗后重新装上，冷却水流量、温度恢复正常，冷凝器高压报警解除。
+							    </textarea>
+                                            </li>
+                                            <div class="placeholderBox">
                                             </div>
-                                            <!-- 右 -->
-                                            <div class="rheader-content-left col-lg-6">
-                                                <table class="table table-condensed table-1">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style=""><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- 操作按钮 -->
-                                            <ul class="actionButtons">
-                                                <li class="btn btn-primary btn-primary-1">删除</li>
-                                                <li class="btn btn-primary">确认</li>
-                                                <li class="btn btn-primary">取消</li>
-                                            </ul>
-                                            <!-- 清除浮动 -->
-                                            <div style="clear:both;"></div>
-                                        </div>
+                                            <li class="aLine-5">
+                                                本次故障级别&nbsp;
+                                                <select class="input-xlarge">
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aline-6">
+                                                本次故障级别&nbsp;
+                                                <select class="input-xlarge">
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aline-7">
+                                                维修单位&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-8">
+                                                负责部门&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修负责人&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                部门负责人&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修电话&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修评价&nbsp;
+                                                <select>
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="operatingButton">
+                                                <button type="button" class="btn btn-success newButton">新建</button>
+                                                <button type="button" class="btn btn-success editButton">编辑</button>
+                                                <button type="button" class="btn btn-success theConfirmButton">确认</button>
+                                                <button type="button" class="btn btn-success cancelButton">取消</button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <!-- 报警条件设置 -->
-                                    <div  class="right-top right-top-1">
-                                        <!-- 标题 -->
-                                        <div class="right-header">预警条件设置
-                                            <ul class="right-header-right">
-                                                <li class="header-right-lists header-right-lists19"style="">电</li>
-                                                <li class="header-right-lists header-right-lists19 header-right-lists19-1">水</li>
-                                                <li class="header-right-lists pic-one"></li>
-                                                <li class="header-right-lists pic-two"></li>
-                                                <li class="header-right-lists pic-three"></li>
-                                            </ul>
+                                </div>
+                                <div class="col-lg-6 singlePage">
+                                    <div class="singlePageContent">
+                                        <div class="right-header">故障维修录入
                                         </div>
-                                        <!-- 内容 -->
-                                        <div class="rheader-content rheader-content_aa_19 row">
-                                            <!-- 左 -->
-                                            <div class="rheader-content-left col-lg-6">
-                                                <table class="table table-condensed table-1">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style=""><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                        <ul>
+                                            <li class="aLine">
+                                                设备ID&nbsp;
+                                                <select>
+                                                    <option>100101</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aLine-1 aLine">
+                                                设备型号&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备名称&nbsp;
+                                                <select>
+                                                    <option>内科楼直燃机1</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aLine-1">
+                                                出厂日期&nbsp;
+                                                <input type="text" placeholder="2007.03">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备品牌&nbsp;
+                                                <input type="text" placeholder="远大">
+                                            </li>
+                                            <li class="aLine-1">
+                                                设备位置&nbsp;
+                                                <input type="text" placeholder="内科楼冷冻站
+								">
+                                            </li>
+                                            <li class="aLine-2">
+                                                本次故障发生时间
+                                                <input type="text" placeholder="2015.07.03
+								">
+                                            </li>
+                                            <li class="aLine-2">
+                                                本次故障情况描述
+					            <textarea type="">冷凝器高压报警
+							    </textarea>
+                                            </li>
+                                            <li class="aLine-3">
+                                                本次故障排除时间
+                                                <input type="text" placeholder="2015.07.03
+								">
+                                            </li>
+                                            <li class="aLine-4">
+                                                排除故障情况描述
+					            <textarea type="" class="">冷却水回水温度偏高，冷凝器压力无法下降。经排查，冷却水管路过滤器堵塞，拆下清洗后重新装上，冷却水流量、温度恢复正常，冷凝器高压报警解除。
+							    </textarea>
+                                            </li>
+                                            <div class="placeholderBox">
                                             </div>
-                                            <!-- 右 -->
-                                            <div class="rheader-content-left col-lg-6">
-                                                <table class="table table-condensed table-1">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style="padding-top:0px;padding-bottom:0px;padding-left:20px;padding-right:20px;"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"style=""><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="tdd">年累计用电量≥
-                                                        </td>
-                                                        <td class="btn btn-default"><span>130</span>%</td>
-                                                        <td class="tdd">年累计用电定额
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <!-- 操作按钮 -->
-                                            <ul class="actionButtons">
-                                                <li class="btn btn-primary btn-primary-1">删除</li>
-                                                <li class="btn btn-primary">确认</li>
-                                                <li class="btn btn-primary">取消</li>
-                                            </ul>
-                                            <!-- 清除浮动 -->
-                                            <div style="clear:both;"></div>
-                                        </div>
+                                            <li class="aLine-5">
+                                                本次故障级别&nbsp;
+                                                <select class="input-xlarge">
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aline-6">
+                                                本次故障级别&nbsp;
+                                                <select class="input-xlarge">
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="aline-7">
+                                                维修单位&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-8">
+                                                负责部门&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修负责人&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                部门负责人&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修电话&nbsp;
+                                                <input type="text" placeholder="BZ300BJXDE">
+                                            </li>
+                                            <li class="aline-9">
+                                                维修评价&nbsp;
+                                                <select>
+                                                    <option>中</option>
+                                                    <option>Your</option>
+                                                    <option>Options</option>
+                                                    <option>Here!</option>
+                                                </select>
+                                            </li>
+                                            <li class="operatingButton">
+                                                <button type="button" class="btn btn-success newButton">新建</button>
+                                                <button type="button" class="btn btn-success editButton">编辑</button>
+                                                <button type="button" class="btn btn-success theConfirmButton">确认</button>
+                                                <button type="button" class="btn btn-success cancelButton">取消</button>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

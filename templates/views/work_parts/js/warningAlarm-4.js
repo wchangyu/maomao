@@ -2,6 +2,9 @@ $(function(){
     getHeight();
 })
 getHeight();
+window.onresize = function () {
+    getHeight();
+}
 function getHeight(){
     //获取浏览器的高度；
     var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;

@@ -96,16 +96,13 @@
 .tree-2{
     display: block;
     height:80%;
-    margin-top:50px;
+    margin-top:10px;
 }
 .content-main-2{
     height:25% !important;
 }
 .right-content{
     height:100%;
-}
-.right-top-1{
-    height:50% !important;
 }
 .right-header-right{
     margin-left:100px;
@@ -123,7 +120,7 @@
     margin:0 auto;
 }
 .rheader-content-right-1{
-    width:220px;
+    width:220px !important;
     height:100%;
     float:right;
 }
@@ -135,7 +132,7 @@
     background:url(../img/message.png)no-repeat #deebf7;
     background-size:100px;
     background-position: 10px 20px;
-    border-radius:30px;
+    border-radius:30px !important;
     min-height: 270px;
 }
 .rheader-content-rights .span-1{
@@ -191,7 +188,7 @@
     padding-top:60px;
     font-size:15px;
     float:left;
-    margin-left:10%;
+   /* margin-left:10%;*/
 }
 .adjustValue{
     width:100%;
@@ -254,4 +251,10 @@
 .clear{
     clear: both !important;
     display: inline-block;
+}
+.rheader-content-right{
+    float: right !important;
+}
+.content-main-right{
+    overflow: scroll;
 }

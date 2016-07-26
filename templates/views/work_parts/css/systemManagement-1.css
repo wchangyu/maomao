@@ -21,6 +21,6 @@ li{
 .actionButtons li:nth-child(3) input{
     height:32px;
 }
-.actionButtons li:nth-child(5){
-    margin-left:10%;
+.content-main-right{
+    margin-left: 0 !important;
 }

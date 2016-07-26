@@ -76,8 +76,8 @@
     height:90%;
 }
 .tree-2{
-    height:80%;
-    margin-top:50px;
+    height:60%;
+    margin-top:10px;
     display: block;
 }
 .content-main-2{
@@ -130,7 +130,7 @@
     padding-top:80px;
 }
 #table-1{
-    width:95%;
+    width:93%;
     height:100%;
     float:right !important;
     margin:0px;
@@ -144,4 +144,7 @@
 .modificationTime{
     display: inline-block !important;
     margin-right: 40px;
+}
+.content-main-right{
+    overflow: scroll;
 }

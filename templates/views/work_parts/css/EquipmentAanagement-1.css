@@ -41,3 +41,13 @@ li{
 .pic-one{
     margin-left:650px;
 }
+.content-main-right{
+    overflow: scroll;
+    margin-left: 0 !important;
+}
+.selectBox input{
+    height: 34px !important;
+}
+.selectBox{
+    margin-bottom: 0;
+}

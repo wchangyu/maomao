@@ -16,7 +16,7 @@
   },
   "用能分析":{
     "type":"1",
-    "iconclass":"icon-bar-chart",
+    "iconclass":"icon-screen-desktop",
     "content":"用能分析",
     "submenu": {
       "能耗指标":{
@@ -87,7 +87,7 @@
   },
   "能效分析":{
     "type":"1",
-    "iconclass":"icon-bar-chart",
+    "iconclass":"icon-bulb",
     "content":"能耗分析",
     "submenu":{
       "冷战能效":{
@@ -118,7 +118,7 @@
   },
   "用能管理":{
     "type":"1",
-    "iconclass":"icon-bar-chart",
+    "iconclass":"icon-briefcase",
     "content":"用能管理",
     "submenu":{
       "能耗排名":{
@@ -157,7 +157,7 @@
   },
   "预警报警":{
     "type":"1",
-    "iconclass":"icon-bar-chart",
+    "iconclass":"icon-bell",
     "content":"报警预警",
     "submenu":{
       "用能预警":{
@@ -188,6 +188,97 @@
         "type":"0",
         "content":"预警报警设置",
         "uri":"warningAlarm-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "节能足迹":{
+    "type":"1",
+    "iconclass":"icon-cursor",
+    "content":"节能足迹",
+    "submenu":{
+      "节能项目档案管理":{
+        "type":"0",
+        "content":"节能项目档案管理",
+        "uri":"savingRemember-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能量验证":{
+        "type":"0",
+        "content":"用能量验证",
+        "uri":"savingRemember-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "节能报表":{
+        "type":"0",
+        "content":"节能报表",
+        "uri":"savingRemember-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "用能报表":{
+    "type":"1",
+    "content":"用能报表",
+    "uri":"",
+    "iconclass":"icon-note"
+  },
+  "设备管理":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"设备管理",
+    "submenu":{
+      "设备档案管理":{
+        "type":"0",
+        "content":"设备档案管理",
+        "uri":"EquipmentAanagement-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "设备维保管理":{
+        "type":"0",
+        "content":"设备维保管理",
+        "uri":"EquipmentAanagement-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "设备维保记录":{
+        "type":"0",
+        "content":"设备维保记录",
+        "uri":"EquipmentAanagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "系统管理":{
+    "type":"1",
+    "iconclass":"icon-power",
+    "content":"系统管理",
+    "submenu":{
+      "建筑基本信息管理":{
+        "type":"0",
+        "content":"建筑基本信息管理",
+        "uri":"systemManagement-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "节能监督平台信息":{
+        "type":"0",
+        "content":"节能监督平台信息",
+        "uri":"systemManagement-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
