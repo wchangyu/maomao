@@ -206,6 +206,7 @@ background:rgba(25,0,0,0.1);
 	height: 100%;
 	border: 1px solid #ccc;
 	margin-left: 260px;
+    overflow: scroll;
 }
 .main-right-one{
 	height: 100%;
@@ -265,7 +266,7 @@ background:rgba(25,0,0,0.1);
 }
 #main-right-two{
 	width: 100%;
-	height: 90% !important;
+	height: 85% !important;
 	padding-left: 20px;
 }
 #main-right-three{
@@ -273,7 +274,7 @@ background:rgba(25,0,0,0.1);
 	height:80% !important;
 }
 #main-right-four{
-	width: 100%;
+	width: 95%;
 	height: 80% !important;
 }
 .tree li::after {
@@ -454,4 +455,52 @@ background:rgba(25,0,0,0.1);
 
 a{
     text-decoration: none;
+}
+.main-right-ones-1 .right-one-header{
+    background: #4B77BE !important;
+    color: #fff !important;
+}
+.main-right-ones-1{
+    border: 1px solid #4B77BE !important;
+    overflow: hidden;
+}
+.main-right-ones-2 .right-one-header{
+    background: #44b6ae !important;
+    color: #fff !important;
+}
+.main-right-ones-2{
+    border: 1px solid #44b6ae !important;
+}
+.main-right-ones-3 .right-one-header{
+    background: #e35b5a !important;
+    color: #fff !important;
+}
+.main-right-ones-3{
+    border: 1px solid #e35b5a !important;
+    overflow: hidden;
+}
+.main-right-ones-4 .right-one-header{
+    background: #8775a7 !important;
+    color: #fff !important;
+}
+.main-right-ones-4{
+    border: 1px solid #8775a7 !important;
+    overflow: hidden;
+}
+.main-right-oness{
+    height: 95% !important;
+}
+.scroller{
+    height: 250px !important;
+}
+#wrapper{
+   position: absolute;
+    top:50%;
+    margin-top: -23px;
+}
+.content-main-3{
+    position: relative;
+}
+.main-one-1 .huanbi{
+    text-indent:10%;
 }
