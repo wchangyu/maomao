@@ -91,10 +91,9 @@ var BEE = (function(){
     var setHeaderInfo = function(){
         var username = sessionStorage.username || "未登录";
         $('.username').html(username);
+        var systemName = sessionStorage.systemName;
+        $('.totalTitel').html(systemName);
     }
-
-
-
 
 
     return {
@@ -110,4 +109,7 @@ var BEE = (function(){
 
         }
     }
+
+
+
 })();
