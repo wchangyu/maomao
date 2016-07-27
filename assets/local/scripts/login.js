@@ -186,6 +186,23 @@ var Login = function() {
         else{
             handleLogin();      //获取到配置信息后，处理登录相关
         }
+
+        //标题本地存储
+        if(!sessionStorage.systemName){
+            $.ajax({
+                url: configSrc,
+                type: 'get',
+                async:false,
+                success: function (data) {
+                    var systemTitle = data["systemTitle"] || "";
+                    sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
+                    handleLogin();      //获取到配置信息后，处理登录相关
+                },
+                error: function (xhr, res, err) {
+                    showAlertInfo(err);
+                }
+            })
+        }
     }
 
 
