@@ -45,5 +45,6 @@
     ]
   },
   "apiUriPrefix":"http://211.100.28.180/BEEWebAPI/api/",
-    "apiUriPrefix2":"http://localhost:9515/api/"
+  "apiUriPrefix2":"http://localhost:9515/api/",
+  "systemTitle":"吉林大学第一医院能源管理系统"
 }
