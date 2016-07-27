@@ -504,3 +504,9 @@ a{
 .main-one-1 .huanbi{
     text-indent:10%;
 }
+.totalTitel{
+    display:inline-block;
+    color: #fff;
+    font-size:22px;
+    line-height: 50px;
+}
