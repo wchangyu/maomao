@@ -2078,11 +2078,11 @@ Page content
 /* Page title */
 .page-title {
   padding: 0px;
-  font-size: 28px;
+  font-size: 20px;
   letter-spacing: -1px;
   display: block;
   color: #666;
-  margin: 0px 0px 15px 0px;
+  margin: 0px 0px 10px 0px;
   font-weight: 300;
   /* subtitle */
 }

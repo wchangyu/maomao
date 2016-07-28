@@ -1,32 +1,5 @@
 $(function(){
-    /*//箭头
-    var widths=$('.content-main-left').width()-30;
-    //alert(widths);
-    var clickNum=0;
-    $('.content-main-left .img').click(function(){
-        clickNum ++;
-        if(clickNum%2 == 0){
-            $('.wrap').animate({
-                'width':'100%',
-                'margin-left':0
-            },500,function(){
-                $('.content-main-left .img').css({
-                    'background':'url(./img/margin-left.png)no-repeat',
-                    'background-size':'30px'
-                });
-            }) 
-        }else if(clickNum%2 ==1){
-            $('.wrap').animate({
-                'width':'120%',
-                'margin-left':-widths
-            },500,function(){
-                $('.content-main-left .img').css({
-                    'background':'url(../img/margin-left-1.png)no-repeat',
-                    'background-size':'30px'
-                });
-            }) 
-        }
-    })*/
+    getHeight();
 	//对象选择
 	$(".left-middle-tab_aa_0").click(function(){
         $(".left-middle-tab").css({
@@ -150,6 +123,7 @@ $(function(){
            $('small').html(small);
         })
 })
+getHeight();
 var getPointers;  //楼宇
 var getPointersId = 0;
 var getOffices;//科室单位
@@ -854,7 +828,6 @@ window.onresize = function () {
     myChart1.resize();
     myChart2.resize();
     getHeight();
-   // getWidth();
 
 }
 //加载时的缓冲页面
