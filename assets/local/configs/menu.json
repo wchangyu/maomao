@@ -3,17 +3,19 @@
   "首页":{
     "type":"1",
     "content":"首页",
-    "uri":"index.html",
-    "iconclass":"icon-home"
+    "iconclass":"icon-home",
+    "submenu":{
+      "能耗总览":{
+        "type":"0",
+        "content":"能耗总览",
+        "uri":"index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-bar-chart"
+      }
+    }
   },
-  "能耗总览":{
-    "type":"1",
-    "content":"能耗总览",
-    "uri":"index.html",
-    "uid":"",
-    "arg":"",
-    "iconclass":"icon-bar-chart"
-  },
+
   "用能分析":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
