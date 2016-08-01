@@ -14,9 +14,24 @@
     "arg":"",
     "iconclass":"icon-bar-chart"
   },
-  "用能分析":{
+  "用能监测":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
+    "content":"用能监测",
+    "submenu": {
+      "变配电系统":{
+        "type":"0",
+        "content":"变配电系统",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "用能分析":{
+    "type":"1",
+    "iconclass":"icon-pie-chart",
     "content":"用能分析",
     "submenu": {
       "能耗指标":{
