@@ -48,6 +48,10 @@ var BEE = (function(){
                 if(curType=="0"){
                     //具体菜单操作
                     li = '<li><a href="' + menu[p]["uri"] +'">';
+                    if(window.location.href.indexOf(menu[p]["uri"])>=0)
+                    {
+                        li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
+                    }
                     if(menu[p]["iconclass"]){
                         li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
                     }
@@ -56,12 +60,22 @@ var BEE = (function(){
                     $src.append($li);
                 }else if(curType=="1"){
                     //子菜单操作
-                    if(menu[p]["uri"]){
-                        li = '<li><a href="' + menu[p]["uri"] + '">';
-                    }else{
-                        li = '<li><a href="javascript:;">';
-                    }
+                    //if(menu[p]["uri"]){
+                    //    li = '<li><a href="' + menu[p]["uri"] + '">';
+                    //}else{
+                    //    li = '<li><a href="javascript:;">';
+                    //}
+                    //一级菜单不跳转
 
+                    li = '<li><a href="javascript:;">';
+                    if(menu[p]["submenu"]) {
+                        for (var sm in menu[p]["submenu"]) {
+                            if (window.location.href.indexOf(menu[p]["submenu"][sm]["uri"]) >= 0) {
+                                li = '<li class="active open"><a href="javascript:;">';
+                                break;
+                            }
+                        }
+                    }
                     if(menu[p]["iconclass"]){
                         li += '<i class="' + menu[p]["iconclass"] +'"></i>';
                     }else {
@@ -93,6 +107,9 @@ var BEE = (function(){
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
         $('.totalTitel').html(systemName);
+        var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
+        var $logout = $('.logout-page');
+        $logout.attr('href',curLoginPage);
     }
 
 

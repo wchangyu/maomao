@@ -167,6 +167,10 @@ var Login = function() {
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
         var configSrc = "../../assets/local/configs/config.json";
+        //保存当前的登录页面，提供给退出登录时候使用
+        var curLoginPage = window.location.href;
+        curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
+        sessionStorage.curLoginPage = curLoginPage;
         configSrc = src || configSrc;
         if(!sessionStorage.apiUrlPrefix) {
             $.ajax({
