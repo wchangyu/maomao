@@ -332,7 +332,7 @@ body {
   font-size: 13px;
 }
 .form-group.form-md-line-input > .input-icon > i {
-  left: 0;
+  left: 0px;
   bottom: 0;
   margin: 9px 2px 10px 10px;
   color: #888888;
@@ -962,7 +962,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", sans-serif;
+  font-family: 微软雅黑;
   font-weight: 300;
 }
 
@@ -3624,6 +3624,7 @@ Input icons
   width: 16px;
   font-size: 16px;
   text-align: center;
+  left: 0;
 }
 .modal .input-icon > i {
   z-index: 10055;

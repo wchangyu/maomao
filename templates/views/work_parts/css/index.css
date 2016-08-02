@@ -47,7 +47,7 @@ a{
 
 /* --------scroll-begin---------- */
 ::-webkit-scrollbar {
-width:12px;
+width:10px;
 }
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
@@ -204,9 +204,9 @@ background:rgba(25,0,0,0.1);
 /* content-main-right----begin---- */
 .content-main-right{
 	height: 100%;
-	border: 1px solid #ccc;
+/*	border: 1px solid #ccc;*/
 	margin-left: 260px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 .main-right-one{
 	height: 100%;
@@ -408,6 +408,7 @@ background:rgba(25,0,0,0.1);
 	height:50%;
 	width:100%;
     margin: 0 !important;
+    /*overflow: scroll;*/
 }
 .main-right-ones{
 	height: 100% !important;
@@ -508,4 +509,31 @@ a{
     color: #fff;
     font-size:22px;
     line-height: 50px;
+}
+.main-right-oness-1{
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+    height: 99% !important;
+    float: left;
+/*    width: 49.8% !important;*/
+}
+.main-right-oness-2{
+    padding-right: 10px !important;
+    padding-left: 0 !important;
+    height: 99% !important;
+    float: right !important;
+/*    width: 49.8% !important;*/
+}
+.main-right-oness-3{
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+    height: 99% !important;
+    /*width: 49.8% !important;*/
+}
+.main-right-oness-4{
+    padding-right: 10px !important;
+    padding-left: 0 !important;
+    height: 99% !important;
+/*    width: 49.8% !important;*/
+    float: right !important;
 }

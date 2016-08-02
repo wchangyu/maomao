@@ -513,7 +513,7 @@ function theDashboard(){
                         min: 0,
                         max: 220,
                         splitNumber: 11,
-                        radius: '93%',
+                        radius: '85%',
                         axisLine: {            // 坐标轴线
                             lineStyle: {       // 属性lineStyle控制线条样式
                                 width: 10
@@ -549,7 +549,7 @@ function theDashboard(){
                         name: '水耗',
                         type: 'gauge',
                         center: ['20%', '55%'],    // 默认全局居中
-                        radius: '90%',
+                        radius: '85%',
                         min:0,
                         max:7,
                         endAngle:45,
@@ -588,7 +588,7 @@ function theDashboard(){
                         name: '耗冷',
                         type: 'gauge',
                         center: ['81%', '55%'],    // 默认全局居中
-                        radius: '80%',
+                        radius: '70%',
                         min: 0,
                         max: 2,
                         startAngle: 135,
@@ -634,7 +634,7 @@ function theDashboard(){
                         name: '耗热',
                         type: 'gauge',
                         center : ['81%', '55%'],    // 默认全局居中
-                        radius : '80%',
+                        radius : '70%',
                         min: 0,
                         max: 2,
                         startAngle: 315,
@@ -828,7 +828,6 @@ window.onresize = function () {
     myChart1.resize();
     myChart2.resize();
     getHeight();
-
 }
 //加载时的缓冲页面
 function loadingStart(){
@@ -908,7 +907,7 @@ function getHeight(){
     //获取浏览器的高度；
     var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
    // console.log(h);
-    var heights = h * 0.70;
+    var heights = h * 0.82;
     $('.total-warp').css({
         height:heights
     })

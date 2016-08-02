@@ -49,7 +49,6 @@ body{
 
 .login .content {
   background-color: #fff;
-
   width: 360px;
   margin: 0 auto;
   padding: 30px;
@@ -60,7 +59,7 @@ body{
   -ms-border-radius: 7px;
   -o-border-radius: 7px;
   border-radius: 7px;
-
+  font-family: 微软雅黑;
 }
 
 .login .content h3 {
