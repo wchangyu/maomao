@@ -59,4 +59,10 @@
 }
 .content-main-right{
 	border: 1px solid #ccc;
+	position:relative;
+}
+.content-right{
+	position:absolute;
+	height: 100%;
+	width: 100%;
 }
