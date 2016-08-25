@@ -1,5 +1,5 @@
 {
-  "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数;iconclass:图标class;",
+  "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
   "首页":{
     "type":"1",
     "content":"首页",
@@ -16,11 +16,13 @@
     }
   },
   "用能监测":{
+  "用能分析":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
     "content":"用能监测",
     "submenu": {
       "变配电系统":{
+        "comment":"监控流程图配置,三种情况:一.0,Mis方案类型;二.1,方案ID|方案ID2|etc;三.2,1混合模式，方案可以跳转,1代表初始方案类型",
         "type":"0",
         "content":"变配电系统",
         "uri":"",

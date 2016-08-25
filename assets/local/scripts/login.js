@@ -85,6 +85,7 @@ var Login = function() {
                                 getPointersByUser(name1);
                                 getAllOffices();
                                 getAllEnergyItems();
+                                sessionStorage.userAuth = convertAuthTo01Str(data);     //存储权限字符串
                             }
                         },
                         error:function(xhr,res,err){
@@ -105,6 +106,24 @@ var Login = function() {
         });
     }
 
+    //将用户权限转换成01的字符串
+    var convertAuthTo01Str = function(hexstr){
+        var arr = [];
+        var i=0;
+        for(i=0;i<80;i++){
+            arr[i] = "";
+        }
+        var seed = [8,4,2,1];
+        hexstr = hexstr.toUpperCase();
+        var hexStrs = "0123456789ABCDEF";
+        for(i = 0;i < hexstr.length;i++){
+            var ic = hexStrs.indexOf(hexstr.charAt(i));
+            for(var d = 0; d < 4; d++){
+                var r = ic & seed[d];
+                arr[i * 4 + d] = r == 0 ? "0" : "1";
+            }
+        }
+    }
 
     var directToIndex = function(){
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded){
@@ -164,6 +183,16 @@ var Login = function() {
         });
     };
 
+    //设置报警信息
+    var setAlarmInfo = function(){
+        //TODO:设置报警信息
+        $.ajax({
+            type:'post',
+            dataType:'json',
+
+        });
+    }
+
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
         var configSrc = "../../assets/local/configs/config.json";
@@ -178,8 +207,19 @@ var Login = function() {
                 type: 'get',
                 async:false,
                 success: function (data) {
+                    //获取当前的接口地址
                     var apiUrlPrefix = data["apiUriPrefix"] || "";
                     sessionStorage.apiUrlPrefix = apiUrlPrefix;     //存储到暂存区，在本次session中使用
+
+                    //获取当前系统名
+                    var systemTitle = data["systemTitle"] || "";
+                    sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
+
+                    //监控系统配置信息，userMonitor.js调用
+                    //var userMonitorInfo = data["userMonitorInfo"] || "";
+                    //if(userMonitorInfo){
+                    //    sessionStorage.userMonitorInfo = JSON.stringify(userMonitorInfo);
+                    //}
                     handleLogin();      //获取到配置信息后，处理登录相关
                 },
                 error: function (xhr, res, err) {
@@ -191,22 +231,6 @@ var Login = function() {
             handleLogin();      //获取到配置信息后，处理登录相关
         }
 
-        //标题本地存储
-        if(!sessionStorage.systemName){
-            $.ajax({
-                url: configSrc,
-                type: 'get',
-                async:false,
-                success: function (data) {
-                    var systemTitle = data["systemTitle"] || "";
-                    sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
-                    handleLogin();      //获取到配置信息后，处理登录相关
-                },
-                error: function (xhr, res, err) {
-                    showAlertInfo(err);
-                }
-            })
-        }
     }
 
 

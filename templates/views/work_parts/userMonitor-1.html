@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="./css/index.css">
+
 	<link rel="stylesheet" href="./zTree/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./zTree/css/style.css">
 	<link rel="stylesheet" href="./css/userMonitor-1.css">
@@ -12,29 +12,32 @@
 	<title>用能监测</title>
 </head>
 <body>
-	<div class="total-warp">
-		<div class="wrap">
+	<div class="total-wrap">
+
 			<!-- 左边选择区域 -->
 			<div class="content-main-left">
 				<div class="chooseFunction">
-					<div class="functions functions-1"></div>
-					<div class="functions functions-2"></div>
-					<div class="functions functions-3"></div>
-					<div class="functions functions-4"></div>
+					<!--<div class="functions functions-1"></div>-->
+					<!--<div class="functions functions-2"></div>-->
+					<div class="functions functions-3"></div><!--返回到首页-->
+					<div class="functions functions-4"></div><!--刷新当前数据-->
 				</div>
 				<ul>
-					<li>2#(门急诊楼)1层空调</li>
-					<li>2#(门急诊楼)2层空调</li>
-					<li>2#(门急诊楼)3层空调</li>
-					<li>2#(门急诊楼)4层空调</li>
-					<li>2#(门急诊楼)5层空调</li>
-					<li>2#(门急诊楼)6层空调</li>
-					<li>2#(门急诊楼)7层空调</li>
+
 				</ul>
 			</div>
 			<!-- 右边主体数据部分 -->
-			<div class="content-main-right" id="content-main-right"></div>
-		</div>
-	</div>	
+			<div class="content-main-right" id="content-main-right">
+				<div class="content-right" id="monitor-content">
+
+				</div>
+			</div>
+
+	</div>
+	<script src="../../../assets/local/scripts/underscore-min.js"></script>
+	<script src="./js/userMonitor.js"></script>
+	<script>
+		userMonitor.getUserProcs();
+	</script>
 </body>
 </html>

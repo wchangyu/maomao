@@ -9,6 +9,15 @@ var BEE = (function(){
     var _localCssPath = 'local/css/';
     var _localConfigsPath = 'local/configs/';
 
+    String.prototype.endWith = function(s){
+        var d = this.length - s.length;
+        return (d>=0 && this.lastIndexOf(s) == d);
+    }
+
+    String.prototype.startWith = function(s){
+        return this.indexOf(s) == 0;
+    }
+
     //从json配置中获取menu,并且配置menu
     var getMenu = function(srcUri){
         //var src = "../../assets/local/configs/menu.json";
@@ -47,14 +56,20 @@ var BEE = (function(){
             if(curType){
                 if(curType=="0"){
                     //具体菜单操作
-                    li = '<li><a href="' + menu[p]["uri"] +'">';
-                    if(window.location.href.indexOf(menu[p]["uri"])>=0)
-                    {
-                        li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
+                    if( menu[p]["uri"]){
+                        li = '<li><a href="' + menu[p]["uri"] +'">';
+                        if(window.location.href.endWith(menu[p]["uri"]))
+                        {
+                            li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
+                            sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
+                        }
+                        if(menu[p]["iconclass"]){
+                            li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
+                        }
+                    }else{
+                        li = '<li><a href="javascript:void(0);">';
                     }
-                    if(menu[p]["iconclass"]){
-                        li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
-                    }
+
                     li += menu[p]["content"] + '</a></li>';
                     $li = $(li);
                     $src.append($li);
@@ -70,9 +85,11 @@ var BEE = (function(){
                     li = '<li><a href="javascript:;">';
                     if(menu[p]["submenu"]) {
                         for (var sm in menu[p]["submenu"]) {
-                            if (window.location.href.indexOf(menu[p]["submenu"][sm]["uri"]) >= 0) {
-                                li = '<li class="active open"><a href="javascript:;">';
-                                break;
+                            if(menu[p]["submenu"][sm]["uri"]){
+                                if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"])) {
+                                    li = '<li class="active open"><a href="javascript:;">';
+                                    break;
+                                }
                             }
                         }
                     }
