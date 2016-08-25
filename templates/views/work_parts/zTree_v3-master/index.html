@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="./css/zTreeStyle/zTreeStyle.css">
+	<link rel="stylesheet" href="./css/zTreeStyle/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/zTreeStyle/style.css">
+	<script src="./js/jquery-1.4.4.min.js"></script>
+	<script src="./js/jquery.ztree.core.min.js"></script>
+	<script src="./js/jquery.ztree.excheck.min.js"></script>
+	<script src="./js/jquery.ztree.exedit.min.js"></script>
+	<script src="./js/jquery.ztree.exhide.min.js"></script>
+	<title>zTree</title>
+</head>
+<body>
+<div class="content_wrap" style="text-align: center;">    
+    <div class="zTreeDemoBackground left">        
+        <ul id="treeMultiple" class="ztree" style="height: 300px; width:150px; overflow-y: auto"></ul>  
+    </div>
+</div>
+
+
+<!--<div>
+    <input type="checkbox" id="cbTree" checked >是否树状</input>
+    <button type="button" onclick="getBranches()">获取支路</button>
+</div>
+<div>
+    &lt;!&ndash;<input type="text" class="form-control" id="txt_ztree" placeholder="点击文本框出现ztree" onclick="showMenu();" />&ndash;&gt;
+</div>
+<div id="branchContent" style="position:absolute;width:95%;border:1px solid rgb(170,170,170);z-index:10;">
+    <ul id="branches" class="ztree"></ul>
+</div>-->
+<script type="text/javascript">      
+var setting = {
+        check: {                
+            enable: true,               
+            chkStyle: "checkbox",               
+            chkboxType: { "Y": "s", "N": "ps" }         
+        },          
+        data: {             
+            simpleData: {                   
+                enable: true                
+            }           
+        },
+    };
+var zNodes =[           
+        { id:1, pId:0, name:"湖北省", open:true},
+        { id:11, pId:1, name:"武汉市", open:true},
+        { id:111, pId:11, name:"汉口"},
+        { id:112, pId:11, name:"武昌"},
+        { id:12, pId:1, name:"黄石市", open:true},
+        { id:121, pId:12, name:"黄石港区"},
+        { id:122, pId:12, name:"西塞山区"},
+        { id:2, pId:0, name:"湖南省", open:true},
+        { id:21, pId:2, name:"长沙市"},
+        { id:22, pId:2, name:"株洲市", open:true},
+        { id:221, pId:22, name:"天元区"},
+        { id:222, pId:22, name:"荷塘区"},
+        { id:23, pId:2, name:"湘潭市"}     ];
+        $(document).ready(function(){           
+            $.fn.zTree.init($("#treeMultiple"), setting, zNodes);       
+        });
+</script>
+
+    
+    
+    <!--<script>
+
+        var ztreeSettings = {
+            check: {
+                chkboxType:{"Y":"ps","N":"ps"},
+                enable: true,
+                chkStyle: "checkbox",                
+            },
+            view: {
+                dblClickExpand:true
+            },
+            data: {
+                key: {
+                    children: "childrenBranch",
+                    name: "f_ServiceName"
+                }
+            },
+            eidt: {
+                enable:false
+            },
+            callback:{
+                onClick: onClickNode,
+                onCheck:onCheck
+            }
+
+        };
+
+        function getBranches() {
+            $("#branches li").remove();   //ul的id
+            var isTreeResult = $("#cbTree")[0].checked;
+            var bmParams = {
+                "pointerId": "8909180101",
+                "serviceType": "100",
+                "isTreeResult":isTreeResult
+            };
+            $.ajax(
+                {
+                    url: "http://211.100.28.180/BEEWebAPI/api/Branch/GetAllBranches",
+                    type: "post",
+                    data: bmParams,
+                    success: function (data) {
+                        if (isTreeResult) {
+                            $.fn.zTree.init($("#branches"), ztreeSettings, data);  //ul的id
+                        }
+                        else{
+                            $.each(data, function (index, item) {
+                                $("<li>", { text: item.f_ServiceName }).appendTo($("#branches"));//ul 的id
+                            });
+                        }
+                    },
+                    error: function (xhr, text, err) {
+                        alert(text);
+                    }
+                }
+                );
+        }
+
+        function showMenu() {
+            $("#branchContent").css({ left: "15px", top: "64px" }).slideDown("fast");
+
+        }
+
+        function onClickNode(e,treeId,treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("branches");
+            zTree.checkNode(treeNode, !treeNode.checked, null, false);
+            var nodes = zTree.getCheckedNodes(true);
+            getCheckedNodes(nodes);
+            return false;
+        }
+
+        function onCheck(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("branches");
+            var nodes = zTree.getCheckedNodes(true);
+            getCheckedNodes(nodes);
+        }
+
+        function getCheckedNodes(nodes)
+        {
+            var s = "";
+            var length = nodes.length;
+            if (length > 0) {
+                for (var i = 0; i < length; i++) {
+                    s += nodes[i].f_ServiceName + ",";
+                }
+                s = s.substring(0, s.length - 1);
+                alert(s);
+            }
+        }
+
+    </script>-->
+</body>
+</html>

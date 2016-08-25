@@ -1,0 +1,53 @@
+html <!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>zTree</title>
+	<!--图标样式-->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+<!--主要样式-->
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+</head>
+<script type="text/javascript">
+$(function(){
+    $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+    $('.tree li.parent_li > span').on('click', function (e) {
+        var children = $(this).parent('li.parent_li').find(' > ul > li');
+        if (children.is(":visible")) {
+            children.hide('fast');
+            $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+        } else {
+            children.show('fast');
+            $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+        }
+        e.stopPropagation();
+    });
+});
+</script>
+<body>
+<div class="tree well">
+    <ul>
+    	<li>
+    		<span><i class="icon-folder-open"></i>全院</span>
+    		<ul>
+    			<li>
+    				<span><i class="icon-minus-sign"></i>内科楼（5,6,7,8）</span>
+    			</li>
+    			<li>
+    				<span><i class="icon-minus-sign"></i>外科楼（3）</span>
+    			</li>
+    			<li>
+    				<span><i class="icon-minus-sign"></i>儿童住院部（1）</span>
+    			</li>
+    			<li>
+    				<span><i class="icon-minus-sign"></i>门诊和急诊（2）</span>
+    			</li>
+    		</ul>
+    	</li>
+    </ul>
+</div>
+</body>
+</html>

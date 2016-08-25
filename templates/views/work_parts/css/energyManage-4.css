@@ -3,24 +3,63 @@
     height: 70px;
     margin-left: 10%;
     float: left;
-    margin-top: 3%;
+    margin-left: 30px;
     cursor: pointer;
+}
+.electricity_aa_4{
+    margin-left: 45px;
 }
 .electricity{
     background: url(../img/electricity_hover.png)no-repeat;
     background-size: 50px;
     background-position: top center;
 }
-.water{
-    background: url(../img/water.png)no-repeat;
+.typee p{
+    margin-top:50px;
+    text-align:center;
+}
+.water {
+    background: url(../img/water.png) no-repeat;
     background-size: 50px;
     background-position: top center;
 }
-.right-top{
-    width: 98%;
-    height: 320px !important;
-    background: #ffffff;
-    margin-left: 8px;
+.gas_aa_4{
+    background: url(../img/gas.png)no-repeat;
+    background-size: 50px;
+    background-position: top center;
+}
+.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
+    border-radius: 50% !important;
+}
+.drp-popup .drp-calendar-start .drp-calendar-date:before {
+    content: "开始时间：" !important;
+}
+.drp-popup .drp-calendar-end .drp-calendar-date:before {
+    content: "结束时间：" !important;
+}
+.drp-popup{
+    border-radius: 12px !important;
+}
+.drp-button{
+    border-radius: 50% !important;
+}
+.header-one{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-two{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
+}
+.header-three{
+    display: inline-block;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #fff;
 }
 .right-header{
     width: 100%;
@@ -29,13 +68,17 @@
     line-height: 30px;
 }
 .right-header-right{
-    width: 465px;
+    width: 230px;
     height: 100%;
     float: right;
+    margin-left: 0;
+    margin-bottom: 0;
 }
 .header-right-lists{
     float: left;
     margin-right: 10px;
+    width:70px;
+    height: 100%;
 }
 .pic-one{
     margin-left: 10px;
@@ -64,97 +107,9 @@
     cursor: pointer;
     background-position: center;
 }
-.type option{
-    height: 30px;
-    width :60px;
-    color: #333;
-}
-.type{
-    width: 100px;
-}
-.header-one{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.header-two{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.header-three{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.rheader-content-right{
-    background: #deebf7;
-    border-radius: 30px !important;
-    background: url(../img/message.png)no-repeat #deebf7;
-    background-size: 100px;
-    background-position: 10px 20px;
-}
-.wrap{
-    width: 100% !important;
-    height: 100%;
-}
-.content-main-1{
-    height: 25% !important;
-}
-.electricity_aa_2{
-    cursor:pointer;
-    margin-left:30%;
-}
-.electricityWord{
-    margin-top:50px;
-    text-align:center;
-}
-.content-main-2{
-    width:100%;
-    height:40% !important;
-}
-.main-left-middle{
-    height:100%;
-}
-.left-middle-tab_aa_7-1{
-    background:#7f7f7f;
-    color:#ffffff;
-    margin-left:3% !important;
-}
-.right-content{
-    height:100%;
-}
-.right-top{
-    margin-left:10px;
-}
-.right-header-right{
-    margin-left:100px;
-    width:240px;
-}
-.rheader-content{
-    margin-top:20px;
-    height:260px !important;
-    width:100%;
-}
-.rheader-content-left{
-    width:70% !important;
-    height:300px;
-    float:left;
-}
-.rheader-content-right{
-    float:right !important;
-    width:200px !important;
-    min-height:260px !important;
-}
-.rheader-content-rights{
-    position:relative;
-    width:100%;
-    height:89%;
-    margin-top:0;
-    float:right;
+#rheader-content-74,#rheader-content-75{
+    height: 290px;
+    background: cyan;
 }
 .rheader-content-rights-span-1{
     color:#ffffff;
@@ -166,18 +121,16 @@
     color:#019cdf;
     position:absolute;
     top:72px;
-    left:15px;
+    left: 35px;
     font-size:1.3rem;
     font-weight:bold;
 }
 .rheader-content-rights-span-3{
     font-size:1rem;
-    margin-left: -30px !important;
 }
 .rheader-content-rights-span-4{
     position:absolute;
     top:122px;
-    left: -15px;
 }
 .rights-up{
     background:url(../img/prompt-arrow2.png)no-repeat 0px 3px;
@@ -206,23 +159,20 @@
     top:170px;
     text-align:center;
     padding-top:5px;
-    left:20px;
+    left: 50px;
 }
-.left-middle-tab_aa_7-2{
-    margin-left:11px;
+.rheader-content-rights{
+    height: 250px;
+    border: 2px solid #333;
+    border-radius: 20px !important;
+    padding-left: 80px;
+    margin-top: 20px;
+    background: #DEEBF7;
 }
-.tree-7{
-    height:80%;
-    margin-top:50px;
-}
-.tree-7-1{
-    height:80%;
-    display:none;
-    margin-top:50px;
-}
-#rheader-content-74{
-    height: 260px !important;
-}
-.content-main-right{
-    overflow: scroll;
+.rheader-content-rights-span-1{
+    color:#019CDF;
+    position:absolute;
+    top:32px;
+    font-size: 15px;
+    left: 30px;
 }

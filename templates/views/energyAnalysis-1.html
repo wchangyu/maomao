@@ -18,14 +18,12 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="./work_parts/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
-    <link href="./work_parts/_css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./work_parts/_css/index.css">
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
     <link rel="stylesheet" href="./work_parts/css/energyAnalysis-1.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="./work_parts/html5-date-range-picker/css/style.css"/>
     <script src="./work_parts/js/energyAnalysis-1.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
@@ -330,36 +328,101 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="total-warp">
-                        <div class="wrap">
-                            <!-- 左边选择区域 -->
-                            <div class="content-main-left">
-                                <!-- 能耗种类选择 -->
-                                <div class="content-main content-main-1">
-                                    <div class="main-left-top1">
-                                        <!-- 标题 -->
-                                        <div class="left-middle-header">能耗种类</div>
-                                        <!-- 电 -->
-                                        <div class="electricity typee electricity_aa_33">
-                                            <!-- 文字 -->
-                                            <p style="margin-top:50px;text-align:center;">电</p>
+                        <div class="total-warp">
+                            <div class="wrap container">
+                                <div class="content-main-right">
+                                    <div class="right-content">
+                                        <div class="left-middle-header">
+                                            <div class="header-one">电</div>
+                                            <div class="header-two">外科楼</div>
+                                            <div class="header-three">2014-01-01-2014-12-30</div>
                                         </div>
-                                        <!-- 水 -->
-                                        <div class="typee water water_aa_33">
-                                            <!-- 文字 -->
-                                            <p style="margin-top:50px;text-align:center;">水</p>
+                                        <div class="right-top container">
+                                            <div class="rheader-content row">
+                                                <div class="col-lg-8 ElectricityLineChart">
+                                                    <div class="rheader-content-right-header">用电曲线
+                                                        <span>单位：kWh</span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="rheader-content-left"id="rheader-content-30">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 componentComposition">
+                                                    <!-- 标题 -->
+                                                    <div class="rheader-content-right-header">分项构成</div>
+                                                    <div class="clearfix"></div>
+                                                    <!-- 分项构成饼图 -->
+                                                    <div class="rheader-content-right"id="rheader-content-31">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div  class="right-top container right-top-1">
+                                            <div class="rheader-content">
+                                                <div class="powerConsumptionIndicators">
+                                                    <!-- 标题部分 -->
+                                                    <div class="rheader-content-right-header rheader-content-right-header-1">水耗指标
+                                                        <!-- 单位选择一 -->
+                                                        <span class="water-p water-p-1">单位：ton/床位·年</span>
+                                                        <!-- 单位选择二 -->
+                                                        <span class="water-p water-p-2">单位：ton/m²·年</span>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <!-- 内容部分 -->
+                                                    <div class="rheader-content-left rheader-content-lefts">
+                                                        <!-- 标尺 -->
+                                                        <div class="right-lefts col-lg-4"id="right-lefts1">
+                                                            <div class="ruler_arrow">
+                                                                <div class="numerical">192</div>
+                                                            </div>
+                                                            <ul class="right-lefts1-list">
+                                                                <li class="right-lefts1-lists right-lefts1-lists-1">超低</li>
+                                                                <li class="right-lefts1-lists right-lefts1-lists-2">较低</li>
+                                                                <li class="right-lefts1-lists right-lefts1-lists-3">正常</li>
+                                                                <li class="right-lefts1-lists right-lefts1-lists-4">较高</li>
+                                                                <li class="right-lefts1-lists right-lefts1-lists-5">超高</li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <!-- 提示tip -->
+                                                        <div class="right-rights col-lg-1">
+                                                            <div class="prompt">
+                                                <span class="prompt-word">上一时段<br />
+                                                    180
+                                                </span>
+                                                                <span class="prompt-change">6.7%</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
-                                <!-- 对象选择 -->
-                                <div class="content-main content-main-2">
+
+                            </div>
+                            <div class="content-main-left">
+                                <div class="content-main">
+                                    <div class="main-left-top1">
+                                        <div class="left-middle-header">
+                                            能耗种类
+                                        </div>
+                                        <div class="typee electricity typee-1">
+                                            <p>电</p>
+                                        </div>
+                                        <div class="typee water">
+                                            <p>水</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="content-main">
                                     <div class="main-left-middle">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">对象选择</div>
-                                        <!-- 区域选择按钮 -->
                                         <div class="left-middle-tab">区域位置</div>
-                                        <!-- 区域位置内容 -->
-                                        <div class="tree tree-2">
+                                        <div class="clearfix"></div>
+                                        <div class="tree">
                                             <ul>
                                                 <li>
                                                     <span><i class="icon-folder-open"></i>变电所1</span>
@@ -392,112 +455,28 @@
                                         </script>
                                     </div>
                                 </div>
-                                <!-- 时段选择 -->
-                                <div class="content-main content-main-3">
-                                    <!-- 时间插件 -->
+                                <div class="content-main">
                                     <div class="select-times">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">时段选择</div>
-                                        <!-- 时间部分 -->
                                         <div id='wrapper'>
-                                            <!-- 选择下拉框 -->
-                                            <select class='custom-date' name='select'>
-                                                <option value='7'>7 Days</option>
-                                                <option value='30'>30 Days</option>
-                                                <option selected='selected' value='90'>90 Days</option>
-                                                <option value='180'>180 Days</option>
-                                                <option value='365'>365 Days</option>
-                                                <option value='custom'>Custom</option>
-                                            </select>
-                                            <div class="buttons">
-                                                <button class="btns">APPLY</button>
-                                            </div>
-
+                                                <select class='custom-date' name='select'>
+                                                    <option value='7'selected='selected'>7 天</option>
+                                                    <option value='30'>30 天</option>
+                                                    <option  value='90'>90 天</option>
+                                                    <option value='180'>180 天</option>
+                                                    <option value='365'>365 天</option>
+                                                    <option value='custom'>自定义</option>
+                                                </select>
+                                                <div class="buttons">
+                                                    <button class="btns">查询</button>
+                                                </div>
                                         </div>
-                                        <!-- 清除浮动结构专用 -->
-                                        <div class="clear">
-                                        </div>
-                                    </div>
-                                    <script src='./work_parts/select-time/js/jquery.js'></script>
-                                    <script src="./work_parts/select-time/js/index.js"></script>
-                                </div>
-                            </div>
-                            <!-- 右边主体数据部分 -->
-                            <div class="content-main-right content-main-right_aa_33">
-                                <div class="right-content">
-                                    <!-- 标题 -->
-                                    <div class="left-middle-header">
-                                        <div class="header-one">电</div>
-                                        <div class="header-two">外科楼</div>
-                                        <div class="header-three">2014-01-01-2014-12-30</div>
-                                    </div>
-                                    <!-- 用电曲线 -->
-                                    <div  class="right-top container">
-                                        <div class="rheader-content row">
-                                            <!-- 用电曲线折线图部分 -->
-                                            <div class="col-lg-8 ElectricityLineChart">
-                                                <!-- 标题 -->
-                                                <div class="rheader-content-right-header">用电曲线
-                                                    <!-- 单位 -->
-                                                    <span>单位：kWh</span>
-                                                </div>
-                                                <!-- 用电数据折线图 -->
-                                                <div class="rheader-content-left"id="rheader-content-30">
-                                                </div>
-                                            </div>
-                                            <!-- 分项构成 -->
-                                            <div class="col-lg-4 componentComposition">
-                                                <!-- 标题 -->
-                                                <div class="rheader-content-right-header">分项构成</div>
-                                                <!-- 分项构成饼图 -->
-                                                <div class="rheader-content-right"id="rheader-content-31">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 电耗指标 -->
-                                    <div  class="right-top container">
-                                        <div class="rheader-content">
-                                            <div class="powerConsumptionIndicators">
-                                                <!-- 标题部分 -->
-                                                <div class="rheader-content-right-header rheader-content-right-header-1">水耗指标
-                                                    <!-- 单位选择一 -->
-                                                    <span class="water-p water-p-1">单位：ton/床位·年</span>
-                                                    <!-- 单位选择二 -->
-                                                    <span class="water-p water-p-2">单位：ton/m²·年</span>
-                                                </div>
-                                                <!-- 内容部分 -->
-                                                <div class="rheader-content-left rheader-content-lefts">
-                                                    <!-- 标尺 -->
-                                                    <div class="right-lefts col-lg-4"id="right-lefts1">
-                                                        <div class="ruler_arrow">
-                                                            <div class="numerical">192</div>
-                                                        </div>
-                                                        <ul class="right-lefts1-list">
-                                                            <li class="right-lefts1-lists right-lefts1-lists-1">超低</li>
-                                                            <li class="right-lefts1-lists right-lefts1-lists-2">较低</li>
-                                                            <li class="right-lefts1-lists right-lefts1-lists-3">正常</li>
-                                                            <li class="right-lefts1-lists right-lefts1-lists-4">较高</li>
-                                                            <li class="right-lefts1-lists right-lefts1-lists-5">超高</li>
-                                                        </ul>
-                                                    </div>
-                                                    <!-- 提示tip -->
-                                                    <div class="right-rights col-lg-1">
-                                                        <div class="prompt">
-												<span class="prompt-word">上一时段<br />
-													180
-												</span>
-                                                            <span class="prompt-change">6.7%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <script src="./work_parts/html5-date-range-picker/js/index.js"></script>
+                                        <script src="./work_parts/html5-date-range-picker/js/jquery.js"></script>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->

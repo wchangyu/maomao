@@ -1,5 +1,4 @@
 $(function(){
-    getHeight();
 	//冷战能效
 	myChart49 = echarts.init(document.getElementById('rheader-content-49'));
 		option49 = {
@@ -57,18 +56,7 @@ $(function(){
 		};
 		myChart49.setOption(option49);
 })
-getHeight();
 var myChart49;
 window.onresize = function () {
     myChart49.resize();
-    getHeight();
-}
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-    // console.log(h);
-    var heights = h * 0.70;
-    $('.total-warp').css({
-        height:heights
-    })
 }

@@ -100,7 +100,6 @@
 .right-content{
     width: 100%;
     height: 100%;
-    overflow: scroll;
 }
 .right-header-right{
     width:270px;
@@ -138,7 +137,8 @@
     width:700px;
     height:80px;
     position:absolute;
-    top:570px;
+    top:490px;
+    z-index: 10;
 }
 .range-li-1{
     width:150px;

@@ -1,5 +1,5 @@
 $(function(){
-    getHeight();
+
 	//对象选择
 	 $(".left-middle-tab_aa_7").click(function(){
         $(".left-middle-tab").css({
@@ -136,20 +136,9 @@ $(function(){
 		};
 		myChart42.setOption(option42);
 })
-getHeight();
 var myChart41;
 var myChart42;
 window.onresize = function () {
     myChart41.resize(); 
     myChart42.resize();
-    getHeight();
-}
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-    // console.log(h);
-    var heights = h * 0.70;
-    $('.total-warp').css({
-        height:heights
-    })
 }

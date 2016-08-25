@@ -1,18 +1,48 @@
-.wrap{
-    font-family: 微软雅黑;
-    width: 100%;
-    height: 100%;
-    font-size: 12px;
-}
-li{
-    list-style: none;
-}
 .right-header{
-    margin-left:10px;
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
 }
 .right-header-right{
-    margin-left:150px;
-    width:800px;
+    width: 160px;
+    height: 100%;
+    float: right;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+.header-right-lists{
+    float: left;
+    margin-right: 10px;
+    width:70px;
+    height: 100%;
+}
+.pic-one{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-1.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-two{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-2.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
+}
+.pic-three{
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/li-3.png)no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    background-position: center;
 }
 .allOperations{
     float:left;margin-right:5px;
@@ -23,31 +53,5 @@ li{
 }
 .selectBox input{
     display: inline-block;
-    height: 34px;
-}
-.editButton{
-    margin-left:380px;
-}
-.right-top-1{
-    margin-top:60px;
-}
-.right-top-1 .right-header{
-    margin-left:10px;
-}
-.right-top-1 .right-header-right{
-    margin-left:150px;
-    width:800px;
-}
-.pic-one{
-    margin-left:650px;
-}
-.content-main-right{
-    overflow: scroll;
-    margin-left: 0 !important;
-}
-.selectBox input{
     height: 34px !important;
-}
-.selectBox{
-    margin-bottom: 0;
 }

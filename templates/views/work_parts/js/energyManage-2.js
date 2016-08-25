@@ -109,7 +109,7 @@ $(function(){
 		};
 		myChart66.setOption(option66);
 	//2
-	myChart68 = echarts.init(document.getElementById('rheader-content-68'));
+	myChart68 = echarts.init(document.getElementById('rheader-content-67'));
 		option68 = {
 		    tooltip: {
 		        trigger: 'axis'
@@ -217,7 +217,7 @@ $(function(){
 		};
 		myChart68.setOption(option68);
 	//3
-	myChart70 = echarts.init(document.getElementById('rheader-content-70'));
+	myChart70 = echarts.init(document.getElementById('rheader-content-68'));
 		option70 = {
 		    tooltip: {
 		        trigger: 'axis'
@@ -325,7 +325,7 @@ $(function(){
 		};
 		myChart70.setOption(option70);
 	//4
-	myChart72 = echarts.init(document.getElementById('rheader-content-72'));
+	myChart72 = echarts.init(document.getElementById('rheader-content-69'));
 		option72 = {
 		    tooltip: {
 		        trigger: 'axis'

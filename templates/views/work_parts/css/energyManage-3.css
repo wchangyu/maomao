@@ -1,12 +1,5 @@
-.content-main-contents{
-    padding-top: 10px;
-    width: 100%;
-    height: 700px;
-    border: 1px solid #333;
-    border-right: none;
-}
 .content-main-contents-header{
-    width: 95%;
+    width: 100%;
     height: 30px;
     border-bottom: 1px solid #808080;
     margin: 0 auto;
@@ -19,23 +12,12 @@
     padding-left: 10px;
     padding-right: 10px;
     margin-right: 10px;
-}
-.main-contents-table{
-    width: 100%;
-    height: 660px;
-    margin: 0 auto;
-}
-.wrap{
-    height: 100%;
-    width: 100%;
+    height: 30px;
+    line-height: 30px;
 }
 .main-contents-header-lists-1{
     background:#808080;
     color:#fff;
-}
-.main-contents-table{
-    position:absolute;
-    height:100%;
 }
 .main-contents-table-1{
     width:100%;
@@ -43,6 +25,14 @@
     overflow:hidden;
     margin:0px;
     border-bottom:none;
+}
+.main-contents-table-1-li{
+    float:left;
+    height:51px;
+    padding:8px;
+    width:93px;
+    text-align:center;
+    line-height:35px;
 }
 .main-contents-table-1 li:nth-child(1){
     float:left;
@@ -56,23 +46,6 @@
     padding:8px;
     width:34px;
 }
-.main-contents-table-1-li{
-    float:left;
-    height:51px;
-    padding:8px;
-    width:93px;
-    text-align:center;
-    line-height:35px;
-}
-.success td{
-    line-height:49px !important;
-}
-.warning td{
-    line-height:49px !important;
-}
-.danger td{
-    line-height:49px !important;
-}
 .allBtn{
     margin-left:10px;
 }
@@ -84,6 +57,13 @@
     height:34px !important;
     display:block;
     margin-bottom: 0 !important;
+}
+.input-group-btn{
+    width:100px !important;
+    display:block !important;
+    margin-left:350px;
+    margin-top:-50px;
+    height:34px;
 }
 .btn-default-1{
     margin-right:10px;
@@ -111,7 +91,4 @@
     margin-left:350px;
     margin-top:-50px;
     height:34px;
-}
-.total-warp{
-    overflow: scroll;
 }

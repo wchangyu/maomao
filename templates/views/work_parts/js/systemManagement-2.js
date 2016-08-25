@@ -13,4 +13,10 @@ function getHeight(){
     $('.total-warp').css({
         height:heights
     })
+    $('.wrap').css({
+        height:heights
+    })
+    $('.content-main-right').css({
+        height:heights
+    })
 }

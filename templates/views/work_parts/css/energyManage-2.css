@@ -3,24 +3,42 @@
     height: 70px;
     margin-left: 10%;
     float: left;
-    margin-top: 3%;
+    margin-left: 30px;
     cursor: pointer;
+}
+.electricity_aa_4{
+    margin-left: 45px;
 }
 .electricity{
     background: url(../img/electricity_hover.png)no-repeat;
     background-size: 50px;
     background-position: top center;
 }
+.typee p{
+    margin-top:50px;
+    text-align:center;
+}
 .water{
     background: url(../img/water.png)no-repeat;
     background-size: 50px;
     background-position: top center;
 }
-.right-top{
-    width: 98%;
-    height: 50%;
-    background: #ffffff;
-    margin-left: 8px;
+.gas_aa_4{
+    background: url(../img/gas.png)no-repeat;
+    background-size: 50px;
+    background-position: top center;
+}
+.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
+    border-radius: 50% !important;
+}
+.drp-popup .drp-calendar-start .drp-calendar-date:before {
+    content: "开始时间：" !important;
+}
+.drp-popup .drp-calendar-end .drp-calendar-date:before {
+    content: "结束时间：" !important;
+}
+.drp-popup{
+    border-radius: 12px !important;
 }
 .right-header{
     width: 100%;
@@ -29,7 +47,7 @@
     line-height: 30px;
 }
 .right-header-right{
-    width: 465px;
+    width: 400px;
     height: 100%;
     float: right;
 }
@@ -64,122 +82,34 @@
     cursor: pointer;
     background-position: center;
 }
-.type option{
-    height: 30px;
-    width :60px;
-    color: #333;
-}
-.type{
-    width: 100px;
-}
-.header-one{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.header-two{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.header-three{
-    display: inline-block;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    color: #fff;
-}
-.wrap{
-    width: 100% !important;
-    height: 100%;
-}
-.content-main-1{
-    height: 25% !important;
-}
-.electricity_aa_5{
-    margin-left:30%;
-}
-.electricityWord{
-    margin-top:50px;
-    text-align:center;
-}
-.content-main-2{
-    height:40% !important;
-}
-.content-main-right{
-    overflow: scroll;
-}
-.tree{
-    display:block;
-    height:80%;
-    width:100%;
-    border:none;
-    background:#f1f3fa;
-    overflow:scroll;
-}
-.right-content{
-    width: 100%;
-    height: 100%;
-}
-.right-top{
-    width:48%;
-    float:left;
-    margin-top:10px;
-    position:relative;
-    margin-left:10px;
-}
-.right-header-right{
-    width:390px;
-}
-.header-right-lists-1{
-    width:130px;
-}
 .header-right-lists-2{
     color:#333;
     margin-top:-1px;
 }
 .header-right-lists-3{
     background:#fff;
-    margin-top:-1px;
 }
-.header-right-lists11{
-    height:100% !important;
-    position:absolute;
-    width:100%;
+.header-right-lists1{
+    height: 28px;
+    line-height: 29px;
+}
+.header-right-lists-3{
+    background:#fff;
 }
 #rheader-content-66{
-    width:90%;
-    height:100% !important;
-    margin:0 auto;
-}
-.header-right-lists12{
-    height:100% !important;
-    position:absolute;
-    width:100%;
+     height: 290px;
+     background: red;
+ }
+#rheader-content-67{
+    height: 290px;
+    background: red;
 }
 #rheader-content-68{
-    width:90%;
-    height:100% !important;
-    margin:0 auto;
+     height: 290px;
+     background: red;
+ }
+#rheader-content-69{
+    height: 290px;
+    background: red;
 }
-.header-right-lists13{
-    height:100% !important;
-    position:absolute;
-    width:100%;
-}
-#rheader-content-70{
-    width:90%;
-    height:100% !important;
-    margin:0 auto;
-}
-.header-right-lists14{
-    height:100% !important;
-    position:absolute;
-    width:100%
-}
-#rheader-content-72{
-    width:90%;
-    height:100% !important;
-    margin:0 auto;
-}
+

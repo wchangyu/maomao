@@ -1,5 +1,4 @@
 $(function(){
-	getHeight();
 	//总能耗
 	myChart62 = echarts.init(document.getElementById('rheader-content-62'));
 		option62 = {
@@ -217,20 +216,9 @@ $(function(){
 		};
 		myChart63.setOption(option63);
 })
-getHeight();
 var myChart62;
 var myChart63;
 window.onresize = function () {
     myChart62.resize(); 
     myChart63.resize();
-	getHeight();
-}
-function getHeight(){
-	//获取浏览器的高度；
-	var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-	// console.log(h);
-	var heights = h * 0.70;
-	$('.total-warp').css({
-		height:heights
-	})
 }

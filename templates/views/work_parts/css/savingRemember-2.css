@@ -3,6 +3,7 @@
     height: 50%;
     background: #ffffff;
     margin-left: 8px;
+    min-width: 1060px !important;
 }
 .right-header{
     width: 100%;
@@ -225,8 +226,7 @@
 }
 .rheader-content-right-btn{
     margin-top:60px;
-    margin-left:292px;
-    margin-bottom:20px;
+    margin-left:35%;
 }
 .rheader-content-right-2 p{
     text-align: center;
@@ -254,7 +254,4 @@
 }
 .rheader-content-right{
     float: right !important;
-}
-.content-main-right{
-    overflow: scroll;
 }

@@ -1,5 +1,4 @@
 $(function(){
-	getHeight();
 	//用电考核
 	myChart74 = echarts.init(document.getElementById('rheader-content-74'));
 		option74 = {
@@ -177,20 +176,9 @@ $(function(){
 		};
 		myChart75.setOption(option75);
 })
-getHeight();
 var myChart74;
 var myChart75;
 window.onresize = function () {
     myChart74.resize(); 
     myChart75.resize();
-	getHeight();
-}
-function getHeight(){
-	//获取浏览器的高度；
-	var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-	// console.log(h);
-	var heights = h * 0.70;
-	$('.total-warp').css({
-		height:heights
-	})
 }

@@ -1,5 +1,5 @@
 $(function(){
-    getHeight();
+
 	//水电选择
 	$(".electricity_aa_5").click(function(){
         $(this).css({
@@ -293,7 +293,6 @@ $(function(){
 		};
 		myChart16.setOption(option16);
 })
-getHeight();
 var myChart13;
 var myChart14;
 var myChart15;
@@ -303,14 +302,4 @@ window.onresize = function () {
     myChart14.resize();
     myChart15.resize();
     myChart16.resize();
-    getHeight();
-}
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-    // console.log(h);
-    var heights = h * 0.70;
-    $('.total-warp').css({
-        height:heights
-    })
 }

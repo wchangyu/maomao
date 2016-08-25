@@ -3,71 +3,45 @@
 	height: 70px;
 	margin-left: 10%;
 	float: left;
-	margin-top: 3%;
+	margin-left: 30px;
 	cursor: pointer;
+}
+.electricity_aa_4{
+	margin-left: 45px;
 }
 .electricity{
 	background: url(../img/electricity_hover.png)no-repeat;
 	background-size: 50px;
 	background-position: top center;
 }
-.water{
-	background: url(../img/water.png)no-repeat;
+.typee p{
+	margin-top:50px;
+	text-align:center;
+}
+.water {
+	background: url(../img/water.png) no-repeat;
 	background-size: 50px;
 	background-position: top center;
 }
-.top-header-lists{
-	float: left;
-	width: 100px;
-	height: 30px;
-	border-radius: 8px;
-	text-align: center;
-	margin-right: 10px;
-	cursor: pointer;
-	background: #808080;
-	border: 1px solid #808080;
-	color: #fff;
-    line-height: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
+.gas_aa_4{
+	background: url(../img/gas.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
 }
-.top-header-lists:nth-child(2){
-	background: #fff;
-	color: #808080;
+.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
+	border-radius: 50% !important;
 }
-.rheader-contents{
-	width: 100%;
-	height: 400px;
+.drp-popup .drp-calendar-start .drp-calendar-date:before {
+	content: "开始时间：" !important;
 }
-.foot{
-	width: 100%;
-	height: 200px;
-	background: url(../img/zuobiao.png)no-repeat 20% -10px;
-	position: relative;
+.drp-popup .drp-calendar-end .drp-calendar-date:before {
+	content: "结束时间：" !important;
 }
-.foot-img{
-	width: 50px;
-	height: 50px;
-	margin-left: 8%;
-	margin-top: 60px;
+.drp-popup{
+	border-radius: 12px !important;
 }
-.foot span{
-	position: absolute;
-	left: 220px;
-	text-align: center;
-	top: 120px;
-}
-.foot span:nth-child(3){
-	position: absolute;
-	left: 320px;
-	text-align: center;
-	top: 120px;
-}
-.foot span:nth-child(4){
-	position: absolute;
-	left: 430px;
-	text-align: center;
-	top: 120px;
+.drp-button{
+	border-radius: 50% !important;
 }
 .header-one{
 	display: inline-block;
@@ -87,20 +61,43 @@
 	margin-right: 10px;
 	color: #fff;
 }
+.right-header{
+	border-bottom: 1px solid #ccc;
+}
+.right-header-right{
+	width: 230px !important;
+	height: 30px;
+	float: right;
+	margin-bottom: 0px;
+}
+.right-header ul:nth-child(1){
+	margin-left: 0;
+	padding-left:0;
+}
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
 }
-.right-header{
-	width: 100%;
-	height: 30px;
-	border-bottom: 1px solid #808080;
-	line-height: 30px;
+.header-right-lists-1{
+	width:130px;
 }
-.right-header-right{
-	width: 465px;
-	height: 100%;
-	float: right;
+.top-header-lists{
+	float: left;
+	width: 100px;
+	height: 30px;
+	border-radius: 8px !important;
+	text-align: center;
+	margin-right: 10px;
+	cursor: pointer;
+	background: #808080;
+	border: 1px solid #808080;
+	color: #fff;
+	line-height: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.top-header-lists_aa_9{
+	width: 128px;
 }
 .pic-one{
 	margin-left: 10px;
@@ -129,66 +126,58 @@
 	cursor: pointer;
 	background-position: center;
 }
-.warp{
-	width: 100% !important;
-	height: 100%;
-    font-family: 微软雅黑;
-}
-.content-main-1{
-	height: 25% !important;
-}
-.electricity_aa_9{
-	margin-left:30%;
-}
-.electricityWord{
-	margin-top:50px;
-	text-align:center;
-}
-.content-main-2{
-	height: 40% !important;
-}
-.main-left-middle{
-	height:100%;
-}
-.left-middle-tab_aa_9{
-	background:#7f7f7f;
-	color:#ffffff;
-	margin-left:20%;
-}
-.tree-9{
-	height:80%;
-	margin-top:10px;
-}
-.right-content{
-	height:100%;
-}
-.right-header-right{
-	width:260px !important;
-}
-.header-right-lists-1{
-	width:130px;
-}
-.rheader-content_aa_9{
-	width:100%;
-	height:600px;
-}
 #rheader-content-45{
-	width:60%;
-	height:100% !important;
-    display: block;
-    margin-left: 20% !important;
+	width: 100%;
+	height: 290px;
+}
+.foot-img{
+	width: 50px;
+	height: 50px;
+	margin-left: 8%;
+	margin-top: 60px;
+}
+.foot span{
+	position: absolute;
+	left: 220px;
+	text-align: center;
+	top: 120px;
+}
+.foot span:nth-child(3){
+	position: absolute;
+	left: 320px;
+	text-align: center;
+	top: 120px;
+}
+.foot span:nth-child(4){
+	position: absolute;
+	left: 430px;
+	text-align: center;
+	top: 120px;
 }
 .foot{
-	width:60%;
-	height:100%;
-	margin-left: 16% !important;
+	padding-left: 80px !important;
+	width: 100%;
+	height: 200px;
+	background: url(../img/zuobiao.png)no-repeat 20% -10px;
+	position: relative;
 }
-.right-top{
-    height: 100% !important;
+.right-content{
+	min-width: 676px;
 }
-.content-main-right .row{
-    display: block !important;
+.tree{
+	width:100%;
+	height:203px;
+	overflow: scroll;
 }
-.top-header-lists_aa_9{
-	width: 128px;
+.tree-3{
+	display: none;
+}
+.tree-2{
+	display: block;
+}
+.active{
+	color: #ffc000;
+}
+.timeactive{
+	margin-left: 25px;
 }

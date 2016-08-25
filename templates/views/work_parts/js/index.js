@@ -1,5 +1,5 @@
 $(function(){
-    getHeight();
+
 	//对象选择
 	$(".left-middle-tab_aa_0").click(function(){
         $(".left-middle-tab").css({
@@ -15,7 +15,8 @@ $(function(){
         $(".tree-1").css({
             display:"none"
         }),
-        $(".tree-1")[$(this).index()-1].style.display="block"
+            //alert($(this).index()-1)
+        $(".tree-1")[$(this).index()-1].style.display="block";
     })
     //上月分类能耗hover
     $(".main-one-1").hover(function(){
@@ -52,7 +53,6 @@ $(function(){
      powerConsumption();
      theDashboard();
      charge();
-    getHeight();
     //getWidth();
      //获取点击的楼宇ID
         $('.tree-1:eq(0)').delegate('span','click',function(){
@@ -68,7 +68,7 @@ $(function(){
             //console.log($('.tree-1:eq(0) span'));
             //small的内容
             small = $(this).html();
-            console.log(small)
+            //console.log(small)
         })
         //获取点击的科室单位ID;
         $('.allOffices').delegate('span','click',function(){
@@ -108,7 +108,11 @@ $(function(){
             $(this).addClass('time-options-1');
             changeTitle = $(this).html();
         })
-        $('.btns').click(function(){
+        $('.btns1').click(function(){
+            $('small').html(small);
+            if($('#floor').hasClass('active')){
+                getPointersId=0
+            }
             getEneryItemDatas();
             powerConsumption();
             theDashboard();
@@ -119,11 +123,10 @@ $(function(){
             $('.right-one-header').eq(2).html(changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
             $('.right-one-header').eq(3).html(changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
             //总标题改变
-            console.log(small);
-           $('small').html(small);
+            //console.log(small);
+
         })
 })
-getHeight();
 var getPointers;  //楼宇
 var getPointersId = 0;
 var getOffices;//科室单位
@@ -146,7 +149,7 @@ function GetAllPointers(){
         success:function(result){
             for(var i=0;i<result.length;i++){
              var htmlStr ='<li><span class="allOptions">'+result[i].pointerName+'</span></li>';
-                $('.allPointer').append(htmlStr); 
+                $('.allPointer').append(htmlStr);
                 //console.log(htmlStr)
 
             }
@@ -508,12 +511,12 @@ function theDashboard(){
                     {
                         name: '电耗',
                         type: 'gauge',
-                        center: ['50%', '55%'],
+                        center: ['53%', '55%'],
                         z: 3,
                         min: 0,
                         max: 220,
                         splitNumber: 11,
-                        radius: '85%',
+                        radius: '65%',
                         axisLine: {            // 坐标轴线
                             lineStyle: {       // 属性lineStyle控制线条样式
                                 width: 10
@@ -548,8 +551,8 @@ function theDashboard(){
                     {
                         name: '水耗',
                         type: 'gauge',
-                        center: ['20%', '55%'],    // 默认全局居中
-                        radius: '85%',
+                        center: ['23%', '55%'],    // 默认全局居中
+                        radius: '65%',
                         min:0,
                         max:7,
                         endAngle:45,
@@ -587,8 +590,8 @@ function theDashboard(){
                     {
                         name: '耗冷',
                         type: 'gauge',
-                        center: ['81%', '55%'],    // 默认全局居中
-                        radius: '70%',
+                        center: ['83%', '55%'],    // 默认全局居中
+                        radius: '50%',
                         min: 0,
                         max: 2,
                         startAngle: 135,
@@ -633,8 +636,8 @@ function theDashboard(){
                     {
                         name: '耗热',
                         type: 'gauge',
-                        center : ['81%', '55%'],    // 默认全局居中
-                        radius : '70%',
+                        center : ['83%', '55%'],    // 默认全局居中
+                        radius : '50%',
                         min: 0,
                         max: 2,
                         startAngle: 315,
@@ -822,12 +825,11 @@ function charge(){
      })
     }    
 }
-//浏览器自适应
+//浏览器echarts自适应
 window.onresize = function () {
     myChart.resize(); 
     myChart1.resize();
     myChart2.resize();
-    getHeight();
 }
 //加载时的缓冲页面
 function loadingStart(){
@@ -892,23 +894,4 @@ function timeLastYear(){
     var lastYears = lastYear.format('YYYY/MM/DD') + ' 00:00:00';
     //console.log('上年时间是：'+lastYears)
     newStr = lastYears;
-}
-//获取浏览器宽度的
-/*function getWidth(){
-    //获取浏览器宽度；
-    var w = window.innerWidth ||document.documentElement.clientWidth || document.body.clientWidth;
-    var widths = w * 0.65;
-    $('.content-main-right').css({
-        width:widths
-    })
-}*/
-//获得浏览器高度
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-   // console.log(h);
-    var heights = h * 0.82;
-    $('.total-warp').css({
-        height:heights
-    })
 }

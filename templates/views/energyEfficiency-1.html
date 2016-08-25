@@ -18,9 +18,6 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="./work_parts/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
-    <link href="./work_parts/_css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./work_parts/_css/index.css">
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
     <link rel="stylesheet" href="./work_parts/css/energyEfficiency-1.css">
@@ -331,92 +328,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-warp">
-                        <div class="container wrap">
-                            <!-- 左边选择区域 -->
-                            <div class="content-main-left">
-                                <!-- 对象选择 -->
-                                <div class="content-main content-main-1">
-                                    <div class="main-left-middle">
-                                        <!-- 标题 -->
-                                        <div class="left-middle-header">对象选择</div>
-                                        <!-- 目录 -->
-                                        <div class="tree tree-2">
-                                            <ul>
-                                                <li>
-                                                    <span><i class="icon-minus-sign"></i>冷战</span>
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>冷战1</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>冷战2</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>冷战3</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>冷战4</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>冷战5</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $(function(){
-                                                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-                                                $('.tree li.parent_li > span').on('click', function (e) {
-                                                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                                                    if (children.is(":visible")) {
-                                                        children.hide('fast');
-                                                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-                                                    } else {
-                                                        children.show('fast');
-                                                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-                                                    }
-                                                    e.stopPropagation();
-                                                });
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                                <!-- 时段选择 -->
-                                <div class="content-main">
-                                    <!-- 时间插件 -->
-                                    <div class="select-times">
-                                        <!-- 标题 -->
-                                        <div class="left-middle-header">时段选择</div>
-                                        <!-- 时间部分 -->
-                                        <div id='wrapper'>
-                                            <!-- 选择下拉框 -->
-                                            <select class='custom-date' name='select'>
-                                                <option value='7'>7 Days</option>
-                                                <option value='30'>30 Days</option>
-                                                <option selected='selected' value='90'>90 Days</option>
-                                                <option value='180'>180 Days</option>
-                                                <option value='365'>365 Days</option>
-                                                <option value='custom'>Custom</option>
-                                            </select>
-                                            <div class="buttons">
-                                                <button class="btns">APPLY</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script src='./work_parts/select-time/js/jquery.js'></script>
-                                    <script src="./work_parts/select-time/js/index.js"></script>
-                                </div>
-                            </div>
-                            <!-- 右边主体数据 -->
-                            <div class="content-main-right content-main-right_aa_8">
+                        <div class="wrap container">
+                            <div class="content-main-right">
                                 <div class="right-content">
-                                    <!-- 标题 -->
                                     <div class="left-middle-header">
                                         <div class="header-one">冷战1</div>
                                         <div class="header-three">2014-01-01-2014-12-30</div>
                                     </div>
-                                    <!-- 内容 -->
                                     <div  class="right-top">
                                         <!-- 标题 -->
                                         <div class="right-header">冷战能效比
@@ -431,9 +349,9 @@
                                             </ul>
                                         </div>
                                         <!-- 内容 -->
-                                        <div class="rheader-content row">
+                                        <div class="rheader-content">
                                             <!-- 冷战能效比 -->
-                                            <div class="rheader-content-lis col-lg-4">
+                                            <div class="rheader-content-lis col-lg-5 rheader-content-lis-2">
                                                 <div class="tree-box">
                                                     冷站能效比<br>
                                                     2.2
@@ -476,6 +394,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <!-- 折线图部分 -->
                                             <div class="rheader-content-lis col-lg-7 rheader-content-lis-1">
                                                 <!-- 折线图 -->
@@ -502,8 +421,41 @@
                                                     </label>
                                                 </ul>
                                             </div>
+                                            <div class="clearfix"></div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-main-left">
+                            <div class="content-main">
+                                <div class="main-left-middle">
+                                    <div class="left-middle-header">对象选择</div>
+                                    <div class="left-middle-tab">区域位置</div>
+                                    <div class="tree-1 tree-2"id="tree-2">
+                                        <ul class="pointer ztree" id="pointer"></ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="content-main">
+                                <div class="select-times">
+                                    <div class="left-middle-header">时段选择</div>
+                                    <div id='wrapper'>
+                                        <select class='custom-date' name='select'>
+                                            <option value='7'selected='selected'>7 天</option>
+                                            <option value='30'>30 天</option>
+                                            <option  value='90'>90 天</option>
+                                            <option value='180'>180 天</option>
+                                            <option value='365'>365 天</option>
+                                            <option value='custom'>自定义</option>
+                                        </select>
+                                        <div class="buttons">
+                                            <button class="btns">查询</button>
+                                        </div>
+                                    </div>
+                                    <script src="./work_parts/html5-date-range-picker/js/index.js"></script>
+                                    <script src="./work_parts/html5-date-range-picker/js/jquery.js"></script>
                                 </div>
                             </div>
                         </div>

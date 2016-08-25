@@ -3,23 +3,95 @@
 	height: 70px;
 	margin-left: 10%;
 	float: left;
-	margin-top: 3%;
+	margin-left: 30px;
+	cursor: pointer;
+}
+.electricity_aa_4{
+	margin-left: 45px;
 }
 .electricity{
 	background: url(../img/electricity_hover.png)no-repeat;
 	background-size: 50px;
 	background-position: top center;
 }
+.typee p{
+	margin-top:50px;
+	text-align:center;
+}
 .water{
 	background: url(../img/water.png)no-repeat;
 	background-size: 50px;
 	background-position: top center;
 }
-.right-top{
-	width: 98%;
-	height: 50%;
-	background: #ffffff;
-	margin-left: 8px;
+.content-main-right{
+	margin-left: 300px;
+}
+#pointer li{
+	line-height: 30px !important;
+}
+#pointer li .switch{
+	height: 34px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+}
+#pointer li .checkbox_false_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
+	background-size: 13px;
+}
+#pointer li .checkbox_true_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
+	background-size: 13px;
+}
+#pointer li .checkbox_false_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#pointer li .checkbox_true_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#allOffices li{
+	line-height: 30px !important;
+}
+#allOffices li .switch{
+	height: 34px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+}
+#allOffices li .checkbox_false_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
+	background-size: 13px;
+}
+#allOffices li .checkbox_true_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
+	background-size: 13px;
+}
+#allOffices li .checkbox_false_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#allOffices li .checkbox_true_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+.header-one{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
+}
+.header-two{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
+}
+.header-three{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
 }
 .right-header{
 	width: 100%;
@@ -28,15 +100,15 @@
 	line-height: 30px;
 }
 .right-header-right{
-	width: 485px;
+	width: 230px;
 	height: 100%;
 	float: right;
+	margin-left: 0 !important;
 }
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
 }
-
 .pic-one{
 	margin-left: 10px;
 	width: 30px;
@@ -64,81 +136,50 @@
 	cursor: pointer;
 	background-position: center;
 }
-.type option{
-	height: 30px;
-	width :60px;
-	color: #333;
-}
-.type{
-	width: 100px;
-}
-.header-one{
-	display: inline-block;
-	font-size: 1.2rem;
-	margin-right: 10px;
-	color: #fff;
-}
-.header-two{
-	display: inline-block;
-	font-size: 1.2rem;
-	margin-right: 10px;
-	color: #fff;
-}
-.header-three{
-	display: inline-block;
-	font-size: 1.2rem;
-	margin-right: 10px;
-	color: #fff;
-}
-.warp{
-	width: 100% !important;
-	height: 100%;
-}
-.content-main-1{
-	height: 25% !important;
-}
-.content-main-2{
-	height: 40% !important;
-}
-.electricity_aa_4{
-	margin-left:30%;
-}
-.electricityWord{
-	margin-top:50px;
-	text-align:center;
-}
-.main-left-middle{
-	height:90%;
-}
-.left-middle-tab{
-	background:#7f7f7f;
-	color:#ffffff;
-	margin-left:19px;
-	margin-left:39%;
-}
-.tree-2{
-	height:80%;
-	margin-top:10px;
-	display: block;
-}
-.header-right-lists-1{
-	width:230px;
-}
-.comparisonAndAnalysis{
-	width:100%;
-	height:100%;
-	float:left;
-	position:relative;
-}
-.rheader-content-right-header{
-	width:100%;
-	float:left;
-	border-bottom:1px solid #ccc;
-}
 #rheader-content-14{
 	width:100%;
-	height:300px;
+	height:350px;
 }
-.content-main-3{
-    height: 20% !important;
+#tree-3{
+	display: none;
+	background: #fff;
+}
+#tree-2{
+	display: block;
+	background: #fff;
+}
+.ico_docu{
+	display: none !important;
+}
+.custom-date{
+	margin-left: 25px !important;
+}
+.gas_aa_4{
+	background: url(../img/gas.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.types{
+	margin-top: 20px;
+	height: 30px;
+	margin-left: 35px;
+}
+.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
+	border-radius: 50% !important;
+}
+.drp-popup .drp-calendar-start .drp-calendar-date:before {
+	content: "开始时间：" !important;
+}
+.drp-popup .drp-calendar-end .drp-calendar-date:before {
+	content: "结束时间：" !important;
+}
+.drp-popup{
+	border-radius: 12px !important;
+}
+
+.header-three-1{
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	vertical-align:top
 }

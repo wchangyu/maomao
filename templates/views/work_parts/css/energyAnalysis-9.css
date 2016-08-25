@@ -1,0 +1,188 @@
+*{
+	font-family: 微软雅黑;
+}
+.typee{
+	width: 40px;
+	height: 70px;
+	margin-left: 10%;
+	float: left;
+	margin-left: 30px;
+	cursor: pointer;
+}
+.electricity_aa_4{
+	margin-left: 45px;
+}
+.electricity{
+	background: url(../img/electricity_hover.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.typee p{
+	margin-top:50px;
+	text-align:center;
+}
+.water{
+	background: url(../img/water.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.content-main-right{
+	margin-left: 300px;
+}
+.header-one{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
+}
+.header-two{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
+}
+.header-three{
+	display: inline-block;
+	font-size: 1.2rem;
+	margin-right: 10px;
+	color: #fff;
+	vertical-align:top
+}
+.right-header{
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #808080;
+	line-height: 30px;
+}
+.right-header-right{
+	width: 230px;
+	height: 100%;
+	float: right;
+	margin-left: 0 !important;
+}
+.header-right-lists{
+	float: left;
+	margin-right: 10px;
+}
+.pic-one{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-1.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+.pic-two{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-2.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+.pic-three{
+	margin-left: 10px;
+	width: 30px;
+	height: 30px;
+	background: url(../img/li-3.png)no-repeat;
+	background-size: 20px;
+	cursor: pointer;
+	background-position: center;
+}
+#rheader-content-14{
+	width:100%;
+	height:300px;
+}
+.gas_aa_4{
+	background: url(../img/gas.png)no-repeat;
+	background-size: 50px;
+	background-position: top center;
+}
+.types{
+	margin-top: 20px;
+	height: 30px;
+	margin-left: 35px;
+}
+.header-three-1{
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	vertical-align:top
+}
+.tree{
+	background: #fff !important;
+}
+#wrapper input{
+	height: 30px;
+	margin-left:20px;
+}
+#datetimepicker{
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position: 98% center;
+}
+.active{
+	color: #ffc000;
+}
+#tree-2{
+	display: block;
+}
+#pointer li{
+	line-height: 30px !important;
+}
+#pointer li .switch{
+	height: 34px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+}
+#pointer li .checkbox_false_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
+	background-size: 13px;
+}
+#pointer li .checkbox_true_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
+	background-size: 13px;
+}
+#pointer li .checkbox_false_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#pointer li .checkbox_true_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#allOffices li{
+	line-height: 30px !important;
+}
+#allOffices li .switch{
+	height: 34px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+}
+#allOffices li .checkbox_false_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
+	background-size: 13px;
+}
+#allOffices li .checkbox_true_full{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
+	background-size: 13px;
+}
+#allOffices li .checkbox_false_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+#allOffices li .checkbox_true_full_focus{
+	background: #ccc;
+	border: 1px solid #333;
+}
+.ico_docu{
+	display: none !important;
+}
+.selectTime{
+	cursor: pointer;
+}
+.selectTime:hover{
+	color: #77aa8b;
+}

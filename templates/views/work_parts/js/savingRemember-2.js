@@ -1,5 +1,4 @@
 $(function(){
-    getHeight();
 	//用电曲线
 	myChart78 = echarts.init(document.getElementById('rheader-content-78'));
 		option78 = {
@@ -91,14 +90,4 @@ getHeight();
 var myChart78;
 window.onresize = function () {
     myChart78.resize();
-    getHeight();
-}
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-    // console.log(h);
-    var heights = h * 0.70;
-    $('.total-warp').css({
-        height:heights
-    })
 }

@@ -1,5 +1,4 @@
 $(function(){
-    getHeight();
 	//锅炉能效
 	myChart51 = echarts.init(document.getElementById('rheader-content-51'));
 		option51 = {
@@ -61,14 +60,4 @@ getHeight();
 var myChart51;
 window.onresize = function () {
     myChart51.resize();
-    getHeight();
-}
-function getHeight(){
-    //获取浏览器的高度；
-    var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-    // console.log(h);
-    var heights = h * 0.70;
-    $('.total-warp').css({
-        height:heights
-    })
 }

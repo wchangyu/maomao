@@ -18,9 +18,6 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="./work_parts/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
-    <link href="./work_parts/_css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./work_parts/_css/index.css">
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
     <link rel="stylesheet" href="./work_parts/css/energyAnalysis-7.css">
@@ -330,147 +327,111 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="total-warp">
-                        <div class="container warp">
-                            <!-- 左边选择区域 -->
+                        <div class="total-warp">
+                            <div class="wrap container">
+                                <div class="content-main-right">
+                                    <div class="right-content">
+                                        <div class="left-middle-header">
+                                            <div class="header-one">电</div>
+                                            <div class="header-two">全院</div>
+                                        </div>
+                                        <div class="right-top">
+                                            <div class="right-header">
+                                                <ul>
+                                                    <li class="top-header-lists top-header-lists_aa_9">逐12月用电趋势</li>
+                                                    <li class="top-header-lists top-header-lists_aa_9">逐52周用电趋势</li>
+                                                </ul>
+                                                <ul class="right-header-right">
+                                                    <li class="header-right-lists header-right-lists-1">
+                                                    </li>
+                                                    <li class="header-right-lists">单位：kWs</li>
+                                                    <li class="header-right-lists pic-one"></li>
+                                                    <li class="header-right-lists pic-two"></li>
+                                                    <li class="header-right-lists pic-three"></li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="rheader-content">
+                                                <div class="rheader-contents col-lg-12"id="rheader-content-45"></div>
+                                                <div class="foot col-lg-12">
+                                                    <!-- 图 -->
+                                                    <img class="foot-img"src="./work_parts/img/foot.png" alt="">
+                                                    <!-- 车库更换 -->
+                                                <span>车库更换<br>
+                                                    LED灯
+                                                </span>
+                                                    <!-- 公共区域更换 -->
+                                                <span>公共区域更换<br>
+                                                    LED灯
+                                                </span>
+                                                    <!-- 冷战水泵 -->
+                                                <span>冷战水泵<br>
+                                                    变频改造
+                                                </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="content-main-left">
-                                <!-- 能耗种类 -->
-                                <div class="content-main content-main-1">
+                                <div class="content-main">
                                     <div class="main-left-top1">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">能耗种类</div>
-                                        <!-- 电 -->
-                                        <div class="electricity typee electricity_aa_9">
+                                        <div class="electricity typee selectedEnergy electricity_aa_4" value="01">
                                             <!-- 文字 -->
                                             <p class="electricityWord">电</p>
                                         </div>
                                         <!-- 水 -->
-                                        <div class="typee water water_aa_9">
+                                        <div class="typee water water_aa_4" value="211">
                                             <!-- 文字 -->
                                             <p class="electricityWord">水</p>
                                         </div>
+                                        <!-- 气-->
+                                        <div class="typee gas gas_aa_4" value="311">
+                                            <!-- 文字 -->
+                                            <p class="electricityWord">气</p>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                <!-- 对象选择 -->
-                                <div class="content-main content-main-2">
+                                <div class="content-main">
                                     <div class="main-left-middle">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">对象选择</div>
-                                        <div class="left-middle-tab left-middle-tab_aa_9">区域位置</div>
-                                        <!-- 目录 -->
-                                        <div class="tree tree-9">
-                                            <ul>
+                                        <div class="left-middle-tab">区域位置</div>
+                                        <div class="left-middle-tab">科室单位</div>
+                                        <div class="tree tree-2">
+                                            <ul class="left-middle-list_aa_01">
                                                 <li>
-                                                    <span><i class="icon-folder-open"></i>变电所1</span>
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>变压器1</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>变压器2</span>
-                                                        </li>
+                                                    <span class="active" id="floor">全院</span>
+                                                    <ul class="allPointer">
                                                     </ul>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <script type="text/javascript">
-                                            $(function(){
-                                                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-                                                $('.tree li.parent_li > span').on('click', function (e) {
-                                                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                                                    if (children.is(":visible")) {
-                                                        children.hide('fast');
-                                                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-                                                    } else {
-                                                        children.show('fast');
-                                                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-                                                    }
-                                                    e.stopPropagation();
-                                                });
-                                            });
-                                        </script>
+                                        <div class="tree tree-3">
+                                            <ul class="allOffices">
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                <!-- 时段选择 -->
                                 <div class="content-main">
-                                    <!-- 时间插件 -->
                                     <div class="select-times">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">时段选择</div>
-                                        <!-- 时间部分 -->
                                         <div id='wrapper'>
-                                            <!-- 选择下拉框 -->
-                                            <select class='custom-date' name='select'>
-                                                <option value='7'>7 Days</option>
-                                                <option value='30'>30 Days</option>
-                                                <option selected='selected' value='90'>90 Days</option>
-                                                <option value='180'>180 Days</option>
-                                                <option value='365'>365 Days</option>
-                                                <option value='custom'>Custom</option>
-                                            </select>
+                                            <div class="time-options time-options-1 timeactive">日</div>
+                                            <div class="time-options">周</div>
+                                            <div class="time-options">月</div>
+                                            <div class="time-options">年</div>
                                             <div class="buttons">
-                                                <button class="btns">APPLY</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script src='./work_parts/select-time/js/jquery.js'></script>
-                                    <script src="./work_parts/select-time/js/index.js"></script>
-                                </div>
-                            </div>
-                            <!-- 右边主体数据 -->
-                            <div class="content-main-right content-main-right_aa_9">
-                                <div class="right-content">
-                                    <!-- 标题 -->
-                                    <div class="left-middle-header">
-                                        <div class="header-one">电</div>
-                                        <div class="header-two">全院</div>
-                                    </div>
-                                    <!-- 内容 -->
-                                    <div  class="right-top">
-                                        <!-- 标题 -->
-                                        <div class="right-header">
-                                            <!-- 12/52 选项卡 -->
-                                            <ul>
-                                                <li class="top-header-lists top-header-lists_aa_9">逐12月用电趋势</li>
-                                                <li class="top-header-lists top-header-lists_aa_9">逐52周用电趋势</li>
-                                            </ul>
-                                            <!-- 标题右边 -->
-                                            <ul class="right-header-right">
-                                                <li class="header-right-lists header-right-lists-1">
-                                                </li>
-                                                <li class="header-right-lists">单位：kWs</li>
-                                                <li class="header-right-lists pic-one"></li>
-                                                <li class="header-right-lists pic-two"></li>
-                                                <li class="header-right-lists pic-three"></li>
-                                            </ul>
-                                        </div>
-                                        <!-- 内容 -->
-                                        <div class="rheader-content rheader-content_aa_9 row">
-                                            <!-- 柱折图 -->
-                                            <div class="rheader-contents col-lg-9"id="rheader-content-45"></div>
-                                            <!-- 足迹 -->
-                                            <div class="foot col-lg-9">
-                                                <!-- 图 -->
-                                                <img class="foot-img"src="./work_parts/img/foot.png" alt="">
-                                                <!-- 车库更换 -->
-								<span>车库更换<br>
-									LED灯
-								</span>
-                                                <!-- 公共区域更换 -->
-								<span>公共区域更换<br>
-									LED灯
-								</span>
-                                                <!-- 冷战水泵 -->
-								<span>冷战水泵<br>
-									变频改造
-								</span>
+                                                <button class="btns1">查询</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->

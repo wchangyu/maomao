@@ -18,9 +18,6 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="./work_parts/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
-    <link href="./work_parts/_css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./work_parts/_css/index.css">
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
     <link rel="stylesheet" href="./work_parts/css/savingRemember-2.css">
@@ -332,91 +329,6 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="container wrap">
-                            <!-- 左边选择部分 -->
-                            <div class="content-main-left">
-                                <!-- 对象选择 -->
-                                <div class="content-main content-main-1">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">对象选择</div>
-                                        <div class="tree tree-2">
-                                            <ul>
-                                                <li>
-                                                    <span><i class="icon-folder-open"></i>地下车库照明改造</span>
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>地下车库照明支路1</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>地下车库照明支路2</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>地下车库照明支路3</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <span><i class="icon-folder-open"></i>内科楼冷冻站节能项改造</span>
-                                                    <ul>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>内科楼冷机支路</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>内科楼冷冻泵支路</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>内科楼冷却泵支路</span>
-                                                        </li>
-                                                        <li>
-                                                            <span><i class="icon-minus-sign"></i>内科楼冷却塔支路</span>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $(function(){
-                                                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-                                                $('.tree li.parent_li > span').on('click', function (e) {
-                                                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                                                    if (children.is(":visible")) {
-                                                        children.hide('fast');
-                                                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-                                                    } else {
-                                                        children.show('fast');
-                                                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-                                                    }
-                                                    e.stopPropagation();
-                                                });
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                                <!-- 时间选择 -->
-                                <div class="content-main">
-                                    <!-- 时间插件 -->
-                                    <div class="select-times">
-                                        <!-- 标题 -->
-                                        <div class="left-middle-header">时段选择</div>
-                                        <!-- 时间部分 -->
-                                        <div id='wrapper'>
-                                            <!-- 选择下拉框 -->
-                                            <select class='custom-date' name='select'>
-                                                <option value='7'>7 Days</option>
-                                                <option value='30'>30 Days</option>
-                                                <option selected='selected' value='90'>90 Days</option>
-                                                <option value='180'>180 Days</option>
-                                                <option value='365'>365 Days</option>
-                                                <option value='custom'>Custom</option>
-                                            </select>
-                                            <div class="buttons">
-                                                <button class="btns">APPLY</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script src='./work_parts/select-time/js/jquery.js'></script>
-                                    <script src="./work_parts/select-time/js/index.js"></script>
-                                </div>
-                            </div>
                             <!-- 右边主体数据部分 -->
                             <div class="content-main-right content-main-right_aa_17">
                                 <div class="right-content">
@@ -500,6 +412,90 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="content-main-left">
+                            <!-- 对象选择 -->
+                            <div class="content-main content-main-1">
+                                <div class="main-left-middle">
+                                    <div class="left-middle-header">对象选择</div>
+                                    <div class="tree tree-2">
+                                        <ul>
+                                            <li>
+                                                <span><i class="icon-folder-open"></i>地下车库照明改造</span>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>地下车库照明支路1</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>地下车库照明支路2</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>地下车库照明支路3</span>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <span><i class="icon-folder-open"></i>内科楼冷冻站节能项改造</span>
+                                                <ul>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>内科楼冷机支路</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>内科楼冷冻泵支路</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>内科楼冷却泵支路</span>
+                                                    </li>
+                                                    <li>
+                                                        <span><i class="icon-minus-sign"></i>内科楼冷却塔支路</span>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function(){
+                                            $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+                                            $('.tree li.parent_li > span').on('click', function (e) {
+                                                var children = $(this).parent('li.parent_li').find(' > ul > li');
+                                                if (children.is(":visible")) {
+                                                    children.hide('fast');
+                                                    $(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+                                                } else {
+                                                    children.show('fast');
+                                                    $(this).attr('title', 'Collapse this branch').find(' > i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+                                                }
+                                                e.stopPropagation();
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <!-- 时间选择 -->
+                            <div class="content-main">
+                                <!-- 时间插件 -->
+                                <div class="select-times">
+                                    <!-- 标题 -->
+                                    <div class="left-middle-header">时段选择</div>
+                                    <!-- 时间部分 -->
+                                    <div id='wrapper'>
+                                        <!-- 选择下拉框 -->
+                                        <select class='custom-date' name='select'>
+                                            <option value='7'>7 Days</option>
+                                            <option value='30'>30 Days</option>
+                                            <option selected='selected' value='90'>90 Days</option>
+                                            <option value='180'>180 Days</option>
+                                            <option value='365'>365 Days</option>
+                                            <option value='custom'>Custom</option>
+                                        </select>
+                                        <div class="buttons">
+                                            <button class="btns">APPLY</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src='./work_parts/select-time/js/jquery.js'></script>
+                                <script src="./work_parts/select-time/js/index.js"></script>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 .wrap{
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     font-family: 微软雅黑;
 }
 li{
@@ -10,6 +10,7 @@ li{
     width: 100%;
     height: 100%;
     margin-left: 0;
+    position: relative;
 }
 .content-main-right ul{
     display: inline-block;
@@ -18,5 +19,9 @@ li{
     left: 50%;
     margin: 0px;
     margin: -50px -187px -50px -187px;
-
+}
+.total-warp{
+    width: 100% !important;
+    height: 100% !important;
+    font-family: 微软雅黑;
 }

@@ -153,7 +153,6 @@
 .right-content{
     height: 100%;
     width: 100%;
-    overflow: scroll;
 }
 .right-header-right{
     width:260px !important;

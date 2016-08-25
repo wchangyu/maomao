@@ -172,6 +172,7 @@ Page Header
   margin: 0;
   padding: 0;
   float: right;
+  margin-top:-20px;
 }
 .page-header.navbar .top-menu .navbar-nav {
   padding: 0;
@@ -2218,6 +2219,7 @@ Page content
   .page-content-wrapper {
     float: left;
     width: 100%;
+    min-height: 800px !important;
   }
   .page-content-wrapper .page-content {
     margin-left: 235px;

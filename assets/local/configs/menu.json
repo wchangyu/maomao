@@ -16,7 +16,6 @@
     }
   },
   "用能监测":{
-  "用能分析":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
     "content":"用能监测",
@@ -48,6 +47,30 @@
         "type":"0",
         "content":"横向对比",
         "uri":"energyAnalysis-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "纵向对比":{
+        "type":"0",
+        "content":"纵向对比",
+        "uri":"energyAnalysis-9.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "分项用电环比":{
+        "type":"0",
+        "content":"分项用电环比",
+        "uri":"energyAnalysis-10.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "支路用电环比":{
+        "type":"0",
+        "content":"支路用电环比",
+        "uri":"energyAnalysis-11.html",
         "uid":"",
         "arg":"",
         "iconclass":""
