@@ -9,6 +9,7 @@ var userMonitor = function(){
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 2;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "5";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
+    var _configArg3 = "0";      //配置文件中配置的参数3,取值对应默认选中方案
     var _hasControlAuth = false;      //用户是否有控制的权限
     var _isViewAllProcs = false;       //用户是否可以查看所有的监控方案
     _isViewAllProcs = true;  //TODO:临时使用
@@ -32,7 +33,7 @@ var userMonitor = function(){
             if(args){
                 _configArg1 = args[0];
                 _configArg2 = args[1];
-
+                _configArg3 = args[2] || undefined;
             }
         }
         //获取当前用户的操控权限和访问控制方案的权限
@@ -45,6 +46,16 @@ var userMonitor = function(){
                 _isViewAllProcs = true;
             }
         }
+        //返回首页
+        $(".functions-3").click(function(){
+            getUserProcs();
+        });
+        //刷新数据
+        $(".functions-4").click(function(){
+            if(!_isInstDataLoading){
+                getInstDatasByIds();
+            }
+        });
     }
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -87,29 +98,38 @@ var userMonitor = function(){
     }
 
     //设置左侧的监控方案列表
-    var setProcList = function(procs){
+    //如果selectedProc为空默认选中第一个，否则选中传值
+    var setProcList = function(procs,selectedProc){
         var $ul = $(".content-main-left>ul");
         $(".content-main-left>ul li").remove();
-        if(!procs) return;
+        if(!procs || procs.length==0) return;
+        var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
-            //$.each(procs,function(index,obj) {
-            //    $("<li>",{text:obj.ProcName}).appendTo(ul);
-            //});
             for(var i=0;i<procs.length;i++){
                 $ul.append($("<li>",{text:procs[i].procName}).on("click",(function(procId){
                     return function() {initializeProcSubs(procId);};
                 })(procs[i].procID)));
             }
+            curProc = curProc || procs[0];
         }else {
             if(_userProcIds){
-                $.each(procs,function(index,obj){
+                var isProcFind = false;
+                for(var i=0;i<procs.length;i++){
+                    var obj = procs[i];
                     if(_userProcIds.index(obj.procId)>=0){
+                        if(!isProcFind){
+                            curProc = curProc || obj;
+                            isProcFind = true;
+                        }
                         $("<li>",{text:obj.procName }).appendTo($ul);
                         $ul.append($("<li>",{text:obj.procName}).on("click",(function(procId){ return function() {initializeProcSubs(procId);}; })(obj.procId)));
                     }
-                });
+                }
             }
         }
+        initializeProcSubs(curProc.procID);//选中默认的监控
+        //TODO: 处理当前的li选中情况,css的变动
+
     }
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
@@ -183,12 +203,19 @@ var userMonitor = function(){
         if(!procId) return;
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
         if(!proc) return;
-        if(!_curProc){          //判断当前的proc与选择的是否一致，一致则不进行下一步获取sub数据
-            _curProc = proc;
-        }else{
-            if(_curProc == proc) return;
-            _curProc = proc;
-        }
+        _curProc = proc;
+        //if(!_curProc){          //判断当前的proc与选择的是否一致，一致则不进行下一步获取sub数据
+        //    _curProc = proc;
+        //}else{
+        //    if(_curProc == proc) return;
+        //    _curProc = proc;
+        //}
+
+        var $divContent = $("#content-main-right");
+        var $img = $("#imgProc");
+        $img.attr("src","");
+        $divContent.empty();
+
         _isProcCrtlLoaded = false;
         _isProcDefLoaded = false;
         _isProcRenderLoaded = false;
@@ -247,22 +274,23 @@ var userMonitor = function(){
 
     //获取底图
     var initImg = function(procId){
-        var proc = _.findWhere(_allProcs,{"ProcID" : procId});        //underscore中的找到第一个匹配元素的方法
+        var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
         if(proc){
-            if(proc["ImgID"] != 1){     //1代表常用方案，此处用==号需要用到隐式转换,1的时候没有底图
+            if(proc["imgID"] != 1){     //1代表常用方案，此处用==号需要用到隐式转换,1的时候没有底图
                 $.ajax({
                     type:"post",
-                    data:{"" : proc["ImgID"]},
+                    data:{"" : proc["imgID"]},
                     url:_urlPrefix + "PR/GetHbProcImage",
                     success:function(data){
                         var oldImg = $("#imgProc"); //如果原来的背景图存在，移除
                         if(oldImg) oldImg.remove();
 
                         var img = $("<img>");
-                        img.attr("src",data["ImgUrl"]);
+                        img.attr("src",data["imgUrl"]);
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
                         $("#content-main-right").append(img);
+                        console.log(data.imgUrl);
                     },
                     error:function(xhr,res,err){ console.log("GetHbProcImage:" + err) }
                 });
@@ -270,12 +298,15 @@ var userMonitor = function(){
             //设置div的高和宽
             if(proc.procStyle){
                 var $divMain = $("#content-main-right");
+
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
                     $divMain.css("width", proc.procStyle.imageSizeWidth);
+                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + 250);
                 }else{
                     $divMain.css("width", 1330);
+                    //$divMain.css("min-width",1330);
                 }
-                if(proc.procStyle.imageSizeHeight && proc.procStyle.imageHeight>0){
+                if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
                     $divMain.css("height",proc.procStyle.imageSizeHeight);
                 }else{
                     $divMain.css("height",1051);
@@ -425,7 +456,14 @@ var userMonitor = function(){
                         $spanTxt.css("width","50%");
                     }
                     if(curPRR.backColorRGB && curPRR.backColorRGB.length == 8){         //背景色设置
-                        $spanDef.css("background-color","#" + curPRR.backColorRGB.substr(2,6));
+                        if(curPRR.backColorRGB.indexOf("00") == 0){
+                            $spanDef.css("background-color","rgba(0,0,0,0)");
+                        }else {
+                            $spanDef.css("background-color","#" + curPRR.backColorRGB.substr(2,6));
+                        }
+
+                    }else{
+                        $spanDef.css("background-color","rgba(0,0,0,0)");
                     }
                     if(curPRR.foreColorRGB && curPRR.foreColorRGB.length == 8){        //前景色设置
                         $spanDef.css("color","#" + curPRR.foreColorRGB.substr(2,6));
@@ -520,7 +558,13 @@ var userMonitor = function(){
             $("#content-main-right").empty();
             displayAllProc();
         }else if(procDef.cType == 3 || procDef.cType == 133 || procDef.cType == 131){       //AO操作
+            if(_hasControlAuth){
+                if(procDef.cType == 133 || procDef.cType == 131){
+                    if(_.findWhere(_procCtrls,{"prDefId":procDef.prDefId})){
 
+                    }
+                }
+            }
         }else if(procDef.cType == 122){     //全局参数设置
 
         }else if(procDef.cType == 100){     //空调温控面板设置
@@ -532,20 +576,28 @@ var userMonitor = function(){
 
     //根据数据返回的结果显示所有的监控流程,显示在右边,默认只显示第一等级，可导航改变
     var displayAllProc = function(){
-        var procLVs = [];
+        var procLVs = [],tmpprocLVs = [];
         if(_configArg1){
             if(_configArg1 == "0"){     //按照方案类型获取列表
-
+                if(!_curProc){   //第一次加载，或者导航的对象不存在，那么默认进入第一级展示
+                    tmpprocLVs = _.where(_allProcs,{"pubProcLv":0});
+                }else{
+                    tmpprocLVs = _.where(_allProcs,{"pubProcLv":_curProc.pubProcLv});
+                }
+                procLVs = _.sortBy(tmpprocLVs,"procOrder");
+                setProcList(procLVs,_curProc);
             }else if(_configArg1 == "1"){       //按照指定方案列表获取
+                procLVs = _.sortBy(_allProcs,"procOrder");
+                setProcList(procLVs,_curProc); //第一次加载，或者导航的对象不存在，那么默认进入第一级展示 ,否则选中当前的
 
             }else if(_configArg1 == "2"){          //混合模式
                 if(!_curProc){       //第一次加载，或者导航的对象不存在，默认进去第一级
-
+                    tmpprocLVs = _.where(_allProcs,{"pubProcLv":0,"pubProcType":_configArg2});
                 }else{
-                    var tmpprocLVs = _.where(_allProcs,{"pubProcLv":_curProc.pubProcLv,"pubProcType":_curProc.pubProcType});
-                    procLVs = _.sortBy(tmpprocLVs,"procOrder");
-                    setProcList(procLVs);
+                    tmpprocLVs = _.where(_allProcs,{"pubProcLv":_curProc.pubProcLv,"pubProcType":_curProc.pubProcType});
                 }
+                procLVs = _.sortBy(tmpprocLVs,"procOrder");
+                setProcList(procLVs,_curProc);
             }
         }
     }
