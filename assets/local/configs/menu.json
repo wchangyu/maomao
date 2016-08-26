@@ -16,7 +16,6 @@
     }
   },
   "用能监测":{
-  "用能分析":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
     "content":"用能监测",
