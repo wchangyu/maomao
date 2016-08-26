@@ -16,13 +16,11 @@
     }
   },
   "用能监测":{
-  "用能分析":{
     "type":"1",
     "iconclass":"icon-screen-desktop",
     "content":"用能监测",
     "submenu": {
       "变配电系统":{
-        "comment":"监控流程图配置,三种情况:一.0,Mis方案类型;二.1,方案ID|方案ID2|etc;三.2,1混合模式，方案可以跳转,1代表初始方案类型",
         "type":"0",
         "content":"变配电系统",
         "uri":"",
