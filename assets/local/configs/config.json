@@ -5,27 +5,37 @@
       {
         "etid": "01",
         "etname": "电",
-        "etunit": "kWh"
+        "etunit": "kWh",
+        "img":"",
+        "color":""
       },
       {
         "etid": "211",
         "etname": "水",
-        "etunit": "t"
+        "etunit": "t",
+        "img":"",
+        "color":""
       },
       {
         "etid": "311",
         "etname": "气",
-        "etunit": "m3"
+        "etunit": "m3",
+        "img":"",
+        "color":""
       },
       {
         "etid": "412",
         "etname": "暖",
-        "etunit": "MJ"
+        "etunit": "MJ",
+        "img":"",
+        "color":""
       },
       {
         "etid": "511",
         "etname": "冷",
-        "etunit": "MJ"
+        "etunit": "MJ",
+        "img":"",
+        "color":""
       }
     ]
   },

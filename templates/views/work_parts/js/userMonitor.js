@@ -534,7 +534,7 @@ var userMonitor = function(){
                     || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131
                 ){
                     $spanDef.css("cursor","pointer");
-                    $spanDef.on("click",(function(procDef){return function(){ goToProcsByDef(procDef); }})(_procDefs[i]));
+                    $spanDef.on("click",(function(procDef,ele){return function(){ goToProcsByDef(procDef,ele); }})(_procDefs[i],$spanDef));
                 }
             }
             $divContent.append($spanDef);
@@ -542,13 +542,14 @@ var userMonitor = function(){
     }
 
     //根据当前的def跳转到下一级的procs
-    var goToProcsByDef = function(procDef){
+    var goToProcsByDef = function(procDef,ele){
         if(!procDef) return;
         if(procDef.cType == 166){       //方案跳转
             if(!_isViewAllProcs && _userProcIds.indexOf(procDef.prDefId)<0){
                 alert("没有权限");
                 return;
             }
+            console.log(ele);
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
             if(proc){
                 _curProc = proc;
