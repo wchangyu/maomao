@@ -112,11 +112,23 @@ var Metronic = function() {
         $('body').on('click', '.portlet > .portlet-title .fullscreen', function(e) {
             e.preventDefault();
             var portlet = $(this).closest(".portlet");
+            //echarts操作,获取echart所在的div，然后获取echart对象，调用echart对象的resize方法
+            //同时添加或者移除fullheight类，来实现高度100%
+            //var chartDiv = portlet.children(".echart");
+            var chartDiv = portlet.children("div[_echarts_instance_]");
+            console.log(chartDiv);
+            var thisEchart;
+            if(chartDiv && chartDiv[0]){
+                thisEchart = echarts.getInstanceByDom(chartDiv[0]);
+            }
             if (portlet.hasClass('portlet-fullscreen')) {
                 $(this).removeClass('on');
                 portlet.removeClass('portlet-fullscreen');
                 $('body').removeClass('page-portlet-fullscreen');
                 portlet.children('.portlet-body').css('height', 'auto');
+                if(chartDiv){
+                    chartDiv.removeClass("fullheight");
+                }
             } else {
                 var height = Metronic.getViewPort().height -
                     portlet.children('.portlet-title').outerHeight() -
@@ -127,6 +139,12 @@ var Metronic = function() {
                 portlet.addClass('portlet-fullscreen');
                 $('body').addClass('page-portlet-fullscreen');
                 portlet.children('.portlet-body').css('height', height);
+                if(chartDiv){
+                    chartDiv.addClass("fullheight");
+                }
+            }
+            if(thisEchart && thisEchart.resize){
+                thisEchart.resize();
             }
         });
 

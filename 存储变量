@@ -1,0 +1,13 @@
+sessionStorage.curLoginPage 当前登录入口，提供给右上角的退出使用
+sessionStorage.apiUrlPrefix 数据接口的地址前缀
+sessionStorage.systemName   当前系统名称
+sessionStorage.energyItems  当前系统的能耗分项
+sessionStorage.offices      当前系统的全部分户
+sessionStorage.pointers     当前系统的楼宇，根据用户名获取
+sessionStorage.userAuth     当前用户的权限
+sessionStorage.username     当前用户名
+localStorage["BEE_username"]    当前用户名 记住用户密码使用
+localStorage["BEE_userpassword"] 当前用户密码 同上
+localStorage["BEE_remember"]    登录的记住用户名
+sessionStorage.allEnergyType   当前系统的能耗类型，楼宇选择模块、首页使用
+sessionStorage.officeEnergyType 当前系统的分户能耗类型，首页 分户选择模块使用

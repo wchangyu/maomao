@@ -62,6 +62,11 @@ var Login = function() {
                 var name = Went.utility.wCoder.wEncode(name1);
                 var password = Went.utility.wCoder.wEncode(password1);
                 var accParams = {"userID":name,"userPwd":password};
+                var rememberme = $('input[name=remember]').attr("checked");
+                if(rememberme){
+                    //$.cookie("rememberme","1");
+                    window.localStorage["BEE_remember"] = "1";
+                }
                 if(sessionStorage.apiUrlPrefix)
                 {
                     var url = sessionStorage.apiUrlPrefix + "Account/Login";
@@ -79,8 +84,12 @@ var Login = function() {
                             {
                                 showAlertInfo("请输入正确的密码");
                             }else {
-                                $.cookie("username", name1);
-                                $.cookie("password", password);
+                                //$.cookie("username", name1);
+                                //$.cookie("userpassword", password);
+                                if(rememberme){
+                                    localStorage["BEE_username"] = name1;
+                                    localStorage["BEE_userpassword"] = password;
+                                }
                                 sessionStorage.username=name1;
                                 getPointersByUser(name1);
                                 getAllOffices();
@@ -220,6 +229,18 @@ var Login = function() {
                     //if(userMonitorInfo){
                     //    sessionStorage.userMonitorInfo = JSON.stringify(userMonitorInfo);
                     //}
+
+                    //系统能耗类型配置，需要与api配置同步
+                    var allEnergyType = data["allEnergyType"];
+                    if(allEnergyType){
+                        sessionStorage.allEnergyType = JSON.stringify(allEnergyType);
+                    }
+
+                    var officeEnergyType = data["officeEnergyType"];
+                    if(officeEnergyType){
+                        sessionStorage.officeEnergyType = JSON.stringify(officeEnergyType);
+                    }
+
                     handleLogin();      //获取到配置信息后，处理登录相关
                 },
                 error: function (xhr, res, err) {
@@ -350,8 +371,21 @@ var Login = function() {
      */
     var clearLocalInfo = function(){
         sessionStorage.clear();
-        $.removeCookie("username");
-        $.removeCookie("userpassword");
+        var remember = localStorage["BEE_remember"];
+        if(remember && remember=="1"){
+            if(localStorage["BEE_username"]){
+                $('input[name=username]').val(localStorage["BEE_username"]);
+            }
+            if(localStorage["BEE_userpassword"]){
+                var pwd = localStorage["BEE_userpassword"];
+                pwd = Went.utility.wCoder.wDecode(pwd);
+                $('input[name=password]').val(pwd);
+            }
+            $("input[name=remember]").parent().addClass("checked");
+        }
+        //$.removeCookie("username");
+        //$.removeCookie("userpassword");
+        //$.removeCookie("rememberme");
     }
 
     return {
