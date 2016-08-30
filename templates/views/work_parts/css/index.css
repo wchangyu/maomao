@@ -313,3 +313,34 @@ a{
 .row-1{
 	height: auto;
 }
+#loading3 img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -50px;
+	margin-top: -10px;
+}
+#loading img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -50px;
+	margin-top: -10px;
+}
+#loading1 img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -50px;
+	margin-top: -10px;
+}
+#loading2 img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -50px;
+	margin-top: -10px;
+}
+.right-one-headers{
+	display: inline-block;
+}
