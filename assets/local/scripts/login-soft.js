@@ -1,5 +1,9 @@
 var Login = function () {
 
+	var _isPointersLoaded = false;
+	var _isOfficesLoaded = false;
+	var _isEnergyItemsLoaded = false;
+
 	var showAlertInfo = function(msg){
 		msg = msg || "出现错误,请联系管理员";
 		$('.alert-danger span').html(msg);
@@ -58,6 +62,11 @@ var Login = function () {
 				var name = Went.utility.wCoder.wEncode(name1);
 				var password = Went.utility.wCoder.wEncode(password1);
 				var accParams = {"userID":name,"userPwd":password};
+					var rememberme = $('input[name=remember]').attr("checked");
+					if(rememberme){
+						//$.cookie("rememberme","1");
+						window.localStorage["BEE_remember"] = "1";
+					}
 				if(sessionStorage.apiUrlPrefix)
 				{
 					var url = sessionStorage.apiUrlPrefix + "Account/Login";
@@ -75,12 +84,17 @@ var Login = function () {
 							{
 								showAlertInfo("请输入正确的密码");
 							}else {
-								$.cookie("username", name1);
-								$.cookie("password", password);
+								//$.cookie("username", name1);
+								//$.cookie("userpassword", password);
+								if(rememberme){
+									localStorage["BEE_username"] = name1;
+									localStorage["BEE_userpassword"] = password;
+								}
 								sessionStorage.username=name1;
 								getPointersByUser(name1);
 								getAllOffices();
 								getAllEnergyItems();
+								sessionStorage.userAuth = convertAuthTo01Str(data);     //存储权限字符串
 							}
 						},
 						error:function(xhr,res,err){
@@ -99,6 +113,25 @@ var Login = function () {
 	                return false;
 	            }
 	        });
+	}
+
+	//将用户权限转换成01的字符串
+	var convertAuthTo01Str = function(hexstr){
+		var arr = [];
+		var i=0;
+		for(i=0;i<80;i++){
+			arr[i] = "";
+		}
+		var seed = [8,4,2,1];
+		hexstr = hexstr.toUpperCase();
+		var hexStrs = "0123456789ABCDEF";
+		for(i = 0;i < hexstr.length;i++){
+			var ic = hexStrs.indexOf(hexstr.charAt(i));
+			for(var d = 0; d < 4; d++){
+				var r = ic & seed[d];
+				arr[i * 4 + d] = r == 0 ? "0" : "1";
+			}
+		}
 	}
 
 	var directToIndex = function(){
@@ -159,9 +192,23 @@ var Login = function () {
 		});
 	};
 
+	//设置报警信息
+	var setAlarmInfo = function(){
+		//TODO:设置报警信息
+		$.ajax({
+			type:'post',
+			dataType:'json',
+
+		});
+	}
+
 	//获取配置文件，保存到存储区域
 	var initConfig = function (src) {
 		var configSrc = "../../assets/local/configs/config.json";
+		//保存当前的登录页面，提供给退出登录时候使用
+		var curLoginPage = window.location.href;
+		curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
+		sessionStorage.curLoginPage = curLoginPage;
 		configSrc = src || configSrc;
 		if(!sessionStorage.apiUrlPrefix) {
 			$.ajax({
@@ -169,8 +216,31 @@ var Login = function () {
 				type: 'get',
 				async:false,
 				success: function (data) {
+					//获取当前的接口地址
 					var apiUrlPrefix = data["apiUriPrefix"] || "";
 					sessionStorage.apiUrlPrefix = apiUrlPrefix;     //存储到暂存区，在本次session中使用
+
+					//获取当前系统名
+					var systemTitle = data["systemTitle"] || "";
+					sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
+
+					//监控系统配置信息，userMonitor.js调用
+					//var userMonitorInfo = data["userMonitorInfo"] || "";
+					//if(userMonitorInfo){
+					//    sessionStorage.userMonitorInfo = JSON.stringify(userMonitorInfo);
+					//}
+
+					//系统能耗类型配置，需要与api配置同步
+					var allEnergyType = data["allEnergyType"];
+					if(allEnergyType){
+						sessionStorage.allEnergyType = JSON.stringify(allEnergyType);
+					}
+
+					var officeEnergyType = data["officeEnergyType"];
+					if(officeEnergyType){
+						sessionStorage.officeEnergyType = JSON.stringify(officeEnergyType);
+					}
+
 					handleLogin();      //获取到配置信息后，处理登录相关
 				},
 				error: function (xhr, res, err) {
@@ -181,13 +251,36 @@ var Login = function () {
 		else{
 			handleLogin();      //获取到配置信息后，处理登录相关
 		}
+
+	}
+
+	/*
+	 清除暂存信息，cookie sessionStorage
+	 */
+	var clearLocalInfo = function(){
+		sessionStorage.clear();
+		var remember = localStorage["BEE_remember"];
+		if(remember && remember=="1"){
+			if(localStorage["BEE_username"]){
+				$('input[name=username]').val(localStorage["BEE_username"]);
+			}
+			if(localStorage["BEE_userpassword"]){
+				var pwd = localStorage["BEE_userpassword"];
+				pwd = Went.utility.wCoder.wDecode(pwd);
+				$('input[name=password]').val(pwd);
+			}
+			$("input[name=remember]").parent().addClass("checked");
+		}
+		//$.removeCookie("username");
+		//$.removeCookie("userpassword");
+		//$.removeCookie("rememberme");
 	}
 
     
     return {
         //main function to initiate the module
         init: function () {
-
+			clearLocalInfo();
 			initConfig();
             //handleLogin();
 

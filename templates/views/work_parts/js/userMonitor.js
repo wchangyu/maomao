@@ -276,6 +276,29 @@ var userMonitor = function(){
     var initImg = function(procId){
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
         if(proc){
+            var imgWidth,imgHeight;
+            if(proc.procStyle){
+                var $divMain = $("#content-main-right");
+
+                if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
+                    $divMain.css("width", proc.procStyle.imageSizeWidth);
+                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + 250);
+                    imgWidth = proc.procStyle.imageSizeWidth;
+                }else{
+                    $divMain.css("width", 1330);
+                    //$divMain.css("min-width",1330);
+                }
+                if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
+                    $divMain.css("height",proc.procStyle.imageSizeHeight);
+                    imgHeight = proc.procStyle.imageSizeHeight;
+                }else{
+                    $divMain.css("height",1051);
+                }
+                if(proc.procStyle.backColorRGB && proc.procStyle.backColorRGB.length == 8){
+                    $divMain.css("background-color","#" + proc.procStyle.backColorRGB.substr(2,6));
+                }
+            }
+
             if(proc["imgID"] != 1){     //1代表常用方案，此处用==号需要用到隐式转换,1的时候没有底图
                 $.ajax({
                     type:"post",
@@ -289,6 +312,12 @@ var userMonitor = function(){
                         img.attr("src",data["imgUrl"]);
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
+                        if(imgWidth){
+                            img.css("width",imgWidth);
+                        }
+                        if(imgHeight){
+                            img.css("height",imgHeight);
+                        }
                         $("#content-main-right").append(img);
                         console.log(data.imgUrl);
                     },
@@ -296,25 +325,7 @@ var userMonitor = function(){
                 });
             }
             //设置div的高和宽
-            if(proc.procStyle){
-                var $divMain = $("#content-main-right");
 
-                if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
-                    $divMain.css("width", proc.procStyle.imageSizeWidth);
-                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + 250);
-                }else{
-                    $divMain.css("width", 1330);
-                    //$divMain.css("min-width",1330);
-                }
-                if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
-                    $divMain.css("height",proc.procStyle.imageSizeHeight);
-                }else{
-                    $divMain.css("height",1051);
-                }
-                if(proc.procStyle.backColorRGB && proc.procStyle.backColorRGB.length == 8){
-                    $divMain.css("background-color","#" + proc.procStyle.backColorRGB.substr(2,6));
-                }
-            }
         }
     }
     //获取实时数据

@@ -143,7 +143,7 @@ var Metronic = function() {
                     chartDiv.addClass("fullheight");
                 }
             }
-            if(thisEchart){
+            if(thisEchart && thisEchart.resize){
                 thisEchart.resize();
             }
         });
