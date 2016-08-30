@@ -326,7 +326,7 @@
                                     <div class="col-lg-6 col-md-12 main-right-oness main-right-oness-1">
                                         <div class="main-right-ones  portlet box blue main-right-ones-1">
                                         	<div class="right-one-header portlet-title">
-                                            	上日总能耗
+                                            	<div class="right-one-headers">上日总能耗</div>
                                             	<div class="tools">
                                                 	<a href="" class="fullscreen" title="全屏">
                                                 	</a>
@@ -418,13 +418,16 @@
 												</div>
 											</div>
 											</div>
+											<div id="loading">
+												<img src="./work_parts/img/loading.gif" alt="">
+											</div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-2">
 											<div class="main-right-ones portlet box blue main-right-ones-2">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title">上日分项电耗
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：kWh</span>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">上日分项电耗
+													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：kWh</span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -432,6 +435,9 @@
 												</div>
 												<!-- 上月分项电耗饼图 -->
 												<div id="main-right-two"></div>
+												<div id="loading1">
+													<img src="./work_parts/img/loading.gif" alt="">
+												</div>
 											</div>
 									</div>
 								</div>
@@ -439,8 +445,8 @@
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
 											<div class="main-right-ones portlet box blue main-right-ones-3">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title">上日用能指标
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">上日用能指标
+													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -449,21 +455,15 @@
 												<!-- 柱状图 -->
 												<div id="main-right-four"></div>
 												<div id="loading2"class="row loading">
-													<div class="loading-center">
-														<div class="loading-center-absolute">
-															<div class="object object_one"></div>
-															<div class="object object_two"></div>
-															<div class="object object_three"></div>
-														</div>
-													</div>
+													<img src="./work_parts/img/loading.gif" alt="">
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-4">
 											<div class="main-right-ones portlet box blue main-right-ones-4">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title">上日能耗费用
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">上日能耗费用
+													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -472,13 +472,7 @@
 												<!-- 仪表盘 -->
 												<div id="main-right-three"></div>
 												<div id="loading3">
-													<div class="loading-center">
-														<div class="loading-center-absolute">
-															<div class="object object_one"></div>
-															<div class="object object_two"></div>
-															<div class="object object_three"></div>
-														</div>
-													</div>
+													<img src="./work_parts/img/loading.gif" alt="">
 												</div>
 											</div>
 										</div>
@@ -488,10 +482,10 @@
 							<div class="content-main-left">
 								<div class="content-main">
 									<img src="./work_parts/img/img1.png" alt="">
-									<p class="left-top">
-										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
-										<br />
-										&nbsp;&nbsp;吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、
+									<p class="left-top" title="吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
+吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。
+">
+										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼...
 									</p>
 								</div>
 								<div class="content-main">
@@ -519,9 +513,10 @@
 												$('.tree li.parent_li > span').on('click', function (e) {
 													var children = $(this).parent('li.parent_li').find(' > ul > li');
 													if (children.is(":visible")) {
+														$('.parent_li').find('span').removeClass('active');
 														$(this).addClass('active');
 														localStorage.allPointer=0;
-														children.hide('fast');
+														children.show('fast');
 														$(this).attr('title', 'Expand this branch').find(' > i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
 													} else {
 														$(this).removeClass('active');
