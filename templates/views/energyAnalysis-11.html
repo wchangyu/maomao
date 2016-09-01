@@ -338,11 +338,11 @@
                                 <div class="content-main-right">
                                     <div class="right-content">
                                         <div class="left-middle-header">
-                                            <div class="header-one"></div>
-                                            <div class="header-two"></div>
+                                            <div class="header-one">内科楼（5,6,7,8）</div>
+                                            <div class="header-two">建筑总用电</div>
                                             <div class="header-three">
                                                 <div class="header-three-1"></div>
-                                                <div class="header-three-1">-</div>
+                                                <div class="header-three-1"></div>
                                                 <div class="header-three-1"></div>
                                             </div>
                                         </div>
@@ -374,40 +374,18 @@
                                                     <!-- 表格 -->
                                                     <div class="contrast-table">
                                                         <table class="table table-striped">
-                                                            <caption>条纹表格布局</caption>
                                                             <thead>
                                                             <tr>
                                                                 <th>对比对象</th>
-                                                                <th>面积/m²</th>
-                                                                <th>床位/个</th>
-                                                                <th>装机功率/kW</th>
-                                                                <th>累计用电量/kWh</th>
-                                                                <th>用电峰值/kWh</th>
-                                                                <th>用电谷值/kWh</th>
-                                                                <th>用电平均值/kWh</th>
+                                                                <th id="th1">累计用电量 kWh</th>
+                                                                <th id="th2">用电峰值 kWh</th>
+                                                                <th>出现时刻</th>
+                                                                <th id="th3">用电谷值 kWh</th>
+                                                                <th>出现时刻</th>
+                                                                <th id="th4">用电平均值 kWh</th>
                                                             </tr>
                                                             </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td>ICU</td>
-                                                                <td>500</td>
-                                                                <td>150</td>
-                                                                <td>500</td>
-                                                                <td>67</td>
-                                                                <td>67</td>
-                                                                <td>67</td>
-                                                                <td>67</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>造血干细胞</td>
-                                                                <td>300</td>
-                                                                <td>20</td>
-                                                                <td>400</td>
-                                                                <td>52</td>
-                                                                <td>52</td>
-                                                                <td>52</td>
-                                                                <td>52</td>
-                                                            </tr>
+                                                            <tbody id="tbody">
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -423,17 +401,17 @@
                                         <div class="left-middle-header">
                                             能耗种类
                                         </div>
-                                        <div class="electricity typee selectedEnergy electricity_aa_4" value="01">
+                                        <div class="electricity typee selectedEnergy electricity_aa_4" value="100">
                                             <!-- 文字 -->
                                             <p class="electricityWord">电</p>
                                         </div>
                                         <!-- 水 -->
-                                        <div class="typee water water_aa_4" value="211">
+                                        <div class="typee water water_aa_4" value="200">
                                             <!-- 文字 -->
                                             <p class="electricityWord">水</p>
                                         </div>
                                         <!-- 气-->
-                                        <div class="typee gas gas_aa_4" value="311">
+                                        <div class="typee gas gas_aa_4" value="300">
                                             <!-- 文字 -->
                                             <p class="electricityWord">气</p>
                                         </div>
@@ -477,7 +455,6 @@
                                                 todayBtn: 1,
                                                 todayHighlight: 1,
                                             });
-
                                         </script>
                                     </div>
                                 </div>
