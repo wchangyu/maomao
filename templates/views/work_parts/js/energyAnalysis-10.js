@@ -25,7 +25,10 @@ $(function(){
 		}else{
 			var isChecked = false;
 		}
-		if (EnItdata[i].f_ParentItemID == "01" || EnItdata[i].f_EnergyItemID == "01" || EnItdata[i].f_ParentItemID == "02" || EnItdata[i].f_ParentItemID == "40" || EnItdata[i].f_ParentItemID == "41" || EnItdata[i].f_ParentItemID == "42") {
+		//if (EnItdata[i].f_ParentItemID == "01" || EnItdata[i].f_EnergyItemID == "01" || EnItdata[i].f_ParentItemID == "02" || EnItdata[i].f_ParentItemID == "40" || EnItdata[i].f_ParentItemID == "41" || EnItdata[i].f_ParentItemID == "42") {
+		//	zNodes.push({ id:EnItdata[i].f_EnergyItemID, pId:EnItdata[i].f_ParentItemID, name:EnItdata[i].f_EnergyItemName,open:true,checked:isChecked});
+		//}
+		if(EnItdata[i].f_EnergyItemID < 100){
 			zNodes.push({ id:EnItdata[i].f_EnergyItemID, pId:EnItdata[i].f_ParentItemID, name:EnItdata[i].f_EnergyItemName,open:true,checked:isChecked});
 		}
 	}
@@ -140,8 +143,8 @@ window.onresize = function () {
 var _ajaxPointerId;
 var _allPointerId=[0];
 //存放选中分支的节点的数组；
-var _ajaxBranchId=01;
-var _ajaxgetPointerName='内科楼（5,6,7,8）';
+var _ajaxBranchId="01";
+var _ajaxgetPointerName='';
 var select_name=[];
 function treeObject1(){
 	var treeObject1=$.fn.zTree.getZTreeObj('energyConsumption');
@@ -177,7 +180,7 @@ function getSessionStoragePointer(){
 	$('#selectPointer').append(_allSter1);
 }
 //选中的能耗种类
-var _ajaxEcType=01;
+var _ajaxEcType="01";
 function getEcType(){
 	_ajaxEcType=$('.selectedEnergy').attr('value');
 	//console.log(_ajaxEcType)

@@ -62,9 +62,9 @@ $(function(){
             $('.tree-1:eq(1) span').removeClass('active');
             $(this).addClass('active');
             GetAllPointersId();  //得到包含id值得数组；
-            getPointersId =arr[$('.tree-1:eq(0) span').index(this)];
+            _getPointersId =arr[$('.tree-1:eq(0) span').index(this)];
             //small的内容
-            small = $(this).html();
+            _small = $(this).html();
             //console.log(small)
         })
         //获取点击的科室单位ID;
@@ -73,44 +73,44 @@ $(function(){
             $('.tree-1:eq(1) span').removeClass('active');
            $(this).addClass('active');
             //small的内容控制;
-            small = $(this).html();
+            _small = $(this).html();
            // console.log(small);
             GetOfficesId();
-            arr_1[0]=8909180140001;
+            //arr_1[0]=8909180140001;
             //alert($(this).index())
-           getOfficesId =arr_1[$('.tree-1:eq(1) span').index(this)];
-          // console.log(getOfficesId);//0?
+           _getOfficesId =arr_1[$('.tree-1:eq(1) span').index(this)];
+          // console.log(_getOfficesId);//0?
         })
         //时间选取
         $('.time-options').eq(0).click(function(){
             $('.time-options').removeClass('time-options-1');
             $(this).addClass('time-options-1');
             timeYesterday();
-            changeTitle = $(this).html();
+            _changeTitle = $(this).html();
         })
         $('.time-options').eq(1).click(function(){
             $('.time-options').removeClass('time-options-1');
             $(this).addClass('time-options-1');
             timeLastWeek();
-            changeTitle = $(this).html();
+            _changeTitle = $(this).html();
         })
         $('.time-options').eq(2).click(function(){
             $('.time-options').removeClass('time-options-1');
             $(this).addClass('time-options-1');
             timeLastMonth();
-            changeTitle = $(this).html();
+            _changeTitle = $(this).html();
         })
         $('.time-options').eq(3).click(function(){
             $('.time-options').removeClass('time-options-1');
             $(this).addClass('time-options-1');
-            changeTitle = $(this).html();
+            _changeTitle = $(this).html();
         })
         $('.btns1').click(function(){
             //console.log($('#floor'))
-            $('small').html(small);
+            $('small').html(_small);
 
             if($('#floor').hasClass('active')){
-                getPointersId=0
+                _getPointersId=0
                 $('small').html('全院')
             }
             getEneryItemDatas();
@@ -118,25 +118,25 @@ $(function(){
             theDashboard();
             charge();
             //小标题改变
-            $('.right-one-headers').eq(0).html(changeTitle + '分类能耗');
-            $('.right-one-headers').eq(1).html(changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
-            $('.right-one-headers').eq(2).html(changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
-            $('.right-one-headers').eq(3).html(changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
+            $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
+            $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
+            $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
+            $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
             //总标题改变
             //console.log(small);
 
         })
 })
 var getPointers;  //楼宇
-var getPointersId = 0;
+var _getPointersId = 0;
 var getOffices;//科室单位
-var getOfficesId = 8909180140001;
+var _getOfficesId = 8909180140001;
   //对于用户来说的区域位置 
-var changeTitle = '上日';
-var small='全院';
-var myChart;
-var myChart1;
-var myChart2;
+var _changeTitle = '上日';
+var _small='全院';
+var _myChart;
+var _myChart1;
+var _myChart2;
   var arr_11=[]
 var _allPointerId=[];
 var _allOfficeId=[];
@@ -173,11 +173,9 @@ var arr_1=[];
 function GetOfficesId(){
     var jsonText2=sessionStorage.getItem('offices');
     var htmlText2 = JSON.parse(jsonText2);
-    //console.log(htmlText2);
     for(var i=0;i<htmlText2.length;i++){
         arr_1.push(htmlText2[i].f_OfficeID)
     }
-   // console.log(arr_1)
 }
   //科室单位
 function GetAllOffices(){
@@ -197,133 +195,25 @@ function GetAllOffices(){
 var arr_2 =[];
 function getEneryItemDatas(){
     if($('.tree-1:eq(0) .active').length !=0){
-            var ecParams={'pointerId':getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'}; 
-            //console.log(getPointersId+'+'+newStr+'+'+newStr1)   //运行了
+            var ecParams={'pointerId':_getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
             $.ajax({
                 type: "post",
-                //url: "http://211.100.28.180/BeeWebAPI/api/EnergyItemDatas/getClassEcData",
                 url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
                 data: ecParams,
                 success: function (result) {
-                    var str=[];
-                    for(var i=0;i<result.length;i++){
-                        str[i]=result[i].ecClassName;
-                    }
-                    //console.log(str)
-                        $('.main-one-title:eq(0)').html(str[0]);
-                        $('.main-one-title:eq(1)').html('总用'+str[1]+'量');
-                        $('.main-one-title:eq(2)').html('总用'+str[2]+'量');
-                        $('.main-one-title:eq(3)').html('总用'+str[3]+'量');  
-                   //console.log(arr_2); //["总能耗", "电", "水", "气", "暖", "冷"]
-                   //console.log(result)
-                   //总量
-                   var str1=[];
-                   var str2=[];
-                    for(var i=0;i<result.length;i++){
-                        //arr_2[i]=result[i].ecClassName;
-                        str1[i]=result[i].ecData;
-                        str2[i]=result[i].ecUnit;
-                    }
-                    //console.log(str1)
-                    //console.log(str2)
-                    $('.main-one-total:eq(0)').html(parseInt(str1[0])+'&nbsp;&nbsp;'+str2[0]);
-                    $('.main-one-total:eq(1)').html(parseInt(str1[1])+'&nbsp;&nbsp;'+str2[1]);
-                    $('.main-one-total:eq(2)').html(parseInt(str1[2])+'&nbsp;&nbsp;'+str2[2]);
-                    $('.main-one-total:eq(3)').html(parseInt(str1[3])+'&nbsp;&nbsp;'+str2[3]);
-                    var str3=[];//环比
-                    for(var i=0;i<result.length;i++){
-                        //arr_2[i]=result[i].ecClassName;
-                        str3[i]=result[i].dataDoD;
-                    }
-                    for(var i=0;i<str3.length;i++){
-                        var aa = parseFloat(str3[i]);
-                        //console.log(aa)
-                        if(aa == 0){             
-                           // alert(0)
-                                $('.huanbi')[i].style.background='url(./work_parts/img/riseArrow.png)no-repeat 50px 50px';
-                                $('.huanbi')[i].style.backgroundSize='160px';
-
-                        }else{
-                            if(aa>0){
-                              //  alert('+')
-                                $('.huanbi')[i].style.background='url(./work_parts/img/riseArrow.png)no-repeat 50px 0px';
-                                $('.huanbi')[i].style.backgroundSize='16px';
-                            }else if(aa<0){
-                              //  alert('-')
-                              $('.huanbi')[i].style.background='url(./work_parts/img/declineArrow.png)no-repeat 50px 0px';
-                                $('.huanbi')[i].style.backgroundSize='16px';
-                            }
-                        }
-                    }
-                    $('.huanbizhi:eq(0)').html(str3[0]);
-                    $('.huanbizhi:eq(1)').html(str3[1]);
-                    $('.huanbizhi:eq(2)').html(str3[2]);
-                    $('.huanbizhi:eq(3)').html(str3[3]);
-                    var str4=[];
-                    for(var i=0;i<result.length;i++){
-                        str4[i]=result[i].dataYoY;
-                    }
-                    //console.log(str4);
-                    $('.tongbizhi:eq(0)').html(str4[0]);
-                    $('.tongbizhi:eq(1)').html(str4[1]);
-                    $('.tongbizhi:eq(2)').html(str4[2]);
-                    $('.tongbizhi:eq(3)').html(str4[3]);
+                    setEnergyType(sessionStorage.allEnergyType,result);
                 } 
             });
             loadingEndding();
     }else if($('.tree-1:eq(0) .active').length ==0){
-        var ecParams={'officeId':getOfficesId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
-        //console.log(getOfficesId+'+'+newStr+'+'+newStr1)
+        var ecParams={'officeId':_getOfficesId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
         $.ajax({
             type:'post',
-           // url:'http://211.100.28.180/BeeWebAPI/api/EnergyItemDatas/getOfficeClassEcData',
             url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
             data:ecParams,
             success:function(result){
                 loadingEndding();
-                //console.log('我是科室的数据');
-                //console.log(result);
-                var str=[];
-                var str1=[];
-                for(var i=0;i<result.length;i++){
-                    str[i]=result[i].ecData;
-                    str1[i]=result[i].ecUnit;
-                }
-               $('.main-one-total:eq(1)').html(parseInt(str[0])+'&nbsp;&nbsp;'+str1[0]);
-               $('.main-one-total:eq(2)').html(parseInt(str[1])+'&nbsp;&nbsp;'+str1[1]);
-                var str2=[];
-                for(var i=0;i<result.length;i++){
-                        str2[i]=result[i].dataYoY;
-                }
-                $('.tongbizhi:eq(1)').html(str2[0]);
-                $('.tongbizhi:eq(2)').html(str2[1]);
-                var str3=[];
-                for(var i=0;i<result.length;i++){
-                    str3[i]=result[i].dataDoD;
-                }
-                //alert(str3)
-                $('.huanbizhi:eq(1)').html(str3[0]);
-                $('.huanbizhi:eq(2)').html(str3[1]);
-                for(var i=0;i<3;i++){
-                        var aa = parseFloat(str3[i]);
-                        //console.log(aa)
-                        if(aa == 0){             
-                           // alert(0)
-                                $('.huanbi')[i+1].style.background='url(./img/riseArrow.png)no-repeat 50px 50px';
-                                $('.huanbi')[i+1].style.backgroundSize='160px';
-
-                        }else{
-                            if(aa>0){
-                              //  alert('+')
-                                $('.huanbi')[i+1].style.background='url(./img/riseArrow.png)no-repeat 50px 0px';
-                                $('.huanbi')[i+1].style.backgroundSize='16px';
-                            }else if(aa<0){
-                              //  alert('-')
-                              $('.huanbi')[i+1].style.background='url(./img/declineArrow.png)no-repeat 50px 0px';
-                                $('.huanbi')[i+1].style.backgroundSize='16px';
-                            }
-                        }
-                }
+                setEnergyType(sessionStorage.officeEnergyType,result)
             }
         })
         loadingEndding();
@@ -338,7 +228,7 @@ var newStr1;
 function powerConsumption(){
    	if($('.tree-1:eq(0) .active').length !=0){
         //console.log('我是楼宇的分项电耗')
-        var ecParams={'pointerID':getPointersId,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
+        var ecParams={'pointerID':_getPointersId,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
         $.ajax({
             type:'post',
             url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
@@ -350,8 +240,8 @@ function powerConsumption(){
                     arr_4[i] = result[i].ecData.toFixed(0);
                 }  
                 //console.log(arr_3);
-            myChart = echarts.init(document.getElementById('main-right-two'));
-            console.log(arr_4);
+            _myChart = echarts.init(document.getElementById('main-right-two'));
+            //console.log(arr_4);
             // 指定图表的配置项和数据
             option = {
     		    tooltip: {
@@ -397,16 +287,15 @@ function powerConsumption(){
     		    ]
     		};
             // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
+            _myChart.setOption(option);
             }
         })
         
     }else if($('.tree-1:eq(0) .active').length ==0){
         //console.log('我是科室的分项电耗');
-        var ecParams={'officeId':getOfficesId,'startTime':newStr,'endTime':newStr1,'ecTypeId':'电'}; 
+        var ecParams={'officeId':_getOfficesId,'startTime':newStr,'endTime':newStr1,'ecTypeId':'电'};
         $.ajax({
             type:'post',
-            //url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetOfficeEIEC',
             url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
             data:ecParams,
             success:function(result){
@@ -416,7 +305,7 @@ function powerConsumption(){
                 for(var i=0;i<result.length;i++){
                     arr_10[i] = result[i].ecData;
                 }
-           myChart = echarts.init(document.getElementById('main-right-two'));
+           _myChart = echarts.init(document.getElementById('main-right-two'));
         option = {
 		    tooltip: {
 		        trigger: 'item',
@@ -460,7 +349,7 @@ function powerConsumption(){
 		        }
 		    ]
 		};
-        myChart.setOption(option);
+        _myChart.setOption(option);
             }
         })
 
@@ -469,10 +358,9 @@ function powerConsumption(){
 //用能指标(仪表盘)
 var arr_5=[];
 function theDashboard(){
-    var ecParams={'pointerId':getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};   
+    var ecParams={'pointerId':_getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
     $.ajax({
          type: "post",
-         //url: "http://211.100.28.180/BeeWebAPI/api/EnergyItemDatas/getClassEcData",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
          data: ecParams,
          success:function(result){
@@ -485,7 +373,7 @@ function theDashboard(){
                 var shui = result[2].ecDataByArea.toFixed(2);
                 var nuan = result[3].ecDataByArea.toFixed(2);
                 var leng = result[4].ecDataByArea.toFixed(2); 
-            myChart1 = echarts.init(document.getElementById('main-right-four'));
+            _myChart1 = echarts.init(document.getElementById('main-right-four'));
             option = {
                 tooltip : {
                     formatter: "{a} <br/>{c} {b}"
@@ -660,7 +548,7 @@ function theDashboard(){
                     }
                 ]
             };
-            myChart1.setOption(option,true);
+            _myChart1.setOption(option,true);
             
          }
     })
@@ -670,7 +558,7 @@ var arr_6=[];
 var arr_7=[];
 function charge(){
     if($('.tree-1:eq(0) .active').length !=0){
-    var ecParams={'pointerOrOfficeId':getPointersId,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
+    var ecParams={'pointerOrOfficeId':_getPointersId,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
      $.ajax({
         type:'post',
          url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',
@@ -683,7 +571,7 @@ function charge(){
                arr_7[i] = parseInt(result[i].itemMoneyCost);
             } 
             //console.log(arr_7)
-            myChart2 = echarts.init(document.getElementById('main-right-three'));
+            _myChart2 = echarts.init(document.getElementById('main-right-three'));
                 option1 = {
                     tooltip : {
                         trigger: 'axis',
@@ -733,16 +621,16 @@ function charge(){
                     ]
                         
                 };
-            myChart2.setOption(option1);
+            _myChart2.setOption(option1);
         }
      })
 
     }else if($('.tree-1:eq(0) .active').length ==0){
-        //console.log(getOfficesId)
-        var ecParams={'pointerOrOfficeId':getOfficesId,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'1'};
+        //console.log(_getOfficesId)
+        var ecParams={'pointerOrOfficeId':_getOfficesId,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'1'};
         $.ajax({
         type:'post',
-        url:'http://211.100.28.180/BEEWebAPI/api/EnergyItemDatas/getEnergyMoneyCost',
+        url: sessionStorage.apiUrlPrefix + "EnergyItemDatas/getEnergyMoneyCost",
         data:ecParams,
         success:function(result){
             loadingEndding3();
@@ -752,7 +640,7 @@ function charge(){
                arr_7[i] = parseInt(result[i].itemMoneyCost);
             } 
             //console.log(arr_7)
-            myChart2 = echarts.init(document.getElementById('main-right-three'));
+            _myChart2 = echarts.init(document.getElementById('main-right-three'));
                 option1 = {
                     tooltip : {
                         trigger: 'axis',
@@ -802,16 +690,16 @@ function charge(){
                     ]
                         
                 };
-            myChart2.setOption(option1);
+            _myChart2.setOption(option1);
         }
      })
     }    
 }
 //浏览器echarts自适应
 window.onresize = function () {
-    myChart.resize(); 
-    myChart1.resize();
-    myChart2.resize();
+    _myChart.resize();
+    _myChart1.resize();
+    _myChart2.resize();
 }
 //加载时的缓冲页面
 function loadingStart(){
@@ -876,4 +764,74 @@ function timeLastYear(){
     var lastYears = lastYear.format('YYYY/MM/DD') + ' 00:00:00';
     //console.log('上年时间是：'+lastYears)
     newStr = lastYears;
+}
+//根据配置文件设置左上角的电水气暖
+function setEnergyType(ets,ecs){
+    var types;
+    if(ets){
+        types = JSON.parse(ets);       //获取缓存的配置的显示能耗分类
+    }else{
+        return;
+    }
+    var div = $(".energy-types");
+    div.empty();
+    for(var i=0;i<ecs.length;i++){
+        var ei = _.findWhere(types.alltypes,{"etid" : ecs[i].energyItemID});        //找到和结果对应的能耗分类
+        var curDiv = setEnergyBlock(ei,ecs[i]);         //对每个分类已经对应的结果生成一个显示div
+        div.append(curDiv);
+    }
+}
+
+//设置每个能耗的块信息,div
+function setEnergyBlock(et,ec){
+    if(!et){  //没有能耗定义信息，表示是总能耗
+        et = {};
+        et.etname = ec.ecClassName;
+        et.img = "totalEneragery.png";
+        et.color = "#fee8af";
+        et.etunit = "kgce";
+    }else{
+        et.etname = "总用" + et.etname + "量";
+    }
+    var $div = $("<div class='main-one-1'></div>");     //总div
+    $div.css("background","url(./work_parts/img/"+ et.img + ")no-repeat " + et.color);      //背景图设置
+    $div.css("background-size","50px");
+    $div.css("background-position","center");
+    var $spanTitle = $("<span class='main-one-title'></span>");       //标题
+    $spanTitle.html(et.etname);
+    $div.append($spanTitle);
+    var $spanEC = $("<span class='main-one-total'></span>");        //能耗和单位
+    $spanEC.html(parseInt(ec.ecData) + "&nbsp;&nbsp;" + ec.ecUnit);
+    $div.append($spanEC);
+    var $divComp = $("<div class='main-mark'></div>");          //同比和环比
+    var $pT = $("<p class='tongbi tongbi1'>同比:</p>");
+    var $spanT = $("<span class='tongbizhi'></span>");
+    $spanT.html(ec.dataYoY);
+    if(ec.dataYoY.length > 1){
+        if(ec.dataYoY.startWith("-")){
+            $pT.css("background","url(./work_parts/img/declineArrow.png)no-repeat 50px 0px");
+            $pT.css("background-size","16px");
+        }else {
+            $pT.css("background","url(./work_parts/img/riseArrow.png)no-repeat 50px 0px");
+            $pT.css("background-size","16px");
+        }
+    }
+    $pT.append($spanT);
+    $divComp.append($pT);
+    var $pH = $("<p class='huanbi'>环比:</p>");
+    var $spanH = $("<span class='huanbizhi'></span>");
+    $spanH.html(ec.dataDoD);
+    if(ec.dataDoD.length > 1){
+        if(ec.dataDoD.startWith("-")) {
+            $pH.css("background","url(./work_parts/img/declineArrow.png)no-repeat 50px 0px");
+            $pH.css("background-size","16px");
+        }else{
+            $pH.css("background","url(./work_parts/img/riseArrow.png)no-repeat 50px 0px");
+            $pH.css("background-size","16px");
+        }
+    }
+    $pH.append($spanH);
+    $divComp.append($pH);
+    $div.append($divComp);
+    return $div;
 }

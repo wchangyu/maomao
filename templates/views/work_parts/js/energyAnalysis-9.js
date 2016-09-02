@@ -101,7 +101,7 @@ $(function(){
 		$(".tree-1")[$(this).index()-1].style.display="block";
 	});
 	//默认的ajax
-	_ajaxGetPointer();
+	//_ajaxGetPointer();
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -173,7 +173,7 @@ function getSessionStorageOffice(){
 }
 //选中的能耗种类
 var _ajaxDataType_1='小时';
-var _ajaxEcType=01;
+var _ajaxEcType="01";
 function getEcType(){
 	_ajaxEcType=$('.selectedEnergy').attr('value');
 }
@@ -331,8 +331,8 @@ function _ajaxGetPointer(){
 				//console.log(result);
 				_allData.push(result);
 			},
-			error:function(){
-				alert('未获取到数据')
+			error:function(xhr,res,err){
+				console.log("GetECByTypeAndPointer:" + err);
 			}
 		})
 	}
@@ -606,8 +606,9 @@ function _ajaxGetOffice(){
 				_allData.push(result);
 				//console.log(_allData);
 			},
-			error:function(){
-				alert('未获取到数据')
+			error:function(xhr,res,err){
+				//alert('未获取到数据')
+				console.log("GetECByTypeAndOffice:" + err);
 			}
 		})
 	}

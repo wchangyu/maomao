@@ -6,36 +6,36 @@
         "etid": "01",
         "etname": "电",
         "etunit": "kWh",
-        "img":"",
-        "color":""
+        "img":"totalEner.png",
+        "color":"#bce3de"
       },
       {
         "etid": "211",
         "etname": "水",
         "etunit": "t",
-        "img":"",
-        "color":""
+        "img":"totalWater.png",
+        "color":"#fcbf92"
       },
       {
         "etid": "311",
         "etname": "气",
         "etunit": "m3",
-        "img":"",
-        "color":""
+        "img":"totalQi.png",
+        "color":"#b1cade"
       },
       {
         "etid": "412",
         "etname": "暖",
         "etunit": "MJ",
         "img":"",
-        "color":""
+        "color":"#b1cade"
       },
       {
         "etid": "511",
         "etname": "冷",
         "etunit": "MJ",
         "img":"",
-        "color":""
+        "color":"#b1cade"
       }
     ]
   },
@@ -43,14 +43,18 @@
     "comment": "注释项:分户能耗类型，分别为EType，能耗分类名，单位",
     "alltypes": [
       {
-        "etid": 4,
+        "etid": "4",
         "etname": "电",
-        "etunit": "kWh"
+        "etunit": "kWh",
+        "img":"totalEner.png",
+        "color":"#bce3de"
       },
       {
-        "etid": 5,
+        "etid": "5",
         "etname": "水",
-        "etunit": "m3"
+        "etunit": "m3",
+        "img":"totalWater.png",
+        "color":"#fcbf92"
       }
     ]
   },

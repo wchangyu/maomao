@@ -286,7 +286,7 @@ var userMonitor = function(){
                     imgWidth = proc.procStyle.imageSizeWidth;
                 }else{
                     $divMain.css("width", 1330);
-                    //$divMain.css("min-width",1330);
+
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
                     $divMain.css("height",proc.procStyle.imageSizeHeight);
@@ -560,7 +560,6 @@ var userMonitor = function(){
                 alert("没有权限");
                 return;
             }
-            console.log(ele);
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
             if(proc){
                 _curProc = proc;
