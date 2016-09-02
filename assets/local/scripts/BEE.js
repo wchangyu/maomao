@@ -123,7 +123,7 @@ var BEE = (function(){
         var username = sessionStorage.username || "未登录";
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
-        $('.totalTitel').html(systemName);
+        $('.totalTitle').html(systemName);
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);

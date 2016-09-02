@@ -167,19 +167,16 @@ a{
 	position: absolute;
 	bottom: 0;
 }
-.tongbi{
-	text-indent: 3px;
-	margin-top: 10px;
-}
+
 .tongbi1{
-	text-indent:10%;
+	text-indent:10px;
 	margin-top:5px;
 	margin-bottom:5px;
 }
 .huanbi{
-	text-indent: 3px;
+
 	width: 100%;
-	text-indent:10%;
+	text-indent:10px;
 	background-size:16px;
 }
 .huanbizhi{
@@ -300,7 +297,7 @@ a{
 .main-left-middle span{
 	padding:5px;
 }
-.totalTitel{
+.totalTitle{
 	font-size: 23px;
 	color: #fff;
 	line-height: 46px;

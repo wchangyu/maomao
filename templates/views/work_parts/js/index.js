@@ -356,7 +356,7 @@ function powerConsumption(){
     }  
 }
 //用能指标(仪表盘)
-var arr_5=[];
+
 function theDashboard(){
     var ecParams={'pointerId':_getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
     $.ajax({
@@ -365,14 +365,19 @@ function theDashboard(){
          data: ecParams,
          success:function(result){
                 loadingEndding2();
+                var dian = 0,shui = 0,nuan = 0,leng = 0;
                 for(var i=0;i<result.length;i++){
-                    arr_5[i] = result[i].ecDataByArea;
+                    if(result[i].energyItemID == "01" ){
+                        dian = result[i].ecDataByArea.toFixed(2);
+                    }else if(result[i].energyItemID == "211"){
+                        shui = result[i].ecDataByArea.toFixed(2);
+                    }else if(result[i].energyItemID == "412"){
+                        nuan = result[i].ecDataByArea.toFixed(2);
+                    }else if(result[i].energyItemID == "511"){
+                        leng = result[i].ecDataByArea.toFixed(2);
+                    }
                 }
-                //console.log(arr_5)
-                var dian = result[1].ecDataByArea.toFixed(2);
-                var shui = result[2].ecDataByArea.toFixed(2);
-                var nuan = result[3].ecDataByArea.toFixed(2);
-                var leng = result[4].ecDataByArea.toFixed(2); 
+
             _myChart1 = echarts.init(document.getElementById('main-right-four'));
             option = {
                 tooltip : {
@@ -804,15 +809,15 @@ function setEnergyBlock(et,ec){
     $spanEC.html(parseInt(ec.ecData) + "&nbsp;&nbsp;" + ec.ecUnit);
     $div.append($spanEC);
     var $divComp = $("<div class='main-mark'></div>");          //同比和环比
-    var $pT = $("<p class='tongbi tongbi1'>同比:</p>");
-    var $spanT = $("<span class='tongbizhi'></span>");
+    var $pT = $("<p class='tongbi1'>同比:</p>");
+    var $spanT = $("<span class='huanbizhi'></span>");
     $spanT.html(ec.dataYoY);
     if(ec.dataYoY.length > 1){
         if(ec.dataYoY.startWith("-")){
-            $pT.css("background","url(./work_parts/img/declineArrow.png)no-repeat 50px 0px");
+            $pT.css("background","url(./work_parts/img/declineArrow.png)no-repeat 40px 0px");
             $pT.css("background-size","16px");
         }else {
-            $pT.css("background","url(./work_parts/img/riseArrow.png)no-repeat 50px 0px");
+            $pT.css("background","url(./work_parts/img/riseArrow.png)no-repeat 40px 0px");
             $pT.css("background-size","16px");
         }
     }
@@ -823,10 +828,10 @@ function setEnergyBlock(et,ec){
     $spanH.html(ec.dataDoD);
     if(ec.dataDoD.length > 1){
         if(ec.dataDoD.startWith("-")) {
-            $pH.css("background","url(./work_parts/img/declineArrow.png)no-repeat 50px 0px");
+            $pH.css("background","url(./work_parts/img/declineArrow.png)no-repeat 40px 0px");
             $pH.css("background-size","16px");
         }else{
-            $pH.css("background","url(./work_parts/img/riseArrow.png)no-repeat 50px 0px");
+            $pH.css("background","url(./work_parts/img/riseArrow.png)no-repeat 40px 0px");
             $pH.css("background-size","16px");
         }
     }
