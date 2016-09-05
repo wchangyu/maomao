@@ -1,49 +1,58 @@
 $(function(){
-	//水电选择
-	$(".electricity_aa_2").click(function(){
-        $(this).css({
-            "background":"url(./img/electricity_hover.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-        $(".water_aa_2").css({
-            "background":"url(./img/water.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-    })
-    $(".water_aa_2").click(function(){
-        $(this).css({
-            "background":"url(./img/water_hover.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-        $(".electricity_aa_2").css({
-             "background":"url(./img/electricity.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-    })
-    //对象选择
-    $(".left-middle-tab_aa_2").click(function(){
-        $(".left-middle-tab").css({
-            "border":"2px solid #7f7f7f",
-            "background":"#f1f3fa",
-            "color":"#333"
-        })
-        $(this).css({
-            "background":"#7f7f7f",
-            "border":"2px solid #7f7f7f",
-            "color":"#ffffff"
-        })
-        $(".tree-2").css({
-            display:"none"
-        }),
-        $(".tree-2")[$(this).index()-1].style.display="block"
-    })
+	//能耗种类
+	$('.electricity').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.water').css({
+			"background":"url(./work_parts/img/water.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.gas').css({
+			"background":"url(./work_parts/img/gas.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
+	$('.water').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/water_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.electricity').css({
+			"background":"url(./work_parts/img/electricity.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.gas').css({
+			"background":"url(./work_parts/img/gas.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
+	$('.gas').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.electricity').css({
+			"background":"url(./work_parts/img/electricity.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.water').css({
+			"background":"url(./work_parts/img/water.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
     //用电量折线图
     myChart3 = echarts.init(document.getElementById('rheader-content'));
-
         // 指定图表的配置项和数据
         option3 = {
 		    title: {

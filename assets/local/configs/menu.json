@@ -30,6 +30,21 @@
       }
     }
   },
+  "用能查询":{
+    "type":"1",
+    "iconclass":"icon-screen-desktop",
+    "content":"用能查询",
+    "submenu": {
+      "用能查询":{
+        "type":"0",
+        "content":"用能查询",
+        "uri":"energyQuery-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
   "用能分析":{
     "type":"1",
     "iconclass":"icon-pie-chart",
