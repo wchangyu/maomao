@@ -1,4 +1,4 @@
-$(function(){
+/*$(function(){
 	//读目录
 	getSessionStoragePointer();
 	getSessionStorageOffice();
@@ -131,6 +131,110 @@ $(function(){
 		}
 		$('.header-one').html(($('.tree').find('.active').text()));
 	})
+})*/
+$(function(){
+	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'-'+_ajaxEndTime_1))
+	//能耗种类
+	$('.electricity').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.water').css({
+			"background":"url(./work_parts/img/water.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.gas').css({
+			"background":"url(./work_parts/img/gas.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
+	$('.water').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/water_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.electricity').css({
+			"background":"url(./work_parts/img/electricity.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.gas').css({
+			"background":"url(./work_parts/img/gas.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
+	$('.gas').click(function(){
+		$(this).css({
+			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.electricity').css({
+			"background":"url(./work_parts/img/electricity.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+		$('.water').css({
+			"background":"url(./work_parts/img/water.png)no-repeat",
+			"background-size":"50px",
+			"background-position":"top center"
+		})
+	})
+	//对象选择
+	$('.left-middle-tab').click(function(){
+		$(".left-middle-tab").css({
+			"border":"2px solid #7f7f7f",
+			"background":"#fff",
+			"color":"#333"
+		})
+		$(this).css({
+			"background":"#7f7f7f",
+			"border":"2px solid #7f7f7f",
+			"color":"#ffffff"
+		})
+		$('.tree-1').hide();
+		$('.tree-1').eq($(this).index()-1).show();
+		//alert($(this).index()-1)
+	})
+	$('.typee').click(function(){
+		$('.typee').removeClass('selectedEnergy')
+		$(this).addClass('selectedEnergy');
+	})
+	timeDisposal();
+	getEcType();
+	dataType();
+	_ajaxGetPointers();
+	$('.types').change(function(){
+		$('.datetimepickereType').empty();
+		startsTime.length=0;
+		endsTime.length=0;
+		startsTimes.length=0;
+		endsTimes.length=0;
+		arr.length=0;
+	})
+	$('.btns').click(function(){
+		getEcType();
+		$('#tbody').empty();
+		getPointerName();
+		getEcType();
+		dataType();
+		getEcTypeWord();
+		timeDisposal();
+		var o=$('.tree-3')[0].style.display;
+		if(o == "none"){
+			selectOfficeId();
+			_ajaxGetOffices();
+		}else{
+			selectPointerId();
+			_ajaxGetPointers();
+		}
+	})
 })
 var myChart11;
 //让echarts自适应
@@ -176,6 +280,7 @@ var _ajaxDataType_1='小时';
 var _ajaxEcType="01";
 function getEcType(){
 	_ajaxEcType=$('.selectedEnergy').attr('value');
+	console.log(_ajaxEcType)
 }
 //设置getECType的初始值(文字，office时用);
 var _ajaxEcTypeWord="电";
@@ -298,8 +403,8 @@ function timeDisposal(){
 	_ajaxEndA = bbbb;
 }
 //获得pointer数据
-function _ajaxGetPointer(){
-	timeDisposal()
+function _ajaxGetPointers(){
+	timeDisposal();
 	var _allData=[];
 	var dataX=[];
 	var dataY=[];
@@ -317,18 +422,18 @@ function _ajaxGetPointer(){
 		endsTimess=_ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
-			'pointerId':_ajaxPointerId,
+			'pointerId':_ajaxGetPointer,
 			'startTime':startsTimess,
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
 		}
+		//console.log(ecParams)
 		$.ajax({
 			type:'post',
-			url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetECByTypeAndPointer',
+			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
 			async:false,
 			success:function(result){
-				//console.log(result);
 				_allData.push(result);
 			},
 			error:function(xhr,res,err){
@@ -572,7 +677,7 @@ function _ajaxGetPointer(){
 	myChart11.setOption(option11);
 }
 //获得office数据
-function _ajaxGetOffice(){
+function _ajaxGetOffices(){
 	timeDisposal();
 	var _allData=[];
 	var dataX=[];
@@ -591,14 +696,15 @@ function _ajaxGetOffice(){
 		endsTimess=_ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':_ajaxEcTypeWord,
-			'officeId': _allOfficeId,
+			'officeId':_ajaxGetOffice,
 			'startTime':startsTimess,
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
 		}
 		$.ajax({
 			type:'post',
-			url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetECByTypeAndOffice',
+			//url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetECByTypeAndOffice',
+			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 			data:ecParams,
 			async:false,
 			success:function(result){

@@ -358,3 +358,119 @@ a{
 	justify-content: space-around;
 	-webkit-justify-content: space-around;
 }
+.right-one-headers{
+	display: inline-block;
+}
+#allOffices li .switch {
+	display: inline-block;
+	height: 34px !important;
+	width: 18px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+	background-position: left;
+	vertical-align: middle;
+}
+#allOffices .radio_false_full {
+	display: inline-block !important;
+	width: 13px !important;
+	height: 13px;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radioSelected.png)no-repeat !important;
+	background-size: 13px !important;
+	background-position: left center;
+	vertical-align: middle;
+}
+#allOffices .radio_true_full {
+	display: inline-block;
+	width: 13px !important;
+	height: 13px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radio.png)no-repeat !important;
+	background-size: 13px !important;
+	vertical-align: middle;
+}
+#allOffices li .ico_docu{
+	display: none;
+}
+#allOffices li{
+	border: none;
+}
+.node_name{
+	line-height: 30px !important;
+}
+.curSelectedNode{
+	height: 26px !important;
+}
+.tree-2 input{
+	display: inline-block;
+	width: 150px;
+	height: 30px !important;
+	margin-left: 60px;
+	margin-top: 20px;
+}
+.tipes{
+	width: 206px;
+	color: red;
+}
+.selectedRadio{
+	display: inline-block;
+	width:13px;
+	height:13px;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radioSelected.png)no-repeat !important;
+	background-size: 13px !important;
+	cursor: pointer;
+}
+.selectedRadioHover{
+	display: inline-block;
+	width:13px;
+	height:13px;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radio.png)no-repeat !important;
+	background-size: 13px !important;
+	cursor: pointer;
+}
+#allPointer li .switch {
+	display: inline-block;
+	height: 34px !important;
+	width: 18px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
+	background-position: left;
+	vertical-align: middle;
+}
+#allPointer .radio_false_full {
+	display: inline-block !important;
+	width: 13px !important;
+	height: 13px;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radioSelected.png)no-repeat !important;
+	background-size: 13px !important;
+	background-position: left center;
+	vertical-align: middle;
+}
+#allPointer .radio_true_full {
+	display: inline-block;
+	width: 13px !important;
+	height: 13px !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/radio.png)no-repeat !important;
+	background-size: 13px !important;
+	vertical-align: middle;
+}
+#allPointer li .ico_docu{
+	display: none;
+}
+#allPointer li{
+	border: none;
+}
+.tree-1{
+	padding-left: 50px;
+}
+#key{
+	margin-left: 0px;
+}
+.allPointerOne{
+	display: inline-block;
+	margin-top: 20px;
+}
+.tree-2{
+	background: #fff;
+	display: none;
+}
+.tree-3{
+	background: #fff;
+	display: block;
+}

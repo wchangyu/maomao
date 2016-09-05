@@ -1,10 +1,9 @@
 $(function(){
-
-	//对象选择
-	$(".left-middle-tab_aa_0").click(function(){
+    //对象选择
+    $('.left-middle-tab').click(function(){
         $(".left-middle-tab").css({
             "border":"2px solid #7f7f7f",
-            "background":"#f1f3fa",
+            "background":"#fff",
             "color":"#333"
         })
         $(this).css({
@@ -12,125 +11,88 @@ $(function(){
             "border":"2px solid #7f7f7f",
             "color":"#ffffff"
         })
-        $(".tree-1").css({
-            display:"none"
-        }),
-            //alert($(this).index()-1)
-        $(".tree-1")[$(this).index()-1].style.display="block";
+        $('.tree-1').hide();
+        $('.tree-1').eq($(this).index()-1).show();
+
     })
     //上月分类能耗hover
     $(".main-one-1").hover(function(){
-       $(this).animate({
-                "background-size":"75px"
-            },300)
+        $(this).animate({
+            "background-size":"75px"
+        },300)
     },function(){
         $(this).animate({
-                "background-size":"60px"
-            },10)
+            "background-size":"60px"
+        },10)
     })
-	//同比环比marks
-	 $(".main-mark").hover(function(){
+    //同比环比marks
+    $(".main-mark").hover(function(){
         $(this).children().css({
             "color":"#fff"
         })
     },function(){
-         $(this).children().css({
+        $(this).children().css({
             "color":"#333"
         })
-    }) 
-
-	 //数据交互部分
+    })
+    //数据交互部分
     //页面加载时的当前时间
-     timeCurrent();
+    timeCurrent();
     //默认开始时间为上日；
-     timeYesterday();
-     //获取事件：
-     GetAllPointersId();
-     GetOfficesId();
-     GetAllPointers();
-     GetAllOffices();
-     getEneryItemDatas();
-     powerConsumption();
-     theDashboard();
-     charge();
-    //getWidth();
-     //获取点击的楼宇ID
-        $('.tree-1:eq(0)').delegate('span','click',function(){
-            //改变颜色
-            //console.log($('.tree-1:eq(0) span'))
-            $('.tree-1:eq(0) span').removeClass('active');
-            $('.tree-1:eq(1) span').removeClass('active');
-            $(this).addClass('active');
-            GetAllPointersId();  //得到包含id值得数组；
-            _getPointersId =arr[$('.tree-1:eq(0) span').index(this)];
-            //small的内容
-            _small = $(this).html();
-            //console.log(small)
-        })
-        //获取点击的科室单位ID;
-        $('.allOffices').delegate('span','click',function(){
-            $('.tree-1:eq(0) span').removeClass('active');
-            $('.tree-1:eq(1) span').removeClass('active');
-           $(this).addClass('active');
-            //small的内容控制;
-            _small = $(this).html();
-           // console.log(small);
-            GetOfficesId();
-            //arr_1[0]=8909180140001;
-            //alert($(this).index())
-           _getOfficesId =arr_1[$('.tree-1:eq(1) span').index(this)];
-          // console.log(_getOfficesId);//0?
-        })
-        //时间选取
-        $('.time-options').eq(0).click(function(){
-            $('.time-options').removeClass('time-options-1');
-            $(this).addClass('time-options-1');
-            timeYesterday();
-            _changeTitle = $(this).html();
-        })
-        $('.time-options').eq(1).click(function(){
-            $('.time-options').removeClass('time-options-1');
-            $(this).addClass('time-options-1');
-            timeLastWeek();
-            _changeTitle = $(this).html();
-        })
-        $('.time-options').eq(2).click(function(){
-            $('.time-options').removeClass('time-options-1');
-            $(this).addClass('time-options-1');
-            timeLastMonth();
-            _changeTitle = $(this).html();
-        })
-        $('.time-options').eq(3).click(function(){
-            $('.time-options').removeClass('time-options-1');
-            $(this).addClass('time-options-1');
-            _changeTitle = $(this).html();
-        })
-        $('.btns1').click(function(){
-            //console.log($('#floor'))
-            $('small').html(_small);
-
-            if($('#floor').hasClass('active')){
-                _getPointersId=0
-                $('small').html('全院')
-            }
-            getEneryItemDatas();
-            powerConsumption();
-            theDashboard();
-            charge();
-            //小标题改变
-            $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
-            $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
-            $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
-            $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
-            //总标题改变
-            //console.log(small);
-
-        })
+    timeYesterday();
+    //时间选取
+    $('.time-options').eq(0).click(function(){
+        $('.time-options').removeClass('time-options-1');
+        $(this).addClass('time-options-1');
+        timeYesterday();
+        changeTitle = $(this).html();
+    })
+    $('.time-options').eq(1).click(function(){
+        $('.time-options').removeClass('time-options-1');
+        $(this).addClass('time-options-1');
+        timeLastWeek();
+        changeTitle = $(this).html();
+    })
+    $('.time-options').eq(2).click(function(){
+        $('.time-options').removeClass('time-options-1');
+        $(this).addClass('time-options-1');
+        timeLastMonth();
+        changeTitle = $(this).html();
+    })
+    $('.time-options').eq(3).click(function(){
+        $('.time-options').removeClass('time-options-1');
+        $(this).addClass('time-options-1');
+        changeTitle = $(this).html();
+    })
+    selectPointerId();
+    getClassEcData();
+    PointerPowerConsumption();
+    theDashboard();
+    PointerCharge();
+    $('.btns1').click(function(){
+        var o=$('.tree-3')[0].style.display;
+        $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
+        $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
+        $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
+        $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
+        if(o == "none"){
+            //alert('科室存在')
+            selectOfficeId();
+            getOfficeClassEcData();
+            OfficePowerConsumption();
+            OfficeCharge();
+            $('small').html(_ajaxGetOfficeName);
+        }else{
+            selectPointerId();
+            //alert('楼宇存在');
+            getClassEcData();
+            PointerPowerConsumption();
+            PointerCharge();
+            $('small').html(_ajaxGetPointerName);
+        }
+        theDashboard();
+    })
 })
-var getPointers;  //楼宇
-var _getPointersId = 0;
-var getOffices;//科室单位
-var _getOfficesId = 8909180140001;
   //对于用户来说的区域位置 
 var _changeTitle = '上日';
 var _small='全院';
@@ -356,9 +318,8 @@ function powerConsumption(){
     }  
 }
 //用能指标(仪表盘)
-
 function theDashboard(){
-    var ecParams={'pointerId':_getPointersId,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
+    var ecParams={'pointerId':_ajaxGetPointer,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
     $.ajax({
          type: "post",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
@@ -700,6 +661,298 @@ function charge(){
      })
     }    
 }
+//楼宇总能耗
+function getClassEcData(){
+    var ecParams={'pointerId':_ajaxGetPointer,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
+    $.ajax({
+        type: "post",
+        url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
+        data: ecParams,
+        success: function (result) {
+            setEnergyType(sessionStorage.allEnergyType,result);
+        }
+    });
+    loadingEndding();
+}
+//科室总能耗
+function getOfficeClassEcData(){
+    var ecParams={'officeId':_ajaxGetOffice,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
+        data:ecParams,
+        success:function(result){
+            loadingEndding();
+            setEnergyType(sessionStorage.officeEnergyType,result)
+        }
+    })
+    loadingEndding();
+}
+//楼宇分项电耗
+function PointerPowerConsumption(){
+    var ecParams={'pointerID':_ajaxGetPointer,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
+        data: ecParams,
+        success:function(result){
+            loadingEndding1();
+            //console.log(result);
+            for(var i=0;i<result.length;i++){
+                arr_4[i] = result[i].ecData.toFixed(0);
+            }
+            //console.log(arr_3);
+            _myChart = echarts.init(document.getElementById('main-right-two'));
+            //console.log(arr_4);
+            // 指定图表的配置项和数据
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data:arr_3
+                },
+                series: [
+                    {
+                        name:'',
+                        type:'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:[
+                            {value:arr_4[0], name:arr_3[0]},
+                            {value:arr_4[1], name:arr_3[1]},
+                            {value:arr_4[2], name:arr_3[2]},
+                            {value:arr_4[3], name:arr_3[3]}
+                        ]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            _myChart.setOption(option);
+        }
+    })
+}
+//科室分项电耗
+function OfficePowerConsumption(){
+    var ecParams={'officeId':_ajaxGetOffice,'startTime':newStr,'endTime':newStr1,'ecTypeId':'电'};
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
+        data:ecParams,
+        success:function(result){
+            loadingEndding1();
+            //console.log(result);
+            var arr_10=[];
+            for(var i=0;i<result.length;i++){
+                arr_10[i] = result[i].ecData;
+            }
+            _myChart = echarts.init(document.getElementById('main-right-two'));
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data:arr_3
+                },
+                series: [
+                    {
+                        name:'',
+                        type:'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:[
+                            {value:arr_10[0], name:arr_3[0]},
+                            {value:arr_10[1], name:arr_3[1]},
+                            {value:arr_10[2], name:arr_3[2]},
+                            {value:arr_10[3], name:arr_3[3]}
+                        ]
+                    }
+                ]
+            };
+            _myChart.setOption(option);
+        }
+    })
+}
+//楼宇能耗费用
+function PointerCharge(){
+    var ecParams={'pointerOrOfficeId':_ajaxGetPointer,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',
+        data:ecParams,
+        success:function(result){
+            loadingEndding3();
+            // console.log(result)
+            for(var i=0;i<result.length;i++){
+                arr_6[i] = result[i].itemName;
+                arr_7[i] = parseInt(result[i].itemMoneyCost);
+            }
+            //console.log(arr_7)
+            _myChart2 = echarts.init(document.getElementById('main-right-three'));
+            option1 = {
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type : 'category',
+                    splitLine: {show:false},
+                    data : [arr_6[0],arr_6[1],arr_6[2],arr_6[3]]
+                },
+                yAxis: {
+                    type : 'value'
+                },
+                series: [
+                    {
+                        name: '费用',
+                        type: 'bar',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'inside'
+                            }
+                        },
+                        data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
+                        itemStyle: {
+                            normal: {
+                                color: function(params2) {
+
+                                    var colorList = [
+                                        '#91bbaf','#91bbaf','#91bbaf',
+                                        '#91bbaf','#91bbaf','#91bbaf',
+                                        '#91bbaf','#91bbaf'
+                                    ];
+                                    return colorList[params2.dataIndex]
+                                }
+                            }
+                        }
+                    }
+                ]
+
+            };
+            _myChart2.setOption(option1);
+        }
+    })
+}
+//科室能耗费用
+function OfficeCharge(){
+    var ecParams={'pointerOrOfficeId':_getOfficesId,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'1'};
+    $.ajax({
+        type:'post',
+        url: sessionStorage.apiUrlPrefix + "EnergyItemDatas/getEnergyMoneyCost",
+        data:ecParams,
+        success:function(result){
+            loadingEndding3();
+            // console.log(result)
+            for(var i=0;i<result.length;i++){
+                arr_6[i] = result[i].itemName;
+                arr_7[i] = parseInt(result[i].itemMoneyCost);
+            }
+            //console.log(arr_7)
+            _myChart2 = echarts.init(document.getElementById('main-right-three'));
+            option1 = {
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type : 'category',
+                    splitLine: {show:false},
+                    data : [arr_6[0],arr_6[1],arr_6[2],arr_6[3]]
+                },
+                yAxis: {
+                    type : 'value'
+                },
+                series: [
+                    {
+                        name: '费用',
+                        type: 'bar',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'inside'
+                            }
+                        },
+                        data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
+                        itemStyle: {
+                            normal: {
+                                color: function(params2) {
+
+                                    var colorList = [
+                                        '#91bbaf','#91bbaf','#91bbaf',
+                                        '#91bbaf','#91bbaf','#91bbaf',
+                                        '#91bbaf','#91bbaf'
+                                    ];
+                                    return colorList[params2.dataIndex]
+                                }
+                            }
+                        }
+                    }
+                ]
+
+            };
+            _myChart2.setOption(option1);
+        }
+    })
+}
 //浏览器echarts自适应
 window.onresize = function () {
     _myChart.resize();
@@ -786,7 +1039,6 @@ function setEnergyType(ets,ecs){
         div.append(curDiv);
     }
 }
-
 //设置每个能耗的块信息,div
 function setEnergyBlock(et,ec){
     if(!et){  //没有能耗定义信息，表示是总能耗
