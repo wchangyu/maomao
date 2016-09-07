@@ -199,18 +199,6 @@
 #energyConsumption li{
 	line-height: 30px !important;
 }
-/*#energyConsumption li .switch{
-	height: 34px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}*/
-/*#energyConsumption li .checkbox_false_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
-	background-size: 13px;
-}
-#energyConsumption li .checkbox_true_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
-	background-size: 13px;
-}*/
 #energyConsumption li .checkbox_false_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
@@ -230,27 +218,27 @@
 	display: none;
 }
 #energyConsumption .center_open{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
 }
 #energyConsumption .center_close{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
 }
 #energyConsumption .root_open{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
+	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
 }
 #energyConsumption .root_close{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
-	background-size: 13px !important;
-}
-#energyConsumption .bottom_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
 }
-#energyConsumption .bottom_close{
+#energyConsumption .bottom_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
+	background-size: 13px !important;
+}
+#energyConsumption .bottom_close{
+	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
 }
 #energyConsumption .radio_true_full{
@@ -260,4 +248,19 @@
 #energyConsumption .radio_false_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/radioSelected.png)no-repeat !important;
 	background-size: 13px !important;
+}
+#key{
+	display: inline-block;
+	width: 200px;
+	height:30px;
+	margin-left: 35px !important;
+	margin-top: 10px;
+}
+#energyConsumption{
+	padding-top: 0px;
+	height: 120px;
+	margin-left: 35px;
+}
+.tipes{
+	margin-left: 35px;
 }

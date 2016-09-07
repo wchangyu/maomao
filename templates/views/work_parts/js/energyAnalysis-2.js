@@ -246,7 +246,6 @@ function defaultCheckPointer(){
 function getPointerIndex(){
 	var treeObj = $.fn.zTree.getZTreeObj("pointer");
 	var nodes = treeObj.getSelectedNodes();
-	//console.log(nodes)
 }
 //页面加载时科室默认勾选ID
 function defaultCheckOffice(){

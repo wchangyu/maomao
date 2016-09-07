@@ -33,6 +33,7 @@
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+    <script src="../../assets/local/scripts/underscore-min.js"></script>
     <script src="./work_parts/js/energyAnalysis-11.js"></script>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -424,6 +425,8 @@
                                         <div class="left-middle-tab">区域位置</div>
                                         <select name="" id="selectPointer">
                                         </select>
+                                        <input type="text"  id="key" class="empty form-control" placeholder="Search...">
+                                        <div class="tipes"></div>
                                         <ul id="energyConsumption"class="ztree energyConsumption"></ul>
                                     </div>
                                 </div>
@@ -443,19 +446,6 @@
                                                 <button class="btns">查询</button>
                                             </div>
                                         </div>
-                                        <script>
-                                            $('#datetimepicker').datepicker(
-                                                    {   defaultDate : new Date(),
-                                                        format: 'yyyy-mm-dd'
-                                                    }
-                                            );
-                                            $('#datetimepicker').datepicker({
-                                                language:  'zh-CN',
-                                                autoclose: 1,
-                                                todayBtn: 1,
-                                                todayHighlight: 1,
-                                            });
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -574,6 +564,7 @@
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="./work_parts/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script>

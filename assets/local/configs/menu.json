@@ -35,10 +35,18 @@
     "iconclass":"icon-screen-desktop",
     "content":"用能查询",
     "submenu": {
-      "用能查询":{
+      "用能查询（支路）":{
         "type":"0",
-        "content":"用能查询",
+        "content":"用能查询（支路）",
         "uri":"energyQuery-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能查询（科室）":{
+        "type":"0",
+        "content":"用能查询（科室）",
+        "uri":"energyQuery-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
