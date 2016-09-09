@@ -115,26 +115,25 @@
 }
 .rheader-content-left{
 	width: 40%;
-	height: 100%;
+	height: 500px !important;
 	background: #ffffff;
 	float: left;
-	background: red;
 }
 .rheader-content-right{
 	float: left;
 	width: 20%;
 	height: 100%;
-
+	margin-top: 100px;
 }
 .rheader-content-rights{
-	width: 130px;
-	height: 190px;
+	width: 250px;
+	height: 280px;
 	border-radius: 30px;
 	margin:0 auto;
 	margin-top: 40px;
 	background: url(../img/message.png)no-repeat #deebf7;
-	background-size: 100px;
-	background-position: 10px 20px;
+	background-size: 140px;
+	background-position: 50px 20px;
 
 }
 .rights-up{
@@ -142,10 +141,11 @@
 	width: 20px;
 	height: 40px;
 	position: absolute;
-	top: 120px;
-	left: 67px;
+	top: 140px;
+	left: 117px;
 	background: url(../img/up.png)no-repeat;
 	background-size: 23px;
+	margin-left: 5px;
 }
 .rights-up1{
 	display: inline-block;
@@ -222,15 +222,15 @@
 .total-power-consumption{
 	color:#ffffff;
 	position:absolute;
-	top:32px;
-	left:20px;
-	font-size:1.2rem
+	top:36px;
+	left:75px;
+	font-size:2rem
 }
 .total-power-consumption-value{
 	color:#019cdf;
 	position:absolute;
-	top:72px;
-	left:15px;
+	top:100px;
+	left:60px;
 	font-size:1.3rem;
 	font-weight:bold;
 }
@@ -239,16 +239,22 @@
 }
 .compared-with-last-time{
 	position:absolute;
-	top:122px;
-	left:12px;
+	top:140px;
+	left:42px;
+	font-size: 1.5rem;
 }
 .rights-up-value{
 	color:#019cdf;
 	font-weight:bold;
-	font-size:1.0rem;
+	font-size:1.5rem;
 	position:absolute;
-	top:130px;
-	left:87px;
+	top:150px;
+	left:157px;
+	display: inline-block;
+	margin-left: 5px;
+}
+#consumption-value-number{
+	font-size: 1.8rem !important;
 }
 .gas{
 	background: url(../img/gas.png)no-repeat;
@@ -274,11 +280,6 @@
 }
 #rheader-content{
 	height:300px;
-	background: red;
-}
-#rheader-content1{
-	height:300px;
-	background: red;
 }
 #selectPointer{
 	height: 30px;

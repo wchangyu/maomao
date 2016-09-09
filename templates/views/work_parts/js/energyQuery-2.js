@@ -220,7 +220,7 @@ function searchNode(e) {
 	//getNodesByParamFuzzy:根据节点数据的属性搜索，获取条件模糊匹配
 	// 的节点数据 JSON 对象集合
 	nodeList = zTree.getNodesByParamFuzzy(keyType,value);
-	console.log(nodeList)
+	//console.log(nodeList)
 	nodeList = zTree.transformToArray(nodeList);
 	if(nodeList==''){
 		$('.tipes').show();
@@ -258,18 +258,6 @@ function filter(node) {
 	//.isParent记录 treeNode 节点是否为父节点。
 	//.isFirstNode 记录 treeNode 节点是否为同级节点中的第一个节点。
 	return !node.isParent && node.isFirstNode;
-}
-function Getfid(e,treeId,treeNode){
-	var treeObj=$.fn.zTree.getZTreeObj("energyConsumption"),
-		nodes=treeObj.getCheckedNodes(true),
-		v="";
-	var c_id = new Array();
-	for(var i=0;i<nodes.length;i++){
-		v+=nodes[i].name + ",";
-		c_id.push(nodes[i].value);
-		//alert(nodes[i].value); //获取选中节点的值
-	}
-	return c_id;
 }
 //获取已选中的项
 var select_ID=[];
@@ -311,7 +299,6 @@ var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
 var _ajaxEcTypeWord="电";
 function getEcTypeWord(){
 	_ajaxEcTypeWord=$('.selectedEnergy').children().html();
-	//console.log(_ajaxEcTypeWord)
 }
 //获得科室数据
  function getBranchData(){
@@ -320,6 +307,11 @@ function getEcTypeWord(){
 	 var dataY=[];
 	 var dataXx=[];
 	 for(var i=0;i<select_ID.length;i++){
+		 if(select_ID.length != 1){
+			 $('.rheader-content-right').hide();
+		 }else if(select_ID.length == 1){
+			 $('.rheader-content-right').show();
+		 }
 		 var selects_ID=select_ID[i]
 		 //console.log(selects_ID)
 		 var ecParams={
@@ -329,7 +321,7 @@ function getEcTypeWord(){
 			 'officeId':selects_ID,
 			 'ecTypeId':_ajaxEcTypeWord
 		 }
-		 console.log(ecParams)
+		 //console.log(ecParams)
 		 $.ajax({
 			 type:'post',
 			 //url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetECByTypeAndOffice',

@@ -37,6 +37,8 @@ $(function(){
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
 			end =startWeek + "-" +endWeek;
 			_ajaxDataType_1='日';
+			var startsWeek = now.subtract(14,'d').format("YYYY-MM-DD");
+			var endsWeek = now.add(7,'d').format("YYYY-MM-DD");
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startWeek;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
@@ -45,15 +47,19 @@ $(function(){
 					$('.datetimepickereType').html(end);
 				}
 			}
-
-			_ajaxStartTime_1=startWeek.split('-')[0]+'/'+startWeek.split('-')[1]+'/'+startWeek.split('-')[2];
-			_ajaxEndTime_1=endWeek.split('-')[0]+'/'+endWeek.split('-')[1]+'/'+endWeek.split('-')[2];
+			//console.log(startsWeek);
+			//console.log(endsWeek);
+			_ajaxStartTime_1 = startWeek.split('-')[0]+'/'+startWeek.split('-')[1]+'/'+startWeek.split('-')[2];
+			_ajaxEndTime_1 = endWeek.split('-')[0]+'/'+endWeek.split('-')[1]+'/'+endWeek.split('-')[2];
+			_ajaxLastStartTime_1 = startsWeek.split('-')[0]+'/'+startsWeek.split('-')[1]+'/'+startsWeek.split('-')[2];
+			_ajaxLastEndTime_1 = endsWeek.split('-')[0]+'/'+endsWeek.split('-')[1]+'/'+endsWeek.split('-')[2];
 		}else if(_ajaxDataType=="月"){
 			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
 			var endMonth=moment(inputValue).endOf('month').format("YYYY-MM-DD");
 			end =startMonth+"-"+endMonth;
+			var startsMonth = moment(inputValue).subtract(1,'month').startOf('month').format("YYYY-MM-DD");
+			var endsMonth = moment(inputValue).subtract(1,'month').endOf('month').format("YYYY-MM-DD");
 			_ajaxDataType_1='日';
-
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startMonth;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
@@ -62,13 +68,18 @@ $(function(){
 					$('.datetimepickereType').html(end);
 				}
 			}
-
-			_ajaxStartTime_1=startMonth.split('-')[0]+'/'+startMonth.split('-')[1]+'/'+startMonth.split('-')[2];
-			_ajaxEndTime_1=endMonth.split('-')[0]+'/'+endMonth.split('-')[1]+'/'+endMonth.split('-')[2];
+			_ajaxStartTime_1 = startMonth.split('-')[0]+'/'+startMonth.split('-')[1]+'/'+startMonth.split('-')[2];
+			_ajaxEndTime_1 = endMonth.split('-')[0]+'/'+endMonth.split('-')[1]+'/'+endMonth.split('-')[2];
+			_ajaxLastStartTime_1 = startsMonth.split('-')[0]+'/'+startsMonth.split('-')[1]+'/'+startsMonth.split('-')[2];
+			_ajaxLastEndTime_1 = endsMonth.split('-')[0]+'/'+endsMonth.split('-')[1]+'/'+endsMonth.split('-')[2];
 		}else if(_ajaxDataType=="年"){
 			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
 			var endYear=moment(inputValue).endOf('year').format("YYYY-MM-DD");
 			end = startYear+"-"+endYear;
+			var startsYear = moment(inputValue).subtract(1,'year').startOf('year').format("YYYY-MM-DD");
+			var endsYear = moment(inputValue).subtract(1,'year').endOf('year').format("YYYY-MM-DD");
+			//console.log(startsYear)
+			console.log(startYear.split('-'))
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -79,8 +90,10 @@ $(function(){
 				}
 			}
 			//startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
-			_ajaxStartTime_1=startYear.split('-')[0]+'/'+split('-')[1]+'/'+split('-')[2];
-			_ajaxEndTime_1=endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
+			_ajaxStartTime_1 = startYear.split('-')[0]+'/'+startYear.split('-')[1]+'/'+startYear.split('-')[2];
+			_ajaxEndTime_1 = endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
+			_ajaxLastStartTime_1 = startsYear.split('-')[0]+'/'+startsYear.split('-')[1]+'/'+startsYear.split('-')[2];
+			_ajaxLastEndTime_1 = endsYear.split('-')[0]+'/'+endsYear.split('-')[1]+'/'+endsYear.split('-')[2];
 		}
 	})
 	//换内容时，清空时间
@@ -92,8 +105,9 @@ $(function(){
 	//获取支路数据
 	getPointerId();
 	getBranches();
+	getBranchData();
 	$('#selectPointer').change(function(){
-		//$('#tbody').empty();
+		$('#tbody').empty();
 		getPointerId();
 		$('#energyConsumption').empty();
 		getBranches();
@@ -115,6 +129,7 @@ $(function(){
 			"background-size":"50px",
 			"background-position":"top center"
 		})
+
 	})
 	$('.water').click(function(){
 		$(this).css({
@@ -157,112 +172,12 @@ $(function(){
 		.bind("blur", blurKey)
 		.bind("propertychange", searchNode)
 		.bind("input", searchNode);
-    //用电率折线图
-    myChart4 = echarts.init(document.getElementById('rheader-content1'));
-        // 指定图表的配置项和数据
-        option4 = {
-		    title: {
-		        text: '未来一周气温变化',
-		        subtext: '纯属虚构'
-		    },
-		    tooltip: {
-		        trigger: 'axis'
-		    },
-		    legend: {
-		        data:['最高气温','最低气温']
-		    },
-		    toolbox: {
-		        show: true,
-		        feature: {
-		            dataZoom: {},
-		            dataView: {readOnly: false},
-		            magicType: {type: ['line', 'bar']},
-		            restore: {},
-		            saveAsImage: {}
-		        }
-		    },
-		    xAxis:  {
-		        type: 'category',
-		        boundaryGap: false,
-		        data: ['周一','周二','周三','周四','周五','周六','周日']
-		    },
-		    yAxis: {
-		        type: 'value',
-		        axisLabel: {
-		            formatter: '{value} °C'
-		        }
-		    },
-		    series: [
-		        {
-		            name:'最高气温',
-		            type:'line',
-		            data:[11, 11, 15, 13, 12, 13, 10],
-		             
-		            markPoint: {
-		                data: [
-		                    {type: 'max', name: '最大值'},
-		                    {type: 'min', name: '最小值'}
-		                ]
-		                
-		            },
-		            markLine: {
-		                data: [
-		                    {type: 'average', name: '平均值'}
-		                ]
-		            }
-		        },
-		        {
-		            name:'最低气温',
-		            type:'line',
-		            data:[1, -2, 2, 5, 3, 2, 0],
-		            markPoint: {
-		                data: [
-		                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-		                ]
-		            },
-		            markLine: {
-		                data: [
-		                    {type: 'average', name: '平均值'},
-		                    [{
-		                        symbol: 'arrow',
-		                        label: {
-		                            normal: {
-		                                formatter: '最大值'
-		                            }
-		                        },
-		                        type: 'max',
-		                        name: '最大值'
-		                    }, {
-		                        symbol: 'circle',
-		                        x: '60%',
-		                        y: '50%'
-		                    }]
-		                ],
-		                 itemStyle: {
-		                normal: {
-		                    color: function(params) {
-		                        
-		                        var colorList = [
-		                          '#2ec8ca','#b6a2df','#5bb0f0','red','#f1d9c1',
-		                           '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-		                           '#D7504B','#C6E579','#F4E001','red','#26C0C0'
-		                        ];
-		                        return colorList[params.dataIndex]
-		                    }
-		                }
-		            }
-
-		            }
-		            
-		        }
-		    ]
-		};
-        // 使用刚指定的配置项和数据显示图表。
-        myChart4.setOption(option4);
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
+		getEcType();
+		getBranches();
 	})
 	$('.btns').click(function(){
 		getEcType();
@@ -272,10 +187,8 @@ $(function(){
 	})
 })
  var myChart3;
- var myChart4;
  window.onresize = function () {
-        myChart3.resize(); 
-        myChart4.resize(); 
+        myChart3.resize();
     }
 //楼宇的读取
 var _allPointerId=[0];
@@ -296,7 +209,6 @@ var _ajaxEcType;
 function getEcType(){
 	//首先判断哪个含有selectedEnergy类
 	_ajaxEcType=$('.selectedEnergy').attr('value');
-		//console.log(_ajaxEcType)
 }
 //获取dataType(小时，日，月，年)
 var _ajaxDataType='日';
@@ -309,7 +221,6 @@ function dataType(){
 //选择日期对应的时间
 var _ajaxDataType_1='小时';
 //新建数组存放楼宇id
-//var _ajaxgetPointerName=sessionPointer[0].pointerName;
 function getPointerId(){
 	_ajaxPointerId=$('#selectPointer').find('option:selected').val();
 	_ajaxgetPointerName=$('#selectPointer').find('option:selected').text();
@@ -338,6 +249,7 @@ var ztreeSettings = {
 //存放支路的数组
 var branchArr=[];
 //获得支路数据
+var select_ID=[];
 var zNodes=[];
 function getBranches() {
 	zNodes=[];
@@ -346,18 +258,17 @@ function getBranches() {
 		"pointerId":_ajaxPointerId,
 		"serviceType":_ajaxEcType
 	};
-	//console.log(bmParams)
 	$.ajax(
 		{
-			url: "http://211.100.28.180/BEEWebAPI/api/Branch/GetAllBranches",
+			url:sessionStorage.apiUrlPrefix+'Branch/GetAllBranches',
 			type: "post",
 			data: bmParams,
+			async:false,
 			success: function (data) {
 				branchArr=[];
 				for(var i=0;i<data.length;i++){
 					branchArr.push(data[i])
 				}
-				//console.log(branchArr)
 				for (var i =0; i<branchArr.length; i++) {
 					if (i==0) {
 						var isChecked = true;
@@ -367,11 +278,10 @@ function getBranches() {
 					zNodes.push({id:branchArr[i].f_ServiceId, pId:branchArr[i].f_ParentId, name:branchArr[i].f_ServiceName,open:true,checked:isChecked});
 					//console.log(branchArr[i].f_ServiceId)
 				}
-				//console.log(zNodes)
-				//console.log(branchArr)
+				select_ID.push(branchArr[0].f_ServiceId);
 				$.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
 				treeObject();
-				getBranchData();
+				//getBranchData();
 			},
 			error: function (xhr, text, err) {
 				alert(text);
@@ -380,7 +290,6 @@ function getBranches() {
 	);
 }
 //获得选中的支路id;
-var select_ID=[];
 var select_Name=[];
 function treeObject(){
 	var treeObject=$.fn.zTree.getZTreeObj('energyConsumption');
@@ -396,8 +305,10 @@ function treeObject(){
 }
 //获得开始时间
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
-var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY-MM-DD");
+var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
 var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
+var _ajaxLastStartTime_1 = moment().subtract(2,'d').format("YYYY/MM/DD");
+var _ajaxLastEndTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
 //搜索框功能
 function focusKey(e) {
 	if ($('#key').hasClass("empty")) {
@@ -471,12 +382,21 @@ function filter(node) {
 }
 //获得楼宇支路数据
 function getBranchData(){
-	//console.log(_ajaxDataType);
 	var allBranch=[];
+	var allBranchs=[];
 	var dataX=[];
 	var dataY=[];
 	var dataXx=[];
+	var lastAdd=0;
+	var lastAdds=0;
+	var growthRate=0;
 	for(var i=0;i<select_ID.length;i++){
+		//console.log(select_ID.length)
+		if(select_ID.length != 1){
+			$('.rheader-content-right').hide();
+		}else if(select_ID.length == 1){
+			$('.rheader-content-right').show();
+		}
 		var selects_ID=select_ID[i]
 		//console.log(selects_ID)
 		var ecParams={
@@ -496,7 +416,56 @@ function getBranchData(){
 		}
 		})
 	}
-	//console.log(allBranch)
+	for(var i=0;i<allBranch.length;i++){
+		var datas = allBranch[i];
+		for(var j=0;j<datas.length;j++){
+			//console.log(datas[j].data);
+			lastAdd += datas[j].data;
+		}
+	}
+	//上一阶段的数据
+	for(var i=0;i<select_ID.length;i++){
+		var selects_ID=select_ID[i]
+		var ecParams={
+			'startTime':_ajaxLastStartTime_1,
+			'endTime':_ajaxLastEndTime_1,
+			'dateType':_ajaxDataType_1,
+			'f_ServiceId':selects_ID
+		}
+		//console.log(ecParams)
+		$.ajax({
+			type:'post',
+			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
+			data:ecParams,
+			async:false,
+			success:function(result){
+				allBranchs.push(result)
+			}
+		})
+	}
+	for(var i=0;i<allBranchs.length;i++){
+		//console.log(allBranchs[i])
+		var datas = allBranchs[i];
+		for(var j=0;j<datas.length;j++){
+			//console.log(datas[j].data);
+			lastAdds += datas[j].data;
+		}
+	}
+	growthRate = lastAdd / lastAdds;
+	$('.total-power-consumption-value label').html(lastAdd.toFixed(2));
+	$('.compared-with-last-time label').html(lastAdds.toFixed(2));
+	$('.rights-up-value').html(growthRate.toFixed(1) + '%');
+	if(growthRate > 0){
+		$('.rights-up').css({
+			'background':'url(./work_parts/img/up.png)no-repeat',
+			'background-size':'23px'
+		})
+	}else if(growthRate < 0){
+		$('.rights-up').css({
+			'background':'url(./work_parts/img/up2.png)no-repeat',
+			'background-size':'23px'
+		})
+	}
 	if(_ajaxDataType=='日'){
 		//x轴数据
 		for(var i=0;i<allBranch.length;i++){
@@ -600,7 +569,6 @@ function getBranchData(){
 			}
 		}
 		dataX.sort();
-
 		//遍历y轴数据
 		for(var i=0;i<allBranch.length;i++){
 			var object={};

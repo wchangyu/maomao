@@ -57,6 +57,8 @@ $(function(){
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
+		getEcType();
+		getBranches();
 	});
 	//搜索功能
 	var key;
@@ -168,6 +170,8 @@ $(function(){
 	getSelectedTime();
 	timeDisposal();
 	getBranches();
+	treeObject();
+	getBranchData();
 	$('.btns').click(function(){
 		$('#tbody').empty();
 		getPointerId();
@@ -175,6 +179,8 @@ $(function(){
 		getSelectedTime();
 		timeDisposal();
 		getBranches();
+		treeObject();
+		getBranchData();
 	})
 
 })
@@ -227,6 +233,7 @@ var ztreeSettings = {
 //存放支路的数组
 var branchArr=[];
 //获得支路数据
+var select_ID;
 var zNodes=[];
 function getBranches() {
 	zNodes=[];
@@ -240,6 +247,7 @@ function getBranches() {
 			url:sessionStorage.apiUrlPrefix+'Branch/GetAllBranches',
 			type: "post",
 			data: bmParams,
+			async:false,
 			success: function (data) {
 				branchArr=[];
 				for(var i=0;i<data.length;i++){
@@ -253,9 +261,9 @@ function getBranches() {
 					}
 					zNodes.push({id:branchArr[i].f_ServiceId, pId:branchArr[i].f_ParentId, name:branchArr[i].f_ServiceName,open:true,checked:isChecked});
 				}
+				select_ID=branchArr[0].f_ServiceId;
 				$.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
-				treeObject();
-				getBranchData();
+
 			},
 			error: function (xhr, text, err) {
 				alert(text);
@@ -265,7 +273,6 @@ function getBranches() {
 }
 //获得选中的支路id;
 var  sessionItems=JSON.parse(sessionStorage.getItem('energyItems'));
-var select_ID;
 var select_Name = sessionItems[0].f_EnergyItemName;
 function treeObject(){
 	var treeObject=$.fn.zTree.getZTreeObj('energyConsumption');
@@ -393,7 +400,6 @@ function getBranchData(){
 			'dateType':_ajaxDataType_1,
 			'f_ServiceId':select_ID
 		}
-		console.log(ecParams)
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
@@ -447,10 +453,10 @@ function getBranchData(){
 				unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.replace("T"," ").substr(0,maxTime.length -3)+'</td><td>'+
 				unitConversion(minArr_1)+'</td><td>'+minTime.replace("T"," ").substr(0,minTime.length -3)+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
-		console.log(dataY)
+		//console.log(dataY)
 
 	}else if(_ajaxDataType=="周"){
-		dataX=['周日','周一','周二','周三','周四','周五','周六'];
+		dataX=['周一','周二','周三','周四','周五','周六','周日'];
 		for(var i=0;i<_allData.length;i++){
 			maxArr=[];
 			minArr=[];

@@ -338,18 +338,6 @@ function filter(node) {
 	//.isFirstNode 记录 treeNode 节点是否为同级节点中的第一个节点。
 	return !node.isParent && node.isFirstNode;
 }
-function Getfid(e,treeId,treeNode){
-	var treeObj=$.fn.zTree.getZTreeObj("energyConsumption"),
-		nodes=treeObj.getCheckedNodes(true),
-		v="";
-	var c_id = new Array();
-	for(var i=0;i<nodes.length;i++){
-		v+=nodes[i].name + ",";
-		c_id.push(nodes[i].value);
-		//alert(nodes[i].value); //获取选中节点的值
-	}
-	return c_id;
-}
 //获得分项数据
 function getItemizedData(){
 	var _allData=[];
