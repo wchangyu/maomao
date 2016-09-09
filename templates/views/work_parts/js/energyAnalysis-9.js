@@ -1,6 +1,12 @@
 $(function(){
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'-'+_ajaxStartTime_1));
 
+	_objectSel = new ObjectSelection();
+	_objectSel.initPointers($("#allPointer"),false);
+	_objectSel.initOffices($("#allOffices"));
+	var objSearch = new ObjectSearch();
+	objSearch.initOfficeSearch($("#key"),$("#tipes"),"allOffices");
+
 	$('#datetimepicker').datepicker(
 		{
 			language:  'zh-CN',
@@ -171,14 +177,20 @@ $(function(){
 		timeDisposal();
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
-			selectOfficeId();
-			_ajaxGetOffices();
+			//selectOfficeId();
+			var ofs = _objectSel.getSelectedOffices(),oid;
+			if(ofs.length>0) { oid = ofs[0].f_OfficeID };
+			_ajaxGetOffices(oid);
 		}else{
-			selectPointerId();
-			_ajaxGetPointers();
+			//selectPointerId();
+			var pts = _objectSel.getSelectedPointers(),ptid;
+			if(pts.length>0) { ptid = pts[0].pointerID};
+			_ajaxGetPointers(ptid);
 		}
 	})
 })
+
+var _objectSel;
 var myChart11;
 //让echarts自适应
 window.onresize = function () {
@@ -238,7 +250,7 @@ function timeDisposal(){
 	_ajaxEndA = bbbb;
 }
 //获得pointer数据
-function _ajaxGetPointers(){
+function _ajaxGetPointers(pointerID){
 	timeDisposal();
 	var _allData=[];
 	var dataX=[];
@@ -254,7 +266,7 @@ function _ajaxGetPointers(){
 		endsTimess=_ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
-			'pointerId':_ajaxGetPointer,
+			'pointerId':pointerID,
 			'startTime':startsTimess,
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
@@ -453,14 +465,11 @@ function _ajaxGetPointers(){
 	myChart11.setOption(option11);
 }
 //获得office数据
-function _ajaxGetOffices(){
+function _ajaxGetOffices(officeID){
 	timeDisposal();
 	var _allData=[];
 	var dataX=[];
 	var dataY=[];
-	//存放最大/最小值的数组
-	var maxArr=[];
-	var minArr=[];
 	var maxArr_1=0;
 	var minArr_1=0;
 	var maxTime;
@@ -472,7 +481,7 @@ function _ajaxGetOffices(){
 		endsTimess=_ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':_ajaxEcTypeWord,
-			'officeId':_ajaxGetOffice,
+			'officeId':officeID,
 			'startTime':startsTimess,
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
@@ -503,8 +512,7 @@ function _ajaxGetOffices(){
 		dataX.sort();
 		//遍历y轴
 		for(var i=0;i<_allData.length;i++){
-			maxArr=[];
-			minArr=[];
+
 			//循环创建对象
 			var object={};
 			object.name=$('.selectTime').eq(i).html();
@@ -515,42 +523,31 @@ function _ajaxGetOffices(){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[1].slice(0,5) == dataX[z]){
 						object.data.push(datas[j].data);
-						maxArr.push(datas[j].data);
-						minArr.push(datas[j].data);
 					}
-				}
-				if(z === datas.length){
-					object.data.push(0)
 				}
 			}
 			dataY.push(object);
-			maxArr_1=maxArr.sort(function compare(a,b){return b-a})[0];
-			minArr_1=minArr.sort(function compare(a,b){return a-b})[0];
-			//确定最大最小值出现的时间；
-			for(var x=0;x<_allData.length;x++){
-				var datas=_allData[x];
-				for(var j=0;j<datas.length;j++){
-					if(maxArr_1==datas[j].data){
-						maxTime=datas[j].dataDate.split('T')[1].slice(0,5);
-					}
-					if(minArr_1==datas[j].data){
-						minTime=datas[j].dataDate.split('T')[1].slice(0,5);
-					}
-				}
-			}
+			var maxData = _.max(datas,function(d){return d.data});
+			var minData = _.min(datas,function(d){return d.data});
+			maxArr_1 = maxData.data;
+			maxTime = maxData.dataDate;
+			minArr_1 = minData.data;
+			minTime = minData.dataDate;
+			_totalY = 0;
 			//总能耗
 			for(var x=0;x<object.data.length;x++){
 				_totalY+=object.data[x];
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)
+				+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.replace("T"," ").substr(0,maxTime.length -3)
+				+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime.replace("T"," ").substr(0,maxTime.length -3)
+				+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
 	}else if(_ajaxDataType=="周"){
 		dataX=['周日','周一','周二','周三','周四','周五','周六'];
 		for(var i=0;i<_allData.length;i++){
-			maxArr=[];
-			minArr=[];
 			var object={};
 			object.name=$('.selectTime').eq(i).html();
 			object.type='line';
@@ -558,35 +555,25 @@ function _ajaxGetOffices(){
 			var datas=_allData[i];
 			for(var z=0;z<datas.length;z++){
 				object.data.push(datas[z].data);
-				maxArr.push(datas[z].data);
-				minArr.push(datas[z].data);
-			}
-			if(dataX.length === datas.length){
-				object.data.push(0);
-
 			}
 			dataY.push(object);
-			maxArr_1=maxArr.sort(function compare(a,b){return b-a})[0];
-			minArr_1=minArr.sort(function compare(a,b){return a-b})[0];
-			//确定最大最小值出现的时间；
-			for(var x=0;x<_allData.length;x++){
-				var datas=_allData[x];
-				for(var j=0;j<datas.length;j++){
-					if(maxArr_1==datas[j].data){
-						maxTime=datas[j].dataDate.split('T')[0];
-					}
-					if(minArr_1==datas[j].data){
-						minTime=datas[j].dataDate.split('T')[0];
-					}
-				}
-			}
+			var maxData = _.max(datas,function(data){return data.data});
+			var minData = _.min(datas,function(data){return data.data});
+			maxArr_1 = maxData.data;
+			maxTime = maxData.dataDate;
+			minArr_1 = minData.data;
+			minTime = minData.dataDate;
+			_totalY = 0;
 			//总能耗
 			for(var x=0;x<object.data.length;x++){
 				_totalY+=object.data[x];
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)
+				+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)
+				+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime.substr(0,10)
+				+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
 	}else if(_ajaxDataType=="月"){
 		for(var i=0;i<_allData.length;i++){
@@ -598,8 +585,6 @@ function _ajaxGetOffices(){
 			}
 		}
 		for(var i=0;i<_allData.length;i++){
-			maxArr=[];
-			minArr=[];
 			var object={};
 			object.name=$('.selectTime').eq(i).html();
 			object.type='line';
@@ -609,36 +594,27 @@ function _ajaxGetOffices(){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[0] == dataX[z]){
 						object.data.push(datas[j].data);
-						maxArr.push(datas[j].data);
-						minArr.push(datas[j].data);
 					}
-				}
-				if(z === datas.length){
-					object.data.push(0);
 				}
 			}
 			dataY.push(object);
-			maxArr_1=maxArr.sort(function compare(a,b){return b-a})[0];
-			minArr_1=minArr.sort(function compare(a,b){return a-b})[0];
-			//确定最大最小值出现的时间；
-			for(var x=0;x<_allData.length;x++){
-				var datas=_allData[x];
-				for(var j=0;j<datas.length;j++){
-					if(maxArr_1==datas[j].data){
-						maxTime=datas[j].dataDate.split('T')[0];
-					}
-					if(minArr_1==datas[j].data){
-						minTime=datas[j].dataDate.split('T')[0];
-					}
-				}
-			}
+			var maxData = _.max(datas,function(data){return data.data});
+			var minData = _.min(datas,function(data){return data.data});
+			maxArr_1 = maxData.data;
+			maxTime = maxData.dataDate;
+			minArr_1 = minData.data;
+			minTime = minData.dataDate;
 			//总能耗
+			_totalY = 0;
 			for(var x=0;x<object.data.length;x++){
 				_totalY+=object.data[x];
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)
+				+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)
+				+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime.substr(0,10)
+				+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
 	}else if(_ajaxDataType=="年"){
 		for(var i=0;i<_allData.length;i++){
@@ -650,8 +626,7 @@ function _ajaxGetOffices(){
 			}
 		}
 		for(var i=0;i<_allData.length;i++){
-			maxArr=[];
-			minArr=[];
+
 			var object={};
 			object.name=$('.selectTime').eq(i).html();
 			object.type='line';
@@ -661,36 +636,27 @@ function _ajaxGetOffices(){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[0] == dataX[z]){
 						object.data.push(datas[j].data);
-						maxArr.push(datas[j].data);
-						minArr.push(datas[j].data);
 					}
-				}
-				if(z === datas.length){
-					object.data.push(0)
 				}
 			}
 			dataY.push(object);
-			maxArr_1=maxArr.sort(function compare(a,b){return b-a})[0];
-			minArr_1=minArr.sort(function compare(a,b){return a-b})[0];
-			//确定最大最小值出现的时间；
-			for(var x=0;x<_allData.length;x++){
-				var datas=_allData[x];
-				for(var j=0;j<datas.length;j++){
-					if(maxArr_1==datas[j].data){
-						maxTime=datas[j].dataDate.split('T')[0];
-					}
-					if(minArr_1==datas[j].data){
-						minTime=datas[j].dataDate.split('T')[0];
-					}
-				}
-			}
+			var maxData = _.max(datas,function(data){return data.data});
+			var minData = _.min(datas,function(data){return data.data});
+			maxArr_1 = maxData.data;
+			maxTime = maxData.dataDate;
+			minArr_1 = minData.data;
+			minTime = minData.dataDate;
 			//总能耗
+			_totalY = 0;
 			for(var x=0;x<object.data.length;x++){
 				_totalY+=object.data[x];
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)
+				+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)
+				+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime.substr(0,10)
+				+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
 	}
 	getSelectedTime();
