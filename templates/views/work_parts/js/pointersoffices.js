@@ -9,10 +9,6 @@
         <div class="left-middle-tab left-middle-tab_aa_0">区域位置</div>
         <div class="left-middle    -tab left-middle-tab_aa_0">科室单位</div>
         <div class="tree-1 tree-3">
-            <span class="allPointerOne">
-                <div class="selectedRadio selectedRadioHover"></div>
-            全院
-            </span>
             <ul class="allPointer ztree" id="allPointer">
             </ul>
         </div>
@@ -106,12 +102,11 @@ var ObjectSelection = function(){
 
     //设置ztree Source
     //ul:JQ元素
-    this.initPointers = function($ulPointers,hasAllPointer){
+    this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode){
         this._$ulPointers = $ulPointers;
         this._hasAllPointer = hasAllPointer;
         this.getSessionStoragePointers();
         var zTreePointer;
-        //楼宇
         var setting1 = {
             check: {
                 enable: true,
@@ -136,13 +131,20 @@ var ObjectSelection = function(){
                 onClick: function(e,treeId,treeNode){zTreePointer.checkNode(treeNode,!treeNode.checked,true)}
             }
         };
+        //楼宇
+        if(multiSelectionMode){
+           setting1.check.chkStyle = 'checkbox';
+        }
+
         if(this._$ulPointers){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
+            var nodes = zTreePointer.getNodes();
+            zTreePointer.checkNode(nodes[0],true,true,false);
         }
     }
 
     //设置
-    this.initOffices = function($ulOffices){
+    this.initOffices = function($ulOffices,multiSelectionMode){
         this._$ulOffices = $ulOffices;
         this.getSessionStorageOffices();
         var zTreeOffice;
@@ -168,8 +170,13 @@ var ObjectSelection = function(){
                 onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)}
             }
         };
+        if(multiSelectionMode){
+            setting.check.chkStyle = 'checkbox';
+        }
         if(this._$ulOffices){
             zTreeOffice = $.fn.zTree.init(this._$ulOffices,setting,this._allOffices);
+            var nodes = zTreeOffice.getNodes();
+            zTreeOffice.checkNode(nodes[0],true,true,false);
         }
     }
 }
