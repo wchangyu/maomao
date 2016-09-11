@@ -2,10 +2,10 @@ $(function(){
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'-'+_ajaxStartTime_1));
 
 	_objectSel = new ObjectSelection();
-	_objectSel.initPointers($("#allPointer"),false);
+	_objectSel.initPointers($("#allPointer"),true);
 	_objectSel.initOffices($("#allOffices"));
 	var objSearch = new ObjectSearch();
-	objSearch.initOfficeSearch($("#key"),$("#tipes"),"allOffices");
+	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
 
 	$('#datetimepicker').datepicker(
 		{
@@ -177,15 +177,10 @@ $(function(){
 		timeDisposal();
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
-			//selectOfficeId();
-			var ofs = _objectSel.getSelectedOffices(),oid;
-			if(ofs.length>0) { oid = ofs[0].f_OfficeID };
-			_ajaxGetOffices(oid);
+			_ajaxGetOffices();
 		}else{
-			//selectPointerId();
-			var pts = _objectSel.getSelectedPointers(),ptid;
-			if(pts.length>0) { ptid = pts[0].pointerID};
-			_ajaxGetPointers(ptid);
+
+			_ajaxGetPointers();
 		}
 	})
 })
@@ -250,7 +245,11 @@ function timeDisposal(){
 	_ajaxEndA = bbbb;
 }
 //获得pointer数据
-function _ajaxGetPointers(pointerID){
+function _ajaxGetPointers(){
+	//selectPointerId();
+	var pts = _objectSel.getSelectedPointers(),pointerID;
+	if(pts.length>0) { pointerID = pts[0].pointerID};
+	if(!pointerID) { return; }
 	timeDisposal();
 	var _allData=[];
 	var dataX=[];
@@ -465,7 +464,10 @@ function _ajaxGetPointers(pointerID){
 	myChart11.setOption(option11);
 }
 //获得office数据
-function _ajaxGetOffices(officeID){
+function _ajaxGetOffices(){
+	var ofs = _objectSel.getSelectedOffices(),officeID;
+	if(ofs.length>0) { officeID = ofs[0].f_OfficeID };
+	if(!officeID){ return; }
 	timeDisposal();
 	var _allData=[];
 	var dataX=[];
