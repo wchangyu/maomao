@@ -207,16 +207,19 @@ $(function(){
 			$('#th2').text("用电峰值 kWh");
 			$('#th3').text("用电谷值 kWh");
 			$('#th4').text("用电平均值 kWh");
+			$('.header-right-lists').html('单位：kWs');
 		}else if(_ajaxEcType==211){
 			$('#th1').text("累计用水量");
 			$('#th2').text("用水峰值 t");
 			$('#th3').text("用水谷值 t");
 			$('#th4').text("用水平均值 t");
+			$('.header-right-lists').html('单位：t');
 		}else if(_ajaxEcType==311){
 			$('#th1').text("累计用气量");
 			$('#th2').text("用气峰值 m³");
 			$('#th3').text("用气谷值 m³");
 			$('#th4').text("用气平均值 m³");
+			$('.header-right-lists').html('单位：m3');
 		}
 		getSelectedTime();
 		getItemizedData();
@@ -560,6 +563,18 @@ function getItemizedData(){
 		legend: {
 			data:selectTime
 		},
+			toolbox: {
+				show: true,
+				feature: {
+					dataZoom: {
+						yAxisIndex: 'none'
+					},
+					dataView: {readOnly: false},
+					magicType: {type: ['line', 'bar']},
+					restore: {},
+					saveAsImage: {}
+				}
+			},
 		xAxis:  {
 			type: 'category',
 			boundaryGap: false,

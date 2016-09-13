@@ -31,7 +31,7 @@
 	width: 98%;
 	height: 50%;
 	background: #ffffff;
-	margin-left: 8px;
+	margin-left: 0px !important;
 }
 .header-one{
 	display: inline-block;
@@ -62,6 +62,7 @@
 	height: 30px;
 	border-bottom: 1px solid #808080;
 	line-height: 30px;
+	padding-left: 10px;
 }
 .right-header-right{
 	width: auto;
@@ -315,4 +316,13 @@
 }
 .ztree li span.button.chk.checkbox_false_full {
 	background-position: -5px -5px !important;
+}
+.datetimepickereType{
+	margin-left: 25px;
+}
+.left-middle-tab{
+	margin-left: 100px !important;
+}
+.header-one{
+	text-indent: 0px;
 }

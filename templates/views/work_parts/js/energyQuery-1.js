@@ -14,8 +14,10 @@ $(function(){
 		if(_ajaxDataType=="日"){
 			inputValue = $('#datetimepicker').val();
 			var now = moment(inputValue).startOf('day');
-			var startDay= now.format("YYYY-MM-DD");
-			var endDay= now.add(1,'d').format("YYYY-MM-DD");
+			var startDay = now.format("YYYY-MM-DD");
+			var endDay = now.add(1,'d').format("YYYY-MM-DD");
+			var startsDay = moment(inputValue).startOf('day').subtract(1,'d').format("YYYY-MM-DD");
+			var endsDay = moment(inputValue).startOf('day').format("YYYY-MM-DD");
 			_ajaxStartTime=startDay;
 			_ajaxDataType_1='小时';
 			var end=startDay + "-" +startDay;
@@ -25,8 +27,10 @@ $(function(){
 					$('.datetimepickereType').html(end);
 				}
 			}
-			_ajaxStartTime_1=startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
-			_ajaxEndTime_1=endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
+			_ajaxStartTime_1 = startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
+			_ajaxEndTime_1 = endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
+			_ajaxLastStartTime_1 = startsDay.split('-')[0]+'/'+startsDay.split('-')[1]+'/'+startsDay.split('-')[2];
+			_ajaxLastEndTime_1 = endsDay.split('-')[0]+'/'+endsDay.split('-')[1]+'/'+endsDay.split('-')[2];
 		}else if(_ajaxDataType=="周"){
 			inputValue = $('#datetimepicker').val();
 			var now = moment(inputValue).startOf('week');
@@ -170,7 +174,7 @@ $(function(){
 		$(this).addClass('selectedEnergy');
 		getEcType();
 		getBranches();
-	})
+	});
 	$('.btns').click(function(){
 		getEcType();
 		getPointerId();
@@ -180,12 +184,21 @@ $(function(){
 		if($('.selectedEnergy').attr('value')==100){
 			$('.header-one').html('电');
 			$('.right-header span').html('用电曲线');
+			$('.total-power-consumption').html('累计用电');
+			$('.the-cumulative-power-unit').html('kWh');
+			$('.header-right-lists').html('单位：kWs');
 		}else if($('.selectedEnergy').attr('value')==200){
 			$('.header-one').html('水');
 			$('.right-header span').html('用水曲线');
+			$('.total-power-consumption').html('累计用水');
+			$('.the-cumulative-power-unit').html('t');
+			$('.header-right-lists').html('单位：t');
 		}else if($('.selectedEnergy').attr('value')==300){
 			$('.header-one').html('气');
 			$('.right-header span').html('用气曲线');
+			$('.total-power-consumption').html('累计用气');
+			$('.the-cumulative-power-unit').html('m3');
+			$('.header-right-lists').html('单位：m3');
 		}
 	})
 })
@@ -457,18 +470,22 @@ function getBranchData(){
 			lastAdds += datas[j].data;
 		}
 	}
-	growthRate = lastAdd / lastAdds;
 	$('.total-power-consumption-value label').html(lastAdd.toFixed(2));
 	$('.compared-with-last-time label').html(lastAdds.toFixed(2));
-	$('.rights-up-value').html(growthRate.toFixed(1) + '%');
+	if(lastAdds != 0){
+		growthRate = (lastAdd - lastAdds) / lastAdds;
+		$('.rights-up-value').html(growthRate.toFixed(1) + '%');
+	}else if(lastAdds == 0){
+		$('.rights-up-value').html('-')
+	}
 	if(growthRate > 0){
 		$('.rights-up').css({
-			'background':'url(./work_parts/img/up.png)no-repeat',
+			'background':'url(./work_parts/img/up2.png)no-repeat',
 			'background-size':'23px'
 		})
 	}else if(growthRate < 0){
 		$('.rights-up').css({
-			'background':'url(./work_parts/img/up2.png)no-repeat',
+			'background':'url(./work_parts/img/up.png)no-repeat',
 			'background-size':'23px'
 		})
 	}
@@ -493,7 +510,7 @@ function getBranchData(){
 			for(var z=0;z<dataX.length;z++){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[1].slice(0,5)==dataX[z]){
-						object.data.push(datas[j].data);
+						object.data.push(datas[j].data.toFixed(2));
 					}
 				}
 			}
@@ -522,7 +539,7 @@ function getBranchData(){
 			for(var z=0;z<dataXx.length;z++){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[0]==dataXx[z]){
-						object.data.push(datas[j].data);
+						object.data.push(datas[j].data.toFixed(2));
 					}
 				}
 			}
@@ -551,7 +568,7 @@ function getBranchData(){
 			for(var z=0;z<dataX.length;z++){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[0]==dataX[z]){
-						object.data.push(datas[j].data);
+						object.data.push(datas[j].data.toFixed(2));
 					}
 				}
 			}
@@ -579,7 +596,7 @@ function getBranchData(){
 			for(var z=0;z<dataX.length;z++){
 				for(var j=0;j<datas.length;j++){
 					if(datas[j].dataDate.split('T')[0]==dataX[z]){
-						object.data.push(datas[j].data);
+						object.data.push(datas[j].data.toFixed(2));
 					}
 				}
 			}
@@ -596,6 +613,18 @@ function getBranchData(){
 		},
 		legend: {
 			data:select_Name
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
 		},
 		xAxis:  {
 			type: 'category',

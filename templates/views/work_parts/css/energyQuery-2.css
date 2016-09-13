@@ -4,3 +4,6 @@
 #energyConsumption li a{
     line-height: 21px !important;
 }
+.curSelectedNode{
+    border: none !important;
+}

@@ -74,6 +74,8 @@ $(function(){
 				var now = moment(inputValue).startOf('day');
 				var startDay= now.format("YYYY-MM-DD");
 				var endDay= now.add(1,'d').format("YYYY-MM-DD");
+				var startsDay = moment(inputValue).startOf('day').subtract(1,'d').format("YYYY-MM-DD");
+				var endsDay = moment(inputValue).startOf('day').format("YYYY-MM-DD");
 				_ajaxStartTime=startDay;
 				_ajaxDataType_1='小时';
 				var end=startDay + "-" +startDay;
@@ -85,6 +87,8 @@ $(function(){
 				}
 				_ajaxStartTime_1=startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
 				_ajaxEndTime_1=endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
+				_ajaxLastStartTime_1 = startsDay.split('-')[0]+'/'+startsDay.split('-')[1]+'/'+startsDay.split('-')[2];
+				_ajaxLastEndTime_1 = endsDay.split('-')[0]+'/'+endsDay.split('-')[1]+'/'+endsDay.split('-')[2];
 			}else if(_ajaxDataType=="周"){
 				inputValue = $('#datetimepicker').val();
 				var now = moment(inputValue).startOf('week');
@@ -146,6 +150,22 @@ $(function(){
 	$('.btns').click(function(){
 		getBranchData();
 		getEcTypeWord();
+		if($('.selectedEnergy').attr('value')==100){
+			$('.header-one').html('电');
+			$('.right-header span').html('用电曲线');
+			$('.total-power-consumption').html('累计用电');
+			$('.the-cumulative-power-unit').html('kWh');
+		}else if($('.selectedEnergy').attr('value')==200){
+			$('.header-one').html('水');
+			$('.right-header span').html('用水曲线');
+			$('.total-power-consumption').html('累计用水');
+			$('.the-cumulative-power-unit').html('t');
+		}else if($('.selectedEnergy').attr('value')==300){
+			$('.header-one').html('气');
+			$('.right-header span').html('用气曲线');
+			$('.total-power-consumption').html('累计用气');
+			$('.the-cumulative-power-unit').html('m3');
+		}
 	})
 })
 //按日周月年
@@ -159,8 +179,10 @@ function dataType(){
 var _ajaxDataType_1='小时';
 //获得开始时间
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
-var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY-MM-DD");
+var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
 var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
+var _ajaxLastStartTime_1 = moment().subtract(2,'d').format("YYYY/MM/DD");
+var _ajaxLastEndTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
 //设置getECType的初始值(文字，office时用);
 var _ajaxEcTypeWord="电";
 function getEcTypeWord(){
@@ -175,10 +197,13 @@ function getEcTypeWord(){
 	 }
 	 if(!officeID){ return; }
 	 var allBranch=[];
+	 var allBranchs=[];
 	 var dataX=[];
 	 var dataY=[];
 	 var dataXx=[];
-
+	 var lastAdds=0;
+	 var lastAdd =0;
+	 var growthRate=0;
 	 for(var i=0;i<officeID.length;i++){
 		 if(officeID.length != 1){
 			 $('.rheader-content-right').hide();
@@ -203,6 +228,57 @@ function getEcTypeWord(){
 			 }
 		 })
 	 }
+	 //上一阶段的数据
+	 for(var i=0;i<officeID.length;i++){
+		 var selects_ID=officeID[i]
+		 var ecParams={
+			 'startTime':_ajaxLastStartTime_1,
+			 'endTime':_ajaxLastEndTime_1,
+			 'dateType':_ajaxDataType_1,
+			 'officeId':selects_ID,
+			 'ecTypeId':_ajaxEcTypeWord
+		 }
+		 $.ajax({
+			 type:'post',
+			 url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+			 data:ecParams,
+			 async:false,
+			 success:function(result){
+				 allBranchs.push(result)
+			 }
+		 })
+	 }
+	 for(var i=0;i<allBranch.length;i++){
+		 var datas = allBranch[i];
+		 for(var j=0;j<datas.length;j++){
+			 lastAdd += datas[j].data;
+		 }
+	 }
+	 for(var i=0;i<allBranchs.length;i++){
+		 var datas = allBranchs[i];
+		 for(var j=0;j<datas.length;j++){
+			 lastAdds += datas[j].data;
+		 }
+	 }
+	 if(lastAdds !=0){
+		 growthRate = (lastAdd - lastAdds) / lastAdds;
+	 }else if(lastAdds == 0){
+		 $('.rights-up-value').html('-')
+	 }
+	 $('.total-power-consumption-value label').html(lastAdd.toFixed(2));
+	 $('.compared-with-last-time label').html(lastAdds.toFixed(2));
+	 $('.rights-up-value').html(growthRate.toFixed(1) + '%');
+	 if(growthRate > 0){
+		 $('.rights-up').css({
+			 'background':'url(./work_parts/img/up2.png)no-repeat',
+			 'background-size':'23px'
+		 })
+	 }else if(growthRate < 0){
+		 $('.rights-up').css({
+			 'background':'url(./work_parts/img/up.png)no-repeat',
+			 'background-size':'23px'
+		 })
+	 }
 	 if(_ajaxDataType=='日'){
 		 //x轴数据
 		 for(var i=0;i<allBranch.length;i++){
@@ -224,7 +300,7 @@ function getEcTypeWord(){
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
 					 if(datas[j].dataDate.split('T')[1].slice(0,5)==dataX[z]){
-						 object.data.push(datas[j].data);
+						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
 			 }
@@ -253,7 +329,7 @@ function getEcTypeWord(){
 			 for(var z=0;z<dataXx.length;z++){
 				 for(var j=0;j<datas.length;j++){
 					 if(datas[j].dataDate.split('T')[0]==dataXx[z]){
-						 object.data.push(datas[j].data);
+						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
 			 }
@@ -281,7 +357,7 @@ function getEcTypeWord(){
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
 					 if(datas[j].dataDate.split('T')[0]==dataX[z]){
-						 object.data.push(datas[j].data);
+						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
 			 }
@@ -309,7 +385,7 @@ function getEcTypeWord(){
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
 					 if(datas[j].dataDate.split('T')[0]==dataX[z]){
-						 object.data.push(datas[j].data);
+						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
 			 }
@@ -325,6 +401,18 @@ function getEcTypeWord(){
 		 },
 		 legend: {
 			 data:officeNames
+		 },
+		 toolbox: {
+			 show: true,
+			 feature: {
+				 dataZoom: {
+					 yAxisIndex: 'none'
+				 },
+				 dataView: {readOnly: false},
+				 magicType: {type: ['line', 'bar']},
+				 restore: {},
+				 saveAsImage: {}
+			 }
 		 },
 		 xAxis:  {
 			 type: 'category',

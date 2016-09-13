@@ -196,12 +196,15 @@ $(function(){
 		if($('.selectedEnergy').attr('value')==100){
 			$('.header-one').html('电');
 			$('.right-header span').html('用电曲线');
+			$('.header-right-lists').html('单位：kWs');
 		}else if($('.selectedEnergy').attr('value')==200){
 			$('.header-one').html('水');
 			$('.right-header span').html('用水曲线');
+			$('.header-right-lists').html('单位：t');
 		}else if($('.selectedEnergy').attr('value')==300){
 			$('.header-one').html('气');
 			$('.right-header span').html('用气曲线');
+			$('.header-right-lists').html('单位：m3');
 		}
 	})
 
@@ -621,6 +624,18 @@ function getBranchData(){
 		},
 		legend: {
 			data:selectTime
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
 		},
 		xAxis:  {
 			type: 'category',
