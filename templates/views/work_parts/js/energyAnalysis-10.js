@@ -3,6 +3,7 @@ $(function(){
 	getSessionStoragePointer();
 	//分项zTree
 	var EnItdata=JSON.parse(sessionStorage.getItem('energyItems'));
+	var treeObj;
 	var setting = {
 		check: {
 			enable: true,
@@ -19,6 +20,11 @@ $(function(){
 		},
 		view: {
 			showIcon: false
+		},
+		callback: {
+			onClick:function (event,treeId,treeNode){
+				treeObj.checkNode(treeNode,!treeNode.checked,true)
+			}
 		}
 	};
 	var zNodes = new Array();
@@ -32,13 +38,12 @@ $(function(){
 			zNodes.push({ id:EnItdata[i].f_EnergyItemID, pId:EnItdata[i].f_ParentItemID, name:EnItdata[i].f_EnergyItemName,open:true,checked:isChecked});
 		}
 	}
-	$.fn.zTree.init($("#energyConsumption"), setting, zNodes);
+	var treeObj = $.fn.zTree.init($("#energyConsumption"), setting, zNodes);
 	//确定时间
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime +'-'+_ajaxStartTime));
 	$('#datetimepicker').datepicker(
 		{
 			language:  'zh-CN',
-			//autoclose: 1,
 			todayBtn: 1,
 			todayHighlight: 1,
 			format: 'yyyy-mm-dd'
@@ -59,7 +64,6 @@ $(function(){
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
 					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-					//$('.datetimepickereType').html(end);
 				}
 			}
 			_ajaxStartTime_1=startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
@@ -77,7 +81,6 @@ $(function(){
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
 					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-					//$('.datetimepickereType').html(end);
 				}
 			}
 
@@ -94,7 +97,6 @@ $(function(){
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
 					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-					//$('.datetimepickereType').html(end);
 				}
 			}
 
@@ -110,10 +112,8 @@ $(function(){
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
 					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-					//$('.datetimepickereType').html(end);
 				}
 			}
-			//startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
 			_ajaxStartTime_1=startYear.split('-')[0]+'/'+split('-')[1]+'/'+split('-')[2];
 			_ajaxEndTime_1=endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
 		}
@@ -202,8 +202,26 @@ $(function(){
 		timeDisposal();
 		treeObject();
 		getPointerId();
+		if(_ajaxEcType==01){
+			$('#th1').text("累计用电量");
+			$('#th2').text("用电峰值 kWh");
+			$('#th3').text("用电谷值 kWh");
+			$('#th4').text("用电平均值 kWh");
+		}else if(_ajaxEcType==211){
+			$('#th1').text("累计用水量");
+			$('#th2').text("用水峰值 t");
+			$('#th3').text("用水谷值 t");
+			$('#th4').text("用水平均值 t");
+		}else if(_ajaxEcType==311){
+			$('#th1').text("累计用气量");
+			$('#th2').text("用气峰值 m³");
+			$('#th3').text("用气谷值 m³");
+			$('#th4').text("用气平均值 m³");
+		}
 		getSelectedTime();
 		getItemizedData();
+		$('small').html(_ajaxgetPointerName);
+		$('.header-two').html(select_Name);
 	})
 })
 //首先将sessionStorage的内容写入html中
@@ -220,6 +238,16 @@ function getSessionStoragePointer(){
 var _ajaxEcType = '01';
 //选中的能耗种类
 function getEcType(){
+	if($('.selectedEnergy').attr('value')==01){
+		$('.header-one').html('电');
+		$('.right-header span').html('用电曲线');
+	}else if($('.selectedEnergy').attr('value')==211){
+		$('.header-one').html('水');
+		$('.right-header span').html('用水曲线');
+	}else if($('.selectedEnergy').attr('value')==311){
+		$('.header-one').html('气');
+		$('.right-header span').html('用气曲线');
+	}
 	_ajaxEcType=$('.selectedEnergy').attr('value');
 }
 //获取dataType(小时，日，月，年)
@@ -240,7 +268,6 @@ function treeObject(){
 		select_ID=nodes[i].id;
 		select_Name=nodes[i].name;
 	}
-
 }
 //时间处理
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
@@ -334,8 +361,6 @@ function findParent(zTree,node){
 	}
 }
 function filter(node) {
-	//.isParent记录 treeNode 节点是否为父节点。
-	//.isFirstNode 记录 treeNode 节点是否为同级节点中的第一个节点。
 	return !node.isParent && node.isFirstNode;
 }
 //获得分项数据
@@ -350,7 +375,6 @@ function getItemizedData(){
 	var _totalY=0;
 	var average=0;
 	for(var i=0;i<_ajaxStartA.length;i++){
-		//_allData=[];
 		var _ajaxStarts = _ajaxStartA[i];
 		var _ajaxEnds = _ajaxEndA[i];
 		var ecParams={

@@ -1,23 +1,6 @@
-#energyConsumption li{
-    line-height: 30px !important;
+#energyConsumption li .ico_docu{
+    display: none;
 }
-#energyConsumption li .switch{
-    height: 34px !important;
-    background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}
-#energyConsumption li .checkbox_false_full{
-    background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
-    background-size: 13px;
-}
-#energyConsumption li .checkbox_true_full{
-    background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
-    background-size: 13px;
-}
-#energyConsumption li .checkbox_false_full_focus{
-    background: #ccc;
-    border: 1px solid #333;
-}
-#energyConsumption li .checkbox_true_full_focus{
-    background: #ccc;
-    border: 1px solid #333;
+#energyConsumption li a{
+    line-height: 21px !important;
 }

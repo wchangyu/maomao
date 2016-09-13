@@ -57,7 +57,7 @@
 	line-height: 30px;
 }
 .right-header-right{
-	width: 230px;
+	width: auto;
 	height: 100%;
 	float: right;
 	margin-left: 0 !important;
@@ -65,6 +65,7 @@
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
+	line-height: 30px;
 }
 .pic-one{
 	margin-left: 10px;
@@ -134,52 +135,52 @@
 #pointer li{
 	line-height: 30px !important;
 }
-#pointer li .switch{
+/*#pointer li .switch{
 	height: 34px !important;
 	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}
-#pointer li .checkbox_false_full{
+}*/
+/*#pointer li .checkbox_false_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
 	background-size: 13px;
-}
-#pointer li .checkbox_true_full{
+}*/
+/*#pointer li .checkbox_true_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
 	background-size: 13px;
-}
-#pointer li .checkbox_false_full_focus{
+}*/
+/*#pointer li .checkbox_false_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
-#pointer li .checkbox_true_full_focus{
+}*/
+/*#pointer li .checkbox_true_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
+}*/
 #allOffices li{
 	line-height: 30px !important;
 }
-#allOffices li .switch{
+/*#allOffices li .switch{
 	height: 34px !important;
 	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}
-#allOffices li .checkbox_false_full{
+}*/
+/*#allOffices li .checkbox_false_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
 	background-size: 13px;
-}
-#allOffices li .checkbox_true_full{
+}*/
+/*#allOffices li .checkbox_true_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
 	background-size: 13px;
-}
-#allOffices li .checkbox_false_full_focus{
+}*/
+/*#allOffices li .checkbox_false_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
-#allOffices li .checkbox_true_full_focus{
+}*/
+/*#allOffices li .checkbox_true_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
-.ico_docu{
+}*/
+/*.ico_docu{
 	display: none !important;
-}
+}*/
 .selectTime{
 	cursor: pointer;
 }
@@ -211,64 +212,64 @@
 	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
 	background-size: 13px;
 }*/
-#energyConsumption li .checkbox_false_full_focus{
+/*#energyConsumption li .checkbox_false_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
-#energyConsumption li .checkbox_true_full_focus{
+}*/
+/*#energyConsumption li .checkbox_true_full_focus{
 	background: #ccc;
 	border: 1px solid #333;
-}
+}*/
 #energyConsumption a{
 	display: inline-block;
 	height:30px !important;
 }
-#energyConsumption .ico_open{
+/*#energyConsumption .ico_open{
 	display: none;
-}
-#energyConsumption .ico_close{
+}*/
+/*#energyConsumption .ico_close{
 	display: none;
-}
-#energyConsumption .center_open{
+}*/
+/*#energyConsumption .center_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .center_close{
+}*/
+/*#energyConsumption .center_close{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .root_open{
+}*/
+/*#energyConsumption .root_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .root_close{
+}*/
+/*#energyConsumption .root_close{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .bottom_open{
+}*/
+/*#energyConsumption .bottom_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .bottom_close{
+}*/
+/*#energyConsumption .bottom_close{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .radio_true_full{
+}*/
+/*#energyConsumption .radio_true_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/radio.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption .radio_false_full{
+}*/
+/*#energyConsumption .radio_false_full{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/radioSelected.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption li .roots_open{
+}*/
+/*#energyConsumption li .roots_open{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat !important;
 	background-size: 13px !important;
-}
-#energyConsumption li .roots_close{
+}*/
+/*#energyConsumption li .roots_close{
 	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat !important;
 	background-size: 13px !important;
-}
+}*/
 #key{
 	display: inline-block;
 	width:200px;

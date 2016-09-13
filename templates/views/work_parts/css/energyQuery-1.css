@@ -64,13 +64,14 @@
 	line-height: 30px;
 }
 .right-header-right{
-	width: 230px;
+	width: auto;
 	height: 100%;
 	float: right;
 }
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
+	line-height: 30px;
 }
 .pic-one{
 	margin-left: 10px;
@@ -286,56 +287,12 @@
 	margin-left: 35px;
 	margin-top: 10px;
 }
-#energyConsumption li{
-	line-height: 30px !important;
-}
-#energyConsumption li .root_open{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat;
-	background-size: 13px !important;
-}
-#energyConsumption li .root_close{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat;
-	background-size: 13px !important;;
-}
-#energyConsumption li .center_open{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat;
-	background-size: 13px !important;
-}
-#energyConsumption li .center_close{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat;
-	background-size: 13px !important;;
-}
-#energyConsumption li .bottom_open{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/open.png)no-repeat;
-	background-size: 13px !important;
-}
-#energyConsumption li .bottom_close{
-	height: 18px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/close.png)no-repeat;
-	background-size: 13px !important;;
-}
+/*#energyConsumption li{
+	height:auto !important;
+}*/
 #energyConsumption{
 	height: 150px;
 	overflow: scroll;
-}
-#energyConsumption .check_true_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
-	background-size: 13px;
-}
-#energyConsumption .check_false_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
-	background-size: 13px;
-}
-#energyConsumption .ico_open,#energyConsumption .ico_close{
-	display: none;
-}
-#energyConsumption .ico_docu{
-	display: none;
 }
 #key{
 	width: 220px;
@@ -348,4 +305,14 @@
 }
 .tipes{
 	margin-left: 35px;
+}
+#energyConsumption li a{
+	display: inline-block;
+	vertical-align:middle !important;
+}
+.ztree li span.button.chk.checkbox_true_full {
+	background-position: -26px -5px !important;
+}
+.ztree li span.button.chk.checkbox_false_full {
+	background-position: -5px -5px !important;
 }

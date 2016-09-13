@@ -10,7 +10,6 @@ $(function(){
 	$('#datetimepicker').datepicker(
 		{
 			language:  'zh-CN',
-			//autoclose: 1,
 			todayBtn: 1,
 			todayHighlight: 1,
 			format: 'yyyy-mm-dd'
@@ -148,7 +147,6 @@ $(function(){
 		})
 		$('.tree-1').hide();
 		$('.tree-1').eq($(this).index()-1).show();
-		//alert($(this).index()-1)
 	})
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -173,14 +171,31 @@ $(function(){
 		getSelectedTime();
 		getEcType();
 		dataType();
+		if(_ajaxEcType==01){
+			$('#th1').text("累计用电量");
+			$('#th2').text("用电峰值 kWh");
+			$('#th3').text("用电谷值 kWh");
+			$('#th4').text("用电平均值 kWh");
+		}else if(_ajaxEcType==211){
+			$('#th1').text("累计用水量");
+			$('#th2').text("用水峰值 t");
+			$('#th3').text("用水谷值 t");
+			$('#th4').text("用水平均值 t");
+		}else if(_ajaxEcType==311){
+			$('#th1').text("累计用气量");
+			$('#th2').text("用气峰值 m³");
+			$('#th3').text("用气谷值 m³");
+			$('#th4').text("用气平均值 m³");
+		}
 		getEcTypeWord();
 		timeDisposal();
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
 			_ajaxGetOffices();
+			$('small').html(officeNames);
 		}else{
-
 			_ajaxGetPointers();
+			$('small').html(pointerNames);
 		}
 	})
 })
@@ -196,6 +211,18 @@ window.onresize = function () {
 var _ajaxDataType_1='小时';
 var _ajaxEcType="01";
 function getEcType(){
+	//首先判断哪个含有selectedEnergy类
+	$('.selectedEnergy').attr('value');
+	if($('.selectedEnergy').attr('value')==01){
+		$('.header-one').html('电');
+		$('.right-header span').html('用电曲线');
+	}else if($('.selectedEnergy').attr('value')==211){
+		$('.header-one').html('水');
+		$('.right-header span').html('用水曲线');
+	}else if($('.selectedEnergy').attr('value')==311){
+		$('.header-one').html('气');
+		$('.right-header span').html('用气曲线');
+	}
 	_ajaxEcType=$('.selectedEnergy').attr('value');
 }
 //设置getECType的初始值(文字，office时用);
@@ -215,15 +242,15 @@ var _ajaxStartTime=moment().format("YYYY/MM/DD");
 var _ajaxStartTime_1=moment().format("YYYY-MM-DD");
 var _ajaxEndTime_1=moment().add(1,'d').format("YYYY-MM-DD");
 //选中时间处理
-var startsTime=[];   //2016-08-01
+var startsTime=[];
 var endsTime=[];
 //存放开始，结束的时间
-var aaaa=[];  //2016/08/01格式 开始日期
-var bbbb=[];  //结束日期
+var aaaa=[];
+var bbbb=[];
 
 var _ajaxStartA=[];
 var _ajaxEndA=[];
-var startsTimes=[_ajaxStartTime_1];  //2016/08/01
+var startsTimes=[_ajaxStartTime_1];
 var endsTimes=[_ajaxEndTime_1];
 var arr=[];
 function timeDisposal(){
@@ -245,10 +272,13 @@ function timeDisposal(){
 	_ajaxEndA = bbbb;
 }
 //获得pointer数据
+var pointerID,pointerNames;
 function _ajaxGetPointers(){
-	//selectPointerId();
-	var pts = _objectSel.getSelectedPointers(),pointerID;
-	if(pts.length>0) { pointerID = pts[0].pointerID};
+	var pts = _objectSel.getSelectedPointers();
+	if(pts.length>0) {
+		pointerID = pts[0].pointerID;
+		pointerNames = pts[0].pointerName
+	};
 	if(!pointerID) { return; }
 	timeDisposal();
 	var _allData=[];
@@ -270,7 +300,6 @@ function _ajaxGetPointers(){
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
 		}
-
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
@@ -464,9 +493,13 @@ function _ajaxGetPointers(){
 	myChart11.setOption(option11);
 }
 //获得office数据
+var officeID,officeNames;
 function _ajaxGetOffices(){
-	var ofs = _objectSel.getSelectedOffices(),officeID;
-	if(ofs.length>0) { officeID = ofs[0].f_OfficeID };
+	var ofs = _objectSel.getSelectedOffices();
+	if(ofs.length>0) {
+		officeID = ofs[0].f_OfficeID;
+		officeNames = ofs[0].f_OfficeName;
+	};
 	if(!officeID){ return; }
 	timeDisposal();
 	var _allData=[];
@@ -490,7 +523,6 @@ function _ajaxGetOffices(){
 		}
 		$.ajax({
 			type:'post',
-			//url:'http://211.100.28.180/BEEWebAPI/api/ecDatas/GetECByTypeAndOffice',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 			data:ecParams,
 			async:false,

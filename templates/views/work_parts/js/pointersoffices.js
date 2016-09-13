@@ -27,6 +27,7 @@
     使用方法
  _objectSel = new ObjectSelection();                //楼宇和分户选择器，可初始化任何一个,该选择器需要设置为全局变量，或者选中的项目时候还需要调用
  _objectSel.initPointers($("#allPointer"),true);    //初始化楼宇选择，参数(楼宇的ul,是否包含全部楼宇的项目)
+ _objectSel.initPointers($("#allPointer"),true,true);    //初始化楼宇选择，第三个参数true复选框，false，单选
  _objectSel.initOffices($("#allOffices"));          //初始化分户选择
  _objectSel.getSelectedOffices()        //获取选择的分户，返回的是项目对应的JSON对象数组
  _objectSel.getSelectedPointers()       //获取选择的楼宇
@@ -78,6 +79,7 @@ var ObjectSelection = function(){
         var nodes = treeObj.getCheckedNodes(true);
         var selectedOffices = [],curOffice = {};
         for(var i=0;i<nodes.length;i++){
+            curOffice = {};
             curOffice.f_OfficeID = nodes[i].f_OfficeID;
             curOffice.f_OfficeName = nodes[i].f_OfficeName;
             selectedOffices.push(curOffice);
@@ -93,6 +95,7 @@ var ObjectSelection = function(){
         var nodes = treeObj.getCheckedNodes(true);
         var selectedPointers = [],curPointer = {};
         for(var i = 0; i < nodes.length; i++){
+            curPointer = {};
             curPointer.pointerID = nodes[i].pointerID;
             curPointer.pointerName = nodes[i].pointerName;
             selectedPointers.push(curPointer);

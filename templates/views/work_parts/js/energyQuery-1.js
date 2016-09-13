@@ -3,7 +3,6 @@ $(function(){
 	$('#datetimepicker').datepicker(
 		{
 			language:  'zh-CN',
-			//autoclose: 1,
 			todayBtn: 1,
 			todayHighlight: 1,
 			format: 'yyyy-mm-dd'
@@ -23,7 +22,6 @@ $(function(){
 			var aa = $('.datetimepickereType').text();
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
-					//$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
 					$('.datetimepickereType').html(end);
 				}
 			}
@@ -43,12 +41,9 @@ $(function(){
 			_ajaxStartTime=startWeek;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
-					//$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
 					$('.datetimepickereType').html(end);
 				}
 			}
-			//console.log(startsWeek);
-			//console.log(endsWeek);
 			_ajaxStartTime_1 = startWeek.split('-')[0]+'/'+startWeek.split('-')[1]+'/'+startWeek.split('-')[2];
 			_ajaxEndTime_1 = endWeek.split('-')[0]+'/'+endWeek.split('-')[1]+'/'+endWeek.split('-')[2];
 			_ajaxLastStartTime_1 = startsWeek.split('-')[0]+'/'+startsWeek.split('-')[1]+'/'+startsWeek.split('-')[2];
@@ -64,7 +59,6 @@ $(function(){
 			_ajaxStartTime=startMonth;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
-					//$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
 					$('.datetimepickereType').html(end);
 				}
 			}
@@ -78,18 +72,15 @@ $(function(){
 			end = startYear+"-"+endYear;
 			var startsYear = moment(inputValue).subtract(1,'year').startOf('year').format("YYYY-MM-DD");
 			var endsYear = moment(inputValue).subtract(1,'year').endOf('year').format("YYYY-MM-DD");
-			//console.log(startsYear)
 			console.log(startYear.split('-'))
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
-					//$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
 					$('.datetimepickereType').html(end);
 				}
 			}
-			//startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
 			_ajaxStartTime_1 = startYear.split('-')[0]+'/'+startYear.split('-')[1]+'/'+startYear.split('-')[2];
 			_ajaxEndTime_1 = endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
 			_ajaxLastStartTime_1 = startsYear.split('-')[0]+'/'+startsYear.split('-')[1]+'/'+startsYear.split('-')[2];
@@ -105,6 +96,7 @@ $(function(){
 	//获取支路数据
 	getPointerId();
 	getBranches();
+
 	getBranchData();
 	$('#selectPointer').change(function(){
 		$('#tbody').empty();
@@ -184,11 +176,25 @@ $(function(){
 		getPointerId();
 		treeObject();
 		getBranchData();
+		$('small').html(_ajaxgetPointerName);
+		if($('.selectedEnergy').attr('value')==100){
+			$('.header-one').html('电');
+			$('.right-header span').html('用电曲线');
+		}else if($('.selectedEnergy').attr('value')==200){
+			$('.header-one').html('水');
+			$('.right-header span').html('用水曲线');
+		}else if($('.selectedEnergy').attr('value')==300){
+			$('.header-one').html('气');
+			$('.right-header span').html('用气曲线');
+		}
 	})
 })
  var myChart3;
+
  window.onresize = function () {
-        myChart3.resize();
+	 if(myChart3){
+		 myChart3.resize();
+	 }
     }
 //楼宇的读取
 var _allPointerId=[0];
@@ -225,27 +231,7 @@ function getPointerId(){
 	_ajaxPointerId=$('#selectPointer').find('option:selected').val();
 	_ajaxgetPointerName=$('#selectPointer').find('option:selected').text();
 }
-//获取支路用电环比ajax
-var ztreeSettings = {
-	check: {
-		enable: true,
-		chkStyle: "check",
-		chkboxType: { "Y": "", "N": "" }
 
-	},
-	data: {
-		key: {
-			title: "title"
-		},
-		simpleData: {
-			enable: true
-		}
-	},
-	view: {
-		showIcon: false
-	}
-
-};
 //存放支路的数组
 var branchArr=[];
 //获得支路数据
@@ -279,9 +265,36 @@ function getBranches() {
 					//console.log(branchArr[i].f_ServiceId)
 				}
 				select_ID.push(branchArr[0].f_ServiceId);
-				$.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
+				var treeObj;
+				//获取支路用电环比ajax
+				var ztreeSettings = {
+					check: {
+						enable: true,
+						chkStyle: "checkbox",
+						chkboxType: { "Y": "", "N": "" }
+
+					},
+					data: {
+						key: {
+							title: "title"
+						},
+						simpleData: {
+							enable: true
+						}
+					},
+					view: {
+						showIcon: false
+					},
+					callback: {
+						onClick:function (event,treeId,treeNode){
+							treeObj.checkNode(treeNode,!treeNode.checked,true)
+						}
+					}
+				};
+				treeObj = $.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
+
 				treeObject();
-				//getBranchData();
+
 			},
 			error: function (xhr, text, err) {
 				alert(text);
@@ -391,21 +404,18 @@ function getBranchData(){
 	var lastAdds=0;
 	var growthRate=0;
 	for(var i=0;i<select_ID.length;i++){
-		//console.log(select_ID.length)
 		if(select_ID.length != 1){
 			$('.rheader-content-right').hide();
 		}else if(select_ID.length == 1){
 			$('.rheader-content-right').show();
 		}
 		var selects_ID=select_ID[i]
-		//console.log(selects_ID)
 		var ecParams={
 			'startTime':_ajaxStartTime_1,
 			'endTime':_ajaxEndTime_1,
 			'dateType':_ajaxDataType_1,
 			'f_ServiceId':selects_ID
 		}
-		//console.log(ecParams)
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
@@ -419,7 +429,6 @@ function getBranchData(){
 	for(var i=0;i<allBranch.length;i++){
 		var datas = allBranch[i];
 		for(var j=0;j<datas.length;j++){
-			//console.log(datas[j].data);
 			lastAdd += datas[j].data;
 		}
 	}
@@ -432,7 +441,6 @@ function getBranchData(){
 			'dateType':_ajaxDataType_1,
 			'f_ServiceId':selects_ID
 		}
-		//console.log(ecParams)
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
@@ -444,10 +452,8 @@ function getBranchData(){
 		})
 	}
 	for(var i=0;i<allBranchs.length;i++){
-		//console.log(allBranchs[i])
 		var datas = allBranchs[i];
 		for(var j=0;j<datas.length;j++){
-			//console.log(datas[j].data);
 			lastAdds += datas[j].data;
 		}
 	}
@@ -471,14 +477,12 @@ function getBranchData(){
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataX.indexOf(datas[j].dataDate.split('T')[1].slice(0,5))<0){
 					dataX.push(datas[j].dataDate.split('T')[1].slice(0,5));
 				}
 			}
 		}
 		dataX.sort();
-		//console.log(dataX)
 		//遍历y轴数据
 		for(var i=0;i<allBranch.length;i++){
 			var object={};
@@ -495,21 +499,18 @@ function getBranchData(){
 			}
 			dataY.push(object);
 		}
-		//console.log(dataY);
 	}else if(_ajaxDataType=='周'){
 		var dataX=['周一','周二','周三','周四','周五','周六','周日'];
 		//x轴数据
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataXx.indexOf(datas[j].dataDate.split('T')[0])<0){
 					dataXx.push(datas[j].dataDate.split('T')[0]);
 				}
 			}
 		}
 		dataX.sort();
-		//console.log(dataX)
 
 		//遍历y轴数据
 		for(var i=0;i<allBranch.length;i++){
@@ -527,7 +528,6 @@ function getBranchData(){
 			}
 			dataY.push(object);
 		}
-		//console.log(dataY)
 	}else if(_ajaxDataType=='月'){
 		//x轴数据
 		for(var i=0;i<allBranch.length;i++){

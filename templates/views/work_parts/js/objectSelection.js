@@ -1,6 +1,4 @@
 $(function(){
-    $.fn.zTree.init($("#allOffices"),setting,jsonText);
-    $.fn.zTree.init($("#allPointer"),setting1,jsonText1);
     //搜索功能
     var key;
     key = $("#key");
@@ -135,6 +133,7 @@ function selectOfficeId(){
         _ajaxGetOffice=nodes[i].f_OfficeID;
         _ajaxGetOfficeName=nodes[i].f_OfficeName;
     }
+    console.log(_ajaxGetOfficeName);
     return;
 }
 var _ajaxGetPointer;
@@ -152,6 +151,7 @@ function  selectPointerId(){
         _ajaxGetPointer='0';
         _ajaxGetPointerName='全院'
     }
+    //console.log(_ajaxGetOfficeName)
     return;
 }
 //楼宇
