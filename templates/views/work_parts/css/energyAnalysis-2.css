@@ -165,3 +165,14 @@
 	height: 30px;
 	margin-top: 10px;
 }
+#datetimepicker{
+	width: 220px;
+	height: 30px;
+	margin-left: 25px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position: 98% center;
+}
+.datetimepickereType{
+	margin-left: 25px;
+}

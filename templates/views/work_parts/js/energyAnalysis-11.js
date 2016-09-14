@@ -291,7 +291,7 @@ function getBranches() {
 						}
 					}
 				};
-				treeObj = $.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
+				treeObj = $.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);
 				treeObject();
 			},
 			error: function (xhr, text, err) {

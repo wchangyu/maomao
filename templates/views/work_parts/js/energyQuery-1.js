@@ -186,7 +186,7 @@ $(function(){
 			$('.right-header span').html('用电曲线');
 			$('.total-power-consumption').html('累计用电');
 			$('.the-cumulative-power-unit').html('kWh');
-			$('.header-right-lists').html('单位：kWs');
+			$('.header-right-lists').html('单位：kWh');
 		}else if($('.selectedEnergy').attr('value')==200){
 			$('.header-one').html('水');
 			$('.right-header span').html('用水曲线');

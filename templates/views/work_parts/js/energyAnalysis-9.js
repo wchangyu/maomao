@@ -259,7 +259,6 @@ var arr=[];
 function timeDisposal(){
 	aaaa=[];
 	bbbb=[];
-
 	startsTime=[_ajaxStartTime_1];
 	endsTime=[_ajaxEndTime_1];
 
@@ -716,6 +715,18 @@ function _ajaxGetOffices(){
 		},
 		legend: {
 			data:selectTime
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
 		},
 		xAxis:  {
 			type: 'category',
