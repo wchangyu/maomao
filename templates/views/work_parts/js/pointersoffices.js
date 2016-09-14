@@ -26,9 +26,8 @@
     js支持:jQuery,zTree文件之后，页面自身js文件之前
     使用方法
  _objectSel = new ObjectSelection();                //楼宇和分户选择器，可初始化任何一个,该选择器需要设置为全局变量，或者选中的项目时候还需要调用
- _objectSel.initPointers($("#allPointer"),true);    //初始化楼宇选择，参数(楼宇的ul,是否包含全部楼宇的项目)
- _objectSel.initPointers($("#allPointer"),true,true);    //初始化楼宇选择，第三个参数true复选框，false，单选
- _objectSel.initOffices($("#allOffices"));          //初始化分户选择
+ _objectSel.initPointers($("#allPointer"),true);    //初始化楼宇选择，参数(楼宇的ul,是否包含全部楼宇的项目,(true复选框，false单选框))
+ _objectSel.initOffices($("#allOffices")，true);          //初始化分户选择，参数(分户的ul,(true复选框，false单选))
  _objectSel.getSelectedOffices()        //获取选择的分户，返回的是项目对应的JSON对象数组
  _objectSel.getSelectedPointers()       //获取选择的楼宇
  var objSearch = new ObjectSearch();                //模糊查找框
@@ -120,8 +119,7 @@ var ObjectSelection = function(){
             data: {
                 key: {
                     name: "pointerName",
-                    children:"childPointers",
-                    open:true
+                    children:"childPointers"
                 },
                 simpleData: {
                     enable: false
@@ -143,6 +141,7 @@ var ObjectSelection = function(){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
             zTreePointer.checkNode(nodes[0],true,true,false);
+            zTreePointer.expandNode(nodes[0],true,false,true);
         }
     }
 
@@ -179,7 +178,9 @@ var ObjectSelection = function(){
         if(this._$ulOffices){
             zTreeOffice = $.fn.zTree.init(this._$ulOffices,setting,this._allOffices);
             var nodes = zTreeOffice.getNodes();
+
             zTreeOffice.checkNode(nodes[0],true,true,false);
+            zTreeOffice.expandNode(nodes[0],true,false,true);
         }
     }
 }
