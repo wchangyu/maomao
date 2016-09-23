@@ -65,12 +65,10 @@
 	line-height: 30px;
 }
 #rheader-content-16{
-	width: 50%;
 	height: 290px;
 	background: red;
 }
 .comparisonOfHistograms {
-	width: 50% !important;
 	height: 290px;
 }
 .rheader-content-left-top{
@@ -116,12 +114,10 @@
 	margin-top: -15px;
 }
 #rheader-content-17{
-	width: 100%;
 	height: 190px;
 	background: red;
 }
 #rheader-content-18{
-	width: 50%;
 	height: 290px;
 	background: red;
 }
@@ -134,8 +130,9 @@
 	margin-top:-5px;
 }
 #rheader-content-19{
-	width: 100%;
 	height: 190px;
 	background: red;
 }
-
+.timeactive{
+	margin-left: 25px !important;
+}

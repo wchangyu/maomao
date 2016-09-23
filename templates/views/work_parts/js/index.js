@@ -43,8 +43,6 @@ $(function(){
         })
     })
     //数据交互部分
-    //页面加载时的当前时间
-    timeCurrent();
     //默认开始时间为上日；
     timeYesterday();
     //时间选取
@@ -675,49 +673,33 @@ function loadingEndding2(){
 function loadingEndding3(){
     $('#loading3').hide();
 }
-//现在的时间
-function timeCurrent(){
-    var date = date || new Date();
-    var mDate = moment(date);
-    var mDates = mDate.format('YYYY/MM/DD') + ' 00:00:00';
-   // console.log('现在时间是：'+mDates);
-    newStr1 = mDates;
-}
 //上日时间
 function timeYesterday(){
-   var date = date || new Date();
-   var mDate = moment(date);
-   var yesterday = mDate.subtract(1,'day');
-   var yesterdays = yesterday.format('YYYY/MM/DD') + ' 00:00:00';
-    newStr = yesterdays;
-   //console.log('上日时间是：'+yesterdays);
+    mDate = moment().subtract(1,'d').format('YYYY/MM/DD');
+    mDates = moment().format('YYYY/MM/DD');
+    newStr = mDate;
+    newStr1 = mDates;
 }
 //上周时间
 function timeLastWeek(){
-    var date = date || new Date();
-   var mDate = moment(date);
-   var lastWeek = mDate.days(-7);
-   var lastWeeks = lastWeek.format('YYYY/MM/DD')  + ' 00:00:00';
-   //console.log('上周时间是：'+lastWeeks);
-   newStr = lastWeeks;
+    mDate = moment().subtract(7,'d').startOf('week').add(1,'d').format('YYYY/MM/DD');
+    mDates = moment().subtract(7,'d').endOf('week').add(2,'d').format('YYYY/MM/DD');
+    newStr = mDate;
+    newStr1 = mDates;
 }
 //上月时间
 function timeLastMonth(){
-    var date = date || new Date();
-    var mDate = moment(date);
-    var lastMonth = mDate.subtract(1,'months');
-    var lastMonths = lastMonth.format('YYYY/MM/DD') + ' 00:00:00';
-   // console.log('上月时间是：'+lastMonths);
-    newStr = lastMonths;
+    mDate = moment().subtract(1,'month').startOf('month').format('YYYY/MM/DD');
+    mDates = moment().subtract(1,'month').endOf('month').add(1,'d').format('YYYY/MM/DD');
+    newStr = mDate;
+    newStr1 = mDates;
 }
 //上年时间
 function timeLastYear(){
-    var date = date || new Date();
-    var mDate = moment(date);
-    var lastYear = mDate.subtract(1,'years');
-    var lastYears = lastYear.format('YYYY/MM/DD') + ' 00:00:00';
-    //console.log('上年时间是：'+lastYears)
-    newStr = lastYears;
+    mDate = moment().subtract(1,'year').startOf('year').format('YYYY/MM/DD');
+    mDates = moment().subtract(1,'year').endOf('year').add(1,'d').format('YYYY/MM/DD');
+    newStr = mDate;
+    newStr1 = mDates;
 }
 //根据配置文件设置左上角的电水气暖
 function setEnergyType(ets,ecs){

@@ -257,7 +257,6 @@ function getPointerData(){
 	};
 	for(var i=0;i<pointerID.length;i++){
 		pointerIds = pointerID[i];
-		console.log(pointerIds)
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
 			'pointerId': pointerIds,

@@ -106,10 +106,10 @@
     overflow: scroll;
 }
 .tree-2{
-    display: block;
+    display: none;
 }
 .tree-3{
-    display: none;
+    display: block;
 }
 .active{
     color: #ffc000;
