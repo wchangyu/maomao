@@ -76,8 +76,7 @@ $(function(){
 			end = startYear+"-"+endYear;
 			var startsYear = moment(inputValue).subtract(1,'year').startOf('year').format("YYYY-MM-DD");
 			var endsYear = moment(inputValue).subtract(1,'year').endOf('year').format("YYYY-MM-DD");
-			console.log(startYear.split('-'))
-			_ajaxDataType_1='月'
+			_ajaxDataType_1='月';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
@@ -95,6 +94,14 @@ $(function(){
 	$('.types').change(function(){
 		$('.datetimepickereType').html('');
 	})
+
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+		getEcType();
+		getBranches();
+	});
+
+	getEcType();
 	//获取楼宇
 	getSessionStoragePointer();
 	//获取支路数据
@@ -108,59 +115,8 @@ $(function(){
 		$('#energyConsumption').empty();
 		getBranches();
 	});
-	//能耗种类
-	$('.electricity').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.water').css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.gas').css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
 
-	})
-	$('.water').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/water_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.electricity').css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.gas').css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
-	$('.gas').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.electricity').css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.water').css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
+
 	//搜索功能
 	var key;
 	key = $("#key");
@@ -168,38 +124,33 @@ $(function(){
 		.bind("blur", blurKey)
 		.bind("propertychange", searchNode)
 		.bind("input", searchNode);
-	//点击确定选择的是哪个能耗种类；
-	$('.typee').click(function(){
-		$('.typee').removeClass('selectedEnergy')
-		$(this).addClass('selectedEnergy');
-		getEcType();
-		getBranches();
-	});
+
 	$('.btns').click(function(){
 		getEcType();
 		getPointerId();
-		treeObject();
+		getSelectedBranches();
 		getBranchData();
 		$('small').html(_ajaxgetPointerName);
-		if($('.selectedEnergy').attr('value')==100){
-			$('.header-one').html('电');
-			$('.right-header span').html('用电曲线');
-			$('.total-power-consumption').html('累计用电');
-			$('.the-cumulative-power-unit').html('kWh');
-			$('.header-right-lists').html('单位：kWh');
-		}else if($('.selectedEnergy').attr('value')==200){
-			$('.header-one').html('水');
-			$('.right-header span').html('用水曲线');
-			$('.total-power-consumption').html('累计用水');
-			$('.the-cumulative-power-unit').html('t');
-			$('.header-right-lists').html('单位：t');
-		}else if($('.selectedEnergy').attr('value')==300){
-			$('.header-one').html('气');
-			$('.right-header span').html('用气曲线');
-			$('.total-power-consumption').html('累计用气');
-			$('.the-cumulative-power-unit').html('m3');
-			$('.header-right-lists').html('单位：m3');
-		}
+		//if($('.selectedEnergy').attr('value')==100){
+		//	$('.header-one').html('电');
+		//	$('.right-header span').html('用电曲线');
+		//	$('.total-power-consumption').html('累计用电');
+		//	$('.the-cumulative-power-unit').html('kWh');
+		//	$('.header-right-lists').html('单位：kWh');
+		//}else if($('.selectedEnergy').attr('value')==200){
+		//	$('.header-one').html('水');
+		//	$('.right-header span').html('用水曲线');
+		//	$('.total-power-consumption').html('累计用水');
+		//	$('.the-cumulative-power-unit').html('t');
+		//	$('.header-right-lists').html('单位：t');
+		//}else if($('.selectedEnergy').attr('value')==300){
+		//	$('.header-one').html('气');
+		//	$('.right-header span').html('用气曲线');
+		//	$('.total-power-consumption').html('累计用气');
+		//	$('.the-cumulative-power-unit').html('m3');
+		//	$('.header-right-lists').html('单位：m3');
+		//}
+		setEnergyInfo();
 	})
 })
  var myChart3;
@@ -209,6 +160,25 @@ $(function(){
 		 myChart3.resize();
 	 }
     }
+
+//根据当前选择的能耗类型设置页面信息
+function setEnergyInfo(){
+	if(_energyTypeSel){
+		var selectedEV = $(".selectedEnergy").attr('value');
+		for(var i=0;i<_energyTypeSel._allEnergyTypes.length;i++){
+			if(_energyTypeSel._allEnergyTypes[i].ettype==selectedEV){
+				var curET = _energyTypeSel._allEnergyTypes[i];
+				$('.header-one').html(curET.etname);
+				$('.right-header span').html('用' + curET.etname + '曲线');
+				$('.total-power-consumption').html('累计用' + curET.etname);
+				$('.the-cumulative-power-unit').html(curET.etunit);
+				$('.header-right-lists').html('单位：' + curET.etunit);
+				return;
+			}
+		}
+	}
+}
+
 //楼宇的读取
 var _allPointerId=[0];
 function getSessionStoragePointer(){
@@ -264,6 +234,11 @@ function getBranches() {
 			data: bmParams,
 			async:false,
 			success: function (data) {
+				if(data.length == 0){	//没有数据时候跳出,清除树
+					var lastTree = $.fn.zTree.getZTreeObj("energyConsumption");
+					if(lastTree) { lastTree.destroy(); }
+					return;
+				}
 				branchArr=[];
 				for(var i=0;i<data.length;i++){
 					branchArr.push(data[i])
@@ -275,7 +250,7 @@ function getBranches() {
 						var isChecked = false;
 					}
 					zNodes.push({id:branchArr[i].f_ServiceId, pId:branchArr[i].f_ParentId, name:branchArr[i].f_ServiceName,open:true,checked:isChecked});
-					//console.log(branchArr[i].f_ServiceId)
+
 				}
 				select_ID.push(branchArr[0].f_ServiceId);
 				var treeObj;
@@ -305,23 +280,19 @@ function getBranches() {
 					}
 				};
 				treeObj = $.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);  //ul的id
-
-				treeObject();
-
+				getSelectedBranches();
 			},
 			error: function (xhr, text, err) {
-				alert(text);
+				console.log(err);
 			}
 		}
 	);
 }
 //获得选中的支路id;
 var select_Name=[];
-function treeObject(){
+function getSelectedBranches(){
 	var treeObject=$.fn.zTree.getZTreeObj('energyConsumption');
-	//console.log(treeObject)
 	var nodes = treeObject.getCheckedNodes();
-	//console.log(nodes)
 	select_ID=[];
 	select_Name=[];
 	for(var i=0;i<nodes.length;i++){
@@ -367,7 +338,6 @@ function searchNode(e) {
 	//getNodesByParamFuzzy:根据节点数据的属性搜索，获取条件模糊匹配
 	// 的节点数据 JSON 对象集合
 	nodeList = zTree.getNodesByParamFuzzy(keyType,value);
-	console.log(nodeList)
 	nodeList = zTree.transformToArray(nodeList);
 	if(nodeList==''){
 		$('.tipes').show();
@@ -473,10 +443,10 @@ function getBranchData(){
 	$('.total-power-consumption-value label').html(lastAdd.toFixed(2));
 	$('.compared-with-last-time label').html(lastAdds.toFixed(2));
 	if(lastAdds != 0){
-		growthRate = (lastAdd - lastAdds) / lastAdds;
+		growthRate = (lastAdd - lastAdds) / lastAdds * 100;
 		$('.rights-up-value').html(growthRate.toFixed(1) + '%');
 	}else if(lastAdds == 0){
-		$('.rights-up-value').html('-')
+		$('.rights-up-value').html('-');
 	}
 	if(growthRate > 0){
 		$('.rights-up').css({
@@ -550,7 +520,6 @@ function getBranchData(){
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
 					dataX.push(datas[j].dataDate.split('T')[0]);
 				}
@@ -579,7 +548,6 @@ function getBranchData(){
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
 					dataX.push(datas[j].dataDate.split('T')[0]);
 				}
