@@ -720,6 +720,8 @@ function timeLastYear(){
     newStr = lastYears;
 }
 //根据配置文件设置左上角的电水气暖
+//ets:sessionStorage中存储的配置文件中的能耗分类
+//ecs：从数据接口中获取的能耗数据
 function setEnergyType(ets,ecs){
     var types;
     if(ets){
@@ -736,6 +738,7 @@ function setEnergyType(ets,ecs){
     }
 }
 //设置每个能耗的块信息,div
+//et:能耗分类,ec:能耗数据
 function setEnergyBlock(et,ec){
     if(!et){  //没有能耗定义信息，表示是总能耗
         et = {};
