@@ -46,7 +46,7 @@ var ETSelection = function(){
         for(var i=0; i<allTypes.length;i++){
             var $div = $("<div>");
             $div.css({
-                "width" : "40px",
+                "width" : "120px",
                 "height" : "70px",
                 "cursor" : "pointer"
             });

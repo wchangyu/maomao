@@ -1,0 +1,33 @@
+.thd-content{
+    position:relative;
+    padding:0;
+}
+
+.ecAll{
+    margin:10px 0 0 10px;
+    float: left;
+    position: absolute;
+    height: 200px;
+    width: 360px;
+    z-index: 1;
+}
+
+.ecOfficeTop5{
+    margin:10px 0 0 380px;
+    float: left;
+    position:absolute;
+    height:200px;
+    width:260px;
+    z-index:1;
+}
+
+.curEC{
+    margin:10px 0 0 650px;
+    float: left;
+    position: absolute;
+    height: 200px;
+    width: 360px;
+    display:none;
+    z-index:1;
+}
+
