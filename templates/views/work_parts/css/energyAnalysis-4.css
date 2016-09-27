@@ -68,27 +68,22 @@
 #energy-parts-one{
     width: 100%;
     height: 400px;
-    background: green;
 }
 #energy-parts-three{
     width: 100%;
     height: 400px;
-    background: green;
 }
 #energy-parts-two{
      width: 100%;
      height: 400px;
-     background: green;
  }
 #energy-parts-four{
     width: 100%;
     height: 400px;
-    background: green;
 }
 #energy-parts-total{
     width: 100%;
     height: 600px;
-    background: yellow;
     position: absolute;
     top: 50%;
     margin-top: -125px;
@@ -106,10 +101,10 @@
     overflow: scroll;
 }
 .tree-2{
-    display: block;
+    display: none;
 }
 .tree-3{
-    display: none;
+    display: block;
 }
 .active{
     color: #ffc000;

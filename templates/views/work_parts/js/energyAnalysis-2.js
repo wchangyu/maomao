@@ -1,56 +1,9 @@
 $(function(){
 	$('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
-	//水电选择
-	$(".electricity").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".water").css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".gas").css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	});
-	$(".water").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/water_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".electricity").css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".gas").css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	});
-	$(".gas").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".electricity").css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".water").css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
+	//读取能耗种类
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+		getEcType();
 	});
 	//对象选择
 	$('.left-middle-tab').eq(0).click(function(){
@@ -115,7 +68,6 @@ $(function(){
 			}
 			_ajaxStartTime_1 = startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
 			_ajaxEndTime_1 = endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
-			$('.header-three-1').eq(0).html(startDay);
 		}else if(_ajaxDataType=="周"){
 			inputValue = $('#datetimepicker').val();
 			var now = moment(inputValue).startOf('week');
@@ -185,6 +137,8 @@ $(function(){
 	//获取时间段
 	dataType();
 	getPointerData();
+	//设置页面选择的时间
+	$('.header-one').html($('.datetimepickereType').html());
 	$('.btns').click(function(){
 		$('#tbody').empty();
 		//获取能耗种类；
@@ -198,6 +152,7 @@ $(function(){
 		}else{
 			getPointerData();
 		}
+		setEnergyInfos();
 	})
 })
 var myChart11;
@@ -208,24 +163,38 @@ window.onresize = function () {
 //确定能耗种类
 var _ajaxEcType;
 function getEcType(){
-	//首先判断哪个含有selectedEnergy类
-	$('.selectedEnergy').attr('value');
-	if($('.selectedEnergy').attr('value')==01){
-		$('.header-one').html('电');
-		$('.right-header span').html('用电曲线');
-	}else if($('.selectedEnergy').attr('value')==211){
-		$('.header-one').html('水');
-		$('.right-header span').html('用水曲线');
-	}else if($('.selectedEnergy').attr('value')==311){
-		$('.header-one').html('气');
-		$('.right-header span').html('用气曲线');
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	//console.log(jsonText.alltypes);
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etid)
 	}
-	_ajaxEcType=$('.selectedEnergy').attr('value');
+	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+}
+//根据当前选择的能耗类型设置页面信息
+function setEnergyInfos(){
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		if(jsonText.alltypes[i].etid == _ajaxEcType){
+			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
+			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+			$('.header-one').html($('.datetimepickereType').html());
+		}
+	}
 }
 //设置getECType的初始值(文字，office时用);
-var _ajaxEcTypeWord="电";
+var _ajaxEcTypeWord = "电";
 function getEcTypeWord(){
-	_ajaxEcTypeWord=$('.selectedEnergy').children().html();
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etname);
+	}
+	_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
 }
 //获取dataType
 var _ajaxDataType_1='小时';
@@ -257,7 +226,6 @@ function getPointerData(){
 	};
 	for(var i=0;i<pointerID.length;i++){
 		pointerIds = pointerID[i];
-		console.log(pointerIds)
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
 			'pointerId': pointerIds,

@@ -483,3 +483,6 @@ a{
 #allOffices li a{
 	height:auto !important;
 }
+.energy-types div{
+	border: solid 2px #fff;
+}

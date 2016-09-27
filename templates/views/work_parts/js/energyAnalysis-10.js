@@ -125,58 +125,12 @@ $(function(){
 	$('.types').change(function(){
 		$('.datetimepickereType').empty();
 	})
-	//能耗种类
-	$('.electricity').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.water').css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.gas').css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
-	$('.water').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/water_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.electricity').css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.gas').css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
-	$('.gas').click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.electricity').css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$('.water').css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
+
+	//读取能耗种类
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+		getEcType();
+	});
 	//确定能耗种类类型
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
@@ -202,29 +156,11 @@ $(function(){
 		timeDisposal();
 		treeObject();
 		getPointerId();
-		if(_ajaxEcType==01){
-			$('#th1').text("累计用电量");
-			$('#th2').text("用电峰值 kWh");
-			$('#th3').text("用电谷值 kWh");
-			$('#th4').text("用电平均值 kWh");
-			$('.header-right-lists').html('单位：kWs');
-		}else if(_ajaxEcType==211){
-			$('#th1').text("累计用水量");
-			$('#th2').text("用水峰值 t");
-			$('#th3').text("用水谷值 t");
-			$('#th4').text("用水平均值 t");
-			$('.header-right-lists').html('单位：t');
-		}else if(_ajaxEcType==311){
-			$('#th1').text("累计用气量");
-			$('#th2').text("用气峰值 m³");
-			$('#th3').text("用气谷值 m³");
-			$('#th4').text("用气平均值 m³");
-			$('.header-right-lists').html('单位：m3');
-		}
 		getSelectedTime();
 		getItemizedData();
 		$('small').html(_ajaxgetPointerName);
 		$('.header-two').html(select_Name);
+		setEnergyInfos();
 	})
 })
 //首先将sessionStorage的内容写入html中
@@ -241,17 +177,27 @@ function getSessionStoragePointer(){
 var _ajaxEcType = '01';
 //选中的能耗种类
 function getEcType(){
-	if($('.selectedEnergy').attr('value')==01){
-		$('.header-one').html('电');
-		$('.right-header span').html('用电曲线');
-	}else if($('.selectedEnergy').attr('value')==211){
-		$('.header-one').html('水');
-		$('.right-header span').html('用水曲线');
-	}else if($('.selectedEnergy').attr('value')==311){
-		$('.header-one').html('气');
-		$('.right-header span').html('用气曲线');
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	//console.log(jsonText.alltypes);
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etid)
 	}
-	_ajaxEcType=$('.selectedEnergy').attr('value');
+	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+}
+//根据当前选择的能耗类型设置页面信息
+function setEnergyInfos(){
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		if(jsonText.alltypes[i].etid == _ajaxEcType){
+			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
+			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+		}
+	}
 }
 //获取dataType(小时，日，月，年)
 var _ajaxDataType='日';
@@ -260,7 +206,7 @@ function dataType(){
 	dataType = $('.types').val();
 	_ajaxDataType=dataType;
 }
-var _ajaxDataType_1='小时'
+var _ajaxDataType_1='小时';
 //选中的分项的id
 var select_ID=[];
 var select_Name=[];

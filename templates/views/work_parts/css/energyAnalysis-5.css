@@ -68,7 +68,7 @@
 	line-height: 30px;
 }
 .right-header-right{
-	width: 310px;
+	width: auto;
 	height: 100%;
 	float: right;
 	margin-left: 0;
@@ -77,8 +77,9 @@
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
-	width:70px;
+	width:auto;
 	height: 100%;
+	line-height: 30px;
 }
 .pic-one{
 	margin-left: 10px;
@@ -110,11 +111,9 @@
 #rheader-content-41{
 	width: 100%;
 	height: 290px;
-	background: red;
 }
 #rheader-content-42{
 	height: 290px;
-	background: cyan;
 }
 .rheader-content-rightss{
 	height:290px;
@@ -185,4 +184,63 @@
 	line-height:80px;
 	weight:bold;
 	color:#fff;
+}
+#selectPointer{
+	height: 30px;
+	margin-left: 35px !important;
+	margin-top: 30px;
+}
+#key{
+	display: inline-block;
+	width: 220px;
+	height: 30px;
+	margin-left: 35px !important;
+	margin-top: 10px;
+}
+.types {
+	margin-top: 20px;
+	height: 30px;
+	margin-left: 35px;
+}
+#datetimepicker {
+	height: 30px;
+	margin-left:23px;
+	width: 220px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position: 98% center;
+}
+#energyConsumption{
+	height: 100px;
+	overflow:scroll;
+	margin-left: 35px;
+}
+.tipes{
+	margin-left: 35px;
+}
+.datetimepickereType{
+	text-indent: 25px;
+}
+#hour{
+	width: 60px;
+}
+#minutes{
+	width:60px;
+}
+.time-interval{
+	margin-top: 10px;
+	margin-left: 25px;
+}
+.select-times{
+	height:auto;
+}
+#hours{
+	width: 60px;
+}
+#minutess{
+	width:60px;
+}
+#wrapper p{
+	margin-top: 10px;
+	margin-left: 25px;
 }
