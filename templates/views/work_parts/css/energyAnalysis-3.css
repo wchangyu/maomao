@@ -66,19 +66,18 @@
 }
 #rheader-content-16{
 	height: 290px;
-	background: red;
 }
 .comparisonOfHistograms {
 	height: 290px;
 }
 .rheader-content-left-top{
 	width: 100%;
-	height: 100px;
+	height: 60px;
 }
 .content-left-top-1{
-	width: 50%;
+	width: 200px;
 	height: 100%;
-	float: left;
+	margin: 0 auto !important;
 }
 .content-left-top-tips{
 	width: 133px;
@@ -88,51 +87,48 @@
 	color: #fff;
 	line-height: 25px;
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 10px;
 	font-size: 12px;
 }
 .span-1{
 	color:#ffc000;
 	font-size:1.3rem;
-	display:block;
-	float:right;
-	margin-right:45px;
-	margin-top:-5px;
-}
-.content-left-top-arrow{
-	display: inline-block;
-	float: right;
-	width: 40px;
-	height: 40px;
-	background: url(../img/prompt-arrow1.png)no-repeat -3px -5px;
-	background-size: 90%;
-	margin-top: -15px;
-}
-.content-left-top-arrow1{
-	background: url(../img/prompt-arrow2.png)no-repeat -3px -8px;
-	background-size: 85%;
-	margin-top: -15px;
-}
-#rheader-content-17{
-	height: 190px;
-	background: red;
-}
-#rheader-content-18{
-	height: 290px;
-	background: red;
+	display:inline-block !important;
+	margin-top: 10px;
 }
 .span-2{
 	color:#ffc000;
 	font-size:1.3rem;
-	display:block;
-	float:right;
-	margin-right:45px;
-	margin-top:-5px;
+	display:inline-block !important;
+	margin-top: 10px;
+}
+.content-left-top-arrow{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: url(../img/prompt-arrow1.png)no-repeat -3px -5px;
+	background-size: 90%;
+	margin-right: -30px;
+}
+#rheader-content-17{
+	height: 220px;
+}
+#rheader-content-18{
+	height: 290px;
 }
 #rheader-content-19{
-	height: 190px;
-	background: red;
+	height: 220px;
 }
 .timeactive{
 	margin-left: 25px !important;
+}
+.huanbizhi{
+	margin-left: 5px !important;
+}
+.right-header-right{
+	float: right;
+}
+.time-date{
+	display: inline-block !important;
+	float: left !important;
 }

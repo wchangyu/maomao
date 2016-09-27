@@ -1,56 +1,9 @@
 $(function(){
-	//水电选择
-	$(".electricity").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/electricity_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".water").css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".gas").css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
-	$(".water").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/water_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".electricity").css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".gas").css({
-			"background":"url(./work_parts/img/gas.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
-	$(".gas").click(function(){
-		$(this).css({
-			"background":"url(./work_parts/img/gas_hover.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".electricity").css({
-			"background":"url(./work_parts/img/electricity.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-		$(".water").css({
-			"background":"url(./work_parts/img/water.png)no-repeat",
-			"background-size":"50px",
-			"background-position":"top center"
-		})
-	})
+	//读取能耗种类
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+		getEcType();
+	});
     //对象选择
      $(".left-middle-tab").click(function(){
         $(".left-middle-tab").css({
@@ -75,7 +28,6 @@ $(function(){
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
 	//时间选择
-
 	$('.time-options').click(function(){
 		$('.time-options').removeClass('time-options-1');
 		$(this).addClass('time-options-1');
@@ -97,207 +49,23 @@ $(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
 	});
+	getEcType();
+	getPointerData();
+	$('small').html(pointerNames);
 	$('.btns1').click(function (){
-		getEcType();
 		var o=$('.tree-3')[0].style.display;
 		if(o == 'none'){
-			//getOfficeData();
-			//$('small').html(officeNames);
+			getEcTypeWord();
+			getOfficeData();
+			$('small').html(officeNames);
 		}else{
+			getEcType();
 			getPointerData();
 			$('small').html(pointerNames);
 		}
-		console.log('能耗类型为：' + _ajaxEcType);
-		console.log('开始时间为：' + newStr);
-		console.log('结束时间为：' + newStr1);
-		//console.log(_ajaxDateType_1);
-		//console.log('同比开始时间为：' + tongNewStr);
-		//console.log('同比结束时间为：' + tongNewStr1);
-		//console.log(_ajaxDateType);
+		setEnergyInfos();
 	})
-	//电-同比分析-柱状图
-	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
-		option14 = {
-		    tooltip : {
-		        trigger: 'axis',
-		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-		        },
-		        formatter: function (params) {
-		            var tar = params[1];
-		            return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
-		        }
-		    },
-		    grid: {
-		        left: '3%',
-		        right: '4%',
-		        bottom: '3%',
-		        containLabel: true
-		    },
-		    xAxis: {
-		        type : 'category',
-		        splitLine: {show:false},
-		        data : ['总费用','房租','水电费','交通费','伙食费','日用品数']
-		    },
-		    yAxis: {
-		        type : 'value'
-		    },
-		    series: [
-		        {
-		            name: '辅助',
-		            type: 'bar',
-		            stack:  '总量',
-		            itemStyle: {
-		                normal: {
-		                    barBorderColor: 'rgba(0,0,0,0)',
-		                    color: 'rgba(0,0,0,0)'
-		                },
-		                emphasis: {
-		                    barBorderColor: 'rgba(0,0,0,0)',
-		                    color: 'rgba(0,0,0,0)'
-		                }
-		            },
-		            data: [0, 1700, 1400, 1200, 300, 0]
-		        },
-		        {
-		            name: '生活费',
-		            type: 'bar',
-		            stack: '总量',
-		            label: {
-		                normal: {
-		                    show: true,
-		                    position: 'inside'
-		                }
-		            },
-		            data:[2900, 1200, 300, 200, 900, 300]
-		        }
-		    ]
-		};
-		myChart14.setOption(option14);
-	//电-环比分析-柱折图
-	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
-		option15 = {
-		    tooltip: {
-		        trigger: 'axis'
-		    },
-		    toolbox: {
-		        feature: {
-		            dataView: {show: true, readOnly: false},
-		            magicType: {show: true, type: ['line', 'bar']},
-		            restore: {show: true},
-		            saveAsImage: {show: true}
-		        }
-		    },
-		    legend: {
-		        data:['蒸发量','降水量','平均温度']
-		    },
-		    xAxis: [
-		        {
-		            type: 'category',
-		            data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-		        }
-		    ],
-		    yAxis: [
-		        {
-		            type: 'value',
-		            name: '水量',
-		            min: 0,
-		            max: 250,
-		            interval: 50,
-		            axisLabel: {
-		                formatter: '{value} ml'
-		            }
-		        },
-		        {
-		            type: 'value',
-		            name: '温度',
-		            min: 0,
-		            max: 25,
-		            interval: 5,
-		            axisLabel: {
-		                formatter: '{value} °C'
-		            }
-		        }
-		    ],
-		    series: [
-		        {
-		            name:'蒸发量',
-		            type:'bar',
-		            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-		        },
-		        {
-		            name:'降水量',
-		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-		        },
-		        {
-		            name:'平均温度',
-		            type:'line',
-		            yAxisIndex: 1,
-		            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
-		        }
-		    ]
-		};
-		 myChart15.setOption(option15);
-	//电-环比分析-柱状图
-	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
-		option16 = {
-		    tooltip : {
-		        trigger: 'axis',
-		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-		        },
-		        formatter: function (params) {
-		            var tar = params[1];
-		            return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
-		        }
-		    },
-		    grid: {
-		        left: '3%',
-		        right: '4%',
-		        bottom: '3%',
-		        containLabel: true
-		    },
-		    xAxis: {
-		        type : 'category',
-		        splitLine: {show:false},
-		        data : ['总费用','房租','水电费','交通费','伙食费','日用品数']
-		    },
-		    yAxis: {
-		        type : 'value'
-		    },
-		    series: [
-		        {
-		            name: '辅助',
-		            type: 'bar',
-		            stack:  '总量',
-		            itemStyle: {
-		                normal: {
-		                    barBorderColor: 'rgba(0,0,0,0)',
-		                    color: 'rgba(0,0,0,0)'
-		                },
-		                emphasis: {
-		                    barBorderColor: 'rgba(0,0,0,0)',
-		                    color: 'rgba(0,0,0,0)'
-		                }
-		            },
-		            data: [0, 1700, 1400, 1200, 300, 0]
-		        },
-		        {
-		            name: '生活费',
-		            type: 'bar',
-		            stack: '总量',
-		            label: {
-		                normal: {
-		                    show: true,
-		                    position: 'inside'
-		                }
-		            },
-		            data:[2900, 1200, 300, 200, 900, 300]
-		        }
-		    ]
-		};
-		myChart16.setOption(option16);
+
 })
 var myChart13;
 var myChart14;
@@ -312,8 +80,32 @@ window.onresize = function () {
 //选取的能耗种类；
 var _ajaxEcType;
 function getEcType(){
-	_ajaxEcType=$('.selectedEnergy').attr('value');
-	console.log(_ajaxEcType);
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	//console.log(jsonText.alltypes);
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etid)
+	}
+	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+}
+//设置getECType的初始值(文字，office时用);
+var _ajaxEcTypeWord = "电";
+function getEcTypeWord(){
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etname);
+	}
+	_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
+}
+//根据当前选择的能耗类型设置页面信息
+function setEnergyInfos(){
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		if(jsonText.alltypes[i].etid == _ajaxEcType){
+			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+		}
+	}
 }
 //开始时间
 var newStr;
@@ -399,16 +191,27 @@ var pointerNames;
 function getPointerData(){
 	var allBranch = [];
 	var allBranchs = [];
+	var allBranchss = [];
 	var allDataX = [];
+	var allDateX1 = [];
 	var dataX = [];
+	var dataX1 = [];
 	var dataY1 = [];
 	var dataY2 = [];
+	var dataY3 = [];
+	//存放累计值
+	var totalNum = 0;
+	var totalNums = 0;
+	var totalNumss = 0;
+	//存放增长率
+	var growthRate = 0;
 	var pts = _objectSel.getSelectedPointers(),pointerID;
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
 	}
 	if(!pointerID) { return; }
+	//本期
 	var ecParams = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
@@ -416,11 +219,20 @@ function getPointerData(){
 		'endTime':newStr1,
 		'dateType':_ajaxDateType
 	}
+	//环比
 	var ecParamss = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
 		'startTime':huanNewStr,
 		'endTime':huanNewStr1,
+		'dateType':_ajaxDateType
+	}
+	//同比
+	var ecParamsss = {
+		'ecTypeId':_ajaxEcType,
+		'pointerID':pointerID,
+		'startTime':tongNewStr,
+		'endTime':tongNewStr1,
 		'dateType':_ajaxDateType
 	}
 	$.ajax({
@@ -433,6 +245,7 @@ function getPointerData(){
 		}
 	})
 	allDataX.push(allBranch);
+	allDateX1.push(allBranch);
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
@@ -442,10 +255,21 @@ function getPointerData(){
 			allBranchs.push(result);
 		}
 	})
-	//console.log(ecParamss)
 	allDataX.push(allBranchs);
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
+		data:ecParamsss,
+		async:false,
+		success:function(result){
+			allBranchss.push(result);
+		}
+	})
+	allDateX1.push(allBranchss);
 	//获得横坐标的数据  dataX
 	if(_ajaxDateType_1 == '日'){
+		$('.right-top').eq(1).show();
+		//环比（横坐标）
 		for(var i=0;i<allDataX.length;i++){
 			var datas = allDataX[i];
 			for(var j=0;j<datas.length;j++){
@@ -457,7 +281,7 @@ function getPointerData(){
 				}
 			}
 		}
-		//确定y周数据
+		//环比（确定y周数据）
 		for(var i=0;i<allBranch.length;i++){
 			var datas = allBranch[i];
 			for(var j=0;j<datas.length;j++){
@@ -468,9 +292,15 @@ function getPointerData(){
 				}
 			}
 		}
-		var maxData = _.max(datas,function(d){return d.data}).data;
-		var maxDis = parseInt(maxData/5);
-		console.log(maxDis)
+		totalNum = 0;
+		for(var i=0;i<dataY1.length;i++){
+			totalNum += parseInt(dataY1[i]);
+		}
+		$('.content-left-top-tips span').html(totalNum);
+		var maxDataa = _.max(datas,function(d){return d.data}).data;
+		var maxDiss = parseInt(maxDataa).toString().length-1;
+		var maxDis = Math.pow(10,maxDiss);
+		var maxData = Math.pow(10,maxDiss) * (parseInt(maxDataa).toString().length + 2);
 		for(var i=0;i<allBranchs.length;i++){
 			var datas = allBranchs[i];
 			for(var j=0;j<datas.length;j++){
@@ -481,7 +311,89 @@ function getPointerData(){
 				}
 			}
 		}
+		totalNums = 0;
+		for(var i=0;i<dataY2.length;i++){
+			totalNums += parseInt(dataY2[i]);
+		}
+		$('.huanbizhi').html(totalNums);
+		if(totalNums != 0 ){
+			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
+			$('.span-1').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNums == 0){
+			$('.span-1').html('出错了!');
+		}
+		//同比(横坐标)
+		for(var i=0;i<allDateX1.length;i++){
+			var datas = allDateX1[i];
+			for(var j=0;j<datas.length;j++){
+				var currentArr = datas[j];
+				for(var z=0;z<currentArr.length;z++){
+					if(dataX1.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
+						dataX1.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					}
+				}
+			}
+		}
+		//同比（纵坐标）
+		for(var i=0;i<allBranchss.length;i++){
+			var datas = allBranchss[i]
+			for(var j=0;j<datas.length;j++){
+				for(var z =0;z<dataX1.length;z++){
+					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX1[z]){
+						dataY3.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		totalNumss = 0;
+		for(var i=0;i<dataY3.length;i++){
+			totalNumss += parseInt(dataY3[i]);
+		}
+		$('.tongbizhi').html(totalNumss);
+		if(totalNumss != 0 ){
+			growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
+			$('.span-2').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNumss == 0){
+			$('.span-2').html('出错了!');
+		}
+		//首先定义一个变量，确定最大值（环比）
+		var compare = totalNum - totalNums;
+		if(compare >= 0){
+			maxDissa1 = totalNum;
+		}else{
+			maxDissa1 = totalNums;
+		}
+		//首先定义一个变量，确定最大值（同比）；
+		var compares = totalNum - totalNumss;
+		if(compares >= 0){
+			maxDissa2 = totalNum;
+		}else{
+			maxDissa2 = totalNumss;
+		}
 	}else{
+		//环比（横坐标）
 		for(var i=0;i<allDataX.length;i++){
 			var datas = allDataX[i];
 			for(var j=0;j<datas.length;j++){
@@ -493,7 +405,7 @@ function getPointerData(){
 				}
 			}
 		}
-		//确定y周数据
+		//环比（确定y周数据）
 		for(var i=0;i<allBranch.length;i++){
 			var datas = allBranch[i];
 			for(var j=0;j<datas.length;j++){
@@ -504,6 +416,11 @@ function getPointerData(){
 				}
 			}
 		}
+		totalNum = 0;
+		for(var i=0;i<dataY1.length;i++){
+			totalNum += parseInt(dataY1[i]);
+		}
+		$('.content-left-top-tips span').html(totalNum);
 		for(var i=0;i<allBranchs.length;i++){
 			var datas = allBranchs[i];
 			for(var j=0;j<datas.length;j++){
@@ -514,10 +431,100 @@ function getPointerData(){
 				}
 			}
 		}
-		var maxData = _.max(datas,function(d){return d.data}).data;
-		var maxDis = maxData/5;
+		var maxDataa = _.max(datas,function(d){return d.data}).data;
+		var maxDiss = parseInt(maxDataa/2).toString().length-1;
+		var  maxDis = 1;
+		for(var i=0;i<maxDiss;i++){
+			maxDis = maxDis * 10;
+		}
+		totalNums = 0;
+		for(var i=0;i<dataY2.length;i++){
+			totalNums += parseInt(dataY2[i]);
+		}
+		$('.huanbizhi').html(totalNums);
+		if(totalNums != 0 ){
+			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
+			$('.span-1').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNums == 0){
+			$('.span-1').html('出错了!');
+		};
+		if(_ajaxDateType_1 == '周'){
+			$('.right-top').eq(1).hide();
+		}else{
+			$('.right-top').eq(1).show();
+			//同比（横坐标）
+			for(var i=0;i<allDateX1.length;i++){
+				var datas = allDateX1[i];
+				for(var j=0;j<datas.length;j++){
+					var currentArr = datas[j];
+					for(var z=0;z<currentArr.length;z++){
+						if(dataX1.indexOf(currentArr[z].dataDate.split('T')[0])<0){
+							dataX1.push(currentArr[z].dataDate.split('T')[0]);
+						}
+					}
+				}
+			}
+			//同比（纵坐标）；
+			for(var i=0;i<allBranchss.length;i++){
+				var datas = allBranch[i];
+				for(var j=0;j<datas.length;j++){
+					for(var z=0;z<dataX1.length;z++){
+						if( datas[j].dataDate.split('T')[0] == dataX[z]){
+							dataY3.push(datas[j].data.toFixed(2));
+						}
+					}
+				}
+			}
+			totalNumss = 0;
+			for(var i=0;i<dataY3.length;i++){
+				totalNumss += parseInt(dataY3[i]);
+			}
+			$('.tongbizhi').html(totalNumss);
+			if(totalNumss != 0 ){
+				growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
+				$('.span-2').html(growthRate + '%');
+				if(growthRate >= 0){
+					$('.content-left-top-arrow').css({
+						'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+						'background-size':'90%'
+					})
+				}else{
+					$('.content-left-top-arrow').css({
+						'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+						'background-size':'90%'
+					})
+				}
+			}else if(totalNumss == 0){
+				$('.span-2').html('出错了!');
+			}
+		}
+		//首先定义一个变量，确定最大值（环比）
+		var compare = totalNum - totalNums;
+		if(compare >= 0){
+			maxDissa1 = totalNum;
+		}else{
+			maxDissa1 = totalNums;
+		}
+		//首先定义一个变量，确定最大值（同比）；
+		var compares = totalNum - totalNumss;
+		if(compares >= 0){
+			maxDissa2 = totalNum;
+		}else{
+			maxDissa2 = totalNumss;
+		}
 	}
-	//电-同比分析-柱折图
+	//电-环比分析-柱折图
 	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 	option13 = {
 		tooltip: {
@@ -532,7 +539,7 @@ function getPointerData(){
 			}
 		},
 		legend: {
-			data:['蒸发量','降水量','平均温度']
+			data:['本期用电','上期用电']
 		},
 		xAxis: [
 			{
@@ -548,15 +555,115 @@ function getPointerData(){
 				max: maxData,
 				interval: maxDis,
 				axisLabel: {
-					formatter: '{value} kWh'
+					formatter: '{value}'
 				}
+			}
+		],
+		series: [
+			{
+				name:'本期用电',
+				type:'bar',
+				data:dataY1
+			},
+			{
+				name:'上期用电',
+				type:'bar',
+				data:dataY2
+			}
+		]
+	};
+	myChart13.setOption(option13);
+	//电-环比分析-柱状图
+	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
+	option14 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['比较斜率', '累计值']
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataView: {readOnly: false},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis: [
+			{
+				type: 'category',
+				boundaryGap: true,
+				data:['本期','上期']
+			},
+			{
+				type: 'category',
+				boundaryGap: true,
+				data: ['本期','上期']
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				scale: true,
+				name: '用量',
+				max: maxDissa1,
+				min: 0
 			},
 			{
 				type: 'value',
-				name: '温度',
+				scale: true,
+				name: '用量',
+				max: maxDissa1,
+				min: 0
+			}
+		],
+		series: [
+			{
+				name:'累计值',
+				type:'bar',
+				xAxisIndex: 1,
+				yAxisIndex: 1,
+				data:[totalNum,totalNums]
+			},
+			{
+				name:'比较斜率',
+				type:'line',
+				data:[totalNum,totalNums]
+			}
+		]
+	};
+	myChart14.setOption(option14);
+	//电-同比分析-柱折图
+	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
+	option15 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		toolbox: {
+			feature: {
+				dataView: {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore: {show: true},
+				saveAsImage: {show: true}
+			}
+		},
+		legend: {
+			data:['本期用电','上期用电']
+		},
+		xAxis: [
+			{
+				type: 'category',
+				data:dataX1
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				name: '用电量',
 				min: 0,
-				max: 25,
-				interval: 5,
+				max: maxData,
+				interval: maxDis,
 				axisLabel: {
 					formatter: '{value}'
 				}
@@ -564,16 +671,611 @@ function getPointerData(){
 		],
 		series: [
 			{
-				name:'蒸发量',
+				name:'本期用电',
 				type:'bar',
 				data:dataY1
 			},
 			{
-				name:'降水量',
+				name:'上期用电',
+				type:'bar',
+				data:dataY3
+			}
+		]
+	};
+	myChart15.setOption(option15);
+	//电-同比分析-柱状图
+	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
+	option16 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['比较斜率', '累计值']
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataView: {readOnly: false},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis: [
+			{
+				type: 'category',
+				boundaryGap: true,
+				data:['本期','上期']
+			},
+			{
+				type: 'category',
+				boundaryGap: true,
+				data: ['本期','上期']
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				scale: true,
+				name: '用量',
+				max: maxDissa2,
+				min: 0
+			},
+			{
+				type: 'value',
+				scale: true,
+				name: '用量',
+				max: maxDissa2,
+				min: 0
+			}
+		],
+		series: [
+			{
+				name:'累计值',
+				type:'bar',
+				xAxisIndex: 1,
+				yAxisIndex: 1,
+				data:[totalNum,totalNumss]
+			},
+			{
+				name:'比较斜率',
+				type:'line',
+				data:[totalNum,totalNumss]
+			}
+		]
+	};
+	myChart16.setOption(option16);
+
+}
+//科室数据
+var officeNames;
+function getOfficeData(){
+	var allBranch = [];
+	var allBranchs = [];
+	var allBranchss = [];
+	var allDataX = [];
+	var allDateX1 = [];
+	var dataX = [];
+	var dataX1 = [];
+	var dataY1 = [];
+	var dataY2 = [];
+	var dataY3 = [];
+	//存放累计值
+	var totalNum = 0;
+	var totalNums = 0;
+	var totalNumss = 0;
+	//存放增长率
+	var growthRate = 0;
+	var ofs = _objectSel.getSelectedOffices(),officeID;
+	if(ofs.length>0) {
+		officeID = ofs[0].f_OfficeID;
+		officeNames = ofs[0].f_OfficeName;
+	};
+	if(!officeID){ return; }
+	var ecParams = {
+		'ecTypeId': _ajaxEcTypeWord,
+		'officeId': officeID,
+		'dateType': _ajaxDateType,
+		'startTime': newStr,
+		'endTime' : newStr1
+	}
+	//环比
+	var ecParamss = {
+		'ecTypeId': _ajaxEcTypeWord,
+		'officeId': officeID,
+		'dateType': _ajaxDateType,
+		'startTime': huanNewStr,
+		'endTime' : huanNewStr1
+	}
+	//同比
+	var ecParamsss = {
+		'ecTypeId': _ajaxEcTypeWord,
+		'officeId': officeID,
+		'dateType': _ajaxDateType,
+		'startTime': tongNewStr,
+		'endTime' : tongNewStr1
+	}
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+		data:ecParams,
+		async:false,
+		success:function(result){
+			allBranch.push(result);
+		}
+	})
+	allDataX.push(allBranch);
+	allDateX1.push(allBranch);
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+		data:ecParamss,
+		async:false,
+		success:function(result){
+			allBranchs.push(result);
+		}
+	})
+	allDataX.push(allBranchs);
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+		data:ecParamsss,
+		async:false,
+		success:function(result){
+			allBranchss.push(result);
+		}
+	})
+	allDateX1.push(allBranchss);
+	//获得横坐标的数据  dataX
+	if(_ajaxDateType_1 == '日'){
+		$('.right-top').eq(1).show();
+		//环比（横坐标）
+		for(var i=0;i<allDataX.length;i++){
+			var datas = allDataX[i];
+			for(var j=0;j<datas.length;j++){
+				var currentArr = datas[j];
+				for(var z=0;z<currentArr.length;z++){
+					if(dataX.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
+						dataX.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					}
+				}
+			}
+		}
+		//环比（确定y周数据）
+		for(var i=0;i<allBranch.length;i++){
+			var datas = allBranch[i];
+			for(var j=0;j<datas.length;j++){
+				for(var z =0;z<dataX.length;z++){
+					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+						dataY1.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		totalNum = 0;
+		for(var i=0;i<dataY1.length;i++){
+			totalNum += parseInt(dataY1[i]);
+		}
+		$('.content-left-top-tips span').html(totalNum);
+		var maxDataa = _.max(datas,function(d){return d.data}).data;
+		var maxDiss = parseInt(maxDataa).toString().length-1;
+		var maxDis = Math.pow(10,maxDiss);
+		var maxData = Math.pow(10,maxDiss) * (parseInt(maxDataa).toString().length + 2);
+		for(var i=0;i<allBranchs.length;i++){
+			var datas = allBranchs[i];
+			for(var j=0;j<datas.length;j++){
+				for(var z =0;z<dataX.length;z++){
+					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+						dataY2.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		totalNums = 0;
+		for(var i=0;i<dataY2.length;i++){
+			totalNums += parseInt(dataY2[i]);
+		}
+		$('.huanbizhi').html(totalNums);
+		if(totalNums != 0 ){
+			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
+			$('.span-1').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNums == 0){
+			$('.span-1').html('出错了!');
+		}
+		//同比(横坐标)
+		for(var i=0;i<allDateX1.length;i++){
+			var datas = allDateX1[i];
+			for(var j=0;j<datas.length;j++){
+				var currentArr = datas[j];
+				for(var z=0;z<currentArr.length;z++){
+					if(dataX1.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
+						dataX1.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					}
+				}
+			}
+		}
+		//同比（纵坐标）
+		for(var i=0;i<allBranchss.length;i++){
+			var datas = allBranchss[i]
+			for(var j=0;j<datas.length;j++){
+				for(var z =0;z<dataX1.length;z++){
+					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX1[z]){
+						dataY3.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		totalNumss = 0;
+		for(var i=0;i<dataY3.length;i++){
+			totalNumss += parseInt(dataY3[i]);
+		}
+		$('.tongbizhi').html(totalNumss);
+		if(totalNumss != 0 ){
+			growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
+			$('.span-2').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNumss == 0){
+			$('.span-2').html('出错了!');
+		}
+	}else{
+		//环比（横坐标）
+		for(var i=0;i<allDataX.length;i++){
+			var datas = allDataX[i];
+			for(var j=0;j<datas.length;j++){
+				var currentArr = datas[j];
+				for(var z=0;z<currentArr.length;z++){
+					if(dataX.indexOf(currentArr[z].dataDate.split('T')[0])<0){
+						dataX.push(currentArr[z].dataDate.split('T')[0]);
+					}
+				}
+			}
+		}
+		//环比（确定y周数据）
+		for(var i=0;i<allBranch.length;i++){
+			var datas = allBranch[i];
+			for(var j=0;j<datas.length;j++){
+				for(var z=0;z<dataX.length;z++){
+					if( datas[j].dataDate.split('T')[0] == dataX[z]){
+						dataY1.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		totalNum = 0;
+		for(var i=0;i<dataY1.length;i++){
+			totalNum += parseInt(dataY1[i]);
+		}
+		$('.content-left-top-tips span').html(totalNum);
+		for(var i=0;i<allBranchs.length;i++){
+			var datas = allBranchs[i];
+			for(var j=0;j<datas.length;j++){
+				for(var z=0;z<dataX.length;z++){
+					if( datas[j].dataDate.split('T')[0] == dataX[z]){
+						dataY2.push(datas[j].data.toFixed(2));
+					}
+				}
+			}
+		}
+		var maxDataa = _.max(datas,function(d){return d.data}).data;
+		var maxDiss = parseInt(maxDataa/2).toString().length-1;
+		var  maxDis = 1;
+		for(var i=0;i<maxDiss;i++){
+			maxDis = maxDis * 10;
+		}
+		totalNums = 0;
+		for(var i=0;i<dataY2.length;i++){
+			totalNums += parseInt(dataY2[i]);
+		}
+		$('.huanbizhi').html(totalNums);
+		if(totalNums != 0 ){
+			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
+			$('.span-1').html(growthRate + '%');
+			if(growthRate >= 0){
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}else{
+				$('.content-left-top-arrow').css({
+					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+					'background-size':'90%'
+				})
+			}
+		}else if(totalNums == 0){
+			$('.span-1').html('出错了!');
+		};
+		if(_ajaxDateType_1 == '周'){
+			$('.right-top').eq(1).hide();
+		}else{
+			$('.right-top').eq(1).show();
+			//同比（横坐标）
+			for(var i=0;i<allDateX1.length;i++){
+				var datas = allDateX1[i];
+				for(var j=0;j<datas.length;j++){
+					var currentArr = datas[j];
+					for(var z=0;z<currentArr.length;z++){
+						if(dataX1.indexOf(currentArr[z].dataDate.split('T')[0])<0){
+							dataX1.push(currentArr[z].dataDate.split('T')[0]);
+						}
+					}
+				}
+			}
+			//同比（纵坐标）；
+			for(var i=0;i<allBranchss.length;i++){
+				var datas = allBranch[i];
+				for(var j=0;j<datas.length;j++){
+					for(var z=0;z<dataX1.length;z++){
+						if( datas[j].dataDate.split('T')[0] == dataX[z]){
+							dataY3.push(datas[j].data.toFixed(2));
+						}
+					}
+				}
+			}
+			totalNumss = 0;
+			for(var i=0;i<dataY3.length;i++){
+				totalNumss += parseInt(dataY3[i]);
+			}
+			$('.tongbizhi').html(totalNumss);
+			if(totalNumss != 0 ){
+				growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
+				$('.span-2').html(growthRate + '%');
+				if(growthRate >= 0){
+					$('.content-left-top-arrow').css({
+						'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+						'background-size':'90%'
+					})
+				}else{
+					$('.content-left-top-arrow').css({
+						'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+						'background-size':'90%'
+					})
+				}
+			}else if(totalNumss == 0){
+				$('.span-2').html('出错了!');
+			}
+		}
+
+
+	}
+	//电-环比分析-柱折图
+	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
+	option13 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		toolbox: {
+			feature: {
+				dataView: {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore: {show: true},
+				saveAsImage: {show: true}
+			}
+		},
+		legend: {
+			data:['本期用电','上期用电']
+		},
+		xAxis: [
+			{
+				type: 'category',
+				data:dataX
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				name: '用电量',
+				min: 0,
+				max: maxData,
+				interval: maxDis,
+				axisLabel: {
+					formatter: '{value}'
+				}
+			}
+		],
+		series: [
+			{
+				name:'本期用电',
+				type:'bar',
+				data:dataY1
+			},
+			{
+				name:'上期用电',
 				type:'bar',
 				data:dataY2
 			}
 		]
 	};
 	myChart13.setOption(option13);
+	//电-环比分析-柱状图
+	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
+	option14 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['比较斜率', '累计值']
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataView: {readOnly: false},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis: [
+			{
+				type: 'category',
+				boundaryGap: true,
+				data:['本期','上期']
+			},
+			{
+				type: 'category',
+				boundaryGap: true,
+				data: ['本期','上期']
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				scale: true,
+				name: '价格',
+				max: 10000000,
+				min: 0
+			},
+			{
+				type: 'value',
+				scale: true,
+				name: '预购量',
+				max: 10000000,
+				min: 0
+			}
+		],
+		series: [
+			{
+				name:'累计值',
+				type:'bar',
+				xAxisIndex: 1,
+				yAxisIndex: 1,
+				data:[totalNum,totalNums]
+			},
+			{
+				name:'比较斜率',
+				type:'line',
+				data:[totalNum,totalNums]
+			}
+		]
+	};
+	myChart14.setOption(option14);
+	//电-同比分析-柱折图
+	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
+	option15 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		toolbox: {
+			feature: {
+				dataView: {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore: {show: true},
+				saveAsImage: {show: true}
+			}
+		},
+		legend: {
+			data:['本期用电','上期用电']
+		},
+		xAxis: [
+			{
+				type: 'category',
+				data:dataX1
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				name: '用电量',
+				min: 0,
+				max: maxData,
+				interval: maxDis,
+				axisLabel: {
+					formatter: '{value}'
+				}
+			}
+		],
+		series: [
+			{
+				name:'本期用电',
+				type:'bar',
+				data:dataY1
+			},
+			{
+				name:'上期用电',
+				type:'bar',
+				data:dataY3
+			}
+		]
+	};
+	myChart15.setOption(option15);
+	//电-同比分析-柱状图
+	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
+	option16 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['比较斜率', '累计值']
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataView: {readOnly: false},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis: [
+			{
+				type: 'category',
+				boundaryGap: true,
+				data:['本期','上期']
+			},
+			{
+				type: 'category',
+				boundaryGap: true,
+				data: ['本期','上期']
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				scale: true,
+				name: '价格',
+				max: 10000000,
+				min: 0
+			},
+			{
+				type: 'value',
+				scale: true,
+				name: '预购量',
+				max: 10000000,
+				min: 0
+			}
+		],
+		series: [
+			{
+				name:'累计值',
+				type:'bar',
+				xAxisIndex: 1,
+				yAxisIndex: 1,
+				data:[totalNum,totalNumss]
+			},
+			{
+				name:'比较斜率',
+				type:'line',
+				data:[totalNum,totalNumss]
+			}
+		]
+	};
+	myChart16.setOption(option16);
+
 }

@@ -5,7 +5,7 @@ $(function(){
 
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initOffices($(".energy-types"),undefined,function(){
-		getEcType();
+		getEcTypeWord();
 	});
 	//读取科室目录
 	_objectSel = new ObjectSelection();

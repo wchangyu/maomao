@@ -46,7 +46,7 @@ var ETSelection = function(){
         for(var i=0; i<allTypes.length;i++){
             var $div = $("<div>");
             $div.css({
-                "width" : "40px",
+                "width" : "120px",
                 "height" : "70px",
                 "cursor" : "pointer"
             });
@@ -77,7 +77,6 @@ var ETSelection = function(){
             if(i==0){       //默认选中第一个分类
                 $div.addClass("selectedEnergy");
                 $div.css("border","solid 2px #d64635");
-
             }
             $divETs.append($div);
         }
