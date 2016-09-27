@@ -275,8 +275,9 @@ function getPointerData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
-						dataX.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
+					if(dataX.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
+						dataX.push(dataSplit[0]+':'+dataSplit[1])
 					}
 				}
 			}
@@ -286,7 +287,8 @@ function getPointerData(){
 			var datas = allBranch[i];
 			for(var j=0;j<datas.length;j++){
 				for(var z =0;z<dataX.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
+					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
 						dataY1.push(datas[j].data.toFixed(2));
 					}
 				}
@@ -305,7 +307,8 @@ function getPointerData(){
 			var datas = allBranchs[i];
 			for(var j=0;j<datas.length;j++){
 				for(var z =0;z<dataX.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
+					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
 						dataY2.push(datas[j].data.toFixed(2));
 					}
 				}
@@ -339,8 +342,9 @@ function getPointerData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX1.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
-						dataX1.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
+					if(dataX1.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
+						dataX1.push(dataSplit[0]+':'+dataSplit[1])
 					}
 				}
 			}
@@ -399,8 +403,9 @@ function getPointerData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX.indexOf(currentArr[z].dataDate.split('T')[0])<0){
-						dataX.push(currentArr[z].dataDate.split('T')[0]);
+					var dataSplit = currentArr[z].dataDate.split('T')[0];
+					if(dataX.indexOf(dataSplit)<0){
+						dataX.push(dataSplit);
 					}
 				}
 			}
@@ -469,8 +474,9 @@ function getPointerData(){
 				for(var j=0;j<datas.length;j++){
 					var currentArr = datas[j];
 					for(var z=0;z<currentArr.length;z++){
-						if(dataX1.indexOf(currentArr[z].dataDate.split('T')[0])<0){
-							dataX1.push(currentArr[z].dataDate.split('T')[0]);
+						var dataSplit = currentArr[z].dataDate.split('T')[0];
+						if(dataX1.indexOf(dataSplit)<0){
+							dataX1.push(dataSplit);
 						}
 					}
 				}
@@ -834,8 +840,9 @@ function getOfficeData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
-						dataX.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
+					if(dataX.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
+						dataX.push(dataSplit[0]+':'+dataSplit[1])
 					}
 				}
 			}
@@ -845,7 +852,8 @@ function getOfficeData(){
 			var datas = allBranch[i];
 			for(var j=0;j<datas.length;j++){
 				for(var z =0;z<dataX.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
+					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
 						dataY1.push(datas[j].data.toFixed(2));
 					}
 				}
@@ -864,7 +872,8 @@ function getOfficeData(){
 			var datas = allBranchs[i];
 			for(var j=0;j<datas.length;j++){
 				for(var z =0;z<dataX.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX[z]){
+					var dataSplit = datas[j].dataDate.split('T')[1].split(':')
+					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
 						dataY2.push(datas[j].data.toFixed(2));
 					}
 				}
@@ -898,8 +907,9 @@ function getOfficeData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX1.indexOf(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])<0){
-						dataX1.push(currentArr[z].dataDate.split('T')[1].split(':')[0]+':'+currentArr[z].dataDate.split('T')[1].split(':')[1])
+					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':')
+					if(dataX1.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
+						dataX1.push(dataSplit[0]+':'+dataSplit[1])
 					}
 				}
 			}
@@ -909,7 +919,8 @@ function getOfficeData(){
 			var datas = allBranchss[i]
 			for(var j=0;j<datas.length;j++){
 				for(var z =0;z<dataX1.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX1[z]){
+					var dataSplit = datas[j].dataDate.split('T')[1].split(':')
+					if(dataSplit[0]+':'+dataSplit[1] == dataX1[z]){
 						dataY3.push(datas[j].data.toFixed(2));
 					}
 				}
@@ -944,8 +955,9 @@ function getOfficeData(){
 			for(var j=0;j<datas.length;j++){
 				var currentArr = datas[j];
 				for(var z=0;z<currentArr.length;z++){
-					if(dataX.indexOf(currentArr[z].dataDate.split('T')[0])<0){
-						dataX.push(currentArr[z].dataDate.split('T')[0]);
+					var dataSplit = currentArr[z].dataDate.split('T')[0]
+					if(dataX.indexOf(dataSplit)<0){
+						dataX.push(dataSplit);
 					}
 				}
 			}
