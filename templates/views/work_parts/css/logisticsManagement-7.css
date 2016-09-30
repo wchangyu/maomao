@@ -1,0 +1,12 @@
+.yesorno{
+    display: block;
+    float: left;
+    width: 20px !important;
+    height: 20px !important;
+}
+.sure{
+    display: block !important;
+    width: 140px !important;
+    margin: 0 auto !important;
+    height: 40px !important;
+}

@@ -1,0 +1,104 @@
+*{
+    font-family: 微软雅黑;
+}
+.right-header{
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+ul,li{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.orderBegin li{
+    list-style: none;
+    display: inline-block;
+    line-height: 30px !important;
+    vertical-align: top !important;
+}
+.paging li{
+    list-style: none;
+    display: inline-block;
+    line-height: 30px !important;
+    vertical-align: top !important;
+}
+.operatingTable li{
+    list-style: none;
+    display: inline-block;
+    line-height: 30px !important;
+    vertical-align: top !important;
+}
+ul{
+    margin-top: 10px !important;
+}
+li input{
+    margin-top: 2px;
+    height: 30px !important;
+    width: 150px !important;
+    background: url("../img/clendar.png")no-repeat !important;
+    background-size: 25px !important;
+    background-position: 98% center !important;
+    cursor: pointer !important;
+}
+#seacherBox{
+    width: 250px !important;
+    background: #fff !important;
+}
+.first{
+    width:20px;
+    height:30px;
+    display: inline-block;
+    background: url("../img/first.png")no-repeat;
+    background-size: 15px;
+    background-position: center;
+}
+.last{
+    width:20px;
+    height:30px;
+    display: inline-block;
+    background: url("../img/last.png")no-repeat;
+    background-size: 15px;
+    background-position: center;
+}
+.previous{
+    width:20px;
+    height:30px;
+    display: inline-block;
+    background: url("../img/previous.png")no-repeat;
+    background-size: 15px;
+    background-position: center;
+}
+.next{
+    width:20px;
+    height:30px;
+    display: inline-block;
+    background: url("../img/next.png")no-repeat;
+    background-size: 15px;
+    background-position: center;
+}
+.firstPage{
+    width: 30px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+#selectPage{
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.paging{
+    width: 190px;
+    margin: 0 auto !important;
+}
+.new{
+    display: block !important;
+    float: right !important;
+}
+.more{
+    display: block !important;
+    float: right !important;
+}
+.orderBegin li{
+    margin-right: 40px !important;
+}
