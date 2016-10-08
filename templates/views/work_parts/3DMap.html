@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>3D地图</title>
-    <style href="./css/3DMap.css"></style>
-
+    <link href="./css/3DMap.css" rel="stylesheet" >
 </head>
 <body>
     <div class="thd-content">
         <div class="ecAll">
+            <div class="ecTitle">本月能耗总览</div>
+            <div class="ec">
 
+            </div>
         </div>
-        <div class="ecOfficeTop5">
+        <div class="ecOfficeTop5" >
+            <div class="ecTitle">本月科室能耗排行</div>
+            <div class="ecTop">
+
+            </div>
         </div>
-        <div class="curEC"></div>
-        <img id="imageSrc" src=""> <!--原图-->
-        <canvas></canvas>   <!--绘制形状的层,绘制形状后控制显示或者隐藏-->
-        <img src="">               <!--响应鼠标事件的图-->
-        <map>           <!--具体的形状，从配置文件读取-->
-            <area>
+        <div class="curEC">
+            <div class="ecTitle"></div>
+            <div class="ec"></div>
+        </div>
+
+        <img id="img2"  class="mapper img-map" src="../../../assets/local/img/3dmap/blank.jpg" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
+        <map name="mapInfos" id="mapInfos">           <!--具体的形状，从配置文件读取-->
+
         </map>
     </div>
+    <script src="./js/moment.js"></script>
+    <script src="./js/jquery-1.11.2.js"></script>
+    <script src="./js/mapper.js"></script>
+    <script src="./js/3DMap.js"></script>
 </body>
 </html>
