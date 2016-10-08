@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="./work_parts/css/logisticsManagement-4.css">
+    <script src="./work_parts/js/datepicker.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -47,6 +48,8 @@
     <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
 
 </head>
 <!-- END HEAD -->
@@ -335,9 +338,9 @@
                                                 <ul class="specificCondition">
                                                     <li>
                                                         <span class="tableLeft">日期：</span>
-                                                        <input type="text">
+                                                        <input type="text" id="datepicker">
                                                         <span>至</span>
-                                                        <input type="text">
+                                                        <input type="text" id="datepickers">
                                                     </li>
                                                     <li class="goodsBlock">
                                                         <span class="tableLeft">物资：</span>
@@ -376,7 +379,7 @@
                                                         <span>未过期</span>
                                                     </li>
                                                     <br>
-                                                    <li class="sure"><button class="btn btn-success">确认</button></li>
+                                                    <li class="sure"><button class="btn btn-success btn1">确认</button></li>
                                                     <div class="clearfix"></div>
                                                 </ul>
                                             </li>
@@ -608,6 +611,7 @@
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="./work_parts/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>

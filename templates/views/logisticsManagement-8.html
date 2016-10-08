@@ -25,13 +25,14 @@
     <script src="../../assets/local/scripts/underscore-min.js"></script>
     <script src="./work_parts/js/pointersoffices.js"></script>
     <script src="./work_parts/js/logisticsManagement-4.js"></script>
+    <script src="./work_parts/js/logisticsManagement-8.js"></script>
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="./work_parts/css/logisticsManagement-4.css">
-    <link rel="stylesheet" href="./work_parts/css/logisticsManagement-8.css">
+    <script src="./work_parts/js/datepicker.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -49,6 +50,9 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="stylesheet" href="./work_parts/css/logisticsManagement-7.css">
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="./work_parts/css/logisticsManagement-8.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -326,62 +330,61 @@
                     <div class="total-warp">
                         <div class="wrap">
                             <div class="content-main">
+                                <div class="right-header">
+                                    <ul class="orderBegin">
+                                        <li>
+                                            <input type="radio" name="optionsRadios" checked id="inputs"><span class="aaa">物资收发汇总表</span>
+                                            <input type="radio" name="optionsRadios" id="inputsa"><span class="aaa">物资收发明细表</span>
+                                        </li>
+                                        <li class="selectConditions"><div class="selectConditionsTitle">请选择查询条件</div>
+                                            <ul class="specificCondition">
+                                                <li>
+                                                    <span class="tableLeft">日期：</span>
+                                                    <input type="text" id="datepicker">
+                                                    <span>至</span>
+                                                    <input type="text" id="datepickers">
+                                                </li>
+                                                <li class="goodsBlock">
+                                                    <span class="tableLeft">物资：</span>
+                                                    <input type="text" id="goods">
+                                                    <span class="tips">（可用，分割多个编码如1001,1008,2001）</span>
+                                                </li>
+                                                <li>
+                                                    <span class="tableLeft">仓库：</span>
+                                                    <input type="text" id="warehouse">
+                                                </li>
+                                                <li>
+                                                    <span class="tableLeft">物资类别：</span>
+                                                    <input type="text" id="commodityCategories">
+                                                </li>
+                                                <li>
+                                                    <span>显示零库存物资：</span>
+                                                    <input type="radio" name="optionsRadios" class="yesorno"><span>是</span>
+                                                    <input type="radio" name="optionsRadios" class="yesorno"><span>否</span>
+                                                </li>
+                                                <li>
+                                                    <span>显示已禁用物资：</span>
+                                                    <input type="radio" name="optionsRadios" class="yesorno"><span>是</span>
+                                                    <input type="radio" name="optionsRadios" class="yesorno"><span>否</span>
+                                                </li>
+                                                <br>
+                                                <li class="sure">
+                                                    <button type="reset" class="btn btn-default">重置</button>
+                                                    <button class="btn btn-success btn1">确认</button>
+                                                </li>
+                                                <div class="clearfix"></div>
+                                            </ul>
+                                        </li>
+                                        <li><input type="text"id="seacherBox"placeholder="请输入单据编号或供应商名称或备注"></li>
+                                        <li>
+                                            <button class="btn btn-success btn1">查询</button>
+                                        </li>
+                                        <li class="print"><button class="btn btn-success">打印</button></li>
+                                        <li class="print"><button class="btn btn-default">导出</button></li>
+                                    </ul>
+                                </div>
                                 <div class="right-top">
-                                    <div class="right-header">
-                                        <span>收发存报表</span>
-                                    </div>
                                     <div class="right-content">
-                                        <ul class="orderBegin">
-                                            <li>
-                                                <input type="radio"><span class="aaa">物资收发汇总表</span>
-                                                <input type="radio"><span class="aaa">物资收发明细表</span>
-                                            </li>
-                                            <li class="selectConditions"><div class="selectConditionsTitle">请选择查询条件</div>
-                                                <ul class="specificCondition">
-                                                    <li>
-                                                        <span class="tableLeft">日期：</span>
-                                                        <input type="text">
-                                                        <span>至</span>
-                                                        <input type="text">
-                                                    </li>
-                                                    <li class="goodsBlock">
-                                                        <span class="tableLeft">物资：</span>
-                                                        <input type="text" id="goods">
-                                                        <span class="tips">（可用，分割多个编码如1001,1008,2001）</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">仓库：</span>
-                                                        <input type="text" id="warehouse">
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">物资类别：</span>
-                                                        <input type="text" id="commodityCategories">
-                                                    </li>
-                                                    <li>
-                                                        <span>显示零库存物资：</span>
-                                                        <input type="radio"class="yesorno"><span>是</span>
-                                                        <input type="radio"class="yesorno"><span>否</span>
-                                                    </li>
-                                                    <li>
-                                                        <span>显示已禁用物资：</span>
-                                                        <input type="radio"class="yesorno"><span>是</span>
-                                                        <input type="radio"class="yesorno"><span>否</span>
-                                                    </li>
-                                                    <br>
-                                                    <li class="sure">
-                                                        <button type="reset" class="btn btn-default">重置</button>
-                                                        <button class="btn btn-success">确认</button>
-                                                    </li>
-                                                    <div class="clearfix"></div>
-                                                </ul>
-                                            </li>
-                                            <li><input type="text"id="seacherBox"placeholder="请输入单据编号或供应商名称或备注"></li>
-                                            <li>
-                                                <button class="btn btn-success">查询</button>
-                                            </li>
-                                            <li class="print"><button class="btn btn-success">打印</button></li>
-                                            <li class="print"><button class="btn btn-default">导出</button></li>
-                                        </ul>
                                         <div class="tableBlock">
                                             <h3>及时库存报表</h3>
                                             <table class="table table-bordered">
@@ -452,65 +455,7 @@
                                     </div>
                                 </div>
                                 <div class="right-top">
-                                    <div class="right-header">
-                                        <span>出入库查询（被服、办公用品、劳保用品、采暖五金、电器设备、医疗器材维修材料等）</span>
-                                    </div>
                                     <div class="right-content">
-                                        <ul class="orderBegin">
-                                            <li class="selectConditions"><div class="selectConditionsTitle">请选择查询条件</div>
-                                                <ul class="specificCondition">
-                                                    <li>
-                                                        <span class="tableLeft">日期：</span>
-                                                        <input type="text">
-                                                        <span>至</span>
-                                                        <input type="text">
-                                                    </li>
-                                                    <li class="goodsBlock">
-                                                        <span class="tableLeft">物资：</span>
-                                                        <input type="text" id="goods">
-                                                        <span class="tips">（可用，分割多个编码如1001,1008,2001）</span>
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">仓库：</span>
-                                                        <input type="text" id="warehouse">
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">物资类别：</span>
-                                                        <input type="text" id="commodityCategories">
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">业务类别：</span>
-                                                        <select name="" id="businessCtegory">
-                                                            <option value=""></option>
-                                                        </select>
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">往来单位：</span>
-                                                        <input type="text"id="WithUnit">
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">单据号：</span>
-                                                        <input type="text"id="DocumentNum">
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox"><span class="tableLefts">批号：</span>
-                                                        <input type="text"id="batchNumber">
-                                                    </li>
-                                                    <li>
-                                                        <span class="tableLeft">保质期：</span>
-                                                        <input type="checkbox">
-                                                        <span>未过期</span>
-                                                    </li>
-                                                    <br>
-                                                    <li class="sure"><button class="btn btn-success">确认</button></li>
-                                                    <div class="clearfix"></div>
-                                                </ul>
-                                            </li>
-                                            <li><input type="text"id="seacherBox"placeholder="请输入单据编号或供应商名称或备注"></li>
-                                            <li><button class="btn btn-success">查询</button></li>
-                                            <li class="print"><button class="btn btn-success">打印</button></li>
-                                            <li class="print"><button class="btn btn-default    ">导出</button></li>
-                                        </ul>
                                         <div class="tableBlock">
                                             <h3>出入库明细查询</h3>
                                             <table class="table table-bordered">
@@ -603,7 +548,7 @@
                                                         <a href="">末页</a>
                                                     </li>
                                                     <li>
-                                                        <select name="" id="pageFooters">
+                                                        <select name="" id="pageFooterss">
                                                             <option value="">20</option>
                                                         </select>
                                                     </li>
@@ -734,9 +679,8 @@
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="./work_parts/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

@@ -20,3 +20,12 @@
 .ddd{
     margin-right: 0;
 }
+#inputs,#inputsa{
+    display: block;
+    width: 18px !important;
+    height: 18px !important;
+    margin-left: 0px !important;
+}
+.content-main{
+    min-width: 1228px !important;
+}
