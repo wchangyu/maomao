@@ -32,7 +32,7 @@
   },
   "用能查询":{
     "type":"1",
-    "iconclass":"icon-screen-desktop",
+    "iconclass":"icon-speedometer",
     "content":"用能查询",
     "submenu": {
       "用能查询（支路）":{
@@ -350,7 +350,7 @@
   },
   "后勤物资":{
     "type":"1",
-    "iconclass":"icon-power",
+    "iconclass":"icon-social-dropbox",
     "content":"后勤物资",
     "submenu":{
       "医院库房管理制度":{

@@ -29,3 +29,10 @@
 .content-main{
     min-width: 1228px !important;
 }
+.totalTitle{
+    font-size: 23px !important;
+    color: #fff !important;
+    line-height: 46px !important;
+    position: absolute !important;
+    left: 150px !important;
+}
