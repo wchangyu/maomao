@@ -1152,14 +1152,14 @@ function getOfficeData(){
 				type: 'value',
 				scale: true,
 				name: '价格',
-				max: 10000000,
+				max: maxDissa1,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
 				name: '预购量',
-				max: 10000000,
+				max: maxDissa1,
 				min: 0
 			}
 		],
@@ -1262,14 +1262,14 @@ function getOfficeData(){
 				type: 'value',
 				scale: true,
 				name: '价格',
-				max: 10000000,
+				max: maxDissa1,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
 				name: '预购量',
-				max: 10000000,
+				max: maxDissa1,
 				min: 0
 			}
 		],

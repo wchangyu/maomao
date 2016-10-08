@@ -24,73 +24,121 @@ $(function(){
 			var inputValue;
 			dataType();
 			inputValue = $('#datetimepicker').val();
-			if(_ajaxDataType=="日"){
-				inputValue = $('#datetimepicker').val();
-				var now = moment(inputValue).startOf('day');
-				var startDay= now.format("YYYY-MM-DD");
-				var endDay= now.add(1,'d').format("YYYY-MM-DD");
-				var startsDay = moment(inputValue).startOf('day').subtract(1,'d').format("YYYY-MM-DD");
-				var endsDay = moment(inputValue).startOf('day').format("YYYY-MM-DD");
-				_ajaxStartTime=startDay;
-				_ajaxDataType_1='小时';
-				var end=startDay + "-" +startDay;
-				var aa = $('.datetimepickereType').text();
-				if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-					if(aa.indexOf(end)<0){
-						$('.datetimepickereType').html(end);
-					}
-				}
-				_ajaxStartTime_1=startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
-				_ajaxEndTime_1=endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
-				_ajaxLastStartTime_1 = startsDay.split('-')[0]+'/'+startsDay.split('-')[1]+'/'+startsDay.split('-')[2];
-				_ajaxLastEndTime_1 = endsDay.split('-')[0]+'/'+endsDay.split('-')[1]+'/'+endsDay.split('-')[2];
-			}else if(_ajaxDataType=="周"){
-				inputValue = $('#datetimepicker').val();
-				var now = moment(inputValue).startOf('week');
-				var startWeek=now.format("YYYY-MM-DD");
-				startWeek = now.add(1,'d').format("YYYY-MM-DD");
-				var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-				end =startWeek + "-" +endWeek;
-				_ajaxDataType_1='日';
-				var aa = $('.datetimepickereType').text();
-				_ajaxStartTime=startWeek;
-				if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-					if(aa.indexOf(end)<0){
-						$('.datetimepickereType').html(end);
-					}
-				}
-
-				_ajaxStartTime_1=startWeek.split('-')[0]+'/'+startWeek.split('-')[1]+'/'+startWeek.split('-')[2];
-				_ajaxEndTime_1=endWeek.split('-')[0]+'/'+endWeek.split('-')[1]+'/'+endWeek.split('-')[2];
-			}else if(_ajaxDataType=="月"){
-				var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
-				var endMonth=moment(inputValue).endOf('month').format("YYYY-MM-DD");
-				end =startMonth+"-"+endMonth;
-				_ajaxDataType_1='日';
-
-				var aa = $('.datetimepickereType').text();
-				_ajaxStartTime=startMonth;
-				if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-					if(aa.indexOf(end)<0){
-						$('.datetimepickereType').html(end);
-					}
-				}
-
-				_ajaxStartTime_1=startMonth.split('-')[0]+'/'+startMonth.split('-')[1]+'/'+startMonth.split('-')[2];
-				_ajaxEndTime_1=endMonth.split('-')[0]+'/'+endMonth.split('-')[1]+'/'+endMonth.split('-')[2];
-			}else if(_ajaxDataType=="年"){
-				var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
-				var endYear=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-				end = startYear+"-"+endYear;
-				_ajaxDataType_1='月'
-				var aa = $('.datetimepickereType').text();
-				_ajaxStartTime=startYear;
-				if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-					if(aa.indexOf(end)<0){
-						$('.datetimepickereType').html(end);
-					}
+		if(_ajaxDataType=="日"){
+			inputValue = $('#datetimepicker').val();
+			var now = moment(inputValue).startOf('day');
+			//当前开始结束时间
+			var startDay = now.format("YYYY-MM-DD");
+			var endDay = now.add(1,'d').format("YYYY-MM-DD");
+			//上一阶段开始结束时间
+			var startsDay = now.subtract(2,'d').format("YYYY-MM-DD");
+			var endsDay = now.add(1,'d').format("YYYY-MM-DD");
+			_ajaxStartTime=startDay;
+			_ajaxDataType_1='小时';
+			var end=startDay + "-" +startDay;
+			var aa = $('.datetimepickereType').text();
+			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
+				if(aa.indexOf(end)<0){
+					$('.datetimepickereType').html(end);
 				}
 			}
+			//当前开始、结束时间
+			var startSplit = startDay.split('-');
+			var endSplit = endDay.split('-');
+			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
+			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
+			//上一阶段的开始、结束时间
+			var startsSplit = startsDay.split('-');
+			var endsSplit = endsDay.split('-');
+			_ajaxLastStartTime_1 = startsSplit[0] + '/' + startsSplit[1] + '/' + startsSplit[2];
+			_ajaxLastEndTime_1 = endsSplit[0] + '/' + endsSplit[1] + '/' + endsSplit[2];
+		}else if(_ajaxDataType=="周"){
+			inputValue = $('#datetimepicker').val();
+			var now = moment(inputValue).startOf('week');
+			//页面显示时间
+			var nowStart = now.add(1,'d').format("YYYY-MM-DD");
+			var nowEnd = now.add(6,'d').format("YYYY-MM-DD");
+			//当前开始结束时间
+			var startWeek = now.subtract(6,'d').format("YYYY-MM-DD");
+			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
+			end =nowStart + "-" +nowEnd;
+			_ajaxDataType_1='日';
+			var startsWeek = now.subtract(14,'d').format("YYYY-MM-DD");
+			var endsWeek = now.add(7,'d').format("YYYY-MM-DD");
+			var aa = $('.datetimepickereType').text();
+			_ajaxStartTime=startWeek;
+			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
+				if(aa.indexOf(end)<0){
+					$('.datetimepickereType').html(end);
+				}
+			}
+			//当前开始结束时间
+			var startSplit = startWeek.split('-');
+			var endSplit = endWeek.split('-');
+			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
+			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
+			//上一时段开始结束时间
+			var startSplits = startsWeek.split('-');
+			var endSplits = endsWeek.split('-');
+			_ajaxLastStartTime_1 = startSplits[0] + '/' + startSplits[1] + '/' + startSplits[2];
+			_ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
+		}else if(_ajaxDataType=="月"){
+			var now = moment(inputValue).startOf('month');
+			var nows = moment(inputValue).endOf('month');
+			//页面显示时间
+			var nowStart = now.format("YYYY-MM-DD");
+			var nowEnd = nows.format("YYYY-MM-DD");
+			//当前开始结束时间
+			var startMonth=now.format("YYYY-MM-DD");
+			var endMonth=nows.add(1,'d').format("YYYY-MM-DD");
+			end = nowStart + "-" + nowEnd;
+			//上一时段的开始结束时间
+			var startsMonth = now.subtract(1,'month').format("YYYY-MM-DD");
+			var endsMonth = nows.subtract(1,'month').format("YYYY-MM-DD");
+			_ajaxDataType_1='日';
+			var aa = $('.datetimepickereType').text();
+			_ajaxStartTime=startMonth;
+			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
+				if(aa.indexOf(end)<0){
+					$('.datetimepickereType').html(end);
+				}
+			}
+			var startSplit = startMonth.split('-');
+			var endSplit = endMonth.split('-');
+			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
+			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
+			var startSplits = startsMonth.split('-');
+			var endSplits = endsMonth.split('-');
+			_ajaxLastStartTime_1 = startSplits[0] + '/' + startSplits[1] + '/' + startSplits[2];
+			_ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
+		}else if(_ajaxDataType=="年"){
+			//页面显示时间
+			var now = moment(inputValue).startOf('year');
+			var nows = moment(inputValue).endOf('year');
+			var nowStart = now.format("YYYY-MM-DD");
+			var nowEnd = nows.format("YYYY-MM-DD");
+			var startYear=now.format("YYYY-MM-DD");
+			var endYear=nows.add(1,'d').format("YYYY-MM-DD");
+			end = nowStart+"-"+nowEnd;
+			var startsYear = now.subtract(1,'year').format("YYYY-MM-DD");
+			var endsYear = nows.subtract(1,'year').format("YYYY-MM-DD");
+			_ajaxDataType_1='月';
+			var aa = $('.datetimepickereType').text();
+			_ajaxStartTime=startYear;
+			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
+				if(aa.indexOf(end)<0){
+					$('.datetimepickereType').html(end);
+				}
+			}
+			var startSplit = startYear.split('-');
+			var endSplit = endYear.split('-');
+			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
+			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
+			var startSplits = startsYear.split('-');
+			var endSplits = endsYear.split('-');
+			_ajaxLastStartTime_1 = startSplits[0] + '/' + startSplits[1] + '/' + startSplits[2];
+			_ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
+		}
 		})
 	//换内容时，清空时间
 	$('.types').change(function(){
@@ -243,8 +291,9 @@ function getEcTypeWord(){
 		 for(var i=0;i<allBranch.length;i++){
 			 var datas=allBranch[i];
 			 for(var j=0;j<datas.length;j++){
-				 if(dataX.indexOf(datas[j].dataDate.split('T')[1].slice(0,5))<0){
-					 dataX.push(datas[j].dataDate.split('T')[1].slice(0,5));
+				 var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5);
+				 if(dataX.indexOf()<0){
+					 dataX.push(dataSplit);
 				 }
 			 }
 		 }
@@ -258,7 +307,8 @@ function getEcTypeWord(){
 			 var datas=allBranch[i];
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
-					 if(datas[j].dataDate.split('T')[1].slice(0,5)==dataX[z]){
+					 var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5);
+					 if(dataSplit==dataX[z]){
 						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
@@ -271,8 +321,9 @@ function getEcTypeWord(){
 		 for(var i=0;i<allBranch.length;i++){
 			 var datas=allBranch[i];
 			 for(var j=0;j<datas.length;j++){
-				 if(dataXx.indexOf(datas[j].dataDate.split('T')[0])<0){
-					 dataXx.push(datas[j].dataDate.split('T')[0]);
+				 var dataSplit = datas[j].dataDate.split('T')[0];
+				 if(dataXx.indexOf()<0){
+					 dataXx.push(dataSplit);
 				 }
 			 }
 		 }
@@ -287,7 +338,8 @@ function getEcTypeWord(){
 			 var datas=allBranch[i];
 			 for(var z=0;z<dataXx.length;z++){
 				 for(var j=0;j<datas.length;j++){
-					 if(datas[j].dataDate.split('T')[0]==dataXx[z]){
+					 var dataSplit = datas[j].dataDate.split('T')[0]
+					 if(dataSplit==dataXx[z]){
 						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
@@ -299,8 +351,9 @@ function getEcTypeWord(){
 		 for(var i=0;i<allBranch.length;i++){
 			 var datas=allBranch[i];
 			 for(var j=0;j<datas.length;j++){
-				 if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
-					 dataX.push(datas[j].dataDate.split('T')[0]);
+				 var dataSplit = datas[j].dataDate.split('T')[0];
+				 if(dataX.indexOf()<0){
+					 dataX.push(dataSplit);
 				 }
 			 }
 		 }
@@ -315,7 +368,8 @@ function getEcTypeWord(){
 			 var datas=allBranch[i];
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
-					 if(datas[j].dataDate.split('T')[0]==dataX[z]){
+					 var dataSplit = datas[j].dataDate.split('T')[0];
+					 if(dataSplit==dataX[z]){
 						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }
@@ -327,8 +381,9 @@ function getEcTypeWord(){
 		 for(var i=0;i<allBranch.length;i++){
 			 var datas=allBranch[i];
 			 for(var j=0;j<datas.length;j++){
-				 if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
-					 dataX.push(datas[j].dataDate.split('T')[0]);
+				 var dataSplit = datas[j].dataDate.split('T')[0];
+				 if(dataX.indexOf()<0){
+					 dataX.push(dataSplit);
 				 }
 			 }
 		 }
@@ -343,7 +398,8 @@ function getEcTypeWord(){
 			 var datas=allBranch[i];
 			 for(var z=0;z<dataX.length;z++){
 				 for(var j=0;j<datas.length;j++){
-					 if(datas[j].dataDate.split('T')[0]==dataX[z]){
+					 var dataSplit = datas[j].dataDate.split('T')[0];
+					 if(dataSplit==dataX[z]){
 						 object.data.push(datas[j].data.toFixed(2));
 					 }
 				 }

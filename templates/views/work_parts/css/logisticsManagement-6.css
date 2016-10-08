@@ -1,0 +1,41 @@
+*{
+    font-family: 微软雅黑;
+}
+.right-header {
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+ul,li{
+   margin: 0;
+}
+li{
+    list-style: none;
+}
+.stock-taking li{
+    display: inline-block;
+    margin-right: 2%;
+}
+input{
+    height: 30px !important;
+    margin-top: 10px !important;
+    cursor: pointer;
+}
+.aTotal{
+    height: 30px;
+}
+.aTotals{
+    float: right;
+}
+p{
+    width:90%;
+}
+p button{
+    float: right;
+}
+.totalTitle{
+    font-size: 23px !important;
+    color: #fff !important;
+    line-height: 46px !important;
+    position: absolute !important;
+    left: 150px !important;
+}

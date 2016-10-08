@@ -1,0 +1,38 @@
+.aaa{
+    display: inline-block !important;
+    height: 30px !important;
+    line-height: 30px !important;
+}
+.bbb{
+    width: 12px;
+    height: auto;
+    float: left;
+    margin-left: 6%;
+    margin-right: 6%;
+}
+.ccc{
+    width:120px;
+    height: auto;
+    float: left;
+    margin-left: 6%;
+    margin-right: 6%;
+}
+.ddd{
+    margin-right: 0;
+}
+#inputs,#inputsa{
+    display: block;
+    width: 18px !important;
+    height: 18px !important;
+    margin-left: 0px !important;
+}
+.content-main{
+    min-width: 1228px !important;
+}
+.totalTitle{
+    font-size: 23px !important;
+    color: #fff !important;
+    line-height: 46px !important;
+    position: absolute !important;
+    left: 150px !important;
+}

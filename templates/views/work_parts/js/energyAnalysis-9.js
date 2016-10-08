@@ -36,10 +36,11 @@ $(function(){
 			}
 		}else if(_ajaxDataType=="周"){
 			var now = moment(inputValue).startOf('week');
-			var startWeek=now.format("YYYY-MM-DD");
-			startWeek = now.add(1,'d').format("YYYY-MM-DD");
+			var nowStart = now.add(1,'d').format("YYYY-MM-DD");
+			var nowEnd = now.add(6,'d').format("YYYY-MM-DD");
+			var startWeek = now.add(1,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =startWeek + "-" +endWeek;
+			end =nowStart + "-" + nowEnd;
 			_ajaxDataType_1='日'
 			//通过查找arr，判断目前选的与数组里的是不是重复
 			var aa = $('.datetimepickereType').text();
@@ -50,9 +51,13 @@ $(function(){
 				}
 			}
 		}else if(_ajaxDataType=="月"){
-			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
-			var endMonth=moment(inputValue).endOf('month').format("YYYY-MM-DD");
-			end =startMonth+"-"+endMonth;
+			var now = moment(inputValue).startOf('month');
+			var nows = moment(inputValue).endOf('month');
+			var nowStart = now.format("YYYY-MM-DD");
+			var nowEnd = nows.format("YYYY-MM-DD");
+			var startMonth = now.format("YYYY-MM-DD");
+			var endMonth = nows.add(1,'d').format("YYYY-MM-DD");
+			end =nowStart + "-" + nowEnd;
 			_ajaxDataType_1='日';
 
 			var aa = $('.datetimepickereType').text();
@@ -63,9 +68,13 @@ $(function(){
 				}
 			}
 		}else if(_ajaxDataType=="年"){
-			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
-			var endYear=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-			end = startYear+"-"+endYear;
+			var now = moment(inputValue).startOf('year');
+			var nows = moment(inputValue).endOf('year');
+			var nowStart = now.format("YYYY-MM-DD");
+			var nowEnd = nows.format("YYYY-MM-DD");
+			var startYear = now.format("YYYY-MM-DD");
+			var endYear = nows.add(1,'d').format("YYYY-MM-DD");
+			end = nowStart + "-" + nowEnd;
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -212,9 +221,9 @@ function timeDisposal(){
 
 	var $selectTime = $('.selectTime');
 	for(var i=0;i< $selectTime.length;i++){
-		var iSelectTime = $('.selectTime').eq(i).html();
-		aaaa.push(iSelectTime.split('-')[0] + '/' + iSelectTime.split('-')[1] + '/' + iSelectTime.split('-')[2]);
-		var endDate = moment(iSelectTime.split('-')[3] + '/' + iSelectTime.split('-')[4] + '/' + iSelectTime.split('-')[5]);
+		var iSelectTime = $('.selectTime').eq(i).html().split('-');
+		aaaa.push(iSelectTime[0] + '/' + iSelectTime[1] + '/' + iSelectTime[2]);
+		var endDate = moment(iSelectTime[3] + '/' + iSelectTime[4] + '/' + iSelectTime[5]);
 		endDate = endDate.add(1,'d');
 		bbbb.push(endDate.format("YYYY/MM/DD"));
 	}
@@ -267,8 +276,9 @@ function _ajaxGetPointers(){
 		for(var i=0;i<_allData.length;i++){
 			var datas=_allData[i];
 			for(var j=0;j<datas.length;j++){
-				if(dataX.indexOf(datas[j].dataDate.split('T')[1].slice(0,5))<0){
-					dataX.push(datas[j].dataDate.split('T')[1].slice(0,5));
+				var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5);
+				if(dataX.indexOf(dataSplit)<0){
+					dataX.push(dataSplit);
 				}
 			}
 		}
@@ -303,8 +313,10 @@ function _ajaxGetPointers(){
 			//平均值
 			average=_totalY/object.data.length;
 			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+
-				unitConversion(_totalY)+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.replace("T"," ").substr(0,maxTime.length -3)+'</td><td>'+
-				unitConversion(minArr_1)+'</td><td>'+minTime.replace("T"," ").substr(0,minTime.length -3)+'</td><td>'+unitConversion(average)+'</td></tr>')
+				unitConversion(_totalY)+'</td><td>' +
+				unitConversion(maxArr_1)+'</td><td>'+maxTime.replace("T"," ").substr(0,maxTime.length -3)+'</td><td>'+
+				unitConversion(minArr_1)+'</td><td>'+minTime.replace("T"," ").substr(0,minTime.length -3)+'</td><td>'+
+				unitConversion(average)+'</td></tr>')
 		}
 
 	}else if(_ajaxDataType=="周"){
@@ -333,16 +345,20 @@ function _ajaxGetPointers(){
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'
-				+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)+'</td><td>'+unitConversion(minArr_1)+'</td><td>'
-				+minTime.substr(0,10)+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+
+				unitConversion(_totalY)+'</td><td>' +
+				unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)+'</td><td>'+
+				unitConversion(minArr_1)+'</td><td>'
+				+minTime.substr(0,10)+'</td><td>'+
+				unitConversion(average)+'</td></tr>')
 		}
 	}else if(_ajaxDataType=="月"){
 		for(var i=0;i<_allData.length;i++){
 			var datas=_allData[i];
 			for(var j=0;j<datas.length;j++){
-				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
-					dataX.push(datas[j].dataDate.split('T')[0])
+				var dataSplit = datas[j].dataDate.split('T')[0];
+				if(dataX.indexOf(dataSplit)<0){
+					dataX.push(dataSplit)
 				}
 			}
 		}
@@ -373,16 +389,19 @@ function _ajaxGetPointers(){
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)
-				+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)+'</td><td>'+unitConversion(minArr_1)
-				+'</td><td>'+minTime.substr(0,10)+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+
+				unitConversion(_totalY) +'</td><td>'+
+				unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,10)+'</td><td>'+
+				unitConversion(minArr_1) +'</td><td>'+minTime.substr(0,10)+'</td><td>'+
+				unitConversion(average)+'</td></tr>')
 		}
 	}else if(_ajaxDataType=="年"){
 		for(var i=0;i<_allData.length;i++){
 			var datas = _allData[i];
 			for(var j=0;j<datas.length;j++){
-				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
-					dataX.push(datas[j].dataDate.split('T')[0]);
+				var dataSplit = datas[j].dataDate.split('T')[0];
+				if(dataX.indexOf(dataSplit)<0){
+					dataX.push(dataSplit);
 				}
 			}
 		}
@@ -413,9 +432,11 @@ function _ajaxGetPointers(){
 			}
 			//平均值
 			average=_totalY/object.data.length;
-			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+unitConversion(_totalY)+'</td><td>'
-				+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,7)+'</td><td>'+unitConversion(minArr_1)
-				+'</td><td>'+minTime.substr(0,7)+'</td><td>'+unitConversion(average)+'</td></tr>')
+			$('#tbody').append('<tr><td>'+selectTime[i]+'</td><td>'+
+				unitConversion(_totalY)+'</td><td>' +
+				unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,7)+'</td><td>'+
+				unitConversion(minArr_1) +'</td><td>'+minTime.substr(0,7)+'</td><td>'+
+				unitConversion(average)+'</td></tr>')
 		}
 	}
 	getSelectedTime();
@@ -500,8 +521,9 @@ function _ajaxGetOffices(){
 		for(var i=0;i<_allData.length;i++){
 			var datas = _allData[i];
 			for(var j=0;j<datas.length;j++){
-				if(dataX.indexOf(datas[j].dataDate.split('T')[1].slice(0,5))<0){
-					dataX.push(datas[j].dataDate.split('T')[1].slice(0,5));
+				var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5)
+				if(dataX.indexOf(dataSplit)<0){
+					dataX.push(dataSplit);
 				}
 			}
 		}
@@ -575,8 +597,9 @@ function _ajaxGetOffices(){
 		for(var i=0;i<_allData.length;i++){
 			var datas=_allData[i];
 			for(var j=0;j<datas.length;j++){
-				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
-					dataX.push(datas[j].dataDate.split('T')[0])
+				var dataSplit = datas[j].dataDate.split('T')[0];
+				if(dataX.indexOf(dataSplit)<0){
+					dataX.push(dataSplit)
 				}
 			}
 		}

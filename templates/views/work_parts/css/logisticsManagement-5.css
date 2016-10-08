@@ -1,0 +1,15 @@
+.sure{
+    width:140px !important;
+    padding-top: 10px;
+    height: 60px !important;
+}
+#selectTime{
+    width: 220px !important;
+}
+.totalTitle{
+    font-size: 23px !important;
+    color: #fff !important;
+    line-height: 46px !important;
+    position: absolute !important;
+    left: 150px !important;
+}
