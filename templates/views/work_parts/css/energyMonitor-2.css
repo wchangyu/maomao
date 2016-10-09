@@ -1,0 +1,11 @@
+*{
+    font-family: 微软雅黑;
+}
+.total-wrap{
+    height: 890px;
+    border: 1px solid #cccccc;
+    background: url("../img/20161008153950.png")no-repeat;
+    background-size: contain;
+    overflow-x: visible;
+    position: relative;
+}

@@ -13,26 +13,10 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
     <meta content="" name="author"/>
-    <!--MY STYLE-->
-    <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/zTree/css/style.css">
-    <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./work_parts/css/logisticsManagement-1.css">
-    <script src="./work_parts/js/jquery-1.11.2.js"></script>
-    <script src="./work_parts/js/echarts.min.js"></script>
-    <script src="../../assets/local/scripts/underscore-min.js"></script>
-    <script src="./work_parts/js/pointersoffices.js"></script>
-    <script src="./work_parts/js/logisticsManagement-1.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
-    <script src="./work_parts/js/moment.js"></script>
-    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+
+
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -40,11 +24,16 @@
     <link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" href="./work_parts/css/index.css">
+    <link rel="stylesheet" href="./work_parts/css/userMonitor-1.css">
+    <link rel="stylesheet" href="./work_parts/select-time/css/style.css" media="screen" type="text/css" />
     <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <script src="work_parts/js/jquery-1.11.2.js"></script>
+    <script src="./work_parts/js/energyMonitor-1.js"></script>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
 
@@ -97,7 +86,7 @@
                             <a href="extra_profile.html">查看详细</a>
                         </li>
                         <li>
-                            <ul class="dropdown-menu-list scroller"  data-handle-color="#637283">
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
                                 <li>
                                     <a href="javascript:;">
                                         <span class="time">刚刚</span>
@@ -155,12 +144,12 @@
                     <ul class="dropdown-menu dropdown-menu-default">
 
                         <li>
-                            <a href="#">
+                            <a href="page_calendar.html">
                                 <i class="icon-calendar"></i> 日历 </a>
                         </li>
 
                         <li>
-                            <a href="#">
+                            <a href="page_todo.html">
                                 <i class="icon-rocket"></i> 任务 <span class="badge badge-success">
 							7 </span>
                             </a>
@@ -222,6 +211,7 @@
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
+
             <!-- BEGIN STYLE CUSTOMIZER -->
             <div class="theme-panel hidden-xs hidden-sm">
                 <div class="toggler">
@@ -241,6 +231,10 @@
                             </li>
                             <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
                             </li>
+                            <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
+                            <!--</li>-->
+                            <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
+                            <!--</li>-->
                         </ul>
                     </div>
                     <div class="theme-option">
@@ -280,8 +274,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
-                后勤物资出入库管理<small></small>
+            <h3 class="page-title">用能监测 <small>电扶梯系统</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -291,64 +284,23 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="javascript:void(0);">医院库房管理制度</a>
+                        <a href="javascript:void(0);">用能监测</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">电扶梯系统</a>
                     </li>
                 </ul>
                 <div class="page-toolbar">
-                    <!--<div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                        跳转 <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#">跳转点1</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点2</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点3</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">跳转点4</a>
-                            </li>
-                        </ul>
-                    </div>-->
+
                 </div>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="total-warp">
-                        <div class="wrap">
-                            <div class="content-main">
-                                <div class="right-top">
-                                    <div class="right-header">
-                                        <span>医院库房管理制度</span>
-                                        <dl>
-                                            <dt>为保证医院各级各项物资保管得当，调度与使用合理、及时、有效，制定本制度。</dt>
-                                            <dt>一、 适用范围</dt>
-                                            <dd>凡医院被服、办公用品、劳保用品、采暖五金、电器设备、医疗器材维修材料等均有库房保管，并适用本制度。</dd>
-                                            <dt>二、库房管理要求 </dt>
-                                            <dd>1、库存物品要建账建卡，做到入库有验收，出库有凭证，登记账目及时，保证库存物品数字准确，帐、卡、物相符，做到逐日清点。</dd>
-                                            <dd>2、各种物资按类存放，顺序编号建卡。凡经批准报残物品和帐外物品，应登记明确，不得与其它物品混杂存放。</dd>
-                                            <dd>3、严格物品验收入库手续，验收人员须清点数字、验收质量后，方可签字办理入库手续。</dd>
-                                            <dd>4、库内不得代存其它物品（除极特殊情况，经院领导特批外），其它一律拒绝存放。</dd>
-                                            <dd>5、保管人员应了解掌握各类物品的性能用途、使用方法，按领用单限定的品名、数量单价分发各类物品，做到计划供应、满足需要、防止浪费。</dd>
-                                            <dd>6、各种物资不得外供和私用，特殊领用情况必须经院领导批准。</dd>
-                                            <dd>7、库房要保持通风、干燥、清洁，注意安全，做到防火、防盗、防防潮、防鼠，严谨烟火。</dd>
-                                            <dt>三、出入库管理流程</dt>
-                                            <dd>1、物资领用时必须持有院（科室）领导签批的领用申请单，库管员见单方能出货； </dd>
-                                            <dd>2、物资出库前应先填写出库单，领用人应在出库单上签字，签字清晰完整；</dd>
-                                            <dd>3、库管员收货入库前应认真核对采购清单，如发现数量不符、名称不符、质量明显不合格的应拒收，并与采购员及时联系更换或退货事宜；</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="total-wrap">
+                        <div class="aaa"></div>
                     </div>
                 </div>
             </div>
@@ -465,16 +417,16 @@
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="../../assets/local/scripts/underscore-min.js"></script>
+<script src="./work_parts/js/userMonitor.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
-        BEE.init();
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
-
+        BEE.init();
+        userMonitor.getUserProcs();
     });
 </script>
 <!-- END JAVASCRIPTS -->

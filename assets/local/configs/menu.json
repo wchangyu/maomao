@@ -31,7 +31,39 @@
       "变配电系统":{
         "type":"0",
         "content":"变配电系统",
-        "uri":"energymonitor.html",
+        "uri":"energyMonitor-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "暖通空调系统":{
+        "type":"0",
+        "content":"暖通空调系统",
+        "uri":"energyMonitor-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "给排水系统":{
+        "type":"0",
+        "content":"给排水系统",
+        "uri":"energyMonitor-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "送排风系统":{
+        "type":"0",
+        "content":"送排风系统",
+        "uri":"energyMonitor-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "电扶梯系统":{
+        "type":"0",
+        "content":"电扶梯系统",
+        "uri":"energyMonitor-5.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -302,10 +334,10 @@
     "uri":"",
     "iconclass":"icon-note"
   },
-  "设备管理":{
+  "运维管理":{
     "type":"1",
     "iconclass":"icon-settings",
-    "content":"设备管理",
+    "content":"运维管理",
     "submenu":{
       "设备档案管理":{
         "type":"0",
@@ -327,6 +359,14 @@
         "type":"0",
         "content":"设备维保记录",
         "uri":"EquipmentAanagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "设备维修派单":{
+        "type":"0",
+        "content":"设备维修派单",
+        "uri":"EquipmentAanagement-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""

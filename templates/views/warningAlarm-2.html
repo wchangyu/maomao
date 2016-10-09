@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+    <script src="./work_parts/js/pointersoffices.js"></script>
+    <script src="./work_parts/js/etSelection.js"></script>
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -354,7 +359,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>1</td>
-                                                <td>2016.5.21</td>
+                                                <td>2016.5.21&nbsp;13:15</td>
                                                 <td>外科急诊3楼温度
                                                 </td>
                                                 <td>外科楼</td>
@@ -368,61 +373,60 @@
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>2016.5.21</td>
-                                                <td>外科急诊3楼温度
+                                                <td>2</td>
+                                                <td>2016.5.21 &nbsp;14:16</td>
+                                                <td>支路13功率
                                                 </td>
-                                                <td>外科楼</td>
-                                                <td>环境报警
+                                                <td>放射线科</td>
+                                                <td>能耗数据异常
                                                 </td>
-                                                <td>x<16 or x>24
+                                                <td>同比超过20%
                                                 </td>
-                                                <td>27.01
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>2016.5.21</td>
-                                                <td>外科急诊3楼温度
-                                                </td>
-                                                <td>外科楼</td>
-                                                <td>环境报警
-                                                </td>
-                                                <td>x<16 or x>24
-                                                </td>
-                                                <td>27.01
+                                                <td>25%
                                                 </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>2016.5.21</td>
-                                                <td>外科急诊3楼温度
+                                                <td>3</td>
+                                                <td>2016.5.21 &nbsp;15:20</td>
+                                                <td>ICU科室用电量</td>
+                                                <td>ICU科室
                                                 </td>
-                                                <td>外科楼</td>
-                                                <td>环境报警
+                                                <td>能耗数据异常</td>
+                                                <td>用电量超过定额10%
                                                 </td>
-                                                <td>x<16 or x>24
-                                                </td>
-                                                <td>27.01
+                                                <td>11%
                                                 </td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
                                             <tr>
-                                                <td>1</td>
-                                                <td>2016.5.21</td>
-                                                <td>外科急诊3楼温度
+                                                <td>4</td>
+                                                <td>2016.5.21&nbsp;15:21</td>
+                                                <td>支路25
                                                 </td>
-                                                <td>外科楼</td>
-                                                <td>环境报警
+                                                <td>内科楼冷战冷冻泵</td>
+                                                <td>设备运行异常
                                                 </td>
-                                                <td>x<16 or x>24
+                                                <td>电流超出额定值15%
                                                 </td>
-                                                <td>27.01
+                                                <td>20%
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>2016.5.21&nbsp;15:22</td>
+                                                <td>数采仪004
+                                                </td>
+                                                <td>门急诊</td>
+                                                <td>计量器具异常
+                                                </td>
+                                                <td>超过5min无上载数据
+                                                </td>
+                                                <td>>=25
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -440,19 +444,8 @@
                                     <div class="left-middle-header">
                                         能耗种类
                                     </div>
-                                    <div class="electricity typee selectedEnergy electricity_aa_4" value="01">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">电</p>
-                                    </div>
-                                    <!-- 水 -->
-                                    <div class="typee water water_aa_4" value="211">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">水</p>
-                                    </div>
-                                    <!-- 气-->
-                                    <div class="typee gas gas_aa_4" value="311">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">气</p>
+                                    <div class="energy-types">
+
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -462,10 +455,12 @@
                                     <div class="left-middle-header">对象选择（可多选）</div>
                                     <div class="left-middle-tab">区域位置</div>
                                     <div class="left-middle-tab">科室单位</div>
-                                    <div class="tree-1 tree-2"id="tree-2">
-                                        <ul class="pointer ztree" id="pointer"></ul>
+                                    <div class="tree-1 tree-3"id="tree-2">
+                                        <ul class="allPointer ztree" id="allPointer"></ul>
                                     </div>
-                                    <div class="tree-1 tree-3"id="tree-3">
+                                    <div class="tree-1 tree-2"id="tree-3">
+                                        <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                        <div class="tipes"></div>
                                         <ul class="allOffices ztree" id="allOffices"></ul>
                                     </div>
                                     <div class="clearfix"></div>
@@ -608,6 +603,8 @@
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

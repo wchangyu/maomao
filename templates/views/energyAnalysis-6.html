@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+    <script src="./work_parts/js/pointersoffices.js"></script>
+    <script src="./work_parts/js/etSelection.js"></script>
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -343,7 +348,7 @@
                                             <ul class="right-header-right">
                                                 <li class="header-right-lists header-right-lists-1">
                                                 </li>
-                                                <li class="header-right-lists">单位：kWs</li>
+                                                <li class="header-right-lists">单位：kWh</li>
                                                 <li class="header-right-lists pic-one"></li>
                                                 <li class="header-right-lists pic-two"></li>
                                                 <li class="header-right-lists pic-three"></li>
@@ -458,32 +463,23 @@
                             <div class="content-main">
                                 <div class="main-left-top1">
                                     <div class="left-middle-header">能耗种类</div>
-                                    <div class="electricity typee selectedEnergy electricity_aa_4" value="01">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">电</p>
-                                    </div>
-                                    <!-- 水 -->
-                                    <div class="typee water water_aa_4" value="211">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">水</p>
-                                    </div>
-                                    <!-- 气-->
-                                    <div class="typee gas gas_aa_4" value="311">
-                                        <!-- 文字 -->
-                                        <p class="electricityWord">气</p>
+                                    <div class="energy-types">
+
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
                             <div class="content-main">
                                 <div class="main-left-middle">
-                                    <div class="left-middle-header">对象选择</div>
+                                    <div class="left-middle-header">对象选择（可多选）</div>
                                     <div class="left-middle-tab">区域位置</div>
                                     <div class="left-middle-tab">科室单位</div>
-                                    <div class="tree-1 tree-2"id="tree-2">
-                                        <ul class="pointer ztree" id="pointer"></ul>
+                                    <div class="tree-1 tree-3"id="tree-2">
+                                        <ul class="allPointer ztree" id="allPointer"></ul>
                                     </div>
-                                    <div class="tree-1 tree-3"id="tree-3">
+                                    <div class="tree-1 tree-2"id="tree-3">
+                                        <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                        <div class="tipes"></div>
                                         <ul class="allOffices ztree" id="allOffices"></ul>
                                     </div>
                                     <div class="clearfix"></div>
@@ -626,6 +622,8 @@
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

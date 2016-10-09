@@ -1,0 +1,83 @@
+*{
+    font-family: 微软雅黑;
+}
+.titles{
+    width: 400px !important;
+    height: 40px !important;
+}
+.titlesTip{
+    color: #cccccc;
+    margin-left: 20px !important;
+}
+.content-main-right{
+    width: 700px;
+    height: auto;
+    border: 1px solid #cccccc;
+    padding-left: 20px;
+    margin: 0 auto;
+}
+textarea{
+    width: 400px !important;
+    height: 100px !important;
+}
+.pushImg{
+    width: 400px !important;
+    height: 100px !important;
+    border: 1px solid #ccc;
+    border-top: none;
+    padding-top: 20px;
+    margin-bottom: 10px;
+}
+.uploadPictures{
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #cccccc;
+    margin-left: 15px;
+    background: url("../img/picture.png") no-repeat;
+    background-size: 30px;
+    background-position:center 8px;
+    line-height: 100px;
+    font-size: 12px;
+    color: #cccccc;
+    text-align: center;
+}
+h4{
+    display: inline-block;
+}
+.selectWorker{
+    width: 100px;
+    height:30px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    line-height: 30px;
+}
+.personalMessage{
+    height: 30px !important;
+}
+ul,li{
+    margin:0 !important;
+    padding: 0px !important;
+}
+li{
+    list-style: none;
+}
+ul{
+    margin-top: 10px !important;
+}
+.person{
+    color: #000000;
+    font-weight: bold;
+    margin-left: 10px;
+}
+ul p{
+    color: #cccccc;
+    font-size: 12px !important;
+    text-indent: 50px;
+}
+.btn1{
+    width: 130px;
+    height: 34px;
+    margin:0 auto;
+    margin-bottom: 10px;
+}
