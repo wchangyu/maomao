@@ -181,3 +181,9 @@
 .timeactive{
 	margin-left: 25px;
 }
+#tree-2{
+	display: block;
+}
+#tree-3{
+	display: none;
+}

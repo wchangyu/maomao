@@ -1,38 +1,54 @@
 $(function(){
-	//水电选择
-	$('.electricity').click(function(){
-        $(this).css({
-            "background":"url(./work_parts/img/electricity_hover.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-        $('.water').css({
-            "background":"url(./work_parts/img/water.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-    })
-    $(".water").click(function(){
-        $(this).css({
-            "background":"url(./work_parts/img/water_hover.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-        $(".electricity").css({
-            "background":"url(./work_parts/img/electricity.png)no-repeat",
-            "background-size":"50px",
-            "background-position":"top center"
-        })
-    })
+	//读取能耗种类
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+	});
+	//对象选择
+	$('.left-middle-tab').eq(0).click(function(){
+		$('.left-middle-tab').css(
+			{
+				'background':'#fff',
+				'color':'#333'
+			}
+		)
+		$(this).css({
+			'background':'#7f7f7f',
+			'color':'#fff'
+		})
+		$('.tree-1').hide();
+		$('.tree-3').show();
+
+	});
+	$('.left-middle-tab').eq(1).click(function(){
+		$('.left-middle-tab').css(
+			{
+				'background':'#fff',
+				'color':'#333'
+			}
+		)
+		$(this).css({
+			'background':'#7f7f7f',
+			'color':'#fff'
+		})
+		$('.tree-1').hide();
+		$('.tree-2').show();
+	});
+	//读取楼宇和科室的zTree；
+	_objectSel = new ObjectSelection();
+	_objectSel.initPointers($("#allPointer"),false,true);
+	_objectSel.initOffices($("#allOffices"),true);
+	//搜索框功能
+	var objSearch = new ObjectSearch();
+	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
     //电-用电曲线
     myChart7 = echarts.init(document.getElementById('rheader-content-30'));
 		option7 = {
 		    tooltip : {
 		        trigger: 'axis'
 		    },
-		    legend: {
+		    /*legend: {
 		        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
-		    },
+		    },*/
 		    toolbox: {
 		        feature: {
 		            saveAsImage: {}

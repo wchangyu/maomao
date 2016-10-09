@@ -1,5 +1,45 @@
 $(function(){
-	getHeight();
+	//读取能耗种类
+	_energyTypeSel = new ETSelection();
+	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+	});
+	//对象选择
+	$('.left-middle-tab').eq(0).click(function(){
+		$('.left-middle-tab').css(
+			{
+				'background':'#fff',
+				'color':'#333'
+			}
+		)
+		$(this).css({
+			'background':'#7f7f7f',
+			'color':'#fff'
+		})
+		$('.tree-1').hide();
+		$('.tree-3').show();
+
+	});
+	$('.left-middle-tab').eq(1).click(function(){
+		$('.left-middle-tab').css(
+			{
+				'background':'#fff',
+				'color':'#333'
+			}
+		)
+		$(this).css({
+			'background':'#7f7f7f',
+			'color':'#fff'
+		})
+		$('.tree-1').hide();
+		$('.tree-2').show();
+	});
+	//读取楼宇和科室的zTree；
+	_objectSel = new ObjectSelection();
+	_objectSel.initPointers($("#allPointer"),false,true);
+	_objectSel.initOffices($("#allOffices"),true);
+	//搜索框功能
+	var objSearch = new ObjectSearch();
+	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
 	//1
 	myChart66 = echarts.init(document.getElementById('rheader-content-66'));
 		option66 = {
@@ -14,9 +54,6 @@ $(function(){
 		            saveAsImage: {show: true}
 		        }
 		    },
-		    legend: {
-		        data:['降水量','平均温度']
-		    },
 		    xAxis: [
 		        {
 		            type: 'category',
@@ -26,19 +63,19 @@ $(function(){
 		    yAxis: [
 		        {
 		            type: 'value',
-		            name: '水量',
+		            name: '用电量',
 		            min: 0,
 		            max: 250,
 		            interval: 50,
 		            axisLabel: {
-		                formatter: '{value} ml'
+		                formatter: '{value}'
 		            }
 		        }
 		    ],
 		    series: [
 		       
 		        {
-		            name:'降水量',
+		            name:'用电量',
 		            type:'bar',
 		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		            itemStyle: {
@@ -58,7 +95,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最高气温',
+		            name:'用电峰值',
 		            type:'line',
 		            data:[200],
 		            markPoint: {
@@ -74,7 +111,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'平均气温',
+		            name:'平均用电量',
 		            type:'line',
 		            data:[100],
 		            markPoint: {
@@ -90,7 +127,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最低气温',
+		            name:'用电谷值',
 		            type:'line',
 		            data:[50],
 		            markPoint: {
@@ -122,9 +159,6 @@ $(function(){
 		            saveAsImage: {show: true}
 		        }
 		    },
-		    legend: {
-		        data:['降水量','平均温度']
-		    },
 		    xAxis: [
 		        {
 		            type: 'category',
@@ -134,19 +168,19 @@ $(function(){
 		    yAxis: [
 		        {
 		            type: 'value',
-		            name: '水量',
+		            name: '用电量',
 		            min: 0,
 		            max: 250,
 		            interval: 50,
 		            axisLabel: {
-		                formatter: '{value} ml'
+		                formatter: '{value}'
 		            }
 		        }
 		    ],
 		    series: [
 		       
 		        {
-		            name:'降水量',
+		            name:'用电量',
 		            type:'bar',
 		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		            itemStyle: {
@@ -166,7 +200,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最高气温',
+		            name:'用电峰值',
 		            type:'line',
 		            data:[200],
 		            markPoint: {
@@ -182,7 +216,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'平均气温',
+		            name:'平均用电量',
 		            type:'line',
 		            data:[100],
 		            markPoint: {
@@ -198,7 +232,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最低气温',
+		            name:'用电谷值',
 		            type:'line',
 		            data:[50],
 		            markPoint: {
@@ -230,9 +264,6 @@ $(function(){
 		            saveAsImage: {show: true}
 		        }
 		    },
-		    legend: {
-		        data:['降水量','平均温度']
-		    },
 		    xAxis: [
 		        {
 		            type: 'category',
@@ -242,7 +273,7 @@ $(function(){
 		    yAxis: [
 		        {
 		            type: 'value',
-		            name: '水量',
+		            name: '用电量',
 		            min: 0,
 		            max: 250,
 		            interval: 50,
@@ -254,7 +285,7 @@ $(function(){
 		    series: [
 		       
 		        {
-		            name:'降水量',
+		            name:'用电量',
 		            type:'bar',
 		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		            itemStyle: {
@@ -274,7 +305,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最高气温',
+		            name:'用电峰值',
 		            type:'line',
 		            data:[200],
 		            markPoint: {
@@ -290,7 +321,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'平均气温',
+		            name:'平均用电量',
 		            type:'line',
 		            data:[100],
 		            markPoint: {
@@ -306,7 +337,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最低气温',
+		            name:'用电谷值',
 		            type:'line',
 		            data:[50],
 		            markPoint: {
@@ -338,9 +369,6 @@ $(function(){
 		            saveAsImage: {show: true}
 		        }
 		    },
-		    legend: {
-		        data:['降水量','平均温度']
-		    },
 		    xAxis: [
 		        {
 		            type: 'category',
@@ -350,7 +378,7 @@ $(function(){
 		    yAxis: [
 		        {
 		            type: 'value',
-		            name: '水量',
+		            name: '用电量',
 		            min: 0,
 		            max: 250,
 		            interval: 50,
@@ -362,7 +390,7 @@ $(function(){
 		    series: [
 		       
 		        {
-		            name:'降水量',
+		            name:'用电量',
 		            type:'bar',
 		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		            itemStyle: {
@@ -382,7 +410,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最高气温',
+		            name:'用电峰值',
 		            type:'line',
 		            data:[200],
 		            markPoint: {
@@ -398,7 +426,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'平均气温',
+		            name:'平均用电量',
 		            type:'line',
 		            data:[100],
 		            markPoint: {
@@ -414,7 +442,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最低气温',
+		            name:'用电谷值',
 		            type:'line',
 		            data:[50],
 		            markPoint: {
@@ -433,7 +461,6 @@ $(function(){
 		};
 		myChart72.setOption(option72);
 })
-getHeight();
 var myChart66;
 var myChart68;
 var myChart70;
@@ -443,14 +470,4 @@ window.onresize = function () {
     myChart68.resize();
     myChart70.resize();
     myChart72.resize();
-	getHeight();
-}
-function getHeight(){
-	//获取浏览器的高度；
-	var h = window.innerHeight ||document.documentElement.clientHeight || document.body.clientHeight;
-	// console.log(h);
-	var heights = h * 0.70;
-	$('.total-warp').css({
-		height:heights
-	})
 }

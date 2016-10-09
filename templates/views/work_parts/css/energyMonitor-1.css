@@ -1,0 +1,37 @@
+.total-wrap{
+    height: 890px;
+    border: 1px solid #cccccc;
+    background: url("../img/20161008145033.png")no-repeat;
+    background-size: contain;
+    overflow-x: visible;
+    position: relative;
+}
+.aaa{
+    position: absolute;
+    width: 50%;
+    height: 50%;
+}
+.specificInformation{
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    z-index: 10;
+    background-size: 100%;
+    background: url("../img/20161008143929%20-%201.png")no-repeat #ffffff;
+    background-position: center;
+    border: 1px solid #cccccc;
+    border-radius: 10px !important;
+    left: 18%;
+    top: 50px;
+}
+.specificInformationClose{
+    width: 40px;
+    height:40px;
+    background: cyan;
+    position: absolute;
+    z-index: 11;
+    left: 88.5%;
+    top: 25px;
+    opacity: 0;
+    cursor: pointer;
+}

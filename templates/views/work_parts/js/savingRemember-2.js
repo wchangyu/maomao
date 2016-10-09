@@ -2,15 +2,11 @@ $(function(){
 	//用电曲线
 	myChart78 = echarts.init(document.getElementById('rheader-content-78'));
 		option78 = {
-		    title: {
-		        text: '未来一周气温变化',
-		        subtext: '纯属虚构'
-		    },
 		    tooltip: {
 		        trigger: 'axis'
 		    },
 		    legend: {
-		        data:['最高气温','最低气温']
+		        data:['用电峰值','用电谷值']
 		    },
 		    toolbox: {
 		        show: true,
@@ -32,12 +28,12 @@ $(function(){
 		    yAxis: {
 		        type: 'value',
 		        axisLabel: {
-		            formatter: '{value} °C'
+		            formatter: '{value}'
 		        }
 		    },
 		    series: [
 		        {
-		            name:'最高气温',
+		            name:'用电峰值',
 		            type:'line',
 		            data:[11, 11, 15, 13, 12, 13, 10],
 		            markPoint: {
@@ -53,7 +49,7 @@ $(function(){
 		            }
 		        },
 		        {
-		            name:'最低气温',
+		            name:'用电谷值',
 		            type:'line',
 		            data:[1, -2, 2, 5, 3, 2, 0],
 		            markPoint: {

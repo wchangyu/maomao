@@ -18,23 +18,17 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./work_parts/css/index.css">
+    <!--<link rel="stylesheet" href="./work_parts/css/index.css">-->
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
-    <link rel="stylesheet" href="./work_parts/css/energyAnalysis-8.css">
+    <link rel="stylesheet" href="./work_parts/css/EquipmentAanagement-4.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
-    <script src="./work_parts/js/etSelection.js"></script>
-    <script src="./work_parts/js/energyAnalysis-8.js"></script>
+    <script src="./work_parts/js/EquipmentAanagement-3.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
-    <script src="./work_parts/js/pointersoffices.js"></script>
-    <script src="./work_parts/js/etSelection.js"></script>
-    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
-    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -288,7 +282,7 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                电能质量<small>全院</small>
+                维修维保记录<small>全院</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -298,11 +292,11 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">能耗分析</a>
+                        <a href="#">设备管理</a>
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">电能质量</a>
+                        <a href="#">维修维保记录</a>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -334,250 +328,47 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-warp">
-                        <div class="wrap container">
+                        <div class="wrap">
                             <div class="content-main-right">
-                                <div class="right-content">
-                                    <div class="left-middle-header">
-                                        <div class="header-one">变电所1</div>
-                                        <div class="header-three">2014-01-01-2014-12-30</div>
-                                    </div>
-                                    <div  class="right-top">
-                                        <!-- 标题 -->
-                                        <div class="right-header">电能质量分析
-                                            <!-- 标题右边 -->
-                                            <ul class="right-header-right">
-                                                <li class="header-right-lists header-right-lists-1">
-                                                </li>
-                                                <li class="header-right-lists">单位：kWs</li>
-                                                <li class="header-right-lists pic-one"></li>
-                                                <li class="header-right-lists pic-two"></li>
-                                                <li class="header-right-lists pic-three"></li>
-                                            </ul>
-                                        </div>
-                                        <!-- 内容 -->
-                                        <div class="rheader-content">
-                                            <ul class="rheader-content-left">
-                                                <li class="content-left-lists">
-                                                    <ul class="transformerBlock">
-                                                        <!-- 变压器图 -->
-                                                        <li class="transformerImg">变压器1</li>
-                                                        <!-- 文字 -->
-                                                        <li class="transformerWord">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>供电电压偏差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压频率误差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>三相不平衡度</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压波动范围</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压闪变值</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压畸变值</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                        <!-- 数值 -->
-                                                        <li class="transformerValue">
-                                                            <table>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+5%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+1.2%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-danger">0.7</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-warning">+4.1%</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="content-left-lists">
-                                                    <ul class="transformerBlock">
-                                                        <!-- 变压器图 -->
-                                                        <li class="transformerImg">变压器1</li>
-                                                        <!-- 文字 -->
-                                                        <li class="transformerWord">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>供电电压偏差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压频率误差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>三相不平衡度</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压波动范围</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压闪变值</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压畸变值</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                        <!-- 数值 -->
-                                                        <li class="transformerValue">
-                                                            <table>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+5%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+1.2%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-danger">0.7</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-warning">+4.1%</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="content-left-lists">
-                                                    <ul class="transformerBlock">
-                                                        <!-- 变压器图 -->
-                                                        <li class="transformerImg">变压器1</li>
-                                                        <!-- 文字 -->
-                                                        <li class="transformerWord">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>供电电压偏差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压频率误差</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>三相不平衡度</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压波动范围</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压闪变值</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>电压畸变值</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                        <!-- 数值 -->
-                                                        <li class="transformerValue">
-                                                            <table>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+5%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+0.3Hz</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-default">+1.2%</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-danger">0.7</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="btn btn-warning">+4.1%</td>
-                                                                </tr>
-                                                            </table>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <!-- 标注 -->
-                                                <ul class="standardValues">
-                                                    <li class="standardBtn">
-                                                        <span class="btn btn-default"></span>
-                                                        在正常范围之内
-                                                    </li>
-                                                    <li class="standardBtn">
-                                                        <span class="btn btn-danger"></span>
-                                                        超出标准范围10%以内
-                                                    </li>
-                                                    <li class="standardBtn standardBtn1">
-                                                        <span class="btn btn-warning"></span>
-                                                        超出标准范围10%以上
-                                                    </li>
-                                                </ul>
-                                            </ul>
-                                        </div>
+                                <h3>工单信息</h3>
+                                <input type="text" placeholder="标题（必填）" class="titles"><span class="titlesTip">0/30</span>
+                                <textarea name="" id="" cols="30" rows="10"></textarea><span class="titlesTip">0/300</span>
+                                <div class="pushImg">
+                                    <div class="uploadPictures">
+                                        上传图片
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="content-main-left">
-                            <div class="content-main">
-                                <div class="main-left-top1">
-                                    <div class="left-middle-header">能耗种类</div>
-                                    <div class="energy-types">
-
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="content-main">
-                                <div class="main-left-middle">
-                                    <div class="left-middle-header">对象选择（可多选）</div>
-                                    <div class="left-middle-tab">区域位置</div>
-                                    <div class="left-middle-tab">科室单位</div>
-                                    <div class="tree-1 tree-3"id="tree-2">
-                                        <ul class="allPointer ztree" id="allPointer"></ul>
-                                    </div>
-                                    <div class="tree-1 tree-2"id="tree-3">
-                                        <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                        <div class="tipes"></div>
-                                        <ul class="allOffices ztree" id="allOffices"></ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="content-main">
-                                <div class="select-times">
-                                    <div class="left-middle-header">时段选择</div>
-                                    <div id='wrapper'>
-                                        <select class='custom-date' name='select'>
-                                            <option value='7'selected='selected'>7 天</option>
-                                            <option value='30'>30 天</option>
-                                            <option  value='90'>90 天</option>
-                                            <option value='180'>180 天</option>
-                                            <option value='365'>365 天</option>
-                                            <option value='custom'>自定义</option>
-                                        </select>
-                                        <div class="buttons">
-                                            <button class="btns">查询</button>
-                                        </div>
-                                    </div>
-                                    <script src="./work_parts/html5-date-range-picker/js/index.js"></script>
-                                    <script src="./work_parts/html5-date-range-picker/js/jquery.js"></script>
+                                <input type="text" placeholder="备注信息" class="titles"><span class="titlesTip">0/100（仅自己可见）</span>
+                                <br>
+                                <h4>指派员工</h4><span class="titlesTip">指派后员工会在App上收到工单信息</span>
+                                <div class="selectWorker">选择员工</div>
+                                <br>
+                                <!--<button class="btn btn-success">选择员工</button>-->
+                                <br>
+                                <h4>共享工单</h4><span class="titlesTip">添加更多上下游的手机号他们可以根据服务号实时查看工单进度</span>
+                                <br>
+                                <input type="text" placeholder="姓名" class="personalMessage">
+                                <input type="text" placeholder="手机号" class="personalMessage">
+                                <br>
+                                <!--<button class="btn btn-success">新增</button>-->
+                                <div class="selectWorker">新增</div>
+                                <br>
+                                <h4>工单进度</h4>
+                                <br>
+                                <!--<button class="btn btn-success">添加进度</button>-->
+                                <div class="selectWorker">添加进度</div>
+                                <br>
+                                <ul>
+                                    <li>
+                                        <span class="date">2016/09/29</span>
+                                        <span class="moment">14:32</span>
+                                        <span class="person">hq</span>
+                                    </li>
+                                    <p>工单已提交</p>
+                                </ul>
+                                <div class="btn1">
+                                    <button class="btn btn-success">提交</button>
+                                    <button class="btn btn-success">取消</button>
                                 </div>
                             </div>
                         </div>
@@ -697,8 +488,6 @@
 <script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
