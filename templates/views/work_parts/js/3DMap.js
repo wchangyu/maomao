@@ -2,24 +2,21 @@
  * Created by Went on 2016/9/23.
  * 使用mapper.js
  */
-var _localPath = "../../../assets/local/";
+var _localPath = "../../assets/local/";
 $(function(){
-
-
     var urlPrefix = sessionStorage.apiUrlPrefix;
-    urlPrefix = "http://localhost/BEEWebAPI";
-
     loadMap();
 
     //2.载入各个楼宇的数据
     var now = new Date();
     var mnow = moment(now);
     var monthStart = mnow.startOf("month").format("YYYY-MM-DD");
-    var monthEnd = mnow.endOf("month").add(1,'d').format("YYYY-MM-DD");
+    //var monthEnd = mnow.endOf("month").add(1,'d').format("YYYY-MM-DD");
+    var monthEnd = mnow.add(1,'d').format("YYYY-MM-DD");
     //2.1载入全院的数据
     $.ajax({
         type:"post",
-        url:urlPrefix + "/api/EnergyItemDatas/getClassEcData",
+        url:urlPrefix + "/EnergyItemDatas/getClassEcData",
         data:{
             "pointerID":0,
             "startTime":monthStart,
@@ -39,7 +36,7 @@ $(function(){
     //载入各个分户的数据
     $.ajax({
         type:"post",
-        url:urlPrefix + "/api/EnergyItemDatas/GetTopOfficeEcs",
+        url:urlPrefix + "/EnergyItemDatas/GetTopOfficeEcs",
         data:{
             "startTime":monthStart,
             "endTime":monthEnd,
@@ -57,13 +54,14 @@ $(function(){
         }
     })
 
-    var pts = sessionStorage.pointers || [];
-    for(var i= 0,len=pts.length;i<len;i++){
+    var pts = sessionStorage.pointers ? JSON.parse(sessionStorage.pointers) : [];
+    var len = pts.length;
+    for(var i= 0;i<len;i++){
         $.ajax({
             type:"post",
-            url: urlPrefix + "/api/EnergyItemDatas/getClassEcData",
+            url: urlPrefix + "/EnergyItemDatas/getClassEcData",
             data:{
-                "pointerID":pts[i].pointerId,
+                "pointerID":pts[i].pointerID,
                 "startTime":monthStart,
                 "endTime":monthEnd,
                 "dateType":"月"
@@ -119,6 +117,7 @@ function setMapAreas(tdinfo,color){
         $area.attr("id","map_" + i);
         $area.attr("nohref","nohref");
         $area.attr("onmouseover","showCurPtData('" + pathdatas[i].pointerid +"','" + pathdatas[i].pointername +"');");
+        $area.attr("onmouseout","hideDiv();");
         $map.append($area);
     }
 }
@@ -142,11 +141,16 @@ function setPtData($divEC,data){
 function setCurPtData(ptId,ptName){
     var $divCurEC = $(".curEC>.ec");
     var $curTitle = $(".curEC>.ecTitle");
+    $divCurEC.empty();
     $curTitle.html(ptName);
+
     if(_allPtEcDatas.length>0){
         for(var i= 0,len=_allPtEcDatas.length;i<len;i++){
-            if(_allPtEcDatas[i].pointerId==ptId){
-                setPtData($divCurEC,_allPtEcDatas[i]);
+            if(_allPtEcDatas[i][0].pointerId==ptId){
+                var data = _allPtEcDatas[i];
+                for(var i= 0,len=data.length;i<len;i++){
+                    setPtData($divCurEC,data[i]);
+                }
                 break;
             }
         }
@@ -154,11 +158,9 @@ function setCurPtData(ptId,ptName){
 }
 
 function showCurPtData(ptId,ptName){
-    //TODO:显示当前楼宇数据
-    console.log(ptName);
+    showDiv();
+    setCurPtData(ptId,ptName);
 }
-
-
 
 function setArrow(num){/*格式化同比环比*/
     if(num.split("-")[1]){
@@ -168,4 +170,14 @@ function setArrow(num){/*格式化同比环比*/
     }else{
         return "<i class='fa fa-arrow-up' style='color:#d14102'></i> "+num;
     }
+}
+
+function hideDiv(){
+    var ecDiv = document.getElementById("curEC");
+    ecDiv.style.display = "none";
+}
+
+function showDiv(){
+    var ecDiv = document.getElementById("curEC");
+    ecDiv.style.display = "block";
 }

@@ -124,6 +124,7 @@ var BEE = (function(){
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
         $('.totalTitle').html(systemName);
+        console.log($('.totalTitle'));
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);

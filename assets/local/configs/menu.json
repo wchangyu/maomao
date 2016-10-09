@@ -12,6 +12,14 @@
         "uid":"",
         "arg":"",
         "iconclass":"icon-bar-chart"
+      },
+      "3D地图":{
+        "type":"0",
+        "content":"3D地图",
+        "uri":"infoMap.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-map"
       }
     }
   },
@@ -151,11 +159,11 @@
   "能效分析":{
     "type":"1",
     "iconclass":"icon-bulb",
-    "content":"能耗分析",
+    "content":"能效分析",
     "submenu":{
-      "冷战能效":{
+      "冷站能效":{
         "type":"0",
-        "content":"冷战能效",
+        "content":"冷站能效",
         "uri":"energyEfficiency-1.html",
         "uid":"",
         "arg":"",

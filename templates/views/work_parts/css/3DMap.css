@@ -31,6 +31,7 @@
     z-index:1;
 }
 
+
 .ec{
     margin:24px 0 0 0;
     display:flex;
@@ -40,6 +41,8 @@
     -webkit-align-items: center;
     justify-content:center;
     -webkit-justify-content: center;
+    font-size:16px;
+    position: absolute;
 }
 
 .ecTop{
@@ -51,6 +54,8 @@
     -webkit-align-items: flex-start;
     justify-content:flex-start;
     -webkit-justify-content: flex-start;
+    font-size:16px;
+    position: absolute;
 }
 
 .ecTop>li{
@@ -87,4 +92,24 @@
     position:absolute;
     left:0;
     top:0;
+}
+
+.op{
+    position:absolute;
+    height:200px;
+    width: 360px;
+    background-color: #fff;
+    filter:alpha(Opacity=80);
+    -moz-opacity: 0.5;
+    opacity:0.5;
+}
+
+.op2{
+    position:absolute;
+    height:200px;
+    width: 260px;
+    background-color: #fff;
+    filter:alpha(Opacity=80);
+    -moz-opacity: 0.5;
+    opacity:0.5;
 }
