@@ -3,10 +3,10 @@
  * 使用mapper.js
  */
 var _localPath = "../../assets/local/";
+var _mapperjsSrc = "./work_parts/js/mapper.js";
 $(function(){
     var urlPrefix = sessionStorage.apiUrlPrefix;
-    loadMap();
-
+    setMapAreas("8397ff"); //设置每个楼宇的轮廓显示
     //2.载入各个楼宇的数据
     var now = new Date();
     var mnow = moment(now);
@@ -76,51 +76,71 @@ $(function(){
 
 var _allPtEcDatas = [];      //存储所有楼宇的能耗数据，点击到某栋楼时候显示
 
-function loadMap(){
-    //1.载入地图
-    $.ajax({
-        type:"get",
-        url: _localPath + '/configs/3dinfo.json',
-        success:function(mapinfo){
-            //设置图片显示
-            var data = mapinfo.all3dinfos[0];
-            setMapAreas(mapinfo.all3dinfos[0],"8397ff")
-            var $img2 = $("#img2");
-            $img2.attr("src",_localPath + 'img/3dmap/' + data.mapsrc);
-            $img2.css("width",data.width);
-            $img2.css("height",data.height);
-            $img2.attr("usemap","#mapInfos");
-            var $img2_image =  $("#img2_image");        //自动生成的元素
-            if($img2_image){
-                $img2_image.attr("src",_localPath + 'img/3dmap/' + data.mapsrc);
-                $img2_image.css("width",data.width);
-                $img2_image.css("height",data.height);
-            }
-        }
-    });
-}
+//function loadMap(){
+//    //1.载入地图
+//    $.ajax({
+//        type:"get",
+//        url: _localPath + '/configs/3dinfo.json',
+//        success:function(mapinfo){
+//            //设置图片显示
+//            var data = mapinfo.all3dinfos[0];
+//            setMapAreas(mapinfo.all3dinfos[0],"8397ff");
+//            var $img2 = $("#img2");
+//            $img2.attr("src",_localPath + 'img/3dmap/' + data.mapsrc);
+//            $img2.css("width",data.width);
+//            $img2.css("height",data.height);
+//            $img2.attr("usemap","#mapInfos");
+//            var $img2_image =  $("#img2_image");        //自动生成的元素
+//            if($img2_image){
+//                $img2_image.attr("src",_localPath + 'img/3dmap/' + data.mapsrc);
+//                $img2_image.css("width",data.width);
+//                $img2_image.css("height",data.height);
+//            }
+//            loadJs(_mapperjsSrc);
+//        }
+//    });
+//}
 
-//设置地图热点
-function setMapAreas(tdinfo,color){
-    var $map = $("#mapInfos");
-    if(!tdinfo) {return;}
-    var pathdatas = tdinfo.pathdatas;
-    for(var i= 0,len = pathdatas.length;i<len;i++){
-        var $area = $("<area>");
+////设置地图热点
+//function setMapAreas(tdinfo,color){
+//    var $map = $("#mapInfos");
+//    if(!tdinfo) {return;}
+//    var pathdatas = tdinfo.pathdatas;
+//    for(var i= 0,len = pathdatas.length;i<len;i++){
+//        var $area = $("<area>");
+//        $area.attr("shape","poly");
+//        $area.addClass("noborder");         //mapperjs的用法
+//        $area.addClass("iopcacity80");      //mapperjs的用法，热点区域80%透明度
+//        $area.addClass("icolor" + color);    //mapperjs的用法，热点区域颜色
+//        $area.attr("coords",pathdatas[i].data);
+//        $area.attr("data-ptid",pathdatas[i].pointerid);
+//        $area.attr("data-ptname",pathdatas[i].pointername);
+//        $area.attr("id","map_" + i);
+//        //$area.attr("nohref","nohref");
+//        $area.attr("href","#");
+//        $area.attr("onmouseover","showCurPtData('" + pathdatas[i].pointerid +"','" + pathdatas[i].pointername +"');");
+//        $area.attr("onmouseout","hideDiv();");
+//        $map.append($area);
+//    }
+//}
+
+function setMapAreas(color){
+    var $areas = $("area");
+    if(!$areas){ return ;}
+    for(var i= 0,len = $areas.length;i<len;i++){
+        var $area = $($areas[i]);
         $area.attr("shape","poly");
         $area.addClass("noborder");         //mapperjs的用法
         $area.addClass("iopcacity80");      //mapperjs的用法，热点区域80%透明度
         $area.addClass("icolor" + color);    //mapperjs的用法，热点区域颜色
-        $area.attr("coords",pathdatas[i].data);
-        $area.attr("data-ptid",pathdatas[i].pointerid);
-        $area.attr("data-ptname",pathdatas[i].pointername);
-        $area.attr("id","map_" + i);
         $area.attr("nohref","nohref");
-        $area.attr("onmouseover","showCurPtData('" + pathdatas[i].pointerid +"','" + pathdatas[i].pointername +"');");
+        var pointerid = $area.attr("data-ptid");
+        var pointername = $area.attr("data-ptname");
+        $area.attr("onmouseover","showCurPtData('" + pointerid +"','" + pointername +"');");
         $area.attr("onmouseout","hideDiv();");
-        $map.append($area);
     }
 }
+
 
 //设置数据块
 function setPtData($divEC,data){
@@ -180,4 +200,15 @@ function hideDiv(){
 function showDiv(){
     var ecDiv = document.getElementById("curEC");
     ecDiv.style.display = "block";
+}
+
+function loadJs(src){
+    if(!src || src.length==0){
+        throw new Error("需要指定js文件路径");
+    }
+
+    var script = document.createElement("script");
+    script.src = src + "?randomid=" + (+(new Date()));
+    //script.src = src;
+    document.body.appendChild(script);
 }

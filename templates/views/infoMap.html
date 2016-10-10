@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link href="./work_parts/css/3DMap.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
+
     <link rel="shortcut icon" href="favicon.ico"/>
 
 </head>
@@ -310,9 +311,15 @@
                             <div class="ec"></div>
                         </div>
 
-                        <img id="img2"  class="mapper img-map" src="../../assets/local/img/3dmap/blank.jpg" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
+                        <img id="img2"  class="mapper" src="../../assets/local/img/3dmap/吉大一院.jpg" style="width:1289px;height:771px;" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
                         <map name="mapInfos" id="mapInfos">           <!--具体的形状，从配置文件读取-->
-
+                            <area coords="138,402,138,495,313,578,434,576,597,520,643,510,641,413,589,398,452,445,449,407,395,378,347,403,326,436,236,401,207,384,236,401,236,396,207,384" data-ptid="8909180103" data-ptname="儿童住院部（1）" id="map_0">
+                            <area coords="565,400,540,410,537,388,671,354,685,356,796,328,800,322,908,287,968,295,1083,323,1082,399,966,443,898,427,888,455,781,492,743,480,665,505,648,497,648,416,592,392" data-ptid="8909180104" data-ptname="门诊和急诊（2）" id="map_1" >
+                            <area coords="960,290,962,153,113,107,1181,113,1188,130,1228,117,1274,128,1279,319,1112,388,1091,385,1087,323,1014,304,988,298" data-ptid="8909180102" data-ptname="外科楼（3）" id="map_2" >
+                            <area coords="13,337,14,449,122,505,138,499,137,404,206,382,208,372,208,336,238,328,226,308,60,338,41,331" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_3" >
+                            <area coords="821,261,818,316,691,355,632,362,632,290,791,254" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_4">
+                            <area coords="427,302,428,395,474,427,537,405,631,361,634,278,605,267" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_5">
+                            <area coords="407,278,438,289,428,392,326,434,208,384,211,318" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_6" >
                         </map>
                     </div>
                 </div>
@@ -357,8 +364,9 @@
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/js/moment.js"></script>
-<script src="./work_parts/js/mapper.js"></script>
-<script src="./work_parts/js/3DMap.js"></script>
+
+
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -368,6 +376,8 @@
         BEE.init();
     });
 </script>
+<script src="./work_parts/js/3DMap.js"></script>
+<script src="./work_parts/js/mapper.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
