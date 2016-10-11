@@ -77,7 +77,7 @@ $(function(){
 		        {
 		            name:'用电量',
 		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+		            data:[120.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
@@ -182,7 +182,7 @@ $(function(){
 		        {
 		            name:'用电量',
 		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+		            data:[15.3, 75.9, 99.0, 56.4, 129.7, 170.7, 125.6, 202.2, 56.7, 88.8, 59.0, 12.3],
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
@@ -202,7 +202,7 @@ $(function(){
 		        {
 		            name:'用电峰值',
 		            type:'line',
-		            data:[200],
+		            data:[220],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -218,7 +218,7 @@ $(function(){
 		        {
 		            name:'平均用电量',
 		            type:'line',
-		            data:[100],
+		            data:[88],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -234,7 +234,7 @@ $(function(){
 		        {
 		            name:'用电谷值',
 		            type:'line',
-		            data:[50],
+		            data:[32],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -287,7 +287,7 @@ $(function(){
 		        {
 		            name:'用电量',
 		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+		            data:[55.2, 58.9, 158.2, 58, 175.7, 151.7, 175.6, 122.2, 48.7, 118.8, 61.0, 28.3],
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
@@ -307,7 +307,7 @@ $(function(){
 		        {
 		            name:'用电峰值',
 		            type:'line',
-		            data:[200],
+		            data:[170],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -323,7 +323,7 @@ $(function(){
 		        {
 		            name:'平均用电量',
 		            type:'line',
-		            data:[100],
+		            data:[50],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -339,7 +339,7 @@ $(function(){
 		        {
 		            name:'用电谷值',
 		            type:'line',
-		            data:[50],
+		            data:[60],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -392,7 +392,7 @@ $(function(){
 		        {
 		            name:'用电量',
 		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+		            data:[165, 52, 86, 125, 186, 70.7, 200.6, 122.2, 148.7, 111.8, 61.0, 25.3],
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
@@ -412,7 +412,7 @@ $(function(){
 		        {
 		            name:'用电峰值',
 		            type:'line',
-		            data:[200],
+		            data:[250],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -428,7 +428,7 @@ $(function(){
 		        {
 		            name:'平均用电量',
 		            type:'line',
-		            data:[100],
+		            data:[73],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -444,7 +444,7 @@ $(function(){
 		        {
 		            name:'用电谷值',
 		            type:'line',
-		            data:[50],
+		            data:[44],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},

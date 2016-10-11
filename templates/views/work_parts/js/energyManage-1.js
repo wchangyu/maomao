@@ -182,7 +182,7 @@ $(function(){
 		        {
 		            name:'用电量',
 		            type:'bar',
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+		            data:[2.3, 5.3, 9.3, 29.3, 24.7, 55.7, 125.6, 202.2, 48.7, 18.3, 6.4, 2.3],
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
@@ -202,7 +202,7 @@ $(function(){
 		        {
 		            name:'用电峰值',
 		            type:'line',
-		            data:[200],
+		            data:[175],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -218,7 +218,7 @@ $(function(){
 		        {
 		            name:'平均用电量',
 		            type:'line',
-		            data:[100],
+		            data:[83],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
@@ -234,7 +234,7 @@ $(function(){
 		        {
 		            name:'用电谷值',
 		            type:'line',
-		            data:[50],
+		            data:[47],
 		            markPoint: {
 		                data: [
 		                    {type: 'max', name: '最大值'},
