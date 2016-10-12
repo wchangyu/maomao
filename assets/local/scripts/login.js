@@ -240,7 +240,15 @@ var Login = function() {
                     if(officeEnergyType){
                         sessionStorage.officeEnergyType = JSON.stringify(officeEnergyType);
                     }
-
+                    //系统的theme
+                    if(!localStorage.themeColor){
+                        var themeColor = data["themecolor"];
+                        if(themeColor){
+                            localStorage.themeColor = themeColor;
+                        }else{
+                            localStorage.themeColor = "default";
+                        }
+                    }
                     handleLogin();      //获取到配置信息后，处理登录相关
                 },
                 error: function (xhr, res, err) {

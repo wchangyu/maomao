@@ -130,6 +130,31 @@ var BEE = (function(){
     }
 
 
+    //设置theme
+    var setTheme = function(){
+        /*
+         配置页面配置当前的theme，BEE.js初始化页面时候载入当前theme，如果localStorage中存有当前的theme，则获取
+         设置theme按钮的选中，存储当前的theme到localStorage中，
+         */
+        var themeColor = localStorage["themeColor"] || "default";
+        //$('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
+        var $colorCssLink = $("#style_color");
+        if($colorCssLink.length == 0){       //如果当前没有style_color的css引用
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.id = "style_color";
+            document.head.appendChild(link);
+            $colorCssLink  = $(link);
+        }
+        $colorCssLink.attr("href", _assetsPath + 'admin/layout/css/themes/' + themeColor + ".css");
+
+        var $panel = $('.theme-panel');
+        var $themes = $('.theme-colors > ul > li', $panel);      //获取所有的theme选择器
+        var $thisTheme = $(".theme-colors > ul > li[data-style=" + themeColor + "]",$panel);
+        $themes.removeClass("current");
+        $thisTheme.addClass("current");
+    }
+
     return {
         //getMenu: getMenu
         init:function(){
@@ -139,6 +164,7 @@ var BEE = (function(){
             }else{
                 getMenu();
                 setHeaderInfo();
+                setTheme();
             }
 
         }

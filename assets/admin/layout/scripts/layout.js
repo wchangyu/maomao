@@ -466,8 +466,8 @@ var Layout = function () {
 
     // Handles the go to top button at the footer
     var handleGoTop = function () {
-        var offset = 300;
-        var duration = 500;
+        var offset = 200;
+        var duration = 200;
 
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
             $(window).bind("touchend touchcancel touchleave", function(e){
@@ -477,10 +477,13 @@ var Layout = function () {
                     $('.scroll-to-top').fadeOut(duration);
                 }
             });
-        } else {  // general 
+        } else {  // general
             $(window).scroll(function() {
-                if ($(this).scrollTop() > offset) {
+                var sTop = $(this).scrollTop();
+                console.log(sTop);
+                if (sTop > offset) {
                     $('.scroll-to-top').fadeIn(duration);
+                    console.log(sTop);
                 } else {
                     $('.scroll-to-top').fadeOut(duration);
                 }
