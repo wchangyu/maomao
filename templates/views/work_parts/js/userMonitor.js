@@ -7,12 +7,12 @@ var userMonitor = function(){
     _urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
     _urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
     var _userProcIds;       //当前用户的监控方案权限
-    var _configArg1 = 2;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
-    var _configArg2 = "5";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
+    var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
+    var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
     var _configArg3 = "0";      //配置文件中配置的参数3,取值对应默认选中方案
     var _hasControlAuth = false;      //用户是否有控制的权限
     var _isViewAllProcs = false;       //用户是否可以查看所有的监控方案
-    _isViewAllProcs = true;  //TODO:临时使用
+    //_isViewAllProcs = true;  //TODO:临时使用
 
     var _allProcs;      //全部监控方案
     //当前监控方案的子项目载入标志
@@ -24,6 +24,8 @@ var userMonitor = function(){
     var _curProc;       //当前选中监控方案
 
     var _defInsDataResults; //实时数据进行刷新时使用
+
+    var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
 
     var init = function(){
 
@@ -56,6 +58,8 @@ var userMonitor = function(){
                 getInstDatasByIds();
             }
         });
+
+        this.getUserProcs();
     }
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -80,7 +84,7 @@ var userMonitor = function(){
                         }
                         getProcs();
                     },
-                    error:function(xhr,res,err){console.log("GetUserProcbind:" + err)}
+                    error:function(xhr,res,err){logAjaxError("GetUserProcbind",err)}
                 });
             }
         }
@@ -144,7 +148,7 @@ var userMonitor = function(){
             data:prms2,
             url:_urlPrefix + "PR/PR_GetAllProcsByParameter",
             success:function(data){ setProcList(data); },
-            error:function(xhr,res,err){ console.log("PR_GetAllProcsByParameter:" + err); }
+            error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsByParameter",err); }
         });
     }
 
@@ -156,7 +160,7 @@ var userMonitor = function(){
                 data:{"":procLists},
                 url:_urlPrefix + "PR/PR_GetAllProcsByProcList",
                 success:function(data){ setProcList(data); },
-                error:function(xhr,res,err){console.log("PR_GetAllProcsByProcList:" + err);}
+                error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByProcList",err);}
             });
         }
     }
@@ -172,7 +176,7 @@ var userMonitor = function(){
                 var curProcs = getLocalProcsByParameter(_configArg2);   //获取当前菜单配置的方案
                 setProcList(curProcs);      //绘制左侧列表
             },
-            error:function(xhr,res,err){ console.log("PR_GetAllProcsNew:" + err);}
+            error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsNew" , err);}
         })
     }
 
@@ -240,7 +244,7 @@ var userMonitor = function(){
                 _procDefs = data;
                 getInstDatasByIds();
             },
-            error:function(xhr,res,err){console.log("PR_GetDefByProcID:" + err)}
+            error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
     }
     //获取定义中对应的控制
@@ -254,7 +258,7 @@ var userMonitor = function(){
                 _procCtrls = data;
                 getInstDatasByIds();
             },
-            error:function(xhr,res,err){console.log("PR_GetProcCtrls:" + err)}
+            error:function(xhr,res,err){logAjaxError("PR_GetProcCtrls" , err)}
         })
     }
     //获取render
@@ -268,7 +272,7 @@ var userMonitor = function(){
                 _procRenders = data;
                 getInstDatasByIds();
             },
-            error:function(xhr,res,err){console.log("PR_GetProcRenders:" + err)}
+            error:function(xhr,res,err){logAjaxError("PR_GetProcRenders" , err)}
         });
     }
 
@@ -286,7 +290,6 @@ var userMonitor = function(){
                     imgWidth = proc.procStyle.imageSizeWidth;
                 }else{
                     $divMain.css("width", 1330);
-
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
                     $divMain.css("height",proc.procStyle.imageSizeHeight);
@@ -319,9 +322,8 @@ var userMonitor = function(){
                             img.css("height",imgHeight);
                         }
                         $("#content-main-right").append(img);
-                        console.log(data.imgUrl);
                     },
-                    error:function(xhr,res,err){ console.log("GetHbProcImage:" + err) }
+                    error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err) }
                 });
             }
             //设置div的高和宽
@@ -379,7 +381,7 @@ var userMonitor = function(){
                     _isInstDataLoading = false;
                     initializeContentOnDiv(data);
                 },
-                error:function(xhr,res,err){console.log("PR_GetInstDataNew:" + err);}
+                error:function(xhr,res,err){logAjaxError("PR_GetInstDataNew" , err);}
             });
         }
     }
@@ -418,13 +420,12 @@ var userMonitor = function(){
             $spanDef.css("background","rgba(0,0,0,1)");
             $spanDef.css("width",defWidth);
             $spanDef.css("height",defHeight);
-            $spanDef.attr("name",_procDefs[i].prDefId);
+            $spanDef.attr("id",_procDefs[i].prDefId);
             $spanDef.css("left",_procDefs[i].locRX * divContentWidth );
             $spanDef.css("top",_procDefs[i].locRY * divContentHeight);
             var curPD = _.findWhere(_defInsDataResults,{"procDefID":_procDefs[i].prDefId});
 
             if(curPD){       //从实时数据中提取当前def的信息
-
                 if(curPD.visibleScriptResult){          //是否可见的属性,不显示则继续
                     if(curPD.visibleScriptResult=="0"){
                         continue;
@@ -432,9 +433,10 @@ var userMonitor = function(){
                 }
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
+
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){
-                    //TODO:设置可以查看历史数据的结构
+                    //TODO:设置查看历史数据
                 }
                 var curText = curPD.renderExprResult;
 
@@ -445,6 +447,7 @@ var userMonitor = function(){
                     //$Txt.css("cursor","pointer");
                 }
                 $Txt.html(curText);
+
                 var $spanImg = $("<span>");     //当前defimg的容器
                 var $spanTxt = $("<span>");     //当前deftxt的容器
                 setFlexInner($spanImg,{"height":defHeight,"width":"50%"});
@@ -457,22 +460,25 @@ var userMonitor = function(){
                         $spanImg.css("width",0);
                         $spanTxt.css("width","100%");
                     }else if(curPRR.showFlag == 2){
+                        $Img.css({"width":defWidth,"height":defHeight})
                         $spanImg.append($Img);
                         $spanImg.css("width","100%");
                         $spanTxt.css("width",0);
                     }else if(curPRR.showFlag == 3){
+                        $Img.css({"width":defWidth / 2,"height":defHeight})
                         $spanImg.append($Img);
                         $spanTxt.append($Txt);
                         $spanImg.css("width","50%");
                         $spanTxt.css("width","50%");
                     }
+                    $Img.attr("id",curPRR.id + "img");
+
                     if(curPRR.backColorRGB && curPRR.backColorRGB.length == 8){         //背景色设置
                         if(curPRR.backColorRGB.indexOf("00") == 0){
                             $spanDef.css("background-color","rgba(0,0,0,0)");
                         }else {
                             $spanDef.css("background-color","#" + curPRR.backColorRGB.substr(2,6));
                         }
-
                     }else{
                         $spanDef.css("background-color","rgba(0,0,0,0)");
                     }
@@ -490,6 +496,7 @@ var userMonitor = function(){
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
 
+                    loadDefImg(curPRR,$Img);
 
                     //设置外层span(spanImg,spanTxt)的内部元素的对齐
                     function setTextAlignment($ele,align){
@@ -531,7 +538,7 @@ var userMonitor = function(){
                         }
                     }
 
-                    setTextAlignment($spanDef,curPRR.alignment);
+                    setTextAlignment($spanTxt,curPRR.alignment);
                     setTextAlignment($spanImg,curPRR.imageAlignment);
                 }
                 if(curPD.enableScriptResult){       //是否可用(可点击)的属性
@@ -541,7 +548,7 @@ var userMonitor = function(){
                 }
                 var curProcCtrl = _.findWhere(_procCtrls,{"prDefId":_procDefs[i].prDefId});
                 //如果当前def存在控件或者标签的类型为166（即导航标签），则绘制
-                if((curProcCtrl && _procDefs[i].cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122
+                if((curProcCtrl && curProcDef.cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122
                     || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131
                 ){
                     $spanDef.css("cursor","pointer");
@@ -549,6 +556,23 @@ var userMonitor = function(){
                 }
             }
             $divContent.append($spanDef);
+        }
+    }
+
+    function loadDefImg(curPRR,$Img){
+        if(curPRR.showFlag == 2 || curPRR.showFlag == 3){
+            if(curPRR.imgID){
+                $Img.addClass(curPRR.imgID + "img");
+                    $.ajax({
+                        type:"post",
+                        data:{"" : curPRR.imgID},
+                        url:_urlPrefix + "PR/GetHbProcImage",
+                        success:function(data){
+                            $Img.attr("src",data["imgUrl"]);
+                        },
+                        error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
+                    });
+            }
         }
     }
 
@@ -570,18 +594,67 @@ var userMonitor = function(){
             displayAllProc();
         }else if(procDef.cType == 3 || procDef.cType == 133 || procDef.cType == 131){       //AO操作
             if(_hasControlAuth){
+                var ptNow = getMousePos();
                 if(procDef.cType == 133 || procDef.cType == 131){
                     if(_.findWhere(_procCtrls,{"prDefId":procDef.prDefId})){
-
+                        _isOperating = true;
+                        drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+                    }else{      //输入控制
+                        drawInputPanel(procDef.prDefId,ptNow[0],ptNow[1]);
                     }
+                }else{      //输入控制
+                    drawInputPanel(procDef.prDefId,ptNow[0],ptNow[1]);
                 }
+            }else{
+                alertMessage("没有权限");
             }
         }else if(procDef.cType == 122){     //全局参数设置
-
+            _ptForGlobalPara = getMousePos();
+            if(_hasControlAuth){
+                $.ajax({
+                    type:"post",
+                    data:{"" : procDef.ckId},
+                    url: _urlPrefix + "PR/pr_GetPRGlobalParas",
+                    success:function(data){
+                        drawGlobalParaPanel(data,_ptForGlobalPara[0],_ptForGlobalPara[1]);
+                    },
+                    error:function(xhr,res,err){ logAjaxError("pr_GetPRGlobalParas",err); }
+                });
+            }else{
+                alertMessage("没有权限");
+            }
         }else if(procDef.cType == 100){     //空调温控面板设置
-
+            if(_hasControlAuth){
+                _airClickPos = getMousePos();       //获取当前的鼠标点，保存
+                $.ajax({
+                   type:"post",
+                    data:{
+                        "ckid":procDef.ckId,
+                        "prDefId":procDef.prDefId
+                    },
+                    url:_urlPrefix + "PR/GetAirPtProp",
+                    success:function(data){
+                        if(!data){ return; }
+                        _isOperating = true;
+                        if(data.flag){       //绘制空调面板
+                            drawControls(data.prDefId,_airClickPos[0],_airClickPos[1],true);
+                        }else{      //绘制控制面板
+                            drawControls(data.prDefId,_airClickPos[0],_airClickPos[1]);
+                        }
+                    },
+                    error:function(xhr,res,err){ logAjaxError("GetAirPtProp" , err); }
+                });
+            }else{
+                alertMessage("没有权限");
+            }
         }else{      //绘制控件，例如 开关操作
-
+            if(_hasControlAuth){
+                _isOperating = true;
+                var ptNow = getMousePos();
+                drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+            }else{
+                alertMessage("没有权限");
+            }
         }
     }
 
@@ -613,6 +686,460 @@ var userMonitor = function(){
         }
     }
 
+    //获取鼠标坐标，left,top
+    var getMousePos = function(){
+        var e= event || window.event;
+        var pt = [];
+        pt.push(e.clientX);
+        pt.push(e.clientY);
+        var root = document.getElementById("content-main-right");
+        var rect = root.getBoundingClientRect();        //获取根元素相对文档的偏移
+        pt[0] = pt[0] - rect.left + root.scrollLeft;        //最后再加上滚动条的距离
+        pt[1] = pt[1] - rect.top + root.scrollTop;
+        return pt;
+    }
+
+    //根据当前defID绘制控件
+    var drawControls = function(prDefID,left,top,isAir){
+        //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
+        var $contentmain = $("#content-main-right");
+        var $divCtrls = setCtrlPanel($contentmain,left,top);
+        $divCtrls.css({"width" : "160px","height" : "120px"});
+        var curCtrls = _.filter(_procCtrls,function(ctrl){ return ctrl.prDefId==prDefID});      //字符串无法转成long型数字
+        curCtrls = _.sortBy(curCtrls,function(ctrl){return -ctrl.showOrder});       //按照显示顺序从大到小排序
+        if(!isAir){         //非空调温控按钮的情况，如果没有控制，则不绘制
+            if(!curCtrls || curCtrls.length==0){ return;}
+        }
+
+        if($divCtrls.attr("data-prdefid") == prDefID && $divCtrls.attr("data-ctrltype") == "ctrl"){      //如果当前的def控制已经绘制，直接显示
+            setDivControlsVisible(true);
+            return;
+        }
+        $divCtrls.attr("data-prdefid",prDefID);     //设置当前divCtrls的defID
+        $divCtrls.attr("data-ctrltype","ctrl");
+        $divCtrls.empty();
+
+        var ccCount = curCtrls.length;
+        var $table = $("<table>");      //生成显示table
+        var $caption = $("<caption style='font-size:12px;color:blue;'>控制选项</caption>");
+        $table.append($caption);
+        if(!isAir){
+            if(ccCount<3){
+                var baseWidth = 79, baseHeight = 38;       //基础宽高
+                var $tr = $("<tr>");
+                for(var i=0;i<ccCount;i++){
+                    var curCtrl = curCtrls[i];
+                    var $td = $("<td>");
+                    var $btn = setCtrlButton(curCtrl,baseWidth,baseHeight);
+                    $td.append($btn);
+                    $tr.append($td);
+                }
+                $tr.appendTo($table);
+            }else{
+                var baseWidth = 49, baseHeight = 38;       //基础宽高
+                for(var r = 0;r < ccCount;r += 3){      //按照三列设计
+                    var $tr = $("<tr name='" + r + "'>");
+                    for(var c = 0; c < 3 && r+c<ccCount;c++){     //添加各个ctrl的按钮
+                        var curCtrl = curCtrls[r + c];
+                        var $td = $("<td>");
+                        var $btn = setCtrlButton(curCtrl,baseWidth,baseHeight);
+                        $td.append($btn);
+                        $tr.append($td);
+                    }
+                    $table.append($tr);
+                }
+            }
+        }else{      //空调面板
+            var baseWidth = 39,baseHeight = 38;       //基础宽高
+            var highTemp = 29,temp = 15;
+            for(var r =0;r<4,temp<highTemp;r+=4){
+                var $tr = $("<tr name='" + r + "'>");
+                for(var c=0; c < 4 && temp<highTemp;c ++){
+                    var $td = $("<td>");
+                    var $btn = setAirTempButton(prDefID,temp,baseWidth,baseHeight);
+                    temp += 1;
+                    $td.append($btn);
+                    $tr.append($td);
+                }
+                $table.append($tr);
+            }
+        }
+        $divCtrls.append($table);
+        setDivControlsVisible(true);
+    }
+    //绘制输入的控制面板
+    var drawInputPanel = function(prDefId,left,top){
+        //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
+        var $contentmain = $("#content-main-right");
+        var $divCtrls = setCtrlPanel($contentmain,left,top);
+        var curProcDef = _.findWhere(_procDefs,{"prDefId" : prDefId});
+        if(!curProcDef){ return; }
+        if($divCtrls.attr("data-prdefid") == prDefId && $divCtrls.attr("data-ctrltype") == "input" ){      //如果当前的def控制已经绘制，直接显示
+            setDivControlsVisible(true);
+            return;
+        }
+        $divCtrls.attr("data-prdefid",prDefId);     //设置当前divCtrls的defID
+        $divCtrls.attr("data-ctrltype","input");
+        $divCtrls.empty();
+        $divCtrls.css({"width":"300px","height":"200px"});
+        var $table = $("<table>");      //生成显示table
+        var $caption = $("<caption style='font-size:12px;color:blue;'>输入参数</caption>");
+        $table.append($caption);
+        var $btnOK = $("<button>"),$btnCancel = $("<button>");
+        $btnOK.attr("data-prdefid",prDefId);            //将当前def的id绑定到OK按钮上
+        if((curProcDef.cType == 133 || curProcDef.cType == 131) && curProcDef.recservicecfgValue){
+            $btnOK.attr("data-datatype",curProcDef.recservicecfgValue.dataType);
+            if(curProcDef.recservicecfgValue.dataType == 1){        //布尔型
+                $table.css({"width":"300px","height":"200px"});
+                var $tr = $("<tr>"),$td = $("<td>");
+                $td.css("text-align","center");
+                var htmlBool = '<span><label>请选择:</label><input type="radio" id="ctrl-panel-on" name="def" value="开">开';
+                htmlBool += '<input type="radio" name="def" value="关">关</span>';
+                $td.append(htmlBool);
+                $tr.append($td);
+                $tr.appendTo($table);
+            }else if(curProcDef.recservicecfgValue.dataType == 2 || curProcDef.recservicecfgValue.dataType == 3){       //整数或者浮点
+                var $tr = $("<tr>"),$td = $("<td>");        //输入提示行
+                $td.css("text-align","left");
+                var htmlP = "<p id='ctrl-panel-p' style='font-weight: bold;color:red;'>请输入有效的范围值(" + curProcDef.recservicecfgValue.minValue +  "-" + curProcDef.recservicecfgValue.maxValue + ")</p>";
+                $td.append(htmlP);
+                $tr.append($td);
+                $tr.appendTo($table);
+                var $tr1 = $("<tr>"),$td1 = $("<td>");          //输入框
+                var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="36" rows="5" autofocus></textarea>';
+                $td1.append(htmlTextarea);
+                $tr1.append($td1);
+                $tr1.appendTo($table);
+            }else if(curProcDef.recservicecfgValue.dataType == 5){      //日期
+                $table.css({"width":"300px","height":"200px"});
+                var $tr = $("<tr>"),$td = $("<td>");
+                $td.css("text-align","center");
+                var htmlTime = "<span>启动时间</span>&nbsp;&nbsp;&nbsp;&nbsp;";
+                htmlTime += "<select id='ctrl-panel-hour'>";
+                for(var i=0;i<24;i++){
+                    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i) + "</option>";
+                }
+                htmlTime += "</select><span>时</span><select id='ctrl-panel-minute'>";
+                for(var i=0;i<60;i++){
+                    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i ) + "</option>"
+                }
+                htmlTime += "</select><span>分</span>"
+                $td.append(htmlTime);
+                $tr.append($td);
+                $tr.appendTo($table);
+            }
+        }else{      //输入字符串信息
+            var $tr1 = $("<tr>"),$td1 = $("<td>");          //输入框
+            var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="50" rows="10" autofocus></textarea>';
+            $tr1.append($td1);
+            $tr1.appendTo($table);
+        }
+        var $trButtons = $("<tr>"),$tdButtons = $("<td>");         //确定 取消 按钮列
+        $tdButtons.css("text-align","right");
+        $btnOK.addClass("btn").addClass("btn-default");         //设置按钮的样式
+        $btnCancel.addClass("btn").addClass("btn-default");
+        var btnStyle = {
+            "padding" : "0 0",
+            "background-color" : "#09a4d8",
+            "color" : "#0000FF",
+            "width" : "100px",
+            "height" : "24px"
+        };
+        $btnOK.css(btnStyle);$btnOK.html("确定");
+        $btnCancel.css(btnStyle);$btnCancel.html("取消");
+        $btnCancel.on("click",function(){ setDivControlsVisible(false);});       //cancel按钮关闭当前
+        $btnOK.on("click",function(){           //ok按钮,找到当前界面的字符串，调用sendCommand接口方法
+            var $this = $(this),isClosePanel = false,curInputData;
+            var curDefId = $this.attr("data-prdefid"),curDataType = $this.attr("data-datatype");
+            var curDef = _.findWhere(_procDefs,{"prDefId" : curDefId});
+            if(curDataType == 1){       //布尔
+                var boolFlag = 0;
+                if($("#ctrl-panel-on").attr("checked") == "checked") { boolFlag = 1; }
+                curInputData = boolFlag * curDef.recservicecfgValue.cofA + parseFloat(curDef.recservicecfgValue.cofB);
+                isClosePanel = true;
+            }else if(curDataType == 2 || curDataType == 3){     //整数 浮点数
+                var taVal = $("#ctrl-panel-textarea").val();
+                if(taVal == +taVal){       //判断是否数字
+                    taVal = parseFloat(taVal);
+                    if(taVal > curDef.recservicecfgValue.minValue && taVal < curDef.recservicecfgValue.maxValue){       //输入了合法范围的数字
+                        isClosePanel = true;
+                        curInputData = taVal * curDef.recservicecfgValue.cofA + parseFloat(curDef.recservicecfgValue.cofB);
+                    }else{
+                        alertMessage("请输入有效范围的参数!");
+                    }
+                }else{
+                    alertMessage("请输入有效的数字!");
+                }
+            }else if(curDataType == 5){         //时间
+                var hour = $("#ctrl-panel-hour").find("option:selected").val();
+                var minute = $("#ctrl-panel-minute").find("option:selected").val();
+                isClosePanel = true;
+                curInputData = hour + minute;
+            }else{      //字符串
+                curInputData = $("#ctrl-panel-textarea").val();
+                if(!curInputData){
+                    alertMessage("请输入参数!");
+                }else{
+                    isClosePanel = true;
+                }
+            }
+            if(curInputData || curInputData==0){       //如果有发送的数据，则调用sendCommand
+                _isOperating = true;
+                var cmdPrm = {
+                    "setValue2" : curInputData,
+                    "CKID" : curDef.ckId,
+                    "ctype" : curDef.cType
+                };
+                $.ajax({
+                    type : "post",
+                    data : cmdPrm,
+                    url : _urlPrefix + "PR/SendCtrlCommand",
+                    success : function(data){
+                        _isOperating = false;
+                    },
+                    error: function(xhr,res,err){
+                        logAjaxError("SendCtrlCommand" , err);
+                        _isOperating = false;
+                    }
+                });
+            }
+            if(isClosePanel){ setDivControlsVisible(false); }
+        });
+        $tdButtons.append($btnOK);$tdButtons.append($btnCancel);
+        $trButtons.append($tdButtons);$trButtons.appendTo($table);
+        $divCtrls.append($table);
+        setDivControlsVisible(true);
+    }
+
+    //绘制全局参数的控制面板
+    var drawGlobalParaPanel = function(glbPara,left,top){
+        _GlobalPara = glbPara;      //将globalpara存到当前类的全局变量中
+        var $contentmain = $("#content-main-right");
+        var $divCtrls = setCtrlPanel($contentmain,left,top);
+        if($divCtrls.attr("data-prdefid") == prDefId && $divCtrls.attr("data-ctrltype") == "globalpara" ){      //如果当前的def控制已经绘制，直接显示
+            setDivControlsVisible(true);
+            return;
+        }
+        $divCtrls.attr("data-prdefid",prDefId);     //设置当前divCtrls的defID
+        $divCtrls.attr("data-ctrltype","globalpara");
+        $divCtrls.empty();
+        $divCtrls.css({"width":"300px","height":"200px"});
+        var $table = $("<table>");      //生成显示table
+        var $caption = $("<caption style='font-size:12px;color:blue;'>输入参数</caption>");
+        $table.append($caption);
+        var $btnOK = $("<button>"),$btnCancel = $("<button>");
+        $btnOK.attr("data-globalparaid",glbPara.id);
+        var $tr = $("<tr>"),$td = $("<td>");        //输入提示行
+        $td.css("text-align","center");
+        var htmlName = '<span>' + glbPara.name + '</span>';
+        $td.append(htmlName);
+        $td.appendTo($tr);
+        $tr.appendTo($table);
+        var $tr1 = $("<tr>"),$td1 = $("<td>");        //输入提示行
+        $td1.css("text-align","center");
+        var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="36" rows="4" autofocus>' + glbPara.value + '</textarea>';
+        $td1.append(htmlTextarea);
+        $td1.appendTo($tr1);
+        $tr1.appendTo($table);
+        var $tr2 = $("<tr>"),$td2 = $("<td>");        //输入提示行
+        $td2.css("text-align","left");
+        var htmlP = "<p id='ctrl-panel-p' style='font-weight: bold;color:red;'>取值范围,(最小值:" + glbPara.minValue +  " 至最大值:" + glbPara.maxValue + " )</p>";
+        $td2.append(htmlP);
+        $tr2.append($td2);
+        $tr2.appendTo($table);
+        var $trButtons = $("<tr>"),$tdButtons = $("<td>");         //确定 取消 按钮列
+        $tdButtons.css("text-align","right");
+        $btnOK.addClass("btn").addClass("btn-default");         //设置按钮的样式
+        $btnCancel.addClass("btn").addClass("btn-default");
+        var btnStyle = {
+            "padding" : "0 0",
+            "background-color" : "#09a4d8",
+            "color" : "#0000FF",
+            "width" : "100px",
+            "height" : "24px"
+        };
+        $btnOK.css(btnStyle);$btnOK.html("确定");
+        $btnCancel.css(btnStyle);$btnCancel.html("取消");
+        $btnCancel.on("click",function(){ setDivControlsVisible(false);});       //cancel按钮关闭当前
+        $btnOK.on("click",function(){
+            if(_GlobalPara && _GlobalPara.id == $(this).attr("data-globalparaid")){
+                var taVal = $("#ctrl-panel-textarea").val();
+                if(!taVal){alertMessage("请输入值!");return;}
+                if(taVal == +taVal){
+                    if(taVal == _GlobalPara.value){ return; }       //值没有更改
+                    if(taVal>_GlobalPara.minValue && taVal<_GlobalPara.maxValue){
+                        $.ajax({
+                           type:"post",
+                            data: {
+                                "value": taval,
+                                "id": _GlobalPara.id,
+                                "type": _GlobalPara.type
+                            },
+                            url: _urlPrefix + "PR/SendGlobalParaCmd",
+                            success:function(data){
+                                setDivControlsVisible(false);
+                            },
+                            error:function(xhr,res,err){
+                                logAjaxError("SendGlobalParaCmd",err);
+                                alertMessage("数据更新失败!");
+                            }
+                        });
+                    }else{
+                        alertMessage("请输入有效范围的参数!");
+                    }
+                }else{
+                    alertMessage("请输入有效的数字!");
+                }
+            }
+        });
+        $tdButtons.append($btnOK);$tdButtons.append($btnCancel);
+        $trButtons.append($tdButtons);
+        $trButtons.appendTo($table);
+    }
+
+    //设置主面板的点击事件，隐藏面板
+    function setMainClick($contentmain){//鼠标移除隐藏事件
+        $contentmain.unbind("click");
+        $contentmain.on("click",function(){
+            var e= event || window.event;
+            var mLeft = e.clientX,mTop = e.clientY;     //鼠标位置
+            var divCtrl = document.getElementById("content-ctrls");
+            if(divCtrl){        //计算鼠标位置是不是在当前的控制框内，如果不在隐藏
+                var rect = divCtrl.getBoundingClientRect();
+                if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
+                    setDivControlsVisible(false);
+                }
+            }
+        });
+    }
+    //初始设置控制面板
+    function setCtrlPanel($contentmain,left,top){
+        //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
+        var $divCtrls = $("#content-ctrls");
+        if($divCtrls.length == 0){
+            $divCtrls = $("<div>");
+            $divCtrls.attr('id','content-ctrls');
+            $divCtrls.appendTo($contentmain);
+        }
+        $divCtrls.css({     //将顶点减一保证鼠标当前在控制面板的范围内
+            "left" : (left - 1) + "px",
+            "top"  : (top - 1) + "px"
+        });
+        return $divCtrls;
+    }
+
+    //设置空调面板温度按钮
+    var setAirTempButton = function(prDefId,temp,baseWidth,baseHeight){
+        var $btn = $("<button>");
+        $btn.html(temp);
+        $btn.attr("name",temp);
+        $btn.css("width",baseWidth + "px");
+        $btn.css("height",baseHeight + "px");
+        $btn.addClass("btn");
+        $btn.addClass("btn-default");
+        $btn.css("padding","0 0");
+        $btn.css("background-color","#09a4d8");
+        $btn.css("color","#0000FF");
+        $btn.attr("data-temp",temp);
+        $btn.attr("data-prdefid",prDefId);
+        $btn.on("click",function(){
+            var tmp = this.getAttribute("data-temp");
+            var prDefId = this.getAttribute("data-prdefid");
+            if(tmp && prDefId){
+                _isOperating = true;
+                var prd = _.findWhere(_procDefs,{"prDefId":prDefId});
+                if(!prd) { return;}
+                var cmdDatas = {
+                    "setValue" : tmp,
+                    "setValueType" : 1,
+                    "CKID" : prd.ckId,
+                    "ctype" : prd.cType
+                };
+                $.ajax({            //发送控制指令
+                    type : "post",
+                    data : cmdDatas,
+                    url : _urlPrefix + "PR/SendCommand",
+                    success : function(data){
+                        _isOperating = false;
+                    },
+                    error: function(xhr,res,err){
+                        logAjaxError("SendCommand" , err);
+                        _isOperating = false;
+                    }
+                })
+                setDivControlsVisible(false);       //发送指令后隐藏控制面板
+            }
+        });
+        return $btn;
+    }
+
+    //设置控制按钮
+    var setCtrlButton = function(curCtrl,baseWidth,baseHeight){
+        var $btn = $("<button>");
+        $btn.html(curCtrl.text);
+        $btn.attr("id",curCtrl.id);
+        $btn.css("width",baseWidth + "px");
+        $btn.css("height",baseHeight + "px");
+        $btn.addClass("btn");
+        $btn.addClass("btn-default");
+        $btn.css("padding","0 0");
+        if(curCtrl.backColorRGB && curCtrl.backColorRGB.length == 8){       //设置背景色
+            $btn.css("background-color","#" + curCtrl.backColorRGB.substr(2,6));
+        }else{
+            $btn.css("background-color","#09a4d8");
+        }
+        if(curCtrl.foreColorRGB && curCtrl.foreColorRGB.length == 8){       //设置前景色
+            $btn.css("color","#" + curCtrl.foreColorRGB.substr(2,6));
+        }else{
+            $btn.css("color","#0000FF");
+        }
+        $btn.attr("data-ctrlid",curCtrl.id);
+        $btn.on("click",function(){
+            var ctrlid = this.getAttribute("data-ctrlid");      //获取当前按钮绑定的控制按钮id
+            var ppc = _.findWhere(_procCtrls,{"id":ctrlid});
+            if(ppc){
+                _isOperating = true;
+                var setValue = ppc.setValue;
+                var prd = _.findWhere(_procDefs,{"prDefId":ppc.prDefId});
+                if(!prd) { return;}
+                var cmdDatas = {
+                      "setValue" : setValue,
+                      "setValueType" : 1,
+                      "CKID" : prd.ckId,
+                      "ctype" : prd.cType
+                };
+                $.ajax({            //发送控制指令
+                    type : "post",
+                    data : cmdDatas,
+                    url : _urlPrefix + "PR/SendCommand",
+                    success : function(data){
+                        _isOperating = false;
+                    },
+                    error: function(xhr,res,err){
+                        logAjaxError("SendCommand" , err);
+                        _isOperating = false;
+                    }
+                })
+            }
+            setDivControlsVisible(false);       //发送指令后隐藏控制面板
+        });
+        return $btn;
+    }
+
+    //显示或者隐藏控制按钮的承载div
+    var setDivControlsVisible = function(flag){
+        var $divCtrls = $("#content-ctrls");
+        if(flag){
+            $divCtrls.removeClass("content-ctrls-hide");
+            $divCtrls.addClass("content-ctrls-show");
+            setMainClick($("#content-main-right"));     //设置鼠标事件来显示或者隐藏当前控制面板
+        }else{
+            $divCtrls.removeClass("content-ctrls-show");
+            $divCtrls.addClass("content-ctrls-hide");
+            $("#content-main-right").unbind("click");
+        }
+    }
+
     //设置每个def外层的flex布局
     var setFlex = function($ele){
         $ele.css("display","flex");
@@ -640,8 +1167,17 @@ var userMonitor = function(){
         }
     }
 
-    init();
+    function alertMessage(msg){
+        alert(msg);
+    }
+
+    function logAjaxError(funcName,err){
+        console.log(funcName + ":" + err);
+    }
+
+    //init();
     return {
+        init:init,
         getUserProcs:getUserProcs
     };
 }();

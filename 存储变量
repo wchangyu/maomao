@@ -11,3 +11,4 @@ localStorage["BEE_userpassword"] 当前用户密码 同上
 localStorage["BEE_remember"]    登录的记住用户名
 sessionStorage.allEnergyType   当前系统的能耗类型，楼宇选择模块、首页使用
 sessionStorage.officeEnergyType 当前系统的分户能耗类型，首页 分户选择模块使用
+localStorage.themeColor     当前系统的样式设计

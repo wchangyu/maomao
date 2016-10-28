@@ -119,7 +119,7 @@ var Login = function () {
 	var convertAuthTo01Str = function(hexstr){
 		var arr = [];
 		var i=0;
-		for(i=0;i<80;i++){
+		for(i=0;i<800;i++){
 			arr[i] = "";
 		}
 		var seed = [8,4,2,1];
@@ -132,6 +132,7 @@ var Login = function () {
 				arr[i * 4 + d] = r == 0 ? "0" : "1";
 			}
 		}
+		return arr.join("");
 	}
 
 	var directToIndex = function(){

@@ -479,11 +479,8 @@ var Layout = function () {
             });
         } else {  // general
             $(window).scroll(function() {
-                var sTop = $(this).scrollTop();
-                console.log(sTop);
-                if (sTop > offset) {
+                if ($(this).scrollTop() > offset) {
                     $('.scroll-to-top').fadeIn(duration);
-                    console.log(sTop);
                 } else {
                     $('.scroll-to-top').fadeOut(duration);
                 }

@@ -33,7 +33,23 @@
         "content":"变配电系统",
         "uri":"energyMonitor.html",
         "uid":"",
-        "arg":"",
+        "arg":"2,5",
+        "iconclass":""
+      },
+      "变配电系统2":{
+        "type":"0",
+        "content":"变配电系统-空调",
+        "uri":"energyMonitor.html?a=1",
+        "uid":"",
+        "arg":"2,1",
+        "iconclass":""
+      },
+      "变配电系统3":{
+        "type":"0",
+        "content":"变配电系统-高铁",
+        "uri":"energyMonitor.html?a=2",
+        "uid":"",
+        "arg":"2,4",
         "iconclass":""
       },
       "暖通空调系统":{
