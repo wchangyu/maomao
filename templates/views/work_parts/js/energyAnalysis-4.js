@@ -38,9 +38,10 @@ $(function(){
 	//结束时间
 	endTime();
 	getPointerData();
-	$('.header-one').html(_ajaxStartTime);
-	$('.header-two').html('-');
-	$('.header-three').html(_ajaxEndTime);
+	$('small').html(pointerNames);
+	$('.header-one').html(_ajaxStartTime.split('/')[0] + '-' + _ajaxStartTime.split('/')[1] + '-' + _ajaxStartTime.split('/')[2]);
+	$('.header-two').html('到');
+	$('.header-three').html(_ajaxEndTime.split('/')[0] + '-' + _ajaxEndTime.split('/')[1] + '-' + _ajaxEndTime.split('/')[2]);
 	$('.btns').click(function (){
 		//能耗种类
 		getEcType();
@@ -49,7 +50,7 @@ $(function(){
 		//结束时间
 		endTime();
 		$('.header-one').html(_ajaxStartTime);
-		$('.header-two').html('-');
+		$('.header-two').html('到');
 		$('.header-three').html(_ajaxEndTime);
 		var o=$('.tree-3')[0].style.display;
 		if(o == 'none'){
@@ -60,8 +61,31 @@ $(function(){
 			$('small').html(pointerNames);
 		}
 
+	});
+	$('body').mouseover(function(){
+		if(myChart36 && myChart37 && myChart38 && myChart39 && myChart40){
+			myChart36.resize();
+			myChart37.resize();
+			myChart38.resize();
+			myChart39.resize();
+			myChart40.resize();
+		}
 	})
 })
+var myChart36;
+var myChart37;
+var myChart38;
+var myChart39;
+var myChart40;
+window.onresize = function () {
+	if(myChart36 && myChart37 && myChart38 && myChart39 && myChart40){
+		myChart36.resize();
+		myChart37.resize();
+		myChart38.resize();
+		myChart39.resize();
+		myChart40.resize();
+	}
+}
 //选取的能耗种类；
 var _ajaxEcType;
 function getEcType(){
@@ -73,9 +97,7 @@ function startTime(){
 	//存放拆分的数组；
 	var startArr=[];
 	var startTime = $('.drp-calendar-date').eq(0).html();
-	//console.log(startTime);
 	startArr=startTime.split('/');
-	//console.log(startArr);
 	//处理时间格式（月 日）
 	switch (startArr[1]){
 		case '1':
@@ -110,9 +132,7 @@ function endTime(){
 
 	var endArr=[];
 	var endTime = $('.drp-calendar-date').eq(1).html();
-	//console.log(startTime);
 	endArr=endTime.split('/');
-	//console.log(endArr);
 	//处理时间格式（月 日）
 	switch (endArr[1]){
 		case '1':
@@ -289,8 +309,8 @@ function getPointerData(){
 			myChart37.setOption(option37);
 		}else if(energyItemIdss == '02'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-two'));
-			option37 = {
+			myChart38 = echarts.init(document.getElementById('energy-parts-two'));
+			option38 = {
 				tooltip : {
 					trigger: 'item',
 					formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -323,11 +343,11 @@ function getPointerData(){
 					}
 				]
 			};
-			myChart37.setOption(option37);
+			myChart38.setOption(option38);
 		}else if(energyItemIdss == '41'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-three'));
-			option37 = {
+			myChart39 = echarts.init(document.getElementById('energy-parts-three'));
+			option39 = {
 				tooltip : {
 					trigger: 'item',
 					formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -360,11 +380,11 @@ function getPointerData(){
 					}
 				]
 			};
-			myChart37.setOption(option37);
+			myChart39.setOption(option39);
 		}else if(energyItemIdss == '42'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-four'));
-			option37 = {
+			myChart40 = echarts.init(document.getElementById('energy-parts-four'));
+			option40 = {
 				tooltip : {
 					trigger: 'item',
 					formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -397,7 +417,7 @@ function getPointerData(){
 					}
 				]
 			};
-			myChart37.setOption(option37);
+			myChart40.setOption(option40);
 		}
 	}
 }
@@ -412,7 +432,6 @@ function getOfficeData(){
 	var nameArr=[];
 	var data=[];
 	var ofs = _objectSel.getSelectedOffices(),officeID;
-	console.log(ofs);
 	if(ofs.length>0) {
 		officeID = ofs[0].f_OfficeID;
 		officeNames = ofs[0].f_OfficeName;

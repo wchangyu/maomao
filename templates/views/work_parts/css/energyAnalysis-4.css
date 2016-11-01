@@ -46,19 +46,16 @@
 .header-one{
     display: inline-block;
     font-size: 1.2rem;
-    margin-right: 10px;
     color: #fff;
 }
 .header-two{
     display: inline-block;
     font-size: 1.2rem;
-    margin-right: 10px;
     color: #fff;
 }
 .header-three{
     display: inline-block;
     font-size: 1.2rem;
-    margin-right: 10px;
     color: #fff;
 }
 .energy-parts-left{
@@ -86,8 +83,7 @@
     height: 600px;
     position: absolute;
     top: 50%;
-    margin-top: -125px;
-    margin-bottom: -125px;
+    margin-top: -200px;
 }
 .choice{
     display: inline-block;
@@ -111,4 +107,19 @@
 }
 .energy-parts-left-2{
     height: 800px;
+}
+.energy-types div{
+    border: 2px solid #ffffff;
+}
+.content-main-left{
+    display: block;
+}
+.energy-parts-left{
+    height: auto;
+}
+.energy-parts{
+    position: relative;
+}
+.energy-parts-left:nth-child(2){
+    height: 600px;
 }

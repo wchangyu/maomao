@@ -18,16 +18,18 @@
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
     <link rel="stylesheet" href="./work_parts/css/energyAnalysis-7.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
+    <script src="./work_parts/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+    <script src="../../assets/local/scripts/underscore-min.js"></script>
     <script src="./work_parts/js/showOrHidden.js"></script>
     <script src="./work_parts/js/energyAnalysis-7.js"></script>
     <script src="./work_parts/js/pointersoffices.js"></script>
@@ -326,19 +328,21 @@
                                         <div class="right-top">
                                             <div class="right-header">
                                                 <ul>
-                                                    <li class="top-header-lists top-header-lists_aa_9">逐12月用电趋势</li>
-                                                    <li class="top-header-lists top-header-lists_aa_9">逐52周用电趋势</li>
+                                                    <li class="top-header-lists top-header-listss">逐12月用电趋势</li>
+                                                    <li class="top-header-lists">逐52周用电趋势</li>
                                                 </ul>
                                                 <ul class="right-header-right">
                                                     <li class="header-right-lists header-right-lists-1">
                                                     </li>
-                                                    <li class="header-right-lists">单位：kWs</li>
+                                                    <li class="header-right-lists">单位：kWh</li>
                                                 </ul>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="rheader-content">
-                                                <div class="rheader-contents col-lg-12"id="rheader-content-45"></div>
-                                                <div class="foot col-lg-12">
+                                                <div class="rheader-contents"id="rheader-content-45"></div>
+                                                <div class="rheader-contents"id="rheader-content-46"></div>
+                                                <div class="rheader-contentsss"></div>
+                                                <div class="foot">
                                                     <!-- 图 -->
                                                     <img class="foot-img"src="./work_parts/img/foot.png" alt="">
                                                     <!-- 车库更换 -->
@@ -383,6 +387,7 @@
                                             <div class="tipes"></div>
                                             <ul class="allOffices ztree" id="allOffices"></ul>
                                         </div>
+
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -390,10 +395,8 @@
                                     <div class="select-times">
                                         <div class="left-middle-header">时段选择</div>
                                         <div id='wrapper'>
-                                            <div class="time-options time-options-1 timeactive">日</div>
-                                            <div class="time-options">周</div>
-                                            <div class="time-options">月</div>
-                                            <div class="time-options">年</div>
+                                            <input type="text" id="datetimepicker">
+                                            <div class="datetimepickereType"></div>
                                             <div class="buttons">
                                                 <button class="btns1">查询</button>
                                             </div>
@@ -444,6 +447,7 @@
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="./work_parts/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>

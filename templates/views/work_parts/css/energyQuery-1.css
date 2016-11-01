@@ -260,9 +260,6 @@
 	margin-left: 35px;
 	margin-top: 10px;
 }
-/*#energyConsumption li{
-	height:auto !important;
-}*/
 #energyConsumption{
 	height: 150px;
 	overflow: scroll;
@@ -297,4 +294,27 @@
 }
 .header-one{
 	text-indent: 0px;
+}
+.energy-types div{
+	border: 2px solid #ffffff;
+}
+.energyConsumption a{
+	height:26px !important;
+}
+.rheader-content{
+	width:100%;
+	position: absolute;
+}
+.L-left{
+	height: 500px;
+	margin-right: 250px;
+	background: #ffffff;
+}
+.L-right{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.rheader-content-left{
+	width: 100% !important;
 }

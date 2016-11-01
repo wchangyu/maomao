@@ -26,8 +26,6 @@
 	<script src="../../assets/local/scripts/underscore-min.js"></script>
 	<script src="./work_parts/js/pointersoffices.js"></script>
 	<script src="./work_parts/js/index.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
 	<script src="./work_parts/js/showOrHidden.js"></script>
 	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
@@ -262,7 +260,7 @@
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
 			<h3 class="page-title">
-			能耗总览<small>全院</small>
+			能耗总览<small></small>
 			</h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
@@ -309,13 +307,12 @@
                                                     	<!-- 同比 -->
                                                     	<p class="tongbi tongbi1">同比：
                                                         	<!-- 同比数值 -->
-                                                        	<span class="tongbizhi">0%</span>
+                                                        	<span class="tongbizhi"></span>
                                                     	</p>
                                                     	<!-- 环比 -->
                                                     	<p class="huanbi huanbi1">环比：
                                                         	<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -330,13 +327,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi2">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi huanbi2">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -351,13 +347,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi3">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -372,13 +367,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi4">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -391,8 +385,8 @@
 									<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-2">
 											<div class="main-right-ones portlet box blue main-right-ones-2">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日分项电耗
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：kWh</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -410,8 +404,8 @@
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
 											<div class="main-right-ones portlet box blue main-right-ones-3">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日用能指标
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -427,8 +421,8 @@
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-4">
 											<div class="main-right-ones portlet box blue main-right-ones-4">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日能耗费用
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -537,7 +531,7 @@
 <script>
       jQuery(document).ready(function() {    
          Metronic.init(); // init metronic core components
-          BEE.init();
+		 BEE.init();
 		 Layout.init(); // init current layout
 		 Demo.init(); // init demo features
 

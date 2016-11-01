@@ -145,7 +145,6 @@ $(function(){
 	//获取支路数据
 	getPointerId();
 	getBranches();
-
 	getBranchData();
 	$('#selectPointer').change(function(){
 		$('#tbody').empty();
@@ -153,8 +152,6 @@ $(function(){
 		$('#energyConsumption').empty();
 		getBranches();
 	});
-
-
 	//搜索功能
 	var key;
 	key = $("#key");
@@ -162,7 +159,7 @@ $(function(){
 		.bind("blur", blurKey)
 		.bind("propertychange", searchNode)
 		.bind("input", searchNode);
-
+	setEnergyInfo();
 	$('.btns').click(function(){
 		getEcType();
 		getPointerId();
@@ -171,15 +168,18 @@ $(function(){
 		$('small').html(_ajaxgetPointerName);
 		setEnergyInfo();
 	})
+	$('body').mouseover(function(){
+		if(myChart3){
+			myChart3.resize();
+		}
+	})
 })
  var myChart3;
-
  window.onresize = function () {
 	 if(myChart3){
 		 myChart3.resize();
 	 }
-    }
-
+ }
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfo(){
 	if(_energyTypeSel){
@@ -197,7 +197,6 @@ function setEnergyInfo(){
 		}
 	}
 }
-
 //楼宇的读取
 var _allPointerId=[0];
 function getSessionStoragePointer(){
@@ -224,7 +223,6 @@ function dataType(){
 	var dataType;
 	dataType = $('.types').val();
 	_ajaxDataType=dataType;
-	console.log(_ajaxDataType)
 }
 //选择日期对应的时间
 var _ajaxDataType_1='小时';
@@ -233,7 +231,6 @@ function getPointerId(){
 	_ajaxPointerId=$('#selectPointer').find('option:selected').val();
 	_ajaxgetPointerName=$('#selectPointer').find('option:selected').text();
 }
-
 //存放支路的数组
 var branchArr=[];
 //获得支路数据
@@ -408,8 +405,12 @@ function getBranchData(){
 	for(var i=0;i<select_ID.length;i++){
 		if(select_ID.length != 1){
 			$('.rheader-content-right').hide();
+			$('.rheader-content-left').addClass('col-lg-12');
+			$('.rheader-content-left').removeClass('col-lg-9');
 		}else if(select_ID.length == 1){
 			$('.rheader-content-right').show();
+			$('.rheader-content-left').addClass('col-lg-9');
+			$('.rheader-content-left').removeClass('col-lg-12');
 		}
 		var selects_ID=select_ID[i]
 		var ecParams={

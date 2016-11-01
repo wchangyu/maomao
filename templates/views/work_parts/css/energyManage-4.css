@@ -120,17 +120,17 @@
 .rheader-content-rights-span-2{
     color:#019cdf;
     position:absolute;
-    top:72px;
-    left: 35px;
-    font-size:1.3rem;
+    top:82px;
+    left: 13px;
     font-weight:bold;
 }
 .rheader-content-rights-span-3{
-    font-size:1rem;
+    font-size: 18px;
 }
 .rheader-content-rights-span-4{
     position:absolute;
     top:122px;
+    left: 30px;
 }
 .rights-up{
     background:url(../img/prompt-arrow2.png)no-repeat 0px 3px;
@@ -139,7 +139,7 @@
     height:25px;
     position:absolute;
     top:120px;
-    left:67px;
+    left:117px;
 }
 .rights-up-value{
     color:#019cdf;
@@ -147,7 +147,7 @@
     font-size:1.3rem;
     position:absolute;
     top:125px;
-    left:87px;
+    left:137px;
 }
 .yearQuota{
     width:140px;
@@ -159,7 +159,7 @@
     top:170px;
     text-align:center;
     padding-top:5px;
-    left: 50px;
+    left: 30px;
 }
 .rheader-content-rights{
     height: 250px;
@@ -170,9 +170,26 @@
     background: #DEEBF7;
 }
 .rheader-content-rights-span-1{
-    color:#019CDF;
+    background:#019CDF;
     position:absolute;
     top:32px;
-    font-size: 15px;
+    font-size: 20px;
     left: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 10px !important;
+}
+.L-rheader-content-left{
+    margin-right: 200px;
+    height: auto;
+}
+.L-rheader-content-right{
+    width: 200px;
+    position: absolute;
+    right: 0px;
+    top:0px;
+}
+.rheader-content{
+    position: relative;
 }

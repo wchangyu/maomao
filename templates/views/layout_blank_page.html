@@ -14,19 +14,31 @@
 <meta content="" name="description"/>
 <meta content="" name="author"/>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./work_parts/zTree/css/style.css">
+	<link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./work_parts/css/index.css">
+	<script src="./work_parts/js/jquery-1.11.2.js"></script>
+	<script src="./work_parts/js/echarts.min.js"></script>
+	<script src="../../assets/local/scripts/underscore-min.js"></script>
+	<script src="./work_parts/js/pointersoffices.js"></script>
+	<script src="./work_parts/js/index.js"></script>
+	<!--<script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>-->
+	<!--<script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>-->
+	<script src="./work_parts/js/moment.js"></script>
+	<script src="./work_parts/js/showOrHidden.js"></script>
+	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
+	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN THEME STYLES -->
-<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+	<link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+	<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 
@@ -409,7 +421,7 @@
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
 <script src="../../assets/global/plugins/respond.min.js"></script>
-<script src="../../assets/global/plugins/excanvas.min.js"></script> 
+<script src="../../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
 <script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
@@ -425,16 +437,16 @@
 <!-- END CORE PLUGINS -->
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script>
-      jQuery(document).ready(function() {    
-         Metronic.init(); // init metronic core components
-		 Layout.init(); // init current layout
-		 QuickSidebar.init(); // init quick sidebar
-		 Demo.init(); // init demo features
-		 BEE.init();
+      jQuery(document).ready(function() {
+		  Metronic.init(); // init metronic core components
+		  BEE.init();
+		  Layout.init(); // init current layout
+		  Demo.init(); // init demo features
       });
    </script>
 <!-- END JAVASCRIPTS -->

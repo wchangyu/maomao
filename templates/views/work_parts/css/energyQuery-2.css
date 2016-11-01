@@ -7,3 +7,6 @@
 .curSelectedNode{
     border: none !important;
 }
+.energyConsumption a{
+    height:26px !important;
+}

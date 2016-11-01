@@ -114,6 +114,7 @@
 }
 #rheader-content-42{
 	height: 290px;
+	width:100%;
 }
 .rheader-content-rightss{
 	height:290px;
@@ -243,4 +244,23 @@
 #wrapper p{
 	margin-top: 10px;
 	margin-left: 25px;
+}
+.rheader-content-2{
+	width: 100%;
+	height: 290px;
+	position: relative;
+}
+.L-left{
+	margin-right: 400px;
+}
+.L-right{
+	width:400px;
+	height:100%;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.rheader-content-rightss-1{
+	width:100% !important;
+	height:100%;
 }

@@ -92,9 +92,15 @@ $(function(){
 		    ]
 		};
 		myChart52.setOption(option52);
+	$('body').mouseover(function(){
+		if(myChart52){
+			myChart52.resize();
+		}
+	})
 })
-getHeight();
 var myChart52;
 window.onresize = function () {
-    myChart52.resize();
+	if(myChart52){
+		myChart52.resize();
+	}
 }

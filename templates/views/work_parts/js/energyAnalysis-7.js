@@ -1,4 +1,5 @@
 $(function(){
+	$('.datetimepickereType').html(currentDates);
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
@@ -41,17 +42,221 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//时间选择
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	).on('changeDate',function(e){
+		inputValue = $('#datetimepicker').val();
+		var now = moment(inputValue).startOf('day');
+		var startDay = now.format("YYYY-MM-DD");
+		//console.log(startDay);
+		var startSplit = startDay.split('-');
+		currentDate = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
+		$('.datetimepickereType').html(startDay)
+	});
+	getEcType();
+	getEcTypeWord();
+	getPointerDatas();
 	$('.btns1').click(function(){
 		getEcType();
+		getEcTypeWord();
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
-			//_ajaxGetOffices();
+			getOfficeDatas();
 			//$('small').html(officeNames);
 		}else{
 			getPointerDatas();
-			//$('small').html(pointerNames);
+			$('small').html(pointerNames);
+		}
+	});
+	//逐月逐周选择
+	$('.top-header-lists').click(function(){
+		$('.top-header-lists').removeClass('top-header-listss');
+		$(this).addClass('top-header-listss');
+		//alert($(this).index())
+		$(".rheader-contents").css({
+			'z-index':5,
+			'opacity':1
+		})
+		$(".rheader-contents").eq($(this).index()).css({
+			'z-index':2,
+			'opacity':0
+		})
+	});
+	$('body').mouseover(function(){
+		if(myChart45 && myChart46){
+			myChart45.resize();
+			myChart46.resize();
 		}
 	})
+})
+var myChart45;
+var myChart46;
+window.onresize = function () {
+	if(myChart45 && myChart46){
+		myChart45.resize();
+		myChart46.resize();
+	}
+}
+//标记选择的是12周还是52月；(0的时候是12月，1的时候的52周)
+//时间（当前时间12个月）
+var currentDate = moment().format('YYYY/MM/DD');
+var currentDates = moment().format('YYYY-MM-DD');
+//选中的能耗种类
+var _ajaxEcType="01";
+function getEcType(){
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	//console.log(jsonText.alltypes);
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etid)
+	}
+	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+	console.log(_ajaxEcType);
+}
+//设置getECType的初始值(文字，office时用);
+var _ajaxEcTypeWord="电";
+function getEcTypeWord(){
+	var aaa =[];
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		aaa.push(jsonText.alltypes[i].etname);
+	}
+	_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
+}
+//楼宇数据
+function getPointerDatas(){
+	var dataMothData = [];
+	var dataWeekData = [];
+	var dataMonthX = [];
+	var dataWeekX = [];
+	var dataMonthY = [];
+	var dataWeekY = [];
+	//存放最大的y轴值；
+	var MonthmaxData = 0;
+	var WeekmaxData = 0;
+	var pts = _objectSel.getSelectedPointers();
+	if(pts.length>0) {
+		pointerID = pts[0].pointerID;
+		pointerNames = pts[0].pointerName
+	};
+	if(!pointerID) { return; }
+	var ecParams = {
+		ecTypeId : _ajaxEcType,
+		pointerId : pointerID,
+		startTime: currentDate
+	}
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'EcDatas/GetEnergyTrendencyData',
+		data:ecParams,
+		async:false,
+		success:function(result){
+			dataMothData.push(result.monthDatas);
+			dataWeekData.push(result.weekDatas);
+		}
+	})
+	for(var i=0;i<dataMothData.length;i++){
+		var datas = dataMothData[i];
+		for(var j=0;j<datas.length;j++){
+			dataMonthX.push(datas[j].dataRange);
+			dataMonthY.push(datas[j].data);
+			MonthmaxData = _.max(datas,function(d){return d.data});
+		}
+	}
+	for(var i=0;i<dataWeekData.length;i++){
+		var datas = dataWeekData[i];
+		for(var j=0;j<datas.length;j++){
+			dataWeekX.push(datas[j].dataRange);
+			dataWeekY.push(datas[j].data);
+			WeekmaxData = _.max(datas,function(d){return d.data});
+		}
+	}
+	//确定逐12月的最大值
+	var maxDiss = parseInt(MonthmaxData.data).toString().length-1;
+	var maxDis = Math.pow(10,maxDiss);
+	var maxData = (parseInt(MonthmaxData.data / maxDis) + 1) * maxDis;
+	myChart46 = echarts.init(document.getElementById('rheader-content-46'));
+	option46 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		toolbox: {
+			feature: {
+				dataView: {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore: {show: true},
+				saveAsImage: {show: true}
+			}
+		},
+		legend: {
+			data:['用电量']
+		},
+		xAxis: [
+			{
+				type: 'category',
+				data: dataMonthX
+			}
+		],
+		yAxis: [
+			{
+				type: 'value',
+				name: '用电量 kWh',
+				min: 0,
+				max: maxData,
+				interval: maxDis,
+				axisLabel: {
+					formatter: '{value}'
+				}
+			},
+			{
+				type: 'value',
+				name: '变化趋势',
+				min: 0,
+				max: maxData,
+				interval: maxDis,
+				axisLabel: {
+					formatter: '{value}'
+				}
+			}
+		],
+		series: [
+			{
+				name:'用电量 kWh',
+				type:'bar',
+				data:dataMonthY,
+				itemStyle: {
+					normal: {
+
+						color:'#ed7f7e'
+					},
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				}
+			},
+
+			{
+				name:'用电趋势',
+				type:'line',
+				yAxisIndex: 1,
+				data:dataMonthY
+			}
+		]
+	};
+	myChart46.setOption(option46);
+	//确定逐52周的最大值
+	var maxDissa = parseInt(WeekmaxData.data).toString().length-1;
+	var maxDisa = Math.pow(10,maxDissa);
+	var maxDataa = (parseInt(WeekmaxData.data / maxDisa) + 1) * maxDis ;
+	//console.log(maxDataa)
 	myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 	option45 = {
 		tooltip: {
@@ -71,7 +276,7 @@ $(function(){
 		xAxis: [
 			{
 				type: 'category',
-				data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+				data: dataWeekX
 			}
 		],
 		yAxis: [
@@ -79,28 +284,28 @@ $(function(){
 				type: 'value',
 				name: '用电量 kWh',
 				min: 0,
-				max: 250,
-				interval: 50,
+				max: maxDataa,
+				interval: maxDisa,
 				axisLabel: {
 					formatter: '{value}'
 				}
 			},
-			{
-				type: 'value',
-				name: '变化趋势',
-				min: 0,
-				max: 25,
-				interval: 5,
-				axisLabel: {
-					formatter: '{value}'
-				}
-			}
+			 {
+				 type: 'value',
+				 name: '变化趋势',
+				 min: 0,
+				 max: maxDataa,
+				 interval: maxDisa,
+				 axisLabel: {
+				 formatter: '{value}'
+				 }
+			 }
 		],
 		series: [
 			{
 				name:'用电量 kWh',
 				type:'bar',
-				data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+				data:dataWeekY,
 				itemStyle: {
 					normal: {
 
@@ -114,40 +319,47 @@ $(function(){
 				}
 			},
 
-			{
-				name:'用电趋势',
-				type:'line',
-				yAxisIndex: 1,
-				data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
-			}
+			 {
+			 name:'用电趋势',
+			 type:'line',
+			 yAxisIndex: 1,
+			 data:dataWeekY
+			 }
 		]
 	};
 	myChart45.setOption(option45);
-})
-var myChart45;
-window.onresize = function () {
-	myChart45.resize();
 }
-
-//选中的能耗种类
-var _ajaxEcType="01";
-function getEcType(){
-	var aaa =[];
-	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		aaa.push(jsonText.alltypes[i].etid)
-	}
-	_ajaxEcType = aaa[$('.selectedEnergy').index()];
-	console.log(_ajaxEcType);
-}
-//楼宇数据
-function getPointerDatas(){
-	var pts = _objectSel.getSelectedPointers();
-	if(pts.length>0) {
-		pointerID = pts[0].pointerID;
-		pointerNames = pts[0].pointerName
+//科室数据
+function getOfficeDatas(){
+	var ofs = _objectSel.getSelectedOffices();
+	if(ofs.length>0) {
+		officeID = ofs[0].f_OfficeID;
+		officeNames = ofs[0].f_OfficeName;
 	};
-	if(!pointerID) { return; }
-
+	if(!officeID){ return; }
+	var ecParams = {
+		ecTypeId : _ajaxEcTypeWord,
+		pointerId : officeID,
+		startTime: currentDate
+	}
+	$.ajax({
+		type:'post',
+		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+		data:ecParams,
+		async:false,
+		success:function(result){
+			console.log(result)
+		}
+	})
+}
+//单位转换
+function unitConversion(num){
+	if(num>10000){
+		num= num/10000;
+		num=num.toFixed(2);
+		var num_=num + '万';
+		return num_;
+	}else{
+		return num.toFixed(2);
+	}
 }

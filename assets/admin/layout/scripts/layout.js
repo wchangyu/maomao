@@ -480,10 +480,10 @@ var Layout = function () {
         } else {  // general
             $(window).scroll(function() {
                 var sTop = $(this).scrollTop();
-                console.log(sTop);
+                //console.log(sTop);
                 if (sTop > offset) {
                     $('.scroll-to-top').fadeIn(duration);
-                    console.log(sTop);
+                    //console.log(sTop);
                 } else {
                     $('.scroll-to-top').fadeOut(duration);
                 }

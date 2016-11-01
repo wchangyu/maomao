@@ -26,7 +26,6 @@ a{
 	border: 1px solid #ccc;
 	float: left;
 	position: relative;
-	overflow: hidden;
 }
 .content-main img{
 	width: 100%;
@@ -36,6 +35,7 @@ a{
 	height: 80px;
 	margin-bottom: 0;
 	overflow: hidden;
+	cursor: pointer;
 }
 .main-left-middle{
 	width: 100%;
@@ -267,9 +267,6 @@ a{
 	width: 100%;
 	background: #fff;
 }
-.main-right-oness{
-	padding: 0 5px !important;
-}
 .main-right-ones-4 .right-one-header{
 	background: #8775a7 !important;
 	color: #fff !important;
@@ -414,9 +411,6 @@ a{
 }
 #allOffices li a{
 	height:auto !important;
-}
-.energy-types div{
-	border: solid 2px #fff;
 }
 .showOrHidden{
 	display: inline-block;

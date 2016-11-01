@@ -83,7 +83,7 @@
 }
 .top-header-lists{
 	float: left;
-	width: 100px;
+	width: 120px;
 	height: 30px;
 	border-radius: 8px !important;
 	text-align: center;
@@ -129,11 +129,12 @@
 #rheader-content-45{
 	width: 100%;
 	height: 290px;
+	position: absolute;
+	opacity: 0;
 }
 .foot-img{
 	width: 50px;
 	height: 50px;
-	margin-left: 8%;
 	margin-top: 60px;
 }
 .foot span{
@@ -156,10 +157,11 @@
 }
 .foot{
 	padding-left: 80px !important;
-	width: 100%;
+	width: 660px;
 	height: 200px;
 	background: url(../img/zuobiao.png)no-repeat 20% -10px;
 	position: relative;
+	margin: 0 auto;
 }
 .right-content{
 	min-width: 676px;
@@ -186,4 +188,38 @@
 }
 #tree-3{
 	display: none;
+}
+#datetimepicker{
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position: 98% center;
+	height: 30px;
+	margin-left: 20px;
+}
+.top-header-lists{
+	background: #ffffff;
+	color: #333333;
+}
+.top-header-listss{
+	background: #808080;
+	color: #ffffff;
+}
+.datetimepickereType{
+	margin-left: 25px;
+}
+#rheader-content-46{
+	height: 290px;
+	position: absolute;
+}
+.rheader-content{
+	position: relative;
+}
+.rheader-contentsss{
+	height: 290px;
+}
+.energy-types div{
+	border:2px solid #ffffff;
+}
+.rheader-contents{
+	width:100%;
 }

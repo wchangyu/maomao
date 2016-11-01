@@ -51,6 +51,7 @@ $(function(){
 	});
 	getEcType();
 	getPointerData();
+	setEnergyInfos();
 	$('small').html(pointerNames);
 	$('.btns1').click(function (){
 		var o=$('.tree-3')[0].style.display;
@@ -64,25 +65,33 @@ $(function(){
 			$('small').html(pointerNames);
 		}
 		setEnergyInfos();
+	});
+	$('body').mouseover(function(){
+		if(myChart13 && myChart14 && myChart15 && myChart16){
+			myChart13.resize();
+			myChart14.resize();
+			myChart15.resize();
+			myChart16.resize();
+		}
 	})
-
 })
 var myChart13;
 var myChart14;
 var myChart15;
 var myChart16;
 window.onresize = function () {
-    myChart13.resize(); 
-    myChart14.resize();
-    myChart15.resize();
-    myChart16.resize();
+	if(myChart13 && myChart14 && myChart15 && myChart16){
+		myChart13.resize();
+		myChart14.resize();
+		myChart15.resize();
+		myChart16.resize();
+	}
 }
 //选取的能耗种类；
 var _ajaxEcType;
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
@@ -104,6 +113,8 @@ function setEnergyInfos(){
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		if(jsonText.alltypes[i].etid == _ajaxEcType){
 			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+			$('.L-unit').html(jsonText.alltypes[i].etunit);
+			$('.header-one').html(jsonText.alltypes[i].etname)
 		}
 	}
 }
@@ -189,29 +200,36 @@ function timeLastYear(){
 //楼宇数据
 var pointerNames;
 function getPointerData(){
-	var allBranch = [];
-	var allBranchs = [];
-	var allBranchss = [];
+	//定义存放返回数据的数组（本期 X Y）
+	var allData = [];
 	var allDataX = [];
-	var allDateX1 = [];
-	var dataX = [];
-	var dataX1 = [];
-	var dataY1 = [];
-	var dataY2 = [];
-	var dataY3 = [];
-	//存放累计值
-	var totalNum = 0;
-	var totalNums = 0;
-	var totalNumss = 0;
-	//存放增长率
-	var growthRate = 0;
+	var allDataY = [];
+	var maxDataBorder = 0;
+	var totalAllData;
+	//(环比)
+	var allDatas = [];
+	var allDatasY = [];
+	var maxDatasBorder = 0;
+	var totalAllDatas;
+	//(同比)
+	var allDatass = [];
+	var allDatassY = [];
+	var maxDatassBorder = 0;
+	var totalAllDatass;
+	//存放最大值
+	var maxMax = 0;
+	var maxMaxs = 0;
+	//存放柱折图的最大值
+	var maxMaxLine = 0;
+	var maxMaxLines = 0;
+	//确定楼宇id
 	var pts = _objectSel.getSelectedPointers(),pointerID;
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
 	}
 	if(!pointerID) { return; }
-	//本期
+	//定义获得本期数据的参数
 	var ecParams = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
@@ -219,7 +237,8 @@ function getPointerData(){
 		'endTime':newStr1,
 		'dateType':_ajaxDateType
 	}
-	//环比
+	//console.log(ecParams)
+	//环比(前一天，前一周，前一个月，前一年)
 	var ecParamss = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
@@ -227,7 +246,8 @@ function getPointerData(){
 		'endTime':huanNewStr1,
 		'dateType':_ajaxDateType
 	}
-	//同比
+	//console.log(ecParamss);
+	//同比(去年的同一时期，没有周，环比和同比的年一样)
 	var ecParamsss = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
@@ -235,302 +255,259 @@ function getPointerData(){
 		'endTime':tongNewStr1,
 		'dateType':_ajaxDateType
 	}
+	//console.log(ecParamsss)
+	//发送本期请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParams,
 		async:false,
 		success:function(result){
-			allBranch.push(result);
+			allData.push(result);
 		}
 	})
-	allDataX.push(allBranch);
-	allDateX1.push(allBranch);
+	//发送环比请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParamss,
 		async:false,
 		success:function(result){
-			allBranchs.push(result);
+			allDatas.push(result)
 		}
 	})
-	allDataX.push(allBranchs);
+	//发送同比请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParamsss,
 		async:false,
 		success:function(result){
-			allBranchss.push(result);
+			allDatass.push(result)
 		}
 	})
-	allDateX1.push(allBranchss);
-	//获得横坐标的数据  dataX
+	//分别将本期和环比组合，本期和同比组合绘制echarts
 	if(_ajaxDateType_1 == '日'){
-		$('.right-top').eq(1).show();
-		//环比（横坐标）
-		for(var i=0;i<allDataX.length;i++){
-			var datas = allDataX[i];
+		//确定本期的x轴；
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
 			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
-					if(dataX.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
-						dataX.push(dataSplit[0]+':'+dataSplit[1])
-					}
+				var dataSplit = datas[j].dataDate.split('T')[1].split(':');
+				var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+				if(allData.indexOf(dataJoin)<0){
+					allDataX.push(dataJoin);
 				}
 			}
 		}
-		//环比（确定y周数据）
-		for(var i=0;i<allBranch.length;i++){
-			var datas = allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX.length;z++){
-					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
-					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
-						dataY1.push(datas[j].data.toFixed(2));
+		//确定本期的y轴
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDataY.push(datas[z].data)
 					}
+					maxDataBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		totalNum = 0;
-		for(var i=0;i<dataY1.length;i++){
-			totalNum += parseInt(dataY1[i]);
-		}
-		$('.content-left-top-tips span').html(totalNum);
-		var maxDataa = _.max(datas,function(d){return d.data}).data;
-		var maxDiss = parseInt(maxDataa).toString().length-1;
-		var maxDis = Math.pow(10,maxDiss);
-		var maxData = Math.pow(10,maxDiss) * (parseInt(maxDataa).toString().length + 2);
-		for(var i=0;i<allBranchs.length;i++){
-			var datas = allBranchs[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX.length;z++){
-					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
-					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
-						dataY2.push(datas[j].data.toFixed(2));
+		//确定环比的y轴；
+		for(var i=0;i<allDatas.length;i++){
+			var datas = allDatas[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDatasY.push(datas[z].data)
 					}
+					maxDatasBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		totalNums = 0;
-		for(var i=0;i<dataY2.length;i++){
-			totalNums += parseInt(dataY2[i]);
-		}
-		$('.huanbizhi').html(totalNums);
-		if(totalNums != 0 ){
-			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
-			$('.span-1').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNums == 0){
-			$('.span-1').html('出错了!');
-		}
-		//同比(横坐标)
-		for(var i=0;i<allDateX1.length;i++){
-			var datas = allDateX1[i];
-			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
-					if(dataX1.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
-						dataX1.push(dataSplit[0]+':'+dataSplit[1])
+		//确定同比的y轴；
+		for(var i=0;i<allDatass.length;i++){
+			var datas = allDatass[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDatassY.push(datas[z].data)
 					}
+					maxDatassBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		//同比（纵坐标）
-		for(var i=0;i<allBranchss.length;i++){
-			var datas = allBranchss[i]
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX1.length;z++){
-					if(datas[j].dataDate.split('T')[1].split(':')[0]+':'+datas[j].dataDate.split('T')[1].split(':')[1] == dataX1[z]){
-						dataY3.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		totalNumss = 0;
-		for(var i=0;i<dataY3.length;i++){
-			totalNumss += parseInt(dataY3[i]);
-		}
-		$('.tongbizhi').html(totalNumss);
-		if(totalNumss != 0 ){
-			growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
-			$('.span-2').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNumss == 0){
-			$('.span-2').html('出错了!');
-		}
-		//首先定义一个变量，确定最大值（环比）
-		var compare = totalNum - totalNums;
-		if(compare >= 0){
-			maxDissa1 = totalNum;
-		}else{
-			maxDissa1 = totalNums;
-		}
-		//首先定义一个变量，确定最大值（同比）；
-		var compares = totalNum - totalNumss;
-		if(compares >= 0){
-			maxDissa2 = totalNum;
-		}else{
-			maxDissa2 = totalNumss;
-		}
+		//以上确定了x轴，并确定了不同的y轴，下面要通过确定最大值来确定y轴的最大边界
+		//分别判断本期与同比，与环比的最大值
 	}else{
-		//环比（横坐标）
-		for(var i=0;i<allDataX.length;i++){
-			var datas = allDataX[i];
-			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[0];
-					if(dataX.indexOf(dataSplit)<0){
-						dataX.push(dataSplit);
-					}
-				}
-			}
-		}
-		//环比（确定y周数据）
-		for(var i=0;i<allBranch.length;i++){
-			var datas = allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z=0;z<dataX.length;z++){
-					if( datas[j].dataDate.split('T')[0] == dataX[z]){
-						dataY1.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		totalNum = 0;
-		for(var i=0;i<dataY1.length;i++){
-			totalNum += parseInt(dataY1[i]);
-		}
-		$('.content-left-top-tips span').html(totalNum);
-		for(var i=0;i<allBranchs.length;i++){
-			var datas = allBranchs[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z=0;z<dataX.length;z++){
-					if( datas[j].dataDate.split('T')[0] == dataX[z]){
-						dataY2.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		var maxDataa = _.max(datas,function(d){return d.data}).data;
-		var maxDiss = parseInt(maxDataa/2).toString().length-1;
-		var  maxDis = 1;
-		for(var i=0;i<maxDiss;i++){
-			maxDis = maxDis * 10;
-		}
-		totalNums = 0;
-		for(var i=0;i<dataY2.length;i++){
-			totalNums += parseInt(dataY2[i]);
-		}
-		$('.huanbizhi').html(totalNums);
-		if(totalNums != 0 ){
-			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
-			$('.span-1').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNums == 0){
-			$('.span-1').html('出错了!');
-		};
 		if(_ajaxDateType_1 == '周'){
 			$('.right-top').eq(1).hide();
 		}else{
 			$('.right-top').eq(1).show();
-			//同比（横坐标）
-			for(var i=0;i<allDateX1.length;i++){
-				var datas = allDateX1[i];
-				for(var j=0;j<datas.length;j++){
-					var currentArr = datas[j];
-					for(var z=0;z<currentArr.length;z++){
-						var dataSplit = currentArr[z].dataDate.split('T')[0];
-						if(dataX1.indexOf(dataSplit)<0){
-							dataX1.push(dataSplit);
-						}
-					}
+		}
+		//确定本期的x轴
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i]
+			for(var j=0;j<datas.length;j++){
+				var dataSplit = datas[j].dataDate.split('T')[0];
+				if(allDataX.indexOf(dataSplit)<0){
+					allDataX.push(dataSplit);
 				}
-			}
-			//同比（纵坐标）；
-			for(var i=0;i<allBranchss.length;i++){
-				var datas = allBranch[i];
-				for(var j=0;j<datas.length;j++){
-					for(var z=0;z<dataX1.length;z++){
-						if( datas[j].dataDate.split('T')[0] == dataX[z]){
-							dataY3.push(datas[j].data.toFixed(2));
-						}
-					}
-				}
-			}
-			totalNumss = 0;
-			for(var i=0;i<dataY3.length;i++){
-				totalNumss += parseInt(dataY3[i]);
-			}
-			$('.tongbizhi').html(totalNumss);
-			if(totalNumss != 0 ){
-				growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
-				$('.span-2').html(growthRate + '%');
-				if(growthRate >= 0){
-					$('.content-left-top-arrow').css({
-						'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-						'background-size':'90%'
-					})
-				}else{
-					$('.content-left-top-arrow').css({
-						'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-						'background-size':'90%'
-					})
-				}
-			}else if(totalNumss == 0){
-				$('.span-2').html('出错了!');
 			}
 		}
-		//首先定义一个变量，确定最大值（环比）
-		var compare = totalNum - totalNums;
-		if(compare >= 0){
-			maxDissa1 = totalNum;
-		}else{
-			maxDissa1 = totalNums;
+		//确定本期的y轴数据
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[0];
+					if(dataSplit == allDataX[j]){
+						allDataY.push(datas[z].data);
+					}
+					maxDataBorder = _.max(datas,function(d){return d.data});
+				}
+			}
 		}
-		//首先定义一个变量，确定最大值（同比）；
-		var compares = totalNum - totalNumss;
-		if(compares >= 0){
-			maxDissa2 = totalNum;
-		}else{
-			maxDissa2 = totalNumss;
+		//确定环比y轴数据
+		for(var i=0;i<allDatas.length;i++){
+			var datas = allDatas[i];
+			for(var j=0;j<datas.length;j++){
+				allDatasY.push(datas[j].data);
+			}
+			maxDatasBorder = _.max(datas,function(d){return d.data});
+		}
+		//确定同比y轴数据
+		for(var i=0;i<allDatass.length;i++){
+			var datas = allDatass[i];
+			for(var j=0;j<datas.length;j++){
+				allDatassY.push(datas[j].data);
+			}
+			maxDatassBorder = _.max(datas,function(d){return d.data});
 		}
 	}
-	//电-环比分析-柱折图
+	if(maxDataBorder.data >= maxDatasBorder.data){
+		maxMax = maxDataBorder.data;
+	}else{
+		maxMax = maxDatasBorder.data;
+	}
+	//确定最大边界
+	var maxDiss = parseInt(maxMax).toString().length-1;
+	var maxDis = Math.pow(10,maxDiss);
+	var maxData = (parseInt(maxMax / maxDis) + 1) * maxDis;
+	if(maxDataBorder.data >= maxDatassBorder.data){
+		maxMaxs = maxDataBorder.data;
+	}else{
+		maxMaxs = maxDatassBorder.data;
+	}
+	var maxDissa = parseInt(maxMaxs).toString().length-1;
+	var maxDisa = Math.pow(10,maxDissa);
+	var maxDataa = (parseInt(maxMaxs / maxDisa) + 1) * maxDisa;
+	//计算所有的纵坐标的总和
+	totalAllData = 0;
+	for(var i=0;i<allDataY.length;i++){
+		totalAllData += parseInt(allDataY[i]);
+	}
+	totalAllDatas = 0;
+	for(var i=0;i<allDatasY.length;i++){
+		totalAllDatas += parseInt(allDatasY[i]);
+	}
+	totalAllDatass = 0;
+	for(var i=0;i<allDatassY.length;i++){
+		totalAllDatass += parseInt(allDatassY[i]);
+	}
+	//确定柱折图的总和的边界值
+	if( totalAllData >= totalAllDatas){
+		maxMaxLine = totalAllData
+	}else{
+		maxMaxLine = totalAllDatas
+	}
+	var maxDissLine = parseInt(maxMaxLine).toString().length-1;
+	var maxDisLine = Math.pow(10,maxDissLine);
+	var maxDatLine = (parseInt(maxMaxLine / maxDisLine) + 1) * maxDisLine;
+	//总电div
+	$('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
+	$('.huanbizhi').html(totalAllDatas);
+	$('.tongbizhi').html(totalAllDatass);
+	//计算本期与环比相比（本期-环比）/环比
+	if(totalAllDatas != 0){
+		var compareH = (totalAllData - totalAllDatas)/totalAllDatas * 100;
+		if(compareH > 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-1').css({
+				'color':'#ffc000'
+			})
+		}else if(compareH < 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-1').css({
+				'color':'#019cdf'
+			})
+		}else if(compareH = 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'#ffffff'
+			})
+			$('.span-1').css({
+				'color':'#019cdf'
+			})
+		}
+		$('.span-1').html(compareH.toFixed(2) + '%')
+	}else{
+		$('.span-1').html('出错了!');
+		$('.content-left-top-arrow:eq(0)').css({
+			'background':'#ffffff'
+		})
+		$('.span-1').css({
+			'color':'red'
+		})
+	}
+	//计算本期与同比相比（本期-同比）/同比
+	if(totalAllDatass != 0){
+		var compareT = (totalAllData - totalAllDatass)/totalAllDatass * 100;
+		console.log(compareT);
+		if(compareT > 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-2').css({
+				'color':'#ffc000'
+			})
+		}else if(compareT < 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-2').css({
+				'color':'#019cdf'
+			})
+		}else if(compareH = 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'#ffffff'
+			})
+			$('.span-2').css({
+				'color':'#019cdf'
+			})
+		}
+		$('.span-2').html(compareT.toFixed(2) + '%')
+	}else{
+		$('.span-2').html('出错了!');
+		$('.content-left-top-arrow:eq(1)').css({
+			'background':'#ffffff'
+		})
+		$('.span-2').css({
+			'color':'red'
+		})
+	}
+	//环比柱状图
 	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 	option13 = {
 		tooltip: {
@@ -550,7 +527,7 @@ function getPointerData(){
 		xAxis: [
 			{
 				type: 'category',
-				data:dataX
+				data:allDataX
 			}
 		],
 		yAxis: [
@@ -569,12 +546,12 @@ function getPointerData(){
 			{
 				name:'本期用电',
 				type:'bar',
-				data:dataY1
+				data:allDataY
 			},
 			{
 				name:'上期用电',
 				type:'bar',
-				data:dataY2
+				data:allDatasY
 			}
 		]
 	};
@@ -613,14 +590,14 @@ function getPointerData(){
 				type: 'value',
 				scale: true,
 				name: '用量',
-				max: maxDissa1,
+				max: maxDatLine,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
 				name: '用量',
-				max: maxDissa1,
+				max: maxDatLine,
 				min: 0
 			}
 		],
@@ -630,12 +607,12 @@ function getPointerData(){
 				type:'bar',
 				xAxisIndex: 1,
 				yAxisIndex: 1,
-				data:[totalNum,totalNums]
+				data:[totalAllData,totalAllDatas]
 			},
 			{
 				name:'比较斜率',
 				type:'line',
-				data:[totalNum,totalNums]
+				data:[totalAllData,totalAllDatas]
 			}
 		]
 	};
@@ -660,7 +637,7 @@ function getPointerData(){
 		xAxis: [
 			{
 				type: 'category',
-				data:dataX1
+				data:allDataX
 			}
 		],
 		yAxis: [
@@ -668,8 +645,8 @@ function getPointerData(){
 				type: 'value',
 				name: '用电量',
 				min: 0,
-				max: maxData,
-				interval: maxDis,
+				max: maxDataa,
+				interval: maxDisa,
 				axisLabel: {
 					formatter: '{value}'
 				}
@@ -679,12 +656,12 @@ function getPointerData(){
 			{
 				name:'本期用电',
 				type:'bar',
-				data:dataY1
+				data:allDataY
 			},
 			{
 				name:'上期用电',
 				type:'bar',
-				data:dataY3
+				data:allDatassY
 			}
 		]
 	};
@@ -723,14 +700,14 @@ function getPointerData(){
 				type: 'value',
 				scale: true,
 				name: '用量',
-				max: maxDissa2,
+				max: maxDatLine,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
 				name: '用量',
-				max: maxDissa2,
+				max: maxDatLine,
 				min: 0
 			}
 		],
@@ -740,336 +717,327 @@ function getPointerData(){
 				type:'bar',
 				xAxisIndex: 1,
 				yAxisIndex: 1,
-				data:[totalNum,totalNumss]
+				data:[totalAllData,totalAllDatass]
 			},
 			{
 				name:'比较斜率',
 				type:'line',
-				data:[totalNum,totalNumss]
+				data:[totalAllData,totalAllDatass]
 			}
 		]
 	};
 	myChart16.setOption(option16);
-
 }
 //科室数据
 var officeNames;
 function getOfficeData(){
-	var allBranch = [];
-	var allBranchs = [];
-	var allBranchss = [];
+	//定义存放返回数据的数组（本期 X Y）
+	var allData = [];
 	var allDataX = [];
-	var allDateX1 = [];
-	var dataX = [];
-	var dataX1 = [];
-	var dataY1 = [];
-	var dataY2 = [];
-	var dataY3 = [];
-	//存放累计值
-	var totalNum = 0;
-	var totalNums = 0;
-	var totalNumss = 0;
-	//存放增长率
-	var growthRate = 0;
-	var ofs = _objectSel.getSelectedOffices(),officeID;
-	if(ofs.length>0) {
-		officeID = ofs[0].f_OfficeID;
-		officeNames = ofs[0].f_OfficeName;
-	};
-	if(!officeID){ return; }
+	var allDataY = [];
+	var maxDataBorder = 0;
+	var totalAllData;
+	//(环比)
+	var allDatas = [];
+	var allDatasY = [];
+	var maxDatasBorder = 0;
+	var totalAllDatas;
+	//(同比)
+	var allDatass = [];
+	var allDatassY = [];
+	var maxDatassBorder = 0;
+	var totalAllDatass;
+	//存放最大值
+	var maxMax = 0;
+	var maxMaxs = 0;
+	//存放柱折图的最大值
+	var maxMaxLine = 0;
+	var maxMaxLines = 0;
+	//确定楼宇id
+	var ofs = _objectSel.getSelectedOffices(),officeID = [],officeNames = [];
+	for(var i=0;i<ofs.length;i++){
+		officeID.push(ofs[i].f_OfficeID);
+		officeNames.push(ofs[i].f_OfficeName);
+	}
+	//定义获得本期数据的参数
 	var ecParams = {
-		'ecTypeId': _ajaxEcTypeWord,
-		'officeId': officeID,
-		'dateType': _ajaxDateType,
-		'startTime': newStr,
-		'endTime' : newStr1
+		'ecTypeId':_ajaxEcTypeWord,
+		'officeId':officeID,
+		'startTime':newStr,
+		'endTime':newStr1,
+		'dateType':_ajaxDateType
 	}
-	//环比
+	//console.log(ecParams)
+	//环比(前一天，前一周，前一个月，前一年)
 	var ecParamss = {
-		'ecTypeId': _ajaxEcTypeWord,
-		'officeId': officeID,
-		'dateType': _ajaxDateType,
-		'startTime': huanNewStr,
-		'endTime' : huanNewStr1
+		'ecTypeId':_ajaxEcTypeWord,
+		'officeId':officeID,
+		'startTime':huanNewStr,
+		'endTime':huanNewStr1,
+		'dateType':_ajaxDateType
 	}
-	//同比
+	//console.log(ecParamss);
+	//同比(去年的同一时期，没有周，环比和同比的年一样)
 	var ecParamsss = {
-		'ecTypeId': _ajaxEcTypeWord,
-		'officeId': officeID,
-		'dateType': _ajaxDateType,
-		'startTime': tongNewStr,
-		'endTime' : tongNewStr1
+		'ecTypeId':_ajaxEcTypeWord,
+		'officeId':officeID,
+		'startTime':tongNewStr,
+		'endTime':tongNewStr1,
+		'dateType':_ajaxDateType
 	}
+	//console.log(ecParamsss)
+	//发送本期请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 		data:ecParams,
 		async:false,
 		success:function(result){
-			allBranch.push(result);
+			allData.push(result);
 		}
 	})
-	allDataX.push(allBranch);
-	allDateX1.push(allBranch);
+	//发送环比请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 		data:ecParamss,
 		async:false,
 		success:function(result){
-			allBranchs.push(result);
+			allDatas.push(result)
 		}
 	})
-	allDataX.push(allBranchs);
+	//发送同比请求
 	$.ajax({
 		type:'post',
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 		data:ecParamsss,
 		async:false,
 		success:function(result){
-			allBranchss.push(result);
+			allDatass.push(result)
 		}
 	})
-	allDateX1.push(allBranchss);
-	//获得横坐标的数据  dataX
+	//分别将本期和环比组合，本期和同比组合绘制echarts
 	if(_ajaxDateType_1 == '日'){
-		$('.right-top').eq(1).show();
-		//环比（横坐标）
-		for(var i=0;i<allDataX.length;i++){
-			var datas = allDataX[i];
+		//确定本期的x轴；
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
 			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':');
-					if(dataX.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
-						dataX.push(dataSplit[0]+':'+dataSplit[1])
-					}
+				var dataSplit = datas[j].dataDate.split('T')[1].split(':');
+				var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+				if(allData.indexOf(dataJoin)<0){
+					allDataX.push(dataJoin);
 				}
 			}
 		}
-		//环比（确定y周数据）
-		for(var i=0;i<allBranch.length;i++){
-			var datas = allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX.length;z++){
-					var dataSplit = datas[j].dataDate.split('T')[1].split(':');
-					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
-						dataY1.push(datas[j].data.toFixed(2));
+		//确定本期的y轴
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDataY.push(datas[z].data)
 					}
+					maxDataBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		totalNum = 0;
-		for(var i=0;i<dataY1.length;i++){
-			totalNum += parseInt(dataY1[i]);
-		}
-		$('.content-left-top-tips span').html(totalNum);
-		var maxDataa = _.max(datas,function(d){return d.data}).data;
-		var maxDiss = parseInt(maxDataa).toString().length-1;
-		var maxDis = Math.pow(10,maxDiss);
-		var maxData = Math.pow(10,maxDiss) * (parseInt(maxDataa).toString().length + 2);
-		for(var i=0;i<allBranchs.length;i++){
-			var datas = allBranchs[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX.length;z++){
-					var dataSplit = datas[j].dataDate.split('T')[1].split(':')
-					if(dataSplit[0]+':'+dataSplit[1] == dataX[z]){
-						dataY2.push(datas[j].data.toFixed(2));
+		//确定环比的y轴；
+		for(var i=0;i<allDatas.length;i++){
+			var datas = allDatas[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDatasY.push(datas[z].data)
 					}
+					maxDatasBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		totalNums = 0;
-		for(var i=0;i<dataY2.length;i++){
-			totalNums += parseInt(dataY2[i]);
-		}
-		$('.huanbizhi').html(totalNums);
-		if(totalNums != 0 ){
-			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
-			$('.span-1').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNums == 0){
-			$('.span-1').html('出错了!');
-		}
-		//同比(横坐标)
-		for(var i=0;i<allDateX1.length;i++){
-			var datas = allDateX1[i];
-			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[1].split(':')
-					if(dataX1.indexOf(dataSplit[0]+':'+dataSplit[1])<0){
-						dataX1.push(dataSplit[0]+':'+dataSplit[1])
+		//确定同比的y轴；
+		for(var i=0;i<allDatass.length;i++){
+			var datas = allDatass[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[1].split(':');
+					var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+					if(dataJoin == allDataX[j]){
+						allDatassY.push(datas[z].data)
 					}
+					maxDatassBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
-		//同比（纵坐标）
-		for(var i=0;i<allBranchss.length;i++){
-			var datas = allBranchss[i]
-			for(var j=0;j<datas.length;j++){
-				for(var z =0;z<dataX1.length;z++){
-					var dataSplit = datas[j].dataDate.split('T')[1].split(':')
-					if(dataSplit[0]+':'+dataSplit[1] == dataX1[z]){
-						dataY3.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		totalNumss = 0;
-		for(var i=0;i<dataY3.length;i++){
-			totalNumss += parseInt(dataY3[i]);
-		}
-		$('.tongbizhi').html(totalNumss);
-		if(totalNumss != 0 ){
-			growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
-			$('.span-2').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNumss == 0){
-			$('.span-2').html('出错了!');
-		}
+		//以上确定了x轴，并确定了不同的y轴，下面要通过确定最大值来确定y轴的最大边界
+		//分别判断本期与同比，与环比的最大值
 	}else{
-		//环比（横坐标）
-		for(var i=0;i<allDataX.length;i++){
-			var datas = allDataX[i];
-			for(var j=0;j<datas.length;j++){
-				var currentArr = datas[j];
-				for(var z=0;z<currentArr.length;z++){
-					var dataSplit = currentArr[z].dataDate.split('T')[0]
-					if(dataX.indexOf(dataSplit)<0){
-						dataX.push(dataSplit);
-					}
-				}
-			}
-		}
-		//环比（确定y周数据）
-		for(var i=0;i<allBranch.length;i++){
-			var datas = allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z=0;z<dataX.length;z++){
-					if( datas[j].dataDate.split('T')[0] == dataX[z]){
-						dataY1.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		totalNum = 0;
-		for(var i=0;i<dataY1.length;i++){
-			totalNum += parseInt(dataY1[i]);
-		}
-		$('.content-left-top-tips span').html(totalNum);
-		for(var i=0;i<allBranchs.length;i++){
-			var datas = allBranchs[i];
-			for(var j=0;j<datas.length;j++){
-				for(var z=0;z<dataX.length;z++){
-					if( datas[j].dataDate.split('T')[0] == dataX[z]){
-						dataY2.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-		}
-		var maxDataa = _.max(datas,function(d){return d.data}).data;
-		var maxDiss = parseInt(maxDataa/2).toString().length-1;
-		var  maxDis = 1;
-		for(var i=0;i<maxDiss;i++){
-			maxDis = maxDis * 10;
-		}
-		totalNums = 0;
-		for(var i=0;i<dataY2.length;i++){
-			totalNums += parseInt(dataY2[i]);
-		}
-		$('.huanbizhi').html(totalNums);
-		if(totalNums != 0 ){
-			growthRate = ((totalNum-totalNums)/totalNums * 100).toFixed(2);
-			$('.span-1').html(growthRate + '%');
-			if(growthRate >= 0){
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}else{
-				$('.content-left-top-arrow').css({
-					'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-					'background-size':'90%'
-				})
-			}
-		}else if(totalNums == 0){
-			$('.span-1').html('出错了!');
-		};
 		if(_ajaxDateType_1 == '周'){
 			$('.right-top').eq(1).hide();
 		}else{
 			$('.right-top').eq(1).show();
-			//同比（横坐标）
-			for(var i=0;i<allDateX1.length;i++){
-				var datas = allDateX1[i];
-				for(var j=0;j<datas.length;j++){
-					var currentArr = datas[j];
-					for(var z=0;z<currentArr.length;z++){
-						if(dataX1.indexOf(currentArr[z].dataDate.split('T')[0])<0){
-							dataX1.push(currentArr[z].dataDate.split('T')[0]);
-						}
-					}
+		}
+		//确定本期的x轴
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i]
+			for(var j=0;j<datas.length;j++){
+				var dataSplit = datas[j].dataDate.split('T')[0];
+				if(allDataX.indexOf(dataSplit)<0){
+					allDataX.push(dataSplit);
 				}
-			}
-			//同比（纵坐标）；
-			for(var i=0;i<allBranchss.length;i++){
-				var datas = allBranch[i];
-				for(var j=0;j<datas.length;j++){
-					for(var z=0;z<dataX1.length;z++){
-						if( datas[j].dataDate.split('T')[0] == dataX[z]){
-							dataY3.push(datas[j].data.toFixed(2));
-						}
-					}
-				}
-			}
-			totalNumss = 0;
-			for(var i=0;i<dataY3.length;i++){
-				totalNumss += parseInt(dataY3[i]);
-			}
-			$('.tongbizhi').html(totalNumss);
-			if(totalNumss != 0 ){
-				growthRate = ((totalNum-totalNumss)/totalNumss * 100).toFixed(2);
-				$('.span-2').html(growthRate + '%');
-				if(growthRate >= 0){
-					$('.content-left-top-arrow').css({
-						'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
-						'background-size':'90%'
-					})
-				}else{
-					$('.content-left-top-arrow').css({
-						'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
-						'background-size':'90%'
-					})
-				}
-			}else if(totalNumss == 0){
-				$('.span-2').html('出错了!');
 			}
 		}
-
-
+		//确定本期的y轴数据
+		for(var i=0;i<allData.length;i++){
+			var datas = allData[i];
+			for(var j=0;j<allDataX.length;j++){
+				for(var z=0;z<datas.length;z++){
+					var dataSplit = datas[z].dataDate.split('T')[0];
+					if(dataSplit == allDataX[j]){
+						allDataY.push(datas[z].data);
+					}
+					maxDataBorder = _.max(datas,function(d){return d.data});
+				}
+			}
+		}
+		//确定环比y轴数据
+		for(var i=0;i<allDatas.length;i++){
+			var datas = allDatas[i];
+			for(var j=0;j<datas.length;j++){
+				allDatasY.push(datas[j].data);
+			}
+			maxDatasBorder = _.max(datas,function(d){return d.data});
+		}
+		//确定同比y轴数据
+		for(var i=0;i<allDatass.length;i++){
+			var datas = allDatass[i];
+			for(var j=0;j<datas.length;j++){
+				allDatassY.push(datas[j].data);
+			}
+			maxDatassBorder = _.max(datas,function(d){return d.data});
+		}
 	}
-	//电-环比分析-柱折图
+	if(maxDataBorder.data >= maxDatasBorder.data){
+		maxMax = maxDataBorder.data;
+	}else{
+		maxMax = maxDatasBorder.data;
+	}
+	//确定最大边界
+	var maxDiss = parseInt(maxMax).toString().length-1;
+	var maxDis = Math.pow(10,maxDiss);
+	var maxData = (parseInt(maxMax / maxDis) + 1) * maxDis;
+	if(maxDataBorder.data >= maxDatassBorder.data){
+		maxMaxs = maxDataBorder.data;
+	}else{
+		maxMaxs = maxDatassBorder.data;
+	}
+	var maxDissa = parseInt(maxMaxs).toString().length-1;
+	var maxDisa = Math.pow(10,maxDissa);
+	var maxDataa = (parseInt(maxMaxs / maxDisa) + 1) * maxDisa;
+	//计算所有的纵坐标的总和
+	totalAllData = 0;
+	for(var i=0;i<allDataY.length;i++){
+		totalAllData += parseInt(allDataY[i]);
+	}
+	totalAllDatas = 0;
+	for(var i=0;i<allDatasY.length;i++){
+		totalAllDatas += parseInt(allDatasY[i]);
+	}
+	totalAllDatass = 0;
+	for(var i=0;i<allDatassY.length;i++){
+		totalAllDatass += parseInt(allDatassY[i]);
+	}
+	//确定柱折图的总和的边界值
+	if( totalAllData >= totalAllDatas){
+		maxMaxLine = totalAllData
+	}else{
+		maxMaxLine = totalAllDatas
+	}
+	var maxDissLine = parseInt(maxMaxLine).toString().length-1;
+	var maxDisLine = Math.pow(10,maxDissLine);
+	var maxDatLine = (parseInt(maxMaxLine / maxDisLine) + 1) * maxDisLine;
+	//总电div
+	$('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
+	$('.huanbizhi').html(totalAllDatas);
+	$('.tongbizhi').html(totalAllDatass);
+	//计算本期与环比相比（本期-环比）/环比
+	if(totalAllDatas != 0){
+		var compareH = (totalAllData - totalAllDatas)/totalAllDatas * 100;
+		if(compareH > 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-1').css({
+				'color':'#ffc000'
+			})
+		}else if(compareH < 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-1').css({
+				'color':'#019cdf'
+			})
+		}else if(compareH = 0){
+			$('.content-left-top-arrow:eq(0)').css({
+				'background':'#ffffff'
+			})
+			$('.span-1').css({
+				'color':'#019cdf'
+			})
+		}
+		$('.span-1').html(compareH.toFixed(2) + '%')
+	}else{
+		$('.span-1').html('出错了!');
+		$('.content-left-top-arrow:eq(0)').css({
+			'background':'#ffffff'
+		})
+		$('.span-1').css({
+			'color':'red'
+		})
+	}
+	//计算本期与同比相比（本期-同比）/同比
+	if(totalAllDatass != 0){
+		var compareT = (totalAllData - totalAllDatass)/totalAllDatass * 100;
+		console.log(compareT);
+		if(compareT > 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-2').css({
+				'color':'#ffc000'
+			})
+		}else if(compareT < 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'url(./work_parts/img/prompt-arrow2.png)no-repeat -3px -5px',
+				'background-size':'90%'
+			})
+			$('.span-2').css({
+				'color':'#019cdf'
+			})
+		}else if(compareH = 0){
+			$('.content-left-top-arrow:eq(1)').css({
+				'background':'#ffffff'
+			})
+			$('.span-2').css({
+				'color':'#019cdf'
+			})
+		}
+		$('.span-2').html(compareT.toFixed(2) + '%')
+	}else{
+		$('.span-2').html('出错了!');
+		$('.content-left-top-arrow:eq(1)').css({
+			'background':'#ffffff'
+		})
+		$('.span-2').css({
+			'color':'red'
+		})
+	}
+	//环比柱状图
 	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 	option13 = {
 		tooltip: {
@@ -1089,7 +1057,7 @@ function getOfficeData(){
 		xAxis: [
 			{
 				type: 'category',
-				data:dataX
+				data:allDataX
 			}
 		],
 		yAxis: [
@@ -1108,12 +1076,12 @@ function getOfficeData(){
 			{
 				name:'本期用电',
 				type:'bar',
-				data:dataY1
+				data:allDataY
 			},
 			{
 				name:'上期用电',
 				type:'bar',
-				data:dataY2
+				data:allDatasY
 			}
 		]
 	};
@@ -1151,15 +1119,15 @@ function getOfficeData(){
 			{
 				type: 'value',
 				scale: true,
-				name: '价格',
-				max: maxDissa1,
+				name: '用量',
+				max: maxDatLine,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
-				name: '预购量',
-				max: maxDissa1,
+				name: '用量',
+				max: maxDatLine,
 				min: 0
 			}
 		],
@@ -1169,12 +1137,12 @@ function getOfficeData(){
 				type:'bar',
 				xAxisIndex: 1,
 				yAxisIndex: 1,
-				data:[totalNum,totalNums]
+				data:[totalAllData,totalAllDatas]
 			},
 			{
 				name:'比较斜率',
 				type:'line',
-				data:[totalNum,totalNums]
+				data:[totalAllData,totalAllDatas]
 			}
 		]
 	};
@@ -1199,7 +1167,7 @@ function getOfficeData(){
 		xAxis: [
 			{
 				type: 'category',
-				data:dataX1
+				data:allDataX
 			}
 		],
 		yAxis: [
@@ -1207,8 +1175,8 @@ function getOfficeData(){
 				type: 'value',
 				name: '用电量',
 				min: 0,
-				max: maxData,
-				interval: maxDis,
+				max: maxDataa,
+				interval: maxDisa,
 				axisLabel: {
 					formatter: '{value}'
 				}
@@ -1218,12 +1186,12 @@ function getOfficeData(){
 			{
 				name:'本期用电',
 				type:'bar',
-				data:dataY1
+				data:allDataY
 			},
 			{
 				name:'上期用电',
 				type:'bar',
-				data:dataY3
+				data:allDatassY
 			}
 		]
 	};
@@ -1261,15 +1229,15 @@ function getOfficeData(){
 			{
 				type: 'value',
 				scale: true,
-				name: '价格',
-				max: maxDissa1,
+				name: '用量',
+				max: maxDatLine,
 				min: 0
 			},
 			{
 				type: 'value',
 				scale: true,
-				name: '预购量',
-				max: maxDissa1,
+				name: '用量',
+				max: maxDatLine,
 				min: 0
 			}
 		],
@@ -1279,12 +1247,12 @@ function getOfficeData(){
 				type:'bar',
 				xAxisIndex: 1,
 				yAxisIndex: 1,
-				data:[totalNum,totalNumss]
+				data:[totalAllData,totalAllDatass]
 			},
 			{
 				name:'比较斜率',
 				type:'line',
-				data:[totalNum,totalNumss]
+				data:[totalAllData,totalAllDatass]
 			}
 		]
 	};

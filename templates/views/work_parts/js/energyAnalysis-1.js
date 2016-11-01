@@ -125,12 +125,25 @@ $(function(){
 		        trigger: 'item',
 		        formatter: "{a} <br/>{b} : {c} ({d}%)"
 		    },
+			toolbox: {
+				show : true,
+				feature : {
+					mark : {show: true},
+					dataView : {show: true, readOnly: false},
+					magicType : {
+						show: true,
+						type: ['pie', 'funnel']
+					},
+					restore : {show: true},
+					saveAsImage : {show: true}
+				}
+			},
 		    calculable : true,
 		    series : [
 		        {
 		            name:'面积模式',
 		            type:'pie',
-		            radius : [20, 60],
+		            radius : [20, 90],
 		            center : ['50%', '60%'],
 		            roseType : 'area',
 		            data:[
@@ -147,6 +160,12 @@ $(function(){
 		    ]
 		};
 		myChart8.setOption(option8);
+	$('body').mouseover(function(){
+		if(myChart7 && myChart8){
+			myChart7.resize();
+			myChart8.resize();
+		}
+	})
 })
 var myChart7;
 var myChart8;

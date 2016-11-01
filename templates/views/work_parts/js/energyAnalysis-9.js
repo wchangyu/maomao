@@ -1,5 +1,5 @@
 $(function(){
-	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'-'+_ajaxStartTime_1));
+	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'到'+_ajaxStartTime_1));
 
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),true);
@@ -15,7 +15,6 @@ $(function(){
 			format: 'yyyy-mm-dd'
 		}
 	).on('changeDate',function(e){
-
 		var inputValue;
 		dataType();
 		inputValue = $('#datetimepicker').val();
@@ -27,7 +26,7 @@ $(function(){
 			var endDay= now.add(1,'d').format("YYYY-MM-DD");
 			_ajaxStartTime=startDay;
 			_ajaxDataType_1='小时';
-			var end=startDay + "-" +startDay;
+			var end=startDay + "到" +startDay;
 			var aa = $('.datetimepickereType').text();
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
@@ -40,7 +39,7 @@ $(function(){
 			var nowEnd = now.add(6,'d').format("YYYY-MM-DD");
 			var startWeek = now.add(1,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =nowStart + "-" + nowEnd;
+			end =nowStart + "到" + nowEnd;
 			_ajaxDataType_1='日'
 			//通过查找arr，判断目前选的与数组里的是不是重复
 			var aa = $('.datetimepickereType').text();
@@ -57,7 +56,7 @@ $(function(){
 			var nowEnd = nows.format("YYYY-MM-DD");
 			var startMonth = now.format("YYYY-MM-DD");
 			var endMonth = nows.add(1,'d').format("YYYY-MM-DD");
-			end =nowStart + "-" + nowEnd;
+			end =nowStart + "到" + nowEnd;
 			_ajaxDataType_1='日';
 
 			var aa = $('.datetimepickereType').text();
@@ -74,7 +73,7 @@ $(function(){
 			var nowEnd = nows.format("YYYY-MM-DD");
 			var startYear = now.format("YYYY-MM-DD");
 			var endYear = nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "-" + nowEnd;
+			end = nowStart + "到" + nowEnd;
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -119,6 +118,8 @@ $(function(){
 	getEcType();
 	dataType();
 	_ajaxGetPointers();
+	setEnergyInfos();
+	$('small').html(pointerNames);
 	$('.types').change(function(){
 		$('.datetimepickereType').empty();
 		startsTime.length=0;
@@ -144,15 +145,20 @@ $(function(){
 			$('small').html(pointerNames);
 		}
 		setEnergyInfos();
-
+	})
+	$('body').mouseover(function(){
+		if(myChart11){
+			myChart11.resize();
+		}
 	})
 })
-
 var _objectSel;
 var myChart11;
 //让echarts自适应
 window.onresize = function () {
-	myChart11.resize();
+	if(myChart11){
+		myChart11.resize();
+	}
 }
 //选中的能耗种类
 var _ajaxDataType_1='小时';
@@ -160,7 +166,6 @@ var _ajaxEcType="01";
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
@@ -181,12 +186,15 @@ function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		if(jsonText.alltypes[i].etid == _ajaxEcType){
+			$('#th0').html('对比对象');
+			$('.ths').html('出现时刻');
 			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
 			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
 			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
 			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
 			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
 			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+			$('.header-one').html(jsonText.alltypes[i].etname);
 		}
 	}
 }
@@ -199,7 +207,7 @@ function dataType(){
 }
 //设置开始和结束初始值
 var _ajaxStartTime=moment().format("YYYY/MM/DD");
-var _ajaxStartTime_1=moment().format("YYYY-MM-DD");
+var _ajaxStartTime_1=moment().subtract(1,'d').format("YYYY-MM-DD");
 var _ajaxEndTime_1=moment().add(1,'d').format("YYYY-MM-DD");
 //选中时间处理
 var startsTime=[];
@@ -207,7 +215,6 @@ var endsTime=[];
 //存放开始，结束的时间
 var aaaa=[];
 var bbbb=[];
-
 var _ajaxStartA=[];
 var _ajaxEndA=[];
 var startsTimes=[_ajaxStartTime_1];
@@ -218,12 +225,12 @@ function timeDisposal(){
 	bbbb=[];
 	startsTime=[_ajaxStartTime_1];
 	endsTime=[_ajaxEndTime_1];
-
 	var $selectTime = $('.selectTime');
 	for(var i=0;i< $selectTime.length;i++){
-		var iSelectTime = $('.selectTime').eq(i).html().split('-');
+		var iSelectTime = $('.selectTime').eq(i).html().split('到')[0].split('-');
 		aaaa.push(iSelectTime[0] + '/' + iSelectTime[1] + '/' + iSelectTime[2]);
-		var endDate = moment(iSelectTime[3] + '/' + iSelectTime[4] + '/' + iSelectTime[5]);
+		var iSelectTimes = $('.selectTime').eq(i).html().split('到')[1].split('-');
+		var endDate = moment(iSelectTimes[0] + '/' + iSelectTimes[1] + '/' + iSelectTimes[2]);
 		endDate = endDate.add(1,'d');
 		bbbb.push(endDate.format("YYYY/MM/DD"));
 	}
@@ -530,7 +537,6 @@ function _ajaxGetOffices(){
 		dataX.sort();
 		//遍历y轴
 		for(var i=0;i<_allData.length;i++){
-
 			//循环创建对象
 			var object={};
 			object.name=$('.selectTime').eq(i).html();
