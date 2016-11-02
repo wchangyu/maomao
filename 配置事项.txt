@@ -1,0 +1,20 @@
+一.菜单配置
+type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;
+二.参数配置
+    二.1 能耗类型配置allEnergyType officeEnergyType
+    注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片
+    二.2 当前数据webservice配置 apiUriPrefix
+    二.3 当前系统的标题配置 systemTitle
+    二.4 当前默认theme的配置 themecolor
+         themecolors为themecolor可选择的配置
+
+三.监控流程图相关配置
+菜单配置，多个流程图时候不同页面需要使用不同的后缀，如(energyMonitor.html?a=2)中(a=2)可以任意配置，不涉及程序参数内容，
+仅仅用来标识各个页面的不同
+arg参数:
+根据当前菜单的arg参数分为三种方式
+配置格式为"A|B"，
+1.A=0，启用HBMis中的监控类型，B取值为具体的监控类型Id;
+2.A=1，启用用|号隔开的监控方案Id，B取值为逗号隔开的具体监控方案Id;
+3.A=2，启用混合模式，B取值为具体的方案类型，对应ProcType
+

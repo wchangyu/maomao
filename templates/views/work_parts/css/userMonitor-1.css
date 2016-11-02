@@ -130,7 +130,24 @@
 	border:1px solid grey;
 	padding:2px;
 	background-color: #90b4e8;
+}
 
+.content-menu-show{
+	position : absolute;
+	background-color: #90b4e8;
+	border:1px solid grey;
+	display:block;
+}
+
+.content-menu-show>button{
+	width:80px;
+	height:24px;
+	background-color:#09a4d8;
+	color:#0000FF;
+}
+
+.content-menu-hide{
+	display:none;
 }
 
 #content-ctrls > div{
