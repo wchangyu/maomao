@@ -136,7 +136,7 @@ $(function(){
 	})
 	$('.types').change(function(){
 		$('.datetimepickereType').empty();
-	})
+	});
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -144,6 +144,8 @@ $(function(){
 	})
 	//获取能耗种类；
 	getEcType();
+	//页面加载时的配置信息；
+	setEnergyInfos();
 	//获取时间段
 	dataType();
 	getPointerData();
@@ -163,19 +165,25 @@ $(function(){
 			getPointerData();
 		}
 		setEnergyInfos();
+	});
+	$('body').mouseover(function(){
+		if(myChart11){
+			myChart11.resize();
+		}
 	})
 })
 var myChart11;
 //让echarts自适应
 window.onresize = function () {
-	myChart11.resize();
+	if(myChart11){
+		myChart11.resize();
+	}
 }
 //确定能耗种类
 var _ajaxEcType;
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
@@ -186,9 +194,11 @@ function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		if(jsonText.alltypes[i].etid == _ajaxEcType){
-			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
-			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
-			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+			$('#th0').html('对比对象');
+			$('.ths').html('出现时刻');
+			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + ' ' + jsonText.alltypes[i].etunit);
+			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + ' ' + jsonText.alltypes[i].etunit);
+			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + ' ' + jsonText.alltypes[i].etunit);
 			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
 			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
 			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
@@ -264,7 +274,6 @@ function getPointerData(){
 				}
 			}
 			dataX.sort();
-			//console.log(dataX)
 			//遍历y轴数据
 			for(var i=0;i<allBranch.length;i++){
 				var object={};
@@ -515,7 +524,6 @@ function getOfficeData(){
 			}
 		}
 		dataX.sort();
-		//console.log(dataX)
 		//遍历y轴数据
 		for(var i=0;i<allBranch.length;i++){
 			var object={};
@@ -600,7 +608,6 @@ function getOfficeData(){
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
 					dataX.push(datas[j].dataDate.split('T')[0]);
 				}
@@ -646,7 +653,6 @@ function getOfficeData(){
 		for(var i=0;i<allBranch.length;i++){
 			var datas=allBranch[i];
 			for(var j=0;j<datas.length;j++){
-				//console.log(datas[j])
 				if(dataX.indexOf(datas[j].dataDate.split('T')[0])<0){
 					dataX.push(datas[j].dataDate.split('T')[0]);
 				}

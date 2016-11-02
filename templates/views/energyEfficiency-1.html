@@ -25,10 +25,9 @@
     <script src="./work_parts/js/echarts.min.js"></script>
     <script src="./work_parts/js/energyEfficiency-1.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+    <script src="./work_parts/js/showOrHidden.js"></script>
     <script src="./work_parts/js/pointersoffices.js"></script>
     <script src="./work_parts/js/etSelection.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
@@ -83,6 +82,7 @@
         </a>
         <!-- END RESPONSIVE MENU TOGGLER -->
         <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="totalTitle"></div>
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
@@ -155,21 +155,6 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
-
-                        <li>
-                            <a href="#">
-                                <i class="icon-calendar"></i> 日历 </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="icon-rocket"></i> 任务 <span class="badge badge-success">
-							7 </span>
-                            </a>
-                        </li>
-                        <li class="divider">
-                        </li>
-
                         <li>
                             <a class="logout-page" href="login.html">
                                 <i class="icon-key"></i> 退出 </a>
@@ -179,11 +164,6 @@
                 <!-- END USER LOGIN DROPDOWN -->
                 <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <i class="icon-logout"></i>
-                    </a>
-                </li>
                 <!-- END QUICK SIDEBAR TOGGLER -->
             </ul>
         </div>
@@ -304,28 +284,8 @@
                         <a href="#">冷战能效</a>
                     </li>
                 </ul>
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
-                    <!--<div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                        跳转 <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#">跳转点1</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点2</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点3</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">跳转点4</a>
-                            </li>
-                        </ul>
-                    </div>-->
                 </div>
             </div>
             <!-- END PAGE HEADER-->
@@ -340,90 +300,85 @@
                                         <div class="header-one">冷战1</div>
                                         <div class="header-three">2014-01-01-2014-12-30</div>
                                     </div>
-                                    <div  class="right-top">
-                                        <!-- 标题 -->
+                                    <div class="right-top">
                                         <div class="right-header">冷战能效比
-                                            <!-- 标题右边 -->
                                             <ul class="right-header-right">
                                                 <li class="header-right-lists header-right-lists-1">
                                                 </li>
                                                 <li class="header-right-lists">单位：kWh</li>
                                             </ul>
                                         </div>
-                                        <!-- 内容 -->
                                         <div class="rheader-content">
-                                            <!-- 冷战能效比 -->
-                                            <div class="rheader-content-lis col-lg-5 rheader-content-lis-2">
-                                                <div class="tree-box">
-                                                    冷站能效比<br>
-                                                    2.2
+                                            <div class="rheader-content-lefts">
+                                                <div class="rheader-content-lis rheader-content-lis-2">
+                                                    <div class="tree-box">
+                                                        冷站能效比<br>
+                                                        2.2
+                                                    </div>
+                                                    <div class="tree-box tree-box-1">
+                                                        冷站能效比<br>
+                                                        2.5
+                                                    </div>
+                                                    <div class="tree-box tree-box-2">
+                                                        冷冻水输送系数<br>
+                                                        2.0
+                                                    </div>
+                                                    <div class="tree-box tree-box-3">
+                                                        冷机效率<br>
+                                                        4.0
+                                                    </div>
+                                                    <div class="tree-box tree-box-4">
+                                                        冷却塔风机输送系数<br>
+                                                        131.8
+                                                    </div>
+                                                    <div class="tree-box tree-box-5">
+                                                        冷却塔风机输送系数<br>
+                                                        131.8
+                                                    </div>
+                                                    <p class="systemHeatBalanceRate">系统热不平衡率
+                                                        <span class="btn btn-default">1.32%</span>
+                                                    </p>
+                                                    <ul class="rangeOfCriteria">
+                                                        <li class="rangeLi-1">
+                                                            <span class="btn btn-default"></span>
+                                                            在正常范围之内
+                                                        </li>
+                                                        <li class="rangeLi-2">
+                                                            <span class="btn btn-danger"></span>
+                                                            超出标准范围10%以内
+                                                        </li>
+                                                        <li class="rangeLi-3">
+                                                            <span class="btn btn-warning"></span>
+                                                            超出标准范围10%以上
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="tree-box tree-box-1">
-                                                    冷站能效比<br>
-                                                    2.5
-                                                </div>
-                                                <div class="tree-box tree-box-2">
-                                                    冷冻水输送系数<br>
-                                                    2.0
-                                                </div>
-                                                <div class="tree-box tree-box-3">
-                                                    冷机效率<br>
-                                                    4.0
-                                                </div>
-                                                <div class="tree-box tree-box-4">
-                                                    冷却塔风机输送系数<br>
-                                                    131.8
-                                                </div>
-                                                <div class="tree-box tree-box-5">
-                                                    冷却塔风机输送系数<br>
-                                                    131.8
-                                                </div>
-                                                <p class="systemHeatBalanceRate">系统热不平衡率
-                                                    <span class="btn btn-default">1.32%</span>
-                                                </p>
-                                                <ul class="rangeOfCriteria">
-                                                    <li class="rangeLi-1">
-                                                        <span class="btn btn-default"></span>
-                                                        在正常范围之内
-                                                    </li>
-                                                    <li class="rangeLi-2">
-                                                        <span class="btn btn-danger"></span>
-                                                        超出标准范围10%以内
-                                                    </li>
-                                                    <li class="rangeLi-3">
-                                                        <span class="btn btn-warning"></span>
-                                                        超出标准范围10%以上
-                                                    </li>
-                                                </ul>
                                             </div>
-
-                                            <!-- 折线图部分 -->
-                                            <div class="rheader-content-lis col-lg-7 rheader-content-lis-1">
-                                                <!-- 折线图 -->
-                                                <div id="rheader-content-49"></div>
-                                                <!-- 多项选择 -->
-                                                <ul class="checkButton">
-                                                    <label class="checkbox-inline checkbox-inline-1">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 冷战能效对比
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> 冷却塔风机输送系数
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox3" value="option3"> 冷源能效比
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox4" value="option2"> 冷却水输送系数
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox5" value="option3"> 冷机效率
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox6" value="option3"> 冷却水输送系数
-                                                    </label>
-                                                </ul>
+                                            <div class="rheader-content-rights">
+                                                <div class="rheader-content-lis rheader-content-lis-1">
+                                                    <div id="rheader-content-49"></div>
+                                                    <ul class="checkButton">
+                                                        <label class="checkbox-inline checkbox-inline-1">
+                                                            <input type="checkbox" id="inlineCheckbox1" value="option1"> 冷战能效对比
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="inlineCheckbox2" value="option2"> 冷却塔风机输送系数
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="inlineCheckbox3" value="option3"> 冷源能效比
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="inlineCheckbox4" value="option2"> 冷却水输送系数
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="inlineCheckbox5" value="option3"> 冷机效率
+                                                        </label>
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="inlineCheckbox6" value="option3"> 冷却水输送系数
+                                                        </label>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -476,77 +431,6 @@
     <!-- END CONTENT -->
     <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-    <div class="page-quick-sidebar-wrapper">
-        <div class="page-quick-sidebar">
-            <div class="nav-justified">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="active">
-                        <a href="#quick_sidebar_tab_1" data-toggle="tab">
-                            楼宇 <span class="badge badge-danger"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#quick_sidebar_tab_2" data-toggle="tab">
-                            科室 <span class="badge badge-success"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                            更多<i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-bell"></i> 更多1 </a>
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-info"></i> 更多2 </a>
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-speech"></i> 更多3 </a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-settings"></i> 更多4 </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
-                        <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
-                            <h3 class="list-heading">楼宇</h3>
-                            <ul class="media-list list-items">
-                                <li class="media">
-
-                                    <div class="media-body">
-                                        <h4 class="media-heading">全部</h4>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-pane page-quick-sidebar-alerts" id="quick_sidebar_tab_2">
-                        <div class="page-quick-sidebar-alerts-list">
-                            <h3 class="list-heading">科室</h3>
-
-                        </div>
-                    </div>
-                    <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-                        <div class="page-quick-sidebar-settings-list">
-                            <h3 class="list-heading">更多</h3>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
@@ -580,7 +464,6 @@
 <!-- END CORE PLUGINS -->
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
@@ -589,7 +472,6 @@
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
         BEE.init();
     });

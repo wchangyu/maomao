@@ -29,49 +29,6 @@
 #pointer li{
 	line-height: 30px !important;
 }
-/*#pointer li .switch{
-	height: 34px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}
-#pointer li .checkbox_false_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
-	background-size: 13px;
-}
-#pointer li .checkbox_true_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
-	background-size: 13px;
-}
-#pointer li .checkbox_false_full_focus{
-	background: #ccc;
-	border: 1px solid #333;
-}
-#pointer li .checkbox_true_full_focus{
-	background: #ccc;
-	border: 1px solid #333;
-}*/
-/*#allOffices li{
-	line-height: 30px !important;
-}
-#allOffices li .switch{
-	height: 34px !important;
-	background: url(../zTree_v3-master/css/zTreeStyle/img/linkxian.png)no-repeat;
-}
-#allOffices li .checkbox_false_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/unSelected.png)no-repeat;
-	background-size: 13px;
-}
-#allOffices li .checkbox_true_full{
-	background: url(../zTree_v3-master/css/zTreeStyle/img/selected.png)no-repeat;
-	background-size: 13px;
-}
-#allOffices li .checkbox_false_full_focus{
-	background: #ccc;
-	border: 1px solid #333;
-}
-#allOffices li .checkbox_true_full_focus{
-	background: #ccc;
-	border: 1px solid #333;
-}*/
 .header-one{
 	display: inline-block;
 	font-size: 1.2rem;
@@ -175,4 +132,10 @@
 }
 .datetimepickereType{
 	margin-left: 25px;
+}
+#allPointer{
+	margin-top: 20px;
+}
+.energy-types div{
+	border: 2px solid #ffffff;
 }

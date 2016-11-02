@@ -1,4 +1,21 @@
 $(function(){
+    /*$('.menu-toggler').click(function(){
+        var aaas = $('.page-sidebar-wrapper .page-sidebar').css('display');
+        console.log(aaas)
+        if(aaas == 'block'){
+            $('.page-sidebar-wrapper .page-sidebar').css({'display':'none!important'});
+            console.log($('.page-sidebar-wrapper .page-sidebar'));
+            $('.page-sidebar-wrapper .page-sidebar').removeClass('in');
+        }else{
+            $('.page-sidebar-wrapper .page-sidebar').css('display','block!important');
+        }
+    })*/
+    //$('.page-sidebar-wrapper .page-sidebar').attr('aria-expanded','false');
+    //上日上年标题部分
+    $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
+    $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
+    $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
+    $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
     //读取楼宇和科室的zTree；
     _objectSel = new ObjectSelection();
     _objectSel.initPointers($("#allPointer"),true);
@@ -46,29 +63,21 @@ $(function(){
     //默认开始时间为上日；
     timeYesterday();
     //时间选取
-    $('.time-options').eq(0).click(function(){
+    $('.time-options').click(function(){
         $('.time-options').removeClass('time-options-1');
         $(this).addClass('time-options-1');
-        timeYesterday();
-        changeTitle = $(this).html();
+        if($(this).html() == '上日'){
+            timeYesterday();
+        }else if($(this).html() == '上周'){
+            timeLastWeek();
+        }else if($(this).html() == '上月'){
+            timeLastMonth();
+        }else if($(this).html() == '上年'){
+            timeLastYear();
+        }
+        _changeTitle = $(this).html();
     })
-    $('.time-options').eq(1).click(function(){
-        $('.time-options').removeClass('time-options-1');
-        $(this).addClass('time-options-1');
-        timeLastWeek();
-        changeTitle = $(this).html();
-    })
-    $('.time-options').eq(2).click(function(){
-        $('.time-options').removeClass('time-options-1');
-        $(this).addClass('time-options-1');
-        timeLastMonth();
-        changeTitle = $(this).html();
-    })
-    $('.time-options').eq(3).click(function(){
-        $('.time-options').removeClass('time-options-1');
-        $(this).addClass('time-options-1');
-        changeTitle = $(this).html();
-    })
+    //页面加载时获取楼宇总能耗、分项电耗、能耗费用、用能指标
     getClassEcData();
     PointerPowerConsumption();
     theDashboard();
@@ -89,13 +98,21 @@ $(function(){
             PointerPowerConsumption();
             PointerCharge();
             $('small').html(pointerNames);
+            console.log('开始时间为：' + newStr);
+            console.log('结束时间为：' + newStr1);
         }
         theDashboard();
+    });
+    $('body').mouseover(function(){
+        if(_myChart && _myChart1 && _myChart2){
+            _myChart.resize();
+            _myChart1.resize();
+            _myChart2.resize();
+        }
     })
 })
   //对于用户来说的区域位置 
 var _changeTitle = '上日';
-var _small='全院';
 var _myChart;
 var _myChart1;
 var _myChart2;
@@ -121,8 +138,11 @@ function theDashboard(){
          type: "post",
          url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
          data: ecParams,
+        beforeSend:function(){
+            $('#loading2').show();
+        },
          success:function(result){
-                loadingEndding2();
+             $('#loading2').hide();
                 var dian = 0,shui = 0,nuan = 0,leng = 0;
                 for(var i=0;i<result.length;i++){
                     if(result[i].energyItemID == "01" ){
@@ -333,11 +353,14 @@ function getClassEcData(){
         type: "post",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
         data: ecParams,
+        beforeSend:function(){
+            $('#loading').show();
+        },
         success: function (result) {
+            $('#loading').hide();
             setEnergyType(sessionStorage.allEnergyType,result);
         }
     });
-    loadingEndding();
 }
 //科室总能耗
 function getOfficeClassEcData(){
@@ -352,12 +375,14 @@ function getOfficeClassEcData(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
         data:ecParams,
+        beforeSend:function(){
+            $('#loading').show();
+        },
         success:function(result){
-            loadingEndding();
+            $('#loading').hide();
             setEnergyType(sessionStorage.officeEnergyType,result)
         }
     })
-    loadingEndding();
 }
 //楼宇分项电耗
 function PointerPowerConsumption(){
@@ -365,21 +390,19 @@ function PointerPowerConsumption(){
     if(pts.length>0) { pointerID = pts[0].pointerID};
     if(!pointerID) { return; }
     var ecParams={'pointerID':pointerID,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
-    //console.log('楼宇分项参数：')
-    //console.log(ecParams)
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
         data: ecParams,
+        beforeSend:function(){
+            $('#loading1').show();
+        },
         success:function(result){
-            loadingEndding1();
-            //console.log(result);
+            $('#loading1').hide();
             for(var i=0;i<result.length;i++){
                 arr_4[i] = result[i].ecData.toFixed(0);
             }
-            //console.log(arr_3);
             _myChart = echarts.init(document.getElementById('main-right-two'));
-            //console.log(arr_4);
             // 指定图表的配置项和数据
             option = {
                 tooltip: {
@@ -442,9 +465,11 @@ function OfficePowerConsumption(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
         data:ecParams,
+        beforeSend:function(){
+            $('#loading1').show();
+        },
         success:function(result){
-            loadingEndding1();
-            //console.log(result);
+            $('#loading1').hide();
             var arr_10=[];
             for(var i=0;i<result.length;i++){
                 arr_10[i] = result[i].ecData;
@@ -500,24 +525,22 @@ function OfficePowerConsumption(){
 //楼宇能耗费用
 function PointerCharge(){
     var pts = _objectSel.getSelectedPointers(),pointerID;
-    //console.log(pts)
     if(pts.length>0) { pointerID = pts[0].pointerID};
     if(!pointerID) { return; }
     var ecParams={'pointerOrOfficeId':pointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
-    //console.log('楼宇能耗费用参数：');
-    //console.log(ecParams);
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',
         data:ecParams,
+        beforeSend:function(){
+            $('#loading3').show();
+        },
         success:function(result){
-            loadingEndding3();
-            // console.log(result)
+            $('#loading3').hide();
             for(var i=0;i<result.length;i++){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
             }
-            //console.log(arr_7)
             _myChart2 = echarts.init(document.getElementById('main-right-three'));
             option1 = {
                 tooltip : {
@@ -585,14 +608,15 @@ function OfficeCharge(){
         type:'post',
         url: sessionStorage.apiUrlPrefix + "EnergyItemDatas/getEnergyMoneyCost",
         data:ecParams,
+        beforeSend:function(){
+            $('#loading3').show();
+        },
         success:function(result){
-            loadingEndding3();
-            // console.log(result)
+            $('#loading3').hide();
             for(var i=0;i<result.length;i++){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
             }
-            //console.log(arr_7)
             _myChart2 = echarts.init(document.getElementById('main-right-three'));
             option1 = {
                 tooltip : {
@@ -649,29 +673,11 @@ function OfficeCharge(){
 }
 //浏览器echarts自适应
 window.onresize = function () {
-    _myChart.resize();
-    _myChart1.resize();
-    _myChart2.resize();
-}
-//加载时的缓冲页面
-function loadingStart(){
-    $('#loading').show();
-}
-//分类能耗缓冲
-function loadingEndding(){
-    $('#loading').hide();
-}
-//分项电耗缓冲
-function loadingEndding1(){
-    $('#loading1').hide();
-}
-//用能指标缓冲
-function loadingEndding2(){
-    $('#loading2').hide();
-}
-//能耗费用指标缓冲
-function loadingEndding3(){
-    $('#loading3').hide();
+    if(_myChart && _myChart1 && _myChart2){
+        _myChart.resize();
+        _myChart1.resize();
+        _myChart2.resize();
+    }
 }
 //上日时间
 function timeYesterday(){

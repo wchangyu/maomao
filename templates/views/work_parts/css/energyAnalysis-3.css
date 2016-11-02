@@ -132,3 +132,12 @@
 	display: inline-block !important;
 	float: left !important;
 }
+.L-unit{
+	margin-left: 4px;
+}
+.energy-types div{
+	border:2px solid #ffffff;
+}
+.content-main-left{
+	display: block;
+}

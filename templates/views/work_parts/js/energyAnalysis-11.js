@@ -22,7 +22,7 @@ $(function(){
 		getBranches();
 	});
 	//时间选择
-	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime +'-'+_ajaxStartTime));
+	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime +'到'+_ajaxStartTime));
 	$('#datetimepicker').datepicker(
 		{
 			language:  'zh-CN',
@@ -41,7 +41,7 @@ $(function(){
 			var endDay= now.add(1,'d').format("YYYY-MM-DD");
 			_ajaxStartTime=startDay;
 			_ajaxDataType_1='小时';
-			var end=startDay + "-" +startDay;
+			var end=startDay + "到" +startDay;
 			var aa = $('.datetimepickereType').text();
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
@@ -56,7 +56,7 @@ $(function(){
 			var startWeek=now.format("YYYY-MM-DD");
 			startWeek = now.add(1,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =startWeek + "-" +endWeek;
+			end =startWeek + "到" +endWeek;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startWeek;
@@ -71,7 +71,7 @@ $(function(){
 		}else if(_ajaxDataType=="月"){
 			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
 			var endMonth=moment(inputValue).endOf('month').format("YYYY-MM-DD");
-			end =startMonth+"-"+endMonth;
+			end =startMonth+"到"+endMonth;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startMonth;
@@ -85,7 +85,7 @@ $(function(){
 		}else if(_ajaxDataType=="年"){
 			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
 			var endYear=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-			end = startYear+"-"+endYear;
+			end = startYear+"到"+endYear;
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -118,6 +118,8 @@ $(function(){
 	timeDisposal();
 	getBranches();
 	getBranchData();
+	setEnergyInfos();
+	$('.header-two').html(select_Name);
 	$('.btns').click(function(){
 		$('#tbody').empty();
 		//选中的楼宇
@@ -135,8 +137,19 @@ $(function(){
 		setEnergyInfo();
 		setEnergyInfos();
 	})
-
+	$('body').mouseover(function(){
+		if(myChart3){
+			myChart3.resize();
+		}
+	})
 })
+var myChart3;
+//让echarts自适应
+window.onresize = function () {
+	if(myChart3){
+		myChart3.resize();
+	}
+}
 //首先将sessionStorage的内容写入html中
 var _allPointerId=[0];
 function getSessionStoragePointer(){
@@ -182,15 +195,18 @@ function setEnergyInfo(){
 }
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfos(){
-	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		if(jsonText.alltypes[i].ettype == _ajaxEcType){
-			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
-			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
-			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
-			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
-			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
-			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+	if(_energyTypeSel){
+		var selectedEV = $(".selectedEnergy").attr('value');
+		for(var i=0;i<_energyTypeSel._allEnergyTypes.length;i++){
+			if(_energyTypeSel._allEnergyTypes[i].ettype==selectedEV){
+				var curET = _energyTypeSel._allEnergyTypes[i];
+				$('.header-one').html(curET.etname);
+				$('.right-header span').html('用' + curET.etname + '曲线');
+				$('.total-power-consumption').html('累计用' + curET.etname);
+				$('.the-cumulative-power-unit').html(curET.etunit);
+				$('.header-right-lists').html('单位：' + curET.etunit);
+				return;
+			}
 		}
 	}
 }
@@ -359,9 +375,10 @@ function timeDisposal(){
 	_ajaxEndA=[];
 	var $selectTime = $('.selectTime');
 	for(var i=0;i< $selectTime.length;i++){
-		var iSelectTime = $('.selectTime').eq(i).html();
-		_ajaxStartA.push(iSelectTime.split('-')[0] + '/' + iSelectTime.split('-')[1] + '/' + iSelectTime.split('-')[2]);
-		var endDate = moment(iSelectTime.split('-')[3] + '/' + iSelectTime.split('-')[4] + '/' + iSelectTime.split('-')[5]);
+		var iSelectTime = $('.selectTime').eq(i).html().split('到')[0].split('-');
+		_ajaxStartA.push(iSelectTime[0] + '/' + iSelectTime[1] + '/' + iSelectTime[2]);
+		var iSelectTimes = $('.selectTime').eq(i).html().split('到')[1].split('-');
+		var endDate = moment(iSelectTimes[0] + '/' + iSelectTimes[1] + '/' + iSelectTimes[2]);
 		endDate = endDate.add(1,'d');
 		_ajaxEndA.push(endDate.format("YYYY/MM/DD"));
 	}

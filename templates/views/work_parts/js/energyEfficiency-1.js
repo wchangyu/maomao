@@ -92,8 +92,15 @@ $(function(){
 		    ]
 		};
 		myChart49.setOption(option49);
+	$('body').mouseover(function(){
+		if(myChart49){
+			myChart49.resize();
+		}
+	})
 })
 var myChart49;
 window.onresize = function () {
-    myChart49.resize();
+	if(myChart49){
+		myChart49.resize();
+	}
 }

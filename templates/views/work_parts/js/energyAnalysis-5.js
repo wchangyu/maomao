@@ -69,7 +69,8 @@ $(function(){
 			var now = moment(inputValue).startOf('week');
 			startWeek = now.add(1,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =startWeek + "-" +endWeek;
+			var endWeekd = now.subtract(1,'d').format("YYYY-MM-DD");
+			end =startWeek + "-" +endWeekd;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startWeek;
@@ -85,7 +86,8 @@ $(function(){
 		}else if(_ajaxDataType=="月"){
 			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
 			var endMonth=moment(inputValue).endOf('month').add(1,'d').format("YYYY-MM-DD");
-			end =startMonth+"-"+endMonth;
+			var endMonths=moment(inputValue).endOf('month').format('YYYY-MM-DD');
+			end =startMonth+"-"+endMonths;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startMonth;
@@ -101,7 +103,8 @@ $(function(){
 		}else if(_ajaxDataType=="年"){
 			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
 			var endYear=moment(inputValue).endOf('year').add(1,'d').format("YYYY-MM-DD");
-			end = startYear+"-"+endYear;
+			var endYears=moment(inputValue).endOf('year').format("YYYY-MM-DD");
+			end = startYear+"-"+endYears;
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -125,6 +128,8 @@ $(function(){
 	treeObject();
 	specificTime();
 	getItemizedData();
+	setEnergyInfos();
+	$('small').html(select_Name);
 	$('.btns').click(function(){
 		getEcType();
 		getPointerId();
@@ -132,19 +137,28 @@ $(function(){
 		specificTime();
 		getItemizedData();
 		setEnergyInfos();
+	});
+	$('body').mouseover(function(){
+		if(myChart41 && myChart42){
+			myChart41.resize();
+			myChart42.resize();
+		}
+
 	})
 })
 var myChart41;
 var myChart42;
 window.onresize = function () {
-    myChart41.resize(); 
-    myChart42.resize();
+	if(myChart41 && myChart42){
+		myChart41.resize();
+		myChart42.resize();
+	}
+
 }
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
 	for(var i=0;i<jsonText.alltypes.length;i++){
-		//console.log(jsonText.alltypes[i])
 		if(jsonText.alltypes[i].etid == _ajaxEcType){
 			$('.header-one').html(jsonText.alltypes[i].etname);
 			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '分布');
@@ -157,7 +171,6 @@ var _ajaxEcType;
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
@@ -250,7 +263,7 @@ function dataType(){
 }
 //设置开始和结束初始值
 var _ajaxStartTime = moment().subtract(7,'d').startOf('week').add(1,'day').format("YYYY-MM-DD");
-var _ajaxEndTime = moment().subtract(7,'d').endOf('week').add(2,'day').format("YYYY-MM-DD");
+var _ajaxEndTime = moment().subtract(7,'d').endOf('week').add(1,'day').format("YYYY-MM-DD");
 var	_ajaxStartTime_1=moment().subtract(7,'d').startOf('week').add(1,'day').format("YYYY/MM/DD");
 var _ajaxEndTime_1=moment().subtract(7,'d').endOf('week').add(2,'day').format("YYYY/MM/DD");
 var _ajaxDataType_1='日';
@@ -347,12 +360,10 @@ function getItemizedData(){
 		totalYrestTimeData += parseInt(dataYrestTimeData[i]);
 	}
 	//将工作日和休息日分开
-	console.log(_allData);
 	for(var i=0;i<_allData.length;i++){
 		var datas = _allData[i];
 		for(var j=0;j<datas.length;j++){
 			var momentsTime = datas[j].dataDate.split('T')[0];
-			console.log(momentsTime)
 			var momentWorkTime = datas[j].workTimeData;
 			var momentRestTime = datas[j].restTimeData;
 			var moments = moment(momentsTime).format('d')

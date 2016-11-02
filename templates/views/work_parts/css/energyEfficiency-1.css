@@ -64,9 +64,10 @@
 	position: relative;
 	height: 600px;
 	float: left;
+	width:100%;
 }
 .rheader-content-lis-2{
-	background: url(../img/tree-img.png)no-repeat 0px -80px;
+	background: url(../img/tree-img.png)no-repeat 20px -80px;
 }
 .tree-box{
 	width:100px;
@@ -75,36 +76,36 @@
 	background:#ffffa6;
 	position: absolute;
 	top: 85px;
-	left: 60px;
+	left: 80px;
 	text-align: center;
 	padding-top: 10px;
 	font-size: 1.4rem;
 }
 .tree-box-1{
 	background:#fff;
-	left:0px;
+	left:20px;
 	top:200px;
 }
 .tree-box-2{
 	width:120px;
-	left:180px;
+	left:200px;
 	top:200px;
 }
 .tree-box-3{
 	width:80px;
-	left:0px;
+	left:20px;
 	top:350px;
 }
 .tree-box-4{
 	width:80px;
-	left:128px;
+	left:148px;
 	top:350px;
 	padding-top:0;
 	background:#fff;
 }
 .tree-box-5{
 	width:80px;
-	left:236px;
+	left:256px;
 	top:350px;
 	padding-top:0;
 	background:#fff;
@@ -112,7 +113,6 @@
 #rheader-content-49{
 	width: 100%;
 	height: 500px;
-	background: yellowgreen;
 }
 .rangeOfCriteria{
 	width:700px;
@@ -130,4 +130,18 @@
 	text-align:center;
 	font-size:1.8rem;
 	font-weight:bold;
+}
+.rheader-content{
+	width:100%;
+	height:500px;
+	position: relative;
+}
+.rheader-content-rights{
+	height:100%;
+	margin-left: 400px;
+}
+.rheader-content-lefts{
+	width: 400px;
+	float: left;
+	height: 100%;
 }

@@ -26,9 +26,8 @@
 	<script src="../../assets/local/scripts/underscore-min.js"></script>
 	<script src="./work_parts/js/pointersoffices.js"></script>
 	<script src="./work_parts/js/index.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
+	<script src="./work_parts/js/showOrHidden.js"></script>
 	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
 	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -97,7 +96,7 @@
 							<a href="extra_profile.html">查看详细</a>
 						</li>
 						<li>
-							<ul class="dropdown-menu-list scroller"  data-handle-color="#637283">
+							<ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
 								<li>
 									<a href="javascript:;">
 										<span class="time">刚刚</span>
@@ -153,21 +152,6 @@
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-
-						<li>
-							<a href="#">
-								<i class="icon-calendar"></i> 日历 </a>
-						</li>
-
-						<li>
-							<a href="#">
-								<i class="icon-rocket"></i> 任务 <span class="badge badge-success">
-							7 </span>
-							</a>
-						</li>
-						<li class="divider">
-						</li>
-
 						<li>
 							<a class="logout-page" href="login.html">
 								<i class="icon-key"></i> 退出 </a>
@@ -177,11 +161,6 @@
 				<!-- END USER LOGIN DROPDOWN -->
 				<!-- BEGIN QUICK SIDEBAR TOGGLER -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-quick-sidebar-toggler">
-					<a href="javascript:;" class="dropdown-toggle">
-						<i class="icon-logout"></i>
-					</a>
-				</li>
 				<!-- END QUICK SIDEBAR TOGGLER -->
 			</ul>
 		</div>
@@ -281,7 +260,7 @@
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
 			<h3 class="page-title">
-			能耗总览<small>全院</small>
+			能耗总览<small></small>
 			</h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
@@ -294,28 +273,8 @@
 						<a href="javascript:void(0);">能耗总览</a>
 					</li>
 				</ul>
+				<div class="showOrHidden"></div>
 				<div class="page-toolbar">
-					<!--<div class="btn-group pull-right">
-						<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-						跳转 <i class="fa fa-angle-down"></i>
-						</button>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li>
-								<a href="#">跳转点1</a>
-							</li>
-							<li>
-								<a href="#">跳转点2</a>
-							</li>
-							<li>
-								<a href="#">跳转点3</a>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<a href="#">跳转点4</a>
-							</li>
-						</ul>
-					</div>-->
 				</div>
 			</div>
 			<!-- END PAGE HEADER-->
@@ -348,13 +307,12 @@
                                                     	<!-- 同比 -->
                                                     	<p class="tongbi tongbi1">同比：
                                                         	<!-- 同比数值 -->
-                                                        	<span class="tongbizhi">0%</span>
+                                                        	<span class="tongbizhi"></span>
                                                     	</p>
                                                     	<!-- 环比 -->
                                                     	<p class="huanbi huanbi1">环比：
                                                         	<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -369,13 +327,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi2">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi huanbi2">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -390,13 +347,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi3">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -411,13 +367,12 @@
 														<!-- 同比 -->
 														<p class="tongbi tongbi4">同比：
 															<!-- 同比数值 -->
-															<span class="tongbizhi">0%</span>
+															<span class="tongbizhi"></span>
 														</p>
 														<!-- 环比 -->
 														<p class="huanbi">环比：
 															<!-- 环比数值 -->
-															<span class="huanbizhi">
-															</span>
+															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
@@ -430,8 +385,8 @@
 									<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-2">
 											<div class="main-right-ones portlet box blue main-right-ones-2">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日分项电耗
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：kWh</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -449,8 +404,8 @@
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
 											<div class="main-right-ones portlet box blue main-right-ones-3">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日用能指标
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -466,8 +421,8 @@
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-4">
 											<div class="main-right-ones portlet box blue main-right-ones-4">
 												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">上日能耗费用
-													<span class="danwei">&nbsp;&nbsp;&nbsp;单位：元</span></div>
+												<div class="right-one-header portlet-title"><div class="right-one-headers">
+													<span class="danwei"></span></div>
 													<div class="tools">
 														<a href="" class="fullscreen"title="全屏">
 														</a>
@@ -536,77 +491,6 @@
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-	<div class="page-quick-sidebar-wrapper">
-		<div class="page-quick-sidebar">
-			<div class="nav-justified">
-				<ul class="nav nav-tabs nav-justified">
-					<li class="active">
-						<a href="#quick_sidebar_tab_1" data-toggle="tab">
-						楼宇 <span class="badge badge-danger"></span>
-						</a>
-					</li>
-					<li>
-						<a href="#quick_sidebar_tab_2" data-toggle="tab">
-						科室 <span class="badge badge-success"></span>
-						</a>
-					</li>
-					<li class="dropdown">
-						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						更多<i class="fa fa-angle-down"></i>
-						</a>
-						<ul class="dropdown-menu pull-right" role="menu">
-							<li>
-								<a href="#quick_sidebar_tab_3" data-toggle="tab">
-								<i class="icon-bell"></i> 更多1 </a>
-							</li>
-							<li>
-								<a href="#quick_sidebar_tab_3" data-toggle="tab">
-								<i class="icon-info"></i> 更多2 </a>
-							</li>
-							<li>
-								<a href="#quick_sidebar_tab_3" data-toggle="tab">
-								<i class="icon-speech"></i> 更多3 </a>
-							</li>
-							<li class="divider">
-							</li>
-							<li>
-								<a href="#quick_sidebar_tab_3" data-toggle="tab">
-								<i class="icon-settings"></i> 更多4 </a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
-						<div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
-							<h3 class="list-heading">楼宇</h3>
-							<ul class="media-list list-items">
-								<li class="media">
-
-									<div class="media-body">
-										<h4 class="media-heading">全部</h4>
-
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="tab-pane page-quick-sidebar-alerts" id="quick_sidebar_tab_2">
-						<div class="page-quick-sidebar-alerts-list">
-							<h3 class="list-heading">科室</h3>
-
-						</div>
-					</div>
-					<div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-						<div class="page-quick-sidebar-settings-list">
-							<h3 class="list-heading">更多</h3>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
@@ -640,7 +524,6 @@
 <!-- END CORE PLUGINS -->
 <script src="../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
 <script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
@@ -648,9 +531,8 @@
 <script>
       jQuery(document).ready(function() {    
          Metronic.init(); // init metronic core components
-          BEE.init();
+		 BEE.init();
 		 Layout.init(); // init current layout
-		 QuickSidebar.init(); // init quick sidebar
 		 Demo.init(); // init demo features
 
       });

@@ -139,7 +139,10 @@ $(function(){
 			_ajaxLastStartTime_1 = startSplits[0] + '/' + startSplits[1] + '/' + startSplits[2];
 			_ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
 		}
-		})
+		});
+	//页面加载配置信息
+	setEnergyInfo();
+
 	//换内容时，清空时间
 	$('.types').change(function(){
 		$('.datetimepickereType').html('');
@@ -154,10 +157,18 @@ $(function(){
 		getBranchData();
 		getEcTypeWord();
 		setEnergyInfo();
+	});
+	$('body').mouseover(function(){
+		if(myChart3){
+			myChart3.resize();
+		}
 	})
 })
-
-
+window.onresize = function () {
+	if(myChart3){
+		myChart3.resize();
+	}
+}
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfo(){
 	if(_energyTypeSel){
@@ -214,8 +225,12 @@ function getEcTypeWord(){
 	 for(var i=0;i<officeID.length;i++){
 		 if(officeID.length != 1){
 			 $('.rheader-content-right').hide();
+			 $('.rheader-content-left').addClass('col-lg-12');
+			 $('.rheader-content-left').removeClass('col-lg-9');
 		 }else if(officeID.length == 1){
 			 $('.rheader-content-right').show();
+			 $('.rheader-content-left').addClass('col-lg-9');
+			 $('.rheader-content-left').removeClass('col-lg-12');
 		 }
 		 var selects_ID=officeID[i];
 		 var ecParams={

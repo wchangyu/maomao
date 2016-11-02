@@ -36,7 +36,7 @@
         "etunit": "MJ",
         "img":"",
         "color":"#b1cade",
-        "img2":""
+        "img2":"hot.png"
       },
       {
         "etid": "511",
@@ -45,7 +45,7 @@
         "etunit": "MJ",
         "img":"",
         "color":"#b1cade",
-        "img2":""
+        "img2":"cold.png"
       }
     ]
   },

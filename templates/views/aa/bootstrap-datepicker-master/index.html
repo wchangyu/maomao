@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="./js/jquery-3.0.0.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/bootstrap-datepicker.js"></script>
+	<script src="./js/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+	<link rel="stylesheet" href="./dist/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="./dist/css/bootstrap-datepicker.standalone.css">
+	<link rel="stylesheet" href="./dist/css/bootstrap.css">
+	<title>日历插件</title>
+	<style>
+		.datepicker{
+			font-family: 微软雅黑 !important;
+		}
+	</style>
+</head>
+<body>
+	<input name="discountDate" type="text" value="" id="datetimepicker" data-date-format="yyyy-mm-dd" />
+	<script>
+		$('#datetimepicker').datepicker(
+			{format: 'yyyy-mm-dd'}
+			);
+		$('#datetimepicker').datepicker({
+		  language:  'zh-CN',
+		  autoclose: 1,
+		  todayBtn: 1,
+		  todayHighlight: 1,
+		});
+	</script>
+</body>
+</html>
