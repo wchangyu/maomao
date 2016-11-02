@@ -83,11 +83,13 @@ var BEE = (function(){
                     //一级菜单不跳转
 
                     li = '<li><a href="javascript:;">';
+                    var isSelected = false;
                     if(menu[p]["submenu"]) {
                         for (var sm in menu[p]["submenu"]) {
                             if(menu[p]["submenu"][sm]["uri"]){
                                 if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"])) {
                                     li = '<li class="active open"><a href="javascript:;">';
+                                    isSelected = true;
                                     break;
                                 }
                             }
@@ -99,9 +101,15 @@ var BEE = (function(){
                         li += '<i></i>';
                     }
                     li += '<span class="title">' + menu[p]["content"] + '</span>';
-
+                    if(isSelected){
+                        li += '<span class="selected"></span>';
+                    }
                     if(!menu[p]["uri"]){
-                        li += '<span class="arrow "></span>';
+                        if(isSelected){
+                            li += '<span class="arrow open"></span>';
+                        }else{
+                            li += '<span class="arrow "></span>';
+                        }
                     }
                     li += '</a></li>';
                     $li = $(li);
