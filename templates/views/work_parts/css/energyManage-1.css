@@ -169,3 +169,38 @@
     width:100%;
     position: relative;
 }
+.left-middle-tabs{
+    width: 180px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 50px !important;
+    background: #ffffff;
+    color: #333333;
+    text-align: center;
+    margin-top: 10px;
+    border: 2px solid #808080;
+    cursor: pointer;
+}
+.types{
+    margin-top: 20px;
+    height: 30px;
+    margin-left: 35px;
+}
+#wrapper input {
+    height: 30px;
+    margin-left: 20px;
+}
+#datetimepicker {
+    width: 220px;
+    background: url(../img/clendar.png) no-repeat;
+    background-size: 25px;
+    background-position: 98% center;
+}
+.datetimepickereType {
+    cursor: pointer;
+    margin-left: 25px;
+}
+.left-middle-tab-active{
+    background:#7f7f7f;
+    color:#fff
+}

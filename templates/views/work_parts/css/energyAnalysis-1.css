@@ -161,6 +161,8 @@
 #right-lefts1{
 	background: url(../img/biaochi.jpg)no-repeat;
 	height: 300px;
+	position: relative;
+	margin-right: 50px;
 }
 .prompt{
 	width: 170px;
@@ -183,12 +185,15 @@
 }
 .rheader-content-lefts{
 	padding-top: 80px;
+	width: 830px;
+	margin: 0 auto;
 }
 .right-lefts{
 	display: inline-block !important;
 }
 .right-rights{
 	display: inline-block !important;
+	margin-top: 20px;
 }
 .rheader-content-right-header-1{
 	line-height: 30px;
@@ -217,4 +222,7 @@
 }
 .drp-popup{
 	border-radius: 12px !important;
+}
+.energy-types div{
+	border: 2px solid #ffffff;
 }

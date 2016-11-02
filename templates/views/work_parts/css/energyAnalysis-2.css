@@ -133,3 +133,9 @@
 .datetimepickereType{
 	margin-left: 25px;
 }
+#allPointer{
+	margin-top: 20px;
+}
+.energy-types div{
+	border: 2px solid #ffffff;
+}

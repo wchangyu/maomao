@@ -480,8 +480,8 @@ Page Header
     margin-left: 0;
   }
 }
-/*** 
-Horizontal Menu 
+/***
+Horizontal Menu
 ***/
 .page-header.navbar {
   /* Header container */
@@ -1696,8 +1696,8 @@ Quick Sidebar Layout
   right: 0;
 }
 
-/*** 
-Quick Sidebar Toggler 
+/***
+Quick Sidebar Toggler
 ***/
 .page-quick-sidebar-toggler {
   overflow: hidden;
@@ -2092,7 +2092,7 @@ Page content
   letter-spacing: 0px;
   font-weight: 300;
   color: #888;
-    margin-left: 20px;
+  margin-left: 20px;
 }
 .page-container-bg-solid .page-title {
   color: #666;
@@ -2600,8 +2600,8 @@ Theme Panel
   margin-right: 255px;
 }
 
-/***  
-Page Loading       
+/***
+Page Loading
 ***/
 .page-on-load {
   background: #fefefe;

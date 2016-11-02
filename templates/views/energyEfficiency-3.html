@@ -25,9 +25,7 @@
     <script src="./work_parts/js/echarts.min.js"></script>
     <script src="./work_parts/js/energyEfficiency-3.js"></script>
     <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <script src="./work_parts/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
     <script src="./work_parts/js/moment.js"></script>
     <script src="./work_parts/js/showOrHidden.js"></script>
     <script src="./work_parts/js/pointersoffices.js"></script>
@@ -359,52 +357,57 @@
                                                 <li class="header-right-lists">单位：kWh</li>
                                             </ul>
                                         </div>
-                                        <!-- 机房能效比 -->
-                                        <div class="boiler-left col-lg-5 boiler-left-1">
-                                            <div class="computer-left-top">
-                                                <span>PUE</span>
-                                                <span>=</span>
-                                                <span>信息机房整体输入电力</span>
-                                                <span></span>
-                                                <span>IT负载所需电力</span>
-                                                <span>=</span>
-                                                <span>2.70</span>
-                                                <ul class="rangeOfCriteria">
-                                                    <li class="range-li-1">
-                                                        <i class="btn btn-default"></i>
-                                                        在正常范围之内
-                                                    </li>
-                                                    <li class="range-li-2">
-                                                        <i class="btn btn-danger"></i>
-                                                        超出标准范围10%以内
-                                                    </li>
-                                                    <li class="range-li-3">
-                                                        <i class="btn btn-warning"></i>
-                                                        超出标准范围10%以上
-                                                    </li>
-                                                </ul>
+                                        <div class="rheader-content">
+                                            <div class="rheader-content-lefts">
+                                                <div class="boiler-left col-lg-5 boiler-left-1">
+                                                    <div class="computer-left-top">
+                                                        <span>PUE</span>
+                                                        <span>=</span>
+                                                        <span>信息机房整体输入电力</span>
+                                                        <span></span>
+                                                        <span>IT负载所需电力</span>
+                                                        <span>=</span>
+                                                        <span>2.70</span>
+                                                        <ul class="rangeOfCriteria">
+                                                            <li class="range-li-1">
+                                                                <i class="btn btn-default"></i>
+                                                                在正常范围之内
+                                                            </li>
+                                                            <li class="range-li-2">
+                                                                <i class="btn btn-danger"></i>
+                                                                超出标准范围10%以内
+                                                            </li>
+                                                            <li class="range-li-3">
+                                                                <i class="btn btn-warning"></i>
+                                                                超出标准范围10%以上
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- 折线图部分 -->
-                                        <div class="boiler-left col-lg-6 boiler-left-2">
-                                            <!-- 折线图 -->
-                                            <div id="rheader-content-52"></div>
-                                            <!-- 复选框 -->
-                                            <div class="rheader-content-lis">
-                                                <ul class="checkButton">
-                                                    <label class="checkbox-inline checkbox-inline-1">
-                                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 锅炉效率
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox2" value="option2"> 锅炉风机输送系数
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox3" value="option3"> 锅炉房综合输送系数
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="inlineCheckbox4" value="option2"> 锅炉房水泵输送系数
-                                                    </label>
-                                                </ul>
+                                            <div class="rheader-content-rights">
+                                                <!-- 折线图部分 -->
+                                                <div class="boiler-left boiler-left-2">
+                                                    <!-- 折线图 -->
+                                                    <div id="rheader-content-52"></div>
+                                                    <!-- 复选框 -->
+                                                    <div class="rheader-content-lis">
+                                                        <ul class="checkButton">
+                                                            <label class="checkbox-inline checkbox-inline-1">
+                                                                <input type="checkbox" id="inlineCheckbox1" value="option1"> 锅炉效率
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" id="inlineCheckbox2" value="option2"> 锅炉风机输送系数
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" id="inlineCheckbox3" value="option3"> 锅炉房综合输送系数
+                                                            </label>
+                                                            <label class="checkbox-inline">
+                                                                <input type="checkbox" id="inlineCheckbox4" value="option2"> 锅炉房水泵输送系数
+                                                            </label>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>

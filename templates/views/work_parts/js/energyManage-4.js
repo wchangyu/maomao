@@ -216,10 +216,18 @@ $(function(){
 		]
 	};
 		myChart75.setOption(option75);
+	$('body').mouseover(function(){
+		if(myChart74 && myChart75){
+			myChart74.resize();
+			myChart75.resize();
+		}
+	})
 })
 var myChart74;
 var myChart75;
 window.onresize = function () {
-    myChart74.resize(); 
-    myChart75.resize();
+	if(myChart74 && myChart75){
+		myChart74.resize();
+		myChart75.resize();
+	}
 }
