@@ -204,24 +204,15 @@ function getPointerData(){
 	var allData = [];
 	var allDataX = [];
 	var allDataY = [];
-	var maxDataBorder = 0;
 	var totalAllData;
 	//(环比)
 	var allDatas = [];
 	var allDatasY = [];
-	var maxDatasBorder = 0;
 	var totalAllDatas;
 	//(同比)
 	var allDatass = [];
 	var allDatassY = [];
-	var maxDatassBorder = 0;
 	var totalAllDatass;
-	//存放最大值
-	var maxMax = 0;
-	var maxMaxs = 0;
-	//存放柱折图的最大值
-	var maxMaxLine = 0;
-	var maxMaxLines = 0;
 	//确定楼宇id
 	var pts = _objectSel.getSelectedPointers(),pointerID;
 	if(pts.length > 0){
@@ -309,7 +300,6 @@ function getPointerData(){
 					if(dataJoin == allDataX[j]){
 						allDataY.push(datas[z].data)
 					}
-					maxDataBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
@@ -323,7 +313,6 @@ function getPointerData(){
 					if(dataJoin == allDataX[j]){
 						allDatasY.push(datas[z].data)
 					}
-					maxDatasBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
@@ -337,7 +326,6 @@ function getPointerData(){
 					if(dataJoin == allDataX[j]){
 						allDatassY.push(datas[z].data)
 					}
-					maxDatassBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
@@ -368,7 +356,6 @@ function getPointerData(){
 					if(dataSplit == allDataX[j]){
 						allDataY.push(datas[z].data);
 					}
-					maxDataBorder = _.max(datas,function(d){return d.data});
 				}
 			}
 		}
@@ -378,7 +365,6 @@ function getPointerData(){
 			for(var j=0;j<datas.length;j++){
 				allDatasY.push(datas[j].data);
 			}
-			maxDatasBorder = _.max(datas,function(d){return d.data});
 		}
 		//确定同比y轴数据
 		for(var i=0;i<allDatass.length;i++){
@@ -386,26 +372,8 @@ function getPointerData(){
 			for(var j=0;j<datas.length;j++){
 				allDatassY.push(datas[j].data);
 			}
-			maxDatassBorder = _.max(datas,function(d){return d.data});
 		}
 	}
-	if(maxDataBorder.data >= maxDatasBorder.data){
-		maxMax = maxDataBorder.data;
-	}else{
-		maxMax = maxDatasBorder.data;
-	}
-	//确定最大边界
-	var maxDiss = parseInt(maxMax).toString().length-1;
-	var maxDis = Math.pow(10,maxDiss);
-	var maxData = (parseInt(maxMax / maxDis) + 1) * maxDis;
-	if(maxDataBorder.data >= maxDatassBorder.data){
-		maxMaxs = maxDataBorder.data;
-	}else{
-		maxMaxs = maxDatassBorder.data;
-	}
-	var maxDissa = parseInt(maxMaxs).toString().length-1;
-	var maxDisa = Math.pow(10,maxDissa);
-	var maxDataa = (parseInt(maxMaxs / maxDisa) + 1) * maxDisa;
 	//计算所有的纵坐标的总和
 	totalAllData = 0;
 	for(var i=0;i<allDataY.length;i++){
@@ -419,15 +387,6 @@ function getPointerData(){
 	for(var i=0;i<allDatassY.length;i++){
 		totalAllDatass += parseInt(allDatassY[i]);
 	}
-	//确定柱折图的总和的边界值
-	if( totalAllData >= totalAllDatas){
-		maxMaxLine = totalAllData
-	}else{
-		maxMaxLine = totalAllDatas
-	}
-	var maxDissLine = parseInt(maxMaxLine).toString().length-1;
-	var maxDisLine = Math.pow(10,maxDissLine);
-	var maxDatLine = (parseInt(maxMaxLine / maxDisLine) + 1) * maxDisLine;
 	//总电div
 	$('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
 	$('.huanbizhi').html(totalAllDatas);
@@ -510,39 +469,34 @@ function getPointerData(){
 	//环比柱状图
 	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 	option13 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['本期用电','上期用电']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
+				type : 'category',
 				data:allDataX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量',
-				min: 0,
-				max: maxData,
-				interval: maxDis,
-				axisLabel: {
-					formatter: '{value}'
-				}
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'本期用电',
 				type:'bar',
@@ -555,58 +509,42 @@ function getPointerData(){
 			}
 		]
 	};
+
 	myChart13.setOption(option13);
 	//电-环比分析-柱状图
 	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
 	option14 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
 		},
 		legend: {
 			data:['比较斜率', '累计值']
 		},
 		toolbox: {
-			show: true,
-			feature: {
-				dataView: {readOnly: false},
-				restore: {},
-				saveAsImage: {}
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
 			}
 		},
-		xAxis: [
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				boundaryGap: true,
-				data:['本期','上期']
-			},
-			{
-				type: 'category',
-				boundaryGap: true,
-				data: ['本期','上期']
+				type : 'category',
+				data : ['本期','上期']
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
-			},
-			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'累计值',
 				type:'bar',
-				xAxisIndex: 1,
-				yAxisIndex: 1,
 				data:[totalAllData,totalAllDatas]
 			},
 			{
@@ -620,39 +558,34 @@ function getPointerData(){
 	//电-同比分析-柱折图
 	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
 	option15 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['本期用电','上期用电']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				data:allDataX
+				type : 'category',
+				data : allDataX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量',
-				min: 0,
-				max: maxDataa,
-				interval: maxDisa,
-				axisLabel: {
-					formatter: '{value}'
-				}
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'本期用电',
 				type:'bar',
@@ -669,58 +602,41 @@ function getPointerData(){
 	//电-同比分析-柱状图
 	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
 	option16 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
 		},
 		legend: {
 			data:['比较斜率', '累计值']
 		},
 		toolbox: {
-			show: true,
-			feature: {
-				dataView: {readOnly: false},
-				restore: {},
-				saveAsImage: {}
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
 			}
 		},
-		xAxis: [
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				boundaryGap: true,
-				data:['本期','上期']
-			},
-			{
-				type: 'category',
-				boundaryGap: true,
-				data: ['本期','上期']
+				type : 'category',
+				data : ['本期','上期']
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
-			},
-			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
-				name:'累计值',
+				name:'蒸发量',
 				type:'bar',
-				xAxisIndex: 1,
-				yAxisIndex: 1,
 				data:[totalAllData,totalAllDatass]
 			},
 			{
-				name:'比较斜率',
+				name:'降水量',
 				type:'line',
 				data:[totalAllData,totalAllDatass]
 			}
@@ -752,7 +668,6 @@ function getOfficeData(){
 	var maxMaxs = 0;
 	//存放柱折图的最大值
 	var maxMaxLine = 0;
-	var maxMaxLines = 0;
 	//确定楼宇id
 	var ofs = _objectSel.getSelectedOffices(),officeID = [],officeNames = [];
 	for(var i=0;i<ofs.length;i++){
@@ -776,7 +691,6 @@ function getOfficeData(){
 		'endTime':huanNewStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParamss);
 	//同比(去年的同一时期，没有周，环比和同比的年一样)
 	var ecParamsss = {
 		'ecTypeId':_ajaxEcTypeWord,
@@ -785,7 +699,6 @@ function getOfficeData(){
 		'endTime':tongNewStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParamsss)
 	//发送本期请求
 	$.ajax({
 		type:'post',
@@ -924,18 +837,6 @@ function getOfficeData(){
 	}else{
 		maxMax = maxDatasBorder.data;
 	}
-	//确定最大边界
-	var maxDiss = parseInt(maxMax).toString().length-1;
-	var maxDis = Math.pow(10,maxDiss);
-	var maxData = (parseInt(maxMax / maxDis) + 1) * maxDis;
-	if(maxDataBorder.data >= maxDatassBorder.data){
-		maxMaxs = maxDataBorder.data;
-	}else{
-		maxMaxs = maxDatassBorder.data;
-	}
-	var maxDissa = parseInt(maxMaxs).toString().length-1;
-	var maxDisa = Math.pow(10,maxDissa);
-	var maxDataa = (parseInt(maxMaxs / maxDisa) + 1) * maxDisa;
 	//计算所有的纵坐标的总和
 	totalAllData = 0;
 	for(var i=0;i<allDataY.length;i++){
@@ -949,15 +850,6 @@ function getOfficeData(){
 	for(var i=0;i<allDatassY.length;i++){
 		totalAllDatass += parseInt(allDatassY[i]);
 	}
-	//确定柱折图的总和的边界值
-	if( totalAllData >= totalAllDatas){
-		maxMaxLine = totalAllData
-	}else{
-		maxMaxLine = totalAllDatas
-	}
-	var maxDissLine = parseInt(maxMaxLine).toString().length-1;
-	var maxDisLine = Math.pow(10,maxDissLine);
-	var maxDatLine = (parseInt(maxMaxLine / maxDisLine) + 1) * maxDisLine;
 	//总电div
 	$('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
 	$('.huanbizhi').html(totalAllDatas);
@@ -1040,39 +932,34 @@ function getOfficeData(){
 	//环比柱状图
 	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 	option13 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['本期用电','上期用电']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
+				type : 'category',
 				data:allDataX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量',
-				min: 0,
-				max: maxData,
-				interval: maxDis,
-				axisLabel: {
-					formatter: '{value}'
-				}
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'本期用电',
 				type:'bar',
@@ -1089,54 +976,37 @@ function getOfficeData(){
 	//电-环比分析-柱状图
 	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
 	option14 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
 		},
 		legend: {
 			data:['比较斜率', '累计值']
 		},
 		toolbox: {
-			show: true,
-			feature: {
-				dataView: {readOnly: false},
-				restore: {},
-				saveAsImage: {}
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
 			}
 		},
-		xAxis: [
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				boundaryGap: true,
-				data:['本期','上期']
-			},
-			{
-				type: 'category',
-				boundaryGap: true,
-				data: ['本期','上期']
+				type : 'category',
+				data : ['本期','上期']
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
-			},
-			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'累计值',
 				type:'bar',
-				xAxisIndex: 1,
-				yAxisIndex: 1,
 				data:[totalAllData,totalAllDatas]
 			},
 			{
@@ -1150,39 +1020,34 @@ function getOfficeData(){
 	//电-同比分析-柱折图
 	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
 	option15 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['本期用电','上期用电']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				data:allDataX
+				type : 'category',
+				data : allDataX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量',
-				min: 0,
-				max: maxDataa,
-				interval: maxDisa,
-				axisLabel: {
-					formatter: '{value}'
-				}
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
 				name:'本期用电',
 				type:'bar',
@@ -1199,58 +1064,41 @@ function getOfficeData(){
 	//电-同比分析-柱状图
 	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
 	option16 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
 		},
 		legend: {
 			data:['比较斜率', '累计值']
 		},
 		toolbox: {
-			show: true,
-			feature: {
-				dataView: {readOnly: false},
-				restore: {},
-				saveAsImage: {}
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
 			}
 		},
-		xAxis: [
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				boundaryGap: true,
-				data:['本期','上期']
-			},
-			{
-				type: 'category',
-				boundaryGap: true,
-				data: ['本期','上期']
+				type : 'category',
+				data : ['本期','上期']
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
-			},
-			{
-				type: 'value',
-				scale: true,
-				name: '用量',
-				max: maxDatLine,
-				min: 0
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
-				name:'累计值',
+				name:'蒸发量',
 				type:'bar',
-				xAxisIndex: 1,
-				yAxisIndex: 1,
 				data:[totalAllData,totalAllDatass]
 			},
 			{
-				name:'比较斜率',
+				name:'降水量',
 				type:'line',
 				data:[totalAllData,totalAllDatass]
 			}

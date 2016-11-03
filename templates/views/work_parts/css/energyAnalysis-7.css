@@ -65,10 +65,11 @@
 	border-bottom: 1px solid #ccc;
 }
 .right-header-right{
-	width: 230px !important;
+	width: 80px !important;
 	height: 30px;
 	float: right;
 	margin-bottom: 0px;
+	line-height: 30px;
 }
 .right-header ul:nth-child(1){
 	margin-left: 0;
@@ -77,6 +78,8 @@
 .header-right-lists{
 	float: left;
 	margin-right: 10px;
+	height: 30px;
+	line-height: 30px;
 }
 .header-right-lists-1{
 	width:130px;
