@@ -4,15 +4,15 @@
 var userMonitor = function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    _urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
-    _urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
+    //_urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
+    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
     var _configArg3 = "0";      //配置文件中配置的参数3,取值对应默认选中方案
     var _hasControlAuth = false;      //用户是否有控制的权限
     var _isViewAllProcs = false;       //用户是否可以查看所有的监控方案
-    //_isViewAllProcs = true;  //TODO:临时使用
+    _isViewAllProcs = false;  //是否查看所有数据
 
     var _allProcs;      //全部监控方案
     //当前监控方案的子项目载入标志
@@ -28,7 +28,6 @@ var userMonitor = function(){
     var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
 
     var init = function(){
-
         //获取到存储区的监控配置信息
         if(sessionStorage.menuArg){
             var args = sessionStorage.menuArg.split(",");
@@ -65,7 +64,6 @@ var userMonitor = function(){
     //根据用户名获取当前的监控方案，对应左侧列表
     var getUserProcs = function(){
         var userName = sessionStorage.userName;     //获取当前用户名
-        userName = "mrf";   //TODO: 临时
         if(_isViewAllProcs){    //访问全部的监控方案
             getProcs();
         }else{              //根据用户名获取当前用户能查看的监控方案Id
@@ -436,15 +434,28 @@ var userMonitor = function(){
 
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){
-                    //TODO:设置查看历史数据
+                    $spanDef.attr("data-prdefid",curProcDef.prDefId);
+                    $spanDef.on("contextmenu",function(){
+                        var e = window.event || event;
+                        e.preventDefault();
+                        var curprDefId1 = $(this).attr("data-prdefid");
+                        var curProcDef1 = _.findWhere(_procDefs,{ "prDefId" : curprDefId1});
+                        sessionStorage.historyData_ProcDef = JSON.stringify(curProcDef1);
+                        var rBtnPos = getMousePos();
+                        setContextMenuVisible(true,rBtnPos[0],rBtnPos[1]);
+                    });
+
                 }
                 var curText = curPD.renderExprResult;
+
+                if(curText && curText.indexOf("\n")>=0){
+                    curText = curText.replace("\n","<br>");
+                }
 
                 var $Img = $("<img>");      //当前def的图片
                 var $Txt = $("<span>");     //当前def的文本
                 if(curProcDef.cType == 166){   //判断是不是链接，是链接使用a元素
                     $Txt.css("text-decoration","underline");
-                    //$Txt.css("cursor","pointer");
                 }
                 $Txt.html(curText);
 
@@ -673,7 +684,6 @@ var userMonitor = function(){
             }else if(_configArg1 == "1"){       //按照指定方案列表获取
                 procLVs = _.sortBy(_allProcs,"procOrder");
                 setProcList(procLVs,_curProc); //第一次加载，或者导航的对象不存在，那么默认进入第一级展示 ,否则选中当前的
-
             }else if(_configArg1 == "2"){          //混合模式
                 if(!_curProc){       //第一次加载，或者导航的对象不存在，默认进去第一级
                     tmpprocLVs = _.where(_allProcs,{"pubProcLv":0,"pubProcType":_configArg2});
@@ -704,7 +714,7 @@ var userMonitor = function(){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
         var $contentmain = $("#content-main-right");
         var $divCtrls = setCtrlPanel($contentmain,left,top);
-        $divCtrls.css({"width" : "160px","height" : "120px"});
+
         var curCtrls = _.filter(_procCtrls,function(ctrl){ return ctrl.prDefId==prDefID});      //字符串无法转成long型数字
         curCtrls = _.sortBy(curCtrls,function(ctrl){return -ctrl.showOrder});       //按照显示顺序从大到小排序
         if(!isAir){         //非空调温控按钮的情况，如果没有控制，则不绘制
@@ -725,6 +735,7 @@ var userMonitor = function(){
         $table.append($caption);
         if(!isAir){
             if(ccCount<3){
+                $divCtrls.css({"width" : "160px","height" : "120px"});
                 var baseWidth = 79, baseHeight = 38;       //基础宽高
                 var $tr = $("<tr>");
                 for(var i=0;i<ccCount;i++){
@@ -748,6 +759,7 @@ var userMonitor = function(){
                     }
                     $table.append($tr);
                 }
+                $divCtrls.css({"width" : "160px","height" : (ccCount / 3 * 40 + 80) + "px"});   //80为多一行+标题行
             }
         }else{      //空调面板
             var baseWidth = 39,baseHeight = 38;       //基础宽高
@@ -763,6 +775,7 @@ var userMonitor = function(){
                 }
                 $table.append($tr);
             }
+            $divCtrls.css({"width" : "160px","height" : (15 / 4 * 40 + 40) + "px"});
         }
         $divCtrls.append($table);
         setDivControlsVisible(true);
@@ -790,7 +803,7 @@ var userMonitor = function(){
         if((curProcDef.cType == 133 || curProcDef.cType == 131) && curProcDef.recservicecfgValue){
             $btnOK.attr("data-datatype",curProcDef.recservicecfgValue.dataType);
             if(curProcDef.recservicecfgValue.dataType == 1){        //布尔型
-                $table.css({"width":"300px","height":"200px"});
+                $table.css({"width":"270px","height":"190px;"});
                 var $tr = $("<tr>"),$td = $("<td>");
                 $td.css("text-align","center");
                 var htmlBool = '<span><label>请选择:</label><input type="radio" id="ctrl-panel-on" name="def" value="开">开';
@@ -811,19 +824,22 @@ var userMonitor = function(){
                 $tr1.append($td1);
                 $tr1.appendTo($table);
             }else if(curProcDef.recservicecfgValue.dataType == 5){      //日期
-                $table.css({"width":"300px","height":"200px"});
+                $table.css({"width":"270px","height":"190px"});
                 var $tr = $("<tr>"),$td = $("<td>");
                 $td.css("text-align","center");
                 var htmlTime = "<span>启动时间</span>&nbsp;&nbsp;&nbsp;&nbsp;";
-                htmlTime += "<select id='ctrl-panel-hour'>";
-                for(var i=0;i<24;i++){
-                    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i) + "</option>";
-                }
-                htmlTime += "</select><span>时</span><select id='ctrl-panel-minute'>";
-                for(var i=0;i<60;i++){
-                    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i ) + "</option>"
-                }
-                htmlTime += "</select><span>分</span>"
+                htmlTime += "<input id='ctrl-panel-hour' type='text' maxlength='2' style='width:40px;' autofocus><span>时</span>";
+                htmlTime += "<input id='ctrl-panel-minute' type='text' maxlength='2' style='width:40px;'><span>分</span>";
+                htmlTime += "<br><span style='color:red;'>填写格式:(00-23)时(00-59)分</span>";
+                //htmlTime += "<select id='ctrl-panel-hour'>";
+                //for(var i=0;i<24;i++){
+                //    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i) + "</option>";
+                //}
+                //htmlTime += "</select><span>时</span><select id='ctrl-panel-minute'>";
+                //for(var i=0;i<60;i++){
+                //    htmlTime += "<option>" + (i > 9 ? "" + i : "0" + i ) + "</option>"
+                //}
+                //htmlTime += "</select><span>分</span>"
                 $td.append(htmlTime);
                 $tr.append($td);
                 $tr.appendTo($table);
@@ -861,24 +877,32 @@ var userMonitor = function(){
                 var taVal = $("#ctrl-panel-textarea").val();
                 if(taVal == +taVal){       //判断是否数字
                     taVal = parseFloat(taVal);
-                    if(taVal > curDef.recservicecfgValue.minValue && taVal < curDef.recservicecfgValue.maxValue){       //输入了合法范围的数字
+                    if(taVal >= curDef.recservicecfgValue.minValue && taVal <= curDef.recservicecfgValue.maxValue){       //输入了合法范围的数字
                         isClosePanel = true;
                         curInputData = taVal * curDef.recservicecfgValue.cofA + parseFloat(curDef.recservicecfgValue.cofB);
                     }else{
                         alertMessage("请输入有效范围的参数!");
+                        return;
                     }
                 }else{
                     alertMessage("请输入有效的数字!");
+                    return;
                 }
             }else if(curDataType == 5){         //时间
-                var hour = $("#ctrl-panel-hour").find("option:selected").val();
-                var minute = $("#ctrl-panel-minute").find("option:selected").val();
-                isClosePanel = true;
-                curInputData = hour + minute;
+                var hour = $("#ctrl-panel-hour").val();
+                var minute = $("#ctrl-panel-minute").val();
+                if(hour.match(/[0-1]\d|2[0-3]/g) && minute.match(/\d|[0-5]\d/g)){
+                    isClosePanel = true;
+                    curInputData = hour + minute;
+                }else{
+                    alertMessage("请输入正确的时间");
+                    return;
+                }
             }else{      //字符串
                 curInputData = $("#ctrl-panel-textarea").val();
                 if(!curInputData){
                     alertMessage("请输入参数!");
+                    return;
                 }else{
                     isClosePanel = true;
                 }
@@ -971,7 +995,7 @@ var userMonitor = function(){
                         $.ajax({
                            type:"post",
                             data: {
-                                "value": taval,
+                                "value": taVal,
                                 "id": _GlobalPara.id,
                                 "type": _GlobalPara.type
                             },
@@ -998,27 +1022,45 @@ var userMonitor = function(){
     }
 
     //设置主面板的点击事件，隐藏面板
-    function setMainClick($contentmain){//鼠标移除隐藏事件
+    function setMainClick($contentmain,panelId){//鼠标移除隐藏事件
         $contentmain.unbind("click");
-        $contentmain.on("click",function(){
-            var e= event || window.event;
-            var mLeft = e.clientX,mTop = e.clientY;     //鼠标位置
-            var divCtrl = document.getElementById("content-ctrls");
-            if(divCtrl){        //计算鼠标位置是不是在当前的控制框内，如果不在隐藏
-                var rect = divCtrl.getBoundingClientRect();
-                if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
-                    setDivControlsVisible(false);
+        if(panelId === 'content-ctrls'){
+            $contentmain.on("click",function(){
+                var e= event || window.event;
+                var mLeft = e.clientX,mTop = e.clientY;     //鼠标位置
+                var divCtrl = document.getElementById("content-ctrls");
+                if(divCtrl){        //计算鼠标位置是不是在当前的控制框内，如果不在隐藏
+                    var rect = divCtrl.getBoundingClientRect();
+                    if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
+                        setDivControlsVisible(false);
+                        setContextMenuVisible(false);       //隐藏掉当前的控件面板或者右键菜单
+                    }
                 }
-            }
-        });
+            });
+        }else if(panelId === 'content-menu'){
+            $contentmain.on("click",function(){
+                var e= event || window.event;
+                var mLeft = e.clientX,mTop = e.clientY;     //鼠标位置
+                var divCtrl = document.getElementById("content-menu");
+                if(divCtrl){        //计算鼠标位置是不是在当前的控制框内，如果不在隐藏
+                    var rect = divCtrl.getBoundingClientRect();
+                    if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
+                        setContextMenuVisible(false);
+                        setDivControlsVisible(false);       //隐藏掉当前的控件面板或者右键菜单
+                    }
+                }
+            });
+        }
     }
+
+
     //初始设置控制面板
     function setCtrlPanel($contentmain,left,top){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
         var $divCtrls = $("#content-ctrls");
         if($divCtrls.length == 0){
-            $divCtrls = $("<div>");
-            $divCtrls.attr('id','content-ctrls');
+            $divCtrls = $("<div id='content-ctrls'>");
+            //$divCtrls.attr('id','content-ctrls');
             $divCtrls.appendTo($contentmain);
         }
         $divCtrls.css({     //将顶点减一保证鼠标当前在控制面板的范围内
@@ -1129,11 +1171,13 @@ var userMonitor = function(){
     //显示或者隐藏控制按钮的承载div
     var setDivControlsVisible = function(flag){
         var $divCtrls = $("#content-ctrls");
-        if(flag){
+        if($divCtrls.length === 0) {return;}
+        if(flag){       //打开控制面板
+            setContextMenuVisible(false);       //隐藏掉可能的右键菜单
             $divCtrls.removeClass("content-ctrls-hide");
             $divCtrls.addClass("content-ctrls-show");
-            setMainClick($("#content-main-right"));     //设置鼠标事件来显示或者隐藏当前控制面板
-        }else{
+            setMainClick($("#content-main-right"),'content-ctrls');     //设置鼠标事件来显示或者隐藏当前控制面板
+        }else{      //关闭控制面板
             $divCtrls.removeClass("content-ctrls-show");
             $divCtrls.addClass("content-ctrls-hide");
             $("#content-main-right").unbind("click");
@@ -1166,6 +1210,39 @@ var userMonitor = function(){
             }
         }
     }
+    //显示右键菜单
+    function setContextMenuVisible(flag,left,top){
+        var $contextMenu = $("#content-menu");
+        if(flag){       //打开菜单
+            if($contextMenu.length === 0){
+                $contextMenu = $("<div id='content-menu'><button class='btn btn-default' id='monitor-hisdata'>历史数据</button></div>")
+                $contextMenu.appendTo($('#content-main-right'));
+                //历史数据的打开
+                $("#monitor-hisdata").on("click",function(){
+                    setContextMenuVisible(false);
+                    var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
+                    var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
+                    window.open("MHisData.html?mflag=" + curDef.prDefId,"",
+                        "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
+                });
+            }
+            $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
+                "left" : (left - 1) + "px",
+                "top"  : (top - 1) + "px"
+            });
+            setDivControlsVisible(false);       //隐藏掉可能的控制面板
+            $contextMenu.removeClass("content-menu-hide");
+            $contextMenu.addClass("content-menu-show");
+            setMainClick($("#content-main-right"),'content-menu');     //设置鼠标事件来显示或者隐藏当前控制面板
+        }else{
+            if($contextMenu.length === 0) {return;}     //关闭菜单
+            $contextMenu.removeClass("content-menu-show");
+            $contextMenu.addClass("content-menu-hide");
+            $("#content-main-right").unbind("click");
+        }
+    }
+
+
 
     function alertMessage(msg){
         alert(msg);
@@ -1174,6 +1251,8 @@ var userMonitor = function(){
     function logAjaxError(funcName,err){
         console.log(funcName + ":" + err);
     }
+
+
 
     //init();
     return {
