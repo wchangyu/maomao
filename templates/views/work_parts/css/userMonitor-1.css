@@ -136,14 +136,15 @@
 	position : absolute;
 	background-color: #90b4e8;
 	border:1px solid grey;
+	padding:2px;
 	display:block;
 }
 
 .content-menu-show>button{
 	width:80px;
-	height:24px;
 	background-color:#09a4d8;
 	color:#0000FF;
+	line-height: 24px;
 }
 
 .content-menu-hide{

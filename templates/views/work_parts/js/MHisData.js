@@ -1,4 +1,9 @@
 $(function(){
+
+	//开始&结束时间；
+	_startTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+	_endTime = moment().format("YYYY-MM-DD");
+	_curDef = JSON.parse(sessionStorage.historyData_ProcDef);
 	//时间插件
 	$('#datepicker').datepicker(
 		{
@@ -8,6 +13,7 @@ $(function(){
 			format: 'yyyy-mm-dd'
 		}
 	);
+
 	$('.L-content-tip').click(function(){
 		$('.L-content-tip').css({
 			borderBottom:'1px solid #a7adad'
@@ -23,7 +29,7 @@ $(function(){
 		})
 	})
 	//时间处理
-	$('#datepicker').val(startTime);
+	$('#datepicker').val(_startTime);
 	$('.btn').eq(0).click(function(){
 		var dataValue = $('#datepicker').val();
 		var dataValues = moment(dataValue).add(1,'d').format('YYYY-MM-DD');
@@ -32,33 +38,34 @@ $(function(){
 		var startTimes = dataSplit[0] + '/' + dataSplit[1] + '/' + dataSplit[2];
 		var endTimes = dataSplits[0] + '/' + dataSplits[1] + '/' + dataSplits[2];
 		//开始&结束时间赋值；
-		startTime  = startTimes;
-		endTime = endTimes;
+		_startTime  = startTimes;
+		_endTime = endTimes;
 		getDatas();
 	})
+	getDatas();
 })
-//开始&结束时间；
-var startTime = moment().subtract(1,'d').format("YYYY-MM-DD");
-var endTime = moment().format("YYYY-MM-DD");
-//选取的id
-var jsonText=JSON.parse(sessionStorage.getItem('historyData_ProcDef'));
-var dataId = jsonText.dType + "+" + jsonText.dKId;
+
+
 //获取数据；
 function getDatas(){
+	$('.L-content-header').html(_curDef.prDefNM + "(" + _startTime + "到" + _endTime + ")");
+	var dataId = _curDef.dType + "+" + _curDef.dkId;
 	var prm = {
 		dkid : dataId,
-		st : startTime,
-		et : endTime,
-	}
+		st : _startTime,
+		et : _endTime,
+	};
+	var url = sessionStorage.apiUrlPrefix;
+	//url = 'http://localhost/BEEWebApi/api/';		//临时
 	$.ajax({
 		type:'post',
-			url:'',
+			url:url + 'pr/pr_GetPRInstHistoryData',
 			data:prm,
-			async:false,
 			beforeSend:function(){
             	$('.L-loadding').show();
         	},
-			success:function(result){
+			success:function(data){
+				console.log(data);
 				$('.L-loadding').hide();
 			}
 	})

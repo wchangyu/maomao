@@ -4,8 +4,8 @@
 var userMonitor = function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    _urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
-    _urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
+    //_urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
+    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
@@ -1033,7 +1033,7 @@ var userMonitor = function(){
                     var rect = divCtrl.getBoundingClientRect();
                     if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
                         setDivControlsVisible(false);
-                        setContextMenuVisible(false);
+                        setContextMenuVisible(false);       //隐藏掉当前的控件面板或者右键菜单
                     }
                 }
             });
@@ -1046,7 +1046,7 @@ var userMonitor = function(){
                     var rect = divCtrl.getBoundingClientRect();
                     if(mLeft<rect.left || mLeft>rect.right || mTop<rect.top || mTop>rect.bottom){
                         setContextMenuVisible(false);
-                        setDivControlsVisible(false);
+                        setDivControlsVisible(false);       //隐藏掉当前的控件面板或者右键菜单
                     }
                 }
             });
@@ -1172,11 +1172,12 @@ var userMonitor = function(){
     var setDivControlsVisible = function(flag){
         var $divCtrls = $("#content-ctrls");
         if($divCtrls.length === 0) {return;}
-        if(flag){
+        if(flag){       //打开控制面板
+            setContextMenuVisible(false);       //隐藏掉可能的右键菜单
             $divCtrls.removeClass("content-ctrls-hide");
             $divCtrls.addClass("content-ctrls-show");
             setMainClick($("#content-main-right"),'content-ctrls');     //设置鼠标事件来显示或者隐藏当前控制面板
-        }else{
+        }else{      //关闭控制面板
             $divCtrls.removeClass("content-ctrls-show");
             $divCtrls.addClass("content-ctrls-hide");
             $("#content-main-right").unbind("click");
@@ -1212,25 +1213,29 @@ var userMonitor = function(){
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){
         var $contextMenu = $("#content-menu");
-        if(flag){
+        if(flag){       //打开菜单
             if($contextMenu.length === 0){
                 $contextMenu = $("<div id='content-menu'><button class='btn btn-default' id='monitor-hisdata'>历史数据</button></div>")
                 $contextMenu.appendTo($('#content-main-right'));
                 //历史数据的打开
                 $("#monitor-hisdata").on("click",function(){
                     setContextMenuVisible(false);
-                    window.open("MHisData.html","hisdata","height=600,width=700,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
+                    var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
+                    var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
+                    window.open("MHisData.html?mflag=" + curDef.prDefId,"",
+                        "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
                 "left" : (left - 1) + "px",
                 "top"  : (top - 1) + "px"
             });
+            setDivControlsVisible(false);       //隐藏掉可能的控制面板
             $contextMenu.removeClass("content-menu-hide");
             $contextMenu.addClass("content-menu-show");
             setMainClick($("#content-main-right"),'content-menu');     //设置鼠标事件来显示或者隐藏当前控制面板
         }else{
-            if($contextMenu.length === 0) {return;}
+            if($contextMenu.length === 0) {return;}     //关闭菜单
             $contextMenu.removeClass("content-menu-show");
             $contextMenu.addClass("content-menu-hide");
             $("#content-main-right").unbind("click");
