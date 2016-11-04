@@ -728,4 +728,6 @@ function getOfficeData(){
 	};
 	myChart11.setOption(option11);
 
+
+
 }

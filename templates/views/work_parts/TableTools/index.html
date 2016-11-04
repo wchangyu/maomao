@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<table class="table table-bordered" id="aa">
+  		<caption>边框表格布局</caption>
+		  <thead>
+		    <tr>
+		      <th>名称</th>
+		      <th>城市</th>
+		      <th>密码</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>Tanmay</td>
+		      <td>Bangalore</td>
+		      <td>560001</td>
+		    </tr>
+		    <tr>
+		      <td>Sachin</td>
+		      <td>Mumbai</td>
+		      <td>400003</td>
+		    </tr>
+		    <tr>
+		      <td>Uma</td>
+		      <td>Pune</td>
+		      <td>411027</td>
+		    </tr>
+		  </tbody>
+	</table>
+	<button class="btn btn-success">导出表格</button>
+	<script>
+		toExcel: function (id) {
+	        $("#" + id).dataTable({
+	            "bJQueryUI": false,
+	            'bPaginate': false, //是否分页
+	            "bRetrieve": false, //是否允许从新生成表格
+	            "bInfo": false, //显示表格的相关信息
+	            "bDestroy": true,
+	            "bServerSide": false,
+	            "bProcessing": true, //当处理大量数据时，显示进度，进度条等
+	            "bFilter": false, //搜索框
+	            "bLengthChange": false, //动态指定分页后每页显示的记录数
+	            "bSort": false, //排序
+	            "bStateSave": false, //缓存
+	            "sAjaxDataProp": "data",
+	            "sDom": 'T<"clear">lfrtip'
+	            "oTableTools": {
+	                "sSwfPath": "./swfwf/copy_csv_xls_pdf.swf"
+	            }
+	        } );
+    	} 
+	</script>
+</body>
+</html>

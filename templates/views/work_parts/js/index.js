@@ -564,15 +564,7 @@ function PointerCharge(){
                         data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
                         itemStyle: {
                             normal: {
-                                color: function(params2) {
-
-                                    var colorList = [
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf'
-                                    ];
-                                    return colorList[params2.dataIndex]
-                                }
+                                color: '#91bbaf'
                             }
                         }
                     }
