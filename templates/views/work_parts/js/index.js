@@ -1,16 +1,4 @@
 $(function(){
-    /*$('.menu-toggler').click(function(){
-        var aaas = $('.page-sidebar-wrapper .page-sidebar').css('display');
-        console.log(aaas)
-        if(aaas == 'block'){
-            $('.page-sidebar-wrapper .page-sidebar').css({'display':'none!important'});
-            console.log($('.page-sidebar-wrapper .page-sidebar'));
-            $('.page-sidebar-wrapper .page-sidebar').removeClass('in');
-        }else{
-            $('.page-sidebar-wrapper .page-sidebar').css('display','block!important');
-        }
-    })*/
-    //$('.page-sidebar-wrapper .page-sidebar').attr('aria-expanded','false');
     //上日上年标题部分
     $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
     $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
@@ -576,15 +564,7 @@ function PointerCharge(){
                         data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
                         itemStyle: {
                             normal: {
-                                color: function(params2) {
-
-                                    var colorList = [
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf'
-                                    ];
-                                    return colorList[params2.dataIndex]
-                                }
+                                color: '#91bbaf'
                             }
                         }
                     }

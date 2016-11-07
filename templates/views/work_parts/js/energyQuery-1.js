@@ -250,7 +250,6 @@ function getBranches() {
 			data: bmParams,
 			async:false,
 			success: function (data) {
-				console.log(data);
 				if(data.length == 0){	//没有数据时候跳出,清除树
 					var lastTree = $.fn.zTree.getZTreeObj("energyConsumption");
 					if(lastTree) { lastTree.destroy(); }

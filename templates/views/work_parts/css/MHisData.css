@@ -88,7 +88,8 @@
 	border: 1px solid #a7adad;
 	border-top-radius: 0px;
 	background: #ffffff;
-	padding: 10px;
+	position: absolute;
+	width: 660px;
 }
 .L-clearfix{
 	clear: both;
@@ -97,11 +98,11 @@
 	height: 29px;
 }
 .L-content-block-main{
-	border: 1px solid #a7adad;
-	height: 310px; 
-}
-.L-content-block-main:nth-child(2){
-	display: none;
+	height: 310px;
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	left:0px;
 }
 .L-loadding{
 	width: 100%;
@@ -109,4 +110,25 @@
 	background: url(../img/loading.gif)no-repeat;
 	background-position: center;
 	background-size: 150px;
+}
+#echartImg{
+	width: 100%;
+	height: 100%;
+}
+.shows{
+	opacity: 1;
+	z-index: 1;
+}
+.hiddens{
+	opacity: 0;
+	z-index: 0;
+}
+.L-content-block-main:nth-child(2){
+	overflow-y: scroll;
+}
+th,td{
+	text-align: center !important;
+}
+#datatables_wrapper{
+	margin-top: 20px;
 }

@@ -62,9 +62,11 @@ $(function(){
 	getEcType();
 	getEcTypeWord();
 	getPointerDatas();
+	setEnergyInfos();
 	$('.btns1').click(function(){
 		getEcType();
 		getEcTypeWord();
+		setEnergyInfos();
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
 			getOfficeDatas();
@@ -78,7 +80,6 @@ $(function(){
 	$('.top-header-lists').click(function(){
 		$('.top-header-lists').removeClass('top-header-listss');
 		$(this).addClass('top-header-listss');
-		//alert($(this).index())
 		$(".rheader-contents").css({
 			'z-index':5,
 			'opacity':1
@@ -103,10 +104,19 @@ window.onresize = function () {
 		myChart46.resize();
 	}
 }
-//标记选择的是12周还是52月；(0的时候是12月，1的时候的52周)
 //时间（当前时间12个月）
 var currentDate = moment().format('YYYY/MM/DD');
 var currentDates = moment().format('YYYY-MM-DD');
+//根据当前选择的能耗类型设置页面信息
+function setEnergyInfos(){
+	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+	for(var i=0;i<jsonText.alltypes.length;i++){
+		console.log(_ajaxEcType)
+		if(jsonText.alltypes[i].etid == _ajaxEcType){
+			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+		}
+	}
+}
 //选中的能耗种类
 var _ajaxEcType="01";
 function getEcType(){
@@ -117,7 +127,6 @@ function getEcType(){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
 	_ajaxEcType = aaa[$('.selectedEnergy').index()];
-	console.log(_ajaxEcType);
 }
 //设置getECType的初始值(文字，office时用);
 var _ajaxEcTypeWord="电";
@@ -137,9 +146,6 @@ function getPointerDatas(){
 	var dataWeekX = [];
 	var dataMonthY = [];
 	var dataWeekY = [];
-	//存放最大的y轴值；
-	var MonthmaxData = 0;
-	var WeekmaxData = 0;
 	var pts = _objectSel.getSelectedPointers();
 	if(pts.length>0) {
 		pointerID = pts[0].pointerID;
@@ -166,7 +172,6 @@ function getPointerDatas(){
 		for(var j=0;j<datas.length;j++){
 			dataMonthX.push(datas[j].dataRange);
 			dataMonthY.push(datas[j].data);
-			MonthmaxData = _.max(datas,function(d){return d.data});
 		}
 	}
 	for(var i=0;i<dataWeekData.length;i++){
@@ -174,60 +179,40 @@ function getPointerDatas(){
 		for(var j=0;j<datas.length;j++){
 			dataWeekX.push(datas[j].dataRange);
 			dataWeekY.push(datas[j].data);
-			WeekmaxData = _.max(datas,function(d){return d.data});
 		}
 	}
-	//确定逐12月的最大值
-	var maxDiss = parseInt(MonthmaxData.data).toString().length-1;
-	var maxDis = Math.pow(10,maxDiss);
-	var maxData = (parseInt(MonthmaxData.data / maxDis) + 1) * maxDis;
 	myChart46 = echarts.init(document.getElementById('rheader-content-46'));
 	option46 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['用电量']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				data: dataMonthX
+				type : 'category',
+				data : dataMonthX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量 kWh',
-				min: 0,
-				max: maxData,
-				interval: maxDis,
-				axisLabel: {
-					formatter: '{value}'
-				}
-			},
-			{
-				type: 'value',
-				name: '变化趋势',
-				min: 0,
-				max: maxData,
-				interval: maxDis,
-				axisLabel: {
-					formatter: '{value}'
-				}
+				type : 'value'
 			}
 		],
-		series: [
+		series : [
 			{
-				name:'用电量 kWh',
+				name:'用电量',
 				type:'bar',
 				data:dataMonthY,
 				itemStyle: {
@@ -242,68 +227,46 @@ function getPointerDatas(){
 					}
 				}
 			},
-
 			{
 				name:'用电趋势',
 				type:'line',
-				yAxisIndex: 1,
 				data:dataMonthY
 			}
 		]
 	};
 	myChart46.setOption(option46);
-	//确定逐52周的最大值
-	var maxDissa = parseInt(WeekmaxData.data).toString().length-1;
-	var maxDisa = Math.pow(10,maxDissa);
-	var maxDataa = (parseInt(WeekmaxData.data / maxDisa) + 1) * maxDis ;
-	//console.log(maxDataa)
 	myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 	option45 = {
-		tooltip: {
+		tooltip : {
 			trigger: 'axis'
-		},
-		toolbox: {
-			feature: {
-				dataView: {show: true, readOnly: false},
-				magicType: {show: true, type: ['line', 'bar']},
-				restore: {show: true},
-				saveAsImage: {show: true}
-			}
 		},
 		legend: {
 			data:['用电量']
 		},
-		xAxis: [
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
 			{
-				type: 'category',
-				data: dataWeekX
+				type : 'category',
+				data : dataWeekX
 			}
 		],
-		yAxis: [
+		yAxis : [
 			{
-				type: 'value',
-				name: '用电量 kWh',
-				min: 0,
-				max: maxDataa,
-				interval: maxDisa,
-				axisLabel: {
-					formatter: '{value}'
-				}
-			},
-			 {
-				 type: 'value',
-				 name: '变化趋势',
-				 min: 0,
-				 max: maxDataa,
-				 interval: maxDisa,
-				 axisLabel: {
-				 formatter: '{value}'
-				 }
-			 }
+				type : 'value'
+			}
 		],
-		series: [
+		series : [
 			{
-				name:'用电量 kWh',
+				name:'用电量',
 				type:'bar',
 				data:dataWeekY,
 				itemStyle: {
@@ -318,13 +281,11 @@ function getPointerDatas(){
 					}
 				}
 			},
-
-			 {
-			 name:'用电趋势',
-			 type:'line',
-			 yAxisIndex: 1,
-			 data:dataWeekY
-			 }
+			{
+				name:'用电趋势',
+				type:'line',
+				data:dataWeekY
+			}
 		]
 	};
 	myChart45.setOption(option45);
@@ -351,15 +312,4 @@ function getOfficeDatas(){
 			console.log(result)
 		}
 	})
-}
-//单位转换
-function unitConversion(num){
-	if(num>10000){
-		num= num/10000;
-		num=num.toFixed(2);
-		var num_=num + '万';
-		return num_;
-	}else{
-		return num.toFixed(2);
-	}
 }
