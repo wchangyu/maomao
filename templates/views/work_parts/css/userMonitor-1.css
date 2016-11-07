@@ -25,6 +25,7 @@
 }
 
 .content-main-left{
+	display:block;
 	width: 250px;
 	height: 100%;
 	border: 1px solid #ccc;
@@ -49,14 +50,16 @@
 	padding:10px;
 	cursor: pointer;
 	text-align: center;
-	margin: 0 50px;
+	margin: 0 10px;
 	border-bottom: 1px solid #ccc;
 } 
 .content-main-left li:hover{
 	color: rgb(255, 192, 0); 
 }
 .chooseFunction{
-	margin-top: 50px;
+	margin-top: 10px;
+	margin-left:6px;
+	min-width: 250px;
 }
 .functions{
 	display: inline-block;
@@ -66,6 +69,10 @@
 	margin: 4px;
 	border: 1px solid #ccc;
 	cursor: pointer;
+}
+
+.functions:hover{
+	border-color:red;
 }
 
 
@@ -155,4 +162,20 @@
 	height:30px;
 	width: 100px;
 	background-color: #00a5bb;
+}
+
+.list-group{
+	padding-left:0;
+	margin-top:0;
+	display:block;
+	list-style-type: disc;
+}
+
+.list-group-item{
+
+}
+
+.list-group .selected{
+	border-left-width: 4px;
+	border-color:red;
 }

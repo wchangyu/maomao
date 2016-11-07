@@ -1,11 +1,10 @@
 /**
  * Created by went on 2016/8/2.
  */
-var userMonitor = function(){
+var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    //_urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
-    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
+    _urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
@@ -26,6 +25,10 @@ var userMonitor = function(){
     var _defInsDataResults; //实时数据进行刷新时使用
 
     var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
+
+    var _originPageWidth = 0,_originPageHeight = 0;
+    const _leftWidth = 250;
+
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -53,12 +56,18 @@ var userMonitor = function(){
         });
         //刷新数据
         $(".functions-4").click(function(){
-            if(!_isInstDataLoading){
-                getInstDatasByIds();
-            }
+            refreshData();
         });
-
+        var $pageContext = $(".page-content");
+        _originPageWidth = $pageContext.width();
+        _originPageHeight = $pageContext.height();
         this.getUserProcs();
+    }
+    //刷新数据
+    var refreshData = function(){
+        if(!_isInstDataLoading){
+            getInstDatasByIds();
+        }
     }
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -108,8 +117,8 @@ var userMonitor = function(){
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
-                $ul.append($("<li>",{text:procs[i].procName}).on("click",(function(procId){
-                    return function() {initializeProcSubs(procId);};
+                $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                    return function() {initializeProcSubs(procId);selectLi($(this));};
                 })(procs[i].procID)));
             }
             curProc = curProc || procs[0];
@@ -123,15 +132,20 @@ var userMonitor = function(){
                             curProc = curProc || obj;
                             isProcFind = true;
                         }
-                        $("<li>",{text:obj.procName }).appendTo($ul);
-                        $ul.append($("<li>",{text:obj.procName}).on("click",(function(procId){ return function() {initializeProcSubs(procId);}; })(obj.procId)));
+                        //$("<li class='list-group-item'>",{text:obj.procName }).appendTo($ul);
+                        $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                            return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procId)));
                     }
                 }
             }
         }
         initializeProcSubs(curProc.procID);//选中默认的监控
-        //TODO: 处理当前的li选中情况,css的变动
+        selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+    }
 
+    function selectLi($li){
+        $(".list-group-item").removeClass("selected");
+        $li.addClass("selected");
     }
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
@@ -284,16 +298,28 @@ var userMonitor = function(){
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
                     $divMain.css("width", proc.procStyle.imageSizeWidth);
-                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + 250);
+                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + _leftWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
+                    if((imgWidth + _leftWidth) > _originPageWidth){
+                        $(".page-content").width(imgWidth + _leftWidth);
+                    }else{
+                        $(".page-content").width(_originPageWidth);
+                    }
                 }else{
                     $divMain.css("width", 1330);
+                    if((1330 + _leftWidth) > _originPageWidth){
+                        $(".page-content").width(1330 + _leftWidth);
+                    }else{
+                        $(".page-content").width(_originPageWidth);
+                    }
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
                     $divMain.css("height",proc.procStyle.imageSizeHeight);
                     imgHeight = proc.procStyle.imageSizeHeight;
+                    $(".content-main-left").css("height",imgHeight);
                 }else{
                     $divMain.css("height",1051);
+                    $(".content-main-left").css("height",1051);
                 }
                 if(proc.procStyle.backColorRGB && proc.procStyle.backColorRGB.length == 8){
                     $divMain.css("background-color","#" + proc.procStyle.backColorRGB.substr(2,6));
@@ -1252,11 +1278,41 @@ var userMonitor = function(){
         console.log(funcName + ":" + err);
     }
 
-
-
     //init();
     return {
         init:init,
         getUserProcs:getUserProcs
     };
-}();
+})();
+
+$(function(){
+    $('.showOrHidden').click(function(){
+        var o1 = $(".content-main-left").css("display");
+        if(o1 == 'block'){
+            $('.content-main-left').css({
+                display:'none'
+            })
+            $('.content-main-right').animate({
+                'margin-left':'0px'
+            },100)
+            $('.showOrHidden').css({
+                'background':'url("./work_parts/img/show.png")no-repeat',
+                'background-size':'20px',
+                'background-position':'center'
+            })
+        }else if(o1 == 'none'){
+            $('.content-main-left').animate({
+                'width':'250px'
+            },100,function(){
+                $('.content-main-left').css({
+                    display:'block'
+                })
+                $('.showOrHidden').css({
+                    'background':'url("./work_parts/img/hidden.png")no-repeat',
+                    'background-size':'20px',
+                    'background-position':'center'
+                })
+            })
+        }
+    })
+})
