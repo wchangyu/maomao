@@ -1,10 +1,9 @@
 /**
  * Created by went on 2016/8/2.
  */
-var userMonitor = function(){
+var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    //_urlPrefix = "http://211.100.28.180/BEEWebAPI/api/";        //TODO:临时使用
     //_urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
@@ -27,6 +26,12 @@ var userMonitor = function(){
 
     var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
 
+    var _originPageWidth = 0,_originPageHeight = 0;
+    const _leftWidth = 250;
+    const _headHeight = 62;
+    var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
+    var _refreshAction;
+
     var init = function(){
         //获取到存储区的监控配置信息
         if(sessionStorage.menuArg){
@@ -47,6 +52,9 @@ var userMonitor = function(){
                 _isViewAllProcs = true;
             }
         }
+        if(sessionStorage.refreshInterval){
+            _refreshInterval = parseInt(sessionStorage.refreshInterval);
+        }
         //返回首页
         $(".functions-3").click(function(){
             getUserProcs();
@@ -58,7 +66,27 @@ var userMonitor = function(){
             }
         });
 
+        $(".functions-2").click(function(){     //全屏操作
+            var $panel = $(".total-wrap");
+            if($panel.hasClass("monitor-fullscreen")){          //添加transform
+                $panel.removeClass("monitor-fullscreen");
+
+            }else{
+                $panel.addClass("monitor-fullscreen");
+                $panel.css("transform","");
+            }
+        });
+        var $pageContext = $(".page-content");
+        _originPageWidth = $pageContext.width();
+        _originPageHeight = $pageContext.height();
         this.getUserProcs();
+    }
+    //刷新数据
+    var refreshData = function(){
+        if(!_isInstDataLoading && _refreshInterval>0){
+            if(_refreshAction){ clearTimeout(_refreshAction);}
+            _refreshAction = setTimeout(getInstDatasByIds,_refreshInterval * 1000);
+        }
     }
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -73,9 +101,7 @@ var userMonitor = function(){
                     dataType:"json",
                     data:{'':userName},
                     url:_urlPrefix + "PR/GetUserProcbind",
-                    //url:_urlPrefix + "PR/pr_GetAllProcs",
-                    success:function(data){
-                        //返回结果:Sysuserid:用户名;ProcId:监控方案Id
+                    success:function(data){ //返回结果:Sysuserid:用户名;ProcId:监控方案Id
                         _userProcIds = [];
                         for(var d in data){
                             _userProcIds.push(d.ProcId);
@@ -96,7 +122,28 @@ var userMonitor = function(){
             getAllProcsByProcList(_configArg2);
         }else if(_configArg1 == 2){
             getAllProcs();
+        }else if(_configArg1 == 3){
+            var bindKeyId;
+            if(_configArg2 == '2'){       //bindType=2时候代表按照楼宇获取
+                if(sessionStorage.curPointerId){
+                    bindKeyId = sessionStorage.curPointerId;
+                }
+            }
+            if(bindKeyId){
+                getAllProcsByBind(_configArg2,bindKeyId);
+            }
         }
+    }
+    //根据绑定类型和绑定值获取到监控方案列表
+    var getAllProcsByBind = function(bindType,bindKeyId){
+        var prm = {"bindType":bindType,"bindKeyId":bindKeyId};
+        $.ajax({
+            type:"post",
+            data:prm,
+            url:_urlPrefix + "PR/PR_GetAllProcsByBindType",
+            success:function(data){setProcList(data);},
+            error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByBindType",res)}
+        })
     }
 
     //设置左侧的监控方案列表
@@ -108,8 +155,8 @@ var userMonitor = function(){
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
-                $ul.append($("<li>",{text:procs[i].procName}).on("click",(function(procId){
-                    return function() {initializeProcSubs(procId);};
+                $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                    return function() {initializeProcSubs(procId);selectLi($(this));};
                 })(procs[i].procID)));
             }
             curProc = curProc || procs[0];
@@ -123,22 +170,26 @@ var userMonitor = function(){
                             curProc = curProc || obj;
                             isProcFind = true;
                         }
-                        $("<li>",{text:obj.procName }).appendTo($ul);
-                        $ul.append($("<li>",{text:obj.procName}).on("click",(function(procId){ return function() {initializeProcSubs(procId);}; })(obj.procId)));
+                        $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                            return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procId)));
                     }
                 }
             }
         }
         initializeProcSubs(curProc.procID);//选中默认的监控
-        //TODO: 处理当前的li选中情况,css的变动
+        selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+    }
 
+    function selectLi($li){
+        $(".list-group-item").removeClass("selected");
+        $li.addClass("selected");
     }
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
     var getAllProcsByParameter = function(procType,proLv){
         var prms2 = {
-            procType:procType,
-            proLv:proLv
+            "procType":procType,
+            "proLv":proLv
         };
         $.ajax({
             type:"post",
@@ -206,12 +257,6 @@ var userMonitor = function(){
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
         if(!proc) return;
         _curProc = proc;
-        //if(!_curProc){          //判断当前的proc与选择的是否一致，一致则不进行下一步获取sub数据
-        //    _curProc = proc;
-        //}else{
-        //    if(_curProc == proc) return;
-        //    _curProc = proc;
-        //}
 
         var $divContent = $("#content-main-right");
         var $img = $("#imgProc");
@@ -283,17 +328,40 @@ var userMonitor = function(){
                 var $divMain = $("#content-main-right");
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
-                    $divMain.css("width", proc.procStyle.imageSizeWidth);
-                    $(".total-wrap").css("width",proc.procStyle.imageSizeWidth + 250);
+                    $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
+                    console.log(imgWidth);
+                    if((imgWidth + _leftWidth) > _originPageWidth){
+                        $(".page-content").width(imgWidth + _leftWidth);
+                        $(".total-wrap").width(imgWidth + _leftWidth);
+                    }else{
+                        $(".page-content").width(_originPageWidth);
+                        $(".total-wrap").width(_originPageWidth);
+                    }
                 }else{
-                    $divMain.css("width", 1330);
+                    $divMain.width( 1330);
+                    if((1330 + _leftWidth) > _originPageWidth){
+                        $(".page-content").width(1330 + _leftWidth);
+                        $(".total-wrap").width(1330 + _leftWidth);
+                    }else{
+                        $(".page-content").width(_originPageWidth);
+                        $(".total-wrap").width(_originPageWidth);
+                    }
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
-                    $divMain.css("height",proc.procStyle.imageSizeHeight);
+                    $divMain.height(proc.procStyle.imageSizeHeight);
                     imgHeight = proc.procStyle.imageSizeHeight;
+                    $(".content-main-left").height(imgHeight);
+                    if(imgHeight<(_originPageHeight - _headHeight)){
+                        //$(".total-wrap").height(_originPageHeight - _headHeight);
+                        $(".content-main-left").height(_originPageHeight - _headHeight -20);
+                    }else{
+                        $(".content-main-left").height(imgHeight -20);
+                        //$(".total-wrap").height(imgHeight);
+                    }
                 }else{
-                    $divMain.css("height",1051);
+                    $divMain.height(1051);
+                    $(".content-main-left").height(1051);
                 }
                 if(proc.procStyle.backColorRGB && proc.procStyle.backColorRGB.length == 8){
                     $divMain.css("background-color","#" + proc.procStyle.backColorRGB.substr(2,6));
@@ -313,12 +381,9 @@ var userMonitor = function(){
                         img.attr("src",data["imgUrl"]);
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
-                        if(imgWidth){
-                            img.css("width",imgWidth);
-                        }
-                        if(imgHeight){
-                            img.css("height",imgHeight);
-                        }
+                        if(imgWidth){ img.height(imgWidth); }
+                        if(imgHeight){ img.height(imgHeight); }
+                        //TODO:图片的展示方式 curProc.ProcStyle.ImageLayout 无=0，图片重复=1，居中显示=2，拉伸显示=3，比例放大或缩小=4
                         $("#content-main-right").append(img);
                     },
                     error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err) }
@@ -416,8 +481,8 @@ var userMonitor = function(){
             setFlex($spanDef);
             $spanDef.css("position","absolute");
             $spanDef.css("background","rgba(0,0,0,1)");
-            $spanDef.css("width",defWidth);
-            $spanDef.css("height",defHeight);
+            $spanDef.width(defWidth);
+            $spanDef.height(defHeight);
             $spanDef.attr("id",_procDefs[i].prDefId);
             $spanDef.css("left",_procDefs[i].locRX * divContentWidth );
             $spanDef.css("top",_procDefs[i].locRY * divContentHeight);
@@ -468,19 +533,19 @@ var userMonitor = function(){
                 if(curPRR){
                     if(curPRR.showFlag == 1){       //判断前台展示的类型，1为文本，2为图片，3为图片文本
                         $spanTxt.append($Txt);
-                        $spanImg.css("width",0);
-                        $spanTxt.css("width","100%");
+                        $spanImg.width(0);
+                        $spanTxt.width("100%");
                     }else if(curPRR.showFlag == 2){
                         $Img.css({"width":defWidth,"height":defHeight})
                         $spanImg.append($Img);
-                        $spanImg.css("width","100%");
-                        $spanTxt.css("width",0);
+                        $spanImg.width("100%");
+                        $spanTxt.width(0);
                     }else if(curPRR.showFlag == 3){
                         $Img.css({"width":defWidth / 2,"height":defHeight})
                         $spanImg.append($Img);
                         $spanTxt.append($Txt);
-                        $spanImg.css("width","50%");
-                        $spanTxt.css("width","50%");
+                        $spanImg.width("50%");
+                        $spanTxt.width("50%");
                     }
                     $Img.attr("id",curPRR.id + "img");
 
@@ -506,8 +571,7 @@ var userMonitor = function(){
                     if(curPRR.isFontBold) { $Txt.css("font-weight","bold");}
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
-
-                    loadDefImg(curPRR,$Img);
+                    if((curPRR.showFlag == 2 || curPRR.showFlag == 3) && curPRR.imgID) { loadDefImg(curPRR, $Img); }        //如果有图片，载入图片
 
                     //设置外层span(spanImg,spanTxt)的内部元素的对齐
                     function setTextAlignment($ele,align){
@@ -563,33 +627,31 @@ var userMonitor = function(){
                     || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131
                 ){
                     $spanDef.css("cursor","pointer");
-                    $spanDef.on("click",(function(procDef,ele){return function(){ goToProcsByDef(procDef,ele); }})(_procDefs[i],$spanDef));
+                    $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
                 }
             }
             $divContent.append($spanDef);
         }
+        refreshData();
     }
 
     function loadDefImg(curPRR,$Img){
-        if(curPRR.showFlag == 2 || curPRR.showFlag == 3){
-            if(curPRR.imgID){
-                $Img.addClass(curPRR.imgID + "img");
-                    $.ajax({
-                        type:"post",
-                        data:{"" : curPRR.imgID},
-                        url:_urlPrefix + "PR/GetHbProcImage",
-                        success:function(data){
-                            $Img.attr("src",data["imgUrl"]);
-                        },
-                        error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
-                    });
-            }
-        }
+        $Img.addClass(curPRR.imgID + "img");
+        $.ajax({
+            type:"post",
+            data:{"" : curPRR.imgID},
+            url:_urlPrefix + "PR/GetHbProcImage",
+            success:function(data){
+                $Img.attr("src",data["imgUrl"]);
+            },
+            error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
+        });
     }
 
     //根据当前的def跳转到下一级的procs
-    var goToProcsByDef = function(procDef,ele){
+    var setActionByDef = function(procDef){
         if(!procDef) return;
+        if(_refreshAction){ clearTimeout(_refreshAction); }
         if(procDef.cType == 166){       //方案跳转
             if(!_isViewAllProcs && _userProcIds.indexOf(procDef.prDefId)<0){
                 alert("没有权限");
@@ -1075,8 +1137,8 @@ var userMonitor = function(){
         var $btn = $("<button>");
         $btn.html(temp);
         $btn.attr("name",temp);
-        $btn.css("width",baseWidth + "px");
-        $btn.css("height",baseHeight + "px");
+        $btn.width(baseWidth + "px");
+        $btn.height(baseHeight + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");
@@ -1120,8 +1182,8 @@ var userMonitor = function(){
         var $btn = $("<button>");
         $btn.html(curCtrl.text);
         $btn.attr("id",curCtrl.id);
-        $btn.css("width",baseWidth + "px");
-        $btn.css("height",baseHeight + "px");
+        $btn.width(baseWidth + "px");
+        $btn.height(baseHeight + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");
@@ -1252,11 +1314,41 @@ var userMonitor = function(){
         console.log(funcName + ":" + err);
     }
 
-
-
     //init();
     return {
         init:init,
         getUserProcs:getUserProcs
     };
-}();
+})();
+
+$(function(){
+    $('.showOrHidden').click(function(){
+        var o1 = $(".content-main-left").css("display");
+        if(o1 == 'block'){
+            $('.content-main-left').css({
+                display:'none'
+            })
+            $('.content-main-right').animate({
+                'margin-left':'0px'
+            },100)
+            $('.showOrHidden').css({
+                'background':'url("./work_parts/img/show.png")no-repeat',
+                'background-size':'20px',
+                'background-position':'center'
+            })
+        }else if(o1 == 'none'){
+            $('.content-main-left').animate({
+                'width':'250px'
+            },100,function(){
+                $('.content-main-left').css({
+                    display:'block'
+                })
+                $('.showOrHidden').css({
+                    'background':'url("./work_parts/img/hidden.png")no-repeat',
+                    'background-size':'20px',
+                    'background-position':'center'
+                })
+            })
+        }
+    })
+})

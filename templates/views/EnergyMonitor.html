@@ -289,8 +289,8 @@
                         <a href="javascript:void(0);">变配电系统</a>
                     </li>
                 </ul>
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
-
                 </div>
             </div>
             <!-- END PAGE HEADER-->
@@ -298,32 +298,27 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-wrap">
+
                         <!-- 左边选择区域 -->
                         <div class="content-main-left">
                             <div class="chooseFunction">
                                 <!--<div class="functions functions-1"></div>-->
                                 <!--<div class="functions functions-2"></div>-->
-                                <div class="functions functions-3"></div><!--返回到首页-->
-                                <div class="functions functions-4"></div><!--刷新当前数据-->
+                                <div class="functions functions-3" title="返回首页"></div><!--返回到首页-->
+                                <div class="functions functions-4" title="刷新数据"></div><!--刷新当前数据-->
+                                <div class="functions functions-2" title="缩放当前窗口"></div>
                             </div>
-                            <ul>
-
+                            <ul class="list-group">
                             </ul>
                         </div>
                         <!-- 右边主体数据部分 -->
                         <div class="content-main-right" id="content-main-right">
-                            <!--<div class="content-right" id="monitor-content">-->
-
-                            <!--</div>-->
                             <!--浮动显示的控制按钮-->
                             <div class="content-ctrls-show" id="content-ctrls">
-
                             </div>
-
                             <div class="content-menu-hide" id="content-menu">
                                 <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
                             </div>
-
                         </div>
 
                     </div>
@@ -333,80 +328,7 @@
         </div>
     </div>
     <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
-    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-    <div class="page-quick-sidebar-wrapper">
-        <div class="page-quick-sidebar">
-            <div class="nav-justified">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="active">
-                        <a href="#quick_sidebar_tab_1" data-toggle="tab">
-                            楼宇 <span class="badge badge-danger"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#quick_sidebar_tab_2" data-toggle="tab">
-                            科室 <span class="badge badge-success"></span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                            更多<i class="fa fa-angle-down"></i>
-                        </a>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-bell"></i> 更多1 </a>
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-info"></i> 更多2 </a>
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-speech"></i> 更多3 </a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#quick_sidebar_tab_3" data-toggle="tab">
-                                    <i class="icon-settings"></i> 更多4 </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
-                        <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
-                            <h3 class="list-heading">楼宇</h3>
-                            <ul class="media-list list-items">
-                                <li class="media">
 
-                                    <div class="media-body">
-                                        <h4 class="media-heading">全部</h4>
-
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-pane page-quick-sidebar-alerts" id="quick_sidebar_tab_2">
-                        <div class="page-quick-sidebar-alerts-list">
-                            <h3 class="list-heading">科室</h3>
-
-                        </div>
-                    </div>
-                    <div class="tab-pane page-quick-sidebar-settings" id="quick_sidebar_tab_3">
-                        <div class="page-quick-sidebar-settings-list">
-                            <h3 class="list-heading">更多</h3>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->

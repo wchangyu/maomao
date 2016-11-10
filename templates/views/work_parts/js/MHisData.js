@@ -169,7 +169,6 @@ function getDatas(){
 		et : _endTime,
 	};
 	var url = sessionStorage.apiUrlPrefix;
-	//url = 'http://localhost/BEEWebApi/api/';		//临时
 	$.ajax({
 		type:'post',
 			url:url + 'pr/pr_GetPRInstHistoryData',

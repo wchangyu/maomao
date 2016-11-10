@@ -2,7 +2,6 @@ $(function(){
     //点击箭头移动
     $('.showOrHidden').click(function(){
         var o1 = $(".content-main-left").css("display");
-        console.log(o1);
         if(o1 == 'block'){
             $('.content-main-left').css({
                 display:'none'
