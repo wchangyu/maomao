@@ -76,7 +76,6 @@ var Login = function() {
                         data:accParams,
                         //async:true,
                         success:function(data){
-                            //form.submit(); // form validation success, call ajax form submit
                             if(data === "2")
                             {
                                 showAlertInfo("请输入正确的用户名");
@@ -92,7 +91,7 @@ var Login = function() {
                                 }
                                 sessionStorage.username=name1;
                                 getPointersByUser(name1);
-                                getAllOffices();
+                                getAllOffices(name1);
                                 getAllEnergyItems();
                                 sessionStorage.userAuth = convertAuthTo01Str(data);     //存储权限字符串
                             }
@@ -166,11 +165,12 @@ var Login = function() {
     };
 
     //获取到所有分户的数据，List结构
-    var getAllOffices = function(){
+    var getAllOffices = function(userId){
         $.ajax({
             type:'post',
-            url:sessionStorage.apiUrlPrefix + 'Office/GetAllLeafOffice',
+            url:sessionStorage.apiUrlPrefix + 'Office/GetAllOfficeInfoByUser',
             dataType:'json',
+            data:{"PointerID":0,"userID":userId},
             success:function(offices){
                 sessionStorage.offices = JSON.stringify(offices);
                 _isOfficesLoaded = true;
@@ -225,11 +225,8 @@ var Login = function() {
                     var systemTitle = data["systemTitle"] || "";
                     sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
 
-                    //监控系统配置信息，userMonitor.js调用
-                    //var userMonitorInfo = data["userMonitorInfo"] || "";
-                    //if(userMonitorInfo){
-                    //    sessionStorage.userMonitorInfo = JSON.stringify(userMonitorInfo);
-                    //}
+                    //监控信息的刷新时间
+                    if(data["refreshInterval"]){sessionStorage.refreshInterval = data["refreshInterval"];}
 
                     //系统能耗类型配置，需要与api配置同步
                     var allEnergyType = data["allEnergyType"];

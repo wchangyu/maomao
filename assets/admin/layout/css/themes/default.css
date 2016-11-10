@@ -381,6 +381,7 @@ Page Header
   background: #d64635;
   border-top-color: transparent;
   color: #ffffff;
+  border-left: 3px solid white;
 }
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover,
 .page-sidebar .page-sidebar-menu > li.active > a:hover,

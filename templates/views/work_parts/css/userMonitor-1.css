@@ -172,10 +172,26 @@
 }
 
 .list-group-item{
-
+	border-width: 0;
 }
 
 .list-group .selected{
 	border-left-width: 4px;
-	border-color:red;
+	border-left-color:red;
+	font-size:14px;
+	font-weight: bold;
+	background: grey;
+	color:white;
+}
+
+.monitor-fullscreen{
+	z-index:10060;
+	margin:0;
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	width:100%;
+	height:100%;
 }

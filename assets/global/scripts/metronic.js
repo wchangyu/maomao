@@ -116,7 +116,6 @@ var Metronic = function() {
             //同时添加或者移除fullheight类，来实现高度100%
             //var chartDiv = portlet.children(".echart");
             var chartDiv = portlet.children("div[_echarts_instance_]");
-            console.log(chartDiv);
             var thisEchart;
             if(chartDiv && chartDiv[0]){
                 thisEchart = echarts.getInstanceByDom(chartDiv[0]);

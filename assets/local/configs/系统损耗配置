@@ -1,0 +1,35 @@
+{
+  "comment": "系统损耗配置说明,变压器名称,变压器容量，输入ID(逗号隔开的支路ID),输出ID",
+  "transformers":[
+    {
+      "name":"变压器1",
+      "capacity":"1200kVA",
+      "IDin":"",
+      "IDout":""
+    },
+    {
+      "name":"变压器2",
+      "capacity":"1200kVA",
+      "IDin":"",
+      "IDout":""
+    },
+    {
+      "name":"变压器3",
+      "capacity":"1200kVA",
+      "IDin":"",
+      "IDout":""
+    },
+    {
+      "name":"变压器4",
+      "capacity":"1200kVA",
+      "IDin":"",
+      "IDout":""
+    },
+    {
+      "name":"变压器5",
+      "capacity":"1200kVA",
+      "IDin":"",
+      "IDout":""
+    }
+  ]
+}
