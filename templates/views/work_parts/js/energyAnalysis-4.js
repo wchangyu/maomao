@@ -31,6 +31,96 @@ $(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
 	});
+	//echarts
+	myChart36 = echarts.init(document.getElementById('energy-parts-total'));
+	option36 = {
+		tooltip: {
+			trigger: 'item',
+			formatter: "{a} <br/>{b}: {c} ({d}%)"
+		},
+		legend: {
+			orient: 'vertical',
+			x: 'left',
+			data:[]
+		},
+		series: [
+			{
+				name:'',
+				type:'pie',
+				radius: ['50%', '70%'],
+				avoidLabelOverlap: false,
+				label: {
+					normal: {
+						show: false,
+						position: 'center'
+					},
+					emphasis: {
+						show: true,
+						textStyle: {
+							fontSize: '30',
+							fontWeight: 'bold'
+						}
+					}
+				},
+				labelLine: {
+					normal: {
+						show: false
+					}
+				},
+				data:[],
+				itemStyle: {
+					normal: {
+						color: function(params) {
+
+							var colorList = [
+								'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
+								'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+								'#D7504B','#C6E579','#F4E001','red','#26C0C0'
+							];
+							return colorList[params.dataIndex]
+						}
+					}
+				}
+			}
+		]
+	};
+	myChart37 = echarts.init(document.getElementById('energy-parts-one'));
+	option37 = {
+		tooltip : {
+			trigger: 'item',
+			formatter: "{a} <br/>{b} : {c} ({d}%)"
+		},
+		series : [
+			{
+				name: '',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '50%'],
+				data:[],
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					},
+					normal: {
+						color: function(params) {
+
+							var colorList = [
+								'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
+								'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+								'#D7504B','#C6E579','#F4E001','red','#26C0C0'
+							];
+							return colorList[params.dataIndex]
+						}
+					}
+				}
+			}
+		]
+	};
+	myChart38 = echarts.init(document.getElementById('energy-parts-two'));
+	myChart39 = echarts.init(document.getElementById('energy-parts-three'));
+	myChart40 = echarts.init(document.getElementById('energy-parts-four'));
 	//初始能耗
 	getEcType();
 	//开始时间
@@ -217,207 +307,26 @@ function getPointerData(){
 		}
 		if(energyItemIdss == '01'){
 			//饼状图-center-电
-			myChart36 = echarts.init(document.getElementById('energy-parts-total'));
-			option36 = {
-				tooltip: {
-					trigger: 'item',
-					formatter: "{a} <br/>{b}: {c} ({d}%)"
-				},
-				legend: {
-					orient: 'vertical',
-					x: 'left',
-					data:nameArr
-				},
-				series: [
-					{
-						name:'',
-						type:'pie',
-						radius: ['50%', '70%'],
-						avoidLabelOverlap: false,
-						label: {
-							normal: {
-								show: false,
-								position: 'center'
-							},
-							emphasis: {
-								show: true,
-								textStyle: {
-									fontSize: '30',
-									fontWeight: 'bold'
-								}
-							}
-						},
-						labelLine: {
-							normal: {
-								show: false
-							}
-						},
-						data:data,
-						itemStyle: {
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
+			option36.legend.data = nameArr;
+			//console.log(option36.series[0].data)
+			option36.series[0].data = data;
 			myChart36.setOption(option36);
 		}else if(energyItemIdss == '40'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-one'));
-			option37 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
+			option37.series[0].data = data;
 			myChart37.setOption(option37);
 		}else if(energyItemIdss == '02'){
 			//饼状图-top-left-电
-			myChart38 = echarts.init(document.getElementById('energy-parts-two'));
-			option38 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart38.setOption(option38);
+			option37.series[0].data = data;
+			myChart38.setOption(option37);
 		}else if(energyItemIdss == '41'){
 			//饼状图-top-left-电
-			myChart39 = echarts.init(document.getElementById('energy-parts-three'));
-			option39 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart39.setOption(option39);
+			option37.series[0].data = data;
+			myChart39.setOption(option37);
 		}else if(energyItemIdss == '42'){
 			//饼状图-top-left-电
-			myChart40 = echarts.init(document.getElementById('energy-parts-four'));
-			option40 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart40.setOption(option40);
+			option37.series[0].data = data;
+			myChart40.setOption(option37);
 		}
 	}
 }
@@ -479,207 +388,26 @@ function getOfficeData(){
 
 		if(energyItemIdss == '01'){
 			//饼状图-center-电
-			myChart36 = echarts.init(document.getElementById('energy-parts-total'));
-			option36 = {
-				tooltip: {
-					trigger: 'item',
-					formatter: "{a} <br/>{b}: {c} ({d}%)"
-				},
-				legend: {
-					orient: 'vertical',
-					x: 'left',
-					data:nameArr
-				},
-				series: [
-					{
-						name:'',
-						type:'pie',
-						radius: ['50%', '70%'],
-						avoidLabelOverlap: false,
-						label: {
-							normal: {
-								show: false,
-								position: 'center'
-							},
-							emphasis: {
-								show: true,
-								textStyle: {
-									fontSize: '30',
-									fontWeight: 'bold'
-								}
-							}
-						},
-						labelLine: {
-							normal: {
-								show: false
-							}
-						},
-						data:data,
-						itemStyle: {
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
+			option36.legend.data = nameArr;
+			//console.log(option36.series[0].data)
+			option36.series[0].data = data;
 			myChart36.setOption(option36);
 		}else if(energyItemIdss == '40'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-one'));
-			option37 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
+			option37.series[0].data = data;
 			myChart37.setOption(option37);
 		}else if(energyItemIdss == '02'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-two'));
-			option37 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart37.setOption(option37);
+			option37.series[0].data = data;
+			myChart38.setOption(option37);
 		}else if(energyItemIdss == '41'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-three'));
-			option37 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart37.setOption(option37);
+			option37.series[0].data = data;
+			myChart39.setOption(option37);
 		}else if(energyItemIdss == '42'){
 			//饼状图-top-left-电
-			myChart37 = echarts.init(document.getElementById('energy-parts-four'));
-			option37 = {
-				tooltip : {
-					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c} ({d}%)"
-				},
-				series : [
-					{
-						name: '',
-						type: 'pie',
-						radius : '55%',
-						center: ['50%', '50%'],
-						data:data,
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
-							},
-							normal: {
-								color: function(params) {
-
-									var colorList = [
-										'#6bb1a6','#f4cd6e','#ccefc5','#69b4b9','#e5f1e3',
-										'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-										'#D7504B','#C6E579','#F4E001','red','#26C0C0'
-									];
-									return colorList[params.dataIndex]
-								}
-							}
-						}
-					}
-				]
-			};
-			myChart37.setOption(option37);
+			option37.series[0].data = data;
+			myChart40.setOption(option37);
 		}
 	}
 

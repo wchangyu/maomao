@@ -5,14 +5,9 @@ $(function(){
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
 	});
 	//时间插件
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	).on('changeDate',function(e){
+	//日历格式初始化
+	monthDate();
+	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
 		inputValue = $('#datetimepicker').val();
 		if(_ajaxDataType == '月'){
@@ -56,6 +51,16 @@ $(function(){
 			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
 			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
 		}
+	});
+	$('.types').change(function(){
+		alert(0)
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}
+		$('.datetimepickereType').empty();
 	})
 	//对象选择
 	//tip选项卡
@@ -73,7 +78,82 @@ $(function(){
 		aa.eq($(this).index()).removeClass('hiddens').addClass('shows');
 		bb.removeClass('shows').addClass('hiddens');
 		bb.eq($(this).index()).removeClass('hiddens').addClass('shows');
-	})
+	});
+	//echarts
+	myChart70 = echarts.init(document.getElementById('rheader-content-70'));
+	option70 = {
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['用电量']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
+			{
+				axisLabel:{
+					interval:0
+				},
+				type : 'category',
+				data : []
+			}
+		],
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+		series : [
+			{
+				name:'平均用电量',
+				type:'bar',
+				data:[],
+				barMaxWidth:'60',
+				itemStyle: {
+					normal: {
+						color: '#6bb1a6'
+					}
+				},
+				markPoint : {
+					data : [
+						{type : 'max', name: '最大值'},
+						{type : 'min', name: '最小值'}
+					],
+					itemStyle: {
+						normal: {
+							color: '#d48265'
+						}
+					}
+				},
+				markLine : {
+					data : [
+						{type : 'average', name: '平均值'}
+					],
+					itemStyle: {
+						normal: {
+							color: '#d48265'
+						}
+					}
+				}
+			}
+		]
+	};
+	myChart71 = echarts.init(document.getElementById('rheader-content-71'));
+	myChart72 = echarts.init(document.getElementById('rheader-content-72'));
+	myChart73 = echarts.init(document.getElementById('rheader-content-73'));
+	myChart80 = echarts.init(document.getElementById('rheader-content-80'));
+	myChart81 = echarts.init(document.getElementById('rheader-content-81'));
+	myChart82 = echarts.init(document.getElementById('rheader-content-82'));
+	myChart83 = echarts.init(document.getElementById('rheader-content-83'));
 	//默认加载时
 	orderTypes();
 	getPointerData();
@@ -283,72 +363,8 @@ function getPointerData(){
 			}
 		}
 		//前五
-		myChart70 = echarts.init(document.getElementById('rheader-content-70'));
-		option70 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theFirstFiveArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theFirstFiveArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
+		option70.xAxis[0].data = theFirstFiveArrX;
+		option70.series[0].data = theFirstFiveArrY;
 		myChart70.setOption(option70);
 		var theFirstFiveProportion = theFirstFiveArrY[0] / theFirstFiveArrY[theFirstFiveArrY.length-1];
 		if(theFirstFiveArrY[theFirstFiveArrY.length-1] == 0){
@@ -357,73 +373,10 @@ function getPointerData(){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(0).children('.theFirstFiveProportion').html(theFirstFiveProportion.toFixed(2));
 		}
 		//前十
-		myChart71 = echarts.init(document.getElementById('rheader-content-71'));
-		option71 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theFirstTenArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theFirstTenArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart71.setOption(option71);
+
+		option70.xAxis[0].data = theFirstTenArrX;
+		option70.series[0].data = theFirstTenArrY;
+		myChart71.setOption(option70);
 		var theFirstTenProportion = theFirstTenArrY[0] / theFirstTenArrY[theFirstTenArrY.length-1];
 		if(theFirstTenArrY[theFirstTenArrY.length-1] == 0){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(1).children('.theFirstFiveProportion').html('-')
@@ -431,73 +384,10 @@ function getPointerData(){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(1).children('.theFirstFiveProportion').html(theFirstTenProportion.toFixed(2));
 		}
 		//后五
-		myChart72 = echarts.init(document.getElementById('rheader-content-72'));
-		option72 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theAfterFiveArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theAfterFiveArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart72.setOption(option72);
+
+		option70.xAxis[0].data = theAfterFiveArrX;
+		option70.series[0].data = theAfterFiveArrY;
+		myChart72.setOption(option70);
 		var theAfterFiveProportion = theAfterFiveArrY[0] / theAfterFiveArrY[theAfterFiveArrY.length-1];
 		if(theAfterFiveArrY[theAfterFiveArrY.length-1] == 0){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(2).children('.theFirstFiveProportion').html('-')
@@ -505,73 +395,10 @@ function getPointerData(){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(2).children('.theFirstFiveProportion').html(theAfterFiveProportion.toFixed(2));
 		}
 		//全部
-		myChart73 = echarts.init(document.getElementById('rheader-content-73'));
-		option73 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theTotleArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theTotleArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart73.setOption(option73);
+
+		option70.xAxis[0].data = theTotleArrX;
+		option70.series[0].data = theTotleArrY;
+		myChart73.setOption(option70);
 		var theTotleProportion = theTotleArrY[0] / theTotleArrY[theTotleArrY.length-1];
 		if(theTotleArrY[theTotleArrY.length-1] == 0){
 			$('.L-rheader-content-right-1 .rheader-content-leff').eq(3).children('.theFirstFiveProportion').html('-')
@@ -703,73 +530,10 @@ function getOfficesData(){
 			}
 		}
 		//前五
-		myChart80 = echarts.init(document.getElementById('rheader-content-80'));
-		option80 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theFirstFiveArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theFirstFiveArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart80.setOption(option80);
+		//console.log(option70.xAxis[0].data);
+		option70.xAxis[0].data = theFirstFiveArrX;
+		option70.series[0].data = theFirstFiveArrY;
+		myChart80.setOption(option70);
 		var theFirstFiveProportion = theFirstFiveArrY[0] / theFirstFiveArrY[theFirstFiveArrY.length-1];
 		if(theFirstFiveArrY[theFirstFiveArrY.length-1] == 0){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(0).children('.theFirstFiveProportion').html('-')
@@ -777,73 +541,9 @@ function getOfficesData(){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(0).children('.theFirstFiveProportion').html(theFirstFiveProportion.toFixed(2));
 		}
 		//前十
-		myChart81 = echarts.init(document.getElementById('rheader-content-81'));
-		option81 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theFirstTenArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theFirstTenArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart81.setOption(option81);
+		option70.xAxis[0].data = theFirstTenArrX;
+		option70.series[0].data = theFirstTenArrY;
+		myChart81.setOption(option70);
 		var theFirstTenProportion = theFirstTenArrY[0] / theFirstTenArrY[theFirstTenArrY.length-1];
 		if(theFirstTenArrY[theFirstTenArrY.length-1] == 0){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(1).children('.theFirstFiveProportion').html('-')
@@ -851,73 +551,9 @@ function getOfficesData(){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(1).children('.theFirstFiveProportion').html(theFirstTenProportion.toFixed(2));
 		}
 		//后五
-		myChart82 = echarts.init(document.getElementById('rheader-content-82'));
-		option82 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theAfterFiveArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theAfterFiveArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart82.setOption(option82);
+		option70.xAxis[0].data = theAfterFiveArrX;
+		option70.series[0].data = theAfterFiveArrY;
+		myChart82.setOption(option70);
 		var theAfterFiveProportion = theAfterFiveArrY[0] / theAfterFiveArrY[theAfterFiveArrY.length-1];
 		if(theAfterFiveArrY[theAfterFiveArrY.length-1] == 0){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(2).children('.theFirstFiveProportion').html('-')
@@ -925,79 +561,9 @@ function getOfficesData(){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(2).children('.theFirstFiveProportion').html(theAfterFiveProportion.toFixed(2));
 		}
 		//全部
-		myChart83 = echarts.init(document.getElementById('rheader-content-83'));
-		option83 = {
-			tooltip : {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['用电量']
-			},
-			toolbox: {
-				show : true,
-				feature : {
-					dataView : {show: true, readOnly: false},
-					magicType : {show: true, type: ['line', 'bar']},
-					restore : {show: true},
-					saveAsImage : {show: true}
-				}
-			},
-			calculable : true,
-			dataZoom:{
-				orient:"horizontal", //水平显示
-				show:true, //显示滚动条
-				start:0, //起始值为20%
-				end:10  //结束值为60%
-			},
-			xAxis : [
-				{
-					axisLabel:{
-						interval:0
-					},
-					type : 'category',
-					data : theTotleArrX
-				}
-			],
-			yAxis : [
-				{
-					type : 'value'
-				}
-			],
-			series : [
-				{
-					name:'平均用电量',
-					type:'bar',
-					data:theTotleArrY,
-					itemStyle: {
-						normal: {
-							color: '#6bb1a6'
-						}
-					},
-					markPoint : {
-						data : [
-							{type : 'max', name: '最大值'},
-							{type : 'min', name: '最小值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					},
-					markLine : {
-						data : [
-							{type : 'average', name: '平均值'}
-						],
-						itemStyle: {
-							normal: {
-								color: '#d48265'
-							}
-						}
-					}
-				}
-			]
-		};
-		myChart83.setOption(option83);
+		option70.xAxis[0].data = theTotleArrX;
+		option70.series[0].data = theTotleArrY;
+		myChart83.setOption(option70);
 		var theTotleProportion = theTotleArrY[0] / theTotleArrY[theTotleArrY.length-1];
 		if(theTotleArrY[theTotleArrY.length-1] == 0){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(3).children('.theFirstFiveProportion').html('-')
@@ -1005,4 +571,38 @@ function getOfficesData(){
 			$('.L-rheader-content-right-2 .rheader-content-leff').eq(3).children('.theFirstFiveProportion').html(theTotleProportion.toFixed(2));
 		}
 	}
+}
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
 }

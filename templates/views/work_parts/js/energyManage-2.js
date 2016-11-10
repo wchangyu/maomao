@@ -291,7 +291,7 @@ $(function(){
 		            itemStyle: {
 		                normal: {
 		                    color: function(params2) {
-		                        
+
 		                        var colorList = [
 		                          '#6bb1a6','#6bb1a6','#6bb1a6',
 		                          '#6bb1a6','#6bb1a6','#6bb1a6',

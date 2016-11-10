@@ -53,15 +53,10 @@ $(function(){
 		.bind("propertychange", searchNode)
 		.bind("input", searchNode);
 	//日历插件
-	$('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxEndTime);
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	).on('changeDate',function(e){
+	$('.datetimepickereType').html(_ajaxStartTime +'到'+_ajaxEndTime);
+	//日历格式初始化
+	initDate();
+	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
 		inputValue = $('#datetimepicker').val();
 		if(_ajaxDataType=="周"){
@@ -70,7 +65,7 @@ $(function(){
 			startWeek = now.add(1,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
 			var endWeekd = now.subtract(1,'d').format("YYYY-MM-DD");
-			end =startWeek + "-" +endWeekd;
+			end =startWeek + "到" +endWeekd;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startWeek;
@@ -87,7 +82,7 @@ $(function(){
 			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
 			var endMonth=moment(inputValue).endOf('month').add(1,'d').format("YYYY-MM-DD");
 			var endMonths=moment(inputValue).endOf('month').format('YYYY-MM-DD');
-			end =startMonth+"-"+endMonths;
+			end =startMonth+"到"+endMonths;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startMonth;
@@ -104,7 +99,7 @@ $(function(){
 			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
 			var endYear=moment(inputValue).endOf('year').add(1,'d').format("YYYY-MM-DD");
 			var endYears=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-			end = startYear+"-"+endYears;
+			end = startYear+"到"+endYears;
 			_ajaxDataType_1='月'
 			var aa = $('.datetimepickereType').text();
 			_ajaxStartTime=startYear;
@@ -121,8 +116,149 @@ $(function(){
 	});
 	//监测每次的select值，将选项清零
 	$('.types').change(function(){
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}else{
+			initDate();
+		}
 		$('.datetimepickereType').empty();
 	})
+	//echarts
+	myChart41 = echarts.init(document.getElementById('rheader-content-41'));
+	option41 = {
+		tooltip : {
+			trigger: 'axis',
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			},
+			formatter: function (params) {
+				var tar = params[1];
+				return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+			}
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+		},
+		xAxis: {
+			type : 'category',
+			splitLine: {show:false},
+			data : []
+		},
+		yAxis: {
+			type : 'value'
+		},
+		series: [
+			{
+				name: '空闲',
+				type: 'bar',
+				stack:  '总量',
+				itemStyle: {
+					normal: {
+						barBorderWidth:2,
+						barBorderColor: '#cbe6c5',
+						color: 'rgba(0,0,0,0)'
+					},
+					emphasis: {
+						barBorderColor: 'rgba(0,0,0,0.5)',
+						color: 'rgba(0,0,0,0)'
+					}
+				},
+				data: [],
+				barMaxWidth: '60',
+			},
+			{
+				name: '工作',
+				type: 'bar',
+				stack: '总量',
+				label: {
+					normal: {
+						show: true,
+						position: 'inside'
+					}
+				},
+				itemStyle: {
+					normal: {
+						color: '#cbe6c5'
+					},
+					emphasis: {
+						barBorderColor: 'rgba(0,0,0,0.5)',
+						color: 'rgba(0,0,0,0.5)'
+					}
+				},
+				data:[],
+				barMaxWidth: '100',
+			}
+		]
+	};
+	myChart42 = echarts.init(document.getElementById('rheader-content-42'));
+	option42 = {
+		tooltip : {
+			trigger: 'item',
+			formatter: "{a} <br/>{b} : {c} ({d}%)"
+		},
+		legend: {
+			orient: 'vertical',
+			left: 'left',
+			data: ['工作时段用电量','休息时段用电量']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				magicType : {
+					show: true,
+					type: ['pie', 'funnel']
+				},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		series : [
+			{
+				name: '',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+					{value:'', name:'工作时段用电量'},
+					{value:'', name:'休息时段用电量'}
+				],
+				itemStyle: {
+					normal: {
+
+						color: function(params) {
+
+							var colorList = [
+								'#9dc541','#afc8de'
+							];
+							return colorList[params.dataIndex]
+						}
+					},
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				}
+			}
+		]
+	};
 	getEcType();
 	getPointerId();
 	treeObject();
@@ -404,137 +540,46 @@ function getItemizedData(){
 	$('.proportion1').html('=' + workProportion);
 	$('.proportion2').html('=' + restProportion);
 	//用电分布
-	myChart41 = echarts.init(document.getElementById('rheader-content-41'));
-	option41 = {
-		tooltip : {
-			trigger: 'axis',
-			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-			},
-			formatter: function (params) {
-				var tar = params[1];
-				return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
-			}
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				mark : {show: true},
-				dataView : {show: true, readOnly: false},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		grid: {
-			left: '3%',
-			right: '4%',
-			bottom: '3%',
-			containLabel: true
-		},
-		xAxis: {
-			type : 'category',
-			splitLine: {show:false},
-			data : dataX
-		},
-		yAxis: {
-			type : 'value'
-		},
-		series: [
-			{
-				name: '空闲',
-				type: 'bar',
-				stack:  '总量',
-				itemStyle: {
-					normal: {
-						barBorderWidth:2,
-						barBorderColor: '#cbe6c5',
-						color: 'rgba(0,0,0,0)'
-					},
-					emphasis: {
-						barBorderColor: 'rgba(0,0,0,0.5)',
-						color: 'rgba(0,0,0,0)'
-					}
-				},
-				data: dataYrestTimeData
-			},
-			{
-				name: '工作',
-				type: 'bar',
-				stack: '总量',
-				label: {
-					normal: {
-						show: true,
-						position: 'inside'
-					}
-				},
-				itemStyle: {
-					normal: {
-						color: '#cbe6c5'
-					},
-					emphasis: {
-						barBorderColor: 'rgba(0,0,0,0.5)',
-						color: 'rgba(0,0,0,0.5)'
-					}
-				},
-				data:dataYworkTimeData
-			}
-		]
-	};
+	option41.xAxis.data = dataX;
+	option41.series[0].data = dataYrestTimeData;
+	option41.series[1].data = dataYworkTimeData;
 	myChart41.setOption(option41);
 	//电-饼状图
-	myChart42 = echarts.init(document.getElementById('rheader-content-42'));
-	option42 = {
-		tooltip : {
-			trigger: 'item',
-			formatter: "{a} <br/>{b} : {c} ({d}%)"
-		},
-		legend: {
-			orient: 'vertical',
-			left: 'left',
-			data: ['工作时段用电量','休息时段用电量']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				mark : {show: true},
-				dataView : {show: true, readOnly: false},
-				magicType : {
-					show: true,
-					type: ['pie', 'funnel']
-				},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		series : [
-			{
-				name: '',
-				type: 'pie',
-				radius : '55%',
-				center: ['50%', '60%'],
-				data:[
-					{value:totalWorkTimeData, name:'工作时段用电量'},
-					{value:totalYrestTimeData, name:'休息时段用电量'}
-				],
-				itemStyle: {
-					normal: {
-
-						color: function(params) {
-
-							var colorList = [
-								'#9dc541','#afc8de'
-							];
-							return colorList[params.dataIndex]
-						}
-					},
-					emphasis: {
-						shadowBlur: 10,
-						shadowOffsetX: 0,
-						shadowColor: 'rgba(0, 0, 0, 0.5)'
-					}
-				}
-			}
-		]
-	};
+	option42.series[0].data[0].value = totalWorkTimeData;
+	option42.series[0].data[1].value = totalYrestTimeData;
 	myChart42.setOption(option42);
+}
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
 }

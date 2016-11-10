@@ -41,7 +41,7 @@ $(function(){
 		}else if(sss == 3){
 			timeLastYear();
 		}
-	})
+	});
 	//默认时间；
 	timeYesterday();
 	//能耗选择
@@ -49,6 +49,100 @@ $(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
 	});
+	//echarts
+	//环比折线图
+	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
+	option13 = {
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['本期用电','上期用电']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
+			{
+				type : 'category',
+				data:[]
+			}
+		],
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+		series : [
+			{
+				name:'本期用电',
+				type:'bar',
+				data:[],
+				barMaxWidth: '60',
+			},
+			{
+				name:'上期用电',
+				type:'bar',
+				data:[],
+				barMaxWidth: '60',
+			}
+		]
+	};
+	//环比柱折图
+	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
+	option14 = {
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['累计值', '比较斜率']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['bar', 'line']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
+			{
+				type : 'category',
+				data : ['本期','上期']
+			}
+		],
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+		series : [
+			{
+				name:'累计值',
+				type:'bar',
+				barMaxWidth: '60',
+				data:[],
+			},
+			{
+				name:'比较斜率',
+				type:'line',
+				data:[],
+			}
+		]
+	};
+	//同比折线图
+	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
+	//电-同比分析-柱折图
+	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
 	getEcType();
 	getPointerData();
 	setEnergyInfos();
@@ -467,182 +561,29 @@ function getPointerData(){
 		})
 	}
 	//环比柱状图
-	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
-	option13 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['本期用电','上期用电']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data:allDataX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'本期用电',
-				type:'bar',
-				data:allDataY
-			},
-			{
-				name:'上期用电',
-				type:'bar',
-				data:allDatasY
-			}
-		]
-	};
-
+	option13.xAxis.data = allDataX;
+	option13.series[0].data = allDataY;
+	option13.series[1].data = allDatasY;
 	myChart13.setOption(option13);
 	//电-环比分析-柱状图
-	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
-	option14 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['比较斜率', '累计值']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : ['本期','上期']
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'累计值',
-				type:'bar',
-				data:[totalAllData,totalAllDatas]
-			},
-			{
-				name:'比较斜率',
-				type:'line',
-				data:[totalAllData,totalAllDatas]
-			}
-		]
-	};
+	option14.series[0].data[0] = totalAllData;
+	option14.series[0].data[1] = totalAllDatas;
+	option14.series[1].data[0] = totalAllData;
+	option14.series[1].data[1] = totalAllDatas;
 	myChart14.setOption(option14);
 	//电-同比分析-柱折图
-	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
-	option15 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['本期用电','上期用电']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : allDataX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'本期用电',
-				type:'bar',
-				data:allDataY
-			},
-			{
-				name:'上期用电',
-				type:'bar',
-				data:allDatassY
-			}
-		]
-	};
-	myChart15.setOption(option15);
+	option13.xAxis.data = allDataX;
+	option13.series[0].data = allDataY;
+	option13.series[1].data = allDatassY;
+	myChart15.setOption(option13);
 	//电-同比分析-柱状图
-	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
-	option16 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['比较斜率', '累计值']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : ['本期','上期']
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'蒸发量',
-				type:'bar',
-				data:[totalAllData,totalAllDatass]
-			},
-			{
-				name:'降水量',
-				type:'line',
-				data:[totalAllData,totalAllDatass]
-			}
-		]
-	};
-	myChart16.setOption(option16);
+	option14.series[0].data[0] = totalAllData;
+	option14.series[0].data[1] = totalAllDatass;
+	option14.series[1].data[0] = totalAllData;
+	option14.series[1].data[1] = totalAllDatass;
+	myChart16.setOption(option14);
+	console.log(option14);
+	//
 }
 //科室数据
 var officeNames;
@@ -930,180 +871,27 @@ function getOfficeData(){
 		})
 	}
 	//环比柱状图
-	myChart13 = echarts.init(document.getElementById('rheader-content-16'));
-	option13 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['本期用电','上期用电']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data:allDataX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'本期用电',
-				type:'bar',
-				data:allDataY
-			},
-			{
-				name:'上期用电',
-				type:'bar',
-				data:allDatasY
-			}
-		]
-	};
+	option13.xAxis.data = allDataX;
+	option13.series[0].data = allDataY;
+	option13.series[1].data = allDatasY;
+	console.log(option13.series)
 	myChart13.setOption(option13);
 	//电-环比分析-柱状图
-	myChart14 = echarts.init(document.getElementById('rheader-content-17'));
-	option14 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['比较斜率', '累计值']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : ['本期','上期']
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'累计值',
-				type:'bar',
-				data:[totalAllData,totalAllDatas]
-			},
-			{
-				name:'比较斜率',
-				type:'line',
-				data:[totalAllData,totalAllDatas]
-			}
-		]
-	};
+	option14.series[0].data[0] = totalAllData;
+	option14.series[0].data[1] = totalAllDatas;
+	option14.series[1].data[0] = totalAllData;
+	option14.series[1].data[1] = totalAllDatas;
 	myChart14.setOption(option14);
 	//电-同比分析-柱折图
-	myChart15 = echarts.init(document.getElementById('rheader-content-18'));
-	option15 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['本期用电','上期用电']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : allDataX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'本期用电',
-				type:'bar',
-				data:allDataY
-			},
-			{
-				name:'上期用电',
-				type:'bar',
-				data:allDatassY
-			}
-		]
-	};
-	myChart15.setOption(option15);
+	option13.xAxis.data = allDataX;
+	option13.series[0].data = allDataY;
+	option13.series[1].data = allDatassY;
+	//myChart15.setOption(option13);
 	//电-同比分析-柱状图
-	myChart16 = echarts.init(document.getElementById('rheader-content-19'));
-	option16 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['比较斜率', '累计值']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : ['本期','上期']
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'蒸发量',
-				type:'bar',
-				data:[totalAllData,totalAllDatass]
-			},
-			{
-				name:'降水量',
-				type:'line',
-				data:[totalAllData,totalAllDatass]
-			}
-		]
-	};
-	myChart16.setOption(option16);
+	option14.series[0].data[0] = totalAllData;
+	option14.series[0].data[1] = totalAllDatass;
+	option14.series[1].data[0] = totalAllData;
+	option14.series[1].data[1] = totalAllDatass;
+	myChart16.setOption(option14);
 
 }
