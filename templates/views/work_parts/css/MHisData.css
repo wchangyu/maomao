@@ -46,7 +46,7 @@
 	cursor: pointer;
 }
 .L-content{
-	height: 418px;
+	height: 389px;
 	background:#f5f6f8;
 }
 .L-content-header{
@@ -110,6 +110,9 @@
 	background: url(../img/loading.gif)no-repeat;
 	background-position: center;
 	background-size: 150px;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 #echartImg{
 	width: 100%;
@@ -131,4 +134,30 @@ th,td{
 }
 #datatables_wrapper{
 	margin-top: 20px;
+}
+.L-arrowBlock{
+	height:30px;
+	width: 658px;
+	margin: 0 auto;
+}
+.L-leftArrow{
+	width:30px;
+	height:30px;
+	float: left;
+	background: url("../img/leftArrowa.png")no-repeat;
+	background-size: 20px;
+	background-position: center;
+	cursor: pointer;
+}
+.L-rightArrow{
+	width:30px;
+	height:30px;
+	background: url("../img/rightArrowa.png")no-repeat;
+	float: right;
+	background-size: 20px;
+	background-position: center;
+	cursor: pointer;
+}
+#datepicker{
+	text-indent: 20px;
 }

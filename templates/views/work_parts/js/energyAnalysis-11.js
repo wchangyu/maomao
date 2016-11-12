@@ -23,14 +23,9 @@ $(function(){
 	});
 	//时间选择
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime +'到'+_ajaxStartTime));
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	).on('changeDate',function(e){
+	//日历格式初始化
+	initDate();
+	$('#datetimepicker').on('changeDate',function(e){
 		var inputValue;
 		dataType();
 		inputValue = $('#datetimepicker').val();
@@ -101,10 +96,53 @@ $(function(){
 			$(this).remove();
 		})
 	});
+	//echarts
+	myChart3 = echarts.init(document.getElementById('rheader-content-14'));
+	// 指定图表的配置项和数据
+	option3 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:[]
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis:  {
+			type: 'category',
+			boundaryGap: false,
+			data: []
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				formatter: '{value}'
+			}
+		},
+		series: []
+	};
 	//监测每次的select值，将选项清零
 	$('.types').change(function(){
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}else{
+			initDate();
+		}
 		$('.datetimepickereType').empty();
-	});
+	})
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
@@ -592,41 +630,9 @@ function getBranchData(){
 		}
 	}
 	//用电量折线图
-	myChart3 = echarts.init(document.getElementById('rheader-content-14'));
-	// 指定图表的配置项和数据
-	option3 = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		legend: {
-			data:selectTime
-		},
-		toolbox: {
-			show: true,
-			feature: {
-				dataZoom: {
-					yAxisIndex: 'none'
-				},
-				dataView: {readOnly: false},
-				magicType: {type: ['line', 'bar']},
-				restore: {},
-				saveAsImage: {}
-			}
-		},
-		xAxis:  {
-			type: 'category',
-			boundaryGap: false,
-			data: dataX
-		},
-		yAxis: {
-			type: 'value',
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series: dataY
-	};
-	// 使用刚指定的配置项和数据显示图表。
+	option3.legend.data = selectTime;
+	option3.xAxis.data = dataX;
+	option3.series = dataY;
 	myChart3.setOption(option3);
 }
 var selectTime=[];
@@ -646,4 +652,38 @@ function unitConversion(num){
 	}else{
 		return num.toFixed(2);
 	}
+}
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
 }

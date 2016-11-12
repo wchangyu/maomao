@@ -219,9 +219,6 @@
 .tipes{
 	margin-left: 35px;
 }
-.datetimepickereType{
-	text-indent: 25px;
-}
 #hour{
 	width: 60px;
 }
@@ -263,4 +260,26 @@
 .rheader-content-rightss-1{
 	width:100% !important;
 	height:100%;
+}
+.energy-types div{
+	border:2px solid #ffffff;
+}
+#datetimepicker{
+	width:30px;
+	height: 30px;
+	margin-left: 5px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position:center;
+	cursor: pointer;
+	font-size: 0;
+}
+.datetimepickereType{
+	margin-left: 25px;
+	width: 185px;
+	float: left;
+	line-height: 30px;
+	border:1px solid #cccccc;
+	text-align: center;
+	min-height: 30px;
 }

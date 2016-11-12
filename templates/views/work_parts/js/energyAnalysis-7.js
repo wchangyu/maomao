@@ -54,11 +54,66 @@ $(function(){
 		inputValue = $('#datetimepicker').val();
 		var now = moment(inputValue).startOf('day');
 		var startDay = now.format("YYYY-MM-DD");
-		//console.log(startDay);
 		var startSplit = startDay.split('-');
 		currentDate = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
 		$('.datetimepickereType').html(startDay)
 	});
+	//echarts
+	myChart46 = echarts.init(document.getElementById('rheader-content-46'));
+	option46 = {
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['用电量']
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
+			{
+				type : 'category',
+				data : []
+			}
+		],
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+		series : [
+			{
+				name:'用电量',
+				type:'bar',
+				data:[],
+				barMaxWidth: '60',
+				itemStyle: {
+					normal: {
+
+						color:'#ed7f7e'
+					},
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				}
+			},
+			{
+				name:'用电趋势',
+				type:'line',
+				data:[]
+			}
+		]
+	};
+	myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 	getEcType();
 	getEcTypeWord();
 	getPointerDatas();
@@ -181,114 +236,14 @@ function getPointerDatas(){
 			dataWeekY.push(datas[j].data);
 		}
 	}
-	myChart46 = echarts.init(document.getElementById('rheader-content-46'));
-	option46 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['用电量']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : dataMonthX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'用电量',
-				type:'bar',
-				data:dataMonthY,
-				itemStyle: {
-					normal: {
-
-						color:'#ed7f7e'
-					},
-					emphasis: {
-						shadowBlur: 10,
-						shadowOffsetX: 0,
-						shadowColor: 'rgba(0, 0, 0, 0.5)'
-					}
-				}
-			},
-			{
-				name:'用电趋势',
-				type:'line',
-				data:dataMonthY
-			}
-		]
-	};
+	option46.xAxis.data = dataMonthX;
+	option46.series[0].data = dataMonthY;
+	option46.series[1].data = dataMonthY;
 	myChart46.setOption(option46);
-	myChart45 = echarts.init(document.getElementById('rheader-content-45'));
-	option45 = {
-		tooltip : {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['用电量']
-		},
-		toolbox: {
-			show : true,
-			feature : {
-				dataView : {show: true, readOnly: false},
-				magicType : {show: true, type: ['line', 'bar']},
-				restore : {show: true},
-				saveAsImage : {show: true}
-			}
-		},
-		calculable : true,
-		xAxis : [
-			{
-				type : 'category',
-				data : dataWeekX
-			}
-		],
-		yAxis : [
-			{
-				type : 'value'
-			}
-		],
-		series : [
-			{
-				name:'用电量',
-				type:'bar',
-				data:dataWeekY,
-				itemStyle: {
-					normal: {
-
-						color:'#ed7f7e'
-					},
-					emphasis: {
-						shadowBlur: 10,
-						shadowOffsetX: 0,
-						shadowColor: 'rgba(0, 0, 0, 0.5)'
-					}
-				}
-			},
-			{
-				name:'用电趋势',
-				type:'line',
-				data:dataWeekY
-			}
-		]
-	};
-	myChart45.setOption(option45);
+	option46.xAxis.data = dataWeekX;
+	option46.series[0].data = dataWeekY;
+	option46.series[1].data = dataWeekY;
+	myChart45.setOption(option46);
 }
 //科室数据
 function getOfficeDatas(){

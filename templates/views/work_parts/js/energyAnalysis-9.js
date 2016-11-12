@@ -6,15 +6,9 @@ $(function(){
 	_objectSel.initOffices($("#allOffices"));
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
-
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	).on('changeDate',function(e){
+	//日历格式初始化
+	initDate();
+	$('#datetimepicker').on('changeDate',function(e){
 		var inputValue;
 		dataType();
 		inputValue = $('#datetimepicker').val();
@@ -88,7 +82,6 @@ $(function(){
 			$(this).remove();
 		})
 	});
-
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
@@ -112,7 +105,41 @@ $(function(){
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
-	})
+	});
+	//echarts
+	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
+	option11 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:[]
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis:  {
+			type: 'category',
+			boundaryGap: false,
+			data: []
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				formatter: '{value}'
+			}
+		},
+		series: []
+	};
 	timeDisposal();
 	getSelectedTime();
 	getEcType();
@@ -121,12 +148,15 @@ $(function(){
 	setEnergyInfos();
 	$('small').html(pointerNames);
 	$('.types').change(function(){
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}else{
+			initDate();
+		}
 		$('.datetimepickereType').empty();
-		startsTime.length=0;
-		endsTime.length=0;
-		startsTimes.length=0;
-		endsTimes.length=0;
-		arr.length=0;
 	})
 	$('.btns').click(function(){
 		getEcType();
@@ -447,39 +477,9 @@ function _ajaxGetPointers(){
 		}
 	}
 	getSelectedTime();
-	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
-	option11 = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		legend: {
-			data:selectTime
-		},
-		toolbox: {
-			show: true,
-			feature: {
-				dataZoom: {
-					yAxisIndex: 'none'
-				},
-				dataView: {readOnly: false},
-				magicType: {type: ['line', 'bar']},
-				restore: {},
-				saveAsImage: {}
-			}
-		},
-		xAxis:  {
-			type: 'category',
-			boundaryGap: false,
-			data: dataX
-		},
-		yAxis: {
-			type: 'value',
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series: dataY
-	};
+	option11.legend.data = selectTime;
+	option11.xAxis.data = dataX;
+	option11.series = dataY;
 	myChart11.setOption(option11);
 }
 //获得office数据
@@ -685,39 +685,9 @@ function _ajaxGetOffices(){
 		}
 	}
 	getSelectedTime();
-	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
-	option11 = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		legend: {
-			data:selectTime
-		},
-		toolbox: {
-			show: true,
-			feature: {
-				dataZoom: {
-					yAxisIndex: 'none'
-				},
-				dataView: {readOnly: false},
-				magicType: {type: ['line', 'bar']},
-				restore: {},
-				saveAsImage: {}
-			}
-		},
-		xAxis:  {
-			type: 'category',
-			boundaryGap: false,
-			data: dataX
-		},
-		yAxis: {
-			type: 'value',
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series: dataY
-	};
+	option11.legend.data = selectTime;
+	option11.xAxis.data = dataX;
+	option11.series = dataY;
 	myChart11.setOption(option11);
 }
 var selectTime=[];
@@ -737,4 +707,38 @@ function unitConversion(num){
 	}else{
 		return num.toFixed(2);
 	}
+}
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
 }

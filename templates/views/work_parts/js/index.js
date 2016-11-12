@@ -1,9 +1,6 @@
 $(function(){
     //上日上年标题部分
-    $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
-    $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
-    $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
-    $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
+    titleChange();
     //读取楼宇和科室的zTree；
     _objectSel = new ObjectSelection();
     _objectSel.initPointers($("#allPointer"),true);
@@ -65,6 +62,267 @@ $(function(){
         }
         _changeTitle = $(this).html();
     })
+    //echart配置项
+    //仪表盘
+    _myChart1 = echarts.init(document.getElementById('main-right-four'));
+    option = {
+        tooltip : {
+            formatter: "{a} <br/>{c} {b}"
+        },
+        series : [
+            {
+                name: '电耗',
+                type: 'gauge',
+                center: ['53%', '55%'],
+                z: 3,
+                min: 0,
+                max: 220,
+                splitNumber: 11,
+                radius: '65%',
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 10
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length: 15,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                title : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder',
+                        fontSize: 14,
+                        fontStyle: 'italic'
+                    }
+                },
+                detail : {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    }
+                },
+                data:[{value: '', name: 'kWh/㎡'}]
+            },
+            {
+                name: '水耗',
+                type: 'gauge',
+                center: ['23%', '55%'],    // 默认全局居中
+                radius: '65%',
+                min:0,
+                max:7,
+                endAngle:45,
+                splitNumber:7,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 8
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    length:12,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length:20,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:5
+                },
+                title: {
+                    offsetCenter: [0, '-30%']    // x, y，单位px
+                },
+                detail: {
+                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                        fontWeight: 'bolder'
+                    }
+                },
+                data:[{value: '', name: 'L/㎡'}]
+            },
+            {
+                name: '耗冷',
+                type: 'gauge',
+                center: ['83%', '55%'],    // 默认全局居中
+                radius: '50%',
+                min: 0,
+                max: 2,
+                startAngle: 135,
+                endAngle: 45,
+                splitNumber: 2,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 8
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    splitNumber: 5,
+                    length: 10,        // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        color: 'auto'
+                    }
+                },
+                axisLabel: {
+                    formatter:function(v){
+                        switch (v + '') {
+                            case '1' : return 'cold';
+                        }
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 15,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:2
+                },
+                title : {
+                    show: false
+                },
+                detail : {
+                    show: false
+                },
+                data:[{value: '', name: 'MJ/㎡'}]
+            },
+            {
+                name: '耗热',
+                type: 'gauge',
+                center : ['83%', '55%'],    // 默认全局居中
+                radius : '50%',
+                min: 0,
+                max: 2,
+                startAngle: 315,
+                endAngle: 225,
+                splitNumber: 2,
+                axisLine: {            // 坐标轴线
+                    lineStyle: {       // 属性lineStyle控制线条样式
+                        width: 8
+                    }
+                },
+                axisTick: {            // 坐标轴小标记
+                    show: false
+                },
+                axisLabel: {
+                    formatter:function(v){
+                        switch (v + '') {
+                            case '1' : return 'heat';
+                        }
+                    }
+                },
+                splitLine: {           // 分隔线
+                    length: 15,         // 属性length控制线长
+                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'auto'
+                    }
+                },
+                pointer: {
+                    width:2
+                },
+                title: {
+                    show: false
+                },
+                detail: {
+                    show: false
+                },
+                data:[{value: '', name: 'MJ/㎡'}]
+            }
+        ]
+    };
+    //分项电耗
+    _myChart = echarts.init(document.getElementById('main-right-two'));
+    // 指定图表的配置项和数据
+    option1 = {
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data:arr_3
+        },
+        series: [
+            {
+                name:'',
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[]
+            }
+        ]
+    };
+    //费用
+    _myChart2 = echarts.init(document.getElementById('main-right-three'));
+    option2 = {
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type : 'category',
+            splitLine: {show:false},
+            data : []   //[arr_6[0],arr_6[1],arr_6[2],arr_6[3]]
+        },
+        yAxis: {
+            type : 'value'
+        },
+        series: [
+            {
+                name: '费用',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                },
+                data:[],   //[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
+                itemStyle: {
+                    normal: {
+                        color: '#91bbaf'
+                    }
+                }
+            }
+        ]
+
+    };
     //页面加载时获取楼宇总能耗、分项电耗、能耗费用、用能指标
     getClassEcData();
     PointerPowerConsumption();
@@ -72,10 +330,7 @@ $(function(){
     PointerCharge();
     $('.btns1').click(function(){
         var o=$('.tree-3')[0].style.display;
-        $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
-        $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
-        $('.right-one-headers').eq(2).html(_changeTitle + '用能指标'+'&nbsp;&nbsp;&nbsp; 单位：元');
-        $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
+        titleChange();
         if(o == "none"){
             getOfficeClassEcData();
             OfficePowerConsumption();
@@ -86,8 +341,6 @@ $(function(){
             PointerPowerConsumption();
             PointerCharge();
             $('small').html(pointerNames);
-            console.log('开始时间为：' + newStr);
-            console.log('结束时间为：' + newStr1);
         }
         theDashboard();
     });
@@ -97,7 +350,7 @@ $(function(){
             _myChart1.resize();
             _myChart2.resize();
         }
-    })
+    });
 })
   //对于用户来说的区域位置 
 var _changeTitle = '上日';
@@ -108,8 +361,13 @@ var _myChart2;
 //存放id
 var  arr=[];
 arr[0]=0;
-//获取科室单位的id
-//存放id
+//右边图表每块儿标题的修改；
+function titleChange(){
+    $('.right-one-headers').eq(0).html(_changeTitle + '分类能耗');
+    $('.right-one-headers').eq(1).html(_changeTitle + '分项电耗'+'&nbsp;&nbsp;&nbsp; 单位：kWh');
+    $('.right-one-headers').eq(2).html(_changeTitle + '用能指标');
+    $('.right-one-headers').eq(3).html(_changeTitle + '能耗费用'+'&nbsp;&nbsp;&nbsp; 单位：元');
+}
 //上月分项电耗（楼宇）
 var arr_3 =['特殊用电', '照明插座用电', '动力用电', '空调用电'];
 var arr_33=['42', '40', '41', '02'];
@@ -131,196 +389,20 @@ function theDashboard(){
         },
          success:function(result){
              $('#loading2').hide();
-                var dian = 0,shui = 0,nuan = 0,leng = 0;
+                var dian = 0;
                 for(var i=0;i<result.length;i++){
                     if(result[i].energyItemID == "01" ){
                         dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "211"){
-                        shui = result[i].ecDataByArea.toFixed(2);
+                        dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "412"){
-                        nuan = result[i].ecDataByArea.toFixed(2);
+                        dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "511"){
-                        leng = result[i].ecDataByArea.toFixed(2);
+                        dian = result[i].ecDataByArea.toFixed(2);
                     }
+                    option.series[i].data[0].value = dian;
                 }
-
-            _myChart1 = echarts.init(document.getElementById('main-right-four'));
-            option = {
-                tooltip : {
-                    formatter: "{a} <br/>{c} {b}"
-                },
-                series : [
-                    {
-                        name: '电耗',
-                        type: 'gauge',
-                        center: ['53%', '55%'],
-                        z: 3,
-                        min: 0,
-                        max: 220,
-                        splitNumber: 11,
-                        radius: '65%',
-                        axisLine: {            // 坐标轴线
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                width: 10
-                            }
-                        },
-                        axisTick: {            // 坐标轴小标记
-                            length: 15,        // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        splitLine: {           // 分隔线
-                            length: 20,         // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        title : {
-                            textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                                fontWeight: 'bolder',
-                                fontSize: 14,
-                                fontStyle: 'italic'
-                            }
-                        },
-                        detail : {
-                            textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                                fontWeight: 'bolder'
-                            }
-                        },
-                        data:[{value: dian, name: 'kWh/㎡'}]
-                    },
-                    {
-                        name: '水耗',
-                        type: 'gauge',
-                        center: ['23%', '55%'],    // 默认全局居中
-                        radius: '65%',
-                        min:0,
-                        max:7,
-                        endAngle:45,
-                        splitNumber:7,
-                        axisLine: {            // 坐标轴线
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                width: 8
-                            }
-                        },
-                        axisTick: {            // 坐标轴小标记
-                            length:12,        // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        splitLine: {           // 分隔线
-                            length:20,         // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        pointer: {
-                            width:5
-                        },
-                        title: {
-                            offsetCenter: [0, '-30%']    // x, y，单位px
-                        },
-                        detail: {
-                            textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                                fontWeight: 'bolder'
-                            }
-                        },
-                        data:[{value: shui, name: 'L/㎡'}]
-                    },
-                    {
-                        name: '耗冷',
-                        type: 'gauge',
-                        center: ['83%', '55%'],    // 默认全局居中
-                        radius: '50%',
-                        min: 0,
-                        max: 2,
-                        startAngle: 135,
-                        endAngle: 45,
-                        splitNumber: 2,
-                        axisLine: {            // 坐标轴线
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                width: 8
-                            }
-                        },
-                        axisTick: {            // 坐标轴小标记
-                            splitNumber: 5,
-                            length: 10,        // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        axisLabel: {
-                            formatter:function(v){
-                                switch (v + '') {
-                                    case '1' : return 'cold';
-                                }
-                            }
-                        },
-                        splitLine: {           // 分隔线
-                            length: 15,         // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        pointer: {
-                            width:2
-                        },
-                        title : {
-                            show: false
-                        },
-                        detail : {
-                            show: false
-                        },
-                        data:[{value: leng, name: 'MJ/㎡'}]
-                    },
-                    {
-                        name: '耗热',
-                        type: 'gauge',
-                        center : ['83%', '55%'],    // 默认全局居中
-                        radius : '50%',
-                        min: 0,
-                        max: 2,
-                        startAngle: 315,
-                        endAngle: 225,
-                        splitNumber: 2,
-                        axisLine: {            // 坐标轴线
-                            lineStyle: {       // 属性lineStyle控制线条样式
-                                width: 8
-                            }
-                        },
-                        axisTick: {            // 坐标轴小标记
-                            show: false
-                        },
-                        axisLabel: {
-                            formatter:function(v){
-                                switch (v + '') {
-                                    case '1' : return 'heat';
-                                }
-                            }
-                        },
-                        splitLine: {           // 分隔线
-                            length: 15,         // 属性length控制线长
-                            lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
-                                color: 'auto'
-                            }
-                        },
-                        pointer: {
-                            width:2
-                        },
-                        title: {
-                            show: false
-                        },
-                        detail: {
-                            show: false
-                        },
-                        data:[{value: nuan, name: 'MJ/㎡'}]
-                    }
-                ]
-            };
-            _myChart1.setOption(option,true);
-            
+             _myChart1.setOption(option,true);
          }
     })
 }
@@ -390,53 +472,14 @@ function PointerPowerConsumption(){
             for(var i=0;i<result.length;i++){
                 arr_4[i] = result[i].ecData.toFixed(0);
             }
-            _myChart = echarts.init(document.getElementById('main-right-two'));
-            // 指定图表的配置项和数据
-            option = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data:arr_3
-                },
-                series: [
-                    {
-                        name:'',
-                        type:'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '30',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
-                            {value:arr_4[0], name:arr_3[0]},
-                            {value:arr_4[1], name:arr_3[1]},
-                            {value:arr_4[2], name:arr_3[2]},
-                            {value:arr_4[3], name:arr_3[3]}
-                        ]
-                    }
-                ]
-            };
+            for(var i=0;i<arr_4.length;i++){
+                var obj = {};
+                obj.value = arr_4[i];
+                obj.name = arr_3[i];
+                option1.series[0].data.push(obj);
+            }
             // 使用刚指定的配置项和数据显示图表。
-            _myChart.setOption(option);
+            _myChart.setOption(option1);
         }
     })
 }
@@ -462,51 +505,13 @@ function OfficePowerConsumption(){
             for(var i=0;i<result.length;i++){
                 arr_10[i] = result[i].ecData;
             }
-            _myChart = echarts.init(document.getElementById('main-right-two'));
-            option = {
-                tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                },
-                legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data:arr_3
-                },
-                series: [
-                    {
-                        name:'',
-                        type:'pie',
-                        radius: ['50%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            normal: {
-                                show: false,
-                                position: 'center'
-                            },
-                            emphasis: {
-                                show: true,
-                                textStyle: {
-                                    fontSize: '30',
-                                    fontWeight: 'bold'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            }
-                        },
-                        data:[
-                            {value:arr_10[0], name:arr_3[0]},
-                            {value:arr_10[1], name:arr_3[1]},
-                            {value:arr_10[2], name:arr_3[2]},
-                            {value:arr_10[3], name:arr_3[3]}
-                        ]
-                    }
-                ]
-            };
-            _myChart.setOption(option);
+            for(var i=0;i<arr_10.length;i++){
+                var obj = {};
+                obj.value = arr_10[i];
+                obj.name = arr_3[i];
+                option1.series[0].data.push(obj);
+            }
+            _myChart.setOption(option1);
         }
     })
 }
@@ -529,49 +534,9 @@ function PointerCharge(){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
             }
-            _myChart2 = echarts.init(document.getElementById('main-right-three'));
-            option1 = {
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type : 'category',
-                    splitLine: {show:false},
-                    data : [arr_6[0],arr_6[1],arr_6[2],arr_6[3]]
-                },
-                yAxis: {
-                    type : 'value'
-                },
-                series: [
-                    {
-                        name: '费用',
-                        type: 'bar',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'inside'
-                            }
-                        },
-                        data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
-                        itemStyle: {
-                            normal: {
-                                color: '#91bbaf'
-                            }
-                        }
-                    }
-                ]
-
-            };
-            _myChart2.setOption(option1);
+            option2.xAxis.data = arr_6;
+            option2.series[0].data = arr_7;
+            _myChart2.setOption(option2);
         }
     })
 }
@@ -597,57 +562,9 @@ function OfficeCharge(){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
             }
-            _myChart2 = echarts.init(document.getElementById('main-right-three'));
-            option1 = {
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type : 'category',
-                    splitLine: {show:false},
-                    data : [arr_6[0],arr_6[1],arr_6[2],arr_6[3]]
-                },
-                yAxis: {
-                    type : 'value'
-                },
-                series: [
-                    {
-                        name: '费用',
-                        type: 'bar',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'inside'
-                            }
-                        },
-                        data:[arr_7[0],arr_7[1],arr_7[2],arr_7[3]],
-                        itemStyle: {
-                            normal: {
-                                color: function(params2) {
-
-                                    var colorList = [
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf','#91bbaf',
-                                        '#91bbaf','#91bbaf'
-                                    ];
-                                    return colorList[params2.dataIndex]
-                                }
-                            }
-                        }
-                    }
-                ]
-
-            };
-            _myChart2.setOption(option1);
+            option2.xAxis.data = arr_6;
+            option2.series[0].data = arr_7;
+            _myChart2.setOption(option2);
         }
     })
 }

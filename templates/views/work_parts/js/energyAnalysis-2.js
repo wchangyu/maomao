@@ -42,14 +42,20 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
+	//日历格式初始化
+	initDate();
+	$('.types').change(function(){
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}else{
+			initDate();
 		}
-	).on('changeDate',function(e){
+		$('.datetimepickereType').empty();
+	})
+	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
 		inputValue = $('#datetimepicker').val();
 		if(_ajaxDataType=="日"){
@@ -134,9 +140,6 @@ $(function(){
 			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
 		}
 	})
-	$('.types').change(function(){
-		$('.datetimepickereType').empty();
-	});
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -148,6 +151,27 @@ $(function(){
 	setEnergyInfos();
 	//获取时间段
 	dataType();
+	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
+	option11 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend:{
+			data:[]
+		},
+		xAxis:  {
+			type: 'category',
+			boundaryGap: false,
+			data:[]                   //dataX
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				formatter: '{value}'
+			}
+		},
+		series: []                      //dataY
+	};
 	getPointerData();
 	//设置页面选择的时间
 	$('.header-one').html($('.datetimepickereType').html());
@@ -445,29 +469,10 @@ function getPointerData(){
 					+'</td><td>'+unitConversion(average)+'</td></tr>')
 			}
 		}
-		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
-		option11 = {
-			tooltip: {
-				trigger: 'axis'
-			},
-			legend:{
-				data:pointerNames
-			},
-			xAxis:  {
-				type: 'category',
-				boundaryGap: false,
-				data: dataX
-			},
-			yAxis: {
-				type: 'value',
-				axisLabel: {
-					formatter: '{value}'
-				}
-			},
-			series: dataY
-		};
+		option11.legend.data = pointerNames;
+		option11.xAxis.data = dataX;
+		option11.series = dataY;
 		myChart11.setOption(option11);
-
 }
 //表格单位转换
 function unitConversion(num){
@@ -693,41 +698,45 @@ function getOfficeData(){
 				+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
 	}
-	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
-	option11 = {
-		tooltip: {
-			trigger: 'axis'
-		},
-		legend:{
-			data:officeNames
-		},
-		toolbox: {
-			show: true,
-			feature: {
-				dataZoom: {
-					yAxisIndex: 'none'
-				},
-				dataView: {readOnly: false},
-				magicType: {type: ['line', 'bar']},
-				restore: {},
-				saveAsImage: {}
-			}
-		},
-		xAxis:  {
-			type: 'category',
-			boundaryGap: false,
-			data: dataX
-		},
-		yAxis: {
-			type: 'value',
-			axisLabel: {
-				formatter: '{value}'
-			}
-		},
-		series: dataY
-	};
+	option11.legend.data = officeNames;
+	option11.xAxis.data = dataX;
+	option11.series = dataY
 	myChart11.setOption(option11);
 
 
 
+}
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
 }

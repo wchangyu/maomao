@@ -1,7 +1,7 @@
 $(function(){
 	//能耗种类
 
-	$('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
+	$('.datetimepickereType').html(_ajaxStartTime +'到'+_ajaxStartTime);
 
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initOffices($(".energy-types"),undefined,function(){
@@ -13,14 +13,9 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"energyConsumption");
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	).on('changeDate',function(e){
+	//日历格式初始化
+	initDate();
+	$('#datetimepicker').on('changeDate',function(e){
 			var inputValue;
 			dataType();
 			inputValue = $('#datetimepicker').val();
@@ -35,7 +30,7 @@ $(function(){
 			var endsDay = now.add(1,'d').format("YYYY-MM-DD");
 			_ajaxStartTime=startDay;
 			_ajaxDataType_1='小时';
-			var end=startDay + "-" +startDay;
+			var end=startDay + "到" +startDay;
 			var aa = $('.datetimepickereType').text();
 			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
 				if(aa.indexOf(end)<0){
@@ -61,7 +56,7 @@ $(function(){
 			//当前开始结束时间
 			var startWeek = now.subtract(6,'d').format("YYYY-MM-DD");
 			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =nowStart + "-" +nowEnd;
+			end =nowStart + "到" +nowEnd;
 			_ajaxDataType_1='日';
 			var startsWeek = now.subtract(14,'d').format("YYYY-MM-DD");
 			var endsWeek = now.add(7,'d').format("YYYY-MM-DD");
@@ -91,7 +86,7 @@ $(function(){
 			//当前开始结束时间
 			var startMonth=now.format("YYYY-MM-DD");
 			var endMonth=nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "-" + nowEnd;
+			end = nowStart + "到" + nowEnd;
 			//上一时段的开始结束时间
 			var startsMonth = now.subtract(1,'month').format("YYYY-MM-DD");
 			var endsMonth = nows.subtract(1,'month').format("YYYY-MM-DD");
@@ -119,7 +114,7 @@ $(function(){
 			var nowEnd = nows.format("YYYY-MM-DD");
 			var startYear=now.format("YYYY-MM-DD");
 			var endYear=nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart+"-"+nowEnd;
+			end = nowStart+"到"+nowEnd;
 			var startsYear = now.subtract(1,'year').format("YYYY-MM-DD");
 			var endsYear = nows.subtract(1,'year').format("YYYY-MM-DD");
 			_ajaxDataType_1='月';
@@ -142,16 +137,58 @@ $(function(){
 		});
 	//页面加载配置信息
 	setEnergyInfo();
-
 	//换内容时，清空时间
 	$('.types').change(function(){
-		$('.datetimepickereType').html('');
-	});
+		var bbaa = $('.types').find('option:selected').val();
+		if(bbaa == '月'){
+			monthDate();
+		}else if(bbaa == '年'){
+			yearDate();
+		}else{
+			initDate();
+		}
+		$('.datetimepickereType').empty();
+	})
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
-	})
+	});
+	//用电量折线图
+	myChart3 = echarts.init(document.getElementById('rheader-content'));
+	// 指定图表的配置项和数据
+	option3 = {
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:[]
+		},
+		toolbox: {
+			show: true,
+			feature: {
+				dataZoom: {
+					yAxisIndex: 'none'
+				},
+				dataView: {readOnly: false},
+				magicType: {type: ['line', 'bar']},
+				restore: {},
+				saveAsImage: {}
+			}
+		},
+		xAxis:  {
+			type: 'category',
+			boundaryGap: false,
+			data: []
+		},
+		yAxis: {
+			type: 'value',
+			axisLabel: {
+				formatter: '{value}'
+			}
+		},
+		series: []
+	};
 	getBranchData();
 	$('.btns').click(function(){
 		getBranchData();
@@ -422,41 +459,43 @@ function getEcTypeWord(){
 			 dataY.push(object);
 		 }
 	 }
-	 //用电量折线图
-	 myChart3 = echarts.init(document.getElementById('rheader-content'));
-	 // 指定图表的配置项和数据
-	 option3 = {
-		 tooltip: {
-			 trigger: 'axis'
-		 },
-		 legend: {
-			 data:officeNames
-		 },
-		 toolbox: {
-			 show: true,
-			 feature: {
-				 dataZoom: {
-					 yAxisIndex: 'none'
-				 },
-				 dataView: {readOnly: false},
-				 magicType: {type: ['line', 'bar']},
-				 restore: {},
-				 saveAsImage: {}
-			 }
-		 },
-		 xAxis:  {
-			 type: 'category',
-			 boundaryGap: false,
-			 data: dataX
-		 },
-		 yAxis: {
-			 type: 'value',
-			 axisLabel: {
-				 formatter: '{value}'
-			 }
-		 },
-		 series: dataY
-	 };
+	 option3.legend.data = officeNames;
+	 option3.xAxis.data = dataX;
+	 option3.series = dataY;
 	 // 使用刚指定的配置项和数据显示图表。
 	 myChart3.setOption(option3);
  }
+//月的时间初始化
+function monthDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 1,
+		maxViewMode: 1,
+		minViewMode:1,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//年的时间初始化
+function yearDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker({
+		startView: 2,
+		maxViewMode: 2,
+		minViewMode:2,
+		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+		language: "zh-CN" //汉化
+	})
+}
+//一般时间初始化
+function initDate(){
+	$('#datetimepicker').datepicker('destroy');
+	$('#datetimepicker').datepicker(
+		{
+			language:  'zh-CN',
+			todayBtn: 1,
+			todayHighlight: 1,
+			format: 'yyyy-mm-dd'
+		}
+	)
+}
