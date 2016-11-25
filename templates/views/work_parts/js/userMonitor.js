@@ -29,8 +29,11 @@ var userMonitor = (function(){
     var _originPageWidth = 0,_originPageHeight = 0;
     const _leftWidth = 250;
     const _headHeight = 62;
+    const _scaleStep = 0.05;    //每次点击的变形变化量
+    var _scaleX = 1;        //变形比例
     var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
     var _refreshAction;
+
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -56,26 +59,63 @@ var userMonitor = (function(){
             _refreshInterval = parseInt(sessionStorage.refreshInterval);
         }
         //返回首页
-        $(".functions-3").click(function(){
+        $(".functions-1").click(function(){
             getUserProcs();
         });
         //刷新数据
-        $(".functions-4").click(function(){
+        $(".functions-2").click(function(){
             if(!_isInstDataLoading){
                 getInstDatasByIds();
             }
         });
 
-        $(".functions-2").click(function(){     //全屏操作
-            var $panel = $(".total-wrap");
-            if($panel.hasClass("monitor-fullscreen")){          //添加transform
-                $panel.removeClass("monitor-fullscreen");
-
+        $(".functions-3").click(function(){     //全屏操作
+            var $content_right = $("#content-main-right");
+            var transform = $content_right.css("transform");
+            $content_right.css("transform-origin","left top");
+            $content_right.css("-webkit-transform-origin","left top");
+            if(!transform || transform=='none'){        //没有变形
+                _scaleX = 1 + _scaleStep;
+                $content_right.css("transform","scale(" + _scaleX + "," + _scaleX + ")");
             }else{
-                $panel.addClass("monitor-fullscreen");
-                $panel.css("transform","");
+                var s = transform.replace("scale(","").replace(")","").replace("matrix(","").replace(", 0, 0","").replace(", 0, 0","");
+                var scales = s.split(",");
+                if(scales.length == 2){
+                    _scaleX = +scales[0] + _scaleStep;
+                    if(_scaleX < 5 && _scaleX < 5){
+                        $content_right.css("transform","scale(" + _scaleX + "," + _scaleX + ")");
+                    }
+                }
             }
+            setScaleSign(_scaleX,_scaleStep);
         });
+
+        $(".functions-4").click(function(){
+            var $content_right = $("#content-main-right");
+            var transform = $content_right.css("transform");
+            $content_right.css("transform-origin","left top");
+            if(!transform || transform=='none'){        //没有变形
+                _scaleX = 1 - _scaleStep;
+                $content_right.css("transform","scale(" + _scaleX + "," + _scaleX + ")");
+            }else{
+                var s = transform.replace("scale(","").replace(")","").replace("matrix(","").replace(", 0, 0","").replace(", 0, 0","");
+                var scales = s.split(",");
+                if(scales.length == 2){
+                    _scaleX = +scales[0] - _scaleStep;
+                    if(_scaleX>0 && _scaleX>0){
+                        $content_right.css("transform","scale(" + _scaleX + "," + _scaleX + ")");
+                    }
+                }
+            }
+            setScaleSign(_scaleX,_scaleStep);
+        });
+
+        $(".functions-5").click(function(){
+            $("#content-main-right").css({"transform":"","transform-orgin":""});
+            _scaleX = 1;
+            setScaleSign(1);
+        });
+
         var $pageContext = $(".page-content");
         _originPageWidth = $pageContext.width();
         _originPageHeight = $pageContext.height();
@@ -86,6 +126,27 @@ var userMonitor = (function(){
         if(!_isInstDataLoading && _refreshInterval>0){
             if(_refreshAction){ clearTimeout(_refreshAction);}
             _refreshAction = setTimeout(getInstDatasByIds,_refreshInterval * 1000);
+        }
+    }
+    //设置缩小和放大的按钮图标
+    var setScaleSign = function(scale,scaleStep){
+        var $badge3 = $("#badge-3");
+        var $bagde4 = $("#badge-4");
+        $badge3.html("");
+        $bagde4.html("");
+        if(scale == 1){
+            $badge3.hide();
+            $bagde4.hide();
+        }else if(scale > 1){
+            $badge3.show();
+            $bagde4.hide();
+            var sTimes = Math.abs(((scale - 1) / scaleStep)).toFixed();
+            $badge3.html(sTimes);
+        }else{
+            $badge3.hide();
+            $bagde4.show();
+            var sTimes = Math.abs(((scale - 1) / scaleStep)).toFixed();
+            $bagde4.html(sTimes);
         }
     }
 
@@ -330,7 +391,6 @@ var userMonitor = (function(){
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
-                    console.log(imgWidth);
                     if((imgWidth + _leftWidth) > _originPageWidth){
                         $(".page-content").width(imgWidth + _leftWidth);
                         $(".total-wrap").width(imgWidth + _leftWidth);
@@ -1126,8 +1186,8 @@ var userMonitor = (function(){
             $divCtrls.appendTo($contentmain);
         }
         $divCtrls.css({     //将顶点减一保证鼠标当前在控制面板的范围内
-            "left" : (left - 1) + "px",
-            "top"  : (top - 1) + "px"
+            "left" : ((left - 1) / _scaleX) + "px",
+            "top"  : ((top - 1) / _scaleX) + "px"
         });
         return $divCtrls;
     }
