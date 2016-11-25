@@ -162,7 +162,8 @@ $(function(){
 			trigger: 'axis'
 		},
 		legend: {
-			data:[]
+			data:[],
+			top:'30',
 		},
 		toolbox: {
 			show: true,
@@ -190,7 +191,7 @@ $(function(){
 		series: []
 	};
 	getBranchData();
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		getBranchData();
 		getEcTypeWord();
 		setEnergyInfo();

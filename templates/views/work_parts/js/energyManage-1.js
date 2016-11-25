@@ -160,7 +160,7 @@ $(function(){
 	getOfficesData();
 	getEcType();
 	setEnergyInfos();
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		orderTypes();
 		getPointerData();
 		getOfficesData();

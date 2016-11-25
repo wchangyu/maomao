@@ -266,7 +266,7 @@ $(function(){
 	getItemizedData();
 	setEnergyInfos();
 	$('small').html(select_Name);
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		getEcType();
 		getPointerId();
 		treeObject();

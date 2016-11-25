@@ -23,9 +23,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.content-main-right{
-	margin-left: 300px;
-}
 .header-one{
 	display: inline-block;
 	font-size: 1.2rem;
@@ -50,7 +47,6 @@
 	margin-left: 0px !important;
 }
 .ElectricityLineChart{
-	width:65% !important;
 	height:100%;
 	float:left;
 	padding: 0 !important;
@@ -106,7 +102,6 @@
 	width:100%;
 }
 #right-lefts1{
-	width:610px;
 	padding: 0 !important;
 	float: left;
 	height: 170px !important;
@@ -159,10 +154,9 @@
 	margin-top: 68px;
 }
 #right-lefts1{
-	background: url(../img/biaochi.jpg)no-repeat;
+	/*background: url(../img/biaochi.jpg)no-repeat;*/
 	height: 300px;
 	position: relative;
-	margin-right: 50px;
 }
 .prompt{
 	width: 170px;
@@ -170,6 +164,7 @@
 	border-radius: 13px;
 	background: #deebf7;
 	background:url(../img/prompt-arrow.png)no-repeat #deebf7;
+	margin: 0 auto;
 }
 .prompt-word{
 	display: inline-block;
@@ -185,7 +180,6 @@
 }
 .rheader-content-lefts{
 	padding-top: 80px;
-	width: 830px;
 	margin: 0 auto;
 }
 .right-lefts{
@@ -225,4 +219,23 @@
 }
 .energy-types div{
 	border: 2px solid #ffffff;
+}
+.borders{
+	background: url(../img/border11.png)no-repeat 100% 0px;
+}
+.textAlign{
+	text-align: center;
+}
+.borderNull{
+	border: none !important;
+}
+.borderRight{
+	border-right:1px solid #cccccc !important;
+}
+.goodIndicator{
+	background: url(../img/ruler11.png)no-repeat;
+	background-position: center;
+}
+.color{
+	font-size: 0
 }

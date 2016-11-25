@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="./work_parts/html5-date-range-picker/css/style.css">
+    <link rel="stylesheet" href="./work_parts/css/leftBat.css">
     <link rel="stylesheet" href="./work_parts/css/energyAnalysis-2.css">
-    <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
     <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
@@ -318,15 +318,71 @@
                 <div class="col-md-12">
                         <div class="total-warp">
                             <div class="wrap container">
-                                <div class="content-main-right">
+                                <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="content-main">
+                                        <div class="main-left-top1">
+                                            <div class="left-middle-header">
+                                                能耗种类
+                                            </div>
+                                            <div class="energy-types">
+
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="content-main">
+                                        <div class="main-left-middle">
+                                            <div class="left-middle-header">对象选择（可多选）</div>
+                                            <div class="left-middle-main">
+                                                <div class="left-middle-content">
+                                                    <div class="left-middle-tab">区域位置</div>
+                                                    <div class="left-middle-tab">科室单位</div>
+                                                </div>
+                                                <div class="tree-1 tree-3"id="tree-2">
+                                                    <ul class="allPointer ztree" id="allPointer"></ul>
+                                                </div>
+                                                <div class="tree-1 tree-2"id="tree-3">
+                                                    <div class="left-middle-input">
+                                                        <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                                    </div>
+                                                    <div class="tipes"></div>
+                                                    <ul class="allOffices ztree" id="allOffices"></ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="content-main">
+                                        <div class="select-times">
+                                            <div class="left-middle-header">时段选择</div>
+                                            <div class="left-middle-select">
+                                                <select class="types">
+                                                    <option value ="日">按日</option>
+                                                    <option value="周">按周</option>
+                                                    <option value="月">按月</option>
+                                                    <option value="年">按年</option>
+                                                </select>
+                                            </div>
+                                            <div id='wrapper'>
+                                                <div class="left-middle-input">
+                                                    <div class="datetimepickereType"></div>
+                                                    <input type="text" id="datetimepicker">
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="buttons">
+                                                    <button class="btn btn-success">查询</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
                                     <div class="right-content">
                                         <div class="left-middle-header">
                                             <div class="header-one"></div>
                                             <div class="header-two"></div>
                                             <div class="header-three">
-                                                <div class="header-three-1"></div>
-                                                <div class="header-three-1"></div>
-                                                <div class="header-three-1"></div>
                                             </div>
                                         </div>
                                         <div class="right-top">
@@ -341,16 +397,17 @@
                                             <!-- 内容 -->
                                             <div class="rheader-content">
                                                 <!-- 用电曲线折线图 -->
-                                                <div class="rheader-content-left col-lg-10"id="rheader-content-14"></div>
+                                                <div class="rheader-content-left col-lg-12 col-md-12 col-sm-12 col-xs-12"id="rheader-content-14"></div>
+                                                <div class="clearfix"></div>
                                             </div>
                                         </div>
                                         <div  class="right-top">
                                             <div class="rheader-content">
                                                 <div class="comparisonAndAnalysis">
-                                                    <div class="rheader-content-right-header">对比分析
+                                                    <div class="rheader-content-right-header right-header">对比分析
                                                     </div>
                                                     <!-- 表格 -->
-                                                    <div class="contrast-table">
+                                                    <div class="contrast-table col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <table class="table table-striped">
                                                             <thead>
                                                                 <tr>
@@ -368,54 +425,8 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <div class="clearfix"></div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-main-left">
-                                <div class="content-main">
-                                    <div class="main-left-top1">
-                                        <div class="left-middle-header">
-                                            能耗种类
-                                        </div>
-                                        <div class="energy-types">
-
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">对象选择（可多选）</div>
-                                        <div class="left-middle-tab">区域位置</div>
-                                        <div class="left-middle-tab">科室单位</div>
-                                        <div class="tree-1 tree-3"id="tree-2">
-                                            <ul class="allPointer ztree" id="allPointer"></ul>
-                                        </div>
-                                        <div class="tree-1 tree-2"id="tree-3">
-                                            <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                            <div class="tipes"></div>
-                                            <ul class="allOffices ztree" id="allOffices"></ul>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
-                                    <div class="select-times">
-                                        <div class="left-middle-header">时段选择</div>
-                                        <select class="types">
-                                            <option value ="日">按日</option>
-                                            <option value="周">按周</option>
-                                            <option value="月">按月</option>
-                                            <option value="年">按年</option>
-                                        </select>
-                                        <div id='wrapper'>
-                                            <input type="text" id="datetimepicker">
-                                            <div class="datetimepickereType"></div>
-                                            <div class="buttons">
-                                                <button class="btns">查询</button>
                                             </div>
                                         </div>
                                     </div>

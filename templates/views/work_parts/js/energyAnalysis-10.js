@@ -135,7 +135,8 @@ $(function(){
 			trigger: 'axis'
 		},
 		legend: {
-			data:[]
+			data:[],
+			top:'30',
 		},
 		toolbox: {
 			show: true,
@@ -187,7 +188,7 @@ $(function(){
 	getSelectedTime();
 	getItemizedData();
 	setEnergyInfos();
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		$('#tbody').empty();
 		getEcType();
 		timeDisposal();

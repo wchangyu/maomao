@@ -47,7 +47,6 @@
     line-height: 30px;
 }
 .right-header-right{
-    width: 400px;
     height: 100%;
     float: right;
 }
@@ -112,4 +111,6 @@
     height: 290px;
     background: red;
 }
-
+.left-middle-input{
+    margin-top: 20px;
+}

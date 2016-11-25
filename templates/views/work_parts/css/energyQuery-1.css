@@ -94,8 +94,7 @@
 	float: left;
 }
 .rheader-content-right{
-	float: left;
-	width: 20%;
+	width: 250px;
 	height: 100%;
 	margin-top: 100px;
 }
@@ -187,6 +186,8 @@
 }
 .rheader-content-right{
 	height:95%;
+	width: 250px;
+	margin: 0 auto;
 }
 .rheader-content-rights{
 	position:relative;
@@ -242,55 +243,35 @@
 .types{
 	margin-top: 20px;
 	height: 30px;
-	margin-left: 35px;
-	width: 206px;
+	width: 190px;
 }
 #datetimepicker{
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
 	background-position: 98% center;
-	height: 30px;
-	margin-left: 25px;
+	height: 32px;
+	float: right;
 }
 #rheader-content{
 	height:300px;
 }
 #selectPointer{
 	height: 30px;
-	margin-left: 35px;
 	margin-top: 10px;
+	width: 180px;
 }
 #energyConsumption{
 	height: 150px;
-	overflow: scroll;
+	width: 200px;
+	margin: 0 auto;
 }
 #key{
-	width: 220px;
+	width: 180px;
 	height:30px;
-	margin-left:35px !important;
 	margin-top: 10px;
-}
-#energyConsumption{
-	margin-left: 35px;
 }
 .tipes{
 	margin-left: 35px;
-}
-#energyConsumption li a{
-	display: inline-block;
-	vertical-align:middle !important;
-}
-.ztree li span.button.chk.checkbox_true_full {
-	background-position: -26px -5px !important;
-}
-.ztree li span.button.chk.checkbox_false_full {
-	background-position: -5px -5px !important;
-}
-.datetimepickereType{
-	margin-left: 25px;
-}
-.left-middle-tab{
-	margin-left: 100px !important;
 }
 .header-one{
 	text-indent: 0px;
@@ -298,16 +279,11 @@
 .energy-types div{
 	border: 2px solid #ffffff;
 }
-.energyConsumption a{
-	height:26px !important;
-}
 .rheader-content{
 	width:100%;
-	position: absolute;
 }
 .L-left{
 	height: 500px;
-	margin-right: 250px;
 	background: #ffffff;
 }
 .L-right{
@@ -320,8 +296,7 @@
 }
 #datetimepicker{
 	width:30px;
-	height: 30px;
-	margin-left: 5px;
+	height: 32px;
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
 	background-position:center;
@@ -329,11 +304,26 @@
 	font-size: 0;
 }
 .datetimepickereType{
-	margin-left: 25px;
-	width: 185px;
+	width: 150px;
 	float: left;
 	line-height: 30px;
 	border:1px solid #cccccc;
 	text-align: center;
 	min-height: 30px;
+	font-size: 10px;
+}
+.left-middle-content{
+	width: 70px;
+}
+.left-middle-input,.left-middle-select{
+	margin:0 auto;
+	width:190px;
+}
+#wrapper{
+	width:190px;
+	margin: 0 auto;
+	padding: 0px !important;
+}
+.tree-1{
+	background: #ffffff;
 }

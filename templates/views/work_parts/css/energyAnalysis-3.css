@@ -141,3 +141,7 @@
 .content-main-left{
 	display: block;
 }
+#wrapper{
+	padding: 0px;
+	padding-top: 20px;
+}

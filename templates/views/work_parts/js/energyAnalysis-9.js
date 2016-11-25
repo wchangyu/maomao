@@ -100,7 +100,7 @@ $(function(){
 			"color":"#ffffff"
 		})
 		$('.tree-1').hide();
-		$('.tree-1').eq($(this).index()-1).show();
+		$('.tree-1').eq($(this).index()).show();
 	})
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -158,7 +158,7 @@ $(function(){
 		}
 		$('.datetimepickereType').empty();
 	})
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		getEcType();
 		$('#tbody').empty();
 		getSelectedTime();

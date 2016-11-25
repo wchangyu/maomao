@@ -20,6 +20,14 @@
         "uid":"",
         "arg":"",
         "iconclass":"icon-map"
+      },
+      "测试页面":{
+        "type":"0",
+        "content":"测试页面",
+        "uri":"layout_blank_page1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-map"
       }
     }
   },

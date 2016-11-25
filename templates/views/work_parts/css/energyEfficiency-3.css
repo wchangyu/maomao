@@ -110,8 +110,6 @@
 .boiler-left-1{
     background:#fff;
     height:490px;
-    width:40%;
-    float:left;
 }
 .boiler-left-2{
     background:#fff;
@@ -134,10 +132,9 @@
     left:300px;
 }
 .rangeOfCriteria{
-    width:700px;
     height:80px;
     position:absolute;
-    top:490px;
+    top:430px;
     z-index: 10;
 }
 .range-li-1{
@@ -163,15 +160,11 @@
     height:400px;
 }
 .rheader-content-lis{
-    width:440px;
     background:#fff;
     height:80px;
 }
 .checkButton{
-    width:460px;
-    height:80px;
     margin-top:10px;
-    margin-left:60px;
 }
 .checkbox-inline-1{
     margin-left:10px;
@@ -183,7 +176,6 @@
 }
 .rheader-content-rights{
     height:100%;
-    margin-left: 350px;
 }
 .rheader-content-lefts{
     width: 350px;
@@ -192,4 +184,8 @@
 }
 .rheader-content{
     height: 600px;
+}
+.left-middle-input{
+    height: 30px;
+    margin-top: 20px;
 }

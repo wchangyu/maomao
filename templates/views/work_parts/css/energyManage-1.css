@@ -84,7 +84,6 @@
 }
 .L-rheader-content-left{
     height: 250px;
-    margin-right: 200px;
     position: relative;
 }
 .L-rheader-content-right{
@@ -93,6 +92,7 @@
     height:auto;
     right: 0;
     top: 0;
+    height: 250px;
 }
 #rheader-content-62{
     height: 250px;
@@ -137,7 +137,6 @@
 }
 .right-header-ul{
     float: right;
-    margin-right: 200px;
     margin-top: -2px;
 }
 .right-header-li{
@@ -177,7 +176,7 @@
     width: 180px;
     height: 30px;
     line-height: 30px;
-    margin-left: 50px !important;
+    margin: 0 auto;
     background: #ffffff;
     color: #333333;
     text-align: center;
@@ -188,7 +187,6 @@
 .types{
     margin-top: 20px;
     height: 30px;
-    margin-left: 35px;
 }
 #wrapper input {
     height: 30px;
@@ -201,7 +199,6 @@
 }
 .datetimepickereType {
     cursor: pointer;
-    margin-left: 25px;
 }
 .left-middle-tab-active{
     background:#7f7f7f;
@@ -220,15 +217,16 @@
 }
 .rheader-content-leff{
     position: absolute;
-    left: -200px;
+    left: 50%;
+    margin-left: -100px;
 }
 .energy-types div{
     border: 2px solid #ffffff;
 }
 #datetimepicker{
     width:30px;
-    height: 30px;
-    margin-left: 5px;
+    height: 32px !important;
+    float: right;
     background: url(../img/clendar.png)no-repeat;
     background-size: 25px;
     background-position:center;
@@ -236,11 +234,14 @@
     font-size: 0;
 }
 .datetimepickereType{
-    margin-left: 25px;
-    width: 185px;
+    width: 150px;
     float: left;
     line-height: 30px;
     border:1px solid #cccccc;
     text-align: center;
     min-height: 30px;
+    font-size: 10px;
+}
+.left-middle-select{
+    margin: 0 auto;
 }

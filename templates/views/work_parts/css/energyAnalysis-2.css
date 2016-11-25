@@ -23,9 +23,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.content-main-right{
-	margin-left: 300px;
-}
 #pointer li{
 	line-height: 30px !important;
 }
@@ -92,25 +89,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.types{
-	margin-top: 20px;
-	height: 30px;
-	margin-left: 35px;
-}
-.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
-	border-radius: 50% !important;
-}
-.drp-popup .drp-calendar-start .drp-calendar-date:before {
-	content: "开始时间：" !important;
-}
-.drp-popup .drp-calendar-end .drp-calendar-date:before {
-	content: "结束时间：" !important;
-}
-.drp-popup{
-	border-radius: 12px !important;
-	top: 420px !important;
-}
-
 .header-three-1{
 	display: inline-block;
 	height: 30px;
@@ -124,27 +102,38 @@
 }
 #datetimepicker{
 	width:30px;
-	height: 30px;
-	margin-left: 5px;
+	height: 32px;
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
 	background-position:center;
 	cursor: pointer;
 	font-size: 0;
+	float: right;
 }
 .datetimepickereType{
-	margin-left: 25px;
-	width: 185px;
-	float: left;
+	width: 150px;
 	height:30px;
 	line-height: 30px;
 	border:1px solid #cccccc;
 	text-align: center;
 	min-height: 30px;
+	margin: 0 auto;
+	font-size: 10px;
+	float: left;
 }
 #allPointer{
 	margin-top: 20px;
 }
 .energy-types div{
 	border: 2px solid #ffffff;
+}
+.left-middle-select{
+	width: 190px;
+	margin: 0 auto;
+}
+#wrapper{
+	width:190px;
+	padding: 0!important;
+	margin: 0 auto;
+	margin-top: 20px;
 }

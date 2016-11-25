@@ -137,7 +137,8 @@ $(function(){
 			trigger: 'axis'
 		},
 		legend: {
-			data:select_Name
+			data:select_Name,
+			top:'30',
 		},
 		toolbox: {
 			show: true,
@@ -197,7 +198,7 @@ $(function(){
 		.bind("propertychange", searchNode)
 		.bind("input", searchNode);
 	setEnergyInfo();
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		getEcType();
 		getPointerId();
 		getSelectedBranches();
@@ -637,6 +638,7 @@ function getBranchData(){
 	}
 	// 使用刚指定的配置项和数据显示图表。
 	option3.xAxis.data = dataX;
+	option3.legend.data = select_Name;
 	option3.series = dataY;
 	myChart3.setOption(option3);
 }

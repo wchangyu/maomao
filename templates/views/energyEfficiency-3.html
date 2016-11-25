@@ -14,17 +14,15 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-    <link rel="stylesheet" href="./work_parts/zTree/css/style.css">
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./work_parts/css/index.css">
     <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
+    <link rel="stylesheet" href="./work_parts/css/leftBat.css">
     <link rel="stylesheet" href="./work_parts/css/energyEfficiency-3.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
     <script src="./work_parts/js/energyEfficiency-3.js"></script>
-    <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
     <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <script src="./work_parts/js/moment.js"></script>
     <script src="./work_parts/js/showOrHidden.js"></script>
@@ -295,20 +293,24 @@
                     <div class="total-warp">
                         <div class="container wrap">
                             <!-- 左边选择部分 -->
-                            <div class="content-main-left">
+                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
                                 <!-- 对象选择 -->
                                 <div class="content-main content-main-1">
                                     <div class="main-left-middle">
                                         <div class="left-middle-header">对象选择（可多选）</div>
-                                        <div class="left-middle-tab">区域位置</div>
-                                        <div class="left-middle-tab">科室单位</div>
-                                        <div class="tree-1 tree-3"id="tree-2">
-                                            <ul class="allPointer ztree" id="allPointer"></ul>
-                                        </div>
-                                        <div class="tree-1 tree-2"id="tree-3">
-                                            <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                            <div class="tipes"></div>
-                                            <ul class="allOffices ztree" id="allOffices"></ul>
+                                        <div class="left-middle-main">
+                                            <div class="left-middle-input">
+                                                <div class="left-middle-tab">区域位置</div>
+                                                <div class="left-middle-tab">科室单位</div>
+                                            </div>
+                                            <div class="tree-1 tree-3"id="tree-2">
+                                                <ul class="allPointer ztree" id="allPointer"></ul>
+                                            </div>
+                                            <div class="tree-1 tree-2"id="tree-3">
+                                                <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+                                                <div class="tipes"></div>
+                                                <ul class="allOffices ztree" id="allOffices"></ul>
+                                            </div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -331,7 +333,7 @@
                                                 <option value='custom'>Custom</option>
                                             </select>
                                             <div class="buttons">
-                                                <button class="btns">APPLY</button>
+                                                <button class="btn btn-success">查询</button>
                                             </div>
                                         </div>
                                     </div>
@@ -340,7 +342,7 @@
                                 </div>
                             </div>
                             <!-- 右边主体数据 -->
-                            <div class="content-main-right content-main-right_aa_8">
+                            <div class="content-main-right content-main-right_aa_8 col-lg-9 col-md-8 col-sm-12 col-xs-12">
                                 <div class="right-content">
                                     <!-- 标题 -->
                                     <div class="left-middle-header">
@@ -358,8 +360,8 @@
                                             </ul>
                                         </div>
                                         <div class="rheader-content">
-                                            <div class="rheader-content-lefts">
-                                                <div class="boiler-left col-lg-5 boiler-left-1">
+                                            <div class="rheader-content-lefts col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="boiler-left boiler-left-1">
                                                     <div class="computer-left-top">
                                                         <span>PUE</span>
                                                         <span>=</span>
@@ -385,7 +387,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="rheader-content-rights">
+                                            <div class="rheader-content-rights col-lg-8 col-md-12 col-sm-12 col-xs-12">
                                                 <!-- 折线图部分 -->
                                                 <div class="boiler-left boiler-left-2">
                                                     <!-- 折线图 -->

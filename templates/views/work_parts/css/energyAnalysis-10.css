@@ -26,9 +26,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.content-main-right{
-	margin-left: 300px;
-}
 .header-one{
 	display: inline-block;
 	font-size: 1.2rem;
@@ -104,9 +101,8 @@
 	background-position: top center;
 }
 .types{
-	margin-top: 20px;
 	height: 30px;
-	margin-left: 35px;
+	width: 190px;
 }
 .header-three-1{
 	display: inline-block;
@@ -116,9 +112,6 @@
 }
 .tree{
 	background: #fff !important;
-}
-#wrapper input{
-	height: 30px;
 }
 #datetimepicker{
 	background: url(../img/clendar.png)no-repeat;
@@ -145,11 +138,9 @@
 }
 #selectPointer{
 	height: 30px;
-	margin-left: 35px;
-	margin-top: 30px;
+	width:180px;
 }
 #energyConsumption{
-	overflow-y: scroll;
 	height:150px;
 	padding-top: 20px;
 }
@@ -162,15 +153,13 @@
 }
 #key{
 	display: inline-block;
-	width:200px;
+	width:180px;
 	height:30px;
-	margin-left: 35px !important;
-	margin-top: 10px;
 }
 #energyConsumption{
-	margin-left: 35px;
 	padding-top: 0px;
 	height:110px;
+	margin: 0 auto;
 }
 .selectTime{
 	height:30px;
@@ -186,25 +175,48 @@
 .energy-types div{
 	border: 2px solid #ffffff;
 }
-.tipes{
-	margin-left: 50px;
-}
 #datetimepicker{
 	width:30px;
-	height: 30px;
-	margin-left: 5px;
+	height: 32px !important;
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
 	background-position:center;
 	cursor: pointer;
 	font-size: 0;
+	margin-bottom: 10px;
 }
 .datetimepickereType{
-	margin-left: 25px;
-	width: 185px;
+	width: 150px;
 	float: left;
 	line-height: 30px;
 	border:1px solid #cccccc;
 	text-align: center;
 	min-height: 30px;
+	font-size: 10px;
+}
+.left-middle-content{
+	width: 70px;
+}
+.left-middle-select{
+	width:190px;
+	margin: 0 auto;
+}
+.left-middle-input{
+	width: 190px;
+	height:30px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+.tree-1{
+	background: #ffffff;
+	height:120px !important;
+}
+.energyConsumption{
+	width: 200px;
+	margin: 0 auto;
+}
+#wrapper{
+	width:190px;
+	margin: 0 auto;
+	padding: 0px !important;
 }

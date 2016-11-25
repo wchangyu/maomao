@@ -28,21 +28,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
-	border-radius: 50% !important;
-}
-.drp-popup .drp-calendar-start .drp-calendar-date:before {
-	content: "开始时间：" !important;
-}
-.drp-popup .drp-calendar-end .drp-calendar-date:before {
-	content: "结束时间：" !important;
-}
-.drp-popup{
-	border-radius: 12px !important;
-}
-.drp-button{
-	border-radius: 50% !important;
-}
 .header-one{
 	display: inline-block;
 	font-size: 1.2rem;
@@ -102,33 +87,6 @@
 .top-header-lists_aa_9{
 	width: 128px;
 }
-.pic-one{
-	margin-left: 10px;
-	width: 30px;
-	height: 30px;
-	background: url(../img/li-1.png)no-repeat;
-	background-size: 20px;
-	cursor: pointer;
-	background-position: center;
-}
-.pic-two{
-	margin-left: 10px;
-	width: 30px;
-	height: 30px;
-	background: url(../img/li-2.png)no-repeat;
-	background-size: 20px;
-	cursor: pointer;
-	background-position: center;
-}
-.pic-three{
-	margin-left: 10px;
-	width: 30px;
-	height: 30px;
-	background: url(../img/li-3.png)no-repeat;
-	background-size: 20px;
-	cursor: pointer;
-	background-position: center;
-}
 #rheader-content-45{
 	width: 100%;
 	height: 290px;
@@ -139,6 +97,9 @@
 	width: 50px;
 	height: 50px;
 	margin-top: 60px;
+	background: url("../img/foot.png")no-repeat;
+	background-size: 50px;
+	background-position: center;
 }
 .foot span{
 	position: absolute;
@@ -165,9 +126,6 @@
 	background: url(../img/zuobiao.png)no-repeat 20% -10px;
 	position: relative;
 	margin: 0 auto;
-}
-.right-content{
-	min-width: 676px;
 }
 .tree{
 	width:100%;
@@ -198,6 +156,7 @@
 	background-position: 98% center;
 	height: 30px;
 	margin-left: 20px;
+	float: right;
 }
 .top-header-lists{
 	background: #ffffff;
@@ -206,9 +165,6 @@
 .top-header-listss{
 	background: #808080;
 	color: #ffffff;
-}
-.datetimepickereType{
-	margin-left: 25px;
 }
 #rheader-content-46{
 	height: 290px;
@@ -237,11 +193,48 @@
 	font-size: 0;
 }
 .datetimepickereType{
-	margin-left: 25px;
-	width: 185px;
-	float: left;
+	width: 150px;
 	line-height: 30px;
 	border:1px solid #cccccc;
 	text-align: center;
 	min-height: 30px;
+	margin: 0 auto;
+	font-size: 10px;
+	float: left;
+}
+.foot-arrow{
+	background: url("../img/arow-header.png")no-repeat -20px 30px;
+	background-size: 50px;
+}
+table td{
+	color: #ffffff;
+}
+.absoluteTd{
+	position: absolute;
+	left: 90%;
+	top:30px;
+	z-index: 10;
+	color: #333333;
+}
+.foots{
+	height: 300px;
+}
+.borderColor{
+	border-bottom: 3px solid #5b9bd5;
+}
+.positions{
+	position: relative;
+	border-right: 2px solid #5b9bd5;
+}
+.left-middle-input{
+	width:190px;
+	height:30px;
+	margin: 0 auto;
+}
+@media (min-width: 1270px) {
+	.absoluteTd{
+		display: inline-block;
+		width:80px;
+		left: 70%;
+	}
 }

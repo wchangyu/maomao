@@ -1,0 +1,146 @@
+*{
+    font-family: 微软雅黑;
+    padding: 0;
+    margin: 0;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.wrap{
+    width: 100%;
+    padding: 0 !important;
+}
+.container{
+    width: 100% !important;
+}
+.content-main-left{
+    border: 1px solid #ccc;
+    position: relative;
+}
+.main-left-middle{
+    width: 100%;
+    height: 290px;
+}
+.left-middle-header{
+    height: 30px;
+    width: 100%;
+    background: #808080;
+    color: #ffffff;
+    line-height: 30px;
+    text-indent: 10px;
+}
+.left-middle-main{
+    overflow-y: scroll;
+    height: 260px;
+}
+.left-middle-content{
+    width: 200px;
+    height:30px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.tipes{
+    width: 200px;
+    color: red;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.left-middle-input{
+    width:200px;
+    margin: 0 auto;
+}
+.left-middle-input input{
+    display: inline-block;
+    width: 200px;
+    height: 30px !important;
+}
+.tree-1{
+    display:block;
+    width:190px;
+    border:none;
+    background:#ffffff;
+    text-align: center;
+    margin: 0 auto;
+}
+#wrapper{
+    width:220px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+.showOrHidden{
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: url("../img/hidden.png")no-repeat;
+    background-size: 20px;
+    background-position: center;
+    cursor: pointer;
+}
+.left-middle-tab{
+    width: 70px;
+    height: 25px;
+    border: 2px solid #7f7f7f;
+    border-radius: 10px;
+    line-height: 25px;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+}
+.left-middle-tab:nth-child(2){
+    float: right;
+}
+.left-middle-tab:nth-child(1){
+    background: #7f7f7f;
+    color: #fff;
+}
+.time-options{
+    width: 50px;
+    height: 50px;
+    border-radius: 50% !important;
+    background: #019cdf;
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    line-height: 50px;
+    color: #fff;
+    cursor: pointer;
+}
+.time-options-1{
+    background: #ffc000;
+    vertical-align: top;
+    color: #333;
+    cursor: pointer;
+}
+.buttons{
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.types{
+    width: 190px;
+    margin-top: 20px;
+}
+.left-middle-select{
+    width:190px;
+}
+.left-middle-input{
+    width:190px;
+    height:30px;
+}
+.tree-2{
+    display: none;
+}
+@media(max-width: 1280px) {
+    .left-middle-content,.left-middle-input,#key{
+        width:190px;
+    }
+}

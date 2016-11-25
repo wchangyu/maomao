@@ -162,7 +162,7 @@
     left: 30px;
 }
 .rheader-content-rights{
-    height: 250px;
+    height: 270px;
     border: 2px solid #333;
     border-radius: 20px !important;
     padding-left: 80px;
@@ -181,15 +181,16 @@
     border-radius: 10px !important;
 }
 .L-rheader-content-left{
-    margin-right: 200px;
     height: auto;
 }
 .L-rheader-content-right{
+    position: relative;
     width: 200px;
-    position: absolute;
-    right: 0px;
-    top:0px;
+    margin: 0 auto;
 }
 .rheader-content{
     position: relative;
+}
+.left-middle-input{
+    margin-top: 20px;
 }

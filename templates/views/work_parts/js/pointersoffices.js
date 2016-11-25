@@ -166,7 +166,8 @@ var ObjectSelection = function(){
                 }
             },
             view:{
-                showIcon: true
+                showIcon: false,
+                fontCss : {'line-height':'30px'}
             },
             callback: {
                 onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)}

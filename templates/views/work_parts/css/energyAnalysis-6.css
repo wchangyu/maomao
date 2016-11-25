@@ -68,7 +68,6 @@
 	line-height: 30px;
 }
 .right-header-right{
-	width: 310px;
 	height: 100%;
 	float: right;
 	margin-left: 0;
@@ -112,25 +111,24 @@
 	font-size:0;
 	margin:0px;
 	width:100%;
-	min-width: 948px;
 }
 .content-left-lists{
-	display:inline-block;
-	width:30%;
+	width:300px;
 	margin:0px;
-	vertical-align:text-top;
+	margin-top: 50px;
+	height:470px;
 }
 .voltageValue{
 	font-size:25px;
 	text-align:center;
 }
 .transformer{
-	width:70%;
+	width:230px;
 	height:250px;
 	margin:0 auto;
 }
 .import{
-	width:30%;
+	width:80px;
 	height:150px;
 	padding-top:100px;
 	float:left;
@@ -139,12 +137,18 @@
 	font-size: 12px;
 }
 .transformerImg{
-	width:40%;
-	height:250px;
+	width:30px;
+	height:180px;
 	background:#9dc3e6;
 	float:left;
 	color:#fff;
 	padding-top:20px;
+	font-size: 30px;
+	line-height: 50px;
+	text-align: center;
+	padding-left: 20px;
+	padding-right: 50px;
+	overflow: hidden;
 }
 .transformerWord{
 	width:100%;
@@ -154,7 +158,7 @@
 	height:15%;
 }
 .output{
-	width:30%;
+	width:80px;
 	height:150px;
 	padding-top:100px;
 	float:left;
@@ -163,18 +167,86 @@
 	font-size: 12px;
 }
 .attritionRate{
-	margin-top:50px;
+	margin-top:20px;
 	text-align:center;
 	font-family: 微软雅黑;
 	font-size: 12px;
 }
 .prompt{
-	font-size:15px;
-	font-weight:bold;
-	color: #fff;
 	background:url(../img/bg-img.png)no-repeat;
-	background-position:40% 60%;
-	text-indent:32%;
-	height:80px;
-	line-height:100px;
+	width: 200px;
+	margin: 0 auto;
+	height: 50px;
+	background-position: center;
+	font-size: 14px;
+	text-align: center;
+	line-height: 60px;
+	color: #ffffff;
+}
+.L-wrap{
+	display: flex;
+	display: -webkit-flex;
+	margin: 0;
+	padding: 0;
+	flex-direction:row;
+	flex-wrap:wrap;
+	justify-content:center;
+}
+.indexing{
+	text-align: center;
+	font-size: 30px;
+	background: #9dc3e6;
+	width:70px;
+	margin: 0 auto;
+	height: 60px;
+	color: #ffffff;
+	padding-bottom: 30px;
+}
+.energy-types div{
+	border: 2px solid #ffffff;
+}
+.types {
+	height: 30px;
+	width:190px;
+}
+#datetimepicker{
+	width:30px;
+	height: 30px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position:center;
+	cursor: pointer;
+	font-size: 0;
+	float: right;
+}
+.datetimepickereType{
+	width: 150px;
+	height:30px;
+	line-height: 30px;
+	border:1px solid #cccccc;
+	text-align: center;
+	min-height: 30px;
+	margin: 0 auto;
+	font-size: 10px;
+	float: left;
+}
+.biandiansuo{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 2px solid #808080;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+.allPointer{
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 180px;
+}
+.tree-1{
+	padding: 0px;
+}
+.left-middle-select,.left-middle-input{
+	width:190px;
+	margin: 0 auto;
 }

@@ -158,7 +158,7 @@ $(function(){
 	getBranchData();
 	setEnergyInfos();
 	$('.header-two').html(select_Name);
-	$('.btns').click(function(){
+	$('.btn').click(function(){
 		$('#tbody').empty();
 		//选中的楼宇
 		getPointerId();

@@ -118,7 +118,7 @@ $(function(){
 	getEcTypeWord();
 	getPointerDatas();
 	setEnergyInfos();
-	$('.btns1').click(function(){
+	$('.btn').click(function(){
 		getEcType();
 		getEcTypeWord();
 		setEnergyInfos();

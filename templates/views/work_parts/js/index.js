@@ -21,29 +21,9 @@ $(function(){
             "color":"#ffffff"
         })
         $('.tree-1').hide();
-        $('.tree-1').eq($(this).index()-1).show();
+        $('.tree-1').eq($(this).index()).show();
 
-    })
-    //上月分类能耗hover
-    $(".main-one-1").hover(function(){
-        $(this).animate({
-            "background-size":"75px"
-        },300)
-    },function(){
-        $(this).animate({
-            "background-size":"60px"
-        },10)
-    })
-    //同比环比marks
-    $(".main-mark").hover(function(){
-        $(this).children().css({
-            "color":"#fff"
-        })
-    },function(){
-        $(this).children().css({
-            "color":"#333"
-        })
-    })
+    });
     //数据交互部分
     //默认开始时间为上日；
     timeYesterday();
@@ -328,7 +308,7 @@ $(function(){
     PointerPowerConsumption();
     theDashboard();
     PointerCharge();
-    $('.btns1').click(function(){
+    $('.btn').click(function(){
         var o=$('.tree-3')[0].style.display;
         titleChange();
         if(o == "none"){
@@ -425,6 +405,7 @@ function getClassEcData(){
         data: ecParams,
         beforeSend:function(){
             $('#loading').show();
+
         },
         success: function (result) {
             $('#loading').hide();
@@ -624,7 +605,7 @@ function setEnergyType(ets,ecs){
 }
 //设置每个能耗的块信息,div
 //et:能耗分类,ec:能耗数据
-function setEnergyBlock(et,ec){
+function setEnergyBlock(et,ec)  {
     if(!et){  //没有能耗定义信息，表示是总能耗
         et = {};
         et.etname = ec.ecClassName;

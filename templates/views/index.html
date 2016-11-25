@@ -14,13 +14,11 @@
 <meta content="" name="description"/>
 <meta content="" name="author"/>
     <!--MY STYLE-->
-    <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/zTree/css/style.css">
+    <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.css">
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./work_parts/css/index.css">
+	<link rel="stylesheet" href="./work_parts/css/leftBat.css">
+	<link rel="stylesheet" href="./work_parts/css/index.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
 	<script src="../../assets/local/scripts/underscore-min.js"></script>
@@ -28,10 +26,8 @@
 	<script src="./work_parts/js/index.js"></script>
     <script src="./work_parts/js/moment.js"></script>
 	<script src="./work_parts/js/showOrHidden.js"></script>
-	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/bootstrap.min.css">
 	<link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -281,12 +277,59 @@
 			<!-- BEGIN PAGE CONTENT-->
 			<div class="row">
 				<div class="col-md-12">
-                    <div class="total-warp">
-                        <div class="wrap container">
+                    <div class="total-warp container">
+                        <div class="wrap row">
+							<div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+								<div class="content-main">
+									<img src="./work_parts/img/img1.png" alt="">
+									<p class="left-top" title="吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
+吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。
+">
+										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼...
+									</p>
+								</div>
+								<div class="content-main">
+									<div class="main-left-middle">
+										<div class="left-middle-header">对象选择</div>
+										<div class="left-middle-main">
+											<div class="left-middle-content">
+												<div class="left-middle-tab">区域位置</div>
+												<div class="left-middle-tab">科室单位</div>
+											</div>
+											<div class="tree-1 tree-2">
+												<ul class="allPointer ztree" id="allPointer">
+												</ul>
+											</div>
+											<div class="tree-1">
+												<div class="left-middle-input">
+													<input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+												</div>
+												<div class="tipes"></div>
+												<ul class="allOffices ztree" id="allOffices">
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="content-main">
+									<div class="select-times">
+										<div class="left-middle-header">时段选择</div>
+										<div id='wrapper'>
+											<div class="time-options time-options-1">上日</div>
+											<div class="time-options">上周</div>
+											<div class="time-options">上月</div>
+											<div class="time-options">上年</div>
+											<div class="buttons">
+												<button class="btn btn-success">查询</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
                             <!-- 右边主体数据部分 -->
-                            <div class="content-main-right">
-                                <div class="row row-1">
-                                    <div class="col-lg-6 col-md-12 main-right-oness main-right-oness-1">
+                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-1">
                                         <div class="main-right-ones  portlet box blue main-right-ones-1">
                                         	<div class="right-one-header portlet-title">
                                             	<div class="right-one-headers">上日总能耗</div>
@@ -296,93 +339,93 @@
                                             	</div>
                                         	</div>
                                         	<div class="fenleinenghao energy-types">
-                                            	<!-- 总能耗 -->
-                                            	<div class="main-one-1 main-one-1-1">
-                                                	<!-- 标题 -->
+
+                                            	<!--<div class="main-one-1 main-one-1-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                	&lt;!&ndash; 标题 &ndash;&gt;
                                                 	<span class="main-one-title"></span>
-                                                	<!-- 总量 -->
+                                                	&lt;!&ndash; 总量 &ndash;&gt;
                                                 	<span class="main-one-total"></span>
-                                                	<!-- 同比&环比蒙层 -->
+                                                	&lt;!&ndash; 同比&环比蒙层 &ndash;&gt;
                                                 	<div class="main-mark">
-                                                    	<!-- 同比 -->
+                                                    	&lt;!&ndash; 同比 &ndash;&gt;
                                                     	<p class="tongbi tongbi1">同比：
-                                                        	<!-- 同比数值 -->
+                                                        	&lt;!&ndash; 同比数值 &ndash;&gt;
                                                         	<span class="tongbizhi"></span>
                                                     	</p>
-                                                    	<!-- 环比 -->
+                                                    	&lt;!&ndash; 环比 &ndash;&gt;
                                                     	<p class="huanbi huanbi1">环比：
-                                                        	<!-- 环比数值 -->
+                                                        	&lt;!&ndash; 环比数值 &ndash;&gt;
 															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
-												<!-- 总用电量 -->
-												<div class="main-one-1 main-one-1-2">
-													<!-- 标题 -->
+
+												<div class="main-one-1 main-one-1-2 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+													&lt;!&ndash; 标题 &ndash;&gt;
 													<span class="main-one-title"></span>
-													<!-- 总量 -->
+													&lt;!&ndash; 总量 &ndash;&gt;
 													<span class="main-one-total"></span>
-													<!-- 同比&环比蒙层 -->
+													&lt;!&ndash; 同比&环比蒙层 &ndash;&gt;
 													<div class="main-mark">
-														<!-- 同比 -->
+														&lt;!&ndash; 同比 &ndash;&gt;
 														<p class="tongbi tongbi2">同比：
-															<!-- 同比数值 -->
+															&lt;!&ndash; 同比数值 &ndash;&gt;
 															<span class="tongbizhi"></span>
 														</p>
-														<!-- 环比 -->
+														&lt;!&ndash; 环比 &ndash;&gt;
 														<p class="huanbi huanbi2">环比：
-															<!-- 环比数值 -->
+															&lt;!&ndash; 环比数值 &ndash;&gt;
 															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
-												<!-- 总用水量 -->
-												<div class="main-one-1 main-one-1-3">
-													<!-- 标题 -->
+
+												<div class="main-one-1 main-one-1-3 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+													&lt;!&ndash; 标题 &ndash;&gt;
 													<span class="main-one-title"></span>
-													<!-- 总量 -->
+													&lt;!&ndash; 总量 &ndash;&gt;
 													<span class="main-one-total"></span>
-													<!-- 同比&环比蒙层 -->
+													&lt;!&ndash; 同比&环比蒙层 &ndash;&gt;
 													<div class="main-mark">
-														<!-- 同比 -->
+														&lt;!&ndash; 同比 &ndash;&gt;
 														<p class="tongbi tongbi3">同比：
-															<!-- 同比数值 -->
+															&lt;!&ndash; 同比数值 &ndash;&gt;
 															<span class="tongbizhi"></span>
 														</p>
-														<!-- 环比 -->
+														&lt;!&ndash; 环比 &ndash;&gt;
 														<p class="huanbi">环比：
-															<!-- 环比数值 -->
+															&lt;!&ndash; 环比数值 &ndash;&gt;
 															<span class="huanbizhi"></span>
 														</p>
 													</div>
 												</div>
-												<!-- 总用气量 -->
-												<div class="main-one-1 main-one-1-4">
-													<!-- 标题 -->
+
+												<div class="main-one-1 main-one-1-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+													&lt;!&ndash; 标题 &ndash;&gt;
 													<span class="main-one-title"></span>
-													<!-- 数量 -->
+													&lt;!&ndash; 数量 &ndash;&gt;
 													<span class="main-one-total"></span>
-													<!-- 同比&环比蒙层 -->
+													&lt;!&ndash; 同比&环比蒙层 &ndash;&gt;
 													<div class="main-mark">
-														<!-- 同比 -->
+														&lt;!&ndash; 同比 &ndash;&gt;
 														<p class="tongbi tongbi4">同比：
-															<!-- 同比数值 -->
+															&lt;!&ndash; 同比数值 &ndash;&gt;
 															<span class="tongbizhi"></span>
 														</p>
-														<!-- 环比 -->
+														&lt;!&ndash; 环比 &ndash;&gt;
 														<p class="huanbi">环比：
-															<!-- 环比数值 -->
+															&lt;!&ndash; 环比数值 &ndash;&gt;
 															<span class="huanbizhi"></span>
 														</p>
 													</div>
-												</div>
+												</div>-->
 											</div>
 											<div id="loading">
 												<img src="./work_parts/img/loading.gif" alt="">
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-2">
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2">
 											<div class="main-right-ones portlet box blue main-right-ones-2">
 												<!-- 标题 -->
 												<div class="right-one-header portlet-title"><div class="right-one-headers">
@@ -400,7 +443,7 @@
 											</div>
 									</div>
 								</div>
-								<div class="row row-1">
+								<div class="row">
 										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
 											<div class="main-right-ones portlet box blue main-right-ones-3">
 												<!-- 标题 -->
@@ -438,50 +481,6 @@
 									</div>
 							</div>
 						</div>
-							<div class="content-main-left">
-								<div class="content-main">
-									<img src="./work_parts/img/img1.png" alt="">
-									<p class="left-top" title="吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
-吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。
-">
-										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼...
-									</p>
-								</div>
-								<div class="content-main">
-									<div class="main-left-middle">
-										<div class="left-middle-header">对象选择</div>
-										<div class="left-middle-tab left-middle-tab_aa_0">区域位置</div>
-										<div class="left-middle-tab left-middle-tab_aa_0">科室单位</div>
-										<div class="tree-1 tree-3">
-											<span class="allPointerOne">
-												<div class="selectedRadio"></div>
-											</span>
-											<ul class="allPointer ztree" id="allPointer">
-											</ul>
-										</div>
-										<div class="tree-1 tree-2">
-											<input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-											<div class="tipes"></div>
-											<ul class="allOffices ztree" id="allOffices">
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="content-main">
-									<div class="select-times">
-										<div class="left-middle-header">时段选择</div>
-										<div id='wrapper'>
-											<div class="time-options time-options-1 timeactive">上日</div>
-											<div class="time-options">上周</div>
-											<div class="time-options">上月</div>
-											<div class="time-options">上年</div>
-											<div class="buttons">
-												<button class="btns1">查询</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
 					</div>
 				</div>
 			</div>
@@ -514,7 +513,7 @@
 <script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

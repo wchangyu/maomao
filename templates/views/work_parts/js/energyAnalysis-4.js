@@ -17,7 +17,7 @@ $(function(){
 			"color":"#ffffff"
 		})
 		$('.tree-1').hide();
-		$('.tree-1').eq($(this).index()-1).show();
+		$('.tree-1').eq($(this).index()).show();
 
 	})
 	_objectSel = new ObjectSelection();
@@ -132,7 +132,7 @@ $(function(){
 	$('.header-one').html(_ajaxStartTime.split('/')[0] + '-' + _ajaxStartTime.split('/')[1] + '-' + _ajaxStartTime.split('/')[2]);
 	$('.header-two').html('到');
 	$('.header-three').html(_ajaxEndTime.split('/')[0] + '-' + _ajaxEndTime.split('/')[1] + '-' + _ajaxEndTime.split('/')[2]);
-	$('.btns').click(function (){
+	$('.btn').click(function (){
 		//能耗种类
 		getEcType();
 		//开始时间

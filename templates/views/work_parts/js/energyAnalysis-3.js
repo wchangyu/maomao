@@ -19,7 +19,7 @@ $(function(){
         $(".tree-1").css({
             display:"none"
         }),
-        $(".tree-1")[$(this).index()-1].style.display="block"
+        $(".tree-1")[$(this).index()].style.display="block"
     });
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),true);
@@ -57,7 +57,8 @@ $(function(){
 			trigger: 'axis'
 		},
 		legend: {
-			data:['本期用电','上期用电']
+			data:['本期用电','上期用电'],
+			top:'30',
 		},
 		toolbox: {
 			show : true,
@@ -102,7 +103,8 @@ $(function(){
 			trigger: 'axis'
 		},
 		legend: {
-			data:['累计值', '比较斜率']
+			data:['累计值', '比较斜率'],
+			top:'30'
 		},
 		toolbox: {
 			show : true,
@@ -147,7 +149,7 @@ $(function(){
 	getPointerData();
 	setEnergyInfos();
 	$('small').html(pointerNames);
-	$('.btns1').click(function (){
+	$('.btn').click(function (){
 		var o=$('.tree-3')[0].style.display;
 		if(o == 'none'){
 			getEcTypeWord();
@@ -525,7 +527,6 @@ function getPointerData(){
 	//计算本期与同比相比（本期-同比）/同比
 	if(totalAllDatass != 0){
 		var compareT = (totalAllData - totalAllDatass)/totalAllDatass * 100;
-		console.log(compareT);
 		if(compareT > 0){
 			$('.content-left-top-arrow:eq(1)').css({
 				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
@@ -582,7 +583,6 @@ function getPointerData(){
 	option14.series[1].data[0] = totalAllData;
 	option14.series[1].data[1] = totalAllDatass;
 	myChart16.setOption(option14);
-	console.log(option14);
 	//
 }
 //科室数据

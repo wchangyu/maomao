@@ -46,33 +46,27 @@
     padding:8px;
     width:34px;
 }
-.allBtn{
-    margin-left:10px;
-}
 .btn-default{
     margin-right:10px !important;
 }
 .form-control{
     width:150px !important;
     height:34px !important;
-    display:block;
+    display:inline-block;
     margin-bottom: 0 !important;
 }
 .input-group-btn{
     width:100px !important;
-    display:block !important;
-    margin-left:350px;
+    display: inline-block !important;
     margin-top:-50px;
     height:34px;
 }
 .btn-default-1{
     margin-right:10px;
     margin-left:700px;
-    margin-top:-35px;
 }
 .btn-default-2{
     margin-right:10px;
-    margin-top:-35px;
 }
 .pagination{
     display: block !important;

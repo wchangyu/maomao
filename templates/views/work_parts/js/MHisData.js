@@ -236,7 +236,7 @@ function tableImg(){
 	var dt = $("#datatables").dataTable();
 	//清空一下table
 	dt.fnClearTable();
-	//想表格中添加东西数据
+	//想表格中添加东西数据o
 	dt.fnAddData(allArr);
 	//重绘表格
 	dt.fnDraw();

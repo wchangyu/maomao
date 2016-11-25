@@ -28,21 +28,6 @@
 	background-size: 50px;
 	background-position: top center;
 }
-.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
-	border-radius: 50% !important;
-}
-.drp-popup .drp-calendar-start .drp-calendar-date:before {
-	content: "开始时间：" !important;
-}
-.drp-popup .drp-calendar-end .drp-calendar-date:before {
-	content: "结束时间：" !important;
-}
-.drp-popup{
-	border-radius: 12px !important;
-}
-.drp-button{
-	border-radius: 50% !important;
-}
 .header-one{
 	display: inline-block;
 	font-size: 1.2rem;
@@ -62,13 +47,10 @@
 	color: #fff;
 }
 .content-left-lists{
-	width: 33.33333%;
+	width: 410px;
 	height: 100%;
 	padding-top: 80px;
 	text-align: center;
-	background: url(../img/bg-img.png)no-repeat;
-	background-position:0px 300px;
-	float: left;
 }
 .content-left-lists td{
 	display: block;
@@ -98,27 +80,26 @@
 }
 .transformerBlock{
 	width:320px;
-	height:250px;
+	height:300px;
+	margin: 0 auto;
 }
 .transformerImg{
-	width:80px;
-	height:250px;
+	width:30px;
 	background:#9dc3e6;
 	float:left;
 	color:#fff;
 	font-size:30px;
 	letter-spacing:30px;
 	text-align: center;
-	padding-left:25px;
+	padding-left:20px;
+	padding-right: 50px;
 	padding-top:20px;
 	line-height:40px;
+	margin-top: 55px;
 }
 .transformerWord{
 	width:128px;
-	height:250px;
 	float:left;
-	padding-top:20px;
-	margin-top:-50px;
 }
 .header-right-lists-1{
 	width:130px;
@@ -162,17 +143,14 @@
 }
 .transformerValue{
 	width:100px;
-	height:250px;
 	float:left;
-	padding-top:20px;
 }
 .btn-default{
 	width: 60px !important;
 }
 .standardValues{
 	width:250px;
-	margin-left:680px;
-	padding-top:400px;
+	float: right;
 }
 .standardBtn{
 	width:200px;
@@ -185,7 +163,6 @@
 }
 .transformerValue table{
 	display:block;
-	margin-top:-50px;
 }
 .standardBtn1{
 	width:200px;
@@ -201,4 +178,46 @@
 }
 .btn-warning{
 	width: 60px !important;
+}
+.L-wrap{
+	display: flex;
+	display: -webkit-flex;
+	margin: 0;
+	padding: 0;
+	flex-direction:row;
+	flex-wrap:wrap;
+	justify-content:center;
+}
+.indexing{
+	width:30px;
+	text-align: center;
+	padding-left: 7px;
+}
+.types {
+	height: 30px;
+	width:190px;
+}
+#datetimepicker{
+	width:30px;
+	height: 30px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position:center;
+	cursor: pointer;
+	font-size: 0;
+	float: right;
+}
+.datetimepickereType{
+	width: 150px;
+	height:30px;
+	line-height: 30px;
+	border:1px solid #cccccc;
+	text-align: center;
+	min-height: 30px;
+	font-size: 10px;
+	float: left;
+}
+.left-middle-select{
+	width:190px;
+	margin: 0 auto;
 }

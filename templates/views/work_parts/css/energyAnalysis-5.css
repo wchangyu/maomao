@@ -118,67 +118,79 @@
 }
 .rheader-content-rightss{
 	height:290px;
-	float: left;
 }
 .content-rightss-one{
 	width: 50%;
-	height: 290px;
+	height: auto;
 	float: left;
 	position: relative;
-	padding-top: 20px;
-	background: url(../img/bg-img.png)no-repeat 0px 20px;
-	padding-top: 100px;
+	margin-top: 100px;
 }
-.content-rightss-one-1 p:nth-child(1){
+.content-rightss-tip span{
+	line-height: 60px;
+	color: #ffffff;
+	font-weight: bold;
+
+}
+.content-rightss-tip{
+	width:210px;
+	height:50px;
+	background: url(../img/bg-img.png)no-repeat 0px 0px;
+	text-indent: 20px;
+}
+.content-rightss-one-1 p:nth-child(2){
 	text-indent:15px;
 	line-height:30px;
 	margin:0;
+	width: 130px;
 }
-.content-rightss-one-1 p:nth-child(2){
+.content-rightss-one-1 p:nth-child(3){
 	width:130px;
 	height:1px;
 	background:#afc8de;
 	margin:0;
+	width: 130px;
 }
-.content-rightss-one-1 p:nth-child(3){
+.content-rightss-one-1 p:nth-child(4){
 	text-indent:15px;
 	line-height:30px;
 	margin:0;
+	width: 130px;
 }
-.content-rightss-one-1 span:nth-child(4){
+.content-rightss-one-1 span:nth-child(5){
 	position:absolute;
 	left:150px;
 	top:125px;
 }
-.content-rightss-one-1 span:nth-child(5){
+.content-rightss-one-1 span:nth-child(6){
 	font-size:15px;
 	position:absolute;
 	left:60px;
 	line-height:80px;
 	weight:bold;color:#fff;
 }
-.content-rightss-one-2 p:nth-child(1){
+.content-rightss-one-2 p:nth-child(2){
 	text-indent:15px;
 	line-height:30px;
 	margin:0;
 }
-.content-rightss-one-2 p:nth-child(2){
+.content-rightss-one-2 p:nth-child(3){
 	width:130px;
 	height:1px;
 	background:#afc8de;
 	margin:0;
 }
-.content-rightss-one-2 p:nth-child(3){
+.content-rightss-one-2 p:nth-child(4){
 	text-indent:15px;
 	line-height:30px;
 	margin:0;
 }
-.content-rightss-one-2 span:nth-child(4){
+.content-rightss-one-2 span:nth-child(5){
 	position:absolute;
 	left:150px;
 	top:125px;
 }
-.content-rightss-one-2 span:nth-child(5){
+.content-rightss-one-2 span:nth-child(6){
 	font-size:15px;
 	position:absolute;
 	left:60px;
@@ -188,24 +200,21 @@
 }
 #selectPointer{
 	height: 30px;
-	margin-left: 35px !important;
 	margin-top: 30px;
+	width: 180px;
 }
 #key{
 	display: inline-block;
-	width: 220px;
+	width: 180px;
 	height: 30px;
-	margin-left: 35px !important;
 	margin-top: 10px;
 }
 .types {
 	margin-top: 20px;
 	height: 30px;
-	margin-left: 35px;
 }
 #datetimepicker {
 	height: 30px;
-	margin-left:23px;
 	width: 220px;
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
@@ -213,8 +222,8 @@
 }
 #energyConsumption{
 	height: 100px;
-	overflow:scroll;
-	margin-left: 35px;
+	width:200px;
+	margin: 0 auto;
 }
 .tipes{
 	margin-left: 35px;
@@ -227,7 +236,6 @@
 }
 .time-interval{
 	margin-top: 10px;
-	margin-left: 25px;
 }
 .select-times{
 	height:auto;
@@ -238,17 +246,10 @@
 #minutess{
 	width:60px;
 }
-#wrapper p{
-	margin-top: 10px;
-	margin-left: 25px;
-}
 .rheader-content-2{
 	width: 100%;
 	height: 290px;
 	position: relative;
-}
-.L-left{
-	margin-right: 400px;
 }
 .L-right{
 	width:400px;
@@ -258,28 +259,75 @@
 	right: 0px;
 }
 .rheader-content-rightss-1{
-	width:100% !important;
+	width:415px;
 	height:100%;
+	margin: 0 auto;
 }
 .energy-types div{
 	border:2px solid #ffffff;
 }
 #datetimepicker{
 	width:30px;
-	height: 30px;
-	margin-left: 5px;
+	height: 32px !important;
 	background: url(../img/clendar.png)no-repeat;
 	background-size: 25px;
 	background-position:center;
 	cursor: pointer;
 	font-size: 0;
+	float: right;
 }
 .datetimepickereType{
-	margin-left: 25px;
-	width: 185px;
+	width: 150px;
 	float: left;
 	line-height: 30px;
 	border:1px solid #cccccc;
 	text-align: center;
 	min-height: 30px;
+	font-size: 10px;
+}
+.left-middle-content{
+	width:70px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.left-middle-select{
+	margin: 0 auto;
+}
+.tree-1{
+	background: #ffffff;
+	height: 120px;
+}
+#wrapper{
+	width:230px;
+	margin: 0 auto;
+	padding: 0px !important;
+	margin-top: 20px !important;
+}
+.left-middle-input{
+	width:190px;
+	height:30px;
+	margin-top: 20px;
+}
+.proportion1,.proportion2{
+	margin-top: -40px;
+}
+@media (max-width: 767px) {
+	.content-rightss-one{
+		margin-top: 0px !important;
+	}
+	.rheader-content-rightss-1{
+		width: 197px;
+	}
+}
+@media (min-width: 768px) {
+	.content-rightss-one{
+		margin-top: 100px !important;
+	}
+	.rheader-content-rightss-1{
+		width: 415px;
+	}
+}
+
+#wrapper p{
+	margin-top: 10px;
 }
