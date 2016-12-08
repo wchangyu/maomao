@@ -150,6 +150,10 @@ $(function(){
 	setEnergyInfos();
 	$('small').html(pointerNames);
 	$('.btn').click(function (){
+		myChart13 = echarts.init(document.getElementById('rheader-content-16'));
+		myChart14 = echarts.init(document.getElementById('rheader-content-17'));
+		myChart15 = echarts.init(document.getElementById('rheader-content-18'));
+		myChart16 = echarts.init(document.getElementById('rheader-content-19'));
 		var o=$('.tree-3')[0].style.display;
 		if(o == 'none'){
 			getEcTypeWord();

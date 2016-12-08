@@ -15,8 +15,16 @@
     height: 100%;
     width: 100%;
 }
-.main-contents-table{
-    position:absolute;
-    width:95%;
-    margin-left:30px;
+.content-main-contents-header li{
+    display: inline-block;
+}
+#datatables th{
+    text-align: center;
+}
+.dataTables_length{
+    float: right !important;
+}
+.alaLogID{
+    font-size: 0;
+    padding: 0!important;
 }

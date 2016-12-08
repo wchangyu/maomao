@@ -216,9 +216,7 @@ function tableImg(){
 		success:function(result){
 			for(var i=0;i<result.length;i++){
 				allDatas.push(result[i].cdData);
-				console.log(result[i].date);
 				var aa = result[i].date.split('T')[0].split('-');
-				//console.log(aa);
 				var bb = aa[1] + '-' + aa[2];//11-06
 				var cc = result[i].date.split('T')[1].split(':');
 				var dd = cc[0] + ':' + cc[1];
@@ -232,7 +230,7 @@ function tableImg(){
 		allArrs.push(allDates[i]);
 		allArrs.push(allDatas[i]);
 		allArr.push(allArrs);
-	}
+	};
 	var dt = $("#datatables").dataTable();
 	//清空一下table
 	dt.fnClearTable();

@@ -1,0 +1,24 @@
+{
+	"data":[{
+			"time":"00:00","serialNumber":"000","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:10","serialNumber":"001","name":"儿童住院部（1）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:20","serialNumber":"002","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:30","serialNumber":"003","name":"外科楼（3）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:40","serialNumber":"004","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:50","serialNumber":"005","name":"儿童住院部（1）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		},
+		{
+			"time":"00:60","serialNumber":"006","name":"外科楼（3）","alarmType":"环境报警","warningCondition":"x<30 or x>60"
+		}
+		]
+}

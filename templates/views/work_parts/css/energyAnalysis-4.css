@@ -123,3 +123,28 @@
 .energy-parts-left:nth-child(2){
     height: 600px;
 }
+.left-middle-select{
+    margin: 0 auto;
+}
+.types{
+    height: 30px;
+}
+.datetimepickereType{
+    width: 150px;
+    line-height: 30px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    min-height: 30px;
+    float: left;
+    font-size: 10px;
+}
+#datetimepicker{
+    width: 30px;
+    height: 30px;
+    background: url(../img/clendar.png)no-repeat;
+    background-size: 25px;
+    background-position: center;
+    cursor: pointer;
+    font-size: 0;
+    float: right;
+}

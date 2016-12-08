@@ -1,0 +1,24 @@
+{
+	"data":[{
+			"serialNumber":"00","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"01","name":"儿童住院部（1）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"02","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"03","name":"外科楼（3）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"04","name":"门诊和急诊（2）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"05","name":"儿童住院部（1）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		},
+		{
+			"serialNumber":"06","name":"外科楼（3）","alarmType":"环境报警","warningCondition":"x<30 or x>60","atThisPointThedata":"20","uniteRoom":"","alarmLevel":"","seeing":"","option":"","readingSelection":"","controlOption":""
+		}
+		]
+}

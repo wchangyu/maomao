@@ -159,6 +159,7 @@ $(function(){
 	setEnergyInfos();
 	$('.header-two').html(select_Name);
 	$('.btn').click(function(){
+		myChart3 = echarts.init(document.getElementById('rheader-content-14'));
 		$('#tbody').empty();
 		//选中的楼宇
 		getPointerId();
@@ -172,7 +173,7 @@ $(function(){
 		getBranchData();
 		$('small').html(_ajaxgetPointerName);
 		$('.header-two').html(select_Name);
-		setEnergyInfo();
+		//setEnergyInfo();
 		setEnergyInfos();
 	})
 	$('body').mouseover(function(){
@@ -221,6 +222,12 @@ function setEnergyInfo(){
 		for(var i=0;i<_energyTypeSel._allEnergyTypes.length;i++){
 			if(_energyTypeSel._allEnergyTypes[i].ettype==selectedEV){
 				var curET = _energyTypeSel._allEnergyTypes[i];
+				/*$('#th0').html('对比对象');
+				$('.ths').html('出现时刻');
+				$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+				$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+				$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+				$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);*/
 				$('.header-one').html(curET.etname);
 				$('.right-header span').html('用' + curET.etname + '曲线');
 				$('.total-power-consumption').html('累计用' + curET.etname);
@@ -238,6 +245,13 @@ function setEnergyInfos(){
 		for(var i=0;i<_energyTypeSel._allEnergyTypes.length;i++){
 			if(_energyTypeSel._allEnergyTypes[i].ettype==selectedEV){
 				var curET = _energyTypeSel._allEnergyTypes[i];
+				console.log(curET);
+				$('#th0').html('对比对象');
+				$('.ths').html('出现时刻');
+				$('#th1').html('累计用' + curET.etname + '量' + curET.etunit);
+				$('#th2').html('用' + curET.etname + '峰值' + curET.etunit);
+				$('#th3').html('用' + curET.etname + '谷值' + curET.etunit);
+				$('#th4').html('用' + curET.etname + '平均值' + curET.etunit);
 				$('.header-one').html(curET.etname);
 				$('.right-header span').html('用' + curET.etname + '曲线');
 				$('.total-power-consumption').html('累计用' + curET.etname);

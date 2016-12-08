@@ -133,6 +133,8 @@ $(function(){
 	});
 	//逐月逐周选择
 	$('.top-header-lists').click(function(){
+		myChart46 = echarts.init(document.getElementById('rheader-content-46'));
+		myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 		$('.top-header-lists').removeClass('top-header-listss');
 		$(this).addClass('top-header-listss');
 		$(".rheader-contents").css({

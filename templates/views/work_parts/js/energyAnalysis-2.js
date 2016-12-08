@@ -139,7 +139,7 @@ $(function(){
 			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
 			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
 		}
-	})
+	});
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){
 		$('.typee').removeClass('selectedEnergy')
@@ -175,7 +175,8 @@ $(function(){
 	getPointerData();
 	//设置页面选择的时间
 	$('.header-one').html($('.datetimepickereType').html());
-	$('.btns').click(function(){
+	$('.btn').click(function(){
+		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
 		$('#tbody').empty();
 		//获取能耗种类；
 		getEcType();
@@ -277,12 +278,14 @@ function getPointerData(){
 			'endTime':_ajaxEndTime_1,
 			'dateType':_ajaxDataType_1
 		};
+		console.log(ecParams);
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
 			async:false,
 			success:function(result){
+				//console.log(result);
 				allBranch.push(result);
 			}
 		})
@@ -389,7 +392,6 @@ function getPointerData(){
 				}
 			}
 			dataX.sort();
-
 			//遍历y轴数据
 			for(var i=0;i<allBranch.length;i++){
 				var object={};
@@ -473,6 +475,9 @@ function getPointerData(){
 		option11.xAxis.data = dataX;
 		option11.series = dataY;
 		myChart11.setOption(option11);
+	console.log(pointerNames);
+	console.log(dataX);
+	console.log(dataY);
 }
 //表格单位转换
 function unitConversion(num){

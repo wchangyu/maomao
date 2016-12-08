@@ -1,10 +1,24 @@
-/*!
- * Datepicker for Bootstrap v1.7.0-dev (https://github.com/eternicode/bootstrap-datepicker)
+/* =========================================================
+ * bootstrap-datepicker.js
+ * Repo: https://github.com/eternicode/bootstrap-datepicker/
+ * Demo: https://eternicode.github.io/bootstrap-datepicker/
+ * Docs: https://bootstrap-datepicker.readthedocs.org/
+ * Forked from http://www.eyecon.ro/bootstrap-datepicker
+ * =========================================================
+ * Started by Stefan Petre; improvements by Andrew Rowls + contributors
  *
- * Copyright 2012 Stefan Petre
- * Improvements by Andrew Rowls
- * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
- */
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ========================================================= */
 
 (function(factory){
     if (typeof define === "function" && define.amd) {
@@ -936,9 +950,9 @@
 				startMonth = this.o.startDate !== -Infinity ? this.o.startDate.getUTCMonth() : -Infinity,
 				endYear = this.o.endDate !== Infinity ? this.o.endDate.getUTCFullYear() : Infinity,
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
-				todaytxt = dates[this.o.language].today || dates['en'].today || '',
-				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
-				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+				todaytxt = dates[this.o.language].today || dates['cn'].today || '',
+				cleartxt = dates[this.o.language].clear || dates['cn'].clear || '',
+				titleFormat = dates[this.o.language].titleFormat || dates['cn'].titleFormat,
 				tooltip,
 				before;
 			if (isNaN(year) || isNaN(month))
@@ -1017,7 +1031,7 @@
 			}
 			this.picker.find('.datepicker-days tbody').html(html.join(''));
 
-			var monthsTitle = dates[this.o.language].monthsTitle || dates['en'].monthsTitle || 'Months';
+			var monthsTitle = dates[this.o.language].monthsTitle || dates['cn'].monthsTitle || 'Months';
 			var months = this.picker.find('.datepicker-months')
 						.find('.datepicker-switch')
 							.text(this.o.maxViewMode < 2 ? monthsTitle : year)
@@ -1658,7 +1672,7 @@
 		format: 'mm/dd/yyyy',
 		keepEmptyValues: false,
 		keyboardNavigation: true,
-		language: 'en',
+		language: 'cn',
 		minViewMode: 0,
 		maxViewMode: 4,
 		multidate: false,
@@ -1669,7 +1683,7 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0,
+		weekStart: 1,
 		disableTouchKeyboard: false,
 		enableOnReadonly: true,
 		showOnFocus: true,
@@ -1698,6 +1712,16 @@
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
 			clear: "Clear",
+			titleFormat: "MM yyyy"
+		},
+		cn: {
+			days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+			daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+			daysMin: ["日", "一", "二", "三", "四", "五", "六"],
+			months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+			monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+			today: "今天",
+			clear: "清除",
 			titleFormat: "MM yyyy"
 		}
 	};

@@ -267,6 +267,8 @@ $(function(){
 	setEnergyInfos();
 	$('small').html(select_Name);
 	$('.btn').click(function(){
+		myChart41 = echarts.init(document.getElementById('rheader-content-41'));
+		myChart42 = echarts.init(document.getElementById('rheader-content-42'));
 		getEcType();
 		getPointerId();
 		treeObject();
