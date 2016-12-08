@@ -72,6 +72,7 @@ $(function(){
 		calculable : true,
 		xAxis : [
 			{
+				show:'true',
 				type : 'category',
 				data:[]
 			}
@@ -133,6 +134,19 @@ $(function(){
 				type:'bar',
 				barMaxWidth: '60',
 				data:[],
+				itemStyle:{
+					normal:{
+						color: function(params) {
+							// build a color map as your need.
+							var colorList = [
+								'#d53a35','#2f4554','#FCCE10','#E87C25','#27727B',
+								'#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+								'#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+							];
+							return colorList[params.dataIndex]
+						},
+					}
+				}
 			},
 			{
 				name:'比较斜率',
@@ -566,7 +580,7 @@ function getPointerData(){
 		})
 	}
 	//环比柱状图
-	option13.xAxis.data = allDataX;
+	option13.xAxis[0].data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatasY;
 	myChart13.setOption(option13);
@@ -577,7 +591,7 @@ function getPointerData(){
 	option14.series[1].data[1] = totalAllDatas;
 	myChart14.setOption(option14);
 	//电-同比分析-柱折图
-	option13.xAxis.data = allDataX;
+	option13.xAxis[0].data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatassY;
 	myChart15.setOption(option13);

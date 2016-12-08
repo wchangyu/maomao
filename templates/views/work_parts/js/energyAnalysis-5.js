@@ -136,7 +136,8 @@ $(function(){
 			},
 			formatter: function (params) {
 				var tar = params[1];
-				return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+				var tars = params[0];
+				return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value + '<br/>' + tars.seriesName + ' : ' + tars.value;
 			}
 		},
 		toolbox: {
@@ -167,15 +168,19 @@ $(function(){
 				name: '空闲',
 				type: 'bar',
 				stack:  '总量',
+				label: {
+					normal: {
+						show: true,
+						position: 'inside'
+					}
+				},
 				itemStyle: {
 					normal: {
-						barBorderWidth:2,
-						barBorderColor: '#cbe6c5',
-						color: 'rgba(0,0,0,0)'
+						color: '#afc8de'
 					},
 					emphasis: {
 						barBorderColor: 'rgba(0,0,0,0.5)',
-						color: 'rgba(0,0,0,0)'
+						color: '#afc8de'
 					}
 				},
 				data: [],
@@ -193,11 +198,11 @@ $(function(){
 				},
 				itemStyle: {
 					normal: {
-						color: '#cbe6c5'
+						color: '#9dc541'
 					},
 					emphasis: {
 						barBorderColor: 'rgba(0,0,0,0.5)',
-						color: 'rgba(0,0,0,0.5)'
+						color: '#9dc541'
 					}
 				},
 				data:[],
@@ -241,7 +246,6 @@ $(function(){
 				],
 				itemStyle: {
 					normal: {
-
 						color: function(params) {
 
 							var colorList = [

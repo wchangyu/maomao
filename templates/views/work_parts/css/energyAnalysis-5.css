@@ -135,7 +135,7 @@
 .content-rightss-tip{
 	width:210px;
 	height:50px;
-	background: url(../img/bg-img.png)no-repeat 0px 0px;
+	/*background: url(../img/bg-img.png)no-repeat 0px 0px;*/
 	text-indent: 20px;
 }
 .content-rightss-one-1 p:nth-child(2){
