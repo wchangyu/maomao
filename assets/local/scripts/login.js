@@ -76,11 +76,9 @@ var Login = function() {
                         data:accParams,
                         //async:true,
                         success:function(data){
-                            if(data === "2")
-                            {
+                            if(data === "2"){
                                 showAlertInfo("请输入正确的用户名");
-                            }else if(data === "1")
-                            {
+                            }else if(data === "1"){
                                 showAlertInfo("请输入正确的密码");
                             }else {
                                 //$.cookie("username", name1);
@@ -97,7 +95,6 @@ var Login = function() {
                             }
                         },
                         error:function(xhr,res,err){
-
                         }
                     });
                 }
@@ -193,15 +190,7 @@ var Login = function() {
         });
     };
 
-    //设置报警信息
-    var setAlarmInfo = function(){
-        //TODO:设置报警信息
-        $.ajax({
-            type:'post',
-            dataType:'json',
 
-        });
-    }
 
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
@@ -226,7 +215,7 @@ var Login = function() {
                     sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
 
                     //监控信息的刷新时间
-                    if(data["refreshInterval"]){sessionStorage.refreshInterval = data["refreshInterval"];}
+                    if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 
                     //系统能耗类型配置，需要与api配置同步
                     var allEnergyType = data["allEnergyType"];
@@ -238,6 +227,10 @@ var Login = function() {
                     if(officeEnergyType){
                         sessionStorage.officeEnergyType = JSON.stringify(officeEnergyType);
                     }
+
+                    //首页报警信息的刷新时间
+                    if(data["alarmInterval"]){ sessionStorage.alarmInterval = data["alarmInterval"];}
+
                     //系统的theme
                     if(!localStorage.themeColor){
                         var themeColor = data["themecolor"];
@@ -392,6 +385,7 @@ var Login = function() {
         //$.removeCookie("username");
         //$.removeCookie("userpassword");
         //$.removeCookie("rememberme");
+
     }
 
     return {

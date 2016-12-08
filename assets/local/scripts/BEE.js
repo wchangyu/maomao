@@ -163,6 +163,92 @@ var BEE = (function(){
         $thisTheme.addClass("current");
     }
 
+
+    //设置页面右上角报警信息
+    //保存当前数据的时间和数据到sessionStorage中，每次打开时候比对时间，如果时间超过数据时间+刷新时间，则重新载入
+    var getAlarmInfo = function(){
+        if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
+            setPageTopRightAlarmData(sessionStorage.alaDataLength);
+        }
+        if(!sessionStorage.pointers){ return;}      //当前没有楼宇
+        if(sessionStorage.alaInsDataTime && sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){      //如果上次有数据时间
+            var lastTime = (new Date(sessionStorage.alaInsDataTime)).getTime();
+            var nowTime = (new Date()).getTime();
+            var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+            if(nowTime - lastTime < refreshItv && refreshItv>0){
+                setTimeout(getAlarmInfo,refreshItv);        //下次刷新数据使用
+                return;
+            }
+        }
+        if(document.getElementById('header_notification_bar') == null){ return;}        //当前页面没有显示报警数据的位置
+        var pointers = JSON.parse(sessionStorage.pointers);
+        var ptIds = [];
+        for(var i= 0,len=pointers.length;i<len;i++){
+            ptIds.push(pointers[i].pointerId);
+        }
+        var now = new Date();
+        var year = now.getFullYear(),month = now.getMonth(),day = now.getDate();
+        var st = year + "-" + month + "-" + day + " 00:00:00";
+        var et = year + "-" + month + "-" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
+         var prmData = {
+             "st" : st,
+             "et" : et,
+             "excTypeInnerId":"",
+             "energyType":"",
+             "pointerIds":ptIds
+        };
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
+            data:prmData,
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                if(data){       //设置右上角的报警数据显示情况
+                    setPageTopRightAlarmData(data.length);
+                }else{
+                    setPageTopRightAlarmData(0);
+                }
+                var now = new Date();
+                sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
+                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
+                    var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                    setTimeout(getAlarmInfo,refreshItv);            //下一次获取数据
+                }
+            },
+            error:function(xhr,res,err){
+                setPageTopRightAlarmData(0);        //出错时候，清除显示
+                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
+                    var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                    setTimeout(getAlarmInfo,refreshItv);
+                }
+            }
+        });
+    }
+
+    function setPageTopRightAlarmData(dataLength){
+        var $badge = $("#header_notification_bar .badge");
+        var $alarmDetail = $("#header_notification_bar .external>h3>span");
+        var $alarmBlock = $("#header_notification_bar");
+        $badge.removeClass("badge-danger");
+        if($badge.length>0){        //设置当前报警显示的内容
+            if(dataLength==0){
+                $badge.html("");            //当前警告的小圆点
+                $alarmDetail.html("");      //当前警告的下拉li第一项内容
+                $alarmBlock.hide();         //页面右上角警告的内容
+                if(sessionStorage.alaDataLength){
+                    sessionStorage.removeItem(alaDataLength);
+                }
+            }else{
+                $badge.addClass("badge-danger");
+                $badge.html(dataLength);
+                $alarmDetail.html(dataLength);
+                $alarmBlock.show();
+                sessionStorage.alaDataLength = dataLength;
+            }
+        }
+    }
+
     return {
         //getMenu: getMenu
         init:function(){
@@ -173,11 +259,8 @@ var BEE = (function(){
                 getMenu();
                 setHeaderInfo();
                 setTheme();
+                getAlarmInfo();
             }
-
         }
     }
-
-
-
 })();
