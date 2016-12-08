@@ -149,6 +149,9 @@ var ObjectSelection = function(){
     this.initOffices = function($ulOffices,multiSelectionMode){
         this._$ulOffices = $ulOffices;
         this.getSessionStorageOffices();
+        if(!this._allOffices || this._allOffices.length ==0 ){
+            return;
+        }
         var zTreeOffice;
         //科室单位
         var setting = {
