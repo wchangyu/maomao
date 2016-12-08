@@ -372,8 +372,7 @@ function theDashboard(){
          success:function(result){
              $('#loading2').hide();
                 var dian = 0;
-                for(var i=1;i<result.length;i++){
-                    console.log(result);
+                for(var i=1;i<result.length && i<=option.series.length;i++){
                     if(result[i].energyItemID == "01" ){
                         dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "211"){
@@ -407,7 +406,7 @@ function getClassEcData(){
         type: "post",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
         data: ecParams,
-        async:false,
+        async:true,
         beforeSend:function(){
             $('#loading').show();
 
@@ -431,7 +430,7 @@ function getOfficeClassEcData(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
         data:ecParams,
-        async:false,
+        async:true,
         beforeSend:function(){
             $('#loading').show();
         },
@@ -451,7 +450,7 @@ function PointerPowerConsumption(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
         data: ecParams,
-        async:false,
+        async:true,
         beforeSend:function(){
             $('#loading1').show();
         },
@@ -485,7 +484,7 @@ function OfficePowerConsumption(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
         data:ecParams,
-        async:false,
+        async:true,
         beforeSend:function(){
             $('#loading1').show();
         },

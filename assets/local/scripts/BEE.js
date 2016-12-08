@@ -184,7 +184,7 @@ var BEE = (function(){
         var pointers = JSON.parse(sessionStorage.pointers);
         var ptIds = [];
         for(var i= 0,len=pointers.length;i<len;i++){
-            ptIds.push(pointers[i].pointerId);
+            ptIds.push(pointers[i].pointerID);
         }
         var now = new Date();
         var year = now.getFullYear(),month = now.getMonth(),day = now.getDate();
