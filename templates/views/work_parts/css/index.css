@@ -181,13 +181,6 @@
 .timeactive{
 	margin-left: 35px;
 }
-.totalTitle{
-	font-size: 23px;
-	color: #fff;
-	line-height: 46px;
-	position: absolute;
-	left: 150px;
-}
 .top-menu{
 	margin-top: 0px !important;
 }
@@ -255,20 +248,6 @@
 }
 .tree-2{
 	display: none;
-}
-@media screen and(max-width: 768px) {
-	.totalTitle{
-		font-size: 15px;
-		margin-left: 0px;
-		left:120px;
-	}
-}
-@media screen and(max-width: 320px) {
-	.totalTitle{
-		font-size: 12px;
-		margin-left: 0px;
-		left:110px;
-	}
 }
 .row{
 	width: auto;

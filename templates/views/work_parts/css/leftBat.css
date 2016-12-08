@@ -1,5 +1,5 @@
 *{
-    font-family: 微软雅黑;
+    font-family:微软雅黑;
     padding: 0;
     margin: 0;
     box-sizing:border-box;
@@ -143,4 +143,32 @@ a{
     .left-middle-content,.left-middle-input,#key{
         width:190px;
     }
+}
+@media screen and(max-width: 768px) {
+    .totalTitle{
+        font-size: 15px;
+        margin-left: 0px;
+        left:120px;
+    }
+}
+@media screen and(max-width: 320px) {
+    .totalTitle{
+        font-size: 12px;
+        margin-left: 0px;
+        left:110px;
+    }
+}
+@media screen and(min-width: 768px) {
+    .totalTitle{
+        font-size: 23px;
+        margin-left: 0px;
+        left:120px;
+    }
+}
+.totalTitle{
+    font-size: 23px;
+    color: #fff;
+    line-height: 46px;
+    position: absolute;
+    left: 150px;
 }
