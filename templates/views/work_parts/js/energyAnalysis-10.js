@@ -189,6 +189,7 @@ $(function(){
 	getItemizedData();
 	setEnergyInfos();
 	$('.btn').click(function(){
+		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
 		$('#tbody').empty();
 		getEcType();
 		timeDisposal();

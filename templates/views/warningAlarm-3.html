@@ -14,22 +14,25 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-    <link rel="stylesheet" href="./work_parts/zTree/css/style.css">
     <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href="./work_parts/_css/Icomoon/style.css" rel="stylesheet" type="text/css" />
-    <link href="./work_parts/_css/main.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="./work_parts/_css/leftBat.css">
-    <link rel="stylesheet" href="./work_parts/css/index.css">
-    <link rel="stylesheet" href="./work_parts/select-time/css/style.css"/>
+    <link rel="stylesheet" href="./work_parts/css/leftBat.css">
+    <link rel="stylesheet" href="./work_parts/css/warningAlarm-2.css">
     <link rel="stylesheet" href="./work_parts/css/warningAlarm-3.css">
     <script src="./work_parts/js/jquery-1.11.2.js"></script>
     <script src="./work_parts/js/echarts.min.js"></script>
-    <script src="./work_parts/js/warningAlarm-3.js"></script>
-    <link rel="stylesheet" href="./work_parts/zTree/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./work_parts/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <script src="./work_parts/js/moment.js"></script>
+    <script src="./work_parts/js/showOrHidden.js"></script>
+    <script src="./work_parts/js/pointersoffices.js"></script>
+    <script src="./work_parts/js/etSelection.js"></script>
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="./work_parts/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="./work_parts/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="./work_parts/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="./work_parts/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./work_parts/TableTools/button/buttons.dataTables.min.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -264,7 +267,7 @@
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
-                实时报警<small>全院</small>
+                用能报警<small>全院</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -278,9 +281,10 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                     <li>
-                        <a href="#">实时报警</a>
+                        <a href="#">用能报警</a>
                     </li>
                 </ul>
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -311,129 +315,26 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap">
-                            <div class="content-main-contents">
-                                <!-- 标题 -->
+                            <div class="content-main-contents content-main-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists">实时报警</li>
+                                    <li class="main-contents-header-lists0">用能预警</li>
+                                    <li class="real-time"></li>
                                 </ul>
                                 <!-- 表格 -->
-                                <div class="main-contents-table">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                        <tr>
-                                            <th>编号</th>
-                                            <th>时间</th>
-                                            <th>支路</th>
-                                            <th>单位</th>
-                                            <th>报警类型</th>
-                                            <th>报警条件</th>
-                                            <th>当前数据</th>
-                                            <th>单位房间</th>
-                                            <th>报警等级</th>
-                                            <th>查看</th>
-                                            <th>阅读选择</th>
-                                            <th>操作</th>
-                                            <th>控制选择</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>2016.5.21</td>
-                                            <td>外科急诊3楼温度
-                                            </td>
-                                            <td>外科楼</td>
-                                            <td>环境报警</td>
-                                            <td>x<16 or x>24
-                                            </td>
-                                            <td>27.01
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>2016.5.21 &nbsp;14:16</td>
-                                            <td>支路13功率
-                                            </td>
-                                            <td>放射线科</td>
-                                            <td>能耗数据异常
-                                            </td>
-                                            <td>同比超过20%
-                                            </td>
-                                            <td>25%
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>2016.5.21 &nbsp;15:20</td>
-                                            <td>ICU科室用电量</td>
-                                            <td>ICU科室
-                                            </td>
-                                            <td>能耗数据异常</td>
-                                            <td>用电量超过定额10%
-                                            </td>
-                                            <td>11%
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>2016.5.21&nbsp;15:21</td>
-                                            <td>支路25
-                                            </td>
-                                            <td>内科楼冷战冷冻泵</td>
-                                            <td>设备运行异常
-                                            </td>
-                                            <td>电流超出额定值15%
-                                            </td>
-                                            <td>20%
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>2016.5.21&nbsp;15:22</td>
-                                            <td>数采仪004
-                                            </td>
-                                            <td>门急诊</td>
-                                            <td>计量器具异常
-                                            </td>
-                                            <td>超过5min无上载数据
-                                            </td>
-                                            <td>>=25
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="content-main-contents">
+                                    <div class="main-contents-table">
+                                        <table id="datatables" class="table table-striped b-t b-light" cellspacing="0" width="100%">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
+                                <button class="btn btn-success logoToRead" style="float: right">标识阅读</button>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
@@ -479,6 +380,20 @@
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/BEE.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="./work_parts/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="./work_parts/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--tabletool-->
+<script src="./work_parts/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="./work_parts/TableTools/button/buttons.print.min.js"></script>
+<script src="./work_parts/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="./work_parts/TableTools/button/buttons.colVis.min.js"></script>
+<script src="./work_parts/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="./work_parts/TableTools/js/jszip.min.js"></script>
+<script src="./work_parts/TableTools/js/pdfmake.min.js"></script>
+<script src="./work_parts/TableTools/js/vfs_fonts.js"></script>
+<script src="./work_parts/TableTools/button/buttons.html5.min.js"></script>
+<script src="./work_parts/js/warningAlarm-3.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

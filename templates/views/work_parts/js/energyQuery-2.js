@@ -192,6 +192,7 @@ $(function(){
 	};
 	getBranchData();
 	$('.btn').click(function(){
+		myChart3 = echarts.init(document.getElementById('rheader-content'));
 		getBranchData();
 		getEcTypeWord();
 		setEnergyInfo();

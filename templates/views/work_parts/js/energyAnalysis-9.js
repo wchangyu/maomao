@@ -159,6 +159,7 @@ $(function(){
 		$('.datetimepickereType').empty();
 	})
 	$('.btn').click(function(){
+		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
 		getEcType();
 		$('#tbody').empty();
 		getSelectedTime();
