@@ -6,21 +6,6 @@
     margin-top: 3%;
     cursor: pointer;
 }
-.all_aa_2{
-    background: url(../img/all.png)no-repeat;
-    background-size: 46px;
-    background-position: top center;
-}
-.electricity_aa_2{
-    background: url(../img/electricity.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.water_aa_2{
-    background: url(../img/water.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
 .main-contents-header-lists0{
     height: 30px;
     line-height: 30px;
@@ -29,7 +14,6 @@
 }
 .content-main-contents-header{
     margin-bottom: 0px;
-    margin-left: 10px;
 }
 .wrap{
     width: 100%;
@@ -67,7 +51,6 @@
 	left: 0 !important;
 }
 .content-main-contents-header{
-    width:75%;
     float:left;
 }
 .main-contents-header-lists0{
@@ -89,39 +72,9 @@
     margin-left: 30px;
     cursor: pointer;
 }
-.electricity_aa_4{
-    margin-left: 45px;
-}
-.electricity{
-    background: url(../img/electricity_hover.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
 .typee p{
     margin-top:50px;
     text-align:center;
-}
-.water{
-    background: url(../img/water.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.gas_aa_4{
-    background: url(../img/gas.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
-    border-radius: 50% !important;
-}
-.drp-popup .drp-calendar-start .drp-calendar-date:before {
-    content: "开始时间：" !important;
-}
-.drp-popup .drp-calendar-end .drp-calendar-date:before {
-    content: "结束时间：" !important;
-}
-.drp-popup{
-    border-radius: 12px !important;
 }
 .tree-1{
     height: 200px;
@@ -135,4 +88,40 @@
 }
 .energy-types div{
     border: 2px solid #ffffff;
+}
+#allPointer,#allOffices{
+    text-align: center;
+    width: 200px;
+    margin: 0 auto;
+}
+.left-middle-input{
+    width: 70px;
+}
+#typeSelection{
+    margin-top: 20px;
+}
+.left-middle-select{
+    margin: 0 auto;
+}
+.types{
+    height: 30px;
+}
+.datetimepickereType{
+    width: 150px;
+    height: 30px;
+    float: left;
+    border: 1px solid #a9a9a9;
+    font-size: 10px;
+    line-height: 30px;
+}
+#datetimepicker{
+    width: 30px;
+    height:30px;
+    float: right;
+    cursor: pointer;
+    font-size: 0;
+    background: url("../img/clendar.png")no-repeat;
+    background-size: 25px;
+    background-position: center;
+    outline: none;
 }

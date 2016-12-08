@@ -20,6 +20,7 @@ $(function(){
             "border":"2px solid #7f7f7f",
             "color":"#ffffff"
         })
+        //alert($(this).index());
         $('.tree-1').hide();
         $('.tree-1').eq($(this).index()).show();
 
@@ -309,7 +310,7 @@ $(function(){
     theDashboard();
     PointerCharge();
     $('.btn').click(function(){
-        var o=$('.tree-3')[0].style.display;
+        var o=$('.tree-1')[0].style.display;
         titleChange();
         if(o == "none"){
             getOfficeClassEcData();
@@ -364,23 +365,26 @@ function theDashboard(){
          type: "post",
          url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
          data: ecParams,
+         async:false,
         beforeSend:function(){
             $('#loading2').show();
         },
          success:function(result){
              $('#loading2').hide();
                 var dian = 0;
-                for(var i=0;i<result.length;i++){
+                for(var i=1;i<result.length;i++){
+                    console.log(result);
                     if(result[i].energyItemID == "01" ){
                         dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "211"){
-                        dian = result[i].ecDataByArea.toFixed(2);
+                        dian = (result[i].ecDataByArea * 1000).toFixed(2);//水单位t到L
                     }else if(result[i].energyItemID == "412"){
                         dian = result[i].ecDataByArea.toFixed(2);
                     }else if(result[i].energyItemID == "511"){
                         dian = result[i].ecDataByArea.toFixed(2);
                     }
-                    option.series[i].data[0].value = dian;
+                    option.series[i-1].data[0].value = dian;
+                    console.log(option.series[i-1].data[0].value);
                 }
              _myChart1.setOption(option,true);
          }
@@ -403,6 +407,7 @@ function getClassEcData(){
         type: "post",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
         data: ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading').show();
 
@@ -426,6 +431,7 @@ function getOfficeClassEcData(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
         data:ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading').show();
         },
@@ -445,10 +451,12 @@ function PointerPowerConsumption(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
         data: ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading1').show();
         },
         success:function(result){
+            option1.series[0].data = [];
             $('#loading1').hide();
             for(var i=0;i<result.length;i++){
                 arr_4[i] = result[i].ecData.toFixed(0);
@@ -477,6 +485,7 @@ function OfficePowerConsumption(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
         data:ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading1').show();
         },
@@ -506,6 +515,7 @@ function PointerCharge(){
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',
         data:ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading3').show();
         },
@@ -534,6 +544,7 @@ function OfficeCharge(){
         type:'post',
         url: sessionStorage.apiUrlPrefix + "EnergyItemDatas/getEnergyMoneyCost",
         data:ecParams,
+        async:false,
         beforeSend:function(){
             $('#loading3').show();
         },
