@@ -83,7 +83,7 @@ Went.utility.wCoder = (function () {
         var i, j,switchIndex,tmp;
         for ( i = 0; i < sKey.length; i++) {
             for ( j = 0; j < cypherClone.length; j++) {
-                switchIndex = ((sKey[i] + i) * cypherClone[j]) % 255;
+                switchIndex = ((sKey.charCodeAt(i) + i) * cypherClone[j]) % 255;
                 if (switchIndex != j) {
                     tmp = cypherClone[j];
                     cypherClone[j] = cypherClone[switchIndex];
