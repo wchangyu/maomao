@@ -1,47 +1,7 @@
 $(function(){
     $('.datetimepickereType').html(_ajaxStartTime +'到'+_ajaxStartTime);
-    //读取能耗种类
-    _energyTypeSel = new ETSelection();
-    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
-    });
-    //能耗种类-全部
-    var allEnergyConsumptionTypes = $('<div class="selectedEnergy">')
-    allEnergyConsumptionTypes.css({
-        "width" : "120px",
-        "height" : "70px",
-        "cursor" : "pointer",
-        "background":'url(./work_parts/img/allener.png)no-repeat',
-        "background-size":'50px',
-        "background-position":'top center',
-    });
-    allEnergyConsumptionTypes.attr('value','00');
-    var allEnergyConsumptionTypesP = $('<p>');
-    allEnergyConsumptionTypesP.css({
-        "margin-top":"50px",
-        "text-align":"center",
-    });
-    allEnergyConsumptionTypesP.html('全部');
-    allEnergyConsumptionTypes.append(allEnergyConsumptionTypesP);
-    $('.energy-types').prepend(allEnergyConsumptionTypes);
-    //能耗种类的红边框
-    $('.energy-types div').css({
-        'border':'2px solid #ffffff'
-    });
-    $('.energy-types div').removeClass('selectedEnergy');
-    $('.energy-types').children('div').eq(0).css({
-        'border':'2px solid red'
-    });
-    $('.energy-types').children('div').eq(0).addClass('selectedEnergy');
-    $('.energy-types').delegate('div','click',function(){
-        $('.energy-types div').removeClass('selectedEnergy');
-        $('.energy-types div').css({
-            'border':'2px solid #ffffff'
-        });
-        $('.energy-types').children('div').eq($(this).index()).css({
-            'border':'2px solid red'
-        });
-        $('.energy-types').children('div').eq($(this).index()).addClass('selectedEnergy');
-    });
+    //读取能耗种类的树；
+    energyTypes();
     //获取选取的能耗种类
     getEcType();
     //读取楼宇和科室的zTree；
@@ -61,7 +21,7 @@ $(function(){
         "paging": false,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
-        "paging": false,
+        "paging": true,
         "searching": false,
         "ordering": false,
         'language': {
@@ -70,8 +30,14 @@ $(function(){
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 件',
             'zeroRecords': '没有数据',
-            'info': '第 1 页 / 总 1 页',
-            'infoEmpty': '没有数据'
+            'info': '第_PAGE_页/共_PAGES_页',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
         },
         "dom":'B<"clear">lfrtip',
         'buttons': [
@@ -92,11 +58,16 @@ $(function(){
             {
                 "title":"时间",
                 "data":"dataDate",
+                "render":function(data,type,row,meta){
+                    if(data && data.length >0){
+                        return data.split('T')[0] + ' ' + data.split('T')[1];
+                    }
+                }
             },
             {
-                "title": "编号",
+                "title": "支路",
                 "class":"L-checkbox",
-                "data":"alaLogID"
+                "data":"cName"
             },
             {
                 "title": "名称",
@@ -120,41 +91,47 @@ $(function(){
             },
             {
                 "title": "报警等级",
-                "data":"flag"
-            },
-            {
-                "title": "查看",
-                "data":"memo"
+                "data":"priority"
             },
             {
                 "title": "阅读选择",
                 "class":'L-checkbox',
                 "targets": -1,
-                "data": null,
-                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>未阅读"
+                "data": 'flag',
+                "render":function(data,type,row,meta){
+                    if(data>0){
+                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>已阅读";
+                    }else{
+                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>未阅读";
+                    }
+                }
             },
             {
-                "title": "操作",
-                "class":'L-button',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<button class='btn btn-success details-control'>显示/隐藏历史</button>"
+                "class":"alaLogID alaLogIDs",
+                "data":"alaLogID",
+                "visible":"false"
+            },
+            {
+                "class":"alaLogID pointerID",
+                "data":"pointerID",
+                "visible":"false"
             },
             {
                 "title": "处理备注",
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<button class='btn btn-success' data-toggle='modal' data-target='#myModal'>点击处理</button>" +
+                "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>" +
                 "<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
                 "<div class='modal-dialog'style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
                 "<div class='modal-content'>" +
-                "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>标题</h4><input type='text' class='modal-body'><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button><button type='button' class='btn btn-primary'>提交更改</button></div></div>" +
+                "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>标题</h4><input type='text' class='modal-body'><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button><button type='button' class='btn btn-primary submitNote'>提交更改</button></div></div>" +
                 "</div>" +
                 "</div>" +
                 "</div>"
             }
         ]
     });
+    _table = $("#datatables").dataTable();
     setData();
     //时间插件
     initDate();
@@ -278,13 +255,17 @@ $(function(){
             _ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
         }
     });
-    $('.btn').click(function(){
+    $('.btns').click(function(){
+        _table.fnClearTable();
         getEcType();
+        getSelectedEnergyTyps();
         alarmHistory();
         getSelectedBranches();
         setData();
-
     })
+    $('.logoToRead').click(function(){
+        logoToRead();
+    });
     $('.types').change(function(){
         var bbaa = $('.types').find('option:selected').val();
         if(bbaa == '月'){
@@ -295,6 +276,26 @@ $(function(){
             initDate();
         }
         $('.datetimepickereType').empty();
+    })
+    $('#datatables tbody').on( 'click', 'input', function () {
+        var $this = $(this);
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+        }
+    } );
+    console.log($('.clickButtons'));
+    $('.clickButtons').click(function(){
+        var $this = $(this);
+        userId = $this.parents('tr').children('.pointerID').html();
+        _alaLogId = $this.parents('tr').children('.alaLogIDs').html();
+        console.log(userId + '+' + _alaLogId);
+    })
+    //获得备注内容
+    $('.submitNote').click(function(){
+        _texts = $(this).parents('.modal-header').children('.modal-body').val();
+        processingNote();
     })
 })
 var table;
@@ -330,7 +331,7 @@ function getAlarmInfo(){
     allAlarmInfo.name="全部";
     allAlarmInfo.checked="true";
     allAlarmInfo.open = "true";
-    zNodes.push(allAlarmInfo)
+    zNodes.push(allAlarmInfo);
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
@@ -387,6 +388,70 @@ function getSelectedBranches(){
         select_ID = '';
     }
 }
+//构建能耗种类树
+var treeObjs;
+function energyTypes (){
+    var zNodes = [];
+    var allAlarmInfo={};
+    allAlarmInfo.id="000";
+    allAlarmInfo.name="全部";
+    allAlarmInfo.checked="true";
+    allAlarmInfo.open = "true";
+    zNodes.push(allAlarmInfo);
+    var energyConsumptionTypes = JSON.parse(sessionStorage.getItem('allEnergyType'));
+    console.log(energyConsumptionTypes);
+    var totalData = [];
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllEnergyTypes',
+        async:false,
+        success:function(result){
+            console.log(result);
+            for(var i=0;i<result.length;i++){
+                totalData.push(result[i]);
+            }
+            for(var i=0;i<totalData.length;i++){
+                zNodes.push({id:totalData[i].energyTypeID,name:totalData[i].energyTypeName,pId:allAlarmInfo.id});
+            }
+            var ztreeSettings = {
+                check: {
+                    enable: true,
+                    chkStyle: "radio",
+                    chkboxType: { "Y": "ps", "N": "ps" },
+                    radioType: 'all'
+
+                },
+                data: {
+                    key: {
+                        title: "title"
+                    },
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                view: {
+                    showIcon: false
+                },
+                callback: {
+                    onClick:function (event,treeId,treeNode){
+                        treeObjs.checkNode(treeNode,!treeNode.checked,true)
+                    }
+                }
+            };
+            treeObjs = $.fn.zTree.init($("#energyTypes"), ztreeSettings, zNodes);  //ul的id
+            getSelectedEnergyTyps();
+        }
+    })
+}
+//获取选中的能耗种类类型
+function getSelectedEnergyTyps (){
+    var treeObjs=$.fn.zTree.getZTreeObj('energyTypes');
+    var nodes = treeObjs.getCheckedNodes();
+    _ajaxEcType=nodes[0].id;
+    if(_ajaxEcType == '000'){
+        _ajaxEcType = '';
+    }
+}
 //月的时间初始化
 function monthDate(){
     $('#datetimepicker').datepicker('destroy');
@@ -424,6 +489,7 @@ function initDate(){
 //获取报警记录信息
 var dataArr=[];
 function alarmHistory(){
+    dataArr=[];
     //获取楼宇id
     var pts = _objectSel.getSelectedPointers(),pointerID=[];
     if(pts.length>0) {
@@ -449,41 +515,76 @@ function alarmHistory(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
         async:false,
         data:prm,
+        beforeSend:function(){
+            $('.main-contents-table').children('img').show();
+            console.log($('.main-contents-table').children('img'));
+        },
         success:function(result){
-            //console.log(result);
-            var pcids = [];
             for(var i=0;i<result.length;i++){
-                //dataArr.push(result[i]);
-                if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
-                    pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
-                }
+                dataArr.push(result[i]);
             }
-            for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
-                for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
-                    if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
-                        dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
-                        break;  //跳处循环；
-                    }
-                }
-            }
-
         }
     });
 }
-
-function existItem(arr,item){ //遍历数组中的所有数，如果有相同的pointerID&&cdataID，返回true，如果没有的话返回false；
-    for(var i= 0,len=arr.length;i<len;i++){
-        if(arr[i].pointerID==item.pointerID && arr[i].cdataID==item.cdataID){
-            return true;
-        }
-    }
-    return false;
-}
-
 function setData(){
-    var table = $("#datatables").dataTable();
-    console.log(table);
-    table.fnClearTable();
-    table.fnAddData(dataArr);
-    table.fnDraw();
+        //_table = $("#datatables").dataTable()
+        //$('.main-contents-table').find('img').hide();
+        if(dataArr && dataArr.length>0){
+            _table.fnAddData(dataArr);
+            _table.fnDraw();
+        }
+         $('.main-contents-table').children('img').hide();
+}
+//标识阅读功能
+var logoToReadID = [];
+function logoToRead (){
+    logoToReadID = [];
+    var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
+    console.log(pitchOn);
+    for(var i=0;i<$('.choice').length;i++){
+        //if($('.choice').eq(i).parent('.checked'))
+        if($('.choice').eq(i).parent('.checked').length != 0){
+            logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
+       }
+    }
+    var alaLogIDs = {
+        '':logoToReadID
+    }
+    $.ajax(
+        {
+            'type':'post',
+            'url':sessionStorage.apiUrlPrefix + 'Alarm/UpdateAlarmReaded',
+            'async':false,
+            'data':alaLogIDs,
+            'success':function(result){
+                console.log(result);
+            }
+        }
+    )
+}
+//userId msgTime alaLogId alaMessage
+//用户名  当前时间（获取） alaLogId  input.val()
+var userId,_alaLogId,_texts;
+var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
+function processingNote (){
+    //获取当前用户名
+    //console.log(userId + '+' + _alaLogId + '+' + _texts + nowDays);
+    var prm = {
+        'userId':userId,
+        'msgTime':nowDays,
+        'alaLogId':_alaLogId,
+        'alaMessage':_texts
+    };
+    console.log(prm);
+    $.ajax(
+        {
+            'type':'post',
+            'url':sessionStorage.apiUrlPrefix + 'Alarm/SetAlarmMessage',
+            'async':false,
+            'data':prm,
+            success:function(result){
+                console.log(result);
+            }
+        }
+    )
 }

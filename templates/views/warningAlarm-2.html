@@ -280,19 +280,6 @@
                             <!-- 左边选择区域 -->
                             <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
                                 <div class="content-main">
-                                    <div class="main-left-top1">
-                                        <div class="left-middle-header">
-                                            能耗种类
-                                        </div>
-                                        <div class="energy-types">
-                                            <!--<div class="selectedEnergy">
-                                                <p class="">全部</p>
-                                            </div>-->
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                                <div class="content-main">
                                     <div class="main-left-middle">
                                         <div class="left-middle-header">范围选择</div>
                                         <div class="left-middle-main">
@@ -308,10 +295,15 @@
                                 </div>
                                 <div class="content-main">
                                     <div class="left-middle-header">报警类型选择</div>
-                                    <div class="tree-1">
+                                    <div class="tree-11">
                                         <ul class="typeSelection ztree" id="typeSelection">
                                         </ul>
                                     </div>
+                                    <div class="tree-11">
+                                        <ul class="energyTypes ztree" id="energyTypes">
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="content-main">
                                     <div class="select-times">
@@ -331,7 +323,7 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="buttons">
-                                                <button class="btn btn-success">查询</button>
+                                                <button class="btns btn btn-success">查询</button>
                                             </div>
                                         </div>
                                     </div>
@@ -350,10 +342,12 @@
                                             <tbody>
                                             </tbody>
                                         </table>
+                                        <img src="./work_parts/img/loading.gif" alt="">
                                     </div>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
+                            <button class="btn btn-success logoToRead" style="float: right">标识阅读</button>
                         </div>
                     </div>
                 </div>
