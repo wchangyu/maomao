@@ -1,3 +1,9 @@
+//电水冷暖的参考值
+const _ElecYC = 300;  //电的年耗,200kWh/m2
+const _WaterYC = 300;  //水的年耗,300L/m2
+const _ColdYC = 300;  //冷量的年耗,100MJ/m2
+const _HeatYC = 300;  //热量的年耗,100MJ/m2
+
 $(function(){
     //上日上年标题部分
     titleChange();
@@ -57,8 +63,8 @@ $(function(){
                 center: ['53%', '55%'],
                 z: 3,
                 min: 0,
-                max: 220,
-                splitNumber: 11,
+                max: Math.ceil(_ElecYC / 365),
+                splitNumber: 10,
                 radius: '65%',
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
@@ -97,9 +103,9 @@ $(function(){
                 center: ['23%', '55%'],    // 默认全局居中
                 radius: '65%',
                 min:0,
-                max:7,
+                max:Math.ceil(_WaterYC / 365),
                 endAngle:45,
-                splitNumber:7,
+                splitNumber:5,
                 axisLine: {            // 坐标轴线
                     lineStyle: {       // 属性lineStyle控制线条样式
                         width: 8
@@ -136,7 +142,7 @@ $(function(){
                 center: ['83%', '55%'],    // 默认全局居中
                 radius: '50%',
                 min: 0,
-                max: 2,
+                max: Math.ceil(_ColdYC / 365),
                 startAngle: 135,
                 endAngle: 45,
                 splitNumber: 2,
@@ -153,11 +159,7 @@ $(function(){
                     }
                 },
                 axisLabel: {
-                    formatter:function(v){
-                        switch (v + '') {
-                            case '1' : return 'cold';
-                        }
-                    }
+                    formatter:'{value}'
                 },
                 splitLine: {           // 分隔线
                     length: 15,         // 属性length控制线长
@@ -169,7 +171,7 @@ $(function(){
                     width:2
                 },
                 title : {
-                    show: false
+                    show: true
                 },
                 detail : {
                     show: false
@@ -182,7 +184,7 @@ $(function(){
                 center : ['83%', '55%'],    // 默认全局居中
                 radius : '50%',
                 min: 0,
-                max: 2,
+                max: Math.ceil(_HeatYC / 365),
                 startAngle: 315,
                 endAngle: 225,
                 splitNumber: 2,
@@ -195,11 +197,7 @@ $(function(){
                     show: false
                 },
                 axisLabel: {
-                    formatter:function(v){
-                        switch (v + '') {
-                            case '1' : return 'heat';
-                        }
-                    }
+                    formatter:'{value}'
                 },
                 splitLine: {           // 分隔线
                     length: 15,         // 属性length控制线长
@@ -211,7 +209,7 @@ $(function(){
                     width:2
                 },
                 title: {
-                    show: false
+                    show: true
                 },
                 detail: {
                     show: false
@@ -307,11 +305,36 @@ $(function(){
     //页面加载时获取楼宇总能耗、分项电耗、能耗费用、用能指标
     getClassEcData();
     PointerPowerConsumption();
-    theDashboard();
+
     PointerCharge();
     $('.btn').click(function(){
         var o=$('.tree-1')[0].style.display;
         titleChange();
+        if(_changeTitle == '上日'){
+            option.series[0].max = Math.ceil(_ElecYC / 365);
+            option.series[1].max = Math.ceil(_WaterYC / 365);
+            option.series[2].max = Math.ceil(_ColdYC / 365);
+            option.series[3].max = Math.ceil(_HeatYC / 365);
+            _myChart1.setOption(option);
+        }else if(_changeTitle == '上周'){
+            option.series[0].max = Math.ceil(_ElecYC / 50);
+            option.series[1].max = Math.ceil(_WaterYC / 50);
+            option.series[2].max = Math.ceil(_ColdYC / 50);
+            option.series[3].max = Math.ceil(_HeatYC / 50);
+            _myChart1.setOption(option);
+        }else if(_changeTitle == '上月'){
+            option.series[0].max = Math.ceil(_ElecYC / 10);
+            option.series[1].max = Math.ceil(_WaterYC / 10);
+            option.series[2].max = Math.ceil(_ColdYC / 10);
+            option.series[3].max = Math.ceil(_HeatYC / 10);
+            _myChart1.setOption(option);
+        }else{
+            option.series[0].max = _ElecYC ;
+            option.series[1].max = _WaterYC;
+            option.series[2].max = _ColdYC;
+            option.series[3].max = _HeatYC;
+            _myChart1.setOption(option);
+        }
         if(o == "none"){
             getOfficeClassEcData();
             OfficePowerConsumption();
@@ -323,7 +346,7 @@ $(function(){
             PointerCharge();
             $('small').html(pointerNames);
         }
-        theDashboard();
+        //theDashboard();
     });
     $('body').mouseover(function(){
         if(_myChart && _myChart1 && _myChart2){
@@ -338,6 +361,11 @@ var _changeTitle = '上日';
 var _myChart;
 var _myChart1;
 var _myChart2;
+
+function setChart1Option(ec,wc,cc,hc){
+
+}
+
 //获取楼宇ID
 //存放id
 var  arr=[];
@@ -355,40 +383,7 @@ var arr_33=['42', '40', '41', '02'];
 var arr_4 =[];
 var newStr;
 var newStr1;
-//用能指标(仪表盘)
-function theDashboard(){
-    var pts = _objectSel.getSelectedPointers(),pointerID;
-    if(pts.length>0) { pointerID = pts[0].pointerID};
-    if(!pointerID) { return; }
-    var ecParams={'pointerId':pointerID,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
-    $.ajax({
-         type: "post",
-         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
-         data: ecParams,
-         async:false,
-        beforeSend:function(){
-            $('#loading2').show();
-        },
-         success:function(result){
-             $('#loading2').hide();
-                var dian = 0;
-                for(var i=1;i<result.length && i<=option.series.length;i++){
-                    if(result[i].energyItemID == "01" ){
-                        dian = result[i].ecDataByArea.toFixed(2);
-                    }else if(result[i].energyItemID == "211"){
-                        dian = (result[i].ecDataByArea * 1000).toFixed(2);//水单位t到L
-                    }else if(result[i].energyItemID == "412"){
-                        dian = result[i].ecDataByArea.toFixed(2);
-                    }else if(result[i].energyItemID == "511"){
-                        dian = result[i].ecDataByArea.toFixed(2);
-                    }
-                    option.series[i-1].data[0].value = dian;
-                    console.log(option.series[i-1].data[0].value);
-                }
-             _myChart1.setOption(option,true);
-         }
-    })
-}
+
 //上月能耗费用
 var arr_6=[];
 var arr_7=[];
@@ -409,11 +404,27 @@ function getClassEcData(){
         async:true,
         beforeSend:function(){
             $('#loading').show();
-
+            $('#loading2').show();
         },
         success: function (result) {
             $('#loading').hide();
             setEnergyType(sessionStorage.allEnergyType,result);
+
+            $('#loading2').hide();
+            var dian = 0;
+            for(var i=1;i<result.length && i<=option.series.length;i++){
+                if(result[i].energyItemID == "01" ){
+                    dian = result[i].ecDataByArea.toFixed(2);
+                }else if(result[i].energyItemID == "211"){
+                    dian = (result[i].ecDataByArea * 1000).toFixed(2);//水单位t到L
+                }else if(result[i].energyItemID == "412"){
+                    dian = result[i].ecDataByArea.toFixed(2);
+                }else if(result[i].energyItemID == "511"){
+                    dian = result[i].ecDataByArea.toFixed(2);
+                }
+                option.series[i-1].data[0].value = dian;
+            }
+            _myChart1.setOption(option,true);
         }
     });
 }
@@ -509,7 +520,12 @@ function PointerCharge(){
     var pts = _objectSel.getSelectedPointers(),pointerID;
     if(pts.length>0) { pointerID = pts[0].pointerID};
     if(!pointerID) { return; }
-    var ecParams={'pointerOrOfficeId':pointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
+    var ecParams = {};
+    if(pointerID==0){
+        ecParams={'pointerOrOfficeId':pointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
+    }else{
+        ecParams={'pointerOrOfficeId':pointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'0'};
+    }
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',

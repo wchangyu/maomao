@@ -203,7 +203,6 @@ var BEE = (function(){
             data:prmData,
             dataType:'json',
             success:function(data){
-                console.log(data);
                 if(data){       //设置右上角的报警数据显示情况
                     setPageTopRightAlarmData(data.length);
                 }else{
@@ -259,7 +258,9 @@ var BEE = (function(){
                 getMenu();
                 setHeaderInfo();
                 setTheme();
-                getAlarmInfo();
+                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval=='0') {
+                    getAlarmInfo();
+                }
             }
         }
     }
