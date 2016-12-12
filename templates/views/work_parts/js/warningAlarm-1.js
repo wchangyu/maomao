@@ -40,7 +40,8 @@ $(function(){
             },
             {
                 "title": "名称",
-                "data":"name"
+                "data":"name",
+                "class":"cname"
             },
             {
                 "title": "报警类型",

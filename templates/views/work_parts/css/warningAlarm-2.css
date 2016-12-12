@@ -125,3 +125,23 @@
     background-position: center;
     outline: none;
 }
+#datatables th{
+    text-align: center;
+}
+.tree-11{
+    width: 50%;
+    float: left;
+    overflow-x: scroll;
+}
+#energyTypes{
+    margin-top: 20px;
+    height: 157px;
+}
+.main-contents-table img{
+    position: absolute;
+    top: 300px;
+}
+.alaLogID{
+    font-size: 0;
+    padding: 0!important;
+}
