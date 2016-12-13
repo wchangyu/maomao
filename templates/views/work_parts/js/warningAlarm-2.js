@@ -285,12 +285,10 @@ $(function(){
             $(this).parent($('span')).removeClass('checked');
         }
     } );
-    console.log($('.clickButtons'));
     $('.clickButtons').click(function(){
         var $this = $(this);
         userId = $this.parents('tr').children('.pointerID').html();
         _alaLogId = $this.parents('tr').children('.alaLogIDs').html();
-        console.log(userId + '+' + _alaLogId);
     })
     //获得备注内容
     $('.submitNote').click(function(){
@@ -399,14 +397,12 @@ function energyTypes (){
     allAlarmInfo.open = "true";
     zNodes.push(allAlarmInfo);
     var energyConsumptionTypes = JSON.parse(sessionStorage.getItem('allEnergyType'));
-    console.log(energyConsumptionTypes);
     var totalData = [];
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllEnergyTypes',
         async:false,
         success:function(result){
-            console.log(result);
             for(var i=0;i<result.length;i++){
                 totalData.push(result[i]);
             }
@@ -517,7 +513,6 @@ function alarmHistory(){
         data:prm,
         beforeSend:function(){
             $('.main-contents-table').children('img').show();
-            console.log($('.main-contents-table').children('img'));
         },
         success:function(result){
             for(var i=0;i<result.length;i++){
@@ -557,7 +552,7 @@ function logoToRead (){
             'async':false,
             'data':alaLogIDs,
             'success':function(result){
-                console.log(result);
+
             }
         }
     )
@@ -568,14 +563,12 @@ var userId,_alaLogId,_texts;
 var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
 function processingNote (){
     //获取当前用户名
-    //console.log(userId + '+' + _alaLogId + '+' + _texts + nowDays);
     var prm = {
         'userId':userId,
         'msgTime':nowDays,
         'alaLogId':_alaLogId,
         'alaMessage':_texts
     };
-    console.log(prm);
     $.ajax(
         {
             'type':'post',
@@ -583,7 +576,7 @@ function processingNote (){
             'async':false,
             'data':prm,
             success:function(result){
-                console.log(result);
+
             }
         }
     )

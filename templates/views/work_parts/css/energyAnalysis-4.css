@@ -9,40 +9,6 @@
 .electricity_aa_4{
     margin-left: 45px;
 }
-.electricity{
-    background: url(../img/electricity_hover.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.typee p{
-    margin-top:50px;
-    text-align:center;
-}
-.water {
-    background: url(../img/water.png) no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.gas_aa_4{
-    background: url(../img/gas.png)no-repeat;
-    background-size: 50px;
-    background-position: top center;
-}
-.drp-popup .drp-timeline .drp-timeline-presets li.drp-selected .drp-button{
-    border-radius: 50% !important;
-}
-.drp-popup .drp-calendar-start .drp-calendar-date:before {
-    content: "开始时间：" !important;
-}
-.drp-popup .drp-calendar-end .drp-calendar-date:before {
-    content: "结束时间：" !important;
-}
-.drp-popup{
-    border-radius: 12px !important;
-}
-.drp-button{
-    border-radius: 50% !important;
-}
 .header-one{
     display: inline-block;
     font-size: 1.2rem;
@@ -147,4 +113,7 @@
     cursor: pointer;
     font-size: 0;
     float: right;
+}
+.energy-types div:nth-child(2),.energy-types div:nth-child(3),.energy-types div:nth-child(4),.energy-types div:nth-child(5){
+    display: none;
 }

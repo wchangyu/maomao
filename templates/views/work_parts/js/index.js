@@ -40,16 +40,22 @@ $(function(){
         $(this).addClass('time-options-1');
         if($(this).html() == '上日'){
             timeYesterday();
+            _dataRanges = '日'
         }else if($(this).html() == '上周'){
             timeLastWeek();
+            _dataRanges = '周'
         }else if($(this).html() == '上月'){
             timeLastMonth();
+            _dataRanges = '月'
         }else if($(this).html() == '上年'){
             timeLastYear();
+            _dataRanges = '年'
         }
         _changeTitle = $(this).html();
     })
     //echart配置项
+    //为了使总能耗也有loading等待效果，覆盖一个echarts
+    _myChart3 = echarts.init(document.getElementById('loaddings'));
     //仪表盘
     _myChart1 = echarts.init(document.getElementById('main-right-four'));
     option = {
@@ -347,12 +353,14 @@ $(function(){
             $('small').html(pointerNames);
         }
         //theDashboard();
+        console.log(_changeTitle);
     });
     $('body').mouseover(function(){
-        if(_myChart && _myChart1 && _myChart2){
+        if(_myChart && _myChart1 && _myChart2 && _myChart3){
             _myChart.resize();
             _myChart1.resize();
             _myChart2.resize();
+            _myChart3.resize();
         }
     });
 })
@@ -361,7 +369,8 @@ var _changeTitle = '上日';
 var _myChart;
 var _myChart1;
 var _myChart2;
-
+var _myChart3;
+var _dataRanges = '日';
 function setChart1Option(ec,wc,cc,hc){
 
 }
@@ -387,7 +396,7 @@ var newStr1;
 //上月能耗费用
 var arr_6=[];
 var arr_7=[];
-//楼宇总能耗
+//楼宇总能耗（仪表盘）
 function getClassEcData(){
     var pts = _objectSel.getSelectedPointers(),pointerID;
     if(pts.length>0) {
@@ -396,21 +405,26 @@ function getClassEcData(){
     };
     $('small').html(pointerNames);
     if(!pointerID) { return; }
-    var ecParams={'pointerId':pointerID,'startTime':newStr,'endTime':newStr1,'dateType':'日'};
+    var ecParams={'pointerId':pointerID,'startTime':newStr,'endTime':newStr1,'dateType':_dataRanges};
     $.ajax({
         type: "post",
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
         data: ecParams,
         async:true,
         beforeSend:function(){
-            $('#loading').show();
-            $('#loading2').show();
+            _myChart1.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
+            _myChart3.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success: function (result) {
-            $('#loading').hide();
+            _myChart1.hideLoading();
+            _myChart3.hideLoading();
             setEnergyType(sessionStorage.allEnergyType,result);
-
-            $('#loading2').hide();
             var dian = 0;
             for(var i=1;i<result.length && i<=option.series.length;i++){
                 if(result[i].energyItemID == "01" ){
@@ -443,10 +457,13 @@ function getOfficeClassEcData(){
         data:ecParams,
         async:true,
         beforeSend:function(){
-            $('#loading').show();
+            _myChart1.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success:function(result){
-            $('#loading').hide();
+            _myChart1.hideLoading()
             setEnergyType(sessionStorage.officeEnergyType,result)
         }
     })
@@ -463,11 +480,14 @@ function PointerPowerConsumption(){
         data: ecParams,
         async:true,
         beforeSend:function(){
-            $('#loading1').show();
+            _myChart.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success:function(result){
             option1.series[0].data = [];
-            $('#loading1').hide();
+            _myChart.hideLoading();
             for(var i=0;i<result.length;i++){
                 arr_4[i] = result[i].ecData.toFixed(0);
             }
@@ -497,10 +517,13 @@ function OfficePowerConsumption(){
         data:ecParams,
         async:true,
         beforeSend:function(){
-            $('#loading1').show();
+            _myChart.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success:function(result){
-            $('#loading1').hide();
+            _myChart.hideLoading()
             var arr_10=[];
             for(var i=0;i<result.length;i++){
                 arr_10[i] = result[i].ecData;
@@ -532,10 +555,13 @@ function PointerCharge(){
         data:ecParams,
         async:false,
         beforeSend:function(){
-            $('#loading3').show();
+            _myChart2.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success:function(result){
-            $('#loading3').hide();
+            _myChart2.hideLoading();
             for(var i=0;i<result.length;i++){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
@@ -561,10 +587,13 @@ function OfficeCharge(){
         data:ecParams,
         async:false,
         beforeSend:function(){
-            $('#loading3').show();
+            _myChart2.showLoading({
+                text:'获取数据中',
+                effect:'whirling'
+            })
         },
         success:function(result){
-            $('#loading3').hide();
+            _myChart2.hideLoading();
             for(var i=0;i<result.length;i++){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);

@@ -338,7 +338,7 @@ function getBranches() {
 				getSelectedBranches();
 			},
 			error: function (xhr, text, err) {
-				console.log(err);
+				$('#energyConsumption').html(JSON.parse(xhr.responseText).message);
 			}
 		}
 	);
@@ -443,13 +443,13 @@ function getBranchData(){
 	var growthRate=0;
 	for(var i=0;i<select_ID.length;i++){
 		if(select_ID.length != 1){
-			$('.rheader-content-right').hide();
-			$('.rheader-content-left').addClass('col-lg-12');
-			$('.rheader-content-left').removeClass('col-lg-9');
+			$('.L-right').hide();
+			$('.L-left').addClass('col-lg-12');
+			$('.L-left').removeClass('col-lg-8');
 		}else if(select_ID.length == 1){
-			$('.rheader-content-right').show();
-			$('.rheader-content-left').addClass('col-lg-9');
-			$('.rheader-content-left').removeClass('col-lg-12');
+			$('.L-right').show();
+			$('.L-left').addClass('col-lg-8');
+			$('.L-left').removeClass('col-lg-12');
 		}
 		var selects_ID=select_ID[i]
 		var ecParams={
@@ -499,8 +499,8 @@ function getBranchData(){
 			lastAdds += datas[j].data;
 		}
 	}
-	$('.total-power-consumption-value label').html(lastAdd.toFixed(2));
-	$('.compared-with-last-time label').html(lastAdds.toFixed(2));
+	$('.total-power-consumption-value label').html(parseInt(lastAdd));
+	$('.compared-with-last-time label').html(parseInt(lastAdds));
 	if(lastAdds != 0){
 		growthRate = (lastAdd - lastAdds) / lastAdds * 100;
 		$('.rights-up-value').html(growthRate.toFixed(1) + '%');

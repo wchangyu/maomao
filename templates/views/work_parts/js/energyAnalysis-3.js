@@ -342,7 +342,6 @@ function getPointerData(){
 		'endTime':newStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParams)
 	//环比(前一天，前一周，前一个月，前一年)
 	var ecParamss = {
 		'ecTypeId':_ajaxEcType,
@@ -351,7 +350,6 @@ function getPointerData(){
 		'endTime':huanNewStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParamss);
 	//同比(去年的同一时期，没有周，环比和同比的年一样)
 	var ecParamsss = {
 		'ecTypeId':_ajaxEcType,
@@ -360,7 +358,6 @@ function getPointerData(){
 		'endTime':tongNewStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParamsss)
 	//发送本期请求
 	$.ajax({
 		type:'post',
@@ -641,7 +638,6 @@ function getOfficeData(){
 		'endTime':newStr1,
 		'dateType':_ajaxDateType
 	}
-	//console.log(ecParams)
 	//环比(前一天，前一周，前一个月，前一年)
 	var ecParamss = {
 		'ecTypeId':_ajaxEcTypeWord,
@@ -853,7 +849,6 @@ function getOfficeData(){
 	//计算本期与同比相比（本期-同比）/同比
 	if(totalAllDatass != 0){
 		var compareT = (totalAllData - totalAllDatass)/totalAllDatass * 100;
-		console.log(compareT);
 		if(compareT > 0){
 			$('.content-left-top-arrow:eq(1)').css({
 				'background':'url(./work_parts/img/prompt-arrow1.png)no-repeat -3px -5px',
@@ -892,7 +887,6 @@ function getOfficeData(){
 	option13.xAxis.data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatasY;
-	console.log(option13.series)
 	myChart13.setOption(option13);
 	//电-环比分析-柱状图
 	option14.series[0].data[0] = totalAllData;

@@ -7,43 +7,11 @@ $(function(){
 		getEcType();
 	});
 	//分项zTree
-	var EnItdata=JSON.parse(sessionStorage.getItem('energyItems'));
-	var treeObj;
-	var setting = {
-		check: {
-			enable: true,
-			chkStyle: "radio",
-			radioType: "all"
-		},
-		data: {
-			key: {
-				title: "title"
-			},
-			simpleData: {
-				enable: true
-			}
-		},
-		view: {
-			showIcon: false
-		},
-		callback: {
-			onClick:function (event,treeId,treeNode){
-				treeObj.checkNode(treeNode,!treeNode.checked,true)
-			}
-		}
-	};
-	var zNodes = new Array();
-	for (var i =0; i<EnItdata.length; i++) {
-		if (i==0) {
-			var isChecked = true;
-		}else{
-			var isChecked = false;
-		}
-		if(EnItdata[i].f_EnergyItemID < 100){
-			zNodes.push({ id:EnItdata[i].f_EnergyItemID, pId:EnItdata[i].f_ParentItemID, name:EnItdata[i].f_EnergyItemName,open:true,checked:isChecked});
-		}
-	}
-	var treeObj = $.fn.zTree.init($("#energyConsumption"), setting, zNodes);
+	$('.energy-types').delegate('div','click',function(){
+		getBranchZtree();
+		treeObject();
+	});
+	getBranchZtree();
 	treeObject();
 	//搜索框
 	var key;
@@ -310,13 +278,61 @@ function setEnergyInfos(){
 }
 //选取的能耗种类；
 var _ajaxEcType;
+var _itemName = '电';
 function getEcType(){
 	var aaa =[];
+	var bbb =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
 	for(var i=0;i<jsonText.alltypes.length;i++){
-		aaa.push(jsonText.alltypes[i].etid)
+		aaa.push(jsonText.alltypes[i].etid);
+		bbb.push(jsonText.alltypes[i].etname)
 	}
 	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+	_itemName = bbb[$('.selectedEnergy').index()];
+};
+//zTree树
+var treeObj;
+function getBranchZtree(){
+	var EnItdata=JSON.parse(sessionStorage.getItem('energyItems'));
+	var setting = {
+		check: {
+			enable: true,
+			chkStyle: "radio",
+			radioType: "all"
+		},
+		data: {
+			key: {
+				title: "title"
+			},
+			simpleData: {
+				enable: true
+			}
+		},
+		view: {
+			showIcon: false
+		},
+		callback: {
+			onClick:function (event,treeId,treeNode){
+				treeObj.checkNode(treeNode,!treeNode.checked,true)
+			}
+		}
+	};
+	var zNodes = new Array();
+	var aaa = [];
+	for (var i =0; i<EnItdata.length; i++) {
+		if(EnItdata[i].energyItemType ==  _itemName){
+			aaa.push(EnItdata[i]);
+		}
+	}
+	for(var i=0;i<aaa.length;i++){
+		if (i==0) {
+		 	var isChecked = true;
+		}else{
+		 	var isChecked = false;
+		}
+		zNodes.push({ id:aaa[i].f_EnergyItemID, pId:aaa[i].f_ParentItemID, name:aaa[i].f_EnergyItemName,open:true,checked:isChecked})
+	}
+	treeObj = $.fn.zTree.init($("#energyConsumption"), setting, zNodes);
 }
 //首先将sessionStorage的内容写入html中
 function getSessionStoragePointer(){
@@ -464,11 +480,10 @@ function getItemizedData(){
 	//休息日比例
 	var restProportion = 0;
 	var obj={
-		//'ecTypeId':select_ID,
 		'pointerId':_ajaxPointerId,
 		'startTime':_ajaxStartTime_1,
 		'endTime':_ajaxEndTime_1,
-		'energyItemType':_ajaxEcType,
+		'energyItemType':select_ID,
 		'wsTime':_ajaxStartSpecificTime,
 		'weTime':_ajaxEndSpecificTime
 	};
@@ -489,8 +504,8 @@ function getItemizedData(){
 		var datas = _allData[i];
 		for(var j=0;j<datas.length;j++){
 			dataX.push(datas[j].dataDate.split('T')[0]);
-			dataYworkTimeData.push(datas[j].workTimeData.toFixed(2));
-			dataYrestTimeData.push(datas[j].restTimeData.toFixed(2));
+			dataYworkTimeData.push(parseInt(datas[j].workTimeData));
+			dataYrestTimeData.push(parseInt(datas[j].restTimeData));
 		}
 	}
 	var totalWorkTimeData = 0;

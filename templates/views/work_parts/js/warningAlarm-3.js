@@ -127,11 +127,9 @@ $(function(){
     });
     setData();
     $('#datatables tbody').on( 'click', 'input', function () {
-        //console.log($(this).parents('.checker').children('.checked').length);
         var $this = $(this);
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
-            //console.log($(this).parents('.checker').children('ckecked').length);
         }else{
             $(this).parent($('span')).removeClass('checked');
         }
@@ -149,10 +147,8 @@ $(function(){
                 historyArr.push(totalArr[i])
             }
         }
-        //console.log(historyArr);
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
         var row = table.row( tr );
-        //console.log(row.data())  //araming.json的第一行数据  object{"":"","":"","":""}
         if ( row.child.isShown() ) {
             row.child.hide();
             tr.removeClass('shown');
@@ -244,7 +240,6 @@ var logoToReadID = [];
 function logoToRead (){
     logoToReadID = [];
     var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
-    console.log(pitchOn);
     for(var i=0;i<$('.choice').length;i++){
         //if($('.choice').eq(i).parent('.checked'))
         if($('.choice').eq(i).parent('.checked').length != 0){
@@ -261,7 +256,7 @@ function logoToRead (){
             'async':false,
             'data':alaLogIDs,
             'success':function(result){
-                console.log(result);
+
             }
         }
     )
@@ -302,7 +297,6 @@ var userId,_alaLogId,_texts;
 var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
 function processingNote (){
     //获取当前用户名
-    //console.log(userId + '+' + _alaLogId + '+' + _texts + nowDays);
     var prm = {
         'userId':userId,
         'msgTime':nowDays,
@@ -316,7 +310,7 @@ function processingNote (){
             'async':false,
             'data':prm,
             success:function(result){
-                console.log(result);
+
             }
         }
     )

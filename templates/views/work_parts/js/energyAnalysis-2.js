@@ -278,14 +278,12 @@ function getPointerData(){
 			'endTime':_ajaxEndTime_1,
 			'dateType':_ajaxDataType_1
 		};
-		console.log(ecParams);
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
 			async:false,
 			success:function(result){
-				//console.log(result);
 				allBranch.push(result);
 			}
 		})
@@ -475,9 +473,6 @@ function getPointerData(){
 		option11.xAxis.data = dataX;
 		option11.series = dataY;
 		myChart11.setOption(option11);
-	console.log(pointerNames);
-	console.log(dataX);
-	console.log(dataY);
 }
 //表格单位转换
 function unitConversion(num){

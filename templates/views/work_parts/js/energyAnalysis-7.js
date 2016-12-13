@@ -119,6 +119,8 @@ $(function(){
 	getPointerDatas();
 	setEnergyInfos();
 	$('.btn').click(function(){
+		myChart46 = echarts.init(document.getElementById('rheader-content-46'));
+		myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 		getEcType();
 		getEcTypeWord();
 		setEnergyInfos();
@@ -133,8 +135,6 @@ $(function(){
 	});
 	//逐月逐周选择
 	$('.top-header-lists').click(function(){
-		myChart46 = echarts.init(document.getElementById('rheader-content-46'));
-		myChart45 = echarts.init(document.getElementById('rheader-content-45'));
 		$('.top-header-lists').removeClass('top-header-listss');
 		$(this).addClass('top-header-listss');
 		$(".rheader-contents").css({
@@ -168,7 +168,6 @@ var currentDates = moment().format('YYYY-MM-DD');
 function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
 	for(var i=0;i<jsonText.alltypes.length;i++){
-		console.log(_ajaxEcType)
 		if(jsonText.alltypes[i].etid == _ajaxEcType){
 			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
 		}
@@ -179,7 +178,6 @@ var _ajaxEcType="01";
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	//console.log(jsonText.alltypes);
 	for(var i=0;i<jsonText.alltypes.length;i++){
 		aaa.push(jsonText.alltypes[i].etid)
 	}
@@ -266,7 +264,6 @@ function getOfficeDatas(){
 		data:ecParams,
 		async:false,
 		success:function(result){
-			console.log(result)
 		}
 	})
 }

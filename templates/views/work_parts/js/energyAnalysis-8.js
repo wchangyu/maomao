@@ -155,7 +155,6 @@ function getData(){
         url:'../../assets/local/configs/系统损耗配置.json',
         async:false,
         success:function(result){
-            console.log(result.transformers);
             for(var i=0;i<result.transformers.length;i++){
                 var str = '<li class="content-left-lists"><p class="voltageValue">' + result.transformers[i].capacity
                     + '</p><ul class="transformer"><li class="import"><span>输入</span><br><span>' + result.transformers[i].IDin
