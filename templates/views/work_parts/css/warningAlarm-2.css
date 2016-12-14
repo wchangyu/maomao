@@ -10,7 +10,7 @@
     height: 30px;
     line-height: 30px;
     margin-bottom: 0;
-    text-align: center;
+    text-indent: 10px;
 }
 .content-main-contents-header{
     margin-bottom: 0px;
@@ -50,17 +50,12 @@
 	height:100%;
 	left: 0 !important;
 }
-.content-main-contents-header{
-    float:left;
-}
 .main-contents-header-lists0{
     background:#808080;
     color:#fff;
-    width:100px;
     margin-bottom:0px;
 }
 .main-contents-table{
-    margin-left:10px;
     text-align: center;
     margin-top: 30px;
 }
@@ -129,9 +124,20 @@
     text-align: center;
 }
 .tree-11{
+    margin-top: 20px;
     width: 50%;
     float: left;
     overflow-x: scroll;
+}
+.tree-11 div{
+    width: 70px;
+    height:25px;
+    background: #7f7f7f;
+    display: block !important;
+    margin: 0 auto !important;
+    color: #ffffff;
+    line-height: 25px;
+    text-align: center;
 }
 #energyTypes{
     margin-top: 20px;
@@ -144,4 +150,7 @@
 .alaLogID{
     font-size: 0;
     padding: 0!important;
+}
+.dataTables_length{
+    float: right !important;
 }

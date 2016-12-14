@@ -253,3 +253,11 @@
 .row{
 	width: auto;
 }
+#loaddings{
+	height: 290px;
+	width: 100%;
+	position: absolute;
+	top: 41px;
+	left: 0;
+	background: rgba(0,0,0,0);
+}

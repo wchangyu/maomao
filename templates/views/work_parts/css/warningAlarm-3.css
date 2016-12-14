@@ -1,6 +1,5 @@
 .content-main-contents-header{
     margin-bottom: 0px;
-    text-align: center;
     height: 30px;
 }
 .main-contents-header-lists{
@@ -15,9 +14,6 @@
     height: 100%;
     width: 100%;
 }
-.content-main-contents-header li{
-    display: inline-block;
-}
 #datatables th{
     text-align: center;
 }
@@ -27,4 +23,10 @@
 .alaLogID{
     font-size: 0;
     padding: 0!important;
+}
+.main-contents-header-lists0{
+    text-indent: 10px !important;
+}
+.real-time{
+    text-align: center;
 }

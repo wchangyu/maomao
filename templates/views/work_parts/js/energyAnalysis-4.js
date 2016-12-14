@@ -307,6 +307,7 @@ function getPointerData(){
 	}
 	if(!pointerID) { return; }
 	var energyItemIds=['01','40','02','41','42'];
+	var waterArr =['211'];
 	for(var i=0;i<energyItemIds.length;i++){
 		resultArr=[];
 		valueArr=[];
@@ -348,7 +349,6 @@ function getPointerData(){
 		if(energyItemIdss == '01'){
 			//饼状图-center-电
 			option36.legend.data = nameArr;
-			//console.log(option36.series[0].data)
 			option36.series[0].data = data;
 			myChart36.setOption(option36);
 		}else if(energyItemIdss == '40'){
@@ -429,7 +429,6 @@ function getOfficeData(){
 		if(energyItemIdss == '01'){
 			//饼状图-center-电
 			option36.legend.data = nameArr;
-			//console.log(option36.series[0].data)
 			option36.series[0].data = data;
 			myChart36.setOption(option36);
 		}else if(energyItemIdss == '40'){

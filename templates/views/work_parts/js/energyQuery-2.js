@@ -263,13 +263,13 @@ function getEcTypeWord(){
 	 var growthRate=0;
 	 for(var i=0;i<officeID.length;i++){
 		 if(officeID.length != 1){
-			 $('.rheader-content-right').hide();
-			 $('.rheader-content-left').addClass('col-lg-12');
-			 $('.rheader-content-left').removeClass('col-lg-9');
+			 $('.L-right').hide();
+			 $('.L-left').addClass('col-lg-12');
+			 $('.L-left').removeClass('col-lg-8');
 		 }else if(officeID.length == 1){
-			 $('.rheader-content-right').show();
-			 $('.rheader-content-left').addClass('col-lg-9');
-			 $('.rheader-content-left').removeClass('col-lg-12');
+			 $('.L-right').show();
+			 $('.L-left').addClass('col-lg-8');
+			 $('.L-left').removeClass('col-lg-12');
 		 }
 		 var selects_ID=officeID[i];
 		 var ecParams={
@@ -326,8 +326,8 @@ function getEcTypeWord(){
 	 }else if(lastAdds == 0){
 		 $('.rights-up-value').html('-')
 	 }
-	 $('.total-power-consumption-value label').html(lastAdd.toFixed(2));
-	 $('.compared-with-last-time label').html(lastAdds.toFixed(2));
+	 $('.total-power-consumption-value label').html(parseInt(lastAdd));
+	 $('.compared-with-last-time label').html(parseInt(lastAdds));
 	 $('.rights-up-value').html(growthRate.toFixed(1) + '%');
 	 if(growthRate > 0){
 		 $('.rights-up').css({
