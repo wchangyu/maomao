@@ -18,17 +18,15 @@ $(function(){
     alarmHistory();
     table = $('#datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
+        "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "paging": true,
         "searching": false,
         "ordering": false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 件',
+            'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页',
             'infoEmpty': '没有数据',
@@ -47,11 +45,11 @@ $(function(){
             },
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '保存为excel格式'
             },
             {
                 extend: 'pdfHtml5',
-                text: '保存为pdf格式',
+                text: '保存为pdf格式'
             }
         ],
         "columns": [
@@ -122,7 +120,7 @@ $(function(){
                 "data": null,
                 "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>" +
                 "<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
-                "<div class='modal-dialog'style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
+                "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
                 "<div class='modal-content'>" +
                 "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>标题</h4><input type='text' class='modal-body'><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button><button type='button' class='btn btn-primary submitNote'>提交更改</button></div></div>" +
                 "</div>" +

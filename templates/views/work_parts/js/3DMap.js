@@ -2,8 +2,8 @@
  * Created by Went on 2016/9/23.
  * 使用mapper.js
  */
-var _localPath = "../../assets/local/";
-var _mapperjsSrc = "./work_parts/js/mapper.js";
+//var _localPath = "../../assets/local/";
+//var _mapperjsSrc = "./work_parts/js/mapper.js";
 $(function(){
     var urlPrefix = sessionStorage.apiUrlPrefix;
     setMapAreas("8397ff"); //设置每个楼宇的轮廓显示

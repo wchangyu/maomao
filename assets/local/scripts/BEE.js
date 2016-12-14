@@ -82,13 +82,13 @@ var BEE = (function(){
                     //}
                     //一级菜单不跳转
 
-                    li = '<li><a href="javascript:;">';
+                    li = '<li><a href="javascript:void(0);">';
                     var isSelected = false;
                     if(menu[p]["submenu"]) {
                         for (var sm in menu[p]["submenu"]) {
                             if(menu[p]["submenu"][sm]["uri"]){
                                 if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"])) {
-                                    li = '<li class="active open"><a href="javascript:;">';
+                                    li = '<li class="active open"><a href="javascript:void(0);">';
                                     isSelected = true;
                                     break;
                                 }
@@ -128,7 +128,8 @@ var BEE = (function(){
 
     //设置header中信息
     var setHeaderInfo = function(){
-        var username = sessionStorage.username || "未登录";
+        if(sessionStorage.pageTitle) { document.title = sessionStorage.pageTitle; }
+        var username = sessionStorage.userName || "未登录";
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
         $('.totalTitle').html(systemName);
@@ -144,7 +145,7 @@ var BEE = (function(){
          配置页面配置当前的theme，BEE.js初始化页面时候载入当前theme，如果localStorage中存有当前的theme，则获取
          设置theme按钮的选中，存储当前的theme到localStorage中，
          */
-        var themeColor = localStorage["themeColor"] || "default";
+        var themeColor = localStorage.themeColor || "default";
         //$('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
         var $colorCssLink = $("#style_color");
         if($colorCssLink.length == 0){       //如果当前没有style_color的css引用
@@ -251,8 +252,9 @@ var BEE = (function(){
     return {
         //getMenu: getMenu
         init:function(){
-            if(!sessionStorage.username)
+            if(!sessionStorage.userName)
             {
+                sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
                 window.location.href = "login_3.html";
             }else{
                 getMenu();

@@ -65,7 +65,7 @@ var Login = function () {
 					var rememberme = $('input[name=remember]').attr("checked");
 					if(rememberme){
 						//$.cookie("rememberme","1");
-						window.localStorage["BEE_remember"] = "1";
+						window.localStorage.BEE_remember = "1";
 					}
 				if(sessionStorage.apiUrlPrefix)
 				{
@@ -87,10 +87,10 @@ var Login = function () {
 								//$.cookie("username", name1);
 								//$.cookie("userpassword", password);
 								if(rememberme){
-									localStorage["BEE_username"] = name1;
-									localStorage["BEE_userpassword"] = password;
+									localStorage.BEE_username = name1;
+									localStorage.BEE_userpassword = password;
 								}
-								sessionStorage.username=name1;
+								sessionStorage.userName=name1;
 								getPointersByUser(name1);
 								getAllOffices();
 								getAllEnergyItems();
@@ -260,13 +260,13 @@ var Login = function () {
 	 */
 	var clearLocalInfo = function(){
 		sessionStorage.clear();
-		var remember = localStorage["BEE_remember"];
+		var remember = localStorage.BEE_remember;
 		if(remember && remember=="1"){
-			if(localStorage["BEE_username"]){
-				$('input[name=username]').val(localStorage["BEE_username"]);
+			if(localStorage.BEE_username){
+				$('input[name=username]').val(localStorage.BEE_username);
 			}
-			if(localStorage["BEE_userpassword"]){
-				var pwd = localStorage["BEE_userpassword"];
+			if(localStorage.BEE_userpassword){
+				var pwd = localStorage.BEE_userpassword;
 				pwd = Went.utility.wCoder.wDecode(pwd);
 				$('input[name=password]').val(pwd);
 			}

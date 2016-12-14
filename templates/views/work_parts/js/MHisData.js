@@ -108,14 +108,12 @@ $(function(){
 		"paging": false,   //是否分页
 		"destroy": true,//还原初始化了的datatable
 		"searching": false,
-		"paging": false,
-		"searching": false,
 		"ordering": false,
 		'language': {
 			'emptyTable': '没有数据',
 			'loadingRecords': '加载中...',
 			'processing': '查询中...',
-			'lengthMenu': '每页 _MENU_ 件',
+			'lengthMenu': '每页 _MENU_ 条',
 			'zeroRecords': '没有数据',
 			'info': '第 1 页 / 总 1 页',
 			'infoEmpty': '没有数据'
@@ -128,11 +126,11 @@ $(function(){
 			},
 			{
 				extend: 'excelHtml5',
-				text: '保存为excel格式',
+				text: '保存为excel格式'
 			},
 			{
 				extend: 'pdfHtml5',
-				text: '保存为pdf格式',
+				text: '保存为pdf格式'
 			}
 		],
 		"columns": [

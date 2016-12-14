@@ -245,7 +245,6 @@ function setEnergyInfos(){
 		for(var i=0;i<_energyTypeSel._allEnergyTypes.length;i++){
 			if(_energyTypeSel._allEnergyTypes[i].ettype==selectedEV){
 				var curET = _energyTypeSel._allEnergyTypes[i];
-				console.log(curET);
 				$('#th0').html('对比对象');
 				$('.ths').html('出现时刻');
 				$('#th1').html('累计用' + curET.etname + '量' + curET.etunit);
