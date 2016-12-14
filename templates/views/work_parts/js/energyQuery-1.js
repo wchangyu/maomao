@@ -121,7 +121,7 @@ $(function(){
 			_ajaxLastStartTime_1 = startSplits[0] + '/' + startSplits[1] + '/' + startSplits[2];
 			_ajaxLastEndTime_1 = endSplits[0] + '/' + endSplits[1] + '/' + endSplits[2];
 		}
-	})
+	});
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
@@ -275,6 +275,7 @@ var branchArr=[];
 //获得支路数据
 var select_ID=[];
 var zNodes=[];
+var treeObj;
 function getBranches() {
 	zNodes=[];
 	getEcType();
@@ -308,7 +309,6 @@ function getBranches() {
 
 				}
 				select_ID.push(branchArr[0].f_ServiceId);
-				var treeObj;
 				//获取支路用电环比ajax
 				var ztreeSettings = {
 					check: {
@@ -346,13 +346,15 @@ function getBranches() {
 //获得选中的支路id;
 var select_Name=[];
 function getSelectedBranches(){
-	var treeObject=$.fn.zTree.getZTreeObj('energyConsumption');
-	var nodes = treeObject.getCheckedNodes();
-	select_ID=[];
-	select_Name=[];
-	for(var i=0;i<nodes.length;i++){
-		select_ID.push(nodes[i].id);
-		select_Name.push(nodes[i].name);
+	treeObj=$.fn.zTree.getZTreeObj('energyConsumption');
+	if(treeObj){
+		var nodes = treeObj.getCheckedNodes();
+		select_ID=[];
+		select_Name=[];
+		for(var i=0;i<nodes.length;i++){
+			select_ID.push(nodes[i].id);
+			select_Name.push(nodes[i].name);
+		}
 	}
 }
 //获得开始时间
@@ -442,6 +444,8 @@ function getBranchData(){
 	var lastAdds=0;
 	var growthRate=0;
 	for(var i=0;i<select_ID.length;i++){
+		var nums = -1;
+		//每次清空数组
 		if(select_ID.length != 1){
 			$('.L-right').hide();
 			$('.L-left').addClass('col-lg-12');
@@ -451,28 +455,131 @@ function getBranchData(){
 			$('.L-left').addClass('col-lg-8');
 			$('.L-left').removeClass('col-lg-12');
 		}
-		var selects_ID=select_ID[i]
+		var selects_ID=select_ID[i];
 		var ecParams={
 			'startTime':_ajaxStartTime_1,
 			'endTime':_ajaxEndTime_1,
 			'dateType':_ajaxDataType_1,
 			'f_ServiceId':selects_ID
-		}
+		};
+		lastAdd = null;
+		lastAdds = null;
+		var lengths = null;
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
 			data:ecParams,
-			async:false,
+			async:true,
 			success:function(result){
-			allBranch.push(result)
-		}
+				nums ++;
+				allBranch = [];
+				var datas,dataSplits,object;
+				allBranch.push(result);
+				for(var j=0;j<allBranch.length;j++){
+					datas = allBranch[j];
+					for(var z=0;z<datas.length;z++){
+						lastAdd += datas[z].data;
+					}
+				}
+				$('.total-power-consumption-value label').html(parseInt(lastAdd));
+				if(lastAdd != null && lastAdds != null){
+					if(lastAdds != 0){
+						growthRate = (lastAdd - lastAdds) / lastAdds * 100;
+						$('.rights-up-value').html(growthRate.toFixed(1) + '%');
+					}else if(lastAdds == 0){
+						$('.rights-up-value').html('-');
+					}
+					if(growthRate > 0){
+						$('.rights-up').css({
+							'background':'url(./work_parts/img/up2.png)no-repeat',
+							'background-size':'23px'
+						})
+					}else if(growthRate < 0){
+						$('.rights-up').css({
+							'background':'url(./work_parts/img/up.png)no-repeat',
+							'background-size':'23px'
+						})
+					}
+				};
+				lengths = allBranch[0];
+				if(lengths.length != null){
+					if(_ajaxDataType == '日'){
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[1].slice(0,5);
+							if(dataX.indexOf(dataSplits)<0){
+								dataX.push(dataSplits);
+							}
+						}
+						dataX.sort();
+						//遍历出y轴数据
+						object={};
+						object.name=select_Name[nums];
+						object.type='line';
+						object.data=[];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataX.length;z++){
+								if(lengths[j].dataDate.split('T')[1].slice(0,5) == dataX[z]){
+									object.data.push(lengths[j].data);
+								}
+							}
+						}
+						dataY.push(object);
+					}else if( _ajaxDataType == '周'){
+						dataX=['周一','周二','周三','周四','周五','周六','周日'];
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[0];
+							if(dataXx.indexOf(dataSplits)<0){
+								dataXx.push(dataSplits);
+							}
+						}
+						//y轴数据
+						object = {};
+						object.name=select_Name[nums];
+						object.type = 'line';
+						object.data=[];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataXx.length;z++){
+								if(lengths[j].dataDate.split('T')[0] == dataXx[z]){
+									object.data.push(lengths[j].data);
+								}
+							}
+						}
+						dataY.push(object);
+					}else if( _ajaxDataType == '月'  || _ajaxDataType == '年'){
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[0];
+							if(dataX.indexOf(dataSplits)<0){
+								dataX.push(dataSplits);
+							}
+						}
+						//y周数据
+						object = {};
+						object.name = select_Name[nums];
+						object.type = 'line';
+						object.data = [];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataX.length;z++){
+								if(lengths[j].dataDate.split('T')[0] == dataX[z]){
+									object.data.push(lengths[j].data);
+								}
+							}
+						}
+						dataY.push(object);
+					}
+					// 使用刚指定的配置项和数据显示图表。
+					option3.xAxis.data = dataX;
+					option3.legend.data = select_Name;
+					option3.series = dataY;
+					myChart3.setOption(option3);
+				}
+			}
 		})
-	}
-	for(var i=0;i<allBranch.length;i++){
-		var datas = allBranch[i];
-		for(var j=0;j<datas.length;j++){
-			lastAdd += datas[j].data;
-		}
 	}
 	//上一阶段的数据
 	for(var i=0;i<select_ID.length;i++){
@@ -482,166 +589,45 @@ function getBranchData(){
 			'endTime':_ajaxLastEndTime_1,
 			'dateType':_ajaxDataType_1,
 			'f_ServiceId':selects_ID
-		}
+		};
+		lastAdd = null;
+		lastAdds = null;
 		$.ajax({
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
 			data:ecParams,
 			async:false,
 			success:function(result){
-				allBranchs.push(result)
+				allBranchs.push(result);
+				for(var i=0;i<allBranchs.length;i++){
+					var datas = allBranchs[i];
+					for(var j=0;j<datas.length;j++){
+						lastAdds += datas[j].data;
+					}
+				};
+				$('.compared-with-last-time label').html(parseInt(lastAdds));
+				if(lastAdd != null && lastAdds != null){
+					if(lastAdds != 0){
+						growthRate = (lastAdd - lastAdds) / lastAdds * 100;
+						$('.rights-up-value').html(growthRate.toFixed(1) + '%');
+					}else if(lastAdds == 0){
+						$('.rights-up-value').html('-');
+					}
+					if(growthRate > 0){
+						$('.rights-up').css({
+							'background':'url(./work_parts/img/up2.png)no-repeat',
+							'background-size':'23px'
+						})
+					}else if(growthRate < 0){
+						$('.rights-up').css({
+							'background':'url(./work_parts/img/up.png)no-repeat',
+							'background-size':'23px'
+						})
+					}
+				}
 			}
 		})
 	}
-	for(var i=0;i<allBranchs.length;i++){
-		var datas = allBranchs[i];
-		for(var j=0;j<datas.length;j++){
-			lastAdds += datas[j].data;
-		}
-	}
-	$('.total-power-consumption-value label').html(parseInt(lastAdd));
-	$('.compared-with-last-time label').html(parseInt(lastAdds));
-	if(lastAdds != 0){
-		growthRate = (lastAdd - lastAdds) / lastAdds * 100;
-		$('.rights-up-value').html(growthRate.toFixed(1) + '%');
-	}else if(lastAdds == 0){
-		$('.rights-up-value').html('-');
-	}
-	if(growthRate > 0){
-		$('.rights-up').css({
-			'background':'url(./work_parts/img/up2.png)no-repeat',
-			'background-size':'23px'
-		})
-	}else if(growthRate < 0){
-		$('.rights-up').css({
-			'background':'url(./work_parts/img/up.png)no-repeat',
-			'background-size':'23px'
-		})
-	}
-	if(_ajaxDataType=='日'){
-		//x轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var datas=allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5)
-				if(dataX.indexOf(dataSplit)<0){
-					dataX.push(dataSplit);
-				}
-			}
-		}
-		dataX.sort();
-		//遍历y轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var object={};
-			object.name=select_Name[i];
-			object.type='line';
-			object.data=[];
-			var datas=allBranch[i];
-			for(var z=0;z<dataX.length;z++){
-				for(var j=0;j<datas.length;j++){
-					var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5)
-					if(dataSplit==dataX[z]){
-						object.data.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-			dataY.push(object);
-		}
-	}else if(_ajaxDataType=='周'){
-		var dataX=['周一','周二','周三','周四','周五','周六','周日'];
-		//x轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var datas=allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				var dataSplit = datas[j].dataDate.split('T')[0];
-				if(dataXx.indexOf(dataSplit)<0){
-					dataXx.push(dataSplit);
-				}
-			}
-		}
-		dataX.sort();
-
-		//遍历y轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var object={};
-			object.name=select_Name[i];
-			object.type='line';
-			object.data=[];
-			var datas=allBranch[i];
-			for(var z=0;z<dataXx.length;z++){
-				for(var j=0;j<datas.length;j++){
-					if(datas[j].dataDate.split('T')[0]==dataXx[z]){
-						object.data.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-			dataY.push(object);
-		}
-	}else if(_ajaxDataType=='月'){
-		//x轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var datas=allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				var dataSplit = datas[j].dataDate.split('T')[0]
-				if(dataX.indexOf(dataSplit)<0){
-					dataX.push(dataSplit);
-				}
-			}
-		}
-		dataX.sort();
-
-		//遍历y轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var object={};
-			object.name=select_Name[i];
-			object.type='line';
-			object.data=[];
-			var datas=allBranch[i];
-			for(var z=0;z<dataX.length;z++){
-				for(var j=0;j<datas.length;j++){
-					var dataSplit = datas[j].dataDate.split('T')[0];
-					if(dataSplit==dataX[z]){
-						object.data.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-			dataY.push(object);
-		}
-	}else if(_ajaxDataType=='年'){
-		//x轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var datas=allBranch[i];
-			for(var j=0;j<datas.length;j++){
-				var dataSplit = datas[j].dataDate.split('T')[0]
-				if(dataX.indexOf(dataSplit)<0){
-					dataX.push(dataSplit);
-				}
-			}
-		}
-		dataX.sort();
-		//遍历y轴数据
-		for(var i=0;i<allBranch.length;i++){
-			var object={};
-			object.name=select_Name[i];
-			object.type='line';
-			object.data=[];
-			var datas=allBranch[i];
-			for(var z=0;z<dataX.length;z++){
-				for(var j=0;j<datas.length;j++){
-					var dataSplit = datas[j].dataDate.split('T')[0];
-					if(dataSplit==dataX[z]){
-						object.data.push(datas[j].data.toFixed(2));
-					}
-				}
-			}
-			dataY.push(object);
-		}
-	}
-	// 使用刚指定的配置项和数据显示图表。
-	option3.xAxis.data = dataX;
-	option3.legend.data = select_Name;
-	option3.series = dataY;
-	myChart3.setOption(option3);
 }
 //月的时间初始化
 function monthDate(){

@@ -262,6 +262,7 @@ function getEcTypeWord(){
 	 var lastAdd =0;
 	 var growthRate=0;
 	 for(var i=0;i<officeID.length;i++){
+		 var nums = -1;
 		 if(officeID.length != 1){
 			 $('.L-right').hide();
 			 $('.L-left').addClass('col-lg-12');
@@ -283,15 +284,121 @@ function getEcTypeWord(){
 			 type:'post',
 			 url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 			 data:ecParams,
-			 async:false,
+			 async:true,
 			 success:function(result){
-				 allBranch.push(result)
+				 nums ++;
+				 allBranch = [];
+				 var datas,dataSplits,object;
+				 allBranch.push(result);
+				 for(var j=0;j<allBranch.length;j++){
+					 datas = allBranch[j];
+					 for(var z=0;z<datas.length;z++){
+						 lastAdd += datas[z].data;
+					 }
+				 }
+				 $('.total-power-consumption-value label').html(parseInt(lastAdd));
+				 if(lastAdd != null && lastAdds != null){
+					 if(lastAdds != 0){
+						 growthRate = (lastAdd - lastAdds) / lastAdds * 100;
+						 $('.rights-up-value').html(growthRate.toFixed(1) + '%');
+					 }else if(lastAdds == 0){
+						 $('.rights-up-value').html('-');
+					 }
+					 if(growthRate > 0){
+						 $('.rights-up').css({
+							 'background':'url(./work_parts/img/up2.png)no-repeat',
+							 'background-size':'23px'
+						 })
+					 }else if(growthRate < 0){
+						 $('.rights-up').css({
+							 'background':'url(./work_parts/img/up.png)no-repeat',
+							 'background-size':'23px'
+						 })
+					 }
+				 };
+				 lengths = allBranch[0];
+				 if(lengths.length != null){
+					 if(_ajaxDataType == '日'){
+						 //x轴数据
+						 for(var j=0;j<lengths.length;j++){
+							 datas = lengths[j];
+							 dataSplits = datas.dataDate.split('T')[1].slice(0,5);
+							 if(dataX.indexOf(dataSplits)<0){
+								 dataX.push(dataSplits);
+							 }
+						 }
+						 dataX.sort();
+						 //遍历出y轴数据
+						 object={};
+						 object.name=officeNames[nums];
+						 object.type='line';
+						 object.data=[];
+						 for(var j=0;j<lengths.length;j++){
+							 for(var z=0;z<dataX.length;z++){
+								 if(lengths[j].dataDate.split('T')[1].slice(0,5) == dataX[z]){
+									 object.data.push(lengths[j].data);
+								 }
+							 }
+						 }
+						 dataY.push(object);
+					 }else if( _ajaxDataType == '周'){
+						 dataX=['周一','周二','周三','周四','周五','周六','周日'];
+						 //x轴数据
+						 for(var j=0;j<lengths.length;j++){
+							 datas = lengths[j];
+							 dataSplits = datas.dataDate.split('T')[0];
+							 if(dataXx.indexOf(dataSplits)<0){
+								 dataXx.push(dataSplits);
+							 }
+						 }
+						 //y轴数据
+						 object = {};
+						 object.name=officeNames[nums];
+						 object.type = 'line';
+						 object.data=[];
+						 for(var j=0;j<lengths.length;j++){
+							 for(var z=0;z<dataXx.length;z++){
+								 if(lengths[j].dataDate.split('T')[0] == dataXx[z]){
+									 object.data.push(lengths[j].data);
+								 }
+							 }
+						 }
+						 dataY.push(object);
+					 }else if( _ajaxDataType == '月'  || _ajaxDataType == '年'){
+						 //x轴数据
+						 for(var j=0;j<lengths.length;j++){
+							 datas = lengths[j];
+							 dataSplits = datas.dataDate.split('T')[0];
+							 if(dataX.indexOf(dataSplits)<0){
+								 dataX.push(dataSplits);
+							 }
+						 }
+						 //y周数据
+						 object = {};
+						 object.name = officeNames[nums];
+						 object.type = 'line';
+						 object.data = [];
+						 for(var j=0;j<lengths.length;j++){
+							 for(var z=0;z<dataX.length;z++){
+								 if(lengths[j].dataDate.split('T')[0] == dataX[z]){
+									 object.data.push(lengths[j].data);
+								 }
+							 }
+						 }
+						 dataY.push(object);
+					 }
+					 // 使用刚指定的配置项和数据显示图表。
+					 option3.xAxis.data = dataX;
+					 option3.legend.data = officeNames;
+					 option3.series = dataY;
+					 myChart3.setOption(option3);
+				 }
 			 }
 		 })
 	 }
 	 //上一阶段的数据
 	 for(var i=0;i<officeID.length;i++){
-		 var selects_ID=officeID[i]
+		 var selects_ID=officeID[i];
 		 var ecParams={
 			 'startTime':_ajaxLastStartTime_1,
 			 'endTime':_ajaxLastEndTime_1,
@@ -303,169 +410,38 @@ function getEcTypeWord(){
 			 type:'post',
 			 url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 			 data:ecParams,
-			 async:false,
+			 async:true,
 			 success:function(result){
-				 allBranchs.push(result)
+				 allBranchs.push(result);
+				 for(var i=0;i<allBranchs.length;i++){
+					 var datas = allBranchs[i];
+					 for(var j=0;j<datas.length;j++){
+						 lastAdds += datas[j].data;
+					 }
+				 };
+				 $('.compared-with-last-time label').html(parseInt(lastAdds));
+				 if(lastAdd != null && lastAdds != null){
+					 if(lastAdds != 0){
+						 growthRate = (lastAdd - lastAdds) / lastAdds * 100;
+						 $('.rights-up-value').html(growthRate.toFixed(1) + '%');
+					 }else if(lastAdds == 0){
+						 $('.rights-up-value').html('-');
+					 }
+					 if(growthRate > 0){
+						 $('.rights-up').css({
+							 'background':'url(./work_parts/img/up2.png)no-repeat',
+							 'background-size':'23px'
+						 })
+					 }else if(growthRate < 0){
+						 $('.rights-up').css({
+							 'background':'url(./work_parts/img/up.png)no-repeat',
+							 'background-size':'23px'
+						 })
+					 }
+				 }
 			 }
 		 })
 	 }
-	 for(var i=0;i<allBranch.length;i++){
-		 var datas = allBranch[i];
-		 for(var j=0;j<datas.length;j++){
-			 lastAdd += datas[j].data;
-		 }
-	 }
-	 for(var i=0;i<allBranchs.length;i++){
-		 var datas = allBranchs[i];
-		 for(var j=0;j<datas.length;j++){
-			 lastAdds += datas[j].data;
-		 }
-	 }
-	 if(lastAdds !=0){
-		 growthRate = (lastAdd - lastAdds) / lastAdds;
-	 }else if(lastAdds == 0){
-		 $('.rights-up-value').html('-')
-	 }
-	 $('.total-power-consumption-value label').html(parseInt(lastAdd));
-	 $('.compared-with-last-time label').html(parseInt(lastAdds));
-	 $('.rights-up-value').html(growthRate.toFixed(1) + '%');
-	 if(growthRate > 0){
-		 $('.rights-up').css({
-			 'background':'url(./work_parts/img/up2.png)no-repeat',
-			 'background-size':'23px'
-		 })
-	 }else if(growthRate < 0){
-		 $('.rights-up').css({
-			 'background':'url(./work_parts/img/up.png)no-repeat',
-			 'background-size':'23px'
-		 })
-	 }
-	 if(_ajaxDataType=='日'){
-		 //x轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var datas=allBranch[i];
-			 for(var j=0;j<datas.length;j++){
-				 var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5);
-				 if(dataX.indexOf()<0){
-					 dataX.push(dataSplit);
-				 }
-			 }
-		 }
-		 dataX.sort();
-		 //遍历y轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var object={};
-			 object.name=officeNames[i];
-			 object.type='line';
-			 object.data=[];
-			 var datas=allBranch[i];
-			 for(var z=0;z<dataX.length;z++){
-				 for(var j=0;j<datas.length;j++){
-					 var dataSplit = datas[j].dataDate.split('T')[1].slice(0,5);
-					 if(dataSplit==dataX[z]){
-						 object.data.push(datas[j].data.toFixed(2));
-					 }
-				 }
-			 }
-			 dataY.push(object);
-		 }
-	 }else if(_ajaxDataType=='周'){
-		 var dataX=['周一','周二','周三','周四','周五','周六','周日'];
-		 //x轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var datas=allBranch[i];
-			 for(var j=0;j<datas.length;j++){
-				 var dataSplit = datas[j].dataDate.split('T')[0];
-				 if(dataXx.indexOf()<0){
-					 dataXx.push(dataSplit);
-				 }
-			 }
-		 }
-		 dataX.sort();
-
-		 //遍历y轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var object={};
-			 object.name=officeNames[i];
-			 object.type='line';
-			 object.data=[];
-			 var datas=allBranch[i];
-			 for(var z=0;z<dataXx.length;z++){
-				 for(var j=0;j<datas.length;j++){
-					 var dataSplit = datas[j].dataDate.split('T')[0]
-					 if(dataSplit==dataXx[z]){
-						 object.data.push(datas[j].data.toFixed(2));
-					 }
-				 }
-			 }
-			 dataY.push(object);
-		 }
-	 }else if(_ajaxDataType=='月'){
-		 //x轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var datas=allBranch[i];
-			 for(var j=0;j<datas.length;j++){
-				 var dataSplit = datas[j].dataDate.split('T')[0];
-				 if(dataX.indexOf()<0){
-					 dataX.push(dataSplit);
-				 }
-			 }
-		 }
-		 dataX.sort();
-
-		 //遍历y轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var object={};
-			 object.name=officeNames[i];
-			 object.type='line';
-			 object.data=[];
-			 var datas=allBranch[i];
-			 for(var z=0;z<dataX.length;z++){
-				 for(var j=0;j<datas.length;j++){
-					 var dataSplit = datas[j].dataDate.split('T')[0];
-					 if(dataSplit==dataX[z]){
-						 object.data.push(datas[j].data.toFixed(2));
-					 }
-				 }
-			 }
-			 dataY.push(object);
-		 }
-	 }else if(_ajaxDataType=='年'){
-		 //x轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var datas=allBranch[i];
-			 for(var j=0;j<datas.length;j++){
-				 var dataSplit = datas[j].dataDate.split('T')[0];
-				 if(dataX.indexOf()<0){
-					 dataX.push(dataSplit);
-				 }
-			 }
-		 }
-		 dataX.sort();
-
-		 //遍历y轴数据
-		 for(var i=0;i<allBranch.length;i++){
-			 var object={};
-			 object.name=officeNames[i];
-			 object.type='line';
-			 object.data=[];
-			 var datas=allBranch[i];
-			 for(var z=0;z<dataX.length;z++){
-				 for(var j=0;j<datas.length;j++){
-					 var dataSplit = datas[j].dataDate.split('T')[0];
-					 if(dataSplit==dataX[z]){
-						 object.data.push(datas[j].data.toFixed(2));
-					 }
-				 }
-			 }
-			 dataY.push(object);
-		 }
-	 }
-	 option3.legend.data = officeNames;
-	 option3.xAxis.data = dataX;
-	 option3.series = dataY;
-	 // 使用刚指定的配置项和数据显示图表。
-	 myChart3.setOption(option3);
  }
 //月的时间初始化
 function monthDate(){
