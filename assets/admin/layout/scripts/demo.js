@@ -185,7 +185,7 @@ var Demo = function() {
         var setColor = function(color) {
             var color_ = (Metronic.isRTL() ? color + '-rtl' : color);
             $('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
-            localStorage["themeColor"] = color_;
+            localStorage.themeColor = color_;
         };
 
         $('.toggler', panel).click(function() {

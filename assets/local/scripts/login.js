@@ -55,17 +55,16 @@ var Login = function() {
             },
 
             submitHandler: function(form) {
-
-                var $loginButton = $('.btn-primary');
+                //var $loginButton = $('.btn-primary');
                 var $name = $('input[name=username]'),$password = $('input[name=password]');
                 var name1 = $name.val(),password1 = $password.val();
                 var name = Went.utility.wCoder.wEncode(name1);
                 var password = Went.utility.wCoder.wEncode(password1);
                 var accParams = {"userID":name,"userPwd":password};
-                var rememberme = $('input[name=remember]').attr("checked");
+                var rememberme = $('input[name=remember]').parent().hasClass("checked");
                 if(rememberme){
                     //$.cookie("rememberme","1");
-                    window.localStorage["BEE_remember"] = "1";
+                    window.localStorage.BEE_remember = "1";
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
@@ -84,10 +83,10 @@ var Login = function() {
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
-                                    localStorage["BEE_username"] = name1;
-                                    localStorage["BEE_userpassword"] = password;
+                                    localStorage.BEE_username = name1;
+                                    localStorage.BEE_userpassword = password;
                                 }
-                                sessionStorage.username=name1;
+                                sessionStorage.userName=name1;
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();
@@ -133,7 +132,12 @@ var Login = function() {
 
     var directToIndex = function(){
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded){
-            window.location.href = "index.html";
+            if(sessionStorage.redirectFromPage){
+                window.location.href = sessionStorage.redirectFromPage;
+                sessionStorage.removeItem('redirectFromPage');
+            }else{
+                window.location.href = "index.html";
+            }
         }
     }
 
@@ -230,10 +234,12 @@ var Login = function() {
 
                     //首页报警信息的刷新时间
                     if(data["alarmInterval"]){ sessionStorage.alarmInterval = data["alarmInterval"];}
+                    //每个页面的标题
+                    if(data["pageTitle"]) {sessionStorage.pageTitle = data["pageTitle"];}
 
                     //系统的theme
                     if(!localStorage.themeColor){
-                        var themeColor = data["themecolor"];
+                        var themeColor = data["themeColor"];
                         if(themeColor){
                             localStorage.themeColor = themeColor;
                         }else{
@@ -369,14 +375,20 @@ var Login = function() {
     清除暂存信息，cookie sessionStorage
      */
     var clearLocalInfo = function(){
+        //保留的部分sessionStorage
+        var redirectFromPage = sessionStorage.redirectFromPage;
         sessionStorage.clear();
-        var remember = localStorage["BEE_remember"];
+        //赋值保留的sessionStorage
+        if(redirectFromPage){
+            sessionStorage.redirectFromPage = redirectFromPage;
+        }
+        var remember = localStorage.BEE_remember;
         if(remember && remember=="1"){
-            if(localStorage["BEE_username"]){
-                $('input[name=username]').val(localStorage["BEE_username"]);
+            if(localStorage.BEE_username){
+                $('input[name=username]').val(localStorage.BEE_username);
             }
-            if(localStorage["BEE_userpassword"]){
-                var pwd = localStorage["BEE_userpassword"];
+            if(localStorage.BEE_userpassword){
+                var pwd = localStorage.BEE_userpassword;
                 pwd = Went.utility.wCoder.wDecode(pwd);
                 $('input[name=password]').val(pwd);
             }
