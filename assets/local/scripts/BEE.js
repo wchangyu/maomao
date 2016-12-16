@@ -26,6 +26,7 @@ var BEE = (function(){
             var $sidebar = $(".page-sidebar-menu");
             JSON.parse(str);
             getHTMLFromMenu(JSON.parse(str), $sidebar);
+            setPageTitle();
         }else{
             var src = _assetsPath + _localConfigsPath + "menu.json";
             src = srcUri || src;
@@ -38,6 +39,7 @@ var BEE = (function(){
                             $(".page-sidebar-menu li").remove('li[class!="sidebar-toggler-wrapper"]');
                             sessionStorage.menuStr = JSON.stringify(str);
                             getHTMLFromMenu(str, $sidebar);
+                            setPageTitle();
                         }
                     },
                     error:function(xhr,text,err){
@@ -62,6 +64,7 @@ var BEE = (function(){
                         {
                             li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
+                            sessionStorage.menuSecond = menu[p]["content"];
                         }
                         if(menu[p]["iconclass"]){
                             li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
@@ -90,6 +93,7 @@ var BEE = (function(){
                                 if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"])) {
                                     li = '<li class="active open"><a href="javascript:void(0);">';
                                     isSelected = true;
+                                    sessionStorage.menuFirst = menu[p]["content"];
                                     break;
                                 }
                             }
@@ -136,6 +140,22 @@ var BEE = (function(){
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
+    }
+
+    //设置页面的标题部分
+    var setPageTitle = function(){
+        var menuSecond = sessionStorage.menuSecond,menuFirst = sessionStorage.menuFirst;
+        if(menuSecond && menuFirst){
+            var $pageTitle = $(".page-title");
+            if($pageTitle.length>0){
+                $pageTitle.html(menuSecond);
+            }
+            var $pageBreadcrumb = $(".page-breadcrumb");
+            if($pageBreadcrumb.length>0){       //设置菜单的一二级显示
+                $pageBreadcrumb.append('<li><a href="javascript:void(0);">' + menuFirst + '</a><i class="fa fa-angle-right"></i></li>')
+                $pageBreadcrumb.append('<li><a href="javascript:void(0);">' + menuSecond + '</a></li>')
+            }
+        }
     }
 
 

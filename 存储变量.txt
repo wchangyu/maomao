@@ -1,6 +1,7 @@
 sessionStorage.curLoginPage 当前登录入口，提供给右上角的退出使用
 sessionStorage.apiUrlPrefix 数据接口的地址前缀
 sessionStorage.systemName   当前系统名称
+sessionStorage.pageTitle    当前系统的页面名称
 sessionStorage.energyItems  当前系统的能耗分项
 sessionStorage.offices      当前系统的全部分户
 sessionStorage.pointers     当前系统的楼宇，根据用户名获取
@@ -17,3 +18,7 @@ sessionStorage.refreshInterval 监控模块的数据刷新间隔，如果为0表
 sessionStorage.alaInsDataTime  页面右上角报警数据的载入时间
 sessionStorage.alaDataLength   当前报警数据的条数
 sessionStorage.redirectFromPage 记录当前走到登录页面的重定向位置
+sessionStorage.menuArg          记录当前的菜单参数
+sessionStorage.menuFirst        记录当前的一级菜单
+sessionStorage.menuSecond       记录当前的二级菜单
+sessionStorage.menuStr          菜单的源字符串记录

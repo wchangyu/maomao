@@ -1349,8 +1349,8 @@ var userMonitor = (function(){
                 });
             }
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
-                "left" : (left - 1) + "px",
-                "top"  : (top - 1) + "px"
+                "left" : ((left - 1) / _scaleX) + "px",
+                "top"  : ((top - 1) / _scaleX) + "px"
             });
             setDivControlsVisible(false);       //隐藏掉可能的控制面板
             $contextMenu.removeClass("content-menu-hide");
