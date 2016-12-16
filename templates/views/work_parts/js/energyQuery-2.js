@@ -393,6 +393,9 @@ function getEcTypeWord(){
 					 option3.series = dataY;
 					 myChart3.setOption(option3);
 				 }
+			 },
+			 error: function (xhr, text, err) {
+				 console.log(JSON.parse(xhr.responseText).message);
 			 }
 		 })
 	 }
@@ -439,6 +442,9 @@ function getEcTypeWord(){
 						 })
 					 }
 				 }
+			 },
+			 error: function (xhr, text, err) {
+				 console.log(JSON.parse(xhr.responseText).message);
 			 }
 		 })
 	 }

@@ -42,7 +42,7 @@ $(function(){
 			var now = moment(inputValue).startOf('week');
 			var startWeek=now.format("YYYY-MM-DD");
 			startWeek = now.add(1,'d').format("YYYY-MM-DD");
-			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
+			var endWeek = now.add(6,'d').format("YYYY-MM-DD");
 			end =startWeek + "到" +endWeek;
 			_ajaxDataType_1='日';
 			var aa = $('.datetimepickereType').text();
@@ -385,8 +385,9 @@ function getBranchZtree(){
 //获得zTree已选中的id
 //获得分项数据
 function getItemizedData(){
-	var _allData=[];
+	var allBranch=[];
 	var dataX=[];
+	var dataXx=[];
 	var dataY=[];
 	var maxArr_1=0;
 	var minArr_1=0;
@@ -395,6 +396,8 @@ function getItemizedData(){
 	var _totalY=0;
 	var average=0;
 	for(var i=0;i<_ajaxStartA.length;i++){
+		var nums = -1;
+		var lengths = null;
 		var _ajaxStarts = _ajaxStartA[i];
 		var _ajaxEnds = _ajaxEndA[i];
 		var ecParams={
@@ -408,16 +411,112 @@ function getItemizedData(){
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
-			async:false,
+			async:true,
 			success:function(result){
-				_allData.push(result);
+				allBranch = [];
+				allBranch.push(result);
+				nums ++;
+				var datas,dataSplits,object,maxData,minData;
+				lengths = allBranch[0];
+				if(lengths != null){
+					if(_ajaxDataType=='日'){
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[1].slice(0,5);
+							if(dataX.indexOf(dataSplits)<0){
+								dataX.push(dataSplits);
+							}
+						}
+						dataX.sort();
+						//y轴数据
+						object = {};
+						object.name = $('.selectTime').eq(nums).html();
+						object.type = 'line';
+						object.data = [];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataX.length;z++){
+								if(lengths[j].dataDate.split('T')[1].slice(0,5) == dataX[z]){
+									object.data.push(lengths[j].data)
+								}
+							}
+						}
+						dataY.push(object);
+					}else if(_ajaxDataType=='周'){
+						dataX=['周一','周二','周三','周四','周五','周六','周日'];
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[0];
+							if(dataXx.indexOf(dataSplits)<0){
+								dataXx.push(dataSplits);
+							}
+						}
+						//y轴数据
+						object = {};
+						object.name=$('.selectTime').eq(nums).html();
+						object.type = 'line';
+						object.data=[];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataXx.length;z++){
+								if(lengths[j].dataDate.split('T')[0] == dataXx[z]){
+									object.data.push(lengths[j].data);
+								}
+							}
+						}
+						dataY.push(object);
+					}else if(_ajaxDataType=='月' || _ajaxDataType=='年'){
+						//x轴数据
+						for(var j=0;j<lengths.length;j++){
+							datas = lengths[j];
+							dataSplits = datas.dataDate.split('T')[0];
+							if(dataX.indexOf(dataSplits)<0){
+								dataX.push(dataSplits);
+							}
+						}
+						//y周数据
+						object = {};
+						object.name = $('.selectTime').eq(nums).html();
+						object.type = 'line';
+						object.data = [];
+						for(var j=0;j<lengths.length;j++){
+							for(var z=0;z<dataX.length;z++){
+								if(lengths[j].dataDate.split('T')[0] == dataX[z]){
+									object.data.push(lengths[j].data);
+								}
+							}
+						}
+						dataY.push(object);
+					}
+					maxData = _.max(lengths,function(d){return d.data});
+					minData = _.min(lengths,function(d){return d.data});
+					maxArr_1 = maxData.data;
+					maxTime = maxData.dataDate;
+					minArr_1 = minData.data;
+					minTime = minData.dataDate;
+					_totalY = 0;
+					//总能耗
+					for(var x=0;x<object.data.length;x++){
+						_totalY+=object.data[x];
+					}
+					//平均值
+					average=_totalY/object.data.length;
+					$('#tbody').append('<tr><td>'+selectTime[nums]+'</td><td>'+unitConversion(_totalY)
+						+'</td><td>'+unitConversion(maxArr_1)+'</td><td>'+maxTime.replace("T"," ").substr(0,maxTime.length -3)
+						+'</td><td>'+unitConversion(minArr_1)+'</td><td>'+minTime.replace("T"," ").substr(0,maxTime.length -3)
+						+'</td><td>'+unitConversion(average)+'</td></tr>')
+					option11.legend.data = selectTime;
+					option11.xAxis.data = dataX;
+					option11.series = dataY;
+					myChart11.setOption(option11);
+				}
 			},
 			error:function(xhr,res,err){
 				console.log("GetECByTypeAndPointer:" + err);
 			}
 		})
 	}
-	if(_ajaxDataType=="日"){
+/*	if(_ajaxDataType=="日"){
 		for(var i=0;i<_allData.length;i++){
 			var datas=_allData[i];
 			for(var j=0;j<datas.length;j++){
@@ -571,11 +670,7 @@ function getItemizedData(){
 				+unitConversion(maxArr_1)+'</td><td>'+maxTime.substr(0,7)+'</td><td>'+unitConversion(minArr_1)
 				+'</td><td>'+minTime.substr(0,7)+'</td><td>'+unitConversion(average)+'</td></tr>')
 		}
-	}
-	option11.legend.data = selectTime;
-	option11.xAxis.data = dataX;
-	option11.series = dataY;
-	myChart11.setOption(option11);
+	}*/
 }
 var selectTime=[];
 function getSelectedTime(){

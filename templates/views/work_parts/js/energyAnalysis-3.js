@@ -366,6 +366,7 @@ function getPointerData(){
 		async:false,
 		success:function(result){
 			allData.push(result);
+
 		}
 	})
 	//发送环比请求
