@@ -237,7 +237,11 @@ $(function(){
 	specificTime();
 	getItemizedData();
 	setEnergyInfos();
-	$('small').html(select_Name);
+	//$('small').html(select_Name);
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(select_Name);
+	$('.page-title').append(smalls);
 	$('.btn').click(function(){
 		myChart41 = echarts.init(document.getElementById('rheader-content-41'));
 		myChart42 = echarts.init(document.getElementById('rheader-content-42'));
@@ -247,6 +251,12 @@ $(function(){
 		specificTime();
 		getItemizedData();
 		setEnergyInfos();
+		if($('.page-title').children('small').length){
+			$('.page-title').children('small').remove();
+		}
+		var smalls = $('<small>');
+		smalls.html(select_Name);
+		$('.page-title').append(smalls);
 	});
 	$('body').mouseover(function(){
 		if(myChart41 && myChart42){

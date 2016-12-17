@@ -162,7 +162,10 @@ $(function(){
 	getEcType();
 	getPointerData();
 	setEnergyInfos();
-	$('small').html(pointerNames);
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(pointerNames);
+	$('.page-title').append(smalls);
 	$('.btn').click(function (){
 		myChart13 = echarts.init(document.getElementById('rheader-content-16'));
 		myChart14 = echarts.init(document.getElementById('rheader-content-17'));
@@ -172,11 +175,21 @@ $(function(){
 		if(o == 'none'){
 			getEcTypeWord();
 			getOfficeData();
-			$('small').html(officeNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(officeNames);
+			$('.page-title').append(smalls);
 		}else{
 			getEcType();
 			getPointerData();
-			$('small').html(pointerNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(pointerNames);
+			$('.page-title').append(smalls);
 		}
 		setEnergyInfos();
 	});
@@ -391,6 +404,8 @@ function getPointerData(){
 	})
 	//分别将本期和环比组合，本期和同比组合绘制echarts
 	if(_ajaxDateType_1 == '日'){
+		$('.right-top').eq(1).css({'opacity':1});
+		$('.right-top').eq(0).css({'opacity':1});
 		//确定本期的x轴；
 		for(var i=0;i<allData.length;i++){
 			var datas = allData[i];
@@ -445,9 +460,9 @@ function getPointerData(){
 		//分别判断本期与同比，与环比的最大值
 	}else{
 		if(_ajaxDateType_1 == '周'){
-			$('.right-top').eq(1).hide();
+			$('.right-top').eq(1).css({'opacity':0});
 		}else{
-			$('.right-top').eq(1).show();
+			$('.right-top').eq(1).css({'opacity':1});
 		}
 		//确定本期的x轴
 		for(var i=0;i<allData.length;i++){
@@ -602,8 +617,9 @@ function getPointerData(){
 	//
 }
 //科室数据
-var officeNames;
+var officeNames=[];
 function getOfficeData(){
+	officeNames=[];
 	//定义存放返回数据的数组（本期 X Y）
 	var allData = [];
 	var allDataX = [];
@@ -626,11 +642,12 @@ function getOfficeData(){
 	//存放柱折图的最大值
 	var maxMaxLine = 0;
 	//确定楼宇id
-	var ofs = _objectSel.getSelectedOffices(),officeID = [],officeNames = [];
+	var ofs = _objectSel.getSelectedOffices(),officeID = [];
 	for(var i=0;i<ofs.length;i++){
 		officeID.push(ofs[i].f_OfficeID);
 		officeNames.push(ofs[i].f_OfficeName);
 	}
+	//console.log(officeNames);
 	//定义获得本期数据的参数
 	var ecParams = {
 		'ecTypeId':_ajaxEcTypeWord,
@@ -899,7 +916,7 @@ function getOfficeData(){
 	option13.xAxis.data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatassY;
-	//myChart15.setOption(option13);
+	myChart15.setOption(option13);
 	//电-同比分析-柱状图
 	option14.series[0].data[0] = totalAllData;
 	option14.series[0].data[1] = totalAllDatass;

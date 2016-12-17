@@ -311,7 +311,10 @@ $(function(){
     //页面加载时获取楼宇总能耗、分项电耗、能耗费用、用能指标
     getClassEcData();
     PointerPowerConsumption();
-
+    //页面加载时表头
+    var smalls = $('<small>');
+    smalls.html(pointerNames);
+    $('.page-title').append(smalls);
     PointerCharge();
     $('.btn').click(function(){
         var o=$('.tree-1')[0].style.display;
@@ -345,15 +348,23 @@ $(function(){
             getOfficeClassEcData();
             OfficePowerConsumption();
             OfficeCharge();
-            $('small').html(officeNames);
+            if($('.page-title').children('small').length){
+                $('.page-title').children('small').remove();
+            }
+            var smalls = $('<small>');
+            smalls.html(officeNames);
+            $('.page-title').append(smalls);
         }else{
             getClassEcData();
             PointerPowerConsumption();
             PointerCharge();
-            $('small').html(pointerNames);
+            if($('.page-title').children('small').length){
+                $('.page-title').children('small').remove();
+            }
+            var smalls = $('<small>');
+            smalls.html(pointerNames);
+            $('.page-title').append(smalls);
         }
-        //theDashboard();
-        console.log(_changeTitle);
     });
     $('body').mouseover(function(){
         if(_myChart && _myChart1 && _myChart2 && _myChart3){
@@ -403,7 +414,6 @@ function getClassEcData(){
         pointerID = pts[0].pointerID;
         pointerNames = pts[0].pointerName;
     };
-    $('small').html(pointerNames);
     if(!pointerID) { return; }
     var ecParams={'pointerId':pointerID,'startTime':newStr,'endTime':newStr1,'dateType':_dataRanges};
     $.ajax({

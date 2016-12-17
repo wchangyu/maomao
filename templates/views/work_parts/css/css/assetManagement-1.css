@@ -1,0 +1,86 @@
+.condition-query{
+    margin-top: 20px;
+}
+.condition-query li{
+    float: left;
+    margin-right: 10px;
+    line-height: 34px;
+}
+.condition-query li input{
+    height: 25px;
+}
+.new-form{
+    position: absolute;
+    border: 1px solid #c0cfdd;
+    padding:20px;
+    background: #ffffff;
+    left: 0;
+    display: none;
+    z-index: 10;
+}
+.new-form li{
+    line-height: 25px;
+}
+.new-form label{
+    width:150px;
+}
+.select-block{
+    display: inline-block;
+    width:370px;
+    height: 25px !important;
+}
+.new-form input{
+    width:370px;
+    line-height: 21px;
+    text-indent: 5px;
+}
+.input-select{
+    width:370px;
+    height: 25px;
+    display: inline-block;
+    border: 1px solid rgb(169, 169, 169);
+    position: relative;
+}
+.input-select input{
+    width: 340px;
+    height: 21px;
+    border: none;
+}
+.input-select select{
+    border: none;
+    outline: none;
+    height: 16px;
+}
+.input-select ul{
+    width:370px;
+    position: absolute;
+    top: 24px;
+    left: -1px;
+    border: 1px solid rgb(169, 169, 169);
+    border-top: none;
+    background: #ffffff;
+    display: none;
+}
+.input-select ul li{
+    line-height: 25px;
+    text-indent: 5px;
+    cursor: pointer;
+}
+textarea{
+    width: 370px;
+    line-height: 25px;
+}
+.new-form li:nth-child(1){
+    color: #3b9c96;
+}
+/*弹出框*/
+.tables{
+    padding: 10px;
+    width: 800px;
+}
+.biaoti{
+    background: #ffffff;
+}
+.close{
+    margin-right: 20px !important;
+}

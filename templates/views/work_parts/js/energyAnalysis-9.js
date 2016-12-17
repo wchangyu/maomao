@@ -145,6 +145,10 @@ $(function(){
 	getEcType();
 	dataType();
 	_ajaxGetPointers();
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(pointerNames);
+	$('.page-title').append(smalls);
 	setEnergyInfos();
 	$('small').html(pointerNames);
 	$('.types').change(function(){
@@ -170,10 +174,20 @@ $(function(){
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
 			_ajaxGetOffices();
-			$('small').html(officeNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(officeNames);
+			$('.page-title').append(smalls);
 		}else{
 			_ajaxGetPointers();
-			$('small').html(pointerNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(pointerNames);
+			$('.page-title').append(smalls);
 		}
 		setEnergyInfos();
 	})
@@ -276,7 +290,7 @@ function _ajaxGetPointers(){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName
 	};
-	if(!pointerID) { return; }
+	if(!pointerID) { return; };
 	timeDisposal();
 	var allBranch=[];
 	var dataX=[];

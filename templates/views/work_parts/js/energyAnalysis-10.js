@@ -155,6 +155,10 @@ $(function(){
 	getPointerId();
 	getSelectedTime();
 	getItemizedData();
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(select_Name);
+	$('.page-title').append(smalls);
 	setEnergyInfos();
 	$('.btn').click(function(){
 		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
@@ -165,9 +169,13 @@ $(function(){
 		getPointerId();
 		getSelectedTime();
 		getItemizedData();
-		$('small').html(_ajaxgetPointerName);
-		$('.header-two').html(select_Name);
 		setEnergyInfos();
+		if($('.page-title').children('small').length){
+			$('.page-title').children('small').remove();
+		}
+		var smalls = $('<small>');
+		smalls.html(select_Name);
+		$('.page-title').append(smalls);
 	})
 	$('body').mouseover(function(){
 		if(myChart11){

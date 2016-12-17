@@ -1,0 +1,14 @@
+{
+  "data":[
+    {
+      "number":"0",
+      "deviceType":"阀门",
+      "content":"外观是否生锈",
+      "detailed":"是",
+      "relationship":"是/否",
+      "value":"是",
+      "sort":"1",
+      "note":""
+    }
+  ]
+}
