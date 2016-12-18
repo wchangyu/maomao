@@ -260,6 +260,12 @@ $(function(){
         alarmHistory();
         getSelectedBranches();
         setData();
+        if($('.page-title').children('small').length){
+            $('.page-title').children('small').remove();
+        }
+        var smalls = $('<small>');
+        smalls.html(pointerNames);
+        $('.page-title').append(smalls);
     })
     $('.logoToRead').click(function(){
         logoToRead();
@@ -293,6 +299,10 @@ $(function(){
         _texts = $(this).parents('.modal-header').children('.modal-body').val();
         processingNote();
     })
+    //页面加载时表头
+    var smalls = $('<small>');
+    smalls.html(pointerNames);
+    $('.page-title').append(smalls);
 })
 var table;
 //获得开始时间
@@ -482,10 +492,12 @@ function initDate(){
 }
 //获取报警记录信息
 var dataArr=[];
+var pointerID=[];
+var pointerName;
 function alarmHistory(){
     dataArr=[];
     //获取楼宇id
-    var pts = _objectSel.getSelectedPointers(),pointerID=[];
+    var pts = _objectSel.getSelectedPointers();
     if(pts.length>0) {
         pointerID.push(pts[0].pointerID);
         pointerNames = pts[0].pointerName;
@@ -493,9 +505,11 @@ function alarmHistory(){
     if(pointerID[0] == 0){
         var allPointer = JSON.parse(sessionStorage.getItem('pointers'));
         pointerID = [];
+        pointerName = [];
         for(var i=0;i<allPointer.length;i++){
             pointerID.push(allPointer[i].pointerID);
         }
+        pointerNames = '全院';
     }
     var prm = {
         'st' : _ajaxStartTime_1 + ' 00:00:00',

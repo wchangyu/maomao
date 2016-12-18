@@ -1,0 +1,19 @@
+{
+  "data":[
+    {
+      "number":"0",
+      "assetNumber":"LJ-0002",
+      "assetName":"机房B离心冷机",
+      "specifications":"YRBTA1550C22",
+      "assetType":"冷机",
+      "purchaseDate":"2012年8月1日",
+      "durableYears":"20",
+      "state":"正常",
+      "userDepartment":"苏州北站",
+      "installationArea":"京沪线",
+      "installationDate":"2012年8月1日",
+      "itsSystem":"冷冻站",
+      "option":""
+    }
+  ]
+}

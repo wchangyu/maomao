@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.ui-helper-reset{
+    width:1427px;
+}
+.ui-corner-bottom table {
+
+    border-spacing: 0;
+    border-color: grey;
+}
+.dTable tr td textarea{
+    height:65px;
+    width: 100%;
+}
+
+
+
+.ui-widget-content {
+    border: 1px solid #a6c9e2;
+    background: #fcfdfd;
+    color: #222222;
+}
+.ui-corner-top a{
+    text-decoration: none;
+}
+.ui-accordion { width: 100%; }
+.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.ui-accordion .ui-accordion-li-fix { display: inline; }
+.ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em 0 .7em; position: relative;margin-bottom: -2px;z-index: 44;}
+.ui-accordion-icons .ui-accordion-header a { padding-left: 2.2em; }
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute; left: .5em; top: 50%; margin-top: -8px; }
+.ui-accordion .ui-accordion-content { padding: 1em 2.2em;  border-top: 0;  margin-top: -3px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content-active { display: block; }
+
+.ui-autocomplete { position: absolute; cursor: default; }
+
+
+.ui-button-icon-only { width: 2.2em; }  to make room for the icon, a width needs to be set here
+button.ui-button-icon-only { width: 2.4em; } /* button elements seem to need a little more width */
+.ui-button-icons-only { width: 3.4em; }
+button.ui-button-icons-only { width: 3.7em; }

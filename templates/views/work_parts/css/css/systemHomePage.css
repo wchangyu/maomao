@@ -1,0 +1,93 @@
+.title{
+    margin-bottom: 0px;
+    line-height: 30px;
+}
+.real-time-state-list{
+    height: 120px;
+    margin-bottom: 19px;
+    border-right: 2px solid #ffffff;
+}
+.real-time-state-list:nth-child(2){
+    background: #fee8af;
+}
+.real-time-state-list:nth-child(3){
+    background: #bce3de;
+}
+.real-time-state-list:nth-child(4){
+    background: #fcbf92;
+}
+.real-time-state-list:nth-child(5){
+    background: #b1cade;
+}
+.real-time-list-content{
+    width: 180px;
+    height:100%;
+    margin: 0 auto;
+}
+.list-content-left{
+    width:80px;
+    height: 80px;
+    padding-top: 40px;
+    float: left;
+}
+.list-content-left p span{
+    font-size: 23px;
+    margin-right: 5px;
+}
+.list-content-right{
+    width: 80px;
+    height: 80px;
+    float: right;
+    margin-top: 20px;
+    background: url("../../img/failureToReport.png")no-repeat;
+    background-size: 80px;
+    background-position: center;
+}
+.real-time-state-list:nth-child(3) .list-content-right{
+    background: url("../../img/fault.png")no-repeat;
+    background-size: 80px;
+    background-position: center;
+}
+.real-time-state-list:nth-child(4) .list-content-right{
+    background: url("../../img/repairOrder.png")no-repeat;
+    background-size: 80px;
+    background-position: center;
+}
+.real-time-state-list:nth-child(5) .list-content-right{
+    background: url("../../img/repairOrder Allocation.png")no-repeat;
+    background-size: 80px;
+    background-position: center;
+}
+.content h4{
+    text-align: center;
+}
+.toolbar{
+    height: 30px;
+    background: #45B6AF;
+}
+.tools{
+    margin-right: 20px;
+}
+.tools a{
+    color: #ffffff !important;
+}
+.removes{
+    width: 12px !important;
+    height: 12px !important;
+    background: url("../../img/remove.png")no-repeat !important;
+    background-size: 20px !important;
+    background-position: center !important;
+}
+.unfinished-task{
+    border: 1px solid #45b6af;
+}
+.titles{
+    color:#45b6af;
+    font-weight: bold;
+    text-indent: 10px;
+}
+.captions{
+    font-size: 13px !important;
+    color: #ffffff;
+    text-indent: 10px;
+}

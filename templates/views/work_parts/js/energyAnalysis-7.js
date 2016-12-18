@@ -117,6 +117,10 @@ $(function(){
 	getEcType();
 	getEcTypeWord();
 	getPointerDatas();
+	//表头
+	var smalls = $('<small>');
+	smalls.html(pointerNames);
+	$('.page-title').append(smalls);
 	setEnergyInfos();
 	$('.btn').click(function(){
 		myChart46 = echarts.init(document.getElementById('rheader-content-46'));
@@ -127,10 +131,20 @@ $(function(){
 		var o=$('.tree-3')[0].style.display;
 		if(o == "none"){
 			getOfficeDatas();
-			//$('small').html(officeNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(officeNames);
+			$('.page-title').append(smalls);
 		}else{
 			getPointerDatas();
-			$('small').html(pointerNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(pointerNames);
+			$('.page-title').append(smalls);
 		}
 	});
 	//逐月逐周选择

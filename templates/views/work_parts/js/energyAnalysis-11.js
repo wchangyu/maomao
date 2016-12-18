@@ -157,7 +157,10 @@ $(function(){
 	getBranches();
 	getBranchData();
 	setEnergyInfos();
-	$('.header-two').html(select_Name);
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(select_Name);
+	$('.page-title').append(smalls);
 	$('.btn').click(function(){
 		myChart3 = echarts.init(document.getElementById('rheader-content-14'));
 		$('#tbody').empty();
@@ -171,10 +174,13 @@ $(function(){
 		timeDisposal();
 		treeObject();
 		getBranchData();
-		$('small').html(_ajaxgetPointerName);
-		$('.header-two').html(select_Name);
-		//setEnergyInfo();
 		setEnergyInfos();
+		if($('.page-title').children('small').length){
+			$('.page-title').children('small').remove();
+		}
+		var smalls = $('<small>');
+		smalls.html(select_Name);
+		$('.page-title').append(smalls);
 	})
 	$('body').mouseover(function(){
 		if(myChart3){

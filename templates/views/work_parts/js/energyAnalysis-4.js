@@ -223,7 +223,11 @@ $(function(){
 	//初始能耗
 	getEcType();
 	getPointerData();
-	$('small').html(pointerNames);
+	//$('small').html(pointerNames);
+	//页面加载时表头small内容
+	var smalls = $('<small>');
+	smalls.html(pointerNames);
+	$('.page-title').append(smalls);
 	$('.header-one').html(_ajaxStartTime);
 	$('.header-two').html('到');
 	$('.header-three').html(_ajaxStartTime);
@@ -243,10 +247,20 @@ $(function(){
 		var o=$('.tree-3')[0].style.display;
 		if(o == 'none'){
 			getOfficeData();
-			$('small').html(officeNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(officeNames);
+			$('.page-title').append(smalls);
 		}else{
 			getPointerData();
-			$('small').html(pointerNames);
+			if($('.page-title').children('small').length){
+				$('.page-title').children('small').remove();
+			}
+			var smalls = $('<small>');
+			smalls.html(pointerNames);
+			$('.page-title').append(smalls);
 		}
 
 	});

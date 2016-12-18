@@ -204,7 +204,6 @@ $(function(){
 		getPointerId();
 		getSelectedBranches();
 		getBranchData();
-		$('small').html(_ajaxgetPointerName);
 		setEnergyInfo();
 	})
 	$('body').mouseover(function(){

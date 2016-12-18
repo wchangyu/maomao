@@ -1,0 +1,6 @@
+select{
+    height: 25px;
+}
+#scrap-datatables thead th{
+    text-align: center;
+}

@@ -1,0 +1,26 @@
+.dictionary-managed{
+    background: #808080;
+    padding-top: 10px;
+    padding-left: 1px;
+}
+.dictionary-managed li{
+    height: 30px;
+    padding: 0 10px;
+    background: #808080;
+    color: #ffffff;
+    float: left;
+    line-height: 30px;
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+    cursor: pointer;
+}
+.dictionary-managed li:nth-child(1){
+    background: #ffffff;
+    color: #333333;
+}
+.table-block{
+    position: relative;
+}
+.table-block-list{
+    position: absolute;
+}
