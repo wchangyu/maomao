@@ -55,7 +55,7 @@ var BEE = (function(){
         var li,$li,ul,$ul;
         for(var p in menu){
             var curType = menu[p]["type"];
-            if(curType){console.log(curType);
+            if(curType){
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
