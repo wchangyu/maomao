@@ -146,3 +146,30 @@
 	margin-top: 20px;
 	height: 30px;
 }
+.left-middle-select{
+	margin: 0 auto;
+}
+.types{
+	height: 25px;
+}
+#datetimepicker{
+	width:30px;
+	height: 32px;
+	background: url(../img/clendar.png)no-repeat;
+	background-size: 25px;
+	background-position:center;
+	cursor: pointer;
+	font-size: 0;
+	float: right;
+}
+.datetimepickereType{
+	width: 150px;
+	height:30px;
+	line-height: 30px;
+	border:1px solid #cccccc;
+	text-align: center;
+	min-height: 30px;
+	margin: 0 auto;
+	font-size: 10px;
+	float: left;
+}

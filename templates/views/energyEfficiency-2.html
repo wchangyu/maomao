@@ -330,28 +330,29 @@
                                 </div>
                                 <!-- 时段选择 -->
                                 <div class="content-main">
-                                    <!-- 时间插件 -->
                                     <div class="select-times">
-                                        <!-- 标题 -->
                                         <div class="left-middle-header">时段选择</div>
-                                        <!-- 时间部分 -->
-                                        <div id='wrapper'>
-                                            <!-- 选择下拉框 -->
-                                            <select class='custom-date' name='select'>
-                                                <option value='7'>7 Days</option>
-                                                <option value='30'>30 Days</option>
-                                                <option selected='selected' value='90'>90 Days</option>
-                                                <option value='180'>180 Days</option>
-                                                <option value='365'>365 Days</option>
-                                                <option value='custom'>Custom</option>
+                                        <div class="left-middle-select">
+                                            <select class="types">
+                                                <option value ="日">按日</option>
+                                                <option value="周">按周</option>
+                                                <option value="月">按月</option>
+                                                <option value="年">按年</option>
                                             </select>
+                                        </div>
+                                        <div id='wrapper'>
+                                            <div class="left-middle-input">
+                                                <div class="datetimepickereType"></div>
+                                                <div class="datetimeInput">
+                                                    <input type="text" id="datetimepicker">
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
                                             <div class="buttons">
                                                 <button class="btn btn-success">查询</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <script src='./work_parts/select-time/js/jquery.js'></script>
-                                    <script src="./work_parts/select-time/js/index.js"></script>
                                 </div>
                             </div>
                             <!-- 右边主体数据 -->
