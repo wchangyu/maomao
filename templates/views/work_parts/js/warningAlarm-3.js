@@ -309,7 +309,8 @@ function processingNote (){
             'async':false,
             'data':prm,
             success:function(result){
-
+                $("#myModal").modal('hide');
+                $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
             }
         }
     )

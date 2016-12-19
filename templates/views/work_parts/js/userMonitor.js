@@ -202,7 +202,9 @@ var userMonitor = (function(){
             type:"post",
             data:prm,
             url:_urlPrefix + "PR/PR_GetAllProcsByBindType",
-            success:function(data){setProcList(data);},
+            success:function(data){
+                _allProcs = data;       //暂存全部方案
+                setProcList(data);},
             error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByBindType",res)}
         })
     }
@@ -226,7 +228,7 @@ var userMonitor = (function(){
                 var isProcFind = false;
                 for(var i=0;i<procs.length;i++){
                     var obj = procs[i];
-                    if(_userProcIds.index(obj.procId)>=0){
+                    if(_userProcIds.indexOf(obj.procId)>=0){
                         if(!isProcFind){
                             curProc = curProc || obj;
                             isProcFind = true;
@@ -257,7 +259,9 @@ var userMonitor = (function(){
             dataType:"json",
             data:prms2,
             url:_urlPrefix + "PR/PR_GetAllProcsByParameter",
-            success:function(data){ setProcList(data); },
+            success:function(data){
+                _allProcs = data;       //暂存全部方案
+                setProcList(data); },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsByParameter",err); }
         });
     }
@@ -269,7 +273,9 @@ var userMonitor = (function(){
                type:"post",
                 data:{"":procLists},
                 url:_urlPrefix + "PR/PR_GetAllProcsByProcList",
-                success:function(data){ setProcList(data); },
+                success:function(data){
+                    _allProcs = data;       //暂存全部方案
+                    setProcList(data); },
                 error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByProcList",err);}
             });
         }
@@ -441,7 +447,7 @@ var userMonitor = (function(){
                         img.attr("src",data["imgUrl"]);
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
-                        if(imgWidth){ img.height(imgWidth); }
+                        if(imgWidth){ img.width(imgWidth); }
                         if(imgHeight){ img.height(imgHeight); }
                         //TODO:图片的展示方式 curProc.ProcStyle.ImageLayout 无=0，图片重复=1，居中显示=2，拉伸显示=3，比例放大或缩小=4
                         $("#content-main-right").append(img);
@@ -624,7 +630,11 @@ var userMonitor = (function(){
                     if(curPRR.borderColorRGB && curPRR.borderColorRGB.length == 8){    //边框设置
                         $spanDef.css("border-color","#" + curPRR.borderColorRGB.substr(2,6));
                         $spanDef.css("border-style","solid");
-                        $spanDef.css("border-width",curPRR.borderThickness + "px");
+                        if(curPRR.borderColorRGB.indexOf('00') == 0){
+                            $spanDef.css("border-width",'0');
+                        }else{
+                            $spanDef.css("border-width",curPRR.borderThickness + "px");
+                        }
                     }
                     $Txt.css("font-family",curPRR.fontName);        //字体设置
                     if(curPRR.fontSize > 0) { $Txt.css("font-size",curPRR.fontSize);}
@@ -1349,8 +1359,8 @@ var userMonitor = (function(){
                 });
             }
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
-                "left" : (left - 1) + "px",
-                "top"  : (top - 1) + "px"
+                "left" : ((left - 1) / _scaleX) + "px",
+                "top"  : ((top - 1) / _scaleX) + "px"
             });
             setDivControlsVisible(false);       //隐藏掉可能的控制面板
             $contextMenu.removeClass("content-menu-hide");
