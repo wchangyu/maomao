@@ -55,7 +55,7 @@ var BEE = (function(){
         var li,$li,ul,$ul;
         for(var p in menu){
             var curType = menu[p]["type"];
-            if(curType){
+            if(curType){console.log(curType);
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
@@ -76,13 +76,9 @@ var BEE = (function(){
                     li += menu[p]["content"] + '</a></li>';
                     $li = $(li);
                     $src.append($li);
-                }else if(curType=="1"){
+                }
+                else if(curType=="1"){
                     //子菜单操作
-                    //if(menu[p]["uri"]){
-                    //    li = '<li><a href="' + menu[p]["uri"] + '">';
-                    //}else{
-                    //    li = '<li><a href="javascript:;">';
-                    //}
                     //一级菜单不跳转
 
                     li = '<li><a href="javascript:void(0);">';
@@ -125,6 +121,16 @@ var BEE = (function(){
                     if(menu[p]["submenu"]){
                         getHTMLFromMenu(menu[p]["submenu"],$ul);
                     }
+                }
+                else if(curType == "2"){
+                    //二级菜单内的非菜单显示，一般用做区段的标题
+                    li = '<li style="border-bottom:1px;border-color:white;"><span style="color:white;margin-left:45px;font-size:15px;font-weight: bold;">';
+                    if(menu[p]["iconclass"]){
+                        li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
+                    }
+                    li += "-- " + menu[p]["content"] + ' --</span></li>';
+                    $li = $(li);
+                    $src.append($li);
                 }
             }
         }
