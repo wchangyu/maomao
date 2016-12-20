@@ -566,7 +566,38 @@
     "content":"运营管理",
     "iconclass":"icon-home",
     "submenu":{
-
+      "库存管理":{
+        "type":"0",
+        "content":"库存管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "合同管理":{
+        "type":"0",
+        "content":"合同管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "资产管理":{
+        "type":"0",
+        "content":"资产管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "安全管理":{
+        "type":"0",
+        "content":"安全管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      }
     }
   },
   "决策管理":{
@@ -574,7 +605,101 @@
     "content":"决策管理",
     "iconclass":"icon-home",
     "submenu":{
-
+      "绩效管理":{
+        "type":"0",
+        "content":"绩效管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "运营分析":{
+        "type":"0",
+        "content":"运营分析",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "知识库":{
+        "type":"0",
+        "content":"知识库",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "决策分析":{
+        "type":"0",
+        "content":"决策分析",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      }
+    }
+  },
+  "服务管理":{
+    "type":"1",
+    "content":"决策管理",
+    "iconclass":"icon-home",
+    "submenu":{
+      "被服管理":{
+        "type":"0",
+        "content":"被服管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "运送管理":{
+        "type":"0",
+        "content":"运送管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "医废管理":{
+        "type":"0",
+        "content":"医废管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "订餐管理":{
+        "type":"0",
+        "content":"订餐管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "保洁管理":{
+        "type":"0",
+        "content":"保洁管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "车队管理":{
+        "type":"0",
+        "content":"车队管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      },
+      "服务商管理":{
+        "type":"0",
+        "content":"服务商管理",
+        "uri":"",
+        "uid":"",
+        "arg":"",
+        "iconclass":" "
+      }
     }
   }
 }
