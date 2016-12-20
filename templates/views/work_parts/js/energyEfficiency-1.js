@@ -67,7 +67,7 @@ $(function(){
 		            max: 6,
 		            interval: 1,
 		            axisLabel: {
-		                formatter: '{value} ml'
+		                formatter: '{value}'
 		            }
 		        },
 		        {
@@ -85,7 +85,7 @@ $(function(){
 		    series: [
 		        
 		        {
-		            name:'冷战能效',
+		            name:'冷机效率',
 		            type:'line',
 		            yAxisIndex: 1,
 		            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
