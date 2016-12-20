@@ -51,7 +51,7 @@ $(function(){
 		        }
 		    },
 		    legend: {
-		        data:['蒸发量','降水量','冷战能效']
+		        data:['蒸发量','降水量','冷机效率']
 		    },
 		    xAxis: [
 		        {
@@ -62,23 +62,12 @@ $(function(){
 		    yAxis: [
 		        {
 		            type: 'value',
-		            name: '水量',
+		            name: '效率',
 		            min: 0,
 		            max: 6,
 		            interval: 1,
 		            axisLabel: {
 		                formatter: '{value}'
-		            }
-		        },
-		        {
-					show:false,
-		            type: 'value',
-		            name: '温度',
-		            min: 0,
-		            max: 25,
-		            interval: 5,
-		            axisLabel: {
-		                formatter: '{value} °C'
 		            }
 		        }
 		    ],
@@ -87,8 +76,8 @@ $(function(){
 		        {
 		            name:'冷机效率',
 		            type:'line',
-		            yAxisIndex: 1,
-		            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+		            yAxisIndex: 0,
+		            data:[2.0, 2.2, 3.3, 4.5, 5.3, 4.2, 4.3, 4.4, 4.0, 4.5, 4.0, 4.2]
 		            }
 		    ]
 		};
