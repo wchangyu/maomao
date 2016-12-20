@@ -124,11 +124,11 @@ var BEE = (function(){
                 }
                 else if(curType == "2"){
                     //二级菜单内的非菜单显示，一般用做区段的标题
-                    li = '<li style="border-bottom:1px;border-color:white;"><span style="color:white;margin-left:45px;font-size:15px;font-weight: bold;">';
+                    li = '<li><span style="color:#707070;margin-left:30px;font-size:15px;">';
                     if(menu[p]["iconclass"]){
                         li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
                     }
-                    li += "-- " + menu[p]["content"] + ' --</span></li>';
+                    li += "——" + menu[p]["content"] + '——</span></li>';
                     $li = $(li);
                     $src.append($li);
                 }

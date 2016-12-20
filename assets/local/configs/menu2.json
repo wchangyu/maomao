@@ -15,7 +15,7 @@
       },
       "变配电系统2":{
         "type":"0",
-        "content":"变配电系统-空调",
+        "content":"设备监控-空调",
         "uri":"energyMonitor.html?a=1",
         "uid":"",
         "arg":"2,1",
@@ -23,7 +23,7 @@
       },
       "变配电系统3":{
         "type":"0",
-        "content":"变配电系统-高铁",
+        "content":"设备监控-冷站",
         "uri":"energyMonitor.html?a=2",
         "uid":"",
         "arg":"2,4",
@@ -37,17 +37,9 @@
         "arg":"2,4",
         "iconclass":""
       },
-      "空调末端监测":{
-        "type":"0",
-        "content":"空调系统监测",
-        "uri":"usedToMonitor-2.html",
-        "uid":"",
-        "arg":"2,4",
-        "iconclass":""
-      },
       "空调末端监测（分布式）":{
         "type":"0",
-        "content":"空调系统监测（分布式）",
+        "content":"空调末端监测",
         "uri":"usedToMonitor-2.html",
         "uid":"",
         "arg":"2,4",
@@ -55,7 +47,7 @@
       },
       "空调末端监测（列表式）":{
         "type":"0",
-        "content":"空调系统监测（列表式）",
+        "content":"空调末端监测",
         "uri":"usedToMonitor-3.html",
         "uid":"",
         "arg":"2,4",
@@ -90,12 +82,8 @@
   "运维管理":{
     "type":"1",
     "content":"运维管理",
-    "iconclass":"icon-screen-desktop",
+    "iconclass":"icon-settings",
     "submenu":{
-      "系统首页":{
-        "type":"2",
-        "content":"系统首页"
-      },
       "系统首页":{
         "type":"0",
         "content":"系统首页",
@@ -104,7 +92,7 @@
         "arg":"",
         "iconclass":""
       },
-      "资产管理":{
+      "资产管理1":{
         "type":"2",
         "content":"资产管理"
       },
@@ -196,7 +184,7 @@
         "arg":"",
         "iconclass":""
       },
-      "知识库管理":{
+      "知识库管理1":{
         "type":"2",
         "content":"知识库管理"
       },
@@ -297,7 +285,7 @@
   "能源管理":{
     "type":"1",
     "content":"能源管理",
-    "iconclass":"icon-home",
+    "iconclass":"icon-speedometer",
     "submenu":{
       "系统首页":{
         "type":"2",
@@ -451,14 +439,6 @@
         "arg":"",
         "iconclass":""
       },
-      "信息机房能效":{
-        "type":"0",
-        "content":"信息机房能效",
-        "uri":"energyEfficiency-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "用能管理":{
         "type":"2",
         "content":"用能管理"
@@ -530,41 +510,13 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      },
-      "节能足记":{
-        "type":"2",
-        "content":"节能足记"
-      },
-      "节能项目档案管理":{
-        "type":"0",
-        "content":"节能项目档案管理",
-        "uri":"savingRemember-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "用能量验证":{
-        "type":"0",
-        "content":"用能量验证",
-        "uri":"savingRemember-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "节能报表":{
-        "type":"0",
-        "content":"节能报表",
-        "uri":"savingRemember-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
       }
     }
   },
   "运营管理":{
     "type":"1",
     "content":"运营管理",
-    "iconclass":"icon-home",
+    "iconclass":"icon-cursor",
     "submenu":{
 
     }
@@ -572,7 +524,7 @@
   "决策管理":{
     "type":"1",
     "content":"决策管理",
-    "iconclass":"icon-home",
+    "iconclass":"icon-note",
     "submenu":{
 
     }
