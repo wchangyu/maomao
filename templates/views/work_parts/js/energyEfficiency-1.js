@@ -51,7 +51,7 @@ $(function(){
 		        }
 		    },
 		    legend: {
-		        data:['蒸发量','降水量','平均温度']
+		        data:['蒸发量','降水量','冷战能效']
 		    },
 		    xAxis: [
 		        {
@@ -64,13 +64,14 @@ $(function(){
 		            type: 'value',
 		            name: '水量',
 		            min: 0,
-		            max: 250,
-		            interval: 50,
+		            max: 6,
+		            interval: 1,
 		            axisLabel: {
 		                formatter: '{value} ml'
 		            }
 		        },
 		        {
+					show:false,
 		            type: 'value',
 		            name: '温度',
 		            min: 0,
@@ -84,7 +85,7 @@ $(function(){
 		    series: [
 		        
 		        {
-		            name:'平均温度',
+		            name:'冷战能效',
 		            type:'line',
 		            yAxisIndex: 1,
 		            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
