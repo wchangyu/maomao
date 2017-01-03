@@ -4,7 +4,7 @@
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
-    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //TODO:临时使用
+    //_urlPrefix = "http://localhost/BEEWebApi/api/";        //测试临时使用，调用本机地址
     var _userProcIds;       //当前用户的监控方案权限
     var _configArg1 = 0;        //配置文件中配置的类型，取值为0:启用监控类型;1:启用|隔开的监控方案ID;2:启用混合模式
     var _configArg2 = "0";       //配置文件中配置的参数，取值对应_configType 0:类型ID;1:|隔开的监控方案ID;2:1代表初始方案类型
@@ -120,14 +120,14 @@ var userMonitor = (function(){
         _originPageWidth = $pageContext.width();
         _originPageHeight = $pageContext.height();
         this.getUserProcs();
-    }
+    };
     //刷新数据
     var refreshData = function(){
         if(!_isInstDataLoading && _refreshInterval>0){
             if(_refreshAction){ clearTimeout(_refreshAction);}
             _refreshAction = setTimeout(getInstDatasByIds,_refreshInterval * 1000);
         }
-    }
+    };
     //设置缩小和放大的按钮图标
     var setScaleSign = function(scale,scaleStep){
         var $badge3 = $("#badge-3");
@@ -148,7 +148,7 @@ var userMonitor = (function(){
             var sTimes = Math.abs(((scale - 1) / scaleStep)).toFixed();
             $bagde4.html(sTimes);
         }
-    }
+    };
 
     //根据用户名获取当前的监控方案，对应左侧列表
     var getUserProcs = function(){
@@ -164,8 +164,8 @@ var userMonitor = (function(){
                     url:_urlPrefix + "PR/GetUserProcbind",
                     success:function(data){ //返回结果:Sysuserid:用户名;ProcId:监控方案Id
                         _userProcIds = [];
-                        for(var d in data){
-                            _userProcIds.push(d.ProcId);
+                        for(var i= 0,l=data.length;i<l;i++){
+                            _userProcIds.push(data[i].procId);
                         }
                         getProcs();
                     },
@@ -194,7 +194,7 @@ var userMonitor = (function(){
                 getAllProcsByBind(_configArg2,bindKeyId);
             }
         }
-    }
+    };
     //根据绑定类型和绑定值获取到监控方案列表
     var getAllProcsByBind = function(bindType,bindKeyId){
         var prm = {"bindType":bindType,"bindKeyId":bindKeyId};
@@ -207,7 +207,7 @@ var userMonitor = (function(){
                 setProcList(data);},
             error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByBindType",res)}
         })
-    }
+    };
 
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
@@ -228,20 +228,20 @@ var userMonitor = (function(){
                 var isProcFind = false;
                 for(var i=0;i<procs.length;i++){
                     var obj = procs[i];
-                    if(_userProcIds.indexOf(obj.procId)>=0){
+                    if(_userProcIds.indexOf(obj.procID)>=0){
                         if(!isProcFind){
                             curProc = curProc || obj;
                             isProcFind = true;
                         }
                         $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
-                            return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procId)));
+                            return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
                     }
                 }
             }
         }
         initializeProcSubs(curProc.procID);//选中默认的监控
         selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
-    }
+    };
 
     function selectLi($li){
         $(".list-group-item").removeClass("selected");
@@ -264,7 +264,7 @@ var userMonitor = (function(){
                 setProcList(data); },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsByParameter",err); }
         });
-    }
+    };
 
     //根据定义的方案ID字符串，获取监控方案，字符串是|号分隔开
     var getAllProcsByProcList = function(procLists){
@@ -279,7 +279,7 @@ var userMonitor = (function(){
                 error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByProcList",err);}
             });
         }
-    }
+    };
 
     //获取到全部的方案，根据混合模式加载
     var getAllProcs = function(){
@@ -294,7 +294,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsNew" , err);}
         })
-    }
+    };
 
     //获取到当前配置文件中的类型和层级对应的监控方案数据 一.procType可以是配置文件中的配置参数;二.procType也可以是当前选择监控方案中的属性，procLv是当前选择方案中的属性
     var getLocalProcsByParameter = function(procType,procLv){
@@ -316,7 +316,7 @@ var userMonitor = (function(){
             }
         }
         return curProcs;
-    }
+    };
 
     //获取当前方案的子项目 def crtl render
     var initializeProcSubs = function(procId){
@@ -341,7 +341,7 @@ var userMonitor = (function(){
         initializeProcCtrl(procId);
         initializeProcRender(procId);
         initImg(procId);
-    }
+    };
 
     //获取当前方案的定义
     var initializeProcDef = function(procId){
@@ -356,7 +356,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
-    }
+    };
     //获取定义中对应的控制
     var initializeProcCtrl = function(procId){
         $.ajax({
@@ -370,7 +370,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){logAjaxError("PR_GetProcCtrls" , err)}
         })
-    }
+    };
     //获取render
     var initializeProcRender = function (procId) {
         $.ajax({
@@ -384,7 +384,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){logAjaxError("PR_GetProcRenders" , err)}
         });
-    }
+    };
 
     //获取底图
     var initImg = function(procId){
@@ -452,13 +452,13 @@ var userMonitor = (function(){
                         //TODO:图片的展示方式 curProc.ProcStyle.ImageLayout 无=0，图片重复=1，居中显示=2，拉伸显示=3，比例放大或缩小=4
                         $("#content-main-right").append(img);
                     },
-                    error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err) }
+                    error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err); }
                 });
             }
             //设置div的高和宽
 
         }
-    }
+    };
     //获取实时数据
     var getInstDatasByIds = function(){
         if(_isProcDefLoaded && _isProcCrtlLoaded && _isProcRenderLoaded && !_isInstDataLoading){
@@ -513,7 +513,7 @@ var userMonitor = (function(){
                 error:function(xhr,res,err){logAjaxError("PR_GetInstDataNew" , err);}
             });
         }
-    }
+    };
 
     //在界面上绘制数据
     var initializeContentOnDiv = function(defInstDatas){
@@ -703,7 +703,7 @@ var userMonitor = (function(){
             $divContent.append($spanDef);
         }
         refreshData();
-    }
+    };
 
     function loadDefImg(curPRR,$Img){
         $Img.addClass(curPRR.imgID + "img");
@@ -799,7 +799,7 @@ var userMonitor = (function(){
                 alertMessage("没有权限");
             }
         }
-    }
+    };
 
     //根据数据返回的结果显示所有的监控流程,显示在右边,默认只显示第一等级，可导航改变
     var displayAllProc = function(){
@@ -826,7 +826,7 @@ var userMonitor = (function(){
                 setProcList(procLVs,_curProc);
             }
         }
-    }
+    };
 
     //获取鼠标坐标，left,top
     var getMousePos = function(){
@@ -839,7 +839,7 @@ var userMonitor = (function(){
         pt[0] = pt[0] - rect.left + root.scrollLeft;        //最后再加上滚动条的距离
         pt[1] = pt[1] - rect.top + root.scrollTop;
         return pt;
-    }
+    };
 
     //根据当前defID绘制控件
     var drawControls = function(prDefID,left,top,isAir){
@@ -911,7 +911,7 @@ var userMonitor = (function(){
         }
         $divCtrls.append($table);
         setDivControlsVisible(true);
-    }
+    };
     //绘制输入的控制面板
     var drawInputPanel = function(prDefId,left,top){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
@@ -1065,7 +1065,7 @@ var userMonitor = (function(){
         $trButtons.append($tdButtons);$trButtons.appendTo($table);
         $divCtrls.append($table);
         setDivControlsVisible(true);
-    }
+    };
 
     //绘制全局参数的控制面板
     var drawGlobalParaPanel = function(glbPara,left,top){
@@ -1151,7 +1151,7 @@ var userMonitor = (function(){
         $tdButtons.append($btnOK);$tdButtons.append($btnCancel);
         $trButtons.append($tdButtons);
         $trButtons.appendTo($table);
-    }
+    };
 
     //设置主面板的点击事件，隐藏面板
     function setMainClick($contentmain,panelId){//鼠标移除隐藏事件
@@ -1240,12 +1240,12 @@ var userMonitor = (function(){
                         logAjaxError("SendCommand" , err);
                         _isOperating = false;
                     }
-                })
+                });
                 setDivControlsVisible(false);       //发送指令后隐藏控制面板
             }
         });
         return $btn;
-    }
+    };
 
     //设置控制按钮
     var setCtrlButton = function(curCtrl,baseWidth,baseHeight){
@@ -1298,7 +1298,7 @@ var userMonitor = (function(){
             setDivControlsVisible(false);       //发送指令后隐藏控制面板
         });
         return $btn;
-    }
+    };
 
     //显示或者隐藏控制按钮的承载div
     var setDivControlsVisible = function(flag){
@@ -1314,7 +1314,7 @@ var userMonitor = (function(){
             $divCtrls.addClass("content-ctrls-hide");
             $("#content-main-right").unbind("click");
         }
-    }
+    };
 
     //设置每个def外层的flex布局
     var setFlex = function($ele){
@@ -1328,7 +1328,7 @@ var userMonitor = (function(){
         $ele.css ("align-items","center");
         $ele.css ("-webkit-justify-content","flex-start");
         $ele.css ("justify-content","flex-start");
-    }
+    };
 
     var setFlexInner = function($ele,options){
         $ele.css("display","flex");
@@ -1341,7 +1341,7 @@ var userMonitor = (function(){
                 $ele.css(attr,options[attr]);
             }
         }
-    }
+    };
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){
         var $contextMenu = $("#content-menu");
@@ -1397,10 +1397,10 @@ $(function(){
         if(o1 == 'block'){
             $('.content-main-left').css({
                 display:'none'
-            })
+            });
             $('.content-main-right').animate({
                 'margin-left':'0px'
-            },100)
+            },100);
             $('.showOrHidden').css({
                 'background':'url("./work_parts/img/show.png")no-repeat',
                 'background-size':'20px',
@@ -1412,7 +1412,7 @@ $(function(){
             },100,function(){
                 $('.content-main-left').css({
                     display:'block'
-                })
+                });
                 $('.showOrHidden').css({
                     'background':'url("./work_parts/img/hidden.png")no-repeat',
                     'background-size':'20px',
