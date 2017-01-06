@@ -36,7 +36,7 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
-	//冷战能效
+	//冷站能效
 	myChart49 = echarts.init(document.getElementById('rheader-content-49'));
 		option49 = {
 		    tooltip: {
