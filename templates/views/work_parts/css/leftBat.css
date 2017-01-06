@@ -46,7 +46,7 @@ a{
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.tipes{
+.tipes,.tipess{
     width: 200px;
     color: red;
     margin: 0 auto;
@@ -58,7 +58,6 @@ a{
 }
 .left-middle-input input{
     display: inline-block;
-    width: 200px;
     height: 30px !important;
 }
 .tree-1{

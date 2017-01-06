@@ -42,6 +42,9 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//楼宇搜索框功能
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//时间选择
 	$('#datetimepicker').datepicker(
 		{

@@ -39,9 +39,12 @@ $(function(){
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),false,true);
 	_objectSel.initOffices($("#allOffices"),true);
-	//搜索框功能
+	//搜索框功能(科室)
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//搜索功能（楼宇）
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//日历格式初始化
 	initDate();
 	$('.types').change(function(){

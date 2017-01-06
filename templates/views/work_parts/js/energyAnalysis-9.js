@@ -4,8 +4,12 @@ $(function(){
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),true);
 	_objectSel.initOffices($("#allOffices"));
+	//搜索功能科室
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//搜索功能（楼宇）
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//日历格式初始化
 	initDate();
 	$('#datetimepicker').on('changeDate',function(e){

@@ -40,6 +40,9 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//楼宇搜索框功能
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//用电考核
 	myChart74 = echarts.init(document.getElementById('rheader-content-74'));
 		option74 = {
