@@ -418,9 +418,9 @@ function updateNodes(highlight) {
 }
 //确定父子关系
 function findParent(zTree,node){
-	//展开 / 折叠 指定的节点
+	//展开 / 折叠 指定的节点（需要 展开 / 折叠 的节点数据，expandFlag = true表示展开节点，操作是否影响子节点，focus = true 表示 展开 / 折叠 操作后，通过设置焦点保证此焦点进入可视区域内）
 	zTree.expandNode(node,true,false,false);
-	//pNode父节点
+	//pNode父节点getParentNode（）获取 treeNode 节点的父节点。
 	var pNode = node.getParentNode();
 	if(pNode != null){
 		nodeList.push(pNode);

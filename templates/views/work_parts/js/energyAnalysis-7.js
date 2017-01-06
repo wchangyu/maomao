@@ -218,7 +218,7 @@ function getPointerDatas(){
 	var pts = _objectSel.getSelectedPointers();
 	if(pts.length>0) {
 		pointerID = pts[0].pointerID;
-		pointerNames = pts[0].pointerName
+		pointerNames = pts[0].pointerName;
 	};
 	if(!pointerID) { return; }
 	var ecParams = {
@@ -250,11 +250,11 @@ function getPointerDatas(){
 			dataWeekY.push(datas[j].data);
 		}
 	}
-	option46.xAxis.data = dataMonthX;
+	option46.xAxis[0].data = dataMonthX;
 	option46.series[0].data = dataMonthY;
 	option46.series[1].data = dataMonthY;
 	myChart46.setOption(option46);
-	option46.xAxis.data = dataWeekX;
+	option46.xAxis[0].data = dataWeekX;
 	option46.series[0].data = dataWeekY;
 	option46.series[1].data = dataWeekY;
 	myChart45.setOption(option46);

@@ -190,24 +190,24 @@ var ObjectSelection = function(){
 }
 
 var ObjectSearch = function(){
-    this._$pointerSearchKey;
+    this._$pointerSearchKey;   //输入的关键字
     this._$pointerTips;
     this._$officeSearchKey;
     this._$officeTips;
-    this._pointerZTreeId;
     this._officeZTreeId;
-    this.searchOfficeNode = function(e){
-        var objSearch = e.data.that;
-        var ztree = $.fn.zTree.getZTreeObj(objSearch._officeZTreeId);
-        var keyName = 'f_OfficeName';
-        objSearch.search(ztree,keyName,objSearch._$officeSearchKey,objSearch._$officeTips);
+    this.searchOfficeNode = function(e){    //搜索科室节点
+        var objSearch = e.data.that;      //e是下的键的对象包含的信息
+        console.log(e);
+        var ztree = $.fn.zTree.getZTreeObj(objSearch._officeZTreeId);    //"allOffices"得到树的id
+        var keyName = 'f_OfficeName';  //树节点的名字
+        objSearch.search(ztree,keyName,objSearch._$officeSearchKey,objSearch._$officeTips);  //objSearch._$officeSearchKey搜索框   objSearch._$officeTips提示框
     }
 
     this.searchPointerNode = function(e){
         var objSearch = e.data.that;
         var ztree = $.fn.zTree.getZTreeObj(objSearch._pointerZTreeId);
         var keyName = 'pointerName';
-        this.search(ztree,keyName,objSearch._$pointerSearchKey,objSearch._$pointerTips);
+        objSearch.search(ztree,keyName,objSearch._$pointerSearchKey,objSearch._$pointerTips);
     }
 
     this.initPointerSearch = function($key,$tips,ztreeid){
@@ -232,7 +232,7 @@ var ObjectSearch = function(){
 
     //搜索,ztree:zTree,keyName:显示的字段名称,$searchInput:查询的输入框,$tips:提示框
     this.search = function(ztree,keyName,$searchInput,$tips){
-        if(!$searchInput) return;
+        if(!$searchInput) return;       //如果没有搜索框跳出
         var value = $searchInput.val();     //获取搜索的文本
         if(value === ""){
             $tips.hide();
@@ -263,7 +263,6 @@ var ObjectSearch = function(){
         }
         ztree.showNodes(this._nodeList);
     }
-
     //确定父子关系
     this.findParent = function(zTree,node){
         //展开 / 折叠 指定的节点
@@ -271,7 +270,7 @@ var ObjectSearch = function(){
         //pNode父节点
         var pNode = node.getParentNode();
         if(pNode != null){
-            nodeList.push(pNode);
+            this._nodeList.push(pNode);
             this.findParent(zTree,pNode);
         }
     }

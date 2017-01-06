@@ -233,6 +233,7 @@ function tableImg(){
 	//清空一下table
 	dt.fnClearTable();
 	//想表格中添加东西数据o
+	console.log(allArr);
 	dt.fnAddData(allArr);
 	//重绘表格
 	dt.fnDraw();

@@ -154,3 +154,6 @@
 .dataTables_length{
     float: right !important;
 }
+tbody tr{
+    width: 100%;
+}
