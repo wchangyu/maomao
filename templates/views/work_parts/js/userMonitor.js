@@ -163,6 +163,10 @@ var userMonitor = (function(){
                     data:{'':userName},
                     url:_urlPrefix + "PR/GetUserProcbind",
                     success:function(data){ //返回结果:Sysuserid:用户名;ProcId:监控方案Id
+                        if(!data || data.length==0){
+                            alertMessage("没有分配任何权限");
+                            return;
+                        }
                         _userProcIds = [];
                         for(var i= 0,l=data.length;i<l;i++){
                             _userProcIds.push(data[i].procId);
@@ -239,8 +243,10 @@ var userMonitor = (function(){
                 }
             }
         }
-        initializeProcSubs(curProc.procID);//选中默认的监控
-        selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+        if(curProc){            //可能存在看不到任何监控方案的情况，没有权限
+            initializeProcSubs(curProc.procID);//选中默认的监控
+            selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+        }
     };
 
     function selectLi($li){
@@ -546,7 +552,7 @@ var userMonitor = (function(){
             //$spanDef.css("display","inline-block");
             setFlex($spanDef);
             $spanDef.css("position","absolute");
-            $spanDef.css("background","rgba(0,0,0,1)");
+            $spanDef.css("background","transparent");
             $spanDef.width(defWidth);
             $spanDef.height(defHeight);
             $spanDef.attr("id",_procDefs[i].prDefId);
@@ -723,8 +729,8 @@ var userMonitor = (function(){
         if(!procDef) return;
         if(_refreshAction){ clearTimeout(_refreshAction); }
         if(procDef.cType == 166){       //方案跳转
-            if(!_isViewAllProcs && _userProcIds.indexOf(procDef.prDefId)<0){
-                alert("没有权限");
+            if(!_isViewAllProcs && _userProcIds.indexOf(procDef.ckId)<0){       //在跳转图中ckId的值就是需要跳转的procID
+                alertMessage("没有权限");
                 return;
             }
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
