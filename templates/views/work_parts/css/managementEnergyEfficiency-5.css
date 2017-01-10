@@ -1,0 +1,15 @@
+.wrap ul{
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+.wrap ul li{
+    flex: 1;
+    list-style: none;
+}
+.right-top{
+    margin: 10px;
+}
+.contentBlock{
+    height: 180px;
+}
