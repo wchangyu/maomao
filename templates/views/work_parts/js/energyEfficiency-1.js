@@ -33,6 +33,9 @@ $(function(){
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),false,true);
 	_objectSel.initOffices($("#allOffices"),true);
+	//楼宇搜索框功能
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");

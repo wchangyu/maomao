@@ -36,6 +36,9 @@ $(function(){
 	//搜索框功能
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+	//楼宇搜索框功能
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//锅炉能效
 	myChart51 = echarts.init(document.getElementById('rheader-content-51'));
 		option51 = {

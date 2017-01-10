@@ -130,7 +130,7 @@
 #selectPointer{
 	height: 30px;
 	margin-top: 30px;
-	width:180px;
+	width:190px;
 }
 #energyConsumption{
 	height:150px;
@@ -145,7 +145,7 @@
 }
 #key{
 	display: inline-block;
-	width: 180px;
+	width: 190px;
 	height:30px;
 }
 #energyConsumption{
@@ -188,7 +188,6 @@
 	margin-top: 20px;
 }
 .left-middle-select{
-	width:180px;
 	margin: 0 auto;
 }
 .left-middle-input{
@@ -202,7 +201,7 @@
 	height: 120px;
 }
 #wrapper{
-	width:180px;
+	width:190px;
 	padding: 0 !important;
 	margin: 0 auto;
 }

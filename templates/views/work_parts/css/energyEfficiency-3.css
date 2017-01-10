@@ -172,7 +172,6 @@
 #tree-3{
     display: none;
     height: 200px;
-    overflow: scroll;
 }
 .rheader-content-rights{
     height:100%;
@@ -193,7 +192,7 @@
     margin: 0 auto;
 }
 .types{
-    height: 25px;
+    height: 30px;
 }
 #datetimepicker{
     width:30px;

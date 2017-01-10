@@ -140,6 +140,9 @@ $(function(){
     //搜索框功能
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+    //楼宇搜索框功能
+    var objSearchs = new ObjectSearch();
+    objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 });
 //设置开始和结束初始值
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");

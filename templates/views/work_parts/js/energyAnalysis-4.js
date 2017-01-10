@@ -24,6 +24,9 @@ $(function(){
 	_objectSel = new ObjectSelection();
 	_objectSel.initPointers($("#allPointer"),true);
 	_objectSel.initOffices($("#allOffices"));
+	//楼宇搜索框功能
+	var objSearchs = new ObjectSearch();
+	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//初始化模糊查找框，参数(输入框，提示框，ztree对应ul的id)
 	var objSearch = new ObjectSearch();
 	objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");

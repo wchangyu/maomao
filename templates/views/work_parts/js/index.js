@@ -11,9 +11,12 @@ $(function(){
     _objectSel = new ObjectSelection();
     _objectSel.initPointers($("#allPointer"),true);
     _objectSel.initOffices($("#allOffices"));
-    //搜索框功能
+    //科室搜索框功能
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
+    //楼宇搜索框功能
+    var objSearchs = new ObjectSearch();
+    objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
     //对象选择
     $('.left-middle-tab').click(function(){
         $(".left-middle-tab").css({
