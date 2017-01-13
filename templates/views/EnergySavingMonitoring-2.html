@@ -284,18 +284,24 @@
                             <p style="font-size: 20px;">控制模式选择</p>
                             <ul style="margin-left: 100px;width: 300px;margin: 0 auto">
                                 <li>
-                                    <input type="radio" checked><label for="">自动模式</label>
+                                    <input type="radio" style="display: inline-block;margin-left:-5px !important;" class="inpus"checked><label for="">自动模式</label>
                                 </li>
                                 <li>
-                                    <input type="radio"><label for="">手动模式</label>
+                                    <input type="radio" style="display: inline-block;margin-left:-5px !important;" class="inpus"><label for="">手动模式</label>
                                 </li>
                                 <li>
-                                    <input type="radio"><label for="">远动模式</label>
+                                    <input type="radio" style="display: inline-block;margin-left:-5px !important;" class="inpus"><label for="">远动模式</label>
                                 </li>
                                 <li>
-                                    <input type="radio"><label for="">通讯模式</label>
+                                    <input type="radio" style="display: inline-block;margin-left:-5px !important;" class="inpus"><label for="">通讯模式</label>
                                 </li>
                             </ul>
+                            <script>
+                                $('.inpus').click(function(a){
+                                    $('.inpus').parent('span').removeClass('checked');
+                                    $(this).parent('span').addClass('checked');
+                                })
+                            </script>
                             <p style="width:56px;margin: 0 auto">
                                 <button class="btn btn-success">确定</button>
                             </p>

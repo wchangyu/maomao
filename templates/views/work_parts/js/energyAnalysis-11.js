@@ -89,6 +89,8 @@ $(function(){
 					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
 				}
 			}
+			//console.log("开始时间：" + _ajaxStartTime_1);
+			//console.log("结束时间：" + _ajaxEndTime_1);
 			_ajaxStartTime_1=startYear.split('-')[0]+'/'+split('-')[1]+'/'+split('-')[2];
 			_ajaxEndTime_1=endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
 		}
@@ -430,8 +432,9 @@ function getBranchData(){
 	var minTime;
 	var _totalY=0;
 	var average=0;
+	var nums = -1;
 	for(var i=0;i<_ajaxStartA.length;i++){
-		var nums = -1;
+		console.log(i);
 		var lengths = null;
 		var startsTimess = _ajaxStartA[i];
 		var endsTimess=_ajaxEndA[i];
