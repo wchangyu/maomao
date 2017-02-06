@@ -4,7 +4,7 @@
 
 var BEE = (function(){
 
-    var _assetsPath = '../../assets/';
+    var _assetsPath = '../../../assets/';
     var _localImgPath = 'local/img/';
     var _localCssPath = 'local/css/';
     var _localConfigsPath = 'local/configs/';
@@ -281,7 +281,7 @@ var BEE = (function(){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
-                window.location.href = "login_3.html";
+                window.location.href = "../login_3.html";
             }else{
                 getMenu();
                 setHeaderInfo();

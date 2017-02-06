@@ -1,0 +1,206 @@
+*{
+    font-family: 微软雅黑;
+}
+.right-header {
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+li{
+    list-style: none;
+}
+.orderBegin li{
+    display: inline-block;
+    vertical-align: top;
+}
+.orderBegin{
+    margin-top: 20px;
+}
+.orderBegin input{
+    width: 250px !important;
+    background: #fff !important;
+    height: 30px !important;
+    margin-top: 2px !important;
+}
+.selectConditions{
+    width: 360px;
+    margin-top: 2px;
+}
+.selectConditionsTitle{
+    line-height: 28px;
+    border: 1px solid #cccccc;
+    text-align: center;
+    background: url("../img/turnDown.png")no-repeat;
+    background-size: 10px;
+    background-position: 98% center;
+    cursor: pointer;
+}
+.specificCondition{
+    margin: 0px;
+    border:1px solid #cccccc;
+    border-top: none;
+    display: none;
+    position: absolute;
+    width: 360px;
+    background: #fff;
+    padding-left: 10px !important;
+}
+.specificCondition li{
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+.specificCondition li input{
+    width: 100px !important;
+}
+#goods {
+    width: 220px !important;
+    background: url("../img/ellipsis.png")no-repeat !important;
+    background-size: 15px !important;
+    background-position: 98% center !important;
+    cursor: pointer;
+}
+.goodsBlock{
+    height: auto !important;
+}
+.tips{
+    font-size: 12px;
+    color: #cccccc;
+}
+#warehouse{
+    width: 220px !important;
+    background: url("../img/ellipsis.png")no-repeat !important;
+    background-size: 15px !important;
+    background-position: 98% center !important;
+    cursor: pointer;
+}
+#commodityCategories{
+    width: 220px !important;
+    cursor: pointer;
+}
+#businessCtegory{
+    width: 220px;
+    height: 30px;
+}
+#WithUnit{
+    width: 220px !important;
+}
+#DocumentNum{
+    width: 220px !important;
+}
+#batchNumber{
+    width:220px !important;
+}
+.tableLeft{
+    display: inline-block;
+    width: 80px;
+}
+.tableLefts{
+    display: inline-block;
+    width: 56px !important;
+}
+.sure{
+    display: block !important;
+    width: 56px !important;
+    margin: 0 auto !important;
+    height: 40px !important;
+}
+.print{
+    float: right;
+    margin-right: 10px;
+}
+.tableBlock h3{
+    text-align: center;
+}
+.tableBody{
+    font-size: 0;
+}
+.tableBody li{
+    font-size: 15px;
+    display: inline-block;
+    padding: 10px 44px;
+    background: #3b9c96;
+    color: #fff;
+    margin: 1px;
+    vertical-align: top;
+}
+.putInStorage{
+    height: 40px;
+    font-size: 15px;
+    margin-bottom: 0px;
+    text-align: center;
+    line-height: 30px;
+}
+.tableTitle{
+    height: 60px !important;
+    line-height: 40px !important;
+}
+.tableTitles{
+    vertical-align: top;
+    padding: 0px !important;
+    height: 60px !important;
+    font-size: 0px !important;
+}
+.tableTitles span{
+    font-size: 15px;
+    border: 1px solid #fff !important;
+    padding: 5px 10px;
+    border-top: 2px solid #fff !important;
+}
+.tableNumBlock{
+    border: 1px solid #ccc;
+    width: 98%;
+}
+.tableTr{
+    text-align: center !important;
+}
+.table span{
+    display: block;
+    float: left;
+    width: 33% !important;
+}
+thead{
+    background: #45B6AF !important;
+    color: #fff;
+}
+.borderNone{
+    border-left: 1px solid #fff !important;
+    border-right: 1px solid #fff !important;
+}
+.borderFirst{
+    border-right: 1px solid #fff !important;
+}
+.borderLast{
+    border-left: 1px solid #fff !important;
+}
+.pageFooter li{
+    display: inline-block;
+    margin-left: 10px;
+}
+#pageFooters{
+    width: 70px;
+    border-top: none;
+    border-bottom: none;
+}
+.pageFooter{
+    border: 2px solid #ddd;
+    border-top: none;
+    margin: 0px;
+}
+.table{
+    margin-bottom: 0px !important;
+}
+.pageFooter ul{
+    margin: 0;
+    float: right;
+}
+.totalTitle{
+    font-size: 23px !important;
+    color: #fff !important;
+    line-height: 46px !important;
+    position: absolute !important;
+    left: 150px !important;
+}
+.top-menu{
+    margin-top: 0px !important;
+}
