@@ -35,7 +35,7 @@ $(function(){
     };
     _myChart.setOption(option);
     _myChart1 = echarts.init(document.getElementById('echartsBlockss'));
-    option.title.text = '冷战能效比';
+    option.title.text = '冷站能效比';
     option.series[0].itemStyle.normal.color = '#5b9bd5';
     option.series[0].data = [2.7,2.9,3.2,2.75,2.5,2.56,2.6,2.58,2.55,2.43,2.5,2.6]
     _myChart1.setOption(option);

@@ -2,7 +2,7 @@ $(function(){
     _myChart = echarts.init(document.getElementById('lzMain'));
     option = {
         title:{
-            text:'冷战',
+            text:'冷站',
             show:true,
             left:'center'
         },
