@@ -1,5 +1,5 @@
 {
-  "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
+  "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
   "首页":{
     "type":"1",
     "content":"首页",
@@ -8,7 +8,7 @@
       "能耗总览":{
         "type":"0",
         "content":"能耗总览",
-        "uri":"index.html",
+        "uri":"../shouye/index.html",
         "uid":"",
         "arg":"",
         "iconclass":"icon-bar-chart"
@@ -16,7 +16,7 @@
       "3D地图":{
         "type":"0",
         "content":"3D地图",
-        "uri":"infoMap.html",
+        "uri":"../shouye/infoMap.html",
         "uid":"",
         "arg":"",
         "iconclass":"icon-map"
@@ -31,7 +31,7 @@
       "变配电系统":{
         "type":"0",
         "content":"变配电系统",
-        "uri":"energyMonitor.html",
+        "uri":"../yongnengjiance/energyMonitor.html",
         "uid":"",
         "arg":"2,5",
         "iconclass":""
@@ -39,7 +39,7 @@
       "变配电系统2":{
         "type":"0",
         "content":"变配电系统-空调",
-        "uri":"energyMonitor.html?a=1",
+        "uri":"../yongnengjiance/energyMonitor.html?a=1",
         "uid":"",
         "arg":"2,1",
         "iconclass":""
@@ -102,7 +102,7 @@
       "用能查询（支路）":{
         "type":"0",
         "content":"用能查询（支路）",
-        "uri":"energyQuery-1.html",
+        "uri":"../yongnengchaxun/energyQuery-1.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -110,7 +110,7 @@
       "用能查询（科室）":{
         "type":"0",
         "content":"用能查询（科室）",
-        "uri":"energyQuery-2.html",
+        "uri":"../yongnengchaxun/energyQuery-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""

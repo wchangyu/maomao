@@ -136,7 +136,7 @@ var Login = function() {
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
-                window.location.href = "index.html";
+                window.location.href = "shouye/index.html";
             }
         }
     }

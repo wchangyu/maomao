@@ -60,7 +60,7 @@ var BEE = (function(){
                     //具体菜单操作
                     if( menu[p]["uri"]){
                         li = '<li><a href="' + menu[p]["uri"] +'">';
-                        if(window.location.href.endWith(menu[p]["uri"]))
+                        if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
                         {
                             li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
@@ -86,7 +86,7 @@ var BEE = (function(){
                     if(menu[p]["submenu"]) {
                         for (var sm in menu[p]["submenu"]) {
                             if(menu[p]["submenu"][sm]["uri"]){
-                                if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"])) {
+                                if (window.location.href.endWith(menu[p]["submenu"][sm]["uri"].replace('../',''))) {
                                     li = '<li class="active open"><a href="javascript:void(0);">';
                                     isSelected = true;
                                     sessionStorage.menuFirst = menu[p]["content"];
