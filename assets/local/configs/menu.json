@@ -675,5 +675,60 @@
         "iconclass":""
       }
     }
+  },
+  "维修管理":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"维修管理",
+    "submenu":{
+      "工单登记管理":{
+        "type":"0",
+        "content":"工单登记管理",
+        "uri":"productionOrder-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工单受理管理":{
+        "type":"0",
+        "content":"工单受理管理",
+        "uri":"productionOrder-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工单派工管理":{
+        "type":"0",
+        "content":"工单派工管理",
+        "uri":"productionOrder-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工单完工管理":{
+        "type":"0",
+        "content":"工单完工管理",
+        "uri":"productionOrder-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工单评估管理":{
+        "type":"0",
+        "content":"工单评估管理",
+        "uri":"productionOrder-5.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工单综合调查":{
+        "type":"0",
+        "content":"工单综合调查",
+        "uri":"productionOrder-6.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
   }
 }

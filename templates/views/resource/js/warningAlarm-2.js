@@ -535,8 +535,6 @@ function alarmHistory(){
     });
 }
 function setData(){
-        //_table = $("#datatables").dataTable()
-        //$('.main-contents-table').find('img').hide();
         if(dataArr && dataArr.length>0){
             _table.fnAddData(dataArr);
             _table.fnDraw();
