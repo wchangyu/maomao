@@ -131,18 +131,22 @@
 /*表格部分*/
 .table-block{
     padding-top: 10px;
-    border-top: 1px solid #ebebeb;
     position: relative;
 }
 .table-title{
     padding: 10px;
-    padding-left: 0px;
+    padding-left: 0;
+    border-bottom: 1px solid #cccccc;
+    height: 38px;
 }
 .table-title span{
     padding: 10px;
     cursor: pointer;
     background: #ffffff;
-    border:1px solid #cccccc;
+    border-left:1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    line-height: 19px;
 }
 .spanhover{
     background: #f5f5f5 !important;
@@ -152,6 +156,8 @@
     background: #ffffff;
     z-index: 0;
     width: 100% !important;
+    border: 1px solid #cccccc;
+    border-top: none;
 }
 /*进度条*/
 .progressBar{
@@ -188,4 +194,37 @@
 /*隐藏本身的seacher*/
 .dataTables_filter label{
     display: none;
+}
+/*分页按钮样式*/
+.saveAs{
+    color: #fff !important;
+    background-color: #45B6AF !important;
+    border-color: #3ea49d !important;
+    background-image:none !important;
+}
+.saveAs:hover{
+    color: #fff !important;
+    background-color: #3b9c96 !important;
+    border-color: #307f7a !important;
+}
+/*隐藏弹窗中的保存按钮*/
+.hiddenButton{
+    display: none !important;
+}
+/*分页样式*/
+.paginate_button{
+    background-image: none !important;
+}
+.paginate_button:hover {
+    background: #45B6AF !important;
+    border: 1px solid #cccccc !important;
+    color: #ffffff !important;
+}
+.current{
+    background: #45B6AF !important;
+    color: #ffffff !important;
+}
+/*表格thead出现粗线*/
+.table>thead>tr>th{
+    border-bottom: 1px solid #ddd !important;
 }

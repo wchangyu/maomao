@@ -457,17 +457,6 @@
                     <div class="labels">班组备注：</div>
                     <textarea style="width: 100%;height: 60px;outline: none"></textarea>
                 </div>
-                <div style="margin-bottom: 6px">
-                    <div class="labels">报修图片：</div>
-                    <div id="uploader" class="wu-example">
-                        <!--用来存放文件信息-->
-                        <div id="thelist" class="uploader-list"></div>
-                        <div class="btns">
-                            <div id="picker">选择文件</div>
-                            <button id="ctlBtn" class="btn btn-default" style="height: 38px;">开始上传</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="table-block">
                     <div class="table-title">
                         <span class="spanhover">执行人员</span>
@@ -509,6 +498,120 @@
                             <tbody></tbody>
                         </table>
                     </div>
+                </div>
+            </ul>
+        </div>
+        <div class="gongdanClose">
+            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
+                <li style="float: right">
+                    <button class="btn btn-default closee">关闭</button>
+                </li>
+                <li style="float: right">
+                    <button class="btn btn-success">确定</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--去评价-->
+    <div class="gongdanMarkBlock workDone">
+        <div class="gongdanTitle">
+            <span>工单评价</span>
+            <span class="closes"></span>
+        </div>
+        <div class="gongdanContent">
+            <ul class="gongdanList">
+                <li class="floatLeft" style="line-height: 26px;display: block">
+                    <div class="labels colorTip">是否紧急 *：</div>
+                    <div class="input-blockeds">
+                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">很满意</label>
+                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">满意</label>
+                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">一般</label>
+                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">差</label>
+                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">很差</label>
+                    </div>
+                </li>
+                <script>
+                    $('.inpus').click(function(a){
+                        $('.inpus').parent('span').removeClass('checked');
+                        $(this).parent('span').addClass('checked');
+                    })
+                </script>
+                <div class="clearfix"></div>
+                <div>
+                    <div class="labels">评价意见：</div>
+                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+                </div>
+                <p>详细信息如下：</p>
+                <li class="floatLeft">
+                    <div class="labels">任务号：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">报修电话：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">保修科室：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">报修人工号：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">报修人姓名：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">联系人电话：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">维修项目分类：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">维修项目：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">维修设备：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">维修地点：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">维修科室：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <div class="clearfix"></div>
+                <div>
+                    <div class="labels">备注：</div>
+                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
                 </div>
             </ul>
         </div>

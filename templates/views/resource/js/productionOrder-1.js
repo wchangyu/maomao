@@ -16,6 +16,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": true,
         "ordering": false,
+        "pagingType":"full_numbers",
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -23,6 +24,7 @@ $(function(){
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页',
+            "sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
             'infoEmpty': '没有数据',
             'paginate':{
                 "previous": "上一页",
@@ -31,6 +33,13 @@ $(function(){
                 "last":"尾页"
             }
         },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'saveAs'
+            }
+        ],
         "ajax":'../resource/data/gongdanData.json',
         "dom":'B<"clear">lfrtip',
         "columns": [
@@ -128,83 +137,9 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
             $(this).css({'background':'#FBEC88'});
             markSize ();
+            $('.gongdanMarkBlock').hide();
+            $('.workDone').show();
         })
-
-    //webuploader
-    var $list=$("#thelist");//上传区域
-    var $btn =$("#ctlBtn");//上传按钮
-    var thumbnailWidth = 100;
-    var thumbnailHeight = 100;
-    //初始化设置
-    var uploader = WebUploader.create({
-        //选完文件是否上传
-        /*auto:true,*/
-        //swf的路径
-        swf:'webuploader/Uploader.swf',
-        //文件接收服务端
-        server:'http://webuploader.duapp.com/server/fileupload.php',
-        pick: '#picker',
-        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-        resize: false
-    });
-    //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
-    uploader.on( 'fileQueued', function( file ) {
-        var $li = $(
-                '<div id="' + file.id + '" class="file-item thumbnail">' +
-                '<img>' +
-                '<div class="info">' + file.name + '</div>' +
-                '<p class="state">等待上传...</p>' +
-                '</div>'
-            ),
-            $img = $li.find('img');
-
-        // $list为容器jQuery实例
-        $list.append( $li );
-
-        // 创建缩略图
-        // 如果为非图片文件，可以不用调用此方法。
-        // thumbnailWidth x thumbnailHeight 为 100 x 100
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
-                return;
-            }
-
-            $img.attr( 'src', src );
-        }, thumbnailWidth, thumbnailHeight );
-    });
-    //文件上传进度
-    // 文件上传过程中创建进度条实时显示。
-    uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress .progress-bar');
-
-        // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<div class="progress progress-striped active">' +
-                '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                '</div>' +
-                '</div>').appendTo( $li ).find('.progress-bar');
-        }
-
-        $li.find('p.state').text('上传中');
-
-        $percent.css( 'width', percentage * 100 + '%' );
-    });
-    //文件成功，失败处理
-    uploader.on( 'uploadSuccess', function( file ) {
-        $( '#'+file.id ).find('p.state').text('已上传');
-    });
-
-    uploader.on( 'uploadError', function( file ) {
-        $( '#'+file.id ).find('p.state').text('上传出错00');
-    });
-    uploader.on( 'uploadComplete', function( file ) {
-        $( '#'+file.id ).find('.progress').fadeOut();
-    });
-    $('#ctlBtn').click(function(){
-        uploader.upload();
-    })
     //弹窗中的表格
     var tables = $('#personTable').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -221,6 +156,13 @@ $(function(){
             'info': '',
             'infoEmpty': '没有数据',
         },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'hiddenButton'
+            }
+        ],
         "ajax":'../resource/data/gongdanData.json',
         "dom":'B<"clear">lfrtip',
         "columns": [
@@ -283,6 +225,13 @@ $(function(){
             'info': '',
             'infoEmpty': '没有数据',
         },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'hiddenButton'
+            }
+        ],
         "ajax":'../resource/data/gongdanData.json',
         "dom":'B<"clear">lfrtip',
         "columns": [
@@ -330,7 +279,6 @@ $(function(){
     })
     //弹窗切换表格效果
     $('.table-title span').click(function(){
-        //alert($(this).index());
         $('.table-title span').removeClass('spanhover');
         $(this).addClass('spanhover');
         $('.tableHover').css({'z-index':0});
@@ -344,82 +292,6 @@ $(function(){
     })
     $('.closee').click(function(){
         $('.gongdanMark').hide();
-    })
-    //待派工的上传下载功能
-    //webuploader
-    var $list1=$("#thelist1");//上传区域
-    var $btn1 =$("#ctlBtn1");//上传按钮
-    var thumbnailWidth1 = 100;
-    var thumbnailHeight1 = 100;
-    //初始化设置
-    var uploader = WebUploader.create({
-        //选完文件是否上传
-        /*auto:true,*/
-        //swf的路径
-        swf:'webuploader/Uploader.swf',
-        //文件接收服务端
-        server:'http://webuploader.duapp.com/server/fileupload.php',
-        pick: '#picker1',
-        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-        resize: false
-    });
-    //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
-    uploader.on( 'fileQueued', function( file ) {
-        var $li = $(
-                '<div id="' + file.id + '" class="file-item thumbnail">' +
-                '<img>' +
-                '<div class="info">' + file.name + '</div>' +
-                '<p class="state">等待上传...</p>' +
-                '</div>'
-            ),
-            $img = $li.find('img');
-
-        // $list为容器jQuery实例
-        $list1.append( $li );
-
-        // 创建缩略图
-        // 如果为非图片文件，可以不用调用此方法。
-        // thumbnailWidth x thumbnailHeight 为 100 x 100
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
-                return;
-            }
-
-            $img.attr( 'src', src );
-        }, thumbnailWidth1, thumbnailHeight1 );
-    });
-    //文件上传进度
-    // 文件上传过程中创建进度条实时显示。
-    uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress .progress-bar');
-
-        // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<div class="progress progress-striped active">' +
-                '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                '</div>' +
-                '</div>').appendTo( $li ).find('.progress-bar');
-        }
-
-        $li.find('p.state').text('上传中');
-
-        $percent.css( 'width', percentage * 100 + '%' );
-    });
-    //文件成功，失败处理
-    uploader.on( 'uploadSuccess', function( file ) {
-        $( '#'+file.id ).find('p.state').text('已上传');
-    });
-
-    uploader.on( 'uploadError', function( file ) {
-        $( '#'+file.id ).find('p.state').text('上传出错00');
-    });
-    uploader.on( 'uploadComplete', function( file ) {
-        $( '#'+file.id ).find('.progress').fadeOut();
-    });
-    $('#ctlBtn1').click(function(){
-        uploader.upload();
     })
 
     /*窗口改变遮罩也改变*/
@@ -442,13 +314,152 @@ $(function(){
         $('.gongdanMarkBlock').css({'top':markBlockTop,'left':markBlockLeft});
     }
 
-    /*按回车键跳到下一个表格*/
-    document.onkeypress = function EnterPress(e){ //传入 event
-        var e = e || window.event;
-        if(e.keyCode == 13){
-            //获取所有input控件
-            //console.log($('input'));
-            console.log(e.target);
-        }
-    }
+    //登记按钮功能
+    $('.creatButton').click(function(){
+        $('.gongdanMark').show();
+        $('.gongdanMarkBlock').hide();
+        markSize ();
+        $('.createGongdan').show();
+    })
+    //新增表格初始化
+    var tables1 = $('#personTable1').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'hiddenButton'
+            }
+        ],
+        "ajax":'../resource/data/gongdanData.json',
+        "dom":'B<"clear">lfrtip',
+        "columns": [
+            {
+                title:' ',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+            },
+            {
+                title:'工单状态',
+                data:'gongdanzhuangtai'
+            },
+            {
+                title:'报修科室',
+                data:'baoxiukeshi'
+            },
+            {
+                title:'维修事项',
+                data:'weixiushixiang'
+            },
+            {
+                title:'维修地点',
+                data:'weixiudidian'
+            },
+            {
+                title:'登记时间',
+                data:'time'
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "------"
+            }
+        ]
+    });
+    var tabless1 = $('#personTables1').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '',
+            'infoEmpty': '没有数据',
+        },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'hiddenButton'
+            }
+        ],
+        "ajax":'../resource/data/gongdanData.json',
+        "dom":'B<"clear">lfrtip',
+        "columns": [
+            {
+                title:' ',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+            },
+            {
+                title:'工单状态',
+                data:'gongdanzhuangtai'
+            },
+            {
+                title:'报修科室',
+                data:'baoxiukeshi'
+            },
+            {
+                title:'维修事项',
+                data:'weixiushixiang'
+            },
+            {
+                title:'维修地点',
+                data:'weixiudidian'
+            },
+            {
+                title:'登记时间',
+                data:'time'
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "------"
+            }
+        ]
+    });
+
+
+    /*重置按钮的*/
+    //点击重置按钮的时候，所有input框清空，时间还原成今天的
+    $('.resites').click(function(){
+        //清空input框内容
+        var parents = $(this).parents('.condition-query');
+        var inputs = parents.find('input');
+        inputs.val('');
+        //时间置为今天
+        $('.datatimeblock').val(initStart);
+    })
+
+
+    /*设置导出excel样式*/
+    $('.saveAs').addClass('btn btn-success');
 })
