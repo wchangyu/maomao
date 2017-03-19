@@ -9,9 +9,9 @@ $(function(){
     table = $('#datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "paging": true,
+        "searching": true,
         "ordering": false,
+        "scrollY": 200,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -25,7 +25,9 @@ $(function(){
                 "next": "下一页",
                 "first":"首页",
                 "last":"尾页"
-            }
+            },
+            'search':'搜索'
+
         },
         "dom":'B<"clear">lfrtip',
         'buttons': [
@@ -216,6 +218,7 @@ function alarmHistory(){
                     }
                 }
             }
+            console.log(dataArr);
         }
     });
 }

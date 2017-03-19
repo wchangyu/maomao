@@ -24,13 +24,16 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                text:'增加'
+                text:'增加',
+                className:'saveAs'
             },
             {
-                text: '修改'
+                text: '修改',
+                className:'saveAs'
             },
             {
-                text: '删除'
+                text: '删除',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/productionType.json',
@@ -97,13 +100,16 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                text:'增加'
+                text:'增加',
+                className:'saveAs'
             },
             {
-                text: '修改'
+                text: '修改',
+                className:'saveAs'
             },
             {
-                text: '删除'
+                text: '删除',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/area.json',
@@ -116,7 +122,7 @@ $(function(){
                 class:'checkeds',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+                "defaultContent": "<div class='checker'><span><input type='checkbox' class='allchecked'></span></div>"
             },
             {
                 title:'区域编码',
@@ -157,13 +163,16 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                text:'增加'
+                text:'增加',
+                className:'saveAs'
             },
             {
-                text: '修改'
+                text: '修改',
+                className:'saveAs'
             },
             {
-                text: '删除'
+                text: '删除',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/system.json',
@@ -217,13 +226,16 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                text:'增加'
+                text:'增加',
+                className:'saveAs'
             },
             {
-                text: '修改'
+                text: '修改',
+                className:'saveAs'
             },
             {
-                text: '删除'
+                text: '删除',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/department.json',
@@ -264,5 +276,38 @@ $(function(){
         $(this).css({'background':'#ffffff','color':'#333333'});
         $('.table-block-list').hide();
         $('.table-block-list').eq($(this).index()).show();
+    });
+
+    //tbody中的复选框添加事件
+    $('#asset-type-datatables tbody,#area-datatables tbody,#system-datatables tbody,#department-datatables tbody').on( 'click', 'input', function () {
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+            $(this).parents('tr').css({'background':'#FBEC88'})
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+            $(this).parents('tr').css({'background':'#ffffff'})
+        }
+    } )
+        //双击改变背景颜色
+        .on('dblclick','tr',function(){
+            var e = event || window.event;
+            if(e.target.nodeName.toLowerCase() != 'input'){
+                //当前行变色
+                $('#asset-type-datatables tbody').children('tr').css({'background':'#ffffff'});
+                $(this).css({'background':'#FBEC88'});
+            }
+        })
+    //点击thead复选框tbody的复选框全选中
+    $('.checkeds').find('input').click(function(){
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            //console.log($(this).parents('table'))
+            $(this).parents('table').find('tbody').find('input').parents('.checker').children('span').addClass('checked');
+            //所有行的背景颜色置为黄色
+            $(this).parents('table').find('tbody').find('tr').css({'background':'#fbec88'})
+        }else{
+            $(this).parents('table').find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            $(this).parents('table').find('tbody').find('tr').css({'background':'#ffffff'})
+        }
     })
 })

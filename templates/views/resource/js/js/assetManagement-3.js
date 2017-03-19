@@ -24,16 +24,9 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                extend:'csvHtml5',
-                text:'保存csv格式'
-            },
-            {
                 extend: 'excelHtml5',
-                text: '保存为excel格式'
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '保存为pdf格式'
+                text: '保存为excel格式',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/assetsbrow.json',
@@ -41,6 +34,12 @@ $(function(){
             {
                 title:'编号',
                 data:'number',
+            },
+            {
+                class:'checkeds',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
             },
             {
                 title:'资产编号',
@@ -81,13 +80,71 @@ $(function(){
             {
                 title:'存放位置',
                 data:'itsSystem',
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent":'<button class="btn btn-success">详情</button><button class="btn btn-success btn2">下载</button>'
             }
         ]
     });
+    //thead添加复选框
+    var creatCheckBox = '<input type="checkbox">';
+    $('.checkeds').prepend(creatCheckBox);
+    //tbody中的复选框添加事件
+    $('#information-datatables tbody').on( 'click', 'input', function () {
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+            $(this).parents('tr').css({'background':'#FBEC88'})
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+            $(this).parents('tr').css({'background':'#ffffff'})
+        }
+    } )
+        //双击改变背景颜色
+    .on('dblclick','tr',function(){
+        var e = event || window.event;
+        if(e.target.nodeName.toLowerCase() != 'input'){
+            //当前行变色
+            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
+            $(this).css({'background':'#FBEC88'});
+            markSize ();
+            $('.gongdanMarkBlock').hide();
+            $('.workDone').show();
+        }
+    })
+    /*窗口改变遮罩也改变*/
+    window.onresize = function(){
+        var display =  $('.gongdanMark')[0].style.display;
+        if(display == 'block'){
+            markSize ();
+        }
+    }
+    //遮罩大小改变
+    function markSize (){
+        var markWidth = document.documentElement.clientWidth;
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockWidth = $('.gongdanMarkBlock').width();
+        var markBlockHeight = $('.gongdanMarkBlock').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        var markBlockLeft = (markWidth - markBlockWidth)/2;
+        $('.gongdanMark').css({'width':markWidth,'height':markHeight});
+        $('.gongdanMark').show();
+        $('.gongdanMarkBlock').css({'top':markBlockTop,'left':markBlockLeft});
+    }
+    //关闭按钮
+    $('.closes').click(function(){
+        $('.gongdanMark').hide();
+    })
+    $('.closee').click(function(){
+        $('.gongdanMark').hide();
+    })
+    //点击thead复选框tbody的复选框全选中
+    $('#information-datatables thead').find('input').click(function(){
+        //$('#information-datatables tbody').find('input')
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            $('#information-datatables tbody').find('input').parents('.checker').children('span').addClass('checked');
+            //所有行的背景颜色置为黄色
+            $('#information-datatables tbody').find('tr').css({'background':'#fbec88'})
+        }else{
+            $('#information-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            $('#information-datatables tbody').find('tr').css({'background':'#ffffff'})
+        }
+    })
 })

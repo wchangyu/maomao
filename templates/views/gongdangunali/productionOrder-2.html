@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -26,6 +26,8 @@
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
+    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -33,11 +35,10 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
-    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
-    <script src="../resource/webUploader/webuploader.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -277,11 +278,12 @@
                                 <ul class="condition-query">
                                     <li><label for="">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
-                                            <input type="text" class="global_filter" id="global_filter">
+                                            <!--<input type="text" class="global_filter " id="global_filter">-->
+                                            <input type="text" class="filterInput">
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">报修科室：</label>
+                                        <label for="">报修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -305,7 +307,6 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -313,6 +314,8 @@
                                     <div class="main-contents-table">
                                         <table id="scrap-datatables" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
                                             <thead>
+                                                <!--<tr><th>吉林大学第一医院</th></tr>-->
+                                                <!--<tr><th>班组维修工作量统计 2017-03-01 00:00:00——2017-03-31 23:59:59</th></tr>-->
                                             </thead>
                                             <tbody>
                                             </tbody>
@@ -380,7 +383,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-1.js"></script>
+<script src="../resource/js/productionOrder-2.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -393,253 +396,304 @@
 
 
 <!--弹窗-->
-<div class="gongdanMark">
-    <!--待受理弹窗-->
-    <div class="gongdanMarkBlock workDone">
-        <div class="gongdanTitle">
-            <span>工单明细</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft" style="line-height: 26px;">
-                    <div class="labels colorTip">是否紧急 *：</div>
-                    <div class="input-blockeds">
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">是</label>
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">否</label>
-                    </div>
-                </li>
-                <script>
-                    $('.inpus').click(function(a){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $(this).parent('span').addClass('checked');
-                    })
-                </script>
-                <li class="floatRight">
-                    <div class="labels">报修电话：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">报修人信息 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修地点 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">报修科室：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修事项 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修事项分类：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
-                </div>
-                <div class="table-block">
-                    <div class="table-title">
-                        <span class="spanhover">执行人员</span>
-                        <span>维修材料</span>
-                    </div>
-                    <div class="tableHover" style="z-index: 1">
-                        <ul class="condition-query">
-                            <li style="width: 133px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
-                                    </div>
+<!--模态框登记创建工单-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 585px;">
+        <div class="modal-content" style="height: 585px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">创建工单</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <ul class="gongdanList" id="myApp33">
+                    <validator name="validation">
+                        <form novalidate>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">是否紧急 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios"><label for="ones">是</label>
+                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios"><label for="twos">否</label>
                                 </div>
                             </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTable1">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="tableHover">
-                        <ul class="condition-query">
-                            <li style="width: 76px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
-                                    </div>
+                            <li class="floatRight">
+                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.telephones">请输入格式正确的电话号码</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['telephones']" initial='off'>
                                 </div>
                             </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off' >
+                                </div><!--v-model="person"--><!--initial='off' detect-change="off"-->
                             </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">维修地点 *：<span v-if="$validation.place.persons">维修地点不能为空</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="place"  v-validate:place="['persons']" initial='off' >
+                                </div><!--v-model="place"-->
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">报修部门：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="section">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">维修事项 *：<span v-if="$validation.matter.persons">维修事项不能为空</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
+                                </div><!--v-model="matter"-->
+                            </li>
+                            <div class="clearfix"></div>
+                            <div>
+                                <div class="labels">报修备注：</div>
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                            </div>
+                            <div>
+                                <div class="labels">维修备注：</div>
+                                <textarea style="width: 100%;height: 60px;outline: none" disabled="true" ></textarea>
+                            </div>
+                        </form>
+                    </validator>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框详细工单-->
+    <div class="modal fade modals" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel1">工单详情</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="gongdanContent">
+                        <ul class="gongdanList" id="workDone">
+                            <li class="floatLeft">
+                                <div class="labels">报修电话：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="baoxiudianhua">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">报修人信息：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="baoxiuren">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">报修部门 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="baoxiukeshis">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">报修地点 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="baoxiudidians">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">维修事项 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="weixiushixiangs">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">维修设备：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="weixiushebei">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">维修部门 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="weixiukeshis">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                            <div>
+                                <div class="labels">报修备注：</div>
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
+                            </div>
+                            <div>
+                                <div class="labels">维修备注：</div>
+                                <textarea style="width: 100%;height: 60px;outline: none" disabled="true"></textarea>
+                            </div>
+                            <div class="table-block">
+                                <div class="table-title">
+                                    <span class="spanhover">执行人员</span>
+                                    <span>维修材料</span>
+                                </div>
+                                <div class="tableHover" style="z-index: 1">
+                                    <ul class="condition-query">
+                                        <li style="width: 133px;">
+                                            <div class="cont-col1" style="cursor: pointer">
+                                                <div class="label label-sm label-warning zhiXingRenYuanButton" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <table class="table table-hover" id="personTable1">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="tableHover">
+                                    <ul class="condition-query" style="margin-left: 10px;">
+                                        <li style="width: 133px;">
+                                            <div class="cont-col1" style="cursor: pointer">
+                                                <div class="label label-sm label-warning tianJiaCaiLiao" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <table class="table table-hover" id="personTables1">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </ul>
-                        <table class="table table-hover" id="personTables1">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
                     </div>
                 </div>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm firstButton paigongButton">派工</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
-    <!--登记创建工单-->
-    <div class="gongdanMarkBlock createGongdan">
-        <div class="gongdanTitle">
-            <span>创建工单</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft" style="line-height: 26px;">
-                    <div class="labels colorTip">是否紧急 *：</div>
-                    <div class="input-blockeds">
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">是</label>
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">否</label>
-                    </div>
-                </li>
-                <script>
-                    $('.inpus').click(function(a){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $(this).parent('span').addClass('checked');
-                    })
-                </script>
-                <li class="floatRight">
-                    <div class="labels">报修电话：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">报修人信息 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修地点 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">报修科室：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修事项 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修事项分类：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+<!--模态框增加执行人员-->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 360px;">
+            <div class="modal-content" style="height: 520px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabe2">添加执行人员</h4>
                 </div>
-                <div class="table-block">
-                    <div class="table-title">
-                        <span class="spanhover">执行人员</span>
-                        <span>维修材料</span>
-                    </div>
-                    <div class="tableHover" style="z-index: 1">
-                        <ul class="condition-query">
-                            <li style="width: 133px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
+                <div class="modal-body">
+                    <div class="gongdanContent" style="height: 360px;">
+                        <ul class="gongdanList" id="zhiXingRen">
+                            <validator name="validation">
+                                <form novalidate>
+                                    <li class="floatLeft">
+                                        <div class="labels colorTip">姓名 * ：<span class="colorTip" v-if="$validation.zhixingren.persons">姓名不能为空</span></div>
+                                        <div class="input-blockeds">
+                                            <input type="text" v-model="zhixingren" v-validate:zhixingren="['persons']" initial='off'>
+                                        </div>
+                                    </li>
+                                    <li class="floatRight">
+                                        <div class="labels colorTip">工号 * ：<span class="colorTip" v-if="$validation.gonghao.persons">工号不能为空</span></div>
+                                        <div class="input-blockeds">
+                                            <input type="text" v-model="gonghao" v-validate:gonghao="['persons']" initial='off'>
+                                        </div>
+                                    </li>
+                                    <li class="floatLeft">
+                                        <div class="labels colorTip">电话 * ：<span class="colorTip" v-if="$validation.dianhua.persons">电话不能为空</span></div>
+                                        <div class="input-blockeds">
+                                            <input type="text" v-model="dianhua" v-validate:dianhua="['persons']" initial='off'>
+                                        </div>
+                                    </li>
+                                    <li class="floatRight">
+                                        <button type="button" class="btn btn-success tianJiaPerson" style="margin-top: 27px;">添加</button>
+                                        <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                            <span>该工号员工已存在</span>
+                                        </div>
+                                    </li>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </validator>
                         </ul>
-                        <table class="table table-hover" id="personTable">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="tableHover">
-                        <ul class="condition-query">
-                            <li style="width: 76px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTables">
+                        <table id="zhiXingPerson" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
                             <thead></thead>
                             <tbody></tbody>
                         </table>
                     </div>
                 </div>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary secondButton confirm">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
+<!--模态框添加维修材料-->
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabe3">操作维修材料</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="gongdanContent" style="height: 360px;">
+                            <ul class="gongdanList" id="weiXiuCaiLiao">
+                                <li class="floatLeft">
+                                    <div class="labels">材料类型：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="caiLiaoFenXi">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels">维修材料：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="weiXiuCaiLiao">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">数量：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="shuLiang">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <button type="button" class="btn btn-success tianJiaCai" style="margin-top: 27px;">添加</button>
+                                    <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                        <span>该工号员工已存在</span>
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </ul>
+                            <table id="weiXiuCaiLiaoTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary secondButtons">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+<!--所有提示框-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 <!-- END BODY -->

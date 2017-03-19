@@ -3,7 +3,7 @@ $(function(){
     assets();
     var ztreeSettings = {
         check: {
-            enable: true,
+            enable: false,
             chkStyle: "radio",
             chkboxType: { "Y": "ps", "N": "ps" },
             radioType: 'all'
@@ -46,10 +46,6 @@ $(function(){
         $(this).parents('.input-select').children('input').val($(this).html());
         $(this).parent().hide();
     });
-    //新增资产
-    $('.btn2').click(function(){
-        $('.new-form').toggle();
-    });
     //资产浏览表格
     $('#browse-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -75,16 +71,9 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                extend:'csvHtml5',
-                text:'保存csv格式'
-            },
-            {
                 extend: 'excelHtml5',
-                text: '保存为excel格式'
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '保存为pdf格式'
+                text: '保存为excel格式',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/assetsbrow.json',
@@ -92,6 +81,12 @@ $(function(){
             {
                 title:'编号',
                 data:'number',
+            },
+            {
+                class:'checkeds',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
             },
             {
                 title:'资产编号',
@@ -136,12 +131,6 @@ $(function(){
             {
                 title:'所属系统',
                 data:'itsSystem',
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent":'<button class="btn btn-success" onclick="CreateTable()">详情</button><button class="btn btn-success btn2">编辑</button><button class="btn btn-success">删除</button>'
             }
         ]
     });
@@ -166,6 +155,44 @@ $(function(){
     $('.close').live('click',function(){
         $(this).parents('#main').hide();
     });
+
+    //thead添加复选框
+    var creatCheckBox = '<input type="checkbox">';
+    $('.checkeds').prepend(creatCheckBox);
+
+    //tbody中的复选框添加事件
+    $('#browse-datatables tbody').on( 'click', 'input', function () {
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+            $(this).parents('tr').css({'background':'#FBEC88'})
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+            $(this).parents('tr').css({'background':'#ffffff'})
+        }
+    } )
+        .on('dblclick','tr',function(){
+            var e = event || window.event;
+            if(e.target.nodeName.toLowerCase() != 'input'){
+                console.log(e.target.nodeName.toLowerCase())
+                //当前行变色
+                $('#browse-datatables tbody').children('tr').css({'background':'#ffffff'});
+                $(this).css({'background':'#FBEC88'});
+            }
+        })
+
+    //点击thead复选框tbody的复选框全选中
+    $('#browse-datatables thead').find('input').click(function(){
+        //$('#information-datatables tbody').find('input')
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            $('#browse-datatables tbody').find('input').parents('.checker').children('span').addClass('checked');
+            //所有行的背景颜色置为黄色
+            $('#browse-datatables tbody').find('tr').css({'background':'#fbec88'})
+        }else{
+            $('#browse-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            $('#browse-datatables tbody').find('tr').css({'background':'#ffffff'})
+        }
+    })
 })
 var zNodes = [];
 function assets(){

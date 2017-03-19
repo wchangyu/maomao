@@ -420,7 +420,7 @@
       "资产管理":{
         "type":"0",
         "content":"资产管理",
-        "uri":"../zhishikuguanli/assetManagement-1.html",
+        "uri":"../zichanguanli/assetManagement-1.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -428,7 +428,7 @@
       "资产报废":{
         "type":"0",
         "content":"资产报废",
-        "uri":"../zhishikuguanli/assetManagement-2.html",
+        "uri":"../zichanguanli/assetManagement-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -436,7 +436,7 @@
       "资产资料":{
         "type":"0",
         "content":"资产资料",
-        "uri":"../zhishikuguanli/assetManagement-3.html",
+        "uri":"../zichanguanli/assetManagement-3.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -444,7 +444,7 @@
       "字典管理":{
         "type":"0",
         "content":"字典管理",
-        "uri":"../zhishikuguanli/assetManagement-4.html",
+        "uri":"../zichanguanli/assetManagement-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -697,10 +697,10 @@
         "arg":"",
         "iconclass":""
       },
-      "工单派工管理":{
+      "工单接单管理":{
         "type":"0",
-        "content":"工单派工管理",
-        "uri":"../gongdangunali/productionOrder-3.html",
+        "content":"工单接单管理",
+        "uri":"../gongdangunali/productionOrder-7.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -725,6 +725,46 @@
         "type":"0",
         "content":"工单综合调查",
         "uri":"../gongdangunali/productionOrder-6.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "班组维修工作量统计报表":{
+        "type":"0",
+        "content":"部门维修工作量统计报表",
+        "uri":"../baobiaoguanli/reportManagement-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "员工维修工作量统计报表":{
+        "type":"0",
+        "content":"员工维修工作量统计报表",
+        "uri":"../baobiaoguanli/reportManagement-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "调度中心工作量统计报表":{
+        "type":"0",
+        "content":"调度中心工作量统计报表",
+        "uri":"../baobiaoguanli/reportManagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "部门报修量统计报表":{
+        "type":"0",
+        "content":"部门报修量统计报表",
+        "uri":"../baobiaoguanli/reportManagement-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "维修满意度统计报表":{
+        "type":"0",
+        "content":"维修满意度统计报表",
+        "uri":"../baobiaoguanli/reportManagement-6.html",
         "uid":"",
         "arg":"",
         "iconclass":""

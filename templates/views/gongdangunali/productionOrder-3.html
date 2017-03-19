@@ -26,6 +26,7 @@
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -281,7 +282,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">报修科室：</label>
+                                        <label for="">报修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -296,15 +297,15 @@
                                             <input type="text" class="datatimeblock max" name="max">
                                         </div>
                                     </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
                                     <li>
-                                        <label for="">维修科室：</label>
+                                        <label for="">维修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
                                     </li>
+                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
+                                    <li><button class="btn btn-success btn1">打印</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -379,7 +380,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-1.js"></script>
+<script src="../resource/js/productionOrder-3.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -392,391 +393,24 @@
 
 
 <!--弹窗-->
-<div class="gongdanMark">
-    <!--待完工 待接收任务-->
-    <div class="gongdanMarkBlock" style="display: none" >
-        <div class="gongdanTitle">
-            <span>工单明细</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft">
-                    <div class="labels">报修电话：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">报修人信息：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">报修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修地点 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修事项 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修事项分类：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">维修数量：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修设备：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+<!--模态框详情-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">工单明细</h4>
                 </div>
-                <div>
-                    <div class="labels">班组备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+                <div class="modal-body">
+
                 </div>
-                <div class="table-block">
-                    <div class="table-title">
-                        <span class="spanhover">执行人员</span>
-                        <span>维修材料</span>
-                    </div>
-                    <div class="tableHover" style="z-index: 1">
-                        <ul class="condition-query">
-                            <li style="width: 133px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-danger">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTable">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="tableHover">
-                        <ul class="condition-query" style="margin-left: 10px;">
-                            <li style="width: 76px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-danger">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTables">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
-    <!--待派工-->
-    <div class="gongdanMarkBlock workDone">
-        <div class="gongdanTitle">
-            <span>工单明细</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft" style="line-height: 26px;">
-                    <div class="labels colorTip">是否紧急 *：</div>
-                    <div class="input-blockeds">
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">是</label>
-                        <input type="radio" class="inpus" style="margin-left: -10px !important;"><label for="">否</label>
-                    </div>
-                </li>
-                <script>
-                    $('.inpus').click(function(a){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $(this).parent('span').addClass('checked');
-                    })
-                </script>
-                <li class="floatRight">
-                    <div class="labels">报修电话：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">报修人信息 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修地点 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">报修科室：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修事项 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修事项分类 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
-                </div>
-                <div class="table-block">
-                    <div class="table-title">
-                        <span class="spanhover">执行人员</span>
-                        <span>维修材料</span>
-                    </div>
-                    <div class="tableHover" style="z-index: 1">
-                        <ul class="condition-query">
-                            <li style="width: 133px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTable2">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                        <script>
-                            var tables = $('#personTable2').DataTable({
-                                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                                "paging": false,   //是否分页
-                                "destroy": true,//还原初始化了的datatable
-                                "searching": false,
-                                "ordering": false,
-                                'language': {
-                                    'emptyTable': '没有数据',
-                                    'loadingRecords': '加载中...',
-                                    'processing': '查询中...',
-                                    'lengthMenu': '每页 _MENU_ 条',
-                                    'zeroRecords': '没有数据',
-                                    'info': '第_PAGE_页/共_PAGES_页',
-                                    "sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-                                    'infoEmpty': '没有数据',
-                                    'paginate':{
-                                        "previous": "上一页",
-                                        "next": "下一页",
-                                        "first":"首页",
-                                        "last":"尾页"
-                                    }
-                                },
-                                'buttons': [
-                                    {
-                                        extend: 'excelHtml5',
-                                        text: '保存为excel格式',
-                                    }
-                                ],
-                                "ajax":'../resource/data/gongdanData.json',
-                                "dom":'B<"clear">lfrtip',
-                                "columns": [
-                                    {
-                                        title:' ',
-                                        "targets": -1,
-                                        "data": null,
-                                        "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
-                                    },
-                                    {
-                                        title:'工单状态',
-                                        data:'gongdanzhuangtai'
-                                    },
-                                    {
-                                        title:'报修科室',
-                                        data:'baoxiukeshi'
-                                    },
-                                    {
-                                        title:'维修事项',
-                                        data:'weixiushixiang'
-                                    },
-                                    {
-                                        title:'维修地点',
-                                        data:'weixiudidian'
-                                    },
-                                    {
-                                        title:'登记时间',
-                                        data:'time'
-                                    },
-                                    {
-                                        title:'操作',
-                                        "targets": -1,
-                                        "data": null,
-                                        "defaultContent": "------"
-                                    }
-                                ]
-                            });
-                        </script>
-                    </div>
-                    <div class="tableHover">
-                        <ul class="condition-query" style="margin-left: 10px;">
-                            <li style="width: 76px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTables2">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                        <script>
-                            var tables = $('#personTables2').DataTable({
-                                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                                "paging": false,   //是否分页
-                                "destroy": true,//还原初始化了的datatable
-                                "searching": false,
-                                "ordering": false,
-                                'language': {
-                                    'emptyTable': '没有数据',
-                                    'loadingRecords': '加载中...',
-                                    'processing': '查询中...',
-                                    'lengthMenu': '每页 _MENU_ 条',
-                                    'zeroRecords': '没有数据',
-                                    'info': '第_PAGE_页/共_PAGES_页',
-                                    "sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-                                    'infoEmpty': '没有数据',
-                                    'paginate':{
-                                        "previous": "上一页",
-                                        "next": "下一页",
-                                        "first":"首页",
-                                        "last":"尾页"
-                                    }
-                                },
-                                'buttons': [
-                                    {
-                                        extend: 'excelHtml5',
-                                        text: '保存为excel格式',
-                                    }
-                                ],
-                                "ajax":'../resource/data/gongdanData.json',
-                                "dom":'B<"clear">lfrtip',
-                                "columns": [
-                                    {
-                                        title:' ',
-                                        "targets": -1,
-                                        "data": null,
-                                        "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
-                                    },
-                                    {
-                                        title:'工单状态',
-                                        data:'gongdanzhuangtai'
-                                    },
-                                    {
-                                        title:'报修科室',
-                                        data:'baoxiukeshi'
-                                    },
-                                    {
-                                        title:'维修事项',
-                                        data:'weixiushixiang'
-                                    },
-                                    {
-                                        title:'维修地点',
-                                        data:'weixiudidian'
-                                    },
-                                    {
-                                        title:'登记时间',
-                                        data:'time'
-                                    },
-                                    {
-                                        title:'操作',
-                                        "targets": -1,
-                                        "data": null,
-                                        "defaultContent": "------"
-                                    }
-                                ]
-                            });
-                        </script>
-                    </div>
-                </div>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 </body>
 <!-- END BODY -->
 </html>

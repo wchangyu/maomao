@@ -545,7 +545,7 @@ function monthDate(){
 	$('#datetimepicker').datepicker('destroy');
 	$('#datetimepicker').datepicker({
 		startView: 1,
-		maxViewMode: 1,
+		maxViewMode: 2,
 		minViewMode:1,
 		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
 		language: "zh-CN" //汉化

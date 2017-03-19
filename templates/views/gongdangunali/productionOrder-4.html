@@ -26,6 +26,7 @@
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -54,7 +55,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style type="text/css" media=print>
+        .noprint{display : none }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -228,7 +231,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
+            <h3 class="page-title noprint">
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -271,17 +274,17 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">工单操作</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
                                     <li><label for="">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <input type="text" class="global_filter" id="global_filter">
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">报修科室：</label>
+                                        <label for="">报修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -297,14 +300,14 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">维修科室：</label>
+                                        <label for="">维修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -379,7 +382,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-1.js"></script>
+<script src="../resource/js/productionOrder-4.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -389,136 +392,96 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
-
-
-<!--弹窗-->
-<div class="gongdanMark">
-    <!--待评价-->
-    <div class="gongdanMarkBlock workDone">
-        <div class="gongdanTitle">
-            <span>工单明细</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft">
-                    <div class="labels">报修电话：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">报修人信息：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">报修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">维修地点 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修事项 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修事项分类：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">维修数量：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">维修设备：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">维修科室 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+<!--模态框详情-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: 665px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">工单明细</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent">
+                    <ul class="gongdanList" id="myApp33">
+                        <li class="floatLeft" style="line-height: 26px;">
+                            <div class="labels colorTip">是否紧急 *：</div>
+                            <div class="input-blockeds">
+                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios"><label for="ones">是</label>
+                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios"><label for="twos">否</label>
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels ">报修电话：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="telephone" class="shishi" maxlength="10">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels colorTip">报修人信息 *：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="person">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels colorTip">维修地点 *：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="place">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">报修部门：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="section">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels colorTip">维修事项 *：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="matter">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels colorTip">维修部门 *：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sections">
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="labels">报修备注：</div>
+                            <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                        </div>
+                        <div>
+                            <div class="labels">维修备注：</div>
+                            <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
+                        </div>
+                        <div class="table-block">
+                            <div class="table-title">
+                                <span class="spanhover">执行人员</span>
+                                <span>维修材料</span>
+                            </div>
+                            <div class="tableHover" style="z-index: 1">
+                                <table class="table table-hover" id="personTable1">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="tableHover">
+                                <table class="table table-hover" id="personTables1">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ul>
                 </div>
-                <div>
-                    <div class="labels">班组备注：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
-                </div>
-                <div class="table-block">
-                    <div class="table-title">
-                        <span class="spanhover">执行人员</span>
-                        <span>维修材料</span>
-                    </div>
-                    <div class="tableHover" style="z-index: 1">
-                        <ul class="condition-query">
-                            <li style="width: 133px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>选择执行人员
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTable">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="tableHover">
-                        <ul class="condition-query" style="margin-left: 10px;">
-                            <li style="width: 76px;">
-                                <div class="cont-col1" style="cursor: pointer">
-                                    <div class="label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn btn-default">删除</button>
-                            </li>
-                        </ul>
-                        <table class="table table-hover" id="personTables">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
-    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 <!-- END BODY -->

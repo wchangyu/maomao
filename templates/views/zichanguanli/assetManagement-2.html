@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -304,7 +305,11 @@
                                         </select>
                                     </li>
                                     <li><button class="btn btn-success btn1">查询</button></li>
-                                    <li><button class="btn btn-success btn2">报废</button>
+                                    <li>
+                                        <button type="button" class="btn red delete">
+                                            <i class="fa fa-trash"></i>
+                                            <span>报废</span>
+                                        </button>
                                     </li>
                                     <li><button class="btn btn-success btn2">恢复正常</button>
                                     </li>
@@ -316,7 +321,7 @@
                                 </ul>
                                 <div class="content-main-contents">
                                     <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-striped b-t b-light" cellspacing="0" width="100%">
+                                        <table id="scrap-datatables" class="table table-condensed b-t b-light" cellspacing="0" width="100%">
                                             <thead>
                                             </thead>
                                             <tbody>

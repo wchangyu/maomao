@@ -24,16 +24,9 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                extend:'csvHtml5',
-                text:'保存csv格式'
-            },
-            {
                 extend: 'excelHtml5',
-                text: '保存为excel格式'
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '保存为pdf格式'
+                text: '保存为excel格式',
+                className:'saveAs'
             }
         ],
         'ajax':'../resource/data/assetsbrow.json',
@@ -92,9 +85,34 @@ $(function(){
         console.log($(this).parents('.checker').children('.checked').length);
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
-            //console.log($(this).parents('.checker').children('ckecked').length);
+            $(this).parents('tr').css({'background':'#FBEC88'})
         }else{
             $(this).parent($('span')).removeClass('checked');
+            $(this).parents('tr').css({'background':'#ffffff'})
         }
-    } );
+    } )
+    /*给表格添加双击事件*/
+    //双击改变背景颜色
+    .on('dblclick','tr',function(){
+        var e = event || window.event;
+        if(e.target.nodeName.toLowerCase() != 'input'){
+            //当前行变色
+            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
+            $(this).css({'background':'#FBEC88'});
+        }
+    })
+
+    //点击thead复选框tbody的复选框全选中
+    $('#scrap-datatables thead').find('input').click(function(){
+        //$('#information-datatables tbody').find('input')
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').addClass('checked');
+            //所有行的背景颜色置为黄色
+            $('#scrap-datatables tbody').find('tr').css({'background':'#fbec88'})
+        }else{
+            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            $('#scrap-datatables tbody').find('tr').css({'background':'#ffffff'})
+        }
+    })
 })

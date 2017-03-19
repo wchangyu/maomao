@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
+    <script src="../resource/webUploader/webuploader.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -267,7 +270,7 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <!-- 左边选择区域 -->
-                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                            <div class="content-main-left col-lg-2 col-md-3 col-sm-12 col-xs-12">
                                 <div class="content-main">
                                     <div class="main-left-middle">
                                         <div class="left-middle-header">范围选择</div>
@@ -280,7 +283,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="content-main-contents content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                            <div class="content-main-contents content-main-right col-lg-10 col-md-9 col-sm-12 col-xs-12">
                                 <ul class="content-main-contents-header">
                                     <li class="main-contents-header-lists0">条件查询</li>
                                 </ul>
@@ -291,205 +294,13 @@
                                     <li><button class="btn btn-success btn1">查询</button></li>
                                     <li><button class="btn btn-success btn2">新增资产</button>
                                     </li>
+                                    <li>
+                                        <button type="button" class="btn red delete">
+                                            <i class="fa fa-trash"></i>
+                                            <span>删除</span>
+                                        </button>
+                                    </li>
                                     <div class="clearfix"></div>
-                                </ul>
-                                <ul class="new-form">
-                                    <li>新增资产</li>
-                                    <li>
-                                        <label for="">资产类型（*）：</label>
-                                        <select name="" id="" class="select-block">
-                                            <option value="">阀门</option>
-                                            <option value="">空调</option>
-                                            <option value="">空调</option>
-                                            <option value="">空调机组</option>
-                                            <option value="">冷机</option>
-                                            <option value="">水泵</option>
-                                            <option value="">水泵</option>
-                                            <option value="">水泵</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label for="">资产名称（*）：</label>
-                                        <input type="text">
-                                    </li>
-                                    <li>
-                                        <label for="">拼音简码：</label>
-                                        <input type="text">
-                                    </li>
-                                    <li>
-                                        <label for="">所属区域（*）：</label>
-                                        <select name="" id="" class="select-block">
-                                            <option value="">京沪线</option>
-                                            <option value="">哈大线</option>
-                                            <option value="">沪宁线</option>
-                                            <option value="">中区14号楼</option>
-                                            <option value="">京沪线</option>
-                                            <option value="">哈大线</option>
-                                            <option value="">中区13号楼</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label for="">所属系统：</label>
-                                        <select name="" id="" class="select-block">
-                                            <option value="">空调</option>
-                                            <option value="">冷冻站</option>
-                                            <option value="">BAS</option>
-                                            <option value="">办公</option>
-                                            <option value="">其他</option>
-                                            <option value="">监控</option>
-                                            <option value="">通信</option>
-                                            <option value="">收费</option>
-                                            <option value="">供电</option>
-                                            <option value="">空调</option>
-                                            <option value="">冷冻站</option>
-                                            <option value="">BAS</option>
-                                            <option value="">办公</option>
-                                            <option value="">其他</option>
-                                            <option value="">监控</option>
-                                            <option value="">通信</option>
-                                            <option value="">收费</option>
-                                            <option value="">供电</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label for="">所属部门（*）：</label>
-                                        <select name="" id="" class="select-block">
-                                            <option value="">沧州西站</option>
-                                            <option value="">哈尔滨南站</option>
-                                            <option value="">华清安泰</option>
-                                            <option value="">廊坊站</option>
-                                            <option value="">上海虹桥</option>
-                                            <option value="">mc2</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label for="">状态：</label>
-                                        <select name="" id="" class="select-block">
-                                            <option value="">正常</option>
-                                            <option value="">维修中</option>
-                                            <option value="">报废</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label for="">品牌（*）：</label>
-                                        <div class="input-select">
-                                            <input type="text">
-                                            <select name="" id="">
-                                            </select>
-                                            <ul class="brands">
-                                                <li>约克</li>
-                                                <li>DB</li>
-                                                <li>约克</li>
-                                                <li>三菱</li>
-                                                <li>三一</li>
-                                                <li>北洋</li>
-                                                <li>西门子</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">型号规格（*）：</label>
-                                        <div class="input-select">
-                                            <input type="text">
-                                            <select name="" id="">
-                                            </select>
-                                            <ul class="brands">
-                                                <li>YRBTA1550C22</li>
-                                                <li>WCFXHP41TRG</li>
-                                                <li>JVC TK-C925EC</li>
-                                                <li>SFDG903</li>
-                                                <li>DN30</li>
-                                                <li>3000*2000*2500</li>
-                                                <li>500W 220V BS-JY-04</li>
-                                                <li>2000*1300*1200</li>
-                                                <li>6000*6000*3000</li>
-                                                <li>J092-MGS10/4</li>
-                                                <li>1500*1500*1000</li>
-                                                <li>J185-MGS16/2</li>
-                                                <li>J060-MGS10/3</li>
-                                                <li>4671.jxx</li>
-                                                <li>2jkk.8jkk</li>
-                                                <li>3jkk.5jkx</li>
-                                                <li>AP1,AP2</li>
-                                                <li>AP3</li>
-                                                <li>GL-AP1</li>
-                                                <li>4AA1(A),4AA(B)</li>
-                                                <li>2AA5,2AA6,2AA7</li>
-                                                <li>2AA8</li>
-                                                <li>4AA2</li>
-                                                <li>2AA3,2AA4</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">供应商：</label>
-                                        <div class="input-select">
-                                            <input type="text">
-                                            <select name="" id="">
-                                            </select>
-                                            <ul class="brands">
-                                                <li>三菱</li>
-                                                <li>三一</li>
-                                                <li>北洋</li>
-                                                <li>TEST1</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">生产商：</label>
-                                        <div class="input-select">
-                                            <input type="text">
-                                            <select name="" id="">
-                                            </select>
-                                            <ul class="brands">
-                                                <li>三菱</li>
-                                                <li>三一</li>
-                                                <li>北洋</li>
-                                                <li>TEST2</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">使用年限（年）（*）：</label>
-                                        <input type="text">
-                                    </li>
-                                    <li>
-                                        <label for="">保修年限（年）（*）：</label>
-                                        <input type="text">
-                                    </li>
-                                    <li>
-                                        <label for="">购置日期（*）：</label>
-                                        <input type="text" class="startsTime">
-                                    </li>
-                                    <li>
-                                        <label for="">安装日期（*）：</label>
-                                        <input type="text" class="startsTime">
-                                    </li>
-                                    <li>
-                                        <label for="">安装位置：</label>
-                                        <div class="input-select">
-                                            <input type="text">
-                                            <select name="" id="">
-                                            </select>
-                                            <ul class="brands">
-                                                <li>北候车厅</li>
-                                                <li>南候车厅</li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">设备描述</label>
-                                        <textarea name="" id=""></textarea>
-                                    </li>
-                                    <li>
-                                        <label for="">设备描述</label>
-                                        <input type="file" style="display: inline-block">
-                                    </li>
-                                    <li>
-                                        <button class="btn btn-success cancel"style="float:right">取消</button>
-                                        <button class="btn btn-success save"style="float:right;margin-right: 10px;">保存</button>
-
-                                    </li>
                                 </ul>
                                 <!-- 表格 -->
                                 <ul class="content-main-contents-header">
@@ -497,7 +308,7 @@
                                 </ul>
                                 <div class="content-main-contents">
                                     <div class="main-contents-table">
-                                        <table id="browse-datatables" class="table table-striped b-t b-light" cellspacing="0" width="100%">
+                                        <table id="browse-datatables" class="table table-condensed b-t b-light" cellspacing="0" width="100%">
                                             <thead>
                                             </thead>
                                             <tbody>
@@ -574,6 +385,7 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/js/js/assetManagement-1.js"></script>
+<script src="../resource/js/zichanguanli.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -583,6 +395,254 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
+
+<!--弹窗-->
+<div class="gongdanMark">
+    <div class="gongdanMarkBlock workDone" >
+        <div class="gongdanTitle">
+            <span>新增资产</span>
+            <span class="closes"></span>
+        </div>
+        <div class="gongdanContent">
+            <ul class="gongdanList">
+                <li class="floatLeft">
+                    <div class="labels colorTip">资产类型 *：</div>
+                    <div class="input-blockeds">
+                        <select name="" id="">
+                            <option value="">空调</option>
+                            <option value="">阀门</option>
+                            <option value="">水泵</option>
+                            <option value="">空调机组</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels colorTip">资产名称 *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">拼音简码：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels colorTip">所属区域 *：</div>
+                    <div class="input-blockeds">
+                        <select name="" id="">
+                            <option value="">京沪线</option>
+                            <option value="">哈大线</option>
+                            <option value="">沪宁线</option>
+                            <option value="">中区14号楼</option>
+                            <option value="">京沪线</option>
+                            <option value="">哈大线</option>
+                            <option value="">中区13号楼</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">所属系统：</div>
+                    <div class="input-blockeds">
+                        <select name="" id="">
+                            <option value="">空调</option>
+                            <option value="">冷冻站</option>
+                            <option value="">BAS</option>
+                            <option value="">办公</option>
+                            <option value="">其他</option>
+                            <option value="">监控</option>
+                            <option value="">通信</option>
+                            <option value="">收费</option>
+                            <option value="">供电</option>
+                            <option value="">空调</option>
+                            <option value="">冷冻站</option>
+                            <option value="">BAS</option>
+                            <option value="">办公</option>
+                            <option value="">其他</option>
+                            <option value="">监控</option>
+                            <option value="">通信</option>
+                            <option value="">收费</option>
+                            <option value="">供电</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">所属部门 *：</div>
+                    <div class="input-blockeds">
+                        <select name="" id="">
+                            <option value="">沧州西站</option>
+                            <option value="">哈尔滨南站</option>
+                            <option value="">华清安泰</option>
+                            <option value="">廊坊站</option>
+                            <option value="">上海虹桥</option>
+                            <option value="">mc2</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">状态：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels colorTip">品牌 *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels colorTip">型号规格 *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">供应商：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels">生产商：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels colorTip">使用年限（年） *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels colorTip">保修年限（年） *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels colorTip">购置日期 *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatRight">
+                    <div class="labels colorTip">安装日期 *：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <li class="floatLeft">
+                    <div class="labels">安装位置：</div>
+                    <div class="input-blockeds">
+                        <input type="text">
+                    </div>
+                </li>
+                <div class="clearfix"></div>
+                <div>
+                    <div class="labels">设备描述：</div>
+                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+                </div>
+                <div id="uploader" class="wu-example">
+                    <!--用来存放文件信息-->
+                    <div id="thelist" class="uploader-list"></div>
+                    <div class="btns">
+                        <div id="picker">选择文件</div>
+                        <button id="ctlBtn" class="btn btn-default">开始上传</button>
+                    </div>
+                </div>
+                <script>
+                    var $list=$("#thelist");//上传区域
+                    var $btn =$("#ctlBtn");//上传按钮
+                    var thumbnailWidth = 100;
+                    var thumbnailHeight = 100;
+                    //初始化设置
+                    var uploader = WebUploader.create({
+                        //选完文件是否上传
+                        /*auto:true,*/
+                        //swf的路径
+                        swf:'webuploader/Uploader.swf',
+                        //文件接收服务端
+                        server:'http://webuploader.duapp.com/server/fileupload.php',
+                        pick: '#picker',
+                        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                        resize: false
+                    });
+                    //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
+                    uploader.on( 'fileQueued', function( file ) {
+                        var $li = $(
+                                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                        '<img>' +
+                                        '<div class="info">' + file.name + '</div>' +
+                                        '<p class="state">等待上传...</p>' +
+                                        '</div>'
+                                ),
+                                $img = $li.find('img');
+
+                        // $list为容器jQuery实例
+                        $list.append( $li );
+
+                        // 创建缩略图
+                        // 如果为非图片文件，可以不用调用此方法。
+                        // thumbnailWidth x thumbnailHeight 为 100 x 100
+                        uploader.makeThumb( file, function( error, src ) {
+                            if ( error ) {
+                                $img.replaceWith('<span>不能预览</span>');
+                                return;
+                            }
+
+                            $img.attr( 'src', src );
+                        }, thumbnailWidth, thumbnailHeight );
+                    });
+                    //文件上传进度
+                    // 文件上传过程中创建进度条实时显示。
+                    uploader.on( 'uploadProgress', function( file, percentage ) {
+                        var $li = $( '#'+file.id ),
+                                $percent = $li.find('.progress .progress-bar');
+
+                        // 避免重复创建
+                        if ( !$percent.length ) {
+                            $percent = $('<div class="progress progress-striped active">' +
+                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                                    '</div>' +
+                                    '</div>').appendTo( $li ).find('.progress-bar');
+                        }
+
+                        $li.find('p.state').text('上传中');
+
+                        $percent.css( 'width', percentage * 100 + '%' );
+                    });
+                    //文件成功，失败处理
+                    uploader.on( 'uploadSuccess', function( file ) {
+                        $( '#'+file.id ).find('p.state').text('已上传');
+                    });
+
+                    uploader.on( 'uploadError', function( file ) {
+                        $( '#'+file.id ).find('p.state').text('上传出错00');
+                    });
+                    uploader.on( 'uploadComplete', function( file ) {
+                        $( '#'+file.id ).find('.progress').fadeOut();
+                    });
+                    $('#ctlBtn').click(function(){
+                        uploader.upload();
+                    })
+                </script>
+            </ul>
+        </div>
+        <div class="gongdanClose">
+            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
+                <li style="float: right">
+                    <button class="btn btn-default closee">关闭</button>
+                </li>
+                <li style="float: right">
+                    <button class="btn btn-success">确定</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 <!-- END BODY -->
 </html>
