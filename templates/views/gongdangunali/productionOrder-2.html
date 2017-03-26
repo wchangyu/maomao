@@ -417,9 +417,9 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.telephones">请输入格式正确的电话号码</span></div>
+                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['telephones']" initial='off'>
+                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatLeft">

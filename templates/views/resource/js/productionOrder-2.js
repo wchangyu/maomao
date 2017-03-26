@@ -14,9 +14,13 @@ $(function(){
     });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().add(1,'day').format('YYYY/MM/DD');
+    var _initEnd = moment().format('YYYY/MM/DD');
+    //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
+    //实际发送时间
+    var realityStart;
+    var realityEnd;
     //工单号
     var gdCode;
     //通过vue对象实现双向绑定
@@ -37,7 +41,7 @@ $(function(){
     //自定义验证器
     //手机号码
     Vue.validator('telephones', function (val) {
-        return /(^(\d{3,4}-)?\d{7,8})$|(^0?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8})$/.test(val)
+        return /^[0-9]*$/.test(val)
     })
     //验证必填项（非空）
     Vue.validator('persons', function (val) {
@@ -184,7 +188,6 @@ $(function(){
             "targets": -1
         }]
     });
-    //console.log(table.table().header());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
@@ -441,7 +444,6 @@ $(function(){
                 'gdZht':gongDanState,
                 'userID':_userIdName
             }
-            console.log(prm)
             //每次获取弹出框中执行人员的数量
             $.ajax({
                 type:'post',
@@ -490,17 +492,18 @@ $(function(){
     /*-------------------------------方法----------------------------------------*/
     //条件查询
     function conditionSelect(){
-        //alert(0);
         //获取条件
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        realityStart = filterInput[2] + ' 00:00:00';
+        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
             'gdCode':filterInput[0],
-            'gdSt':filterInput[2] + ' 00:00:00',
-            'gdEt':filterInput[3] + ' 00:00:00',
+            'gdSt':realityStart,
+            'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
             'wxKeshi':'',
             "gdZht": 1,
@@ -560,16 +563,31 @@ $(function(){
             'opacity':1
         })
     });
-    //close功能
-    $('.closes').click(function(){
-        $(this).parent().parent().parent().hide();
-    })
-    $('.closee').click(function(){
-        $(this).parents('.gongdanClose').parent().parent().hide();
-    })
     //查询按钮功能
     $('#selected').click(function(){
-        conditionSelect();
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal4').modal({
+                show:false,
+                backdrop:'static'
+            })
+            $('#myModal4').find('.modal-body').html('起止时间不能为空');
+            $('#myModal4').modal('show');
+            moTaiKuang2();
+        }else{
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal4').modal({
+                    show:false,
+                    backdrop:'static'
+                })
+                $('#myModal4').find('.modal-body').html('起止时间不能大于结束时间');
+                $('#myModal4').modal('show');
+                moTaiKuang2();
+            }else{
+                conditionSelect();
+            }
+        }
     })
     //重置按钮功能
     $('.resites').click(function(){
@@ -648,7 +666,6 @@ $(function(){
                 type:'post',
                 data:gdInfo,
                 success:function(result){
-                    console.log(result);
                     $('#myModal1').modal('hide');
                     conditionSelect();
                 }
@@ -705,6 +722,9 @@ $(function(){
     });
     $('.confirm1').click(function(){
         $('#myModal4').modal('hide');
+    })
+    $('.confirm').click(function(){
+        $(this).parents('.modal').modal('hide');
     })
     /*----------------------------------添加执行人员功能-----------------------------------*/
     //点击选择执行人员按钮
@@ -959,20 +979,17 @@ $(function(){
             "gdWxCls":cailiaoInfo,
             "userID":_userIdName
         }
-        //console.log(cailiaoInfo);
         $.ajax({
             url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDAddWxCl',
             type:'post',
             data:gdWxCl,
             success:function(result){
-                console.log(result);
                 conditionSelect();
             }
         })
     }
     function removeCaiLiao(){
         var cailiaoInfo = [];
-        console.log(_weiXiuCaiLiao)
         for(var i=0;i<_weiXiuCaiLiao.length;i++){
             var object = {};
             object.wxClID = 0;
@@ -987,13 +1004,11 @@ $(function(){
             "gdWxCls":cailiaoInfo,
             "userID":_userIdName
         }
-        console.log(cailiaoInfo);
         $.ajax({
             url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDDelWxCl',
             type:'post',
             data:gdWC,
             success:function(result){
-                console.log(result);
                 conditionSelect();
             }
         })
@@ -1010,7 +1025,6 @@ $(function(){
     function moTaiKuang2(){
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = $('#myModal4').find('.modal-dialog').height();
-        console.log(markBlockHeight);
         var markBlockTop = (markHeight - markBlockHeight)/2;
         $('#myModal4').find('.modal-dialog').css({'margin-top':markBlockTop});
     }

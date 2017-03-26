@@ -8,10 +8,14 @@ $(function (){
         format: 'yyyy/mm/dd'
     });
     //设置初始时间
-    var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().add(1,'day').format('YYYY/MM/DD');
+    var _initStart = moment().startOf('month').format('YYYY/MM/DD');
+    var _initEnd = moment().endOf('month').format('YYYY/MM/DD');
+    //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
+    //实际发送时间
+    var realityStart;
+    var realityEnd;
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
     /*-------------------------表格初始化--------------------------*/
@@ -64,9 +68,6 @@ $(function (){
             {
                 title:'未完工量',
                 data:'gdWwgNum'
-            },
-            {
-                title:'耗时总计'
             }
         ]
     });
@@ -104,6 +105,7 @@ $(function (){
         "dom":'B<"clear">lfrtip',
         "columns": [
             {
+                name: 'second',
                 title:'报修部门',
                 data:'bxKeshi'
             },
@@ -125,12 +127,21 @@ $(function (){
             },
             {
                 title:'维修耗时',
-                data:'wxShij'
-            },
-            {
-                title:'耗时总计'
+                data:'wxShij',
+                render:function(data, type, full, meta){
+                    return data.toFixed(2);
+                }
             }
-        ]
+        ],
+        rowsGroup: [
+            'second:name',
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
     });
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
@@ -148,10 +159,11 @@ $(function (){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        console.log(filterInput);
+        realityStart = filterInput[0] + ' 00:00:00';
+        realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            'gdSt':filterInput[0],
-            'gdEt':filterInput[1],
+            'gdSt':realityStart,
+            'gdEt':realityEnd,
             'wxKeshi':filterInput[3],
             'bxKeshi':filterInput[2],
             'userID':_userIdName
@@ -186,7 +198,32 @@ $(function (){
     /*--------------------------按钮功能------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect();
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal2').modal({
+                show:false,
+                backdrop:'static'
+            })
+            $('#myModal2').find('.modal-body').html('起止时间不能为空');
+            $('#myModal2').modal('show');
+            moTaiKuang2();
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal2').modal({
+                    show:false,
+                    backdrop:'static'
+                })
+                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
+                $('#myModal2').modal('show');
+                moTaiKuang2();
+            }else{
+                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                $('#scrap-datatables1').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                conditionSelect();
+            }
+        }
+
     })
     //重置按钮
     $('.resites').click(function(){
@@ -198,7 +235,19 @@ $(function (){
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
     })
+    //提示框的确定
+    $('.confirm1').click(function(){
+        $('#myModal2').modal('hide');
+    })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    /*----------------------------模态框自适应------------------------------*/
+    //提示框
+    function moTaiKuang2(){
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+    }
 })

@@ -412,7 +412,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons">请输入电话号码</span></div>
+                                    <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                     </div>
@@ -424,7 +424,7 @@
                                     </div><!--v-model="person"--><!--initial='off' detect-change="off"-->
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels colorTip">维修地点 *：<span v-if="$validation.place.persons">维修地点不能为空</span></div>
+                                    <div class="labels colorTip">维修地点 *：<span v-show="$validation.place.persons">维修地点不能为空</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                     </div><!--v-model="place"-->
@@ -436,7 +436,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels colorTip">维修事项 *：<span v-if="$validation.matter.persons">维修事项不能为空</span></div>
+                                    <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
                                     </div><!--v-model="matter"-->

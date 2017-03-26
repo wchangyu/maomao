@@ -11,9 +11,13 @@ $(function(){
     });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().add(1,'day').format('YYYY/MM/DD');
+    var _initEnd = moment().format('YYYY/MM/DD');
+    //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
+    //实际发送时间
+    var realityStart;
+    var realityEnd;
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -226,10 +230,12 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        realityStart = filterInput[2] + ' 00:00:00';
+        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
             "gdCode":filterInput[0],
-            "gdSt":filterInput[2] + ' 00:00:00',
-            "gdEt":filterInput[3] + ' 00:00:00',
+            "gdSt":realityStart,
+            "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
             "gdZht":0,
@@ -307,7 +313,29 @@ $(function(){
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect();
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal2').modal({
+                show:false,
+                backdrop:'static'
+            })
+            $('#myModal2').find('.modal-body').html('起止时间不能为空');
+            $('#myModal2').modal('show');
+            moTaiKuang2();
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal2').modal({
+                    show:false,
+                    backdrop:'static'
+                })
+                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
+                $('#myModal2').modal('show');
+                moTaiKuang2();
+            }else{
+                conditionSelect();
+            }
+        }
     })
     //重置按钮功能
     $('.resites').click(function(){
@@ -336,6 +364,10 @@ $(function(){
         }
         getGongDan();
         $('#myModal').modal('hide');
+    })
+    //提示框的确定
+    $('.confirm1').click(function(){
+        $('#myModal2').modal('hide');
     })
     //关闭按钮
     /*----------------------------表格绑定事件-----------------------------------*/
@@ -366,6 +398,7 @@ $(function(){
                 backdrop:'static'
             })
             $('#myModal').modal('show');
+            moTaiKuang();
             //获取详情
             var gongDanState = $this.children('td').eq(2).html();
             var gongDanCode = $this.children('td').eq(0).html();
@@ -437,5 +470,20 @@ $(function(){
         });
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
+    /*-----------------------------------------模态框位置自适应------------------------------------------*/
+    //第一层
+    function moTaiKuang(){
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = $('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        $('.modal-dialog').css({'margin-top':markBlockTop});
+    }
+    //提示框
+    function moTaiKuang2(){
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+    }
 })

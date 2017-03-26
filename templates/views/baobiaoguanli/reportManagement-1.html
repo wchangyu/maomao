@@ -311,7 +311,10 @@
                                 </div>
                                 <!--echarts图-->
                                 <p style="height: 30px;border-bottom: 1px solid #808080;line-height: 30px;" class="noprint">图例</p>
-                                <div class="echartsBlock noprint" id="echarts"></div>
+                                <div style="height: 300px;overflow: hidden">
+                                    <div class="echartsBlock noprint" id="echarts"></div>
+                                    <div class="dataEmpty" style="text-align: center;line-height: 300px;font-size: 20px;"></div>
+                                </div>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -382,6 +385,23 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
+<!--模态框提示框-->
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 <!-- END BODY -->
 </html>

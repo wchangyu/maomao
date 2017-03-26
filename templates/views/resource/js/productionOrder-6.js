@@ -11,7 +11,11 @@ $(function(){
     });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().add(1,'day').format('YYYY/MM/DD');
+    var _initEnd = moment().format('YYYY/MM/DD');
+    //显示时间
+    $('.min').val(_initStart);
+    $('.max').val(_initEnd);
+    //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
     //弹出框信息绑定vue对象
@@ -163,8 +167,8 @@ $(function(){
                 data:'wxRName'
             },
             {
-                title:'科室',
-                data:'wxKeshi'
+                title:'工号',
+                data:'wxRen'
             },
             {
                 title:'联系电话',
@@ -223,10 +227,12 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        realityStart = filterInput[2] + ' 00:00:00';
+        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
             "gdCode":filterInput[0],
-            "gdSt":filterInput[2] + ' 00:00:00',
-            "gdEt":filterInput[3] + ' 00:00:00',
+            "gdSt":realityStart,
+            "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
             "gdZht":0,
@@ -242,11 +248,7 @@ $(function(){
             url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDJ',
             data:prm,
             async:false,
-            /*beforeSend:function(){
-                $('#loading').show();
-            },*/
             success:function(result){
-                console.log(result);
                 if(result.length == 0){
                     var table = $("#scrap-datatables").dataTable();
                     table.fnClearTable();
@@ -270,23 +272,6 @@ $(function(){
     var lastIdx = null;
     var _currentChexiao = false;
     var _currentClick;
-    clickTimeout = {
-        _timeout: null,
-        /**
-         *
-         */
-        set: function (fn) {
-            var that = this;
-            that.clear();
-            that._timeout = window.setTimeout(fn, 300);
-        },
-        clear: function () {
-            var that = this;
-            if (that._timeout) {
-                window.clearTimeout(that._timeout);
-            }
-        }
-    }
     clickTimeout = {
         _timeout: null,
         /**
@@ -350,7 +335,6 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     var indexs = result.gdZht;
                     $('.progressBar').children('li').css({'color':'#333333'});
                     for(var i=0;i<indexs;i++){
@@ -498,7 +482,29 @@ $(function(){
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect();
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal3').modal({
+                show:false,
+                backdrop:'static'
+            })
+            $('#myModal3').find('.modal-body').html('起止时间不能为空');
+            $('#myModal3').modal('show');
+            moTaiKuang3();
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal3').modal({
+                    show:false,
+                    backdrop:'static'
+                })
+                $('#myModal3').find('.modal-body').html('起止时间不能大于结束时间');
+                $('#myModal3').modal('show');
+                moTaiKuang3();
+            }else{
+                conditionSelect();
+            }
+        }
     })
     //重置按钮功能
     $('.resites').click(function(){
@@ -533,14 +539,12 @@ $(function(){
     function moTaiKuang1(){
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = $('#myModal1').find('.modal-dialog').height();
-        //console.log(markBlockHeight);
         var markBlockTop = (markHeight - markBlockHeight)/2;
         $('#myModal1').find('.modal-dialog').css({'margin-top':markBlockTop});
     }
     function moTaiKuang3(){
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = $('#myModal3').find('.modal-dialog').height();
-        //console.log(markBlockHeight);
         var markBlockTop = (markHeight - markBlockHeight)/2;
         $('#myModal3').find('.modal-dialog').css({'margin-top':markBlockTop});
     }

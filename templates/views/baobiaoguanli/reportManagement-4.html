@@ -326,9 +326,9 @@
                                 <div class="content-main-contents">
                                     <div class="main-contents-table">
                                         <table id="scrap-datatables1" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
-                                            <caption style="text-align: center">
-                                                <h3>吉林大学第一医院</h3>
-                                                <h5>部门报修量统计报表 2017-03-01 00:00:00——2017-03-31 23:59:59</h5>
+                                            <caption style="text-align: center;font-size: 23px;color: #777;">
+                                                部门报修量统计报表
+                                                <p style="font-size: 14px;"><span></span></p>
                                             </caption>
                                             <thead>
                                             </thead>
@@ -398,6 +398,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
 <script src="../resource/js/reportManagement-4.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -408,6 +409,22 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 <!-- END BODY -->
 </html>

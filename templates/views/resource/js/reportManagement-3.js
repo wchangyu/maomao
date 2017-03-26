@@ -8,10 +8,14 @@ $(function (){
         format: 'yyyy/mm/dd'
     });
     //设置初始时间
-    var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().add(1,'day').format('YYYY/MM/DD');
+    var _initStart = moment().startOf('month').format('YYYY/MM/DD');
+    var _initEnd = moment().endOf('month').format('YYYY/MM/DD');
+    //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
+    //实际发送时间
+    var realityStart;
+    var realityEnd;
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
     /*-------------------------表格初始化--------------------------*/
@@ -191,10 +195,11 @@ $(function (){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        console.log(filterInput);
+        realityStart = filterInput[0] + ' 00:00:00';
+        realityEnd = moment(filterInput[1]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            'gdSt':filterInput[0],
-            'gdEt':filterInput[1],
+            'gdSt':realityStart,
+            'gdEt':realityEnd,
             'wxKeshi':'',
             'bxKeshi':'',
             'userID':_userIdName
@@ -209,50 +214,78 @@ $(function (){
                 if(result.length == 0){
                     var table = $("#scrap-datatables").dataTable();
                     table.fnClearTable();
+                    //echarts图
+                    $('#echarts').hide();
+                    $('#echarts1').hide();
                 }else{
                     var table = $("#scrap-datatables").dataTable();
                     table.fnClearTable();
                     table.fnAddData(result);
                     table.fnDraw();
+                    //echarts图
+                    $('#echarts').show();
+                    $('#echarts1').show();
+                    //给柱状图赋值
+                    var xZhou = [];
+                    var jgData = [];
+                    var dhData = [];
+                    var zzData = [];
+                    for(var i=0;i<result.length;i++){
+                        xZhou.push(result[i].shouliren);
+                        //接工量对象
+                        jgData.push(result[i].gdNum);
+                        dhData.push(result[i].gdDh);
+                        zzData.push(result[i].gdZz);
+                    }
+                    var yZhou = [jgData,dhData,zzData];
+                    for(var i=0;i<yZhou.length;i++){
+                        option.series[i].data = yZhou[i]
+                    }
+                    option.xAxis[0].data = xZhou;
+                    myChart.setOption(option);
+                    //给饼图（只计算电话报修量总量、自主登记量总量）
+                    var dhTotal = 0;
+                    var zzTotal = 0;
+                    console.log(result);
+                    for(var i=0;i<result.length;i++){
+                        dhTotal += result[i].gdDh;
+                        zzTotal += result[i].gdZz;
+                    }
+                    option1.series[0].data[1].value = dhTotal;
+                    option1.series[0].data[0].value = zzTotal;
+                    myChart1.setOption(option1);
                 }
-                //给柱状图赋值
-                var xZhou = [];
-                var jgData = [];
-                var dhData = [];
-                var zzData = [];
-                for(var i=0;i<result.length;i++){
-                    xZhou.push(result[i].shouliren);
-                    //接工量对象
-                    jgData.push(result[i].gdNum);
-                    dhData.push(result[i].gdDh);
-                    zzData.push(result[i].gdZz);
-                }
-                var yZhou = [jgData,dhData,zzData];
-                for(var i=0;i<yZhou.length;i++){
-                    option.series[i].data = yZhou[i]
-                }
-                option.xAxis[0].data = xZhou;
-                myChart.setOption(option);
-                //给饼图（只计算电话报修量总量、自主登记量总量）
-                var dhTotal = 0;
-                var zzTotal = 0;
-                console.log(result);
-                for(var i=0;i<result.length;i++){
-                    dhTotal += result[i].gdDh;
-                    zzTotal += result[i].gdZz;
-                }
-                option1.series[0].data[1].value = dhTotal;
-                option1.series[0].data[0].value = zzTotal;
-                myChart1.setOption(option1);
             }
         })
     }
     /*--------------------------按钮功能------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        //给表格的标题赋时间
-        $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
-        conditionSelect();
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal2').modal({
+                show:false,
+                backdrop:'static'
+            })
+            $('#myModal2').find('.modal-body').html('起止时间不能为空');
+            $('#myModal2').modal('show');
+            moTaiKuang2();
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal2').modal({
+                    show:false,
+                    backdrop:'static'
+                })
+                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
+                $('#myModal2').modal('show');
+                moTaiKuang2();
+            }else{
+                //给表格的标题赋时间
+                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                conditionSelect();
+            }
+        }
     })
     //重置按钮
     $('.resites').click(function(){
@@ -264,6 +297,10 @@ $(function (){
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
     })
+    //提示框的确定
+    $('.confirm1').click(function(){
+        $('#myModal2').modal('hide');
+    })
     /*-------------------------echarts图自适应------------------*/
     window.onresize = function () {
         if(myChart && myChart1){
@@ -274,4 +311,12 @@ $(function (){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    /*----------------------------模态框自适应------------------------------*/
+    //提示框
+    function moTaiKuang2(){
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+    }
 })
