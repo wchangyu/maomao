@@ -21,4 +21,5 @@ sessionStorage.redirectFromPage 记录当前走到登录页面的重定向位置
 sessionStorage.menuArg          记录当前的菜单参数
 sessionStorage.menuFirst        记录当前的一级菜单
 sessionStorage.menuSecond       记录当前的二级菜单
+sessionStorage.menuUri          记录当前的菜单配置中的uri(例如:../xxx/xxx)
 sessionStorage.menuStr          菜单的源字符串记录

@@ -3,6 +3,7 @@ var Login = function() {
     var _isPointersLoaded = false;
     var _isOfficesLoaded = false;
     var _isEnergyItemsLoaded = false;
+    var _isMenuLoaded = false;
 
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
@@ -90,6 +91,7 @@ var Login = function() {
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();
+                                getMenu();
                                 sessionStorage.userAuth = convertAuthTo01Str(data);     //存储权限字符串
                             }
                         },
@@ -131,7 +133,7 @@ var Login = function() {
     }
 
     var directToIndex = function(){
-        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded){
+        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded){
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
@@ -193,6 +195,23 @@ var Login = function() {
             }
         });
     };
+
+    //获取到菜单配置文件
+    var getMenu = function(){
+        var menuSrc = '../../assets/local/configs/menu.json';
+        $.ajax({
+                url:menuSrc,
+                type:"get",
+                success:function(str){
+                    sessionStorage.menuStr = JSON.stringify(str);
+                    _isMenuLoaded = true;
+                    directToIndex();
+                },
+                error:function(xhr,text,err){
+                }
+            }
+        );
+    }
 
 
 

@@ -20,34 +20,34 @@ var BEE = (function(){
 
     //从json配置中获取menu,并且配置menu
     var getMenu = function(srcUri){
-        //var src = "../../assets/local/configs/menu.json";
         if(sessionStorage.menuStr){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
-            JSON.parse(str);
             getHTMLFromMenu(JSON.parse(str), $sidebar);
             setPageTitle();
-        }else{
-            var src = _assetsPath + _localConfigsPath + "menu.json";
-            src = srcUri || src;
-            $.ajax({
-                    url:src,
-                    type:"get",
-                    success:function(str){
-                        var $sidebar = $(".page-sidebar-menu");
-                        if($sidebar) {
-                            $(".page-sidebar-menu li").remove('li[class!="sidebar-toggler-wrapper"]');
-                            sessionStorage.menuStr = JSON.stringify(str);
-                            getHTMLFromMenu(str, $sidebar);
-                            setPageTitle();
-                        }
-                    },
-                    error:function(xhr,text,err){
-                    }
-                }
-            );
+            setHeaderInfo();
         }
-
+        //else{
+        //    var src = _assetsPath + _localConfigsPath + "menu.json";
+        //    src = srcUri || src;
+        //    $.ajax({
+        //            url:src,
+        //            type:"get",
+        //            success:function(str){
+        //                var $sidebar = $(".page-sidebar-menu");
+        //                if($sidebar) {
+        //                    $(".page-sidebar-menu li").remove('li[class!="sidebar-toggler-wrapper"]');
+        //                    sessionStorage.menuStr = JSON.stringify(str);
+        //                    getHTMLFromMenu(str, $sidebar);
+        //                    setPageTitle();
+        //                    setHeaderInfo();
+        //                }
+        //            },
+        //            error:function(xhr,text,err){
+        //            }
+        //        }
+        //    );
+        //}
     }
 
     //将文本解析为菜单，和插入菜单的父级元素
@@ -65,6 +65,8 @@ var BEE = (function(){
                             li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
                             sessionStorage.menuSecond = menu[p]["content"];
+                            sessionStorage.menuUri = menu[p]["uri"];
+                            console.log(sessionStorage.menuUri);
                         }
                         if(menu[p]["iconclass"]){
                             li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
@@ -144,6 +146,11 @@ var BEE = (function(){
         var systemName = sessionStorage.systemName;
         $('.totalTitle').html(systemName);
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
+        console.log(sessionStorage.menuUri);
+        if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
+            curLoginPage = "../" + curLoginPage;
+        }
+        console.log(curLoginPage);
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
     }
@@ -284,7 +291,7 @@ var BEE = (function(){
                 window.location.href = "../login_3.html";
             }else{
                 getMenu();
-                setHeaderInfo();
+                //setHeaderInfo();
                 setTheme();
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval=='0') {
                     getAlarmInfo();
