@@ -233,7 +233,7 @@ var Login = function() {
                     var apiUrlPrefix = data["apiUriPrefix"] || "";
                     sessionStorage.apiUrlPrefix = apiUrlPrefix;     //存储到暂存区，在本次session中使用
                     ///当前运维的接口地址，没有配置则同上
-                    var apiUrlPrefixYW = data["apiUriPrefix"] || apiUrlPrefix;
+                    var apiUrlPrefixYW = data["apiUriPrefixYW"] || apiUrlPrefix;
                     sessionStorage.apiUrlPrefixYW = apiUrlPrefixYW;     //存储到暂存区，在本次session中使用
 
                     //获取当前系统名

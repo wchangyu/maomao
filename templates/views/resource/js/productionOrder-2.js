@@ -2,6 +2,8 @@ $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //存放执行人信息的数组
     var _zhixingRens = [];
     var _weiXiuCaiLiao = [];
@@ -447,7 +449,7 @@ $(function(){
             //每次获取弹出框中执行人员的数量
             $.ajax({
                 type:'post',
-                url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDetail',
+                url:_urls + 'YWGD/ywGDGetDetail',
                 async:false,
                 data:prm,
                 success:function(result){
@@ -511,7 +513,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDJ',
+            url:_urls + 'YWGD/ywGDGetDJ',
             async:false,
             data:prm,
             success:function(result){
@@ -630,7 +632,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDCreDJ',
+            url:_urls + 'YWGD/ywGDCreDJ',
             data:gdInfo,
             success:function(result){
                 var str = '<div class="alert alert-success" style="text-align: center;"> <button class="close" data-close="alert"></button><span>' + result
@@ -662,7 +664,7 @@ $(function(){
                 'userID':_userIdName
             }
             $.ajax({
-                url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDUptPaig',
+                url:_urls + 'YWGD/ywGDUptPaig',
                 type:'post',
                 data:gdInfo,
                 success:function(result){
@@ -702,7 +704,7 @@ $(function(){
             }
             $.ajax({
                 type:'post',
-                url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDCreDJ',
+                url:_urls + 'YWGD/ywGDCreDJ',
                 data:gdInfo,
                 success:function(result){
                     if(result == 99){
@@ -863,7 +865,7 @@ $(function(){
         };
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDAddWxR',
+            url:_urls + 'YWGD/ywGDAddWxR',
             data:gdWR,
             success:function(result){
                 //刷新条件查询
@@ -890,7 +892,7 @@ $(function(){
         };
         $.ajax({
             type: 'post',
-            url: 'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDDelWxR',
+            url:_urls + 'YWGD/ywGDDelWxR',
             data: gdWR,
             success: function (result) {
                 //刷新条件查询
@@ -980,7 +982,7 @@ $(function(){
             "userID":_userIdName
         }
         $.ajax({
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDAddWxCl',
+            url:_urls + 'YWGD/ywGDAddWxCl',
             type:'post',
             data:gdWxCl,
             success:function(result){
@@ -1005,7 +1007,7 @@ $(function(){
             "userID":_userIdName
         }
         $.ajax({
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDDelWxCl',
+            url:_urls + 'YWGD/ywGDDelWxCl',
             type:'post',
             data:gdWC,
             success:function(result){

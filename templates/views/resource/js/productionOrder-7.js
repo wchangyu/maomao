@@ -2,6 +2,8 @@ $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -244,7 +246,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetZX',
+            url:_urls + 'YWGD/ywGDGetZX',
             data:prm,
             async:false,
             beforeSend:function(){
@@ -283,7 +285,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDUptZht',
+            url:_urls + 'YWGD/ywGDUptZht',
             data:gdInfo,
             success:function(result){
                 console.log(result);
@@ -302,7 +304,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGUptWang',
+            url:_urls + 'YWGD/ywGUptWang',
             data:gdInfo,
             success:function(result){
                 console.log(result);
@@ -426,7 +428,7 @@ $(function(){
             //每次获取弹出框中执行人员的数量
             $.ajax({
                 type:'post',
-                url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDetail',
+                url: _urls + 'YWGD/ywGDGetDetail',
                 async:false,
                 data:prm,
                 beforeSend:function(){

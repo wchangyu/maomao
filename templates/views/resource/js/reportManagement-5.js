@@ -1,5 +1,7 @@
 $(function (){
     /*-------------------------全局变量----------------------------*/
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',

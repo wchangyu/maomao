@@ -2,6 +2,8 @@ $(function () {
   /*--------------------------全局变量初始化设置----------------------------------*/
   //获得用户名
   var _userIdName = sessionStorage.getItem('userName');
+  //获取本地url
+  var _urls = sessionStorage.getItem("apiUrlPrefixYW");
   //开始/结束时间插件
   $('.datatimeblock').datepicker({
     language:  'zh-CN',
@@ -119,6 +121,7 @@ $(function () {
       {
         title:'工单状态',
         data:'gdZht',
+        className:'gongdanZt',
         render:function(data, type, full, meta){
           if(data == 1){
             return '待受理'
@@ -166,44 +169,6 @@ $(function () {
   /*-----------------------------页面加载时调用的方法------------------------------*/
   //条件查询
   conditionSelect();
-  /*-------------------------------方法----------------------------------------*/
-  //条件查询
-  function conditionSelect(){
-    //获取条件
-    var filterInput = [];
-    var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-    for(var i=0;i<filterInputValue.length;i++){
-      filterInput.push(filterInputValue.eq(i).val());
-    }
-    realityStart = filterInput[2] + ' 00:00:00';
-    realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-    var prm = {
-      'gdCode':filterInput[0],
-      'gdSt':realityStart,
-      'gdEt':realityEnd,
-      'bxKeshi':filterInput[1],
-      'wxKeshi':'',
-      "gdZht": 1,
-      'userID':_userIdName
-    }
-    $.ajax({
-      type:'post',
-      url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDJ',
-      async:false,
-      data:prm,
-      success:function(result){
-        if(result.length == 0){
-          var table = $("#scrap-datatables").dataTable();
-          table.fnClearTable();
-        }else{
-          var table = $("#scrap-datatables").dataTable();
-          table.fnClearTable();
-          table.fnAddData(result);
-          table.fnDraw();
-        }
-      }
-    })
-  }
   /*----------------------------------按钮触发的事件-----------------------------*/
   //弹窗切换表格效果
   $('.table-title span').click(function(){
@@ -219,24 +184,16 @@ $(function () {
   //查询按钮功能
   $('#selected').click(function(){
     if( $('.min').val() == '' || $('.max').val() == '' ){
-      $('#myModal2').modal({
-        show:false,
-        backdrop:'static'
-      })
-      $('#myModal2').find('.modal-body').html('起止时间不能为空');
-      $('#myModal2').modal('show');
-      moTaiKuang2();
+      var myModal = $('#myModal2')
+      myModal.find('.modal-body').html('起止时间不能为空');
+      moTaiKuang(myModal);
     }else{
       //结束时间不能小于开始时间
       if( $('.min').val() > $('.max').val() ){
+        var myModal = $('#myModal2');
         //提示框
-        $('#myModal2').modal({
-          show:false,
-          backdrop:'static'
-        })
-        $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-        $('#myModal2').modal('show');
-        moTaiKuang2();
+        myModal.find('.modal-body').html('起止时间不能大于结束时间');
+        moTaiKuang(myModal);
       }else{
         conditionSelect();
       }
@@ -249,8 +206,8 @@ $(function () {
     var inputs = parents.find('input');
     inputs.val('');
     //时间置为今天
-    $('.datatimeblock').eq(0).val(_initStart);
-    $('.datatimeblock').eq(1).val(_initEnd);
+    $('.min').val(_initStart);
+    $('.max').val(_initEnd);
   })
   //登记按钮
   $('.creatButton').click(function(){
@@ -262,28 +219,14 @@ $(function () {
     app33.sections = '';
     app33.remarks = '';
     app33.section = '';
-    $('#myModal').modal({
-      show:false,
-      backdrop:'static'
-    })
-    $('#myModal').modal('show');
-    moTaiKuang();
+    moTaiKuang($('#myModal'));
   });
   $('.dengji').click(function(){
     if(app33.person == '' || app33.place == '' || app33.matter == ''){
-      $('#myModal2').modal({
-        show:false,
-        backdrop:'static'
-      })
-      $('#myModal2').find('.modal-body').html('请填写红色必填项');
-      $('#myModal2').modal('show');
-      moTaiKuang2();
+      var myModal = $('#myModal2');
+      myModal.find('.modal-body').html('请填写红色必填项');
+      moTaiKuang(myModal);
     }else{
-      $('#myModal').modal({
-        show:false,
-        backdrop:'static'
-      })
-      $('#myModal').modal('hide');
       var gdInfo = {
         'gdJJ':app33.picked,
         'bxRen':app33.person,
@@ -298,17 +241,13 @@ $(function () {
       }
       $.ajax({
         type:'post',
-        url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDCreDJ',
+        url: _urls + 'YWGD/ywGDCreDJ',
         data:gdInfo,
         success:function(result){
           if(result == 99){
-            $('#myModal2').modal({
-              show:false,
-              backdrop:'static'
-            })
-            $('#myModal2').find('.modal-body').html('添加成功');
-            $('#myModal2').modal('show');
-            moTaiKuang2()
+            var myModal = $('#myModal2');
+            myModal.find('.modal-body').html('添加成功');
+            moTaiKuang(myModal)
           }
           //刷新表格
           conditionSelect();
@@ -316,28 +255,9 @@ $(function () {
       })
     }
   });
-  //提示框的确定
-  $('.confirm1').click(function(){
-    $('#myModal2').modal('hide');
-  })
   $('.confirm').click(function(){
       $(this).parents('.modal').modal('hide');
   })
-  /*-----------------------------------------模态框位置自适应------------------------------------------*/
-  //第一层
-  function moTaiKuang(){
-    var markHeight = document.documentElement.clientHeight;
-    var markBlockHeight = $('.modal-dialog').height();
-    var markBlockTop = (markHeight - markBlockHeight)/2;
-    $('.modal-dialog').css({'margin-top':markBlockTop});
-  }
-  //提示框
-  function moTaiKuang2(){
-    var markHeight = document.documentElement.clientHeight;
-    var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
-    var markBlockTop = (markHeight - markBlockHeight)/2;
-    $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
-  }
   /*---------------------------------表格绑定事件-------------------------------------*/
   var lastIdx = null;
   $('#scrap-datatables tbody')
@@ -360,26 +280,10 @@ $(function () {
         currentFlat = true;
         $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
         $(this).css({'background':'#FBEC88'});
-        $('#myModal1').modal({
-          show:false,
-          backdrop:'static'
-        })
-        $('#myModal1').modal('show');
-        moTaiKuang();
+        moTaiKuang($('#myModal1'));
         //获取详情
-        var gongDanState = $this.children('td').eq(2).html();
-        var gongDanCode = $this.children('td').eq(0).html();
-        gdCode = gongDanCode;
-        if( gongDanState == '待接单' ){
-          $('.workDone .gongdanClose').find('.btn-success').html('接单');
-          gongDanState = 2;
-        }else if( gongDanState == '待执行'){
-          $('.workDone .gongdanClose').find('.btn-success').html('执行');
-          gongDanState = 3;
-        }else if( gongDanState == '待完成' ){
-          $('.workDone .gongdanClose').find('.btn-success').html('完成');
-          gongDanState = 4
-        }
+        var gongDanState = $this.children('.gongdanZt').html();
+        var gongDanCode = $this.children('.gongdanId').html();
         var prm = {
           'gdCode':gongDanCode,
           'gdZht':gongDanState,
@@ -388,7 +292,7 @@ $(function () {
         //每次获取弹出框中执行人员的数量
         $.ajax({
           type:'post',
-          url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDGetDetail',
+          url: _urls + 'YWGD/ywGDGetDetail',
           async:false,
           data:prm,
           success:function(result){
@@ -401,33 +305,63 @@ $(function () {
             workDones.baoxiudianhua = result.bxDianhua;
             workDones.baoxiuren = result.bxRen;
             workDones.weixiushebei = result.wxShebei;
-            _zhixingRens = result.wxRens;
-            _weiXiuCaiLiao = result.wxCls;
-            //添加后的执行人员
-            if(_zhixingRens.length == 0){
-              var table = $("#personTable1").dataTable();
-              table.fnClearTable();
-              $('.paigongButton').attr('disabled',true);
-              $('.paiGongTip').show();
-            }else{
-              var table = $("#personTable1").dataTable();
-              table.fnClearTable();
-              table.fnAddData(_zhixingRens);
-              table.fnDraw();
-              $('.paigongButton').attr('disabled',false);
-              $('.paiGongTip').hide();
-            }
-            //添加后的维修材料
-            if(_weiXiuCaiLiao.length == 0){
-              var tables = $("#personTables1").dataTable();
-              tables.fnClearTable();
-            }else {
-              var tables = $("#personTables1").dataTable();
-              tables.fnClearTable();
-              tables.fnAddData(_weiXiuCaiLiao);
-              tables.fnDraw();
-            }
           }
         });
       });
+  /*-------------------------------方法----------------------------------------*/
+  //条件查询
+  function conditionSelect(){
+    //获取条件
+    var filterInput = [];
+    var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
+    for(var i=0;i<filterInputValue.length;i++){
+      filterInput.push(filterInputValue.eq(i).val());
+    }
+    realityStart = filterInput[2] + ' 00:00:00';
+    realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+    var prm = {
+      'gdCode':filterInput[0],
+      'gdSt':realityStart,
+      'gdEt':realityEnd,
+      'bxKeshi':filterInput[1],
+      'wxKeshi':'',
+      "gdZht": 1,
+      'userID':_userIdName
+    }
+    $.ajax({
+      type:'post',
+      url:_urls + 'YWGD/ywGDGetDJ',
+      async:false,
+      data:prm,
+      success:function(result){
+        datasTable($("#scrap-datatables"),result);
+      }
+    })
+  }
+  //模态框自适应
+  function moTaiKuang(who){
+    who.modal({
+      show:false,
+      backdrop:'static'
+    })
+    //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+    who.modal('show');
+    var markHeight = document.documentElement.clientHeight;
+    var markBlockHeight = who.find('.modal-dialog').height();
+    var markBlockTop = (markHeight - markBlockHeight)/2;
+    who.find('.modal-dialog').css({'margin-top':markBlockTop});
+  }
+  //dataTables表格填数据
+  function datasTable(tableId,arr){
+    if(arr.length == 0){
+      var table = tableId.dataTable();
+      table.fnClearTable();
+      table.fnDraw();
+    }else{
+      var table = tableId.dataTable();
+      table.fnClearTable();
+      table.fnAddData(arr);
+      table.fnDraw();
+    }
+  }
 })

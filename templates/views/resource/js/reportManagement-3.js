@@ -1,5 +1,7 @@
 $(function (){
     /*-------------------------全局变量----------------------------*/
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -206,7 +208,7 @@ $(function (){
         }
         $.ajax({
             type:'post',
-            url:'http://192.168.1.196/BEEWebAPI/api/YWGD/ywGDRptDdzx',
+            url: _urls + 'YWGD/ywGDRptDdzx',
             data:prm,
             success:function(result){
                 console.log(result);
