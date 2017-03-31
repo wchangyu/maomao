@@ -444,18 +444,23 @@
                                 <div class="clearfix"></div>
                                 <div>
                                     <div class="labels">报修备注：</div>
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                    <div class="input-blockeds" style="height:62px;">
+                                        <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                    </div>
                                 </div>
                                 <div>
                                     <div class="labels">维修备注：</div>
-                                    <textarea style="width: 100%;height: 60px;outline: none" disabled="true" ></textarea>
+                                    <div class="input-blockeds" style="height:62px;">
+                                        <textarea style="width: 100%;height: 60px;outline: none" disabled="true" ></textarea>
+                                    </div>
+
                                 </div>
                             </form>
                         </validator>
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary dengji">确定</button>
+                    <button type="button" class="btn btn-primary dengji confirm">确定</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div><!-- /.modal-content -->
@@ -510,11 +515,15 @@
                         <div class="clearfix"></div>
                         <div>
                             <div class="labels">报修备注：</div>
-                            <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
+                            <div class="input-blockeds" style="height:62px;">
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
+                            </div>
                         </div>
                         <div>
                             <div class="labels">维修备注：</div>
-                            <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
+                            <div class="input-blockeds" style="height:62px;">
+                                <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
+                            </div>
                         </div>
                     </ul>
                 </div>

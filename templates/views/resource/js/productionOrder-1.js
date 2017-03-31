@@ -156,6 +156,12 @@ $(function () {
         title:'登记时间',
         data:'gdShij'
       },
+      {
+        title:'操作',
+        "targets": -1,
+        "data": null,
+        "defaultContent": "<span class='data-option option-edit'>查看</span>"
+      }
     ],
     "columnDefs": [{
       "visible": true,
@@ -246,7 +252,7 @@ $(function () {
         success:function(result){
           if(result == 99){
             var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('添加成功');
+            myModal.find('.modal-body').html('添加成功!');
             moTaiKuang(myModal)
           }
           //刷新表格
@@ -257,7 +263,7 @@ $(function () {
   });
   $('.confirm').click(function(){
       $(this).parents('.modal').modal('hide');
-  })
+  });
   /*---------------------------------表格绑定事件-------------------------------------*/
   var lastIdx = null;
   $('#scrap-datatables tbody')
@@ -272,14 +278,12 @@ $(function () {
       .on( 'mouseleave', function () {
         $( table.cells().nodes() ).removeClass( 'highlight' );
       } )
-      //双击背景色改变，查看详情
-      .on('dblclick','tr',function(){
-        //当前行变色
-        var $this = $(this);
+      .on( 'click','.option-edit',function(){
+        var $this = $(this).parents('tr');
         currentTr = $this;
         currentFlat = true;
         $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-        $(this).css({'background':'#FBEC88'});
+        $this.css({'background':'#FBEC88'});
         moTaiKuang($('#myModal1'));
         //获取详情
         var gongDanState = $this.children('.gongdanZt').html();
@@ -307,7 +311,7 @@ $(function () {
             workDones.weixiushebei = result.wxShebei;
           }
         });
-      });
+      })
   /*-------------------------------方法----------------------------------------*/
   //条件查询
   function conditionSelect(){

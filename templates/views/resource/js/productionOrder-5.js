@@ -118,6 +118,7 @@ $(function(){
             {
                 title:'工单状态',
                 data:'gdZht',
+                className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
                         return '待受理'
@@ -145,10 +146,6 @@ $(function(){
                 data:'wxDidian'
             },
             {
-                title:'执行人',
-                data:''
-            },
-            {
                 title:'登记时间',
                 data:'gdShij'
             },
@@ -156,8 +153,8 @@ $(function(){
                 class:'pingjia',
                 title:'操作',
                 "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='tablePingjia' style='cursor: pointer'>评价</span>"
+                "data": null, //tablePingjia
+                "defaultContent": "<span class='data-option option-edit'>查看</span><span class='data-option tablePingjia'>评价</span>"
 
             }
         ]
@@ -311,18 +308,31 @@ $(function(){
             }
         })
     }
-    function moTaiKuang(){
+    //模态框自适应
+    function moTaiKuang(who){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+        who.modal('show');
         var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = $('.modal-content').height();
+        var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
-        $('.modal-dialog').css({'margin-top':markBlockTop});
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
-    //提示框
-    function moTaiKuang2(){
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
     }
     /*----------------------------表格绑定事件-----------------------------------*/
     var lastIdx = null;
@@ -339,27 +349,17 @@ $(function(){
             $( table.cells().nodes() ).removeClass( 'highlight' );
         } )
         //双击背景色改变，查看详情
-        .on('dblclick','tr',function(){
-            $('#loading').show();
+        .on('click','.option-edit',function(){
             //当前行变色
-            var $this = $(this);
+            var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
             $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $(this).css({'background':'#FBEC88'});
-            $('#myModal').modal({
-                show:false,
-                backdrop:'static'
-            })
-            $('#myModal').modal({
-                show:false,
-                backdrop:'static'
-            })
-            $('#myModal').modal('show');
-            moTaiKuang();
+            $this.css({'background':'#FBEC88'});
+            moTaiKuang($('#myModal'));
             //获取详情
-            var gongDanState = $this.children('td').eq(2).html();
-            var gongDanCode = $this.children('td').eq(0).html();
+            var gongDanState = $this.children('.gongdanZt').html();
+            var gongDanCode = $this.children('.gongdanId').html();
             //根据工单状态，确定按钮的名称
             if( gongDanState == '待评价' ){
                 gongDanState = 6;
@@ -393,99 +393,20 @@ $(function(){
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;
                     //查看执行人员
-                    if(result.wxRens.length == 0){
-                        var table = $("#personTable1").dataTable();
-                        table.fnClearTable();
-                    }else{
-                        var table = $("#personTable1").dataTable();
-                        table.fnClearTable();
-                        table.fnAddData(result.wxRens);
-                        table.fnDraw();
-                    }
+                    datasTable($("#personTable1"),result.wxRens);
                     //维修材料
-                    if(result.wxCls.length == 0){
-                        var table = $("#personTables1").dataTable();
-                        table.fnClearTable();
-                    }else{
-                        var table = $("#personTables1").dataTable();
-                        table.fnClearTable();
-                        table.fnAddData(result.wxCls);
-                        table.fnDraw();
-                    }
+                    datasTable($("#personTables1"),result.wxCls);
                     $('#loading').hide();
                 }
             });
-        });
-    /*------------------------按钮功能-----------------------------------------*/
-    //查询按钮
-    $('#selected').click(function(){
-        //判断起止时间是否为空
-        if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal2').modal({
-                show:false,
-                backdrop:'static'
-            })
-            $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            $('#myModal2').modal('show');
-            moTaiKuang2();
-        }else {
-            //结束时间不能小于开始时间
-            if( $('.min').val() > $('.max').val() ){
-                $('#myModal2').modal({
-                    show:false,
-                    backdrop:'static'
-                })
-                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                $('#myModal2').modal('show');
-                moTaiKuang2();
-            }else{
-                conditionSelect();
-            }
-        }
-    })
-    //重置按钮功能
-    $('.resites').click(function(){
-        //清空input框内容
-        var parents = $(this).parents('.condition-query');
-        var inputs = parents.find('input');
-        inputs.val('');
-        //时间置为今天
-        $('.datatimeblock').eq(0).val(_initStart);
-        $('.datatimeblock').eq(1).val(_initEnd);
-    })
-    //弹窗切换表格效果
-    $('.table-title span').click(function(){
-        $('.table-title span').removeClass('spanhover');
-        $(this).addClass('spanhover');
-        $('.tableHover').css({'z-index':0});
-        $('.tableHover').css({'opacity':0});
-        $('.tableHover').eq($(this).index()).css({
-            'z-index':1,
-            'opacity':1
         })
-    });
-    $('.confirm').click(function(){
-        //getGongDan();
-        $('#myModal').modal('hide');
-    })
-    //提示框的确定
-    $('.confirm1').click(function(){
-        $('#myModal2').modal('hide');
-    })
-    //去评价
-    $('#scrap-datatables tbody').on('click','tr',function(){
-        var $this = $(this);
+        //去评价
+        .on('click','.tablePingjia',function(){
+        var $this = $(this).parents('tr');
         //当前颜色改变
-        $('#scrap-datatables tbody').children('tr').css({'background':'ffffff'});
-        $(this).css({'background':'#FBEC88'});
-        var e = event || window.event;
-        if(e.target.className.toLowerCase() == 'tablepingjia'){
-            $('#myModal1').modal({
-                show:false,
-                backdrop:'static'
-            })
-            //评价弹窗出现
-            $('#myModal1').modal('show');
+        $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
+        $this.css({'background':'#FBEC88'});
+            moTaiKuang($('#myModal1'))
             //给评价弹窗绑定基本数据
             var gongDanState = $this.children('td').eq(2).html();
             var gongDanCode = $this.children('td').eq(0).html();
@@ -517,8 +438,54 @@ $(function(){
                     pingjia.wxbeizhu = result.wxBeizhu;
                 }
             })
-        }
     });
+    /*------------------------按钮功能-----------------------------------------*/
+    //查询按钮
+    $('#selected').click(function(){
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal2').find('.modal-body').html('起止时间不能为空');
+            moTaiKuang($('#myModal2'));
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
+                moTaiKuang($('#myModal2'));
+            }else{
+                conditionSelect();
+            }
+        }
+    })
+    //重置按钮功能
+    $('.resites').click(function(){
+        //清空input框内容
+        var parents = $(this).parents('.condition-query');
+        var inputs = parents.find('input');
+        inputs.val('');
+        //时间置为今天
+        $('.min').val(_initStart);
+        $('.max').val(_initEnd);
+    })
+    //弹窗切换表格效果
+    $('.table-title span').click(function(){
+        $('.table-title span').removeClass('spanhover');
+        $(this).addClass('spanhover');
+        $('.tableHover').css({'z-index':0});
+        $('.tableHover').css({'opacity':0});
+        $('.tableHover').eq($(this).index()).css({
+            'z-index':1,
+            'opacity':1
+        })
+    });
+    $('.confirm').click(function(){
+        //getGongDan();
+        $('#myModal').modal('hide');
+    })
+    //提示框的确定
+    $('.confirm1').click(function(){
+        $('#myModal2').modal('hide');
+    })
+    //去评价
     $('.pingjiaButton').click(function(){
         //获取评价内容
         $('#myModal1').modal('hide');
@@ -534,15 +501,17 @@ $(function(){
             url: _urls + 'YWGD/ywGDUptPingjia',
             data:gdInfo,
             success:function(result){
-                //console.log(result);
                 getGongDan();
                 //初始化单选框和评价意见
                 pingjia.beizhu = '';
                 $('#pingjia').find('.inpus').parent('span').removeClass('checked');
+                $('#myModal2').find('.modal-body').html('已完成评价');
+                moTaiKuang($('#myModal2'));
             }
         })
     })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+
 })

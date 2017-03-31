@@ -389,7 +389,7 @@
 </div>
 <!--模态框待评价-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="height: 665px;">
             <div class="modal-content" style="height: 665px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -444,7 +444,9 @@
                             <div class="clearfix"></div>
                             <div>
                                 <div class="labels">报修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                </div>
                             </div>
                             <div class="table-block">
                                 <div class="table-title">
@@ -476,7 +478,7 @@
     </div>
 <!--模态框去评价-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="height: 665px">
             <div class="modal-content" style="height: 665px">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -498,7 +500,9 @@
                             <div class="clearfix"></div>
                             <div>
                                 <div class="labels">评价意见：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhu"></textarea>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhu"></textarea>
+                                </div>
                             </div>
                             <p>详细信息如下：</p>
                             <li class="floatLeft">
@@ -534,11 +538,15 @@
                             <div class="clearfix"></div>
                             <div>
                                 <div class="labels">备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="baoxiubeizhu"></textarea>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="baoxiubeizhu"></textarea>
+                                </div>
                             </div>
                             <div>
                                 <div class="labels">维修备注：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
+                                </div>
                             </div>
                         </ul>
                     </div>
