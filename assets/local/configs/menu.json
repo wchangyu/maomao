@@ -776,26 +776,18 @@
     "iconclass":"icon-settings",
     "content":"仓库管理",
     "submenu":{
-      "物料管理":{
+      "物品类别":{
         "type":"0",
-        "content":"物料管理",
-        "uri":"../cangkuguanli/warehouseManagement-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "物料统计":{
-        "type":"0",
-        "content":"物料统计",
-        "uri":"../cangkuguanli/warehouseManagement-5.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "物料类别":{
-        "type":"0",
-        "content":"物料类别",
+        "content":"物品类别",
         "uri":"../cangkuguanli/warehouseManagement-9.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "物品管理":{
+        "type":"0",
+        "content":"物品管理",
+        "uri":"../cangkuguanli/warehouseManagement-1.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -824,14 +816,6 @@
         "arg":"",
         "iconclass":""
       },
-      "出入库报表":{
-        "type":"0",
-        "content":"出入库报表",
-        "uri":"../cangkuguanli/warehouseManagement-6.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "入库报表":{
         "type":"0",
         "content":"入库报表",
@@ -844,6 +828,14 @@
         "type":"0",
         "content":"出库报表",
         "uri":"../cangkuguanli/warehouseManagement-8.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "台账记录":{
+        "type":"0",
+        "content":"台账记录",
+        "uri":"../cangkuguanli/warehouseManagement-5.html",
         "uid":"",
         "arg":"",
         "iconclass":""

@@ -43,6 +43,8 @@ $(function(){
             }
         }
     });
+    //定位当前页
+    var currentPages = 0;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -52,6 +54,7 @@ $(function(){
         "searching": true,
         "ordering": false,
         "pagingType":"full_numbers",
+        "bStateSave":true,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -138,7 +141,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-edit'>查看</span>"
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
             }
         ]
     });
@@ -258,7 +261,13 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                datasTable($("#scrap-datatables"),result)
+                datasTable($("#scrap-datatables"),result);
+                var aaa = currentPages;
+                for(var i=0 ;i<$('.paginate_button').length; i++){
+                    if($('.paginate_button').eq(i).html() == aaa){
+                        $('.paginate_button').eq(i).click();
+                    }
+                }
             }
         })
     }
@@ -289,30 +298,27 @@ $(function(){
         }
     }
     /*----------------------------表格绑定事件-----------------------------------*/
-    var lastIdx = null;
     var _currentChexiao = false;
     var _currentClick;
     $('#scrap-datatables tbody')
-    //鼠标略过行变色
-        .on( 'mouseover', 'td', function () {
-            var colIdx = table.cell(this).index();
-            if ( colIdx !== lastIdx ) {
-                $( table.cells().nodes() ).removeClass( 'highlight' );
-                $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-            }
-        } )
-        .on( 'mouseleave', function () {
-            $( table.cells().nodes() ).removeClass( 'highlight' );
-        } )
-         //区分单机事件还是双击事件
         //查看详情
         .on('click','.option-edit',function(){
+            //获得当前的页数，
+            for( var i=0;i<$('.paginate_button').length;i++){
+                if($('.paginate_button').eq(i).hasClass('current')){
+                    currentPages = $('.paginate_button').eq(i).html();
+                }
+            }
+            //将当前页数存放到sessionStroage中
+            ////var storage = window.sessionStorage;
+            //storage.setItem("currentPage",currentPages);
+            //刷新的时候，定位到当前页；
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
-            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $this.css({'background':'#FBEC88'});
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
@@ -330,13 +336,21 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
+                    console.log(result);
                     var indexs = result.gdZht;
                     $('.progressBar').children('li').css({'color':'#333333'});
                     for(var i=0;i<indexs;i++){
                         $('.progressBar').children('li').eq(i).css({'color':'#db3d32'});
                     }
                     //绑定弹窗数据
-                    app33.picked = result.gdJJ;
+                    if(result.gdJJ == 1){
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#ones').parent('span').addClass('checked');
+                    }else{
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#twos').parent('span').addClass('checked');
+                    }
+                    //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -357,8 +371,14 @@ $(function(){
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
-            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $this.css({'background':'#FBEC88'});
+            //获得当前的页数，
+            for( var i=0;i<$('.paginate_button').length;i++){
+                if($('.paginate_button').eq(i).hasClass('current')){
+                    currentPages = $('.paginate_button').eq(i).html();
+                }
+            }
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
         })
     $('.chexiao').click(function(){
         if(_currentClick){

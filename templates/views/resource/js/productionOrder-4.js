@@ -131,7 +131,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-edit'>完工</span>"
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>完工</span>"
             }
         ]
     });
@@ -297,27 +297,15 @@ $(function(){
         }
     }
     /*----------------------------表格绑定事件-----------------------------------*/
-    var lastIdx = null;
     $('#scrap-datatables tbody')
-    //鼠标略过行变色
-        .on( 'mouseover', 'td', function () {
-            var colIdx = table.cell(this).index();
-            if ( colIdx !== lastIdx ) {
-                $( table.cells().nodes() ).removeClass( 'highlight' );
-                $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-            }
-        } )
-        .on( 'mouseleave', function () {
-            $( table.cells().nodes() ).removeClass( 'highlight' );
-        } )
         //双击背景色改变，查看详情
         .on('click','.option-edit',function(){
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
-            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $this.css({'background':'#FBEC88'});
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
@@ -341,8 +329,15 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
+                    if(result.gdJJ == 1){
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#ones').parent('span').addClass('checked');
+                    }else{
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#twos').parent('span').addClass('checked');
+                    }
                     //绑定弹窗数据
-                    app33.picked = result.gdJJ;
+                    //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;

@@ -35,7 +35,7 @@ $(function () {
   var app33 = new Vue({
     el:'#myApp33',
     data:{
-      picked:'0',
+      picked:'1',
       telephone:'',
       person:'',
       place:'',
@@ -160,7 +160,7 @@ $(function () {
         title:'操作',
         "targets": -1,
         "data": null,
-        "defaultContent": "<span class='data-option option-edit'>查看</span>"
+        "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
       }
     ],
     "columnDefs": [{
@@ -217,7 +217,10 @@ $(function () {
   })
   //登记按钮
   $('.creatButton').click(function(){
-    //所有登记页面的输入框清空
+    //所有登记页面的输入框清空(radio的按钮默认为否)；
+    app33.picked = 0;
+    $('.inpus').parent('span').removeClass('checked');
+    $('#twos').parent('span').addClass('checked');
     app33.telephone = '';
     app33.person = '';
     app33.place = '';
@@ -265,25 +268,13 @@ $(function () {
       $(this).parents('.modal').modal('hide');
   });
   /*---------------------------------表格绑定事件-------------------------------------*/
-  var lastIdx = null;
   $('#scrap-datatables tbody')
-  //鼠标略过行变色
-      .on( 'mouseover', 'td', function () {
-        var colIdx = table.cell(this).index();
-        if ( colIdx !== lastIdx ) {
-          $( table.cells().nodes() ).removeClass( 'highlight' );
-          $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-        }
-      } )
-      .on( 'mouseleave', function () {
-        $( table.cells().nodes() ).removeClass( 'highlight' );
-      } )
       .on( 'click','.option-edit',function(){
         var $this = $(this).parents('tr');
         currentTr = $this;
         currentFlat = true;
-        $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-        $this.css({'background':'#FBEC88'});
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+        $this.addClass('tables-hover');
         moTaiKuang($('#myModal1'));
         //获取详情
         var gongDanState = $this.children('.gongdanZt').html();
@@ -300,6 +291,13 @@ $(function () {
           async:false,
           data:prm,
           success:function(result){
+            if(result.gdJJ == 1){
+              $('.inpus').parent('span').removeClass('checked');
+              $('#oness').parent('span').addClass('checked');
+            }else{
+              $('.inpus').parent('span').removeClass('checked');
+              $('#twoss').parent('span').addClass('checked');
+            }
             //绑定弹窗数据
             workDones.weixiukeshis = result.wxKeshi;
             workDones.baoxiukeshis = result.bxKeshi;

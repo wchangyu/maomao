@@ -13,15 +13,12 @@ $(function(){
             'beizhu':''
         }
     });
-    //修改vue对象数据绑定
-    var myApp44 = new Vue({
-        el:'#myApp44',
-        data:{
-            'num':'',
-            'name':'',
-            'beizhu':''
-        }
-    });
+    //验证必填项（非空）
+    Vue.validator('requireds', function (val) {
+        //获取内容的时候先将首尾空格删除掉；
+        val=val.replace(/^\s+|\s+$/g,'');
+        return /[^.\s]{1,500}$/.test(val)
+    })
     //存放当前列表的数据
     var allData = [];
     //存放选中的类别编号
@@ -84,7 +81,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-edit'>编辑</span><span class='data-option option-delete'>删除</span>"
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span><span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
 
             }
         ]
@@ -109,52 +106,62 @@ $(function(){
         myApp33.name = '';
         myApp33.num = '';
         myApp33.beizhu = '';
+        $('#myModal').find('.btn-primary').removeClass('xiugai').addClass('dengji');
         moTaiKuang($('#myModal'));
     })
     //登记按钮
-    $('.dengji').click(function(){
-        var prm = {
-            'cateName':myApp33.name,
-            'cateRemark':myApp33.beizhu,
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWCK/ywCKAddItemCate',
-            data:prm,
-            success:function(result){
-                if(result == '执行成功'){
-                    $('#myModal2').find('.modal-body').html('添加成功！');
-                    moTaiKuang($('#myModal2'))
-                    //刷新列表
-                    conditionSelect();
-                    $(this).parents('.modal').modal('hide');
-                }
+    $('#myModal').on('click','.dengji',function(){
+        if(myApp33.name == ''){
+            moTaiKuang($('#myModal2'));
+        }else{
+            var prm = {
+                'cateName':myApp33.name,
+                'cateRemark':myApp33.beizhu,
+                'userID':_userIdName
             }
-        })
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWCK/ywCKAddItemCate',
+                data:prm,
+                success:function(result){
+                    if(result == '执行成功'){
+                        $('#myModal2').find('.modal-body').html('添加成功！');
+                        moTaiKuang($('#myModal2'))
+                        //刷新列表
+                        conditionSelect();
+                        $(this).parents('.modal').modal('hide');
+                    }
+                    $('#myModal').modal('hide');
+                }
+            })
+        }
     })
     //修改按钮
-    $('.xiugai').click(function(){
-        var prm = {
-            'cateNum':myApp44.num,
-            'cateName':myApp44.name,
-            'cateRemark':myApp44.beizhu,
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWCK/ywCKEditItemCate',
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    $('#myModal2').find('.modal-body').html('修改成功！');
-                    moTaiKuang($('#myModal2'))
-                    //刷新列表
-                    conditionSelect();
-                    $('#myModal1').modal('hide');
-                }
+    $('#myModal').on('click','.xiugai',function(){
+        if(myApp33.name == ''){
+            moTaiKuang($('#myModal2'));
+        }else {
+            var prm = {
+                'cateNum':myApp33.num,
+                'cateName':myApp33.name,
+                'cateRemark':myApp33.beizhu,
+                'userID':_userIdName
             }
-        })
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWCK/ywCKEditItemCate',
+                data:prm,
+                success:function(result){
+                    if(result == 99){
+                        $('#myModal2').find('.modal-body').html('修改成功！');
+                        moTaiKuang($('#myModal2'))
+                        //刷新列表
+                        conditionSelect();
+                        $('#myModal').modal('hide');
+                    }
+                }
+            })
+        }
     })
     //删除按钮
     $('.shanchu').bind('click',function(){
@@ -177,25 +184,32 @@ $(function(){
     });
     //确定按钮
     $('.confirm').click(function(){
-        $(this).parents('.modal').modal('hide')
+        $(this).parents('.modal').modal('hide');
     })
     //编辑
-    $('.option-edit').bind('click',function(){
+    $('#scrap-datatables tbody')
+    .on('click','.option-edit',function(){
+        //添加编辑确定按钮类
+        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
+        //修改背景颜色标识
+        var $this = $(this).parents('tr');
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+        $this.addClass('tables-hover');
         //首先绑定原有的信息
         var cpBianHao = $(this).parents('tr').children('.cateNum').html();
         for(var i = 0;i<allData.length;i++){
             if(allData[i].cateNum == cpBianHao){
-                console.log(allData[i]);
                 //绑定信息
-                myApp44.num = allData[i].cateNum;
-                myApp44.name = allData[i].cateName;
-                myApp44.beizhu = allData[i].cateRemark;
-                moTaiKuang($('#myModal1'));
+                myApp33.num = allData[i].cateNum;
+                myApp33.name = allData[i].cateName;
+                myApp33.beizhu = allData[i].cateRemark;
+                moTaiKuang($('#myModal'));
             }
         }
     })
     //删除
-    $('.option-delete').bind('click',function(){
+    $('#scrap-datatables tbody')
+    .on('click','.option-delete',function(){
         var cpBianHao = $(this).parents('tr').children('.cateNum').html();
         _thisBianhao = cpBianHao;
         $('#myModal3').find('.modal-body').html('确定要删除吗？');

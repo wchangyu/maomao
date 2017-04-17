@@ -2,8 +2,10 @@ $(function(){
     /*--------------------------------全局变量---------------------------------*/
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     /*-------------------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -36,35 +38,101 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         "columns": [
             {
-                title:'库位',
+                title:'物品编号',
+                data:'itemNum'
             },
             {
-                title:'	库位类型'
+                title:'物品名称',
+                data:'itemName'
             },
             {
-                title:'产品编号'
+                title:'类别',
+                data:'cateName'
             },
             {
-                title:'产品条码'
+                title:'规格',
+                data:'size'
             },
             {
-                title:'产品名称'
+                title:'预警下限',
+                data:'minNum'
             },
             {
-                title:'类别'
+                title:'预警上限',
+                data:'maxNum'
             },
             {
-                title:'规格'
-            },
-            {
-                title:'预警值下限'
-            },
-            {
-                title:'预警值上限'
-            },
-            {
-                title:'库存数'
+                title:'库存数',
+                data:'num'
             }
         ],
     });
+    /*------------------------------------表格数据--------------------------------*/
+    conditionSelect();
+    /*------------------------------------表格按钮-------------------------------*/
+    $('#selected').click(function(){
+        conditionSelect();
+    })
+    //状态选项卡（选择确定/待确定状态）
+    $('.table-title').children('span').click(function(){
+        $('.table-title').children('span').removeClass('spanhover');
+        $(this).addClass('spanhover');
+        $('.main-contents-table').addClass('hide-block');
+        $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
+
+    })
+    /*------------------------------------其他方法-------------------------------*/
+    //条件查询
+    function conditionSelect(){
+        //获取条件
+        var filterInput = [];
+        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
+        for(var i=0;i<filterInputValue.length;i++){
+            filterInput.push(filterInputValue.eq(i).val());
+        }
+        var prm = {
+            'orderNum':filterInput[0],
+            'itemName ':filterInput[1],
+            'userID':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptItemStock',
+            data:prm,
+            success:function(result){
+                var downState = [];
+                var upState = [];
+                var nomalState = [];
+                for(var i=0;i<result.length;i++){
+                    if(result[i].alarmState == 0){
+                        nomalState.push(result[i])
+                    }else if(result[i].alarmState == 1){
+                        downState.push(result[i])
+                    }else if(result[i].alarmState == 2){
+                        upState.push(result[i]);
+                    }
+                }
+                datasTable($('#scrap-datatables'),result);
+                datasTable($('#scrap-datatables1'),downState);
+                datasTable($('#scrap-datatables2'),upState);
+                datasTable($('#scrap-datatables3'),nomalState);
+            }
+        })
+    }
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+    }
+    /*----------------------------打印部分去掉的东西-----------------------------*/
+    //导出按钮,每页显示数据条数,表格页码打印隐藏
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
 })

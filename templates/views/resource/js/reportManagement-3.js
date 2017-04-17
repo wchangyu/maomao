@@ -190,6 +190,51 @@ $(function (){
     };
     /*-------------------------获取表格数据-----------------------*/
     conditionSelect();
+    /*--------------------------按钮功能------------------------*/
+    //查询按钮
+    $('#selected').click(function(){
+        //判断起止时间是否为空
+        if( $('.min').val() == '' || $('.max').val() == '' ){
+            $('#myModal2').find('.modal-body').html('起止时间不能为空');
+            moTaiKuang($('#myModal2'));
+        }else {
+            //结束时间不能小于开始时间
+            if( $('.min').val() > $('.max').val() ){
+                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
+                moTaiKuang($('#myModal2'));
+            }else{
+                //给表格的标题赋时间
+                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                conditionSelect();
+            }
+        }
+    })
+    //重置按钮
+    $('.resites').click(function(){
+        //时间选为当天，其他输入框置为空
+        var parents = $(this).parents('.condition-query');
+        var inputs = parents.find('input');
+        inputs.val('');
+        //时间置为今天
+        $('.min').val(_initStart);
+        $('.max').val(_initEnd);
+    })
+    //提示框的确定
+    $('.confirm1').click(function(){
+        $('#myModal2').modal('hide');
+    })
+    /*-------------------------echarts图自适应------------------*/
+    window.onresize = function () {
+        if(myChart && myChart1){
+            myChart.resize();
+            myChart1.resize();
+        }
+    }
+    /*----------------------------打印部分去掉的东西-----------------------------*/
+    //导出按钮,每页显示数据条数,表格页码打印隐藏
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    /*----------------------------方法------------------------------*/
+    //查询方法
     function conditionSelect(){
         //获取所有input框的值
         var filterInput = [];
@@ -211,7 +256,6 @@ $(function (){
             url: _urls + 'YWGD/ywGDRptDdzx',
             data:prm,
             success:function(result){
-                console.log(result);
                 //给表格赋值
                 if(result.length == 0){
                     var table = $("#scrap-datatables").dataTable();
@@ -260,65 +304,18 @@ $(function (){
             }
         })
     }
-    /*--------------------------按钮功能------------------------*/
-    //查询按钮
-    $('#selected').click(function(){
-        //判断起止时间是否为空
-        if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal2').modal({
-                show:false,
-                backdrop:'static'
-            })
-            $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            $('#myModal2').modal('show');
-            moTaiKuang2();
-        }else {
-            //结束时间不能小于开始时间
-            if( $('.min').val() > $('.max').val() ){
-                $('#myModal2').modal({
-                    show:false,
-                    backdrop:'static'
-                })
-                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                $('#myModal2').modal('show');
-                moTaiKuang2();
-            }else{
-                //给表格的标题赋时间
-                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
-                conditionSelect();
-            }
-        }
-    })
-    //重置按钮
-    $('.resites').click(function(){
-        //时间选为当天，其他输入框置为空
-        var parents = $(this).parents('.condition-query');
-        var inputs = parents.find('input');
-        inputs.val('');
-        //时间置为今天
-        $('.min').val(_initStart);
-        $('.max').val(_initEnd);
-    })
-    //提示框的确定
-    $('.confirm1').click(function(){
-        $('#myModal2').modal('hide');
-    })
-    /*-------------------------echarts图自适应------------------*/
-    window.onresize = function () {
-        if(myChart && myChart1){
-            myChart.resize();
-            myChart1.resize();
-        }
-    }
-    /*----------------------------打印部分去掉的东西-----------------------------*/
-    //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
-    /*----------------------------模态框自适应------------------------------*/
     //提示框
-    function moTaiKuang2(){
+    //模态框自适应
+    function moTaiKuang(who){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+        who.modal('show');
         var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
+        var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
-        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
 })
