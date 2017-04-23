@@ -96,6 +96,7 @@ $(function(){
             {
                 title:'工单状态',
                 data:'gdZht',
+                className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
                         return '待受理'
@@ -123,12 +124,14 @@ $(function(){
                 data:'wxDidian'
             },
             {
-                title:'执行人',
-                data:''
-            },
-            {
                 title:'登记时间',
                 data:'gdShij'
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>完工</span>"
             }
         ]
     });
@@ -246,15 +249,7 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                if(result.length == 0){
-                    var table = $("#scrap-datatables").dataTable();
-                    table.fnClearTable();
-                }else{
-                    var table = $("#scrap-datatables").dataTable();
-                    table.fnClearTable();
-                    table.fnAddData(result);
-                    table.fnDraw();
-                }
+                datasTable($("#scrap-datatables"),result);
             }
         })
     }
@@ -265,60 +260,57 @@ $(function(){
             'gdZht':_gdState,
             'userID':_userIdName
         }
-        $.ajax({
+          $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDUptZht',
             data:gdInfo,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 conditionSelect();
             }
         })
     }
-    function moTaiKuang(){
+    //模态框自适应
+    function moTaiKuang(who){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+        who.modal('show');
         var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = $('.modal-content').height();
+        var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
-        $('.modal-dialog').css({'margin-top':markBlockTop});
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
-    //提示框
-    function moTaiKuang2(){
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = $('#myModal2').find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        $('#myModal2').find('.modal-dialog').css({'margin-top':markBlockTop});
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
     }
     /*----------------------------表格绑定事件-----------------------------------*/
-    var lastIdx = null;
     $('#scrap-datatables tbody')
-    //鼠标略过行变色
-        .on( 'mouseover', 'td', function () {
-            var colIdx = table.cell(this).index();
-            if ( colIdx !== lastIdx ) {
-                $( table.cells().nodes() ).removeClass( 'highlight' );
-                $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-            }
-        } )
-        .on( 'mouseleave', function () {
-            $( table.cells().nodes() ).removeClass( 'highlight' );
-        } )
         //双击背景色改变，查看详情
-        .on('dblclick','tr',function(){
+        .on('click','.option-edit',function(){
             //当前行变色
-            var $this = $(this);
+            var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
-            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $(this).css({'background':'#FBEC88'});
-            $('#myModal').modal({
-                show:false,
-                backdrop:'static'
-            })
-            $('#myModal').modal('show');
-            moTaiKuang();
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
+            moTaiKuang($('#myModal'));
             //获取详情
-            var gongDanState = $this.children('td').eq(2).html();
-            var gongDanCode = $this.children('td').eq(0).html();
+            var gongDanState = $this.children('.gongdanZt').html();
+            var gongDanCode = $this.children('.gongdanId').html();
+            console.log(gongDanState);
             //根据工单状态，确定按钮的名称
             if( gongDanState == '完工确认' ){
                 gongDanState = 5;
@@ -333,13 +325,19 @@ $(function(){
             //每次获取弹出框中执行人员的数量
             $.ajax({
                 type:'post',
-                url: _urls + 'ywGDGetDetail',
+                url: _urls + 'YWGD/ywGDGetDetail',
                 async:false,
                 data:prm,
                 success:function(result){
-                    console.log(result);
+                    if(result.gdJJ == 1){
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#ones').parent('span').addClass('checked');
+                    }else{
+                        $('.inpus').parent('span').removeClass('checked');
+                        $('#twos').parent('span').addClass('checked');
+                    }
                     //绑定弹窗数据
-                    app33.picked = result.gdJJ;
+                    //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -349,25 +347,9 @@ $(function(){
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;
                     //查看执行人员
-                    if(result.wxRens.length == 0){
-                        var table = $("#personTable1").dataTable();
-                        table.fnClearTable();
-                    }else{
-                        var table = $("#personTable1").dataTable();
-                        table.fnClearTable();
-                        table.fnAddData(result.wxRens);
-                        table.fnDraw();
-                    }
+                    datasTable($("#personTable1"),result.wxRens);
                     //维修材料
-                    if(result.wxCls.length == 0){
-                        var table = $("#personTables1").dataTable();
-                        table.fnClearTable();
-                    }else{
-                        var table = $("#personTables1").dataTable();
-                        table.fnClearTable();
-                        table.fnAddData(result.wxCls);
-                        table.fnDraw();
-                    }
+                    datasTable($("#personTables1"),result.wxCls);
                 }
             });
         });
@@ -376,23 +358,13 @@ $(function(){
     $('#selected').click(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal2').modal({
-                show:false,
-                backdrop:'static'
-            })
             $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            $('#myModal2').modal('show');
-            moTaiKuang2();
+            moTaiKuang($('#myModal2'));
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
-                $('#myModal2').modal({
-                    show:false,
-                    backdrop:'static'
-                })
                 $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                $('#myModal2').modal('show');
-                moTaiKuang2();
+                moTaiKuang($('#myModal2'));
             }else{
                 conditionSelect();
             }
@@ -405,8 +377,8 @@ $(function(){
         var inputs = parents.find('input');
         inputs.val('');
         //时间置为今天
-        $('.datatimeblock').eq(0).val(_initStart);
-        $('.datatimeblock').eq(1).val(_initEnd);
+        $('.min').val(_initStart);
+        $('.max').val(_initEnd);
     })
     //弹窗切换表格效果
     $('.table-title span').click(function(){
@@ -422,6 +394,8 @@ $(function(){
     $('.confirm').click(function(){
         getGongDan();
         $('#myModal').modal('hide');
+        $('#myModal2').find('.modal-body').html('已完成工单完工操作！');
+        moTaiKuang($('#myModal2'));
     })
     //提示框的确定
     $('.confirm1').click(function(){
@@ -430,4 +404,5 @@ $(function(){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+
 })

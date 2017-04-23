@@ -412,30 +412,30 @@
       }
     }
   },
-  "资产管理":{
+  "设备管理":{
     "type":"1",
     "iconclass":"icon-settings",
-    "content":"资产管理",
+    "content":"设备管理",
     "submenu":{
-      "资产管理":{
+      "设备管理":{
         "type":"0",
-        "content":"资产管理",
+        "content":"设备管理",
         "uri":"../zichanguanli/assetManagement-1.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "资产报废":{
+      "设备报废":{
         "type":"0",
-        "content":"资产报废",
+        "content":"设备报废",
         "uri":"../zichanguanli/assetManagement-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "资产资料":{
+      "设备资料":{
         "type":"0",
-        "content":"资产资料",
+        "content":"设备资料",
         "uri":"../zichanguanli/assetManagement-3.html",
         "uid":"",
         "arg":"",
@@ -776,9 +776,17 @@
     "iconclass":"icon-settings",
     "content":"仓库管理",
     "submenu":{
-      "产品管理":{
+      "物品类别":{
         "type":"0",
-        "content":"产品管理",
+        "content":"物品类别",
+        "uri":"../cangkuguanli/warehouseManagement-9.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "物品管理":{
+        "type":"0",
+        "content":"物品管理",
         "uri":"../cangkuguanli/warehouseManagement-1.html",
         "uid":"",
         "arg":"",
@@ -808,22 +816,6 @@
         "arg":"",
         "iconclass":""
       },
-      "货品统计":{
-        "type":"0",
-        "content":"货品统计",
-        "uri":"../cangkuguanli/warehouseManagement-5.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "出入库报表":{
-        "type":"0",
-        "content":"出入库报表",
-        "uri":"../cangkuguanli/warehouseManagement-6.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "入库报表":{
         "type":"0",
         "content":"入库报表",
@@ -840,10 +832,10 @@
         "arg":"",
         "iconclass":""
       },
-      "产品类别":{
+      "台账记录":{
         "type":"0",
-        "content":"产品类别",
-        "uri":"../cangkuguanli/warehouseManagement-9.html",
+        "content":"台账记录",
+        "uri":"../cangkuguanli/warehouseManagement-5.html",
         "uid":"",
         "arg":"",
         "iconclass":""

@@ -1,9 +1,26 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
+    //开始/结束时间插件
+    $('.datatimeblock').datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy/mm/dd'
+    });
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //设置初始时间
+    var _initStart = moment().format('YYYY/MM/DD');
+    var _initEnd = moment().format('YYYY/MM/DD');
+    //显示时间
+    $('.min').val(_initStart);
+    $('.max').val(_initEnd);
+    var realityStart = '';
+    var realityEnd = '';
     /*-------------------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -36,38 +53,91 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         "columns": [
             {
-                title:'产品编号',
+                name: 'second',
+                title:'物品编号',
+                data:'itemNum'
             },
             {
-                title:'产品条码'
+                title:'物品条码',
+                data:'itemBarCode'
             },
             {
-                title:'产品名称'
+                title:'物品名称',
+                data:'itemName'
             },
             {
-                title:'类别'
+                title:'数量',
+                data:'num'
             },
             {
-                title:'预警值下限'
+                title:'台账类型',
+                data:'ivtType'
             },
             {
-                title:'预警值上限'
+                title:'关联单号',
+                data:'orderNum'
             },
             {
-                title:'规格'
+                title:'创建时间',
+                data:'createTime'
             },
             {
-                title:'库存数'
-            },
-            {
-                title:'进货总数'
-            },
-            {
-                title:'出货总数'
-            },
-            {
-                title:'报损总数'
+                title:'操作人',
+                data:'createUser'
             }
         ],
+        "rowsGroup": [
+            'second:name',
+            0,
+            1,
+        ],
     });
+    /*------------------------------------表格数据--------------------------------*/
+    conditionSelect();
+    /*-------------------------------------按钮事件-------------------------------*/
+    //查询按钮
+    $('#selected').click(function(){
+        conditionSelect();
+    })
+    /*------------------------------------其他方法-------------------------------*/
+    //条件查询
+    function conditionSelect(){
+        //获取条件
+        var filterInput = [];
+        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
+        for(var i=0;i<filterInputValue.length;i++){
+            filterInput.push(filterInputValue.eq(i).val());
+        }
+        realityStart = filterInput[2] + ' 00:00:00';
+        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        var prm = {
+            'st':realityStart,
+            'et':realityEnd,
+            'itemNum':filterInput[0],
+            'itemName':filterInput[1],
+            'inoutType':$('.tiaojian').val(),
+            'userID':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptInventory',
+            data:prm,
+            success:function(result){
+                datasTable($('#scrap-datatables'),result)
+            }
+        })
+    }
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+    }
 })

@@ -33,7 +33,7 @@
 .input-blockeds{
     height: 30px;
     border: 1px solid #ebebeb;
-    background: #f5f5f5;
+    background: #ffffff;
 }
 .input-blockeds input{
     line-height: 28px;
@@ -41,8 +41,9 @@
     border: none;
     outline: none;
     display: block;
-    width: 290px;
-    background: #f5f5f5;
+    width: 288px;
+    background: #ffffff;
+    height:28px;
 }
 .floatLeft{
     float: left;
@@ -213,8 +214,21 @@
     color: #3ea49d;
 }
 /*radio的input*/
+/*ie下radio样式*/
 .inpus{
-    margin-left: -10px !important;
+    margin-left: 0 !important;
+}
+/*谷歌radio样式*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .inpus{
+        margin-left: -10px !important;
+    }
+}
+/*火狐radio样式*/
+@-moz-document url-prefix() {
+    .inpus{
+        margin-left: -10px !important;
+    }
 }
 /*执行人员弹窗*/
 .zhiXingBlock{
@@ -265,4 +279,56 @@
 }
 #scrap-datatables{
     margin-bottom: 20px;
+}
+.data-option{
+    margin: 0 8px;
+    cursor: pointer;
+}
+.data-option:hover{
+    color: #00b0f0;
+}
+textarea{
+    text-indent: 10px;
+    border: none;
+    line-height: 20px !important;
+}
+table.dataTable.table-condensed > thead > tr > th{
+    padding-right: 5px;
+}
+.tables-hover{
+    background: #FBEC88 !important;
+}
+.disabled-block{
+    background: #ebebe4 !important;
+}
+.hide-block{
+    opacity: 0 !important;
+    z-index: 0 !important;
+}
+.table thead tr th{
+    text-align: center !important;
+}
+.table tbody tr td{
+    text-align: center !important;
+}
+.hidding{
+    display: none !important;
+}
+#wuPinListTable_filter{
+    display: block !important;
+}
+#wuPinListTable_filter label{
+    display: block !important;
+}
+#wuPinListTable_filter label input{
+    border: 1px solid #ccc;
+}
+#wuPinListTable_info{
+    display: none !important;
+}
+.input-blocked select{
+    height: 100%;
+    border: none;
+    width:164px;
+    outline: none;
 }

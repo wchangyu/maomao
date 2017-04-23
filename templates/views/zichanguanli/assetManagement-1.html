@@ -26,6 +26,8 @@
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
+    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -37,6 +39,7 @@
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
     <script src="../resource/webUploader/webuploader.js"></script>
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -267,64 +270,100 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="total-warp">
-                        <div class="wrap">
+                        <div class="wrap" style="position: relative">
                             <!-- 标题 -->
-                            <!-- 左边选择区域 -->
-                            <div class="content-main-left col-lg-2 col-md-3 col-sm-12 col-xs-12">
-                                <div class="content-main">
-                                    <div class="main-left-middle">
-                                        <div class="left-middle-header">范围选择</div>
-                                        <div class="left-middle-mains" style="height: 700px;">
-                                            <div class="tree-13"id="tree-2">
-                                                <ul class="allPointer ztree" id="allPointer"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content-main-contents content-main-right col-lg-10 col-md-9 col-sm-12 col-xs-12">
+                            <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header">
                                     <li class="main-contents-header-lists0">条件查询</li>
                                 </ul>
                                 <ul class="condition-query">
-                                    <li><label for="">关键字：</label><input type="text"></li>
-                                    <li><label for="">安装时间：</label><input type="text" class="startsTime"></li>
-                                    <li><label for="">至&nbsp;&nbsp;</label><input type="text" class="startsTime endsTime"></li>
-                                    <li><button class="btn btn-success btn1">查询</button></li>
-                                    <li><button class="btn btn-success btn2">新增资产</button>
+                                    <li>
+                                        <label for="">设备名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text">
+                                        </div>
                                     </li>
                                     <li>
-                                        <button type="button" class="btn red delete">
-                                            <i class="fa fa-trash"></i>
-                                            <span>删除</span>
-                                        </button>
+                                        <label for="">规格型号：</label>
+                                        <div class="input-blocked">
+                                            <input type="text">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备状态：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="zhuangtai">
+                                                <option value="0">全部</option>
+                                                <option value="1">正常</option>
+                                                <option value="2">维修</option>
+                                                <option value="3">报废</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备类型：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="leixing">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备区域：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="quyu">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备系统：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="xitong">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备部门：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="bumen">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">安装时间：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock min" name="min">
+                                        </div>
+                                        <label for="">到</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock max" name="max">
+                                        </div>
+                                    </li>
+                                    <li><button class="btn btn-success" id="selected">查询</button></li>
+                                    <li>
+                                        <div class="cont-col1">
+                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                            </div>
+                                        </div>
                                     </li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
                                 <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">资产浏览</li>
+                                    <li class="main-contents-header-lists0">设备浏览</li>
                                 </ul>
                                 <div class="content-main-contents">
                                     <div class="main-contents-table">
-                                        <table id="browse-datatables" class="table table-condensed b-t b-light" cellspacing="0" width="100%">
+                                        <table id="browse-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                             <thead>
                                             </thead>
                                             <tbody>
                                             </tbody>
                                         </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
                                     </div>
                                 </div>
                             </div>
                             <div id="main" style="width: 100%;height: 100%;position: absolute;background: rgba(0,0,0,0.5);display: none;"></div>
-                            <!--点击删除的弹出框-->
-                            <!--<div class="confirm" style="">
-                                <p>您确认要删除么？</p>
-                                <button>确认</button>
-                                <button>取消</button>
-                            </div>-->
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -385,7 +424,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/js/js/assetManagement-1.js"></script>
-<script src="../resource/js/zichanguanli.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -396,252 +434,202 @@
 </script>
 <!-- END JAVASCRIPTS -->
 
-<!--弹窗-->
-<div class="gongdanMark">
-    <div class="gongdanMarkBlock workDone" >
-        <div class="gongdanTitle">
-            <span>新增资产</span>
-            <span class="closes"></span>
-        </div>
-        <div class="gongdanContent">
-            <ul class="gongdanList">
-                <li class="floatLeft">
-                    <div class="labels colorTip">资产类型 *：</div>
-                    <div class="input-blockeds">
-                        <select name="" id="">
-                            <option value="">空调</option>
-                            <option value="">阀门</option>
-                            <option value="">水泵</option>
-                            <option value="">空调机组</option>
-                        </select>
+<!--模态框创建工单-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 648px;">
+        <div class="modal-content" style="height: 648px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">添加设备</h4>
+            </div>
+            <div class="modal-body" style="height: 525px;overflow-y: scroll">
+                <!--主体部分-->
+                <ul class="gongdanList" id="myApp33">
+                    <validator name="validation">
+                        <form novalidate>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">设备编码 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="sbbm" placeholder="自动生成，可不填">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">设备类型 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="zcLX" id="sblx">
+                                        <option v-for="option in options" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">设备名称 *：<span v-show="$validation.mingcheng.requireds">请输入设备名称</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">拼音简码 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="pinyin">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">设备区域 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="ssQY" id="sbqy">
+                                        <option v-for="option in options1" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">设备系统 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="ssXT" id="sbxt">
+                                        <option v-for="option in options2" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">设备部门 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="ssbumen" id="sbbm">
+                                        <option v-for="option in options3" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">状态 ：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="zhuangtai">
+                                        <option v-for="option in options4" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">品牌：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="pingpai">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">规格型号 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="guige">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">供应商：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="gongyingshang">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">生产商 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="shengchanshang">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">使用年限（年） ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="nianxian">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">保修期（年） ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="baoxiu">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                        </form>
+                    </validator>
+                    <div class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">购置日期 ：</div>
+                        <div class="input-blocked" style="width: 300px;border: 1px solid #ebebeb;">
+                            <input type="text" class="datatimeblock" style="width: 288px;" id="gouzhi">
+                        </div>
                     </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">资产名称 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
+                    <div class="floatRight" style="line-height: 26px;">
+                        <div class="labels">安装日期 ：</div>
+                        <div class="input-blocked" style="width: 300px;border: 1px solid #ebebeb;">
+                            <input type="text" class="datatimeblock" style="width: 288px;" id="anzhuang">
+                        </div>
                     </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">拼音简码：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">安装位置：</div>
+                        <div class="input-blockeds">
+                            <input type="text"  id="weizhi">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">描述：</div>
+                        <div class="input-blockeds" style="height:62px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" id="miaoshu"></textarea>
+                        </div>
                     </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">所属区域 *：</div>
-                    <div class="input-blockeds">
-                        <select name="" id="">
-                            <option value="">京沪线</option>
-                            <option value="">哈大线</option>
-                            <option value="">沪宁线</option>
-                            <option value="">中区14号楼</option>
-                            <option value="">京沪线</option>
-                            <option value="">哈大线</option>
-                            <option value="">中区13号楼</option>
-                        </select>
+                    <div>
+                        <div class="labels">技术资料：</div>
+                        <div id="uploader" class="wu-example">
+                            <!--用来存放文件信息-->
+                            <div id="thelist" class="uploader-list"></div>
+                            <div class="btns">
+                                <div id="picker">选择文件</div>
+                                <button id="ctlBtn" class="btn btn-default">开始上传</button>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">所属系统：</div>
-                    <div class="input-blockeds">
-                        <select name="" id="">
-                            <option value="">空调</option>
-                            <option value="">冷冻站</option>
-                            <option value="">BAS</option>
-                            <option value="">办公</option>
-                            <option value="">其他</option>
-                            <option value="">监控</option>
-                            <option value="">通信</option>
-                            <option value="">收费</option>
-                            <option value="">供电</option>
-                            <option value="">空调</option>
-                            <option value="">冷冻站</option>
-                            <option value="">BAS</option>
-                            <option value="">办公</option>
-                            <option value="">其他</option>
-                            <option value="">监控</option>
-                            <option value="">通信</option>
-                            <option value="">收费</option>
-                            <option value="">供电</option>
-                        </select>
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">所属部门 *：</div>
-                    <div class="input-blockeds">
-                        <select name="" id="">
-                            <option value="">沧州西站</option>
-                            <option value="">哈尔滨南站</option>
-                            <option value="">华清安泰</option>
-                            <option value="">廊坊站</option>
-                            <option value="">上海虹桥</option>
-                            <option value="">mc2</option>
-                        </select>
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">状态：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">品牌 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">型号规格 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">供应商：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels">生产商：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">使用年限（年） *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">保修年限（年） *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels colorTip">购置日期 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatRight">
-                    <div class="labels colorTip">安装日期 *：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <li class="floatLeft">
-                    <div class="labels">安装位置：</div>
-                    <div class="input-blockeds">
-                        <input type="text">
-                    </div>
-                </li>
-                <div class="clearfix"></div>
-                <div>
-                    <div class="labels">设备描述：</div>
-                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
-                </div>
-                <div id="uploader" class="wu-example">
-                    <!--用来存放文件信息-->
-                    <div id="thelist" class="uploader-list"></div>
-                    <div class="btns">
-                        <div id="picker">选择文件</div>
-                        <button id="ctlBtn" class="btn btn-default">开始上传</button>
-                    </div>
-                </div>
-                <script>
-                    var $list=$("#thelist");//上传区域
-                    var $btn =$("#ctlBtn");//上传按钮
-                    var thumbnailWidth = 100;
-                    var thumbnailHeight = 100;
-                    //初始化设置
-                    var uploader = WebUploader.create({
-                        //选完文件是否上传
-                        /*auto:true,*/
-                        //swf的路径
-                        swf:'webuploader/Uploader.swf',
-                        //文件接收服务端
-                        server:'http://webuploader.duapp.com/server/fileupload.php',
-                        pick: '#picker',
-                        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-                        resize: false
-                    });
-                    //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
-                    uploader.on( 'fileQueued', function( file ) {
-                        var $li = $(
-                                        '<div id="' + file.id + '" class="file-item thumbnail">' +
-                                        '<img>' +
-                                        '<div class="info">' + file.name + '</div>' +
-                                        '<p class="state">等待上传...</p>' +
-                                        '</div>'
-                                ),
-                                $img = $li.find('img');
-
-                        // $list为容器jQuery实例
-                        $list.append( $li );
-
-                        // 创建缩略图
-                        // 如果为非图片文件，可以不用调用此方法。
-                        // thumbnailWidth x thumbnailHeight 为 100 x 100
-                        uploader.makeThumb( file, function( error, src ) {
-                            if ( error ) {
-                                $img.replaceWith('<span>不能预览</span>');
-                                return;
-                            }
-
-                            $img.attr( 'src', src );
-                        }, thumbnailWidth, thumbnailHeight );
-                    });
-                    //文件上传进度
-                    // 文件上传过程中创建进度条实时显示。
-                    uploader.on( 'uploadProgress', function( file, percentage ) {
-                        var $li = $( '#'+file.id ),
-                                $percent = $li.find('.progress .progress-bar');
-
-                        // 避免重复创建
-                        if ( !$percent.length ) {
-                            $percent = $('<div class="progress progress-striped active">' +
-                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                                    '</div>' +
-                                    '</div>').appendTo( $li ).find('.progress-bar');
-                        }
-
-                        $li.find('p.state').text('上传中');
-
-                        $percent.css( 'width', percentage * 100 + '%' );
-                    });
-                    //文件成功，失败处理
-                    uploader.on( 'uploadSuccess', function( file ) {
-                        $( '#'+file.id ).find('p.state').text('已上传');
-                    });
-
-                    uploader.on( 'uploadError', function( file ) {
-                        $( '#'+file.id ).find('p.state').text('上传出错00');
-                    });
-                    uploader.on( 'uploadComplete', function( file ) {
-                        $( '#'+file.id ).find('.progress').fadeOut();
-                    });
-                    $('#ctlBtn').click(function(){
-                        uploader.upload();
-                    })
-                </script>
-            </ul>
-        </div>
-        <div class="gongdanClose">
-            <ul class="condition-query" style="margin-left: 10px;background: #ffffff">
-                <li style="float: right">
-                    <button class="btn btn-default closee">关闭</button>
-                </li>
-                <li style="float: right">
-                    <button class="btn btn-success">确定</button>
-                </li>
-            </ul>
-        </div>
-    </div>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除提示框-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+            </div>
+            <div class="modal-body">删除成功</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary shanchu confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 <!-- END BODY -->

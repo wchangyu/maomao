@@ -55,7 +55,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style type="text/css" media=print>
+        .noprint{display : none }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -229,7 +231,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
+            <h3 class="page-title noprint">
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -272,42 +274,41 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">产品管理</li>
+                                <ul class="content-main-contents-header noprint">
+                                    <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
-                                <ul class="condition-query">
-                                    <li><label for="">产品：</label>
+                                <ul class="condition-query noprint">
+                                    <li><label for="">物品编码：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="filterInput">
                                         </div>
                                     </li>
-                                    <li><label for="">类别：</label>
+                                    <li><label for="">物品名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInput">
+                                        </div>
+                                    </li>
+                                    <li><label for="">分类名称：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="filterInput">
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1 resites">打印</button></li>
+                                    <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <button type="button" class="btn red delete chexiao">
-                                            <i class="fa fa-trash"></i>
-                                            <span>撤销</span>
-                                        </button>
                                     </li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
                                 <div class="content-main-contents">
                                     <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                             <thead>
                                             </thead>
                                             <tbody>
@@ -389,11 +390,11 @@
 <!--弹窗-->
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 618px;">
-        <div class="modal-content" style="height: 618px;">
+    <div class="modal-dialog" style="height: 648px;">
+        <div class="modal-content" style="height: 648px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">添加产品</h4>
+                <h4 class="modal-title" id="myModalLabel">添加物品</h4>
             </div>
             <div class="modal-body">
                 <!--主体部分-->
@@ -401,27 +402,15 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">产品编号 ：</div>
+                                <div class="labels">物品编码 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成，可不填">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">产品条码 ：</div>
+                                <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="tiaoma" class="shishi">
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">产品名称 ：</div>
-                                <div class="input-blockeds">
-                                    <input type="text"  v-model="mingcheng">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels">产品类别 ：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="leibie">
+                                    <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatLeft">
@@ -437,136 +426,60 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">规格：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="guige" placeholder="0">
-                                </div>
-                            </li>
-                            <li class="floatRight">
                                 <div class="labels">单位 ：</div>
                                 <div class="input-blockeds">
-                                    <select name="" id="">
-                                        <option value="">请选择单位</option>
-                                        <option value="">台</option>
-                                        <option value="">个</option>
-                                        <option value="">箱</option>
-                                    </select>
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">价格：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="jiage" placeholder="0">
+                                    <input type="text" v-model="danwei">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">客户 ：</div>
+                                <div class="labels colorTip">分类编码 *：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品编码</span></div>
                                 <div class="input-blockeds">
-                                    <select name="" id="">
-                                        <option value="">请选择客户</option>
-                                        <option value="">台</option>
-                                        <option value="">个</option>
-                                        <option value="">箱</option>
-                                    </select>
+                                    <input type="text" v-model="flbianma" v-on:click="flbianmaFun" placeholder="点击获取分类编码" v-validate:flbianma= "['requireds']" initial='off' style="cursor: pointer">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">默认仓库 ：</div>
+                                <div class="labels colorTip">分类名称 *：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <select name="" id="">
-                                        <option value="">请选择仓库</option>
-                                        <option value="">台</option>
-                                        <option value="">个</option>
-                                        <option value="">箱</option>
-                                    </select>
+                                    <input type="text" v-model="flmingcheng" placeholder="点击分类编码自动获取分类名称" v-validate:flbianma= "['requireds']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">默认库位 ：</div>
+                                <div class="labels">规格 ：</div>
                                 <div class="input-blockeds">
-                                    <select name="" id="">
-                                        <option value="">请选择库位</option>
-                                        <option value="">台</option>
-                                        <option value="">个</option>
-                                        <option value="">箱</option>
-                                    </select>
+                                    <input type="text" v-model="guige">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">颜色 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="yanse">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">主要供货商 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="gonghuoshang">
                                 </div>
                             </li>
                             <div class="clearfix"></div>
                             <div>
                                 <div class="labels">描述：</div>
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="miaoshu"></textarea>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="miaoshu"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="labels">备注：</div>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhu"></textarea>
+                                </div>
                             </div>
                         </form>
                     </validator>
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框详情-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="height:527px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">工单明细</h4>
-            </div>
-            <div class="modal-body">
-                <ul class="gongdanList" id="workDone">
-                    <li class="floatLeft">
-                        <div class="labels">报修电话：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudianhua">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修人信息：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiuren">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">报修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiukeshis">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修地点：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudidians">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">维修事项：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiushixiangs">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">维修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiukeshis">
-                        </div>
-                    </li>
-                    <div class="clearfix"></div>
-                    <div>
-                        <div class="labels">报修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
-                    </div>
-                    <div>
-                        <div class="labels">维修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
-                    </div>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -582,7 +495,48 @@
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除所有提示框-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm shanchu">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--分类编码选择框-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 535px;">
+        <div class="modal-content" style="height: 535px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel4">选择分类列表</h4>
+            </div>
+            <div class="modal-body">
+                <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
+                    <table id="wuPinListTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" style="width: 626px !important;">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

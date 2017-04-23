@@ -1,5 +1,30 @@
 $(function(){
-    //资产报废表格
+    //获得用户名
+    var _userIdName = sessionStorage.getItem('userName');
+    //获取本地url
+    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //开始/结束时间插件
+    $('.datatimeblock').datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy/mm/dd'
+    });
+    //设置初始时间
+    var _initStart = moment().format('YYYY-MM-DD');
+    var _initEnd = moment().format('YYYY-MM-DD');
+    //显示时间
+    //$('.min').val(_initStart);
+    //$('.max').val(_initEnd);
+    $('.min').val('');
+    $('.max').val('');
+    var realityStart = '';
+    var realityEnd = '';
+    //存放所有列表中的数据
+    var _allDateArr = [];
+    //存放所有选中的数据
+    var _selectedArr = [];
+    /*-------------------------表格初始化------------------------------*/
     $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -29,11 +54,11 @@ $(function(){
                 className:'saveAs'
             }
         ],
-        'ajax':'../resource/data/assetsbrow.json',
         "columns": [
             {
                 title:'编号',
-                data:'number',
+                data:'id',
+                className:'ids'
             },
             {
                 class:'checkeds',
@@ -42,66 +67,181 @@ $(function(){
                 "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
             },
             {
-                title:'资产编号',
-                data:'assetNumber',
+                title:'设备编号',
+                data:'dNum',
+                className:'dNum'
             },
             {
-                title:'资产名称',
-                data:'assetName',
+                title:'设备名称',
+                data:'dName',
             },
             {
                 title:'规格型号',
-                data:'specifications',
+                data:'spec',
             },
             {
-                title:'资产类型',
-                data:'assetType',
+                title:'设备类型',
+                data:'dcName',
             },
             {
                 title:'购置日期',
-                data:'purchaseDate',
+                data:'purDate',
             },
             {
                 title:'使用年限',
-                data:'durableYears',
+                data:'life',
             },
             {
                 title:'状态',
-                data:'state',
+                data:'status',
+                render:function(data, type, full, meta){
+                    if( data == 1){
+                        return '正常'
+                    }else if( data ==2 ){
+                        return '维修'
+                    }else if( data == 3 ){
+                        return '报废'
+                    }
+                }
             },
             {
-                title:'使用部门',
-                data:'userDepartment',
+                title:'设备部门',
+                data:'ddName',
             },
             {
-                title:'所属系统',
-                data:'itsSystem',
+                title:'安装区域',
+                data:'installAddress',
+            },
+            {
+                title:'安装时间',
+                data:'installDate',
+            },
+            {
+                title:'设备系统',
+                data:'dsName',
+            }
+        ],
+        "aoColumnDefs": [
+            {
+                sDefaultContent: '',
+                aTargets: [ '_all' ]
             }
         ]
     });
+    conditionSelect();
+    //获取设备类型
+    var prm = {
+        'dcName':'',
+        'userID':_userIdName
+    }
+    ajaxFun(prm,'YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
+    //设备区域
+    var prm1 = {
+        'daName':'',
+        'userID':_userIdName
+    }
+    ajaxFun(prm1,'YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
+    //设备系统
+    var prm2 = {
+        'dsName':'',
+        'userID':_userIdName
+    }
+    ajaxFun(prm2,'YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
+    //设备部门
+    var prm3 = {
+        'ddName':'',
+        'userID':_userIdName
+    }
+    ajaxFun(prm3,'YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
+    /*-------------------------按钮功能------------------------------*/
+    $('#baofei').on('click',function(){
+        _selectedArr = [];
+        //首先判断选中的是哪个
+        var selectRow = $('tbody').find('.checked').parents('tr');
+        for( var i =0;i<_allDateArr.length;i++){
+            for(var j=0;j<selectRow.length;j++){
+                if(_allDateArr[i].id == selectRow.eq(j).children('.ids').html()){
+                    _selectedArr.push(_allDateArr[i]);
+                }
+            }
+        }
+        var ids = [];
+        for( var i=0;i<_selectedArr.length;i++ ){
+            ids.push(_selectedArr[i].id)
+        }
+        var prm = {
+            'status':3,
+            'ids':ids,
+            'userID':_userIdName
+        }
+        console.log(prm);
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWDev/ywDOptDev',
+            data:prm,
+            success:function( result ){
+                //参数错误
+                //console.log(result);
+                if(result == 99){
+                    conditionSelect();
+                }
+            }
+        })
+    });
+    $('#huifu').on('click',function(){
+        _selectedArr = [];
+        //首先判断选中的是哪个
+        var selectRow = $('tbody').find('.checked').parents('tr');
+        for( var i =0;i<_allDateArr.length;i++){
+            for(var j=0;j<selectRow.length;j++){
+                if(_allDateArr[i].id == selectRow.eq(j).children('.ids').html()){
+                    _selectedArr.push(_allDateArr[i]);
+                }
+            }
+        }
+        var ids = [];
+        for( var i=0;i<_selectedArr.length;i++ ){
+            ids.push(_selectedArr[i].id)
+        }
+        var prm = {
+            'status':1,
+            'ids':ids,
+            'userID':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWDev/ywDOptDev',
+            data:prm,
+            success:function( result ){
+                //参数错误
+                //console.log(result);
+                if(result == 99){
+                    conditionSelect();
+                }
+            }
+        })
+    })
+    //表格数据
+    /*---------------------------表格中添加复选框----------------------*/
     var creatCheckBox = '<input type="checkbox">';
-    $('.checkeds').prepend(creatCheckBox);
+    $('thead').find('.checkeds').prepend(creatCheckBox);
     $('#scrap-datatables tbody').on( 'click', 'input', function () {
-        console.log($(this).parents('.checker').children('.checked').length);
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
-            $(this).parents('tr').css({'background':'#FBEC88'})
+            $(this).parents('tr').css({'background':'#FBEC88'});
+            //如果所有复选框打钩，那么表头的复选框自动打钩；
+            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
+            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
+            if( rowNum == selectNum){
+                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
+            }
         }else{
             $(this).parent($('span')).removeClass('checked');
-            $(this).parents('tr').css({'background':'#ffffff'})
+            $(this).parents('tr').css({'background':'#ffffff'});
+            //只要有一个复选框没选中，全选框不打勾，
+            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
         }
-    } )
-    /*给表格添加双击事件*/
-    //双击改变背景颜色
-    .on('dblclick','tr',function(){
-        var e = event || window.event;
-        if(e.target.nodeName.toLowerCase() != 'input'){
-            //当前行变色
-            $('#scrap-datatables tbody').children('tr').css({'background':'#ffffff'});
-            $(this).css({'background':'#FBEC88'});
-        }
-    })
-
+    });
     //点击thead复选框tbody的复选框全选中
     $('#scrap-datatables thead').find('input').click(function(){
         //$('#information-datatables tbody').find('input')
@@ -114,5 +254,74 @@ $(function(){
             $('#scrap-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
             $('#scrap-datatables tbody').find('tr').css({'background':'#ffffff'})
         }
-    })
+    });
+    /*---------------------------其他方法----------------------------*/
+    //查询
+    function conditionSelect(){
+        //获取条件
+        var filterInput = [];
+        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
+        for(var i=0;i<filterInputValue.length;i++){
+            filterInput.push(filterInputValue.eq(i).val());
+        }
+        realityStart = filterInput[3] + ' 00:00:00';
+        realityEnd = moment(filterInput[4]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        var prm =   {
+            'st':realityStart,
+            'et':realityEnd,
+            'dName':filterInput[0],
+            'spec':filterInput[1],
+            'status':$('#zhuangtai').val(),
+            'daNum':$('#quyu').val(),
+            'ddNum':$('#bumen').val(),
+            'dsNum':$('#xitong').val(),
+            'dcNum':$('#leixing').val(),
+            'userID':_userIdName
+        }
+        console.log(prm);
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWDev/ywDIGetDevs',
+            data:prm,
+            async:false,
+            success:function(result){
+                console.log(result);
+                for(var i=0;i<result.length;i++){
+                    _allDateArr.push(result[i]);
+                }
+                datasTable($('#scrap-datatables'),result);
+            }
+        })
+    }
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+    }
+    //ajaxFun（select的值）
+    function ajaxFun(parameter,url,select,text,num){
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            async:false,
+            data:parameter,
+            success:function(result){
+                //console.log(result);
+                //给select赋值
+                var str = '<option value="">全部</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
+                }
+                select.append(str);
+            }
+        })
+    }
 })
