@@ -326,3 +326,9 @@ table.dataTable.table-condensed > thead > tr > th{
 #wuPinListTable_info{
     display: none !important;
 }
+.input-blocked select{
+    height: 100%;
+    border: none;
+    width:164px;
+    outline: none;
+}

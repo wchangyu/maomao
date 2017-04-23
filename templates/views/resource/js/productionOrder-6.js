@@ -309,10 +309,6 @@ $(function(){
                     currentPages = $('.paginate_button').eq(i).html();
                 }
             }
-            //将当前页数存放到sessionStroage中
-            ////var storage = window.sessionStorage;
-            //storage.setItem("currentPage",currentPages);
-            //刷新的时候，定位到当前页；
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
@@ -336,7 +332,6 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     var indexs = result.gdZht;
                     $('.progressBar').children('li').css({'color':'#333333'});
                     for(var i=0;i<indexs;i++){

@@ -445,9 +445,6 @@
                             <div class="labels colorTip">入库单类型 *：</div>
                             <div class="input-blockeds">
                                 <select name="" id="" v-model="rkleixing">
-                                    <!--<option value="1">采购入库</option>
-                                    <option value="2">借出退还入库</option>
-                                    <option value="3">借用入库</option>-->
                                     <option v-for="option in options" v-bind:value="option.value">
                                         {{ option.text }}
                                     </option>

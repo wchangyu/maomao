@@ -50,8 +50,6 @@ $(function(){
     var workDone = new Vue({
         'el':'#workDone',
         'data':{
-            //'itemNum':'',//
-            // 'itemName':'',
             'itemBarCode':'',
             'batchNum':'',
             'num':'',
@@ -157,6 +155,13 @@ $(function(){
     var _wpListArr = [];
     //当前选中的一条物品列表
     var _$thisWP = '';
+    //表格定位当前页
+    //定位当前页
+    var currentPages = 0;
+    //定位当前表格的分页（一个页面多个表格）
+    var $thisTbale;
+    //当前页在分页的span页中的index值
+    var currentTable;
     /*-------------------------------------表格初始化------------------------------*/
     $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -532,6 +537,10 @@ $(function(){
                 'orderNum':$thisDanhao,
                 'userID':_userIdName
             }
+            //获得当前的页数，
+            $thisTbale = $(this).parents('.table');
+            currentTable = $thisTbale.next().next();
+            currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
             $.ajax({
                 type:'post',
                 url:_urls + 'YWCK/ywCKGetInStorageDetail',
@@ -550,9 +559,14 @@ $(function(){
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
             _$thisRemoveRowDa = $thisDanhao;
             //提示框，确定要删除吗？
-            $('#myModal2').find('.modal-body').html('确定要删除吗？');
-            moTaiKuang($('#myModal2'));
-            $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('daShanchu');
+            var $myModal = $('#myModal2');
+            $myModal.find('.modal-body').html('确定要删除吗？');
+            moTaiKuang($myModal);
+            $myModal.find('.btn-primary').removeClass('xiaoShanchu').addClass('daShanchu');
+            //获得当前的页数，
+            $thisTbale = $(this).parents('.table');
+            currentTable = $thisTbale.next().next();
+            currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
         })
         //入库单确认操作
         .on('click','.option-confirm',function(){
@@ -564,16 +578,23 @@ $(function(){
                 'OrderNum':$thisDanhao,
                 'userID':_userIdName
             }
+            //获得当前的页数，
+            $thisTbale = $(this).parents('.table');
+            currentTable = $thisTbale.next().next();
+            currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
             $.ajax({
                 type:'post',
                 url:_urls + 'YWCK/ywCKConfirmInStorage',
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        $('#myModal2').find('.modal-body').html('确认成功');
-                        $('#myModal2').find('.btn-primary').removeClass('.xiaoShanchu').removeClass('daShanchu');
-                        moTaiKuang($('#myModal2'));
+                        var $myModal = $('#myModal2');
+                        $myModal.find('.modal-body').html('确认成功');
+                        $myModal.find('.btn-primary').removeClass('.xiaoShanchu').removeClass('daShanchu');
+                        moTaiKuang($myModal);
                         conditionSelect();
+                        //点击一下当前的数字，自动指向当前页
+                        currentTable.children('span').children('.paginate_button').eq(currentPages).click();
                     }
                 }
             })
@@ -617,11 +638,15 @@ $(function(){
             url: _urls + 'YWCK/ywCKEditInStorage',
             data:prm,
             success:function(result){
+                var $myModal = $('#myModal2');
+                $myModal.find('.btn-primary').removeClass('.daShanchu');
+                $myModal.find('.btn-primary').removeClass('.xiaoShanchu');
+                $myModal.find('.modal-body').html('修改成功');
+                moTaiKuang($myModal);
                 conditionSelect();
-                $('#myModal2').find('.btn-primary').removeClass('.daShanchu');
-                $('#myModal2').find('.btn-primary').removeClass('.xiaoShanchu');
-                $('#myModal2').find('.modal-body').html('修改成功');
-                moTaiKuang($('#myModal2'))
+                //点击一下当前的数字，自动指向当前页
+                currentTable.children('span').children('.paginate_button').eq(currentPages).click();
+
             }
         })
     })
@@ -678,8 +703,16 @@ $(function(){
             success:function(result){
                 if(result == 99){
                     $('#myModal2').find('.btn-primary').removeClass('daShanchu');
-                    conditionSelect();
                     moTaiKuang($('#myModal3'));
+                    conditionSelect();
+                    //点击一下当前的数字，自动指向当前页
+                    var tablePageLength = currentTable.children('span').children('.paginate_button').length-1
+                    if(currentPages <= tablePageLength){
+                        currentTable.children('span').children('.paginate_button').eq(currentPages).click();
+                    }else{
+                        currentPages = currentPages -1;
+                        currentTable.children('span').children('.paginate_button').eq(currentPages).click();
+                    }
                 }
             }
         })
@@ -747,22 +780,24 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetInStorage',
+            async:false,
             data:prm,
             success:function(result){
                 //状态为待确认的数组
                 var confirm = [];
                 var confirmed = [];
-                    _allData = result;
-                    for(var i=0;i<result.length;i++){
+                _allData = result;
+                for(var i=0;i<result.length;i++){
                         if(result[i].status == 0){
                             confirm.push(result[i])
                         }else if(result[i].status == 1){
                             confirmed.push(result[i])
                         }
                     }
-                    datasTable($('#scrap-datatables1'),confirm);
-                    datasTable($('#scrap-datatables2'),confirmed);
-                    datasTable($('#scrap-datatables'),result);
+                datasTable($('#scrap-datatables1'),confirm);
+                datasTable($('#scrap-datatables2'),confirmed);
+                datasTable($('#scrap-datatables'),result);
+
             }
         })
     }
