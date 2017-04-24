@@ -74,7 +74,8 @@ $(function(){
         "columns": [
             {
                 title:'编号',
-                data:'id'
+                data:'id',
+                visible: false
             },
             {
                 title:'资产类型编码',
@@ -137,7 +138,8 @@ $(function(){
         "columns": [
             {
                 title:'编号',
-                data:'id'
+                data:'id',
+                visible: false
             },
             {
                 title:'区域编码',
@@ -201,7 +203,8 @@ $(function(){
         "columns": [
             {
                 title:'编号',
-                data:'id'
+                data:'id',
+                visible: false
             },
             {
                 title:'系统编码',
@@ -256,14 +259,15 @@ $(function(){
         "dom":'B<"clear">lfrtip',
         'buttons': [
             {
-                text:'增加',
+                text:'新增',
                 className:'saveAs addFun'
             }
         ],
         "columns": [
             {
                 title:'编号',
-                data:'id'
+                data:'id',
+                visible: false
             },
             {
                 title:'部门编码',

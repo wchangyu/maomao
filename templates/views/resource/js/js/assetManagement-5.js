@@ -41,6 +41,10 @@ $(function(){
             'pinyin':''
         }
     });
+    //判断保修截止日标识是否有效
+    var isQueryMaintain = 0;
+    //判断使用截止日标识是否有效
+    var isQueryLife = 0;
     //获取设备类型
     var prm = {
         'dcName':'',
@@ -79,7 +83,7 @@ $(function(){
     }
     /*-------------------------------------------表格初始化------------------------------------------*/
     //资产浏览表格
-    $('#information-datatables').DataTable({
+    $('.table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -178,8 +182,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='' title='右击文件另存为'>下载</a></span>"
+                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
             }
         ],
         "aoColumnDefs": [
@@ -195,7 +198,7 @@ $(function(){
         $('#information-datatables tbody').find('tr').eq(i).find('.option-edite').children('a').attr({'href':_allDateArr[i].docPath});
     }
     /*------------------------------------------按钮方法--------------------------------------------*/
-    $('#information-datatables tbody')
+    $('.table tbody')
         .on('click','.option-see',function(){
             //上传文件隐藏
             $('#uploader').hide();
@@ -235,6 +238,14 @@ $(function(){
     $('#selected').click(function(){
         conditionSelect();
     })
+    //状态选项卡
+    $('.table-title').children('span').click(function(){
+        $('.table-title').children('span').removeClass('spanhover');
+        $(this).addClass('spanhover');
+        $('.main-contents-table').addClass('hide-block');
+        $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
+
+    })
     /*-------------------------------------------其他方法--------------------------------------------*/
     //ajaxFun（select的值）
     function ajaxFun(parameter,url,select,text,num,arr){
@@ -265,6 +276,17 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        if( $('#baoxiu').val()!= '' ){
+            isQueryMaintain = 1
+        }else{
+            isQueryMaintain = 0
+        }
+        if( $('#shiyong').val()  != '' ){
+            isQueryLife = 1
+        }else{
+            isQueryLife = 0
+        }
+        //保修期为1，使用期为0
         var prm =   {
             'dName':filterInput[0],
             'spec':filterInput[1],
@@ -273,7 +295,10 @@ $(function(){
             'ddNum':$('#bumen').val(),
             'dsNum':$('#xitong').val(),
             'dcNum':$('#leixing').val(),
-            'isQueryDevDoc':1,
+            'isQueryMaintain':isQueryMaintain,
+            'queryMaintainMonth':$('#baoxiu').val(),
+            'isQueryLife':0,
+            'queryLifeMonth':'',
             'userID':_userIdName
         }
         $.ajax({
@@ -287,6 +312,34 @@ $(function(){
                     _allDateArr.push(result[i]);
                 }
                 datasTable($('#information-datatables'),result);
+            }
+        })
+        //保修期为0，使用期为1
+        var prm1 =   {
+            'dName':filterInput[0],
+            'spec':filterInput[1],
+            'status':$('#zhuangtai').val(),
+            'daNum':$('#quyu').val(),
+            'ddNum':$('#bumen').val(),
+            'dsNum':$('#xitong').val(),
+            'dcNum':$('#leixing').val(),
+            'isQueryMaintain':0,
+            'queryMaintainMonth':'',
+            'isQueryLife':isQueryLife,
+            'queryLifeMonth':$('#shiyong').val(),
+            'userID':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWDev/ywDIGetDevs',
+            data:prm1,
+            async:false,
+            success:function(result){
+                console.log(result);
+                for(var i=0;i<result.length;i++){
+                    _allDateArr.push(result[i]);
+                }
+                datasTable($('#information-datatables1'),result);
             }
         })
     }
