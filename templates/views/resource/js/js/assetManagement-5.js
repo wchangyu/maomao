@@ -45,41 +45,35 @@ $(function(){
     var isQueryMaintain = 0;
     //判断使用截止日标识是否有效
     var isQueryLife = 0;
+    //表格
+    var _table = $('#information-datatables');
+    //存放设备类型的所有数据
+    var _allDataLX = [];
+    //存放设备区域的所有数据
+    var _allDataQY = [];
+    //存放设备系统的所有数据
+    var _allDataXT = [];
+    //存放设备部门的所有数据
+    var _allDataBM = [];
     //获取设备类型
-    var prm = {
-        'dcName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm,'YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum',myApp33.options);
-    if( myApp33.options.length !=0 ){
-        myApp33.zcLX = myApp33.options[0].value;
+    ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#leixing'),'dcName','dcNum',myApp33.options);
+    if( _allDataLX.length !=0 ){
+        myApp33.zcLX = _allDataLX[0].dcNum;
     }
     //设备区域
-    var prm1 = {
-        'daName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm1,'YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum',myApp33.options1);
-    if( myApp33.options1.length !=0 ){
-        myApp33.ssQY = myApp33.options1[0].value;
+    ajaxFun('YWDev/ywDMGetDAs',_allDataQY,$('#quyu'),'daName','daNum',myApp33.options1);
+    if( _allDataQY.length !=0 ){
+        myApp33.ssQY = _allDataQY[0].daNum;
     }
     //设备系统
-    var prm2 = {
-        'dsName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm2,'YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum',myApp33.options2);
-    if( myApp33.options2.length !=0 ){
-        myApp33.ssXT = myApp33.options2[0].value;
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('#xitong'),'dsName','dsNum',myApp33.options2);
+    if( _allDataXT.length !=0 ){
+        myApp33.ssXT = _allDataXT[0].dsNum;
     }
     //设备部门
-    var prm3 = {
-        'ddName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm3,'YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum',myApp33.options3);
-    if( myApp33.options3 ){
-        myApp33.ssbumen = myApp33.options3[0].value;
+    ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('#bumen'),'ddName','ddNum',myApp33.options3);
+    if( _allDataBM.length !=0 ){
+        myApp33.ssbumen = _allDataBM[0].ddNum;
     }
     /*-------------------------------------------表格初始化------------------------------------------*/
     //资产浏览表格
@@ -195,7 +189,7 @@ $(function(){
     conditionSelect();
     //给表格中的下载附链接
     for( var i=0;i<_allDateArr.length;i++ ){
-        $('#information-datatables tbody').find('tr').eq(i).find('.option-edite').children('a').attr({'href':_allDateArr[i].docPath});
+        _table.find('tbody').find('tr').eq(i).find('.option-edite').children('a').attr({'href':_allDateArr[i].docPath});
     }
     /*------------------------------------------按钮方法--------------------------------------------*/
     $('.table tbody')
@@ -212,7 +206,6 @@ $(function(){
             var $thisNum = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
-                    console.log(_allDateArr[i]);
                     myApp33.sbbm = _allDateArr[i].dNum;
                     myApp33.zcLX = _allDateArr[i].dcNum;
                     myApp33.mingcheng = _allDateArr[i].dName;
@@ -242,18 +235,23 @@ $(function(){
     $('.table-title').children('span').click(function(){
         $('.table-title').children('span').removeClass('spanhover');
         $(this).addClass('spanhover');
-        $('.main-contents-table').addClass('hide-block');
-        $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
+        var mainContentsTable = $('.main-contents-table');
+        mainContentsTable.addClass('hide-block');
+        mainContentsTable.eq($(this).index()).removeClass('hide-block');
 
     })
     /*-------------------------------------------其他方法--------------------------------------------*/
     //ajaxFun（select的值）
-    function ajaxFun(parameter,url,select,text,num,arr){
+    function ajaxFun(url,allArr,select,text,num,arr){
+        var prm = {
+            'userID':_userIdName
+        }
+        prm[text] = '';
         $.ajax({
             type:'post',
             url:_urls + url,
             async:false,
-            data:parameter,
+            data:prm,
             success:function(result){
                 //给select赋值
                 var str = '<option value="">全部</option>'
@@ -263,6 +261,7 @@ $(function(){
                     obj.text = result[i][text];
                     obj.value = result[i][num];
                     arr.push(obj);
+                    allArr.push(result[i]);
                 }
                 select.append(str);
             }
@@ -307,7 +306,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
@@ -335,7 +333,6 @@ $(function(){
             data:prm1,
             async:false,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }

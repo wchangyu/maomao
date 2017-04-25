@@ -43,283 +43,132 @@ $(function(){
     var _stringBM = 'department-datatables';
     /*--------------------------------表格初始化--------------------------*/
     //设备类型
-    _$tableLX.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var col = [
+        {
+            title:'编号',
+            data:'id',
+            visible: false
         },
-        "dom":'B<"clear">lfrtip',
-        'buttons': [
-            {
-                text:'新增',
-                className:'saveAs addFun'
-            },
-        ],
-        "columns": [
-            {
-                title:'编号',
-                data:'id',
-                visible: false
-            },
-            {
-                title:'资产类型编码',
-                data:'dcNum',
-                className:'dcNum'
-            },
-            {
-                title:'资产类型名称',
-                data:'dcName'
-            },
-            {
-                title:'拼音简码',
-                data:'dcPy'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
-                                  "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
+        {
+            title:'资产类型编码',
+            data:'dcNum',
+            className:'dcNum'
+        },
+        {
+            title:'资产类型名称',
+            data:'dcName'
+        },
+        {
+            title:'拼音简码',
+            data:'dcPy'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
 
-            }
-        ],
-        "aoColumnDefs": [
-            {
-                sDefaultContent: '',
-                aTargets: [ '_all' ]
-            }
-        ],
-    });
+        }
+    ]
+    tableInit(_$tableLX,col);
     //设备区域
-    _$tableQY.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var col1 = [
+        {
+            title:'编号',
+            data:'id',
+            visible: false
         },
-        "dom":'B<"clear">lfrtip',
-        'buttons': [
-            {
-                text:'新增',
-                className:'saveAs addFun'
-            }
-        ],
-        "columns": [
-            {
-                title:'编号',
-                data:'id',
-                visible: false
-            },
-            {
-                title:'区域编码',
-                data:'daNum',
-                className:'dcNum'
+        {
+            title:'区域编码',
+            data:'daNum',
+            className:'dcNum'
 
-            },
-            {
-                title:'区域名称',
-                data:'daName'
-            },
-            {
-                title:'拼音简码',
-                data:'daPy'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
+        },
+        {
+            title:'区域名称',
+            data:'daName'
+        },
+        {
+            title:'拼音简码',
+            data:'daPy'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
 
-            }
-        ],
-        "aoColumnDefs": [
-            {
-                sDefaultContent: '',
-                aTargets: [ '_all' ]
-            }
-        ]
-    });
+        }
+    ];
+    tableInit(_$tableQY,col1);
     //设备系统
-    _$tableXT.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var col2 = [
+        {
+            title:'编号',
+            data:'id',
+            visible: false
         },
-        "dom":'B<"clear">lfrtip',
-        'buttons': [
-            {
-                text:'新增',
-                className:'saveAs addFun'
-            }
-        ],
-        "columns": [
-            {
-                title:'编号',
-                data:'id',
-                visible: false
-            },
-            {
-                title:'系统编码',
-                data:'dsNum',
-                className:'dcNum'
-            },
-            {
-                title:'系统名称',
-                data:'dsName'
-            },
-            {
-                title:'拼音简码',
-                data:'dsPy'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
-
-            }
-        ],
-        "aoColumnDefs": [
-            {
-                sDefaultContent: '',
-                aTargets: [ '_all' ]
-            }
-        ]
-    });
-    _$tableBM.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+        {
+            title:'系统编码',
+            data:'dsNum',
+            className:'dcNum'
         },
-        "dom":'B<"clear">lfrtip',
-        'buttons': [
-            {
-                text:'新增',
-                className:'saveAs addFun'
-            }
-        ],
-        "columns": [
-            {
-                title:'编号',
-                data:'id',
-                visible: false
-            },
-            {
-                title:'部门编码',
-                data:'ddNum',
-                className:'dcNum'
-            },
-            {
-                title:'部门名称',
-                data:'ddName'
-            },
-            {
-                title:'拼音简码',
-                data:'ddPy'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
+        {
+            title:'系统名称',
+            data:'dsName'
+        },
+        {
+            title:'拼音简码',
+            data:'dsPy'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
 
-            }
-        ],
-        "aoColumnDefs": [
-            {
-                sDefaultContent: '',
-                aTargets: [ '_all' ]
-            }
-        ]
-    });
+        }
+    ];
+    tableInit(_$tableXT,col2);
+    //设备部门
+    var col3 = [
+        {
+            title:'编号',
+            data:'id',
+            visible: false
+        },
+        {
+            title:'部门编码',
+            data:'ddNum',
+            className:'dcNum'
+        },
+        {
+            title:'部门名称',
+            data:'ddName'
+        },
+        {
+            title:'拼音简码',
+            data:'ddPy'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
+
+        }
+    ];
+    tableInit(_$tableBM,col3);
     /*--------------------------------表格数据---------------------------*/
     //默认全部表格加载数据；
-    var prm = {
-        'dcName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm,'YWDev/ywDMGetDCs',_allDataLX,_$tableLX);
-    var prm1 = {
-        'daName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm1,'YWDev/ywDMGetDAs',_allDataQY,_$tableQY);
-    var prm2 = {
-        'dsName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm2,'YWDev/ywDMGetDSs',_allDataXT,_$tableXT);
-    var prm3 = {
-        'ddName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm3,'YWDev/ywDMGetDDs',_allDataBM,_$tableBM);
+    ajaxFun('YWDev/ywDMGetDCs',_allDataLX,_$tableLX,'dcName');
+    ajaxFun('YWDev/ywDMGetDAs',_allDataQY,_$tableQY,'daName');
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,_$tableXT,'dsName');
+    ajaxFun('YWDev/ywDMGetDDs',_allDataBM,_$tableBM,'ddName');
     /*--------------------------------按钮事件--------------------------*/
     //tab切换
     $('.table-title').find('span').click(function(){
@@ -332,7 +181,6 @@ $(function(){
     $('.addFun').click(function(){
         //获取当前新增按钮时属于哪个表格的
         _$thisTable = $(this).parent().next().next().next();
-        console.log( _$thisTable[0].id );
         //清空输入框
         myApp33.sblxbm = '';
         myApp33.sblxmc = '';
@@ -355,8 +203,6 @@ $(function(){
         }else if( _$thisTable[0].id == _stringBM ){
             arr = ['设备部门编码 :','设备部门名称 *:','拼音简码 :']
         }
-        //console.log(arr);
-        console.log(mingcheng);
         for(var i=0;i<mingcheng.length;i++){
             mingcheng.eq(i).html(arr[i]);
         }
@@ -371,13 +217,13 @@ $(function(){
             $('#myModal').modal('hide');
             //获取填写的内容
             if( _$thisTable[0].id == _stringLX ){
-                xinzengFun('YWDev/ywDMAddDC')
+                xinzengFun('YWDev/ywDMAddDC','dcName','dcPy');
             }else if( _$thisTable[0].id == _stringQY ){
-                xinzengFun('YWDev/ywDMAddDA')
+                xinzengFun('YWDev/ywDMAddDA','daName','daPy');
             }else if( _$thisTable[0].id == _stringXT ){
-                xinzengFun('YWDev/ywDMAddDS')
+                xinzengFun('YWDev/ywDMAddDS','dsName','dsPy');
             }else if( _$thisTable[0].id == _stringBM ){
-                xinzengFun('YWDev/ywDMAddDD')
+                xinzengFun('YWDev/ywDMAddDD','ddName','ddPy');
             }
         }
     });
@@ -389,41 +235,13 @@ $(function(){
             var $thisBM = $(this).parents('tr').children('.dcNum').html();
             _$thisTable = $(this).parents('.table');
             if( _$thisTable[0].id == _stringLX ){
-                for(var i=0;i<_allDataLX.length;i++){
-                    if(_allDataLX[i].dcNum == $thisBM){
-                        myApp33.sblxbm = _allDataLX[i].dcNum;
-                        myApp33.sblxmc = _allDataLX[i].dcName;
-                        myApp33.pyjm = _allDataLX[i].dcPy;
-                        _tableColumID = _allDataLX[i].id;
-                    }
-                }
+                editContent( _allDataLX,'dcNum','dcName','dcPy','id',$thisBM);
             }else if( _$thisTable[0].id == _stringQY ){
-                for(var i=0;i<_allDataQY.length;i++){
-                    if(_allDataQY[i].daNum == $thisBM){
-                        myApp33.sblxbm = _allDataQY[i].daNum;
-                        myApp33.sblxmc = _allDataQY[i].daName;
-                        myApp33.pyjm = _allDataQY[i].daPy;
-                        _tableColumID = _allDataQY[i].id;
-                    }
-                }
+                editContent( _allDataQY,'daNum','daName','daPy','id',$thisBM);
             }else if( _$thisTable[0].id == _stringXT ){
-                for(var i=0;i<_allDataXT.length;i++){
-                    if(_allDataXT[i].daNum == $thisBM){
-                        myApp33.sblxbm = _allDataXT[i].dsNum;
-                        myApp33.sblxmc = _allDataXT[i].dsName;
-                        myApp33.pyjm = _allDataXT[i].dsPy;
-                        _tableColumID = _allDataXT[i].id;
-                    }
-                }
+                editContent( _allDataXT,'dsNum','dsName','dsPy','id',$thisBM);
             }else if( _$thisTable[0].id == _stringBM ){
-                for(var i=0;i<_allDataBM.length;i++){
-                    if(_allDataBM[i].ddNum == $thisBM){
-                        myApp33.sblxbm = _allDataBM[i].ddNum;
-                        myApp33.sblxmc = _allDataBM[i].ddName;
-                        myApp33.pyjm = _allDataBM[i].ddPy;
-                        _tableColumID = _allDataBM[i].id;
-                    }
-                }
+                editContent( _allDataBM,'ddNum','ddName','ddPy','id',$thisBM);
             }
 
         var $myModal = $('#myModal');
@@ -441,28 +259,29 @@ $(function(){
             //弹出提示框
             moTaiKuang($(myModal1));
         })
+    $('#myModal')
     //设备类型编辑确认按钮
-    $('#myModal').on('click','.xiugai',function(){
+        .on('click','.xiugai',function(){
         if( _$thisTable[0].id == _stringLX ){
-            bianjiFun('YWDev/ywDMUptDC');
+            bianjiFun('YWDev/ywDMUptDC','dcNum','dcName','dcPy');
         }else if( _$thisTable[0].id == _stringQY ){
-            bianjiFun('YWDev/ywDMUptDA');
+            bianjiFun('YWDev/ywDMUptDA','daNum','daName','daPy');
         }else if( _$thisTable[0].id == _stringXT ){
-            bianjiFun('YWDev/ywDMUptDS');
+            bianjiFun('YWDev/ywDMUptDS','dsNum','dsName','dsPy');
         }else if( _$thisTable[0].id == _stringBM ){
-            bianjiFun('YWDev/ywDMUptDD');
+            bianjiFun('YWDev/ywDMUptDD','ddNum','ddName','ddPy');
         }
     })
     //设备类型删除确认按钮
-    $('#myModal1').on('click','.shanchu',function(){
+        .on('click','.shanchu',function(){
         if( _$thisTable[0].id == _stringLX ){
-            shanchu('YWDev/ywDMDelDC');
+            shanchu('YWDev/ywDMDelDC','dcNum');
         }else if( _$thisTable[0].id == _stringQY ){
-            shanchu('YWDev/ywDMDelDA');
+            shanchu('YWDev/ywDMDelDA','daNum');
         }else if( _$thisTable[0].id == _stringXT ){
-            shanchu('YWDev/ywDMDelDS');
+            shanchu('YWDev/ywDMDelDS','dsNum');
         }else if( _$thisTable[0].id == _stringBM ){
-            shanchu('YWDev/ywDMDelDD');
+            shanchu('YWDev/ywDMDelDD','ddNum');
         }
     })
     //确定关闭模态框按钮
@@ -471,18 +290,10 @@ $(function(){
     });
     /*--------------------------------其他方法---------------------------*/
     //获取列表的公共方法（地址，数组，表格）
-    function shebeiHQ(url,allarr,tableId){
+    function shebeiHQ(url,allarr,tableId,text){
         if(_$thisTable){
             var prm = {};
-            if( _$thisTable[0].id == _stringLX ){
-                prm.dcName = ""
-            }else if( _$thisTable[0].id == _stringQY ){
-                prm.daName = ""
-            }else if( _$thisTable[0].id == _stringXT ){
-                prm.dsName = ""
-            }else if( _$thisTable[0].id == _stringBM ){
-                prm.ddName = ""
-            }
+            prm[text] = '';
             prm.userID = _userIdName;
             $.ajax({
                 type:'post',
@@ -498,13 +309,17 @@ $(function(){
             })
         }
     }
-        //ajaxFun
-        function ajaxFun(parameter,url,allarr,tableId){
+    //ajaxFun
+    function ajaxFun(url,allarr,tableId,text){
+            var prm = {
+                'userID':_userIdName
+            }
+            prm[text] = ''
             $.ajax({
                 type:'post',
                 url:_urls + url,
                 async:false,
-                data:parameter,
+                data:prm,
                 success:function(result){
                     for(var i=0; i<result.length; i++){
                         allarr.push(result[i])
@@ -513,24 +328,11 @@ $(function(){
                 }
             })
         }
-        //新增公共方法(确定)
-        function xinzengFun(url){
+    //新增公共方法(确定)
+    function xinzengFun(url,text1,text2){
             var prm = {};
-            //第一个表格
-            if( _$thisTable[0].id == _stringLX ){
-                prm.dcName = myApp33.sblxmc;
-                prm.dcPy = myApp33.pyjm;
-            //第二个表格
-            }else if( _$thisTable[0].id == _stringQY ){
-                prm.daName = myApp33.sblxmc;
-                prm.daPy = myApp33.pyjm;
-            }else if( _$thisTable[0].id == _stringXT ){
-                prm.dsName = myApp33.sblxmc;
-                prm.dsPy = myApp33.pyjm;
-            }else if( _$thisTable[0].id == _stringBM ){
-                prm.ddName = myApp33.sblxmc;
-                prm.ddPy = myApp33.pyjm;
-            }
+            prm[text1] = myApp33.sblxmc;
+            prm[text2] = myApp33.pyjm;
             prm.userID = _userIdName;
             $.ajax({
                 type:'post',
@@ -554,26 +356,12 @@ $(function(){
                 }
             })
         }
-        //编辑的公共方法(确定)
-        function bianjiFun(url){
+    //编辑的公共方法(确定)
+    function bianjiFun(url,text1,text2,text3){
             var prm = {};
-            if( _$thisTable[0].id == _stringLX ){
-                prm.dcNum = myApp33.sblxbm;
-                prm.dcName = myApp33.sblxmc;
-                prm.dcPy = myApp33.pyjm;
-            }else if( _$thisTable[0].id == _stringQY ){
-                prm.daNum = myApp33.sblxbm;
-                prm.daName = myApp33.sblxmc;
-                prm.daPy = myApp33.pyjm;
-            }else if( _$thisTable[0].id == _stringXT ){
-                prm.dsNum = myApp33.sblxbm;
-                prm.dsName = myApp33.sblxmc;
-                prm.dsPy = myApp33.pyjm;
-            }else if( _$thisTable[0].id == _stringBM ){
-                prm.ddNum = myApp33.sblxbm;
-                prm.ddName = myApp33.sblxmc;
-                prm.ddPy = myApp33.pyjm;
-            }
+            prm[text1] = myApp33.sblxbm;
+            prm[text2] = myApp33.sblxmc;
+            prm[text3] = myApp33.pyjm;
             prm.id = _tableColumID;
             prm.userID = _userIdName;
             $.ajax({
@@ -602,51 +390,50 @@ $(function(){
                 }
             })
         }
-        //删除的公共方法
-        function shanchu(url){
-            var prm = {
-                'id':_tableColumID,
-                'userID':_userIdName
-            };
-            $.ajax({
-                type:'post',
-                url:_urls + url,
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        if( _$thisTable[0].id == _stringLX ){
-                            shebeiHQ('YWDev/ywDMGetDCs',_allDataLX,_$thisTable);
-                        }else if( _$thisTable[0].id == _stringQY ){
-                            shebeiHQ('YWDev/ywDMGetDAs',_allDataQY,_$thisTable);
-                        }else if( _$thisTable[0].id == _stringXT ){
-                            shebeiHQ('YWDev/ywDMGetDSs',_allDataXT,_$thisTable);
-                        }else if( _$thisTable[0].id == _stringBM ){
-                            shebeiHQ('YWDev/ywDMGetDDs',_allDataBM,_$thisTable);
-                        }
-                        var $myModal = $('#myModal2');
-                        $myModal.find('.modal-body').html('删除成功');
-                        moTaiKuang($myModal);
+    //删除的公共方法
+    function shanchu(url,text){
+        var prm = {
+            'userID':_userIdName
+        };
+        prm[text]= _tableColumID;
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:prm,
+            success:function(result){
+                if(result == 99){
+                    if( _$thisTable[0].id == _stringLX ){
+                        shebeiHQ('YWDev/ywDMGetDCs',_allDataLX,_$thisTable);
+                    }else if( _$thisTable[0].id == _stringQY ){
+                        shebeiHQ('YWDev/ywDMGetDAs',_allDataQY,_$thisTable);
+                    }else if( _$thisTable[0].id == _stringXT ){
+                        shebeiHQ('YWDev/ywDMGetDSs',_allDataXT,_$thisTable);
+                    }else if( _$thisTable[0].id == _stringBM ){
+                        shebeiHQ('YWDev/ywDMGetDDs',_allDataBM,_$thisTable);
                     }
+                    var $myModal = $('#myModal2');
+                    $myModal.find('.modal-body').html('删除成功');
+                    moTaiKuang($myModal);
                 }
-            })
+            }
+        })
 
-        }
-        //模态框显示
-        function moTaiKuang(who){
-            who.modal({
-                show:false,
-                backdrop:'static'
-            })
-            //$('#myModal2').find('.modal-body').html('起止时间不能为空');
-            who.modal('show');
-            var markHeight = document.documentElement.clientHeight;
-            var markBlockHeight = who.find('.modal-dialog').height();
-            var markBlockTop = (markHeight - markBlockHeight)/2;
-            who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        }
-        //dataTables表格填数据
-        function datasTable(tableId,arr){
-            if(arr.length == 0){
+    }
+    //模态框显示
+    function moTaiKuang(who){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
+    }
+    //dataTables表格填数据
+    function datasTable(tableId,arr){
+        if(arr.length == 0){
                 var table = tableId.dataTable();
                 table.fnClearTable();
                 table.fnDraw();
@@ -657,5 +444,55 @@ $(function(){
                 table.fnDraw();
             }
         }
+    //表格初始化方法
+    function tableInit(tableID,col){
+        tableID.DataTable({
+            'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+            'paging': true,   //是否分页
+            'destroy': true,//还原初始化了的datatable
+            'searching': false,
+            'ordering': false,
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '没有数据',
+                'info': '第_PAGE_页/共_PAGES_页',
+                'infoEmpty': '没有数据',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            'dom':'B<"clear">lfrtip',
+            'buttons': [
+                {
+                    text:'新增',
+                    className:'saveAs addFun'
+                },
+            ],
+            'columns':col,
+            'aoColumnDefs':[
+                {
+                    sDefaultContent: '',
+                    aTargets: [ '_all' ]
+                }
+            ],
+        })
+    }
+    //编辑内容赋值方法
+    function editContent( arr,num,name,py,pid,bm ){
+        for( var i=0;i<arr.length;i++ ){
+            if( arr[i][num] == bm ){
+                myApp33.sblxbm = arr[i][num];
+                myApp33.sblxmc = arr[i][name];
+                myApp33.pyjm = arr[i][py];
+                _tableColumID = arr[i][pid];
+            }
+        }
+    }
 
 })

@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
     <script src="../resource/webUploader/webuploader.js"></script>
+    <!--等待loading-->
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -56,7 +58,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
+    <style>
 
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -70,6 +74,10 @@
 <!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
 <!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
 <body class="page-header-fixed page-quick-sidebar-over-content">
+<!--loading-->
+<!--<div id="loading" style="width: 200px;height: 200px;position: fixed;z-index: 99999999999999999;top: 50%;left: 50%">
+    <img src="../resource/jQuery-showLoading/img/loading.gif" alt="">
+</div>-->
 <!-- BEGIN HEADER -->
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
@@ -139,6 +147,7 @@
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
+<div id="loading">
 <div class="page-container">
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar-wrapper">
@@ -359,6 +368,7 @@
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
     <!-- END QUICK SIDEBAR -->
 </div>
+</div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -405,6 +415,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <script src="../resource/js/js/assetManagement-3.js"></script>
 <script>
     jQuery(document).ready(function() {

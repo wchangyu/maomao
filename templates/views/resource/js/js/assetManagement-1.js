@@ -56,51 +56,45 @@ $(function(){
     });
     //存放所有列表中的数据
     var _allDateArr = [];
+    //存放设备类型的所有数据
+    var _allDataLX = [];
+    //存放设备区域的所有数据
+    var _allDataQY = [];
+    //存放设备系统的所有数据
+    var _allDataXT = [];
+    //存放设备部门的所有数据
+    var _allDataBM = [];
     //存放当前id值
     var _thisRowID = 0;
     //存放当前设备编码值
     var _thisRowBM = '';
     //当前上传路径
     var _currentPath = '';
+    //表格
+    var _table = $('#browse-datatables');
     //获取设备类型
-    var prm = {
-        'dcName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm,'YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum',myApp33.options);
-    if( myApp33.options.length !=0 ){
-        myApp33.zcLX = myApp33.options[0].value;
+    ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#leixing'),'dcName','dcNum',myApp33.options);
+    if( _allDataLX.length !=0 ){
+        myApp33.zcLX = _allDataLX[0].dcNum;
     }
     //设备区域
-    var prm1 = {
-        'daName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm1,'YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum',myApp33.options1);
-    if( myApp33.options1.length !=0 ){
-        myApp33.ssQY = myApp33.options1[0].value;
+    ajaxFun('YWDev/ywDMGetDAs',_allDataQY,$('#quyu'),'daName','daNum',myApp33.options1);
+    if( _allDataQY.length !=0 ){
+        myApp33.ssQY = _allDataQY[0].daNum;
     }
     //设备系统
-    var prm2 = {
-        'dsName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm2,'YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum',myApp33.options2);
-    if( myApp33.options2.length !=0 ){
-        myApp33.ssXT = myApp33.options2[0].value;
+   ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('#xitong'),'dsName','dsNum',myApp33.options2);
+    if( _allDataXT.length !=0 ){
+        myApp33.ssXT = _allDataXT[0].dsNum;
     }
     //设备部门
-    var prm3 = {
-        'ddName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm3,'YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum',myApp33.options3);
-    if( myApp33.options3 ){
-        myApp33.ssbumen = myApp33.options3[0].value;
+    ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('#bumen'),'ddName','ddNum',myApp33.options3);
+    if( _allDataBM.length !=0 ){
+        myApp33.ssbumen = _allDataBM[0].ddNum;
     }
     /*----------------------------表格初始化------------------------------*/
     //资产浏览表格
-    $('#browse-datatables').DataTable({
+    _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -217,9 +211,10 @@ $(function(){
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
         //首先添加增加类
-        $('#myModal').find('.btn-primary').show();
-        $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
-        moTaiKuang($('#myModal'));
+        var $myModal = $('#myModal');
+        $myModal.find('.btn-primary').show();
+        $myModal.find('.btn-primary').removeClass('bianji').addClass('dengji');
+        moTaiKuang($myModal);
         //初始化
         myApp33.sbbm = '';
         myApp33.mingcheng = '';
@@ -241,52 +236,8 @@ $(function(){
     $('#selected').click(function (){
         conditionSelect();
     })
-    //新增确定按钮
-    $('.modal').on('click','.dengji',function(){
-        //上传文件出现
-        $('#uploader').show();
-        //获取填入的内容
-        var prm = {
-            'dName':myApp33.mingcheng,
-            'dPy':myApp33.pinyin,
-            'dcNum':myApp33.zcLX,
-            'dcName':$.trim($('#sblx option:selected').html()),
-            'daNum':myApp33.ssQY,
-            'daName':$.trim($('#sbqy option:selected').html()),
-            'ddNum':myApp33.ssbumen,
-            'ddName':$.trim($('#sbbm option:selected').html()),
-            'dsNum':myApp33.ssXT,
-            'dsName':$.trim($('#sbxt option:selected').html()),
-            'status':myApp33.zhuangtai,
-            'brand':myApp33.pingpai,
-            'spec':myApp33.guige,
-            'supName':myApp33.gongyingshang,
-            'prodName':myApp33.shengchanshang,
-            'life':myApp33.nianxian,
-            'maintain':myApp33.baoxiu,
-            'purDate':$('#gouzhi').val(),
-            'installDate':$('#anzhuang').val(),
-            'installAddress':$('#weizhi').val(),
-            'description':$('#miaoshu').val(),
-            'docPath':$('.lujing').html(),
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWDev/ywDAddDev',
-            data:prm,
-            success:function(result){
-                if(result == 99 ){
-                    $('#myModal2').find('.modal-body').html('新增成功');
-                    moTaiKuang($('#myModal2'));
-                    conditionSelect();
-                    $('#myModal').modal('hide');
-                }
-            }
-        })
-    })
     //表格操作查看按钮
-    $('#browse-datatables tbody')
+    _table.find('tbody')
         .on('click','.option-see',function(){
             //上传文件隐藏
             $('#uploader').hide();
@@ -294,13 +245,13 @@ $(function(){
             $('#gouzhi').attr('disabled',true);
             $('#anzhuang').attr('disabled',true);
             //获取绑定的值
-            $('#myModal').find('.btn-primary').hide();
-            moTaiKuang($('#myModal'));
+            var $myModal = $('#myModal');
+            $myModal.find('.btn-primary').hide();
+            moTaiKuang($myModal);
             //绑定数据
             var $thisNum = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
-                    console.log(_allDateArr[i]);
                     myApp33.sbbm = _allDateArr[i].dNum;
                     myApp33.zcLX = _allDateArr[i].dcNum;
                     myApp33.mingcheng = _allDateArr[i].dName;
@@ -330,10 +281,11 @@ $(function(){
             $('#gouzhi').attr('disabled',false);
             $('#anzhuang').attr('disabled',false);
             //确定按钮出现
-            $('#myModal').find('.btn-primary').show();
+            var $myModal = $('#myModal');
+            $myModal.find('.btn-primary').show();
             //添加编辑类，删除登记类
-            $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji');
-            moTaiKuang($('#myModal'));
+            $myModal.find('.btn-primary').removeClass('dengji').addClass('bianji');
+            moTaiKuang($myModal);
             //绑定原数据
             var $thisNum = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++){
@@ -372,8 +324,54 @@ $(function(){
             $myModal.find('.modal-body').html('确定要删除吗？');
             moTaiKuang($myModal);
         })
-    //编辑确定按钮
+    //模态框确定按钮
     $('.modal')
+    //新增确定按钮
+        .on('click','.dengji',function(){
+            //上传文件出现
+            $('#uploader').show();
+            //获取填入的内容
+            var prm = {
+                'dName':myApp33.mingcheng,
+                'dPy':myApp33.pinyin,
+                'dcNum':myApp33.zcLX,
+                'dcName':$.trim($('#sblx option:selected').html()),
+                'daNum':myApp33.ssQY,
+                'daName':$.trim($('#sbqy option:selected').html()),
+                'ddNum':myApp33.ssbumen,
+                'ddName':$.trim($('#sbbm option:selected').html()),
+                'dsNum':myApp33.ssXT,
+                'dsName':$.trim($('#sbxt option:selected').html()),
+                'status':myApp33.zhuangtai,
+                'brand':myApp33.pingpai,
+                'spec':myApp33.guige,
+                'supName':myApp33.gongyingshang,
+                'prodName':myApp33.shengchanshang,
+                'life':myApp33.nianxian,
+                'maintain':myApp33.baoxiu,
+                'purDate':$('#gouzhi').val(),
+                'installDate':$('#anzhuang').val(),
+                'installAddress':$('#weizhi').val(),
+                'description':$('#miaoshu').val(),
+                'docPath':$('.lujing').html(),
+                'userID':_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWDev/ywDAddDev',
+                data:prm,
+                success:function(result){
+                    if(result == 99 ){
+                        var $myModal2 = $('#myModal2');
+                        $myModal2.find('.modal-body').html('新增成功');
+                        moTaiKuang($myModal2);
+                        conditionSelect();
+                        $('#myModal').modal('hide');
+                    }
+                }
+            })
+        })
+    //编辑确定按钮
         .on('click','.bianji',function(){
         //获取所有详情
         var prm = {
@@ -403,7 +401,6 @@ $(function(){
             'docPath':$('.lujing').html(),
             'userID':_userIdName
         };
-            console.log(prm);
         $.ajax({
             type:'post',
             url: _urls + 'YWDev/ywDUptDev',
@@ -425,7 +422,6 @@ $(function(){
                 'dNum':_thisRowBM,
                 'userID':_userIdName
             }
-            console.log(prm);
             $.ajax({
                 type:'post',
                 url:_urls + 'YWDev/ywDDelDev',
@@ -500,7 +496,6 @@ $(function(){
     });
     //文件成功，失败处理
     uploader.on( 'uploadSuccess', function( file,response ) {
-        //console.log(response);
         _currentPath = response;
         $('.lujing').html(_currentPath);
         $( '#'+file.id ).find('p.state').text('已上传');
@@ -530,12 +525,16 @@ $(function(){
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
     //ajaxFun（select的值）
-    function ajaxFun(parameter,url,select,text,num,arr){
+    function ajaxFun(url,allArr,select,text,num,arr){
+        var prm = {
+            'userID':_userIdName
+        }
+        prm[text] = '';
         $.ajax({
             type:'post',
             url:_urls + url,
             async:false,
-            data:parameter,
+            data:prm,
             success:function(result){
                 //给select赋值
                 var str = '<option value="">全部</option>'
@@ -545,6 +544,7 @@ $(function(){
                     obj.text = result[i][text];
                     obj.value = result[i][num];
                     arr.push(obj);
+                    allArr.push(result[i]);
                 }
                 select.append(str);
             }
@@ -586,7 +586,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }

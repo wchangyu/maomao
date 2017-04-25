@@ -22,8 +22,10 @@ $(function(){
     var _allDateArr = [];
     //存放所有选中的数据
     var _selectedArr = [];
+    //表格
+    var _table = $('#scrap-datatables');
     /*-------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -135,46 +137,31 @@ $(function(){
     });
     conditionSelect();
     //获取设备类型
-    var prm = {
-        'dcName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm,'YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
+    ajaxFun('YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
     //设备区域
-    var prm1 = {
-        'daName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm1,'YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
+    ajaxFun('YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
     //设备系统
-    var prm2 = {
-        'dsName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm2,'YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
+    ajaxFun('YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
     //设备部门
-    var prm3 = {
-        'ddName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm3,'YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
+    ajaxFun('YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
     /*-------------------------按钮功能------------------------------*/
     $('#selected').click(function(){
         conditionSelect();
     })
     $('#baofei').on('click',function(){
-        //添加确定按钮
         //出现提示框
-        $('#myModal2').find('.modal-body').html('确定要置为报废状态吗？');
-        moTaiKuang($('#myModal2'));
-        $('#myModal2').find('.btn-primary').removeClass('huifu').addClass('baofei');
+        var $myModal2 = $('#myModal2');
+        $myModal2.find('.modal-body').html('确定要置为报废状态吗？');
+        moTaiKuang($myModal2);
+        $myModal2.find('.btn-primary').removeClass('huifu').addClass('baofei');
     });
     $('#huifu').on('click',function(){
         //添加确定按钮
-        $('#myModal2').find('.btn-primary').removeClass('baofei').addClass('huifu');
+        var myModal2 = $('#myModal2')
+        myModal2.find('.btn-primary').removeClass('baofei').addClass('huifu');
         //出现提示框
-        $('#myModal2').find('.modal-body').html('确定要恢复为正常状态吗？');
-        moTaiKuang($('#myModal2'));
+        myModal2.find('.modal-body').html('确定要恢复为正常状态吗？');
+        moTaiKuang(myModal2);
     });
     $('#myModal2')
         .on('click','.baofei',function(){
@@ -251,7 +238,7 @@ $(function(){
     /*---------------------------表格中添加复选框----------------------*/
     var creatCheckBox = '<input type="checkbox">';
     $('thead').find('.checkeds').prepend(creatCheckBox);
-    $('#scrap-datatables tbody').on( 'click', 'input', function () {
+    _table.find('tbody').on( 'click', 'input', function () {
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
             $(this).parents('tr').css({'background':'#FBEC88'});
@@ -269,16 +256,15 @@ $(function(){
         }
     });
     //点击thead复选框tbody的复选框全选中
-    $('#scrap-datatables thead').find('input').click(function(){
-        //$('#information-datatables tbody').find('input')
+    _table.find('thead').find('input').click(function(){
         if($(this).parents('.checker').children('.checked').length == 0){
             //点击选中状态
-            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').addClass('checked');
+            _table.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
             //所有行的背景颜色置为黄色
-            $('#scrap-datatables tbody').find('tr').css({'background':'#fbec88'})
+            _table.find('tbody').find('tr').css({'background':'#fbec88'})
         }else{
-            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            $('#scrap-datatables tbody').find('tr').css({'background':'#ffffff'})
+            _table.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            _table.find('tbody').find('tr').css({'background':'#ffffff'})
         }
     });
     /*---------------------------其他方法----------------------------*/
@@ -340,12 +326,16 @@ $(function(){
         }
     }
     //ajaxFun（select的值）
-    function ajaxFun(parameter,url,select,text,num){
+    function ajaxFun(url,select,text,num){
+        var prm = {
+            'userID':_userIdName
+        }
+        prm[text] = '';
         $.ajax({
             type:'post',
             url:_urls + url,
             async:false,
-            data:parameter,
+            data:prm,
             success:function(result){
                 //console.log(result);
                 //给select赋值
