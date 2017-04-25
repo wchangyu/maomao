@@ -14,8 +14,6 @@ $(function(){
     var _initStart = moment().format('YYYY-MM-DD');
     var _initEnd = moment().format('YYYY-MM-DD');
     //显示时间
-    //$('.min').val(_initStart);
-    //$('.max').val(_initEnd);
     $('.min').val('');
     $('.max').val('');
     var realityStart = '';
@@ -24,8 +22,10 @@ $(function(){
     var _allDateArr = [];
     //存放所有选中的数据
     var _selectedArr = [];
+    //表格
+    var _table = $('#scrap-datatables');
     /*-------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -58,7 +58,8 @@ $(function(){
             {
                 title:'编号',
                 data:'id',
-                className:'ids'
+                className:'ids',
+                visible: false
             },
             {
                 class:'checkeds',
@@ -86,6 +87,20 @@ $(function(){
             {
                 title:'购置日期',
                 data:'purDate',
+                render:function timeForma(data){
+                    return data.split(' ')[0].replace(/-/g,'/');
+                }
+            },
+            {
+                title:'保修年限',
+                data:'maintain',
+            },
+            {
+                title:'安装时间',
+                data:'installDate',
+                render:function timeForma(data){
+                    return data.split(' ')[0].replace(/-/g,'/');
+                }
             },
             {
                 title:'使用年限',
@@ -109,14 +124,6 @@ $(function(){
                 data:'ddName',
             },
             {
-                title:'安装区域',
-                data:'installAddress',
-            },
-            {
-                title:'安装时间',
-                data:'installDate',
-            },
-            {
                 title:'设备系统',
                 data:'dsName',
             }
@@ -130,82 +137,51 @@ $(function(){
     });
     conditionSelect();
     //获取设备类型
-    var prm = {
-        'dcName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm,'YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
+    ajaxFun('YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
     //设备区域
-    var prm1 = {
-        'daName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm1,'YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
+    ajaxFun('YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
     //设备系统
-    var prm2 = {
-        'dsName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm2,'YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
+    ajaxFun('YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
     //设备部门
-    var prm3 = {
-        'ddName':'',
-        'userID':_userIdName
-    }
-    ajaxFun(prm3,'YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
+    ajaxFun('YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
     /*-------------------------按钮功能------------------------------*/
+    $('#selected').click(function(){
+        conditionSelect();
+    })
     $('#baofei').on('click',function(){
+        //出现提示框
+        var $myModal2 = $('#myModal2');
+        $myModal2.find('.modal-body').html('确定要置为报废状态吗？');
+        moTaiKuang($myModal2);
+        $myModal2.find('.btn-primary').removeClass('huifu').addClass('baofei');
+    });
+    $('#huifu').on('click',function(){
+        //添加确定按钮
+        var myModal2 = $('#myModal2')
+        myModal2.find('.btn-primary').removeClass('baofei').addClass('huifu');
+        //出现提示框
+        myModal2.find('.modal-body').html('确定要恢复为正常状态吗？');
+        moTaiKuang(myModal2);
+    });
+    $('#myModal2')
+        .on('click','.baofei',function(){
         _selectedArr = [];
         //首先判断选中的是哪个
         var selectRow = $('tbody').find('.checked').parents('tr');
         for( var i =0;i<_allDateArr.length;i++){
             for(var j=0;j<selectRow.length;j++){
-                if(_allDateArr[i].id == selectRow.eq(j).children('.ids').html()){
+                if(_allDateArr[i].dNum == selectRow.eq(j).children('.dNum').html()){
                     _selectedArr.push(_allDateArr[i]);
                 }
             }
         }
         var ids = [];
         for( var i=0;i<_selectedArr.length;i++ ){
-            ids.push(_selectedArr[i].id)
+            ids.push(_selectedArr[i].dNum);
         }
         var prm = {
             'status':3,
-            'ids':ids,
-            'userID':_userIdName
-        }
-        console.log(prm);
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWDev/ywDOptDev',
-            data:prm,
-            success:function( result ){
-                //参数错误
-                //console.log(result);
-                if(result == 99){
-                    conditionSelect();
-                }
-            }
-        })
-    });
-    $('#huifu').on('click',function(){
-        _selectedArr = [];
-        //首先判断选中的是哪个
-        var selectRow = $('tbody').find('.checked').parents('tr');
-        for( var i =0;i<_allDateArr.length;i++){
-            for(var j=0;j<selectRow.length;j++){
-                if(_allDateArr[i].id == selectRow.eq(j).children('.ids').html()){
-                    _selectedArr.push(_allDateArr[i]);
-                }
-            }
-        }
-        var ids = [];
-        for( var i=0;i<_selectedArr.length;i++ ){
-            ids.push(_selectedArr[i].id)
-        }
-        var prm = {
-            'status':1,
-            'ids':ids,
+            'devNums':ids,
             'userID':_userIdName
         }
         $.ajax({
@@ -213,19 +189,56 @@ $(function(){
             url:_urls + 'YWDev/ywDOptDev',
             data:prm,
             success:function( result ){
-                //参数错误
-                //console.log(result);
                 if(result == 99){
+                    moTaiKuang($('#myModal3'));
                     conditionSelect();
+                    $('#myModal2').modal('hide');
                 }
             }
         })
     })
+        .on('click','.huifu',function(){
+            _selectedArr = [];
+            //首先判断选中的是哪个
+            var selectRow = $('tbody').find('.checked').parents('tr');
+            for( var i =0;i<_allDateArr.length;i++){
+                for(var j=0;j<selectRow.length;j++){
+                    if(_allDateArr[i].dNum == selectRow.eq(j).children('.dNum').html()){
+                        _selectedArr.push(_allDateArr[i]);
+                    }
+                }
+            }
+            var ids = [];
+            for( var i=0;i<_selectedArr.length;i++ ){
+                ids.push(_selectedArr[i].dNum)
+            }
+            var prm = {
+                'status':1,
+                'devNums':ids,
+                'userID':_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWDev/ywDOptDev',
+                data:prm,
+                success:function( result ){
+                    //参数错误
+                    if(result == 99){
+                        moTaiKuang($('#myModal3'));
+                        conditionSelect();
+                        $('#myModal2').modal('hide');
+                    }
+                }
+            })
+        })
+    $('.confirm').click(function(){
+        $(this).parents('.modal').modal('hide');
+    });
     //表格数据
     /*---------------------------表格中添加复选框----------------------*/
     var creatCheckBox = '<input type="checkbox">';
     $('thead').find('.checkeds').prepend(creatCheckBox);
-    $('#scrap-datatables tbody').on( 'click', 'input', function () {
+    _table.find('tbody').on( 'click', 'input', function () {
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
             $(this).parents('tr').css({'background':'#FBEC88'});
@@ -243,16 +256,15 @@ $(function(){
         }
     });
     //点击thead复选框tbody的复选框全选中
-    $('#scrap-datatables thead').find('input').click(function(){
-        //$('#information-datatables tbody').find('input')
+    _table.find('thead').find('input').click(function(){
         if($(this).parents('.checker').children('.checked').length == 0){
             //点击选中状态
-            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').addClass('checked');
+            _table.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
             //所有行的背景颜色置为黄色
-            $('#scrap-datatables tbody').find('tr').css({'background':'#fbec88'})
+            _table.find('tbody').find('tr').css({'background':'#fbec88'})
         }else{
-            $('#scrap-datatables tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            $('#scrap-datatables tbody').find('tr').css({'background':'#ffffff'})
+            _table.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            _table.find('tbody').find('tr').css({'background':'#ffffff'})
         }
     });
     /*---------------------------其他方法----------------------------*/
@@ -264,8 +276,16 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[3] + ' 00:00:00';
-        realityEnd = moment(filterInput[4]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        if( filterInput[2] == ''){
+            realityStart = ''
+        }else{
+            realityStart = filterInput[2] + ' 00:00:00';
+        }
+        if( filterInput[2] == '' ){
+            realityEnd = ''
+        }else{
+            realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
         var prm =   {
             'st':realityStart,
             'et':realityEnd,
@@ -278,7 +298,6 @@ $(function(){
             'dcNum':$('#leixing').val(),
             'userID':_userIdName
         }
-        console.log(prm);
         $.ajax({
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevs',
@@ -307,12 +326,16 @@ $(function(){
         }
     }
     //ajaxFun（select的值）
-    function ajaxFun(parameter,url,select,text,num){
+    function ajaxFun(url,select,text,num){
+        var prm = {
+            'userID':_userIdName
+        }
+        prm[text] = '';
         $.ajax({
             type:'post',
             url:_urls + url,
             async:false,
-            data:parameter,
+            data:prm,
             success:function(result){
                 //console.log(result);
                 //给select赋值
@@ -323,5 +346,17 @@ $(function(){
                 select.append(str);
             }
         })
+    }
+    //确定新增弹出框的位置
+    function moTaiKuang(who){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
 })
