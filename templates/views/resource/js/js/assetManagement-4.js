@@ -30,7 +30,7 @@ $(function(){
     //保存id的变量
     var _tableColumID = 0;
     //当前的表格
-    var _$thisTable;
+    var _$thisTable = '';
     //定义四个表格变量
     var _$tableLX = $('#asset-type-datatables');
     var _$tableQY = $('#area-datatables');
@@ -180,7 +180,7 @@ $(function(){
     //设备类型增加按钮
     $('.addFun').click(function(){
         //获取当前新增按钮时属于哪个表格的
-        _$thisTable = $(this).parent().next().next().next();
+        _$thisTable = $(this).parent().next().next().next().next();
         //清空输入框
         myApp33.sblxbm = '';
         myApp33.sblxmc = '';
@@ -273,7 +273,8 @@ $(function(){
         }
     })
     //设备类型删除确认按钮
-        .on('click','.shanchu',function(){
+    $('#myModal1').on('click','.shanchu',function(){
+            console.log(_$thisTable[0].id);
         if( _$thisTable[0].id == _stringLX ){
             shanchu('YWDev/ywDMDelDC','dcNum');
         }else if( _$thisTable[0].id == _stringQY ){
@@ -396,6 +397,7 @@ $(function(){
             'userID':_userIdName
         };
         prm[text]= _tableColumID;
+        console.log(prm);
         $.ajax({
             type:'post',
             url:_urls + url,
@@ -450,7 +452,7 @@ $(function(){
             'autoWidth': false,  //用来启用或禁用自动列的宽度计算
             'paging': true,   //是否分页
             'destroy': true,//还原初始化了的datatable
-            'searching': false,
+            'searching': true,
             'ordering': false,
             'language': {
                 'emptyTable': '没有数据',
@@ -460,6 +462,7 @@ $(function(){
                 'zeroRecords': '没有数据',
                 'info': '第_PAGE_页/共_PAGES_页',
                 'infoEmpty': '没有数据',
+                'sSearch':'查询',
                 'paginate':{
                     "previous": "上一页",
                     "next": "下一页",

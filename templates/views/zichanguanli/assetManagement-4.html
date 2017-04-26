@@ -54,7 +54,16 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style>
+        .dataTables_filter label{
+            display: block !important;
+            margin-right: 30px;
+        }
+        .dataTables_filter label input{
+            border: 1px solid #ccc;
+            line-height: 30px;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -270,7 +279,7 @@
                     <div class="total-warp">
                         <div class="wrap">
                             <!-- 标题 -->
-                            <div class="table-title">
+                            <div class="table-title" style="height: 36px;">
                                 <span class="spanhover">设备类型</span>
                                 <span>设备区域</span>
                                 <span>设备系统</span>
