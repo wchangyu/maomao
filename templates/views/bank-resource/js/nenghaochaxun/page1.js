@@ -127,6 +127,8 @@ $(document).ready(function() {
         $('.show-title2').html(type);
         $('.show-title3').html(time);
 
+        $('#choose-date').modal('show');
+
     })
 
 });
