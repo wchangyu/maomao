@@ -42,9 +42,9 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <!--非框架中的样式-->
+    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/lib/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/lib/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/page1.css"/>
 </head>
 <!-- END HEAD -->
@@ -240,38 +240,40 @@
                                     <li>
                                         <label for="">类别：</label>
 
-                                            <select name="" id="" class="datatimeblock person-type" >
+                                            <select name="" id="energy-type" class="energy-type" >
                                                 <option >电</option>
                                                 <option >水</option>
                                                 <option >气</option>
                                             </select>
 
-
-                                    </li>
-
-                                    <li>
-                                        <label for="">时间：</label>
-
-                                            <select name="" id="" class="datatimeblock person-type" >
-                                                <option >今天</option>
-                                                <option >昨天</option>
-                                                <option >过去7天</option>
-                                                <option >过去30天</option>
-                                                <option >本月</option>
-                                                <option >上月</option>
-                                                <option  class="custom-time">自定义</option>
-                                            </select>
 
                                     </li>
 
                                     <li>
                                         <label for="">对象：</label>
 
-                                            <select name="" id="" class="datatimeblock person-type" >
+                                            <select name="" id="obj-type" class=" person-type" >
                                                 <option >电</option>
                                                 <option >水</option>
                                                 <option >气</option>
                                             </select>
+
+                                    </li>
+
+                                    <li>
+                                        <label for="">时间：</label>
+
+                                        <select name="" id="post-date" class="datatimeblock person-type" >
+                                            <option >今天</option>
+                                            <option >昨天</option>
+                                            <option >过去7天</option>
+                                            <option >过去30天</option>
+                                            <option >本月</option>
+                                            <option >上月</option>
+                                            <option  class="custom-time">自定义</option>
+                                        </select>
+
+                                        <input  class="show-date"/>
 
                                     </li>
 
@@ -337,6 +339,58 @@
             <!-- END PAGE CONTENT-->
         </div>
     </div>
+
+    <!--自定义时间-->
+    <div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+        <div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="input-label" style="width:95px;">开始日期：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate" value="" placeholder="选择时间">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="input-label" style="width:95px;">结束日期：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate" value="" placeholder="选择时间">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--自定义弹窗-->
+    <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px"> <b style="color:red"></b> </p>
+
+                    <div class='modal-footer' style="border:none">
+
+                        <button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- END CONTENT -->
     <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -353,30 +407,7 @@
     </div>
 </div>
 
-<!--自定义时间-->
-<div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
-        <div class='modal-content'>
-            <div class='modal-header'>
-                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
-                <div class="row">
 
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                        <label for="" class="input-label" style="width:95px;">抄表月份：</label>
-
-
-                        <input type="text" class="add-input chooseDate" value="" placeholder="选择时间">
-                    </div>
-                </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-primary top-btn'>确定</button>
-                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -402,6 +433,8 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-resource/js/lib/moment.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
 <script src="../bank-resource/js/nenghaochaxun/page1.js"></script>
 <script>
