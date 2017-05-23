@@ -1,0 +1,217 @@
+body,html,div,dl,dt,dd,ul,li,ol,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,p,th,td,a,img,span {
+    margin:0;
+    padding:0;
+    font-family:'微软雅黑'
+}
+
+
+
+/*单位搜索部分*/
+.container {
+    /*padding-right: 0px !important;*/
+    /*padding-left: 0px !important;*/
+    margin-right: auto;
+    margin-left: auto;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size:14px;
+
+}
+
+.rct-form-control {
+    position: relative;
+    padding: 6px 9px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #e3e3e3;
+    border-radius: 4px;
+    line-height: normal;
+    box-sizing: border-box;
+    background-color: #fff;
+    vertical-align: middle;
+    outline: 0;
+}
+.content-main-top{
+    background:#ffd966;
+    margin-bottom:10px;
+}
+.condition-query{
+
+    padding-top:6px;
+    padding-left:20px;
+}
+.condition-query li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    float: left;
+    margin-right: 25px;
+    color: #333 !important;
+}
+
+.condition-query li select {
+    width: 160px;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+}
+
+.condition-query select {
+    border: none;
+    height: 30px !important;
+    outline: none;
+    margin: 0 5px;
+}
+.input-blocked {
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+    vertical-align: middle;
+}
+
+/*上方按钮样式*/
+.top-btn {
+    border-width: 0;
+    font-size: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+
+    border-radius: 4px;
+    color: #fff;
+    background-color: #45B6AF;
+    border-color: #3ea49d;
+    width:80px;
+}
+.top-btn:hover{
+    color: #fff;
+    background-color: #3b9c96;
+    border-color: #307f7a;
+    outline: none;
+}
+
+/*下方数据展示*/
+.content-main-bottom{
+    border: 1px solid #ccc;
+}
+/*标题与单位*/
+.show-header {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 2px solid #999;
+    font-size:18px;
+}
+.show-header-right {
+    width: 230px;
+    height: 100%;
+    float: right;
+}
+.header-right-lists-1 {
+    width: 130px;
+}
+.header-right-lists {
+    float: left;
+    margin-right: 10px;
+}
+.header-right-lists {
+    float: left;
+    margin-right: 10px;
+}
+
+/*右侧蓝色数据图*/
+.L-right {
+    top: 0px;
+    right: 0px;
+}
+.rheader-content-rights {
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: url(../../resource/img/message.png)no-repeat #deebf7;
+    background-size: 140px;
+    background-position: 50px 20px;
+}
+.rheader-content-right {
+    height: 95%;
+    width: 250px;
+    margin: 0 auto;
+}
+.rheader-content-rights {
+    position: relative;
+    margin-top: 20%;
+    border-radius: 20px !important;
+}
+.total-power-consumption {
+    color: #ffffff;
+    position: absolute;
+    top: 36px;
+    left: 75px;
+    font-size: 2rem;
+}
+.total-power-consumption-value {
+    color: #019cdf;
+    position: absolute;
+    top: 100px;
+    left: 60px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+#consumption-value-number {
+    font-size: 1.8rem !important;
+}
+label {
+    font-weight: 400;
+    font-size: 14px;
+}
+.the-cumulative-power-unit {
+    font-size: 1rem;
+}
+.compared-with-last-time {
+    position: absolute;
+    top: 140px;
+    left: 42px;
+    font-size: 1.5rem;
+}
+.the-cumulative-power-unit {
+    font-size: 1rem;
+}
+.rights-up {
+    display: inline-block;
+    width: 20px;
+    height: 40px;
+    position: absolute;
+    top: 140px;
+    left: 117px;
+    background: url(../img/up.png)no-repeat;
+    background-size: 23px;
+    margin-left: 5px;
+}
+.rights-up-value {
+    color: #019cdf;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 150px;
+    left: 157px;
+    display: inline-block;
+    margin-left: 5px;
+}
