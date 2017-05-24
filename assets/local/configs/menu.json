@@ -875,7 +875,7 @@
       "能耗查询1":{
         "type":"0",
         "content":"能耗查询",
-        "uri":"../bank-nenghaochaxun/index.html",
+        "uri":"../bank-nenghaochaxun/EnergyQueryTotalData.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -892,7 +892,7 @@
       "能耗指标1":{
         "type":"0",
         "content":"能耗指标1",
-        "uri":"../bank-nenghaochaxun/page1.html",
+        "uri":"../bank-yongnengfenxi/EnergyNormData.html",
         "uid":"",
         "arg":"",
         "iconclass":""
