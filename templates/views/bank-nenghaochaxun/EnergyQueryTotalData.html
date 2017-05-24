@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/index.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
-    <script src="../resource/js/echarts.min.js"></script>
+
     <script src="../../../assets/local/scripts/underscore-min.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/moment.js"></script>
@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/page1.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -65,7 +65,7 @@
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="./index.html">
+            <a href="./EnergyQueryTotalData.html">
                 <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
             </a>
             <div class="menu-toggler sidebar-toggler hide">
@@ -240,23 +240,12 @@
                                     <li>
                                         <label for="">类别：</label>
 
-                                            <select name="" id="energy-type" class="energy-type" >
-                                                <option >电</option>
-                                                <option >水</option>
-                                                <option >气</option>
-                                            </select>
+                                        <select name="" id="energy-type" class="energy-type" >
+                                            <option >电</option>
+                                            <option >水</option>
+                                            <option >气</option>
+                                        </select>
 
-
-                                    </li>
-
-                                    <li>
-                                        <label for="">对象：</label>
-
-                                            <select name="" id="obj-type" class=" person-type" >
-                                                <option >电</option>
-                                                <option >水</option>
-                                                <option >气</option>
-                                            </select>
 
                                     </li>
 
@@ -277,6 +266,21 @@
 
                                     </li>
 
+                                    <li>
+                                        <label for="">对象：</label>
+
+                                        <select name="" id="obj-type" class=" person-type" >
+                                            <option >电</option>
+                                            <option >水</option>
+                                            <option >气</option>
+                                        </select>
+
+                                    </li>
+
+
+
+
+
                                     <li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
                                     <li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
 
@@ -290,11 +294,11 @@
                                 <div class="show-header">
                                     <span class="show-title1">四川央行 </span>
                                     <span class="show-title2"> 总用单位面积标煤 </span>
-                                    <span class="show-title3"> 2017-2-22——2017-3-22</span>
+                                    <span class="show-title3" style=""> 2017-2-22——2017-3-22</span>
                                     <ul class="show-header-right">
                                         <li class="header-right-lists header-right-lists-1">
                                         </li>
-                                        <li class="header-right-lists">单位：kWh</li>
+                                        <li class="header-right-lists">单位：<span>kWh</span></li>
                                     </ul>
                                 </div>
 
@@ -322,7 +326,7 @@
 														<span class="the-cumulative-power-unit">kWh</span>
 													</span>
                                                 <!-- 上升还是下降的箭头 -->
-                                                <div class="rights-up" style="background: url(&quot;../resource/img/up2.png&quot;) 0% 0% / 23px no-repeat;"></div>
+                                                <div class="rights-up" style=""></div>
                                                 <!-- 上升或下降的百分比 -->
                                                 <span class="rights-up-value">8.2%</span>
                                             </div>
@@ -391,6 +395,14 @@
             </div>
         </div>
     </div>
+
+    <!--loading图-->
+    <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+        </div>
+    </div>
+
     <!-- END CONTENT -->
     <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -435,8 +447,9 @@
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
 <script src="../bank-resource/js/lib/moment.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../bank-resource/js/nenghaochaxun/page1.js"></script>
+<script src="../bank-resource/js/nenghaochaxun/EnergyQueryTotalData.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

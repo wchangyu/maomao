@@ -125,6 +125,7 @@ label {
     line-height: 50px;
     border-bottom: 2px solid #999;
     font-size:18px;
+    margin-bottom:15px;
 }
 .show-header-right {
     width: 230px;
@@ -149,14 +150,14 @@ label {
     right: 0px;
 }
 .rheader-content-rights {
-    width: 250px;
+    width: 280px;
     height: 280px;
     border-radius: 30px;
     margin: 0 auto;
     margin-top: 40px;
     background: url(../../resource/img/message.png)no-repeat #deebf7;
     background-size: 140px;
-    background-position: 50px 20px;
+    background-position: center 20px;
 }
 .rheader-content-right {
     height: 95%;
@@ -165,42 +166,45 @@ label {
 }
 .rheader-content-rights {
     position: relative;
-    margin-top: 20%;
+    margin-top: 55%;
     border-radius: 20px !important;
 }
 .total-power-consumption {
     color: #ffffff;
     position: absolute;
     top: 36px;
-    left: 75px;
+    left: 95px;
     font-size: 2rem;
 }
 .total-power-consumption-value {
     color: #019cdf;
     position: absolute;
-    top: 100px;
-    left: 60px;
-    font-size: 1.3rem;
+    top: 80px;
+    left: 70px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 #consumption-value-number {
-    font-size: 1.8rem !important;
+    font-size: 2.4rem !important;
 }
 label {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
 }
 .the-cumulative-power-unit {
     font-size: 1rem;
+}
+.compared-with-last-time .the-cumulative-power-unit{
+    font-size:1.6rem !important;
 }
 .compared-with-last-time {
     position: absolute;
-    top: 140px;
-    left: 42px;
-    font-size: 1.5rem;
+    top: 133px;
+    left: 32px;
+    font-size: 1.9rem;
 }
 .the-cumulative-power-unit {
-    font-size: 1rem;
+    font-size: 1.8rem;
 }
 .rights-up {
     display: inline-block;
@@ -208,18 +212,18 @@ label {
     height: 40px;
     position: absolute;
     top: 140px;
-    left: 117px;
-    background: url(../img/up.png)no-repeat;
+    left: 137px;
+    background: url(../img/up2.png)no-repeat;
     background-size: 23px;
     margin-left: 5px;
 }
 .rights-up-value {
     color: #019cdf;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 2rem;
     position: absolute;
     top: 150px;
-    left: 157px;
+    left: 167px;
     display: inline-block;
     margin-left: 5px;
 }

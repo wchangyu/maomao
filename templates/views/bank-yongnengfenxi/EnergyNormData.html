@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/page1.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -238,18 +238,7 @@
                                 <ul class="condition-query refer-unit-table">
 
                                     <li>
-                                        <label for="">对象：</label>
-
-                                        <select name="" id="obj-type" class=" person-type" >
-                                            <option >电</option>
-                                            <option >水</option>
-                                            <option >气</option>
-                                        </select>
-
-                                    </li>
-
-                                    <li>
-                                        <label for="">类别：</label>
+                                        <label for="">指标：</label>
 
                                         <select name="" id="energy-type" class="energy-type" >
                                             <option >电</option>
@@ -264,18 +253,29 @@
                                         <label for="">时间：</label>
 
                                         <select name="" id="post-date" class="datatimeblock person-type" >
-                                            <option >今天</option>
-                                            <option >昨天</option>
-                                            <option >过去7天</option>
-                                            <option >过去30天</option>
                                             <option >本月</option>
                                             <option >上月</option>
+                                            <option >本年</option>
+                                            <option >上年</option>
                                             <option  class="custom-time">自定义</option>
                                         </select>
 
                                         <input  class="show-date"/>
 
                                     </li>
+
+                                    <li>
+                                        <label for="">对象：</label>
+
+                                        <select name="" id="obj-type" class=" person-type" >
+                                            <option >电</option>
+                                            <option >水</option>
+                                            <option >气</option>
+                                        </select>
+
+                                    </li>
+
+
 
                                     <li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
                                     <li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
@@ -445,7 +445,7 @@
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../bank-resource/js/nenghaochaxun/page1.js"></script>
+<script src="../bank-resource/js/yongnengfenxi/EnergyNormData.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

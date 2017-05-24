@@ -177,3 +177,29 @@ function getLastMonth(){
 
         }
 }
+
+//获取能耗单位
+function getUnit(num){
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+        console.log(unitObj);
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].etid){
+                        return txt[i].etunit;
+                }
+        }
+};
+
+//获取能耗名称
+function getUnitName(num){
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+        console.log(unitObj);
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].etid){
+                        return txt[i].etname;
+                }
+        }
+};
