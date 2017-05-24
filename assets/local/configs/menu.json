@@ -849,5 +849,56 @@
         "iconclass":""
       }
     }
+  },
+  "首页1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"首页1",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../bank-shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "能耗查询1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"能耗查询1",
+    "submenu":{
+      "能耗查询1":{
+        "type":"0",
+        "content":"能耗查询",
+        "uri":"../bank-nenghaochaxun/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "用能分析1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"用能分析1",
+    "submenu":{
+      "能耗指标1":{
+        "type":"0",
+        "content":"能耗指标1",
+        "uri":"../bank-nenghaochaxun/page1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
   }
 }
