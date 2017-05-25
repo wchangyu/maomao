@@ -78,11 +78,17 @@ function getStartData(){
                     console.log(data);
                     pointArr = data;
                     var html= '';
+                    var theValue = '';
                     for(var i=0; i<data.length;i++){
                         html +=   '<option value="'+data[i].enterpriseID+'">'+data[i].eprName+'</option>'
+                        if(data[i].defaultShowFlag == 1){
+
+                            theValue = data[i].enterpriseID;
+                        }
                     }
 
                     $('#obj-type').html(html);
+                    $('#obj-type').val(theValue);
                     //获取chart图中的数据
 
                     getMainData();
@@ -190,6 +196,7 @@ option = {
             markLine : {
                 data : [
                     {type : 'average', name: '平均值'}
+
                 ]
             }
         }
@@ -286,10 +293,12 @@ function getMainData(){
 
         dateSign = '日';
 
-        endDate = getNewDate();
-
-
         var now = new Date();
+
+        var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+        endDate = getDate(tomorrow);
+
 
         var yesterday = new Date(now.setDate(now.getDate()-7));
 
@@ -300,10 +309,11 @@ function getMainData(){
 
         dateSign = '日';
 
-        endDate = getNewDate();
-
-
         var now = new Date();
+
+        var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+        endDate = getDate(tomorrow);
 
         var yesterday = new Date(now.setDate(now.getDate()-30));
 
@@ -314,10 +324,11 @@ function getMainData(){
 
         dateSign = '日';
 
-        endDate = getNewDate();
-
-
         var now = new Date();
+
+        var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+        endDate = getDate(tomorrow);
         var year = now.getFullYear();
         var month = now.getMonth() + 1;
 
@@ -337,7 +348,8 @@ function getMainData(){
         dateSign = '日';
 
         startDate = $('.show-date').val().split('——')[0];
-        endDate = $('.show-date').val().split('——')[1];
+        var string = $('.show-date').val().split('——')[1];
+        endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
 
         console.log(startDate,endDate);
     }
@@ -395,6 +407,7 @@ function getMainData(){
             option.series[0].name = title2;
             option.xAxis[0].data = xArr;
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
+
 
             console.log(option.legend.data[0]);
 

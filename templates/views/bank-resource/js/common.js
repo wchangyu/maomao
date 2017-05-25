@@ -20,6 +20,25 @@ $('.modal-footer .btn-default').on('click',function(){
 
 });
 
+//给表格加入数据
+function setData(){
+        if(dataArrs && dataArrs.length>0){
+                _table.fnAddData(dataArrs);
+                _table.fnDraw();
+
+        }
+}
+//调用对应接口成功后
+function ajaxSuccess(){
+
+
+        _table.fnClearTable();
+
+        setData();
+
+
+}
+
 //深拷贝的方法
 function deepCopy(src,obj){
 
@@ -67,6 +86,31 @@ $('.chooseDate').on('focus',function(){
                         })
 
                 });
+
+
+        },100)
+
+});
+$('.chooseDate-month').on('focus',function(){
+        var that = $(this);
+        setTimeout(function(){
+                $('.day').one('click',function(){
+                        console.log('ok');
+                        that.blur();
+                        $('.datepicker').css({
+                                display:'none'
+                        })
+
+                });
+                $('.month').one('click',function(){
+                        console.log('ok');
+                        that.blur();
+                        $('.datepicker').css({
+                                display:'none'
+                        })
+
+                });
+
         },100)
 
 });
@@ -81,7 +125,7 @@ $('.chooseDate-month').datepicker(
         format: 'yyyy-mm'
     }
 );
-$('.chooseDate').on('focus',function(){
+$('.chooseDates').on('focus',function(){
         console.log('11');
 })
 //选择日期插件

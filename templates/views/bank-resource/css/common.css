@@ -287,3 +287,31 @@ label {
     margin-bottom: 20px;
     margin-left: 20px;
 }
+
+/*表格样式*/
+#dateTables tbody tr td{
+    height:58px !important;
+    vertical-align: middle;
+    text-align:center;
+}
+#dateTables tr th{
+
+    text-align:center;
+}
+#dateTables{
+    margin-bottom:20px;
+}
+table.dataTable.no-footer {
+    border-bottom: none !important;
+}
+.quota-data-bottom h3{
+    height:30px;
+    line-height:30px;
+    border-bottom:1px solid #999;
+    font-weight: 700;
+    margin-bottom:10px;
+    font-size:20px;
+}
+.show-title1{
+    font-weight: 700;
+}
