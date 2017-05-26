@@ -873,5 +873,80 @@
         "iconclass":""
       }
     }
+  },
+  "首页1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"首页1",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../bank-shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "能耗查询1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"能耗查询1",
+    "submenu":{
+      "能耗查询1":{
+        "type":"0",
+        "content":"能耗查询",
+        "uri":"../bank-nenghaochaxun/EnergyQueryTotalData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "用能分析1":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"用能分析1",
+    "submenu":{
+      "能耗指标1":{
+        "type":"0",
+        "content":"能耗指标1",
+        "uri":"../bank-yongnengfenxi/EnergyNormData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "横向对比1":{
+        "type":"0",
+        "content":"横向对比1",
+        "uri":"../bank-yongnengfenxi/EnergyCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "同比环比1":{
+        "type":"0",
+        "content":"同比环比1",
+        "uri":"../bank-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用电分项1":{
+        "type":"0",
+        "content":"用电分项1",
+        "uri":"../bank-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
   }
 }
