@@ -896,6 +896,30 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "横向对比1":{
+        "type":"0",
+        "content":"横向对比1",
+        "uri":"../bank-yongnengfenxi/EnergyCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "同比环比1":{
+        "type":"0",
+        "content":"同比环比1",
+        "uri":"../bank-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用电分项1":{
+        "type":"0",
+        "content":"用电分项1",
+        "uri":"../bank-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
 
 
