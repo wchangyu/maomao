@@ -260,6 +260,8 @@ function getMainData(){
 
     var postDate = $('#post-date').val();
 
+    var showTime = postDate;
+
     if(postDate == '今天'){
 
         dateSign = '小时';
@@ -351,6 +353,7 @@ function getMainData(){
         var string = $('.show-date').val().split('——')[1];
         endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
 
+        showTime = startDate + '——' + endDate;
         console.log(startDate,endDate);
     }
 
@@ -384,7 +387,7 @@ function getMainData(){
                 return false;
             }
             $('.show-title1').html(title2);
-            $('.show-title2').html(startDate + '——' + endDate);
+            $('.show-title2').html(showTime);
             $('.show-title3').html(title1 );
 
             var dataArr = data.ecMetaDatas;

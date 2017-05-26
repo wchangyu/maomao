@@ -382,6 +382,8 @@ function getMainData(){
 
     var postDate = $('#post-date').val();
 
+    var showTime = postDate;
+
     if(postDate == '本月'){
 
         dateSign = '日';
@@ -427,6 +429,8 @@ function getMainData(){
         var string =  $('.show-date').val().split('——')[1] + '-1';
 
         endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
+
+        showTime = startDate + '——' + endDate;
         console.log(startDate,endDate);
     }
 
@@ -465,7 +469,7 @@ function getMainData(){
 
 
             $('.show-title1').html(title2);
-            $('.show-title2').html(startDate + '——' + endDate);
+            $('.show-title2').html(showTime);
             $('.show-title3').html(title1 + '&nbsp; ' + title3);
 
             dataArrs = [];

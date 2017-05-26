@@ -1,7 +1,4 @@
 /**
- * Created by admin on 2017/5/24.
- */
-/**
  * Created by admin on 2017/5/22.
  */
 
@@ -32,34 +29,13 @@ $(document).ready(function() {
 //存放查询对象
 var pointArr = [];
 
-//存放查询指标
+//存放查询类型
 var typeArr = [];
 //获取能耗查询页面初始数据
 function getStartData(){
-    //获取查询指标
-    $.ajax({
-        type: 'get',
-        url: IP + "/EnergyQuery/GetShowEneryNormItem",
-        timeout: theTimes,
-        beforeSend: function () {
 
-        },
 
-        complete: function () {
-            $('#theLoading').modal('hide');
-        },
-        success: function (data) {
-            $('#theLoading').modal('hide');
-            console.log(data);
-            typeArr = data;
-            var html= '';
-            for(var i=0; i<data.length;i++){
-                html +=   '<option value="'+data[i].energyItemID+'">'+data[i].energyItemName+'</option>'
-            }
-
-            $('#energy-type').html(html);
-
-            //获取查询对象
+    //获取查询对象
 
             $.ajax({
                 type: 'get',
@@ -109,18 +85,6 @@ function getStartData(){
                 }
             });
 
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $('#theLoading').modal('hide');
-            console.log(textStatus);
-
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
-                myAlter("超时");
-            }
-            myAlter("请求失败！");
-        }
-    });
 
 
 }
@@ -129,107 +93,57 @@ var myChart = echarts.init(document.getElementById('energy-demand'));
 
 // 指定图表的配置项和数据
 option = {
-
-    tooltip : {
-        trigger: 'axis'
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
     legend: {
-        show:true,
-        data:['最高气温',{name:'参考值'}]
+        orient: 'vertical',
+        x: 'left',
+        data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
     },
-    toolbox: {
-        show : true,
-        feature : {
-            mark : {show: true},
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['line', 'bar']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
+    series: [
         {
-            type : 'category',
-            boundaryGap : false,
-            data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value',
-            axisLabel : {
-                formatter: '{value} °C'
-            }
-        }
-    ],
-    series : [
-        {
-            name:'最高气温',
-            type:'line',
-            data:[11, 11, 15, 13, 12, 13, 10],
-            //itemStyle : {
-            //    normal : {
-            //        color:'#53f4db',
-            //        lineStyle:{
-            //            color:'#53f4db',
-            //            width:3
-            //        }
-            //    }
-            //},
-            smooth:true,
-            markPoint : {
-                data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
-                ],
-                itemStyle : {
-                    normal:{
-                        color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
-                    }
+            name:'访问来源',
+            type:'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
+
+            label: {
+                normal: {
+                    position: 'inner'
                 }
             },
-            markLine : {
-                data : [
-                    {type : 'average', name: '平均值'}
-
-
-                ]
-
-            }
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {value:335, name:'直达', selected:true},
+                {value:679, name:'营销广告'},
+                {value:1548, name:'搜索引擎'}
+            ]
         },
         {
-            name:'参考值',
-            type:'line',
-            itemStyle : {
-                normal : {
-                    color:'blue',
-                    lineStyle:{
-                        color:'white' +
-                        '',
-                        width:1
-                    }
-                }
-            },
-            data:[11, 11, 15, 13, 12, 13, 10],
-            markLine : {
-                data : [
-                    {type : 'average', name: '平均值'}
+            name:'访问来源',
+            type:'pie',
+            radius: ['40%', '55%'],
 
-
-                ]
-
-            }
+            data:[
+                {value:335, name:'直达'},
+                {value:310, name:'邮件营销'},
+                {value:234, name:'联盟广告'},
+                {value:135, name:'视频广告'},
+                {value:1048, name:'百度'},
+                {value:251, name:'谷歌'},
+                {value:147, name:'必应'},
+                {value:102, name:'其他'}
+            ]
         }
     ]
 };
+myChart.setOption(option);
 
 window.onresize = function () {
     if(myChart ){
@@ -241,13 +155,9 @@ window.onresize = function () {
 function getMainData(){
 
 
-    var energyItemID = $('#energy-type').val();
-
     var objID = $('#obj-type').val();
 
     var postArr = [];
-
-    var postEnergy = {};
 
     var dateSign = '';
 
@@ -255,21 +165,9 @@ function getMainData(){
 
     var endDate;
 
-    var unit;
+    var unit = 'kWh';
 
-    var target;
-
-
-    $(typeArr).each(function(i,o){
-
-        if(energyItemID == o.energyItemID){
-            unit = o.energyUnit;
-            postEnergy = o;
-            target = parseFloat(o.referenceValue);
-            return false;
-        }
-
-    });
+    var unitName;
 
 
 
@@ -283,17 +181,16 @@ function getMainData(){
 
     });
 
-    var title1 = $('#obj-type').find('option:selected').text();
+    var title1 = $('.condition-query li').eq(0).find('option:selected').text();
 
-    var title2 = $('#energy-type').find('option:selected').text();
-
+    var title2 = $('.condition-query li').eq(1).find('option:selected').text();
 
 
     var postDate = $('#post-date').val();
 
     var showTime = postDate;
 
-     if(postDate == '本月'){
+    if(postDate == '本月'){
 
         dateSign = '日';
 
@@ -311,46 +208,45 @@ function getMainData(){
 
         console.log(startDate,endDate);
     }else if(postDate == '本年'){
-         dateSign = '月';
+        dateSign = '月';
 
-         endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-
-
-         startDate = moment().startOf('year').format('YYYY-MM-DD');
-
-         console.log(startDate,endDate);
-     }else if(postDate == '上年'){
-         dateSign = '月';
+        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
 
 
-         startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
 
-         endDate =  moment().startOf('year').format('YYYY-MM-DD');
+        startDate = moment().startOf('year').format('YYYY-MM-DD');
+
+        console.log(startDate,endDate);
+    }else if(postDate == '上年'){
+        dateSign = '月';
 
 
-     }else if(postDate == '自定义'){
+        startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
+
+        endDate =  moment().startOf('year').format('YYYY-MM-DD');
+
+
+    }else if(postDate == '自定义'){
 
         dateSign = '月';
 
         startDate = $('.show-date').val().split('——')[0] + '-1';
 
-         var string =  $('.show-date').val().split('——')[1] + '-1';
+        var string =  $('.show-date').val().split('——')[1] + '-1';
 
-         endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
+        endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
 
-         showTime = startDate + '——' + endDate;
+
         console.log(startDate,endDate);
     }
 
-    console.log(postEnergy);
+    console.log(postArr);
     $.ajax({
         type: 'post',
-        url: IP + "/EnergyQuery/GetEnergyNormData",
+        url: IP + "/EnergyQuery/GetTotalEnergyReturnData",
         timeout: theTimes,
         data:{
-            "energyNorm":postEnergy,
-            "dateType": '日',
+            "energyItemType":'01',
             "startTime": '2015-5-1',
             "endTime": '2015-6-1',
             "pointerIDs":postArr
@@ -367,41 +263,39 @@ function getMainData(){
             $('#theLoading').modal('hide');
             console.log(data);
 
-
-
+            return false;
             if(data == null){
                 myChart.hideLoading();
                 myAlter('无数据!');
                 return false;
             }
             $('.show-title1').html(title1);
-            $('.show-title2').html(title2);
-            $('.show-title3').html(showTime);
+
+            $('.show-title2').html('用电分项');
+
+            $('.show-title3').html(showTime );
 
             var dataArr = data.ecMetaDatas;
-
 
             var xArr = [];
             var sArr = [];
             var tArr = [];
 
+            console.log(title2);
+            tArr.push(title2);
             $(dataArr).each(function(i,o){
 
                 xArr.push(o.dataDate.split('T')[0]);
-                sArr.push((o.data * 100000).toFixed(2));
-                tArr.push(target)
+                sArr.push(o.data.toFixed(2));
             });
 
             option.series[0].data = sArr;
-            option.series[1].data = tArr;
 
             option.legend.data[0] = title2;
             option.series[0].name = title2;
             option.xAxis[0].data = xArr;
-
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
-            ////添加参考值
 
             console.log(option.legend.data[0]);
 
@@ -412,9 +306,9 @@ function getMainData(){
 
             //右侧显示数据的改变
             $('.header-right-lists span').html(unit);
+            $('.total-power-consumption').html('累计用' + unitName + '');
 
-
-            $('#consumption-value-number').html(data.avgMetaData.toFixed(2));
+            $('#consumption-value-number').html(data.sumMetaData.toFixed(2));
             $('.the-cumulative-power-unit').html(unit);
 
             $('.compared-with-last-time label').html(data.chainEnergyData.toFixed(2));
@@ -465,12 +359,12 @@ $('.datatimeblock').on('change',function(){
 //关闭时间弹窗时
 $('#choose-date .btn-default').on('click',function(){
 
-    $('.datatimeblock').val('本月');
+    $('.datatimeblock').val('今天');
 
 });
 $('#choose-date .close').on('click',function(){
 
-    $('.datatimeblock').val('本月');
+    $('.datatimeblock').val('今天');
 
 });
 //选定时间后
@@ -492,8 +386,8 @@ $('#choose-date .btn-primary').on('click',function(){
     };
 
 
-    if(CompareDate(txt1,txt2) == true){
-        myAlter('结束日期不能小于开始日期');
+    if(CompareDate(txt2,txt1) == false){
+        myAlter('结束日期必须大于开始日期');
         getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
 
         return false;
