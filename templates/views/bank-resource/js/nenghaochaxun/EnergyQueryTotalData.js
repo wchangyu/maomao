@@ -383,9 +383,9 @@ function getMainData(){
                 myAlter('无数据!');
                 return false;
             }
-            $('.show-title1').html(title1);
-            $('.show-title2').html(title2);
-            $('.show-title3').html(startDate + '——' + endDate);
+            $('.show-title1').html(title2);
+            $('.show-title2').html(startDate + '——' + endDate);
+            $('.show-title3').html(title1 );
 
             var dataArr = data.ecMetaDatas;
 

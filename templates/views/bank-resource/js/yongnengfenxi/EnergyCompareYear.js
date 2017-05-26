@@ -2,6 +2,9 @@
  * Created by admin on 2017/5/25.
  */
 /**
+ * Created by admin on 2017/5/25.
+ */
+/**
  * Created by admin on 2017/5/24.
  */
 /**
@@ -47,29 +50,59 @@ $(document).ready(function() {
         //数据源
         'columns':[
             {
-                title:'对比对象',
-                data:"enterpriseName"
+                title:'时间',
+                data:"timeName"
+
             },
             {
-                title:'建筑面积（㎡）',
-                data:"buildingArea"
+                title:'累计',
+                data:"sumMetaData",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
-                title:'能耗累计',
-                data:"sumMetaData"
+                title:'峰值',
+                data:"maxMetaData",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
-                title:'最大值',
-                data:"maxMetaData"
-            },
-            {
-                title:'最小值',
-                data:"minMetaData"
+                title:'谷值',
+                data:"minMetaData",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
                 title:'平均值',
-                data:"avgMetaData"
+                data:"avgMetaData",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
+            },
+            {
+                title:'同比(%)',
+                data:"lastYearEnergyPercent",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2) * 100 + '%' ;
+                }
+            },
+            {
+                title:'环比(%)',
+                data:"chainEnergyPercent",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2) * 100 + '%';
+                }
             }
+
 
 
         ]
@@ -149,8 +182,7 @@ function getStartData(){
                     $('#theLoading').modal('hide');
                     console.log(data);
                     pointArr = data;
-                    var theValue1 = '';
-                    var theValue2 = '';
+                    var theValue = '';
                     var html= '';
                     for(var i=0; i<data.length;i++){
 
@@ -158,19 +190,16 @@ function getStartData(){
 
                         if(data[i].defaultShowFlag == 1){
 
-                            theValue1 = data[i].enterpriseID;
-                        }else if(data[i].defaultShowFlag == 2){
-
-                            theValue2 = data[i].enterpriseID;
+                            theValue = data[i].enterpriseID;
                         }
                     }
 
                     $('#obj-type').html(html);
-                    $('#obj-type2').html(html);
 
 
-                    $('#obj-type').val(theValue1);
-                    $('#obj-type2').val(theValue2);
+
+                    $('#obj-type').val(theValue);
+
                     //获取chart图中的数据
 
                     getMainData();
@@ -270,7 +299,8 @@ option = {
                 label:{
                     normal:{
                         textStyle:{
-                            color:'#d02268'
+                            color:'#d02268',
+                            width:3
                         }
                     }
                 }
@@ -324,27 +354,74 @@ option = {
                 ]
 
             }
+        },
+        {
+            name:'平均气温',
+            type:'line',
+            data:[11, 11, 15, 13, 12, 13, 10],
+            itemStyle : {
+                normal : {
+                    color:'black',
+                    lineStyle:{
+                        color:'black',
+                        width:3
+                    }
+                }
+            },
+            smooth:true,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ],
+                itemStyle : {
+                    normal:{
+                        color:'#019cdf'
+                    }
+                },
+                label:{
+                    normal:{
+                        textStyle:{
+                            color:'#d02268'
+                        }
+                    }
+                }
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值',  itemStyle : {
+                        normal:{
+                            color:'black'
+                        }
+                    }}
+
+
+                ]
+
+            }
         }
     ]
 };
-
+//页面改变大小时，echarts图跟着改变
 window.onresize = function () {
     if(myChart ){
         myChart.resize();
 
     }
 };
+
+var legendArr = [['本日','上日','去年今日'],['本月','上月','去年今月'],['本季','上季','去年本季'],['本年','上年'],['上年','前年']];
+
+var timeArr= ['本日','本月','本季','本年','上年'];
+
 //获取页面初始数据
 function getMainData(){
 
 
     var energyItemID = $('#energy-type').val();
 
-    var objID1 = $('#obj-type').val();
+    var objID = $('#obj-type').val();
 
-    var objID2 = $('#obj-type2').val();
-
-    var postObjID = [objID1,objID2];
 
     var postArr = [];
 
@@ -372,17 +449,43 @@ function getMainData(){
 
     });
 
+    $(pointArr).each(function(i,o){
+
+        if(objID == o.enterpriseID){
+            postArr = o.pointerIDs;
+
+            return false;
+        }
+
+    });
 
 
-    var title1 = $('#obj-type').find('option:selected').text();
 
-    var title2 = $('#energy-type').find('option:selected').text();
+    var title1 = $('.condition-query li').eq(0).find('option:selected').text();
 
-    var title3 = $('#obj-type2').find('option:selected').text();
+    var title2 = $('.condition-query li').eq(1).find('option:selected').text();
+
 
     var postDate = $('#post-date').val();
 
-    if(postDate == '本月'){
+    var showTime = postDate;
+
+
+    if(postDate == '本日'){
+
+        dateSign = '小时';
+
+        startDate = getNewDate();
+
+        console.log(startDate);
+
+        var now = new Date();
+
+        var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+        endDate = getDate(tomorrow);
+
+    }else if(postDate == '本月'){
 
         dateSign = '日';
 
@@ -391,14 +494,33 @@ function getMainData(){
         startDate = moment().startOf('month').format('YYYY-MM-DD');
 
         console.log(startDate);
-    }else if(postDate == '上月'){
+    }else if(postDate == '本季'){
 
         dateSign = '日';
 
-        startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
-        endDate = moment().startOf('month').format('YYYY-MM-DD');
+        var month = moment().month() + 1;
+
+        var year = moment().year();
+
+        console.log(month);
+
+        if(0 < month && month < 4){
+            startDate = year + '-1-1';
+            endDate = year + '-3-31';
+        }else if(3 < month && month < 7){
+            startDate = year + '-4-1';
+            endDate = year + '-6-30';
+        }else if(6 < month && month < 10){
+            startDate = year + '-7-1';
+            endDate = year + '-7-30';
+        }else if(9 < month && month < 13){
+            startDate = year + '-10-1';
+            endDate = year + '-12-31';
+        }
+
 
         console.log(startDate,endDate);
+
     }else if(postDate == '本年'){
         dateSign = '月';
 
@@ -420,29 +542,28 @@ function getMainData(){
 
     }else if(postDate == '自定义'){
 
-        dateSign = '月';
+        dateSign = '日';
 
         startDate = $('.show-date').val().split('——')[0] + '-1';
 
         var string =  $('.show-date').val().split('——')[1] + '-1';
 
-        endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
+        endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
         console.log(startDate,endDate);
-    }
 
-    console.log(postObjID);
+        showTime = startDate + '——' + endDate;
+    }
+    console.log(postArr);
     $.ajax({
         type: 'post',
-        url: IP + "/EnergyQuery/GetHorCompareData",
+        url: IP + "/EnergyQuery/GetYearMonthCompareData",
         timeout: theTimes,
         data:{
             "energyNorm":postEnergy,
             "dateType": dateSign,
             "startTime": startDate,
             "endTime": endDate,
-            "pointerIDs":postArr,
-            "userID": _userIdName,
-            "enterpriseIDs":postObjID
+            "pointerIDs":postArr
         },
         beforeSend: function () {
             //$('#theLoading').modal('show');
@@ -464,12 +585,26 @@ function getMainData(){
             };
 
 
-            $('.show-title1').html(title2);
-            $('.show-title2').html(startDate + '——' + endDate);
-            $('.show-title3').html(title1 + '&nbsp; ' + title3);
+
+            $('.show-title1').html(title1);
+            $('.show-title2').html(title2);
+            $('.show-title3').html(showTime);
+
+
+
+
+            //表格中的数据
 
             dataArrs = [];
+            //X轴数据
             var xArr = [];
+
+            //删除之前的数据
+            for(var i=0; i<option.series.length; i++){
+
+                option.series[i].data = [];
+            }
+
             $(data).each(function(i,o){
                 //给表格获取数据
 
@@ -477,11 +612,9 @@ function getMainData(){
 
                 var dataArr = o.ecMetaDatas;
 
-                var dataLength = o.enterpriseName;
 
                 var sArr = [];
 
-                //var k=0;
                 if(i == 0 && dateSign != '小时'){
                     $(dataArr).each(function(i,o) {
 
@@ -497,15 +630,13 @@ function getMainData(){
                 $(dataArr).each(function(i,o){
 
 
-                    sArr.push((o.data * 100000).toFixed(2));
+                    sArr.push((o.data).toFixed(2));
 
                 });
                 //显示数据
+
                 option.series[i].data = sArr;
 
-
-                option.legend.data[i] = dataLength;
-                option.series[i].name = dataLength;
                 //跟新X轴
                 option.xAxis[0].data = xArr;
 
@@ -515,6 +646,26 @@ function getMainData(){
             });
 
 
+            if(postDate != '自定义'){
+
+                for(var i=0; i<timeArr.length; i++){
+                    if(postDate == timeArr[i]){
+                        for(var j=0; j<data.length; j++){
+                            option.legend.data[j] = legendArr[i][j];
+                            option.series[j].name = legendArr[i][j];
+                            dataArrs[j].timeName = legendArr[i][j];
+                        }
+                    }
+                }
+            }else if(postDate == '自定义'){
+
+                        for(var j=0; j<data.length; j++){
+                            option.legend.data[j] = data[j].startTime.split(' ')[0] + '——' + data[j].endTime.split(' ')[0];
+                            option.series[j].name = data[j].startTime.split(' ')[0] + '——' + data[j].endTime.split(' ')[0];
+                            dataArrs[j].timeName = data[j].startTime.split(' ')[0] + '——' + data[j].endTime.split(' ')[0];
+                        }
+
+            }
 
 
 
@@ -565,12 +716,12 @@ $('.datatimeblock').on('change',function(){
 //关闭时间弹窗时
 $('#choose-date .btn-default').on('click',function(){
 
-    $('.datatimeblock').val('本月');
+    $('.datatimeblock').val('本日');
 
 });
 $('#choose-date .close').on('click',function(){
 
-    $('.datatimeblock').val('本月');
+    $('.datatimeblock').val('本日');
 
 });
 //选定时间后
@@ -592,8 +743,8 @@ $('#choose-date .btn-primary').on('click',function(){
     };
 
 
-    if(CompareDate(txt1,txt2) == true){
-        myAlter('结束日期不能小于开始日期');
+    if(CompareDate(txt2,txt1) == false){
+        myAlter('结束日期必须大于开始日期');
         getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
 
         return false;

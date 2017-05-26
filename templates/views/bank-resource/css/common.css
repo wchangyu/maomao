@@ -290,7 +290,7 @@ label {
 
 /*表格样式*/
 #dateTables tbody tr td{
-    height:58px !important;
+    height:58px ;
     vertical-align: middle;
     text-align:center;
 }
