@@ -24,7 +24,7 @@ $(function(){
     //存放选中的类别编号
     var _thisBianhao;
     /*-------------------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -50,11 +50,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'类别编号',
@@ -86,6 +86,8 @@ $(function(){
             }
         ]
     });
+    //自定义按钮位置
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //页面加载数据
     conditionSelect()
     /*-------------------------------------按钮功能-------------------------------*/
@@ -112,6 +114,7 @@ $(function(){
     //登记按钮
     $('#myModal').on('click','.dengji',function(){
         if(myApp33.name == ''){
+            $('#myModal2').find('.modal-body').html('请填写红色必填项');
             moTaiKuang($('#myModal2'));
         }else{
             var prm = {
@@ -210,10 +213,19 @@ $(function(){
     //删除
     $('#scrap-datatables tbody')
     .on('click','.option-delete',function(){
+        var $this = $(this).parents('tr');
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+        $this.addClass('tables-hover');
         var cpBianHao = $(this).parents('tr').children('.cateNum').html();
         _thisBianhao = cpBianHao;
-        $('#myModal3').find('.modal-body').html('确定要删除吗？');
-        moTaiKuang($('#myModal3'));
+        for(var i = 0;i<allData.length;i++){
+            if(allData[i].cateNum == cpBianHao){
+                //绑定信息
+                $('#lbxx').val(allData[i].cateNum);
+                $('#lbmc').val(allData[i].cateName);
+                moTaiKuang($('#myModal3'));
+            }
+        }
     })
     /*-------------------------------------方法---------------------------------*/
     function conditionSelect(){

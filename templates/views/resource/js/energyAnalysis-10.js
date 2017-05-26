@@ -419,6 +419,12 @@ function getItemizedData(){
 			type:'post',
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
+			beforeSend:function(){
+				myChart11.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+			},
 			async:true,
 			success:function(result){
 				allBranch = [];
@@ -519,8 +525,16 @@ function getItemizedData(){
 					myChart11.setOption(option11);
 				}
 			},
-			error:function(xhr,res,err){
-				console.log("GetECByTypeAndPointer:" + err);
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					var obj = {};
+					obj.data = [];
+					dataY.push(obj);
+					option11.series = dataY;
+					myChart11.hideLoading();
+					myChart11.setOption(option11);
+				}
 			}
 		})
 	}

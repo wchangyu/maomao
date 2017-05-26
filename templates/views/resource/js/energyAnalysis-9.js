@@ -323,6 +323,12 @@ function _ajaxGetPointers(){
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 			data:ecParams,
 			async:true,
+			beforeSend:function(){
+				myChart11.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				})
+			},
 			success:function(result){
 				allBranch = [];
 				allBranch.push(result);
@@ -422,8 +428,16 @@ function _ajaxGetPointers(){
 					myChart11.setOption(option11);
 				}
 			},
-			error:function(xhr,res,err){
-				console.log("GetECByTypeAndPointer:" + err);
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					var obj = {};
+					obj.data = [];
+					dataY.push(obj);
+					option11.series = dataY;
+					myChart11.hideLoading();
+					myChart11.setOption(option11);
+				}
 			}
 		})
 	}
@@ -464,6 +478,12 @@ function _ajaxGetOffices(){
 			url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 			data:ecParams,
 			async:true,
+			beforeSend:function(){
+				myChart11.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				})
+			},
 			success:function(result){
 				allBranch = [];
 				allBranch.push(result);
@@ -563,8 +583,16 @@ function _ajaxGetOffices(){
 					myChart11.setOption(option11);
 				}
 			},
-			error:function(xhr,res,err){
-				console.log("GetECByTypeAndOffice:" + err);
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					var obj = {};
+					obj.data = [];
+					dataY.push(obj);
+					option11.series = dataY;
+					myChart11.hideLoading();
+					myChart11.setOption(option11);
+				}
 			}
 		})
 	}

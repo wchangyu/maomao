@@ -299,10 +299,11 @@
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -390,8 +391,8 @@
 <!--弹窗-->
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 648px;">
-        <div class="modal-content" style="height: 648px;">
+    <div class="modal-dialog" style="height: 703px;">
+        <div class="modal-content" style="height: 703px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">添加物品</h4>
@@ -404,11 +405,11 @@
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">物品编码 ：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成，可不填">
+                                    <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
+                                <div class="labels colorTip">物品名称*：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
                                 </div>
@@ -432,30 +433,36 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">分类编码 *：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品编码</span></div>
+                                <div class="labels colorTip">分类编码*：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品编码</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="flbianma" v-on:click="flbianmaFun" placeholder="点击获取分类编码" v-validate:flbianma= "['requireds']" initial='off' style="cursor: pointer">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels colorTip">分类名称 *：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品名称</span></div>
+                                <div class="labels">分类名称 ：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="flmingcheng" placeholder="点击分类编码自动获取分类名称" v-validate:flbianma= "['requireds']" initial='off'>
+                                    <input type="text" v-model="flmingcheng" placeholder="点击分类编码自动获取分类名称" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
+                                <div class="labels">条形码 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="tiaoxingbar">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
                                 <div class="labels">规格 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="guige">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">颜色 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="yanse">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">主要供货商 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="gonghuoshang">
@@ -491,7 +498,7 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
@@ -503,13 +510,41 @@
 </div>
 <!--删除所有提示框-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
+    <div class="modal-dialog" style="height: 270px;">
+        <div class="modal-content" style="height: 270px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+                <h4 class="modal-title" id="myModalLabel3">确定要删除吗？</h4>
             </div>
-            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">物品编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="wpbm">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">物品名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="wpmc">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">分类编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="flbm">
+                        </div>
+                    </li>
+                    <li class="floatLeft">
+                        <div class="labels">分类名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="flmc">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm shanchu">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

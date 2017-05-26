@@ -22,7 +22,7 @@ $(function (){
     var _userIdName = sessionStorage.getItem('userName');
     /*-------------------------表格初始化--------------------------*/
     //页面表格
-    $('#scrap-datatables').DataTable({
+    var _table = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -48,11 +48,11 @@ $(function (){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs',
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'维修部门',
@@ -72,12 +72,13 @@ $(function (){
             },
         ]
     });
+    _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
     }
     //给表格的标题赋时间
-    $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + ' 00:00:00' + '——' + _initEnd + ' 00:00:00');
+    $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart  + '——' + _initEnd );
     /*------------------------echarts初始化-----------------------*/
     myChart = echarts.init(document.getElementById('echarts'));
     option = {
@@ -156,7 +157,7 @@ $(function (){
                 moTaiKuang($('#myModal2'));
             }else{
                 //给表格的标题赋时间
-                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val()  + '——' + $('.max').val());
                 conditionSelect();
             }
         }

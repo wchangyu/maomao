@@ -25,7 +25,7 @@ $(function(){
     //表格
     var _table = $('#scrap-datatables');
     /*-------------------------表格初始化------------------------------*/
-    _table.DataTable({
+    var _tables =  _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -37,7 +37,7 @@ $(function(){
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
             'infoEmpty': '没有数据',
             'paginate':{
                 "previous": "上一页",
@@ -46,12 +46,12 @@ $(function(){
                 "last":"尾页"
             }
         },
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
         "columns": [
@@ -127,14 +127,9 @@ $(function(){
                 title:'设备系统',
                 data:'dsName',
             }
-        ],
-        "aoColumnDefs": [
-            {
-                sDefaultContent: '',
-                aTargets: [ '_all' ]
-            }
         ]
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     conditionSelect();
     //获取设备类型
     ajaxFun('YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
@@ -149,19 +144,33 @@ $(function(){
         conditionSelect();
     })
     $('#baofei').on('click',function(){
-        //出现提示框
-        var $myModal2 = $('#myModal2');
-        $myModal2.find('.modal-body').html('确定要置为报废状态吗？');
-        moTaiKuang($myModal2);
-        $myModal2.find('.btn-primary').removeClass('huifu').addClass('baofei');
+        if( $('.checked').length ==0 ){
+            var $myModal2 = $('#myModal2');
+            $myModal2.find('.modal-body').html('请选择要报废的数据！');
+            moTaiKuang($myModal2);
+            $myModal2.find('.btn-primary').removeClass('huifu').removeClass('baofei');
+        }else{
+            //出现提示框
+            var $myModal2 = $('#myModal2');
+            $myModal2.find('.modal-body').html('确定要置为报废状态吗？');
+            moTaiKuang($myModal2);
+            $myModal2.find('.btn-primary').removeClass('huifu').addClass('baofei');
+        }
     });
     $('#huifu').on('click',function(){
-        //添加确定按钮
-        var myModal2 = $('#myModal2')
-        myModal2.find('.btn-primary').removeClass('baofei').addClass('huifu');
-        //出现提示框
-        myModal2.find('.modal-body').html('确定要恢复为正常状态吗？');
-        moTaiKuang(myModal2);
+        if( $('.checked').length ==0 ){
+            var $myModal2 = $('#myModal2');
+            $myModal2.find('.modal-body').html('请选择要恢复的数据！');
+            moTaiKuang($myModal2);
+            $myModal2.find('.btn-primary').removeClass('huifu').removeClass('baofei');
+        }else{
+            //添加确定按钮
+            var myModal2 = $('#myModal2')
+            myModal2.find('.btn-primary').removeClass('baofei').addClass('huifu');
+            //出现提示框
+            myModal2.find('.modal-body').html('确定要恢复为正常状态吗？');
+            moTaiKuang(myModal2);
+        }
     });
     $('#myModal2')
         .on('click','.baofei',function(){
@@ -304,7 +313,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
@@ -337,7 +345,6 @@ $(function(){
             async:false,
             data:prm,
             success:function(result){
-                //console.log(result);
                 //给select赋值
                 var str = '<option value="">全部</option>'
                 for(var i=0;i<result.length;i++){

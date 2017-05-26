@@ -93,11 +93,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'工单号',
@@ -159,6 +159,8 @@ $(function(){
             }
         ]
     });
+    //自定义按钮位置
+    table.buttons().container().appendTo($('.excelButton'),table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
@@ -186,7 +188,7 @@ $(function(){
                 className:'hiddenButton'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'执行人员',
@@ -224,7 +226,7 @@ $(function(){
                 className:'hiddenButton'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'材料分析',
@@ -286,7 +288,6 @@ $(function(){
                     table.fnAddData(result);
                     table.fnDraw();
                 }
-                $('#loading').hide();
             }
         })
     }
@@ -389,7 +390,6 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
-                    $('#loading').hide();
                 }
             });
         })
@@ -508,6 +508,6 @@ $(function(){
     })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
 
 })

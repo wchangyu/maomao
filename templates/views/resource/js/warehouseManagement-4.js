@@ -5,7 +5,7 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     /*-------------------------------------表格初始化------------------------------*/
-    $('.main-contents-table .table').DataTable({
+    var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -31,11 +31,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'物品编号',
@@ -67,6 +67,12 @@ $(function(){
             }
         ],
     });
+    //自定义按钮位置
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    //加载页面的时候，隐藏其他两个导出按钮
+    for( var i=1;i<$('.excelButton').children().length;i++ ){
+        $('.excelButton').children().eq(i).addClass('hidding');
+    };
     /*------------------------------------表格数据--------------------------------*/
     conditionSelect();
     /*------------------------------------表格按钮-------------------------------*/
@@ -79,7 +85,11 @@ $(function(){
         $(this).addClass('spanhover');
         $('.main-contents-table').addClass('hide-block');
         $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
-
+        //导出按钮显示
+        for( var i=0;i<$('.excelButton').children().length;i++ ){
+            $('.excelButton').children().eq(i).addClass('hidding');
+        };
+        $('.excelButton').children().eq($(this).index()).removeClass('hidding');
     })
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
