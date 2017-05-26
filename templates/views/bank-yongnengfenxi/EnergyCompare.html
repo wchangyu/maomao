@@ -44,9 +44,10 @@
     <!--非框架中的样式-->
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
     <link rel="stylesheet" href="../bank-resource/css/yongnengfenxi/EnergyNormData.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/yongnengfenxi/EnergyCompare.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -239,7 +240,7 @@
                                 <ul class="condition-query refer-unit-table">
 
                                     <li>
-                                        <label for="">指标：</label>
+                                        <label for="">对比：</label>
 
                                         <select name="" id="energy-type" class="energy-type" >
                                             <option >电</option>
@@ -266,9 +267,20 @@
                                     </li>
 
                                     <li>
-                                        <label for="">对象：</label>
+                                        <label for="">对象1：</label>
 
                                         <select name="" id="obj-type" class=" person-type" >
+                                            <option >电</option>
+                                            <option >水</option>
+                                            <option >气</option>
+                                        </select>
+
+                                    </li>
+
+                                    <li>
+                                        <label for="">对象2：</label>
+
+                                        <select name="" id="obj-type2" class=" person-type" >
                                             <option >电</option>
                                             <option >水</option>
                                             <option >气</option>
@@ -301,33 +313,23 @@
 
                                 <!--主题chart图-->
                                 <div class="show-main row" >
-                                    <!--左侧chart图-->
-                                    <div class="main-data col-lg-9 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
+                                    <!--上方chart图-->
+                                    <div class="main-data col-lg-12 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
 
                                     </div>
-                                    <!--右侧数据框-->
-                                    <div class="L-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="rheader-content-right">
-                                            <div class="rheader-content-rights">
-                                                <!-- 累计耗电标题 -->
-                                                <span class="total-power-consumption">平均值</span>
-                                                <!-- 耗电数值 -->
-													<span class="total-power-consumption-value">
-														<label id="consumption-value-number">47604</label>
-                                                        <!-- 单位  -->
-														<span class="the-cumulative-power-unit">kWh</span>
-													</span>
-                                                <!-- 与上一时段相比 -->
-													<span class="compared-with-last-time">上一时段<br>
-														<label>43999</label>
-														<span class="the-cumulative-power-unit">kWh</span>
-													</span>
-                                                <!-- 上升还是下降的箭头 -->
-                                                <div class="rights-up" style=""></div>
-                                                <!-- 上升或下降的百分比 -->
-                                                <span class="rights-up-value">8.2%</span>
-                                            </div>
-                                        </div>
+
+                                    <!--下方对比表格-->
+                                    <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+                                        <h3 style="">对比分析</h3>
+                                        <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables">
+                                            <thead>
+
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                     <div class="clearfix"></div>
@@ -445,8 +447,9 @@
 <script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../bank-resource/js/yongnengfenxi/EnergyNormData.js"></script>
+<script src="../bank-resource/js/yongnengfenxi/EnergyCompare.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
