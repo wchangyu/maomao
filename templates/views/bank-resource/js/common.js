@@ -28,6 +28,15 @@ function setData(){
 
         }
 }
+
+//给表格加入数据
+function setDatas(arr){
+        if(arr && arr.length>0){
+                _table.fnAddData(arr);
+                _table.fnDraw();
+        }
+
+}
 //调用对应接口成功后
 function ajaxSuccess(){
 

@@ -7,6 +7,120 @@ $(document).ready(function() {
     // 基于准备好的dom，初始化echarts实例
     console.log('ok');
 
+    var table = $('#dateTables').DataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        //是否分页
+        "destroy": false,//还原初始化了的datatable
+        "paging":false,
+        "bPaginate": false,
+        "ordering": false,
+        'searching':false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                title:'',
+                data:"energyItemName"
+
+            },
+            {
+                title:'总量',
+                data:"energyItemValue",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
+            },
+            {
+                title:'占比（%）',
+                data:"energyItemPercent",
+                render:function(data, type, full, meta){
+
+                    return (data * 100).toFixed(2) + '%';
+                }
+            }
+
+
+
+        ]
+    });
+
+    var table1 = $('#dateTables1').DataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        //是否分页
+        "destroy": false,//还原初始化了的datatable
+        "paging":false,
+        "bPaginate": false,
+        "ordering": false,
+        'searching':false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                title:'',
+                data:"energyItemName"
+
+            },
+            {
+                title:'总量',
+                data:"energyItemValue",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
+            },
+            {
+                title:'占比（%）',
+                data:"energyItemPercent",
+                render:function(data, type, full, meta){
+
+                    return (data * 100).toFixed(2) + '%';
+                }
+            }
+
+
+
+        ]
+    });
+
 
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
@@ -21,11 +135,15 @@ $(document).ready(function() {
 
         getMainData();
 
-    })
+    });
 
 
 
 });
+
+//存放列表中的数据
+dataArrs = [];
+dataArrs1 = [];
 //存放查询对象
 var pointArr = [];
 
@@ -102,9 +220,18 @@ option = {
         x: 'left',
         data:['直达','营销广告','搜索引擎','邮件营销','联盟广告','视频广告','百度','谷歌','必应','其他']
     },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
     series: [
         {
-            name:'访问来源',
+            name:'来源',
             type:'pie',
             selectedMode: 'single',
             radius: [0, '30%'],
@@ -123,10 +250,19 @@ option = {
                 {value:335, name:'直达', selected:true},
                 {value:679, name:'营销广告'},
                 {value:1548, name:'搜索引擎'}
-            ]
+            ],
+            itemStyle:{
+                normal:{
+                    label:{
+                        show: true,
+                        formatter: '{b} : {c} ({d}%)'
+                    },
+                    labelLine :{show:true}
+                }
+            }
         },
         {
-            name:'访问来源',
+            name:'去向',
             type:'pie',
             radius: ['40%', '55%'],
 
@@ -139,7 +275,16 @@ option = {
                 {value:251, name:'谷歌'},
                 {value:147, name:'必应'},
                 {value:102, name:'其他'}
-            ]
+            ],
+            itemStyle:{
+                normal:{
+                    label:{
+                        show: true,
+                        formatter: '{b} : {c} ({d}%)'
+                    },
+                    labelLine :{show:true}
+                }
+            }
         }
     ]
 };
@@ -247,8 +392,8 @@ function getMainData(){
         timeout: theTimes,
         data:{
             "energyItemType":'01',
-            "startTime": '2015-5-1',
-            "endTime": '2015-6-1',
+            "startTime": startDate,
+            "endTime": endDate,
             "pointerIDs":postArr
         },
         beforeSend: function () {
@@ -263,8 +408,7 @@ function getMainData(){
             $('#theLoading').modal('hide');
             console.log(data);
 
-            return false;
-            if(data == null){
+            if(data.sourceEnergys.length == 0){
                 myChart.hideLoading();
                 myAlter('无数据!');
                 return false;
@@ -275,27 +419,67 @@ function getMainData(){
 
             $('.show-title3').html(showTime );
 
-            var dataArr = data.ecMetaDatas;
+            //表格中的数据
 
-            var xArr = [];
-            var sArr = [];
-            var tArr = [];
+            dataArrs = [];
 
-            console.log(title2);
-            tArr.push(title2);
-            $(dataArr).each(function(i,o){
+            dataArrs1 = [];
 
-                xArr.push(o.dataDate.split('T')[0]);
-                sArr.push(o.data.toFixed(2));
+            //删除之前的数据
+            for(var i=0; i<option.series.length; i++){
+
+                option.series[i].data = [];
+            }
+
+            //图例
+            var legendArr = [];
+
+            //来源
+            var sArr1 = [];
+            var sArr2 = [];
+            $(data.sourceEnergys).each(function(i,o){
+                //给表格获取数据
+
+                dataArrs.push(o);
+
+
+
+
+                var obj = {value : o.energyItemValue.toFixed(2),name:o.energyItemName};
+
+                sArr1.push(obj);
+
+                legendArr.push(o.energyItemName);
+
+                //显示数据
+
+                option.series[0].data = sArr1;
+
+
+
             });
 
-            option.series[0].data = sArr;
+            //去向
+            $(data.leaveEnergys).each(function(i,o){
+                //给表格获取数据
 
-            option.legend.data[0] = title2;
-            option.series[0].name = title2;
-            option.xAxis[0].data = xArr;
-            option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
+                dataArrs1.push(o);
 
+
+                var obj = {value : o.energyItemValue.toFixed(2),name:o.energyItemName};
+
+                sArr2.push(obj);
+
+                legendArr.push(o.energyItemName);
+
+                //显示数据
+
+                option.series[1].data = sArr2;
+
+
+            });
+
+                option.legend.data = legendArr;
 
             console.log(option.legend.data[0]);
 
@@ -304,27 +488,18 @@ function getMainData(){
             myChart.hideLoading();
             myChart.setOption(option);
 
-            //右侧显示数据的改变
+            _table = $('#dateTables').dataTable();
+
+            ajaxSuccess();
+
+            _table = $('#dateTables1').dataTable();
+
+
+            _table.fnClearTable();
+
+            setDatas(dataArrs1);
+
             $('.header-right-lists span').html(unit);
-            $('.total-power-consumption').html('累计用' + unitName + '');
-
-            $('#consumption-value-number').html(data.sumMetaData.toFixed(2));
-            $('.the-cumulative-power-unit').html(unit);
-
-            $('.compared-with-last-time label').html(data.chainEnergyData.toFixed(2));
-
-            var percent = (data.chainEnergyPercent.toFixed(4)) * 100;
-            $('.rights-up-value').html(Math.abs(percent) + '%');
-
-            if(data.chainEnergyPercent < 0 ){
-                $('.rights-up').css({
-                    "background-image": 'url(../resource/img/up.png)'
-                })
-            }else{
-                $('.rights-up').css({
-                    "background-image": 'url(../resource/img/up2.png)'
-                })
-            }
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -359,12 +534,12 @@ $('.datatimeblock').on('change',function(){
 //关闭时间弹窗时
 $('#choose-date .btn-default').on('click',function(){
 
-    $('.datatimeblock').val('今天');
+    $('.datatimeblock').val('本月');
 
 });
 $('#choose-date .close').on('click',function(){
 
-    $('.datatimeblock').val('今天');
+    $('.datatimeblock').val('本月');
 
 });
 //选定时间后
@@ -386,8 +561,8 @@ $('#choose-date .btn-primary').on('click',function(){
     };
 
 
-    if(CompareDate(txt2,txt1) == false){
-        myAlter('结束日期必须大于开始日期');
+    if(CompareDate(txt1,txt2) == true){
+        myAlter('结束日期不能小于开始日期');
         getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
 
         return false;
