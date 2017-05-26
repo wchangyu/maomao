@@ -307,6 +307,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -528,7 +529,7 @@
                                     <li class="floatRight">
                                         <div class="labels colorTip">维修部门 *：<span v-if="$validation.weixiukeshis.persons">维修部门不能为空</span></div>
                                         <div class="input-blockeds">
-                                            <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off'>
+                                            <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm">
                                         </div>
                                     </li>
                                     <div class="clearfix"></div>

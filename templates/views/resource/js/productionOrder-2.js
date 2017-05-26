@@ -99,21 +99,20 @@ $(function(){
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -121,16 +120,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs',
-                header:true
-            }
+                text: '导出',
+                className:'saveAs'
+            },
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'工单号',
                 data:'gdCode',
@@ -190,42 +188,18 @@ $(function(){
                 "targets": -1,
                 "data": null,
                 "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>受理</span>"
+
             }
-        ],
-        "columnDefs": [{
-            "visible": true,
-            "targets": -1
-        }]
+        ]
     });
+    //自定义按钮位置
+    table.buttons().container().appendTo($('.excelButton'),table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
     }
     //执行人员表格
-    $('#personTable1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-        },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+    var col2 = [
             {
                 title:'执行人员',
                 data:'wxRName'
@@ -238,145 +212,76 @@ $(function(){
                 title:'联系电话',
                 data:'wxRDh'
             }
-        ]
-    });
+        ];
+    tableInit($('#personTable1'),col2);
     //增加执行人员表格（第二层弹窗）
-    $('#zhiXingPerson').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '',
-            'infoEmpty': '没有数据',
+    var col3 = [
+        {
+            title:'执行人员',
+            data:'wxRName'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'执行人员',
-                data:'wxRName'
-            },
-            {
-                title:'工号',
-                data:'wxRen'
-            },
-            {
-                title:'联系电话',
-                data:'wxRDh'
-            },
-            {
-                class:'deleted',
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='tableDeleted'>删除</span>"
-            },
-        ]
-    });
+        {
+            title:'工号',
+            data:'wxRen'
+        },
+        {
+            title:'联系电话',
+            data:'wxRDh'
+        },
+        {
+            class:'deleted',
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='tableDeleted'>删除</span>"
+        },
+    ];
+    tableInit($('#zhiXingPerson'),col3);
     //材料表格
-    $('#personTables1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
+    var col4 = [
+        {
+            title:'材料分析',
+            data:'wxCl'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'材料分析',
-                data:'wxCl'
-            },
-            {
-                title:'维修材料',
-                data:'wxClName'
-            },
-            {
-                title:'数量',
-                data:'clShul'
-            },
-            {
-                title:'使用人',
-                data:' '
-            }
-        ]
-    });
+        {
+            title:'维修材料',
+            data:'wxClName'
+        },
+        {
+            title:'数量',
+            data:'clShul'
+        },
+        {
+            title:'使用人',
+            data:' '
+        }
+    ];
+    tableInit($('#personTables1'),col4);
     //增加材料表格
-    $('#weiXiuCaiLiaoTable').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '',
-            'infoEmpty': '没有数据',
+    var col5 = [
+        {
+            title:'材料分类',
+            data:'wxClName'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'材料分类',
-                data:'wxClName'
-            },
-            {
-                title:'维修材料',
-                data:'wxCl'
-            },
-            {
-                class:'deleted',
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='tableDeleted'>删除</span>"
-            },
-        ]
-    });
+        {
+            title:'维修材料',
+            data:'wxCl'
+        },
+        {
+            class:'deleted',
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='tableDeleted'>删除</span>"
+        },
+    ];
+    tableInit($('#weiXiuCaiLiaoTable'),col5);
     /*-----------------------------页面加载时调用的方法------------------------------*/
     //条件查询
     conditionSelect();
     /*---------------------------------表格绑定事件-------------------------------------*/
     $('#scrap-datatables tbody')
-        //，查看详情
+        //受理操作
         .on('click','.option-edit',function(){
             //当前行变色
             var $this = $(this).parents('tr');
@@ -385,6 +290,14 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal1'));
+            //派工按钮显示
+            $('.paigongButton').show();
+            //维修部门只读,颜色改变
+            $('#wxbm').attr('disabled',false).css({'background':'#ffffff'});
+            $('#wxbm').parent('.input-blockeds').css({'background':'#ffffff'});
+            $('#wxbm').parent('.input-blockeds').prev().addClass('colorTip').html('维修部门 *');
+            //添加执行人员按钮显示
+            $('.zhiXingRenYuanButton').show();
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
             var gongDanCode = $this.children('.gongdanId').html();
@@ -447,7 +360,7 @@ $(function(){
                     datasTable($("#personTables1"),_weiXiuCaiLiao)
                 }
             });
-        });
+        })
     /*-------------------------------方法----------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -703,6 +616,7 @@ $(function(){
     });
     //点击第二层弹窗的确定，给第一个弹窗的表格赋值
     $('.secondButton').click(function(){
+        console.log(_zhixingRens);
         //传回给第一个弹框的表格
         //输上谁就是谁
         if(_zhixingRens.length == 0){
@@ -940,5 +854,39 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+    //表格初始化方法
+    function tableInit(tableID,col){
+        tableID.DataTable({
+            'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+            'paging': true,   //是否分页
+            'destroy': true,//还原初始化了的datatable
+            'searching': true,
+            'ordering': false,
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '没有数据',
+                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                'infoEmpty': '没有数据',
+                'sSearch':'查询',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            "dom":'t<"F"lip>',
+            'buttons': [
+                {
+                    extend: 'excelHtml5',
+                    text: '保存为excel格式',
+                },
+            ],
+            'columns':col
+        })
     }
 })

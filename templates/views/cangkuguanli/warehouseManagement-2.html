@@ -318,6 +318,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -325,7 +326,7 @@
                                     <div class="table-title">
                                         <span class="spanhover">所有</span>
                                         <span>待确认</span>
-                                        <span>确认</span>
+                                        <span>已确认</span>
                                     </div>
                                     <div class="main-contents-table" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;position: absolute;top: 38px;left: 0;width: 100%;">
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
@@ -438,7 +439,7 @@
                         <li class="floatLeft" style="line-height: 26px;">
                             <div class="labels">入库单编号 ：</div>
                             <div class="input-blockeds">
-                                <input type="text" v-model="bianhao" class="shishi" placeholder="可不填，自动生成">
+                                <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
                             </div>
                         </li>
                         <li class="floatRight">
@@ -546,15 +547,15 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
+                                <div class="labels colorTip">物品名称 ：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' placeholder="点击物品编号自动获取">
+                                    <input type="text"  v-model="mingcheng"  placeholder="点击物品编号自动获取" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatLeft">
                                 <div class="labels">物品条形码 </div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="itemBarCode" placeholder="点击物品编号自动获取">
+                                    <input type="text" v-model="itemBarCode" placeholder="点击物品编号自动获取" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -611,11 +612,43 @@
 </div>
 <!--删除提示框-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 210px;">
+        <div class="modal-content" style="height: 210px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel3">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">入库单编号 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="rkabh">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">入库单类型 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="rklx" readonly="readonly">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary daShanchu">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除成功-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+                <h4 class="modal-title" id="myModalLabel5">提示</h4>
             </div>
             <div class="modal-body">删除成功</div>
             <div class="modal-footer">

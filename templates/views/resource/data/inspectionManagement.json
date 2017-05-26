@@ -1,12 +1,44 @@
 {
   "data":[
     {
-      "number":"0",
+      "id":"1",
+      "ICNum":"1106034205",
+      "ICName":"项目1",
+      "deviceNum":"DC17041915213737",
       "deviceType":"阀门",
       "content":"外观是否生锈",
       "detailed":"是",
-      "relationship":"是/否",
-      "value":"是",
+      "relationship":"是",
+      "relatinNum":"1",
+      "value":"300",
+      "sort":"1",
+      "note":""
+    },
+    {
+      "id":"2",
+      "ICNum":"1106034206",
+      "ICName":"项目2",
+      "deviceNum":"DC17041910081405",
+      "deviceType":"空调",
+      "content":"是否制冷",
+      "detailed":"是",
+      "relationship":"是",
+      "relatinNum":"1",
+      "value":"435",
+      "sort":"1",
+      "note":""
+    },
+    {
+      "id":"3",
+      "ICNum":"1106034207",
+      "deviceNum":"DC17042014392011",
+      "ICName":"项目3",
+      "deviceType":"冷机",
+      "content":"是否精准",
+      "detailed":"是",
+      "relationship":"是",
+      "relatinNum":"1",
+      "value":"300",
       "sort":"1",
       "note":""
     }

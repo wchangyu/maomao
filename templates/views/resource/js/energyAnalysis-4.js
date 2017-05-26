@@ -342,6 +342,28 @@ function getPointerData(){
 			url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getChildrenEnergyItemEcData',
 			data:ecParams,
 			async:false,
+			beforeSend:function(){
+				myChart36.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart37.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart38.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart39.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart40.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				})
+			},
 			success:function(result){
 				for(var j=0;j<result.length;j++){
 					resultArr.push(result[j]);
@@ -354,6 +376,21 @@ function getPointerData(){
 						}
 
 					}
+				}
+				myChart36.hideLoading();
+				myChart37.hideLoading();
+				myChart38.hideLoading();
+				myChart39.hideLoading();
+				myChart40.hideLoading();
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					myChart36.hideLoading();
+					myChart37.hideLoading();
+					myChart38.hideLoading();
+					myChart39.hideLoading();
+					myChart40.hideLoading();
 				}
 			}
 		})
@@ -421,6 +458,28 @@ function getOfficeData(){
 			url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeChildrenEnergyItemEcData',
 			data:ecParams,
 			async:false,
+			beforeSend:function(){
+				myChart36.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart37.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart38.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart39.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+				myChart40.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				})
+			},
 			success:function(result){
 				for(var j=0;j<result.length;j++){
 					resultArr.push(result[j]);
@@ -433,6 +492,21 @@ function getOfficeData(){
 						}
 
 					}
+				}
+				myChart36.hideLoading();
+				myChart37.hideLoading();
+				myChart38.hideLoading();
+				myChart39.hideLoading();
+				myChart40.hideLoading();
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					myChart36.hideLoading();
+					myChart37.hideLoading();
+					myChart38.hideLoading();
+					myChart39.hideLoading();
+					myChart40.hideLoading();
 				}
 			}
 		})

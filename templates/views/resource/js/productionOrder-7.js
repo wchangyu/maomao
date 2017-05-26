@@ -47,23 +47,27 @@ $(function(){
     var _gdState;
     //记录维修状态的值
     var _wxZhuangtai;
+    //定位当前页索引值
+    var currentPages = 0;
+    var currentRow = '';
+    var gdCode = '';
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -71,15 +75,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
-            }
+            },
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'工单号',
                 data:'gdCode',
@@ -138,91 +142,47 @@ $(function(){
             }
         ]
     });
+    //自定义按钮位置
+    table.buttons().container().appendTo($('.excelButton'),table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
     }
     //执行人员表格
-    $('#personTable1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
+    var col2 = [
+        {
+            title:'执行人员',
+            data:'wxRName'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'执行人员',
-                data:'wxRName'
-            },
-            {
-                title:'工号',
-                data:'wxRen'
-            },
-            {
-                title:'联系电话',
-                data:'wxRDh'
-            }
-        ]
-    });
-    $('#personTables1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": false,
-        "ordering": false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
+        {
+            title:'工号',
+            data:'wxRen'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'hiddenButton'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'材料分析',
-                data:'wxCl'
-            },
-            {
-                title:'维修材料',
-                data:'wxClName'
-            },
-            {
-                title:'数量',
-                data:'clShul'
-            },
-            {
-                title:'使用人',
-                data:' '
-            }
-        ]
-    });
+        {
+            title:'联系电话',
+            data:'wxRDh'
+        }
+    ];
+    tableInit($('#personTable1'),col2);
+    var col3 = [
+        {
+            title:'材料分析',
+            data:'wxCl'
+        },
+        {
+            title:'维修材料',
+            data:'wxClName'
+        },
+        {
+            title:'数量',
+            data:'clShul'
+        },
+        {
+            title:'使用人',
+            data:' '
+        }
+    ];
+    tableInit($('#personTables1'),col3);
     /*-----------------------------方法----------------------------------------*/
     //条件查询
     conditionSelect();
@@ -333,14 +293,15 @@ $(function(){
             //提示已完成；
             $('#myModal2').find('.modal-body').html('工单已完成接单！');
             moTaiKuang($('#myModal2'));
+        }else{
+            getGongDan();
         }
-        getGongDan();
         $(this).parents('.modal').modal('hide');
     })
     //关闭按钮
     /*----------------------------表格绑定事件-----------------------------------*/
     $('#scrap-datatables tbody')
-        //双击背景色改变，查看详情
+        //查看详情
         .on('click','.option-edit',function(){
             //当前行变色
             var $this = $(this).parents('tr');
@@ -349,6 +310,10 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
+            //获得当前分页的页
+            currentPages = parseInt($(this).parents('.table').next().next().children('span').children('.current').html())-1;
+            currentRow = $(this).parents('tr').index();
+            console.log();
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
             var gongDanCode = $this.children('.gongdanId').html();
@@ -388,7 +353,6 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
-                    //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -416,12 +380,8 @@ $(function(){
         })
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
-        console.log(who);
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
-        console.log('屏幕高'+ markHeight);
-        console.log('div高'+ markBlockHeight);
-        console.log( 'margin-top:'+markBlockTop);
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
     //dataTables表格填数据
@@ -436,5 +396,39 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+    //表格初始化方法
+    function tableInit(tableID,col){
+        tableID.DataTable({
+            'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+            'paging': true,   //是否分页
+            'destroy': true,//还原初始化了的datatable
+            'searching': true,
+            'ordering': false,
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '没有数据',
+                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                'infoEmpty': '没有数据',
+                'sSearch':'查询',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            "dom":'t<"F"lip>',
+            'buttons': [
+                {
+                    extend: 'excelHtml5',
+                    text: '保存为excel格式',
+                },
+            ],
+            'columns':col
+        })
     }
 })

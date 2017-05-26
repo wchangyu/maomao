@@ -71,11 +71,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'工单号',
@@ -135,6 +135,8 @@ $(function(){
             }
         ]
     });
+    //自定义按钮位置
+    table.buttons().container().appendTo($('.excelButton'),table.table().container());
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
@@ -162,7 +164,7 @@ $(function(){
                 className:'hiddenButton'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'执行人员',
@@ -200,7 +202,7 @@ $(function(){
                 className:'hiddenButton'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'材料分析',

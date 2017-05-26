@@ -72,6 +72,8 @@ $(function(){
     var _thisRowBM = '';
     //当前上传路径
     var _currentPath = '';
+    //当前上传文件名
+    var _fileName = '';
     //表格
     var _table = $('#browse-datatables');
     //获取设备类型
@@ -96,7 +98,7 @@ $(function(){
     }
     /*----------------------------表格初始化------------------------------*/
     //资产浏览表格
-    _table.DataTable({
+    var _tables = _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -108,7 +110,7 @@ $(function(){
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
             'infoEmpty': '没有数据',
             'paginate':{
                 "previous": "上一页",
@@ -117,12 +119,12 @@ $(function(){
                 "last":"尾页"
             }
         },
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
         "columns": [
@@ -208,6 +210,8 @@ $(function(){
             }
         ]
     });
+    //自定义按钮位置
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //表格查询加载数据
     conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
@@ -241,6 +245,10 @@ $(function(){
     //表格操作查看按钮
     _table.find('tbody')
         .on('click','.option-see',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             //上传文件隐藏
             $('#uploader').hide();
             //时间控件不弹出
@@ -254,6 +262,11 @@ $(function(){
             var $thisNum = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
+                    var pathName = '';
+                    var pathArr = _allDateArr[i].docPath.split('\\');
+                    for(var j=0;j<pathArr.length;j++){
+                        pathName = pathArr[j]
+                    }
                     myApp33.sbbm = _allDateArr[i].dNum;
                     myApp33.zcLX = _allDateArr[i].dcNum;
                     myApp33.mingcheng = _allDateArr[i].dName;
@@ -271,11 +284,24 @@ $(function(){
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
-                    $('.lujing').html(_allDateArr[i].docPath);
+                    $('.lujing').html(pathName);
                 }
+            };
+            //查看只读；
+            var lis = $('#myApp33').children().children();
+            for(var i=0;i<lis.length;i++){
+                lis.eq(i).children().eq(1).children().attr('disabled',true);
             }
+            //位置input框
+            $('#weizhi').attr('disabled',true);
+            //描述input框
+            $('#miaoshu').attr('disabled',true);
         })
         .on('click','.option-edite',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             //上传文件出现
             $('#uploader').show();
             $('#thelist').empty();
@@ -292,6 +318,11 @@ $(function(){
             var $thisNum = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
+                    var pathName = '';
+                    var pathArr = _allDateArr[i].docPath.split('\\');
+                    for(var j=0;j<pathArr.length;j++){
+                        pathName = pathArr[j]
+                    }
                     _thisRowID = _allDateArr[i].id;
                     myApp33.sbbm = _allDateArr[i].dNum;
                     myApp33.zcLX = _allDateArr[i].dcNum;
@@ -310,11 +341,17 @@ $(function(){
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
-                    $('.lujing').html(_allDateArr[i].docPath);
+                    $('.lujing').html(pathName);
                 }
             };
+            //上传文件按钮可操作
+            $('#ctlBtn').attr('disabled',false);
         })
         .on('click','.option-delete',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             _thisRowBM = $(this).parents('tr').find('.dNum').html();
             for(var i=0;i<_allDateArr.length;i++ ){
                 if(_allDateArr[i].dNum == _thisRowBM){
@@ -323,8 +360,15 @@ $(function(){
             }
             //提示框，确定要删除吗？
             var $myModal = $('#myModal3');
-            $myModal.find('.modal-body').html('确定要删除吗？');
             moTaiKuang($myModal);
+            //绑定信息
+            var $thisNum = $(this).parents('tr').find('.dNum').html();
+            for(var i=0;i<_allDateArr.length;i++){
+                if(_allDateArr[i].dNum == $thisNum){
+                    $('#sbbms').val(_allDateArr[i].dNum);
+                    $('#sblxs').val(_allDateArr[i].dName);
+                }
+            }
         })
     //模态框确定按钮
     $('.modal')
@@ -465,6 +509,13 @@ $(function(){
         //是否可选择同一文件
         duplicate:true
     });
+    uploader.on( 'beforeFileQueued',function(file){
+        if( uploader.getFiles().length >0){
+            //就不要再往队列里添加了
+            uploader.reset();
+            uploader.addFiles( file );
+        }
+    } );
     //添加东西之后判断是否能预览，如果是图片能预览，否则反之，
     uploader.on( 'fileQueued', function( file ) {
         var $li = $(

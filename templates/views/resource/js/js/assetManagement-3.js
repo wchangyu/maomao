@@ -74,7 +74,7 @@ $(function(){
     }
     /*-------------------------------------------表格初始化------------------------------------------*/
     //资产浏览表格
-    _table.DataTable({
+    var _tables = _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -86,7 +86,7 @@ $(function(){
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
             'infoEmpty': '没有数据',
             'paginate':{
                 "previous": "上一页",
@@ -95,12 +95,12 @@ $(function(){
                 "last":"尾页"
             }
         },
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
         "columns": [
@@ -184,6 +184,7 @@ $(function(){
             }
         ]
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     conditionSelect();
     //给表格中的下载附链接
     for( var i=0;i<_allDateArr.length;i++ ){
@@ -192,6 +193,10 @@ $(function(){
     /*------------------------------------------按钮方法--------------------------------------------*/
     _table.find('tbody')
         .on('click','.option-see',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             //上传文件隐藏
             $('#uploader').hide();
             //时间控件不弹出
@@ -275,24 +280,20 @@ $(function(){
             'isQueryDevDoc':1,
             'userID':_userIdName
         }
-        jQuery('#loading').showLoading();
         $.ajax({
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevs',
             data:prm,
-            async:true,
+            async:false,
             beforeSend:function(){
-
+                jQuery('#loading').showLoading();
             },
             success:function(result){
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
                 datasTable($('#information-datatables'),result);
-
                 jQuery('#loading').hideLoading();
-
-
             }
         })
     }

@@ -264,6 +264,12 @@ function getBranches() {
 			type: "post",
 			data: bmParams,
 			async:false,
+			beforeSend:function(){
+				myChart3.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+			},
 			success: function (data) {
 				branchArr=[];
 				for(var i=0;i<data.length;i++){
@@ -304,9 +310,18 @@ function getBranches() {
 				};
 				treeObj = $.fn.zTree.init($("#energyConsumption"), ztreeSettings, zNodes);
 				treeObject();
+				myChart3.hideLoading();
 			},
-			error: function (xhr, text, err) {
-				alert(text);
+			error:function(jqXHR, textStatus, errorThrown){
+				console.log(JSON.parse(jqXHR.responseText).message);
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					var obj = {};
+					obj.data = [];
+					dataY.push(obj);
+					option3.series = dataY;
+					myChart3.hideLoading();
+					myChart3.setOption(myChart3);
+				}
 			}
 		}
 	);
@@ -434,7 +449,6 @@ function getBranchData(){
 	var average=0;
 	var nums = -1;
 	for(var i=0;i<_ajaxStartA.length;i++){
-		console.log(i);
 		var lengths = null;
 		var startsTimess = _ajaxStartA[i];
 		var endsTimess=_ajaxEndA[i];
@@ -449,6 +463,12 @@ function getBranchData(){
 			url:sessionStorage.apiUrlPrefix+'Branch/GetECByBranches',
 			data:ecParams,
 			async:false,
+			beforeSend:function(){
+				myChart3.showLoading({
+					text:'获取数据中',
+					effect:'whirling'
+				});
+			},
 			success:function(result){
 				allBranch = [];
 				allBranch.push(result);
@@ -545,6 +565,14 @@ function getBranchData(){
 					option3.legend.data = selectTime;
 					option3.xAxis.data = dataX;
 					option3.series = dataY;
+					myChart3.setOption(option3);
+				};
+				myChart3.hideLoading();
+			},
+			error:function(jqXHR, textStatus, errorThrown){
+				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+					option1.series[0].data = [];
+					myChart3.hideLoading();
 					myChart3.setOption(option3);
 				}
 			}

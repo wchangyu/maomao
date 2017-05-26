@@ -482,7 +482,7 @@ function getOfficeClassEcData(){
     })
 }
 //楼宇分项电耗
-function PointerPowerConsumption(){
+function PointerPowerConsumption()  {
     var pts = _objectSel.getSelectedPointers(),pointerID;
     if(pts.length>0) { pointerID = pts[0].pointerID};
     if(!pointerID) { return; }
@@ -512,6 +512,13 @@ function PointerPowerConsumption(){
             }
             // 使用刚指定的配置项和数据显示图表。
             _myChart.setOption(option1);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                option1.series[0].data = [];
+                _myChart.hideLoading();
+                _myChart.setOption(option1);
+            }
         }
     })
 }
@@ -548,6 +555,13 @@ function OfficePowerConsumption(){
                 option1.series[0].data.push(obj);
             }
             _myChart.setOption(option1);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                option1.series[0].data = [];
+                _myChart.hideLoading();
+                option1.series[0].data.push(obj);
+            }
         }
     })
 }
