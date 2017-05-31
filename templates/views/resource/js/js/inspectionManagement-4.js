@@ -11,6 +11,10 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+    var showStartTime = moment().format('YYYY/MM/DD');
+    var showEndTime = moment().add(7,'d').format('YYYY/MM/DD');
+    $('.datatimeblock').eq(0).val(showStartTime);
+    $('.datatimeblock').eq(1).val(showEndTime);
     //获取设备类型
     var prm = {
         "dcNum": "",
@@ -516,6 +520,8 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        var realStartTime = showStartTime;
+        var realEndTime = moment(showEndTime).add(1,'d').format('YYYY/MM/DD');
         var prm = {
             itkNum:filterInput[0],
             itkName:filterInput[1],
@@ -524,8 +530,8 @@ $(function(){
             dName:filterInput[3],
             dipKeshi:filterInput[4],
             manager:filterInput[5],
-            ditST:filterInput[6],
-            ditET:filterInput[7],
+            ditST:realStartTime,
+            ditET:realEndTime,
             isAllData:0,
             userID:_userIdName
         }

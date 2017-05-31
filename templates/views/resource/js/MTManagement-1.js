@@ -11,17 +11,8 @@ $(function(){
             mingcheng:'',
             sbfl:'',
             options:[],
-            miaoshu:'',
-            cankaozhi:'',
-            bjgx:'是/否',
-            options1:[
-                {text:'是/否',value:'是/否'},
-                {text:'<',value:'<'},
-                {text:'<=',value:'<='},
-                {text:'=',value:'='},
-                {text:'>=',value:'>='},
-                {text:'>',value:'>'}
-            ],
+            gznr:'',
+            byfs:'',
             beizhu:''
         }
     })
@@ -85,16 +76,12 @@ $(function(){
                 data:'dcName',
             },
             {
-                title:'条目描述',
-                data:'desc',
+                title:'工作内容',
+                data:'desc'
             },
             {
-                title:'参考关系',
-                data:'relation'
-            },
-            {
-                title:'条目参考值',
-                data:'stValue',
+                title:'保养方式',
+                data:'mtContent'
             },
             {
                 title:'备注',
@@ -124,43 +111,37 @@ $(function(){
             myApp33.sbfl = _allDataLX[0].dcNum;
         }
         myApp33.mingcheng = '';
-        myApp33.miaoshu = '';
-        myApp33.cankaozhi = '';
+        myApp33.gznr = '';
+        myApp33.byfs = '';
         myApp33.bjgx = '1';
         myApp33.beizhu = '';
+        //可编辑
+        var notOption = $('#myApp33').children().children().children('.input-blockeds').children();
+        notOption.attr('disabled',false);
         //确定按钮显示，
         $('#myModal').find('.btn-primary').show();
         $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
         moTaiKuang($('#myModal'));
-        $('#myModal').find('.modal-title').html('新增');
     });
     _table.find('tbody')
     //查看按钮
     .on('click','.option-see',function(){
         //样式
-        var $this = $(this).parents('tr');
-        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
+        trCss($(this));
         $('#myModal').find('.btn-primary').hide();
         bjOrCk($(this),true);
-        $('#myModal').find('.modal-title').html('详情');
     })
     //编辑按钮
     .on('click','.option-edite',function(){
         //样式
-        var $this = $(this).parents('tr');
-        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
+        trCss($(this));
         $('#myModal').find('.btn-primary').show();
         bjOrCk($(this),false);
-        $('#myModal').find('.modal-title').html('编辑');
     })
     //删除按钮
     .on('click','.option-delete',function(){
         //样式
-        var $this = $(this).parents('tr');
-        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
+        trCss($(this));
         _thisRowBM = $(this).parents('tr').find('.bianma').html();
         //赋值
         $('#tmbm').val($(this).parents('tr').find('.bianma').html());
@@ -171,31 +152,27 @@ $(function(){
         //登记确定按钮；
         .on('click','.dengji',function(){
             if( myApp33.mingcheng == 0 ){
-                var $myModal = $('#myModal2');
-                moTaiKuang($myModal);
-                $myModal.find('.modal-body').html('请填写红色必填项！')
+                tipInfo($('#myModal2'),'请填写红色必填项！');
+                moTaiKuang($('#myModal2'));
             }else {
                 //获取填写的值
                 var prm = {
                     dcNum:myApp33.sbfl,
                     dcName: $.trim($('#sblx').find('option:selected').html()),
                     ditName:myApp33.mingcheng,
-                    desc:myApp33.miaoshu,
-                    relation:myApp33.bjgx,
-                    stValue:myApp33.cankaozhi,
+                    description:myApp33.gznr,
+                    mtContent:myApp33.byfs,
                     remark:myApp33.beizhu,
                     userID:_userIdName
                 }
                 $.ajax({
                     type:'post',
-                    url:_urls + 'YWDevIns/ywDIAddDIItem',
+                    url:_urls + 'YWDevMT/ywDMAddDIItem',
                     data:prm,
                     success:function( result ){
                         if(result == 99){
-                            var $myModal = $('#myModal2');
-                            $myModal.find('.modal-body').html('添加成功!');
+                            tipInfo($('#myModal2'),'编辑成功！',$('#myModal'));
                             moTaiKuang($myModal);
-                            $('#myModal').modal('hide');
                             conditionSelect();
                         }
                     },
@@ -214,22 +191,19 @@ $(function(){
                 dcName:$('#sblx').find('option:selected').html(),
                 ditNum:_thisRowBM,
                 ditName:myApp33.mingcheng,
-                description:myApp33.miaoshu,
-                relation:myApp33.bjgx,
-                stvalue:myApp33.cankaozhi,
+                description:myApp33.gznr,
+                mtContent:myApp33.byfs,
                 remark:myApp33.beizhu,
                 userID:_userIdName
             };
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/ywDIUptDIItem',
+                url:_urls + 'YWDevMT/ywDIUptDIItem',
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     if(result == 99){
-                        $('#myModal2').find('.modal-body').html('编辑成功!');
+                        tipInfo($('#myModal2'),'编辑成功!',$('#myModal'));
                         moTaiKuang($('#myModal2'));
-                        $('#myModal').modal('hide');
                         conditionSelect();
                     }
                 },
@@ -240,7 +214,6 @@ $(function(){
                 }
             })
         })
-
         //删除确定按钮
     $('#myModal3').on('click','.shanchu',function(){
             var prm = {
@@ -249,14 +222,13 @@ $(function(){
             };
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/ywDIDelDIItem',
+                url:_urls + 'YWDevMT/ywDMDelDIItem',
                 data:prm,
                 success:function(result){
                     console.log(result);
                     if(result == 99){
-                        $('#myModal2').find('.modal-body').html('删除成功!');
+                        tipInfo($('#myModal2'),'删除成功!',$('#myModal3'));
                         moTaiKuang($('#myModal2'));
-                        $('#myModal3').modal('hide');
                         conditionSelect();
                     }
                 },
@@ -293,10 +265,9 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDIItems',
+            url:_urls + 'YWDevMT/YWDMGetDMItems',
             data:prm,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);
                 }
@@ -311,12 +282,11 @@ $(function(){
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
+        var table = tableId.dataTable();
         if(arr.length == 0){
-            var table = tableId.dataTable();
             table.fnClearTable();
             table.fnDraw();
         }else{
-            var table = tableId.dataTable();
             table.fnClearTable();
             table.fnAddData(arr);
             table.fnDraw();
@@ -365,14 +335,27 @@ $(function(){
             if( _allData[i].ditNum == _thisRowBM ){
                 myApp33.mingcheng = _allData[i].ditName;
                 myApp33.sbfl = _allData[i].dcNum;
-                myApp33.cankaozhi = _allData[i].stValue;
-                myApp33.miaoshu = _allData[i].desc;
-                myApp33.bjgx = _allData[i].relation;
+                myApp33.gznr = _allData[i].desc;
+                myApp33.byfs = _allData[i].mtContent;
                 myApp33.beizhu = _allData[i].remark;
             }
         }
         //给所有的操作框添加不可操作属性
         var notOption = $('#myApp33').children().children().children('.input-blockeds').children();
         notOption.attr('disabled',zhi);
+    }
+    //click tr css change
+    function trCss(el){
+        var $this = el.parents('tr');
+        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+        $this.addClass('tables-hover');
+    }
+    //操作成功提示框消息
+    function tipInfo(el,meg,el1){
+        var myModal = el;
+        myModal.find('.modal-body').html(meg);
+        if(el1){
+            el1.modal('hide');
+        }
     }
 })

@@ -45,17 +45,6 @@ $(function(){
             dianhua:''
         }
     });
-   /* //巡检内容详情
-    var workDone1 = new Vue({
-        el:'#workDone1',
-        data:{
-            xjnrbm:'',
-            xjnrmc:'',
-            beizhu:'',
-            sbfl:'',
-            options:[]
-        }
-    });*/
     //非空验证
     //验证必填项（非空）
     Vue.validator('noempty', function (val) {
@@ -103,31 +92,6 @@ $(function(){
     //从巡检内容中添加条目的设备分类
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#sblx1'),'dcName','dcNum');
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#shebeileixings1'),'dcName','dcNum');
-    //页面加载的时候，首先把设备条目加载出来
-    //获取数据
-    var prm = {
-        ditName:'',
-        dcNum:'',
-        userID:_userIdName
-    };
-    $.ajax({
-        type:'post',
-        url: _urls + 'YWDevIns/YWDIGetDIItems',
-        data:prm,
-        async:false,
-        success:function(result){
-            console.log(_allXJSelect);
-            _tiaoMuArr = [];
-            for(var i=0;i<result.length;i++){
-                _tiaoMuArr.push(result[i]);
-            }
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-            }
-        }
-    });
     //复选框选中的东西
     var _selectData = [];
     /*----------------------------------表格相关-----------------------------------------*/
@@ -135,7 +99,7 @@ $(function(){
     var _tableAdd = $('#zhiXingPerson');
     var _tableXJ = $('#personTable1');
     var _tableZXR = $('#personTable2');
-   //巡检内容表格
+    //巡检内容表格
     var _tables =  _table.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -255,13 +219,13 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'条目参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'报警关系',
-            data:'relation'
-        }
+            title:'保养方式',
+            data:'mtContent'
+        },
     ]
     tableInit(_tableAdd,col);
 
@@ -281,12 +245,12 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'条目参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'参考关系',
-            data:'relation'
+            title:'保养方式',
+            data:'mtContent'
         },
         {
             title:'操作',
@@ -403,12 +367,12 @@ $(function(){
 
     var col6 = [
         {
-            title:'巡检内容编码',
+            title:'保养内容编码',
             data:'dicNum',
             className:'bianma'
         },
         {
-            title:'巡检内容名称',
+            title:'保养内容名称',
             data:'dicName',
             className:'mingcheng'
         },
@@ -441,13 +405,13 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'条目参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'参考关系',
-            data:'relation'
-        }
+            title:'保养方式',
+            data:'mtContent'
+        },
     ];
     tableInit($('#personTable3'),col7);
     //设备选择事件
@@ -590,6 +554,31 @@ $(function(){
 
     //表格加载数据
     conditionSelect();
+
+    //页面加载的时候，首先把设备条目加载出来
+    //获取数据
+    var prm = {
+        ditName:'',
+        dcNum:'',
+        userID:_userIdName
+    };
+    $.ajax({
+        type:'post',
+        url: _urls + 'YWDevMT/YWDMGetDMItems',
+        data:prm,
+        async:false,
+        success:function(result){
+            _tiaoMuArr = [];
+            for(var i=0;i<result.length;i++){
+                _tiaoMuArr.push(result[i]);
+            }
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(JSON.parse(jqXHR.responseText).message);
+            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+            }
+        }
+    });
     /*-------------------------------------按钮事件-------------------------------------*/
     //查询
     $('#selected').click(function(){
@@ -650,8 +639,6 @@ $(function(){
                 for(var i=0;i<$('#zhiXingPerson tbody').children('tr').length;i++){
                     bianmaArr.push($('#zhiXingPerson tbody').children('tr').eq(i).children('.bianma').html());
                 }
-                //console.log(bianmaArr);
-                //console.log(_allXJSelect);
                 for(var i=0;i<bianmaArr.length;i++){
                     for(var j=0;j<_allXJSelect.length;j++){
                         if(bianmaArr[i]==_allXJSelect[j].ditNum){
@@ -666,7 +653,7 @@ $(function(){
                 if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                 }
             }
-        });
+        })
         moTaiKuang($('#myModal1'));
         //初始化一下
         $('#zhiXingPerson thead').find('.checker').children('span').removeClass('checked');
@@ -694,7 +681,6 @@ $(function(){
         };
         //去重
         var vas = unique(_QCArr);
-        //console.log(vas);
         //放入表格中
         datasTable($('#personTable1'),vas);
     });
@@ -718,10 +704,8 @@ $(function(){
         //获取要删除的条目的编码和名称，进行删除
         _allXJSelect.removeByValue($('#xjtmbm').val(),'ditNum');
         //var vas = unique(_QCArr);
-       //vas.removeByValue($('#xjtmbm').val(),'ditNum');
+        //vas.removeByValue($('#xjtmbm').val(),'ditNum');
         //删除一次再次重新获取值，
-        console.log(_allXJSelect);
-        console.log(_nrArr);
         for(var i=0;i<_allXJSelect.length;i++){
             _QCArr.push(_allXJSelect[i])
         }
@@ -821,57 +805,57 @@ $(function(){
                 $('#myModal5').find('.modal-body').html('请填写红色必填项！');
             }else{
                 if(workDone.jhzq >=1 && isInteger(workDone.jhzq)){
-                     var tableArr = [];
-                     for(var i=0;i<_allXJSelect.length;i++){
-                         var obj = {};
-                         obj.ditNum = _allXJSelect[i].ditNum;
-                         tableArr.push(obj);
-                     };
-                     var personArr = [];
-                     for(var i=0;i<_zhixingRens.length;i++){
-                         var obj = {};
-                         obj.dipDh = _zhixingRens[i].dipDh;
-                         obj.dipRen = _zhixingRens[i].dipRen;
-                         obj.dipRenNum = _zhixingRens[i].dipRenNum;
-                         obj.dipKeshi = workDone.xjbm;
-                         personArr.push(obj);
-                     }
-                     var prm={
-                         dipNum:workDone.jhbm,
-                         dipName:workDone.xjnrmc,
-                         dNum:workDone.sbbm,
-                         dName:workDone.sbmc,
-                         dipKeshi:workDone.xjbm,
-                         manager:workDone.fzr,
-                         activeDate:$('#sxsj').val(),
-                         stCircle:workDone.jhzq,
-                         circleUnit:workDone.zqdw,
-                         remark:$('#beizhu').val(),
-                         isActive:workDone.sfqy,
-                         dipItems:tableArr,
-                         dipMembers:personArr,
-                         finishDate:$('#jssj').val(),
-                         userID:_userIdName,
-                     };
-                     $.ajax({
-                         type:'post',
-                         url:_urls + 'YWDevIns/YWDIPUptPlan',
-                         data:prm,
-                         success:function(result){
-                             if(result == 99){
-                                 moTaiKuang($('#myModal5'));
-                                 $('#myModal5').find('.modal-body').html('编辑成功！');
-                                 conditionSelect();
-                                 $('#myModal').modal('hide');
-                             }
-                         },
-                         error:function(jqXHR, textStatus, errorThrown){
-                             console.log(JSON.parse(jqXHR.responseText).message);
-                             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    var tableArr = [];
+                    for(var i=0;i<_allXJSelect.length;i++){
+                        var obj = {};
+                        obj.ditNum = _allXJSelect[i].ditNum;
+                        tableArr.push(obj);
+                    };
+                    var personArr = [];
+                    for(var i=0;i<_zhixingRens.length;i++){
+                        var obj = {};
+                        obj.dipDh = _zhixingRens[i].dipDh;
+                        obj.dipRen = _zhixingRens[i].dipRen;
+                        obj.dipRenNum = _zhixingRens[i].dipRenNum;
+                        obj.dipKeshi = workDone.xjbm;
+                        personArr.push(obj);
+                    }
+                    var prm={
+                        dipNum:workDone.jhbm,
+                        dipName:workDone.xjnrmc,
+                        dNum:workDone.sbbm,
+                        dName:workDone.sbmc,
+                        dipKeshi:workDone.xjbm,
+                        manager:workDone.fzr,
+                        activeDate:$('#sxsj').val(),
+                        stCircle:workDone.jhzq,
+                        circleUnit:workDone.zqdw,
+                        remark:$('#beizhu').val(),
+                        isActive:workDone.sfqy,
+                        dipItems:tableArr,
+                        dipMembers:personArr,
+                        finishDate:$('#jssj').val(),
+                        userID:_userIdName,
+                    };
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWDevMT/YWDMPUptPlan',
+                        data:prm,
+                        success:function(result){
+                            if(result == 99){
+                                moTaiKuang($('#myModal5'));
+                                $('#myModal5').find('.modal-body').html('编辑成功！');
+                                conditionSelect();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(JSON.parse(jqXHR.responseText).message);
+                            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
 
-                             }
-                         }
-                     })
+                            }
+                        }
+                    })
                 }else{
                     moTaiKuang($('#myModal5'));
                     $('#myModal5').find('.modal-body').html('请填写大于1的整数间隔周期！');
@@ -892,11 +876,10 @@ $(function(){
                         tableArr.push(obj);
                     };
                     var personArr = [];
-                    console.log(_zhixingRens);
                     for(var i=0;i<_zhixingRens.length;i++){
                         var obj = {};
                         obj.dipDh = _zhixingRens[i].dipDh;
-                        obj.dipRen = _zhixingRens[i].dipDh;
+                        obj.dipRen = _zhixingRens[i].dipRen;
                         obj.dipRenNum = _zhixingRens[i].dipRenNum;
                         obj.dipKeshi = workDone.xjbm;
                         personArr.push(obj);
@@ -917,14 +900,18 @@ $(function(){
                         finishDate:$('#jssj').val(),
                         userID:_userIdName,
                     };
-                    console.log(prm);
                     $.ajax({
                         type:'post',
-                        url:_urls + 'YWDevIns/YWDIPAddPlan',
+                        url:_urls + 'YWDevMT/YWDMPAddPlan',
                         data:prm,
                         success:function(result){
-                            conditionSelect();
-                            $('#myModal').modal('hide');
+                            if(result == 99){
+                                moTaiKuang($('#myModal5'));
+                                $('#myModal5').find('.modal-body').html('添加成功！');
+                                conditionSelect();
+                                $('#myModal').modal('hide');
+                            }
+
                         },
                         error:function(jqXHR, textStatus, errorThrown){
                             console.log(JSON.parse(jqXHR.responseText).message);
@@ -951,13 +938,11 @@ $(function(){
                 stCircle:workDone.jhzq,
                 userID:_userIdName
             }
-            console.log(prm);
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/YWDIPAssignTask',
+                url:_urls + 'YWDevMT/YWDMPAssignTask',
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     if(result == 99){
                         moTaiKuang($('#myModal5'));
                         $('#myModal5').find('.modal-body').html('启动任务巡检成功！');
@@ -976,10 +961,12 @@ $(function(){
         };
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIPDelPlan',
+            url:_urls + 'YWDevMT/YWDMPDelPlan',
             data:prm,
             success:function(result){
                 if(result == 99){
+                    moTaiKuang($('#myModal5'));
+                    $('#myModal5').find('.modal-body').html('删除成功！');
                     conditionSelect();
                 }
             },
@@ -1097,17 +1084,17 @@ $(function(){
     //启用
     $('#qiyong').click(function(){
         _selectData = [];
-        yesOrNo('YWDevIns/YWDIPActivePlans',1,'请选择要启用的数据','启用操作成功！','停用状态下才可以进行启用操作！');
+        yesOrNo('YWDevMT/YWDMPActivePlans',1,'请选择要启用的数据','启用操作成功！','停用状态下才可以进行启用操作！');
         flagQY = true;
     });
     $('#jinyong').click(function(){
         _selectData = [];
-        yesOrNo('YWDevIns/YWDIPActivePlans',2,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
+        yesOrNo('YWDevMT/YWDMPActivePlans',2,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
         flagQY = true;
     })
     $('#batchDelete').click(function(){
         _selectData = [];
-        yesOrNo('YWDevIns/YWDIPDelPlans',0,'请选择要删除的数据','批量删除操作成功')
+        yesOrNo('YWDevMT/YWDMPDelPlans',0,'请选择要删除的数据','批量删除操作成功')
     })
     //弹窗关闭按钮
     $('.confirm').click(function(){
@@ -1115,13 +1102,12 @@ $(function(){
     })
     //从巡检内容中选择条目
     $('.zhiXingRenYuanButton1').click(function(){
-        moTaiKuang($('#myModal6'))
-    })
-
-    //巡检内容加载
-    $('.zhiXingRenYuanButton1').click(function(){
+        moTaiKuang($('#myModal6'));
+        //巡检内容加载
         xjnrSelect()
     })
+    //从内容选择条目的查看详情按钮
+    $('#')
     //巡检内容条件查询
     $('#selecte1').click(function(){
         xjnrSelect()
@@ -1129,21 +1115,13 @@ $(function(){
     //点击巡检条目的查看，弹出详情
     $('#myModal6').on('click','.option-seeNR',function(){
         var $thisBM = $(this).parents('tr').children('.bianma').html();
-        /*for(var i=0;i<_allData.length;i++){
-            if(_allData[i].dicNum == $thisBM){
-                workDone1.xjnrbm = _allData[i].dicNum;
-                workDone1.xjnrmc = _allData[i].dicName;
-                workDone1.sbfl = _allData[i].dcNum;
-            }
-        }*/
-        //moTaiKuang($('#myModal7'));
         var prm = {
             dicNum:$thisBM,
             userID:_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDICItems',
+            url:_urls + 'YWDevMT/YWDMGetDMCItems',
             data:prm,
             success:function(result){
                 _allXJSelect = [];
@@ -1160,23 +1138,47 @@ $(function(){
         });
     })
     //选择巡检内容
-    $('#zhiXingPerson1 tbody').on('click','tr',function(){
-        _selectNRBM = $(this).children('.bianma').html();
-        $('#zhiXingPerson1 tbody').children('tr').removeClass('tables-hover');
-        $(this).addClass('tables-hover');
-    });
-    //巡检内容确定按钮
-    $('.selectTableList1').click(function(){
+    $('#zhiXingPerson1 tbody')
+        .on('click','tr',function(){
+            _selectNRBM = $(this).children('.bianma').html();
+            $('#zhiXingPerson1 tbody').children('tr').removeClass('tables-hover');
+            $(this).addClass('tables-hover');
+        })
+        .on('click','.option-seeNR',function(){
+            var $thisBM = $(this).parents('tr').children('.bianma').html();
             var prm = {
-                dicNum:_selectNRBM,
+                dicNum:$thisBM,
                 userID:_userIdName
             }
             $.ajax({
+                type:'post',
+                url:_urls + 'YWDevMT/YWDMGetDMCItems',
+                data:prm,
+                success:function(result){
+                    _allXJSelect = [];
+                    for(var i=0;i<result.length;i++){
+                        _allXJSelect.push(result[i]);
+                    }
+                    datasTable($('#personTable3'),result)
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(JSON.parse(jqXHR.responseText).message);
+                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    }
+                }
+            });
+        })
+    //巡检内容确定按钮
+    $('.selectTableList1').click(function(){
+        var prm = {
+            dicNum:_selectNRBM,
+            userID:_userIdName
+        }
+        $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDICItems',
+            url:_urls + 'YWDevMT/YWDMGetDMCItems',
             data:prm,
             success:function(result){
-                console.log(result);
                 _nrArr = [];
                 for(var i=0;i<result.length;i++){
                     _nrArr.push(result[i])
@@ -1186,7 +1188,6 @@ $(function(){
                 }
                 //去重
                 var vas = unique(_QCArr);
-                //console.log(vas);
                 //放入表格中
                 datasTable($('#personTable1'),vas);
             },
@@ -1243,7 +1244,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIPGetPlans',
+            url:_urls + 'YWDevMT/YWDMPGetPlans',
             data:prm,
             success:function(result){
                 _allDataArr = [];
@@ -1274,7 +1275,7 @@ $(function(){
     }
     //表格初始化
     function tableInit(tableId,col){
-      tableId.DataTable({
+        tableId.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "paging": true,   //是否分页
             "destroy": true,//还原初始化了的datatable
@@ -1419,13 +1420,15 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
+            url:_urls + 'YWDevMT/YWDMPGetItemAndMembers',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allXJSelect = [];
                 _zhixingRens = [];
                 for(var j=0;j<_tiaoMuArr.length;j++){
                     for(var i=0;i<result.dipItems.length;i++){
+                        console.log(result.dipItems[i].ditNum);
                         if( result.dipItems[i].ditNum == _tiaoMuArr[j].ditNum ){
                             _allXJSelect.push(_tiaoMuArr[j]);
                         }
@@ -1458,10 +1461,9 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDIContents',
+            url:_urls + 'YWDevMT/YWDMGetDMContents',
             data:prm,
             success:function(result){
-                console.log(result);
                 _allData = [];
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);

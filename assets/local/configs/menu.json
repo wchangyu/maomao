@@ -527,9 +527,9 @@
         "arg":"",
         "iconclass":""
       },
-      "综合查询":{
+      "任务综合查询":{
         "type":"0",
-        "content":"综合管理",
+        "content":"任务综合查询",
         "uri":"../xunjianguanli/inspectionManagement-5.html",
         "uid":"",
         "arg":"",
@@ -539,6 +539,53 @@
         "type":"0",
         "content":"异常项目查询",
         "uri":"../xunjianguanli/inspectionManagement-6.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "保养管理":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"保养管理",
+    "submenu":{
+      "保养条目管理":{
+        "type":"0",
+        "content":"保养条目管理",
+        "uri":"../baoyangguanli/MTManagement-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "保养内容":{
+        "type":"0",
+        "content":"保养内容",
+        "uri":"../baoyangguanli/MTManagement-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "保养计划":{
+        "type":"0",
+        "content":"保养计划",
+        "uri":"../baoyangguanli/MTManagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "保养任务":{
+        "type":"0",
+        "content":"保养任务",
+        "uri":"../baoyangguanli/MTManagement-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "任务综合查询":{
+        "type":"0",
+        "content":"任务综合查询",
+        "uri":"../baoyangguanli/MTManagement-5.html",
         "uid":"",
         "arg":"",
         "iconclass":""
