@@ -75,12 +75,12 @@ $(function(){
         ],
         "columns": [
             {
-                title:'巡检内容编码',
+                title:'保养内容编码',
                 data:'dicNum',
                 className:'bianma'
             },
             {
-                title:'巡检内容名称',
+                title:'保养内容名称',
                 data:'dicName',
                 className:'mingcheng'
             },
@@ -159,12 +159,12 @@ $(function(){
                 data:'ditName'
             },
             {
-                title:'条目参考值',
-                data:'stValue'
+                title:'工作内容',
+                data:'desc'
             },
             {
-                title:'参考关系',
-                data:'relation'
+                title:'保养方式',
+                data:'mtContent'
             }
         ]
     });
@@ -214,12 +214,12 @@ $(function(){
                 data:'ditName'
             },
             {
-                title:'条目参考值',
-                data:'stValue'
+                title:'工作内容',
+                data:'desc'
             },
             {
-                title:'报警关系',
-                data:'relation'
+                title:'保养方式',
+                data:'mtContent'
             },
             {
                 title:'操作',
@@ -271,7 +271,6 @@ $(function(){
     $('.creatButton').click(function(){
         var $myModal = $('#myModal');
         moTaiKuang($myModal);
-        $myModal.find('.modal-title').html('新增');
         //确定按钮添加登记类
         $myModal.find('.btn-primary').show().removeClass('bianji').addClass('dengji');
         //初始化
@@ -284,24 +283,30 @@ $(function(){
         $('#workDone').children().children().children('.input-blockeds').children().attr('disabled',false);
         //添加按钮隐藏
         $('.zhiXingRenYuanButton').show();
-        //初始化的时候清空表格的的值
+        _allXJTMArr = [];
         _allXJSelect = [];
+        //选择添加保养条目全选复选框初始化
+        $('#zhiXingPerson thead').children('tr').children('th').find('input').parent('span').removeClass('checked');
+    });
+    //查询
+    $('#selected').click(function(){
+        conditionSelect();
     })
     //添加巡检条目按钮
     $('.zhiXingRenYuanButton').click(function(){
+        //获取所有条目列表
         //获取数据
-       var prm = {
-           ditName:$('#shebeileixings').val(),
-           dcNum:$('#filter_global').val(),
-           userID:_userIdName
-       };
+        var prm = {
+            ditName:$('#shebeileixings').val(),
+            dcNum:$('#filter_global').val(),
+            userID:_userIdName
+        };
         $.ajax({
             type:'post',
-            url: _urls + 'YWDevIns/YWDIGetDIItems',
+            url: _urls + 'YWDevMT/YWDMGetDMItems',
             data:prm,
             async:false,
             success:function(result){
-                console.log(_allXJSelect);
                 _allXJTMArr = [];
                 for(var i=0;i<result.length;i++){
                     _allXJTMArr.push(result[i]);
@@ -419,14 +424,12 @@ $(function(){
             $('#myModal').find('.btn-primary').hide();
             //添加按钮隐藏
             $('.zhiXingRenYuanButton').hide();
-            $('#myModal').find('.modal-title').html('详情');
         })
         .on('click','.option-edite',function(){
             ckOrBj($(this),false);
             $('#myModal').find('.btn-primary').show().removeClass('dengji').addClass('bianji');
             //添加按钮隐藏
             $('.zhiXingRenYuanButton').show();
-            $('#myModal').find('.modal-title').html('详情');
         })
         .on('click','.option-delete',function(){
             //修改样式
@@ -465,7 +468,7 @@ $(function(){
             }
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/YWDIUptDIContent',
+                url:_urls + 'YWDevMT/YWDMUptDMContent',
                 data:prm,
                 success:function(result){
                     console.log(result);
@@ -507,9 +510,10 @@ $(function(){
                 }
                 $.ajax({
                     type:'post',
-                    url:_urls + 'YWDevIns/YWDIADDDIContent',
+                    url:_urls + 'YWDevMT/YWDMADDDMContent',
                     data:prm,
                     success:function(result){
+                        console.log(result);
                         if(result == 99){
                             $('#myModal').modal('hide');
                             //提示
@@ -533,16 +537,15 @@ $(function(){
             }
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/YWDIDelDIContent',
+                url:_urls + 'YWDevMT/YWDMDelDMContent',
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        alert(0)
                         $('#myModal').modal('hide');
                         //提示
                         moTaiKuang($('#myModal3'));
                         $('#myModal3').find('.modal-body').html('删除成功!');
-                        $('#myModal3').modal('hide');
+                        $('#myModal2').modal('hide');
                         conditionSelect();
                     }
                 },
@@ -594,21 +597,21 @@ $(function(){
     //条件查询
     function conditionSelect(){
         var prm={
-            dicName:'',
-            dcNum:'',
+            dcNum:$('#shebeileixing').val(),
+            dicName:$('.filterInput').eq(0).val(),
             userID:_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDIContents',
+            url:_urls + 'YWDevMT/YWDMGetDMContents',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allData = [];
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);
                 }
                 datasTable(_table,result);
-                //console.log(_allData);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(JSON.parse(jqXHR.responseText).message);
@@ -682,7 +685,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIGetDICItems',
+            url:_urls + 'YWDevMT/YWDMGetDMCItems',
             data:prm,
             success:function(result){
                 _allXJSelect = [];

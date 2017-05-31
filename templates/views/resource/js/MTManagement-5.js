@@ -32,12 +32,6 @@ $(function(){
     });
     //存放所有数据的列表
     var _allDataArr = [];
-    //验证必填项（非空）
-    Vue.validator('noempty', function (val) {
-        //获取内容的时候先将首尾空格删除掉；
-        val=val.replace(/^\s+|\s+$/g,'');
-        return /[^.\s]{1,500}$/.test(val)
-    });
     //接单页面vue对象
     var workDone = new Vue({
         el:'#workDone',
@@ -69,31 +63,6 @@ $(function(){
             jhbm:''
         }
     });
-    //工单登记
-    //登记信息绑定
-    var app33 = new Vue({
-        el:'#myApp33',
-        data:{
-            picked:'1',
-            telephone:'',
-            person:'',
-            place:'',
-            section:'',
-            matter:'',
-            sections:'',
-            remarks:'',
-            sbbm:'',
-            wxbz:''
-        },
-        methods:{
-            radios:function(){
-                $('.inpus').click(function(a){
-                    $('.inpus').parent('span').removeClass('checked');
-                    $(this).parent('span').addClass('checked');
-                })
-            }
-        }
-    })
     //选中的条目数组
     var _allXJSelect = [];
     //设备条目
@@ -105,7 +74,7 @@ $(function(){
     };
     $.ajax({
         type:'post',
-        url: _urls + 'YWDevIns/YWDIGetDIItems',
+        url: _urls + 'YWDevMT/YWDMGetDMItems',
         data:prm,
         async:false,
         success:function(result){
@@ -120,14 +89,6 @@ $(function(){
             }
         }
     });
-    //存放当前行的任务单号的变量
-    var _redh = '';
-    //存放当前条编码的变量
-    var _tmbm = '';
-    //存放当前编码的设备编码
-    var _sbbm = '';
-    //存放当前编码的故障描述
-    var _gzms = '';
     /*-------------------------------------------表格初始化-------------------------------------------*/
     var _tables =  $('.main-contents-table').find('.table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -160,6 +121,20 @@ $(function(){
         ],
         "columns": [
             {
+                title:'是否启用',
+                className:'isActive',
+                data:'isActive',
+                render:function(data, type, full, meta){
+                    if(data == 0){
+                        return '未启用'
+                    }if(data == 1){
+                        return '启用'
+                    }if(data ==2){
+                        return '停用'
+                    }
+                }
+            },
+            {
                 title:'任务单号',
                 data:'itkNum',
                 className:'bianma'
@@ -174,21 +149,20 @@ $(function(){
             },
             {
                 title:'设备编码',
-                data:'dNum',
-                className:'dNum'
+                data:'dNum'
             },
             {
-                title:'条目名称',
-                data:'ditName'
-            },
-            {
-                title:'参考值',
-                data:''
-            },
-            {
-                title:'异常故障描述',
-                data:'exception',
-                className:'exception'
+                title:'状态',
+                data:'status',
+                render:function(data, type, full, meta){
+                    if(data == 0){
+                        return '未接单'
+                    }if(data == 1){
+                        return '执行中'
+                    }if(data == 2){
+                        return '完成'
+                    }
+                }
             },
             {
                 title:'责任单位部门',
@@ -199,30 +173,17 @@ $(function(){
                 data:'manager'
             },
             {
-                title:'完工操作人',
-                data:''
-            },
-            {
-                title:'计划开始时间',
-                data:'tkTime',
-                render:function(data){
-                    return data.split(' ')[0]
-                }
-            },
-            {
-                title:'完成时间',
-                data:'tkCompTime'
+                title:'执行人',
+                data:'itkRen'
             },
             {
                 title:'操作',
-                "data": 'gdCode',
-                render:function(data){
-                    if(data == ''){
-                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-gongdan btn default btn-xs green-stripe'>创建工单</span>"
+                "data": 'status',
+                "render":function(data, type, full, meta){
+                    if(data == 0){
+                        return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span>"
                     }else{
-                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-gongdans btn default btn-xs green-stripe'>查看工单</span>"
+                        return "<span class='data-option option-see2 btn default btn-xs green-stripe'>查看</span>"
                     }
                 }
             }
@@ -232,7 +193,50 @@ $(function(){
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('');
     };
-    //条目表格初始化
+    //接单弹出框中的表格初始化
+    //条目表格
+    var col1=[
+        {
+            title:'设备类型',
+            data:'dcName'
+        },
+        {
+            title:'条目编码',
+            data:'ditNum',
+            className:'bianma'
+        },
+        {
+            title:'条目名称',
+            data:'ditName'
+        },
+        {
+            title:'工作内容',
+            data:'desc'
+        },
+        {
+            title:'保养方式',
+            data:'mtContent'
+        },
+    ];
+    tableInit($('#personTable1'),col1);
+    //执行人
+    var col5 = [
+        {
+            title:'执行人员',
+            data:'dipRen'
+        },
+        {
+            title:'工号',
+            data:'dipRenNum'
+        },
+        {
+            title:'联系电话',
+            data:'dipDh'
+        }
+    ];
+    //添加执行人员表格
+    tableInit($('#personTable2'),col5);
+    //执行中的条目表格
     var col2 = [
         {
             title:'条目编码',
@@ -244,34 +248,12 @@ $(function(){
             data:'ditName'
         },
         {
-            title:'条目参考值',
-            data:'stValue'
+            title:'工作内容',
+            data:'desc'
         },
         {
-            title:'报警关系',
-            data:'relation'
-        },
-        {
-            title:'巡检结果',
-            className:'tableInputBlock',
-            data:'res',
-            render:function(data, type, full, meta){
-                if(data == 1){
-                    return '正常'
-                }if(data ==2){
-                    return '异常'
-                }
-            }
-        },
-        {
-            title:'结果记录',
-            className:'tableInputBlock',
-            data:'record'
-        },
-        {
-            title:'异常故障描述',
-            className:'tableInputBlock',
-            data:'exception'
+            title:'保养方式',
+            data:'mtContent'
         }
     ];
     tableInit($('#personTable1s'),col2);
@@ -280,17 +262,75 @@ $(function(){
     $('#selected').click(function(){
         conditionSelect();
     })
-    //弹窗关闭按钮
-    $('.confirm').click(function(){
-        $(this).parents('.modal').modal('hide');
-    });
-    //表格的按钮
+    //点击不同状态出现不同弹窗
     $('#scrap-datatables tbody')
-        .on('click','.option-see',function(){
+        //接单
+        .on('click','.option-see1',function(){
+            //样式
             var $this = $(this).parents('tr');
             $('.table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             var $thisBM = $(this).parents('tr').children('.bianma').html();
+            moTaiKuang($('#myModal'));
+            //确定按钮消失
+            $('#myModal').find('.btn-primary').hide();
+            //赋值
+            for(var i=0;i<_allDataArr.length;i++){
+                if(_allDataArr[i].itkNum == $thisBM){
+                    workDone.sfqy = _allDataArr[i].isActive;
+                    workDone.rwdh = _allDataArr[i].itkNum;
+                    workDone.rwmc = _allDataArr[i].itkName;
+                    workDone.sbmc = _allDataArr[i].dName;
+                    workDone.sbbm = _allDataArr[i].dNum;
+                    workDone.zrdwbm = _allDataArr[i].dipKeshi;
+                    workDone.fzr = _allDataArr[i].manager;
+                    workDone.zxr = _allDataArr[i].itkRen;
+                    workDone.jhbm = _allDataArr[i].dipNum;
+                    $('#jdsj').val(_allDataArr[i].tkRecTime);
+                    $('#kssj').val(_allDataArr[i].tkTime);
+                    $('#wcsj').val(_allDataArr[i].tkCompTime);
+                    $('#beizhu').val(_allDataArr[i].remark);
+                }
+            };
+            //加载表格下属条目和执行人
+            var prm = {
+                dipNum:workDone.jhbm,
+                userID:_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWDevMT/YWDMPGetItemAndMembers',
+                data:prm,
+                success:function(result){
+                    //找到存放所有巡检条目的数组，比较
+                    _allXJSelect = [];
+                    for(var j=0;j<_tiaoMuArr.length;j++){
+                        for(var i=0;i<result.dipItems.length;i++){
+                            if( result.dipItems[i].ditNum == _tiaoMuArr[j].ditNum ){
+                                _allXJSelect.push(_tiaoMuArr[j]);
+                            }
+                        }
+                    }
+                    datasTable($('#personTable1'),_allXJSelect);
+                    datasTable($('#personTable2'),result.dipMembers);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(JSON.parse(jqXHR.responseText).message);
+                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    }
+                }
+            });
+        })
+        //执行中
+        .on('click','.option-see2',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $('.table tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
+            //确定按钮消失
+            $('#myModal1').find('.btn-primary').hide();
+            var $thisBM = $(this).parents('tr').children('.bianma').html();
+            moTaiKuang($('#myModal1'));
             //赋值
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
@@ -310,19 +350,23 @@ $(function(){
                 }
             };
             var prm = {
-                itkNum:workDone1.rwdh,
                 dipNum:workDone1.jhbm,
                 userID:_userIdName
             }
             $.ajax({
                 type:'post',
-                url:_urls + 'YWDevIns/ywITKGetTKInfo',
+                url:_urls + 'YWDevMT/YWDMPGetItemAndMembers',
                 data:prm,
-                async:false,
                 success:function(result){
+                    console.log(result);
                     _allXJSelect = [];
-                    for(var i=0;i<result.length;i++){
-                        _allXJSelect.push(result[i]);
+                    //找到存放所有巡检条目的数组，比较
+                    for(var j=0;j<_tiaoMuArr.length;j++){
+                        for(var i=0;i<result.dipItems.length;i++){
+                            if( result.dipItems[i].ditNum == _tiaoMuArr[j].ditNum ){
+                                _allXJSelect.push(_tiaoMuArr[j]);
+                            }
+                        }
                     }
                     datasTable($('#personTable1s'),_allXJSelect);
                 },
@@ -332,127 +376,22 @@ $(function(){
                     }
                 }
             });
-            moTaiKuang($('#myModal1'));
         })
-        .on('click','.option-gongdan',function(){
-            var $this = $(this).parents('tr');
-            $('.table tbody').children('tr').removeClass('tables-hover');
-            $this.addClass('tables-hover');
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
-            _sbbm = $(this).parents('tr').children('.dNum').html();
-            _gzms = $(this).parents('tr').children('.exception').html();
-            //初始化
-            app33.picked = '1';
-            app33.telephone = '';
-            app33.person = '';
-            app33.place ='';
-            app33.section = '';
-            app33.matter = '';
-            app33.remarks = '';
-            app33.sbbm = _sbbm;
-            app33.wxbz = _gzms;
-            moTaiKuang($('#myModal2'));
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
-            var $thisSBBM = '';
-            //根据巡检任务单号，获得条目编码
-            for(var i=0;i<_allDataArr.length;i++){
-                if(_allDataArr[i].itkNum == $thisBM){
-                $thisSBBM = _allDataArr[i].ditNum
-                }
-            }
-            _redh = $thisBM;
-            _tmbm = $thisSBBM;
-        })
-        .on('click','.option-gongdans',function(){
-            var $this = $(this).parents('tr');
-            $('.table tbody').children('tr').removeClass('tables-hover');
-            $this.addClass('tables-hover');
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
-            _sbbm = $(this).parents('tr').children('.dNum').html();
-            _gzms = $(this).parents('tr').children('.exception').html();
-            moTaiKuang($('#myModal2'));
-            //通过工单号获取工单
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
-            for(var i=0;i<_allDataArr.length;i++){
-                if(_allDataArr[i].itkNum == $thisBM){
-                    var gongdanHao = _allDataArr[i].gdCode;
-                }
-            }
-            //按工单号获取工单
-            var prm = {
-                'gdCode':gongdanHao,
-                'gdSt':'',
-                'gdEt':'',
-                'bxKeshi':'',
-                'wxKeshi':'',
-                "gdZht": 1,
-                'userID':_userIdName
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWGD/ywGDGetDJ',
-                data:prm,
-                success:function(result){
-                    if(result[0].gdJJ == 1){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('#ones').parent('span').addClass('checked');
-                    }else{
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('#twos').parent('span').addClass('checked');
-                    }
-                    app33.telephone = result[0].bxDianhua;
-                    app33.person = result[0].bxRen;
-                    app33.place =result[0].wxDidian;
-                    app33.section = result[0].bxKeshi;
-                    app33.matter = result[0].wxShiX;
-                    app33.remarks = result[0].wxShebei;
-                    app33.sbbm = _sbbm;
-                    app33.wxbz = _gzms;
-                }
-            })
-        })
-    //工单登记
-    $('.dengji').click(function(){
-        if( app33.telephone == '' || app33.person == '' || app33.place == '' || app33.matter == ''){
-            var myModal = $('#myModal5');
-            myModal.find('.modal-body').html('请填写红色必填项');
-            moTaiKuang(myModal);
-        }else{
-            var prm = {
-                'gdJJ':app33.picked,
-                'bxRen':app33.person,
-                'bxDianhua':app33.telephone,
-                'bxKeshi':app33.section,
-                'wxDidian':app33.place,
-                'wxShiX':app33.matter,
-                'wxKeshi':'',
-                'bxBeizhu':app33.remarks,
-                'userID':_userIdName,
-                'gdSrc':3,
-                'itkNum':_redh,
-                'ditNum':_tmbm,
-                'wxShebei':_sbbm
-            }
-            $.ajax({
-                type:'post',
-                url: _urls + 'YWGD/ywGDCreDJDI',
-                data:prm,
-                success:function(result){
-                    if(result != 3){
-                        $('#myModal2').modal('hide');
-                        var myModal = $('#myModal5');
-                        myModal.find('.modal-body').html('工单创建成功!');
-                        moTaiKuang(myModal)
-                    }
-                    //刷新表格
-                    conditionSelect();
-                }
-            })
-        }
-
-    })
+    //弹窗关闭按钮
+    $('.confirm').click(function(){
+        $(this).parents('.modal').modal('hide');
+    });
+    //tab选项卡
+    $('.table-title span').click(function(){
+        var $this = $(this);
+        $this.parent('.table-title').children('span').removeClass('spanhover');
+        $this.addClass('spanhover');
+        var tabDiv = $(this).parents('.table-title').next().children('div');
+        tabDiv.addClass('hide-block');
+        tabDiv.eq($(this).index()).removeClass('hide-block');
+    });
     /*--------------------------------------------其他方法--------------------------------------------*/
-    function conditionSelect(){
+    function conditionSelect()  {
         //获取条件
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
@@ -460,20 +399,22 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "itkNum": filterInput[2],
-            "itkName": filterInput[3],
-            "dcNum": $('#sblx').val(),
-            "dNum": filterInput[0],
-            "dName": filterInput[1],
-            "dipKeshi": filterInput[4],
-            "manager": filterInput[5],
-            "ditST": filterInput[6],
-            "ditET": filterInput[7],
+            itkNum:filterInput[0],
+            itkName:filterInput[1],
+            dcNum:$('#sblx').val(),
+            dNum:filterInput[2],
+            dName:filterInput[3],
+            dipKeshi:filterInput[4],
+            manager:filterInput[5],
+            ditST:filterInput[6],
+            ditET:filterInput[7],
+            isAllData:1,
+            status:$('#zht').val(),
             userID:_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/ywITKGetExceptions',
+            url:_urls + 'YWDevMT/YWDMTGetTasks',
             data:prm,
             success:function(result){
                 _allDataArr = [];
