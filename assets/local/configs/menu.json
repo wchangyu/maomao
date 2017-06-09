@@ -995,5 +995,52 @@
 
 
     }
+  },
+  "新闻":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"新闻",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../news/news.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "新闻后台":{
+        "type":"0",
+        "content":"后台",
+        "uri":"../news/news-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "栏目":{
+        "type":"0",
+        "content":"栏目",
+        "uri":"../news/news-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "标题":{
+        "type":"0",
+        "content":"标题",
+        "uri":"../news/news-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "查看":{
+        "type":"0",
+        "content":"查看",
+        "uri":"../news/news-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
   }
 }
