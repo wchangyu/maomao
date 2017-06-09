@@ -293,66 +293,33 @@ function getMainData(){
 
     var showTime = postDate;
 
-     if(postDate == '本月'){
+    var selectDate;
 
-        dateSign = '日';
+    var dateArr = getPostDate(postDate);
 
-        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
+    startDate = dateArr[1];
 
-        startDate = moment().startOf('month').format('YYYY-MM-DD');
+    endDate = dateArr[2];
 
-        console.log(startDate);
-    }else if(postDate == '上月'){
+    dateSign = dateArr[3];
 
-        dateSign = '日';
+    showTime = dateArr[4];
 
-        startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
-        endDate = moment().startOf('month').format('YYYY-MM-DD');
+    selectDate = dateArr[5];
 
-        console.log(startDate,endDate);
-    }else if(postDate == '本年'){
-         dateSign = '月';
-
-         endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-
-
-         startDate = moment().startOf('year').format('YYYY-MM-DD');
-
-         console.log(startDate,endDate);
-     }else if(postDate == '上年'){
-         dateSign = '月';
-
-
-         startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
-
-         endDate =  moment().startOf('year').format('YYYY-MM-DD');
-
-
-     }else if(postDate == '自定义'){
-
-        dateSign = '月';
-
-        startDate = $('.show-date').val().split('——')[0] + '-1';
-
-         var string =  $('.show-date').val().split('——')[1] + '-1';
-
-         endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
-
-         showTime = startDate + '——' + endDate;
-        console.log(startDate,endDate);
-    }
+    console.log(dateArr);
 
     console.log(postEnergy);
     $.ajax({
         type: 'post',
-        url: IP + "/EnergyQuery/GetEnergyNormData",
+        url: IP + "/EnergyQuery/GetEnergyNormBranchData",
         timeout: theTimes,
         data:{
             "energyNorm":postEnergy,
-            "dateType": '日',
-            "startTime": '2015-5-1',
-            "endTime": '2015-6-1',
+            "dateType": dateSign,
+            "startTime": startDate,
+            "selectDateType": selectDate,
+            "endTime": endDate,
             "pointerIDs":postArr
         },
         beforeSend: function () {
@@ -388,7 +355,7 @@ function getMainData(){
             $(dataArr).each(function(i,o){
 
                 xArr.push(o.dataDate.split('T')[0]);
-                sArr.push((o.data * 100000).toFixed(2));
+                sArr.push((o.data).toFixed(2));
                 tArr.push(target)
             });
 
@@ -420,15 +387,15 @@ function getMainData(){
             $('.compared-with-last-time label').html(data.chainEnergyData.toFixed(2));
 
             var percent = (data.chainEnergyPercent.toFixed(4)) * 100;
-            $('.rights-up-value').html(Math.abs(percent) + '%');
+            $('.rights-up-value').html(Math.abs(percent).toFixed(2) + '%');
 
             if(data.chainEnergyPercent < 0 ){
                 $('.rights-up').css({
-                    "background-image": 'url(../resource/img/up.png)'
+                    "background-image": 'url(../bank-resource/img/up.png)'
                 })
             }else{
                 $('.rights-up').css({
-                    "background-image": 'url(../resource/img/up2.png)'
+                    "background-image": 'url(../bank-resource/img/up2.png)'
                 })
             }
 

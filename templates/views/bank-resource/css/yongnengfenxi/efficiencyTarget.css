@@ -1,0 +1,143 @@
+#energy-demand {
+
+    height: 400px;
+}
+#energy-demand1 {
+
+    height: 280px;
+}
+#energy-demand2 {
+
+    height: 280px;
+}
+.total-power-consumption {
+    color: #ffffff;
+    position: absolute;
+    top: 36px;
+    left: 105px;
+    font-size: 2rem;
+}
+.rheader-content-rights {
+
+    margin-top: 15%;
+
+}
+/*右侧标尺*/
+.the-title{
+    font-weight: 800;
+    font-size:18px;
+    padding-left:50px;
+    color:#333;
+}
+.ruler-box{
+    position: relative;
+}
+.ruler{
+    width:700px;
+    height:36px;
+}
+.ruler .part{
+    float:left;
+    height:100%;
+    margin:0;
+    font-size:16px;
+    line-height:36px;
+    text-align:center;
+}
+.ruler .part1{
+    width:200px;
+    background: #4aadc7;
+}
+.ruler .part2{
+    width:80px;
+    background: #66ffcd;
+}
+.ruler .part3{
+    width:70px;
+    background: #f4b70a;
+}
+.ruler .part4{
+    width:350px;
+    background: #c1504c;
+}
+.scale{
+    width:700px;
+    height:36px;
+}
+.ruler .parts{
+    float:left;
+    width:100px;
+    height:50%;
+    border-right:1px solid #999;
+}
+.ruler .parts span{
+    width:50%;
+    height:60%;
+    display:inline-block;
+    border-right:1px solid #999;
+    vertical-align: top;
+}
+.ruler .parts0{
+    border-left:1px solid #999;
+}
+.ruler-box .small-text{
+    margin-left:-50px;
+    color:#999;
+    font-size:10px;
+}
+.ruler-box h3{
+    text-align:right;
+    margin-top:10px;
+}
+.ruler-box h3 b{
+    color:#f4b70a;
+    font-size:28px;
+}
+.ruler-box .sign{
+    width:150px;
+    height:60px;
+    position: absolute;
+    top:-60px;
+}
+.ruler-box .sign0{
+    background:url("../../img/sign.png") no-repeat center bottom;
+    left:622px;
+}
+.ruler-box .sign1{
+    background:url("../../img/sign1.png") no-repeat center bottom;
+    left:622px;
+}
+.ruler-box .sign p{
+    text-align:center;
+}
+/*.scale li{*/
+    /*float:left;*/
+    /*width:100px;*/
+    /*height:100%;*/
+    /*border-right:1px solid #333;*/
+/*}*/
+
+/*右上方注释说明*/
+.right-text{
+    width:70px;
+    height:50px;
+    background:url('../../img/book1.png') no-repeat center center;
+    cursor: pointer;
+    display: none;
+}
+.text-content{
+    position: absolute;
+    border:1px solid #999;
+    border-radius: 10px !important;
+    width:260px;
+    height:100px;
+    left:-40px;
+    top:60px;
+    font-size: 14px;
+    line-height:20px;
+    z-index: 1000;
+    color:darkorange;
+    background:#eff1f6;
+    overflow: hidden;
+    display: none;
+}
