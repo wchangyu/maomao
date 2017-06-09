@@ -1,4 +1,5 @@
 $(function(){
+    $('.loading').showLoading();
     /*-------------------------------全局变量-------------------------------*/
     var _userIdName = sessionStorage.getItem('userName');
     var _url = sessionStorage.getItem('apiUrlPrefix');
@@ -28,6 +29,7 @@ $(function(){
     $.ajax({
         type:'get',
         url: _url + 'News/GetAllNewsTypeContent',
+        timeout:30000,
         success:function(result){
             getPZ();
             _allNewsArr = [];
@@ -45,12 +47,21 @@ $(function(){
                         var imgurl = result[i].f_RecommImgName.split('\\');
                         $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'contain'});
                         $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(result[i].f_NewsTitle);
-                        $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + result[i].pK_NewsID + '&flag=2&come=1');
+                        $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + result[i].pK_NewsID + '&come=1');
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    moTaiKuang($('#myModal'),info);
                 }
             })
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            var info = JSON.parse(jqXHR.responseText).message;
+            moTaiKuang($('#myModal'),info);
         }
     })
+    /*-------------------------------------------其他的方法---------------------------------*/
     //获取首页配置
     function getPZ(){
         $.ajax({
@@ -79,6 +90,11 @@ $(function(){
                 cc.find('li').eq(0).addClass('tab-active-bottom');
                 //给第一个content加样式（右下）
                 dd.children('.news-content').eq(0).addClass('news-content-active');
+                $('.loading').hideLoading();
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),info);
             }
         })
         //动态创建list方法
@@ -109,14 +125,14 @@ $(function(){
                             }
                             for(var z=0;z<lengths;z++){
                                 newsList = ''
-                                newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID +
+                                newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID + '&come=1' +
                                     '"><h3>' + _allNewsArr[j].newsContents[z].f_NewsTitle + '</h3></a><h4>'+_allNewsArr[j].newsContents[z].f_NewsDesc +'</h4></li>';
                                 ulList.find('.news-content').eq(i).append(newsList);
                             }
                         }else{
                             for(var z=0;z<_allNewsArr[j].newsContents.length;z++){
                                 newsList = ''
-                                newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID +
+                                newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID + '&come=1' +
                                     '"><h3>' + _allNewsArr[j].newsContents[z].f_NewsTitle + '</h3></a></li>';
                                 ulList.find('.news-content').eq(i).append(newsList);
                             }
@@ -127,5 +143,18 @@ $(function(){
 
             }
         }
+    }
+    //模态框
+    function moTaiKuang(who,meg){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        who.find('.modal-body').html(meg);
     }
 })

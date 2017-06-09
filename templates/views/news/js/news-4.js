@@ -2,16 +2,15 @@ $(function(){
     var _url = sessionStorage.getItem('apiUrlPrefix');
     var _prm = window.location.search;
     if(_prm){
-        var splitId  = _prm.split('=')[1];
-        var _id = splitId.split('&')[0];
-        var splitCome = _prm.split('&')[2];
+        var splitId  = _prm.split('&')[0];
+        var _id = splitId.split('=')[1];
+        var splitCome = _prm.split('&')[1];
         if(splitCome == 'come=1'){
             $('.returns').attr('href','./news.html')
         }else if(splitCome == 'come=2'){
             $('.returns').attr('href','./news-3.html')
         }
     }
-
     $.ajax({
         type:'get',
         url:_url + 'News/GetNewsContentByID?'+ 'PK_NewsID=' + _id,
@@ -33,9 +32,26 @@ $(function(){
             }
         },
         error:function(jqXHR, textStatus, errorThrown){
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-            }
+            var info = JSON.parse(jqXHR.responseText).message;
+            moTaiKuang($('#myModal'),info,'flag');
         }
     })
+    /*--------------------------------------模态框方法--------------------------------------*/
+    function moTaiKuang(who,meg,flag){
+        who.modal({
+            show:false,
+            backdrop:'static'
+        })
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight)/2;
+        who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        who.find('.modal-body').html(meg);
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
+    }
 })

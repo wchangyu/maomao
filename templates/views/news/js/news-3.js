@@ -76,7 +76,7 @@ $(function(){
                         "data": null,
                         render:function(data, type, row, meta){
                             return  "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='../news/news-4.html?id=" +
-                                row.pK_NewsID + '&flag=1&come=2' +
+                                row.pK_NewsID + '&come=2' +
                                 "'>查看</a></span>" +
                                 "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='../news/news-1.html?id=" +
                                 row.pK_NewsID + '&flag=1' +
@@ -104,9 +104,8 @@ $(function(){
             }
         },
         error:function(jqXHR, textStatus, errorThrown){
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-            }
+            var info = JSON.parse(jqXHR.responseText).message;
+            moTaiKuang($('#myModal'),'提示','flag',info);
         }
     });
     conditionSelect();
@@ -114,7 +113,6 @@ $(function(){
     $('.table-title').on('click','span',function(){
         $(this).parent().children('span').removeClass('spanhover');
         $(this).addClass('spanhover');
-        //console.log($(this).parent().next().children());
         var list = $(this).parent().next().children();
         list.addClass('tableHover');
         list.eq($(this).index()).removeClass('tableHover');
@@ -123,7 +121,7 @@ $(function(){
     $('.tableBlock').on('click','.option-delete',function(){
         var $thisMC = $(this).parents('tr').children('.names').html();
         _thisBM = $(this).parents('tr').children('.ids').html();
-        moTaiKuang($('#myModal'),'确定要删除吗？');
+        moTaiKuang($('#myModal'),'确定要删除吗？','');
         $('#newsTitle').val($thisMC);
     });
     //删除确定
@@ -136,20 +134,18 @@ $(function(){
                 "PK_NewsID":_thisBM,
                 "UserID" : _userID}),
             success:function(result){
-                console.log(result);
                 if(result == 99){
                     //删除成功
-                    moTaiKuang($('#myModal1'),'提示','删除成功！')
+                    moTaiKuang($('#myModal1'),'提示','flag','删除成功！')
                     conditionSelect();
                     $('#myModal').modal('hide');
                 }else if( result == 3){
-                    moTaiKuang($('#myModal1'),'提示','执行失败！')
+                    moTaiKuang($('#myModal1'),'提示','flag','执行失败！')
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),'提示','flag',info);
             }
         })
     })
@@ -170,7 +166,7 @@ $(function(){
         }
     }
     //模态框
-    function moTaiKuang(who,meg,tip){
+    function moTaiKuang(who,meg,flag,tip){
         who.modal({
             show:false,
             backdrop:'static'
@@ -181,6 +177,11 @@ $(function(){
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
         who.find('.modal-title').html(meg);
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
         if(tip){
             who.find('.modal-body').html(tip);
         }
@@ -197,9 +198,8 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),'提示',info);
             }
         })
     }

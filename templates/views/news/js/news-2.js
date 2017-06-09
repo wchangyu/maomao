@@ -68,7 +68,7 @@ $(function(){
     $('.creatButton').click(function(){
         //初始化
         $('#newsColum').val('');
-        moTaiKuang($('#myModal1'),'新增栏目');
+        moTaiKuang($('#myModal1'),'新增栏目','');
         $('#myModal1').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
     })
     //新增确定按钮
@@ -78,7 +78,7 @@ $(function(){
                 f_NewsTypeName:$('#newsColum').val(),
                 userID:_userID
             }
-            dataDBS('News/AddNewsType',newsType,'提示','新增成功！');
+            dataDBS('News/AddNewsType',newsType,'提示','flag','新增成功！');
         })
         .on('click','.bianji',function(){
             var pK_NewsType = {
@@ -86,7 +86,7 @@ $(function(){
                 f_NewsTypeName:$('#newsColum').val(),
                 userID:_userID
             }
-            dataDBS('News/EditNewsType',pK_NewsType,'提示','编辑成功！');
+            dataDBS('News/EditNewsType',pK_NewsType,'提示','flag','编辑成功！');
         })
         .on('click','.shanchu',function(){
             var newsType = {
@@ -94,7 +94,7 @@ $(function(){
                 f_NewsTypeName:$('#newsColum').val(),
                 userID:_userID
             }
-            dataDBS('News/DelNewsType',newsType,'提示','删除成功！');
+            dataDBS('News/DelNewsType',newsType,'提示','flag','删除成功！');
         })
     //表格中编辑按钮
     $('#browse-datatables')
@@ -115,7 +115,7 @@ $(function(){
     })
     /*----------------------------------------------其他方法------------------------------------------*/
     //模态框
-    function moTaiKuang(who,title,meg){
+    function moTaiKuang(who,title,flag,meg){
         who.modal({
             show:false,
             backdrop:'static'
@@ -126,6 +126,11 @@ $(function(){
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
         who.find('.modal-title').html(title);
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
         if(meg){
             who.find('.modal-body').html(meg);
         }
@@ -144,9 +149,8 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),'提示','',info);
             }
         })
     }
@@ -163,7 +167,7 @@ $(function(){
         }
     }
     //登记，编辑，删除确定按钮弹出框
-    function dataDBS(url,prm,title,meg){
+    function dataDBS(url,prm,title,flag,meg){
         if($('#newsColum').val()){
             $('.colorTip').hide();
             $.ajax({
@@ -173,17 +177,19 @@ $(function(){
                 success:function(result){
                     if(result == 99){
                         conditionSelect();
-                        moTaiKuang($('#myModal'),title,meg)
+                        moTaiKuang($('#myModal'),title,flag,meg)
                         $('#myModal1').modal('hide');
-                    }else{
-                        //提示执行失败
-                        moTaiKuang($('#myModal'),'提示','执行失败！')
+                    }else if( result == 3){
+                        $('#myModal1').modal('hide');
+                        moTaiKuang($('#myModal'),'提示','flag','执行失败！');
+                    }else if( result == 4 ){
+                        $('#myModal1').modal('hide');
+                        moTaiKuang($('#myModal'),'提示','flag','该新闻栏目下有新闻内容，不能进行删除操作！')
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    console.log(JSON.parse(jqXHR.responseText).message);
-                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                    }
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    moTaiKuang($('#myModal'),'提示','',info);
                 }
             })
         }else{
@@ -194,7 +200,7 @@ $(function(){
     //编辑，删除弹出框
     function kuangBS($this,meg){
         _thisRowID = $this.parents('tr').children('.ids').html();
-        moTaiKuang($('#myModal1'),meg);
+        moTaiKuang($('#myModal1'),meg,'');
         for(var i=0;i<_allDataArr.length;i++){
             if(_allDataArr[i].pK_NewsType == _thisRowID){
                 //赋值

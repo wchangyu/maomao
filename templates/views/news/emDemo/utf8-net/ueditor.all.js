@@ -910,7 +910,7 @@ var utils = UE.utils = {
             }
             tmpList.push({
                 doc:doc,
-                url: './' + obj.src || obj.href,
+                url:  obj.src || obj.href,
                 funs:[fn]
             });
             if (!doc.body) {
