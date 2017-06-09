@@ -406,7 +406,7 @@
                             <li class="floatLeft">
                                 <div class="labels">设备类型编码 ：</div>
                                 <div class="input-blockeds">
-                                    <input type="text"  v-model="sblxbm" placeholder="自动生成，可不填">
+                                    <input type="text"  v-model="sblxbm" placeholder="自动生成" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -436,13 +436,35 @@
 <!--提示框-->
 <!--删除提示框-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
+    <div class="modal-dialog" style="height: 330px;width: 333px !important;">
+        <div class="modal-content" style="height: 330px;width: 333px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">提示</h4>
+                <h4 class="modal-title" id="myModalLabel1">确定要删除吗？</h4>
             </div>
-            <div class="modal-body">确定要删除吗？</div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft">
+                        <div class="labels">设备类型编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="sbbm">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">设备类型名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="sbmc">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">拼音简码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="pyjm">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm shanchu">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

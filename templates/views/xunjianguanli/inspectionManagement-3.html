@@ -20,12 +20,15 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
-    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <!--<script src="../resource/js/jquery-1.11.2.js"></script>-->
+    <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
+    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -51,7 +54,7 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -272,45 +275,164 @@
                                     <li class="main-contents-header-lists0">条件查询</li>
                                 </ul>
                                 <ul class="condition-query">
-                                    <li>
-                                        <label for="">区域：</label>
-                                        <select name="" id="">
-                                            <option value="">京沪线</option>
-                                            <option value="">哈大线</option>
-                                            <option value="">沪宁线</option>
-                                            <option value="">中区14号楼</option>
-                                            <option value="">京沪线</option>
-                                            <option value="">哈大线</option>
-                                            <option value="">中区13号楼</option>
-                                        </select>
+                                    <li><label for="">巡检计划名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInputs">
+                                        </div>
                                     </li>
-                                    <li><label for="">计划开始日期：</label><input type="text" class="time"></li>
-                                    <li><label for="">计划结束日期：</label><input type="text" class="time"></li>
-                                    <li>
-                                        <label for="">巡检人员：</label>
-                                        <select name="" id="">
-                                            <option value="">运维员工</option>
-                                            <option value="">运维员工2</option>
-                                            <option value="">运维员工2</option>
-                                            <option value="">运维员工</option>
-                                        </select>
+                                    <li><label for="">设备名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="sbmcs">
+                                        </div>
                                     </li>
-                                    <li><button class="btn btn-success btn1">查询</button></li>
+                                    <!--<li>
+                                        <label for="">时间范围：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock min" name="min">
+                                        </div>
+                                        <label for="">到</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock max" name="max">
+                                        </div>
+                                    </li>-->
+                                    <li>
+                                        <label for="">启用状态</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="yesNo">
+                                                <option value="99">全部</option>
+                                                <option value="0">未启用</option>
+                                                <option value="1">启用</option>
+                                                <option value="2">停用</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li><button class="btn btn-success" id="selected">查询</button></li>
+                                    <li>
+                                        <div class="cont-col1">
+                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-success xianshi" id="qiyong">启用</button>
+                                    </li>
+                                    <li>
+                                        <button class="btn btn-success xianshi" id="jinyong">停用</button>
+                                    </li>
+                                    <li><button class="btn btn-success xianshi" id="batchDelete">批量删除</button></li>
+                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
-                                <!-- 表格 -->
-                                <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">结果</li>
-                                </ul>
-                                <div class="content-main-contents">
+                                <div class="content-main-contentss" style="display: none;">
                                     <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-striped b-t b-light" cellspacing="0" width="100%">
+                                        <table class="table table-bordered">
+                                            <caption>
+                                                <label for="">请选择设备类型</label>
+                                                <select name="" id="">
+                                                    <option value="">阀门</option>
+                                                    <option value="">空调</option>
+                                                    <option value="">空调</option>
+                                                    <option value="">空调机组</option>
+                                                    <option value="">冷机</option>
+                                                    <option value="">水泵</option>
+                                                    <option value="">水泵</option>
+                                                    <option value="">水泵</option>
+                                                </select>
+                                            </caption>
                                             <thead>
+                                            <tr>
+                                                <th style="text-align: center">巡检内容</th>
+                                                <th style="text-align: center">是否详检</th>
+                                                <th style="text-align: center">报警关系</th>
+                                                <th style="text-align: center">报警值</th>
+                                                <th style="text-align: center">备注</th>
+                                            </tr>
                                             </thead>
                                             <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" style="width: 300px">
+                                                </td>
+                                                <td>
+                                                    <select name="" id="">
+                                                        <option value="">是</option>
+                                                        <option value="">否</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="" id="">
+                                                        <option value="">是/否</option>
+                                                        <option value=""><</option>
+                                                        <option value=""><=</option>
+                                                        <option value="">=</option>
+                                                        <option value="">>=</option>
+                                                        <option value="">></option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select name="" id="">
+                                                        <option value="">是</option>
+                                                        <option value="">否</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text">
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
+                                    </div>
+                                    <div style="float: right">
+                                        <button class="save btn btn-success">确认</button>
+                                        <button class="btn btn-success cancel">取消</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- 表格 -->
+                                <ul class="content-main-contents-header aaa">
+                                    <li class="main-contents-header-lists0">检索结果</li>
+                                </ul>
+                                <div class="content-main-contents aaa" style="position: relative">
+                                    <div class="table-title">
+                                        <span class="spanhover">全部</span>
+                                        <span>未下发</span>
+                                        <span>已下发</span>
+                                        <span>停用</span>
+                                    </div>
+                                    <div>
+                                        <div class="main-contents-tables" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;position: absolute;top: 38px;left: 0;width: 100%;z-index: 2">
+                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="main-contents-tables hide-block" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;position: absolute;top: 38px;left: 0;width: 100%;z-index: 2">
+                                            <table id="scrap-datatables1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="main-contents-tables hide-block" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;position: absolute;top: 38px;left: 0;width: 100%;z-index: 2">
+                                            <table id="scrap-datatables2" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="main-contents-tables hide-block" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;position: absolute;top: 38px;left: 0;width: 100%;z-index: 2">
+                                            <table id="scrap-datatables3" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -344,7 +466,7 @@
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
 <![endif]-->
-<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<!--<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>-->
 <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
@@ -373,7 +495,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/js/inspectionManagement-2.js"></script>
+<script src="../resource/js/js/inspectionManagement-3.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -383,6 +505,444 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
+<!--模态框创建工单-->
+<div class="modal fade modals" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel1">基本情况</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent">
+                    <ul class="gongdanList" id="workDone">
+                        <validator name="validation">
+                            <form novalidate>
+                                <li class="floatLeft">
+                                    <div class="labels">计划编码：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="jhbm" placeholder="自动生成" readonly="readonly">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">计划名称 *：<span v-if="$validation.xjnrmc.noempty">请填写巡检计划名称</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="xjnrmc" v-validate:xjnrmc="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">设备名称 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="sbmc" placeholder="点击选择设备名称" id="sbmc">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">设备编码 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="sbbm" placeholder="点击选择设备名称获取设备编码" id="sbbm" readonly="readonly">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">巡检部门 *：<span v-if="$validation.xjbm.noempty">请填写巡检部门</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="xjbm" v-validate:xjbm="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">负责人 *：<span v-if="$validation.fzr.noempty">请填写负责人</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="fzr" v-validate:fzr="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">周期间隔 *：<span v-if="$validation.jhzq.noempty">请填写大于1的整数间隔周期</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="" v-model="jhzq" v-validate:jhzq="['noempty']" initial='off' value="1">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">周期单位 *：</div>
+                                    <div class="input-blockeds">
+                                        <select name="" v-model="zqdw">
+                                            <option v-for="option in options" v-bind:value="option.value">
+                                                {{ option.text }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">启用状态 *：</div>
+                                    <div class="input-blockeds">
+                                            <select name="" v-model="sfqy">
+                                                <option v-for="option in options1" v-bind:value="option.value">
+                                                    {{ option.text }}
+                                                </option>
+                                             </select>
+                                    </div>
+                                </li>
+                            </form>
+                        </validator>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">生效时间 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="datatimeblock" id="sxsj">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">结束时间 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="datatimeblock" id="jssj">
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                                <div>
+                                    <div class="labels">备注：</div>
+                                    <div class="input-blockeds" style="height:62px;">
+                                        <textarea style="width: 100%;height: 60px;outline: none" id="beizhu"></textarea>
+                                    </div>
+                                </div>
+                        <div class="table-block">
+                            <div class="table-title">
+                                <span class="spanhover">条目项目</span>
+                                <span>执行人员</span>
+                            </div>
+                            <div>
+                                <div class="tableHover" style="z-index: 1">
+                                    <ul class="condition-query">
+                                        <li style="width: 70px;">
+                                            <div class="cont-col1" style="cursor: pointer">
+                                                <div class="label label-sm label-warning zhiXingRenYuanButton" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="width: 133px;">
+                                            <div class="cont-col1" style="cursor: pointer">
+                                                <div class="label label-sm label-warning zhiXingRenYuanButton1" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>从巡检内容添加
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <table class="table table-hover" id="personTable1">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="tableHover">
+                                    <ul class="condition-query">
+                                        <li style="width: 133px;">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-warning zhiXingRenYuanButtons" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <table class="table table-hover" id="personTable2">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--增加巡检条目-->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 574px;">
+        <div class="modal-content" style="height: 574px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe2">添加巡检条目</h4>
+            </div>
+            <div class="modal-body">
+                <ul style="margin-bottom: 0px;" class="condition-query">
+                    <li>
+                        <label for="">设备类型：</label>
+                        <select name="" id="shebeileixings" style="width: 164px;height: 34px;">
+                        </select>
+                    </li>
+                    <li>
+                        <label for=""> 设备巡检条目名称：</label>
+                        <div class="input-blocked" id="filter_global">
+                            <input type="text" class="filterInput">
+                        </div>
+                    </li>
+                    <li><button class="btn btn-success" id="selecte">查询</button></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="gongdanContent" style="height: 360px;">
+                    <table id="zhiXingPerson" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectTableList">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--巡检条目删除提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 211px;">
+        <div class="modal-content" style="height: 211px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">计划编码 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="xjtmbm">
+                        </div>
+                    </li>
+                    <li class="floatRight" style="line-height: 26px;">
+                        <div class="labels">计划名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="xjtmmc">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary xiaoshanchu">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--设备选择-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe3">选择设备</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="content-main-contents-header">
+                    <li class="main-contents-header-lists0">条件查询</li>
+                </ul>
+                <ul class="condition-query">
+                    <li>
+                        <label for="">设备名称：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbmc">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">规格型号：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="ggxh">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备状态：</label>
+                        <div class="input-blocked">
+                            <select name="" id="zhuangtai">
+                                <option value="0">全部</option>
+                                <option value="1">正常</option>
+                                <option value="2">维修</option>
+                                <option value="3">报废</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备类型：</label>
+                        <div class="input-blocked">
+                            <select name="" id="leixing">
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备区域：</label>
+                        <div class="input-blocked">
+                            <select name="" id="quyu">
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备系统：</label>
+                        <div class="input-blocked">
+                            <select name="" id="xitong">
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备部门：</label>
+                        <div class="input-blocked">
+                            <select name="" id="bumen">
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">安装时间：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock min" name="min">
+                        </div>
+                        <label for="">到</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock max" name="max">
+                        </div>
+                    </li>
+                    <li><button class="btn btn-success" id="selected1">查询</button></li>
+                    <li>
+                        <div class="cont-col1">
+                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                            </div>
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="gongdanContent" style="height: 360px;">
+                    <table id="sbmcxz" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框增加执行人员-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 520px;">
+        <div class="modal-content" style="height: 520px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe4">添加执行人员</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 360px;">
+                    <ul class="gongdanList" id="zhiXingRen">
+                        <validator name="validation">
+                            <form novalidate>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">姓名 * ：<span class="colorTip" v-if="$validation.zhixingren.noempty">姓名不能为空</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="zhixingren" v-validate:zhixingren="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels colorTip">工号 * ：<span class="colorTip" v-if="$validation.gonghao.noempty">工号不能为空</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="gonghao" v-validate:gonghao="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels colorTip">电话 * ：<span class="colorTip" v-if="$validation.dianhua.noempty">电话不能为空</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="dianhua" v-validate:dianhua="['noempty']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <button type="button" class="btn btn-success tianJiaPerson" style="margin-top: 27px;">添加</button>
+                                    <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                        <span>该工号员工已存在</span>
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </form>
+                        </validator>
+                    </ul>
+                    <table id="zhiXingPersons" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary secondButton confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel5">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--从巡检内容添加的模态框-->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 574px;">
+        <div class="modal-content" style="height: 574px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">从巡检内容中添加条目</h4>
+            </div>
+            <div class="modal-body">
+                <ul style="margin-bottom: 0px;" class="condition-query">
+                    <li>
+                        <label for="">设备类型：</label>
+                        <select name="" id="shebeileixings1" style="width: 164px;height: 34px;">
+                        </select>
+                    </li>
+                    <li>
+                        <label for=""> 巡检内容名称：</label>
+                        <div class="input-blocked" id="filter_global1">
+                            <input type="text" class="filterInput">
+                        </div>
+                    </li>
+                    <li><button class="btn btn-success" id="selecte1">查询</button></li>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="gongdanContent" style="height: 360px;">
+                    <table id="zhiXingPerson1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                    <ul class="content-main-contents-header aaa">
+                        <li class="main-contents-header-lists0">当全选择的内容下的条目列表信息</li>
+                    </ul>
+                    <table class="table table-hover" id="personTable3">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectTableList1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 <!-- END BODY -->
 </html>

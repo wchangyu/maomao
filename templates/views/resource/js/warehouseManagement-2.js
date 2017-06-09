@@ -163,13 +163,12 @@ $(function(){
     //当前页在分页的span页中的index值
     var currentTable;
     /*-------------------------------------表格初始化------------------------------*/
-    $('.main-contents-table .table').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+    var _tables = $('.main-contents-table .table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -177,8 +176,8 @@ $(function(){
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -186,15 +185,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'入库单号',
                 data:'orderNum',
@@ -265,16 +264,20 @@ $(function(){
                 }
 
             }
-        ],
+        ]
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    //加载页面的时候，隐藏其他两个导出按钮
+    for( var i=1;i<$('.excelButton').children().length;i++ ){
+        $('.excelButton').children().eq(i).addClass('hidding');
+    };
     //新增弹框内的表格
     $('#personTable1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -282,8 +285,8 @@ $(function(){
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -291,15 +294,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        'dom':'B<"clear">lfrtip',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success hidding'
             }
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'物品编号',
                 data:'itemNum',
@@ -335,7 +338,7 @@ $(function(){
                 "data": null,
                 "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
             }
-        ],
+        ]
     });
     /*------------------------------------表格数据--------------------------------*/
     conditionSelect();
@@ -361,6 +364,15 @@ $(function(){
     })
     //新增按钮
     $('.creatButton').on('click',function(){
+        //可编辑状态
+        var lis = $('#myApp33').children();
+        for(var i=0;i<lis.length;i++){
+            lis.eq(i).children().eq(1).children().attr('disabled',false);
+        }
+        //新增物品按钮隐藏
+        $('.zhiXingRenYuanButton').show();
+        //入库产品删除按钮不可操作
+        $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
         //确定按钮显示
         $('#myModal').find('.confirm').show();
         //动态添加类名dengji删除bianji类
@@ -400,7 +412,7 @@ $(function(){
         workDone.itemBarCode = '';
         workDone.batchNum = '';
         workDone.num = '';
-        workDone.outPrice = '';
+        workDone.inPrice = '';
         workDone.amount = '';
         moTaiKuang($('#myModal1'));
     })
@@ -410,7 +422,11 @@ $(function(){
         $(this).addClass('spanhover');
         $('.main-contents-table').addClass('hide-block');
         $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
-
+        //导出按钮显示
+        for( var i=0;i<$('.excelButton').children().length;i++ ){
+            $('.excelButton').children().eq(i).addClass('hidding');
+        };
+        $('.excelButton').children().eq($(this).index()).removeClass('hidding');
     })
     //新增确定按钮（点击确定按钮，与数据库发生交互）
     $('#myModal').on('click','.dengji',function(){
@@ -467,6 +483,7 @@ $(function(){
             $('.tableHovers').children('.condition-query').hide();
             //动态删除类名dengji
             $('#myModal').find('.confirm').removeClass('dengji').removeClass('bianji');
+            //样式
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
@@ -482,7 +499,7 @@ $(function(){
                     myApp33.gysdizhi = _allData[i].address;
                     myApp33.remarks = _allData[i].remark;
                     myApp33.gysphone = _allData[i].phone;
-                    myApp33.zhidanren = _userIdName;
+                    myApp33.zhidanren = _allData[i].createUser;
                     myApp33.shijian = _allData[i].createTime;
                 }
             }
@@ -499,10 +516,20 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWCK/ywCKGetInStorageDetail',
                 data:prm,
+                async:false,
                 success:function(result){
                     datasTable($('#personTable1'),result)
                 }
             })
+            //所有操作框均为只读
+            var lis = $('#myApp33').children();
+            for(var i=0;i<lis.length;i++){
+                lis.eq(i).children().eq(1).children().attr('disabled',true);
+            }
+            //新增物品按钮隐藏
+            $('.zhiXingRenYuanButton').hide();
+            //入库产品删除按钮不可操作
+            $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
         })
         //表格编辑
         .on('click','.option-edit',function(){
@@ -524,7 +551,7 @@ $(function(){
                     myApp33.gysdizhi = _allData[i].address;
                     myApp33.remarks = _allData[i].remark;
                     myApp33.gysphone = _allData[i].phone;
-                    myApp33.zhidanren = _allData[i].contactName;
+                    myApp33.zhidanren = _allData[i].createUser;
                     myApp33.shijian = _allData[i].createTime;
                 }
             }
@@ -545,11 +572,37 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWCK/ywCKGetInStorageDetail',
                 data:prm,
+                async:false,
                 success:function(result){
-                    _rukuArr = result;
+                    _rukuArr = [];
+                    for(var i=0;i<result.length;i++){
+                        _rukuArr.push(result[i]);
+                    }
                     datasTable($('#personTable1'),result)
                 }
             })
+            //判断状态是已确认还是待确定
+            if( $(this).next().html() == '已确认' ){
+                //所有操作框均为只读
+                var lis = $('#myApp33').children();
+                for(var i=0;i<lis.length;i++){
+                    lis.eq(i).children().eq(1).children().attr('disabled',true);
+                }
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').hide();
+                //入库产品删除按钮不可操作
+                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+            }else if( $(this).next().html() == '待确认' ){
+                //可编辑状态
+                var lis = $('#myApp33').children();
+                for(var i=0;i<lis.length;i++){
+                    lis.eq(i).children().eq(1).children().attr('disabled',false);
+                }
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').show();
+                //入库产品删除按钮不可操作
+                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
+            }
         })
         //删除入库单
         .on('click','.option-delete',function(){
@@ -559,10 +612,23 @@ $(function(){
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
             _$thisRemoveRowDa = $thisDanhao;
             //提示框，确定要删除吗？
-            var $myModal = $('#myModal2');
-            $myModal.find('.modal-body').html('确定要删除吗？');
+            var $myModal = $('#myModal3');
+            //绑定信息
+            for(var i=0;i<_allData.length;i++){
+                if(_allData[i].orderNum == $thisDanhao){
+                    //绑定数据
+                    $('#rkabh').val(_allData[i].orderNum);
+                    var aa = $.trim($('#myApp33').find('select').find('option').eq(_allData[i].inType-1).val());
+                    if(aa == 1){
+                        $('#rklx').val('采购入库');
+                    }else if(aa == 2){
+                        $('#rklx').val('借出退还入库');
+                    }else{
+                        $('#rklx').val('借用入库');
+                    }
+                }
+            }
             moTaiKuang($myModal);
-            $myModal.find('.btn-primary').removeClass('xiaoShanchu').addClass('daShanchu');
             //获得当前的页数，
             $thisTbale = $(this).parents('.table');
             currentTable = $thisTbale.next().next();
@@ -666,7 +732,7 @@ $(function(){
             rukuDan.itemBarCode = workDone.itemBarCode;
             rukuDan.batchNum = workDone.batchNum;
             rukuDan.num = workDone.num;
-            rukuDan.outPrice = workDone.outPrice;
+            rukuDan.inPrice = workDone.inPrice;
             rukuDan.amount = workDone.amount;
             _rukuArr.push(rukuDan);
             datasTable($('#personTable1'),_rukuArr);
@@ -702,9 +768,9 @@ $(function(){
             data:prm,
             success:function(result){
                 if(result == 99){
-                    $('#myModal2').find('.btn-primary').removeClass('daShanchu');
-                    moTaiKuang($('#myModal3'));
+                    moTaiKuang($('#myModal5'));
                     conditionSelect();
+                    $('#myModal3').modal('hide');
                     //点击一下当前的数字，自动指向当前页
                     var tablePageLength = currentTable.children('span').children('.paginate_button').length-1
                     if(currentPages <= tablePageLength){
@@ -786,7 +852,10 @@ $(function(){
                 //状态为待确认的数组
                 var confirm = [];
                 var confirmed = [];
-                _allData = result;
+                _allData = [];
+               for(var i=0;i<result.length;i++){
+                   _allData.push(result[i]);
+               }
                 for(var i=0;i<result.length;i++){
                         if(result[i].status == 0){
                             confirm.push(result[i])

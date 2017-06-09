@@ -151,9 +151,11 @@
     font-size: 0;
     padding: 0!important;
 }
-.dataTables_length{
-    float: right !important;
-}
 tbody tr{
     width: 100%;
+}
+.dataTables_wrapper .dataTables_info{
+    clear: none !important;
+    margin-left: 20px;
+    padding-top: 5px !important;
 }

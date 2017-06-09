@@ -1,0 +1,80 @@
+*{
+    font-family: 微软雅黑;
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.list-block li{
+    height: 46px;
+    line-height: 46px;
+    border-bottom: solid 1px #ededed;
+}
+.order-block{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #f54144;
+    float: left;
+    line-height: 20px;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: middle;
+    margin-top: 12px;
+    margin-right: 20px;
+}
+.list-word{
+    float: left;
+}
+.list-option{
+    float: right;
+}
+.hiddenButton{
+    opacity: 0;
+}
+.form-content li .labels{
+    text-align: left;
+    float: left;
+    line-height: 30px;
+    margin-right: 20px;
+}
+.input-blockeds{
+    width:568px;
+    margin-right: 20px;
+}
+.input-blockeds input{
+    width: 558px;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    line-height: 30px;
+    text-indent: 10px;
+}
+.colorTip{
+    line-height: 30px;
+    color: red;
+    display: none;
+}
+table thead tr th{
+    text-align: center;
+}
+table tbody tr td{
+    text-align: center;
+}
+/*分页样式*/
+.paginate_button{
+    background-image: none !important;
+    border:1px solid #dddddd !important;
+    color: #23527c !important;
+}
+.paginate_button:hover {
+    background: #eee !important;
+    color: #23527c !important;
+}
+.current{
+    background: #eee !important;
+    color: #333 !important;
+}
+.tables-hover{
+    background: #FBEC88 !important;
+}

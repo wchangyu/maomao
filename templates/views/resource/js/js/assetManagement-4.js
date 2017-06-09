@@ -230,6 +230,10 @@ $(function(){
     $('.table tbody')
     //设备类型编辑按钮
         .on('click','.option-edit',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $(this).parents('.table').find('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
         //添加登记类
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
             var $thisBM = $(this).parents('tr').children('.dcNum').html();
@@ -252,12 +256,28 @@ $(function(){
     })
     //设备类型删除按钮
         .on('click','.option-delete',function(){
+            //样式
+            var $this = $(this).parents('tr');
+            $(this).parents('.table').find('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
             //首先判断属于哪个表格
             _$thisTable = $(this).parents('.table');
             //获取id
             _tableColumID = $(this).parents('tr').children().eq(0).html();
             //弹出提示框
             moTaiKuang($(myModal1));
+            //绑定信息
+            var $thisBM = $(this).parents('tr').children('.dcNum').html();
+            _$thisTable = $(this).parents('.table');
+            if( _$thisTable[0].id == _stringLX ){
+                removeContent( _allDataLX,'dcNum','dcName','dcPy','id',$thisBM);
+            }else if( _$thisTable[0].id == _stringQY ){
+                removeContent( _allDataQY,'daNum','daName','daPy','id',$thisBM);
+            }else if( _$thisTable[0].id == _stringXT ){
+                removeContent( _allDataXT,'dsNum','dsName','dsPy','id',$thisBM);
+            }else if( _$thisTable[0].id == _stringBM ){
+                removeContent( _allDataBM,'ddNum','ddName','ddPy','id',$thisBM);
+            }
         })
     $('#myModal')
     //设备类型编辑确认按钮
@@ -274,7 +294,6 @@ $(function(){
     })
     //设备类型删除确认按钮
     $('#myModal1').on('click','.shanchu',function(){
-            console.log(_$thisTable[0].id);
         if( _$thisTable[0].id == _stringLX ){
             shanchu('YWDev/ywDMDelDC','dcNum');
         }else if( _$thisTable[0].id == _stringQY ){
@@ -397,7 +416,6 @@ $(function(){
             'userID':_userIdName
         };
         prm[text]= _tableColumID;
-        console.log(prm);
         $.ajax({
             type:'post',
             url:_urls + url,
@@ -460,7 +478,7 @@ $(function(){
                 'processing': '查询中...',
                 'lengthMenu': '每页 _MENU_ 条',
                 'zeroRecords': '没有数据',
-                'info': '第_PAGE_页/共_PAGES_页',
+                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
                 'infoEmpty': '没有数据',
                 'sSearch':'查询',
                 'paginate':{
@@ -470,11 +488,11 @@ $(function(){
                     "last":"尾页"
                 }
             },
-            'dom':'B<"clear">lfrtip',
+            "dom":'t<"F"lip>',
             'buttons': [
                 {
                     text:'新增',
-                    className:'saveAs addFun'
+                    className:'saveAs addFun btn btn-success'
                 },
             ],
             'columns':col,
@@ -497,5 +515,16 @@ $(function(){
             }
         }
     }
+    //删除数据绑定
+    function removeContent(arr,num,name,py,pid,bm){
+        for( var i=0;i<arr.length;i++ ){
+            if( arr[i][num] == bm ){
+                $('#sbbm').val(arr[i][num])
+                $('#sbmc').val(arr[i][name]);
+                $('#pyjm').val(arr[i][py]);
+                _tableColumID = arr[i][pid];
+            }
+        }
 
+    }
 })

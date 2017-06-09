@@ -380,9 +380,22 @@ function getPointerData(){
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParams,
 		async:false,
+		beforeSend:function(){
+			myChart13.showLoading({
+				text:'获取数据中',
+				effect:'whirling'
+			})
+		},
 		success:function(result){
+			//myChart13.hideLoading();
 			allData.push(result);
-
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allData = [];
+				//myChart13.hideLoading();
+			}
 		}
 	})
 	//发送环比请求
@@ -391,8 +404,22 @@ function getPointerData(){
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParamss,
 		async:false,
+		beforeSend:function(){
+			myChart14.showLoading({
+				text:'获取数据中',
+				effect:'whirling'
+			})
+		},
 		success:function(result){
+			myChart14.hideLoading();
 			allDatas.push(result)
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allDatas = [];
+				myChart14.hideLoading();
+			}
 		}
 	})
 	//发送同比请求
@@ -401,8 +428,22 @@ function getPointerData(){
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
 		data:ecParamsss,
 		async:false,
+		beforeSend:function(){
+			myChart15.showLoading({
+				text:'获取数据中',
+				effect:'whirling'
+			})
+		},
 		success:function(result){
-			allDatass.push(result)
+			allDatass.push(result);
+			myChart15.hideLoading();
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allDatass = [];
+				myChart15.hideLoading();
+			}
 		}
 	})
 	//分别将本期和环比组合，本期和同比组合绘制echarts
@@ -476,7 +517,7 @@ function getPointerData(){
 					allDataX.push(dataSplit);
 				}
 			}
-		}
+		};
 		//确定本期的y轴数据
 		for(var i=0;i<allData.length;i++){
 			var datas = allData[i];
@@ -488,35 +529,35 @@ function getPointerData(){
 					}
 				}
 			}
-		}
+		};
 		//确定环比y轴数据
 		for(var i=0;i<allDatas.length;i++){
 			var datas = allDatas[i];
 			for(var j=0;j<datas.length;j++){
 				allDatasY.push(datas[j].data);
 			}
-		}
+		};
 		//确定同比y轴数据
 		for(var i=0;i<allDatass.length;i++){
 			var datas = allDatass[i];
 			for(var j=0;j<datas.length;j++){
 				allDatassY.push(datas[j].data);
 			}
-		}
+		};
 	}
 	//计算所有的纵坐标的总和
 	totalAllData = 0;
 	for(var i=0;i<allDataY.length;i++){
 		totalAllData += parseInt(allDataY[i]);
-	}
+	};
 	totalAllDatas = 0;
 	for(var i=0;i<allDatasY.length;i++){
 		totalAllDatas += parseInt(allDatasY[i]);
-	}
+	};
 	totalAllDatass = 0;
 	for(var i=0;i<allDatassY.length;i++){
 		totalAllDatass += parseInt(allDatassY[i]);
-	}
+	};
 	//总电div
 	$('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
 	$('.huanbizhi').html(totalAllDatas);
@@ -599,25 +640,28 @@ function getPointerData(){
 	option13.xAxis[0].data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatasY;
+	myChart13.hideLoading();
 	myChart13.setOption(option13);
 	//电-环比分析-柱状图
 	option14.series[0].data[0] = totalAllData;
 	option14.series[0].data[1] = totalAllDatas;
 	option14.series[1].data[0] = totalAllData;
 	option14.series[1].data[1] = totalAllDatas;
+	myChart14.hideLoading();
 	myChart14.setOption(option14);
 	//电-同比分析-柱折图
 	option13.xAxis[0].data = allDataX;
 	option13.series[0].data = allDataY;
 	option13.series[1].data = allDatassY;
+	myChart15.hideLoading();
 	myChart15.setOption(option13);
 	//电-同比分析-柱状图
 	option14.series[0].data[0] = totalAllData;
 	option14.series[0].data[1] = totalAllDatass;
 	option14.series[1].data[0] = totalAllData;
 	option14.series[1].data[1] = totalAllDatass;
+	myChart16.hideLoading();
 	myChart16.setOption(option14);
-	//
 }
 //科室数据
 var officeNames=[];
@@ -681,9 +725,22 @@ function getOfficeData(){
 		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
 		data:ecParams,
 		async:false,
+		beforeSend:function(){
+			_myChart.showLoading({
+				text:'获取数据中',
+				effect:'whirling'
+			})
+		},
 		success:function(result){
 			allData.push(result);
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allData = [];
+			}
 		}
+
 	})
 	//发送环比请求
 	$.ajax({
@@ -693,6 +750,12 @@ function getOfficeData(){
 		async:false,
 		success:function(result){
 			allDatas.push(result)
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allDatas = [];
+			}
 		}
 	})
 	//发送同比请求
@@ -703,6 +766,12 @@ function getOfficeData(){
 		async:false,
 		success:function(result){
 			allDatass.push(result)
+		},
+		error:function(jqXHR, textStatus, errorThrown){
+			console.log(JSON.parse(jqXHR.responseText).message);
+			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				allDatass = [];
+			}
 		}
 	})
 	//分别将本期和环比组合，本期和同比组合绘制echarts

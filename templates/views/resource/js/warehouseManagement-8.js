@@ -43,7 +43,7 @@ $(function(){
         }
     });
     /*-------------------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -69,11 +69,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'出库单号',
@@ -104,6 +104,7 @@ $(function(){
             }
         ],
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //新增弹框内的表格
     $('#personTable1').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -131,11 +132,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs hidding'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'物料编号',

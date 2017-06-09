@@ -48,12 +48,12 @@ $(function (){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs',
                 header:true
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'报修部门',
@@ -99,12 +99,12 @@ $(function (){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs',
                 header:true
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 name: 'second',
@@ -150,8 +150,8 @@ $(function (){
         console.log('')
     }
     //给表格的标题赋时间
-    $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + ' 00:00:00' + '——' + _initEnd + ' 00:00:00');
-    $('#scrap-datatables1').find('caption').children('p').children('span').html(' ' + _initStart + ' 00:00:00' + '——' + _initEnd + ' 00:00:00');
+    $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + '——' + _initEnd);
+    $('#scrap-datatables1').find('caption').children('p').children('span').html(' ' + _initStart + '——' + _initEnd);
     /*-------------------------获取表格数据-----------------------*/
     conditionSelect();
     /*--------------------------按钮功能------------------------*/
@@ -167,8 +167,8 @@ $(function (){
                 $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
                 moTaiKuang($('#myModal2'));
             }else{
-                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
-                $('#scrap-datatables1').find('caption').children('p').children('span').html(' ' + $('.min').val() + ' 00:00:00' + '——' + $('.max').val() + ' 00:00:00');
+                $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + $('.min').val() + '——' + $('.max').val());
+                $('#scrap-datatables1').find('caption').children('p').children('span').html(' ' + $('.min').val()+ '——' + $('.max').val());
                 conditionSelect();
             }
         }

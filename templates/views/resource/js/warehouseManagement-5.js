@@ -20,7 +20,7 @@ $(function(){
     var realityStart = '';
     var realityEnd = '';
     /*-------------------------------------表格初始化------------------------------*/
-    $('.main-contents-table .table').DataTable({
+    var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -46,11 +46,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
+                text: '导出',
                 className:'saveAs'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 name: 'second',
@@ -92,6 +92,7 @@ $(function(){
             1,
         ],
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     /*------------------------------------表格数据--------------------------------*/
     conditionSelect();
     /*-------------------------------------按钮事件-------------------------------*/

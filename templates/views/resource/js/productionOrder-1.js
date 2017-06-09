@@ -95,12 +95,12 @@ $(function () {
     'buttons': [
       {
         extend: 'excelHtml5',
-        text: '保存为excel格式',
+        text: '导出',
         className:'saveAs',
         header:true
       }
     ],
-    "dom":'B<"clear">lfrtip',
+    "dom":'t<"F"lip>',
     "columns": [
       {
         title:'工单号',
@@ -168,6 +168,8 @@ $(function () {
       "targets": -1
     }]
   });
+  //自定义按钮位置
+  table.buttons().container().appendTo($('.excelButton'),table.table().container());
   //报错时不弹出弹框
   $.fn.dataTable.ext.errMode = function(s,h,m){
     console.log('')

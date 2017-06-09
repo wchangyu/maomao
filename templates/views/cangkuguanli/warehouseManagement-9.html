@@ -298,6 +298,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
@@ -399,7 +400,7 @@
                             <li class="floatLeft">
                                 <div class="labels">类别信息 ：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" placeholder="自动生成，可不填" v-model="num">
+                                    <input type="text" placeholder="自动生成" v-model="num" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -444,13 +445,29 @@
 </div>
 <!--删除所有提示框-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
+    <div class="modal-dialog" style="height: 210px;">
+        <div class="modal-content" style="height: 210px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel3">提示</h4>
+                <h4 class="modal-title" id="myModalLabel3">确定要删除吗？</h4>
             </div>
-            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-body">
+                <ul>
+                    <li class="floatLeft">
+                        <div class="labels">类别编号 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="lbxx">
+                        </div>
+                    </li>
+                    <li class="floatRight">
+                        <div class="labels">类别名称 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" id="lbmc">
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm shanchu">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

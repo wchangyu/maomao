@@ -21,7 +21,8 @@ $(function(){
             'yanse':'',
             'miaoshu':'',
             'gonghuoshang':'',
-            'beizhu':''
+            'beizhu':'',
+            'tiaoxingbar':''
         },
         methods:{
             'flbianmaFun':function(){
@@ -107,7 +108,7 @@ $(function(){
     //存放所有物品分类的数组
     var _elArr = [];
     /*-------------------------------------表格初始化------------------------------*/
-    $('#scrap-datatables').DataTable({
+    var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -134,11 +135,11 @@ $(function(){
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
-        "dom":'B<"clear">lfrtip',
+        "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'物品编码',
@@ -198,6 +199,8 @@ $(function(){
             }
         ],
     });
+    //自定义按钮位置
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     /*-------------------------------------页面加载调用----------------------------*/
     conditionSelect();
     /*-------------------------------------按钮事件-------------------------------*/
@@ -218,11 +221,13 @@ $(function(){
         myApp33.miaoshu = '';
         myApp33.gonghuoshang = '';
         myApp33.beizhu = '';
+        myApp33.tiaoxingbar = '';
         moTaiKuang($('#myModal'));
     })
     //登记按钮；
     $('#myModal').on('click','.dengji',function(){
         if(myApp33.mingcheng == '' || myApp33.flbianma == '' || myApp33.flmingcheng == ''){
+            $('#myModal2').find('.modal-body').html('请填写红色必填项');
             moTaiKuang($('#myModal2'));
         }else{
             //获取填写数据
@@ -238,7 +243,8 @@ $(function(){
                 'Description':myApp33.miaoshu,
                 'CusName':myApp33.gonghuoshang,
                 'remark':myApp33.beizhu,
-                'userID':_userIdName
+                'userID':_userIdName,
+                'itemBarCode':myApp33.tiaoxingbar,
             }
             $.ajax({
                 type:'post',
@@ -345,8 +351,16 @@ $(function(){
             var wlMingCheng = $(this).parents('tr').find('.mingcheng').html();
             _thisBianhao = wlBianMa;
             _thisMingcheng = wlMingCheng;
-            $('#myModal3').find('.modal-body').html('确定要删除吗？');
-            moTaiKuang($('#myModal3'))
+            for(var i = 0;i<allData.length;i++){
+                if(allData[i].itemNum == wlBianMa && allData[i].itemName == wlMingCheng){
+                    //绑定信息
+                    $('#wpbm').val(allData[i].itemNum);
+                    $('#wpmc').val(allData[i].itemName);
+                    $('#flbm').val(allData[i].cateNum);
+                    $('#flmc').val(allData[i].cateName)
+                    moTaiKuang($('#myModal3'))
+                }
+            }
             //删除按钮
         })
     $('#myModal3').on('click','.shanchu',function(){
@@ -408,7 +422,10 @@ $(function(){
             async:false,
             data:prm,
             success:function(result){
-                allData = result;
+                allData = [];
+                for(var i=0;i<result.length;i++){
+                    allData.push(result[i])
+                }
                 datasTable($("#scrap-datatables"),result);
             }
         })

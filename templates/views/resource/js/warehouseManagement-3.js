@@ -59,28 +59,92 @@ $(function(){
         },
         'methods':{
             'wuPinList':function(){
-                var prm = {
-                    'ItemNum':'',
-                    'itemName':'',
-                    'cateName':'',
-                    'userID':_userIdName
-                }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWCK/ywCKGetItems',
-                    async:false,
-                    data:prm,
-                    success:function(result){
-                        _wpListArr = result;
-                        datasTable($('#wuPinListTable'),result);
+                setTimeout(function(){
+                    //选择物品列表
+                    $('#wuPinListTable').DataTable({
+                        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+                        'paging': true,   //是否分页
+                        'destroy': true,//还原初始化了的datatable
+                        'searching': true,
+                        'ordering': false,
+                        "scrollY": 200,
+                        "scrollX": true,
+                        'language': {
+                            'emptyTable': '没有数据',
+                            'loadingRecords': '加载中...',
+                            'processing': '查询中...',
+                            'lengthMenu': '每页 _MENU_ 条',
+                            'zeroRecords': '没有数据',
+                            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                            'infoEmpty': '没有数据',
+                            'sSearch':'查询',
+                            'paginate':{
+                                "previous": "上一页",
+                                "next": "下一页",
+                                "first":"首页",
+                                "last":"尾页"
+                            }
+                        },
+                        "dom":'t<"F"lip>',
+                        'buttons': [
+                            {
+                                extend: 'excelHtml5',
+                                text: '保存为excel格式',
+                                className:'saveAs'
+                            }
+                        ],
+                        'columns':[
+                            {
+                                title:'物品编码',
+                                className:'bianma',
+                                data:'itemNum'
+                            },
+                            {
+                                title:'物品名称',
+                                className:'mingcheng',
+                                data:'itemName'
+                            },
+                            {
+                                title:'分类编码',
+                                data:'cateNum'
+                            },
+                            {
+                                title:'分类名称',
+                                data:'cateName'
+                            },
+                            {
+                                title:'主要供货商',
+                                data:'cusName'
+                            }
+                        ]
+                    })
+                },200);
+                setTimeout(function(){
+                    var prm = {
+                        'ItemNum':'',
+                        'itemName':'',
+                        'cateName':'',
+                        'userID':_userIdName
                     }
-                })
-                moTaiKuang($('#myModal4'))
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWCK/ywCKGetItems',
+                        async:false,
+                        data:prm,
+                        success:function(result){
+                            _wpListArr = result;
+                            datasTable($('#wuPinListTable'),result);
+                        }
+                    })
+                },300);
+                moTaiKuang($('#myModal4'));
             }
         }
     });
     //存放入库产品的数组
     var _rukuArr = [];
+    //存放当前条件下的所有数据
+    var _allData = [];
     //存放删除入库单
     var _$thisRemoveRowDa = '';
     //存放物品列表
@@ -88,13 +152,12 @@ $(function(){
     //当前选中的一条物品列表
     var _$thisWP = '';
     /*-------------------------------------表格初始化------------------------------*/
-    $('.main-contents-table .table').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+    var _tables = $('.main-contents-table .table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -102,8 +165,8 @@ $(function(){
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -111,15 +174,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
+                text: '导出',
+                className:'saveAs btn btn-success'
             }
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'出库单号',
                 data:'orderNum',
@@ -189,16 +252,20 @@ $(function(){
                 }
 
             }
-        ],
+        ]
     });
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    //加载页面的时候，隐藏其他两个导出按钮
+    for( var i=1;i<$('.excelButton').children().length;i++ ){
+        $('.excelButton').children().eq(i).addClass('hidding');
+    };
     //新增弹框内的表格
     $('#personTable1').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -206,8 +273,8 @@ $(function(){
             'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
             'infoEmpty': '没有数据',
+            'sSearch':'查询',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",
@@ -215,15 +282,15 @@ $(function(){
                 "last":"尾页"
             }
         },
+        "dom":'t<"F"lip>',
         'buttons': [
             {
                 extend: 'excelHtml5',
                 text: '保存为excel格式',
-                className:'saveAs'
+                className:'saveAs hidding'
             }
         ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
+        'columns':[
             {
                 title:'物料编号',
                 data:'itemNum',
@@ -246,80 +313,13 @@ $(function(){
                 data:'num'
             },
             {
-                title:'入库价格',
-                data:'outPrice'
-            },
-            {
-                title:'总金额',
-                data:'amount'
-            },
-            {
                 title:'操作',
                 "targets": -1,
                 "data": null,
                 "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
             }
-        ],
-    });
-    //选择物品列表
-    $('#wuPinListTable').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": false,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "pagingType":"full_numbers",
-        "scrollY": 200,
-        "scrollX": true,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
-        },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs'
-            }
-        ],
-        "dom":'B<"clear">lfrtip',
-        "columns": [
-            {
-                title:'物品编码',
-                className:'bianma',
-                data:'itemNum'
-            },
-            {
-                title:'物品名称',
-                className:'mingcheng',
-                data:'itemName'
-            },
-            {
-                title:'分类编码',
-                data:'cateNum'
-            },
-            {
-                title:'分类名称',
-                data:'cateName'
-            },
-            {
-                title:'主要供货商',
-                data:'cusName'
-            }
-        ],
-    });
+        ]
+    })
     /*-------------------------------------按钮事件-------------------------------*/
     //状态选项卡
     $('.table-title').children('span').click(function(){
@@ -327,7 +327,11 @@ $(function(){
         $(this).addClass('spanhover');
         $('.main-contents-table').addClass('hide-block');
         $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
-
+        //导出按钮显示
+        for( var i=0;i<$('.excelButton').children().length;i++ ){
+            $('.excelButton').children().eq(i).addClass('hidding');
+        };
+        $('.excelButton').children().eq($(this).index()).removeClass('hidding');
     });
     //查询按钮
     $('#selected').click(function(){
@@ -360,6 +364,15 @@ $(function(){
     })
     //新增按钮(出现模态框)
     $('.creatButton').on('click',function(){
+        //可编辑状态
+        var lis = $('#myApp33').children();
+        for(var i=0;i<lis.length;i++){
+            lis.eq(i).children().eq(1).children().attr('disabled',false);
+        }
+        //新增物品按钮隐藏
+        $('.zhiXingRenYuanButton').show();
+        //入库产品删除按钮不可操作
+        $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
         //新增按钮置为不可操作
         $('.tableHovers').children('.condition-query').show();
         moTaiKuang($('#myModal'));
@@ -376,7 +389,7 @@ $(function(){
         myApp33.gysdizhi = '';
         myApp33.zhidanren = '';
         myApp33.remarks = '';
-        myApp33.gysphone = ''
+        myApp33.gysphone = '';
         //产品登记表格清空；
         _rukuArr = [];
         datasTable($('#personTable1'),_rukuArr);
@@ -486,7 +499,7 @@ $(function(){
                     myApp33.gysdizhi = allData[i].address;
                     myApp33.remarks = allData[i].remark;
                     myApp33.gysphone = allData[i].phone;
-                    myApp33.zhidanren = allData[i].contactName;
+                    myApp33.zhidanren = allData[i].createUser;
                     myApp33.shijian = allData[i].createTime;
                 }
             }
@@ -503,10 +516,20 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWCK/ywCKGetOutStorageDetail',
                 data:prm,
+                async:false,
                 success:function(result){
                     datasTable($('#personTable1'),result)
                 }
             })
+            //所有操作框均为只读
+            var lis = $('#myApp33').children().children();
+            for(var i=0;i<lis.length;i++){
+                lis.eq(i).children().eq(1).children().attr('disabled',true);
+            }
+            //新增物品按钮隐藏
+            $('.zhiXingRenYuanButton').hide();
+            //入库产品删除按钮不可操作
+            $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
         })
         .on('click','.option-edit',function(){
             $('.tableHovers').children('.condition-query').show();
@@ -527,7 +550,7 @@ $(function(){
                     myApp33.gysdizhi = allData[i].address;
                     myApp33.remarks = allData[i].remark;
                     myApp33.gysphone = allData[i].phone;
-                    myApp33.zhidanren = allData[i].contactName;
+                    myApp33.zhidanren = allData[i].createUser;
                     myApp33.shijian = allData[i].createTime;
                 }
             }
@@ -544,11 +567,34 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWCK/ywCKGetOutStorageDetail',
                 data:prm,
+                async:false,
                 success:function(result){
                     _rukuArr = result;
                     datasTable($('#personTable1'),result)
                 }
-            })
+            });
+            //判断状态是已确认还是待确定
+            if( $(this).next().html() == '已确认' ){
+                //所有操作框均为只读
+                var lis = $('#myApp33').children();
+                for(var i=0;i<lis.length;i++){
+                    lis.eq(i).children().eq(1).children().attr('disabled',true);
+                }
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').hide();
+                //入库产品删除按钮不可操作
+                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+            }else if( $(this).next().html() == '待确认' ){
+                //可编辑状态
+                var lis = $('#myApp33').children();
+                for(var i=0;i<lis.length;i++){
+                    lis.eq(i).children().eq(1).children().attr('disabled',false);
+                }
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').show();
+                //入库产品删除按钮不可操作
+                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
+            }
         })
         //删除入库单
         .on('click','.option-delete',function(){
@@ -558,9 +604,25 @@ $(function(){
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
             _$thisRemoveRowDa = $thisDanhao;
             //提示框，确定要删除吗？
-            $('#myModal2').find('.modal-body').html('确定要删除吗？');
-            moTaiKuang($('#myModal2'));
-            $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('daShanchu');
+            var $myModal = $('#myModal3');
+            //绑定信息
+            for(var i=0;i<_allData.length;i++){
+                if(_allData[i].orderNum == $thisDanhao){
+                    //绑定数据
+                    $('#ckabh').val(_allData[i].orderNum);
+                    var aa = $.trim($('#myApp33').find('select').find('option').eq(_allData[i].outType-1).val());
+                    if(aa == 1){
+                        $('#cklx').val('领用出库');
+                    }else if(aa == 2){
+                        $('#cklx').val('借货出库');
+                    }else if(aa == 3){
+                        $('#cklx').val('借用还出');
+                    }else{
+                        $('#cklx').val('其他');
+                    }
+                }
+            }
+            moTaiKuang($myModal);
         })
         //入库单确认操作
         .on('click','.option-confirm',function(){
@@ -645,9 +707,9 @@ $(function(){
             data:prm,
             success:function(result){
                 if(result == 99){
-                    $('#myModal2').find('.btn-primary').removeClass('daShanchu');
-                    moTaiKuang($('#myModal3'));
+                    moTaiKuang($('#myModal5'));
                     conditionSelect();
+                    $('#myModal3').modal('hide');
                 }
             }
         })
@@ -711,10 +773,12 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetOutStorage',
             data:prm,
             success:function(result){
+                _allData = [];
                 var confirm = [];
                 var confirmed = [];
                     allData = result;
                     for(var i=0;i<result.length;i++){
+                        _allData.push(result[i]);
                         if(result[i].status == 0){
                             confirm.push(result[i])
                         }else if(result[i].status == 1){
