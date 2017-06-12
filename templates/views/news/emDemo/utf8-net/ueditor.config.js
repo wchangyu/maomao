@@ -20,7 +20,9 @@ var _IP = sessionStorage.getItem('apiUriPrefixUEditor');
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
-	window.UEDITOR_HOME_URL="/emDemo/utf8-net/";
+		//window.UEDITOR_HOME_URL="/BEEH5/templates/views/news/emDemo/utf8-net/";
+		//window.UEDITOR_HOME_URL="../../views/news/emDemo/utf8-net/";
+	window.UEDITOR_HOME_URL="./emDemo/utf8-net/";
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
     /**
