@@ -15,6 +15,10 @@ $(function(){
                     str += '<option value="'+ result[i].pK_NewsType+ '" >' + result[i].f_NewsTypeName +'</option>'
                 }
                 $('#column').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),info);
             }
         })
     }
@@ -23,8 +27,6 @@ $(function(){
     var _publishDate = '';
     //记录发布用户
     var _publishUser = '';
-    //遮罩去掉
-    $('.big-mark').hide();
     //记录上传图片的路径
     var _uploadImg = '';
     var _prm = window.location.search;
@@ -32,6 +34,8 @@ $(function(){
         var _flag = _prm.split('&')[1].split('=')[0];
     }
     if(_flag){
+        //遮罩去掉
+        $('.big-mark').hide();
         var splitId  = _prm.split('=')[1];
         var _id = splitId.split('&')[0];
         //获取内容
@@ -40,7 +44,6 @@ $(function(){
             url:_url + 'News/GetNewsContentByID?'+ 'PK_NewsID=' + _id,
             async:false,
             success: function (result) {
-                console.log(result);
                 _publishDate = result.f_PublishDate;
                 _publishUser = result.f_PublishUser;
                 _uploadImg = result.f_RecommImgName.split('\\')[1] + '\\' + result.f_RecommImgName.split('\\')[2];
@@ -90,9 +93,8 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                }
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),info);
             }
         })
     }
@@ -205,16 +207,21 @@ $(function(){
             url:_url + 'News/DelUploadImageFile',
             data:fileNamePath,
             success:function(result){
-                console.log(result);
                 if(result == 99){
                     //成功；
-                    moTaiKuang($('#myModal'),'删除成功！')
+                    moTaiKuang($('#myModal'),'删除成功！','flag');
                     //清除队列中的文件(路径为空)
                     _uploaderPath = ''
                     //队列文件清空
                     $('#thelist').find('.file-item').remove();
                     $('.mark-float').css({'height':0});
+                }else if( result == 3 ){
+                    moTaiKuang($('#myModal'),'删除失败！','flag');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                moTaiKuang($('#myModal'),info,'flag');
             }
         })
     })
@@ -236,7 +243,6 @@ $(function(){
     $('#saveNews').click(function(){
         getContent();
         //先判断内容是否写了
-
         if(_newsContent){
             //首先判断是编辑还是新增
             if(_id){
@@ -259,14 +265,13 @@ $(function(){
                     url:_url + 'News/EditNewsContent',
                     data:newsContent,
                     success:function(result){
-                        console.log(result);
                         if(result == 99){
                             //添加成功
-                            moTaiKuang($('#myModal1'),'新闻编辑成功！')
+                            moTaiKuang($('#myModal1'),'新闻编辑成功！','flag')
                         }else if(result == 2){
-                            moTaiKuang($('#myModal'),'新闻标题不能重复！')
+                            moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
                         }else if(result == 3){
-                            moTaiKuang($('#myModal'),'执行失败！')
+                            moTaiKuang($('#myModal'),'执行失败！','flag')
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
@@ -292,22 +297,20 @@ $(function(){
                     url: _url + 'News/AddNewsContent',
                     data:newsContent,
                     success:function(result){
-                        console.log(result);
                         if(result == 99){
                             //添加成功
-                            moTaiKuang($('#myModal1'),'新闻添加成功！');
+                            moTaiKuang($('#myModal1'),'新闻添加成功！','flag');
                             //跳转
                             window.location.href="./news-3.html";
                         }else if(result == 2){
-                            moTaiKuang($('#myModal'),'新闻标题不能重复！')
+                            moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
                         }else if(result == 3){
-                            moTaiKuang($('#myModal'),'执行失败！')
+                            moTaiKuang($('#myModal'),'执行失败！','flag')
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
-                        console.log(JSON.parse(jqXHR.responseText).message);
-                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                        }
+                        var info = JSON.parse(jqXHR.responseText).message;
+                        moTaiKuang($('#myModal'),info,'flag')
                     }
                 })
             }
@@ -320,7 +323,7 @@ $(function(){
         $(this).parents('.modal').modal('hide');
     })
     /*----------------------------------------------其他方法------------------------------------------*/
-    function moTaiKuang(who,meg){
+    function moTaiKuang(who,meg,flag){
         who.modal({
             show:false,
             backdrop:'static'
@@ -330,7 +333,11 @@ $(function(){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        console.log(who);
         who.find('.modal-body').html(meg);
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
 })
