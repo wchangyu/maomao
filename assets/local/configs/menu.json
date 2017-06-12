@@ -1007,6 +1007,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "用能分析1":{
+        "type":"0",
+        "content":"用能分项1",
+        "uri":"../bank-yongnengfenxi/EnergyTrend.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
 
 
@@ -1061,7 +1069,7 @@
       "节能项目统计1": {
         "type": "0",
         "content": "节能项目统计1",
-        "uri": "../bank-yongnengguanli/EnergyQueryRank.html",
+        "uri": "../bank-jienengzuji/EnergyStatistics.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

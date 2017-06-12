@@ -56,3 +56,13 @@ table.dataTable tbody th, table.dataTable tbody td {
 .colorTip {
     color: #db3d32;
 }
+
+/*table表格样式*/
+.tableCheck{
+    width:18px;
+    height: 18px;
+
+}
+.table span{
+    cursor: pointer;
+}

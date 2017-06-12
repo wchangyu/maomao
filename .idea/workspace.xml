@@ -5,136 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0bd886d7-7fec-4200-9937-931635a703ed" name="默认的" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/1_close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/1_open.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/3.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/5.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/6.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/7.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/8.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/diy/9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/line_conn.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/line_conn.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/linkxian.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/metro.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/metro.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/open.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/radio.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/radioSelected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/unSelected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/zTreeStandard.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/img/zTreeStandard.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/1_close.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/1_open.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/add-row.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/add-sign.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/asterisk.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/bg-img.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/big-minus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/big-minus1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/book1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/buildings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/bulb.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/down-arrow.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/fdj.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/hook.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/mark.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/meter.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/minus-sign.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/minus-sign1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/minus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/minus1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/plus-sign.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/plus-sign1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/sign.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/sign1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/smallTimes.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/theWrong.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/times.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/timg1.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/timg2.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/timg3.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/up.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/up1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/up2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/zTreeStandard.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/img/仪表盘.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/img/bg-img.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/BEE.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-nenghaochaxun/BranchEnergyQueryTotalData.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/bootstrap-datepicker.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/bootstrap-datepicker.standalone.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/date/bootstrap-datepicker.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/date/bootstrap-datepicker.standalone.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/lib/jquery.dataTables.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/nenghaochaxun/EnergyQueryTotalData.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/EnergyCompare.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/EnergyCompareYear.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/EnergyNormData.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/dayNightEnergy.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/efficiencyTarget.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/yongnengfenxi/totalEnergy.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/lib/bootstrap-datepicker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/lib/echarts.common.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/lib/jquery.dataTables.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/lib/moment.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/nenghaochaxun/EnergyQueryTotalData.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/EnergyCompare.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/EnergyCompareYear.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/EnergyNormData.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/dayNightEnergy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/efficiencyTarget.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/totalEnergy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/EnergyCompare.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/EnergyCompareYear.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/EnergyNormData.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/dayNightEnergy.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/efficiencyTarget.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/totalEnergy.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/dayNightEnergy.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/efficiencyTarget.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergyEfficientRank.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergyQueryRank.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergyQuota.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergySaving.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/dayNightEnergy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/efficiencyTarget.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergyEfficientRank.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergyQueryRank.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergyQuota.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergySaving.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengfenxi/dayNightEnergy.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengfenxi/efficiencyTarget.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengguanli/EnergyEfficientRank.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengguanli/EnergyQueryRank.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengguanli/EnergyQuota.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengguanli/EnergySaving.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/shouye/index.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/EnergyTrend.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/shouye/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyTrend.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/views/bank-yongnengfenxi/EnergyTrend.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/config.json" afterPath="$PROJECT_DIR$/assets/local/configs/config.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/menu.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/scripts/login-soft.js" afterPath="$PROJECT_DIR$/assets/local/scripts/login-soft.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/scripts/login.js" afterPath="$PROJECT_DIR$/assets/local/scripts/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/css/common.css" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html" afterPath="$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js" afterPath="$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html" afterPath="$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css" afterPath="$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/js/common.js" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/js/nenghaochaxun/EnergyQueryTotalData.js" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/nenghaochaxun/EnergyQueryTotalData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyCompareYear.js" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyCompareYear.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyNormData.js" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyNormData.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js" afterPath="$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/bank-shouye/index.html" afterPath="$PROJECT_DIR$/templates/views/bank-shouye/index.html" />
     </list>
     <ignored path="BEE.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -155,106 +43,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/common.js">
+      <file leaf-file-name="EnergyTrend.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengfenxi/EnergyTrend.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state vertical-scroll-proportion="-13.5">
+              <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EnergyTrend.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyTrend.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="5.013115">
+              <caret line="671" column="0" selection-start-line="671" selection-start-column="0" selection-end-line="675" selection-end-column="3" />
               <folding>
-                <element signature="e#0#41#0" expanded="false" />
-                <element signature="n#!!block;n#deepCopy#0" expanded="false" />
-                <element signature="e#1939#2291#0" expanded="false" />
-                <element signature="e#2338#2963#0" expanded="false" />
-                <element signature="n#!!block;n#checkedNull#0" expanded="false" />
-                <element signature="n#!!block;n#getNewDate#0" expanded="false" />
-                <element signature="n#!!block;n#getDate#0" expanded="false" />
-                <element signature="n#!!block;n#getLastMonth#0" expanded="false" />
-                <element signature="n#!!block;n#getUnit#0" expanded="false" />
-                <element signature="n#!!block;n#getUnitName#0" expanded="false" />
-                <element signature="n#!!block;n#getUnitID#0" expanded="false" />
-                <element signature="n#!!block;n#getPostDate#0" expanded="false" />
+                <element signature="e#42#83#0" expanded="false" />
+                <element signature="e#84#125#0" expanded="false" />
+                <element signature="e#293#685#0" expanded="false" />
+                <element signature="n#!!block;n#getStartData#0" expanded="false" />
+                <element signature="e#5965#7140#0" expanded="false" />
+                <element signature="e#7226#8401#0" expanded="false" />
+                <element signature="e#8434#8488#0" expanded="false" />
+                <element signature="e#9041#9160#0" expanded="false" />
+                <element signature="e#15086#15271#0" expanded="false" />
+                <element signature="e#15528#16313#0" expanded="false" />
+                <element signature="e#16354#16432#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js">
+      <file leaf-file-name="EnergyTrend.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/EnergyTrend.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="580" column="26" selection-start-line="580" selection-start-column="26" selection-end-line="580" selection-end-column="26" />
-              <folding>
-                <element signature="n#!!block;n#setData#0" expanded="false" />
-                <element signature="n#!!block;n#deepCopy#0" expanded="false" />
-                <element signature="e#1920#2272#0" expanded="false" />
-                <element signature="e#2319#2944#0" expanded="false" />
-                <element signature="e#2990#3888#0" expanded="false" />
-                <element signature="e#3931#4088#0" expanded="false" />
-                <element signature="e#4130#4308#0" expanded="false" />
-                <element signature="n#!!block;n#checkedNull1#0" expanded="false" />
-                <element signature="n#!!block;n#checkedNull#0" expanded="false" />
-                <element signature="n#!!block;n#getNewDate#0" expanded="false" />
-                <element signature="n#!!block;n#getDate#0" expanded="false" />
-                <element signature="n#!!block;n#getLastMonth#0" expanded="false" />
-                <element signature="n#!!block;n#getUnit#0" expanded="false" />
-                <element signature="n#!!block;n#getUnitName#0" expanded="false" />
-                <element signature="n#!!block;n#getPostDate#0" expanded="false" />
-                <element signature="n#!!block;n#checkedDate#0" expanded="false" />
-                <element signature="n#!!block;n#checkedNum#0" expanded="false" />
-                <element signature="n#!!block;n#checkedPhone#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnergyStatistics.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="27.277779">
-              <caret line="408" column="64" selection-start-line="408" selection-start-column="64" selection-end-line="408" selection-end-column="64" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnergyStatistics.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44056708">
-              <caret line="146" column="27" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
-              <folding>
-                <element signature="e#41#81#0" expanded="false" />
-                <element signature="e#82#123#0" expanded="false" />
-                <element signature="e#4801#5193#0" expanded="false" />
-                <element signature="e#5272#5319#0" expanded="false" />
-                <element signature="e#5390#7818#0" expanded="false" />
-                <element signature="e#7903#8323#0" expanded="false" />
-                <element signature="e#7983#8055#0" expanded="false" />
-                <element signature="e#8414#10412#0" expanded="false" />
-                <element signature="e#8456#8494#0" expanded="false" />
-                <element signature="e#10498#10539#0" expanded="false" />
-                <element signature="e#10597#10735#0" expanded="false" />
-                <element signature="e#12801#12986#0" expanded="false" />
-                <element signature="e#13243#14028#0" expanded="false" />
-                <element signature="e#14069#14147#0" expanded="false" />
-                <element signature="n#!!block;n#checkedData#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnergyStatistics.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -277,14 +102,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/totalEnergy.js" />
-        <option value="$PROJECT_DIR$/templates/views/bank-yongnengfenxi/dayNightEnergy.html" />
-        <option value="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/dayNightEnergy.css" />
-        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/dayNightEnergy.js" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-nenghaochaxun/BranchEnergyQueryTotalData.html" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/EnergyCompare.html" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/EnergyCompare.js" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/EnergyCompareYear.html" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/totalEnergy.html" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/js/yongnengfenxi/totalEnergy.js" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-yongnengfenxi/dayNightEnergy.html" />
@@ -319,15 +136,23 @@
         <option value="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergySaving.js" />
         <option value="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergySaving.css" />
         <option value="$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/jienengzuji.js" />
-        <option value="$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html" />
-        <option value="$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css" />
-        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css" />
-        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/common.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html" />
-        <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js" />
+        <option value="$PROJECT_DIR$/assets/local/configs/config.json" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css" />
         <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/common.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html" />
+        <option value="$PROJECT_DIR$/templates/views/bank-shouye/index.html" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/shouye/index.js" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/css/shouye/index.css" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/EnergyTrend.css" />
+        <option value="$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyTrend.js" />
+        <option value="$PROJECT_DIR$/assets/local/configs/menu.json" />
+        <option value="$PROJECT_DIR$/templates/views/bank-yongnengfenxi/EnergyTrend.html" />
       </list>
     </option>
   </component>
@@ -338,8 +163,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="width" value="1692" />
-    <option name="height" value="1056" />
+    <option name="width" value="1684" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -372,6 +197,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -418,13 +244,170 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bank-yongnengfenxi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bank-resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bank-resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bank-resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yongnengfenxi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="global" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BEE" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -672,28 +655,34 @@
       <option name="project" value="LOCAL" />
       <updated>1495788670882</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="四川央行项目中用能管理与节能足迹相关">
+      <created>1496977054231</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1496977054231</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1692" height="1056" extended-state="0" />
+    <frame x="-8" y="0" width="1684" height="1054" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18615752" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18585132" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8054968" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -736,7 +725,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="四川央行项目中用能管理与节能足迹相关" />
+    <option name="LAST_COMMIT_MESSAGE" value="四川央行项目中用能管理与节能足迹相关" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -833,107 +823,30 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js</url>
-          <line>412</line>
+          <line>632</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js</url>
+          <line>15</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js</url>
+          <line>258</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js</url>
+          <line>538</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="27" />
+      <option name="time" value="31" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/emDemo/utf8-net/net/Web.config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/emDemo/utf8-net/ueditor.parse.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058624577">
-          <caret line="386" column="51" selection-start-line="386" selection-start-column="51" selection-end-line="386" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/emDemo/utf8-net/ueditor.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45659527">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/emDemo/utf8-net/getNews.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5402951">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/emDemo/utf8-net/net/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33372504">
-          <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/emDemo/utf8-net/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15323496">
-          <caret line="126" column="14" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/local/scripts/underscore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33260632">
-          <caret line="1507" column="6" selection-start-line="1507" selection-start-column="6" selection-end-line="1507" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/dayNightEnergy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="364" column="29" selection-start-line="364" selection-start-column="29" selection-end-line="364" selection-end-column="29" />
-          <folding>
-            <element signature="e#42#83#0" expanded="false" />
-            <element signature="e#251#643#0" expanded="false" />
-            <element signature="n#!!block;n#getStartData#0" expanded="false" />
-            <element signature="e#5923#7098#0" expanded="false" />
-            <element signature="e#7184#8359#0" expanded="false" />
-            <element signature="e#8392#8446#0" expanded="false" />
-            <element signature="e#8999#9118#0" expanded="false" />
-            <element signature="e#15044#15229#0" expanded="false" />
-            <element signature="e#15486#16271#0" expanded="false" />
-            <element signature="e#16312#16390#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-nenghaochaxun/EnergyQueryTotalData.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4585698">
-          <caret line="211" column="26" selection-start-line="211" selection-start-column="26" selection-end-line="211" selection-end-column="26" />
-          <folding>
-            <element signature="n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/nenghaochaxun/EnergyQueryTotalData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08833151">
-          <caret line="342" column="34" selection-start-line="342" selection-start-column="34" selection-end-line="342" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergyQueryRank.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17253122">
-          <caret line="57" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="78" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/yongnengguanli/EnergyEfficientRank.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1111,20 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.408627">
-          <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/yongnengguanli/EnergyQuota.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41221374">
@@ -1158,31 +1057,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58229285">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengguanli/EnergyQuota.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39727584">
           <caret line="290" column="43" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3598183">
-          <caret line="997" column="5" selection-start-line="997" selection-start-column="5" selection-end-line="997" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengfenxi/dayNightEnergy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21452895">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -1229,21 +1107,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.877412">
-          <caret line="333" column="19" selection-start-line="333" selection-start-column="19" selection-end-line="333" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="1" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengfenxi/efficiencyTarget.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2429058">
@@ -1251,23 +1114,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/common.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/css/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7849829">
+          <caret line="336" column="17" selection-start-line="336" selection-start-column="17" selection-end-line="336" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32423207">
+          <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/css/jienengzuji/EnergyStatistics.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44709897">
+          <caret line="55" column="11" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/jienengzuji/EnergyStatistics.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24573378">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-nenghaochaxun/EnergyQueryTotalData.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7337884">
+          <caret line="277" column="41" selection-start-line="268" selection-start-column="32" selection-end-line="277" selection-end-column="41" />
+          <folding>
+            <element signature="n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/nenghaochaxun/EnergyQueryTotalData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23606557">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="123" selection-end-column="15" />
+          <folding>
+            <element signature="n#!!block;n#getStartData#0" expanded="false" />
+            <element signature="e#3546#5375#0" expanded="false" />
+            <element signature="n#!!block;n#getMainData#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50163937">
+          <caret line="536" column="0" selection-start-line="536" selection-start-column="0" selection-end-line="536" selection-end-column="0" />
+          <folding>
+            <element signature="e#41#81#0" expanded="false" />
+            <element signature="e#82#123#0" expanded="false" />
+            <element signature="e#254#7105#0" expanded="false" />
+            <element signature="e#7231#7623#0" expanded="false" />
+            <element signature="e#7702#7749#0" expanded="false" />
+            <element signature="e#7820#10229#0" expanded="false" />
+            <element signature="e#8334#10220#0" expanded="false" />
+            <element signature="e#10314#13616#0" expanded="false" />
+            <element signature="e#13691#16216#0" expanded="false" />
+            <element signature="e#16291#16839#0" expanded="false" />
+            <element signature="e#16897#18148#0" expanded="false" />
+            <element signature="n#!!block;n#getMainData#0" expanded="false" />
+            <element signature="e#18713#19984#0" expanded="false" />
+            <element signature="e#20060#20245#0" expanded="false" />
+            <element signature="e#20502#21287#0" expanded="false" />
+            <element signature="e#21328#21406#0" expanded="false" />
+            <element signature="n#!!block;n#checkedData#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18202503">
+          <caret line="244" column="0" selection-start-line="244" selection-start-column="0" selection-end-line="244" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/jienengzuji/EnergyStatistics.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <caret line="247" column="46" selection-start-line="247" selection-start-column="46" selection-end-line="247" selection-end-column="46" />
           <folding>
-            <element signature="e#0#41#0" expanded="false" />
-            <element signature="n#!!block;n#deepCopy#0" expanded="false" />
-            <element signature="e#1939#2291#0" expanded="false" />
-            <element signature="e#2338#2963#0" expanded="false" />
-            <element signature="n#!!block;n#checkedNull#0" expanded="false" />
-            <element signature="n#!!block;n#getNewDate#0" expanded="false" />
-            <element signature="n#!!block;n#getDate#0" expanded="false" />
-            <element signature="n#!!block;n#getLastMonth#0" expanded="false" />
-            <element signature="n#!!block;n#getUnit#0" expanded="false" />
-            <element signature="n#!!block;n#getUnitName#0" expanded="false" />
-            <element signature="n#!!block;n#getUnitID#0" expanded="false" />
-            <element signature="n#!!block;n#getPostDate#0" expanded="false" />
+            <element signature="e#41#81#0" expanded="false" />
+            <element signature="e#82#122#0" expanded="false" />
+            <element signature="e#123#164#0" expanded="false" />
+            <element signature="e#295#6894#0" expanded="false" />
+            <element signature="n#!!block;n#getStartData#0" expanded="false" />
+            <element signature="n#!!block;n#getMainData#0" expanded="false" />
+            <element signature="e#9826#11054#0" expanded="false" />
+            <element signature="e#11114#11299#0" expanded="false" />
+            <element signature="e#11556#12341#0" expanded="false" />
+            <element signature="e#12382#12460#0" expanded="false" />
+            <element signature="n#!!block;n#checkedData#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1275,15 +1220,19 @@
     <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="580" column="26" selection-start-line="580" selection-start-column="26" selection-end-line="580" selection-end-column="26" />
+          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
           <folding>
             <element signature="n#!!block;n#setData#0" expanded="false" />
+            <element signature="n#!!block;n#setDatas#0" expanded="false" />
+            <element signature="n#!!block;n#ajaxSuccess#0" expanded="false" />
             <element signature="n#!!block;n#deepCopy#0" expanded="false" />
-            <element signature="e#1920#2272#0" expanded="false" />
-            <element signature="e#2319#2944#0" expanded="false" />
-            <element signature="e#2990#3888#0" expanded="false" />
-            <element signature="e#3931#4088#0" expanded="false" />
-            <element signature="e#4130#4308#0" expanded="false" />
+            <element signature="n#!!block;n#myAlter#0" expanded="false" />
+            <element signature="n#!!block;n#myAlter1#0" expanded="false" />
+            <element signature="e#2030#2382#0" expanded="false" />
+            <element signature="e#2429#3054#0" expanded="false" />
+            <element signature="e#3100#3998#0" expanded="false" />
+            <element signature="e#4041#4198#0" expanded="false" />
+            <element signature="e#4240#4418#0" expanded="false" />
             <element signature="n#!!block;n#checkedNull1#0" expanded="false" />
             <element signature="n#!!block;n#checkedNull#0" expanded="false" />
             <element signature="n#!!block;n#getNewDate#0" expanded="false" />
@@ -1299,41 +1248,185 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-jienengzuji/EnergyStatistics.html">
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/shouye/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="27.277779">
-          <caret line="408" column="64" selection-start-line="408" selection-start-column="64" selection-end-line="408" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/shouye/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-shouye/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66211605">
+          <caret line="696" column="39" selection-start-line="696" selection-start-column="39" selection-end-line="696" selection-end-column="39" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#li#3;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#button#0;n#li#4;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#0;n#form#0;n#validator#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#0;n#form#0;n#validator#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#b#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#b#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#7;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/bank-branch-resource/js/jienengzuji/EnergyStatistics.js">
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-jienengzuji/EnergyStatistics.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44056708">
-          <caret line="146" column="27" selection-start-line="146" selection-start-column="27" selection-end-line="146" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.0784983">
+          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
           <folding>
-            <element signature="e#41#81#0" expanded="false" />
-            <element signature="e#82#123#0" expanded="false" />
-            <element signature="e#4801#5193#0" expanded="false" />
-            <element signature="e#5272#5319#0" expanded="false" />
-            <element signature="e#5390#7818#0" expanded="false" />
-            <element signature="e#7903#8323#0" expanded="false" />
-            <element signature="e#7983#8055#0" expanded="false" />
-            <element signature="e#8414#10412#0" expanded="false" />
-            <element signature="e#8456#8494#0" expanded="false" />
-            <element signature="e#10498#10539#0" expanded="false" />
-            <element signature="e#10597#10735#0" expanded="false" />
-            <element signature="e#12801#12986#0" expanded="false" />
-            <element signature="e#13243#14028#0" expanded="false" />
-            <element signature="e#14069#14147#0" expanded="false" />
-            <element signature="n#!!block;n#checkedData#0" expanded="false" />
+            <element signature="n#style#0;n#button#0;n#li#3;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#button#0;n#li#4;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#0;n#form#0;n#validator#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#li#0;n#form#0;n#validator#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#b#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#5;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#b#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#6;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#7;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20655738">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+            <element signature="n#!!block;n#deepCopy#0" expanded="false" />
+            <element signature="n#!!block;n#CompareDate#0" expanded="false" />
+            <element signature="e#1939#2291#0" expanded="false" />
+            <element signature="e#2338#2963#0" expanded="false" />
+            <element signature="n#!!block;n#checkedNull#0" expanded="false" />
+            <element signature="n#!!block;n#getNewDate#0" expanded="false" />
+            <element signature="n#!!block;n#getDate#0" expanded="false" />
+            <element signature="n#!!block;n#getLastMonth#0" expanded="false" />
+            <element signature="n#!!block;n#getUnit#0" expanded="false" />
+            <element signature="n#!!block;n#getUnitName#0" expanded="false" />
+            <element signature="n#!!block;n#getUnitID#0" expanded="false" />
+            <element signature="n#!!block;n#getPostDate#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/EnergyTrend.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/dayNightEnergy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20655738">
+          <caret line="370" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="672" selection-end-column="3" />
+          <folding>
+            <element signature="e#42#83#0" expanded="false" />
+            <element signature="e#251#643#0" expanded="false" />
+            <element signature="n#!!block;n#getStartData#0" expanded="false" />
+            <element signature="e#5923#7098#0" expanded="false" />
+            <element signature="e#7184#8359#0" expanded="false" />
+            <element signature="e#8392#8446#0" expanded="false" />
+            <element signature="e#8999#9118#0" expanded="false" />
+            <element signature="e#15044#15229#0" expanded="false" />
+            <element signature="e#15486#16271#0" expanded="false" />
+            <element signature="e#16312#16390#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengfenxi/dayNightEnergy.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2764505">
+          <caret line="9" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="584" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/local/configs/menu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49146757">
+          <caret line="1003" column="19" selection-start-line="1003" selection-start-column="19" selection-end-line="1003" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/css/yongnengfenxi/dayNightEnergy.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.044368602">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-yongnengfenxi/EnergyTrend.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.5">
+          <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/bank-resource/js/yongnengfenxi/EnergyTrend.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.013115">
+          <caret line="671" column="0" selection-start-line="671" selection-start-column="0" selection-end-line="675" selection-end-column="3" />
+          <folding>
+            <element signature="e#42#83#0" expanded="false" />
+            <element signature="e#84#125#0" expanded="false" />
+            <element signature="e#293#685#0" expanded="false" />
+            <element signature="n#!!block;n#getStartData#0" expanded="false" />
+            <element signature="e#5965#7140#0" expanded="false" />
+            <element signature="e#7226#8401#0" expanded="false" />
+            <element signature="e#8434#8488#0" expanded="false" />
+            <element signature="e#9041#9160#0" expanded="false" />
+            <element signature="e#15086#15271#0" expanded="false" />
+            <element signature="e#15528#16313#0" expanded="false" />
+            <element signature="e#16354#16432#0" expanded="false" />
           </folding>
         </state>
       </provider>

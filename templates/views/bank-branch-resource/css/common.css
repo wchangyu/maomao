@@ -333,3 +333,6 @@ table.dataTable.no-footer {
 .chooseDate{
     cursor: pointer;
 }
+.theHidden{
+    display: none;
+}

@@ -3,9 +3,9 @@
  */
 
 var _userIdName = sessionStorage.getItem('userName');
-var IP1 = "http://192.168.1.112/BEEWebAPI/api";
+var IP1 = "http://192.168.1.125/BEEWebAPI/api";
 var IP2 = 'http://211.100.28.180/DingEAPI/api';
-var IP = IP1;
+var IP = IP2;
 var theTimes = 30000;
 
 //弹窗关闭时清空已输入过的信息
@@ -421,7 +421,7 @@ function getPostDate(postDate){
 
                 console.log(startDate,endDate);
 
-        }else if(postDate == '本年'){
+        }else if(postDate == '本年' || postDate == '今年'){
                 dateSign = '月';
 
                 selectType = '年';

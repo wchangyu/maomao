@@ -6,43 +6,47 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8"/>
-<title></title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta content="" name="description"/>
-<meta content="" name="author"/>
-    <!--MY STYLE-->
-    <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<meta charset="utf-8"/>
+	<title></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta content="" name="description"/>
+	<meta content="" name="author"/>
+	<!--MY STYLE-->
+	<link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../resource/css/leftBat.css">
 	<link rel="stylesheet" href="../resource/css/index.css">
-    <script src="../resource/js/jquery-1.11.2.js"></script>
-    <script src="../resource/js/echarts.min.js"></script>
+	<script src="../resource/js/jquery-1.11.2.js"></script>
+
 	<script src="../../../assets/local/scripts/underscore-min.js"></script>
 	<script src="../resource/js/pointersoffices.js"></script>
-	<script src="../resource/js/index.js"></script>
-    <script src="../resource/js/moment.js"></script>
+	<script src="../resource/js/moment.js"></script>
 	<script src="../resource/js/showOrHidden.js"></script>
 	<link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
 	<link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
-<!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-<link rel="shortcut icon" href="../favicon.ico"/>
-
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN THEME STYLES -->
+	<link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+	<link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+	<!-- END THEME STYLES -->
+	<link rel="shortcut icon" href="../favicon.ico"/>
+	<!--非框架中的样式-->
+	<link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/common.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/jienengzuji/EnergyStatistics.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -62,8 +66,8 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="./index.html">
-			<img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+			<a href="./EnergyQueryTotalData.html">
+				<img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -75,7 +79,7 @@
 		</a>
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="totalTitle"></div>
+		<div class="totalTitle"></div>
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
@@ -211,8 +215,7 @@
 			</div>
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
-			<h3 class="page-title">
-			</h3>
+			<h3 class="page-title"></h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li>
@@ -227,127 +230,100 @@
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-
 			<div class="row">
 				<div class="col-md-12">
-                    <div class="total-warp container">
-                        <div class="wrap row">
-							<div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-								<div class="content-main">
-									<img src="../resource/img/img1.png" alt="">
-									<p class="left-top" title="吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
-吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。
-">
-										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼...
-									</p>
-								</div>
-								<div class="content-main">
-									<div class="main-left-middle">
-										<div class="left-middle-header">对象选择</div>
-										<div class="left-middle-main">
-											<div class="left-middle-content">
-												<div class="left-middle-tab">区域位置</div>
-												<div class="left-middle-tab">科室单位</div>
-											</div>
-											<div class="tree-1">
-												<div class="left-middle-input">
-													<input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
-												</div>
-												<div class="tipess"></div>
-												<ul class="allPointer ztree" id="allPointer">
-												</ul>
-											</div>
-											<div class="tree-1 tree-2">
-												<div class="left-middle-input">
-													<input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-												</div>
-												<div class="tipes"></div>
-												<ul class="allOffices ztree" id="allOffices">
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="content-main">
-									<div class="select-times">
-										<div class="left-middle-header">时段选择</div>
-										<div id='wrapper'>
-											<div class="time-options time-options-1">上日</div>
-											<div class="time-options">上周</div>
-											<div class="time-options">上月</div>
-											<div class="time-options">上年</div>
-											<div class="buttons">
-												<button class="btn btn-success">查询</button>
-											</div>
-										</div>
-									</div>
-								</div>
+					<div class="total-warp container">
+						<div class="wrap row">
+							<!--上方条件搜索-->
+							<div class="content-main-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<ul class="condition-query refer-unit-table">
+
+
+									<li>
+										<label for="">对象：</label>
+
+										<select name="" id="obj-type" class=" person-type" >
+											<option >电</option>
+											<option >水</option>
+											<option >气</option>
+										</select>
+
+									</li>
+
+									<li>
+										<label for="">时间：</label>
+
+										<select name="" id="post-date" class="datatimeblock person-type" >
+
+											<option >今年</option>
+											<option >全部</option>
+											<option  class="custom-time">自定义</option>
+										</select>
+
+										<input  class="show-date"/>
+
+									</li>
+
+
+									<li>
+										<label for="">项目金额：</label>
+
+										<select name="" id="energy-type" class="energy-type" >
+											<option value="-1">全部</option>
+											<option value="0">>100000</option>
+											<option value="1">≤100000</option>
+
+										</select>
+
+									</li>
+
+
+
+									<li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
+									<li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
+
+									<div class="clearfix"></div>
+								</ul>
 							</div>
-                            <!-- 右边主体数据部分 -->
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-1">
-                                        <div class="main-right-ones  portlet box blue main-right-ones-1">
-                                        	<div class="right-one-header portlet-title">
-                                            	<div class="right-one-headers">上日总能耗</div>
-                                            	<div class="tools">
-                                                	<a href="" class="fullscreen" title="全屏">
-                                                	</a>
-                                            	</div>
-                                        	</div>
-                                        	<div class="fenleinenghao energy-types">
 
-											</div>
-											<div id="loaddings">
-
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2">
-											<div class="main-right-ones portlet box blue main-right-ones-2">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 上月分项电耗饼图 -->
-												<div id="main-right-two"></div>
-											</div>
-									</div>
+							<!--下方数据展示-->
+							<div class="content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<!--头部数据信息-->
+								<div class="show-header">
+									<span class="show-title1">四川央行 </span>
+									<span class="show-title2"> 总用单位面积标煤 </span>
+									<span class="show-title3" style=""> </span>
+									<ul class="show-header-right">
+										<li class="header-right-lists header-right-lists-1">
+										</li>
+										<li class="header-right-lists">单位：<span>kWh</span></li>
+									</ul>
 								</div>
-								<div class="row">
-										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
-											<div class="main-right-ones portlet box blue main-right-ones-3">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 柱状图 -->
-												<div id="main-right-four"></div>
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-4">
-											<div class="main-right-ones portlet box blue main-right-ones-4">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 仪表盘 -->
-												<div id="main-right-three"></div>
-											</div>
-										</div>
+
+								<!--主体表格-->
+								<div class="show-main row" >
+
+									<!--下方对比表格-->
+									<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+										<!--<span class="prompt">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>-->
+
+
+										<div style="height:20px;"></div>
+										<!--下方表格内容-->
+										<table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables">
+											<thead>
+
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
 									</div>
+
+									<div class="clearfix"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -356,6 +332,320 @@
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
+
+	<!--新增节能项目弹窗-->
+	<div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="height: 648px;width:700px;margin-top:150px;">
+			<div class="modal-content" style="height: 648px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加项目</h4>
+				</div>
+				<div class="modal-body">
+					<!--主体部分-->
+					<ul class="gongdanList" id="myApp33">
+						<validator name="validation">
+							<form novalidate>
+								<li class="floatLeft" style="line-height: 26px;">
+									<div class="labels  colorTip">项目名称 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels">项目编号：</div>
+									<div class="input-blockeds">
+										<input type="text" >
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels  colorTip">项目内容 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">项目金额(元) * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-number">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels  colorTip">开始时间 * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate startDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">结束时间 * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate endDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">验收时间 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels">涉及支路 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">责任部门 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">责任人 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">部门电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels ">联系电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-phone">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">实施主体 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels ">联系人 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">联系电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-phone">
+									</div>
+								</li>
+								<div class="clearfix"></div>
+
+							</form>
+						</validator>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+
+	<!--修改节能项目弹窗-->
+	<div class="modal fade" id="alter-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="height: 648px;width:700px;margin-top:150px;">
+			<div class="modal-content" style="height: 648px;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" >修改项目</h4>
+				</div>
+				<div class="modal-body">
+					<!--主体部分-->
+					<ul class="gongdanList">
+						<validator name="validation">
+							<form novalidate>
+								<li class="floatLeft" style="line-height: 26px;">
+									<div class="labels  colorTip">项目名称 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels">项目编号：</div>
+									<div class="input-blockeds">
+										<input type="text" >
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels  colorTip">项目内容 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">项目金额(元) * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-number">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels  colorTip">开始时间 * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate startDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">结束时间 * ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate endDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">验收时间 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="chooseDate" placeholder="选择时间">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels">涉及支路 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">责任部门 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels  colorTip">责任人 * ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">部门电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels ">联系电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-phone">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">实施主体 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatRight">
+									<div class="labels ">联系人 ：</div>
+									<div class="input-blockeds">
+										<input type="text">
+									</div>
+								</li>
+								<li class="floatLeft">
+									<div class="labels">联系电话 ：</div>
+									<div class="input-blockeds">
+										<input type="text" class="type-phone">
+									</div>
+								</li>
+								<div class="clearfix"></div>
+
+							</form>
+						</validator>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+
+	<!--自定义时间-->
+	<div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+		<div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+					<div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
+					<div class="row">
+
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+							<label for="" class="input-label" style="width:95px;">开始日期：</label>
+
+							<div class="add-input-block">
+								<input type="text" class="add-input chooseDate-year chooseDates" value="" placeholder="选择时间">
+							</div>
+
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+							<label for="" class="input-label" style="width:95px;">结束日期：</label>
+
+							<div class="add-input-block">
+								<input type="text" class="add-input chooseDate-year chooseDates" value="" placeholder="选择时间">
+							</div>
+
+						</div>
+					</div>
+					<div class='modal-footer'>
+						<button type='button' class='btn btn-primary top-btn'>确定</button>
+						<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--自定义弹窗-->
+	<div class='modal fade' id='my-alert1' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:600px;margin:15% auto'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h3 style="margin-bottom:18px">提示</h3>
+					<p style="font-size:20px"> <b style="color:red"></b> </p>
+
+					<div class='modal-footer' style="border:none">
+
+						<button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+						<button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--自定义弹窗-->
+	<div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:600px;margin:15% auto'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h3 style="margin-bottom:18px">提示</h3>
+					<p style="font-size:20px"> <b style="color:red"></b> </p>
+
+					<div class='modal-footer' style="border:none">
+
+						<button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--loading图-->
+	<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+		</div>
+	</div>
+
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -371,6 +661,8 @@
 		<i class="icon-arrow-up"></i>
 	</div>
 </div>
+
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -396,15 +688,23 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--非框架中js-->
+<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-resource/js/lib/moment.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../bank-resource/js/shouye/EnergyStatistics.js"></script>
 <script>
-      jQuery(document).ready(function() {    
-         Metronic.init(); // init metronic core components
-		 BEE.init();
-		 Layout.init(); // init current layout
-		 Demo.init(); // init demo features
+	jQuery(document).ready(function() {
+		Metronic.init(); // init metronic core components
+		BEE.init();
+		Layout.init(); // init current layout
+		Demo.init(); // init demo features
 
-      });
-   </script>
+	});
+</script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

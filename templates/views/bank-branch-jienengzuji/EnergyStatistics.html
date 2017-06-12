@@ -296,15 +296,13 @@
                                         <!--上方操作按钮-->
                                         <div class="top-operation" style="text-align:right">
                                             <button class="top-btn top-add">增加</button>
-                                            <button class="top-btn top-remove">删除</button>
                                             <button class="top-btn top-edit">编辑</button>
-                                            <button class="top-btn top-sure">确定</button>
-                                            <button class="top-btn top-abolish">取消</button>
+                                            <button class="top-btn top-remove">删除</button>
                                             <br />
 
                                         </div>
 
-                                        <span class="prompt">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>
+                                        <!--<span class="prompt">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>-->
 
 
                                         <div style="height:20px;"></div>
@@ -342,6 +340,123 @@
                 <div class="modal-body">
                     <!--主体部分-->
                     <ul class="gongdanList" id="myApp33">
+                        <validator name="validation">
+                            <form novalidate>
+                                <li class="floatLeft" style="line-height: 26px;">
+                                    <div class="labels  colorTip">项目名称 * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels">项目编号：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" >
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels  colorTip">项目内容 * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels  colorTip">项目金额(元) * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="type-number">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels  colorTip">开始时间 * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="chooseDate startDate" placeholder="选择时间">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels  colorTip">结束时间 * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="chooseDate endDate" placeholder="选择时间">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">验收时间 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="chooseDate" placeholder="选择时间">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels">涉及支路 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">责任部门 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels  colorTip">责任人 * ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">部门电话 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels ">联系电话 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="type-phone">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">实施主体 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatRight">
+                                    <div class="labels ">联系人 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text">
+                                    </div>
+                                </li>
+                                <li class="floatLeft">
+                                    <div class="labels">联系电话 ：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" class="type-phone">
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+
+                            </form>
+                        </validator>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--修改节能项目弹窗-->
+    <div class="modal fade" id="alter-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 648px;width:700px;margin-top:150px;">
+            <div class="modal-content" style="height: 648px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >修改项目</h4>
+                </div>
+                <div class="modal-body">
+                    <!--主体部分-->
+                    <ul class="gongdanList">
                         <validator name="validation">
                             <form novalidate>
                                 <li class="floatLeft" style="line-height: 26px;">

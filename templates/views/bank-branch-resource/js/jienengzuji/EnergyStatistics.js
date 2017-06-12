@@ -56,7 +56,6 @@ $(document).ready(function() {
             {
                 title:'编号',
                 data:"f_ProjectNum"
-
             },
             {
                 title:'本行ID',
@@ -66,99 +65,175 @@ $(document).ready(function() {
             {
                 title:'支行名称',
                 data:"enterpriseName",
+                class:'theHidden',
                 render:function(data, type, full, meta){
+                    if(data.length > 5){
+                        return '<span title="'+data+'">'+data.substring(0,5)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data.substring(0,5)+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,5)+'</span>'
-                }
-            },
-            {
-                title:'支行名称',
-                data:"enterpriseName",
-                render:function(data, type, full, meta){
 
-                    return '<span title="'+data+'">'+data.substring(0,5)+'</span>'
                 }
             },
             {
                 title:'项目名称',
                 data:"f_ProjectName",
                 render:function(data, type, full, meta){
+                    if(data.length > 5){
+                        return '<span title="'+data+'">'+data.substring(0,5)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,5)+'</span>'
+
                 }
             },
             {
                 title:'项目编号',
                 data:"f_ProjectNum",
                 render:function(data, type, full, meta){
+                    if(data.length > 10){
+                        return '<span title="'+data+'">'+data.substring(0,10)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+
                 }
             },
             {
                 title:'项目内容',
-                data:"f_ProjectName",
+                data:"f_ProjectContent",
                 render:function(data, type, full, meta){
+                    if(data.length > 10){
+                        return '<span title="'+data+'">'+data.substring(0,10)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+
                 }
             },
             {
-                title:'项目金额',
-                data:"f_ProjectName",
-                render:function(data, type, full, meta){
-
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
-                }
+                title:'项目金额（元）',
+                data:"f_ProjectPrice"
             },
             {
                 title:'开始时间',
-                data:"f_ProjectName",
+                data:"f_StartDate",
                 render:function(data, type, full, meta){
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+                    return data.split(' ')[0]
                 }
             },
             {
                 title:'结束时间',
-                data:"f_ProjectName",
+                data:"f_EndDate",
                 render:function(data, type, full, meta){
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+                    return data.split(' ')[0]
                 }
             },
             {
                 title:'验收时间',
-                data:"f_ProjectName",
+                data:"f_CheckAcceptDate",
                 render:function(data, type, full, meta){
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+                    return data.split(' ')[0]
                 }
             },
             {
                 title:'涉及支路',
-                data:"f_ProjectName",
+                data:"f_InvolveBranch",
                 render:function(data, type, full, meta){
+                    if(data.length > 10){
+                        return '<span title="'+data+'">'+data.substring(0,10)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+
                 }
             },
             {
                 title:'责任部门',
-                data:"f_ProjectName",
+                data:"f_Department",
                 render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+
                 }
             },
             {
-                title:'结束时间',
-                data:"f_ProjectName",
+                title:'部门电话',
+                data:"f_DepartmentPhone",
                 render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
 
-                    return '<span title="'+data+'">'+data.substring(0,10)+'</span>'
+
                 }
             },
+            {
+                title:'联系电话',
+                data:"f_linkPhone",
+                render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
+
+
+                }
+            },
+            {
+                title:'实施主体',
+                data:"f_Executor",
+                render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
+
+
+                }
+            },
+            {
+                title:'联系人',
+                data:"f_ExecutorName",
+                render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
+
+
+                }
+            },
+            {
+                title:'联系电话',
+                data:"f_ExecutorPhone",
+                render:function(data, type, full, meta){
+                    if(data.length > 12){
+                        return '<span title="'+data+'">'+data.substring(0,12)+'...</span>'
+                    }else{
+                        return '<span title="'+data+'">'+data+'</span>'
+                    }
+
+
+                }
+            }
 
 
         ]
@@ -214,6 +289,7 @@ $(document).ready(function() {
             url: IP + "/EnergySavingTrack/AddEnergySavingData",
             timeout: theTimes,
             data:{
+                "index": 0,
                 "pK_EnergySaving": 0,
                 "fK_Enterprise_Saving": EnterpriseID,
                 "enterpriseName": EnterpriseName,
@@ -235,7 +311,7 @@ $(document).ready(function() {
                 "userID": _userIdName
             },
             beforeSend: function () {
-                $('#theLoading').modal('show');
+
             },
 
             complete: function () {
@@ -275,65 +351,37 @@ $(document).ready(function() {
     //点击编辑按钮时，表格中数据切换为可编辑
     $('.top-operation .top-edit').on('click',function(){
 
+        var length = $('#dateTables .tableCheck').length;
 
-        var now = parseInt(moment().year());
+        var id = '';
 
-
-        if(compareYear < now){
-            myAlter('过往年份数据无法编辑');
+        var chooseNum = 0;
+        for(var i=0; i<length; i++){
+            if( $('#dateTables .tableCheck').eq(i).is(':checked')){
+                chooseNum ++;
+            }
+        }
+        if(chooseNum > 1){
+            myAlter('编辑时只能勾选一项进行操作');
             return false;
-        };
-
-
-        $('.month-data').removeAttr('readOnly');
-        $('.month-data').removeAttr('unselectable');
-
-        $('.prompt').html('当前可编辑，编辑完成后请点击确定按钮进行提交。');
-
-
-        $('.top-operation .top-btn').removeClass('onClick');
-
-        $(this).addClass('onClick');
-
-    });
-
-    //点击确定按钮时，提交表格中的数据，并使其不可编辑。
-    $('.top-operation .top-sure').on('click',function(){
-
-        if(!checkedData('.month-data')){
-
+        }else if(chooseNum == 0){
+            myAlter('请勾选一项进行编辑');
             return false;
         }
 
-
-
-        $('.top-operation .top-btn').removeClass('onClick');
-
-        $(this).addClass('onClick');
-
-        $('.month-data').attr('readOnly','readOnly');
-        $('.month-data').attr('unselectable','on');
-
-        $('.prompt').html('当前不可编辑，可点击右侧编辑按钮进行编辑。');
-
-        var energyItemID = $('#energy-type').val();
-
-        var postDate = $('#post-date').val();
-
-        var thePostArr = postArr.concat(getArr);
-
-        console.log(thePostArr);
+        for(var i=0; i<length; i++){
+            if( $('#dateTables .tableCheck').eq(i).is(':checked')){
+                alterID = $('#dateTables .tableCheck').eq(i).parents('tr').find('td').eq(2).html();
+            }
+        }
 
 
         $.ajax({
-            type: 'post',
-            url: IP + "/EnergyManage/PostBankDingEData",
+            type: 'get',
+            url: IP + "/EnergySavingTrack/GetSavingDataByID",
             timeout: theTimes,
             data:{
-                "f_EnergyItemId" : energyItemID,
-                "f_Year" : compareYear,
-                "bankDingEReturns" : thePostArr,
-                'userID' : _userIdName
+                'PK_EnergySaving' : alterID
             },
             beforeSend: function () {
                 $('#theLoading').modal('show');
@@ -344,55 +392,227 @@ $(document).ready(function() {
             },
             success: function (data) {
                 $('#theLoading').modal('hide');
+
                 console.log(data);
 
-                if(data == 3){
+                if(data == null){
 
-                    myAlter('提交失败，请联系管理员!');
+                    myAlter('数据库中无本行数据');
                     return false;
-                }else if(data == 17){
+                }
+                //弹出修改窗口
+                $('#alter-item').modal('show');
 
-                    myAlter('过往年数据只能查询!');
-                    return false;
-                }else if(data == 99){
-                    myAlter('修改成功');
+                //给修改窗口中赋值
+                $('#alter-item .input-blockeds').find('input').eq(0).val(data.f_ProjectName);
 
-                    getMainData();
-                };
-                //表格中的数据
+                $('#alter-item .input-blockeds').find('input').eq(1).val(data.f_ProjectNum);
 
+                $('#alter-item .input-blockeds').find('input').eq(2).val(data.f_ProjectContent);
 
+                $('#alter-item .input-blockeds').find('input').eq(3).val(data.f_ProjectPrice);
+
+                $('#alter-item .input-blockeds').find('input').eq(4).val(data.f_StartDate);
+
+                $('#alter-item .input-blockeds').find('input').eq(5).val(data.f_EndDate);
+
+                $('#alter-item .input-blockeds').find('input').eq(6).val(data.f_CheckAcceptDate);
+
+                $('#alter-item .input-blockeds').find('input').eq(7).val(data.f_InvolveBranch);
+
+                $('#alter-item .input-blockeds').find('input').eq(8).val(data.f_Department);
+
+                $('#alter-item .input-blockeds').find('input').eq(9).val(data.f_DirectorName);
+
+                $('#alter-item .input-blockeds').find('input').eq(10).val(data.f_DepartmentPhone);
+
+                $('#alter-item .input-blockeds').find('input').eq(11).val(data.f_linkPhone);
+
+                $('#alter-item .input-blockeds').find('input').eq(12).val(data.f_Executor);
+
+                $('#alter-item .input-blockeds').find('input').eq(13).val(data.f_ExecutorName);
+
+                $('#alter-item .input-blockeds').find('input').eq(14).val(data.f_ExecutorPhone);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
                 console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                    ajaxTimeoutTest.abort();
                     myAlter("超时");
+                }else{
+                    myAlter("请求失败！");
                 }
-                myAlter("请求失败！");
+
             }
         });
 
+
     });
 
-    //点击取消按钮时，表格数据回到最初。
-    $('.top-operation .top-abolish').on('click',function(){
+    //编辑完成点击提交时
+    $('#alter-item .btn-primary').on('click',function(){
 
-        myAlter1('确定取消之前操作吗？');
+        //对输入内容进行验证
+        if(!checkedNull1('#alter-item') ||　!checkedDate('#alter-item') ||　!checkedNum('#alter-item') ||　!checkedPhone('#alter-item')){
+            return false;
+        }
+        var postArr = [];
+        console.log($('#alter-item .input-blockeds').length);
 
+        for(var i=0; i<$('#alter-item .input-blockeds').length; i++){
+
+            var val = $('#alter-item .input-blockeds').eq(i).find('input').val();
+
+
+            postArr.push(val);
+        }
+
+        console.log(postArr);
+
+        $.ajax({
+            type: 'post',
+            url: IP + "/EnergySavingTrack/UpdateEnergySavingData",
+            timeout: theTimes,
+            data:{
+                "index": 0,
+                "pK_EnergySaving": alterID,
+                "fK_Enterprise_Saving": EnterpriseID,
+                "enterpriseName": EnterpriseName,
+                "f_ProjectName": postArr[0],
+                "f_ProjectNum": postArr[1],
+                "f_ProjectContent": postArr[2],
+                "f_ProjectPrice": postArr[3],
+                "f_StartDate": postArr[4],
+                "f_EndDate": postArr[5],
+                "f_CheckAcceptDate": postArr[6],
+                "f_InvolveBranch": postArr[7],
+                "f_Department": postArr[8],
+                "f_DirectorName": postArr[9],
+                "f_DepartmentPhone": postArr[10],
+                "f_linkPhone": postArr[11],
+                "f_Executor": postArr[12],
+                "f_ExecutorName": postArr[13],
+                "f_ExecutorPhone": postArr[14],
+                "userID": _userIdName
+            },
+            beforeSend: function () {
+
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success: function (data) {
+                $('#theLoading').modal('hide');
+                $('#alter-item').modal('hide');
+
+                console.log(data);
+
+
+                if(data == 3){
+
+                    myAlter('执行失败，请联系管理员!');
+                    return false;
+                };
+
+
+                getMainData();
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#theLoading').modal('hide');
+                $('#alter-item').modal('hide');
+                console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                    myAlter("超时");
+                }else{
+                    myAlter("请求失败！");
+                }
+
+            }
+        });
+    });
+
+    //点击删除按钮时
+    $('.top-operation .top-remove').on('click',function(){
+
+        removeID = [];
+        var length = $('#dateTables .tableCheck').length;
+        console.log(length);
+        for(var i=0; i<length; i++){
+            if( $('#dateTables .tableCheck').eq(i).is(':checked')){
+                var id = $('#dateTables .tableCheck').eq(i).parents('tr').find('td').eq(2).html();
+
+                removeID.push(id);
+            }
+        }
+        console.log(removeID);
+        if(removeID.length == 0){
+            myAlter('请选择删除项目！');
+            return false;
+        }
+
+        myAlter1('确定删除选中项目吗？')
     });
 
     $('#my-alert1 .btn-primary').on('click',function(){
 
-        $('.month-data').attr('readOnly','readOnly');
-        $('.month-data').attr('unselectable','on');
+        $.ajax({
+            type: 'post',
+            url: IP + "/EnergySavingTrack/DeleEnergySavingData",
+            timeout: theTimes,
+            data:{
+                "fK_Enterprise_Saving": EnterpriseID,
+                "pK_EnergySavings":removeID,
+                "userID": _userIdName
+            },
+            beforeSend: function () {
 
-        ajaxSuccess();
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success: function (data) {
+                $('#theLoading').modal('hide');
+                $('#my-alert1').modal('hide');
+
+                console.log(data);
+
+
+                if(data == 3){
+
+                    myAlter('执行失败，请联系管理员!');
+                    return false;
+                };
+
+
+                getMainData();
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#theLoading').modal('hide');
+                $('#my-alert1').modal('hide');
+                console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                    myAlter("超时");
+                }else{
+                    myAlter("请求失败！");
+                }
+
+            }
+        });
     });
 
+
 });
+
+var removeID = [];
+
+var alterID = 0;
 
 var compareYear = 0;
 
@@ -448,13 +668,7 @@ function getMainData(){
             $('#theLoading').modal('hide');
 
             console.log(data);
-            return false;
 
-            if(data.length == 0){
-
-                myAlter('无数据!');
-                return false;
-            };
 
             getArr = data;
 
@@ -478,7 +692,6 @@ function getMainData(){
             ajaxSuccess();
 
 
-            $('.header-right-lists span').html(unit);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

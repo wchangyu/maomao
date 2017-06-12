@@ -3,9 +3,9 @@
  */
 
 var _userIdName = sessionStorage.getItem('userName');
-var IP1 = "http://192.168.1.112/BEEWebAPI/api";
+var IP1 = "http://192.168.1.125/BEEWebAPI/api";
 var IP2 = 'http://211.100.28.180/DingEAPI/api';
-var IP = IP1;
+var IP = IP2;
 var theTimes = 30000;
 var loginArr = [63001820,63001821];
 var EnterpriseID = loginArr[0];
@@ -71,6 +71,10 @@ function deepCopy(src,obj){
 function myAlter(string){
         $('#my-alert').modal('show');
         $('#my-alert p b').html(string);
+}
+function myAlter1(string){
+        $('#my-alert1').modal('show');
+        $('#my-alert1 p b').html(string);
 }
 
 function CompareDate(d1,d2)
