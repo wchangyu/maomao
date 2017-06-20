@@ -261,7 +261,6 @@ function getMainData(){
         if(energyItemID == o.energyItemID){
             unit = o.energyUnit;
             postEnergy = o;
-            target = parseFloat(o.referenceValue);
             return false;
         }
 
@@ -291,6 +290,13 @@ function getMainData(){
     showTime = dateArr[4];
 
     selectDate = dateArr[5];
+
+    //获取参考值
+    if(dateSign == '日'){
+        target = postEnergy.referenceMonthValue
+    }else if(dateSign == '月'){
+        target = postEnergy.referenceYearValue
+    }
 
     console.log(dateArr);
     console.log(postArr);

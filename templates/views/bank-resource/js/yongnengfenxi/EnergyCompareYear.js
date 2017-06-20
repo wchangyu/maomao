@@ -1,16 +1,6 @@
 /**
  * Created by admin on 2017/5/25.
  */
-/**
- * Created by admin on 2017/5/25.
- */
-/**
- * Created by admin on 2017/5/24.
- */
-/**
- * Created by admin on 2017/5/22.
- */
-
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例

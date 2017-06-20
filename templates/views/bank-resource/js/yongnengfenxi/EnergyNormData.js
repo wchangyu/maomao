@@ -102,10 +102,11 @@ function getStartData(){
                     console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                        ajaxTimeoutTest.abort();
+
                         myAlter("超时");
+                    }else{
+                        myAlter("请求失败！");
                     }
-                    myAlter("请求失败！");
                 }
             });
 
@@ -115,10 +116,12 @@ function getStartData(){
             console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
+
                 myAlter("超时");
+            }else{
+                myAlter("请求失败！");
             }
-            myAlter("请求失败！");
+
         }
     });
 
@@ -265,7 +268,6 @@ function getMainData(){
         if(energyItemID == o.energyItemID){
             unit = o.energyUnit;
             postEnergy = o;
-            target = parseFloat(o.referenceValue);
             return false;
         }
 
@@ -306,6 +308,12 @@ function getMainData(){
     showTime = dateArr[4];
 
     selectDate = dateArr[5];
+
+    if(dateSign == '日'){
+        target = postEnergy.referenceMonthValue
+    }else if(dateSign == '月'){
+        target = postEnergy.referenceYearValue
+    }
 
     console.log(dateArr);
 

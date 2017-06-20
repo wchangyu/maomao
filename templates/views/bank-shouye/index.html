@@ -46,7 +46,7 @@
 	<link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
 	<link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
 	<link rel="stylesheet" href="../bank-resource/css/common.css"/>
-	<link rel="stylesheet" href="../bank-resource/css/jienengzuji/EnergyStatistics.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/shouye/index.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -234,95 +234,513 @@
 				<div class="col-md-12">
 					<div class="total-warp container">
 						<div class="wrap row">
-							<!--上方条件搜索-->
-							<div class="content-main-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<ul class="condition-query refer-unit-table">
+							<!--上方能耗统计与新闻动态-->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content-main-top content-main-top0" id="energyStatistics">
+								<div class="row">
+									<!--左侧能耗统计-->
+									<div class="top-left col-lg-8 col-md-12 col-sm-12 col-xs-12">
+										<h3>能耗统计</h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<!--头部切换按钮-->
+											<ul class="left-cut">
+												<li>
+													<a href="javascript:;" class="onClick">本年累计</a>
+												</li>
+												<li>
+													<a href="javascript:;">本月累计</a>
+												</li>
+												<div class="clearfix"></div>
+											</ul>
+
+											<div class="row" style="padding-left:15px;padding-right:15px;">
+
+												<div class="main-data-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="main-data-top-left col-lg-6 col-md-12 col-sm-12 col-xs-12">
+															<!--具体各项统计数据-->
+															<div class="row important-data0">
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+															</div>
 
 
-									<li>
-										<label for="">对象：</label>
+														</div>
 
-										<select name="" id="obj-type" class=" person-type" >
-											<option >电</option>
-											<option >水</option>
-											<option >气</option>
-										</select>
+														<!--能源汇总-->
+														<div class="main-data-top-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
 
-									</li>
+															<div class="total-data">
+																<p><font>250.4</font> <span> t </span></p><br/>
+																<p>常规能源</p><br/>
+																<p>折合标煤</p>
+															</div>
+														</div>
 
-									<li>
-										<label for="">时间：</label>
-
-										<select name="" id="post-date" class="datatimeblock person-type" >
-
-											<option >今年</option>
-											<option >全部</option>
-											<option  class="custom-time">自定义</option>
-										</select>
-
-										<input  class="show-date"/>
-
-									</li>
-
-
-									<li>
-										<label for="">项目金额：</label>
-
-										<select name="" id="energy-type" class="energy-type" >
-											<option value="-1">全部</option>
-											<option value="0">>100000</option>
-											<option value="1">≤100000</option>
-
-										</select>
-
-									</li>
+														<!--同比减排-->
+														<div class="main-data-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
+															<div class="reduction">
+																<p>同比减少排放</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>co2</span>
+																</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>so2</span>
+																</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>nox</span>
+																</p>
+															</div>
+														</div>
 
 
+													</div>
+												</div>
 
-									<li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
-									<li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
+												<!--下方太阳能部分-->
+												<div class="main-data-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="main-data-top-left col-lg-6 col-md-12 col-sm-12 col-xs-12">
+															<!--具体各项统计数据-->
+															<div class="row important-data1">
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>300.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">太阳能光伏</p>
+																	</div>
 
-									<div class="clearfix"></div>
-								</ul>
-							</div>
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
 
-							<!--下方数据展示-->
-							<div class="content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<!--头部数据信息-->
-								<div class="show-header">
-									<span class="show-title1">四川央行 </span>
-									<span class="show-title2"> 总用单位面积标煤 </span>
-									<span class="show-title3" style=""> </span>
-									<ul class="show-header-right">
-										<li class="header-right-lists header-right-lists-1">
-										</li>
-										<li class="header-right-lists">单位：<span>kWh</span></li>
-									</ul>
-								</div>
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>32.1</b>
+																			<span>GJ</span>
+																		</p>
+																		<p class="the-type">太阳能光热</p>
+																	</div>
 
-								<!--主体表格-->
-								<div class="show-main row" >
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
 
-									<!--下方对比表格-->
-									<div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+																</div>
 
-										<!--<span class="prompt">当前不可编辑，可点击右侧编辑按钮进行编辑。</span>-->
+															</div>
 
 
-										<div style="height:20px;"></div>
-										<!--下方表格内容-->
-										<table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-											<thead>
+														</div>
 
-											</thead>
-											<tbody>
+														<!--能源汇总-->
+														<div class="main-data-top-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
 
-											</tbody>
-										</table>
+															<div class="total-data">
+																<p><font>132.1</font> <span> t </span></p><br/>
+																<p>可再生能源</p><br/>
+																<p>折合标煤</p>
+															</div>
+														</div>
+
+														<!--同比减排-->
+														<div class="main-data-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
+															<div class="reduction">
+																<p>等同植树</p><br/>
+																<p>
+																	<b>2563 </b>
+																	<span> 棵</span>
+																</p>
+
+															</div>
+														</div>
+
+
+													</div>
+
+												</div>
+											</div>
+
+										</div>
 									</div>
 
-									<div class="clearfix"></div>
+									<!--右侧新闻动态-->
+									<div class="top-right col-lg-4 col-md-12 col-sm-12 col-xs-12">
+										<h3 class="top-title"><b>新闻动态</b> <span>>></span></h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<div class="top-space"></div>
+											<ul class="main-news1">
+
+											</ul>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--下方能耗分析与法律法规-->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content-main-top" id="energy-analyze">
+								<div class="row">
+									<!--左侧能耗分析-->
+									<div class="top-left col-lg-8 col-md-12 col-sm-12 col-xs-12">
+										<h3>能耗分析</h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<!--头部切换按钮-->
+											<ul class="left-cut">
+												<li>
+													<a href="javascript:;" class="onClick">单位构成</a>
+												</li>
+												<li>
+													<a href="javascript:;">能耗排名</a>
+												</li>
+												<li>
+													<a href="javascript:;">指标排名</a>
+												</li>
+												<li>
+													<a href="javascript:;">电耗分项</a>
+												</li>
+												<li>
+													<a href="javascript:;">数据质量</a>
+												</li>
+												<li>
+													<a href="javascript:;">分行查询</a>
+												</li>
+
+												<div class="clearfix"></div>
+
+											</ul>
+
+											<div class="row">
+												<!--单位构成-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 unit-form specific-data" >
+													<ul class="top-cut">
+														<li><a href="javascript:;">本年</a></li>
+														<li><a href="javascript:;"  class="onClicks">本月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-6 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table" id="dateTables">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+
+												</div>
+												<!--能耗排名-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 energy-rank specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">本年</a></li>
+														<li><a href="javascript:;"  class="onClicks">本月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand1">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables1">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--指标排名-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 target-rank specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">上年</a></li>
+														<li><a href="javascript:;"  class="onClicks">上月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand2">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables2">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--电耗分项-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 current-drain specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">上年</a></li>
+														<li><a href="javascript:;"  class="onClicks">上月</a></li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand3">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<!--下方表格内容-->
+															<h3>来源：</h3>
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables3">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+
+															<h3>去向：</h3>
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables4">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--数据质量-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 data-quality specific-data">
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12" id="energy-demand4">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-4 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<ul class="total-data">
+																<li>支路在线率：<b></b></li>
+																<li>支路故障率：<b></b></li>
+																<li>未知原因率：<b></b></li>
+															</ul>
+
+														</div>
+
+													</div>
+												</div>
+												<!--分行查询-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 branch-refer specific-data">
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand5">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+															<ul class="right-btn">
+																<li>
+																	<button>成都</button>
+																</li>
+																<li>
+																	<button>眉山</button>
+																</li>
+																<li>
+																	<button>乐山</button>
+																</li>
+																<li>
+																	<button>宜宾</button>
+																</li>
+																<li>
+																	<button>泸州</button>
+																</li>
+																<li>
+																	<button>成都</button>
+																</li>
+																<li>
+																	<button>眉山</button>
+																</li>
+																<li>
+																	<button>乐山</button>
+																</li>
+																<li>
+																	<button>宜宾</button>
+																</li>
+																<li>
+																	<button>泸州</button>
+																</li>
+
+																<div class="clearfix"></div>
+															</ul>
+
+
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!--右侧法律法规-->
+									<div class="top-right col-lg-4 col-md-12 col-sm-12 col-xs-12">
+										<h3 class="bottom-title"><b>法律法规</b>  <span>>></span></h3>
+										<!--具体数据-->
+										<div class="main-data">
+
+											<div class="top-space"></div>
+											<ul class="main-news2">
+
+											</ul>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -333,274 +751,6 @@
 		</div>
 	</div>
 
-	<!--新增节能项目弹窗-->
-	<div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="height: 648px;width:700px;margin-top:150px;">
-			<div class="modal-content" style="height: 648px;">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">添加项目</h4>
-				</div>
-				<div class="modal-body">
-					<!--主体部分-->
-					<ul class="gongdanList" id="myApp33">
-						<validator name="validation">
-							<form novalidate>
-								<li class="floatLeft" style="line-height: 26px;">
-									<div class="labels  colorTip">项目名称 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels">项目编号：</div>
-									<div class="input-blockeds">
-										<input type="text" >
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels  colorTip">项目内容 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">项目金额(元) * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-number">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels  colorTip">开始时间 * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate startDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">结束时间 * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate endDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">验收时间 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels">涉及支路 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">责任部门 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">责任人 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">部门电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels ">联系电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-phone">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">实施主体 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels ">联系人 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">联系电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-phone">
-									</div>
-								</li>
-								<div class="clearfix"></div>
-
-							</form>
-						</validator>
-					</ul>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">确定</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal -->
-	</div>
-
-	<!--修改节能项目弹窗-->
-	<div class="modal fade" id="alter-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog" style="height: 648px;width:700px;margin-top:150px;">
-			<div class="modal-content" style="height: 648px;">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" >修改项目</h4>
-				</div>
-				<div class="modal-body">
-					<!--主体部分-->
-					<ul class="gongdanList">
-						<validator name="validation">
-							<form novalidate>
-								<li class="floatLeft" style="line-height: 26px;">
-									<div class="labels  colorTip">项目名称 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels">项目编号：</div>
-									<div class="input-blockeds">
-										<input type="text" >
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels  colorTip">项目内容 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">项目金额(元) * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-number">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels  colorTip">开始时间 * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate startDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">结束时间 * ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate endDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">验收时间 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="chooseDate" placeholder="选择时间">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels">涉及支路 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">责任部门 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels  colorTip">责任人 * ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">部门电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels ">联系电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-phone">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">实施主体 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatRight">
-									<div class="labels ">联系人 ：</div>
-									<div class="input-blockeds">
-										<input type="text">
-									</div>
-								</li>
-								<li class="floatLeft">
-									<div class="labels">联系电话 ：</div>
-									<div class="input-blockeds">
-										<input type="text" class="type-phone">
-									</div>
-								</li>
-								<div class="clearfix"></div>
-
-							</form>
-						</validator>
-					</ul>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">确定</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal -->
-	</div>
-
-	<!--自定义时间-->
-	<div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
-		<div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
-			<div class='modal-content'>
-				<div class='modal-header'>
-					<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-					<div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
-					<div class="row">
-
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-							<label for="" class="input-label" style="width:95px;">开始日期：</label>
-
-							<div class="add-input-block">
-								<input type="text" class="add-input chooseDate-year chooseDates" value="" placeholder="选择时间">
-							</div>
-
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-							<label for="" class="input-label" style="width:95px;">结束日期：</label>
-
-							<div class="add-input-block">
-								<input type="text" class="add-input chooseDate-year chooseDates" value="" placeholder="选择时间">
-							</div>
-
-						</div>
-					</div>
-					<div class='modal-footer'>
-						<button type='button' class='btn btn-primary top-btn'>确定</button>
-						<button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!--自定义弹窗-->
 	<div class='modal fade' id='my-alert1' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -694,7 +844,7 @@
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../bank-resource/js/shouye/EnergyStatistics.js"></script>
+<script src="../bank-resource/js/shouye/index.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		Metronic.init(); // init metronic core components

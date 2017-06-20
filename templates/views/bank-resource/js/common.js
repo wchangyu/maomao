@@ -5,7 +5,7 @@
 var _userIdName = sessionStorage.getItem('userName');
 var IP1 = "http://192.168.1.125/BEEWebAPI/api";
 var IP2 = 'http://211.100.28.180/DingEAPI/api';
-var IP = IP2;
+var IP = IP1;
 var theTimes = 30000;
 
 //弹窗关闭时清空已输入过的信息
@@ -43,8 +43,13 @@ function ajaxSuccess(){
         _table.fnClearTable();
 
         setData();
+}
+function ajaxSuccess1(arr){
 
 
+        _table.fnClearTable();
+
+        setDatas(arr);
 }
 
 //深拷贝的方法
@@ -234,6 +239,20 @@ function getLastMonth(){
 
         }
 }
+
+//根据分项ID获取能耗单位
+function getUnitByID(num){
+
+
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].etid){
+                        return txt[i].etunit;
+                }
+        }
+};
 
 //获取能耗单位
 function getUnit(num){
@@ -480,5 +499,14 @@ function getPostDate(postDate){
         }
 
         return [postDate,startDate,endDate,dateSign,showTime,selectType];
+}
+
+//截取数组
+function getArr(arr){
+        var shortArr = [];
+        shortArr = arr.slice(0,10);
+        console.log(shortArr);
+
+        return shortArr;
 }
 

@@ -921,6 +921,23 @@
       }
     }
   },
+  "地图预览":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"地图预览",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"地图预览",
+        "uri":"../map-preview/mapPreview.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
   "首页1":{
     "type":"1",
     "iconclass":"icon-settings",
@@ -928,7 +945,7 @@
     "submenu":{
       "首页":{
         "type":"0",
-        "content":"首页",
+        "content":"首页1",
         "uri":"../bank-shouye/index.html",
         "uid":"",
         "arg":"",
@@ -1076,6 +1093,23 @@
       }
     }
   },
+  "首页2":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"首页2",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页2",
+        "uri":"../bank-branch-shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
   "能耗查询2":{
     "type":"1",
     "iconclass":"icon-settings",
@@ -1142,6 +1176,14 @@
         "type":"0",
         "content":"昼夜分项1",
         "uri":"../bank-branch-yongnengfenxi/dayNightEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能趋势1":{
+        "type":"0",
+        "content":"用能趋势1",
+        "uri":"../bank-branch-yongnengfenxi/EnergyTrend.html",
         "uid":"",
         "arg":"",
         "iconclass":""

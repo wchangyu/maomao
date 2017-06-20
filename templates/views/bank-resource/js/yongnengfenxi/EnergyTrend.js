@@ -29,6 +29,11 @@ $(document).ready(function() {
 
     })
 
+    //点击右上角注释图标
+    $('.show-header-right .right-text').on('click',function(){
+
+        $('.text-content').slideToggle('fast');
+    });
 
 
 });
@@ -37,12 +42,15 @@ var pointArr = [];
 
 //存放查询类型
 var typeArr = [];
+
+var content1 = '';
+var content2 = '';
 //获取能耗查询页面初始数据
 function getStartData(){
     //获取查询类别
     $.ajax({
         type: 'get',
-        url: IP + "/EnergyQuery/GetDayNightEnergyTypeQuery",
+        url: IP + "/EnergyQuery/GetBankEnergyTendencyConfig",
         timeout: theTimes,
         beforeSend: function () {
 
@@ -56,11 +64,15 @@ function getStartData(){
             console.log(data);
             typeArr = data;
             var html= '';
-            for(var i=0; i<data.length;i++){
-                html +=   '<option value="'+data[i].f_EnergyItemID+'">'+data[i].f_EnergyItemName+'</option>'
+            for(var i=0; i<data.energyItemModels.length;i++){
+                html +=   '<option  value="'+data.energyItemModels[i].f_EnergyItemID+'">'+data.energyItemModels[i].f_EnergyItemName+'</option>'
             }
 
             $('#energy-type').html(html);
+
+            content1 = data.tendencyHelpInfo12;
+
+            content2 = data.tendencyHelpInfo52;
 
             //获取查询对象
 
@@ -197,140 +209,23 @@ option = {
                 }
             },
             data: [],
-            barMaxWidth: '60',
+            barMaxWidth: '60'
 
         },
         {
-            name:'最低气温',
-            type:'bar',
-            data:[11, 11, 15, 13, 12, 13, 10],
-
+            name:'折线',
+            type:'line',
+            itemStyle : {  /*设置折线颜色*/
+                normal : {
+                    color:'#9dc541'
+                }
+            },
             smooth:true,
-            stack: '总量',
-            label: {
-                normal: {
-                    show: true,
-                    position: 'inside'
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: '#afc8de'
-                },
-                emphasis: {
-                    barBorderColor: 'rgba(0,0,0,0.5)',
-                    color: '#afc8de'
-                }
-            },
-            data:[],
-            barMaxWidth: '100',
+            data:[50, 75, 100, 150, 200, 250, 150, 100, 95, 160, 50, 45]
         }
     ]
 };
 
-var myChart1 = echarts.init(document.getElementById('energy-demand1'));
-
-option1 = {
-    title : {
-        text: '工作日',
-        x:'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['昼','夜']
-    },
-    series : [
-        {
-            name: '访问来源',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:[
-                {value:335, name:'昼'},
-                {value:310, name:'夜'}
-            ],
-            label: {
-                normal: {
-                    show: true,
-                    position: 'inside'
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: function(params) {
-
-                        var colorList = [
-                            '#9dc541','#afc8de'
-                        ];
-                        return colorList[params.dataIndex]
-                    }
-                },
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }
-    ]
-};
-
-var myChart2 = echarts.init(document.getElementById('energy-demand2'));
-
-option2 = {
-    title : {
-        text: '休息日',
-        x:'center'
-    },
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    legend: {
-        orient: 'vertical',
-        left: 'left',
-        data: ['昼','夜']
-    },
-    series : [
-        {
-            name: '访问来源',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:[
-                {value:335, name:'昼'},
-                {value:310, name:'夜'}
-            ],
-            label: {
-                normal: {
-                    show: true,
-                    position: 'inside'
-                }
-            },
-            itemStyle: {
-                normal: {
-                    color: function(params) {
-
-                        var colorList = [
-                            '#9dc541','#afc8de'
-                        ];
-                        return colorList[params.dataIndex]
-                    }
-                },
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }
-    ]
-};
 
 window.onresize = function () {
     if(myChart ){
@@ -348,26 +243,14 @@ function getMainData(){
 
     var postArr = [];
 
-    var dateSign = '';
+    var unit= '';
 
-    var startDate;
-
-    var endDate;
-
-    var unit;
-
-    var unitName;
-
-    var startWork;
-
-    var endWork;
 
     $(typeArr).each(function(i,o){
 
         if(energyItemID == o.f_EnergyItemID){
             unit = getUnit(o.f_EnergyItemType);
 
-            unitName = getUnitName(o.f_EnergyItemType);
             return false;
         }
 
@@ -393,92 +276,27 @@ function getMainData(){
 
     var postDate = $('#post-date').val();
 
-    var showTime = postDate;
+    var showTime = $('#post-date').find('option:selected').text();
 
-    startWork = $('#hour').val() + ':' + $('#minute').val();
+    var selectDate = moment().format('YYYY-MM-DD');
 
-    endWork = $('#hours').val() + ':' + $('#minutes').val();
-
-    if(postDate == '上周'){
-
-        dateSign = '日';
+    console.log(selectDate);
 
 
-        startDate = moment().subtract(1,'week').startOf('week').add(1,'day').format('YYYY-MM-DD');
-
-        endDate = moment().subtract(1,'week').endOf('week').add(2,'day').format('YYYY-MM-DD');
-
-        console.log(startDate,endDate);
-
-    }else   if(postDate == '本月'){
-
-        dateSign = '日';
-
-        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-        startDate = moment().startOf('month').format('YYYY-MM-DD');
-
-        console.log(startDate);
-    }else if(postDate == '上月'){
-
-        dateSign = '日';
-
-        startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
-        endDate = moment().startOf('month').format('YYYY-MM-DD');
-
-        console.log(startDate,endDate);
-    }else if(postDate == '本年'){
-        dateSign = '月';
-
-        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-
-
-        startDate = moment().startOf('year').format('YYYY-MM-DD');
-
-        console.log(startDate,endDate);
-    }else if(postDate == '上年'){
-        dateSign = '月';
-
-
-        startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
-
-        endDate =  moment().startOf('year').format('YYYY-MM-DD');
-
-
-    }else if(postDate == '自定义'){
-
-        dateSign = '日';
-
-        startDate = $('.show-date').val().split('——')[0];
-
-        var string =  $('.show-date').val().split('——')[1];
-
-        endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
-
-        showTime = startDate + '——' + 'endDate';
-        console.log(startDate,endDate);
-    }
-
-    console.log(postArr);
     $.ajax({
         type: 'post',
-        url: IP + "/EnergyQuery/GetDayNightReturnData",
+        url: IP + "/EnergyQuery/GetBankEnergyTendencyData",
         timeout: theTimes,
         data:{
-            "energyItemID":energyItemID,
-            "dateType": dateSign,
-            "startTime": startDate,
-            "endTime": endDate,
-            "startWorkTime": startWork,
-            "endWorkTime": endWork,
+            "energyItemID": energyItemID,
+            "selectDate": selectDate,
+            "tendencyFlag": postDate,
             "pointerIDs":postArr
         },
         beforeSend: function () {
             //$('#theLoading').modal('show');
             myChart.showLoading();
-            myChart1.showLoading();
-            myChart2.showLoading();
+
         },
 
         complete: function () {
@@ -499,93 +317,45 @@ function getMainData(){
             $('.show-title3').html(showTime);
 
 
-            //删除之前的数据
-            for(var i=0; i<option.series.length; i++){
-
-                option.series[i].data = [];
-            }
 
             //图例
-            var legendArr = ['昼','夜'];
+            var legendArr = [title2,'折线'];
 
             //上方柱状图
             var sArr1 = [];
-            var sArr2 = [];
             var xArr = [];
 
 
-            $(data.dcwrDatas).each(function(i,o){
+            $(data.ecMetaDataExtends).each(function(i,o){
 
                 //上方柱状图数据
-                sArr1.push(o.workTimeData.toFixed(2));
-
-                sArr2.push(o.restTimeData.toFixed(2));
+                sArr1.push(o.data.toFixed(2));
 
                 xArr.push(o.dataDate.split('T')[0]);
 
             });
 
-            //左侧饼图数据
-            var sArr3 = [];
-            sArr3 = [{value:data.sumWorkDayData.toFixed(2), name:'昼'},
-                {value:data.sumWorkNightData.toFixed(2), name:'夜'}];
-
-            //右侧饼图数据
-            var sArr4 = [];
-            sArr4 = [{value:data.sumRestDayData.toFixed(2), name:'昼'},
-                {value:data.sumRestNightData.toFixed(2), name:'夜'}];
-
             option.xAxis[0].data = xArr;
             option.legend.data = legendArr;
             option.series[0].data = sArr1;
-            option.series[0].name = '昼';
-            option.series[1].data = sArr2;
-            option.series[1].name = '夜';
+            option.series[1].data = sArr1;
+            option.series[0].name = title2;
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
             //重绘chart图
             myChart.hideLoading();
             myChart.setOption(option);
 
-            option1.series[0].data = sArr3;
-            //重绘chart图
-            myChart1.hideLoading();
-            myChart1.setOption(option1);
+            //改变左上方注释内容
+            if(postDate == 0){
+                $('.text-content').html(content1);
 
-            option2.series[0].data = sArr4;
-            //重绘chart图
-            myChart2.hideLoading();
-            myChart2.setOption(option2);
+            }else if(postDate == 1){
 
-            var d1 = (data.workNightDayCompare  * 100).toFixed(2) + '%' ;
-
-            $('.proportion1').html('='+d1);
-            if(data.workNightDayCompare > data.workDayReferenceValue){
-
-                $('.content-rightss-tip1').css({
-                    display:'block'
-                })
-            }else{
-
-                $('.content-rightss-tip1').css({
-                    display:'none'
-                })
+                $('.text-content').html(content2);
             }
 
 
-            var d2 = (data.restNightDayCompare* 100).toFixed(2) + '%' ;
 
-            $('.proportion2').html('='+d2);
-            if(data.restNightDayCompare > data.restDayReferenceValue){
-
-                $('.content-rightss-tip2').css({
-                    display:'block'
-                })
-            }else{
-
-                $('.content-rightss-tip2').css({
-                    display:'none'
-                })
-            }
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
