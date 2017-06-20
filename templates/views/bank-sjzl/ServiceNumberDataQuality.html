@@ -392,7 +392,7 @@
             userID: 'mrf',
             isShowTotalItem: 1
         };
-        var url = "http://211.100.28.180/DingEAPI/api/EnergyQuery/GetEnterpriseItem";
+        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
         $.ajax({
             type: 'GET',
             url: url,
@@ -429,7 +429,7 @@
         var month=now.getMonth()+1;
         var day=now.getDate();
         var nowStr=year+"/"+month+"/"+day;
-        var url="http://211.100.28.180/DingEAPI/api/ServiceDataQuality/GetServiceDataQualityDs";
+        var url="http://localhost:80/BEEWebAPI/api/ServiceDataQuality/GetServiceDataQualityDs";
         var prms = {
             eprIds: eprIds,
             NOW: nowStr

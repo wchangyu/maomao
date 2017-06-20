@@ -275,7 +275,7 @@
                                </div>
                                <div class="portlet-body">
                                    <div style="width:335px;height:225px;margin:0 auto;">
-                                       <img src="~/assets/local/imgs/bank_sichuan_meishan_addr.png" alt="安装位置" />
+                                       <img src="../../../assets/local/img/bank_sichuan_meishan_addr.png" alt="安装位置" />
                                    </div>
                                </div>
                            </div>
@@ -407,7 +407,7 @@
                 $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
             }
             var idxEpr = 1;//默认选择第一项(包括总行)
-            $('#eprSelect option:eq(' + idxEpr + ')').attr('selected', 'selected');
+            $('#eprSelect option:eq(0)').attr('selected', 'selected');
             getServiceDs();
         }
         else {
@@ -436,7 +436,6 @@
 
     //获取实时、历史数据
     function getEMos() {
-        $('#busy1').showLoading();
         var serviceId = $('#cdataIdSelect').val();//单个监测因子(支路ID)
         var dType = $('#datetimeInfoSelect').val();//时间类型
         var cdataIdArys = cdataIds;//监测因子数组;
@@ -461,7 +460,6 @@
                 var hsyts = res.environMonitorHistoryDs;
                 selectCNT = $('#cdataIdSelect').find('option:selected').text();
                 drawhsycw(hsyts, selectCNT);
-                $('#busy1').hideLoading();
             }
         });
     }
@@ -472,7 +470,7 @@
             userID: 'mrf',
             isShowTotalItem: 0
         };
-        var url = "http://211.100.28.180/DingEAPI/api/EnergyQuery/GetEnterpriseItem";
+        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
         $.ajax({
             type: 'GET',
             url: url,
@@ -486,7 +484,7 @@
                     $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
                 }
                 var idxEpr = 0;//默认选择第一项
-                $('#eprSelect option:eq(' + idxEpr + ')').attr('selected', 'selected');
+                $('#eprSelect option:eq(0)').attr('selected', 'selected');
                 getServiceDs();//获取支路位置数据
             }
         });
@@ -498,7 +496,7 @@
         var prms = {
             eprId: eprId
         };
-        var url = "http://211.100.28.180/DingEAPI/api/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
+        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
         $.ajax({
             type: 'GET',
             url: url,
@@ -513,7 +511,7 @@
                         $('#serviceInfoSelect').append($("<option value=\"" + res[i].serviceInfoID + "\">" + res[i].location + "</option>"));
                     }
                     var idxEpr = 0;//默认选择第一项
-                    $('#serviceInfoSelect option:eq(' + idxEpr + ')').attr('selected', 'selected');
+                    $('#serviceInfoSelect option:eq(0)').attr('selected', 'selected');
                     sers = res;
                     getCDataIds();
                 }
@@ -547,7 +545,7 @@
                 cdataIds.push(cds[i].cDataID.toString());
                 $('#cdataIdSelect').append($("<option value=\"" + cds[i].serviceID + "\">" + cds[i].cNameT + "</option>"));
             }
-            $('#cdataIdSelect option:eq(' + 0 + ')').attr('selected', 'selected');
+            $('#cdataIdSelect option:eq(0)').attr('selected', 'selected');
             //自动获取数据
             getEMos();
         }
