@@ -1,0 +1,79 @@
+#energy-demand {
+
+    height: 500px;
+}
+.table th{
+    font-weight: 600 !important;
+}
+.table td{
+    font-size:18px;
+}
+.table tbody .up{
+    height:56px;
+    background:url('../../img/up2.png') no-repeat 18px 10px;
+    background-size: 23px;
+}
+.table tbody .down{
+    height:56px;
+    background:url('../../img/up.png') no-repeat  18px 14px;
+    background-size: 23px;
+}
+.table tbody .equal{
+    height:56px;
+    background:url('../../img/up3.png') no-repeat  28px 20px;
+    background-size: 27px 18px;
+}
+
+.rheader-content-rights1{
+
+    width: 220px;
+    height: 120px;
+    margin: 180px auto;
+    position: relative;
+    border-radius: 10px !important;
+    background:#deebf7;
+}
+.rheader-content-right1 {
+    height: 95%;
+    width: 100%;
+    margin: 0 auto;
+}
+/*右侧比例框*/
+.content-rightss-one-1 p{
+    font-size:20px;
+    margin-left:5px;
+    margin-bottom:6px;
+    text-align: center;
+    font-weight: 600;
+}
+.content-rightss-one-1 p:nth-child(1) {
+    text-indent: 15px;
+    line-height: 30px;
+    padding-top:20px;
+    width: 100px;
+}
+.content-rightss-one-1 p:nth-child(2) {
+    width: 130px;
+    height: 1px;
+    background: #afc8de;
+
+    width: 100px;
+
+}
+.content-rightss-one-1 p:nth-child(3) {
+    text-indent: 15px;
+    line-height: 30px;
+
+    width: 100px;
+}
+.content-rightss-one-1 .proportion1 {
+    position: absolute;
+    left: 108px;
+    top: 80px;
+}
+
+.proportion1, .proportion2 {
+    font-size:24px;
+    font-weight: 700;
+    margin-top: -40px;
+}

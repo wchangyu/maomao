@@ -131,6 +131,7 @@ label {
     width: 230px;
     height: 100%;
     float: right;
+    position: relative;
 }
 .header-right-lists-1 {
     width: 130px;
@@ -314,4 +315,10 @@ table.dataTable.no-footer {
 }
 .show-title1{
     font-weight: 700;
+
+    margin-right:10px;
+}
+/*table*/
+.theHidden{
+    display: none;
 }
