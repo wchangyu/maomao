@@ -32,7 +32,13 @@ $(function(){
             matter:'',
             sections:'',
             remarks:'',
-            wxbeizhu:''
+            wxbeizhu:'',
+            rwlx:4,
+            sbSelect:'',
+            sbLX:'',
+            sbMC:'',
+            sbBM:'',
+            azAddress:''
         },
         methods:{
             radios:function(){
@@ -85,13 +91,13 @@ $(function(){
                 className:'gongdanId'
             },
             {
-                title:'紧急',
+                title:'工单类型',
                 data:'gdJJ',
                 render:function(data, type, full, meta){
                     if(data == 0){
-                        return '否'
+                        return '普通'
                     }if(data == 1){
-                        return '是'
+                        return '快速'
                     }
                 }
             },
@@ -101,28 +107,35 @@ $(function(){
                 className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '待受理'
+                        return '待下发'
                     }if(data == 2){
-                        return '待接单'
+                        return '待分派'
                     }if(data == 3){
                         return '待执行'
                     }if(data == 4){
-                        return '待完成'
+                        return '执行中'
                     }if(data == 5){
-                        return '完工确认'
+                        return '等待资源'
                     }if(data == 6){
-                        return '待评价'
+                        return '待关单'
                     }if(data == 7){
-                        return '结束'
+                        return '任务关闭'
+                    }if(data == 8){
+                        return '任务取消'
                     }
                 }
             },
             {
-                title:'报修部门',
+                title:'工单状态值',
+                data:'gdZht',
+                className:'ztz'
+            },
+            {
+                title:'车间站',
                 data:'bxKeshi'
             },
             {
-                title:'维修地点',
+                title:'故障位置',
                 data:'wxDidian'
             },
             {
@@ -333,6 +346,7 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
+                    console.log(result);
                     var indexs = result.gdZht;
                     $('.progressBar').children('li').css({'color':'#333333'});
                     for(var i=0;i<indexs;i++){
@@ -355,12 +369,21 @@ $(function(){
                     app33.sections = result.wxKeshi;
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;
+                    app33.sbSelect = result.wxShebei;
+                    app33.sbLX = result.dcName;
+                    app33.sbMC = result.dName;
+                    app33.sbBM = result.ddName;
+                    app33.azAddress = result.installAddress;
+                    app33.rwlx = result.gdLeixing;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls)
                 }
             });
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
         })
         // 单机选中
         .on('click','tr',function(){
@@ -378,22 +401,22 @@ $(function(){
         })
     $('.chexiao').click(function(){
         if(_currentClick){
-            var zhuangtai = _currentClick.children('td').eq(2).html();
-            if(zhuangtai == '结束'){
+            var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5){
                 moTaiKuang($('#myModal1'));
             }else{
-                $('#myModal3').find('.modal-body').html('未完成状态工单无法进行撤销操作');
+                $('#myModal3').find('.modal-body').html('无法操作');
                 moTaiKuang($('#myModal3'));
             }
         }else{
-            $('#myModal3').find('.modal-body').html('请选择要撤销的工单!');
+            $('#myModal3').find('.modal-body').html('请选择要回退的工单!');
             moTaiKuang($('#myModal3'));
         }
     })
     $('.zuofei').click(function(){
         if(_currentClick){
-            var zhuangtai = _currentClick.children('td').eq(2).html();
-            if(zhuangtai == '结束'){
+            var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+            if(zhuangtai == 7){
                 $('#myModal3').find('.modal-body').html('已完成状态工单无法进行作废操作');
                 moTaiKuang($('#myModal3'));
             }else{
@@ -404,6 +427,7 @@ $(function(){
             moTaiKuang($('#myModal3'));
         }
     })
+    //撤销
     $('#myModal1').find('.btn-primary').click(function (){
         if(_currentChexiao){
              var gdCodes = _currentClick.children('td').eq(0).html();
@@ -417,13 +441,14 @@ $(function(){
                  data:gdInfo,
                  success:function(result){
                     conditionSelect();
-                     $('#myModal3').find('.modal-body').html('作废成功！');
+                     $('#myModal3').find('.modal-body').html('撤销成功！');
                      moTaiKuang($('#myModal3'))
                  }
              })
         }
         $('#myModal1').modal('hide');
     })
+    //作废
     $('#myModal2').find('.btn-primary').click(function (){
         if(_currentChexiao){
             var gdCodes = _currentClick.children('td').eq(0).html();
@@ -437,7 +462,7 @@ $(function(){
                 data:gdInfo,
                 success:function(result){
                     conditionSelect();
-                    $('#myModal3').find('.modal-body').html('撤销成功！');
+                    $('#myModal3').find('.modal-body').html('作废成功！');
                     moTaiKuang($('#myModal3'))
                 }
             })

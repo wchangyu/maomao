@@ -101,8 +101,8 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            'orderNum':filterInput[0],
-            'itemName ':filterInput[1],
+            'itemNum':filterInput[0],
+            'itemName':filterInput[1],
             'userID':_userIdName
         }
         $.ajax({
@@ -110,6 +110,7 @@ $(function(){
             url:_urls + 'YWCK/ywCKRptItemStock',
             data:prm,
             success:function(result){
+                console.log(result);
                 var downState = [];
                 var upState = [];
                 var nomalState = [];
@@ -131,12 +132,11 @@ $(function(){
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
+        var table = tableId.dataTable();
         if(arr.length == 0){
-            var table = tableId.dataTable();
             table.fnClearTable();
             table.fnDraw();
         }else{
-            var table = tableId.dataTable();
             table.fnClearTable();
             table.fnAddData(arr);
             table.fnDraw();

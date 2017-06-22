@@ -1,4 +1,33 @@
 $(function(){
+    /*---------------------------------全局变量----------------------------------*/
+    var table;
+//获得开始时间
+    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+    var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
+    var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
+    var _ajaxLastStartTime_1 = moment().subtract(2,'d').format("YYYY/MM/DD");
+    var _ajaxLastEndTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
+//获取dataType(小时，日，月，年)
+    var _ajaxDataType='日';
+
+
+    var treeObj;
+    var select_ID;
+
+    var treeObjs;
+
+
+    var dataArr=[];
+    var pointerID=[];
+    var pointerName;
+
+    var logoToReadID = [];
+
+    var userId,_alaLogId,_texts;
+    var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
+
+    var _ajaxEcType;
+    /*----------------------------------end---------------------------------------*/
     $('.datetimepickereType').html(_ajaxStartTime +'到'+_ajaxStartTime);
     //读取能耗种类的树；
     energyTypes();
@@ -11,18 +40,16 @@ $(function(){
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),$(".tipes"),"allOffices");
     //报警类型
-    getAlarmInfo();
+    /*getAlarmInfo();
     getSelectedBranches();
-    //表格初始化
     //初始化表格
-    alarmHistory();
     table = $('#datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
-       // "scrollY": "300px",
+        // "scrollY": "300px",
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -130,7 +157,9 @@ $(function(){
             }
         ]
     });
+    alarmHistory();
     _table = $("#datatables").dataTable();
+
     setData();
     //时间插件
     initDate();
@@ -303,295 +332,285 @@ $(function(){
     //页面加载时表头
     var smalls = $('<small>');
     smalls.html(pointerNames);
-    $('.page-title').append(smalls);
-})
-var table;
-//获得开始时间
-var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
-var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
-var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
-var _ajaxLastStartTime_1 = moment().subtract(2,'d').format("YYYY/MM/DD");
-var _ajaxLastEndTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
-//获取dataType(小时，日，月，年)
-var _ajaxDataType='日';
-function dataType(){
-    var dataType;
-    dataType = $('.types').val();
-    _ajaxDataType=dataType;
-}
+    $('.page-title').append(smalls);*/
+    /*----------------------------------------------------------------*/
+
+    function dataType(){
+        var dataType;
+        dataType = $('.types').val();
+        _ajaxDataType=dataType;
+    }
 //选中的能耗种类
-var _ajaxEcType;
-function getEcType(){
-    //首先判断哪个含有selectedEnergy类
-    _ajaxEcType=$('.selectedEnergy').attr('value');
-    if(_ajaxEcType == '00'){
-        _ajaxEcType = '';
+
+    function getEcType(){
+        //首先判断哪个含有selectedEnergy类
+        _ajaxEcType=$('.selectedEnergy').attr('value');
+        if(_ajaxEcType == '00'){
+            _ajaxEcType = '';
+        }
     }
-}
 //获取报警类型
-var treeObj;
-var select_ID;
-function getAlarmInfo(){
-    zNodes=[];
-    var allAlarmInfo={};
-    allAlarmInfo.id="000";
-    allAlarmInfo.name="全部";
-    allAlarmInfo.checked="true";
-    allAlarmInfo.open = "true";
-    zNodes.push(allAlarmInfo);
-    $.ajax({
-        type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+
+    function getAlarmInfo(){
+        zNodes=[];
+        var allAlarmInfo={};
+        allAlarmInfo.id="000";
+        allAlarmInfo.name="全部";
+        allAlarmInfo.checked="true";
+        allAlarmInfo.open = "true";
+        zNodes.push(allAlarmInfo);
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
             async:false,
-        success:function(result){
-            if(result.length == 0){	//没有数据时候跳出,清除树
-                var lastTree = $.fn.zTree.getZTreeObj("typeSelection");
-                if(lastTree) { lastTree.destroy(); }
-                return;
-            }
-            branchArr=[];
-            for(var i=0;i<result.length;i++){
-                branchArr.push(result[i]);
-            }
-            //遍历数组，确定zNodes；
-            for(var i=0;i<branchArr.length;i++){
-                zNodes.push({id:branchArr[i].innerID,name:branchArr[i].cDtnName,pId:allAlarmInfo.id});
-            }
-            var ztreeSettings = {
-                check: {
-                    enable: true,
-                    chkStyle: "radio",
-                    chkboxType: { "Y": "ps", "N": "ps" },
-                    radioType: 'all'
-
-                },
-                data: {
-                    key: {
-                        title: "title"
-                    },
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                view: {
-                    showIcon: false
-                },
-                callback: {
-                    onClick:function (event,treeId,treeNode){
-                        treeObj.checkNode(treeNode,!treeNode.checked,true)
-                    }
+            success:function(result){
+                if(result.length == 0){ //没有数据时候跳出,清除树
+                    var lastTree = $.fn.zTree.getZTreeObj("typeSelection");
+                    if(lastTree) { lastTree.destroy(); }
+                    return;
                 }
-            };
-           treeObj = $.fn.zTree.init($("#typeSelection"), ztreeSettings, zNodes);  //ul的id
-            getSelectedBranches();
-        }
-    });
-}
-function getSelectedBranches(){
-    var treeObject=$.fn.zTree.getZTreeObj('typeSelection');
-    var nodes = treeObject.getCheckedNodes();
-    select_ID=nodes[0].id;
-    if(select_ID == '000'){
-        select_ID = '';
+                branchArr=[];
+                for(var i=0;i<result.length;i++){
+                    branchArr.push(result[i]);
+                }
+                //遍历数组，确定zNodes；
+                for(var i=0;i<branchArr.length;i++){
+                    zNodes.push({id:branchArr[i].innerID,name:branchArr[i].cDtnName,pId:allAlarmInfo.id});
+                }
+                var ztreeSettings = {
+                    check: {
+                        enable: true,
+                        chkStyle: "radio",
+                        chkboxType: { "Y": "ps", "N": "ps" },
+                        radioType: 'all'
+
+                    },
+                    data: {
+                        key: {
+                            title: "title"
+                        },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    view: {
+                        showIcon: false
+                    },
+                    callback: {
+                        onClick:function (event,treeId,treeNode){
+                            treeObj.checkNode(treeNode,!treeNode.checked,true)
+                        }
+                    }
+                };
+                treeObj = $.fn.zTree.init($("#typeSelection"), ztreeSettings, zNodes);  //ul的id
+                getSelectedBranches();
+            }
+        });
     }
-}
+    function getSelectedBranches(){
+        var treeObject=$.fn.zTree.getZTreeObj('typeSelection');
+        var nodes = treeObject.getCheckedNodes();
+        select_ID=nodes[0].id;
+        if(select_ID == '000'){
+            select_ID = '';
+        }
+    }
 //构建能耗种类树
-var treeObjs;
-function energyTypes (){
-    var zNodes = [];
-    var allAlarmInfo={};
-    allAlarmInfo.id="000";
-    allAlarmInfo.name="全部";
-    allAlarmInfo.checked="true";
-    allAlarmInfo.open = "true";
-    zNodes.push(allAlarmInfo);
-    var energyConsumptionTypes = JSON.parse(sessionStorage.getItem('allEnergyType'));
-    var totalData = [];
-    $.ajax({
-        type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllEnergyTypes',
-        async:false,
-        success:function(result){
-            for(var i=0;i<result.length;i++){
-                totalData.push(result[i]);
-            }
-            for(var i=0;i<totalData.length;i++){
-                zNodes.push({id:totalData[i].energyTypeID,name:totalData[i].energyTypeName,pId:allAlarmInfo.id});
-            }
-            var ztreeSettings = {
-                check: {
-                    enable: true,
-                    chkStyle: "radio",
-                    chkboxType: { "Y": "ps", "N": "ps" },
-                    radioType: 'all'
 
-                },
-                data: {
-                    key: {
-                        title: "title"
-                    },
-                    simpleData: {
-                        enable: true
-                    }
-                },
-                view: {
-                    showIcon: false
-                },
-                callback: {
-                    onClick:function (event,treeId,treeNode){
-                        treeObjs.checkNode(treeNode,!treeNode.checked,true)
-                    }
+    function energyTypes (){
+        var zNodes = [];
+        var allAlarmInfo={};
+        allAlarmInfo.id="000";
+        allAlarmInfo.name="全部";
+        allAlarmInfo.checked="true";
+        allAlarmInfo.open = "true";
+        zNodes.push(allAlarmInfo);
+        var energyConsumptionTypes = JSON.parse(sessionStorage.getItem('allEnergyType'));
+        var totalData = [];
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllEnergyTypes',
+            async:false,
+            success:function(result){
+                for(var i=0;i<result.length;i++){
+                    totalData.push(result[i]);
                 }
-            };
-            treeObjs = $.fn.zTree.init($("#energyTypes"), ztreeSettings, zNodes);  //ul的id
-            getSelectedEnergyTyps();
-        }
-    })
-}
-//获取选中的能耗种类类型
-function getSelectedEnergyTyps (){
-    var treeObjs=$.fn.zTree.getZTreeObj('energyTypes');
-    var nodes = treeObjs.getCheckedNodes();
-    _ajaxEcType=nodes[0].id;
-    if(_ajaxEcType == '000'){
-        _ajaxEcType = '';
-    }
-}
-//月的时间初始化
-function monthDate(){
-    $('#datetimepicker').datepicker('destroy');
-    $('#datetimepicker').datepicker({
-        startView: 1,
-        maxViewMode: 1,
-        minViewMode:1,
-        format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-        language: "zh-CN" //汉化
-    })
-}
-//年的时间初始化
-function yearDate(){
-    $('#datetimepicker').datepicker('destroy');
-    $('#datetimepicker').datepicker({
-        startView: 2,
-        maxViewMode: 2,
-        minViewMode:2,
-        format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-        language: "zh-CN" //汉化
-    })
-}
-//一般时间初始化
-function initDate(){
-    $('#datetimepicker').datepicker('destroy');
-    $('#datetimepicker').datepicker(
-        {
-            language:  'zh-CN',
-            todayBtn: 1,
-            todayHighlight: 1,
-            format: 'yyyy-mm-dd'
-        }
-    )
-}
-//获取报警记录信息
-var dataArr=[];
-var pointerID=[];
-var pointerName;
-function alarmHistory(){
-    dataArr=[];
-    //获取楼宇id
-    var pts = _objectSel.getSelectedPointers();
-    if(pts.length>0) {
-        pointerID.push(pts[0].pointerID);
-        pointerNames = pts[0].pointerName;
-    };
-    if(pointerID[0] == 0){
-        var allPointer = JSON.parse(sessionStorage.getItem('pointers'));
-        pointerID = [];
-        pointerName = [];
-        for(var i=0;i<allPointer.length;i++){
-            pointerID.push(allPointer[i].pointerID);
-        }
-        pointerNames = '全院';
-    }
-    var prm = {
-        'st' : _ajaxStartTime_1 + ' 00:00:00',
-        'et' : _ajaxEndTime_1 + ' 00:00:00',
-        'pointerIds' : pointerID,
-        'excTypeInnderId' : select_ID,
-        'energyType' : _ajaxEcType,
-    };
-    $.ajax({
-        type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
-        async:false,
-        data:prm,
-        beforeSend:function(){
-            $('.main-contents-table').children('img').show();
-        },
-        success:function(result){
-            for(var i=0;i<result.length;i++){
-                dataArr.push(result[i]);
+                for(var i=0;i<totalData.length;i++){
+                    zNodes.push({id:totalData[i].energyTypeID,name:totalData[i].energyTypeName,pId:allAlarmInfo.id});
+                }
+                var ztreeSettings = {
+                    check: {
+                        enable: true,
+                        chkStyle: "radio",
+                        chkboxType: { "Y": "ps", "N": "ps" },
+                        radioType: 'all'
+
+                    },
+                    data: {
+                        key: {
+                            title: "title"
+                        },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    view: {
+                        showIcon: false
+                    },
+                    callback: {
+                        onClick:function (event,treeId,treeNode){
+                            treeObjs.checkNode(treeNode,!treeNode.checked,true)
+                        }
+                    }
+                };
+                treeObjs = $.fn.zTree.init($("#energyTypes"), ztreeSettings, zNodes);  //ul的id
+                getSelectedEnergyTyps();
             }
+        })
+    }
+//获取选中的能耗种类类型
+    function getSelectedEnergyTyps (){
+        var treeObjs=$.fn.zTree.getZTreeObj('energyTypes');
+        var nodes = treeObjs.getCheckedNodes();
+        _ajaxEcType=nodes[0].id;
+        if(_ajaxEcType == '000'){
+            _ajaxEcType = '';
         }
-    });
-}
-function setData(){
+    }
+//月的时间初始化
+    function monthDate(){
+        $('#datetimepicker').datepicker('destroy');
+        $('#datetimepicker').datepicker({
+            startView: 1,
+            maxViewMode: 1,
+            minViewMode:1,
+            format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+            language: "zh-CN" //汉化
+        })
+    }
+//年的时间初始化
+    function yearDate(){
+        $('#datetimepicker').datepicker('destroy');
+        $('#datetimepicker').datepicker({
+            startView: 2,
+            maxViewMode: 2,
+            minViewMode:2,
+            format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
+            language: "zh-CN" //汉化
+        })
+    }
+//一般时间初始化
+    function initDate(){
+        $('#datetimepicker').datepicker('destroy');
+        $('#datetimepicker').datepicker(
+            {
+                language:  'zh-CN',
+                todayBtn: 1,
+                todayHighlight: 1,
+                format: 'yyyy-mm-dd'
+            }
+        )
+    }
+//获取报警记录信息
+
+    function alarmHistory(){
+        dataArr=[];
+        //获取楼宇id
+        var pts = _objectSel.getSelectedPointers();
+        if(pts.length>0) {
+            pointerID.push(pts[0].pointerID);
+            pointerNames = pts[0].pointerName;
+        };
+        if(pointerID[0] == 0){
+            var allPointer = JSON.parse(sessionStorage.getItem('pointers'));
+            pointerID = [];
+            pointerName = [];
+            for(var i=0;i<allPointer.length;i++){
+                pointerID.push(allPointer[i].pointerID);
+            }
+            pointerNames = '全院';
+        }
+        var prm = {
+            'st' : _ajaxStartTime_1 + ' 00:00:00',
+            'et' : _ajaxEndTime_1 + ' 00:00:00',
+            'pointerIds' : pointerID,
+            'excTypeInnderId' : select_ID,
+            'energyType' : _ajaxEcType,
+        };
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
+            async:false,
+            data:prm,
+            beforeSend:function(){
+                $('.main-contents-table').children('img').show();
+            },
+            success:function(result){
+                for(var i=0;i<result.length;i++){
+                    dataArr.push(result[i]);
+                }
+            }
+        });
+    }
+    function setData(){
         if(dataArr && dataArr.length>0){
             _table.fnAddData(dataArr);
             _table.fnDraw();
         }
-         $('.main-contents-table').children('img').hide();
-}
+        $('.main-contents-table').children('img').hide();
+    }
 //标识阅读功能
-var logoToReadID = [];
-function logoToRead (){
-    logoToReadID = [];
-    var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
-    console.log(pitchOn);
-    for(var i=0;i<$('.choice').length;i++){
-        //if($('.choice').eq(i).parent('.checked'))
-        if($('.choice').eq(i).parent('.checked').length != 0){
-            logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
-       }
-    }
-    var alaLogIDs = {
-        '':logoToReadID
-    }
-    $.ajax(
-        {
-            'type':'post',
-            'url':sessionStorage.apiUrlPrefix + 'Alarm/UpdateAlarmReaded',
-            'async':false,
-            'data':alaLogIDs,
-            'success':function(result){
 
+    function logoToRead (){
+        logoToReadID = [];
+        var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
+        console.log(pitchOn);
+        for(var i=0;i<$('.choice').length;i++){
+            //if($('.choice').eq(i).parent('.checked'))
+            if($('.choice').eq(i).parent('.checked').length != 0){
+                logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
             }
         }
-    )
-}
-//userId msgTime alaLogId alaMessage
-//用户名  当前时间（获取） alaLogId  input.val()
-var userId,_alaLogId,_texts;
-var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
-function processingNote (){
-    //获取当前用户名
-    var prm = {
-        'userId':userId,
-        'msgTime':nowDays,
-        'alaLogId':_alaLogId,
-        'alaMessage':_texts
-    };
-    $.ajax(
-        {
-            'type':'post',
-            'url':sessionStorage.apiUrlPrefix + 'Alarm/SetAlarmMessage',
-            'async':false,
-            'data':prm,
-            success:function(result){
-                if(result){
-                    $("#myModal").modal('hide');
-                    $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
+        var alaLogIDs = {
+            '':logoToReadID
+        }
+        $.ajax(
+            {
+                'type':'post',
+                'url':sessionStorage.apiUrlPrefix + 'Alarm/UpdateAlarmReaded',
+                'async':false,
+                'data':alaLogIDs,
+                'success':function(result){
+
                 }
             }
-        }
-    )
-}
+        )
+    }
+//userId msgTime alaLogId alaMessage
+//用户名  当前时间（获取） alaLogId  input.val()
+
+    function processingNote (){
+        //获取当前用户名
+        var prm = {
+            'userId':userId,
+            'msgTime':nowDays,
+            'alaLogId':_alaLogId,
+            'alaMessage':_texts
+        };
+        $.ajax(
+            {
+                'type':'post',
+                'url':sessionStorage.apiUrlPrefix + 'Alarm/SetAlarmMessage',
+                'async':false,
+                'data':prm,
+                success:function(result){
+                    if(result){
+                        $("#myModal").modal('hide');
+                        $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
+                    }
+                }
+            }
+        )
+    }
+})
+
