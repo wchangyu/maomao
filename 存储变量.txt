@@ -1,5 +1,6 @@
 sessionStorage.curLoginPage 当前登录入口，提供给右上角的退出使用
 sessionStorage.apiUrlPrefix 数据接口的地址前缀
+sessionStroage.apiUriPrefixUEditor 在线编辑器的地址
 sessionStorage.apiUrlPrefixYW 运维相关的数据接口的地址前缀
 sessionStorage.systemName   当前系统名称
 sessionStorage.pageTitle    当前系统的页面名称

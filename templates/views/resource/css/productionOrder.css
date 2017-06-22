@@ -37,13 +37,13 @@
 }
 .input-blockeds input{
     line-height: 28px;
-    margin-left: 10px;
     border: none;
     outline: none;
     display: block;
-    width: 288px;
+    width: 298px;
     background: #ffffff;
     height:28px;
+    text-indent: 10px;
 }
 .floatLeft{
     float: left;
@@ -303,8 +303,7 @@ table.dataTable.table-condensed > thead > tr > th{
     background: #ebebe4 !important;
 }
 .hide-block{
-    opacity: 0 !important;
-    z-index: 0 !important;
+    display: none;
 }
 .table thead tr th{
     text-align: center !important;
@@ -342,5 +341,11 @@ table.dataTable.table-condensed > thead > tr > th{
 .tableInput{
     width:100px !important;
     outline: none;
+}
+.pink{
+    background:#ebf7f0 !important;
+}
+.ztz{
+    display: none;
 }
 

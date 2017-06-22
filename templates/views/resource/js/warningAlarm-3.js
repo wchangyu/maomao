@@ -3,8 +3,6 @@ $(function(){
     $('.real-time').html(showStartRealTime + '到' + showStartRealTime);
     //指定楼宇为全部；
     getPointerID();
-    //获取历史警报
-    alarmHistory();
     //表格初始化
     table = $('#datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -49,7 +47,10 @@ $(function(){
                 "title":"时间",
                 "data":"dataDate",
                 "render":function(data,type,row,meta){
-                    return data.split('T')[0] + ' ' + data.split('T')[1];
+                    //return data.split('T')[0] + ' ' + data.split('T')[1];
+                    if(data){
+                        return data.split('T')[0] + ' ' + data.split('T')[1];
+                    }
                 }
             },
             {
@@ -126,7 +127,9 @@ $(function(){
             }
         ]
     });
-    setData();
+    //获取历史警报
+    alarmHistory();
+    //setData();
     $('#datatables tbody').on( 'click', 'input', function () {
         var $this = $(this);
         if($(this).parents('.checker').children('.checked').length == 0){
@@ -203,22 +206,24 @@ function alarmHistory(){
         async:false,
         data:prm,
         success:function(result){
-            var pcids = [];
-            for(var i=0;i<result.length;i++){
-                totalArr.push(result[i]);
-                if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
-                    pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
-                }
-            }
-            for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
-                for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
-                    if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
-                        dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
-                        break;  //跳处循环；
+            console.log(result);
+                var pcids = [];
+                for(var i=0;i<result.length;i++){
+                    totalArr.push(result[i]);
+                    if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
+                        pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
                     }
                 }
-            }
-            console.log(dataArr);
+                for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
+                    for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
+                        if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
+                            dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
+                            break;  //跳处循环；
+                        }
+                    }
+                }
+            datasTable($("#datatables"),dataArr);
+            //console.log(dataArr);
         }
     });
 }
@@ -231,11 +236,17 @@ function existItem(arr,item){ //遍历数组中的所有数，如果有相同的
     }
     return false;
 }
-function setData(){
-    var table = $("#datatables").dataTable();
-    table.fnClearTable();
-    table.fnAddData(dataArr);
-    table.fnDraw();
+function datasTable(tableId,arr){
+    if(arr.length == 0){
+        var table = tableId.dataTable();
+        table.fnClearTable();
+        table.fnDraw();
+    }else{
+        var table = tableId.dataTable();
+        table.fnClearTable();
+        table.fnAddData(arr);
+        table.fnDraw();
+    }
 }
 //标识阅读功能
 var logoToReadID = [];

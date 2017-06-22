@@ -137,7 +137,7 @@ var Login = function () {
 
 	var directToIndex = function(){
 		if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded){
-			window.location.href = "index.html";
+			window.location.href = "BranchEnergyQueryTotalData.html";
 		}
 	}
 

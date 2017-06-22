@@ -1,16 +1,6 @@
 /**
  * Created by admin on 2017/5/25.
  */
-/**
- * Created by admin on 2017/5/25.
- */
-/**
- * Created by admin on 2017/5/24.
- */
-/**
- * Created by admin on 2017/5/22.
- */
-
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
@@ -109,8 +99,6 @@ $(document).ready(function() {
     });
     _table = $('#dateTables').dataTable();
 
-    var ddd = _table.language;
-    console.log(ddd);
 
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
@@ -470,89 +458,21 @@ function getMainData(){
 
     var showTime = postDate;
 
+    var selectDate;
 
-    if(postDate == '本日'){
+    var dateArr = getPostDate(postDate);
 
-        dateSign = '小时';
+    startDate = dateArr[1];
 
-        startDate = getNewDate();
+    endDate = dateArr[2];
 
-        console.log(startDate);
+    dateSign = dateArr[3];
 
-        var now = new Date();
+    showTime = dateArr[4];
 
-        var tomorrow = new Date(now.setDate(now.getDate()+1));
+    selectDate = dateArr[5];
 
-        endDate = getDate(tomorrow);
-
-    }else if(postDate == '本月'){
-
-        dateSign = '日';
-
-        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-        startDate = moment().startOf('month').format('YYYY-MM-DD');
-
-        console.log(startDate);
-    }else if(postDate == '本季'){
-
-        dateSign = '日';
-
-        var month = moment().month() + 1;
-
-        var year = moment().year();
-
-        console.log(month);
-
-        if(0 < month && month < 4){
-            startDate = year + '-1-1';
-            endDate = year + '-3-31';
-        }else if(3 < month && month < 7){
-            startDate = year + '-4-1';
-            endDate = year + '-6-30';
-        }else if(6 < month && month < 10){
-            startDate = year + '-7-1';
-            endDate = year + '-7-30';
-        }else if(9 < month && month < 13){
-            startDate = year + '-10-1';
-            endDate = year + '-12-31';
-        }
-
-
-        console.log(startDate,endDate);
-
-    }else if(postDate == '本年'){
-        dateSign = '月';
-
-        endDate = moment().add(1, 'day').format('YYYY-MM-DD');
-
-
-
-        startDate = moment().startOf('year').format('YYYY-MM-DD');
-
-        console.log(startDate,endDate);
-    }else if(postDate == '上年'){
-        dateSign = '月';
-
-
-        startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
-
-        endDate =  moment().startOf('year').format('YYYY-MM-DD');
-
-
-    }else if(postDate == '自定义'){
-
-        dateSign = '日';
-
-        startDate = $('.show-date').val().split('——')[0] + '-1';
-
-        var string =  $('.show-date').val().split('——')[1] + '-1';
-
-        endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
-        console.log(startDate,endDate);
-
-        showTime = startDate + '——' + endDate;
-    }
+    console.log(dateArr);
     console.log(postArr);
     $.ajax({
         type: 'post',
@@ -562,6 +482,7 @@ function getMainData(){
             "energyNorm":postEnergy,
             "dateType": dateSign,
             "startTime": startDate,
+            "selectDateType": selectDate,
             "endTime": endDate,
             "pointerIDs":postArr
         },

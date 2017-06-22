@@ -1,0 +1,31 @@
+#energy-demand {
+    height: 650px ;
+}
+
+#dateTables tbody tr td {
+    height: 38px;
+    vertical-align: middle;
+    text-align: center;
+}
+#dateTables1 tbody tr td {
+    height: 38px;
+    vertical-align: middle;
+    text-align: center;
+}
+#dateTables1 tr th {
+    text-align: center;
+}
+#dateTables1 tr td {
+    text-align: center;
+}
+.dataTables_info{
+    display: none !important;
+}
+h3 {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #999;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 20px;
+}

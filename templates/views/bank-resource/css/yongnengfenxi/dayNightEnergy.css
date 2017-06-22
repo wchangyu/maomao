@@ -1,0 +1,76 @@
+#minutes {
+     width: 60px;
+ }
+#hour {
+    width: 60px;
+}
+#minute {
+    width: 60px;
+}
+#hours {
+    width: 60px;
+}
+#energy-demand{
+    height:400px;
+}
+#energy-demand1{
+    height:250px;
+}
+#energy-demand2{
+    height:250px;
+}
+.content-main-bottom h3 {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #999;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.content-rightss-tip {
+    width: 210px;
+    height: 50px;
+    background: url(../../img/bg-img.png)no-repeat 0px 0px;
+    text-indent: 20px;
+    display: none;
+}
+.content-rightss-one-1 p:nth-child(1) {
+    text-indent: 15px;
+    line-height: 30px;
+    margin: 0;
+    width: 130px;
+}
+.content-rightss-one{
+    padding-top:65px;
+}
+.content-rightss-tip span {
+    line-height: 60px;
+    /* color: #ffffff; */
+    font-weight: bold;
+}
+.content-rightss-one-1 p:nth-child(2) {
+    width: 130px;
+    height: 1px;
+    background: #afc8de;
+    margin: 0;
+    width: 130px;
+}
+.content-rightss-one-1 p:nth-child(3) {
+    text-indent: 15px;
+    line-height: 30px;
+    margin: 0;
+    width: 130px;
+}
+.content-rightss-one-1 .proportion1 {
+    position: absolute;
+    left: 150px;
+    top: 125px;
+}
+.content-rightss-one-1 .proportion2 {
+    position: absolute;
+    left: 150px;
+    top: 125px;
+}
+.proportion1, .proportion2 {
+    margin-top: -40px;
+}

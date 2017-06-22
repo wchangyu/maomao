@@ -1,0 +1,81 @@
+*{
+    font-family: 微软雅黑;
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+/*---------------------------表格部分----------------------------*/
+.table-block{
+    padding-top: 10px;
+    position: relative;
+}
+.table-title{
+    padding: 10px;
+    padding-left: 0;
+    border-bottom: 1px solid #cccccc;
+    height: 38px;
+}
+.table-title span{
+    padding: 10px;
+    cursor: pointer;
+    background: #f5f5f5;
+    border-left:1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    line-height: 19px;
+    margin-right: 3px;
+}
+.spanhover{
+    background: #ffffff !important;
+}
+.tableHover{
+    z-index: 0 !important;
+    opacity: 0 !important;
+}
+.main-contents-table{
+    background: #ffffff;
+    margin-top: 0;
+    padding: 20px;
+    border:1px solid #ccc;
+    border-top: none;
+    position: absolute;
+    top: 38px;left: 0;
+    width: 100%;
+    z-index: 2;
+}
+.hide-block{
+    opacity: 0 !important;
+    z-index: 0 !important;
+}
+.hidden{
+    display: none;
+}
+.table thead tr th{
+    text-align: center;
+}
+.table tbody tr td{
+    text-align: center;
+}
+.form-content li .labels{
+    text-align: left;
+    float: left;
+    line-height: 30px;
+    margin-right: 20px;
+}
+.input-blockeds{
+    width:568px;
+    margin-right: 20px;
+}
+.input-blockeds input{
+    width: 558px;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    line-height: 30px;
+    text-indent: 10px;
+}
+.colorTip{
+    line-height: 30px;
+    color: red;
+}

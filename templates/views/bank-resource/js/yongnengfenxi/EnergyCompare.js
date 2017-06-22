@@ -1,12 +1,7 @@
 /**
  * Created by admin on 2017/5/25.
  */
-/**
- * Created by admin on 2017/5/24.
- */
-/**
- * Created by admin on 2017/5/22.
- */
+
 
 $(document).ready(function() {
 
@@ -56,19 +51,35 @@ $(document).ready(function() {
             },
             {
                 title:'能耗累计',
-                data:"sumMetaData"
+                data:"sumMetaData",
+                render:function(data, type, row, meta) {
+                    return data.toFixed(2);
+
+                }
             },
             {
                 title:'最大值',
-                data:"maxMetaData"
+                data:"maxMetaData",
+                render:function(data, type, row, meta) {
+                    return data.toFixed(2);
+
+                }
             },
             {
                 title:'最小值',
-                data:"minMetaData"
+                data:"minMetaData",
+                render:function(data, type, row, meta) {
+                    return data.toFixed(2);
+
+                }
             },
             {
                 title:'平均值',
-                data:"avgMetaData"
+                data:"avgMetaData",
+                render:function(data, type, row, meta) {
+                    return data.toFixed(2);
+
+                }
             }
 
 
@@ -359,19 +370,13 @@ function getMainData(){
 
     var unit1;
 
+    var index = $('#energy-type').find("option:selected").index();
 
+    console.log(typeArr);
 
-    $(typeArr).each(function(i,o){
+    postEnergy = typeArr[index];
 
-        if(energyItemID == o.energyItemID){
-            unit1 = o.energyUnit;
-            postEnergy = o;
-
-            return false;
-        }
-
-    });
-
+    unit1 = postEnergy.energyUnit;
 
 
     var title1 = $('#obj-type').find('option:selected').text();
@@ -501,7 +506,7 @@ function getMainData(){
                 $(dataArr).each(function(i,o){
 
 
-                    sArr.push((o.data * 100000).toFixed(2));
+                    sArr.push((o.data).toFixed(2));
 
                 });
                 //显示数据
@@ -532,6 +537,8 @@ function getMainData(){
 
 
             ajaxSuccess();
+
+            console.log(unit1);
 
             $('.header-right-lists span').html(unit);
 

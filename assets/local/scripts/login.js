@@ -138,7 +138,7 @@ var Login = function() {
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
-                window.location.href = "shouye/index.html";
+                window.location.href = "shouye/BranchEnergyQueryTotalData.html";
             }
         }
     }
@@ -232,6 +232,10 @@ var Login = function() {
                     //获取当前的接口地址
                     var apiUrlPrefix = data["apiUriPrefix"] || "";
                     sessionStorage.apiUrlPrefix = apiUrlPrefix;     //存储到暂存区，在本次session中使用
+
+                    var apiUriPrefixUEditor = data["apiUriPrefixUEditor"] || "";
+                    sessionStorage.apiUriPrefixUEditor = apiUriPrefixUEditor;     //存储到暂存区，在本次session中使用
+
                     ///当前运维的接口地址，没有配置则同上
                     var apiUrlPrefixYW = data["apiUriPrefixYW"] || apiUrlPrefix;
                     sessionStorage.apiUrlPrefixYW = apiUrlPrefixYW;     //存储到暂存区，在本次session中使用

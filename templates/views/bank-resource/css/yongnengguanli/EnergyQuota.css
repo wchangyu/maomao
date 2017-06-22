@@ -1,0 +1,25 @@
+#dateTables tbody tr td {
+    height: 48px !important;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#dateTables_info{
+    display: none;
+}
+.month-data{
+    width:80px;
+    border:none;
+    background:none !important;
+    text-align: center;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+     padding: 8px 2px !important;
+}
+.onClick{
+    /*background:#4b78fb !important;*/
+}
+.prompt{
+    color:red;
+    font-size:14px;
+}

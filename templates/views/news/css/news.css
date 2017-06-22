@@ -1,0 +1,131 @@
+*{
+    font-family: 微软雅黑;
+    margin: 0;
+    padding: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.left-block{
+    width: 500px;
+    height:400px;
+    position: absolute;
+    margin-right: 10px;
+}
+.right-block{
+    margin-left: 510px;
+    height: 400px;
+}
+.carousel-caption{
+    height: 50px;
+    background: #333333;
+    position: absolute;
+    top:350px;
+    width:100%;
+    left: 0 !important;
+    font-size: 15px;
+    text-indent: 10px;
+    line-height: 10px !important;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: left !important;
+}
+.left-block .carousel-indicators{
+    width: 90px;
+    left: 100%;
+    bottom: 4px;
+    margin-left:-17% !important;
+}
+.tab-block{
+    margin: 0;
+}
+.tab-block li{
+    margin: 0;
+    font-size: 20px;
+    padding:10px 20px;
+    float: left;
+    cursor: pointer;
+    border-top: 5px solid #ffffff;
+}
+.tab-active{
+    background: #ffffff;
+    color: #333333;
+    border-top: 5px solid #e23838 !important;
+    border-left: 1px solid #fafafa;
+    border-bottom: 1px solid #fafafa;
+    border-right: 1px solid #ececec;
+}
+.news-content{
+    margin: 0;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+    background: #ffffff;
+    opacity: 0;
+    max-height: 400px;
+    overflow: hidden;
+    width:100%;
+    padding: 10px;
+}
+.border-top-color{
+    border-top: 5px solid #ed7d31;
+}
+.title-color{
+    border: 1px solid #ececec;
+    background: #fafafa;
+}
+.news-content li{
+    border-bottom: 1px solid #ececec;
+}
+.bottom-block{
+    margin-top: 20px;
+}
+.bottom-title-color ul{
+    margin: 0;
+    border-bottom: 4px solid #c1c1c1;
+    height: 52px;
+}
+.bottom-title-color ul li{
+    float: left;
+    font-size: 20px;
+    cursor: pointer;
+    padding:10px 20px;
+}
+.tab-active-bottom{
+    border-bottom: 4px solid #e23838;
+}
+.news-word ul{
+    width: 100%;
+    border-bottom: none;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 1;
+    background: #ffffff;
+    opacity: 0;
+}
+.news-content-active{
+    z-index: 2 !important;
+    opacity: 1 !important;
+}
+.item{
+    display: block;
+    overflow: hidden;
+    width: 500px;
+    height: 400px;
+    /*background: url('http://192.168.1.112/BEEWebAPI/BankNewsImage/594a8bd4c796bf1_w1000_h754.jpg') no-repeat;
+    background-position: center;*/
+}
+.news-content-list{
+    border: 1px solid #ececec;
+}
+.item .img{
+    display: block;
+    width: 500px;
+    height: 350px;
+}

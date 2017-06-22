@@ -1,0 +1,27 @@
+#energy-demand{
+    height:660px;
+}
+/*右上方注释说明*/
+.right-text{
+    width:70px;
+    height:50px;
+    background:url('../../img/book1.png') no-repeat center center;
+    cursor: pointer;
+
+}
+.text-content{
+    position: absolute;
+    border:1px solid #999;
+    border-radius: 10px !important;
+    width:260px;
+    height:100px;
+    left:-40px;
+    top:60px;
+    font-size: 14px;
+    line-height:20px;
+    z-index: 1000;
+    color:darkorange;
+    background:#eff1f6;
+    overflow: hidden;
+    display: none;
+}

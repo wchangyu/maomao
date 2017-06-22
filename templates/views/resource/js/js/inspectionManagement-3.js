@@ -45,17 +45,6 @@ $(function(){
             dianhua:''
         }
     });
-   /* //巡检内容详情
-    var workDone1 = new Vue({
-        el:'#workDone1',
-        data:{
-            xjnrbm:'',
-            xjnrmc:'',
-            beizhu:'',
-            sbfl:'',
-            options:[]
-        }
-    });*/
     //非空验证
     //验证必填项（非空）
     Vue.validator('noempty', function (val) {
@@ -116,7 +105,6 @@ $(function(){
         data:prm,
         async:false,
         success:function(result){
-            console.log(_allXJSelect);
             _tiaoMuArr = [];
             for(var i=0;i<result.length;i++){
                 _tiaoMuArr.push(result[i]);
@@ -130,6 +118,11 @@ $(function(){
     });
     //复选框选中的东西
     var _selectData = [];
+    //存储所有执行人的数组
+    var _allZXRArr = [];
+    //获取所有员工列表
+    getRY();
+    var _zhixingRenTable = $('#zhixingRenTable');
     /*----------------------------------表格相关-----------------------------------------*/
     var _table = $('.main-contents-tables').find('.table');
     var _tableAdd = $('#zhiXingPerson');
@@ -387,15 +380,25 @@ $(function(){
     var col5 = [
         {
             title:'执行人员',
-            data:'dipRen'
+            data:'dipRen',
+            className:'dipRen'
         },
         {
             title:'工号',
-            data:'dipRenNum'
+            data:'dipRenNum',
+            className:'dipRenNum'
         },
         {
             title:'联系电话',
-            data:'dipDh'
+            data:'dipDh',
+            className:'dipDh'
+        },
+        {
+            class:'deleted',
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
         }
     ];
     //添加执行人员表格
@@ -450,6 +453,67 @@ $(function(){
         }
     ];
     tableInit($('#personTable3'),col7);
+
+    //添加执行人员表格
+    //增加执行人员表格（第二层弹窗）
+    var col8 = [
+        {
+            class:'checkeds',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+        },
+        {
+            title:'工号',
+            data:'dipRenNum',
+            className:'zxrnum',
+        },
+        {
+            title:'执行人员',
+            data:'dipRen',
+            className:'zxrname'
+        },
+        {
+            title:'联系电话',
+            data:'dipDh',
+            className:'zxrphone'
+        }
+    ];
+    tableInit($('#zhixingRenTable'),col8);
+
+    /*-----------------------------------------添加执行人员---------------------------------*/
+    //选择执行人员的确定按钮
+    $('.addZXR').click(function (){
+        var zxrList = _zhixingRenTable.children('tbody').find('.checked');
+        for(var i=0;i<_allZXRArr.length;i++){
+            for(var j=0;j<zxrList.length;j++){
+                var bianma = zxrList.eq(j).parents('tr').children('.zxrnum').html();
+                if( _allZXRArr[i].dipRenNum == bianma ){
+                    _zhixingRens.push(_allZXRArr[i]);
+                }
+            }
+        }
+        datasTable($('#personTable2'),_zhixingRens);
+    })
+    //选择执行人员删除按钮
+    $('#personTable2 tbody').on('click','.tableDeleted',function(){
+        var $thisBM = $(this).parents('tr').children('.dipRenNum').html();
+        for(var i=0;i<_zhixingRens.length;i++){
+            if(_zhixingRens[i]. dipRenNum == $thisBM){
+                $('.zxrGH').val(_zhixingRens[i].dipRenNum);
+                $('.zxrXM').val(_zhixingRens[i].dipRen);
+                $('.zxrDH').val(_zhixingRens[i].dipDh);
+            }
+        }
+        moTaiKuang($('#myModal8'));
+    });
+    //删除确定按钮
+    $('.removeWorkerButton').click(function(){
+        var $thisBM = $('.zxrGH').val();
+        _zhixingRens.removeByValue($thisBM,'dipRenNum');
+        datasTable($('#personTable2'),_zhixingRens);
+    })
+
     //设备选择事件
     $('#sbmcxz tbody').on('click','tr',function(){
         var $this = $(this)
@@ -588,6 +652,38 @@ $(function(){
         }
     });
 
+    //选择执行人员
+    //复选框点击事件
+    _zhixingRenTable.find('tbody').on( 'click', 'input', function () {
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+            $(this).parents('tr').addClass('tables-hover');
+            //如果所有复选框打钩，那么表头的复选框自动打钩；
+            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
+            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
+            if( rowNum == selectNum){
+                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
+            }
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+            //$(this).parents('tr').css({'background':'#ffffff'});
+            $(this).parents('tr').removeClass('tables-hover');
+            //只要有一个复选框没选中，全选框不打勾，
+            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
+        }
+    });
+    //点击thead复选框tbody的复选框全选中
+    _zhixingRenTable.find('thead').find('input').click(function(){
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
+            _zhixingRenTable.find('tbody').find('tr').addClass('tables-hover');
+        }else{
+            _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            _zhixingRenTable.find('tbody').find('tr').removeClass('tables-hover')
+        }
+    });
+
     //表格加载数据
     conditionSelect();
     /*-------------------------------------按钮事件-------------------------------------*/
@@ -627,47 +723,21 @@ $(function(){
         _zhixingRens = [];
     })
     //添加巡检条目按钮
+    getTM();
     $('.zhiXingRenYuanButton').click(function(){
-        //获取数据
-        var prm = {
-            ditName:$('#shebeileixings').val(),
-            dcNum:$('#filter_global').val(),
-            userID:_userIdName
-        };
-        $.ajax({
-            type:'post',
-            url: _urls + 'YWDevMT/YWDMGetDMItems',
-            data:prm,
-            async:false,
-            success:function(result){
-                _allXJTMArr = [];
-                for(var i=0;i<result.length;i++){
-                    _allXJTMArr.push(result[i]);
-                }
-                datasTable(_tableAdd,result);
-                //将数组中原有的数组标识出来
-                var bianmaArr = [];
-                for(var i=0;i<$('#zhiXingPerson tbody').children('tr').length;i++){
-                    bianmaArr.push($('#zhiXingPerson tbody').children('tr').eq(i).children('.bianma').html());
-                }
-                //console.log(bianmaArr);
-                //console.log(_allXJSelect);
-                for(var i=0;i<bianmaArr.length;i++){
-                    for(var j=0;j<_allXJSelect.length;j++){
-                        if(bianmaArr[i]==_allXJSelect[j].ditNum){
-                            $('#zhiXingPerson tbody').children('tr').eq(i).css({'background':'#fbec88'});
-                            $('#zhiXingPerson tbody').children('tr').eq(i).children('.checkeds').find('input').parent('span').addClass('checked');
-                        }
-                    }
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(JSON.parse(jqXHR.responseText).message);
-                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+        moTaiKuang($('#myModal1'));
+        getTM();
+        var fn1 = function( row, data, index ) {
+            for(var i=0;i<_allXJSelect.length;i++){
+                if(data.ditNum == _allXJSelect[i].ditNum){
+                    $('td:eq(0)', row).parents('tr').addClass('tables-hover');
+                    $('td:eq(0)', row).addClass(' checkeds');
+                    $('td:eq(0)', row).html( '<div class="checker"><span class="checked"><input type="checkbox"></span></div> ' );
                 }
             }
-        });
-        moTaiKuang($('#myModal1'));
+
+        }
+        tableInit(_tableAdd,col,fn1);
         //初始化一下
         $('#zhiXingPerson thead').find('.checker').children('span').removeClass('checked');
     });
@@ -694,7 +764,6 @@ $(function(){
         };
         //去重
         var vas = unique(_QCArr);
-        //console.log(vas);
         //放入表格中
         datasTable($('#personTable1'),vas);
     });
@@ -717,11 +786,7 @@ $(function(){
         _QCArr = [];
         //获取要删除的条目的编码和名称，进行删除
         _allXJSelect.removeByValue($('#xjtmbm').val(),'ditNum');
-        //var vas = unique(_QCArr);
-       //vas.removeByValue($('#xjtmbm').val(),'ditNum');
         //删除一次再次重新获取值，
-        console.log(_allXJSelect);
-        console.log(_nrArr);
         for(var i=0;i<_allXJSelect.length;i++){
             _QCArr.push(_allXJSelect[i])
         }
@@ -735,11 +800,21 @@ $(function(){
     //添加执行人员按钮
     $('.zhiXingRenYuanButtons').click(function(){
         //初始化
-        zhiXingRen.zhixingren = '';
-        zhiXingRen.gonghao = '';
-        zhiXingRen.dianhua = '';
-        datasTable($('#zhiXingPersons'),_zhixingRens);
-        moTaiKuang($('#myModal4'));
+        moTaiKuang($('#myModal7'));
+        //将选中的和所有执行人员列表比较，有的标记
+        getRY();
+        //对已存在的行标记(添加执行人员的)
+        var fn1 = function( row, data, index ) {
+            for(var i=0;i<_zhixingRens.length;i++){
+                if(data.dipRenNum == _zhixingRens[i].dipRenNum){
+                    $('td:eq(0)', row).parents('tr').addClass('tables-hover');
+                    $('td:eq(0)', row).addClass(' checkeds');
+                    $('td:eq(0)', row).html( '<div class="checker"><span class="checked"><input type="checkbox"></span></div> ' );
+                }
+            }
+
+        }
+        tableInit($('#zhixingRenTable'),col8,fn1);
     });
     //删除执行人员表格按钮
     $('#zhiXingPersons tbody').on('click','.tableDeleted',function(){
@@ -892,7 +967,6 @@ $(function(){
                         tableArr.push(obj);
                     };
                     var personArr = [];
-                    console.log(_zhixingRens);
                     for(var i=0;i<_zhixingRens.length;i++){
                         var obj = {};
                         obj.dipDh = _zhixingRens[i].dipDh;
@@ -917,7 +991,6 @@ $(function(){
                         finishDate:$('#jssj').val(),
                         userID:_userIdName,
                     };
-                    console.log(prm);
                     $.ajax({
                         type:'post',
                         url:_urls + 'YWDevIns/YWDIPAddPlan',
@@ -951,13 +1024,11 @@ $(function(){
                 stCircle:workDone.jhzq,
                 userID:_userIdName
             }
-            console.log(prm);
             $.ajax({
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIPAssignTask',
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     if(result == 99){
                         moTaiKuang($('#myModal5'));
                         $('#myModal5').find('.modal-body').html('启动任务巡检成功！');
@@ -1176,7 +1247,6 @@ $(function(){
             url:_urls + 'YWDevIns/YWDIGetDICItems',
             data:prm,
             success:function(result){
-                console.log(result);
                 _nrArr = [];
                 for(var i=0;i<result.length;i++){
                     _nrArr.push(result[i])
@@ -1186,7 +1256,6 @@ $(function(){
                 }
                 //去重
                 var vas = unique(_QCArr);
-                //console.log(vas);
                 //放入表格中
                 datasTable($('#personTable1'),vas);
             },
@@ -1273,7 +1342,7 @@ $(function(){
         })
     }
     //表格初始化
-    function tableInit(tableId,col){
+    function tableInit(tableId,col,fun){
       tableId.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "paging": true,   //是否分页
@@ -1303,8 +1372,8 @@ $(function(){
                     className:'saveAs hidding'
                 }
             ],
-
-            "columns": col
+            "columns": col,
+            "rowCallback": fun
         })
     }
     //ajaxFun（select的值）
@@ -1461,7 +1530,6 @@ $(function(){
             url:_urls + 'YWDevIns/YWDIGetDIContents',
             data:prm,
             success:function(result){
-                console.log(result);
                 _allData = [];
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);
@@ -1491,5 +1559,56 @@ $(function(){
         }
 
         return res;
+    }
+    //获取所有执行人员
+    function getRY(){
+        var prm = {
+            'zxName':'',
+            'zxNum':'',
+            'zxPhone':''
+        }
+        $.ajax({
+            type:'post',
+            url:'../resource/data/worker1.json',
+            success:function(result){
+                //console.log(result.data);
+                _allZXRArr =[];
+                for(var i=0;i<result.data.length;i++){
+                    _allZXRArr.push(result.data[i]);
+                }
+
+                datasTable($('#zhixingRenTable'),result.data)
+            },
+            error:function(){
+
+            }
+        })
+    }
+    //获取所有巡检条目项目
+    function getTM(){
+        //获取数据
+        var prm = {
+            ditName:$('#shebeileixings').val(),
+            dcNum:$('#filter_global').val(),
+            userID:_userIdName
+        };
+        $.ajax({
+            type:'post',
+            url: _urls + 'YWDevIns/YWDIGetDIItems',
+            data:prm,
+            async:false,
+            success:function(result){
+                _allXJTMArr = [];
+                for(var i=0;i<result.length;i++){
+                    _allXJTMArr.push(result[i]);
+                }
+                datasTable(_tableAdd,result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(JSON.parse(jqXHR.responseText).message);
+                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                }
+            }
+        });
     }
 })
