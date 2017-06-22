@@ -430,23 +430,36 @@ $(function(){
     //撤销
     $('#myModal1').find('.btn-primary').click(function (){
         if(_currentChexiao){
+            console.log(_currentClick);
+            var gdState = parseInt(_currentClick.find('.ztz').html());
+            console.log(gdState);
+            var htState = 0;
+            if(gdState == 2){
+                htState = 1;
+            }else if( gdState == 3 || gdState == 4 || gdState == 5 ){
+                htState = 2;
+            }
              var gdCodes = _currentClick.children('td').eq(0).html();
              var gdInfo = {
-             'gdCode':gdCodes,
-             'userID':_userIdName
+                 "gdCode": gdCodes,
+                 "gdZht": htState,
+                 "wxKeshi": "",
+                 "userID": _userIdName
              }
-             $.ajax({
-                 type:'post',
-                 url: _urls + 'YWGD/ywGDDel',
-                 data:gdInfo,
-                 success:function(result){
-                    conditionSelect();
-                     $('#myModal3').find('.modal-body').html('撤销成功！');
-                     moTaiKuang($('#myModal3'))
-                 }
-             })
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWGD/ywGDUptZht',
+                data:gdInfo,
+                success:function(result){
+                    if(result == 99){
+                        conditionSelect();
+                        $('#myModal1').modal('hide');
+                        $('#myModal3').find('.modal-body').html('工单回退成功!');
+                        moTaiKuang($('#myModal3'));
+                    }
+                }
+            })
         }
-        $('#myModal1').modal('hide');
     })
     //作废
     $('#myModal2').find('.btn-primary').click(function (){
