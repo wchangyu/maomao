@@ -390,6 +390,7 @@ $(function () {
     $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
     $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
     $('#myApp33').find('textarea').attr('disabled',false).removeClass('disabled-block');
+    $('.inpus').attr('disabled',true);
     //所有登记页面的输入框清空(radio的按钮默认为否)；
     app33.picked = 0;
     $('.inpus').parent('span').removeClass('checked');
