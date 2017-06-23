@@ -1,17 +1,13 @@
 /**
  * Created by admin on 2017/6/20.
  */
+//点击切换按钮时
+$('.top-choose-img li a').on('click',function(){
 
-// 定义中心点坐标;
-var centerCoordinate = [115.804166, 28.663333];
+    $(this).parents('ul').find('a').removeClass('onClick');
+    $(this).addClass('onClick');
+});
 
-//定义初始缩放比例
-var beginZoom = 8;
-
-//存放地图数据信息
-var markerArr = [
-
-];
 
 //获取后台数据
 function getData(){
@@ -35,10 +31,11 @@ function getData(){
         success: function (data) {
             $('#theLoading').modal('hide');
             console.log(data);
-            markerArr = [];
 
             //存放搜索框中内容
             var html = '';
+
+            var html1 = '';
 
             $(data).each(function(i,o){
 
@@ -53,28 +50,28 @@ function getData(){
                 };
                 html +=     '<li class="titles search-li" data-name='+ o.userName+' data-online="不在线"><span></span>'+o.userName+'</li>';
 
-                //添加数据
-                markerArr.push(obj)
+                var left=o.longitude * 2 * (i+1) + 'px';
+
+                var top = o.latitude * 3 * (i+1) + 'px';
+
+                html1 += '<span class="marker" style="position: absolute;left:'+left+';top:'+top+'" name = "'+o.userName+'" tel = "'+o.mobile+'" team = "'+o.depart+'">' +
+                    '<label style="display:none;padding-left:5px;padding-right:5px;border:1px solid red;background:white;font-weight: 400;color:black;margin-left:40px;white-space : nowrap ;width:auto !important;float:left;height:22px;position: absolute">'+o.userName+'</label>' +
+                    '</span>'
+
             });
 
-            //新建百度地图
-            map = new BMap.Map("container");
-
-            map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
-//可以进行缩放
-            map.enableScrollWheelZoom();
-            map.addControl(new BMap.NavigationControl());
-
-            //具体地点的文字标注与事件绑定
-            addWords();
 
             //重构右上角搜索框中内容
             $('#ul1').html(html);
-            detail();
+
+            $(html1).appendTo('#container');
+
             //新的搜索对象
             new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
 
+            addClick();
 
+            detail();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
@@ -93,164 +90,133 @@ function getData(){
 
 getData();
 
-var map;
-
-
-
 //右上角城市切换功能
 function detail(){
 
-    for(var i = 0; i < markerArr.length; i++){
-        (function (i){
 
-            $('.titles').eq(i).off('click');
-            $('.titles').eq(i).on('click',function(){
 
-                var p0 = markerArr[i].point.split(",")[0];
-                var p1 = markerArr[i].point.split(",")[1];
-                map.centerAndZoom(new BMap.Point(p0, p1), 15);
+            $('.titles').off('click');
+            $('.titles').on('click',function(){
+
+                var name = $(this).attr('data-name');
+                console.log(name);
+
+               for(var i=0; i<$('.marker').length ; i++){
+
+                   if(name == $('.marker').eq(i).attr('name')){
+                        console.log(666);
+                       $('.marker').eq(i).mouseover();
+                   }
+               }
+                event.stopPropagation();
+
             });
 
             $('.search-value-list li').off('click');
 
-            $('.search-value-list li').eq(i + 1).on('click',function(){
-                console.log('.search-value-list');
-                var p0 = markerArr[i].point.split(",")[0];
-                var p1 = markerArr[i].point.split(",")[1];
-                map.centerAndZoom(new BMap.Point(p0, p1), 15);
+            $('.search-value-list li').on('click',function(){
+              var name = $(this).find('.name').html();
+                for(var i=0; i<$('.marker').length ; i++){
+
+                    if(name == $('.marker').eq(i).attr('name')){
+                        console.log(666);
+                        $('.marker').eq(i).mouseover();
+                    }
+                }
+                event.stopPropagation();
+
             });
 
 
-        })(i)
-    }
 }
+
+
+//信息弹窗中的关闭按钮
+$('.show-message .close').on('click',function(){
+
+    console.log(666);
+    $(this).parent('.show-message').css({
+        display:'none'
+    })
+});
+//点击marker时，出现信息弹窗
+function addClick(){
+    $('.marker').off('mouseover');
+    $('.marker').on('mouseover',function(){
+
+        var left1 = $(this).css('left');
+
+        var top1 = $(this).css('top');
+
+        var name = $(this).attr('name');
+
+        var tel = $(this).attr('tel');
+
+        var team = $(this).attr('team');
+
+        console.log(left1,top1);
+
+        $('.show-message').css({
+
+            top:top1,
+            left:left1,
+            display:'block'
+        });
+
+        $('.show-message .name').html(name);
+
+        $('.show-message .tel span').html(tel);
+
+        $('.show-message .team span').html(team);
+    });
+}
+
+$('body').on('click',function(event){
+
+    var that = $(event.target);
+
+    var className = that.prop("className")
+
+   console.log(className);
+    if(className != 'marker'){
+        $('.show-message').css({
+            display:'none'
+        })
+    }
+});
+
+var removeNum = 0;
+$('#onOff').on('click',function(){
+    removeNum ++;
+    if(removeNum % 2){
+
+        $('.marker label').css({
+            display:'inline-block'
+        })
+        $('#onOff').css({
+            background:'url("img/offs.png") no-repeat 0 1.5px'
+        })
+
+
+
+    }else{
+
+
+        $('.marker label').css({
+            display:'none'
+        });
+
+        $('#onOff').css({
+            background:'url("img/off.png") no-repeat 0 1.5px',
+
+        })
+    }
+})
+
+
 
 var removeNum = 0;
 
-//地点的文字标注与事件绑定
-function addWords(){
-    var arr = [];
-    var points = [];
-    for (var i = 0; i < markerArr.length; i++) {
-        var p0 = markerArr[i].point.split(",")[0];
-        var p1 = markerArr[i].point.split(",")[1];
-        var words = markerArr[i].title;
-        var address = markerArr[i].address;
-        var online = markerArr[i].online;
-        //判断是否在线
-        if(online){
-            //这个是你要显示坐标的图片的相对路径
-            var icons = "img/red.png";
-            //右上角小圆圈颜色
-            $('#ul1 li:eq('+i+') span').css({
-                'background':'red'
-            })
-            console.log($('label'))
-            $('label').css({
-                'opacity':0
-            })
-            // var nodes = document.getElementsByClassName('BMapLabel');
-            // console.log(nodes);
-            // console.log(nodes[0])
-            // //  nodes[0].style.width = 0;
-
-
-        }else{
-            var icons = "img/blue.png";
-        }
-
-        points[i]= new BMap.Point(p0,p1);
-        var marker=new BMap.Marker(new BMap.Point(p0, p1));
-        addInfoWindow(marker, markerArr[i], i);
-        var icon = new BMap.Icon(icons, new BMap.Size(55, 55)); //显示图标大小
-        marker.setIcon(icon);//设置标签的图标为自定义图标
-
-        map.addOverlay(marker);//将标签添加到地图中去
-        //添加文字标注
-
-        var label = new BMap.Label(words,{offset:new BMap.Size(30,-10)});
-        arr.push(label);
-        marker.setLabel(label);
-        //给每个被选中地点添加事件
-        $(arr).each(function(i , o){
-            o.setStyle({
-                display:'none'
-            })
-        })
-
-        // map.setViewport(points);
-
-    }
-
-    map.addEventListener("zoomend", function () {
-        //var DiTu = this.getZoom();
-        //
-        //if (DiTu >= 14)
-        //{
-        //    $(arr).each(function(i , o){
-        //        o.setStyle({
-        //            display:'block'
-        //        })
-        //    })
-        //    $('#onOff').css({
-        //        background:'url("img/offs.png") no-repeat 0 1.5px'
-        //    })
-        //    removeNum = 1;
-        //
-        //}
-        //else
-        //{
-        //    $(arr).each(function(i , o){
-        //        o.setStyle({
-        //            display:'none'
-        //        })
-        //    })
-        //    $('#onOff').css({
-        //        background:'url("img/off.png") no-repeat 0 1.5px',
-        //
-        //    })
-        //    removeNum = 0;
-        //}
-
-        //map.removeEventListener("zoomend", showInfo);
-    });
-    //右上角label开关
-    $('#onOff').off('click');
-    $('#onOff').on('click',function(){
-        removeNum ++;
-        if(removeNum % 2){
-
-            $(arr).each(function(i , o){
-                o.setStyle({
-                    display:'block'
-                })
-            })
-            // for(var i = 0 ; i < arr.length; i++){
-            // 	arr[i].setStyle({
-            // 		display:'none'
-            // 	})
-            $('#onOff').css({
-                background:'url("img/offs.png") no-repeat 0 1.5px'
-            })
-
-
-
-        }else{
-
-
-            $(arr).each(function(i , o){
-                o.setStyle({
-                    display:'none'
-                })
-            })
-            $('#onOff').css({
-                background:'url("img/off.png") no-repeat 0 1.5px',
-
-            })
-        }
-    })
-
-}
 
 
 //右上角下拉菜单显示与隐藏
@@ -259,33 +225,6 @@ function showList(){
 
 }
 
-// 添加信息窗口
-function addInfoWindow(marker, poi) {
-    //pop弹窗标题
-    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;height:30px;font-size:16px;margin-bottom:10px">' + poi.title +'</div>';
-    //pop弹窗信息
-    var html = [];
-    html.push('<div style="font-size:14px;width:100%;height:280px;">'+
-        '<p style="margin-bottom:5px" class="monitorTitle">联系电话：<span>'+poi.tel+'</span></p>'+
-        '<p style="margin-bottom:5px" class="monitorTitle">所属班组：<span></span>'+poi.class+'</span></p>'+
-        '</div>');
-    var infoWindow = new BMap.InfoWindow(html.join(""), {enableMessage: false, title: title, width: 140, height:80 });
-
-    var openInfoWinFun = function () {
-
-        marker.openInfoWindow(infoWindow);
-
-    };
-    var closeInfoWinFun = function () {
-
-        marker.closeInfoWindow(infoWindow);
-
-    };
-
-    marker.addEventListener("mouseover", openInfoWinFun);
-    //marker.addEventListener("mouseout", closeInfoWinFun);
-    return openInfoWinFun;
-}
 //获取完整的地址
 function getAreas(){
 
@@ -306,6 +245,8 @@ function display(){
 $('.showTitle p .close').on('click',function(){
     closeCompany();
 })
+
+
 
 //右上角关闭按钮
 function closeCompany(){
@@ -529,4 +470,3 @@ SEARCH_ENGINE.prototype = {
         });
     }
 };
-

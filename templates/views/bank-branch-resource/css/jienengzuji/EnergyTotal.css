@@ -1,0 +1,54 @@
+.condition-query li input{
+    width: 110px;
+    border: 1px solid #a9a9a9;
+    height: 30px !important;
+    outline: none;
+    margin: 0 5px;
+    background-color: white;
+    cursor: pointer;
+}
+.condition-query li select{
+    width:140px;
+}
+#energy-demand{
+    height:370px;
+}
+#energy-demand1{
+    height:380px;
+}
+.total-power-consumption {
+
+    top: 106px;
+
+}
+.total-power-consumption-value {
+
+    top: 150px;
+
+}
+.rheader-content-rights {
+    width: 466px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: url(../../img/message.png)no-repeat #deebf7;
+    background-size: 140px;
+    background-position: 66px 90px;
+}
+.equalTree{
+    position: absolute;
+    left: 260px;
+    top:80px;
+    font-size:18px;
+
+}
+.treeCount{
+    padding-top:15px;
+    font-size:22px;
+    margin-left:-38px;
+    color:#019cdf;
+}
+.treeCount b{
+    font-size:28px;
+}

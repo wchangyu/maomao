@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/index.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=I3OhzIKhXwccPu6MorqWep3wYzhgKVq2"></script>
+
     <script src="../resource/js/jquery-1.11.2.js"></script>
 
     <script src="../../../assets/local/scripts/underscore-min.js"></script>
@@ -42,11 +44,8 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <!--非框架中的样式-->
-    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/lib/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/yongnengfenxi/totalEnergy.css"/>
+    <link rel="stylesheet" href="css/mapsPreviews.css"/>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -66,7 +65,7 @@
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="./index.html">
+            <a href="./EnergyQueryTotalData.html">
                 <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
             </a>
             <div class="menu-toggler sidebar-toggler hide">
@@ -231,159 +230,80 @@
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="total-warp container">
-                        <div class="wrap row">
-                            <!--上方条件搜索-->
-                            <div class="content-main-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="condition-query refer-unit-table">
+                <div class="col-md-12" style="height:100%">
+                    <ul class="top-choose-img">
+                        <li><a href="javascript:;" class="onClick">图片1</a></li>
+                        <li><a href="javascript:;">图片2</a></li>
+                        <li><a href="javascript:;">图片3</a></li>
+                        <div class="clearfix"></div>
+                    </ul>
 
+                    <!-- 百度地图容器 -->
+                    <div id="container">
+                        <img src="img/example.png" alt="" class="map">
 
-                                    <li>
-                                        <label for="">对象：</label>
+                        <div class="show-message">
+                            <p class="name">姓名1</p>
+                            <p class="tel">联系电话：<span>13866225462</span></p>
+                            <p class="team">所属班组：<span>三年二班</span></p>
+                            <img class="close" src="http://api.map.baidu.com/images/iw_close1d3.gif">
+                            <div class="arrows" >
+                                <img src="http://api.map.baidu.com/images/iw3.png">
+                            </div>
+                        </div>
 
-                                        <select name="" id="obj-type" class=" person-type" >
-                                            <option >电</option>
-                                            <option >水</option>
-                                            <option >气</option>
-                                        </select>
+                        <!-- 标注框开关 -->
+                        <div class="toolContainer">
+                            <div id="onOff">
+                                开关
+                            </div>
 
-                                    </li>
+                            <div class="seek" onclick="display()">
+                                搜索
+                            </div>
 
+                        </div>
 
-                                    <li>
-                                        <label for="">时间：</label>
+                        <div class="choosePosition">
 
-                                        <select name="" id="post-date" class="datatimeblock person-type" >
-                                            <option >本月</option>
-                                            <option >上月</option>
-                                            <option >本年</option>
-                                            <option >上年</option>
-                                            <option  class="custom-time">自定义</option>
-                                        </select>
+                            <div class="showCompany search-test-inner">
+                                <div class="showTitle">
+                                    <p style="position:relative">
+                                        <!--企业在线情况-->
+                                        <!--<span><b></b>在线</span>-->
+                                        <!--<span><b style="background:#2097f3"></b>不在线</span>-->
+                                        <strong class='close'><img src="img/close.png" onclick="closeCompany()"></strong>
+                                    </p>
+                                </div>
+                                <!-- 搜索框结构 -->
+                                <div style="height:auto;width:100%">
+                                    <input type="text" placeholder="请输入姓名" class='search-value'>
 
-                                        <input  class="show-date"/>
+                                    <button class="commonBtn leftBtn">搜索</button>
+                                    <button class="commonBtn rightBtn" onclick='showAll()'>显示全部</button>
+                                    <div style="height:26px"></div>
+                                    <ul class="search-value-list" style="background:white"></ul>
+                                </div>
 
-                                    </li>
+                                <ul id='ul1'>
+                                    <li class="titles search-li" data-name='姓名1' data-online='不在线'><span></span>姓名1</li>
 
-
-
-
-
-                                    <li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
-                                    <li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
-
-                                    <div class="clearfix"></div>
                                 </ul>
                             </div>
 
-                            <!--下方数据展示-->
-                            <div class="content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <!--头部数据信息-->
-                                <div class="show-header">
-                                    <span class="show-title1">四川央行 </span>
-                                    <span class="show-title2"> 用电分项 </span>
-                                    <span class="show-title3" style=""> 本月</span>
-                                    <ul class="show-header-right">
-                                        <li class="header-right-lists header-right-lists-1">
-                                        </li>
-                                        <li class="header-right-lists">单位：<span>kWh</span></li>
-                                    </ul>
-                                </div>
 
-                                <!--主题chart图-->
-                                <div class="show-main row" >
-                                    <!--上方chart图-->
-                                    <div class="main-data col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
-
-                                    </div>
-                                    <!--右侧数据框-->
-                                    <div class="L-right L-right0 col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                                        <h3 style="margin-top:50px;">来源：</h3>
-                                        <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
-                                            <thead>
-
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-
-                                        <h3 style="">去向：</h3>
-                                        <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables1">
-                                            <thead>
-
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-
-                                    <!--右侧数据框-->
-                                    <div class="L-right L-right1 col-lg-5 col-md-12 col-sm-12 col-xs-12" style="display: none">
-                                        <h3 style="margin-top:100px;">数据：</h3>
-                                        <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables2">
-                                            <thead>
-
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
+
+
+
+
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
         </div>
     </div>
 
-    <!--自定义时间-->
-    <div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
-        <div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
-                    <div class="row">
-
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">开始日期：</label>
-
-                            <div class="add-input-block">
-                                <input type="text" class="add-input chooseDate-month chooseDates" value="" placeholder="选择时间">
-                            </div>
-
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">结束日期：</label>
-
-                            <div class="add-input-block">
-                                <input type="text" class="add-input chooseDate-month chooseDates" value="" placeholder="选择时间">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary top-btn'>确定</button>
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--自定义弹窗-->
     <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -404,7 +324,7 @@
 
     <!--loading图-->
     <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-branch-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
 
         </div>
     </div>
@@ -451,12 +371,13 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
-<script src="../bank-branch-resource/js/lib/moment.min.js"></script>
-<script rel="stylesheet" src="../bank-branch-resource/js/lib/echarts.common.min.js"></script>
-<script rel="stylesheet" src="../bank-branch-resource/js/lib/jquery.dataTables.min.js"></script>
+<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-resource/js/lib/moment.min.js"></script>
+<script src="js/jQuery.Hz2Py-min.js"  type="text/javascript"></script>
+
+<!--非框架中js-->
 <script src="../bank-branch-resource/js/common.js"></script>
-<script src="../bank-branch-resource/js/yongnengfenxi/totalEnergy.js"></script>
+<script src="js/mapsPreview.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

@@ -18,6 +18,12 @@
 #dateTables1 tr td {
     text-align: center;
 }
+#dateTables2 tr th {
+    text-align: center;
+}
+#dateTables2 tr td {
+    text-align: center;
+}
 .dataTables_info{
     display: none !important;
 }

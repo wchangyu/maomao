@@ -567,6 +567,9 @@ function getNewsTitle(){
 
             $('.main-news1').html(html1);
 
+            $('.openNews0 a').attr('href','../news/topPageNewsType.html?id='+data.firstNewsTypeID + '');
+            $('.openNews1 a').attr('href','../news/topPageNewsType.html?id='+data.secondNewsTypeID + '');
+
             //下方标题与内容
 
 

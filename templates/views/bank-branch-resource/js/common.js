@@ -85,12 +85,9 @@ function myAlter1(string){
         $('#my-alert1 p b').html(string);
 }
 
-function CompareDate(d1,d2)
-{
+function CompareDate(d1,d2) {
         return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
-}
-
-
+};
 
 function getFocus1(dom){
         $('#my-alert').one('click','.btn-primary',function(){
@@ -352,6 +349,34 @@ function getUnitName(num){
                 }
         }
 };
+
+function getUnitName1(num){
+
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].etid){
+                        return txt[i].etname;
+                }
+        }
+};
+
+//获取能耗类型
+function getUnit1(num){
+
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].etid){
+                        return txt[i].ettype;
+                }
+        }
+};
+
 
 //获取开始结束日期
 function getPostDate(postDate){
@@ -619,3 +644,12 @@ function checkedPhone(dom){
 
         return true;
 }
+
+//截取数组
+function getArr(arr){
+        var shortArr = [];
+        shortArr = arr.slice(0,10);
+        console.log(shortArr);
+
+        return shortArr;
+};

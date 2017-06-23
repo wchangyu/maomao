@@ -140,6 +140,13 @@ $(function(){
         $.ajax({
             type:'get',
             url:_url + 'News/GetAllNewsType',
+            //beforeSend: function (xhr) {
+            //    var access_token = sessionStorage.getItem('access_token');
+            //
+            //    console.log(access_token);
+            //
+            //    xhr.setRequestHeader('Authorization', 'Bearer ' + access_token + '');
+            //},
             success:function(result){
                 console.log(result);
                 _allDataArr = [];
