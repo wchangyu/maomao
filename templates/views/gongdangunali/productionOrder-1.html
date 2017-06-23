@@ -401,8 +401,8 @@
 <!--弹窗-->
 <!--模态框创建工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 615px;">
-            <div class="modal-content" style="height: 615px;">
+        <div class="modal-dialog" style="height: 706px;">
+            <div class="modal-content" style="height: 706px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
@@ -451,13 +451,13 @@
                                 <li class="floatRight">
                                     <div class="labels">车间站：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="section">
+                                        <select class="cjz" v-model="section"></select>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
+                                        <select class="xitong" v-model="matter"></select>
                                     </div>
                                 </li>
                                 <li class="floatRight">
@@ -479,12 +479,6 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">设备车间站：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbBM">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
                                     <div class="labels">安装地点：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="azAddress">
@@ -495,6 +489,12 @@
                                     <div class="labels">故障描述：</div>
                                     <div class="input-blockeds" style="height:62px;">
                                         <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="labels">图片：</div>
+                                    <div class="input-blockeds" style="height:32px;">
+                                        <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
                                     </div>
                                 </div>
                             </form>
@@ -509,7 +509,7 @@
         </div><!-- /.modal -->
     </div>
 <!--选择设备-->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 625px;width: 1152px !important;">
         <div class="modal-content" style="height: 625px;width: 1152px !important;">
             <div class="modal-header">
@@ -588,9 +588,9 @@
                 <button type="button" class="btn btn-primary confirm sbConfirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+        </div>&lt;!&ndash; /.modal-content &ndash;&gt;
+    </div>&lt;!&ndash; /.modal &ndash;&gt;
+</div>-->
 <!--快速创建-->
 <div class="modal fade modals" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -643,13 +643,13 @@
                                 <li class="floatRight">
                                     <div class="labels">车间站：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="section">
+                                        <select class="cjz" v-model="section"></select>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="matter" v-validate:matter="['persons']" initial='off'>
+                                        <select class="xitong" v-model="matter"></select>
                                     </div>
                                 </li>
                                 <li class="floatRight">
@@ -677,12 +677,6 @@
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">设备车间站：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbBM">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
                                     <div class="labels">安装地点：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="azAddress">
@@ -699,6 +693,12 @@
                                     <div class="labels colorTip">维修内容 *：</div>
                                     <div class="input-blockeds" style="height:62px;">
                                         <textarea style="width: 100%;height: 60px;outline: none" v-model="weixiuBZ"></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="labels">图片：</div>
+                                    <div class="input-blockeds" style="height:32px;">
+                                        <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
                                     </div>
                                 </div>
                             </form>

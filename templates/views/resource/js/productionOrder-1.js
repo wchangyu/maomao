@@ -48,7 +48,6 @@ $(function () {
       sbSelect:'',
       sbLX:'',
       sbMC:'',
-      sbBM:'',
       azAddress:'',
       remarks:''
     },
@@ -77,7 +76,6 @@ $(function () {
       sbSelect:'',
       sbLX:'',
       sbMC:'',
-      sbBM:'',
       azAddress:'',
       beizhus:'',
       weixiuBZ:''
@@ -97,20 +95,20 @@ $(function () {
   var _allDataLX = [];
   //存放设备区域的所有数据
   var _allDataQY = [];
-  //存放设备系统的所有数据
-  var _allDataXT = [];
-  //存放设备部门的所有数据
-  var _allDataBM = [];
   //获取设备类型
   ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#leixing'),'dcName','dcNum');
   //设备区域
   ajaxFun('YWDev/ywDMGetDAs',_allDataQY,$('#quyu'),'daName','daNum');
-  //设备系统
-  ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('#xitong'),'dsName','dsNum');
-  //设备部门
-  ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('#bumen'),'ddName','ddNum');
   //记录选择的设备的变量
   var sbObject = {};*/
+  //存放设备系统的所有数据
+  var _allDataXT = [];
+  //存放设备部门的所有数据
+  var _allDataBM = [];
+  //设备系统
+  ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
+  //设备部门
+  ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('.cjz'),'ddName','ddNum');
   /*-----------------------------表格初始化----------------------------------------*/
   //页面表格
   var table = $('#scrap-datatables').DataTable({
@@ -181,7 +179,7 @@ $(function () {
             return '待关单'
           }if(data == 7){
             return '任务关闭'
-          }if(data == 8){
+          }if(data == 999){
             return '任务取消'
           }
         }
@@ -215,7 +213,7 @@ $(function () {
   //报错时不弹出弹框
   $.fn.dataTable.ext.errMode = function(s,h,m){
     console.log('')
-  }
+  };
   //初始化设备表格
   $('#sbTable').DataTable({
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -400,14 +398,19 @@ $(function () {
     app33.telephone = '';
     app33.person = '';
     app33.place = '';
-    app33.matter = '';
     app33.remarks = '';
-    app33.section = '';
     app33.sbSelect = '';
     app33.sbLX = '';
     app33.sbMC = '';
-    app33.sbBM = '';
     app33.azAddress = '';
+    if( _allDataXT.length !=0 ){
+      app33.matter = _allDataXT[0].dsName;
+      quickWork.matter = _allDataXT[0].dsName;
+    }
+    if( _allDataBM.length !=0 ){
+      app33.section = _allDataBM[0].ddName;
+      quickWork.section = _allDataBM[0].ddName;
+    }
     moTaiKuang($('#myModal'));
     $('#myModal').find('.btn-primary').show();
   });
@@ -420,17 +423,25 @@ $(function () {
     quickWork.telephone = '';
     quickWork.person = '';
     quickWork.place = '';
-    quickWork.section = '';
-    quickWork.matter = '';
     quickWork.weixiukeshis = '';
     quickWork.sbSelect = '';
     quickWork.sbLX = '';
     quickWork.sbMC = '';
-    quickWork.sbBM = '';
     quickWork.azAddress = '';
     quickWork.beizhus = '';
     quickWork.weixiuBZ = '';
     moTaiKuang($('#myModal4'));
+    if( _allDataXT.length !=0 ){
+      //设置初始值
+      app33.matter = _allDataXT[0].dsName;
+      quickWork.matter = _allDataXT[0].dsName;
+      //设置样式
+      $('.xitong').children('option').attr('selected');
+    }
+    if( _allDataBM.length !=0 ){
+      app33.section = _allDataBM[0].ddName;
+      quickWork.section = _allDataBM[0].ddName;
+    }
     //将执行人默认为本人
     var personObject = {};
     personObject.wxRName = _userIdName;
@@ -459,7 +470,6 @@ $(function () {
         'gdLeixing':app33.rwlx,
         'dName':app33.sbMC,
         'gdSrc':2,
-        'ddName':app33.sbBM,
         'wxShebei':app33.sbSelect,
         'dcName':app33.sbLX,
         'installAddress':app33.azAddress
@@ -506,7 +516,6 @@ $(function () {
         'gdLeixing':quickWork.rwlx,
         'dName':quickWork.sbMC,
         'gdSrc':2,
-        'ddName':quickWork.sbBM,
         'wxShebei':quickWork.sbSelect,
         'dcName':quickWork.sbLX,
         'installAddress':quickWork.azAddress,
@@ -547,7 +556,6 @@ $(function () {
     app33.sbSelect = sbObject.sbID;
     app33.sbLX = sbObject.sbLX;
     app33.sbMC = sbObject.sbMC;
-    app33.sbBM = sbObject.sbBM;
   })*/
   /*---------------------------------表格绑定事件-------------------------------------*/
   //主表格事件
@@ -594,7 +602,6 @@ $(function () {
             app33.sbSelect = result.wxShebei;
             app33.sbLX = result.dcName;
             app33.sbMC = result.dName;
-            app33.sbBM = result.ddName;
             app33.azAddress = result.installAddress;
             app33.rwlx = result.gdLeixing;
             //所有input不可操作
@@ -613,7 +620,6 @@ $(function () {
         sbObject.sbID = $this.children('.dNum').html();
         sbObject.sbMC = $this.children('.dName').html();
         sbObject.sbLX = $this.children('.dcName').html();
-        sbObject.sbBM = $this.children('.ddName').html();
         console.log(sbObject);
       })*/
   /*-------------------------------方法----------------------------------------*/
@@ -685,9 +691,9 @@ $(function () {
       data:prm,
       success:function(result){
         //给select赋值
-        var str = '<option value="">全部</option>'
+        var str = '';
         for(var i=0;i<result.length;i++){
-          str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
+          str += '<option' + ' value="' + result[i][text] +'">' + result[i][text] + '</option>'
           allArr.push(result[i]);
         }
         select.append(str);

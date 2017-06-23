@@ -119,7 +119,7 @@ $(function(){
                         return '待关单'
                     }if(data == 7){
                         return '任务关闭'
-                    }if(data == 8){
+                    }if(data == 999){
                         return '任务取消'
                     }
                 }
