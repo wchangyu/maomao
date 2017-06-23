@@ -35,7 +35,6 @@ $(function(){
             sbSelect:'',
             sbLX:'',
             sbMC:'',
-            sbBM:'',
             azAddress:'',
             remarks:'',
             weixiukeshis:''
@@ -45,6 +44,14 @@ $(function(){
     var _allZXRArr = [];
     //已选择的执行人数组
     var _zhixingRens = [];
+    //存放设备系统的所有数据
+    var _allDataXT = [];
+    //存放设备部门的所有数据
+    var _allDataBM = [];
+    //设备系统
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
+    //设备部门
+    ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('.cjz'),'ddName','ddNum');
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -113,7 +120,7 @@ $(function(){
                         return '待关单'
                     }if(data == 7){
                         return '任务关闭'
-                    }if(data == 8){
+                    }if(data == 999){
                         return '任务取消'
                     }
                 }
@@ -262,7 +269,6 @@ $(function(){
                     workDones.sbSelect = result.wxShebei;
                     workDones.sbLX = result.dcName;
                     workDones.sbMC = result.dName;
-                    workDones.sbBM = result.ddName;
                     workDones.azAddress = result.installAddress;
                     workDones.weixiukeshis = result.wxKeshi;
                     workDones.remarks = result.wxBeizhu;
@@ -430,15 +436,18 @@ $(function(){
         workDones.telephone = '';
         workDones.person = '';
         workDones.place = '';
-        workDones.section = '';
-        workDones.matter = '';
         workDones.sbSelect = '';
         workDones.sbLX = '';
         workDones.sbMC = '';
-        workDones.sbBM = '';
         workDones.azAddress = '';
         workDones.weixiukeshis = '';
         workDones.remarks = '';
+        if( _allDataXT.length !=0 ){
+            workDones.matter = _allDataXT[0].dsName;
+        }
+        if( _allDataBM.length !=0 ){
+            workDones.section = _allDataBM[0].ddName;
+        }
         _zhixingRens = [];
         datasTable($('#personTable1'),_zhixingRens);
     });
@@ -476,7 +485,6 @@ $(function(){
                 wxShebei:workDones.sbSelect,
                 dcName:workDones.sbLX,
                 dName:workDones.sbMC,
-                ddName:workDones.sbBM,
                 installAddress:workDones.azAddress,
                 wxKeshi:workDones.weixiukeshis,
                 bxBeizhu:workDones.remarks,
@@ -596,7 +604,7 @@ $(function(){
             'zxPhone':''
         }
         $.ajax({
-            type:'post',
+            type:'get',
             url:'../resource/data/worker.json',
             success:function(result){
                 _allZXRArr =[];
@@ -649,6 +657,28 @@ $(function(){
             success:function(result){
                 console.log(result);
                 conditionSelect();
+            }
+        })
+    }
+    //ajaxFun（select的值）
+    function ajaxFun(url,allArr,select,text,num){
+        var prm = {
+            'userID':_userIdName
+        }
+        prm[text] = '';
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            async:false,
+            data:prm,
+            success:function(result){
+                //给select赋值
+                var str = '';
+                for(var i=0;i<result.length;i++){
+                    str += '<option' + ' value="' + result[i][text] +'">' + result[i][text] + '</option>'
+                    allArr.push(result[i]);
+                }
+                select.append(str);
             }
         })
     }
