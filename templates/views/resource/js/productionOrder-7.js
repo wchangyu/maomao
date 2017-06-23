@@ -125,7 +125,7 @@ $(function(){
                         return '待关单'
                     }if(data == 7){
                         return '任务关闭'
-                    }if(data == 8){
+                    }if(data == 999){
                         return '任务取消'
                     }
                 }
@@ -261,13 +261,13 @@ $(function(){
                     $('#myModal2').find('.modal-body').html('操作成功！');
                     moTaiKuang($('#myModal2'));
                     conditionSelect();
+                    $('#myModal').modal('hide');
                 }
             }
         })
     }
     //完工功能
     function wanGong(){
-        alert('完工操作');
         _wxZhuangtai = app33.wxbeizhu;
             var gdInfo = {
                 'gdCode':gdCode,
@@ -280,12 +280,11 @@ $(function(){
                 url:_urls + 'YWGD/ywGUptWang',
                 data:gdInfo,
                 success:function(result){
-                    //alert(0);
                     if(result == 99){
                         //提示已完成；
                         $('#myModal2').find('.modal-body').html('工单已完成接单！');
                         moTaiKuang($('#myModal2'));
-                        $('#myModal').parents('.modal').modal('hide');
+                        $('#myModal').modal('hide');
                         conditionSelect();
                     }
                 }
@@ -329,22 +328,27 @@ $(function(){
             'opacity':1
         })
     });
-    $('.wancheng').click(function(){
-        console.log(_gdState)
-        if( _gdState == 6 ){
+    $('#myModal')
+        .on('click','.jierenwu',function(){
+            _gdState = 4;
+            getGongDan();
+        })
+        .on('click','.dengdai',function(){
+            _gdState = 5;
+            getGongDan();
+        })
+        .on('click','.zhixing',function(){
+            _gdState = 6;
             if(app33.wxbeizhu == ''){
                 $('#myModal2').find('.modal-body').html('请填写维修内容！');
                 moTaiKuang($('#myModal2'));
             }else{
                 wanGong();
             }
-        }else{
-            getGongDan();
-            $('#myModal').parents('.modal').modal('hide');
-        }
-    })
+        })
+
    $('.confirm').click(function(){
-        $(this).parents('.modal').modal('hide')
+        $(this).parents('.modal').modal('hide');
     })
     //关闭按钮
     /*----------------------------表格绑定事件-----------------------------------*/
@@ -369,21 +373,23 @@ $(function(){
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').html();
-            console.log(gongDanState);
+            gdCode = gongDanCode;
             //根据工单状态，确定按钮的名称
             if( gongDanState == 3 ){
-                //$('#myModal').find('.confirm').html('接单');
-                _gdState = gongDanState + 1;
                 $('.wxbeizhu').attr('disabled',true);
+                $('#myModal').find('.queding').html('接任务').addClass('jierenwu').removeClass('zhixing').removeClass('wancheng');
+                $('#myModal').find('.dengdai').hide();
 
             }else if( gongDanState == 4){
-                //$('#myModal').find('.confirm').html('执行中');
-                _gdState = gongDanState + 1;
-                $('.wxbeizhu').attr('disabled',true);
-            }else if( gongDanState == 5 ){
-                //$('#myModal').find('.confirm').html('等待资源');
+                _gdState = 6;
+                $('#myModal').find('.queding').html('完成任务').addClass('zhixing').removeClass('jierenwu').removeClass('wancheng');
+                $('#myModal').find('.dengdai').show();
                 $('.wxbeizhu').attr('disabled',false);
-                _gdState = gongDanState + 1;
+
+            }else if ( gongDanState == 5 ){
+                $('#myModal').find('.queding').html('完成任务').addClass('zhixing').removeClass('jierenwu').removeClass('wancheng');
+                $('#myModal').find('.dengdai').hide();
+                $('.wxbeizhu').attr('disabled',false);
             }
             gdCode = gongDanCode;
             var prm = {

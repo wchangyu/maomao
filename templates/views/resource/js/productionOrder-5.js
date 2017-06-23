@@ -139,7 +139,7 @@ $(function(){
                         return '待关单'
                     }if(data == 7){
                         return '任务关闭'
-                    }if(data == 8){
+                    }if(data == 999){
                         return '任务取消'
                     }
                 }
@@ -166,7 +166,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null, //tablePingjia
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span><span class='data-option tablePingjia btn default btn-xs purple'> <i class='fa fa-edit'></i>评价</span>"
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span><span class='data-option tablePingjia btn default btn-xs purple'> 关闭</span>"
 
             }
         ]

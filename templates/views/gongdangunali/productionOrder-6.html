@@ -309,7 +309,26 @@
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <select  id="gdzt">
+                                                <option value="1">待下发</option>
+                                                <option value="2">待分派</option>
+                                                <option value="3">待执行</option>
+                                                <option value="4">执行中</option>
+                                                <option value="5">等待资源</option>
+                                                <option value="6">待关单</option>
+                                                <option value="7">任务关闭</option>
+                                                <option value="999">任务取消</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单类型：</label>
+                                        <div class="input-blocked">
+                                            <select  id="gdlx">
+                                                <option value="">全部</option>
+                                                <option value="1">待下发</option>
+                                                <option value="2">待分派</option>
+                                            </select>
                                         </div>
                                     </li>
                                     <li>
@@ -351,7 +370,7 @@
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li>
-                                        <button type="button" class="btn red delete chexiao" title="已完成的工单可进行撤销操作">
+                                        <button type="button" class="btn red delete chexiao">
                                             <i class="fa fa-trash"></i>
                                             <span>回退</span>
                                         </button>
@@ -359,7 +378,7 @@
                                     <li>
                                         <button type="button" class="btn red delete zuofei" title="未完成的工单可进行作废操作">
                                             <i class="fa fa-trash"></i>
-                                            <span>作废</span>
+                                            <span>取消</span>
                                         </button>
                                     </li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
@@ -590,6 +609,12 @@
                                     <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
                                 </div>
                             </div>
+                            <div>
+                                <div class="labels">图片：</div>
+                                <div class="input-blockeds" style="height:32px;">
+                                    <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
+                                </div>
+                            </div>
                             <div class="table-block">
                                 <div class="table-title">
                                     <span class="spanhover">执行人员</span>
@@ -639,9 +664,9 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
             </div>
-            <div class="modal-body">您确定要进行作废操作吗？</div>
+            <div class="modal-body">您确定要进行取消操作吗？</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
