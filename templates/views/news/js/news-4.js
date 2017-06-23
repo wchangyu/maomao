@@ -4,8 +4,6 @@ $(function(){
     if(_prm){
         var splitId  = _prm.split('&')[0];
         var _id = splitId.split('=')[1];
-        var splitCome = _prm.split('&')[1];
-
     }
     $.ajax({
         type:'get',

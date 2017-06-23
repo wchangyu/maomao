@@ -504,7 +504,8 @@ function getPostDate(postDate){
 //截取数组
 function getArr(arr){
         var shortArr = [];
-        shortArr = arr.slice(0,10);
+        //shortArr = arr.slice(0,10);
+        shortArr = arr;
         console.log(shortArr);
 
         return shortArr;

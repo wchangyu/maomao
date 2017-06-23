@@ -25,11 +25,17 @@ $(function(){
         el:'#myApp33',
         data:{
             picked:'0',
+            rwlx:4,
             telephone:'',
             person:'',
             place:'',
             section:'',
             matter:'',
+            sbSelect:'',
+            sbLX:'',
+            sbMC:'',
+            sbBM:'',
+            azAddress:'',
             sections:'',
             remarks:'',
             wxbeizhu:''
@@ -44,6 +50,7 @@ $(function(){
         }
     });
     var _gdState;
+    var gdCode;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -83,13 +90,13 @@ $(function(){
                 className:'gongdanId'
             },
             {
-                title:'紧急',
+                title:'工单类型',
                 data:'gdJJ',
                 render:function(data, type, full, meta){
                     if(data == 0){
-                        return '否'
+                        return '普通'
                     }if(data == 1){
-                        return '是'
+                        return '快速'
                     }
                 }
             },
@@ -99,28 +106,35 @@ $(function(){
                 className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '待受理'
+                        return '待下发'
                     }if(data == 2){
-                        return '待接单'
+                        return '待分派'
                     }if(data == 3){
                         return '待执行'
                     }if(data == 4){
-                        return '待完成'
+                        return '执行中'
                     }if(data == 5){
-                        return '完工确认'
+                        return '等待资源'
                     }if(data == 6){
-                        return '待评价'
+                        return '待关单'
                     }if(data == 7){
-                        return '结束'
+                        return '任务关闭'
+                    }if(data == 8){
+                        return '任务取消'
                     }
                 }
             },
             {
-                title:'报修部门',
+                title:'工单状态值',
+                data:'gdZht',
+                className:'ztz'
+            },
+            {
+                title:'车间站',
                 data:'bxKeshi'
             },
             {
-                title:'维修地点',
+                title:'故障位置',
                 data:'wxDidian'
             },
             {
@@ -239,10 +253,7 @@ $(function(){
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
-            "gdZht":5,
-            "gdZhts": [
-                0
-            ],
+            "gdZht":6,
             "userID":_userIdName
         }
         $.ajax({
@@ -267,8 +278,12 @@ $(function(){
             url: _urls + 'YWGD/ywGDUptZht',
             data:gdInfo,
             success:function(result){
-                //console.log(result);
-                conditionSelect();
+                if(result == 99){
+                    moTaiKuang($('#myModal2'));
+                    $('#myModal2').find('.modal-body').html('确认完工操作成功！')
+                    conditionSelect();
+                    $('#myModal').modal('hide');
+                }
             }
         })
     }
@@ -310,12 +325,10 @@ $(function(){
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
             //获取详情
-            var gongDanState = $this.children('.gongdanZt').html();
+            var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').html();
-            console.log(gongDanState);
             //根据工单状态，确定按钮的名称
-            if( gongDanState == '完工确认' ){
-                gongDanState = 5;
+            if( gongDanState == 6 ){
                 _gdState = gongDanState + 1;
             }
             gdCode = gongDanCode;
@@ -339,7 +352,6 @@ $(function(){
                         $('#twos').parent('span').addClass('checked');
                     }
                     //绑定弹窗数据
-                    //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -348,12 +360,23 @@ $(function(){
                     app33.sections = result.wxKeshi;
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;
+                    app33.rwlx = result.gdLeixing;
+                    app33.sbSelect = result.wxShebei;
+                    app33.sbLX = result.dcName;
+                    app33.sbMC = result.dName;
+                    app33.sbBM = result.ddName;
+                    app33.azAddress = result.installAddress;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
                 }
             });
+            //所有input框为不可操作
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true);
+            $('.wxbeizhu').attr('disabled',false);
         });
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
@@ -395,9 +418,6 @@ $(function(){
     });
     $('.confirm').click(function(){
         getGongDan();
-        $('#myModal').modal('hide');
-        $('#myModal2').find('.modal-body').html('已完成工单完工操作！');
-        moTaiKuang($('#myModal2'));
     })
     //提示框的确定
     $('.confirm1').click(function(){

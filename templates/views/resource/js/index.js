@@ -671,6 +671,7 @@ function timeLastYear(){
 //ets:sessionStorage中存储的配置文件中的能耗分类
 //ecs：从数据接口中获取的能耗数据
 function setEnergyType(ets,ecs){
+    console.log(ets);
     var types;
     if(ets){
         types = JSON.parse(ets);       //获取缓存的配置的显示能耗分类

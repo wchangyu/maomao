@@ -771,14 +771,22 @@
       "工单受理管理":{
         "type":"0",
         "content":"工单受理管理",
+        "uri":"../gongdangunali/productionOrder-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "工长分配管理":{
+        "type":"0",
+        "content":"工长分配管理",
         "uri":"../gongdangunali/productionOrder-2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "工单接单管理":{
+      "工单执行管理":{
         "type":"0",
-        "content":"工单接单管理",
+        "content":"工单执行管理",
         "uri":"../gongdangunali/productionOrder-7.html",
         "uid":"",
         "arg":"",
@@ -800,9 +808,9 @@
         "arg":"",
         "iconclass":""
       },
-      "工单综合管理":{
+      "工单综合查询":{
         "type":"0",
-        "content":"工单综合管理",
+        "content":"工单综合查询",
         "uri":"../gongdangunali/productionOrder-6.html",
         "uid":"",
         "arg":"",

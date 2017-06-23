@@ -285,7 +285,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修部门：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车间站：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -301,7 +301,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修部门：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修班组：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -313,7 +313,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修备注：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修内容：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -331,9 +331,20 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修地点：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">故障位置：</label>
                                         <div class="input-blocked">
                                             <input type="text">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">任务分类：</label>
+                                        <div class="input-blocked">
+                                            <select id="">
+                                                <option value="1">一级任务</option>
+                                                <option value="2">二级任务</option>
+                                                <option value="3">三级任务</option>
+                                                <option value="4">四级任务</option>
+                                            </select>
                                         </div>
                                     </li>
                                     <br>
@@ -342,7 +353,7 @@
                                     <li>
                                         <button type="button" class="btn red delete chexiao" title="已完成的工单可进行撤销操作">
                                             <i class="fa fa-trash"></i>
-                                            <span>撤销</span>
+                                            <span>回退</span>
                                         </button>
                                     </li>
                                     <li>
@@ -450,11 +461,11 @@
                         <ul class="progressBar">
                             <li>
                                 <div class="progressNum">01</div>
-                                <div class="progressName">待受理</div>
+                                <div class="progressName">待下发</div>
                             </li>
                             <li>
                                 <div class="progressNum">02</div>
-                                <div class="progressName">待接单</div>
+                                <div class="progressName">待分派</div>
                             </li>
                             <li>
                                 <div class="progressNum">03</div>
@@ -462,76 +473,121 @@
                             </li>
                             <li>
                                 <div class="progressNum">04</div>
-                                <div class="progressName">待完成</div>
+                                <div class="progressName">执行中</div>
                             </li>
                             <li>
                                 <div class="progressNum">05</div>
-                                <div class="progressName">完工确认</div>
+                                <div class="progressName">等待资源</div>
                             </li>
                             <li>
                                 <div class="progressNum">06</div>
-                                <div class="progressName">待评价</div>
+                                <div class="progressName">待关单</div>
                             </li>
                             <li>
                                 <div class="progressNum">07</div>
-                                <div class="progressName">结束</div>
+                                <div class="progressName">任务关闭</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">08</div>
+                                <div class="progressName">任务取消</div>
                             </li>
                         </ul>
                         <ul class="gongdanList" id="myApp33">
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">是否紧急：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">是</label>
-                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">否</label>
+                                <div class="labels">工单类型：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
+                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">任务类型 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="rwlx">
+                                        <option value="1">一级任务</option>
+                                        <option value="2">二级任务</option>
+                                        <option value="3">三级任务</option>
+                                        <option value="4">四级任务</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLeft">
                                 <div class="labels">报修电话：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="telephone" class="shishi disabled-block" disabled="true">
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="telephone" class="shishi">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">报修人信息：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" class="disabled-block" v-model="person" disabled="true">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels">维修地点：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" class="disabled-block" v-model="place" disabled="true">
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="person">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">报修部门：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" class="disabled-block" v-model="section" disabled="true">
+                                <div class="labels">故障位置：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="place">
                                 </div>
                             </li>
                             <li class="floatRight">
+                                <div class="labels">车间站：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="section">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
                                 <div class="labels">维修事项：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" class="disabled-block" v-model="matter" disabled="true">
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="matter">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">维修设备：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="sbSelect">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">维修部门：</div>
-                                <div class="input-blockeds disabled-block">
-                                    <input type="text" class="disabled-block" v-model="sections" disabled="true">
+                                <div class="labels">设备类型：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="sbLX">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">设备名称：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="sbMC">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">设备车间站：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="sbBM">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">安装地点：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="azAddress">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">维修班组：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="sections">
                                 </div>
                             </li>
                             <div class="clearfix"></div>
                             <div>
-                                <div class="labels">报修备注：</div>
+                                <div class="labels">故障描述：</div>
                                 <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks" disabled="true"></textarea>
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
                                 </div>
                             </div>
                             <div>
-                                <div class="labels">维修备注：</div>
+                                <div class="labels">维修内容：</div>
                                 <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu" disabled="true"></textarea>
+                                    <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
                                 </div>
                             </div>
                             <div class="table-block">
@@ -567,9 +623,9 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">警告</h4>
+                <h4 class="modal-title" id="myModalLabel1">提示</h4>
             </div>
-            <div class="modal-body">您确定要进行撤销操作吗？</div>
+            <div class="modal-body">您确定要进行回退操作吗？</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
