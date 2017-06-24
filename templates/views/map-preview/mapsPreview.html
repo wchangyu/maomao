@@ -44,7 +44,7 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <!--非框架中的样式-->
-    <link rel="stylesheet" href="css/mapPreview.css"/>
+    <link rel="stylesheet" href="css/mapsPreviews.css"/>
 
 </head>
 <!-- END HEAD -->
@@ -231,52 +231,73 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12" style="height:100%">
+                    <ul class="top-choose-img">
+                        <li><a href="javascript:;" class="onClick">图片1</a></li>
+                        <li><a href="javascript:;">图片2</a></li>
+                        <li><a href="javascript:;">图片3</a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+
                     <!-- 百度地图容器 -->
                     <div id="container">
-                    </div>
-                    <!-- 标注框开关 -->
-                    <div class="toolContainer">
-                        <div id="onOff">
-                            开关
-                        </div>
+                        <img src="img/example.png" alt="" class="map">
 
-                        <div class="seek" onclick="display()">
-                            搜索
-                        </div>
-
-                    </div>
-
-                    <div class="choosePosition">
-
-                        <div class="showCompany search-test-inner">
-                            <div class="showTitle">
-                                <p style="position:relative">
-                                    <!--企业在线情况-->
-                                    <!--<span><b></b>在线</span>-->
-                                    <!--<span><b style="background:#2097f3"></b>不在线</span>-->
-                                    <strong class='close'><img src="img/close.png" onclick="closeCompany()"></strong>
-                                </p>
+                        <div class="show-message">
+                            <p class="name">姓名1</p>
+                            <p class="tel">联系电话：<span>13866225462</span></p>
+                            <p class="team">所属班组：<span>三年二班</span></p>
+                            <img class="close" src="http://api.map.baidu.com/images/iw_close1d3.gif">
+                            <div class="arrows" >
+                                <img src="http://api.map.baidu.com/images/iw3.png">
                             </div>
-                            <!-- 搜索框结构 -->
-                            <div style="height:auto;width:100%">
-                                <input type="text" placeholder="请输入姓名" class='search-value'>
+                        </div>
 
-                                <button class="commonBtn leftBtn">搜索</button>
-                                <button class="commonBtn rightBtn" onclick='showAll()'>显示全部</button>
-                                <div style="height:26px"></div>
-                                <ul class="search-value-list" style="background:white"></ul>
+                        <!-- 标注框开关 -->
+                        <div class="toolContainer">
+                            <div id="onOff">
+                                开关
                             </div>
 
-                            <ul id='ul1'>
-                                <li class="titles search-li" data-name='广州火车站' data-online='不在线'><span></span>广州火车站</li>
-                                <li class="titles search-li" data-name='广州塔' data-online='不在线'><span></span>广州塔</li>
-                                <li class="titles search-li" data-name='广州动物园' data-online='在线'><span></span>广州动物园</li>
-                                <li class="titles search-li" data-name='天河公园' data-online='不在线'><span></span>天河公园</li>
-                            </ul>
+                            <div class="seek" onclick="display()">
+                                搜索
+                            </div>
+
                         </div>
 
+                        <div class="choosePosition">
 
+                            <div class="showCompany search-test-inner">
+                                <div class="showTitle">
+                                    <p style="position:relative">
+                                        <!--企业在线情况-->
+                                        <!--<span><b></b>在线</span>-->
+                                        <!--<span><b style="background:#2097f3"></b>不在线</span>-->
+                                        <strong class='close'><img src="img/close.png" onclick="closeCompany()"></strong>
+                                    </p>
+                                </div>
+                                <!-- 搜索框结构 -->
+                                <div style="height:auto;width:100%">
+                                    <input type="text" placeholder="请输入姓名" class='search-value'>
+
+                                    <button class="commonBtn leftBtn">搜索</button>
+                                    <button class="commonBtn rightBtn" onclick='showAll()'>显示全部</button>
+                                    <div style="height:26px"></div>
+                                    <ul class="search-value-list" style="background:white"></ul>
+                                </div>
+
+                                <ul id='ul1'>
+                                    <li class="titles search-li" data-name='姓名1' data-online='不在线'><span></span>姓名1</li>
+
+                                </ul>
+                            </div>
+
+
+                        </div>
                     </div>
+
+
+
+
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
@@ -356,7 +377,7 @@
 
 <!--非框架中js-->
 <script src="../bank-branch-resource/js/common.js"></script>
-<script src="js/mapPreview.js"></script>
+<script src="js/mapsPreview.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

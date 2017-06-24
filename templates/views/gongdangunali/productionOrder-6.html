@@ -310,6 +310,7 @@
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
                                         <div class="input-blocked">
                                             <select  id="gdzt">
+                                                <option value="0" selected>全部</option>
                                                 <option value="1">待下发</option>
                                                 <option value="2">待分派</option>
                                                 <option value="3">待执行</option>
@@ -343,8 +344,14 @@
                                             <input type="text">
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="display: none">
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">受理人：</label>
+                                        <div class="input-blocked">
+                                            <input type="text">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">执行人：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>

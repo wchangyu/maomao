@@ -627,7 +627,7 @@ $(function(){
             CaiLiao('YWGD/ywGDAddWxCl');
             var gdInfo = {
                 'gdCode':gdCode,
-                'gdZht':2,
+                'gdZht':3,
                 'wxKeshi':workDones.weixiukeshis,
                 'userID':_userIdName
             }

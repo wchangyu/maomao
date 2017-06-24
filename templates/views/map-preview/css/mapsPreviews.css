@@ -1,3 +1,107 @@
+#container{
+    width:100%;
+    height:800px;
+}
+#container .map{
+    width:100%;
+    max-height: 100%;
+}
+.top-choose-img{
+    margin-bottom:10px;
+    padding-top:10px;
+}
+
+.top-choose-img li{
+    float: left;
+    margin-right: 20px;
+    line-height: 26px;
+}
+.top-choose-img li a{
+    color:black;
+    font-size:18px;
+}
+.top-choose-img li a:hover {
+    color: orangered;
+}
+.top-choose-img li .onClick {
+    color: darkorange;
+}
+
+/*marker标注点*/
+.marker{
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+    background: url("../img/blue.png") no-repeat center;
+    width: 55px;
+    height: 55px;
+    left: 58%;
+    top: 56%;
+    z-index: 100;
+}
+
+/*上方显示具体信息弹窗*/
+.show-message{
+    position: absolute;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-left: -86px;
+    margin-top:-108px;
+    border: 0px;
+    cursor: pointer;
+    width:250px;
+    height:110px;
+    border:1px solid #999;
+    z-index: 5731450;
+    background:white;
+    display: none;
+
+}
+.show-message .name{
+    font-weight: bold;
+    color: #CE5521;
+    font-size: 14px;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.show-message .tel,.show-message .team{
+    margin-bottom: 5px;
+    font-size:14px;
+}
+.show-message .arrows{
+    overflow: hidden;
+    z-index: 100;
+    position: absolute;
+    left: 109px;
+    top: 95px;
+    width: 34px;
+    height: 50px;
+}
+.show-message .close{
+    position: absolute;
+    top: 12px;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    z-index: 10000; left: 227px;
+}
+.show-message .arrows img{
+    border:none;
+    margin:0px;
+    padding:0px;
+    position:absolute;
+    left:-186px;
+    top:-702px;
+    max-width:none;
+    width:690px;
+    height:786px;
+}
+
+/*右上角搜索功能*/
 *{
     margin:0;
     padding: 0;
@@ -10,7 +114,7 @@ li{
     height:auto;
     position: fixed;
     right:80px;
-    top:210px;
+    top:250px;
     background:white;
     box-shadow: 5px 10px 5px rgba(0,0,0,.15);
 
@@ -67,7 +171,7 @@ label {
     outline: none
 }
 /*.BMap_pop img:nth-child(1) {*/
-    /*display: none !important;*/
+/*display: none !important;*/
 /*}*/
 #ul1{
     width:100%;
@@ -304,8 +408,8 @@ label {
     margin-left:20px;
 }
 /*#onOff:hover{*/
-    /*color:#579afc;*/
-    /*background:url('../img/offf.png') no-repeat 0 1.5px;*/
+/*color:#579afc;*/
+/*background:url('../img/offf.png') no-repeat 0 1.5px;*/
 /*}*/
 #onOff .centerDiv{
     width:100%;
@@ -325,7 +429,7 @@ label {
     background-color: #f1f1f1;
     position: fixed;
     right:80px;
-    top:160px;
+    top:200px;
 
 }
 .seek{
