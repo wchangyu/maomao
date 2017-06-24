@@ -477,6 +477,25 @@ h3 span{
     display: none;
 }
 
+/*能耗分析中数据质量部分*/
+#energy-demand4{
+    height:315px;
+}
+
+#energy-analyze .data-quality .total-data{
+    height:315px;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+#energy-analyze .data-quality .total-data li{
+    line-height:30px;
+    font-size:20px;
+}
+#energy-analyze .data-quality .total-data li b{
+    font-size:24px;
+}
+
 
 
 /*table表格样式*/

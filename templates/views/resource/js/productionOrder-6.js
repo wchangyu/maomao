@@ -134,6 +134,21 @@ $(function(){
                 }
             },
             {
+                title:'任务类型',
+                data:'gdLeixing',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '一级任务'
+                    }if(data == 2){
+                        return '二级任务'
+                    }if(data == 3){
+                        return '三级任务'
+                    }if(data == 4){
+                        return '四   级任务'
+                    }
+                }
+            },
+            {
                 title:'工单状态值',
                 data:'gdZht',
                 className:'ztz'
@@ -405,7 +420,6 @@ $(function(){
                 "wxKeshi": "",
                 "userID": _userIdName
             }
-            //console.log(_zhixingRens);
             Worker('YWGD/ywGDDelWxR','flag');
             CaiLiao('YWGD/ywGDDelWxCl','flag');
             $.ajax({
@@ -513,13 +527,14 @@ $(function(){
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
-            "gdZht":0,
-            "gdZhts": [
-                0
-            ],
-            "pjRen":filterInput[7],
+            "gdZht":$('#gdzt').val(),
+            "pjRen":filterInput[6],
             "shouliren": filterInput[8],
-            "userID":_userIdName
+            "userID":_userIdName,
+            //故障位置
+            "gdLeixing":$('#gdlx').val(),
+            "wxRen":filterInput[7],
+            "wxdidian":filterInput[8]
         }
         $.ajax({
             type:'post',

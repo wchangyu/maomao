@@ -228,6 +228,8 @@ $(function(){
     /*------------------------------------表格绑定事件---------------------------*/
     $('#scrap-datatables tbody')
         .on('click','.option-edit',function(){
+            //清空一下执行人数组
+            _zhixingRens = [];
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
@@ -505,6 +507,9 @@ $(function(){
                 }
             })
         }
+    });
+    $('#selected').on('click',function(){
+        conditionSelect();
     })
     /*------------------------------------其他方法-------------------------------*/
     //条件查询

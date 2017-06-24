@@ -1,0 +1,214 @@
+{
+  "首页":{
+    "type":"1",
+    "iconclass":"icon-home",
+    "content":"首页",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../bank-branch-shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "新闻":{
+        "type":"0",
+        "content":"新闻",
+        "uri":"../news/news.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "能耗查询":{
+    "type":"1",
+    "iconclass":"icon-speedometer",
+    "content":"能耗查询",
+    "submenu":{
+      "能耗查询":{
+        "type":"0",
+        "content":"能耗查询",
+        "uri":"../bank-branch-nenghaochaxun/BranchEnergyQueryTotalData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "用能分析":{
+    "type":"1",
+    "iconclass":"icon-pie-chart",
+    "content":"用能分析",
+    "submenu":{
+      "能耗指标":{
+        "type":"0",
+        "content":"能耗指标",
+        "uri":"../bank-branch-yongnengfenxi/EnergyNormData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能效指标":{
+        "type":"0",
+        "content":"能效指标",
+        "uri":"../bank-branch-yongnengfenxi/efficiencyTarget.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "横向对比":{
+        "type":"0",
+        "content":"横向对比",
+        "uri":"../bank-branch-yongnengfenxi/EnergyCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "同比环比":{
+        "type":"0",
+        "content":"同比环比",
+        "uri":"../bank-branch-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能耗分项":{
+        "type":"0",
+        "content":"能耗分项",
+        "uri":"../bank-branch-yongnengfenxi/totalEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "昼夜分析":{
+        "type":"0",
+        "content":"昼夜分项",
+        "uri":"../bank-branch-yongnengfenxi/dayNightEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能趋势":{
+        "type":"0",
+        "content":"用能趋势",
+        "uri":"../bank-branch-yongnengfenxi/EnergyTrend.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "节能足迹": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "节能足迹",
+    "submenu": {
+      "节能项目统计": {
+        "type": "0",
+        "content": "节能项目统计",
+        "uri": "../bank-branch-jienengzuji/EnergyStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能量统计": {
+        "type": "0",
+        "content": "节能量统计",
+        "uri": "../bank-branch-jienengzuji/EnergyTotal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "环境监测": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "环境监测",
+    "submenu": {
+      "节能项目统计": {
+        "type": "0",
+        "content": "环境监测",
+        "uri": "../bank-evrm/EnvironmentallyMonitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "数据质量": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "数据质量",
+    "submenu": {
+      "节能项目统计": {
+        "type": "0",
+        "content": "数据质量",
+        "uri": "../bank-sjzl/ServiceNumberDataQuality.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "报警信息": {
+    "type": "1",
+    "iconclass": "icon-bell",
+    "content": "报警",
+    "submenu": {
+      "节能项目统计2": {
+        "type": "0",
+        "content": "报警信息",
+        "uri": "../bank-branch-baojingxinxi/warningAlarm.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+
+
+    }
+  },
+  "新闻":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"新闻",
+    "submenu":{
+      "新闻后台":{
+        "type":"0",
+        "content":"后台",
+        "uri":"../news/news-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "栏目":{
+        "type":"0",
+        "content":"栏目",
+        "uri":"../news/news-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "标题":{
+        "type":"0",
+        "content":"标题",
+        "uri":"../news/news-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "查看":{
+        "type":"0",
+        "content":"查看",
+        "uri":"../news/news-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  }
+}

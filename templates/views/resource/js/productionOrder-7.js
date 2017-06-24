@@ -37,8 +37,7 @@ $(function(){
             sbBM:'',
             azAddress:'',
             sections:'',
-            remarks:'',
-            wxbeizhu:''
+            remarks:''
         },
         methods:{
             radios:function(){
@@ -49,14 +48,13 @@ $(function(){
             }
         }
     })
-    //记录工单状态的值
-    var _gdState = 0;
-    //记录维修状态的值
-    var _wxZhuangtai;
     //定位当前页索引值
     var currentPages = 0;
     var currentRow = '';
+    //当前那工单号
     var gdCode = '';
+    //当前维修班组
+    var _wxOffice = '';
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -245,51 +243,6 @@ $(function(){
             }
         })
     }
-    //接单功能
-    function getGongDan(){
-        var gdInfo = {
-            'gdCode':gdCode,
-            'gdZht':_gdState,
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDUptZht',
-            data:gdInfo,
-            success:function(result){
-                if(result == 99){
-                    $('#myModal2').find('.modal-body').html('操作成功！');
-                    moTaiKuang($('#myModal2'));
-                    conditionSelect();
-                    $('#myModal').modal('hide');
-                }
-            }
-        })
-    }
-    //完工功能
-    function wanGong(){
-        _wxZhuangtai = app33.wxbeizhu;
-            var gdInfo = {
-                'gdCode':gdCode,
-                'gdZht':_gdState,
-                'userID':_userIdName,
-                'wxBeizhu':_wxZhuangtai
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWGD/ywGUptWang',
-                data:gdInfo,
-                success:function(result){
-                    if(result == 99){
-                        //提示已完成；
-                        $('#myModal2').find('.modal-body').html('工单已完成接单！');
-                        moTaiKuang($('#myModal2'));
-                        $('#myModal').modal('hide');
-                        conditionSelect();
-                    }
-                }
-            })
-    }
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -328,24 +281,28 @@ $(function(){
             'opacity':1
         })
     });
-    $('#myModal')
-        .on('click','.jierenwu',function(){
-            _gdState = 4;
-            getGongDan();
-        })
-        .on('click','.dengdai',function(){
-            _gdState = 5;
-            getGongDan();
-        })
-        .on('click','.zhixing',function(){
-            _gdState = 6;
-            if(app33.wxbeizhu == ''){
-                $('#myModal2').find('.modal-body').html('请填写维修内容！');
-                moTaiKuang($('#myModal2'));
+    $('#myModal').on('click','.execute',function(){
+        //先判断现在的状态是否可执行操作方法
+        var currentZTZ = $('.current-state').attr('ztz');
+        var currentOption = $('#option-select').val();
+        console.log(currentZTZ);
+        console.log(currentOption);
+        //判断当前状态和执行任务状态
+        if(  currentZTZ == currentOption ){
+            //只发送维修备注请求
+            wxRmark();
+        }else{
+            if( currentZTZ == 3 && currentOption != 4 ){
+                //提示请执行任务
+                $('.errorTips').html('当前状态下请先选择执行任务操作！');
             }else{
-                wanGong();
+                $('.errorTips').html('');
+                //状态转换+维修内容
+                wxRmark();
+                getGongDan();
             }
-        })
+        }
+    })
 
    $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
@@ -373,24 +330,6 @@ $(function(){
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').html();
-            gdCode = gongDanCode;
-            //根据工单状态，确定按钮的名称
-            if( gongDanState == 3 ){
-                $('.wxbeizhu').attr('disabled',true);
-                $('#myModal').find('.queding').html('接任务').addClass('jierenwu').removeClass('zhixing').removeClass('wancheng');
-                $('#myModal').find('.dengdai').hide();
-
-            }else if( gongDanState == 4){
-                _gdState = 6;
-                $('#myModal').find('.queding').html('完成任务').addClass('zhixing').removeClass('jierenwu').removeClass('wancheng');
-                $('#myModal').find('.dengdai').show();
-                $('.wxbeizhu').attr('disabled',false);
-
-            }else if ( gongDanState == 5 ){
-                $('#myModal').find('.queding').html('完成任务').addClass('zhixing').removeClass('jierenwu').removeClass('wancheng');
-                $('#myModal').find('.dengdai').hide();
-                $('.wxbeizhu').attr('disabled',false);
-            }
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -429,6 +368,21 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                    //给当前状态赋值
+                    var currentState = '';
+                    if(result.gdZht == 3){
+                        currentState = '待执行'
+                    }else if(result.gdZht == 4){
+                        currentState = '执行中'
+                    }else if(result.gdZht == 5){
+                        currentState = '等待资源'
+                    }else if(result.gdZht == 6){
+                        currentState = '待关单'
+                    }
+                    $('.current-state').val(currentState);
+                    $('.current-state').attr('ztz',result.gdZht);
+                    //维修科室
+                    _wxOffice = result.wxKeshi;
                 }
             });
         });
@@ -495,4 +449,47 @@ $(function(){
             'columns':col
         })
     }
+    //修改维修备注方法
+    function wxRmark(){
+        var gdInfo = {
+            "gdCode": gdCode,
+            "gdZht": $('#option-select').val(),
+            "wxKeshi": _wxOffice,
+            "wxBeizhu": $('#wxbeizhu').val(),
+            "userID": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url: _urls + 'YWGD/ywGDUptWxBeizhu',
+            data:gdInfo,
+            success:function(result){
+                if(result == 99){
+                    conditionSelect();
+                    moTaiKuang($('#myModal2'));
+                    $('#myModal2').find('.modal-body').html('操作成功！');
+                    $('#myModal').modal('hide');
+                }
+            }
+        })
+    };
+    //转化状态
+    function getGongDan(){
+        var gdInfo = {
+            'gdCode':gdCode,
+            'gdZht':$('#option-select').val(),
+            'userID':_userIdName
+        }
+        console.log(gdInfo);
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZht',
+            data:gdInfo,
+            success:function(result){
+                if(result == 99){
+                    $('#myModal').modal('hide');
+                    conditionSelect();
+                }
+            }
+        })
+    };
 })

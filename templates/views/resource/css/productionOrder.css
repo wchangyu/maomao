@@ -348,4 +348,22 @@ table.dataTable.table-condensed > thead > tr > th{
 .ztz{
     display: none;
 }
-
+.list-left{
+    float: left;
+    font-size: 15px;
+}
+.list-right{
+    margin-left: 100px;
+    height: 200px;
+    background: cyan;
+}
+.row{
+    margin: 0 !important;
+}
+.list-right-list{
+    width: 200px;
+    display: inline-block;
+    text-align: left;
+    text-indent: 20px;
+    vertical-align: top;
+}

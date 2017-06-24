@@ -292,7 +292,7 @@ h3 span{
 
 /*能耗分析中能耗排名部分*/
 #energy-demand1{
-    height:600px;
+    height:960px;
 }
 #dateTables1_info{
     display: none;
@@ -307,7 +307,7 @@ h3 span{
 /*能耗分析中指标排名部分*/
 
 #energy-demand2{
-    height:600px;
+    height:960px;
 }
 #dateTables2_info{
     display: none;

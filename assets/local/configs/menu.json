@@ -855,6 +855,69 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "地图预览":{
+        "type":"0",
+        "content":"地图预览",
+        "uri":"../map-preview/mapPreview.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "系统设置":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"系统设置",
+    "submenu":{
+      "员工管理":{
+        "type":"0",
+        "content":"员工管理",
+        "uri":"../xitongshezhi/personnelManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "角色管理":{
+        "type":"0",
+        "content":"角色管理",
+        "uri":"../xitongshezhi/roleManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "部门管理":{
+        "type":"0",
+        "content":"部门管理",
+        "uri":"../xitongshezhi/sectorManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "资源管理":{
+        "type":"0",
+        "content":"资源管理",
+        "uri":"../xitongshezhi/resourceManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "权限分配":{
+        "type":"0",
+        "content":"权限分配",
+        "uri":"../xitongshezhi/permissionAssignment.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "标识符管理":{
+        "type":"0",
+        "content":"标识符管理",
+        "uri":"../xitongshezhi/identifierManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
@@ -948,7 +1011,7 @@
   },
   "首页1":{
     "type":"1",
-    "iconclass":"icon-settings",
+    "iconclass":"icon-home",
     "content":"首页1",
     "submenu":{
       "首页":{
@@ -965,7 +1028,7 @@
   },
   "能耗查询1":{
     "type":"1",
-    "iconclass":"icon-settings",
+    "iconclass":"icon-speedometer",
     "content":"能耗查询1",
     "submenu":{
       "能耗查询1":{
@@ -982,7 +1045,7 @@
   },
   "用能分析1":{
     "type":"1",
-    "iconclass":"icon-settings",
+    "iconclass":"icon-pie-chart",
     "content":"用能分析1",
     "submenu":{
       "能耗指标1":{
@@ -1047,7 +1110,7 @@
   },
   "用能管理1":{
     "type":"1",
-    "iconclass":"icon-settings",
+    "iconclass":"icon-briefcase",
     "content":"用能管理1",
     "submenu":{
       "能耗排名1":{
@@ -1088,13 +1151,21 @@
   },
   "节能足迹1": {
     "type": "1",
-    "iconclass": "icon-settings",
+    "iconclass": "icon-cursor",
     "content": "节能足迹1",
     "submenu": {
       "节能项目统计1": {
         "type": "0",
         "content": "节能项目统计1",
         "uri": "../bank-jienengzuji/EnergyStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能量统计1": {
+        "type": "0",
+        "content": "节能量统计1",
+        "uri": "../bank-jienengzuji/EnergyTotal.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -1210,6 +1281,31 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      },
+      "节能量统计2": {
+        "type": "0",
+        "content": "节能量统计2",
+        "uri": "../bank-branch-jienengzuji/EnergyTotal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+
+
+    }
+  },
+  "报警信息": {
+    "type": "1",
+    "iconclass": "icon-bell",
+    "content": "报警",
+    "submenu": {
+      "节能项目统计2": {
+        "type": "0",
+        "content": "报警信息",
+        "uri": "../bank-branch-baojingxinxi/warningAlarm.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
 
 
@@ -1217,7 +1313,7 @@
   },
   "新闻":{
     "type":"1",
-    "iconclass":"icon-settings",
+    "iconclass":"icon-note",
     "content":"新闻",
     "submenu":{
       "首页":{

@@ -1,39 +1,120 @@
 /**
  * Created by admin on 2017/6/20.
  */
-//获取得地图数据
+
+// 定义中心点坐标;
+var centerCoordinate = [115.804166, 28.663333];
+
+//定义初始缩放比例
+var beginZoom = 8;
+
+//存放地图数据信息
 var markerArr = [
-    { title: "广州火车站", point: "113.264531,23.157003", address: "广东省广州市广州火车站", tel:"12306", online: 0 },
-    { title: "广州塔（赤岗塔）", point: "113.330934,23.113401", address: "广东省广州市广州塔（赤岗塔） ", tel: "18500000000", online: 0  },
-    { title: "广州动物园", point: "113.312213,23.147267", address: "广东省广州市广州动物园", tel:"18500000000", online: 1  },
-    { title: "天河公园", point: "113.372867,23.134274", address: "广东省广州市天河公园", tel: "18500000000", online: 0  }
+
 ];
-//新建百度地图
-var map = new BMap.Map("container");
-map.centerAndZoom(new BMap.Point(113.312213, 23.147267), 13);
+//获取本地url
+var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+//获取后台数据
+function getData(){
+
+    $.ajax({
+        type: 'post',
+        url: _urls + "/YWGD/ywGDGetLocInfo",
+        timeout: theTimes,
+        data:{
+            "userID": _userIdName
+        },
+        beforeSend: function () {
+            $('#theLoading').modal('show');
+
+
+        },
+
+        complete: function () {
+            //$('#theLoading').modal('hide');
+        },
+        success: function (data) {
+            $('#theLoading').modal('hide');
+            console.log(data);
+            markerArr = [];
+
+            //存放搜索框中内容
+            var html = '';
+
+            $(data).each(function(i,o){
+
+                var obj =  {
+                    title: o.userName,
+                    point: ''+o.longitude+',' + o.latitude + '',
+                    address: "",
+                    tel: o.mobile,
+                    online: 0 ,
+                    class: o.depart,
+                    id: o.userID
+                };
+                html +=     '<li class="titles search-li" data-name='+ o.userName+' data-online="不在线"><span></span>'+o.userName+'</li>';
+
+                //添加数据
+                markerArr.push(obj)
+            });
+
+            //新建百度地图
+            map = new BMap.Map("container");
+
+            map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
 //可以进行缩放
-map.enableScrollWheelZoom();
-map.addControl(new BMap.NavigationControl());
+            map.enableScrollWheelZoom();
+            map.addControl(new BMap.NavigationControl());
+
+            //具体地点的文字标注与事件绑定
+            addWords();
+
+            //重构右上角搜索框中内容
+            $('#ul1').html(html);
+            detail();
+            //新的搜索对象
+            new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#theLoading').modal('hide');
+            console.log(textStatus);
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                myAlter("超时");
+            }else{
+                myAlter("请求失败！");
+            }
+
+        }
+    });
+}
+
+getData();
+
+var map;
 
 
 
-
-detail();
-addWords();
 //右上角城市切换功能
 function detail(){
 
     for(var i = 0; i < markerArr.length; i++){
         (function (i){
 
-            $('.titles').eq(i).click(function(){
+            $('.titles').eq(i).off('click');
+            $('.titles').eq(i).on('click',function(){
 
                 var p0 = markerArr[i].point.split(",")[0];
                 var p1 = markerArr[i].point.split(",")[1];
                 map.centerAndZoom(new BMap.Point(p0, p1), 15);
             });
 
-            $('.search-value-list li').eq(i + 1).click(function(){
+            $('.search-value-list li').off('click');
+
+            $('.search-value-list li').eq(i + 1).on('click',function(){
                 console.log('.search-value-list');
                 var p0 = markerArr[i].point.split(",")[0];
                 var p1 = markerArr[i].point.split(",")[1];
@@ -47,7 +128,7 @@ function detail(){
 
 var removeNum = 0;
 
-//地点得文字标注与事件绑定
+//地点的文字标注与事件绑定
 function addWords(){
     var arr = [];
     var points = [];
@@ -92,41 +173,57 @@ function addWords(){
         arr.push(label);
         marker.setLabel(label);
         //给每个被选中地点添加事件
+        $(arr).each(function(i , o){
+            o.setStyle({
+                display:'none'
+            })
+        })
 
         // map.setViewport(points);
 
     }
 
     map.addEventListener("zoomend", function () {
-        var DiTu = this.getZoom();
-
-        if (DiTu >= 13)
-        {
-            $(arr).each(function(i , o){
-                o.setStyle({
-                    display:'block'
-                })
-            })
-        }
-        else
-        {
-            $(arr).each(function(i , o){
-                o.setStyle({
-                    display:'none'
-                })
-            })
-        }
+        //var DiTu = this.getZoom();
+        //
+        //if (DiTu >= 14)
+        //{
+        //    $(arr).each(function(i , o){
+        //        o.setStyle({
+        //            display:'block'
+        //        })
+        //    })
+        //    $('#onOff').css({
+        //        background:'url("img/offs.png") no-repeat 0 1.5px'
+        //    })
+        //    removeNum = 1;
+        //
+        //}
+        //else
+        //{
+        //    $(arr).each(function(i , o){
+        //        o.setStyle({
+        //            display:'none'
+        //        })
+        //    })
+        //    $('#onOff').css({
+        //        background:'url("img/off.png") no-repeat 0 1.5px',
+        //
+        //    })
+        //    removeNum = 0;
+        //}
 
         //map.removeEventListener("zoomend", showInfo);
     });
     //右上角label开关
+    $('#onOff').off('click');
     $('#onOff').on('click',function(){
         removeNum ++;
         if(removeNum % 2){
 
             $(arr).each(function(i , o){
                 o.setStyle({
-                    display:'none'
+                    display:'block'
                 })
             })
             // for(var i = 0 ; i < arr.length; i++){
@@ -144,7 +241,7 @@ function addWords(){
 
             $(arr).each(function(i , o){
                 o.setStyle({
-                    display:'block'
+                    display:'none'
                 })
             })
             $('#onOff').css({
@@ -170,40 +267,24 @@ function addInfoWindow(marker, poi) {
     //pop弹窗信息
     var html = [];
     html.push('<div style="font-size:14px;width:100%;height:280px;">'+
-        '<p style="margin-bottom:5px" class="monitorTitle">A地点：<span>污水排放情况</span></p>'+
-
+        '<p style="margin-bottom:5px" class="monitorTitle">联系电话：<span>'+poi.tel+'</span></p>'+
+        '<p style="margin-bottom:5px" class="monitorTitle">所属班组：<span></span>'+poi.class+'</span></p>'+
         '</div>');
-    var infoWindow = new BMap.InfoWindow(html.join(""), {enableMessage: false, title: title, width: 250, height:60 });
+    var infoWindow = new BMap.InfoWindow(html.join(""), {enableMessage: false, title: title, width: 140, height:80 });
 
     var openInfoWinFun = function () {
 
         marker.openInfoWindow(infoWindow);
 
-        //各个监测点排列
-        var num = $('.datailArea').length;
-        var length = 0;
-        for(var i = 0; i < num; i++){
+    };
+    var closeInfoWinFun = function () {
 
-            length += parseInt($('.datailArea').eq(i).width()) + 25;
-            //判断监测点是否超出允许宽度
-            if(length > 350){
-                for( var j = i; j < num; j++ ){
-                    var content = $('.datailArea').eq(i).html();
-                    //超出后将其从上方删除
-                    $('.datailArea').eq(i).remove();
-                    //添加到‘其他地点’列表中
-                    $('.otherAreas').append('<li>' + content + '</li>');
-                }
-                //给'其他地点'中的li绑定事件
-                onShow();
-                return false;
-            }
-        }
-
+        marker.closeInfoWindow(infoWindow);
 
     };
 
     marker.addEventListener("mouseover", openInfoWinFun);
+    //marker.addEventListener("mouseout", closeInfoWinFun);
     return openInfoWinFun;
 }
 //获取完整的地址
@@ -223,9 +304,13 @@ function display(){
 
 
 }
+$('.showTitle p .close').on('click',function(){
+    closeCompany();
+})
 
 //右上角关闭按钮
 function closeCompany(){
+    console.log('666');
     $('.switch').css({
         'display':'block',
 
@@ -258,7 +343,7 @@ function showAll(){
 }
 
 
-//引用
+//搜索功能
 $(function(){
     // search-test-inner --->  最外层div
     // search-value --->  input 输入框
@@ -292,8 +377,10 @@ function SEARCH_ENGINE(dom,searchInput,searchResultInner,searchList){
     //绑定搜索事件
     this.searchActiveEvent();
 
-}
+};
 
+
+//创建搜索原型对象
 SEARCH_ENGINE.prototype = {
     //-----------------------------【转换成拼音，并将拼音、汉字、数字存入数组】
     transformPinYin : function(){

@@ -9,8 +9,8 @@ li{
     width:350px;
     height:auto;
     position: fixed;
-    right:100px;
-    top:70px;
+    right:80px;
+    top:210px;
     background:white;
     box-shadow: 5px 10px 5px rgba(0,0,0,.15);
 
@@ -27,6 +27,7 @@ li{
     border-radius: 5%;
     cursor: pointer;
     color:white;
+    box-sizing: content-box;
 
 
 }
@@ -65,9 +66,13 @@ label {
     float: left;
     outline: none
 }
+/*.BMap_pop img:nth-child(1) {*/
+    /*display: none !important;*/
+/*}*/
 #ul1{
     width:100%;
-    height: auto;
+    max-height: 500px;
+    overflow-y: auto;
 
 }
 #ul1 li{
@@ -81,10 +86,18 @@ label {
     background:white;
     border-bottom: 1px solid #666;
     color:#4c4c4c;
+    box-sizing: content-box;
 }
 #ul1 li:hover{
     background: pink;
     color:white;
+}
+.ifOnline{
+    border-radius: 50% !important;
+}
+.search-value-list{
+    max-height: 500px;
+    overflow-y: auto;
 }
 /*地图大小*/
 #container{
@@ -249,7 +262,7 @@ label {
 #ul1 li span{
     width:12px;
     height: 12px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     display: inline-block;
     background:#2097f3;
     margin-right: 10px;
@@ -290,10 +303,10 @@ label {
     padding-left:40px;
     margin-left:20px;
 }
-#onOff:hover{
-    color:#579afc;
-    background:url('../img/offf.png') no-repeat 0 1.5px;
-}
+/*#onOff:hover{*/
+    /*color:#579afc;*/
+    /*background:url('../img/offf.png') no-repeat 0 1.5px;*/
+/*}*/
 #onOff .centerDiv{
     width:100%;
     height:50%;
