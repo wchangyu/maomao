@@ -121,6 +121,71 @@ $(document).ready(function() {
         ]
     });
 
+    var table2 = $('#dateTables2').DataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        //是否分页
+        "destroy": false,//还原初始化了的datatable
+        "paging":false,
+        "bPaginate": false,
+        "ordering": false,
+        'searching':false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                title:'',
+                data:"energyItemName"
+
+            },
+            {
+                title:'用量',
+                data:"energyItemValue",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
+            },
+            {
+                title:'折合标煤',
+                data:"energyItemCoalValue",
+                render:function(data, type, full, meta){
+
+                    return data.toFixed(2);
+                }
+            },
+            {
+                title:'占比（%）',
+                data:"energyItemPercent",
+                render:function(data, type, full, meta){
+
+                    return (data * 100).toFixed(2) + '%';
+                }
+            }
+
+
+
+        ]
+    });
+
 
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
@@ -162,14 +227,14 @@ function getBuild(){
             enterpriseID : EnterpriseID
         },
         beforeSend: function () {
-
+            $('#theLoading').modal('show');
         },
 
         complete: function () {
-            $('#theLoading').modal('hide');
+
         },
         success: function (data) {
-            $('#theLoading').modal('hide');
+
             console.log(data);
             $(data).each(function(i,o){
                 pointArr.push(o.pointerID);
@@ -542,6 +607,27 @@ function getMainData(){
             setDatas(dataArrs1);
 
             $('.header-right-lists span').html(unit);
+
+            if(objID == -2){
+                _table = $('#dateTables2').dataTable();
+
+                ajaxSuccess();
+
+                $('.L-right0').css({
+                    display:'none'
+                });
+                $('.L-right1').css({
+                    display:'block'
+                })
+            }else {
+                $('.L-right0').css({
+                    display:'block'
+                });
+                $('.L-right1').css({
+                    display:'none'
+                });
+
+            }
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -3,7 +3,7 @@
  */
 
 var _userIdName = sessionStorage.getItem('userName');
-var IP1 = "http://192.168.1.125/BEEWebAPI/api";
+var IP1 = "http://192.168.1.110/BEEWebAPI/api";
 var IP2 = 'http://211.100.28.180/DingEAPI/api';
 var IP = IP1;
 var theTimes = 30000;
@@ -504,7 +504,8 @@ function getPostDate(postDate){
 //截取数组
 function getArr(arr){
         var shortArr = [];
-        shortArr = arr.slice(0,10);
+        //shortArr = arr.slice(0,10);
+        shortArr = arr;
         console.log(shortArr);
 
         return shortArr;

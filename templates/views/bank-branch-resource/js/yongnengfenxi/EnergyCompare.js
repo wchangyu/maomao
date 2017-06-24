@@ -48,27 +48,39 @@ $(document).ready(function() {
         'columns':[
             {
                 title:'对比对象',
-                data:"enterpriseName"
-            },
-            {
-                title:'建筑面积（㎡）',
-                data:"buildingArea"
+                data:"f_ServiceIDName"
             },
             {
                 title:'能耗累计',
-                data:"sumMetaData"
+                data:"sumMetaData",
+                render:function(data, type, row, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
                 title:'最大值',
-                data:"maxMetaData"
+                data:"maxMetaData",
+                render:function(data, type, row, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
                 title:'最小值',
-                data:"minMetaData"
+                data:"minMetaData",
+                render:function(data, type, row, meta){
+
+                    return data.toFixed(2);
+                }
             },
             {
                 title:'平均值',
-                data:"avgMetaData"
+                data:"avgMetaData",
+                render:function(data, type, row, meta){
+
+                    return data.toFixed(2);
+                }
             }
 
 
@@ -76,8 +88,6 @@ $(document).ready(function() {
     });
     _table = $('#dateTables').dataTable();
 
-    var ddd = _table.language;
-    console.log(ddd);
 
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
@@ -372,18 +382,18 @@ function getMainData(){
     var unit1;
 
 
+    console.log(typeArr);
 
     $(typeArr).each(function(i,o){
 
-        if(energyItemID == o.energyItemID){
-            unit1 = o.energyUnit;
+        if(energyItemID == o.energyTypeID){
+            unit1 = o.energyTypeUnit;
             postEnergy = o;
 
             return false;
         }
 
     });
-
 
 
     var title1 = $('#obj-type').find('option:selected').text();
@@ -449,7 +459,7 @@ function getMainData(){
     console.log(postObj1,postObj2);
     $.ajax({
         type: 'post',
-        url: IP + "/EnergyQuery/GetHorCompareData",
+        url: IP + "/EnergyQuery/GetEnergyNormServiceIDData",
         timeout: theTimes,
         data:{
             "serverTypeID": energyItemID,
@@ -486,6 +496,7 @@ function getMainData(){
 
             dataArrs = [];
             var xArr = [];
+
             $(data).each(function(i,o){
                 //给表格获取数据
 
@@ -493,7 +504,7 @@ function getMainData(){
 
                 var dataArr = o.ecMetaDatas;
 
-                var dataLength = o.enterpriseName;
+                var dataLength = o.f_ServiceIDName;
 
                 var sArr = [];
 

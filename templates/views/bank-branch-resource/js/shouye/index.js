@@ -396,6 +396,65 @@ $(document).ready(function(){
         ]
     });
 
+    var table5 = $('#dateTables5').DataTable({
+        "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        //是否分页
+        "destroy": false,//还原初始化了的datatable
+        "paging":false,
+        "bPaginate": false,
+        "ordering": false,
+        'searching':false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        "columns": [
+            {
+                "title":"时间",
+                "data":"dataDate",
+                "render":function(data,type,row,meta){
+                    if(data && data.length >0){
+                        return data.split('T')[0] + ' ' + data.split('T')[1];
+                    }
+                }
+            },
+            {
+                "title": "支路",
+                "class":"L-checkbox",
+                "data":"cName"
+            },
+            {
+                "title": "报警类型",
+                "data":"cDtnName"
+            },
+            {
+                "title": "报警条件",
+                "data":"expression"
+            },
+            {
+                "title": "此时数据",
+                "data":"data"
+            }
+        ]
+    });
+
     //点击能耗统计中切换按钮时
     $('.content-main-top0 .left-cut li a').on('click',function(){
         $('#theLoading').modal('show');
@@ -513,8 +572,8 @@ function getTitleByID(){
 
         }
     });
-}
-//getTitleByID();
+};
+getTitleByID();
 
 //获取要展示的新闻栏目
 function getNewsTitle(){
@@ -597,6 +656,61 @@ function getNewsTitle(){
         }
     });
 };
+
+//获取报警信息
+function getAlarmMessage(){
+
+    var startDate = moment().format('YYYY-MM-DD');
+
+    var endDate = moment().add(1,'day').format('YYYY-MM-DD');
+
+    $.ajax({
+        type: 'post',
+        url: IP + "/Alarm/GetAllExcData",
+        timeout: theTimes,
+        data:{
+            "st": startDate,
+            "et": endDate,
+            "pointerIds": postArr,
+            "excTypeInnderId": "",
+            "energyType": ""
+        },
+        beforeSend: function () {
+
+        },
+
+        complete: function () {
+
+        },
+        success: function (data) {
+
+            console.log(data);
+
+            _table = $("#datatables5").dataTable();
+
+            var alermArr = [];
+
+            for(var i=0;i<data.length;i++){
+                alermArr.push(data[i]);
+            };
+
+            ajaxSuccess1(alermArr);
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#theLoading').modal('hide');
+            console.log(textStatus);
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                myAlter("超时");
+            }else{
+                myAlter("请求失败！");
+            }
+
+        }
+    });
+};
+
 
 //获取能耗统计信息
 function getEnergyStatistics(){
@@ -805,8 +919,6 @@ var pointArr = [];
 
 var postArr = [];
 
-
-
 //获取能耗查询页面初始数据
 function getStartData(){
 
@@ -846,6 +958,9 @@ function getStartData(){
             //获取chart图中的数据
 
             getUnitFormData();
+
+            //获取报警数据
+            getAlarmMessage();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -946,7 +1061,6 @@ function getUnitFormData(){
         }
     });
 };
-
 
 
 //获取能效指标中的数据
@@ -1315,10 +1429,11 @@ function getCurrentData(){
             console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
                 myAlter("超时");
+            }else{
+                myAlter("请求失败！");
             }
-            myAlter("请求失败！");
+
         }
     });
 };
@@ -1338,7 +1453,7 @@ option4 = {
         {
             name:'访问来源',
             type:'pie',
-            radius: ['50%', '70%'],
+            radius: ['40%', '80%'],
             avoidLabelOverlap: false,
             label: {
                 normal: {
@@ -1390,6 +1505,8 @@ var allBankNameArr = [];
 
 function getDataQuality(){
 
+    myChart4 = echarts.init(document.getElementById('energy-demand4'));
+
     var date = moment().format('YYYY-MM-DD');
     console.log(date);
     $.ajax({
@@ -1413,29 +1530,34 @@ function getDataQuality(){
             $('#theLoading').modal('hide');
             console.log(data);
 
-            return false;
+            var yArr = data.serviceDataQualityDs;
 
-            var yArr = data.ys;
+            var sArr = [];
 
             $(yArr).each(function(i,o){
 
                 var obj = {
-                    name:''
+                    name:'',
+                    data:'',
                 }
+                sArr.push(obj);
+
             });
 
-            option4.xAxis[0].data = getArr(data.xs);
+            //option4.series[0].data = sArr;
 
             //重绘chart图
             myChart4.hideLoading();
             myChart4.setOption(option4);
 
             //右侧数据汇总
-            $('#energy-analyze .data-quality .total-data li').eq(0).find('b').html(data.serviceOnCountPer + '%');
+            $('#energy-analyze .data-quality .total-data li').eq(0).find('b').html(data.serviceTotalCount);
 
-            $('#energy-analyze .data-quality .total-data li').eq(1).find('b').html(data.serviceFaultCountPer + '%');
+            $('#energy-analyze .data-quality .total-data li').eq(1).find('b').html(data.serviceOnCountPer + '%');
 
-            $('#energy-analyze .data-quality .total-data li').eq(2).find('b').html(data.serviceUnCountPer + '%');
+            $('#energy-analyze .data-quality .total-data li').eq(2).find('b').html(data.serviceFaultCountPer + '%');
+
+            $('#energy-analyze .data-quality .total-data li').eq(3).find('b').html(data.serviceUnCountPer + '%');
 
 
 

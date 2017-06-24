@@ -97,10 +97,11 @@
       }
     ]
   },
+  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor":"http://192.168.1.112/HQUeditorImage/controller.ashx",
+  "apiUriPrefixUEditor":"http://192.168.1.110/HQUeditorImage/controller.ashx",
   "systemTitle":"吉林大学第一医院能源管理系统",
   "pageTitle":"能源管理系统",
   "themeColor":"default",

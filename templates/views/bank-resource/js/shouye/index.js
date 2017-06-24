@@ -40,9 +40,9 @@ $(document).ready(function(){
                 data:"enterpriseName",
                 render:function(data, type, row, meta) {
                     if(data.length > 6){
-                        return '<span title="'+data+'" class="long">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="long">'+data.substring(0,7)+'</span>'
                     }else{
-                        return '<span title="'+data+'" class="short">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="short">'+data.substring(0,7)+'</span>'
                     }
 
                 }
@@ -103,9 +103,9 @@ $(document).ready(function(){
                 data:"enterpriseName",
                 render:function(data, type, row, meta) {
                     if(data.length > 6){
-                        return '<span title="'+data+'" class="long">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="long">'+data.substring(0,7)+'</span>'
                     }else{
-                        return '<span title="'+data+'" class="short">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="short">'+data.substring(0,7)+'</span>'
                     }
 
                 }
@@ -205,9 +205,9 @@ $(document).ready(function(){
                 data:"enterpriseName",
                 render:function(data, type, row, meta) {
                     if(data.length > 6){
-                        return '<span title="'+data+'" class="long">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="long">'+data.substring(0,7)+'</span>'
                     }else{
-                        return '<span title="'+data+'" class="short">'+data.substring(0,5)+'</span>'
+                        return '<span title="'+data+'" class="short">'+data.substring(0,7)+'</span>'
                     }
 
                 }
@@ -567,6 +567,9 @@ function getNewsTitle(){
 
             $('.main-news1').html(html1);
 
+            $('.openNews0 a').attr('href','../news/topPageNewsType.html?id='+data.firstNewsTypeID + '');
+            $('.openNews1 a').attr('href','../news/topPageNewsType.html?id='+data.secondNewsTypeID + '');
+
             //下方标题与内容
 
 
@@ -765,7 +768,7 @@ option = {
             label: {
                 normal: {
                     show: true,
-                    position: 'inside',
+                    position: 'outside',
                     formatter: '{b} :({d}%)'
                 }
             },
