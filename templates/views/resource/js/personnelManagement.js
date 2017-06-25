@@ -27,7 +27,8 @@ $(function(){
             mobilephone:'',
             department:'',
             role:'',
-            remarks:''
+            remarks:'',
+            order:''
         }
     });
 
@@ -147,7 +148,8 @@ $(function(){
         user.mobilephone='';
         user.department='';
         user.role='';
-        user.remarks=''
+        user.remarks='';
+        user.order= '';
     });
 
     //操作确定按钮
@@ -277,7 +279,8 @@ $(function(){
                 "":user.mobilephone,
                 "":user.department,
                 "":user.role,
-                "":user.remarks
+                "":user.remarks,
+                "":user.order,
             };
         }
         //发送数据
@@ -321,7 +324,8 @@ $(function(){
                 user.mobilephone='';
                 user.department='';
                 user.role='';
-                user.remarks=''
+                user.remarks='';
+                user.order='';
             },
             error:function(){
 

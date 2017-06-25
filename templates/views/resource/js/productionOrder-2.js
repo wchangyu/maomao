@@ -621,10 +621,12 @@ $(function(){
             //Worker('YWGD/ywGDDelWxR','flag');
             //执行人添加
             Worker('YWGD/ywGDAddWxR');
-            //材料删除
-            CaiLiao('YWGD/ywGDDelWxCl','flag');
-            //材料添加
-            CaiLiao('YWGD/ywGDAddWxCl');
+            if( _weiXiuCaiLiao != 0 ){
+                //材料删除
+                CaiLiao('YWGD/ywGDDelWxCl','flag');
+                //材料添加
+                CaiLiao('YWGD/ywGDAddWxCl');
+            }
             var gdInfo = {
                 'gdCode':gdCode,
                 'gdZht':3,

@@ -18,7 +18,8 @@ $(function(){
         el:'#department',
         data:{
             name:'',
-            higherdepartment:''
+            higherdepartment:'',
+            order:''
         }
     })
 
@@ -98,7 +99,8 @@ $(function(){
         moTaiKuang($('#myModal'),'新增');
         //初始化登记表
         department.name='';
-        higherdepartment='';
+        department.higherdepartment='';
+        department.order=''
     });
 
     //操作确定按钮
@@ -223,6 +225,7 @@ $(function(){
             var prm = {
                 "":department.name,
                 "":department.higherdepartment,
+                "":department.order
             };
         }
         //发送数据
@@ -258,6 +261,7 @@ $(function(){
                 //绑定数据
                 department.name = "";
                 department.higherdepartment = "";
+                department.order = ""
             },
             error:function(){
 

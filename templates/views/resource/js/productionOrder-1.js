@@ -2,8 +2,10 @@ $(function () {
   /*--------------------------全局变量初始化设置----------------------------------*/
   //获得用户名
   var _userIdName = sessionStorage.getItem('userName');
+
   //获取本地url
   var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
   //开始/结束时间插件
   $('.datatimeblock').datepicker({
     language:  'zh-CN',
@@ -11,18 +13,23 @@ $(function () {
     todayHighlight: 1,
     format: 'yyyy/mm/dd'
   });
+
   //设置初始时间(主表格时间)
   var _initStart = moment().format('YYYY/MM/DD');
   var _initEnd = moment().format('YYYY/MM/DD');
+
   //选择设备时间
   var _initStartSB = '';
   var _initEndSB = '';
+
   //显示时间
   $('.min').val(_initStart);
   $('.max').val(_initEnd);
+
   //实际发送时间
   var realityStart;
   var realityEnd;
+
   //自定义验证器
   //手机号码
   Vue.validator('telephones', function (val) {
@@ -34,6 +41,7 @@ $(function () {
     val=val.replace(/^\s+|\s+$/g,'');
     return /[^.\s]{1,500}$/.test(val)
   })
+
   //登记信息绑定
   var app33 = new Vue({
     el:'#myApp33',
@@ -60,6 +68,7 @@ $(function () {
       }
     }
   })
+
   //快速创建
   var quickWork = new Vue({
     "el":'#quickWork',
@@ -89,6 +98,7 @@ $(function () {
       }
     }
   })
+
   //存放执行人信息的数组
   var _zhixingRens = [];
   /*//存放设备类型的所有数据
@@ -103,12 +113,24 @@ $(function () {
   var sbObject = {};*/
   //存放设备系统的所有数据
   var _allDataXT = [];
+
   //存放设备部门的所有数据
   var _allDataBM = [];
+
   //设备系统
   ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
+
   //设备部门
   ajaxFun('YWDev/ywDMGetDDs',_allDataBM,$('.cjz'),'ddName','ddNum');
+
+  //存放登记的信息的对象
+  var _obj = {};
+
+  //存放快速登记的对象
+  var _quickObj = {};
+
+  //记录当前工单号
+  var _gdCode = '';
   /*-----------------------------表格初始化----------------------------------------*/
   //页面表格
   var table = $('#scrap-datatables').DataTable({
@@ -185,6 +207,11 @@ $(function () {
         }
       },
       {
+        title:'状态值',
+        data:'gdZht',
+        className:'ztz'
+      },
+      {
         title:'车间站',
         data:'bxKeshi'
       },
@@ -204,16 +231,20 @@ $(function () {
         title:'操作',
         "targets": -1,
         "data": null,
-        "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
+        "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
       }
     ]
   });
+
   //自定义按钮位置
   table.buttons().container().appendTo($('.excelButton'),table.table().container());
+
   //报错时不弹出弹框
   $.fn.dataTable.ext.errMode = function(s,h,m){
     console.log('')
   };
+
   //初始化设备表格
   $('#sbTable').DataTable({
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -322,6 +353,7 @@ $(function () {
       }
     ]
   });
+
   //执行人员表格
   var col2 = [
     {
@@ -341,9 +373,13 @@ $(function () {
     }
   ];
   tableInit($('#personTable1'),col2);
+
+
   /*-----------------------------页面加载时调用的方法------------------------------*/
   //条件查询
   conditionSelect();
+
+
   /*----------------------------------按钮触发的事件-----------------------------*/
   //弹窗切换表格效果
   $('.table-title span').click(function(){
@@ -356,6 +392,7 @@ $(function () {
       'opacity':1
     })
   });
+
   //查询按钮功能
   $('#selected').click(function(){
     if( $('.min').val() == '' || $('.max').val() == '' ){
@@ -374,6 +411,7 @@ $(function () {
       }
     }
   })
+
   //重置按钮功能
   $('.resites').click(function(){
     //清空input框内容
@@ -384,8 +422,11 @@ $(function () {
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
   })
+
   //登记按钮
   $('.creatButton').click(function(){
+    //添加登记类
+    $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
     //所有input可操作
     $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
     $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
@@ -415,6 +456,7 @@ $(function () {
     moTaiKuang($('#myModal'));
     $('#myModal').find('.btn-primary').show();
   });
+
   //快速登记按钮
   $('.quickCreat').click(function(){
     quickWork.picked = 1;
@@ -452,7 +494,11 @@ $(function () {
     _zhixingRens.push(personObject);
     datasTable($('#personTable1'),_zhixingRens);
   })
-  $('.dengji').click(function(){
+
+  //确定按钮
+  $('#myModal')
+      //登记
+      .on('click','.dengji',function(){
     if(app33.person == '' || app33.place == '' || app33.matter == ''){
       var myModal = $('#myModal2');
       myModal.find('.modal-body').html('请填写红色必填项');
@@ -474,37 +520,91 @@ $(function () {
         'wxShebei':app33.sbSelect,
         'dcName':app33.sbLX,
         'installAddress':app33.azAddress
-      }
-      $.ajax({
-        type:'post',
-        url: _urls + 'YWGD/ywGDCreDJ',
-        data:gdInfo,
-        success:function(result){
-          if(result == 99){
-            var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('添加成功!');
-            moTaiKuang(myModal)
-          }
-          //刷新表格
-          conditionSelect();
+      };
+      //将发送请求的对象付给_obj;
+      if($.isEmptyObject(_obj)){
+        _obj = {
+          'gdJJ':app33.picked,
+          'bxRen':app33.person,
+          'bxDianhua':app33.telephone,
+          'bxKeshi':app33.section,
+          'wxDidian':app33.place,
+          'wxShiX':app33.matter,
+          'wxKeshi':'',
+          'bxBeizhu':app33.remarks,
+          'userID':_userIdName,
+          'gdLeixing':app33.rwlx,
+          'dName':app33.sbMC,
+          'gdSrc':2,
+          'wxShebei':app33.sbSelect,
+          'dcName':app33.sbLX,
+          'installAddress':app33.azAddress
+        };
+        register();
+      }else{
+        if(isEqual(_obj,gdInfo)){
+          //提示不能重复登记
+          moTaiKuang($('#myModal2'));
+          $('#myModal2').find('.modal-body').html('不能重复登记！');
+        }else{
+          //满足登记条件
+          register();
         }
-      })
+      }
+
     }
-  });
+  })
+      //编辑
+      .on('click','.bianji',function(){
+          if( app33.person == '' || app33.place == '' || app33.matter == '' ){
+              var myModal = $('#myModal2');
+              myModal.find('.modal-body').html('请填写红色必填项！');
+              moTaiKuang(myModal);
+          }else{
+            var gdInfo = {
+              'gdCode': _gdCode,
+              'gdJJ':app33.picked,
+              'bxRen':app33.person,
+              'bxDianhua':app33.telephone,
+              'bxKeshi':app33.section,
+              'wxDidian':app33.place,
+              'wxShiX':app33.matter,
+              'wxKeshi':'',
+              'bxBeizhu':app33.remarks,
+              'userID':_userIdName,
+              'gdLeixing':app33.rwlx,
+              'dName':app33.sbMC,
+              'gdSrc':2,
+              'wxShebei':app33.sbSelect,
+              'dcName':app33.sbLX,
+              'installAddress':app33.azAddress
+            };
+            $.ajax({
+              type:'post',
+              url:_urls + 'YWGD/ywGDUpt',
+              data:gdInfo,
+              success:function(result){
+                console.log(result);
+                  if(result == 99){
+                    var myModal = $('#myModal2');
+                    myModal.find('.modal-body').html('编辑成功！');
+                    moTaiKuang(myModal);
+                    $('#myModal').modal('hide');
+                    //刷新数据
+                    conditionSelect();
+                  }
+              }
+            })
+          }
+      })
+
   $('.quickDengji').click(function()  {
     if(quickWork.person == '' || quickWork.place == '' || quickWork.matter == '' || quickWork.weixiukeshis == '' || quickWork.weixiuBZ == ''){
       var myModal = $('#myModal2');
       myModal.find('.modal-body').html('请填写红色必填项');
       moTaiKuang(myModal);
     }else{
-      var weixiuRen = [
-        {
-          wxRen:_userIdName,
-          wxRName:_userIdName,
-          wxRDh:''
-        }
-      ];
-      var gdInfo = {
+      var gdInfo1 = {
         'gdJJ':quickWork.picked,
         'bxRen':quickWork.person,
         'bxDianhua':quickWork.telephone,
@@ -520,26 +620,40 @@ $(function () {
         'wxShebei':quickWork.sbSelect,
         'dcName':quickWork.sbLX,
         'installAddress':quickWork.azAddress,
-        'gdWxRs':weixiuRen,
         'wxBeizhu':quickWork.weixiuBZ
-      }
-      $.ajax({
-        type:'post',
-        url: _urls + 'YWGD/ywGDCreQuickDJ',
-        data:gdInfo,
-        success:function(result){
-          if(result == 99){
-            $('#myModal4').modal('hide');
-            var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('添加成功!');
-            moTaiKuang(myModal);
-          }
-          //刷新表格
-          conditionSelect();
+      };
+      if($.isEmptyObject(_quickObj)){
+        _quickObj = {
+          'gdJJ':quickWork.picked,
+          'bxRen':quickWork.person,
+          'bxDianhua':quickWork.telephone,
+          'bxKeshi':quickWork.section,
+          'wxDidian':quickWork.place,
+          'wxShiX':quickWork.matter,
+          'wxKeshi':quickWork.weixiukeshis,
+          'bxBeizhu':quickWork.beizhus,
+          'userID':_userIdName,
+          'gdLeixing':quickWork.rwlx,
+          'dName':quickWork.sbMC,
+          'gdSrc':2,
+          'wxShebei':quickWork.sbSelect,
+          'dcName':quickWork.sbLX,
+          'installAddress':quickWork.azAddress,
+          'wxBeizhu':quickWork.weixiuBZ
+        };
+        QuickRegister();
+      }else{
+        if(isEqual(_quickObj,gdInfo1)){
+          //提示不能重复登记
+          moTaiKuang($('#myModal2'));
+          $('#myModal2').find('.modal-body').html('不能重复登记！');
+        }else{
+          QuickRegister();
         }
-      })
+      }
     }
   })
+
   $('.confirm').click(function(){
       $(this).parents('.modal').modal('hide');
   });
@@ -558,60 +672,23 @@ $(function () {
     app33.sbLX = sbObject.sbLX;
     app33.sbMC = sbObject.sbMC;
   })*/
+
+
   /*---------------------------------表格绑定事件-------------------------------------*/
   //主表格事件
   $('#scrap-datatables tbody')
-      .on( 'click','.option-edit',function(){
-        //确定按钮消失；
-        $('#myModal').find('.btn-primary').hide();
-        var $this = $(this).parents('tr');
-        currentTr = $this;
-        currentFlat = true;
-        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
-        moTaiKuang($('#myModal'));
-        //获取详情
-        var gongDanState = $this.children('.gongdanZt').html();
-        var gongDanCode = $this.children('.gongdanId').html();
-        var prm = {
-          'gdCode':gongDanCode,
-          'gdZht':gongDanState,
-          'userID':_userIdName
-        }
-        //每次获取弹出框中执行人员的数量
-        $.ajax({
-          type:'post',
-          url: _urls + 'YWGD/ywGDGetDetail',
-          async:false,
-          data:prm,
-          success:function(result){
-            console.log(result);
-            if(result.gdJJ == 1){
-              $('#myApp33').find('.inpus').parent('span').removeClass('checked');
-              $('#myApp33').find('#ones').parent('span').addClass('checked');
-            }else{
-              $('#myApp33').find('.inpus').parent('span').removeClass('checked');
-              $('#myApp33').find('#twos').parent('span').addClass('checked');
-            }
-            //绑定弹窗数据
-            app33.telephone = result.bxDianhua;
-            app33.person = result.bxRen;
-            app33.place = result.wxDidian;
-            app33.section = result.bxKeshi;
-            app33.matter = result.wxShiX;
-            app33.remarks = result.bxBeizhu;
-            app33.sbSelect = result.wxShebei;
-            app33.sbLX = result.dcName;
-            app33.sbMC = result.dName;
-            app33.azAddress = result.installAddress;
-            app33.rwlx = result.gdLeixing;
-            //所有input不可操作
-            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
-            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
-            $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
-          }
-        });
-      });
+      //查看功能
+      .on('click','.option-see',function(){
+        //绑定数据
+        ViewOrEdit($(this),'flag');
+      })
+      //编辑功能
+      .on('click','.option-edit',function(){
+        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji');
+        //绑定数据
+        ViewOrEdit($(this));
+      })
+
   /*//设备选择表格事件
   $('#sbTable tbody')
       .on('click','tr',function(){
@@ -779,5 +856,160 @@ $(function () {
       'columns':col,
       'rowCallback': fun
     })
+  }
+  //判断两个对象是否相同
+  function isEqual(obj1,obj2){
+    for(var name in obj1){
+      if(obj1[name]!==obj2[name]) return false;
+    }
+    for(var name in obj2){
+      if(obj1[name]!==obj2[name]) return false;
+    }
+    return true;
+  }
+  //登记方法
+  function register(){
+    var gdInfo = {
+      'gdJJ':app33.picked,
+      'bxRen':app33.person,
+      'bxDianhua':app33.telephone,
+      'bxKeshi':app33.section,
+      'wxDidian':app33.place,
+      'wxShiX':app33.matter,
+      'wxKeshi':'',
+      'bxBeizhu':app33.remarks,
+      'userID':_userIdName,
+      'gdLeixing':app33.rwlx,
+      'dName':app33.sbMC,
+      'gdSrc':2,
+      'wxShebei':app33.sbSelect,
+      'dcName':app33.sbLX,
+      'installAddress':app33.azAddress
+    };
+    $.ajax({
+      type:'post',
+      url: _urls + 'YWGD/ywGDCreDJ',
+      data:gdInfo,
+      success:function(result){
+        if(result == 99){
+          var myModal = $('#myModal2');
+          myModal.find('.modal-body').html('添加成功!');
+          moTaiKuang(myModal);
+          $('#myModal').modal('hide');
+          //刷新表格
+          conditionSelect();
+        }
+      }
+    })
+  }
+  //快速报障
+  function QuickRegister(){
+    var weixiuRen = [
+      {
+        wxRen:_userIdName,
+        wxRName:_userIdName,
+        wxRDh:''
+      }
+    ];
+    var gdInfo = {
+      'gdJJ':quickWork.picked,
+      'bxRen':quickWork.person,
+      'bxDianhua':quickWork.telephone,
+      'bxKeshi':quickWork.section,
+      'wxDidian':quickWork.place,
+      'wxShiX':quickWork.matter,
+      'wxKeshi':quickWork.weixiukeshis,
+      'bxBeizhu':quickWork.beizhus,
+      'userID':_userIdName,
+      'gdLeixing':quickWork.rwlx,
+      'dName':quickWork.sbMC,
+      'gdSrc':2,
+      'wxShebei':quickWork.sbSelect,
+      'dcName':quickWork.sbLX,
+      'installAddress':quickWork.azAddress,
+      'gdWxRs':weixiuRen,
+      'wxBeizhu':quickWork.weixiuBZ
+    };
+    $.ajax({
+      type:'post',
+      url: _urls + 'YWGD/ywGDCreQuickDJ',
+      data:gdInfo,
+      success:function(result){
+        if(result == 99){
+          $('#myModal4').modal('hide');
+          var myModal = $('#myModal2');
+          myModal.find('.modal-body').html('添加成功!');
+          moTaiKuang(myModal);
+        }
+        //刷新表格
+        conditionSelect();
+      }
+    })
+  }
+  //编辑、查看详情的时候绑定数据
+  function ViewOrEdit(el,flag){
+    //确定按钮消失；
+    if(flag){
+      $('#myModal').find('.btn-primary').hide();
+    }else{
+      $('#myModal').find('.btn-primary').show();
+    }
+    var $this = el.parents('tr');
+    currentTr = $this;
+    currentFlat = true;
+    $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+    $this.addClass('tables-hover');
+    moTaiKuang($('#myModal'));
+    //获取详情
+    var gongDanState = $this.children('.ztz').html();
+    var gongDanCode = $this.children('.gongdanId').html();
+    _gdCode = gongDanCode;
+    var prm = {
+      'gdCode':gongDanCode,
+      'gdZht':gongDanState,
+      'userID':_userIdName
+    }
+    //每次获取弹出框中执行人员的数量
+    $.ajax({
+      type:'post',
+      url: _urls + 'YWGD/ywGDGetDetail',
+      async:false,
+      data:prm,
+      success:function(result){
+        if(result.gdJJ == 1){
+          $('#myApp33').find('.inpus').parent('span').removeClass('checked');
+          $('#myApp33').find('#ones').parent('span').addClass('checked');
+        }else{
+          $('#myApp33').find('.inpus').parent('span').removeClass('checked');
+          $('#myApp33').find('#twos').parent('span').addClass('checked');
+        }
+        //绑定弹窗数据
+        app33.telephone = result.bxDianhua;
+        app33.person = result.bxRen;
+        app33.place = result.wxDidian;
+        app33.section = result.bxKeshi;
+        app33.matter = result.wxShiX;
+        app33.remarks = result.bxBeizhu;
+        app33.sbSelect = result.wxShebei;
+        app33.sbLX = result.dcName;
+        app33.sbMC = result.dName;
+        app33.azAddress = result.installAddress;
+        app33.rwlx = result.gdLeixing;
+        //所有input不可操作
+        if(flag){
+          $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+          $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+          $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+        }else{
+          $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+          $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+          $('#myApp33').find('textarea').attr('disabled',false).removeClass('disabled-block');
+          $('#myApp33').find('.inpus').attr('disabled',true);
+        }
+      },
+      error:function(){
+
+      }
+    });
   }
 })
