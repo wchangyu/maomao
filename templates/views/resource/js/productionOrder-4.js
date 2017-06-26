@@ -270,7 +270,7 @@ $(function(){
     function getGongDan(){
         var gdInfo = {
             'gdCode':gdCode,
-            'gdZht':_gdState,
+            'gdZht':7,
             'userID':_userIdName
         }
           $.ajax({
@@ -329,7 +329,7 @@ $(function(){
             var gongDanCode = $this.children('.gongdanId').html();
             //根据工单状态，确定按钮的名称
             if( gongDanState == 6 ){
-                _gdState = gongDanState + 1;
+                _gdState = 7;
             }
             gdCode = gongDanCode;
             var prm = {

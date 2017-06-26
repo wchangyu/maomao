@@ -855,6 +855,69 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "地图预览":{
+        "type":"0",
+        "content":"地图预览",
+        "uri":"../map-preview/mapPreview.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "系统设置":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"系统设置",
+    "submenu":{
+      "员工管理":{
+        "type":"0",
+        "content":"员工管理",
+        "uri":"../xitongshezhi/personnelManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "角色管理":{
+        "type":"0",
+        "content":"角色管理",
+        "uri":"../xitongshezhi/roleManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "部门管理":{
+        "type":"0",
+        "content":"部门管理",
+        "uri":"../xitongshezhi/sectorManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "资源管理":{
+        "type":"0",
+        "content":"资源管理",
+        "uri":"../xitongshezhi/resourceManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "权限分配":{
+        "type":"0",
+        "content":"权限分配",
+        "uri":"../xitongshezhi/permissionAssignment.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "标识符管理":{
+        "type":"0",
+        "content":"标识符管理",
+        "uri":"../xitongshezhi/identifierManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

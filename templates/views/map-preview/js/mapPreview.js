@@ -12,13 +12,14 @@ var beginZoom = 8;
 var markerArr = [
 
 ];
-
+//获取本地url
+var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 //获取后台数据
 function getData(){
 
     $.ajax({
         type: 'post',
-        url: 'http://192.168.1.196/BEEWebAPI/api'+ "/YWGD/ywGDGetLocInfo",
+        url: _urls + "/YWGD/ywGDGetLocInfo",
         timeout: theTimes,
         data:{
             "userID": _userIdName

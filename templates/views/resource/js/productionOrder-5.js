@@ -418,8 +418,9 @@ $(function(){
             //初始化一下radio评价按钮
             pingjia.pickeds = '';
             $('#pingjia').find('.inpus').parent('span').removeClass('checked');
-        var $this = $(this).parents('tr');
-        //当前颜色改变
+            $('#pingjia').find('.inpus').eq(0).parent('span').addClass('checked');
+            var $this = $(this).parents('tr');
+            //当前颜色改变
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal1'))
