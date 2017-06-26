@@ -221,6 +221,8 @@ function getMainData(){
 
     var dateSign = '';
 
+    var selectDate;
+
     var startDate;
 
     var endDate;
@@ -262,100 +264,21 @@ function getMainData(){
 
     var showTime = postDate;
 
-    if(postDate == '今天'){
+    var dateArr = getPostDate(postDate);
 
-        dateSign = '小时';
+    startDate = dateArr[1];
 
-        startDate = getNewDate();
+    endDate = dateArr[2];
 
-        console.log(startDate);
+    dateSign = dateArr[3];
 
-        var now = new Date();
+    showTime = dateArr[4];
 
-        var tomorrow = new Date(now.setDate(now.getDate()+1));
+    selectDate = dateArr[5];
 
-        endDate = getDate(tomorrow);
-
-    }else if(postDate == '昨天'){
-
-        dateSign = '小时';
-
-        endDate = getNewDate();
+    console.log(dateArr);
 
 
-        var now = new Date();
-
-        var yesterday = new Date(now.setDate(now.getDate()-1));
-
-        startDate = getDate(yesterday);
-
-        console.log(startDate);
-
-    }else if(postDate == '过去7天'){
-
-        dateSign = '日';
-
-        var now = new Date();
-
-        var tomorrow = new Date(now.setDate(now.getDate()+1));
-
-        endDate = getDate(tomorrow);
-
-
-        var yesterday = new Date(now.setDate(now.getDate()-7));
-
-        startDate = getDate(yesterday);
-
-        console.log(startDate);
-    }else if(postDate == '过去30天'){
-
-        dateSign = '日';
-
-        var now = new Date();
-
-        var tomorrow = new Date(now.setDate(now.getDate()+1));
-
-        endDate = getDate(tomorrow);
-
-        var yesterday = new Date(now.setDate(now.getDate()-30));
-
-        startDate = getDate(yesterday);
-
-        console.log(startDate);
-    }else if(postDate == '本月'){
-
-        dateSign = '日';
-
-        var now = new Date();
-
-        var tomorrow = new Date(now.setDate(now.getDate()+1));
-
-        endDate = getDate(tomorrow);
-        var year = now.getFullYear();
-        var month = now.getMonth() + 1;
-
-        startDate = year + '-' + month + '-' + '1';
-
-        console.log(startDate);
-    }else if(postDate == '上月'){
-
-        dateSign = '日';
-
-        startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
-        endDate = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
-
-        console.log(startDate,endDate);
-    }else if(postDate == '自定义'){
-
-        dateSign = '日';
-
-        startDate = $('.show-date').val().split('——')[0];
-        var string = $('.show-date').val().split('——')[1];
-        endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
-
-        showTime = startDate + '——' + endDate;
-        console.log(startDate,endDate);
-    }
 
     console.log(postArr);
     $.ajax({
@@ -364,9 +287,10 @@ function getMainData(){
         timeout: theTimes,
         data:{
             "energyItemID":energyItemID,
-            "dateType": '日',
-            "startTime": '2015-5-1',
-            "endTime": '2015-6-1',
+            "dateType": dateSign,
+            "selectDateType": selectDate,
+            "startTime": startDate,
+            "endTime": endDate,
             "pointerIDs":postArr
         },
         beforeSend: function () {
@@ -429,7 +353,7 @@ function getMainData(){
             $('.compared-with-last-time label').html(data.chainEnergyData.toFixed(2));
 
             var percent = (data.chainEnergyPercent.toFixed(4)) * 100;
-            $('.rights-up-value').html(Math.abs(percent) + '%');
+            $('.rights-up-value').html(Math.abs(percent).toFixed(2) + '%');
 
             if(data.chainEnergyPercent < 0 ){
                 $('.rights-up').css({

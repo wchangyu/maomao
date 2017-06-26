@@ -1,0 +1,10 @@
+#energy-demand {
+    height: 420px ;
+}
+#dateTables_info{
+    display: none;
+}
+#dateTables tbody tr td {
+    height: 50px !important;
+
+}

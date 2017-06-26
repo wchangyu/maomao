@@ -1,0 +1,452 @@
+#container{
+    width:100%;
+    height:800px;
+}
+#container .map{
+    width:100%;
+    max-height: 100%;
+}
+.top-choose-img{
+    margin-bottom:10px;
+    padding-top:10px;
+}
+
+.top-choose-img li{
+    float: left;
+    margin-right: 20px;
+    line-height: 26px;
+}
+.top-choose-img li a{
+    color:black;
+    font-size:18px;
+}
+.top-choose-img li a:hover {
+    color: orangered;
+}
+.top-choose-img li .onClick {
+    color: darkorange;
+}
+
+/*marker标注点*/
+.marker{
+    position: absolute;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+    background: url("../img/blue.png") no-repeat center;
+    width: 55px;
+    height: 55px;
+    left: 58%;
+    top: 56%;
+    z-index: 100;
+}
+
+/*上方显示具体信息弹窗*/
+.show-message{
+    position: absolute;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-left: -86px;
+    margin-top:-108px;
+    border: 0px;
+    cursor: pointer;
+    width:250px;
+    height:110px;
+    border:1px solid #999;
+    z-index: 5731450;
+    background:white;
+    display: none;
+
+}
+.show-message .name{
+    font-weight: bold;
+    color: #CE5521;
+    font-size: 14px;
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.show-message .tel,.show-message .team{
+    margin-bottom: 5px;
+    font-size:14px;
+}
+.show-message .arrows{
+    overflow: hidden;
+    z-index: 100;
+    position: absolute;
+    left: 109px;
+    top: 95px;
+    width: 34px;
+    height: 50px;
+}
+.show-message .close{
+    position: absolute;
+    top: 12px;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+    z-index: 10000; left: 227px;
+}
+.show-message .arrows img{
+    border:none;
+    margin:0px;
+    padding:0px;
+    position:absolute;
+    left:-186px;
+    top:-702px;
+    max-width:none;
+    width:690px;
+    height:786px;
+}
+
+/*右上角搜索功能*/
+*{
+    margin:0;
+    padding: 0;
+}
+li{
+    list-style: none
+}
+.choosePosition{
+    width:350px;
+    height:auto;
+    position: fixed;
+    right:80px;
+    top:250px;
+    background:white;
+    box-shadow: 5px 10px 5px rgba(0,0,0,.15);
+
+}
+.choosePosition p{
+
+    width:97%;
+    padding-left:3%;
+    height: 24px;
+    color:black;
+    font-size:20px;
+    line-height: 24px;
+    background:#9ea3a7;
+    border-radius: 5%;
+    cursor: pointer;
+    color:white;
+    box-sizing: content-box;
+
+
+}
+label {
+    display: inline-block;
+    /* max-width: 100%; */
+    margin-bottom: 5px;
+    font-weight: 700;
+    max-width: none !important;
+}
+
+.choosePosition .commonBtn{
+    width: 72px;
+    height: 26px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #9ea3a7;
+    overflow: hidden;
+    outline: none;
+    float: left;
+    border:none;
+    cursor: pointer;
+}
+.choosePosition .leftBtn{
+
+    margin-right: 5px;
+}
+.choosePosition input{
+    margin-left: 10px;
+    padding-left: 5px;
+    height:26px;
+    border:3px solid #9ea3a7;
+    float: left;
+    outline: none
+}
+/*.BMap_pop img:nth-child(1) {*/
+/*display: none !important;*/
+/*}*/
+#ul1{
+    width:100%;
+    max-height: 500px;
+    overflow-y: auto;
+
+}
+#ul1 li{
+    width:97%;
+    padding-left:3%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    list-style: none;
+    cursor: pointer;
+    background:white;
+    border-bottom: 1px solid #666;
+    color:#4c4c4c;
+    box-sizing: content-box;
+}
+#ul1 li:hover{
+    background: pink;
+    color:white;
+}
+.ifOnline{
+    border-radius: 50% !important;
+}
+.search-value-list{
+    max-height: 500px;
+    overflow-y: auto;
+}
+/*地图大小*/
+#container{
+    width:100%;
+    height:900px;
+}
+/*弹出框地址栏*/
+.areas{
+    margin-top:20px;
+    width:100%;
+    height: 46px;
+
+    position: relative;
+    border-bottom: 1px solid #999;
+    margin-bottom: 3px;
+}
+
+.areas li{
+
+    float:left;
+    padding-left:10px;
+    padding-right: 10px;
+    width:auto;
+    height: 44px;
+    line-height:44px;
+    text-align:center;
+    border-right:none;
+    cursor: pointer;
+    margin-right:5px;
+    color:#428bca;
+    letter-spacing: 1px;
+}
+.areas .onShow{
+
+    color:#555;
+    border:1px solid #999;
+    border-top: 3px solid #f3565d;
+    border-bottom: none;
+    background: white;
+    z-index:100;
+}
+
+.areas li:hover{
+    color:#2a6496;
+
+}
+
+/*弹出框中下拉按钮*/
+.pullDown{
+    width:100px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    color: #333333;
+    position: absolute;
+    right:10px;
+    top:4px;
+    letter-spacing: 2px;
+    font-size: 13px;
+    background: url('../img/downArrow.png') no-repeat 80px center #e5e5e5;
+    cursor: pointer;
+
+}
+.pullDown:hover{
+    background: url('../img/downArrow.png') no-repeat 80px center #d1d1d1;
+}
+
+/*弹出框中下拉地址栏*/
+.otherAreas{
+    position: absolute;
+    right: 10px;
+    top:36px;
+    display: none;
+    background:white;
+    width:auto;
+    height:auto;
+    max-height:200px;
+    overflow-y:auto;
+}
+.otherAreas li{
+    padding-left:20px;
+    padding-right: 50px;
+    width:auto;
+    height: 44px;
+    line-height:44px;
+    text-align:center;
+    color:#666666;
+    background: white;
+    cursor: pointer;
+
+}
+.otherAreas li:hover{
+    color:#2a6496;
+    border-color:black;
+}
+
+
+/*表格内容*/
+.contents{
+    border-collapse: collapse;
+}
+.contents td{
+    height:50px;
+    line-height: 50px;
+    text-align: center;
+    border:1px solid #999;
+}
+
+/*右上角下拉按钮*/
+.switch{
+    margin-left:288px;
+    width:64px;
+
+    height: 32px;
+    background:#9ea3a7;
+    cursor: pointer;
+}
+
+/*右上角下拉窗*/
+.showCompany{
+    width:100%;
+    height: auto;
+    background: white;
+    border:1px solid #999;
+    display: none;
+
+
+}
+/*下拉窗 表头*/
+.showCompany .showTitle p{
+    height: 30px;
+    line-height: 30px;
+    border-radius: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+
+}
+.showTitle p span {
+
+    width:70px;
+    height: 30px;
+    margin-left: 10px;
+    display: inline-block;
+    line-height: 30px;
+    font-size: 12px;
+}
+.showTitle p span b{
+    border-radius: 50%;
+    width:15px;
+    height: 15px;
+    display: inline-block;
+    background:red;
+    margin-right: 10px;
+}
+/*下拉窗关闭按钮*/
+.showTitle p .close{
+    position: absolute;
+    right:5px;
+    top:8px;
+
+}
+#ul1 li span{
+    width:12px;
+    height: 12px;
+    border-radius: 50% !important;
+    display: inline-block;
+    background:#2097f3;
+    margin-right: 10px;
+}
+
+/*搜索后出现的li 样式*/
+.search-value-list li {
+    padding: 5px;
+    font-size:14px;
+    padding-left:15px;
+    background:white;
+    cursor: pointer;
+}
+.search-value-list li:hover{
+    color:blue;
+}
+/*li中的span*/
+.ifOnline{
+    width:12px;
+    height:12px;
+    display:inline-block;
+    border-radius:50%;
+    margin-right:10px;
+
+}
+/*右上角标注框开关*/
+#onOff{
+    width:85px;
+    height:34px;
+    padding-right: 12px;
+    line-height: 34px;
+    float: left;
+    display: inline-block;
+    cursor: pointer;
+    background:url('../img/off.png') no-repeat 0 1.5px;
+    font-size:12px;
+    box-sizing:border-box;
+    padding-left:40px;
+    margin-left:20px;
+}
+/*#onOff:hover{*/
+/*color:#579afc;*/
+/*background:url('../img/offf.png') no-repeat 0 1.5px;*/
+/*}*/
+#onOff .centerDiv{
+    width:100%;
+    height:50%;
+    margin-top:13%;
+    background:url('../img/openss.png') no-repeat 0 -3px white;
+    /*border-radius: 5%;*/
+}
+
+/*右上角控制框*/
+.toolContainer{
+    width:215px;
+    height:34px;
+    background:white;
+    box-shadow: 1px 2px 1px rgba(0,0,0,.15);
+    color:#4c4c4c;
+    background-color: #f1f1f1;
+    position: fixed;
+    right:80px;
+    top:200px;
+
+}
+.seek{
+    width:85px;
+    height:34px;
+    padding-right: 12px;
+    line-height: 34px;
+    float: left;
+    display: inline-block;
+    cursor: pointer;
+    background:url('../img/fdj.png') no-repeat 13px center;
+    font-size:12px;
+    box-sizing:border-box;
+    padding-left:40px;
+    margin-left:20px;
+}
+.seek:hover{
+    color:#579afc;
+    background:url('../img/fdjj.png') no-repeat 13px center;
+}

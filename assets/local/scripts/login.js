@@ -98,6 +98,40 @@ var Login = function() {
                         error:function(xhr,res,err){
                         }
                     });
+
+                    //$.ajax({
+                    //    url:'http://192.168.1.125/BEEWebAPI/token',
+                    //    type:"post",
+                    //    data: {
+                    //        'grant_type': 'password',
+                    //        'username':name,
+                    //        'password': password
+                    //    },
+                    //    success: function (data, status) {
+                    //        console.log(data);
+                    //
+                    //        getToken = data;
+                    //        alert('获取Token成功' + "," + status + "," + data.access_token);
+                    //
+                    //        sessionStorage.setItem("access_token",  data.access_token);
+                    //
+                    //        if(rememberme){
+                    //            localStorage.BEE_username = name1;
+                    //            localStorage.BEE_userpassword = password;
+                    //        }
+                    //        sessionStorage.userName=name1;
+                    //        getPointersByUser(name1);
+                    //        getAllOffices(name1);
+                    //        getAllEnergyItems();
+                    //        getMenu();
+                    //        sessionStorage.userAuth = convertAuthTo01Str(data.sysuserauthority
+                    //        );     //存储权限字符串
+                    //    },
+                    //    error: function (e) {
+                    //        alert('获取Token失败,' + e);
+                    //    }
+                    //
+                    //});
                 }
             }
         });
@@ -138,7 +172,7 @@ var Login = function() {
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
-                window.location.href = "shouye/index.html";
+                window.location.href = "shouye/BranchEnergyQueryTotalData.html";
             }
         }
     }

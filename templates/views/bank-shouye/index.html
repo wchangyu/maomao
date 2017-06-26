@@ -6,43 +6,47 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8"/>
-<title></title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta content="" name="description"/>
-<meta content="" name="author"/>
-    <!--MY STYLE-->
-    <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<meta charset="utf-8"/>
+	<title></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta content="" name="description"/>
+	<meta content="" name="author"/>
+	<!--MY STYLE-->
+	<link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../resource/css/leftBat.css">
 	<link rel="stylesheet" href="../resource/css/index.css">
-    <script src="../resource/js/jquery-1.11.2.js"></script>
-    <script src="../resource/js/echarts.min.js"></script>
+	<script src="../resource/js/jquery-1.11.2.js"></script>
+
 	<script src="../../../assets/local/scripts/underscore-min.js"></script>
 	<script src="../resource/js/pointersoffices.js"></script>
-	<script src="../resource/js/index.js"></script>
-    <script src="../resource/js/moment.js"></script>
+	<script src="../resource/js/moment.js"></script>
 	<script src="../resource/js/showOrHidden.js"></script>
 	<link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
 	<link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
-<!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
-<link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-<link rel="shortcut icon" href="../favicon.ico"/>
-
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN THEME STYLES -->
+	<link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+	<link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+	<link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+	<!-- END THEME STYLES -->
+	<link rel="shortcut icon" href="../favicon.ico"/>
+	<!--非框架中的样式-->
+	<link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/common.css"/>
+	<link rel="stylesheet" href="../bank-resource/css/shouye/index.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -62,8 +66,8 @@
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="./index.html">
-			<img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+			<a href="./EnergyQueryTotalData.html">
+				<img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -75,7 +79,7 @@
 		</a>
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN TOP NAVIGATION MENU -->
-        <div class="totalTitle"></div>
+		<div class="totalTitle"></div>
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
@@ -211,8 +215,7 @@
 			</div>
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
-			<h3 class="page-title">
-			</h3>
+			<h3 class="page-title"></h3>
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li>
@@ -227,127 +230,518 @@
 			</div>
 			<!-- END PAGE HEADER-->
 			<!-- BEGIN PAGE CONTENT-->
-
 			<div class="row">
 				<div class="col-md-12">
-                    <div class="total-warp container">
-                        <div class="wrap row">
-							<div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
-								<div class="content-main">
-									<img src="../resource/img/img1.png" alt="">
-									<p class="left-top" title="吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。
-吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。
-">
-										&nbsp;&nbsp;吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼...
-									</p>
-								</div>
-								<div class="content-main">
-									<div class="main-left-middle">
-										<div class="left-middle-header">对象选择</div>
-										<div class="left-middle-main">
-											<div class="left-middle-content">
-												<div class="left-middle-tab">区域位置</div>
-												<div class="left-middle-tab">科室单位</div>
-											</div>
-											<div class="tree-1">
-												<div class="left-middle-input">
-													<input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+					<div class="total-warp container">
+						<div class="wrap row">
+							<!--上方能耗统计与新闻动态-->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content-main-top content-main-top0" id="energyStatistics">
+								<div class="row">
+									<!--左侧能耗统计-->
+									<div class="top-left col-lg-8 col-md-12 col-sm-12 col-xs-12">
+										<h3>能耗统计</h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<!--头部切换按钮-->
+											<ul class="left-cut">
+												<li>
+													<a href="javascript:;" class="onClick">本年累计</a>
+												</li>
+												<li>
+													<a href="javascript:;">本月累计</a>
+												</li>
+												<div class="clearfix"></div>
+											</ul>
+
+											<div class="row" style="padding-left:15px;padding-right:15px;">
+
+												<div class="main-data-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="main-data-top-left col-lg-6 col-md-12 col-sm-12 col-xs-12">
+															<!--具体各项统计数据-->
+															<div class="row important-data0">
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>2000.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">电量</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+															</div>
+
+
+														</div>
+
+														<!--能源汇总-->
+														<div class="main-data-top-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+															<div class="total-data">
+																<p><font>250.4</font> <span> t </span></p><br/>
+																<p>常规能源</p><br/>
+																<p>折合标煤</p>
+															</div>
+														</div>
+
+														<!--同比减排-->
+														<div class="main-data-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
+															<div class="reduction">
+																<p>同比减少排放</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>co2</span>
+																</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>so2</span>
+																</p><br/>
+																<p>
+																	<b>1564 </b>
+																	<span> t</span>
+																	<span>nox</span>
+																</p>
+															</div>
+														</div>
+
+
+													</div>
 												</div>
-												<div class="tipess"></div>
-												<ul class="allPointer ztree" id="allPointer">
-												</ul>
-											</div>
-											<div class="tree-1 tree-2">
-												<div class="left-middle-input">
-													<input type="text"  id="key" class="empty form-control" placeholder="搜索...">
+
+												<!--下方太阳能部分-->
+												<div class="main-data-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="row">
+														<div class="main-data-top-left col-lg-6 col-md-12 col-sm-12 col-xs-12">
+															<!--具体各项统计数据-->
+															<div class="row important-data1">
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>300.4</b>
+																			<span>kWh</span>
+																		</p>
+																		<p class="the-type">太阳能光伏</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+																<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">
+																	<div class="small-part-content">
+																		<p class="amout">
+																			<b>32.1</b>
+																			<span>GJ</span>
+																		</p>
+																		<p class="the-type">太阳能光热</p>
+																	</div>
+
+																	<div class="compare-data">
+																		<p class="percentage">5%</p>
+																		<p>较上年同期</p>
+																	</div>
+
+																</div>
+
+															</div>
+
+
+														</div>
+
+														<!--能源汇总-->
+														<div class="main-data-top-center col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+															<div class="total-data">
+																<p><font>132.1</font> <span> t </span></p><br/>
+																<p>可再生能源</p><br/>
+																<p>折合标煤</p>
+															</div>
+														</div>
+
+														<!--同比减排-->
+														<div class="main-data-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
+															<div class="reduction">
+																<p>等同植树</p><br/>
+																<p>
+																	<b>2563 </b>
+																	<span> 棵</span>
+																</p>
+
+															</div>
+														</div>
+
+
+													</div>
+
 												</div>
-												<div class="tipes"></div>
-												<ul class="allOffices ztree" id="allOffices">
-												</ul>
 											</div>
+
 										</div>
 									</div>
-								</div>
-								<div class="content-main">
-									<div class="select-times">
-										<div class="left-middle-header">时段选择</div>
-										<div id='wrapper'>
-											<div class="time-options time-options-1">上日</div>
-											<div class="time-options">上周</div>
-											<div class="time-options">上月</div>
-											<div class="time-options">上年</div>
-											<div class="buttons">
-												<button class="btn btn-success">查询</button>
-											</div>
+
+									<!--右侧新闻动态-->
+									<div class="top-right col-lg-4 col-md-12 col-sm-12 col-xs-12">
+										<h3 class="top-title"><b>新闻动态</b>  <span class="openNews0"><a href="" style="color:#ed8d26">>></a></span></h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<div class="top-space"></div>
+											<ul class="main-news1">
+
+											</ul>
+
 										</div>
 									</div>
 								</div>
 							</div>
-                            <!-- 右边主体数据部分 -->
-                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-1">
-                                        <div class="main-right-ones  portlet box blue main-right-ones-1">
-                                        	<div class="right-one-header portlet-title">
-                                            	<div class="right-one-headers">上日总能耗</div>
-                                            	<div class="tools">
-                                                	<a href="" class="fullscreen" title="全屏">
-                                                	</a>
-                                            	</div>
-                                        	</div>
-                                        	<div class="fenleinenghao energy-types">
+							<!--下方能耗分析与法律法规-->
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content-main-top" id="energy-analyze">
+								<div class="row">
+									<!--左侧能耗分析-->
+									<div class="top-left col-lg-8 col-md-12 col-sm-12 col-xs-12">
+										<h3>能耗分析</h3>
+										<!--具体数据-->
+										<div class="main-data">
+											<!--头部切换按钮-->
+											<ul class="left-cut">
+												<li>
+													<a href="javascript:;" class="onClick">单位构成</a>
+												</li>
+												<li>
+													<a href="javascript:;">能耗排名</a>
+												</li>
+												<li>
+													<a href="javascript:;">指标排名</a>
+												</li>
+												<li>
+													<a href="javascript:;">电耗分项</a>
+												</li>
+												<li>
+													<a href="javascript:;">数据质量</a>
+												</li>
+												<!--<li style="">-->
+													<!--<a href="javascript:;">分行查询</a>-->
+												<!--</li>-->
 
-											</div>
-											<div id="loaddings">
+												<div class="clearfix"></div>
 
+											</ul>
+
+											<div class="row">
+												<!--单位构成-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 unit-form specific-data" >
+													<ul class="top-cut">
+														<li><a href="javascript:;">本年</a></li>
+														<li><a href="javascript:;"  class="onClicks">本月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-6 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table" id="dateTables">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+
+												</div>
+												<!--能耗排名-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 energy-rank specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">本年</a></li>
+														<li><a href="javascript:;"  class="onClicks">本月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand1">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables1">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--指标排名-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 target-rank specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">上年</a></li>
+														<li><a href="javascript:;"  class="onClicks">上月</a></li>
+														<li>
+															<select name="" id="">
+																<option value="">标煤</option>
+																<option value="">电</option>
+																<option value="">水</option>
+																<option value="">天然气</option>
+															</select>
+														</li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand2">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<div style="height:10px;"></div>
+															<!--下方表格内容-->
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables2">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--电耗分项-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 current-drain specific-data">
+													<ul class="top-cut">
+														<li><a href="javascript:;">上年</a></li>
+														<li><a href="javascript:;"  class="onClicks">上月</a></li>
+														<div class="clearfix"></div>
+													</ul>
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand3">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<!--下方表格内容-->
+															<h3>来源：</h3>
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables3">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+
+															<h3>去向：</h3>
+															<table class="table  table-striped table-bordered table-advance table-hover" id="dateTables4">
+																<thead>
+
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+
+													</div>
+												</div>
+												<!--数据质量-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 data-quality specific-data">
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12" id="energy-demand4">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-4 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+
+															<ul class="total-data">
+																<li>支路在线率：<b></b></li>
+																<li>支路故障率：<b></b></li>
+																<li>未知原因率：<b></b></li>
+															</ul>
+
+														</div>
+
+													</div>
+												</div>
+												<!--分行查询-->
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 branch-refer specific-data">
+
+
+													<!--主题chart图-->
+													<div class="show-main row" >
+														<!--左侧chart图-->
+														<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand5">
+
+														</div>
+
+														<!--右侧对比表格-->
+														<div class=" col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
+															<ul class="right-btn">
+																<li>
+																	<button>成都</button>
+																</li>
+																<li>
+																	<button>眉山</button>
+																</li>
+																<li>
+																	<button>乐山</button>
+																</li>
+																<li>
+																	<button>宜宾</button>
+																</li>
+																<li>
+																	<button>泸州</button>
+																</li>
+																<li>
+																	<button>成都</button>
+																</li>
+																<li>
+																	<button>眉山</button>
+																</li>
+																<li>
+																	<button>乐山</button>
+																</li>
+																<li>
+																	<button>宜宾</button>
+																</li>
+																<li>
+																	<button>泸州</button>
+																</li>
+
+																<div class="clearfix"></div>
+															</ul>
+
+
+														</div>
+
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2">
-											<div class="main-right-ones portlet box blue main-right-ones-2">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 上月分项电耗饼图 -->
-												<div id="main-right-two"></div>
-											</div>
+
+									<!--右侧法律法规-->
+									<div class="top-right col-lg-4 col-md-12 col-sm-12 col-xs-12">
+										<h3 class="bottom-title"><b>法律法规</b>  <span class="openNews1"><a href="" style="color:#ed8d26">>></a></span></h3>
+										<!--具体数据-->
+										<div class="main-data">
+
+											<div class="top-space"></div>
+											<ul class="main-news2">
+
+											</ul>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-3">
-											<div class="main-right-ones portlet box blue main-right-ones-3">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 柱状图 -->
-												<div id="main-right-four"></div>
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-12 main-right-oness main-right-oness-4">
-											<div class="main-right-ones portlet box blue main-right-ones-4">
-												<!-- 标题 -->
-												<div class="right-one-header portlet-title"><div class="right-one-headers">
-													<span class="danwei"></span></div>
-													<div class="tools">
-														<a href="" class="fullscreen"title="全屏">
-														</a>
-													</div>
-												</div>
-												<!-- 仪表盘 -->
-												<div id="main-right-three"></div>
-											</div>
-										</div>
-									</div>
 							</div>
 						</div>
 					</div>
@@ -356,6 +750,52 @@
 			<!-- END PAGE CONTENT-->
 		</div>
 	</div>
+
+
+	<!--自定义弹窗-->
+	<div class='modal fade' id='my-alert1' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:600px;margin:15% auto'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h3 style="margin-bottom:18px">提示</h3>
+					<p style="font-size:20px"> <b style="color:red"></b> </p>
+
+					<div class='modal-footer' style="border:none">
+
+						<button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+						<button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--自定义弹窗-->
+	<div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:600px;margin:15% auto'>
+			<div class='modal-content'>
+				<div class='modal-header'>
+					<h3 style="margin-bottom:18px">提示</h3>
+					<p style="font-size:20px"> <b style="color:red"></b> </p>
+
+					<div class='modal-footer' style="border:none">
+
+						<button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--loading图-->
+	<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+		<div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+		</div>
+	</div>
+
 	<!-- END CONTENT -->
 	<!-- BEGIN QUICK SIDEBAR -->
 	<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -371,6 +811,8 @@
 		<i class="icon-arrow-up"></i>
 	</div>
 </div>
+
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -396,15 +838,23 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--非框架中js-->
+<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-resource/js/lib/moment.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../bank-resource/js/shouye/index.js"></script>
 <script>
-      jQuery(document).ready(function() {    
-         Metronic.init(); // init metronic core components
-		 BEE.init();
-		 Layout.init(); // init current layout
-		 Demo.init(); // init demo features
+	jQuery(document).ready(function() {
+		Metronic.init(); // init metronic core components
+		BEE.init();
+		Layout.init(); // init current layout
+		Demo.init(); // init demo features
 
-      });
-   </script>
+	});
+</script>
+
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

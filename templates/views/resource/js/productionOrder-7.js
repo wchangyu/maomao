@@ -24,15 +24,20 @@ $(function(){
     var app33 = new Vue({
         el:'#myApp33',
         data:{
-            picked:'0',
+            picked:0,
+            rwlx:4,
             telephone:'',
             person:'',
             place:'',
             section:'',
             matter:'',
+            sbSelect:'',
+            sbLX:'',
+            sbMC:'',
+            sbBM:'',
+            azAddress:'',
             sections:'',
-            remarks:'',
-            wxbeizhu:''
+            remarks:''
         },
         methods:{
             radios:function(){
@@ -43,14 +48,13 @@ $(function(){
             }
         }
     })
-    //记录工单状态的值
-    var _gdState;
-    //记录维修状态的值
-    var _wxZhuangtai;
     //定位当前页索引值
     var currentPages = 0;
     var currentRow = '';
+    //当前那工单号
     var gdCode = '';
+    //当前维修班组
+    var _wxOffice = '';
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -90,13 +94,13 @@ $(function(){
                 className:'gongdanId'
             },
             {
-                title:'紧急',
+                title:'工单类型',
                 data:'gdJJ',
                 render:function(data, type, full, meta){
                     if(data == 0){
-                        return '否'
+                        return '普通'
                     }if(data == 1){
-                        return '是'
+                        return '快速'
                     }
                 }
             },
@@ -106,28 +110,35 @@ $(function(){
                 className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '待受理'
+                        return '待下发'
                     }if(data == 2){
-                        return '待接单'
+                        return '待分派'
                     }if(data == 3){
                         return '待执行'
                     }if(data == 4){
-                        return '待完成'
+                        return '执行中'
                     }if(data == 5){
-                        return '完工确认'
+                        return '等待资源'
                     }if(data == 6){
-                        return '待评价'
+                        return '待关单'
                     }if(data == 7){
-                        return '结束'
+                        return '任务关闭'
+                    }if(data == 999){
+                        return '任务取消'
                     }
                 }
             },
             {
-                title:'报修部门',
+                title:'工单状态值',
+                data:'gdZht',
+                className:"ztz"
+            },
+            {
+                title:'车间站',
                 data:'bxKeshi'
             },
             {
-                title:'维修地点',
+                title:'故障位置',
                 data:'wxDidian'
             },
             {
@@ -137,8 +148,24 @@ $(function(){
             {
                 title:'操作',
                 "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>接单</span>"
+                "data": 'gdZht',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>待下发</span>"
+                    }if(data == 2){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>待分派</span>"
+                    }if(data == 3){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>接单</span>"
+                    }if(data == 4){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>执行中</span>"
+                    }if(data == 5){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>等待资源</span>"
+                    }if(data == 6){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>待关单</span>"
+                    }if(data == 7){
+                        return "<span class='data-option option-edit btn default btn-xs green-stripe'>任务关闭</span>"
+                    }
+                }
             }
         ]
     });
@@ -187,7 +214,7 @@ $(function(){
     //条件查询
     conditionSelect();
     //查询方法
-    function conditionSelect(){
+    function conditionSelect(){  //3.4.5状态
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
         for(var i=0;i<filterInputValue.length;i++){
@@ -201,7 +228,7 @@ $(function(){
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
-            "gdZht":0,
+            "gdZht":3,
             "gdZhts":[0],
             "userID":_userIdName
         }
@@ -211,41 +238,8 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+                console.log(result);
                 datasTable($("#scrap-datatables"),result);
-            }
-        })
-    }
-    //接单功能
-    function getGongDan(){
-        var gdInfo = {
-            'gdCode':gdCode,
-            'gdZht':_gdState,
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDUptZht',
-            data:gdInfo,
-            success:function(result){
-                conditionSelect();
-            }
-        })
-    }
-    //完工功能
-    function wanGong(){
-        _wxZhuangtai = app33.wxbeizhu;
-        var gdInfo = {
-            'gdCode':gdCode,
-            'gdZht':_gdState,
-            'userID':_userIdName,
-            'wxBeizhu':_wxZhuangtai
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGUptWang',
-            data:gdInfo,
-            success:function(result){
-                conditionSelect();
             }
         })
     }
@@ -287,15 +281,30 @@ $(function(){
             'opacity':1
         })
     });
-    $('.confirm').click(function(){
-        if($(this).html() == '完成'){
-            wanGong();
-            //提示已完成；
-            $('#myModal2').find('.modal-body').html('工单已完成接单！');
-            moTaiKuang($('#myModal2'));
+    $('#myModal').on('click','.execute',function(){
+        //先判断现在的状态是否可执行操作方法
+        var currentZTZ = $('.current-state').attr('ztz');
+        var currentOption = $('#option-select').val();
+        console.log(currentZTZ);
+        console.log(currentOption);
+        //判断当前状态和执行任务状态
+        if(  currentZTZ == currentOption ){
+            //只发送维修备注请求
+            wxRmark();
         }else{
-            getGongDan();
+            if( currentZTZ == 3 && currentOption != 4 ){
+                //提示请执行任务
+                $('.errorTips').html('当前状态下请先选择执行任务操作！');
+            }else{
+                $('.errorTips').html('');
+                //状态转换+维修内容
+                wxRmark();
+                getGongDan();
+            }
         }
+    })
+
+   $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
     //关闭按钮
@@ -313,25 +322,14 @@ $(function(){
             //获得当前分页的页
             currentPages = parseInt($(this).parents('.table').next().next().children('span').children('.current').html())-1;
             currentRow = $(this).parents('tr').index();
-            console.log();
+
+            //所有input框为不可操作
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true);
             //获取详情
-            var gongDanState = $this.children('.gongdanZt').html();
+            var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').html();
-            //根据工单状态，确定按钮的名称
-            if( gongDanState == '待接单' ){
-                $('#myModal').find('.confirm').html('接单');
-                gongDanState = 2;
-                _gdState = gongDanState + 1;
-            }else if( gongDanState == '待执行'){
-                $('#myModal').find('.confirm').html('执行');
-                gongDanState = 3;
-                _gdState = gongDanState + 1;
-            }else if( gongDanState == '待完成' ){
-                $('#myModal').find('.confirm').html('完成');
-                $('.wxbeizhu').attr('disabled',false);
-                gongDanState = 4;
-                _gdState = gongDanState + 1;
-            }
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -360,11 +358,31 @@ $(function(){
                     app33.matter = result.wxShiX;
                     app33.sections = result.wxKeshi;
                     app33.remarks = result.bxBeizhu;
-                    app33.bxbeizhu = result.bxBeizhu;
+                    app33.rwlx = result.gdLeixing;
+                    app33.sbSelect = result.wxShebei;
+                    app33.sbLX = result.dcName;
+                    app33.sbMC = result.dName;
+                    app33.sbBM = result.ddName;
+                    app33.azAddress = result.installAddress;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                    //给当前状态赋值
+                    var currentState = '';
+                    if(result.gdZht == 3){
+                        currentState = '待执行'
+                    }else if(result.gdZht == 4){
+                        currentState = '执行中'
+                    }else if(result.gdZht == 5){
+                        currentState = '等待资源'
+                    }else if(result.gdZht == 6){
+                        currentState = '待关单'
+                    }
+                    $('.current-state').val(currentState);
+                    $('.current-state').attr('ztz',result.gdZht);
+                    //维修科室
+                    _wxOffice = result.wxKeshi;
                 }
             });
         });
@@ -431,4 +449,47 @@ $(function(){
             'columns':col
         })
     }
+    //修改维修备注方法
+    function wxRmark(){
+        var gdInfo = {
+            "gdCode": gdCode,
+            "gdZht": $('#option-select').val(),
+            "wxKeshi": _wxOffice,
+            "wxBeizhu": $('#wxbeizhu').val(),
+            "userID": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url: _urls + 'YWGD/ywGDUptWxBeizhu',
+            data:gdInfo,
+            success:function(result){
+                if(result == 99){
+                    conditionSelect();
+                    moTaiKuang($('#myModal2'));
+                    $('#myModal2').find('.modal-body').html('操作成功！');
+                    $('#myModal').modal('hide');
+                }
+            }
+        })
+    };
+    //转化状态
+    function getGongDan(){
+        var gdInfo = {
+            'gdCode':gdCode,
+            'gdZht':$('#option-select').val(),
+            'userID':_userIdName
+        }
+        console.log(gdInfo);
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZht',
+            data:gdInfo,
+            success:function(result){
+                if(result == 99){
+                    $('#myModal').modal('hide');
+                    conditionSelect();
+                }
+            }
+        })
+    };
 })

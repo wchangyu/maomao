@@ -4,12 +4,6 @@ $(function(){
     if(_prm){
         var splitId  = _prm.split('&')[0];
         var _id = splitId.split('=')[1];
-        var splitCome = _prm.split('&')[1];
-        if(splitCome == 'come=1'){
-            $('.returns').attr('href','./news.html')
-        }else if(splitCome == 'come=2'){
-            $('.returns').attr('href','./news-3.html')
-        }
     }
     $.ajax({
         type:'get',

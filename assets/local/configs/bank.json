@@ -1,0 +1,242 @@
+{
+  "首页":{
+    "type":"1",
+    "iconclass":"icon-home",
+    "content":"首页",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../bank-shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "新闻":{
+        "type":"0",
+        "content":"新闻",
+        "uri":"../news/news.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "能耗查询":{
+    "type":"1",
+    "iconclass":"icon-speedometer",
+    "content":"能耗查询1",
+    "submenu":{
+      "能耗查询1":{
+        "type":"0",
+        "content":"能耗查询",
+        "uri":"../bank-nenghaochaxun/EnergyQueryTotalData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "用能分析":{
+    "type":"1",
+    "iconclass":"icon-pie-chart",
+    "content":"用能分析",
+    "submenu":{
+      "能耗指标":{
+        "type":"0",
+        "content":"能耗指标",
+        "uri":"../bank-yongnengfenxi/EnergyNormData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能效指标":{
+        "type":"0",
+        "content":"能效指标",
+        "uri":"../bank-yongnengfenxi/efficiencyTarget.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "横向对比":{
+        "type":"0",
+        "content":"横向对比",
+        "uri":"../bank-yongnengfenxi/EnergyCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "同比环比":{
+        "type":"0",
+        "content":"同比环比",
+        "uri":"../bank-yongnengfenxi/EnergyCompareYear.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用电分项":{
+        "type":"0",
+        "content":"用电分项",
+        "uri":"../bank-yongnengfenxi/totalEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "昼夜分析":{
+        "type":"0",
+        "content":"昼夜分项",
+        "uri":"../bank-yongnengfenxi/dayNightEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能趋势":{
+        "type":"0",
+        "content":"用能趋势",
+        "uri":"../bank-yongnengfenxi/EnergyTrend.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "用能管理":{
+    "type":"1",
+    "iconclass":"icon-briefcase",
+    "content":"用能管理",
+    "submenu":{
+      "能耗排名1":{
+        "type":"0",
+        "content":"能耗排名",
+        "uri":"../bank-yongnengguanli/EnergyQueryRank.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能效排名":{
+        "type":"0",
+        "content":"能效排名",
+        "uri":"../bank-yongnengguanli/EnergyEfficientRank.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "定额设定":{
+        "type":"0",
+        "content":"定额设定",
+        "uri":"../bank-yongnengguanli/EnergyQuota.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "节能考核":{
+        "type":"0",
+        "content":"节能考核",
+        "uri":"../bank-yongnengguanli/EnergySaving.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+
+    }
+  },
+  "节能足迹": {
+    "type": "1",
+    "iconclass": "icon-cursor",
+    "content": "节能足迹",
+    "submenu": {
+      "节能项目统计1": {
+        "type": "0",
+        "content": "节能项目统计",
+        "uri": "../bank-jienengzuji/EnergyStatistics.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "节能量统计": {
+        "type": "0",
+        "content": "节能量统计",
+        "uri": "../bank-jienengzuji/EnergyTotal.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "环境监测": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "环境监测",
+    "submenu": {
+      "节能项目统计": {
+        "type": "0",
+        "content": "环境监测",
+        "uri": "../bank-evrm/EnvironmentallyMonitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "数据质量": {
+    "type": "1",
+    "iconclass": "icon-briefcase",
+    "content": "数据质量",
+    "submenu": {
+      "节能项目统计": {
+        "type": "0",
+        "content": "数据质量",
+        "uri": "../bank-sjzl/ServiceNumberDataQuality.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "新闻后台":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"新闻",
+    "submenu":{
+      "新闻后台":{
+        "type":"0",
+        "content":"后台",
+        "uri":"../news/news-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "栏目":{
+        "type":"0",
+        "content":"栏目",
+        "uri":"../news/news-2.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "标题":{
+        "type":"0",
+        "content":"标题",
+        "uri":"../news/news-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "查看":{
+        "type":"0",
+        "content":"查看",
+        "uri":"../news/news-4.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  }
+}

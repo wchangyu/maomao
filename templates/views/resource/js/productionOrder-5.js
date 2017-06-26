@@ -31,7 +31,13 @@ $(function(){
             section:'',
             matter:'',
             sections:'',
-            remarks:''
+            remarks:'',
+            rwlx:4,
+            sbSelect:'',
+            sbLX:'',
+            sbMC:'',
+            sbBM:'',
+            azAddress:''
         },
         methods:{
             radios:function(){
@@ -64,7 +70,6 @@ $(function(){
             }
         }
     })
-    var _gdState;
     var _gdCode;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
@@ -105,13 +110,13 @@ $(function(){
                 className:'gongdanId'
             },
             {
-                title:'紧急',
+                title:'工单类型',
                 data:'gdJJ',
                 render:function(data, type, full, meta){
                     if(data == 0){
-                        return '否'
+                        return '普通'
                     }if(data == 1){
-                        return '是'
+                        return '快速'
                     }
                 }
             },
@@ -121,28 +126,35 @@ $(function(){
                 className:'gongdanZt',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '待受理'
+                        return '待下发'
                     }if(data == 2){
-                        return '待接单'
+                        return '待分派'
                     }if(data == 3){
                         return '待执行'
                     }if(data == 4){
-                        return '待完成'
+                        return '执行中'
                     }if(data == 5){
-                        return '完工确认'
+                        return '等待资源'
                     }if(data == 6){
-                        return '待评价'
+                        return '待关单'
                     }if(data == 7){
-                        return '结束'
+                        return '任务关闭'
+                    }if(data == 999){
+                        return '任务取消'
                     }
                 }
             },
             {
-                title:'报修部门',
+                title:'工单状态值',
+                data:'gdZht',
+                className:'ztz'
+            },
+            {
+                title:'车间站',
                 data:'bxKeshi'
             },
             {
-                title:'维修地点',
+                title:'故障位置',
                 data:'wxDidian'
             },
             {
@@ -154,7 +166,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null, //tablePingjia
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span><span class='data-option tablePingjia btn default btn-xs purple'> <i class='fa fa-edit'></i>评价</span>"
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span><span class='data-option tablePingjia btn default btn-xs purple'> 关闭</span>"
 
             }
         ]
@@ -263,10 +275,7 @@ $(function(){
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
-            "gdZht":6,
-            "gdZhts": [
-                0
-            ],
+            "gdZht":7,
             "userID":_userIdName
         }
         $.ajax({
@@ -293,19 +302,23 @@ $(function(){
     }
     //状态转换
     function getGongDan(){
-        console.log(_gdCode);
         var gdInfo = {
             'gdCode':_gdCode,
-            'gdZht':_gdState,
+            'gdZht':8,
             'userID':_userIdName
         }
+        console.log(gdInfo);
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDUptZht',
             data:gdInfo,
             success:function(result){
-                console.log(result);
-                conditionSelect();
+                if(result == 99){
+                     //初始化单选框和评价意见
+                     $('#myModal2').find('.modal-body').html('已完成评价');
+                     moTaiKuang($('#myModal2'));
+                    conditionSelect();
+                }
             }
         })
     }
@@ -347,13 +360,9 @@ $(function(){
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
             //获取详情
-            var gongDanState = $this.children('.gongdanZt').html();
+            var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').html();
             //根据工单状态，确定按钮的名称
-            if( gongDanState == '待评价' ){
-                gongDanState = 6;
-                _gdState = gongDanState + 1;
-            }
             _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -386,32 +395,39 @@ $(function(){
                     app33.sections = result.wxKeshi;
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;
+                    app33.rwlx = result.gdLeixing;
+                    app33.sbSelect = result.wxShebei;
+                    app33.sbLX = result.dcName;
+                    app33.sbMC = result.dName;
+                    app33.sbBM = result.ddName;
+                    app33.azAddress = result.installAddress;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
                 }
             });
+            //所有input不可操作
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
         })
         //去评价
         .on('click','.tablePingjia',function(){
+            pingjia.beizhu = '';
             //初始化一下radio评价按钮
             pingjia.pickeds = '';
             $('#pingjia').find('.inpus').parent('span').removeClass('checked');
-        var $this = $(this).parents('tr');
-        //当前颜色改变
+            $('#pingjia').find('.inpus').eq(0).parent('span').addClass('checked');
+            var $this = $(this).parents('tr');
+            //当前颜色改变
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal1'))
             //给评价弹窗绑定基本数据
-            var gongDanState = $this.children('td').eq(2).html();
+            var gongDanState = parseInt($this.children('td').eq(2).html());
             var gongDanCode = $this.children('td').eq(0).html();
             _gdCode = gongDanCode;
-            //根据工单状态，确定按钮的名称
-            if( gongDanState == '待评价' ){
-                gongDanState = 6;
-                _gdState = gongDanState + 1;
-            }
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -497,12 +513,9 @@ $(function(){
             url: _urls + 'YWGD/ywGDUptPingjia',
             data:gdInfo,
             success:function(result){
-                getGongDan();
-                //初始化单选框和评价意见
-                pingjia.beizhu = '';
-                $('#pingjia').find('.inpus').parent('span').removeClass('checked');
-                $('#myModal2').find('.modal-body').html('已完成评价');
-                moTaiKuang($('#myModal2'));
+                if(result == 99){
+                    getGongDan();
+                }
             }
         })
     })

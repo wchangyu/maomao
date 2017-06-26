@@ -3,10 +3,9 @@
  */
 
 var _userIdName = sessionStorage.getItem('userName');
-var IP1 = "http://192.168.1.109/BEEWebAPI/api";
+var IP1 = "http://192.168.1.110/BEEWebAPI/api";
 var IP2 = 'http://211.100.28.180/DingEAPI/api';
 var IP = IP1;
-
 var theTimes = 30000;
 
 //弹窗关闭时清空已输入过的信息
@@ -44,8 +43,13 @@ function ajaxSuccess(){
         _table.fnClearTable();
 
         setData();
+}
+function ajaxSuccess1(arr){
 
 
+        _table.fnClearTable();
+
+        setDatas(arr);
 }
 
 //深拷贝的方法
@@ -69,7 +73,12 @@ function myAlter(string){
         $('#my-alert').modal('show');
         $('#my-alert p b').html(string);
 }
+function myAlter1(string){
+        $('#my-alert1').modal('show');
+        $('#my-alert1 p b').html(string);
+}
 
+//比较日期大小
 function CompareDate(d1,d2)
 {
         return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
@@ -231,12 +240,13 @@ function getLastMonth(){
         }
 }
 
-//获取能耗单位
-function getUnit(num){
+//根据分项ID获取能耗单位
+function getUnitByID(num){
+
+
         var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
 
         var txt = unitObj.alltypes;
-        console.log(unitObj);
         for(var i=0; i < txt.length; i++){
                 if(num == txt[i].etid){
                         return txt[i].etunit;
@@ -244,15 +254,260 @@ function getUnit(num){
         }
 };
 
-//获取能耗名称
-function getUnitName(num){
+//获取能耗单位
+function getUnit(num){
+
+       var  num1 = parseInt(num) * 100;
+
         var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
 
         var txt = unitObj.alltypes;
-        console.log(unitObj);
         for(var i=0; i < txt.length; i++){
-                if(num == txt[i].etid){
+                if(num1 == txt[i].ettype){
+                        return txt[i].etunit;
+                }
+        }
+};
+
+//获取能耗名称
+function getUnitName(num){
+        var  num1 = parseInt(num) * 100;
+
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+
+        for(var i=0; i < txt.length; i++){
+                if(num1 == txt[i].ettype){
                         return txt[i].etname;
                 }
         }
 };
+
+//获取能耗分项ID
+function getUnitID(num){
+        var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+        var txt = unitObj.alltypes;
+
+        for(var i=0; i < txt.length; i++){
+                if(num == txt[i].ettype){
+                        return txt[i].etid;
+                }
+        }
+}
+
+//获取开始结束日期
+function getPostDate(postDate){
+        var showTime = postDate;
+
+        var selectType = '';
+
+        var dateSign = '';
+
+        var startDate = '';
+
+        var endDate = '';
+
+        if(postDate == '今天' ||　postDate == '本日'){
+
+                dateSign = '小时';
+
+                selectType = '日';
+
+                startDate = getNewDate();
+
+                console.log(startDate);
+
+                var now = new Date();
+
+                var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+                endDate = getDate(tomorrow);
+
+        }else if(postDate == '昨天'){
+
+                dateSign = '小时';
+
+                selectType = '日';
+
+                endDate = getNewDate();
+
+
+                var now = new Date();
+
+                var yesterday = new Date(now.setDate(now.getDate()-1));
+
+                startDate = getDate(yesterday);
+
+                console.log(startDate);
+
+        }else if(postDate == '过去7天'){
+
+                dateSign = '日';
+
+                selectType = '日';
+
+                var now = new Date();
+
+                var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+                endDate = getDate(tomorrow);
+
+
+                var yesterday = new Date(now.setDate(now.getDate()-7));
+
+                startDate = getDate(yesterday);
+
+                console.log(startDate);
+        }else if(postDate == '过去30天'){
+
+                dateSign = '日';
+
+                selectType = '日';
+
+                var now = new Date();
+
+                var tomorrow = new Date(now.setDate(now.getDate()+1));
+
+                endDate = getDate(tomorrow);
+
+                var yesterday = new Date(now.setDate(now.getDate()-30));
+
+                startDate = getDate(yesterday);
+
+                console.log(startDate);
+        }else if(postDate == '上周'){
+
+                dateSign = '日';
+
+                selectType = '周';
+
+
+                startDate = moment().subtract(1,'week').startOf('week').add(1,'day').format('YYYY-MM-DD');
+
+                endDate = moment().subtract(1,'week').endOf('week').add(2,'day').format('YYYY-MM-DD');
+
+                console.log(startDate,endDate);
+
+        }else   if(postDate == '本月'){
+
+                dateSign = '日';
+
+                selectType = '月';
+
+                endDate = moment().add(1, 'day').format('YYYY-MM-DD');
+
+                startDate = moment().startOf('month').format('YYYY-MM-DD');
+
+                console.log(startDate);
+        }else if(postDate == '上月'){
+
+                dateSign = '日';
+
+                selectType = '月';
+
+                startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
+                endDate = moment().startOf('month').format('YYYY-MM-DD');
+
+                console.log(startDate,endDate);
+        }else if(postDate == '本季'){
+
+                dateSign = '日';
+
+                selectType = '季';
+
+                var month = moment().month() + 1;
+
+                var year = moment().year();
+
+                console.log(month);
+
+                if(0 < month && month < 4){
+                        startDate = year + '-1-1';
+                        endDate = year + '-3-31';
+                }else if(3 < month && month < 7){
+                        startDate = year + '-4-1';
+                        endDate = year + '-6-30';
+                }else if(6 < month && month < 10){
+                        startDate = year + '-7-1';
+                        endDate = year + '-7-30';
+                }else if(9 < month && month < 13){
+                        startDate = year + '-10-1';
+                        endDate = year + '-12-31';
+                }
+
+
+                console.log(startDate,endDate);
+
+        }else if(postDate == '本年' || postDate == '今年'){
+                dateSign = '月';
+
+                selectType = '年';
+
+                endDate = moment().add(1, 'day').format('YYYY-MM-DD');
+
+
+
+                startDate = moment().startOf('year').format('YYYY-MM-DD');
+
+                console.log(startDate,endDate);
+        }else if(postDate == '上年'){
+                dateSign = '月';
+
+                selectType = '年';
+
+                startDate = moment().subtract(1, 'year').startOf('year').format('YYYY-MM-DD');
+
+                endDate =  moment().startOf('year').format('YYYY-MM-DD');
+
+
+        }else if(postDate == '自定义'){
+
+                dateSign = '日';
+
+                selectType = '自定义';
+
+                startDate = $('.show-date').val().split('——')[0];
+
+                startDate = moment(startDate).format('YYYY-MM-DD');
+
+                var string =  $('.show-date').val().split('——')[1];
+
+                var endArr = string.split('-');
+
+                if(endArr.length == 3){
+                        endDate =  moment(string).add(1,'day').format('YYYY-MM-DD');
+                }else{
+
+                        endDate =  moment(string).format('YYYY-MM-DD');
+
+                }
+
+
+
+                showTime = startDate + '——' + endDate;
+                console.log(startDate,endDate);
+        }else if(postDate / 1){
+
+                dateSign = '月';
+
+                selectType = '年';
+
+              startDate = postDate + '-1-1';
+                endDate = (parseInt(postDate) + 1) + '-1-1';
+        }
+
+        return [postDate,startDate,endDate,dateSign,showTime,selectType];
+}
+
+//截取数组
+function getArr(arr){
+        var shortArr = [];
+        //shortArr = arr.slice(0,10);
+        shortArr = arr;
+        console.log(shortArr);
+
+        return shortArr;
+}
+

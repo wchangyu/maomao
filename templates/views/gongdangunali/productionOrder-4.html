@@ -284,7 +284,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">报修部门：</label>
+                                        <label for="">车间站：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -300,7 +300,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">维修部门：</label>
+                                        <label for="">维修班组：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -405,59 +405,106 @@
                 <div class="gongdanContent">
                     <ul class="gongdanList" id="myApp33">
                         <li class="floatLeft" style="line-height: 26px;">
-                            <div class="labels">是否紧急：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">是</label>
-                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">否</label>
+                            <div class="labels">工单类型：</div>
+                            <div class="input-blockeds">
+                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
+                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels colorTip">任务类型 *：</div>
+                            <div class="input-blockeds">
+                                <select v-model="rwlx">
+                                    <option value="1">一级任务</option>
+                                    <option value="2">二级任务</option>
+                                    <option value="3">三级任务</option>
+                                    <option value="4">四级任务</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="floatLeft">
                             <div class="labels">报修电话：</div>
                             <div class="input-blockeds disabled-block" >
-                                <input type="text" v-model="telephone" class="shishi disabled-block" disabled="true">
+                                <input type="text" v-model="telephone" class="shishi">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">报修人信息：</div>
                             <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="person" disabled="true">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <div class="labels">维修地点：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="place" disabled="true">
+                                <input type="text" v-model="person">
                             </div>
                         </li>
                         <li class="floatLeft">
-                            <div class="labels">报修部门：</div>
+                            <div class="labels">故障位置：</div>
                             <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="section" disabled="true">
+                                <input type="text" v-model="place">
                             </div>
                         </li>
                         <li class="floatRight">
+                            <div class="labels">车间站：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="section">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
                             <div class="labels">维修事项：</div>
                             <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="matter" disabled="true">
+                                <input type="text" v-model="matter">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">设备编码：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbSelect">
                             </div>
                         </li>
                         <li class="floatLeft">
-                            <div class="labels">维修部门：</div>
+                            <div class="labels">设备类型：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbLX">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">设备名称：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbMC">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">设备车间站：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbBM">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">安装地点：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="azAddress">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">维修班组：</div>
                             <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="sections" disabled="true">
+                                <input type="text" v-model="sections">
                             </div>
                         </li>
                         <div class="clearfix"></div>
                         <div>
-                            <div class="labels">报修备注：</div>
+                            <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks" disabled="true"></textarea>
                             </div>
                         </div>
                         <div>
-                            <div class="labels">维修备注：</div>
+                            <div class="labels colorTip">维修内容 *：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="labels">图片：</div>
+                            <div class="input-blockeds" style="height:32px;">
+                                <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
                             </div>
                         </div>
                         <div class="table-block">
