@@ -296,7 +296,6 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     var indexs = result.gdZht;
                     $('.progressBar').children('li').css({'color':'#333333'});
                     for(var i=0;i<indexs;i++){
@@ -331,6 +330,10 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls)
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             });
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
@@ -370,6 +373,10 @@ $(function(){
                         _weiXiuCaiLiao = result.wxCls;
                         //_fuZeRen = result.
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             })
         })
@@ -380,31 +387,30 @@ $(function(){
                 moTaiKuang($('#myModal1'));
             }else{
                 $('#myModal3').find('.modal-body').html('无法操作');
-                moTaiKuang($('#myModal3'));
+                moTaiKuang($('#myModal3'),'flag');
             }
         }else{
             $('#myModal3').find('.modal-body').html('请选择要回退的工单!');
-            moTaiKuang($('#myModal3'));
+            moTaiKuang($('#myModal3'),'flag');
         }
     })
     $('.zuofei').click(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
             if(zhuangtai == 7){
-                $('#myModal3').find('.modal-body').html('已完成状态工单无法进行作废操作');
-                moTaiKuang($('#myModal3'));
+                $('#myModal3').find('.modal-body').html('已完成状态工单无法进行取消操作');
+                moTaiKuang($('#myModal3'),'flag');
             }else{
                 moTaiKuang($('#myModal2'));
             }
         }else{
             $('#myModal3').find('.modal-body').html('请选择要报废的工单!');
-            moTaiKuang($('#myModal3'));
+            moTaiKuang($('#myModal3'),'flag');
         }
     })
     //撤销（回退）
     $('#myModal1').find('.btn-primary').click(function (){
         if(_currentChexiao){
-            console.log(_currentClick);
             var gdState = parseInt(_currentClick.find('.ztz').html());
             //console.log(gdState);
             var htState = 0;
@@ -420,8 +426,6 @@ $(function(){
                 "wxKeshi": "",
                 "userID": _userIdName
             }
-            Worker('YWGD/ywGDDelWxR','flag');
-            CaiLiao('YWGD/ywGDDelWxCl','flag');
             $.ajax({
                 type:'post',
                 url:_urls + 'YWGD/ywGDUptZht',
@@ -438,7 +442,16 @@ $(function(){
                         }
                         conditionSelect();
                         $('#myModal1').modal('hide');
+                        moTaiKuang($('#myModal3'),'flag');
+                        $('#myModal3').find('.modal-body').html('回退成功！');
+                    }else{
+                        moTaiKuang($('#myModal3'),'flag');
+                        $('#myModal3').find('.modal-body').html('回退失败！')
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             })
         }
@@ -458,8 +471,15 @@ $(function(){
                     if(result == 99){
                         conditionSelect();
                         $('#myModal3').find('.modal-body').html('工单取消成功！');
-                        moTaiKuang($('#myModal3'))
+                        moTaiKuang($('#myModal3'),'flag');
+                    }else{
+                        $('#myModal3').find('.modal-body').html('工单取消失败！');
+                        moTaiKuang($('#myModal3'),'flag');
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             })
         }
@@ -471,12 +491,12 @@ $(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
             $('#myModal3').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal3'));
+            moTaiKuang($('#myModal3'),'flag');
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
                 $('#myModal3').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal3'));
+                moTaiKuang($('#myModal3'),'flag');
             }else{
                 conditionSelect();
             }
@@ -532,7 +552,7 @@ $(function(){
             "shouliren": filterInput[8],
             "userID":_userIdName,
             //故障位置
-            "gdLeixing":$('#gdlx').val(),
+            "gdLeixing":$('#rwlx').val(),
             "wxRen":filterInput[7],
             "wxdidian":filterInput[8]
         }
@@ -549,11 +569,15 @@ $(function(){
                         $('.paginate_button').eq(i).click();
                     }
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who,flag){
         who.modal({
             show:false,
             backdrop:'static'
@@ -564,6 +588,11 @@ $(function(){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -603,10 +632,16 @@ $(function(){
             data:gdWR,
             async:false,
             success:function(result){
-                console.log(result);
                 if(result == 99){
-                    conditionSelect();
+                    /*conditionSelect();*/
+                    console.log('删除执行人成功！')
+                }else{
+                    console.log('删除执行人失败！')
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         });
     }
@@ -636,10 +671,14 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    conditionSelect();
-                    $('#myModal3').find('.modal-body').html('工单回退成功!');
-                     moTaiKuang($('#myModal3'));
+                    console.log('删除物料成功！')
+                }else{
+                    console.log('删除物料失败！')
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -669,10 +708,14 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    conditionSelect();
-                    $('#myModal3').find('.modal-body').html('工单回退成功!');
-                    moTaiKuang($('#myModal3'));
+                    console.log('删除负责人成功！')
+                }else{
+                    console.log('删除负责人失败！')
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }

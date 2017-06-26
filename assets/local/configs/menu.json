@@ -792,14 +792,6 @@
         "arg":"",
         "iconclass":""
       },
-      "工单完工管理":{
-        "type":"0",
-        "content":"工单完工管理",
-        "uri":"../gongdangunali/productionOrder-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "工单评估管理":{
         "type":"0",
         "content":"工单评估管理",

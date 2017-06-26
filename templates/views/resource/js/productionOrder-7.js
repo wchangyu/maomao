@@ -238,8 +238,11 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 datasTable($("#scrap-datatables"),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -383,6 +386,10 @@ $(function(){
                     $('.current-state').attr('ztz',result.gdZht);
                     //维修科室
                     _wxOffice = result.wxKeshi;
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             });
         });
@@ -469,6 +476,10 @@ $(function(){
                     $('#myModal2').find('.modal-body').html('操作成功！');
                     $('#myModal').modal('hide');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     };
@@ -489,6 +500,10 @@ $(function(){
                     $('#myModal').modal('hide');
                     conditionSelect();
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     };

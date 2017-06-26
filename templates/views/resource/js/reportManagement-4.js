@@ -219,6 +219,10 @@ $(function (){
                     datasTable($("#scrap-datatables"),result.bxGd);
                     datasTable($("#scrap-datatables1"),result.bxwxGD);
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }

@@ -263,6 +263,10 @@ $(function(){
             async:false,
             success:function(result){
                 datasTable($("#scrap-datatables"),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -279,16 +283,23 @@ $(function(){
             data:gdInfo,
             success:function(result){
                 if(result == 99){
-                    moTaiKuang($('#myModal2'));
+                    moTaiKuang($('#myModal2'),'flag');
                     $('#myModal2').find('.modal-body').html('确认完工操作成功！')
                     conditionSelect();
                     $('#myModal').modal('hide');
+                }else{
+                    moTaiKuang($('#myModal2'),'flag');
+                    $('#myModal2').find('.modal-body').html('确认完工操作失败！')
                 }
-            }
+            },
+              error:function(jqXHR, textStatus, errorThrown){
+                  var info = JSON.parse(jqXHR.responseText).message;
+                  console.log(info);
+              }
         })
     }
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who,flag){
         who.modal({
             show:false,
             backdrop:'static'
@@ -299,6 +310,11 @@ $(function(){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -370,6 +386,10 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             });
             //所有input框为不可操作
@@ -384,12 +404,12 @@ $(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
             $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal2'));
+            moTaiKuang($('#myModal2'),'flag');
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
                 $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal2'));
+                moTaiKuang($('#myModal2'),'flag');
             }else{
                 conditionSelect();
             }
