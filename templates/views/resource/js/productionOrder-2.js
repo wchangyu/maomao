@@ -356,8 +356,6 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
-            //派工按钮显示
-            $('.paigongButton').show();
             //维修部门只读,颜色改变
             $('#wxbm').attr('disabled',false).css({'background':'#ffffff'});
             $('#wxbm').parent('.input-blockeds').css({'background':'#ffffff'});
@@ -414,7 +412,6 @@ $(function(){
                     //执行人、物料
                     _zhixingRens = result.wxRens;
                     _weiXiuCaiLiao = result.wxCls;
-                    console.log(_zhixingRens);
                     //添加后的执行人员
                     if(_zhixingRens.length == 0){
                         var table = $("#personTable1").dataTable();
@@ -427,6 +424,10 @@ $(function(){
                     }
                     //添加后的维修材料
                     datasTable($("#personTables1"),_weiXiuCaiLiao)
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             });
             //修改
@@ -462,6 +463,10 @@ $(function(){
             data:prm,
             success:function(result){
                 datasTable($("#scrap-datatables"),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -508,12 +513,12 @@ $(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
             $('#myModal4').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal4'));
+            moTaiKuang($('#myModal4'),'flag');
         }else{
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
                 $('#myModal4').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal4'));
+                moTaiKuang($('#myModal4'),'flag');
             }else{
                 conditionSelect();
             }
@@ -529,57 +534,6 @@ $(function(){
         $('.datatimeblock').eq(0).val(_initStart);
         $('.datatimeblock').eq(1).val(_initEnd);
     })
-    /*//登记按钮
-    $('.creatButton').click(function(){
-        //所有登记页面的输入框清空
-        //所有登记页面的输入框清空(radio的按钮默认为否)；
-        app33.picked = 0;
-        $('#myApp33').find('.inpus').parent('span').removeClass('checked');
-        $('#myApp33').find('#twos').parent('span').addClass('checked');
-        app33.rwlx = '1';
-        app33.telephone = '';
-        app33.person = '';
-        app33.place = '';
-        app33.matter = '';
-        app33.remarks = '';
-        app33.section = '';
-        app33.sbSelect = '';
-        app33.sbLX = '';
-        app33.sbMC = '';
-        app33.sbBM = '';
-        app33.azAddress = '';
-        moTaiKuang($('#myModal1'));
-    })*/
-    /*//快速登记按钮
-    $('.quickCreat').click(function(){
-        quickWork.picked = 1;
-        $('#quickWork').find('.inpus').parent('span').removeClass('checked');
-        $('#one1').parent('span').addClass('checked');
-        quickWork.rwlx = 1;
-        quickWork.telephone = '';
-        quickWork.person = '';
-        quickWork.place = '';
-        quickWork.section = '';
-        quickWork.matter = '';
-        quickWork.weixiushebei = '';
-        quickWork.weixiukeshis = '';
-        quickWork.sbSelect = '';
-        quickWork.sbLX = '';
-        quickWork.sbMC = '';
-        quickWork.sbBM = '';
-        quickWork.azAddress = '';
-        quickWork.beizhus = '';
-        quickWork.weixiuBZ = '';
-        moTaiKuang($('#myModal9'));
-        //将执行人默认为本人
-        var personObject = {};
-        personObject.wxRName = _userIdName;
-        personObject.wxrID = _userIdName;
-        personObject.wxRDh = '';
-        _zhixingRens = [];
-        _zhixingRens.push(personObject);
-        datasTable($('#personTable2'),_zhixingRens);
-    })*/
     //登记弹框，点击确定，获得数据，向后台传参
     $('#createGongdan').find('.btn-success').click(function(){
         var gdInfo = {
@@ -604,6 +558,10 @@ $(function(){
                 setTimeout(function(){$(".gongdanContent .alert").hide();},2000);
                 //刷新表格
                 conditionSelect();
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     })
@@ -612,19 +570,21 @@ $(function(){
         //如果维修科室没有添加的话，出现弹出框，无法实现派工
         if(workDones.weixiukeshis == ''){
             $('#myModal4').find('.modal-body').html('请填写维修班组！');
-            moTaiKuang($('#myModal4'));
+            moTaiKuang($('#myModal4'),'flag');
         }else if(_zhixingRens.length == 0){
             $('#myModal4').find('.modal-body').html('请选择执行人员！');
-            moTaiKuang($('#myModal4'));
+            moTaiKuang($('#myModal4'),'flag');
         }else{
             //执行人删除
             //Worker('YWGD/ywGDDelWxR','flag');
             //执行人添加
             Worker('YWGD/ywGDAddWxR');
-            //材料删除
-            CaiLiao('YWGD/ywGDDelWxCl','flag');
-            //材料添加
-            CaiLiao('YWGD/ywGDAddWxCl');
+            if( _weiXiuCaiLiao != 0 ){
+                //材料删除
+                CaiLiao('YWGD/ywGDDelWxCl','flag');
+                //材料添加
+                CaiLiao('YWGD/ywGDAddWxCl');
+            }
             var gdInfo = {
                 'gdCode':gdCode,
                 'gdZht':3,
@@ -640,106 +600,21 @@ $(function(){
                         $('#myModal1').modal('hide');
                         $('#myModal').modal('hide');
                         $('#myModal4').find('.modal-body').html('派工成功！');
-                        moTaiKuang($('#myModal4'));
-                        //conditionSelect();
+                        moTaiKuang($('#myModal4'),'flag');
                         upData()
+                    }else{
+                        $('#myModal4').find('.modal-body').html('派工失败！');
+                        moTaiKuang($('#myModal4'),'flag');
                     }
 
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             })
         }
     })
-    //登记确认按钮
-    /*$('.dengji').click(function(){
-        if(app33.person == '' || app33.place == '' || app33.matter == ''){
-            var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('请填写红色必填项');
-            moTaiKuang(myModal);
-        }else{
-            var gdInfo = {
-                'gdJJ':app33.picked,
-                'bxRen':app33.person,
-                'bxDianhua':app33.telephone,
-                'bxKeshi':app33.section,
-                'wxDidian':app33.place,
-                'wxShiX':app33.matter,
-                'wxKeshi':'',
-                'bxBeizhu':app33.remarks,
-                'userID':_userIdName,
-                'gdLeixing':app33.rwlx,
-                'dName':app33.sbMC,
-                'gdSrc':2,
-                'ddName':app33.sbBM,
-                'wxShebei':app33.sbSelect,
-                'dcName':app33.sbLX,
-                'installAddress':app33.azAddress
-            }
-            $.ajax({
-                type:'post',
-                url: _urls + 'YWGD/ywGDCreDJ',
-                data:gdInfo,
-                success:function(result){
-                    if(result == 99){
-                        var myModal = $('#myModal4');
-                        myModal.find('.modal-body').html('添加成功!');
-                        moTaiKuang(myModal)
-                    }
-                    //刷新表格
-                    conditionSelect();
-                }
-            })
-        }
-    });*/
-    /*$('.quickDengji').click(function(){
-        if(quickWork.person == '' || quickWork.place == '' || quickWork.matter == '' || quickWork.weixiukeshis == ''){
-            var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('请填写红色必填项');
-            moTaiKuang(myModal);
-        }else{
-            var weixiuRen = [
-                {
-                    wxRen:_userIdName,
-                    wxRName:_userIdName,
-                    wxRDh:''
-                }
-            ];
-            var gdInfo = {
-                'gdJJ':quickWork.picked,
-                'bxRen':quickWork.person,
-                'bxDianhua':quickWork.telephone,
-                'bxKeshi':quickWork.section,
-                'wxDidian':quickWork.place,
-                'wxShiX':quickWork.matter,
-                'wxKeshi':quickWork.weixiukeshis,
-                'bxBeizhu':quickWork.beizhus,
-                'userID':_userIdName,
-                'gdLeixing':quickWork.rwlx,
-                'dName':quickWork.sbMC,
-                'gdSrc':2,
-                'ddName':quickWork.sbBM,
-                'wxShebei':quickWork.sbSelect,
-                'dcName':quickWork.sbLX,
-                'installAddress':quickWork.azAddress,
-                'gdWxRs':weixiuRen
-            }
-            console.log(gdInfo);
-            $.ajax({
-                type:'post',
-                url: _urls + 'YWGD/ywGDCreQuickDJ',
-                data:gdInfo,
-                success:function(result){
-                    if(result == 99){
-                        $('#myModal4').modal('hide');
-                        var myModal = $('#myModal4');
-                        myModal.find('.modal-body').html('添加成功!');
-                        moTaiKuang(myModal);
-                    }
-                    //刷新表格
-                    conditionSelect();
-                }
-            })
-        }
-    })*/
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
@@ -841,148 +716,6 @@ $(function(){
         _zhixingRens.removeByValue($thisBM,'wxRen');
         datasTable($('#personTable1'),_zhixingRens);
     });
-    /*$('.tianJiaPerson').click(function(){
-        //添加之前先判断一下非空了没
-        if(zhiXingRen.zhixingren == '' || zhiXingRen.gonghao == '' || zhiXingRen.dianhua == ''){
-            $('#myModal4').find('.modal-body').html('请填写红色必填项');
-            moTaiKuang($('#myModal4'));
-        }else{
-            var objects = {};
-            objects.wxRName = zhiXingRen.zhixingren;
-            objects.wxRen = zhiXingRen.gonghao;
-            objects.wxRDh = zhiXingRen.dianhua;
-            //避免录入的信息重复，做个判断
-            if(_zhixingRens.length == 0){
-                _zhixingRens.push(objects);
-                var table = $("#zhiXingPerson").dataTable();
-                table.fnClearTable();
-                table.fnAddData(_zhixingRens);
-                table.fnDraw();
-            }else{
-                var isExist = false;
-                for(var i=0;i<_zhixingRens.length;i++){
-                    if(_zhixingRens[i].wxRen == objects.wxRen){
-                        isExist = true;
-                        break;
-                    }
-                }
-                if(isExist){
-                    $('.exists').show();
-                }else{
-                    $('.exists').hide();
-                    _zhixingRens.push(objects);
-                    var table = $("#zhiXingPerson").dataTable();
-                    table.fnClearTable();
-                    table.fnAddData(_zhixingRens);
-                    table.fnDraw();
-                }
-            }
-        }
-    });*/
-    //点击第二层弹窗的确定，给第一个弹窗的表格赋值
-    /*$('.secondButton').click(function(){
-        console.log(_zhixingRens);
-        //传回给第一个弹框的表格
-        //输上谁就是谁
-        if(_zhixingRens.length == 0){
-            var table = $("#personTable1").dataTable();
-            table.fnClearTable();
-            $('.paigongButton').attr('disabled',true);
-            $('.paiGongTip').show();
-        }else{
-            var table = $("#personTable1").dataTable();
-            table.fnClearTable();
-            table.fnAddData(_zhixingRens);
-            table.fnDraw();
-            $('.paigongButton').attr('disabled',false);
-            $('.paiGongTip').hide();
-        }
-        addWorker();
-        removeWork();
-        $('#myModal2').modal('hide');
-    });*/
-    //给执行人员的表格添加删除事件
-    /*$('#zhiXingPerson tbody').on('click','tr',function(){
-        var e = event || window.event;
-        if(e.target.className.toLowerCase() == 'tabledeleted'){
-            //首先获得点击的执行人的工号，然后删除了数组，然后再返回给前一个弹出框
-            //首先获得点击行的tr
-            //获得点击行的工号的td
-            var deleteValue = $(this).children('td').eq(1).html();
-            //遍历数组，删除工号匹配的对象
-            for(var i=0;i<_zhixingRens.length;i++){
-                if(_zhixingRens[i].wxRen == deleteValue){
-                    _zhixingRens.splice(i,1);
-                    if(_zhixingRens.length == 0){
-                        _zhixingRens = [];
-                        var table = $("#zhiXingPerson").dataTable();
-                        table.fnClearTable();
-                    }else{
-                        var table = $("#zhiXingPerson").dataTable();
-                        table.fnClearTable();
-                        table.fnAddData(_zhixingRens);
-                        table.fnDraw();
-                    }
-                    //重构表格的值
-
-                }
-            }
-        }
-    });
-    function addWorker(){
-        gdCode = currentTr.children('td').eq(0).html();
-        var gdRen = [];
-        for(var i=0;i<_zhixingRens.length;i++){
-            var object = {};
-            object.wxrID = 0;
-            object.wxRen = _zhixingRens[i].wxRen;
-            object.wxRName = _zhixingRens[i].wxRName;
-            object.wxRDh = _zhixingRens[i].wxRDh;
-            object.gdCode = gdCode;
-            gdRen.push(object);
-        }
-        var gdWR = {
-            "gdCode":gdCode,
-            "gdWxRs":gdRen,
-            "userID":_userIdName
-        };
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDAddWxR',
-            data:gdWR,
-            success:function(result){
-                //刷新条件查询
-                conditionSelect();
-            }
-        })
-    }
-    function removeWork() {
-        var gdCode = currentTr.children('td').eq(0).html();
-        var gdRen = [];
-        for (var i = 0; i < _zhixingRens.length; i++) {
-            var object = {};
-            object.wxrID = 0;
-            object.wxRen = _zhixingRens[i].wxRen;
-            object.wxRName = _zhixingRens[i].wxRName;
-            object.wxRDh = _zhixingRens[i].wxRDh;
-            object.gdCode = gdCode;
-            gdRen.push(object);
-        }
-        var gdWR = {
-            "gdCode": gdCode,
-            "gdWxRs": gdRen,
-            "userID": _userIdName
-        };
-        $.ajax({
-            type: 'post',
-            url:_urls + 'YWGD/ywGDDelWxR',
-            data: gdWR,
-            success: function (result) {
-                //刷新条件查询
-                conditionSelect();
-            }
-        })
-    }*/
     /*----------------------------------添加材料功能材料----------------------------------------*/
     //点击选择材料按钮
     $('.tianJiaCaiLiao').click(function(){
@@ -1075,59 +808,9 @@ $(function(){
             _weiXiuCaiLiao.removeByValue($('.wpbms').val(),"wxCl");
             datasTable($('#personTables1'),_weiXiuCaiLiao);
     })
-    /*function addCaiLiao(){
-        var cailiaoInfo = [];
-        for(var i=0;i<_weiXiuCaiLiao.length;i++){
-            var object = {};
-            object.wxClID = 0;
-            object.wxCl = _weiXiuCaiLiao[i].wxCl;
-            object.wxClName = _weiXiuCaiLiao[i].clShul;
-            object.clShul = _weiXiuCaiLiao[i].clShul;
-            object.gdCode = gdCode;
-            cailiaoInfo.push(object);
-        }
-        var gdWxCl = {
-            "gdCode":gdCode,
-            "gdWxCls":cailiaoInfo,
-            "userID":_userIdName
-        }
-        $.ajax({
-            url:_urls + 'YWGD/ywGDAddWxCl',
-            type:'post',
-            data:gdWxCl,
-            success:function(result){
-                conditionSelect();
-            }
-        })
-    }
-    function removeCaiLiao(){
-        var cailiaoInfo = [];
-        for(var i=0;i<_weiXiuCaiLiao.length;i++){
-            var object = {};
-            object.wxClID = 0;
-            object.wxCl = _weiXiuCaiLiao[i].wxCl;
-            object.wxClName = _weiXiuCaiLiao[i].wxClName;
-            object.clShul = 0;
-            object.gdCode = gdCode;
-            cailiaoInfo.push(object);
-        }
-        var gdWC = {
-            "gdCode":gdCode,
-            "gdWxCls":cailiaoInfo,
-            "userID":_userIdName
-        }
-        $.ajax({
-            url:_urls + 'YWGD/ywGDDelWxCl',
-            type:'post',
-            data:gdWC,
-            success:function(result){
-                conditionSelect();
-            }
-        })
-    }*/
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who,flag){
         who.modal({
             show:false,
             backdrop:'static'
@@ -1137,6 +820,11 @@ $(function(){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -1205,8 +893,9 @@ $(function(){
                  }
                  datasTable($('#weiXiuCaiLiaoTable'),result)
              },
-             error:function(){
-
+             error:function(jqXHR, textStatus, errorThrown){
+                 var info = JSON.parse(jqXHR.responseText).message;
+                 console.log(info);
              }
          })
      }
@@ -1218,7 +907,7 @@ $(function(){
             'zxPhone':''
         }
         $.ajax({
-            type:'post',
+            type:'get',
             url:'../resource/data/worker.json',
             success:function(result){
                 _allZXRArr =[];
@@ -1227,8 +916,9 @@ $(function(){
                 }
                 datasTable($('#zhixingRenTable'),result.data)
             },
-            error:function(){
-
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -1251,15 +941,19 @@ $(function(){
             gdWxRs:workerArr,
             userID:_userIdName
         }
-        console.log(gdWR);
         $.ajax({
             type:'post',
             url:_urls + url,
             data:gdWR,
             async:false,
             success:function(result){
-                console.log(result);
-                conditionSelect();
+                if(result){
+                    conditionSelect();
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         });
     }
@@ -1289,8 +983,11 @@ $(function(){
             url:_urls + url,
             data:gdWxCl,
             success:function(result){
-                console.log(result);
                 conditionSelect();
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -1306,8 +1003,11 @@ $(function(){
             url:_urls + 'YWGD/ywGDUptZht',
             data:gdInfo,
             success:function(result){
-                console.log(result);
                 conditionSelect();
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }

@@ -302,6 +302,10 @@ $(function (){
                     option1.series[0].data[0].value = zzTotal;
                     myChart1.setOption(option1);
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }

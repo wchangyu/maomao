@@ -18,7 +18,8 @@ $(function(){
         el:'#role',
         data:{
             name:'',
-            remarks:''
+            remarks:'',
+            order:''
         }
     })
 
@@ -100,6 +101,7 @@ $(function(){
         //初始化登记表
         role.name='';
         role.remark='';
+        role.order=''
     });
 
     //操作确定按钮
@@ -225,6 +227,7 @@ $(function(){
             var prm = {
                 "":role.name,
                 "":role.remarks,
+                "":role.order,
             };
         }
         //发送数据
@@ -260,6 +263,7 @@ $(function(){
                 //绑定数据
                 role.name = "";
                 role.remarks = "";
+                role.order = ""
             },
             error:function(){
 

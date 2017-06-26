@@ -440,6 +440,15 @@
         var dType = $('#datetimeInfoSelect').val();//时间类型
         var cdataIdArys = cdataIds;//监测因子数组;
         var pId = pointerId;
+        if(serviceId==undefined || dType==undefined || cdataIdArys ==undefined || pId==undefined)
+        {
+            alert('请选择正确的参数查询数据');
+            return false;
+        }
+        if(cdataIdArys.length==0){
+            alert('请选择正确的参数查询数据');
+            return false;
+        }
         var parms = {
             PointerID: pId,
             CDataIDs: cdataIdArys,

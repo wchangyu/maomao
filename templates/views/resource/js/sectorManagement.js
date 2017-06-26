@@ -18,10 +18,13 @@ $(function(){
         el:'#department',
         data:{
             name:'',
-            higherdepartment:''
+            higherdepartment:'',
+            order:''
         }
     })
 
+    //存放所有部门列表
+    var _allDepartmentArr = [];
 
     /*----------------------------------------表格初始化-----------------------------------------*/
     var table = $('#personal-table').DataTable({
@@ -58,15 +61,16 @@ $(function(){
         "columns": [
             {
                 title:'部门名',
-                data:'wxRName'
+                data:'departName'
+            },
+            {
+                title:'部门编码',
+                data:'departNum',
+                className:'departNum'
             },
             {
                 title:'上级部门',
-                data:'wxRen'
-            },
-            {
-                title:'创建时间',
-                data:'wxRName'
+                data:'parentNum'
             },
             {
                 title:'操作',
@@ -98,7 +102,8 @@ $(function(){
         moTaiKuang($('#myModal'),'新增');
         //初始化登记表
         department.name='';
-        higherdepartment='';
+        department.higherdepartment='';
+        department.order=''
     });
 
     //操作确定按钮
@@ -127,7 +132,7 @@ $(function(){
             moTaiKuang($('#myModal'),'查看','flag');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
-            bindingData();
+            bindingData($(this),'flag');
         })
         //编辑
         .on('click','.option-edit',function(){
@@ -135,7 +140,7 @@ $(function(){
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
-            bindingData();
+            bindingData($(this));
         })
         //删除
         .on('click','.option-delete',function(){
@@ -143,7 +148,7 @@ $(function(){
             moTaiKuang($('#myModal'),'确定要删除吗？');
             $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
             //绑定数据
-            bindingData();
+            bindingData($(this),'flag');
         });
 
 
@@ -182,21 +187,23 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "":filterInput[0],
-            "":filterInput[1],
-            "":$('#rybm').val(),
-            "":$('#ryjs').val()
+            "departName":filterInput[0],
+            "userID":_userIdName
         }
         $.ajax({
-            type:'get',
-            url:'../resource/data/worker.json',
-            data:'',
+            type:'post',
+            url: _urls + 'RBAC/rbacGetDeparts',
+            data:prm,
             success:function(result){
-                console.log(result)
-                datasTable($('#personal-table'),result.data)
+                _allDepartmentArr = [];
+                for(var i=0;i<result.length;i++){
+                    _allDepartmentArr.push(result[i]);
+                }
+                datasTable($('#personal-table'),result);
             },
-            error:function(){
-
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -223,6 +230,7 @@ $(function(){
             var prm = {
                 "":department.name,
                 "":department.higherdepartment,
+                "":department.order
             };
         }
         //发送数据
@@ -239,29 +247,35 @@ $(function(){
                     //提示登记失败
                     tipInfo($('#myModal1'),'提示',errorMeg,'flag');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
 
     //查看、删除绑定数据
-    function bindingData(){
-        //调用查看详情接口
-        var prm = {
-
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + '',
-            data:prm,
-            success:function(result){
-                //获取数据
-                //绑定数据
-                department.name = "";
-                department.higherdepartment = "";
-            },
-            error:function(){
-
+    function bindingData(el,flag){
+        var thisBM = el.parent('tr').children('.departNum').html();
+        console.log(_allDepartmentArr);
+        for(var i=0;i<_allDepartmentArr.length;i++){
+            if( _allDepartmentArr[i].departNum == thisBM ){
+                department.name = _allDepartmentArr[i].departName;
+                department.higherdepartment = _allDepartmentArr[i].parentNum;
+                department.order = _allDepartmentArr[i].sort
             }
-        })
+        }
+        //查看不可操作
+        var disableArea = $('#department').find('.input-blockeds');
+        if(flag){
+            disableArea.children('input').attr('disabled',true).addClass('disabled-block');
+            disableArea.children('select').attr('disabled',true).addClass('disabled-block');
+            disableArea.children('textarea').attr('disabled',true).addClass('disabled-block');
+        }else{
+            disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
+            disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
+            disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
+        }
     }
 })

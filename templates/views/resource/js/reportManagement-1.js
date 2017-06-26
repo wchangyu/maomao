@@ -240,6 +240,10 @@ $(function (){
                     option.xAxis[0].data = xZhou;
                     myChart.setOption(option);
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
