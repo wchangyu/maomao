@@ -229,96 +229,88 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-           <div class="row">
-               <div class="col-lg-12 col-md-12">
-                   <div class="row" style="background-color:#ffd966;padding:3px;">
-                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                           <div style="float:left;line-height:35px;margin-left:0px;">对象:</div>
-                           <div style="float:left;width:180px;margin-left:5px;">
-                               <select id="eprSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">位置:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="serviceInfoSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">因子:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="cdataIdSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">时间:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="datetimeInfoSelect" class="table-group-action-input form-control">
-                                   <option value="1" selected>今天</option>
-                                   <option value="2">昨天</option>
-                                   <option value="3">最近7天</option>
-                                   <!--<option value="4">最近30天</option>
-                                   <option value="5">本月</option>
-                                   <option value="6">上月</option>
-                                   <option value="7">自定义</option>-->
-                               </select>
-                           </div>
-                           <a id="emqBtn" class="btn btn-default blue pull-left" style="margin-left:20px;">查询数据</a>
-                       </div>
-                   </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="row" style="background-color:#ffd966;padding:3px;">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div style="float:left;line-height:35px;margin-left:20px;">位置:</div>
+                            <div style="float:left;width:100px;margin-left:5px;">
+                                <select id="serviceInfoSelect" class="table-group-action-input form-control"></select>
+                            </div>
+                            <div style="float:left;line-height:35px;margin-left:20px;">因子:</div>
+                            <div style="float:left;width:100px;margin-left:5px;">
+                                <select id="cdataIdSelect" class="table-group-action-input form-control"></select>
+                            </div>
+                            <div style="float:left;line-height:35px;margin-left:20px;">时间:</div>
+                            <div style="float:left;width:100px;margin-left:5px;">
+                                <select id="datetimeInfoSelect" class="table-group-action-input form-control">
+                                    <option value="1" selected>今天</option>
+                                    <option value="2">昨天</option>
+                                    <option value="3">最近7天</option>
+                                </select>
+                            </div>
+                            <a id="emqBtn" class="btn btn-default blue pull-left" style="margin-left:20px;">查询数据</a>
+                        </div>
+                    </div>
 
-                   <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
-                   <div class="row" style="margin-top:20px;">
-                       <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">安装位置</span>
-                                       <span class="caption-helper">设备安装位置图片</span>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div style="width:335px;height:225px;margin:0 auto;">
-                                       <img src="../../../assets/local/img/bank_sichuan_meishan_addr.png" alt="安装位置" />
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">实时数据</span>
-                                       <span class="caption-helper">全部监测因子的实时数</span>
-                                   </div>
-                                   <div class="actions">
-                                       <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                           <label class="btn btn-transparent">
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                            <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-green-sharp hide"></i>
+                                        <span class="caption-subject font-green-sharp bold uppercase">安装位置</span>
+                                        <span class="caption-helper">设备安装位置图片</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div style="width:335px;height:225px;margin:0 auto;">
+                                        <img src="../../../assets/local/img/bank_sichuan_meishan_addr.png" alt="安装位置" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
+                            <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-green-sharp hide"></i>
+                                        <span class="caption-subject font-green-sharp bold uppercase">实时数据</span>
+                                        <span class="caption-helper">全部监测因子的实时数</span>
+                                    </div>
+                                    <div class="actions">
+                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
+                                            <label class="btn btn-transparent">
 
-                                           </label>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div id="instrow" class="row" style="height:225px;overflow-y:auto;">
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">历史数据</span>
-                                       <span class="caption-helper">监测因子历史数据</span>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div id="hsytMain" style="width:100%;height:330px;" />
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="instrow" class="row" style="height:225px;overflow-y:auto;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-green-sharp hide"></i>
+                                        <span class="caption-subject font-green-sharp bold uppercase">历史数据</span>
+                                        <span class="caption-helper">监测因子历史数据</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="hsytMain" style="width:100%;height:330px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- END QUICK SIDEBAR -->
         </div>
     </div>
@@ -333,7 +325,6 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-
 
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -396,35 +387,22 @@
 
     $(document).ready(function () {
 
-        if (sessionStorage.Eprs != undefined) {
-            //如果已经存在支行数据
-            var res = sessionStorage.Eprs;
-            $('#eprSelect').html();
-            $('#eprSelect').find('option').remove();
-            $('#eprSelect').empty();
-            for (var i = 0; i < res.length; i++) {
-                zh_eprIds.push(res[i].enterpriseID.toString());
-                $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
-            }
-            var idxEpr = 1;//默认选择第一项(包括总行)
-            $('#eprSelect option:eq(0)').attr('selected', 'selected');
-            getServiceDs();
+        //支行。判断sessionStorage.EnterpriseID是否为空
+        var eprId="";
+        if(sessionStorage.EnterpriseID==undefined){
+            eprId="63001801";
         }
-        else {
-            //如果不存在支行数据则从新获取
-            getEprs();
+        else{
+            eprId=sessionStorage.EnterpriseID;
         }
+
+        getServiceDs(eprId);
 
         //改变位置(SELECTION)
         $('select#serviceInfoSelect').change(function () {
             if (sers != undefined) {
                 getCDataIds();
             }
-        });
-
-        //改变支行(SELECTION)
-        $('select#eprSelect').change(function () {
-            getServiceDs();
         });
 
         //查询实时和历史数据
@@ -473,35 +451,8 @@
         });
     }
 
-    //获取支行数据
-    function getEprs() {
-        var prms = {
-            userID: 'mrf',
-            isShowTotalItem: 0
-        };
-        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: prms,
-            async: false,
-            success: function (res) {
-                $('#eprSelect').html();
-                $('#eprSelect').find('option').remove();
-                $('#eprSelect').empty();
-                for (var i = 0; i < res.length; i++) {
-                    $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
-                }
-                var idxEpr = 0;//默认选择第一项
-                $('#eprSelect option:eq(0)').attr('selected', 'selected');
-                getServiceDs();//获取支路位置数据
-            }
-        });
-    }
-
     //获取支路位置数据
-    function getServiceDs() {
-        var eprId = $('#eprSelect').val();//根据支行
+    function getServiceDs(eprId) {
         var prms = {
             eprId: eprId
         };
@@ -630,6 +581,7 @@
             $('#instrow').append(table);
         }
     }
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
