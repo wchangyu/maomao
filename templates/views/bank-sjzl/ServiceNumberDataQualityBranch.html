@@ -229,96 +229,52 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-           <div class="row">
-               <div class="col-lg-12 col-md-12">
-                   <div class="row" style="background-color:#ffd966;padding:3px;">
-                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                           <div style="float:left;line-height:35px;margin-left:0px;">对象:</div>
-                           <div style="float:left;width:180px;margin-left:5px;">
-                               <select id="eprSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">位置:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="serviceInfoSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">因子:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="cdataIdSelect" class="table-group-action-input form-control"></select>
-                           </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">时间:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="datetimeInfoSelect" class="table-group-action-input form-control">
-                                   <option value="1" selected>今天</option>
-                                   <option value="2">昨天</option>
-                                   <option value="3">最近7天</option>
-                                   <!--<option value="4">最近30天</option>
-                                   <option value="5">本月</option>
-                                   <option value="6">上月</option>
-                                   <option value="7">自定义</option>-->
-                               </select>
-                           </div>
-                           <a id="emqBtn" class="btn btn-default blue pull-left" style="margin-left:20px;">查询数据</a>
-                       </div>
-                   </div>
+            <div class="row">
 
-                   <div class="clearfix"></div>
+                <div class="col-lg-12 col-md-12">
 
-                   <div class="row" style="margin-top:20px;">
-                       <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">安装位置</span>
-                                       <span class="caption-helper">设备安装位置图片</span>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div style="width:335px;height:225px;margin:0 auto;">
-                                       <img src="../../../assets/local/img/bank_sichuan_meishan_addr.png" alt="安装位置" />
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">实时数据</span>
-                                       <span class="caption-helper">全部监测因子的实时数</span>
-                                   </div>
-                                   <div class="actions">
-                                       <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                           <label class="btn btn-transparent">
+                    <div class="clearfix"></div>
 
-                                           </label>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div id="instrow" class="row" style="height:225px;overflow-y:auto;">
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                           <div class="portlet light ">
-                               <div class="portlet-title">
-                                   <div class="caption">
-                                       <i class="icon-bar-chart font-green-sharp hide"></i>
-                                       <span class="caption-subject font-green-sharp bold uppercase">历史数据</span>
-                                       <span class="caption-helper">监测因子历史数据</span>
-                                   </div>
-                               </div>
-                               <div class="portlet-body">
-                                   <div id="hsytMain" style="width:100%;height:330px;" />
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
+                    <div class="row margin-top-20">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="portlet light ">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-green-sharp hide"></i>
+                                        <span id="span_slcEpr" class="caption-subject font-green-sharp bold uppercase">四川央行总行</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row" id="zih_row" style="display:block;">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <span>总数:</span><span id="span_zh_totalcount">0</span>
+                                            <span style="margin-left:10px;">在线:</span><span id="span_zh_oncount">0</span>
+                                            <span>在线占比:</span><span id="span_zh_onper">0</span><span>%</span>
+                                            <span style="margin-left:10px;">故障:</span><span id="span_zh_offcount">0</span>
+                                            <span>故障占比:</span><span id="span_zh_offper">0</span><span>%</span>
+                                            <span style="margin-left:10px;">未知:</span><span id="span_zh_uncount">0</span>
+                                            <span>未知占比:</span><span id="span_zh_unper">0</span><span>%</span>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <table id="table" class="table table-striped table-bordered table-advance table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>支路名称</th>
+                                                    <th>对应数据采集仪</th>
+                                                    <th>支路状态</th>
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
             <!-- END QUICK SIDEBAR -->
         </div>
     </div>
@@ -373,20 +329,12 @@
     });
 </script>
 <script type="text/javascript">
-    //历史数据ChartView
+
     var mycv;
 
-    //总支路数据(对象列表)
-    var sers;
+    var zh_eprIds = [];
 
-    //监测因子数组(查询所有监测因子的实时数据)
-    var cdataIds;
-
-    //选中的楼宇
-    var pointerId;
-
-    //选中的监测因子
-    var selectCNT;
+    var oTable = null;
 
     window.onresize = function () {
         if (mycv) {
@@ -396,240 +344,196 @@
 
     $(document).ready(function () {
 
-        if (sessionStorage.Eprs != undefined) {
-            //如果已经存在支行数据
-            var res = sessionStorage.Eprs;
-            $('#eprSelect').html();
-            $('#eprSelect').find('option').remove();
-            $('#eprSelect').empty();
-            for (var i = 0; i < res.length; i++) {
-                zh_eprIds.push(res[i].enterpriseID.toString());
-                $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
-            }
-            var idxEpr = 1;//默认选择第一项(包括总行)
-            $('#eprSelect option:eq(0)').attr('selected', 'selected');
-            getServiceDs();
+        //支行。判断sessionStorage.EnterpriseID是否为空
+        var eprId="";
+
+        if(sessionStorage.EnterpriseID===undefined){
+            eprId="63001801";
         }
-        else {
-            //如果不存在支行数据则从新获取
-            getEprs();
+        else{
+            eprId=sessionStorage.EnterpriseID;
         }
 
-        //改变位置(SELECTION)
-        $('select#serviceInfoSelect').change(function () {
-            if (sers != undefined) {
-                getCDataIds();
-            }
-        });
+        var eprNt="";
 
-        //改变支行(SELECTION)
-        $('select#eprSelect').change(function () {
-            getServiceDs();
-        });
+        if(sessionStorage.EnterpriseName==='undefined'){
+            eprNt="青海建筑职业技术学院";
+        }
+        else{
+            eprNt=sessionStorage.EnterpriseName;
+        }
 
-        //查询实时和历史数据
-        $('#emqBtn').on('click', function () {
-            getEMos();
-        });
+        getServiceQualityDs(eprId,eprNt);
+
 
     });
 
-    //获取实时、历史数据
-    function getEMos() {
-        var serviceId = $('#cdataIdSelect').val();//单个监测因子(支路ID)
-        var dType = $('#datetimeInfoSelect').val();//时间类型
-        var cdataIdArys = cdataIds;//监测因子数组;
-        var pId = pointerId;
-        if(serviceId==undefined || dType==undefined || cdataIdArys ==undefined || pId==undefined)
-        {
-            alert('请选择正确的参数查询数据');
-            return false;
-        }
-        if(cdataIdArys.length==0){
-            alert('请选择正确的参数查询数据');
-            return false;
-        }
-        var parms = {
-            PointerID: pId,
-            CDataIDs: cdataIdArys,
-            ServiceID: serviceId,
-            DType: dType,
-            StartDT: -1,
-            CloseDT: -1
+
+    function getServiceQualityDs(eprId,eprNt) {
+        var name = eprNt;
+        $('#span_slcEpr').html(name);
+        var eprIds = [];
+        eprIds.push(eprId);
+        var now=new Date();
+        var year=now.getFullYear();
+        var month=now.getMonth()+1;
+        var day=now.getDate();
+        var nowStr=year+"/"+month+"/"+day;
+        var url="http://localhost:80/BEEWebAPI/api/ServiceDataQuality/GetServiceDataQualityDs";
+        var prms = {
+            eprIds: eprIds,
+            NOW: nowStr
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorDs";
         $.ajax({
             type: 'POST',
             url: url,
-            data: parms,
-            async: false,
-            success: function (res) {
-                var insts = res.environMonitorInsDs;
-                drawcdatarc(insts);
-                var hsyts = res.environMonitorHistoryDs;
-                selectCNT = $('#cdataIdSelect').find('option:selected').text();
-                drawhsycw(hsyts, selectCNT);
-            }
-        });
-    }
-
-    //获取支行数据
-    function getEprs() {
-        var prms = {
-            userID: 'mrf',
-            isShowTotalItem: 0
-        };
-        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
-        $.ajax({
-            type: 'GET',
-            url: url,
             data: prms,
-            async: false,
+            async: true,
             success: function (res) {
-                $('#eprSelect').html();
-                $('#eprSelect').find('option').remove();
-                $('#eprSelect').empty();
-                for (var i = 0; i < res.length; i++) {
-                    $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
-                }
-                var idxEpr = 0;//默认选择第一项
-                $('#eprSelect option:eq(0)').attr('selected', 'selected');
-                getServiceDs();//获取支路位置数据
-            }
-        });
-    }
-
-    //获取支路位置数据
-    function getServiceDs() {
-        var eprId = $('#eprSelect').val();//根据支行
-        var prms = {
-            eprId: eprId
-        };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: prms,
-            async: false,
-            success: function (res) {
-                if (res.length > 0) {
-                    $('#serviceInfoSelect').html();
-                    $('#serviceInfoSelect').find('option').remove();
-                    $('#serviceInfoSelect').empty();
-                    for (var i = 0; i < res.length; i++) {
-                        $('#serviceInfoSelect').append($("<option value=\"" + res[i].serviceInfoID + "\">" + res[i].location + "</option>"));
-                    }
-                    var idxEpr = 0;//默认选择第一项
-                    $('#serviceInfoSelect option:eq(0)').attr('selected', 'selected');
-                    sers = res;
-                    getCDataIds();
+                if ($('#eprSelect').val() === '-1')//总行
+                {
+                    $('#zoh_row').show();
+                    $('#zih_row').hide();
+                    init_zoh(res);
                 }
                 else {
-                    $('#serviceInfoSelect').html();
-                    $('#serviceInfoSelect').find('option').remove();
-                    $('#serviceInfoSelect').empty();
-                    $('#cdataIdSelect').html();
-                    $('#cdataIdSelect').find('option').remove();
-                    $('#cdataIdSelect').empty();
+                    $('#zoh_row').hide();
+                    $('#zih_row').show();
+                    init_zih(res);
                 }
+
             }
         });
     }
 
-    //获取监测因子数据
-    function getCDataIds() {
-        var infoID = $('#serviceInfoSelect').val();
-        //根据支路位置获取监测因子数据
-        var whereprs = _.where(sers, { serviceInfoID: infoID });
-        if (whereprs.length > 0) {
-            cdataIds = [];
-            var cds = whereprs[0].environMonitorInsDataObjectDs;
-            $('#cdataIdSelect').html();
-            $('#cdataIdSelect').find('option').remove();
-            $('#cdataIdSelect').empty();
-            for (var i = 0; i < cds.length; i++) {
-                if (i === 0) {
-                    pointerId = cds[0].pointerID;
-                }
-                cdataIds.push(cds[i].cDataID.toString());
-                $('#cdataIdSelect').append($("<option value=\"" + cds[i].serviceID + "\">" + cds[i].cNameT + "</option>"));
+    function init_zih(res) {
+        $('#span_zh_totalcount').html(res.serviceTotalCount);
+        $('#span_zh_oncount').html(res.serviceOnCount);
+        $('#span_zh_onper').html(res.serviceOnCountPer);
+        $('#span_zh_offcount').html(res.serviceFaultCount);
+        $('#span_zh_offper').html(res.serviceFaultCountPer);
+        $('#span_zh_uncount').html(res.serviceUnCount);
+        $('#span_zh_unper').html(res.serviceUnCountPer);
+        if (oTable) {
+            oTable.fnDestroy();
+        }
+        oTable = $("#table").DataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": false,   //是否分页
+            "searching": false,
+            "paging": false,
+            "searching": false,
+            "ordering": false,
+            "bFilter": false,
+            "bPaginate": false, //翻页功能
+            "bSort": false,
+            "bProcessing": false,
+            "oLanguage": {
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "没有任何数据",
+                "sEmptyTable": "没有任何数据",
+                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                "sInfoEmpty": "",
+                "sSearch": "搜索",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上一页",
+                    "sNext": "下一页",
+                    "sLast": "末页"
+                },
+            },
+            "aoColumns": [, , , ]
+        });
+        var dsArr = [];
+        for (var i = 0; i < res.serviceDataQualityDs.length; i++) {
+            var dscArr = [];
+            dscArr.push(res.serviceDataQualityDs[i].serviceName);
+            dscArr.push(res.serviceDataQualityDs[i].meterName);
+            var strTy = "";
+            if (res.serviceDataQualityDs[i].type === "1") {
+                strTy = "正常";
             }
-            $('#cdataIdSelect option:eq(0)').attr('selected', 'selected');
-            //自动获取数据
-            getEMos();
+            if (res.serviceDataQualityDs[i].type === "2") {
+                strTy = "故障";
+            }
+            if (res.serviceDataQualityDs[i].type === "3") {
+                strTy = "未知";
+            }
+            dscArr.push(strTy);
+            dsArr.push(dscArr);
         }
-        else {
-            $('#cdataIdSelect').html();
-            $('#cdataIdSelect').find('option').remove();
-            $('#cdataIdSelect').empty();
+        var table = $('#table').dataTable();
+        table.fnClearTable();
+        if (dsArr != null) {
+            if (dsArr.length > 0) {
+                table.fnAddData(dsArr);
+            }
         }
+        table.fnDraw();
     }
 
-    //绘制历史数据曲线
-    function drawhsycw(hsyts, lgnt) {
-        var xAs = [];
-        for (var i = 0; i < hsyts.length; i++) {
-            xAs.push(hsyts[i].dataDateStr);
+    function init_zoh(res) {
+        mycv = echarts.init(document.getElementById('chartMain'));
+        $('#span_ServiceTotalCount').html(res.serviceTotalCount);
+        $('#span_ServiceOnTotalCount').html(res.serviceOnCount);
+        $('#span_ServiceOFFTotalCount').html(res.serviceFaultCount);
+        $('#span_ServiceUnTotalCount').html(res.serviceUnCount);
+        $('#span_ServiceOnTotalPer').html(res.serviceOnCountPer);
+        $('#span_ServiceOFFTotalPer').html(res.serviceFaultCountPer);
+        $('#span_ServiceUnTotalPer').html(res.serviceUnCountPer);
+        var opt_lgs = [];
+        for (var i = 0; i < res.lgs.length; i++) {
+            opt_lgs.push(res.lgs[i]);
         }
-        var yds = [];
-        for (var i = 0; i < hsyts.length; i++) {
-            yds.push(hsyts[i].data);
+        var opt_xAs = [];
+        for (var i = 0; i < res.xs.length; i++) {
+            opt_xAs.push(res.xs[i]);
         }
-        mycv = echarts.init(document.getElementById('hsytMain'));
+        var opt_srs = [];
+        for (var i = 0; i < res.ys.length; i++) {
+            var object = {};
+            object.name = res.lgs[i];
+            object.type = 'bar';
+            object.stack = 's';
+            object.data = [];
+            for (var j = 0; j < res.ys[i].length; j++) {
+                object.data.push(res.ys[i][j]);
+            }
+            opt_srs.push(object);
+        }
         option = {
             tooltip: {
-                trigger: 'axis'
-            },
-            grid: {
-                left: '5%',
-                right: '5%'
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
             },
             legend: {
-                data: [lgnt]
+                data: opt_lgs
             },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                axisLabel: {
-                    rotate: 30,
-                    margin: 20
-                },
-                data: xAs
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
-            yAxis: {
-                type: 'value',
-                axisLabel: {
-                    formatter: '{value} °C'
-                }
-            },
-            series: [
+            xAxis: [
                 {
-                    name: lgnt,
-                    type: 'line',
-                    data: yds
+                    type: 'category',
+                    data: opt_xAs
                 }
-            ]
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: opt_srs
         };
         mycv.setOption(option);
     }
 
-    //绘制实时数据
-    function drawcdatarc(insts) {
-        $('#instrow').empty();
-        for (var i = 0; i < insts.length; i++) {
-            var instmodel = insts[i];
-            var inst_data = instmodel.data;
-            var inst_misc = instmodel.misc;
-            var inst_cnamet = instmodel.cNameT;
-            var table = ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"> '
-                + '<div style="text-align:center;">'
-                + '<h3>' + inst_data + '<span style="font-size:13px;margin-left:5px;">' + inst_misc + '</span></h3>'
-                + '<p><h5>' + inst_cnamet + '</h5></p>'
-                + '</div>'
-                + '</div>';
-            $('#instrow').append(table);
-        }
-    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
