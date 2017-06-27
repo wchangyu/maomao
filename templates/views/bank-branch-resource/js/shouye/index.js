@@ -624,10 +624,13 @@ function getNewsTitle(){
             $(firstArr).each(function(i,o){
 
                 html1 +=  '<li><a href="../news/news-4.html?id=' + o.pK_NewsID+ '&come=1' +
-                    '">'+o.f_NewsTitle +'</a></li>';;
+                    '">'+o.f_NewsTitle +'</a></li>';
             });
 
             $('.main-news1').html(html1);
+
+            $('.openNews0 a').attr('href','../news/topPageNewsType.html?id='+data.firstNewsTypeID + '');
+            $('.openNews1 a').attr('href','../news/topPageNewsType.html?id='+data.secondNewsTypeID + '');
 
             //下方标题与内容
 
@@ -868,7 +871,7 @@ function getEnergyStatistics(){
     });
 };
 
-//getEnergyStatistics();
+getEnergyStatistics();
 
 var myChart = echarts.init(document.getElementById('energy-demand'));
 
@@ -1128,7 +1131,9 @@ function getTargetRankData(url,index){
                     display:'block'
                 });
                 //下方潜力分析图
-                $('#energy-demand2 .ruler-box1 h3 b').html((data.savingPotential.toFixed(4)) * 100 + '%');
+
+                var percentage = data.savingPotential.toFixed(4) * 100;
+                $('#energy-demand2 .ruler-box1 h3 b').html(percentage.toFixed(2) + '%');
 
                 //标杆数据位置
                 if(data.picketBuildData> 7 || data.picketBuildData < 0){
@@ -1157,7 +1162,9 @@ function getTargetRankData(url,index){
                     display:'block'
                 });
                 //下方潜力分析图
-                $('#energy-demand2 .ruler-box2 h3 b').html((data.savingPotential.toFixed(4)) * 100 + '%');
+                var percentage = data.savingPotential.toFixed(4) * 100;
+                $('#energy-demand2 .ruler-box2 h3 b').html(percentage.toFixed(2) + '%');
+
 
                 //标杆数据位置
                 if(data.picketBuildData> 3.2 || data.picketBuildData < 0){
@@ -1530,21 +1537,29 @@ function getDataQuality(){
             $('#theLoading').modal('hide');
             console.log(data);
 
-            var yArr = data.serviceDataQualityDs;
 
             var sArr = [];
 
-            $(yArr).each(function(i,o){
 
-                var obj = {
-                    name:'',
-                    data:'',
-                }
-                sArr.push(obj);
 
-            });
+                var obj1 = {
+                    name:'在线支路',
+                    value:data.serviceOnCount
+                };
+                var obj2 = {
+                    name:'故障支路',
+                    value:data.serviceFaultCount
+                };
+                var obj3 = {
+                    name:'未知支路',
+                    value:data.serviceUnCount
+                };
+            sArr = [obj1,obj2,obj3];
 
-            //option4.series[0].data = sArr;
+            console.log(sArr);
+
+
+            option4.series[0].data = sArr;
 
             //重绘chart图
             myChart4.hideLoading();

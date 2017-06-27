@@ -334,12 +334,23 @@ function getMainData(){
             $('#theLoading').modal('hide');
             console.log(data);
 
+
+
             if(data == null){
                 myChart.hideLoading();
                 myChart1.hideLoading();
                 myAlter('无数据!');
                 return false;
             }
+
+            $('.ruler-box').css({
+                display:'none'
+            });
+
+            $('.ruler-box1').css({
+                display:'block'
+            })
+
             $('.show-title1').html(title1);
             $('.show-title2').html('中央空调能效');
             $('.show-title3').html(showTime);
@@ -427,7 +438,10 @@ function getMainData(){
             }
 
             //下方潜力分析图
-            $('#energy-demand2 .ruler-box h3 b').html((data.savingPotential.toFixed(4)) * 100 + '%');
+
+            var percent1 = (data.savingPotential.toFixed(4)) * 100;
+
+            $('#energy-demand2 .ruler-box h3 b').html((Math.abs(percent1)).toFixed(2) + '%');
 
             //标杆数据位置
             if(data.picketBuildData> 7 || data.picketBuildData < 0){
@@ -555,6 +569,14 @@ function getMainData1(){
 
             //上方折线图
 
+            $('.ruler-box').css({
+                display:'none'
+            });
+
+            $('.ruler-box2').css({
+                display:'block'
+            })
+
             var dataArr = data.ecMetaDatas;
 
 
@@ -640,10 +662,10 @@ function getMainData1(){
             if(data.picketBuildData> 7 || data.picketBuildData < 0){
                 myAlter('标杆信息错误');
             }else{
-                var num1 =700 -(data.picketBuildData * 100)-78;
+                var num1 =630 -((3.2-data.picketBuildData) * 300)-77;
                 //var num1 =700 -(5 * 100)-78;
                 console.log(num1);
-                $('#energy-demand2 .sign1').css({
+                $('#energy-demand2 .sign11').css({
                     left:num1+ 'px'
                 });
             }
@@ -651,10 +673,10 @@ function getMainData1(){
             if(data.avgPUEData> 7 || data.avgPUEData < 0){
                 myAlter('本数据错误');
             }else{
-                var num1 =700 -(data.avgPUEData * 100)-78;
+                var num1 =630 -((3.2-data.avgPUEData) * 300)-77;
                 //var num1 =700 -(5 * 100)-78;
                 console.log(num1);
-                $('#energy-demand2 .sign0').css({
+                $('#energy-demand2 .sign00').css({
                     left:num1+ 'px'
                 });
             }
@@ -711,12 +733,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt1,txt2) == true){

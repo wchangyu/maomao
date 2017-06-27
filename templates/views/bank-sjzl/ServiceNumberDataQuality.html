@@ -44,7 +44,10 @@
     <!--非框架中的样式-->
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
+    <link href="../bank-resource/data-tables/DT_bootstrap.css" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
 </head>
 <!-- END HEAD -->
@@ -233,9 +236,9 @@
 
                 <div class="col-lg-12 col-md-12">
 
-                    <div class="row" style="background-color:#ffd966;padding:3px;">
+                    <div class="row" style="background-color:#ffd966;padding:3px;margin-left: 0px;margin-right:0px ">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div style="float:left;line-height:35px;margin-left:0px;">对象:</div>
+                    <div style="float:left;line-height:35px;">对象:</div>
                     <div style="float:left;width:180px;margin-left:5px;">
                         <select id="eprSelect" class="table-group-action-input form-control"></select>
                     </div>
@@ -260,7 +263,7 @@
                                     <div id="chartMain" class="full-height-content-body" style="margin-top:5px;height:600px;"></div>
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-                                    <div style="padding-top:40px;text-align:center;width:200px;height:200px;background-color:#deebf7;border-radius:5px !important;border-radius:5px;margin:0 auto;margin-top:150px;">
+                                    <div style="padding-top:40px;text-align:center;width:200px;height:200px;background-color:#deebf7;border-radius:5px !important;border-radius:5px;margin:0 auto;margin-top:150px;font-size:18px;">
                                         <p>总数：<span id="span_ServiceTotalCount" style="font-size:16px;font-weight:800;">0</span>条</p>
                                         <p>在线：<span id="span_ServiceOnTotalCount" style="font-size:16px;font-weight:800;">0</span>条，<span id="span_ServiceOnTotalPer" style="font-size:16px;font-weight:800;">0</span>%</p>
                                         <p>故障：<span id="span_ServiceOFFTotalCount" style="font-size:16px;font-weight:800;">0</span>条，<span id="span_ServiceOFFTotalPer" style="font-size:16px;font-weight:800;">0</span>%</p>
@@ -269,13 +272,13 @@
                                 </div>
                             </div>
                             <div class="row" id="zih_row" style="display:none;">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="font-size:18px;margin-bottom:10px;">
                                     <span>总数:</span><span id="span_zh_totalcount">0</span>
-                                    <span style="margin-left:10px;">在线:</span><span id="span_zh_oncount">0</span>
+                                    <span style="margin-left:16px;">在线:</span><span id="span_zh_oncount">0</span><span>,</span>
                                     <span>在线占比:</span><span id="span_zh_onper">0</span><span>%</span>
-                                    <span style="margin-left:10px;">故障:</span><span id="span_zh_offcount">0</span>
+                                    <span style="margin-left:16px;">故障:</span><span id="span_zh_offcount">0</span><span>,</span>
                                     <span>故障占比:</span><span id="span_zh_offper">0</span><span>%</span>
-                                    <span style="margin-left:10px;">未知:</span><span id="span_zh_uncount">0</span>
+                                    <span style="margin-left:16px;">未知:</span><span id="span_zh_uncount">0</span><span>,</span>
                                     <span>未知占比:</span><span id="span_zh_unper">0</span><span>%</span>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -342,7 +345,11 @@
 <script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
+<script type="text/javascript" src="../bank-resource/data-tables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../bank-resource/data-tables/DT_bootstrap.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -392,7 +399,7 @@
             userID: 'mrf',
             isShowTotalItem: 1
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
+        var url = IP + "/EnergyQuery/GetEnterpriseItem";
         $.ajax({
             type: 'GET',
             url: url,
@@ -429,7 +436,7 @@
         var month=now.getMonth()+1;
         var day=now.getDate();
         var nowStr=year+"/"+month+"/"+day;
-        var url="http://localhost:80/BEEWebAPI/api/ServiceDataQuality/GetServiceDataQualityDs";
+        var url=IP + "/ServiceDataQuality/GetServiceDataQualityDs";
         var prms = {
             eprIds: eprIds,
             NOW: nowStr
@@ -496,31 +503,33 @@
             "aoColumns": [, , , ]
         });
         var dsArr = [];
-        for (var i = 0; i < res.serviceDataQualityDs.length; i++) {
-            var dscArr = [];
-            dscArr.push(res.serviceDataQualityDs[i].serviceName);
-            dscArr.push(res.serviceDataQualityDs[i].meterName);
-            var strTy = "";
-            if (res.serviceDataQualityDs[i].type === "1") {
-                strTy = "正常";
+        if(res.serviceDataQualityDs!=null){
+            for (var i = 0; i < res.serviceDataQualityDs.length; i++) {
+                var dscArr = [];
+                dscArr.push(res.serviceDataQualityDs[i].serviceName);
+                dscArr.push(res.serviceDataQualityDs[i].meterName);
+                var strTy = "";
+                if (res.serviceDataQualityDs[i].type === "1") {
+                    strTy = "正常";
+                }
+                if (res.serviceDataQualityDs[i].type === "2") {
+                    strTy = "故障";
+                }
+                if (res.serviceDataQualityDs[i].type === "3") {
+                    strTy = "未知";
+                }
+                dscArr.push(strTy);
+                dsArr.push(dscArr);
             }
-            if (res.serviceDataQualityDs[i].type === "2") {
-                strTy = "故障";
+            var table = $('#table').dataTable();
+            table.fnClearTable();
+            if (dsArr != null) {
+                if (dsArr.length > 0) {
+                    table.fnAddData(dsArr);
+                }
             }
-            if (res.serviceDataQualityDs[i].type === "3") {
-                strTy = "未知";
-            }
-            dscArr.push(strTy);
-            dsArr.push(dscArr);
+            table.fnDraw();
         }
-        var table = $('#table').dataTable();
-        table.fnClearTable();
-        if (dsArr != null) {
-            if (dsArr.length > 0) {
-                table.fnAddData(dsArr);
-            }
-        }
-        table.fnDraw();
     }
 
     function init_zoh(res) {

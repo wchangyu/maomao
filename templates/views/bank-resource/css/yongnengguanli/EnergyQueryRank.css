@@ -10,18 +10,25 @@
 }
 .table tbody .up{
     height:56px;
-    background:url('../../img/up2.png') no-repeat 18px 10px;
-    background-size: 23px;
+    background:url('../../img/up2.png') no-repeat 3px 10px;
+    background-size: 21px;
 }
 .table tbody .down{
     height:56px;
-    background:url('../../img/up.png') no-repeat  18px 14px;
-    background-size: 23px;
+    background:url('../../img/up.png') no-repeat  3px 14px;
+    background-size: 21px;
 }
 .table tbody .equal{
     height:56px;
-    background:url('../../img/up3.png') no-repeat  28px 20px;
-    background-size: 27px 18px;
+    background:url('../../img/up3.png') no-repeat  3px 20px;
+    background-size: 21px 18px;
+}
+.quota-data-bottom{
+    overflow: auto;
+}
+#dateTables tr th {
+
+    text-align: center;
 }
 
 .rheader-content-rights1{

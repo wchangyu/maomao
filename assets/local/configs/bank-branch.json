@@ -133,7 +133,7 @@
       "节能项目统计": {
         "type": "0",
         "content": "环境监测",
-        "uri": "../bank-evrm/EnvironmentallyMonitor.html",
+        "uri": "../bank-evrm/EnvironmentallyMonitorBranch.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -142,13 +142,13 @@
   },
   "数据质量": {
     "type": "1",
-    "iconclass": "icon-briefcase",
+    "iconclass": "icon-bar-chart",
     "content": "数据质量",
     "submenu": {
       "节能项目统计": {
         "type": "0",
         "content": "数据质量",
-        "uri": "../bank-sjzl/ServiceNumberDataQuality.html",
+        "uri": "../bank-sjzl/ServiceNumberDataQualityBranch.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

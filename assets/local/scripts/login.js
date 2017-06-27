@@ -69,16 +69,16 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-                    var url = sessionStorage.apiUrlPrefix + "Account/Login";
+                    var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,
                         type:"post",
                         data:accParams,
                         //async:true,
-                        success:function(data){
-                            if(data === "2"){
+                        success:function(res){
+                            if(res.data === "2"){
                                 showAlertInfo("请输入正确的用户名");
-                            }else if(data === "1"){
+                            }else if(res.data === "1"){
                                 showAlertInfo("请输入正确的密码");
                             }else {
                                 //$.cookie("username", name1);
@@ -92,7 +92,7 @@ var Login = function() {
                                 getAllOffices(name1);
                                 getAllEnergyItems();
                                 getMenu();
-                                sessionStorage.userAuth = convertAuthTo01Str(data);     //存储权限字符串
+                                sessionStorage.userAuth = convertAuthTo01Str(res.userAuth);     //存储权限字符串
                             }
                         },
                         error:function(xhr,res,err){
@@ -172,7 +172,7 @@ var Login = function() {
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
-                window.location.href = "shouye/BranchEnergyQueryTotalData.html";
+                window.location.href = "shouye/index.html";
             }
         }
     }

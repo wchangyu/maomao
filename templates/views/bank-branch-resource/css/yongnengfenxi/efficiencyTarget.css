@@ -46,12 +46,17 @@
     font-size:18px;
     padding-left:50px;
     color:#333;
+    border:none;
 }
 .ruler-box{
     position: relative;
 }
 .ruler{
     width:700px;
+    height:36px;
+}
+.rulers{
+    width:630px;
     height:36px;
 }
 .ruler .part{
@@ -66,16 +71,32 @@
     width:200px;
     background: #4aadc7;
 }
+.ruler .part11{
+    width:90px;
+    background: #4aadc7;
+}
 .ruler .part2{
     width:80px;
+    background: #66ffcd;
+}
+.ruler .part22{
+    width:60px;
     background: #66ffcd;
 }
 .ruler .part3{
     width:70px;
     background: #f4b70a;
 }
+.ruler .part33{
+    width:120px;
+    background: #f4b70a;
+}
 .ruler .part4{
     width:350px;
+    background: #c1504c;
+}
+.ruler .part44{
+    width:360px;
     background: #c1504c;
 }
 .scale{
@@ -88,6 +109,12 @@
     height:50%;
     border-right:1px solid #999;
 }
+.ruler .partss{
+    float:left;
+    width:90px;
+    height:50%;
+    border-right:1px solid #999;
+}
 .ruler .parts span{
     width:50%;
     height:60%;
@@ -95,7 +122,17 @@
     border-right:1px solid #999;
     vertical-align: top;
 }
+.ruler .partss span{
+    width:50%;
+    height:60%;
+    display:inline-block;
+    border-right:1px solid #999;
+    vertical-align: top;
+}
 .ruler .parts0{
+    border-left:1px solid #999;
+}
+.ruler .parts00{
     border-left:1px solid #999;
 }
 .ruler-box .small-text{
@@ -106,6 +143,7 @@
 .ruler-box h3{
     text-align:right;
     margin-top:10px;
+    border:none;
 }
 .ruler-box h3 b{
     color:#f4b70a;
@@ -121,9 +159,17 @@
     background:url("../../img/sign.png") no-repeat center bottom;
     left:622px;
 }
+.ruler-box .sign00{
+    background:url("../../img/sign.png") no-repeat center bottom;
+    left:553px;
+}
 .ruler-box .sign1{
     background:url("../../img/sign1.png") no-repeat center bottom;
     left:622px;
+}
+.ruler-box .sign11{
+    background:url("../../img/sign1.png") no-repeat center bottom;
+    left:553px;
 }
 .ruler-box .sign p{
     text-align:center;

@@ -71,7 +71,29 @@
         "color":"#b1cade",
         "img2":"cold.png",
         "isShowItem":0
+      },
+      {
+        "etid": "1411",
+        "ettype" : "1400",
+        "etname": "光伏发电",
+        "etunit": "kWh",
+        "img":"",
+        "color":"#b1cade",
+        "img2":"cold.png",
+        "isShowItem":0
+      },
+      {
+        "etid": "1511",
+        "ettype" : "1500",
+        "etname": "太阳能光热",
+        "etunit": "MJ",
+        "img":"",
+        "color":"#b1cade",
+        "img2":"cold.png",
+        "isShowItem":0
       }
+
+
     ]
   },
   "officeEnergyType": {
@@ -97,8 +119,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
-  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.109/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.110/HQUeditorImage/controller.ashx",

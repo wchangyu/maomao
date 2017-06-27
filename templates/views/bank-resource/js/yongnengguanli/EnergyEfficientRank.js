@@ -200,7 +200,7 @@ function getMainData(){
             $('.show-title1').html(title2);
             $('.show-title2').html(showTime);
 
-            var dataArr = data.slice(0,10);
+            var dataArr = data;
 
             console.log(dataArr);
 
@@ -218,7 +218,7 @@ function getMainData(){
 
             $(dataArr).each(function(i,o){
 
-                xArr.push(o.enterpriseName.substring(0,4));
+                xArr.push(o.enterpriseName.substring(0,3));
                 sArr.push(o.currentEnergyData.toFixed(2));
 
                 tArr.push(o.currentLastYearRanking);
@@ -250,7 +250,7 @@ function getMainData(){
             $('.header-right-lists span').html(unit);
 
             if(minVal == 0){
-                $('.proportion1').html('=0')
+                $('.proportion1').html('= 0')
             }else{
                 $('.proportion1').html('=' + (maxVal / minVal).toFixed(1));
             }
@@ -279,6 +279,20 @@ function getMainData(){
             });
 
             $('.table tbody tr').eq(0).html(html2);
+
+            console.log(selectType);
+
+            if(selectType != '年'){
+
+                $('.table tbody tr').eq(0).css({
+                    display:'table-row'
+                })
+
+            }else{
+                $('.table tbody tr').eq(0).css({
+                    display:'none'
+                })
+            }
 
             var html3 = '<td>环比</td>';
             $(hArr).each(function(i,o){
@@ -376,7 +390,7 @@ function getMainData1(){
             $('.show-title1').html(title2);
             $('.show-title2').html(showTime);
 
-            var dataArr = data.slice(0,10);
+            var dataArr = data;
 
             console.log(dataArr);
 
@@ -426,7 +440,7 @@ function getMainData1(){
             $('.header-right-lists span').html(unit);
 
             if(minVal == 0){
-                $('.proportion1').html('=0')
+                $('.proportion1').html('= 0')
             }else{
                 $('.proportion1').html('=' + (maxVal / minVal).toFixed(1));
             }
@@ -455,6 +469,25 @@ function getMainData1(){
             });
 
             $('.table tbody tr').eq(0).html(html2);
+
+
+            $('.table tbody tr').eq(0).html(html2);
+
+            console.log(selectType);
+
+            if(selectType != '年'){
+
+                $('.table tbody tr').eq(0).css({
+                    display:'table-row'
+                })
+
+            }else{
+                $('.table tbody tr').eq(0).css({
+                    display:'none'
+                })
+            }
+
+
 
             var html3 = '<td>环比</td>';
             $(hArr).each(function(i,o){
@@ -521,12 +554,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

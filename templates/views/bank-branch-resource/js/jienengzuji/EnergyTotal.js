@@ -239,7 +239,7 @@ option1 = {
     },
     legend: {
         show:true,
-        data:['起讫能耗','基期能耗','变化率']
+        data:['统计能耗','基期能耗','变化率']
     },
     toolbox: {
         show : true,
@@ -281,7 +281,7 @@ option1 = {
     ],
     series : [
         {
-            name:'起讫能耗',
+            name:'统计能耗',
             type:'bar',
             data:[11, 11, 15, 13, 12, 13, 10],
             itemStyle : {
@@ -425,7 +425,7 @@ function getMainData(){
             //上方环形图
             option.series[0].data = [
                 {value:data.baseSumEnergyData.toFixed(2), name:'基期能耗'},
-                {value:data.qiQiSumEnergyData.toFixed(2), name:'起讫能耗'}
+                {value:data.qiQiSumEnergyData.toFixed(2), name:'统计能耗'}
             ];
 
             //下方柱状图
@@ -574,12 +574,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt1,txt2) == true){
