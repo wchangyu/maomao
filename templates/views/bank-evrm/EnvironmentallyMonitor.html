@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/huanjingjiance/EnvironmentallyMonitorBranch.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -231,8 +231,9 @@
             <!-- BEGIN PAGE CONTENT-->
            <div class="row">
                <div class="col-lg-12 col-md-12">
-                   <div class="row" style="background-color:#ffd966;padding:3px;">
-                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   <div class="row" style="background-color:#ffd966;padding:3px;margin-right: 0px;
+    margin-left: 0px;">
+                       <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                            <div style="float:left;line-height:35px;margin-left:0px;">对象:</div>
                            <div style="float:left;width:180px;margin-left:5px;">
                                <select id="eprSelect" class="table-group-action-input form-control"></select>
@@ -242,20 +243,24 @@
                                <select id="serviceInfoSelect" class="table-group-action-input form-control" style="width:120px;"></select>
                            </div>
                            <div style="float:left;line-height:35px;margin-left:35px;">因子:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="cdataIdSelect" style="width:120px;" class="table-group-action-input form-control"></select>
+                           <div style="float:left;width:150px;margin-left:5px;">
+                               <select id="cdataIdSelect" style="width:150px;" class="table-group-action-input form-control"></select>
                            </div>
-                           <div style="float:left;line-height:35px;margin-left:35px;">时间:</div>
-                           <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="datetimeInfoSelect" class="table-group-action-input form-control">
+                           <div style="float:left;line-height:35px;margin-left:15px;">时间:</div>
+                           <div style="float:left;margin-left:5px;">
+                               <select  id="datetimeInfoSelect" class="datatimeblock table-group-action-input form-control">
                                    <option value="1" selected>今天</option>
                                    <option value="2">昨天</option>
                                    <option value="3">最近7天</option>
+                                   <option  class="custom-time" value="4">自定义</option>
                                    <!--<option value="4">最近30天</option>
                                    <option value="5">本月</option>
                                    <option value="6">上月</option>
                                    <option value="7">自定义</option>-->
                                </select>
+
+                               <input  class="show-date" style=""/>
+
                            </div>
                            <a id="emqBtn" class="btn btn-default blue pull-left" style="margin-left:20px;">查询数据</a>
                        </div>
@@ -287,6 +292,7 @@
                                        <i class="icon-bar-chart font-green-sharp hide"></i>
                                        <span class="caption-subject font-green-sharp bold uppercase">实时数据</span>
                                        <span class="caption-helper">全部监测因子的实时数</span>
+                                       <span class="caption-helper" id="instdatadt"></span>
                                    </div>
                                    <div class="actions">
                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -320,6 +326,58 @@
                </div>
            </div>
             <!-- END QUICK SIDEBAR -->
+        </div>
+    </div>
+
+    <!--自定义时间-->
+    <div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+        <div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="input-label" style="width:95px;">开始日期：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate chooseDates" value="" placeholder="选择时间">
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="input-label" style="width:95px;">结束日期：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input chooseDate chooseDates" value="" placeholder="选择时间">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--自定义弹窗-->
+    <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px"> <b style="color:red"></b> </p>
+
+                    <div class='modal-footer' style="border:none">
+
+                        <button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -440,6 +498,7 @@
         var dType = $('#datetimeInfoSelect').val();//时间类型
         var cdataIdArys = cdataIds;//监测因子数组;
         var pId = pointerId;
+
         if(serviceId==undefined || dType==undefined || cdataIdArys ==undefined || pId==undefined)
         {
             alert('请选择正确的参数查询数据');
@@ -449,14 +508,24 @@
             alert('请选择正确的参数查询数据');
             return false;
         }
+        var startDT='-1';
+        var endDT='-1';
+
+        if(dType == 4){
+            var dateString = $('.show-date').val();
+            startDT = dateString.split('——')[0];
+            endDT= dateString.split('——')[1];
+            console.log(startDT,endDT);
+        }
         var parms = {
             PointerID: pId,
             CDataIDs: cdataIdArys,
             ServiceID: serviceId,
             DType: dType,
-            StartDT: -1,
-            CloseDT: -1
+            StartDT: startDT,
+            CloseDT: endDT
         };
+        console.log(parms);
         var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorDs";
         $.ajax({
             type: 'POST',
@@ -465,6 +534,9 @@
             async: false,
             success: function (res) {
                 var insts = res.environMonitorInsDs;
+                if(insts.length>0){
+                    $('#instdatadt').html(insts[0].dataDate);
+                }
                 drawcdatarc(insts);
                 var hsyts = res.environMonitorHistoryDs;
                 selectCNT = $('#cdataIdSelect').find('option:selected').text();
@@ -634,6 +706,72 @@
             $('#instrow').append(table);
         }
     }
+
+
+    //关闭时间弹窗时
+    $('#choose-date .btn-default').on('click',function(){
+
+       $('.datatimeblock').val('1');
+
+        $('.show-date').css({
+            display:'none'
+        })
+
+    });
+    $('#choose-date .close').on('click',function(){
+
+       $('.datatimeblock').val('1');
+
+        $('.show-date').css({
+            display:'none'
+        })
+
+    });
+    //选定时间后
+    $('#choose-date .btn-primary').on('click',function(){
+
+        if(!checkedNull('#choose-date')){
+            return false;
+        }
+        var txt1 = $('#choose-date .add-input').eq(0).val();
+        var txt2 = $('#choose-date .add-input').eq(1).val();
+
+        var nowDate = getNewDate();
+
+        //if(CompareDate(txt2,nowDate) == true){
+        //    myAlter('结束日期不能大于当前日期');
+        //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+        //
+        //    return false;
+        //};
+
+
+        if(CompareDate(txt2,txt1) == false){
+            myAlter('结束日期必须大于开始日期');
+            getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+
+            return false;
+        };
+
+        var date = txt1 + '——' + txt2;
+
+        console.log(date);
+
+        $('.show-date').css({
+            display:'inline-block'
+        });
+
+        $('.show-date').val(date);
+
+        $('#choose-date').modal('hide');
+
+    });
+
+    $('.show-date').on('focus',function(){
+
+        $('#choose-date').modal('show');
+        $('#choose-date input').val('');
+    });
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

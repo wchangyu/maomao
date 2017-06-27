@@ -3,9 +3,14 @@
  */
 
 var _userIdName = sessionStorage.getItem('userName');
-var IP1 = "http://192.168.1.110/BEEWebAPI/api";
-var IP2 = 'http://211.100.28.180/DingEAPI/api';
+var _url = sessionStorage.getItem('apiUrlPrefix');
+
+var _urlLength = _url.length;
+
+var IP1 = _url.substring(0,_urlLength-1);
+
 var IP = IP1;
+
 var theTimes = 30000;
 var loginArr = [11001815,63001821];
 var EnterpriseID = loginArr[0];
@@ -653,3 +658,21 @@ function getArr(arr){
 
         return shortArr;
 };
+
+//点击自定义按钮时
+$('.datatimeblock').on('change',function(){
+
+        $('.show-date').css({
+                display:'none'
+        });
+
+        var className = $(this).find("option:selected").prop("className");
+
+
+        if(className == 'custom-time'){
+                $('#choose-date').modal('show');
+                $('#choose-date input').val('');
+        }
+
+
+});

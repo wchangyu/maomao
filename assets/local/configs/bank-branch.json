@@ -142,7 +142,7 @@
   },
   "数据质量": {
     "type": "1",
-    "iconclass": "icon-briefcase",
+    "iconclass": "icon-bar-chart",
     "content": "数据质量",
     "submenu": {
       "节能项目统计": {
