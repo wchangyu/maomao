@@ -58,16 +58,16 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'部门名',
-                data:'wxRName'
+                title:'角色编码',
+                data:'roleNum'
             },
             {
-                title:'上级部门',
-                data:'wxRen'
+                title:'角色名',
+                data:'roleName'
             },
             {
-                title:'创建时间',
-                data:'wxRName'
+                title:'备注',
+                data:'remark'
             },
             {
                 title:'操作',
@@ -188,16 +188,14 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "":filterInput[0],
-            "":filterInput[1],
+            "roleName":filterInput[0],
         }
         $.ajax({
-            type:'get',
-            url:'../resource/data/worker.json',
+            type:'post',
+            url:_urls + 'RBAC/rbacGetRoles',
             data:'',
             success:function(result){
-                console.log(result)
-                datasTable($('#personal-table'),result.data)
+                datasTable($('#personal-table'),result)
             },
             error:function(){
 
