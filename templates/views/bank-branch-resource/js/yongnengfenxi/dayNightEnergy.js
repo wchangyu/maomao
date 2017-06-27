@@ -536,11 +536,12 @@ function getMainData(){
             var d1 = (data.workNightDayCompare  * 100).toFixed(2) + '%' ;
 
             $('.proportion1').html('='+d1);
-            if(data.workNightDayCompare > data.workDayReferenceValue){
+            if(data.workNightDayCompare > data.workDayReferenceValue / 100){
 
                 $('.content-rightss-tip1').css({
                     display:'block'
                 })
+
             }else{
 
                 $('.content-rightss-tip1').css({
@@ -552,7 +553,7 @@ function getMainData(){
             var d2 = (data.restNightDayCompare* 100).toFixed(2) + '%' ;
 
             $('.proportion2').html('='+d2);
-            if(data.restNightDayCompare > data.restDayReferenceValue){
+            if(data.restNightDayCompare > data.restDayReferenceValue / 100){
 
                 $('.content-rightss-tip2').css({
                     display:'block'
@@ -617,12 +618,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

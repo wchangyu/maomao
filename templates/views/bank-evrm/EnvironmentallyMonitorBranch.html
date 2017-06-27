@@ -42,10 +42,10 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <!--非框架中的样式-->
-    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/nenghaochaxun/EnergyQueryTotalData.css"/>
+    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="../bank-branch-resource/css/common.css"/>
+    <link rel="stylesheet" href="../bank-branch-resource/css/huanjingjiance/EnvironmentallyMonitorBranch.css"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -239,9 +239,9 @@
                             </div>
                             <div style="float:left;line-height:35px;margin-left:20px;">因子:</div>
                             <div style="float:left;width:100px;margin-left:5px;">
-                                <select id="cdataIdSelect" class="table-group-action-input form-control"></select>
+                                <select style="width:120px" id="cdataIdSelect" class="table-group-action-input form-control"></select>
                             </div>
-                            <div style="float:left;line-height:35px;margin-left:20px;">时间:</div>
+                            <div style="float:left;line-height:35px;margin-left:35px;">时间:</div>
                             <div style="float:left;width:100px;margin-left:5px;">
                                 <select id="datetimeInfoSelect" class="table-group-action-input form-control">
                                     <option value="1" selected>今天</option>
@@ -351,10 +351,10 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
-<script src="../bank-resource/js/lib/moment.min.js"></script>
-<script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
+<script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-branch-resource/js/lib/moment.min.js"></script>
+<script rel="stylesheet" src="../bank-branch-resource/js/lib/echarts.common.min.js"></script>
+<script src="../bank-branch-resource/js/common.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -388,13 +388,14 @@
     $(document).ready(function () {
 
         //支行。判断sessionStorage.EnterpriseID是否为空
-        var eprId="";
-        if(sessionStorage.EnterpriseID==undefined){
-            eprId="63001801";
-        }
-        else{
-            eprId=sessionStorage.EnterpriseID;
-        }
+        var eprId = EnterpriseID;
+
+//        if(sessionStorage.EnterpriseID==undefined){
+//            eprId="63001801";
+//        }
+//        else{
+//            eprId=sessionStorage.EnterpriseID;
+//        }
 
         getServiceDs(eprId);
 
@@ -435,7 +436,8 @@
             StartDT: -1,
             CloseDT: -1
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorDs";
+
+        var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorDs";
         $.ajax({
             type: 'POST',
             url: url,
@@ -456,7 +458,7 @@
         var prms = {
             eprId: eprId
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
+        var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
         $.ajax({
             type: 'GET',
             url: url,

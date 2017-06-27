@@ -190,16 +190,13 @@ function getMainData(){
 
     var unitName;
 
-    $(typeArr).each(function(i,o){
+    var index = $('#energy-type').find("option:selected").index();
 
-        if(energyItemID == o.energyItemID){
-            unit = o.energyUnit;
+    console.log(typeArr);
 
-            postObj = o;
-            return false;
-        }
+    postObj = typeArr[index];
 
-    });
+    unit =  postObj.energyUnit;
 
 
     var title2 = $('#energy-type').find('option:selected').text();
@@ -256,7 +253,7 @@ function getMainData(){
             $('.show-title1').html(title2);
             $('.show-title2').html(showTime);
 
-            var dataArr = data.slice(0,10);
+            var dataArr = data;
 
             console.log(dataArr);
 
@@ -273,7 +270,7 @@ function getMainData(){
 
             $(dataArr).each(function(i,o){
 
-                xArr.push(o.enterpriseName.substring(0,4));
+                xArr.push(o.enterpriseName.substring(0,3));
                 sArr.push(o.currentEnergyData.toFixed(2));
 
                 tArr.push(o.currentLastYearRanking);
@@ -304,7 +301,15 @@ function getMainData(){
             //右侧显示数据的改变
             $('.header-right-lists span').html(unit);
 
-            $('.proportion1').html('=' + (maxVal / minVal).toFixed(1));
+
+            if(minVal == 0){
+
+                $('.proportion1').html('= 0');
+            }else{
+                $('.proportion1').html('=' + (maxVal / minVal).toFixed(1));
+            }
+
+
 
             //表格中的数据
             var html1 = '<th></th>';
@@ -326,8 +331,21 @@ function getMainData(){
                     html2 += '<td class="up">'+ o+'位</td>'
                 }
             });
-
             $('.table tbody tr').eq(0).html(html2);
+
+            console.log(selectType);
+
+            if(selectType != '年'){
+
+                $('.table tbody tr').eq(0).css({
+                    display:'table-row'
+                })
+
+            }else{
+                $('.table tbody tr').eq(0).css({
+                    display:'none'
+                })
+            }
 
             var html3 = '<td>环比</td>';
             $(hArr).each(function(i,o){
@@ -396,12 +414,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

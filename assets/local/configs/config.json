@@ -71,7 +71,18 @@
         "color":"#b1cade",
         "img2":"cold.png",
         "isShowItem":0
+      },
+      {
+        "etid": "1411",
+        "ettype" : "1400",
+        "etname": "光伏发电",
+        "etunit": "kWh",
+        "img":"",
+        "color":"#b1cade",
+        "img2":"cold.png",
+        "isShowItem":0
       }
+
     ]
   },
   "officeEnergyType": {

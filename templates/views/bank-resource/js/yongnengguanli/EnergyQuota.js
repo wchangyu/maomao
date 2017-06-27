@@ -484,7 +484,7 @@ function getMainData(){
                 return false;
             };
 
-            getArr = data.slice(10);
+            getArr = data;
 
             //表格中的数据
 
@@ -495,7 +495,7 @@ function getMainData(){
             $('.show-title1').html(title2);
             $('.show-title2').html(postDate);
 
-            dataArrs = data.slice(0,10);
+            dataArrs = data;
 
             console.log(dataArrs);
 
@@ -635,12 +635,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

@@ -12,7 +12,7 @@ $(document).ready(function(){
         "bPaginate": false,
         "ordering": false,
         'searching':false,
-        "sScrollY": '200px',
+        "sScrollY": '215px',
         "scrollCollapse": true,
         'language': {
             'emptyTable': '没有数据',
@@ -134,15 +134,15 @@ $(document).ready(function(){
 
                         return Math.abs(row.currentLastMonthRanking) + ' 位';
                     }else if(txt  == '本年'){
-                        return Math.abs(row.currentLastYearRanking) + ' 位';
+                        return Math.abs(row.currentLastMonthRanking) + ' 位';
                     }
                 }
             }
 
         ],
         createdRow: function(row,data,index){
-            var txt = $('#energy-analyze .target-rank .onClicks').html();
-            if(txt == '上月'){
+            var txt = $('#energy-analyze .energy-rank .onClicks').html();
+            if(txt == '本月'){
                 if(data.currentLastMonthRanking == 0){
 
                     $('td', row).eq(2).addClass('equal');
@@ -154,14 +154,14 @@ $(document).ready(function(){
                     $('td', row).eq(2).addClass('down');
                 }
 
-            }else if(txt == '上年'){
-                if(data.currentLastYearRanking == 0){
+            }else if(txt == '本年'){
+                if(data.currentLastMonthRanking == 0){
 
                     $('td', row).eq(2).addClass('equal');
-                }else if(data.currentLastYearRanking > 0){
+                }else if(data.currentLastMonthRanking > 0){
 
                     $('td', row).eq(2).addClass('up');
-                }else if(data.currentLastYearRanking < 0){
+                }else if(data.currentLastMonthRanking < 0){
 
                     $('td', row).eq(2).addClass('down');
                 }
@@ -655,7 +655,9 @@ function getEnergyStatistics(){
                 $('#energyStatistics .main-data-top').css({
                     display:'none'
                 })
+
             }else {
+
                 $('#energyStatistics .main-data-top').css({
                     display: 'block'
                 });
@@ -751,23 +753,25 @@ getEnergyStatistics();
 var myChart = echarts.init(document.getElementById('energy-demand'));
 
 option = {
-    tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    tooltip : {'trigger':'axis'},
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
     },
     series : [
         {
             name: '访问来源',
             type: 'pie',
             radius : '95%',
-            center: ['40%', '50%'],
+            center: ['72%', '50%'],
             data:[
                 {value:335, name:'昼'},
                 {value:310, name:'夜'}
             ],
             label: {
                 normal: {
-                    show: true,
+                    show: false,
                     position: 'outside',
                     formatter: '{b} :({d}%)'
                 }
@@ -882,12 +886,15 @@ function getUnitFormData(){
 
             var sArr = [];
 
+            var lArr = [];
+
             $(dataArr).each(function(i,o){
                 var obj = {
                     value : o.currentEnergyData.toFixed(2),
                     name: o.enterpriseName
                 };
                 sArr.push(obj);
+                lArr.push( o.enterpriseName);
 
             });
 
@@ -895,7 +902,7 @@ function getUnitFormData(){
 
             //重绘chart图
 
-
+            option.legend.data = lArr;
             option.series[0].data = sArr;
             myChart.hideLoading();
             myChart.setOption(option);
@@ -929,7 +936,8 @@ var myChart1 ;
 
 option1 = {
     tooltip : {
-        trigger: 'axis'
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c}"
     },
     calculable : true,
     xAxis : [
@@ -1030,13 +1038,18 @@ function getEnergyRank(){
 
     console.log(obj);
 
-    var date = $('.target-rank .top-cut .onClicks').html();
+    var date = $('.energy-rank .top-cut .onClicks').html();
+
+    console.log(date);
+
     var dateArr = [];
-    dataArr =  getPostDate(date);
-    var startDate = dataArr[1];
-    var endDate = dataArr[2];
-    var dateType = dataArr[3];
-    var selectType = dataArr[5];
+    dateArr =  getPostDate(date);
+    var startDate = dateArr[1];
+    var endDate = dateArr[2];
+    var dateType = dateArr[3];
+    var selectType = dateArr[5];
+
+    console.log(dateArr);
 
     $.ajax({
         type: 'post',
@@ -1079,7 +1092,7 @@ function getEnergyRank(){
 
             $(dataArr).each(function(i,o){
 
-                xArr.push(o.currentEnergyData);
+                xArr.push(o.currentEnergyData.toFixed(2));
                 yArr1.push(o.currentRanking);
                 yArr2.push(o.enterpriseName.substring(0,4));
 
@@ -1119,7 +1132,8 @@ var myChart2 ;
 
 option2 = {
     tooltip : {
-        trigger: 'axis'
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c}"
     },
     calculable : true,
     xAxis : [
@@ -1189,7 +1203,7 @@ option2 = {
 };
 
 var targetRankArr = [];
-function getUnitType1(){
+ function getUnitType1(){
 
     $.ajax({
         type: 'get',

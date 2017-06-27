@@ -49,6 +49,8 @@ function getTitleByID(){
             console.log(data);
             newsArr = data;
 
+            var showArr = [];
+
             $(newsArr).each(function(i,o){
 
                 if(o.pK_NewsType == id){
@@ -67,11 +69,12 @@ function getTitleByID(){
 
                 html += '<li>'+
                     '<div class="header">' +
-                    '    <h3>'+ o.f_NewsTitle+'</h3>' +
+                    '    <h3><a href="news-4.html?id=' + o.pK_NewsID+ '&come=1' +
+                    '">'+ o.f_NewsTitle+'</a></h3>' +
                     '    <div class="date">' +
                     '        <span class="publishDate">发布日期：'+o.f_PublishDate+'</span>' +
                     '        <span class="column"></span>' +
-                    '        <span class="write">'+o.f_Author+'</span>' +
+                    '        <span class="write">作者：'+o.f_Author+'</span>' +
                     '    </div>' +
                     '</div></li>';
 
@@ -83,11 +86,11 @@ function getTitleByID(){
 
             $("div.holder").jPages({
                 containerID : "itemContainer",
-                perPage     : 5,
-                first       : false,
-                previous    : "span.arrowPrev",
-                next        : "span.arrowNext",
-                last        : false
+                perPage     : 10,
+                first       : "首页",
+                previous    : "上一页",
+                next        : "下一页",
+                last        : "尾页"
             });
 
         },

@@ -426,16 +426,13 @@ function getMainData(){
 
 
 
-    $(typeArr).each(function(i,o){
+    var index = $('#energy-type').find("option:selected").index();
 
-        if(energyItemID == o.energyItemID){
-            unit1 = o.energyUnit;
-            postEnergy = o;
+    console.log(typeArr);
 
-            return false;
-        }
+    postEnergy = typeArr[index];
 
-    });
+    unit1 = postEnergy.energyUnit;
 
     $(pointArr).each(function(i,o){
 
@@ -473,7 +470,8 @@ function getMainData(){
     selectDate = dateArr[5];
 
     console.log(dateArr);
-    console.log(postArr);
+    console.log(postEnergy);
+
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetYearMonthCompareData",
@@ -588,16 +586,11 @@ function getMainData(){
 
             }
 
-
-
             console.log(option.legend.data[0]);
-
 
             //重绘chart图
             myChart.hideLoading();
             myChart.setOption(option);
-
-
 
             ajaxSuccess();
 
@@ -610,10 +603,11 @@ function getMainData(){
             console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
                 myAlter("超时");
+            }else{
+                myAlter("请求失败！");
             }
-            myAlter("请求失败！");
+
         }
     });
 };
@@ -656,12 +650,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

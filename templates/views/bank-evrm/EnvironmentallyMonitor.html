@@ -239,13 +239,13 @@
                            </div>
                            <div style="float:left;line-height:35px;margin-left:20px;">位置:</div>
                            <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="serviceInfoSelect" class="table-group-action-input form-control"></select>
+                               <select id="serviceInfoSelect" class="table-group-action-input form-control" style="width:120px;"></select>
                            </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">因子:</div>
+                           <div style="float:left;line-height:35px;margin-left:35px;">因子:</div>
                            <div style="float:left;width:100px;margin-left:5px;">
-                               <select id="cdataIdSelect" class="table-group-action-input form-control"></select>
+                               <select id="cdataIdSelect" style="width:120px;" class="table-group-action-input form-control"></select>
                            </div>
-                           <div style="float:left;line-height:35px;margin-left:20px;">时间:</div>
+                           <div style="float:left;line-height:35px;margin-left:35px;">时间:</div>
                            <div style="float:left;width:100px;margin-left:5px;">
                                <select id="datetimeInfoSelect" class="table-group-action-input form-control">
                                    <option value="1" selected>今天</option>
@@ -457,7 +457,7 @@
             StartDT: -1,
             CloseDT: -1
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorDs";
+        var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorDs";
         $.ajax({
             type: 'POST',
             url: url,
@@ -479,7 +479,7 @@
             userID: 'mrf',
             isShowTotalItem: 0
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnergyQuery/GetEnterpriseItem";
+        var url = IP + "/EnergyQuery/GetEnterpriseItem";
         $.ajax({
             type: 'GET',
             url: url,
@@ -505,7 +505,7 @@
         var prms = {
             eprId: eprId
         };
-        var url = "http://localhost:80/BEEWebAPI/api/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
+        var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorServiceObjectDs";
         $.ajax({
             type: 'GET',
             url: url,
@@ -517,7 +517,11 @@
                     $('#serviceInfoSelect').find('option').remove();
                     $('#serviceInfoSelect').empty();
                     for (var i = 0; i < res.length; i++) {
-                        $('#serviceInfoSelect').append($("<option value=\"" + res[i].serviceInfoID + "\">" + res[i].location + "</option>"));
+                        var loc=res[i].location;
+                        if(loc.length==0){
+                            loc="暂无地址";
+                        }
+                        $('#serviceInfoSelect').append($("<option value=\"" + res[i].serviceInfoID + "\">" + loc + "</option>"));
                     }
                     var idxEpr = 0;//默认选择第一项
                     $('#serviceInfoSelect option:eq(0)').attr('selected', 'selected');

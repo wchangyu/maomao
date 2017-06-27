@@ -319,6 +319,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 $('#theLoading').modal('hide');
+                $('#add-item').modal('hide');
 
                 console.log(data);
 
@@ -335,6 +336,7 @@ $(document).ready(function() {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
+                $('#add-item').modal('hide');
                 console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -749,12 +751,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt2,txt1) == false){

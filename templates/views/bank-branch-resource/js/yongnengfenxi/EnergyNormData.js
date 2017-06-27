@@ -255,12 +255,14 @@ function getMainData(){
 
     var target;
 
+    var index =  $("#energy-type").find("option:selected").index();
+
+    postEnergy = typeArr[index];
 
     $(typeArr).each(function(i,o){
 
         if(energyItemID == o.energyItemID){
             unit = o.energyUnit;
-            postEnergy = o;
             return false;
         }
 
@@ -441,12 +443,12 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var nowDate = getNewDate();
 
-    if(CompareDate(txt2,nowDate) == true){
-        myAlter('结束日期不能大于当前日期');
-        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
-
-        return false;
-    };
+    //if(CompareDate(txt2,nowDate) == true){
+    //    myAlter('结束日期不能大于当前日期');
+    //    getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //    return false;
+    //};
 
 
     if(CompareDate(txt1,txt2) == true){
