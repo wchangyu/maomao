@@ -275,7 +275,7 @@ $(function(){
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
-            "gdZht":7,
+            "gdZht":6,
             "userID":_userIdName
         }
         $.ajax({
@@ -287,16 +287,11 @@ $(function(){
                 $('#loading').show();
             },
             success:function(result){
-                console.log(result);
-                if(result.length == 0){
-                    var table = $("#scrap-datatables").dataTable();
-                    table.fnClearTable();
-                }else{
-                    var table = $("#scrap-datatables").dataTable();
-                    table.fnClearTable();
-                    table.fnAddData(result);
-                    table.fnDraw();
-                }
+                datasTable($("#scrap-datatables"),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -304,10 +299,9 @@ $(function(){
     function getGongDan(){
         var gdInfo = {
             'gdCode':_gdCode,
-            'gdZht':8,
+            'gdZht':7,
             'userID':_userIdName
         }
-        console.log(gdInfo);
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDUptZht',
@@ -315,15 +309,22 @@ $(function(){
             success:function(result){
                 if(result == 99){
                      //初始化单选框和评价意见
-                     $('#myModal2').find('.modal-body').html('已完成评价');
-                     moTaiKuang($('#myModal2'));
+                     $('#myModal2').find('.modal-body').html('已完成关单');
+                     moTaiKuang($('#myModal2'),'flag');
                     conditionSelect();
+                }else {
+                    $('#myModal2').find('.modal-body').html('关单失败');
+                    moTaiKuang($('#myModal2'),'flag');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who,flag){
         who.modal({
             show:false,
             backdrop:'static'
@@ -334,6 +335,11 @@ $(function(){
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -405,6 +411,10 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             });
             //所有input不可操作
@@ -448,6 +458,10 @@ $(function(){
                     pingjia.weixiubumen = result.wxKeshi;
                     pingjia.baoxiubeizhu = result.bxBeizhu;
                     pingjia.wxbeizhu = result.wxBeizhu;
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    var info = JSON.parse(jqXHR.responseText).message;
+                    console.log(info);
                 }
             })
     });
@@ -457,12 +471,12 @@ $(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
             $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal2'));
+            moTaiKuang($('#myModal2'),'flag');
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
                 $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal2'));
+                moTaiKuang($('#myModal2'),'flag');
             }else{
                 conditionSelect();
             }
@@ -514,8 +528,13 @@ $(function(){
             data:gdInfo,
             success:function(result){
                 if(result == 99){
+
                     getGongDan();
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     })

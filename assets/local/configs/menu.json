@@ -47,7 +47,7 @@
       "变配电系统3":{
         "type":"0",
         "content":"变配电系统-高铁",
-        "uri":"energyMonitor.html?a=2",
+        "uri":"../yongnengjiance/energyMonitor.html?a=2",
         "uid":"",
         "arg":"2,4",
         "iconclass":""
@@ -55,7 +55,7 @@
       "变配电系统4":{
         "type":"0",
         "content":"变配电系统-高铁",
-        "uri":"energyMonitor.html?a=3",
+        "uri":"../yongnengjiance/energyMonitor.html?a=3",
         "uid":"",
         "arg":"1,2101007039|2101007040|2101007041|2101007042",
         "iconclass":""
@@ -63,7 +63,7 @@
       "暖通空调系统":{
         "type":"0",
         "content":"暖通空调系统",
-        "uri":"energyMonitor.html?a=3",
+        "uri":"../yongnengjiance/energyMonitor.html?a=3",
         "uid":"",
         "arg":"0,0",
         "iconclass":""
@@ -79,7 +79,7 @@
       "送排风系统":{
         "type":"0",
         "content":"送排风系统",
-        "uri":"energyMonitor-4.html",
+        "uri":"../yongnengjiance/energyMonitor-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -87,7 +87,7 @@
       "电扶梯系统":{
         "type":"0",
         "content":"电扶梯系统",
-        "uri":"energyMonitor-5.html",
+        "uri":"../yongnengjiance/energyMonitor-5.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -788,14 +788,6 @@
         "type":"0",
         "content":"工单执行管理",
         "uri":"../gongdangunali/productionOrder-7.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "工单完工管理":{
-        "type":"0",
-        "content":"工单完工管理",
-        "uri":"../gongdangunali/productionOrder-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""

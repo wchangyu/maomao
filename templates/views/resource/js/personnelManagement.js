@@ -32,6 +32,14 @@ $(function(){
         }
     });
 
+    //获取部门
+    getDepartment();
+
+    //获取角色
+    getRole();
+
+    //存放所有员工列表的数组
+    var _allPersonalArr = [];
     /*----------------------------------------表格初始化-----------------------------------------*/
     var table = $('#personal-table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -67,47 +75,40 @@ $(function(){
         "columns": [
             {
                 title:'用户名',
-                data:'wxRName'
+                data:'userName'
             },
             {
                 title:'工号',
-                data:'wxRen'
-            },
-            {
-                title:'真名',
-                data:'wxRName'
-            },
-            {
-                title:'邮箱',
-                data:'wxRName'
-            },
-            {
-                title:'手机',
-                data:'wxRName'
-            },
-            {
-                title:'固定电话',
-                data:'wxRName'
-            },
-            {
-                title:'创建时间',
-                data:'wxRName'
-            },
-            {
-                title:'登陆次数',
-                data:'wxRName'
+                data:'userNum',
+                className:'userNum'
             },
             {
                 title:'部门',
-                data:'department'
+                data:'departName'
             },
             {
                 title:'角色',
-                data:'department'
+                data:'roleName'
+            },
+            {
+                title:'邮箱',
+                data:'email'
+            },
+            {
+                title:'手机',
+                data:'mobile'
+            },
+            {
+                title:'固定电话',
+                data:'mobile'
             },
             {
                 title:'备注',
-                data:'department'
+                data:'remark'
+            },
+            {
+                title:'排序',
+                data:'sort'
             },
             {
                 title:'操作',
@@ -157,17 +158,17 @@ $(function(){
         //登记确定按钮功能
         .on('click','.dengji',function(){
             //发送请求
-            editOrView('','登记成功!','登记失败!');
+            editOrView('RBAC/rbacAddUser','登记成功!','登记失败!');
         })
         //编辑确定按钮功能
         .on('click','bianji',function(){
             //发送请求
-            editOrView('','编辑成功!','编辑失败!');
+            editOrView('RBAC/rbacUptUser','编辑成功!','编辑失败!');
         })
         //删除确定按钮功能
         .on('click','shanchu',function(){
             //发送请求
-            editOrView('','删除成功!','删除失败!','false');
+            editOrView('RBAC/rbacDelUser','删除成功!','删除失败!','false');
         })
     //表格操作
     $('#personal-table tbody')
@@ -177,7 +178,7 @@ $(function(){
             moTaiKuang($('#myModal'),'查看','flag');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
-            bindingData();
+            bindingData($(this),'flag');
         })
         //编辑
         .on('click','.option-edit',function(){
@@ -185,7 +186,7 @@ $(function(){
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
-            bindingData();
+            bindingData($(this));
         })
         //删除
         .on('click','.option-delete',function(){
@@ -193,7 +194,7 @@ $(function(){
             moTaiKuang($('#myModal'),'确定要删除吗？');
             $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
             //绑定数据
-            bindingData();
+            bindingData($(this),'flag');
         })
     /*---------------------------------------其他方法--------------------------------------------*/
     //模态框自适应
@@ -230,21 +231,26 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "":filterInput[0],
-            "":filterInput[1],
-            "":$('#rybm').val(),
-            "":$('#ryjs').val()
+            "userName":filterInput[0],
+            "userNum":filterInput[1],
+            "departNum":$('#rybm').val(),
+            "roleNum":$('#ryjs').val(),
+            "userID": _userIdName
         }
         $.ajax({
-            type:'get',
-            url:'../resource/data/worker.json',
-            data:'',
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
             success:function(result){
-                console.log(result)
-                datasTable($('#personal-table'),result.data)
+                _allPersonalArr = [];
+                for(var i=0;i<result.length;i++){
+                    _allPersonalArr.push(result[i]);
+                }
+                datasTable($('#personal-table'),result);
             },
-            error:function(){
-
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
@@ -265,22 +271,27 @@ $(function(){
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag){
         //判断是编辑、登记、还是删除
+        var prm = {};
         if(flag){
-            var prm = {};
+            prm = {
+                "userName": user.username,
+                "userNum": user.jobnumber,
+                "userID":_userIdName
+            };
         }else{
-            var prm = {
-                "":user.username,
-                "":user.jobnumber,
-                "":user.password='',
-                "":user.confirmpassword='',
-                "":user.name,
-                "":user.email,
-                "":user.fixedtelephone,
-                "":user.mobilephone,
-                "":user.department,
-                "":user.role,
-                "":user.remarks,
-                "":user.order,
+            prm = {
+                "userName":user.username,
+                "userNum":user.jobnumber,
+                "password":user.password='',
+                //"":user.name,
+                "email":user.email,
+                "phone":user.fixedtelephone,
+                "mobile":user.mobilephone,
+                "departNum":user.department,
+                "roleNum":user.role,
+                "remark":user.remarks,
+                "sort":user.order,
+                "userID":_userIdName
             };
         }
         //发送数据
@@ -297,14 +308,47 @@ $(function(){
                     //提示登记失败
                     tipInfo($('#myModal1'),'提示',errorMeg,'flag');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }
 
     //查看、删除绑定数据
-    function bindingData(){
+    function bindingData(el,flag){
+        var thisBM = el.parents('tr').children('.userNum').html();
+        //根据工号绑定数据
+        for(var i=0;i<_allPersonalArr.length;i++){
+            if(_allPersonalArr[i].userNum == thisBM){
+                //绑定数据
+                user.username = _allPersonalArr[i].userName;
+                user.jobnumber = _allPersonalArr[i].userNum;
+                user.password = _allPersonalArr[i].password;
+                user.confirmpassword = _allPersonalArr[i].password;
+                user.email = _allPersonalArr[i].email;
+                user.fixedtelephone = _allPersonalArr[i].phone;
+                user.mobilephone = _allPersonalArr[i].mobile;
+                user.department = _allPersonalArr[i].departNum;
+                user.role = _allPersonalArr[i].roleNum;
+                user.remarks = _allPersonalArr[i].remark;
+                user.order = _allPersonalArr[i].sort;
+            }
+        }
+        //查看不可操作
+        var disableArea = $('#user').find('.input-blockeds');
+        if(flag){
+            disableArea.children('input').attr('disabled',true).addClass('disabled-block');
+            disableArea.children('select').attr('disabled',true).addClass('disabled-block');
+            disableArea.children('textarea').attr('disabled',true).addClass('disabled-block');
+        }else{
+            disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
+            disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
+            disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
+        }
         //调用查看详情接口
-        var prm = {
+        /*var prm = {
 
         }
         $.ajax({
@@ -327,8 +371,56 @@ $(function(){
                 user.remarks='';
                 user.order='';
             },
-            error:function(){
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
+            }
+        })*/
+    }
 
+    //获取部门
+    function getDepartment(){
+        var prm = {
+            "departNum": "",
+            "departName": "",
+            "userID": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetDeparts',
+            data:prm,
+            success:function(result){
+                var str = '<option value="0">全部</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].departNum +
+                        '">' + result[i].departName + '</option>'
+                }
+                $('#rybm').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
+            }
+        })
+    }
+
+    //获取角色
+    function getRole(){
+        var prm = {
+            "roleNum": "",
+            "roleName": "",
+            "userID": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetRoles',
+            data:prm,
+            success:function(result){
+                //console.log(result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
             }
         })
     }

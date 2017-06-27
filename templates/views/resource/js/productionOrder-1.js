@@ -397,15 +397,15 @@ $(function () {
   $('#selected').click(function(){
     if( $('.min').val() == '' || $('.max').val() == '' ){
       var myModal = $('#myModal2')
-      myModal.find('.modal-body').html('起止时间不能为空');
-      moTaiKuang(myModal);
+      myModal.find('.modal-body').html('起止时间不能为空!');
+      moTaiKuang(myModal,'提示','flag');
     }else{
       //结束时间不能小于开始时间
       if( $('.min').val() > $('.max').val() ){
         var myModal = $('#myModal2');
         //提示框
-        myModal.find('.modal-body').html('起止时间不能大于结束时间');
-        moTaiKuang(myModal);
+        myModal.find('.modal-body').html('起止时间不能大于结束时间!');
+        moTaiKuang(myModal,'提示','flag');
       }else{
         conditionSelect();
       }
@@ -426,7 +426,7 @@ $(function () {
   //登记按钮
   $('.creatButton').click(function(){
     //添加登记类
-    $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
+    $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji').html('登记');
     //所有input可操作
     $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
     $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
@@ -453,8 +453,7 @@ $(function () {
       app33.section = _allDataBM[0].ddName;
       quickWork.section = _allDataBM[0].ddName;
     }
-    moTaiKuang($('#myModal'));
-    $('#myModal').find('.btn-primary').show();
+    moTaiKuang($('#myModal'),'登记');
   });
 
   //快速登记按钮
@@ -473,7 +472,7 @@ $(function () {
     quickWork.azAddress = '';
     quickWork.beizhus = '';
     quickWork.weixiuBZ = '';
-    moTaiKuang($('#myModal4'));
+    moTaiKuang($('#myModal4'),'快速报障');
     if( _allDataXT.length !=0 ){
       //设置初始值
       app33.matter = _allDataXT[0].dsName;
@@ -501,8 +500,8 @@ $(function () {
       .on('click','.dengji',function(){
     if(app33.person == '' || app33.place == '' || app33.matter == ''){
       var myModal = $('#myModal2');
-      myModal.find('.modal-body').html('请填写红色必填项');
-      moTaiKuang(myModal);
+      myModal.find('.modal-body').html('请填写红色必填项!');
+      moTaiKuang(myModal,'提示','flag');
     }else{
       var gdInfo = {
         'gdJJ':app33.picked,
@@ -544,7 +543,7 @@ $(function () {
       }else{
         if(isEqual(_obj,gdInfo)){
           //提示不能重复登记
-          moTaiKuang($('#myModal2'));
+          moTaiKuang($('#myModal2'),'提示','flag');
           $('#myModal2').find('.modal-body').html('不能重复登记！');
         }else{
           //满足登记条件
@@ -559,7 +558,7 @@ $(function () {
           if( app33.person == '' || app33.place == '' || app33.matter == '' ){
               var myModal = $('#myModal2');
               myModal.find('.modal-body').html('请填写红色必填项！');
-              moTaiKuang(myModal);
+              moTaiKuang(myModal,'提示','flag');
           }else{
             var gdInfo = {
               'gdCode': _gdCode,
@@ -584,15 +583,22 @@ $(function () {
               url:_urls + 'YWGD/ywGDUpt',
               data:gdInfo,
               success:function(result){
-                console.log(result);
                   if(result == 99){
                     var myModal = $('#myModal2');
                     myModal.find('.modal-body').html('编辑成功！');
-                    moTaiKuang(myModal);
+                    moTaiKuang(myModal,'提示','flag');
                     $('#myModal').modal('hide');
                     //刷新数据
                     conditionSelect();
+                  }else{
+                    var myModal = $('#myModal2');
+                    myModal.find('.modal-body').html('编辑失败！');
+                    moTaiKuang(myModal,'提示','flag');
                   }
+              },
+              error:function(jqXHR, textStatus, errorThrown){
+                var info = JSON.parse(jqXHR.responseText).message;
+                console.log(info);
               }
             })
           }
@@ -602,7 +608,7 @@ $(function () {
     if(quickWork.person == '' || quickWork.place == '' || quickWork.matter == '' || quickWork.weixiukeshis == '' || quickWork.weixiuBZ == ''){
       var myModal = $('#myModal2');
       myModal.find('.modal-body').html('请填写红色必填项');
-      moTaiKuang(myModal);
+      moTaiKuang(myModal,'提示','flag');
     }else{
       var gdInfo1 = {
         'gdJJ':quickWork.picked,
@@ -645,7 +651,7 @@ $(function () {
       }else{
         if(isEqual(_quickObj,gdInfo1)){
           //提示不能重复登记
-          moTaiKuang($('#myModal2'));
+          moTaiKuang($('#myModal2'),'提示','flag');
           $('#myModal2').find('.modal-body').html('不能重复登记！');
         }else{
           QuickRegister();
@@ -727,21 +733,30 @@ $(function () {
       data:prm,
       success:function(result){
         datasTable($("#scrap-datatables"),result);
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     })
   }
   //模态框自适应
-  function moTaiKuang(who){
+  function moTaiKuang(who,title,flag){
     who.modal({
       show:false,
       backdrop:'static'
     })
-    //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+    who.find('.modal-title').html(title);
     who.modal('show');
     var markHeight = document.documentElement.clientHeight;
     var markBlockHeight = who.find('.modal-dialog').height();
     var markBlockTop = (markHeight - markBlockHeight)/2;
     who.find('.modal-dialog').css({'margin-top':markBlockTop});
+    if(flag){
+      who.find('.btn-primary').hide();
+    }else{
+      who.find('.btn-primary').show();
+    }
   }
   //dataTables表格填数据
   function datasTable(tableId,arr){
@@ -775,6 +790,10 @@ $(function () {
           allArr.push(result[i]);
         }
         select.append(str);
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     })
   }
@@ -819,6 +838,10 @@ $(function () {
           console.log(result);
         }
         datasTable($('#sbTable'),result);
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     })
   }
@@ -898,7 +921,15 @@ $(function () {
           $('#myModal').modal('hide');
           //刷新表格
           conditionSelect();
+        }else{
+          var myModal = $('#myModal2');
+          myModal.find('.modal-body').html('添加失败!');
+          moTaiKuang(myModal);
         }
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     })
   }
@@ -939,27 +970,35 @@ $(function () {
           $('#myModal4').modal('hide');
           var myModal = $('#myModal2');
           myModal.find('.modal-body').html('添加成功!');
-          moTaiKuang(myModal);
+          moTaiKuang(myModal,'flag');
+          //刷新表格
+          conditionSelect();
+        }else{
+          var myModal = $('#myModal2');
+          myModal.find('.modal-body').html('添加失败!');
+          moTaiKuang(myModal,'flag');
         }
-        //刷新表格
-        conditionSelect();
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     })
   }
   //编辑、查看详情的时候绑定数据
   function ViewOrEdit(el,flag){
     //确定按钮消失；
-    if(flag){
-      $('#myModal').find('.btn-primary').hide();
-    }else{
-      $('#myModal').find('.btn-primary').show();
-    }
     var $this = el.parents('tr');
     currentTr = $this;
     currentFlat = true;
     $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
     $this.addClass('tables-hover');
-    moTaiKuang($('#myModal'));
+    if(flag){
+      moTaiKuang($('#myModal'),'工单详情','flag');
+    }else{
+      moTaiKuang($('#myModal'),'编辑工单');
+    }
+
     //获取详情
     var gongDanState = $this.children('.ztz').html();
     var gongDanCode = $this.children('.gongdanId').html();
@@ -1007,8 +1046,9 @@ $(function () {
           $('#myApp33').find('.inpus').attr('disabled',true);
         }
       },
-      error:function(){
-
+      error:function(jqXHR, textStatus, errorThrown){
+        var info = JSON.parse(jqXHR.responseText).message;
+        console.log(info);
       }
     });
   }
