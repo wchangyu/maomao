@@ -336,3 +336,6 @@ table.dataTable.no-footer {
 .theHidden{
     display: none;
 }
+.showOrHidden {
+    display: none !important;
+}
