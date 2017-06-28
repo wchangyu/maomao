@@ -175,7 +175,7 @@
   "新闻后台":{
     "type":"1",
     "iconclass":"icon-note",
-    "content":"新闻",
+    "content":"新闻后台",
     "submenu":{
       "新闻后台":{
         "type":"0",
