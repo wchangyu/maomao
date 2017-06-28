@@ -51,7 +51,7 @@ $(function(){
     var pingjia = new Vue({
         el:'#pingjia',
         data:{
-            pickeds:'很满意',
+            pickeds:'5',
             beizhu:'',
             baoxiudianhua:'',
             baoxiubumen:'',
@@ -461,7 +461,7 @@ $(function(){
         .on('click','.tablePingjia',function(){
             pingjia.beizhu = '';
             //初始化一下radio评价按钮
-            pingjia.pickeds = '很满意';
+            pingjia.pickeds = '5';
             $('#pingjia').find('.inpus').parent('span').removeClass('checked');
             $('#pingjia').find('.inpus').eq(0).parent('span').addClass('checked');
             var $this = $(this).parents('tr');
