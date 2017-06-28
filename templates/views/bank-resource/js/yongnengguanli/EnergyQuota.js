@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -288,7 +288,7 @@ $(document).ready(function() {
 
         var thePostArr = postArr.concat(getArr);
 
-        console.log(thePostArr);
+        //console.log(thePostArr);
 
 
         $.ajax({
@@ -310,7 +310,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 $('#theLoading').modal('hide');
-                console.log(data);
+                //console.log(data);
 
                 if(data == 3){
 
@@ -331,7 +331,7 @@ $(document).ready(function() {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
-                console.log(textStatus);
+                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     ajaxTimeoutTest.abort();
@@ -393,7 +393,7 @@ function getStartData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -426,7 +426,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -448,7 +448,7 @@ function getMainData(){
 
     var unit;
 
-    console.log(typeArr);
+    //console.log(typeArr);
 
     unit = $('#energy-type').find('option:selected').attr('ids');
 
@@ -497,7 +497,7 @@ function getMainData(){
 
             dataArrs = data;
 
-            console.log(dataArrs);
+            //console.log(dataArrs);
 
             deepCopy(dataArrs,postArr);
 
@@ -531,7 +531,7 @@ function getMainData(){
             //表格中的数据
             ajaxSuccess();
 
-            console.log(unit);
+            //console.log(unit);
 
             changeData();
 
@@ -540,7 +540,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -568,7 +568,7 @@ function changeData(){
 
         var index = parseInt($(this).parent('td').index()) - 3;
 
-        console.log(index);
+        //console.log(index);
 
         $(postArr).each(function(i,o){
             //
@@ -580,7 +580,7 @@ function changeData(){
         });
         var totalNum = 0;
 
-        console.log(postArr);
+        //console.log(postArr);
 
         for(var i=0; i<postArr.length; i++){
 
@@ -592,7 +592,7 @@ function changeData(){
 
         $('.month-datas').eq(index).val(totalNum);
 
-        console.log(postArr);
+        //console.log(postArr);
 
     });
 };
@@ -652,7 +652,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

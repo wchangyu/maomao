@@ -515,7 +515,7 @@
             var dateString = $('.show-date').val();
             startDT = dateString.split('——')[0];
             endDT= dateString.split('——')[1];
-            console.log(startDT,endDT);
+            //console.log(startDT,endDT);
         }
         var parms = {
             PointerID: pId,
@@ -525,7 +525,7 @@
             StartDT: startDT,
             CloseDT: endDT
         };
-        console.log(parms);
+        //console.log(parms);
         var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorDs";
         $.ajax({
             type: 'POST',
@@ -755,7 +755,7 @@
 
         var date = txt1 + '——' + txt2;
 
-        console.log(date);
+        //console.log(date);
 
         $('.show-date').css({
             display:'inline-block'

@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
 
     //点击查询按钮时，获取后台数据
@@ -72,7 +72,7 @@ function getStartData(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+                    //console.log(data);
                     pointArr = data;
                     var html= '';
                     var theValue = '';
@@ -93,7 +93,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         ajaxTimeoutTest.abort();
@@ -307,9 +307,9 @@ function getMainData(){
 
     selectDate = dateArr[5];
 
-    console.log(dateArr);
+    //console.log(dateArr);
 
-    console.log(postArr);
+    //console.log(postArr);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetAirColdCOPData",
@@ -332,7 +332,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
 
@@ -384,7 +384,7 @@ function getMainData(){
 
             ////添加参考值
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
             //下方环形图
 
@@ -449,7 +449,7 @@ function getMainData(){
             }else{
                 var num1 =700 -(data.picketBuildData * 100)-78;
                 //var num1 =700 -(5 * 100)-78;
-                console.log(num1);
+                //console.log(num1);
                 $('#energy-demand2 .sign1').css({
                     left:num1+ 'px'
                 });
@@ -460,7 +460,7 @@ function getMainData(){
             }else{
                 var num1 =700 -(data.avgCOPData * 100)-78;
                 //var num1 =700 -(5 * 100)-78;
-                console.log(num1);
+                //console.log(num1);
                 $('#energy-demand2 .sign0').css({
                     left:num1+ 'px'
                 });
@@ -469,7 +469,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -529,9 +529,9 @@ function getMainData1(){
 
     selectDate = dateArr[5];
 
-    console.log(dateArr);
+    //console.log(dateArr);
 
-    console.log(postArr);
+    //console.log(postArr);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetComputerRoomPUEData",
@@ -554,7 +554,7 @@ function getMainData1(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             if(data == null){
                 myChart.hideLoading();
@@ -603,7 +603,7 @@ function getMainData1(){
 
             ////添加参考值
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
             //下方环形图
 
@@ -664,7 +664,7 @@ function getMainData1(){
             }else{
                 var num1 =630 -((3.2-data.picketBuildData) * 300)-77;
                 //var num1 =700 -(5 * 100)-78;
-                console.log(num1);
+                //console.log(num1);
                 $('#energy-demand2 .sign11').css({
                     left:num1+ 'px'
                 });
@@ -675,7 +675,7 @@ function getMainData1(){
             }else{
                 var num1 =630 -((3.2-data.avgPUEData) * 300)-77;
                 //var num1 =700 -(5 * 100)-78;
-                console.log(num1);
+                //console.log(num1);
                 $('#energy-demand2 .sign00').css({
                     left:num1+ 'px'
                 });
@@ -684,7 +684,7 @@ function getMainData1(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -750,7 +750,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

@@ -394,7 +394,7 @@
             bindFn: bindFn,
     
             /**
-             * 引用Console.log如果存在的话，否则引用一个[空函数noop](#WebUploader:Base.noop)。
+             * 引用console.log如果存在的话，否则引用一个[空函数noop](#WebUploader:Base.noop)。
              * @grammar Base.log( args... ) => undefined
              * @method log
              */

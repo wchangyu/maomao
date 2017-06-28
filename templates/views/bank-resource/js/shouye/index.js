@@ -493,14 +493,14 @@ function getTitleByID(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             newsArr = data;
             getNewsTitle();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -529,7 +529,7 @@ function getNewsTitle(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             //根据ID判断展示的新闻栏目
 
             var firstArr = [];
@@ -586,7 +586,7 @@ function getNewsTitle(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -614,7 +614,7 @@ function getEnergyStatistics(){
     startTime = dataArr[1];
     endTime = dataArr[2];
 
-    console.log(selectDateType,startTime,endTime);
+    //console.log(selectDateType,startTime,endTime);
 
     $.ajax({
         type: 'get',
@@ -635,7 +635,7 @@ function getEnergyStatistics(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             //获取到能耗统计的数据进行展示
 
             //右侧统计数据
@@ -736,7 +736,7 @@ function getEnergyStatistics(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -815,7 +815,7 @@ function getUnitType(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             var html = '';
             $(data).each(function(i,o){
 
@@ -828,7 +828,7 @@ function getUnitType(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -878,11 +878,11 @@ function getUnitFormData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             var dataArr = getArr(data);
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             var sArr = [];
 
@@ -898,7 +898,7 @@ function getUnitFormData(){
 
             });
 
-            console.log(sArr);
+            //console.log(sArr);
 
             //重绘chart图
 
@@ -916,7 +916,7 @@ function getUnitFormData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1000,7 +1000,7 @@ function getUnitTypes(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             energyRankArr = data;
             var html = '';
             $(data).each(function(i,o){
@@ -1013,7 +1013,7 @@ function getUnitTypes(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1036,11 +1036,11 @@ function getEnergyRank(){
 
     var obj = energyRankArr[index];
 
-    console.log(obj);
+    //console.log(obj);
 
     var date = $('.energy-rank .top-cut .onClicks').html();
 
-    console.log(date);
+    //console.log(date);
 
     var dateArr = [];
     dateArr =  getPostDate(date);
@@ -1049,7 +1049,7 @@ function getEnergyRank(){
     var dateType = dateArr[3];
     var selectType = dateArr[5];
 
-    console.log(dateArr);
+    //console.log(dateArr);
 
     $.ajax({
         type: 'post',
@@ -1072,7 +1072,7 @@ function getEnergyRank(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             var dataArr = getArr(data);
 
@@ -1084,7 +1084,7 @@ function getEnergyRank(){
 
             dataArr.reverse();
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             var xArr = [];
             var yArr1 = [];
@@ -1111,7 +1111,7 @@ function getEnergyRank(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1218,7 +1218,7 @@ var targetRankArr = [];
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             targetRankArr = data;
             var html = '';
             $(data).each(function(i,o){
@@ -1232,7 +1232,7 @@ var targetRankArr = [];
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1255,7 +1255,7 @@ function  getTargetRank(){
 
     var obj = targetRankArr[index];
 
-    console.log(obj);
+    //console.log(obj);
 
     var showData = [];
 
@@ -1315,13 +1315,13 @@ function getTargetRankData1(url){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             var dataArr = getArr(data);
 
             dataArr.reverse();
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             var xArr = [];
             var yArr1 = [];
@@ -1342,7 +1342,7 @@ function getTargetRankData1(url){
                     name: '参考值',
                     xAxis:  refValue
                 }];
-            console.log(option2.series[0]);
+            //console.log(option2.series[0]);
 
             //重绘chart图
             myChart2.hideLoading();
@@ -1356,7 +1356,7 @@ function getTargetRankData1(url){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1409,13 +1409,13 @@ function getTargetRankData2(obj){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             var dataArr = getArr(data);
 
             dataArr.reverse();
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             var xArr = [];
             var yArr1 = [];
@@ -1436,7 +1436,7 @@ function getTargetRankData2(obj){
                 name: '参考值',
                 xAxis: refValue
             }];
-            console.log(option2.series[0]);
+            //console.log(option2.series[0]);
 
             //重绘chart图
             myChart2.hideLoading();
@@ -1450,7 +1450,7 @@ function getTargetRankData2(obj){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1555,7 +1555,7 @@ function getBulidingData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             pointArr = data;
             //获取chart图中的数据
 
@@ -1564,7 +1564,7 @@ function getBulidingData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -1620,7 +1620,7 @@ function getCurrentData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             if(data.sourceEnergys.length == 0){
                 myChart3.hideLoading();
@@ -1697,7 +1697,7 @@ function getCurrentData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -1826,14 +1826,14 @@ function getAllBank(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             $(data).each(function(i,o){
 
                 allBankArr.push(o.enterpriseID);
                 allBankNameArr.push(o.eprName);
             });
-            console.log(allBankArr);
+            //console.log(allBankArr);
 
 
 
@@ -1843,7 +1843,7 @@ function getAllBank(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -1864,7 +1864,7 @@ function getDataQuality(){
     myChart4 = echarts.init(document.getElementById('energy-demand4'));
 
     var date = moment().format('YYYY-MM-DD');
-    console.log(date);
+    //console.log(date);
     $.ajax({
         type: 'post',
         url: IP + "/ServiceDataQuality/GetServiceDataQualityDs",
@@ -1883,7 +1883,7 @@ function getDataQuality(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             //删除之前的数据
             for(var i=0; i<option.series.length; i++){
@@ -1918,7 +1918,7 @@ function getDataQuality(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 

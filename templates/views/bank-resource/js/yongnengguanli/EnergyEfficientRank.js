@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     getMainData();
 
@@ -162,7 +162,7 @@ function getMainData(){
 
     showTime = dateArr[4];
 
-    console.log(endDate);
+    //console.log(endDate);
 
     var selectType = dateArr[5];
 
@@ -187,7 +187,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
 
@@ -202,7 +202,7 @@ function getMainData(){
 
             var dataArr = data;
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
 
             var xArr = [];
@@ -214,7 +214,7 @@ function getMainData(){
             var maxVal = dataArr[0].currentEnergyData;
             var minVal = dataArr[0].currentEnergyData;
 
-            console.log(title2);
+            //console.log(title2);
 
             $(dataArr).each(function(i,o){
 
@@ -239,7 +239,7 @@ function getMainData(){
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
 
             //重绘chart图
@@ -280,7 +280,7 @@ function getMainData(){
 
             $('.table tbody tr').eq(0).html(html2);
 
-            console.log(selectType);
+            //console.log(selectType);
 
             if(selectType != '年'){
 
@@ -312,7 +312,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -352,7 +352,7 @@ function getMainData1(){
 
     showTime = dateArr[4];
 
-    console.log(endDate);
+    //console.log(endDate);
 
     var selectType = dateArr[5];
 
@@ -377,7 +377,7 @@ function getMainData1(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
 
@@ -392,7 +392,7 @@ function getMainData1(){
 
             var dataArr = data;
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
 
             var xArr = [];
@@ -404,7 +404,7 @@ function getMainData1(){
             var maxVal = dataArr[0].currentEnergyData;
             var minVal = dataArr[0].currentEnergyData;
 
-            console.log(title2);
+            //console.log(title2);
 
             $(dataArr).each(function(i,o){
 
@@ -429,7 +429,7 @@ function getMainData1(){
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
 
             //重绘chart图
@@ -473,7 +473,7 @@ function getMainData1(){
 
             $('.table tbody tr').eq(0).html(html2);
 
-            console.log(selectType);
+            //console.log(selectType);
 
             if(selectType != '年'){
 
@@ -507,7 +507,7 @@ function getMainData1(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -571,7 +571,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'
