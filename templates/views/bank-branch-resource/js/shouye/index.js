@@ -948,6 +948,8 @@ function getStartData(){
 
             pointArr = data;
 
+            console.log(EnterpriseID);
+
             $(pointArr).each(function(i,o){
 
                 if(EnterpriseID == o.enterpriseID){
@@ -992,9 +994,6 @@ function getUnitFormData(){
     dataArr =  getPostDate(date);
     var startDate = dataArr[1];
     var endDate = dataArr[2];
-
-    console.log(date);
-
 
     console.log(postArr);
 

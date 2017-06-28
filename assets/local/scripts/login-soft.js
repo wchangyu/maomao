@@ -225,6 +225,10 @@ var Login = function () {
 					var systemTitle = data["systemTitle"] || "";
 					sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
 
+					//获取是否在systemTitle的基础上追加企业名称
+					var isShowTitleEprName = data["isShowTitleEprName"] || "";
+					sessionStorage.isShowTitleEprName = isShowTitleEprName;     //存储到暂存区，在本次session中使用
+
 					//监控系统配置信息，userMonitor.js调用
 					//var userMonitorInfo = data["userMonitorInfo"] || "";
 					//if(userMonitorInfo){

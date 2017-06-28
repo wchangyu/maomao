@@ -190,7 +190,9 @@ var Login = function() {
                     success:function(pointers){
                         sessionStorage.pointers = JSON.stringify(pointers);
                         _isPointersLoaded = true;
+                        getEnterpriseList();
                         directToIndex();
+
                     },
                     error:function(xhr,res,errText){
 
@@ -200,6 +202,47 @@ var Login = function() {
 
         }
     };
+
+    //根据楼宇列表获取唯一支行列表
+    var getEnterpriseList = function(){
+
+       console.log(sessionStorage.pointers);
+        var theArr = JSON.parse(sessionStorage.pointers);
+        var enterPriseListArr = [];
+
+        for(var i=0; i<theArr.length; i++){
+
+            var id = theArr[i].enterpriseID;
+
+
+
+            var isEnterpriseID  = false;
+
+            for(var j=0; j<enterPriseListArr.length; j++){
+
+                if(enterPriseListArr[j].enterpriseID == id){
+
+                    isEnterpriseID = true;
+
+                    break;
+                }
+
+            }
+            if(!isEnterpriseID){
+                var obj = {
+                    enterpriseID : theArr[i].enterpriseID,
+                    eprName: theArr[i].eprName
+                };
+
+                enterPriseListArr.push(obj)
+
+            }
+
+        }
+        var pushArr =  JSON.stringify(enterPriseListArr);
+        sessionStorage.setItem("enterPriseList", pushArr);
+    };
+
 
     //获取到所有分户的数据，List结构
     var getAllOffices = function(userId){
@@ -277,6 +320,10 @@ var Login = function() {
                     //获取当前系统名
                     var systemTitle = data["systemTitle"] || "";
                     sessionStorage.systemName = systemTitle;     //存储到暂存区，在本次session中使用
+
+                    //获取是否在systemTitle的基础上追加企业名称
+                    var isShowTitleEprName = data["isShowTitleEprName"] || "";
+                    sessionStorage.isShowTitleEprName = isShowTitleEprName;     //存储到暂存区，在本次session中使用
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

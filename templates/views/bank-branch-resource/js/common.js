@@ -12,10 +12,22 @@ var IP1 = _url.substring(0,_urlLength-1);
 var IP = IP1;
 
 var theTimes = 30000;
-var loginArr = [11001815,63001821];
-var EnterpriseID = loginArr[0];
 
-var EnterpriseName = '中国人民银行眉山市中心支行';
+
+var loginArr = JSON.parse(sessionStorage.getItem('enterPriseList'));
+
+console.log(loginArr);
+
+//支行ID
+var EnterpriseID;
+//支行名称
+var EnterpriseName;
+
+if(loginArr.length > 0){
+
+        EnterpriseID = loginArr[0].enterpriseID;
+        EnterpriseName = loginArr[0].eprName;
+}
 
 //弹窗关闭时清空已输入过的信息
 

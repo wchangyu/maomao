@@ -144,7 +144,31 @@ var BEE = (function(){
         var username = sessionStorage.userName || "未登录";
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
-        $('.totalTitle').html(systemName);
+
+        //获取是否追加企业名称
+        var isShowTitleEprName = sessionStorage.isShowTitleEprName;
+        if(isShowTitleEprName == 1){
+
+            //在标题追加企业名称
+            var loginArr = JSON.parse(sessionStorage.getItem('enterPriseList'));
+
+            //企业名称
+            var EnterpriseName;
+
+            if(loginArr.length > 0){
+
+                EnterpriseName = loginArr[0].eprName;
+            }
+            if(EnterpriseName != ''){
+                $('.totalTitle').html(systemName + "--" + EnterpriseName);
+            }else{
+                $('.totalTitle').html(systemName);
+            }
+
+        }else{
+            $('.totalTitle').html(systemName);
+        }
+
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
         console.log(sessionStorage.menuUri);
         if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
