@@ -56,6 +56,8 @@ $(function(){
     var _obj = {};
     //保存上一条信息中责任人的对象
     var _fzrObj = {};
+    //保存图片数量
+    var _imgNum = 0;
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -170,7 +172,7 @@ $(function(){
     //已选择的执行人表格
     var col = [
         {
-            //class:'checkeds',
+            class:'checkeds',
             "targets": -1,
             "data": null,
             "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
@@ -242,12 +244,16 @@ $(function(){
             editOrOption($(this),'flag');
             //改变确定按钮类名
             $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji').html('下发');
+            //图片区域隐藏
+            $('.showImage').hide();
         })
         .on('click','.option-edit',function(){
             //数据绑定
             editOrOption($(this));
             //改变确定按钮类名
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton').html('确定');
+            //图片区域隐藏
+            $('.showImage').hide();
         })
     /*----------------------------------按钮事件---------------------------------*/
     //选择执行人按钮；
@@ -619,6 +625,28 @@ $(function(){
                 }
             })
         })
+        //获取图片
+        .on('click','#viewImage',function(){
+            if(_imgNum){
+                var str = '';
+                for(var i=0;i<_imgNum;i++){
+                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                        '">'
+                }
+                $('.showImage').html('');
+                $('.showImage').append(str);
+                $('.showImage').show();
+            }else{
+                $('.showImage').html('没有图片');
+                $('.showImage').show();
+            }
+        })
+        //图片详情
+        .on('click','.viewIMG',function(){
+            moTaiKuang($('#myModal5'),'图片详情','flag');
+            var imgSrc = $(this).attr('src')
+            $('#myModal5').find('img').attr('src',imgSrc);
+        })
     $('#selected').on('click',function(){
         conditionSelect();
     });
@@ -830,7 +858,6 @@ $(function(){
     function objectInArr(arr1,arr2){
         for(var i=0;i<arr1.length;i++){
             for(var j=0;j<arr2.length;j++){
-                //console.log(isEqual(arr1[i],arr2[j]));
                 if( isEqual(arr1[i],arr2[j]) ){
                     return true;
                 }else{
@@ -884,7 +911,8 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
-                workDones.remarks = result.wxBeizhu;
+                workDones.remarks = result.bxBeizhu;
+                _imgNum = result.hasImage;
                 //负责人(初始化)
                 var fzr = [];
                 datasTable($('#personTable1'),fzr);

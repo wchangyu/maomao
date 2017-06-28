@@ -285,7 +285,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车间站：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -477,48 +477,14 @@
 <!-- END JAVASCRIPTS -->
 <!--模态框详情-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 665px;">
-            <div class="modal-content" style="height: 665px;">
+        <div class="modal-dialog" style="height: 670px;width:1000px !important;">
+            <div class="modal-content" style="height: 670px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">工单详情</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="gongdanContent">
-                        <ul class="progressBar">
-                            <li>
-                                <div class="progressNum">01</div>
-                                <div class="progressName">待下发</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">02</div>
-                                <div class="progressName">待分派</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">03</div>
-                                <div class="progressName">待执行</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">04</div>
-                                <div class="progressName">执行中</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">05</div>
-                                <div class="progressName">等待资源</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">06</div>
-                                <div class="progressName">待关单</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">07</div>
-                                <div class="progressName">任务关闭</div>
-                            </li>
-                            <li>
-                                <div class="progressNum">08</div>
-                                <div class="progressName">任务取消</div>
-                            </li>
-                        </ul>
+                    <div class="gongdanContent" style="width: 668px;float: left">
                         <ul class="gongdanList" id="myApp33">
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">工单类型：</div>
@@ -557,7 +523,7 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">车间站：</div>
+                                <div class="labels">车站：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="section">
                                 </div>
@@ -617,11 +583,9 @@
                                     <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
                                 </div>
                             </div>
-                            <div>
-                                <div class="labels">图片：</div>
-                                <div class="input-blockeds" style="height:32px;">
-                                    <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
-                                </div>
+                            <div style="margin-top: 10px;">
+                                <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
+                                <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                             </div>
                             <div class="table-block">
                                 <div class="table-title">
@@ -643,6 +607,142 @@
                             </div>
                         </ul>
                     </div>
+                    <div class="right-content">
+                        <p style="margin-bottom: 0">处理记录</p>
+                        <ul class="progressBar">
+                            <li>
+                                <div class="progressNum">01</div>
+                                <div class="progressName">待下发</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">02</div>
+                                <div class="progressName">待分派</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">03</div>
+                                <div class="progressName">待执行</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">04</div>
+                                <div class="progressName">执行中</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">05</div>
+                                <div class="progressName">等待资源</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">06</div>
+                                <div class="progressName">待关单</div>
+                            </li>
+                            <li>
+                                <div class="progressNum">07</div>
+                                <div class="progressName">任务关闭</div>
+                            </li>
+                        </ul>
+                        <div class="processing-record">
+                            <ul>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <div class="record-title">记录时间：</div>
+                                        <p class="record-content">2017-06-26 19:26:16</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">记录事项：</div>
+                                        <p class="record-content">调度下发</p>
+                                    </div>
+                                    <div>
+                                        <div class="record-title">相关人员：</div>
+                                        <p class="record-content">李雷，韩梅梅</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -693,6 +793,24 @@
             <div class="modal-body">未完成状态工单无法进行撤销操作</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--图片详情显示-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

@@ -55,6 +55,8 @@ $(function(){
     var gdCode = '';
     //当前维修班组
     var _wxOffice = '';
+    //记录当前工单详情有几个图
+    var _imgNum = 0;
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -178,6 +180,18 @@ $(function(){
     //执行人员表格
     var col2 = [
         {
+            class:'checkeds',
+            "targets": -1,
+            "data": 'wxRQZ',
+            render:function(data, type, row, meta){
+                if(data == 1){
+                    return "<div class='checker'><span class='checked'><input type='checkbox'></span></div>"
+                }else{
+                    return "<div class='checker'><span><input type='checkbox'></span></div>"
+                }
+            }
+        },
+        {
             title:'执行人员',
             data:'wxRName'
         },
@@ -252,12 +266,12 @@ $(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
             $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal2'));
+            moTaiKuang($('#myModal2'),'提示','flag');
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
                 $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal2'));
+                moTaiKuang($('#myModal2'),'提示','flag');
             }else{
                 conditionSelect();
             }
@@ -284,12 +298,12 @@ $(function(){
             'opacity':1
         })
     });
-    $('#myModal').on('click','.execute',function(){
+    $('#myModal')
+        //操作
+        .on('click','.execute',function(){
         //先判断现在的状态是否可执行操作方法
         var currentZTZ = $('.current-state').attr('ztz');
         var currentOption = $('#option-select').val();
-        console.log(currentZTZ);
-        console.log(currentOption);
         //判断当前状态和执行任务状态
         if(  currentZTZ == currentOption ){
             //只发送维修备注请求
@@ -306,6 +320,28 @@ $(function(){
             }
         }
     })
+        //查看图片
+        .on('click','#viewImage',function(){
+            if(_imgNum){
+                var str = '';
+                for(var i=0;i<_imgNum;i++){
+                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                        '">'
+                }
+                $('.showImage').html('');
+                $('.showImage').append(str);
+                $('.showImage').show();
+            }else{
+                $('.showImage').html('没有图片');
+                $('.showImage').show();
+            }
+        })
+        //图片详情
+        .on('click','.viewIMG',function(){
+            moTaiKuang($('#myModal3'),'图片详情','flag');
+            var imgSrc = $(this).attr('src')
+            $('#myModal3').find('img').attr('src',imgSrc);
+        })
 
    $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
@@ -315,13 +351,14 @@ $(function(){
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
+            $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            moTaiKuang($('#myModal'));
+            moTaiKuang($('#myModal'),'工单详情');
             //获得当前分页的页
             currentPages = parseInt($(this).parents('.table').next().next().children('span').children('.current').html())-1;
             currentRow = $(this).parents('tr').index();
@@ -367,6 +404,7 @@ $(function(){
                     app33.sbMC = result.dName;
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
+                    _imgNum = result.hasImage;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
@@ -398,16 +436,22 @@ $(function(){
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who,title,flag){
         who.modal({
             show:false,
             backdrop:'static'
         })
+        who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        if(flag){
+            who.find('.btn-primary').hide();
+        }else{
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -490,7 +534,6 @@ $(function(){
             'gdZht':$('#option-select').val(),
             'userID':_userIdName
         }
-        console.log(gdInfo);
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptZht',

@@ -120,6 +120,8 @@ $(function(){
     getWP();
     //获取执行人员列表
     getRY();
+    //记录当前工单详情有几个图
+    var _imgNum = 0;
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -226,6 +228,12 @@ $(function(){
     }
     //执行人员表格
     var col2 = [
+            {
+                class:'checkeds',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+            },
             {
                 title:'工号',
                 data:'wxRen',
@@ -409,6 +417,7 @@ $(function(){
                     workDones.azAddress = result.installAddress;
                     workDones.weixiukeshis = result.wxKeshi;
                     workDones.remarks = result.bxBeizhu;
+                    _imgNum = result.hasImage;
                     //执行人、物料
                     _zhixingRens = result.wxRens;
                     _weiXiuCaiLiao = result.wxCls;
@@ -436,6 +445,38 @@ $(function(){
             $('#workDones').find('textarea').attr('disabled',true).addClass('disabled-block');
             $('.weixiukeshis').attr('disabled',false).removeClass('disabled-block');
         })
+
+    var _personTable1 = $('#personTable1');
+    //复选框点击事件
+    _personTable1.find('tbody').on( 'click', 'input', function () {
+        if($(this).parents('.checker').children('.checked').length == 0){
+            $(this).parent($('span')).addClass('checked');
+            $(this).parents('tr').addClass('tables-hover');
+            //如果所有复选框打钩，那么表头的复选框自动打钩；
+            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
+            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
+            if( rowNum == selectNum){
+                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
+            }
+        }else{
+            $(this).parent($('span')).removeClass('checked');
+            //$(this).parents('tr').css({'background':'#ffffff'});
+            $(this).parents('tr').removeClass('tables-hover');
+            //只要有一个复选框没选中，全选框不打勾，
+            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
+        }
+    });
+    //点击thead复选框tbody的复选框全选中
+    _personTable1.find('thead').find('input').click(function(){
+        if($(this).parents('.checker').children('.checked').length == 0){
+            //点击选中状态
+            _personTable1.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
+            _personTable1.find('tbody').find('tr').addClass('tables-hover');
+        }else{
+            _personTable1.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
+            _personTable1.find('tbody').find('tr').removeClass('tables-hover')
+        }
+    });
     /*-------------------------------方法----------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -581,7 +622,7 @@ $(function(){
             Worker('YWGD/ywGDAddWxR');
             if( _weiXiuCaiLiao != 0 ){
                 //材料删除
-                CaiLiao('YWGD/ywGDDelWxCl','flag');
+                //CaiLiao('YWGD/ywGDDelWxCl','flag');
                 //材料添加
                 CaiLiao('YWGD/ywGDAddWxCl');
             }
@@ -618,6 +659,28 @@ $(function(){
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
+    //查看图片
+    $('#myModal')
+        .on('click','#viewImage',function(){
+            if(_imgNum){
+                var str = '';
+                for(var i=0;i<_imgNum;i++){
+                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                        '">'
+                }
+                $('.showImage').html('');
+                $('.showImage').append(str);
+                $('.showImage').show();
+            }else{
+                $('.showImage').html('没有图片');
+                $('.showImage').show();
+            }
+        })
+        .on('click','.viewIMG',function(){
+            moTaiKuang($('#myModal9'),'图片详情','flag');
+            var imgSrc = $(this).attr('src')
+            $('#myModal9').find('img').attr('src',imgSrc);
+        })
     /*----------------------------------添加执行人员功能-----------------------------------*/
     //点击选择执行人员按钮
     $('.zhiXingRenYuanButton').click(function(){
@@ -740,7 +803,6 @@ $(function(){
         var fn1 = function( row, data, index ) {
             for(var i=0;i<_weiXiuCaiLiao.length;i++){
                 if(data.itemNum == _weiXiuCaiLiao[i].wxCl){
-                    console.log($('td:eq(0)', row).parents('tr'));
                     $('td:eq(0)', row).parents('tr').addClass('pink');
                 }
             }
@@ -924,6 +986,7 @@ $(function(){
     }
     //执行人添加删除
     function Worker(url,flag){
+        var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
         var workerArr = [];
         for(var i=0; i<_zhixingRens.length;i++){
             var obj = {};
@@ -934,6 +997,11 @@ $(function(){
             obj.wxRName = _zhixingRens[i].wxRName;
             obj.wxRDh = _zhixingRens[i].wxRDh;
             obj.gdCode = gdCode;
+            if(_zhixingRens[i].wxRen == best){
+                obj.wxRQZ = 1;
+            }else{
+                obj.wxRQZ = 0;
+            }
             workerArr.push(obj);
         }
         var gdWR = {
@@ -965,7 +1033,6 @@ $(function(){
             if(flag){
                 obj.wxClID = _weiXiuCaiLiao[i].wxClID
             }
-            console.log(_weiXiuCaiLiao[i].wxClID)
             obj.wxCl = _weiXiuCaiLiao[i].wxCl;
             obj.wxClName = _weiXiuCaiLiao[i].wxClName;
             obj.clShul = _weiXiuCaiLiao[i].clShul;
@@ -977,7 +1044,6 @@ $(function(){
             gdWxCls:cailiaoArr,
             userID:_userIdName
         }
-        console.log(gdWxCl)
         $.ajax({
             type:'post',
             url:_urls + url,

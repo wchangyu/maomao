@@ -59,6 +59,8 @@ $(function(){
     var _fuZeRen = [];
     //记录工单号
     var _gdCode = 0;
+    //记录当前工单详情有几个图
+    var _imgNum = 0;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -204,6 +206,18 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
+                class:'checkeds',
+                "targets": -1,
+                "data": 'wxRQZ',
+                render:function(data, type, row, meta){
+                    if(data == 1){
+                        return "<div class='checker'><span class='checked'><input type='checkbox'></span></div>"
+                    }else{
+                        return "<div class='checker'><span><input type='checkbox'></span></div>"
+                    }
+                }
+            },
+            {
                 title:'执行人员',
                 data:'wxRName'
             },
@@ -267,6 +281,8 @@ $(function(){
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
+            //图片区域隐藏
+            $('.showImage').hide();
             //获得当前的页数，
             for( var i=0;i<$('.paginate_button').length;i++){
                 if($('.paginate_button').eq(i).hasClass('current')){
@@ -297,9 +313,13 @@ $(function(){
                 data:prm,
                 success:function(result){
                     var indexs = result.gdZht;
-                    $('.progressBar').children('li').css({'color':'#333333'});
-                    for(var i=0;i<indexs;i++){
-                        $('.progressBar').children('li').eq(i).css({'color':'#db3d32'});
+                    if(0<indexs && indexs<8){
+                        $('.progressBar').children('li').css({'color':'#333333'});
+                        for(var i=0;i<indexs;i++){
+                            $('.progressBar').children('li').eq(i).css({'color':'#db3d32'});
+                        }
+                    }else{
+                        $('.progressBar').children('li').css({'color':'#333333'});
                     }
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
@@ -326,6 +346,7 @@ $(function(){
                     app33.rwlx = result.gdLeixing;
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
+                    _imgNum = result.hasImage;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
@@ -412,7 +433,6 @@ $(function(){
     $('#myModal1').find('.btn-primary').click(function (){
         if(_currentChexiao){
             var gdState = parseInt(_currentClick.find('.ztz').html());
-            //console.log(gdState);
             var htState = 0;
             if(gdState == 2){
                 htState = 1;
@@ -485,6 +505,30 @@ $(function(){
         }
         $('#myModal1').modal('hide');
     })
+    //修改
+    $('#myModal')
+    //查看图片
+        .on('click','#viewImage',function(){
+            if(_imgNum){
+                var str = '';
+                for(var i=0;i<_imgNum;i++){
+                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                        '">'
+                }
+                $('.showImage').html('');
+                $('.showImage').append(str);
+                $('.showImage').show();
+            }else{
+                $('.showImage').html('没有图片');
+                $('.showImage').show();
+            }
+        })
+        //图片详情
+        .on('click','.viewIMG',function(){
+            moTaiKuang($('#myModal4'),'图片详情','flag');
+            var imgSrc = $(this).attr('src')
+            $('#myModal4').find('img').attr('src',imgSrc);
+        })
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){

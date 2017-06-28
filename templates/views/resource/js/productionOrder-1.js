@@ -131,6 +131,9 @@ $(function () {
 
   //记录当前工单号
   var _gdCode = '';
+
+  //记录当前工单详情有几个图
+  var _imgNum = 0;
   /*-----------------------------表格初始化----------------------------------------*/
   //页面表格
   var table = $('#scrap-datatables').DataTable({
@@ -603,6 +606,30 @@ $(function () {
             })
           }
       })
+      //查看图片
+      .on('click','#viewImage',function(){
+        if(_imgNum){
+          var str = '';
+          for(var i=0;i<_imgNum;i++){
+            //str += '<img src="http://211.100.28.180/ApService/dimg.aspx?gdcode=17062118213568&no=' + i + '">';
+            //str += '<img src="http://211.100.28.180/ApService/dimg.aspx?gdcode=17062118213568">';
+            str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                '">'
+          }
+          $('.showImage').html('');
+          $('.showImage').append(str);
+          $('.showImage').show();
+        }else{
+          $('.showImage').html('没有图片');
+          $('.showImage').show();
+        }
+      })
+      //图片详情
+      .on('click','.viewIMG',function(){
+        moTaiKuang($('#myModal3'),'图片详情','flag');
+        var imgSrc = $(this).attr('src')
+        $('#myModal3').find('img').attr('src',imgSrc);
+      })
 
   $('.quickDengji').click(function()  {
     if(quickWork.person == '' || quickWork.place == '' || quickWork.matter == '' || quickWork.weixiukeshis == '' || quickWork.weixiuBZ == ''){
@@ -663,6 +690,7 @@ $(function () {
   $('.confirm').click(function(){
       $(this).parents('.modal').modal('hide');
   });
+
   //设备选择功能
   /*$('#sbSelect').click(function(){
     moTaiKuang($('#myModal3'));
@@ -687,12 +715,16 @@ $(function () {
       .on('click','.option-see',function(){
         //绑定数据
         ViewOrEdit($(this),'flag');
+        //图片区域隐藏
+        $('.showImage').hide();
       })
       //编辑功能
       .on('click','.option-edit',function(){
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji');
         //绑定数据
         ViewOrEdit($(this));
+        //图片区域隐藏
+        $('.showImage').hide();
       })
 
   /*//设备选择表格事件
@@ -704,7 +736,6 @@ $(function () {
         sbObject.sbID = $this.children('.dNum').html();
         sbObject.sbMC = $this.children('.dName').html();
         sbObject.sbLX = $this.children('.dcName').html();
-        console.log(sbObject);
       })*/
   /*-------------------------------方法----------------------------------------*/
   //条件查询
@@ -835,7 +866,6 @@ $(function () {
       success:function(result){
         for(var i=0;i<result.length;i++){
           //_allDateArr.push(result[i]);
-          console.log(result);
         }
         datasTable($('#sbTable'),result);
       },
@@ -1034,6 +1064,7 @@ $(function () {
         app33.sbMC = result.dName;
         app33.azAddress = result.installAddress;
         app33.rwlx = result.gdLeixing;
+        _imgNum = result.hasImage;
         //所有input不可操作
         if(flag){
           $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');

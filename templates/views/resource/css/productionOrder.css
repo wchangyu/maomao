@@ -123,16 +123,16 @@
 }
 /*进度条*/
 .progressBar{
-    height: 60px;
-    padding: 10px 50px;
-    display: flex;
-    display: -webkit-flex;
-    background: url("../img/bgLine.png") no-repeat 0 5px;
-    background-size: 100%;
+    width: 55px;
+    height: 500px;
+    float: left;
+    background: url("../img/bgLine.png") no-repeat -16px 27px;
+    margin-bottom: 0;
 }
 .progressBar li{
-    flex: auto;
-    text-align: center;
+    /*flex: auto;
+    text-align: center;*/
+    margin:17px 0;
 }
 .progressNum{
     width: 20px;
@@ -370,4 +370,33 @@ table.dataTable.table-condensed > thead > tr > th{
 }
 .list-right-list input{
     margin-left: -20px !important;
+}
+.right-content{
+    width: 299px;
+    float: right;
+}
+.processing-record{
+    width: 214px;
+    height: 500px;
+    float: right;
+}
+.record-title{
+    width: 66px;
+    float: left;
+    font-weight: bold;
+}
+.processing-record ul{
+    margin-top: 15px;
+}
+.processing-record ul li{
+    margin-bottom: 15px;
+}
+.record-content{
+    margin-bottom: 0;
+}
+.viewIMG{
+    height: 130px;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid #CCCCCC;
 }

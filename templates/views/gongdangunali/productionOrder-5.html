@@ -284,7 +284,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">报修科部门：</label>
+                                        <label for="">报修部门：</label>
                                         <div class="input-blocked">
                                             <input type="text">
                                         </div>
@@ -303,6 +303,15 @@
                                         <label for="">维修班组：</label>
                                         <div class="input-blocked">
                                             <input type="text">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">维修班组：</label>
+                                        <div class="input-blocked">
+                                            <select id="gdzt">
+                                                <option value="1">待关闭</option>
+                                                <option value="2">全部</option>
+                                            </select>
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
@@ -443,7 +452,7 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">车间站：</div>
+                                <div class="labels">车站：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="section">
                                 </div>
@@ -497,11 +506,9 @@
                                     <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
                                 </div>
                             </div>
-                            <div>
-                                <div class="labels">图片：</div>
-                                <div class="input-blockeds" style="height:32px;">
-                                    <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
-                                </div>
+                            <div style="margin-top: 10px;">
+                                <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
+                                <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                             </div>
                             <div class="table-block">
                                 <div class="table-title">
@@ -566,7 +573,7 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">车间站：</div>
+                                <div class="labels">车站：</div>
                                 <div class="input-blockeds disabled-block">
                                     <input type="text" class="disabled-block" v-model="baoxiubumen" disabled="true">
                                 </div>
@@ -623,6 +630,24 @@
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--图片详情显示-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">图片</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
