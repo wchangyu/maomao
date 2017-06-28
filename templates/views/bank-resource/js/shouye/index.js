@@ -674,7 +674,7 @@ function getEnergyStatistics(){
                         arrows = '<p class="percentage">' + percentage.toFixed(1) + '%</p>'
                     }
 
-                    html += '<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">' +
+                    html += '<div class="small-part col-lg-4 col-md-12 col-sm-12 col-xs-12">' +
                         '	<div class="small-part-content">' +
                         '		<p class="amout">' +
                         '			<b>' + o.currentEnergyData.toFixed(1) + '</b>' +
@@ -714,7 +714,7 @@ function getEnergyStatistics(){
                             arrows = '<p class="percentage">'+ percentage.toFixed(1)+'%</p>'
                         }
 
-                        html1 +='<div class="small-part col-lg-6 col-md-12 col-sm-12 col-xs-12">' +
+                        html1 +='<div class="small-part col-lg-4 col-md-12 col-sm-12 col-xs-12">' +
                             '	<div class="small-part-content">' +
                             '		<p class="amout">' +
                             '			<b>'+ o.currentEnergyData.toFixed(1)+'</b>' +

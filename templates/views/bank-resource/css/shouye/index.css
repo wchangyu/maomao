@@ -70,7 +70,7 @@ h3 span{
 
 /*能耗统计*/
 .main-data-top{
-    border-bottom:1px solid #999;
+
 }
 .main-data-top-left{
 
@@ -104,7 +104,7 @@ h3 span{
     width:83px;
 
     position: absolute;
-    left:140px;
+    left:120px;
     top:54px;
 }
 .compare-data .percentage{
