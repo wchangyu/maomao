@@ -336,7 +336,7 @@ function getStartData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             pointArr = data;
 
@@ -357,7 +357,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -579,7 +579,7 @@ function alarmHistory(){
     //    }
     //    pointerNames = '全院';
     //}
-    console.log(_ajaxEcType);
+    //console.log(_ajaxEcType);
     var prm = {
         'st' : _ajaxStartTime_1 + ' 00:00:00',
         'et' : _ajaxEndTime_1 + ' 00:00:00',
@@ -596,7 +596,7 @@ function alarmHistory(){
             $('.main-contents-table').children('img').show();
         },
         success:function(result){
-            console.log(result);
+            //console.log(result);
 
             for(var i=0;i<result.length;i++){
                 dataArr.push(result[i]);
@@ -616,7 +616,7 @@ var logoToReadID = [];
 function logoToRead (){
     logoToReadID = [];
     var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
-    console.log(pitchOn);
+    //console.log(pitchOn);
     for(var i=0;i<$('.choice').length;i++){
         //if($('.choice').eq(i).parent('.checked'))
         if($('.choice').eq(i).parent('.checked').length != 0){

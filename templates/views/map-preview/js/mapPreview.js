@@ -35,7 +35,7 @@ function getData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             markerArr = [];
 
             //存放搜索框中内容
@@ -79,7 +79,7 @@ function getData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -115,7 +115,7 @@ function detail(){
             $('.search-value-list li').off('click');
 
             $('.search-value-list li').eq(i + 1).on('click',function(){
-                console.log('.search-value-list');
+                //console.log('.search-value-list');
                 var p0 = markerArr[i].point.split(",")[0];
                 var p1 = markerArr[i].point.split(",")[1];
                 map.centerAndZoom(new BMap.Point(p0, p1), 15);
@@ -146,13 +146,13 @@ function addWords(){
             $('#ul1 li:eq('+i+') span').css({
                 'background':'red'
             })
-            console.log($('label'))
+            //console.log($('label'))
             $('label').css({
                 'opacity':0
             })
             // var nodes = document.getElementsByClassName('BMapLabel');
-            // console.log(nodes);
-            // console.log(nodes[0])
+            // //console.log(nodes);
+            // //console.log(nodes[0])
             // //  nodes[0].style.width = 0;
 
 
@@ -310,7 +310,7 @@ $('.showTitle p .close').on('click',function(){
 
 //右上角关闭按钮
 function closeCompany(){
-    console.log('666');
+    //console.log('666');
     $('.switch').css({
         'display':'block',
 

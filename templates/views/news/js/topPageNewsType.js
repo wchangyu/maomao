@@ -46,7 +46,7 @@ function getTitleByID(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             newsArr = data;
 
             var showArr = [];
@@ -63,7 +63,7 @@ function getTitleByID(){
             });
 
             var html = '';
-            console.log(showArr);
+            //console.log(showArr);
 
             $(showArr).each(function(i,o){
 
@@ -96,7 +96,7 @@ function getTitleByID(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");

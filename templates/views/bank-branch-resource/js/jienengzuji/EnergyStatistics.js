@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -270,7 +270,7 @@ $(document).ready(function() {
             return false;
         }
         var postArr = [];
-        console.log($('#add-item .input-blockeds').length);
+        //console.log($('#add-item .input-blockeds').length);
 
         for(var i=0; i<$('#add-item .input-blockeds').length; i++){
 
@@ -280,7 +280,7 @@ $(document).ready(function() {
             postArr.push(val);
         }
 
-        console.log(postArr);
+        //console.log(postArr);
 
 
 
@@ -321,7 +321,7 @@ $(document).ready(function() {
                 $('#theLoading').modal('hide');
                 $('#add-item').modal('hide');
 
-                console.log(data);
+                //console.log(data);
 
 
                 if(data == 3){
@@ -337,7 +337,7 @@ $(document).ready(function() {
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
                 $('#add-item').modal('hide');
-                console.log(textStatus);
+                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -395,7 +395,7 @@ $(document).ready(function() {
             success: function (data) {
                 $('#theLoading').modal('hide');
 
-                console.log(data);
+                //console.log(data);
 
                 if(data == null){
 
@@ -438,7 +438,7 @@ $(document).ready(function() {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
-                console.log(textStatus);
+                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -460,7 +460,7 @@ $(document).ready(function() {
             return false;
         }
         var postArr = [];
-        console.log($('#alter-item .input-blockeds').length);
+        //console.log($('#alter-item .input-blockeds').length);
 
         for(var i=0; i<$('#alter-item .input-blockeds').length; i++){
 
@@ -470,7 +470,7 @@ $(document).ready(function() {
             postArr.push(val);
         }
 
-        console.log(postArr);
+        //console.log(postArr);
 
         $.ajax({
             type: 'post',
@@ -509,7 +509,7 @@ $(document).ready(function() {
                 $('#theLoading').modal('hide');
                 $('#alter-item').modal('hide');
 
-                console.log(data);
+                //console.log(data);
 
 
                 if(data == 3){
@@ -525,7 +525,7 @@ $(document).ready(function() {
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
                 $('#alter-item').modal('hide');
-                console.log(textStatus);
+                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -542,7 +542,7 @@ $(document).ready(function() {
 
         removeID = [];
         var length = $('#dateTables .tableCheck').length;
-        console.log(length);
+        //console.log(length);
         for(var i=0; i<length; i++){
             if( $('#dateTables .tableCheck').eq(i).is(':checked')){
                 var id = $('#dateTables .tableCheck').eq(i).parents('tr').find('td').eq(2).html();
@@ -550,7 +550,7 @@ $(document).ready(function() {
                 removeID.push(id);
             }
         }
-        console.log(removeID);
+        //console.log(removeID);
         if(removeID.length == 0){
             myAlter('请选择删除项目！');
             return false;
@@ -581,7 +581,7 @@ $(document).ready(function() {
                 $('#theLoading').modal('hide');
                 $('#my-alert1').modal('hide');
 
-                console.log(data);
+                //console.log(data);
 
 
                 if(data == 3){
@@ -597,7 +597,7 @@ $(document).ready(function() {
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
                 $('#my-alert1').modal('hide');
-                console.log(textStatus);
+                //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                     myAlter("超时");
@@ -669,7 +669,7 @@ function getMainData(){
         success: function (data) {
             $('#theLoading').modal('hide');
 
-            console.log(data);
+            //console.log(data);
 
 
             getArr = data;
@@ -685,7 +685,7 @@ function getMainData(){
 
             dataArrs = data;
 
-            console.log(dataArrs);
+            //console.log(dataArrs);
 
             deepCopy(dataArrs,postArr);
 
@@ -698,7 +698,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -768,7 +768,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

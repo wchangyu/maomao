@@ -16,7 +16,7 @@ var theTimes = 30000;
 
 var loginArr = JSON.parse(sessionStorage.getItem('enterPriseList'));
 
-console.log(loginArr);
+////console.log(loginArr);
 
 //支行ID
 var EnterpriseID;
@@ -117,7 +117,7 @@ $('.chooseDate').on('focus',function(){
         var that = $(this);
         setTimeout(function(){
                 $('.day').one('click',function(){
-                        console.log('ok');
+                        ////console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -133,7 +133,7 @@ $('.chooseDate-month').on('focus',function(){
         var that = $(this);
         setTimeout(function(){
                 $('.day').one('click',function(){
-                        console.log('ok');
+                        ////console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -141,7 +141,7 @@ $('.chooseDate-month').on('focus',function(){
 
                 });
                 $('.month').one('click',function(){
-                        console.log('ok');
+                        ////console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -156,7 +156,7 @@ $('.chooseDate-year').on('focus',function(){
         var that = $(this);
         setTimeout(function(){
                 $('.day').one('click',function(){
-                        console.log('ok');
+                        ////console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -164,7 +164,7 @@ $('.chooseDate-year').on('focus',function(){
 
                 });
                 $('.month').one('click',function(){
-                        console.log('ok');
+                        //console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -172,7 +172,7 @@ $('.chooseDate-year').on('focus',function(){
 
                 });
                 $('.year').one('click',function(){
-                        console.log('ok');
+                        //console.log('ok');
                         that.blur();
                         $('.datepicker').css({
                                 display:'none'
@@ -206,7 +206,7 @@ $('.chooseDate-year').datepicker(
 );
 
 $('.chooseDates').on('focus',function(){
-        console.log('11');
+        //console.log('11');
 })
 //选择日期插件
 $('.chooseDate').datepicker(
@@ -247,7 +247,7 @@ function checkedNull(dom){
                 if( $(dom).find('.input-label').eq(i).next().find('input').val() == ''){
                         var txt = $(dom).find('.input-label').eq(i).next().find('input').parent().prev().html().split('：')[0];
 
-                        console.log(txt);
+                        //console.log(txt);
                         myAlter(txt + " 不能为空")
                         getFocus1($(dom).find('.input-label').eq(i).next().find('input'));
                         return false;
@@ -261,7 +261,7 @@ function checkedNull(dom){
                 if( $(dom).find('.input-label').eq(i).next().find('textarea').val() == ''){
                         var txt = $(dom).find('.input-label').eq(i).next().find('textarea').parent().prev().html().split('：')[0];
 
-                        console.log(txt);
+                        //console.log(txt);
                         myAlter(txt + " 不能为空")
                         getFocus1($(dom).find('.input-label').eq(i).next().find('textarea'));
                         return false;
@@ -415,7 +415,7 @@ function getPostDate(postDate){
 
                 startDate = getNewDate();
 
-                console.log(startDate);
+                //console.log(startDate);
 
                 var now = new Date();
 
@@ -438,7 +438,7 @@ function getPostDate(postDate){
 
                 startDate = getDate(yesterday);
 
-                console.log(startDate);
+                //console.log(startDate);
 
         }else if(postDate == '过去7天'){
 
@@ -457,7 +457,7 @@ function getPostDate(postDate){
 
                 startDate = getDate(yesterday);
 
-                console.log(startDate);
+                //console.log(startDate);
         }else if(postDate == '过去30天'){
 
                 dateSign = '日';
@@ -474,7 +474,7 @@ function getPostDate(postDate){
 
                 startDate = getDate(yesterday);
 
-                console.log(startDate);
+                //console.log(startDate);
         }else if(postDate == '上周'){
 
                 dateSign = '日';
@@ -486,7 +486,7 @@ function getPostDate(postDate){
 
                 endDate = moment().subtract(1,'week').endOf('week').add(2,'day').format('YYYY-MM-DD');
 
-                console.log(startDate,endDate);
+                //console.log(startDate,endDate);
 
         }else   if(postDate == '本月'){
 
@@ -498,7 +498,7 @@ function getPostDate(postDate){
 
                 startDate = moment().startOf('month').format('YYYY-MM-DD');
 
-                console.log(startDate);
+                //console.log(startDate);
         }else if(postDate == '上月'){
 
                 dateSign = '日';
@@ -508,7 +508,7 @@ function getPostDate(postDate){
                 startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
                 endDate = moment().startOf('month').format('YYYY-MM-DD');
 
-                console.log(startDate,endDate);
+                //console.log(startDate,endDate);
         }else if(postDate == '本季'){
 
                 dateSign = '日';
@@ -519,7 +519,7 @@ function getPostDate(postDate){
 
                 var year = moment().year();
 
-                console.log(month);
+                //console.log(month);
 
                 if(0 < month && month < 4){
                         startDate = year + '-1-1';
@@ -536,7 +536,7 @@ function getPostDate(postDate){
                 }
 
 
-                console.log(startDate,endDate);
+                //console.log(startDate,endDate);
 
         }else if(postDate == '本年' || postDate == '今年'){
                 dateSign = '月';
@@ -549,7 +549,7 @@ function getPostDate(postDate){
 
                 startDate = moment().startOf('year').format('YYYY-MM-DD');
 
-                console.log(startDate,endDate);
+                //console.log(startDate,endDate);
         }else if(postDate == '上年'){
                 dateSign = '月';
 
@@ -583,7 +583,7 @@ function getPostDate(postDate){
                 }
 
                 showTime = startDate + '——' + endDate;
-                console.log(startDate,endDate);
+                //console.log(startDate,endDate);
         }else if(postDate / 1){
 
                 dateSign = '月';
@@ -632,7 +632,7 @@ function checkedNum(dom){
 
                         if(isNaN(txt)){
                                 var txt1 = $(dom).find('.type-number').eq(i).parent().prev().html().split('*')[0];
-                                console.log(txt1);
+                                //console.log(txt1);
 
                                 myAlter(txt1 + '必须为数字');
                                 getFocus1($(dom).find('.type-number').eq(i));
@@ -666,7 +666,7 @@ function checkedPhone(dom){
 function getArr(arr){
         var shortArr = [];
         shortArr = arr.slice(0,10);
-        console.log(shortArr);
+        //console.log(shortArr);
 
         return shortArr;
 };

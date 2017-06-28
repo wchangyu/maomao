@@ -9,7 +9,7 @@ $(function(){
             url:_url + 'News/GetAllNewsType',
             async:false,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 var str = '';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="'+ result[i].pK_NewsType+ '" >' + result[i].f_NewsTypeName +'</option>'
@@ -48,9 +48,9 @@ $(function(){
                 _publishUser = result.f_PublishUser;
                 _uploadImg = result.f_RecommImgName.split('\\')[1] + '\\' + result.f_RecommImgName.split('\\')[2];
                 //选择栏目
-                console.log(result.fK_Type_Content);
+                //console.log(result.fK_Type_Content);
                 for(var i=0;i<$('#column').children('option').length;i++){
-                    //console.log($('#column').children('option').eq(i).val())
+                    ////console.log($('#column').children('option').eq(i).val())
                     if($('#column').children('option').eq(i).val() == result.fK_Type_Content){
                         $('#column').children('option').eq(i).attr('selected',true);
                     }
@@ -275,7 +275,7 @@ $(function(){
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
-                        console.log(JSON.parse(jqXHR.responseText).message);
+                        //console.log(JSON.parse(jqXHR.responseText).message);
                         if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                         }
                     }

@@ -14,7 +14,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
@@ -293,7 +293,7 @@ function getStartData(){
                 },
                 success: function (data) {
 
-                    console.log(data);
+                    //console.log(data);
                     pointArr = data;
                     var html= '';
                     var theValue = '';
@@ -315,7 +315,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         ajaxTimeoutTest.abort();
@@ -349,7 +349,7 @@ function getMainData(){
 
     var endDate = dateArr[2];
 
-    console.log(enterpriseID);
+    //console.log(enterpriseID);
 
     $.ajax({
         type: 'get',
@@ -371,7 +371,7 @@ function getMainData(){
         success: function (data) {
             $('#theLoading').modal('hide');
 
-            console.log(data);
+            //console.log(data);
 
 
             getArr = data;
@@ -387,7 +387,7 @@ function getMainData(){
 
             dataArrs = data;
 
-            console.log(dataArrs);
+            //console.log(dataArrs);
 
             deepCopy(dataArrs,postArr);
 
@@ -400,7 +400,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -468,7 +468,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

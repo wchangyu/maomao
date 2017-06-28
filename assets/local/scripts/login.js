@@ -191,7 +191,7 @@ var Login = function() {
                         sessionStorage.pointers = JSON.stringify(pointers);
                         _isPointersLoaded = true;
                         getEnterpriseList();
-                        directToIndex();
+                        //directToIndex();
 
                     },
                     error:function(xhr,res,errText){
@@ -206,7 +206,6 @@ var Login = function() {
     //根据楼宇列表获取唯一支行列表
     var getEnterpriseList = function(){
 
-       console.log(sessionStorage.pointers);
         var theArr = JSON.parse(sessionStorage.pointers);
         var enterPriseListArr = [];
 
@@ -330,8 +329,28 @@ var Login = function() {
 
                     //系统能耗类型配置，需要与api配置同步
                     var allEnergyType = data["allEnergyType"];
-                    if(allEnergyType){
-                        sessionStorage.allEnergyType = JSON.stringify(allEnergyType);
+
+                    var showEnergyType = {};
+                    showEnergyType.alltypes = [];
+
+                    showEnergyType.comment = allEnergyType.comment;
+
+                    //提取能耗类型配置isShowItem属性为1的保存到本地会话存储中
+                    for(var i=0; i<allEnergyType.alltypes.length; i++){
+
+                        if(allEnergyType.alltypes[i].isShowItem == 1){
+
+                            showEnergyType.alltypes.push(allEnergyType.alltypes[i])
+                        }
+
+                    };
+
+                    //if(allEnergyType){
+                    //    sessionStorage.allEnergyType = JSON.stringify(allEnergyType);
+                    //}
+
+                    if(showEnergyType){
+                        sessionStorage.allEnergyType = JSON.stringify(showEnergyType);
                     }
 
                     var officeEnergyType = data["officeEnergyType"];

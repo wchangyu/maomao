@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
 
     //点击查询按钮时，获取后台数据
@@ -54,17 +54,17 @@ function getBuild(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             $(data).each(function(i,o){
                 pointArr.push(o.pointerID);
             });
-            console.log(pointArr);
+            //console.log(pointArr);
             getStartData();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -92,7 +92,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -106,7 +106,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -385,7 +385,7 @@ function getMainData(){
 
         endDate = moment().subtract(1,'week').endOf('week').add(2,'day').format('YYYY-MM-DD');
 
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
 
     }else   if(postDate == '本月'){
 
@@ -395,7 +395,7 @@ function getMainData(){
 
         startDate = moment().startOf('month').format('YYYY-MM-DD');
 
-        console.log(startDate);
+        //console.log(startDate);
     }else if(postDate == '上月'){
 
         dateSign = '日';
@@ -403,7 +403,7 @@ function getMainData(){
         startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
         endDate = moment().startOf('month').format('YYYY-MM-DD');
 
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }else if(postDate == '本年'){
         dateSign = '月';
 
@@ -413,7 +413,7 @@ function getMainData(){
 
         startDate = moment().startOf('year').format('YYYY-MM-DD');
 
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }else if(postDate == '上年'){
         dateSign = '月';
 
@@ -434,10 +434,10 @@ function getMainData(){
         endDate =  moment(string).add(1, 'day').format('YYYY-MM-DD');
 
         showTime = startDate + '——' + 'endDate';
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }
 
-    console.log(postArr);
+    //console.log(postArr);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetDayNightReturnData",
@@ -463,7 +463,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             if(data == null){
@@ -568,7 +568,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -635,7 +635,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

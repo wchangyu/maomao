@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     //初始化table表单
 
@@ -144,7 +144,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -173,7 +173,7 @@ function getStartData(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+                    //console.log(data);
                     pointArr = data;
                     var html= '';
 
@@ -191,7 +191,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         ajaxTimeoutTest.abort();
@@ -204,7 +204,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -382,7 +382,7 @@ function getMainData(){
     var unit1;
 
 
-    console.log(typeArr);
+    //console.log(typeArr);
 
     $(typeArr).each(function(i,o){
 
@@ -414,7 +414,7 @@ function getMainData(){
 
         startDate = moment().startOf('month').format('YYYY-MM-DD');
 
-        console.log(startDate);
+        //console.log(startDate);
     }else if(postDate == '上月'){
 
         dateSign = '日';
@@ -422,7 +422,7 @@ function getMainData(){
         startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
         endDate = moment().startOf('month').format('YYYY-MM-DD');
 
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }else if(postDate == '本年'){
         dateSign = '月';
 
@@ -432,7 +432,7 @@ function getMainData(){
 
         startDate = moment().startOf('year').format('YYYY-MM-DD');
 
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }else if(postDate == '上年'){
         dateSign = '月';
 
@@ -453,10 +453,10 @@ function getMainData(){
         endDate =  moment(string).add(1, 'month').startOf('month').format('YYYY-MM-DD');
 
         showTime = startDate + '——' + endDate;
-        console.log(startDate,endDate);
+        //console.log(startDate,endDate);
     }
 
-    console.log(postObj1,postObj2);
+    //console.log(postObj1,postObj2);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetEnergyNormServiceIDData",
@@ -480,7 +480,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             if(data.length == 0){
@@ -545,7 +545,7 @@ function getMainData(){
 
 
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
 
             //重绘chart图
@@ -562,7 +562,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -594,7 +594,7 @@ function getObjType(id){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             pointArr = data;
             var html= '';
@@ -610,7 +610,7 @@ function getObjType(id){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -675,7 +675,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

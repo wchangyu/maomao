@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
 
     //点击查询按钮时，获取后台数据
@@ -59,7 +59,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
 
             var html= '';
@@ -93,7 +93,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -343,7 +343,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             if(data == null){
@@ -397,7 +397,7 @@ function getMainData(){
 
             option1.yAxis[0].axisLabel.formatter = '{value}' + unit;
 
-            console.log(unit);
+            //console.log(unit);
 
             //重绘chart图
             myChart.hideLoading();
@@ -443,7 +443,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -461,10 +461,10 @@ function changeDate(){
         (function (i){
             $('.condition-query li').eq(1).find('input').eq(i).on('change',function(){
                 var val = $(this).val();
-                console.log(val);
+                //console.log(val);
 
                var date =  moment(val).subtract(1,'years').format('YYYY-MM-DD');
-                console.log(date);
+                //console.log(date);
 
                 $('.condition-query li').eq(2).find('input').eq(i).val(date);
             });
@@ -528,7 +528,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

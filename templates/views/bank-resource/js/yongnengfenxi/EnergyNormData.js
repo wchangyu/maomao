@@ -8,7 +8,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
 
     //点击查询按钮时，获取后台数据
@@ -50,7 +50,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -78,7 +78,7 @@ function getStartData(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+                    //console.log(data);
                     pointArr = data;
                     var html= '';
                     var theValue = '';
@@ -99,7 +99,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -113,7 +113,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -274,7 +274,7 @@ function getMainData(){
 
     });
 
-    console.log(typeArr);
+    //console.log(typeArr);
 
 
 
@@ -318,9 +318,9 @@ function getMainData(){
         target = postEnergy.referenceYearValue
     }
 
-    console.log(dateArr);
+    //console.log(dateArr);
 
-    console.log(postEnergy);
+    //console.log(postEnergy);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetEnergyNormData",
@@ -343,7 +343,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
 
@@ -381,7 +381,7 @@ function getMainData(){
 
             ////添加参考值
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
 
             //重绘chart图
@@ -413,7 +413,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -479,7 +479,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

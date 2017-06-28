@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
 
     //点击查询按钮时，获取后台数据
@@ -61,7 +61,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.energyItemModels.length;i++){
@@ -93,7 +93,7 @@ function getStartData(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+                    //console.log(data);
                     pointArr = data;
                     var html= '';
                     var theValue = '';
@@ -114,7 +114,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         ajaxTimeoutTest.abort();
@@ -127,7 +127,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -280,7 +280,7 @@ function getMainData(){
 
     var selectDate = moment().format('YYYY-MM-DD');
 
-    console.log(selectDate);
+    //console.log(selectDate);
 
 
     $.ajax({
@@ -304,7 +304,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             if(data == null){
@@ -360,7 +360,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -427,7 +427,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

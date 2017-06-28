@@ -6,7 +6,7 @@
 $(document).ready(function() {
 
     // 基于准备好的dom，初始化echarts实例
-    console.log('ok');
+    //console.log('ok');
 
     //初始化table表单
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
     _table = $('#dateTables').dataTable();
 
     var ddd = _table.language;
-    console.log(ddd);
+    //console.log(ddd);
 
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
@@ -147,17 +147,17 @@ function getBuild(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             $(data).each(function(i,o){
                 pointArr.push(o.pointerID);
             });
-            console.log(pointArr);
+            //console.log(pointArr);
             getStartData();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -185,7 +185,7 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -212,7 +212,7 @@ function getStartData(){
                 },
                 success: function (data) {
                     $('#theLoading').modal('hide');
-                    console.log(data);
+                    //console.log(data);
                     var theValue = '';
                     var html= '';
                     var html= '';
@@ -230,7 +230,7 @@ function getStartData(){
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#theLoading').modal('hide');
-                    console.log(textStatus);
+                    //console.log(textStatus);
 
                     if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                         ajaxTimeoutTest.abort();
@@ -243,7 +243,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -463,7 +463,7 @@ function getMainData(){
 
     var index = $('#energy-type').find("option:selected").index();
 
-    console.log(typeArr);
+    //console.log(typeArr);
 
     postEnergy = typeArr[index];
 
@@ -495,8 +495,8 @@ function getMainData(){
 
     selectDate = dateArr[5];
 
-    console.log(dateArr);
-    console.log(postArr);
+    //console.log(dateArr);
+    //console.log(postArr);
     $.ajax({
         type: 'post',
         url: IP + "/EnergyQuery/GetYearMonthCompareBranch",
@@ -519,7 +519,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             if(data.length == 0){
@@ -613,7 +613,7 @@ function getMainData(){
 
 
 
-            console.log(option.legend.data[0]);
+            //console.log(option.legend.data[0]);
 
 
             //重绘chart图
@@ -630,7 +630,7 @@ function getMainData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -696,7 +696,7 @@ $('#choose-date .btn-primary').on('click',function(){
 
     var date = txt1 + '——' + txt2;
 
-    console.log(date);
+    //console.log(date);
 
     $('.show-date').css({
         display:'inline-block'

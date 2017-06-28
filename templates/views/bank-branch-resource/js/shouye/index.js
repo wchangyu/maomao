@@ -555,14 +555,14 @@ function getTitleByID(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             newsArr = data;
             getNewsTitle();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -591,7 +591,7 @@ function getNewsTitle(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
             //根据ID判断展示的新闻栏目
 
             var firstArr = [];
@@ -648,7 +648,7 @@ function getNewsTitle(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -687,7 +687,7 @@ function getAlarmMessage(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             _table = $("#datatables5").dataTable();
 
@@ -702,7 +702,7 @@ function getAlarmMessage(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -733,7 +733,7 @@ function getEnergyStatistics(){
     startTime = dataArr[1];
     endTime = dataArr[2];
 
-    console.log(selectDateType,startTime,endTime);
+    //console.log(selectDateType,startTime,endTime);
 
 
     $.ajax({
@@ -756,7 +756,7 @@ function getEnergyStatistics(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             //获取到能耗统计的数据进行展示
 
             //右侧统计数据
@@ -764,7 +764,7 @@ function getEnergyStatistics(){
 
             $('#energyStatistics  .main-data-bottom .main-data-top-center font').html(data.cpvStandardCoal.toFixed(1));
 
-            console.log($('#energyStatistics  .main-data-bottom .main-data-top-center').html());
+            //console.log($('#energyStatistics  .main-data-bottom .main-data-top-center').html());
 
             $('#energyStatistics  .main-data-bottom .main-data-top-center p .rank').html(data.energyRanking);
 
@@ -859,7 +859,7 @@ function getEnergyStatistics(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -944,11 +944,11 @@ function getStartData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
             pointArr = data;
 
-            console.log(EnterpriseID);
+            //console.log(EnterpriseID);
 
             $(pointArr).each(function(i,o){
 
@@ -970,7 +970,7 @@ function getStartData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -995,7 +995,7 @@ function getUnitFormData(){
     var startDate = dataArr[1];
     var endDate = dataArr[2];
 
-    console.log(postArr);
+    //console.log(postArr);
 
     $.ajax({
         type: 'post',
@@ -1016,12 +1016,12 @@ function getUnitFormData(){
         },
         success: function (data) {
 
-            console.log(data);
+            //console.log(data);
 
 
             var dataArr = data.sourceEnergys;
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             var sArr = [];
 
@@ -1034,7 +1034,7 @@ function getUnitFormData(){
 
             });
 
-            console.log(sArr);
+            //console.log(sArr);
 
             //重绘chart图
 
@@ -1052,7 +1052,7 @@ function getUnitFormData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1118,7 +1118,7 @@ function getTargetRankData(url,index){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             $('.ruler-box').css({
                 display:'none'
@@ -1140,7 +1140,7 @@ function getTargetRankData(url,index){
                 }else{
                     var num1 =700 -(data.picketBuildData * 100)-78;
                     //var num1 =700 -(5 * 100)-78;
-                    console.log(num1);
+                    //console.log(num1);
                     $('#energy-demand2 .sign1').css({
                         left:num1+ 'px'
                     });
@@ -1151,7 +1151,7 @@ function getTargetRankData(url,index){
                 }else{
                     var num1 =700 -(data.avgPUEData * 100)-78;
                     //var num1 =700 -(5 * 100)-78;
-                    console.log(num1);
+                    //console.log(num1);
                     $('#energy-demand2 .sign0').css({
                         left:num1+ 'px'
                     });
@@ -1171,7 +1171,7 @@ function getTargetRankData(url,index){
                 }else if(data.picketBuildData< 3.2 && data.picketBuildData > 1.1){
                     var num1 =630 -((3.2-data.picketBuildData) * 300)-77;
                     //var num1 =700 -(5 * 100)-78;
-                    console.log(num1);
+                    //console.log(num1);
                     $('#energy-demand2 .sign11').css({
                         left:num1+ 'px'
                     });
@@ -1182,7 +1182,7 @@ function getTargetRankData(url,index){
                 }else if(data.avgPUEData< 3.2 && data.avgPUEData > 1.1){
                     var num1 =630 -((3.2-data.avgPUEData) * 300)-77;
                     //var num1 =700 -(5 * 100)-78;
-                    console.log(num1);
+                    //console.log(num1);
                     $('#energy-demand2 .sign00').css({
                         left:num1+ 'px'
                     });
@@ -1194,7 +1194,7 @@ function getTargetRankData(url,index){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1300,7 +1300,7 @@ function getBulidingData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             pointArr = data;
             //获取chart图中的数据
 
@@ -1309,7 +1309,7 @@ function getBulidingData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
@@ -1355,7 +1355,7 @@ function getCurrentData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             if(data.sourceEnergys.length == 0){
                 myChart3.hideLoading();
@@ -1432,7 +1432,7 @@ function getCurrentData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 myAlter("超时");
@@ -1514,7 +1514,7 @@ function getDataQuality(){
     myChart4 = echarts.init(document.getElementById('energy-demand4'));
 
     var date = moment().format('YYYY-MM-DD');
-    console.log(date);
+    //console.log(date);
     $.ajax({
         type: 'post',
         url: IP + "/ServiceDataQuality/GetServiceDataQualityDs",
@@ -1534,7 +1534,7 @@ function getDataQuality(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
 
             var sArr = [];
@@ -1555,7 +1555,7 @@ function getDataQuality(){
                 };
             sArr = [obj1,obj2,obj3];
 
-            console.log(sArr);
+            //console.log(sArr);
 
 
             option4.series[0].data = sArr;
@@ -1578,7 +1578,7 @@ function getDataQuality(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 

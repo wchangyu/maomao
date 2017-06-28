@@ -30,7 +30,7 @@ function getData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
 
             //存放搜索框中内容
             var html = '';
@@ -75,7 +75,7 @@ function getData(){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
-            console.log(textStatus);
+            //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
 
@@ -99,12 +99,12 @@ function detail(){
             $('.titles').on('click',function(){
 
                 var name = $(this).attr('data-name');
-                console.log(name);
+                //console.log(name);
 
                for(var i=0; i<$('.marker').length ; i++){
 
                    if(name == $('.marker').eq(i).attr('name')){
-                        console.log(666);
+                        //console.log(666);
                        $('.marker').eq(i).mouseover();
                    }
                }
@@ -119,7 +119,7 @@ function detail(){
                 for(var i=0; i<$('.marker').length ; i++){
 
                     if(name == $('.marker').eq(i).attr('name')){
-                        console.log(666);
+                        //console.log(666);
                         $('.marker').eq(i).mouseover();
                     }
                 }
@@ -134,7 +134,7 @@ function detail(){
 //信息弹窗中的关闭按钮
 $('.show-message .close').on('click',function(){
 
-    console.log(666);
+    //console.log(666);
     $(this).parent('.show-message').css({
         display:'none'
     })
@@ -154,7 +154,7 @@ function addClick(){
 
         var team = $(this).attr('team');
 
-        console.log(left1,top1);
+        //console.log(left1,top1);
 
         $('.show-message').css({
 
@@ -177,7 +177,7 @@ $('body').on('click',function(event){
 
     var className = that.prop("className")
 
-   console.log(className);
+   //console.log(className);
     if(className != 'marker'){
         $('.show-message').css({
             display:'none'
@@ -250,7 +250,7 @@ $('.showTitle p .close').on('click',function(){
 
 //右上角关闭按钮
 function closeCompany(){
-    console.log('666');
+    //console.log('666');
     $('.switch').css({
         'display':'block',
 
