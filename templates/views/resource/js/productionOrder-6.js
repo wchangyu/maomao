@@ -314,15 +314,15 @@ $(function(){
                 success:function(result){
                     var indexs = result.gdZht;
                     if(0<indexs && indexs<8){
-                        $('.progressBar').children('.progressBarList').css({'color':'#333333'});
-                        $('.processing-record ul').children('.progressBarList').hide();
+                        $('.progressBar').children('li').css({'color':'#333333'});
+                        $('.processing-record ul').children('.record-list').hide();
                         for(var i=0;i<indexs;i++){
                             $('.progressBar').children('.progressBarList').eq(i).css({'color':'#db3d32'});
-                            $('.processing-record ul').children('.progressBarList').eq(i).show();
+                            $('.processing-record ul').children('.record-list').eq(i).show();
                         }
                     }else{
                         $('.progressBar').children('.progressBarList').css({'color':'#333333'});
-                        $('.processing-record ul').children('.progressBarList').hide();
+                        $('.processing-record ul').children('.record-list').hide();
                     }
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
@@ -358,11 +358,34 @@ $(function(){
                     //调度下发时间
                     progressContent(1,0,result.shouLiShij);
                     //调度下发人员
+                    progressContent(1,2,result.shouLiRen);
+                    //分派时间
+                    progressContent(2,0,result.paiGongShij);
+                    //分派人
+                    progressContent(2,2,result.paigongUser);
+                    //开始执行时间
+                    progressContent(3,0,result.jiedanShij);
                     var ddRen = '';
-                    for(var i=0;i<result.gdWxLeaders.length;i++){
-                        ddRen += result.gdWxLeaders[i].wxRName + '，'
-                    }
-                    progressContent(1,2,ddRen);
+                     for(var i=0;i<result.wxRens.length;i++){
+                     ddRen += result.wxRens[i].wxRName;
+                         if(i!=result.wxRens.length-1){
+                             ddRen += ','
+                         }
+                     }
+                    //执行人
+                    progressContent(3,2,ddRen);
+                    //等待时间
+                    progressContent(4,0,result.dengShij);
+                    //等待人
+                    progressContent(4,2,ddRen);
+                    //完工时间
+                    progressContent(5,0,result.wanGongShij);
+                    //完工人
+                    progressContent(5,2,ddRen);
+                    //关闭时间
+                    progressContent(6,0,result.guanbiShij);
+                    //关单人
+                    progressContent(6,2,ddRen);
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
