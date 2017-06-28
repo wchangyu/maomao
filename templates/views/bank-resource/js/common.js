@@ -282,7 +282,7 @@ function getUnit(num){
         var txt = unitObj.alltypes;
         for(var i=0; i < txt.length; i++){
                 if(num1 == txt[i].ettype){
-                        return txt[i].etname;
+                        return txt[i].etunit;
                 }
         }
 };

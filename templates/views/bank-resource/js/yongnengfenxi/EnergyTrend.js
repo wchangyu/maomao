@@ -325,6 +325,8 @@ function getMainData(){
             var sArr1 = [];
             var xArr = [];
 
+            var ifAddUnit = false;
+
 
             $(data.ecMetaDataExtends).each(function(i,o){
 
@@ -333,7 +335,18 @@ function getMainData(){
 
                 xArr.push(o.dataDate.split('T')[0]);
 
+                if(o.data > 10000){
+                    ifAddUnit = true;
+
+                }
+
             });
+
+            if(ifAddUnit){
+
+                unit = '万' + unit;
+            }
+
 
             option.xAxis[0].data = xArr;
             option.legend.data = legendArr;
@@ -353,8 +366,6 @@ function getMainData(){
 
                 $('.text-content').html(content2);
             }
-
-
 
 
         },

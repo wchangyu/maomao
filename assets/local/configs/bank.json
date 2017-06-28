@@ -27,7 +27,7 @@
   "能耗查询":{
     "type":"1",
     "iconclass":"icon-speedometer",
-    "content":"能耗查询1",
+    "content":"能耗查询",
     "submenu":{
       "能耗查询1":{
         "type":"0",
@@ -207,7 +207,7 @@
     "submenu":{
       "新闻后台":{
         "type":"0",
-        "content":"后台",
+        "content":"添加新闻",
         "uri":"../news/news-1.html",
         "uid":"",
         "arg":"",
@@ -215,7 +215,7 @@
       },
       "栏目":{
         "type":"0",
-        "content":"栏目",
+        "content":"栏目管理",
         "uri":"../news/news-2.html",
         "uid":"",
         "arg":"",
@@ -223,16 +223,8 @@
       },
       "标题":{
         "type":"0",
-        "content":"标题",
+        "content":"新闻管理",
         "uri":"../news/news-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "查看":{
-        "type":"0",
-        "content":"查看",
-        "uri":"../news/news-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""

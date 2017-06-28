@@ -309,6 +309,7 @@ function getMainData(){
             var sArr1 = [];
             var xArr = [];
 
+            var isShowUnit = false;
 
             $(data.ecMetaDataExtends).each(function(i,o){
 
@@ -317,7 +318,17 @@ function getMainData(){
 
                 xArr.push(o.dataDate.split('T')[0]);
 
+                if(o.data > 10000){
+                    isShowUnit = true;
+                }
+
             });
+
+            if(isShowUnit){
+
+                unit = '万' + unit;
+            }
+
 
             option.xAxis[0].data = xArr;
             option.legend.data = legendArr;
