@@ -314,12 +314,15 @@ $(function(){
                 success:function(result){
                     var indexs = result.gdZht;
                     if(0<indexs && indexs<8){
-                        $('.progressBar').children('li').css({'color':'#333333'});
+                        $('.progressBar').children('.progressBarList').css({'color':'#333333'});
+                        $('.processing-record ul').children('.progressBarList').hide();
                         for(var i=0;i<indexs;i++){
-                            $('.progressBar').children('li').eq(i).css({'color':'#db3d32'});
+                            $('.progressBar').children('.progressBarList').eq(i).css({'color':'#db3d32'});
+                            $('.processing-record ul').children('.progressBarList').eq(i).show();
                         }
                     }else{
-                        $('.progressBar').children('li').css({'color':'#333333'});
+                        $('.progressBar').children('.progressBarList').css({'color':'#333333'});
+                        $('.processing-record ul').children('.progressBarList').hide();
                     }
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
@@ -347,10 +350,23 @@ $(function(){
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
+                    //进度条赋值
+                    //待下发记录时间
+                    progressContent(0,0,result.gdShij);
+                    //待下发相关人员
+                    progressContent(0,2,result.bxRen);
+                    //调度下发时间
+                    progressContent(1,0,result.shouLiShij);
+                    //调度下发人员
+                    var ddRen = '';
+                    for(var i=0;i<result.gdWxLeaders.length;i++){
+                        ddRen += result.gdWxLeaders[i].wxRName + '，'
+                    }
+                    progressContent(1,2,ddRen);
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
-                    datasTable($("#personTables1"),result.wxCls)
+                    datasTable($("#personTables1"),result.wxCls);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     var info = JSON.parse(jqXHR.responseText).message;
@@ -677,7 +693,6 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    /*conditionSelect();*/
                     console.log('删除执行人成功！')
                 }else{
                     console.log('删除执行人失败！')
@@ -762,5 +777,9 @@ $(function(){
                 console.log(info);
             }
         })
+    }
+    //进度条赋值
+    function progressContent(elIndex,childrenIndex,time){
+        $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
     }
 })
