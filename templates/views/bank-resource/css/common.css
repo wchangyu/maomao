@@ -326,3 +326,6 @@ table.dataTable.no-footer {
     display: none !important;
 
 }
+.form-control {
+    padding: 0 !important;
+}

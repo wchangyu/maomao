@@ -311,11 +311,7 @@ function getMainData(){
         return false;
     };
 
-    unit = getUnitByID(energyID);
 
-    if(!unit){
-        unit = 'kWh'
-    }
 
     var title1 = $('.condition-query li').eq(0).find('option:selected').text();
 
@@ -352,6 +348,13 @@ function getMainData(){
                 myAlter('无数据!');
                 return false;
             }
+
+            unit = getUnitByID(energyID);
+
+            if( energyID == -2){
+                unit = 'tce'
+            };
+
             $('.show-title1').html(title1);
 
             $('.show-title2').html('统计时段: ' + qiQiStartDate + '——' + qiQiEndDate + '');
