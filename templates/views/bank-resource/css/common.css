@@ -329,3 +329,7 @@ table.dataTable.no-footer {
 .form-control {
     padding: 0 !important;
 }
+.carousel-indicators li{
+    margin-right:10px !important;
+
+}
