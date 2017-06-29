@@ -43,22 +43,27 @@ $(function(){
                 success:function(result){
                     //创建轮播图
                     var heightArr = [];
-                    for(var i=0;i<4;i++){
-                        var imgurl = result[i].f_RecommImgName.split('\\');
-                        $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'contain'});
-                        $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(result[i].f_NewsTitle);
-                        $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + result[i].pK_NewsID + '&come=1');
-                    }
+                    var showArr = result.splice(0,4);
+                    console.log(showArr.length)
+                    for(var i=0;i<showArr.length;i++){
+
+                        if( showArr[i].f_RecommImgName){
+                            console.log(showArr[i].f_RecommImgName);
+                                var imgurl = showArr[i].f_RecommImgName.split('\\');
+                                $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'contain'});
+                                $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+                                $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                            }
+                        }
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    moTaiKuang($('#myModal'),info);
+
                 }
             })
         },
         error:function(jqXHR, textStatus, errorThrown){
-            var info = JSON.parse(jqXHR.responseText).message;
-            moTaiKuang($('#myModal'),info);
+
         }
     })
     /*-------------------------------------------其他的方法---------------------------------*/
@@ -93,8 +98,7 @@ $(function(){
                 $('.loading').hideLoading();
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                moTaiKuang($('#myModal'),info);
+
             }
         })
         //动态创建list方法
