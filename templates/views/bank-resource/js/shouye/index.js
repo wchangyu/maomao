@@ -1094,7 +1094,7 @@ function getEnergyRank(){
 
                 xArr.push(o.currentEnergyData.toFixed(2));
                 yArr1.push(o.currentRanking);
-                yArr2.push(o.enterpriseName.substring(0,4));
+                yArr2.push(o.enterpriseName.substring(0,3));
 
             });
             option1.series[0].data = xArr;
@@ -1319,7 +1319,14 @@ function getTargetRankData1(url){
 
             var dataArr = getArr(data);
 
+            //重绘右侧表格
+
+            _table = $('#dateTables2').dataTable();
+            ajaxSuccess1(dataArr);
+
             dataArr.reverse();
+
+
 
             //console.log(dataArr);
 
@@ -1331,7 +1338,7 @@ function getTargetRankData1(url){
 
                 xArr.push(o.currentEnergyData);
                 yArr1.push(o.currentRanking);
-                yArr2.push(o.enterpriseName.substring(0,4));
+                yArr2.push(o.enterpriseName.substring(0,3));
 
             });
             option2.series[0].data = xArr;
@@ -1348,10 +1355,7 @@ function getTargetRankData1(url){
             myChart2.hideLoading();
             myChart2.setOption(option2);
 
-            //重绘右侧表格
 
-            _table = $('#dateTables2').dataTable();
-            ajaxSuccess1(dataArr);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1413,6 +1417,11 @@ function getTargetRankData2(obj){
 
             var dataArr = getArr(data);
 
+            //重绘右侧表格
+
+            _table = $('#dateTables2').dataTable();
+            ajaxSuccess1(dataArr);
+
             dataArr.reverse();
 
             //console.log(dataArr);
@@ -1425,7 +1434,7 @@ function getTargetRankData2(obj){
 
                 xArr.push(o.currentEnergyData);
                 yArr1.push(o.currentRanking);
-                yArr2.push(o.enterpriseName.substring(0,4));
+                yArr2.push(o.enterpriseName.substring(0,3));
 
             });
             option2.series[0].data = xArr;
@@ -1442,10 +1451,7 @@ function getTargetRankData2(obj){
             myChart2.hideLoading();
             myChart2.setOption(option2);
 
-            //重绘右侧表格
 
-            _table = $('#dateTables2').dataTable();
-            ajaxSuccess1(dataArr);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
