@@ -61,6 +61,14 @@ $(function(){
     var _gdCode = 0;
     //记录当前工单详情有几个图
     var _imgNum = 0;
+    //执行人员的标识
+    var _workerFlag = false;
+    //物料的标识
+    var _WLFlag = false;
+    //状态标识
+    var _stateFlag = false;
+    //负责人标识
+    var _leaderFlag = false;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -98,7 +106,12 @@ $(function(){
             {
                 title:'工单号',
                 data:'gdCode',
-                className:'gongdanId'
+                className:'gongdanId',
+                render:function(data, type, row, meta){
+                    return '<a href="productionOrder_see.html?gdCode=' +  data +  '&userID=' + _userIdName + '&gdZht=' + row.gdZht +
+                        '"' +
+                        'target="_blank">' + data + '</a>'
+                }
             },
             {
                 title:'工单类型',
@@ -298,7 +311,7 @@ $(function(){
             moTaiKuang($('#myModal'));
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
-            var gongDanCode = $this.children('.gongdanId').html();
+            var gongDanCode = $this.find('.gongdanId').children('a').html();
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -392,8 +405,7 @@ $(function(){
                     datasTable($("#personTables1"),result.wxCls);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             });
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
@@ -414,7 +426,7 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
-            var gdCode = parseInt($this.children('.gongdanId').html());
+            var gdCode = parseInt($this.find('.gongdanId').children('a').html());
             var gdZht = parseInt($this.children('.ztz').html());
             _gdCode = gdCode;
             var prm = {
@@ -431,12 +443,10 @@ $(function(){
                     if(result){
                         _zhixingRens = result.wxRens;
                         _weiXiuCaiLiao = result.wxCls;
-                        //_fuZeRen = result.
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             })
         })
@@ -491,26 +501,70 @@ $(function(){
                 data:gdInfo,
                 success:function(result){
                     if(result == 99){
+                        _stateFlag = true;
                         if(htState == 1){
                             //删除该工单负责人
                             manager('YWGD/ywGDDelWxLeader','flag');
+                            if( _stateFlag && _leaderFlag ){
+                                $('#myModal1').modal('hide');
+                                moTaiKuang($('#myModal3'),'flag');
+                                $('#myModal3').find('.modal-body').html('回退成功！');
+                            }else{
+                                var str = '';
+                                if( _leaderFlag == false ){
+                                    str += '工长删除失败，'
+                                }else{
+                                    str += '工长删除成功，'
+                                }
+                                if( _stateFlag == false ){
+                                    str += '退回失败！'
+                                }else{
+                                    str += '退回成功！'
+                                }
+                                moTaiKuang($('#myModal3'),'flag');
+                                $('#myModal3').find('.modal-body').html(str);
+                            }
                         }else if(htState == 2){
                             //删除该工单的执行人和材料
                             Worker('YWGD/ywGDDelWxR','flag');
                             CaiLiao('YWGD/ywGDDelWxCl','flag');
+                            if( _workerFlag && _WLFlag && _stateFlag ){
+                                $('#myModal1').modal('hide');
+                                moTaiKuang($('#myModal3'),'flag');
+                                $('#myModal3').find('.modal-body').html('回退成功！');
+                            }else{
+                                var str = '';
+                                if( _workerFlag == false ){
+                                    str += '执行人删除失败，'
+                                }else{
+                                    str += '执行人删除成功，'
+                                }
+                                if( _WLFlag == false ){
+                                    str += '物料删除失败，'
+                                }else{
+                                    str += '物料删除成功，'
+                                }
+                                if( _stateFlag == false ){
+                                    str += '退回失败，'
+                                }else{
+                                    str += '退回成功，'
+                                }
+                                moTaiKuang($('#myModal3'),'flag');
+                                $('#myModal3').find('.modal-body').html(str);
+                            }
                         }
                         conditionSelect();
                         $('#myModal1').modal('hide');
                         moTaiKuang($('#myModal3'),'flag');
                         $('#myModal3').find('.modal-body').html('回退成功！');
                     }else{
+                        _stateFlag = false;
                         moTaiKuang($('#myModal3'),'flag');
-                        $('#myModal3').find('.modal-body').html('回退失败！')
+                        $('#myModal3').find('.modal-body').html('回退失败！');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             })
         }
@@ -537,8 +591,7 @@ $(function(){
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             })
         }
@@ -599,12 +652,8 @@ $(function(){
     $('.table-title span').click(function(){
         $('.table-title span').removeClass('spanhover');
         $(this).addClass('spanhover');
-        $('.tableHover').css({'z-index':0});
-        $('.tableHover').css({'opacity':0});
-        $('.tableHover').eq($(this).index()).css({
-            'z-index':1,
-            'opacity':1
-        })
+        $('.tableHover').hide();
+        $('.tableHover').eq($(this).index()).show();
     });
     $('.confirm').click(function(){
         $('#myModal').modal('hide');
@@ -654,8 +703,7 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -716,14 +764,13 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    console.log('删除执行人成功！')
+                    _workerFlag = true;
                 }else{
-                    console.log('删除执行人失败！')
+                    _workerFlag = false;
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         });
     }
@@ -753,14 +800,13 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    console.log('删除物料成功！')
+                    _WLFlag = true;
                 }else{
-                    console.log('删除物料失败！')
+                    _WLFlag = false;
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -790,14 +836,13 @@ $(function(){
             async:false,
             success:function(result){
                 if(result == 99){
-                    console.log('删除负责人成功！')
+                    _leaderFlag = true;
                 }else{
-                    console.log('删除负责人失败！')
+                    _leaderFlag = false;
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }

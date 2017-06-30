@@ -61,16 +61,13 @@ li{
 }
 .news-content{
     margin: 0;
-    position: absolute;
-    top:0;
-    left: 0;
-    z-index: 1;
+    float: left;
     background: #ffffff;
-    opacity: 0;
     max-height: 400px;
     overflow: hidden;
     width:100%;
     padding: 10px;
+    display: none;
 }
 .border-top-color{
     border-top: 5px solid #ed7d31;
@@ -110,8 +107,7 @@ li{
     opacity: 0;
 }
 .news-content-active{
-    z-index: 2 !important;
-    opacity: 1 !important;
+    display: block;
 }
 .item{
     display: block;

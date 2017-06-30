@@ -114,12 +114,11 @@
     background: #ffffff !important;
 }
 .tableHover{
-    position: absolute;
     background: #ffffff;
-    z-index: 0;
     width: 100% !important;
     border: 1px solid #cccccc;
     border-top: none;
+    float: left;
 }
 /*进度条*/
 .progressBar{
@@ -130,8 +129,6 @@
     margin-bottom: 0;
 }
 .progressBar li{
-    /*flex: auto;
-    text-align: center;*/
     margin:17px 0;
 }
 .progressNum{
@@ -399,4 +396,21 @@ table.dataTable.table-condensed > thead > tr > th{
     padding: 5px;
     cursor: pointer;
     border: 1px solid #CCCCCC;
+}
+#tree-1{
+    height: 230px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#tree-block{
+    border: 1px solid #ebebeb;
+    width: 300px;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index:100;
+    background: #ffffff;
+    border-top: none;
+    display: none;
+    height: 265px;
 }

@@ -322,8 +322,7 @@ $(function(){
                 datasTable($("#scrap-datatables"),result)
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -350,8 +349,7 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -448,8 +446,7 @@ $(function(){
                     datasTable($("#personTables1"),result.wxCls);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             });
             //所有input不可操作
@@ -494,8 +491,7 @@ $(function(){
                     pingjia.wxbeizhu = result.wxBeizhu;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    console.log(info);
+                    console.log(jqXHR.responseText);
                 }
             })
     });
@@ -530,12 +526,8 @@ $(function(){
     $('.table-title span').click(function(){
         $('.table-title span').removeClass('spanhover');
         $(this).addClass('spanhover');
-        $('.tableHover').css({'z-index':0});
-        $('.tableHover').css({'opacity':0});
-        $('.tableHover').eq($(this).index()).css({
-            'z-index':1,
-            'opacity':1
-        })
+        $('.tableHover').hide();
+        $('.tableHover').eq($(this).index()).show();
     });
     $('.confirm').click(function(){
         $('#myModal').modal('hide');
@@ -566,8 +558,7 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     })

@@ -35,7 +35,7 @@ function getData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            //console.log(data);
+            console.log(data);
             markerArr = [];
 
             //存放搜索框中内容
@@ -71,9 +71,12 @@ function getData(){
 
             //重构右上角搜索框中内容
             $('#ul1').html(html);
+
             detail();
+
             //新的搜索对象
             new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
+
 
 
         },
@@ -110,15 +113,36 @@ function detail(){
                 var p0 = markerArr[i].point.split(",")[0];
                 var p1 = markerArr[i].point.split(",")[1];
                 map.centerAndZoom(new BMap.Point(p0, p1), 15);
-            });
 
-            $('.search-value-list li').off('click');
+                $('.BMap_noprint').eq(i).click();
+
+
+            });
+        })(i)
+    }
+}
+
+function detail1(){
+
+    console.log($('.search-value-list li').length);
+
+    for(var i = 0; i < markerArr.length; i++){
+        (function (i){
+
+            $('.search-value-list li').eq(i + 1).off('click');
 
             $('.search-value-list li').eq(i + 1).on('click',function(){
                 //console.log('.search-value-list');
-                var p0 = markerArr[i].point.split(",")[0];
-                var p1 = markerArr[i].point.split(",")[1];
-                map.centerAndZoom(new BMap.Point(p0, p1), 15);
+                var txt = $(this).find('.name').html();
+
+                for(var j=0; j<$('.titles').length; j++){
+
+                    if(txt == $('.titles').eq(j).attr('data-name')){
+
+                        $('.titles').eq(j).click();
+                    }
+                }
+
             });
 
 
@@ -128,7 +152,10 @@ function detail(){
 
 var removeNum = 0;
 
+var makeArr = [];
+
 //地点的文字标注与事件绑定
+
 function addWords(){
     var arr = [];
     var points = [];
@@ -163,6 +190,9 @@ function addWords(){
         points[i]= new BMap.Point(p0,p1);
         var marker=new BMap.Marker(new BMap.Point(p0, p1));
         addInfoWindow(marker, markerArr[i], i);
+
+        makeArr.push(marker);
+
         var icon = new BMap.Icon(icons, new BMap.Size(55, 55)); //显示图标大小
         marker.setIcon(icon);//设置标签的图标为自定义图标
 
@@ -284,6 +314,7 @@ function addInfoWindow(marker, poi) {
     };
 
     marker.addEventListener("mouseover", openInfoWinFun);
+    marker.addEventListener("click", openInfoWinFun);
     //marker.addEventListener("mouseout", closeInfoWinFun);
     return openInfoWinFun;
 }
@@ -343,15 +374,15 @@ function showAll(){
 }
 
 
-//搜索功能
-$(function(){
-    // search-test-inner --->  最外层div
-    // search-value --->  input 输入框
-    // search-value-list --->  搜索结果显示div
-    // search-li --->  搜索条目
-    new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
-
-});
+////搜索功能
+//$(function(){
+//    // search-test-inner --->  最外层div
+//    // search-value --->  input 输入框
+//    // search-value-list --->  搜索结果显示div
+//    // search-li --->  搜索条目
+//    new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
+//
+//});
 
 
 function SEARCH_ENGINE(dom,searchInput,searchResultInner,searchList){
@@ -525,8 +556,7 @@ SEARCH_ENGINE.prototype = {
             }
 
             searchEngine.postMemberList(tempArray);
-            detail();
-
+            detail1();
         });
     }
 };

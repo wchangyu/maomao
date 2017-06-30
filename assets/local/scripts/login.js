@@ -191,7 +191,7 @@ var Login = function() {
                         sessionStorage.pointers = JSON.stringify(pointers);
                         _isPointersLoaded = true;
                         getEnterpriseList();
-                        //directToIndex();
+                        directToIndex();
 
                     },
                     error:function(xhr,res,errText){

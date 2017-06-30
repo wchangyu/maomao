@@ -600,8 +600,7 @@ $(function () {
                   }
               },
               error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
               }
             })
           }
@@ -611,8 +610,6 @@ $(function () {
         if(_imgNum){
           var str = '';
           for(var i=0;i<_imgNum;i++){
-            //str += '<img src="http://211.100.28.180/ApService/dimg.aspx?gdcode=17062118213568&no=' + i + '">';
-            //str += '<img src="http://211.100.28.180/ApService/dimg.aspx?gdcode=17062118213568">';
             str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
                 '">'
           }
@@ -766,8 +763,7 @@ $(function () {
         datasTable($("#scrap-datatables"),result);
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     })
   }
@@ -823,8 +819,7 @@ $(function () {
         select.append(str);
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     })
   }
@@ -870,8 +865,7 @@ $(function () {
         datasTable($('#sbTable'),result);
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     })
   }
@@ -947,19 +941,18 @@ $(function () {
         if(result == 99){
           var myModal = $('#myModal2');
           myModal.find('.modal-body').html('添加成功!');
-          moTaiKuang(myModal);
+          moTaiKuang(myModal,'提示');
           $('#myModal').modal('hide');
           //刷新表格
           conditionSelect();
         }else{
           var myModal = $('#myModal2');
           myModal.find('.modal-body').html('添加失败!');
-          moTaiKuang(myModal);
+          moTaiKuang(myModal,'提示');
         }
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     })
   }
@@ -1000,18 +993,17 @@ $(function () {
           $('#myModal4').modal('hide');
           var myModal = $('#myModal2');
           myModal.find('.modal-body').html('添加成功!');
-          moTaiKuang(myModal,'flag');
+          moTaiKuang(myModal,'提示','flag');
           //刷新表格
           conditionSelect();
         }else{
           var myModal = $('#myModal2');
           myModal.find('.modal-body').html('添加失败!');
-          moTaiKuang(myModal,'flag');
+          moTaiKuang(myModal,'提示','flag');
         }
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     })
   }
@@ -1078,8 +1070,7 @@ $(function () {
         }
       },
       error:function(jqXHR, textStatus, errorThrown){
-        var info = JSON.parse(jqXHR.responseText).message;
-        console.log(info);
+        console.log(jqXHR.responseText);
       }
     });
   }

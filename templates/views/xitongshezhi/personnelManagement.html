@@ -432,13 +432,13 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">姓名：<span v-show="$validation.name.notempty" style="display: none">请输入姓名</span></div>
+                                    <div class="labels">职位：<span v-show="$validation.position.notempty" style="display: none">请输入姓名</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="name" v-validate:name= "['notempty']" initial='off'>
+                                        <input type="text" v-model="position" v-validate:position= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">邮箱：<span v-show="$validation.email.notempty" style="display: none">请输入邮箱</span></div>
+                                    <div class="labels">邮箱：<span v-show="$validation.email.notempty" style="display: none">请输入职位</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="email" v-validate:email= "['notempty']" initial='off'>
                                     </div>
@@ -455,18 +455,21 @@
                                         <input type="text" v-model="mobilephone" v-validate:mobilephone= "['notempty']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">部门：</div>
+                                <li class="floatLeft">
+                                    <div class="labels">拼音：<span v-show="$validation.Pinyin.notempty" style="display: none">请输入电话</span></div>
                                     <div class="input-blockeds">
-                                        <select v-model="department">
-                                            <option value="1" selected>一级任务</option>
-                                            <option value="2">二级任务</option>
-                                            <option value="3">三级任务</option>
-                                            <option value="4">四级任务</option>
-                                        </select>
+                                        <input type="text" v-model="Pinyin" v-validate:Pinyin= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
+                                    <div class="labels">部门：</div>
+                                    <div class="input-blockeds">
+                                        <select v-model="department" id="djbm">
+
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="floatLeft" style="line-height: 26px;">
                                     <div class="labels">角色：</div>
                                     <div class="input-blockeds">
                                         <select v-model="role">
@@ -477,7 +480,7 @@
                                         </select>
                                     </div>
                                 </li>
-                                <li class="floatLeft" style="line-height: 26px;">
+                                <li class="floatRight" style="line-height: 26px;">
                                     <div class="labels">排序：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="order" placeholder="请填写数字">

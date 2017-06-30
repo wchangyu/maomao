@@ -124,7 +124,7 @@ $(function(){
                                 lengths = _allNewsArr[j].newsContents.length;
                             }
                             for(var z=0;z<lengths;z++){
-                                newsList = ''
+                                newsList = '';
                                 newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID + '&come=1' +
                                     '"><h3>' + _allNewsArr[j].newsContents[z].f_NewsTitle + '</h3></a><h4>'+_allNewsArr[j].newsContents[z].f_NewsDesc +'</h4></li>';
                                 ulList.find('.news-content').eq(i).append(newsList);
