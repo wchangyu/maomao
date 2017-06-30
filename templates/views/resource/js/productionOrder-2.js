@@ -215,7 +215,7 @@ $(function(){
                 }
             },
             {
-                title:'车间站',
+                title:'车站',
                 data:'bxKeshi'
             },
             {

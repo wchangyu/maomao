@@ -142,7 +142,7 @@ $(function(){
                 className:"ztz"
             },
             {
-                title:'车间站',
+                title:'车站',
                 data:'bxKeshi'
             },
             {
@@ -297,6 +297,7 @@ $(function(){
         $('.table-title span').removeClass('spanhover');
         $(this).addClass('spanhover');
         $('.tableHover').hide();
+        $('.tableHover').css({'opacity':0});
         $('.tableHover').eq($(this).index()).show();
     });
     $('#myModal')

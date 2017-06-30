@@ -71,7 +71,7 @@ $(function(){
     var _leaderFlag = false;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable({
+    var table = $('#scrap-datatables').DataTable(   {
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -169,7 +169,11 @@ $(function(){
                 className:'ztz'
             },
             {
-                title:'车间站',
+                title:'系统名称',
+                data:'wxShiX'
+            },
+            {
+                title:'车站',
                 data:'bxKeshi'
             },
             {
@@ -177,8 +181,24 @@ $(function(){
                 data:'wxDidian'
             },
             {
-                title:'登记时间',
-                data:'gdShij'
+                title:'故障描述',
+                data:'bxBeizhu'
+            },
+            {
+                title:'最新处理情况',
+                data:'wxBeizhu'
+            },
+            {
+                title:'受理时间',
+                data:'shouLiShij'
+            },
+            {
+                title:'当前报修时间',
+                data:'timeSpan'
+            },
+            {
+                title:'督察督办责任人',
+                data:'paigongUser'
             },
             {
                 title:'操作',
@@ -686,7 +706,8 @@ $(function(){
             //故障位置
             "gdLeixing":$('#rwlx').val(),
             "wxRen":filterInput[7],
-            "wxdidian":filterInput[8]
+            "wxdidian":filterInput[8],
+            "isCalcTimeSpan":1
         }
         $.ajax({
             type:'post',
@@ -850,4 +871,5 @@ $(function(){
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
     }
+
 })
