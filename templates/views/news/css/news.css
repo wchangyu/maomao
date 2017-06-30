@@ -125,3 +125,18 @@ li{
     width: 500px;
     height: 350px;
 }
+.news-content li {
+    padding-bottom: 5px;
+    padding-top:5px;
+}
+.news-content li h3{
+    font-size:20px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.carousel-caption{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

@@ -156,8 +156,7 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                moTaiKuang($('#myModal'),'提示','',info);
+
             }
         })
     }
@@ -195,8 +194,7 @@ $(function(){
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    moTaiKuang($('#myModal'),'提示','',info);
+
                 }
             })
         }else{

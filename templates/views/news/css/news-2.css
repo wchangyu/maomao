@@ -49,6 +49,7 @@ li{
     outline: none;
     line-height: 30px;
     text-indent: 10px;
+    height:32px;
 }
 .colorTip{
     line-height: 30px;

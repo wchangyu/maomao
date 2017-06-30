@@ -70,7 +70,7 @@ h3 span{
 
 /*能耗统计*/
 .main-data-top{
-    border-bottom:1px solid #999;
+
 }
 .main-data-top-left{
 
@@ -104,7 +104,7 @@ h3 span{
     width:83px;
 
     position: absolute;
-    left:140px;
+    left:120px;
     top:54px;
 }
 .compare-data .percentage{
@@ -215,8 +215,8 @@ h3 span{
     padding-top:15px;
 }
 .top-cut select{
-    padding-left:10px;
-    padding-right: 6px;
+    /*padding-left:10px;*/
+    /*padding-right: 6px;*/
     font-size: 14px;
 }
 #energy-analyze .specific-data .top-cut li{
@@ -292,7 +292,7 @@ h3 span{
 
 /*能耗分析中能耗排名部分*/
 #energy-demand1{
-    height:960px;
+    height:978px;
 }
 #dateTables1_info{
     display: none;
@@ -307,7 +307,7 @@ h3 span{
 /*能耗分析中指标排名部分*/
 
 #energy-demand2{
-    height:960px;
+    height:978px;
 }
 #dateTables2_info{
     display: none;

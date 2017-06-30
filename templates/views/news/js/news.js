@@ -6,9 +6,7 @@ $(function(){
     //存放所有新闻的数组
     var _allNewsArr = [];
     //轮播图
-    $('#myCarousel').carousel({
-        interval: 2000
-    })
+
     //今日/聚焦
     $('.tab-block').on('click','li',function(){
         tabToggle($(this),'tab-active','news-content-active');
@@ -43,22 +41,66 @@ $(function(){
                 success:function(result){
                     //创建轮播图
                     var heightArr = [];
-                    for(var i=0;i<4;i++){
-                        var imgurl = result[i].f_RecommImgName.split('\\');
-                        $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'contain'});
-                        $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(result[i].f_NewsTitle);
-                        $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + result[i].pK_NewsID + '&come=1');
+                    var showArr = result.splice(0,4);
+
+                    var html = '';
+                    var html1 = '';
+                    console.log(showArr.length)
+                    for(var i=0;i<showArr.length;i++){
+
+                        if(i == 0){
+                            html += '<a class="item active" style="height: 100%">' +
+                                ' <div class="img"></div>' +
+                                ' <div class="carousel-caption"></div>' +
+                                '</a>';
+
+                            html1 += '<li data-target="#myCarousel" data-slide-to="1" class="active"></li>'
+                        }else{
+                            html += '<a class="item" style="height: 100%">' +
+                                ' <div class="img"></div>' +
+                                ' <div class="carousel-caption"></div>' +
+                                '</a>';
+
+                            html1 += '<li data-target="#myCarousel" data-slide-to="1" class=""></li>'
+                        }
+
+
+
                     }
+
+                    $('.carousel-inner').html(html);
+
+                    $('.carousel-indicators').html(html1);
+
+
+                    for(var i=0;i<showArr.length;i++){
+
+                        if( showArr[i].f_RecommImgName){
+
+                            var imgurl = showArr[i].f_RecommImgName.split('\\');
+                            $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'contain'});
+                            $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+                            $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                        }else{
+
+                            $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+                            $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                        }
+                    }
+
+                    $('#myCarousel').carousel({
+                        interval: 2000
+                    })
+
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
-                    var info = JSON.parse(jqXHR.responseText).message;
-                    moTaiKuang($('#myModal'),info);
+
                 }
             })
         },
         error:function(jqXHR, textStatus, errorThrown){
-            var info = JSON.parse(jqXHR.responseText).message;
-            moTaiKuang($('#myModal'),info);
+
         }
     })
     /*-------------------------------------------其他的方法---------------------------------*/
@@ -93,8 +135,7 @@ $(function(){
                 $('.loading').hideLoading();
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                moTaiKuang($('#myModal'),info);
+
             }
         })
         //动态创建list方法

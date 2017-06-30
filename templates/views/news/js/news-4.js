@@ -26,8 +26,7 @@ $(function(){
             }
         },
         error:function(jqXHR, textStatus, errorThrown){
-            var info = JSON.parse(jqXHR.responseText).message;
-            moTaiKuang($('#myModal'),info,'flag');
+
         }
     })
     /*--------------------------------------模态框方法--------------------------------------*/

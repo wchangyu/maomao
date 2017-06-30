@@ -17,8 +17,7 @@ $(function(){
                 $('#column').append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                moTaiKuang($('#myModal'),info);
+
             }
         })
     }
@@ -93,8 +92,7 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                moTaiKuang($('#myModal'),info);
+
             }
         })
     }

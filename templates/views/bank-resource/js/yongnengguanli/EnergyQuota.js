@@ -334,10 +334,11 @@ $(document).ready(function() {
                 //console.log(textStatus);
 
                 if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                    ajaxTimeoutTest.abort();
                     myAlter("超时");
+                }else{
+                    myAlter("请求失败！");
                 }
-                myAlter("请求失败！");
+
             }
         });
 

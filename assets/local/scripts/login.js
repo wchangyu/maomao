@@ -69,7 +69,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-                    var url = sessionStorage.apiUrlPrefix + "Account/Login2";
+                    var url = sessionStorage.apiUrlPrefix + "Account/Login";
                     $.ajax({
                         url:url,
                         type:"post",
