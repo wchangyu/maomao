@@ -441,7 +441,7 @@
                             <li class="floatRight">
                                 <div class="labels">车站：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="section">
+                                    <select id="cjz" v-model="section"></select>
                                 </div>
                             </li>
                             <li class="floatLeft">
@@ -493,6 +493,12 @@
                                     <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
                                 </div>
                             </div>
+                            <div>
+                                <div class="labels">维修内容：</div>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="wxremark" id="wxremark"></textarea>
+                                </div>
+                            </div>
                             <div style="margin-top: 10px;">
                                 <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
                                 <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
@@ -505,7 +511,7 @@
                             <span>维修材料</span>
                         </div>
                         <div>
-                            <div class="tableHover" style="z-index: 1">
+                            <div class="tableHover">
                                 <ul class="condition-query">
                                     <li style="width: 133px;">
                                         <div class="cont-col1" style="cursor: pointer">
@@ -521,7 +527,7 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
-                            <div class="tableHover">
+                            <div class="tableHover" style="display: none;">
                                 <ul class="condition-query" style="margin-left: 10px;">
                                     <li style="width: 133px;">
                                         <div class="cont-col1" style="cursor: pointer">
@@ -536,6 +542,7 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </ul>
@@ -611,6 +618,28 @@
             <div class="modal-body">
                 <div class="gongdanContent" style="height: 360px;">
                     <ul class="gongdanList">
+                        <li class="floatLeft" style="position: relative">
+                            <div class="labels">部门：<span class="xzDepartment" style="color: #00b0f0;cursor: pointer">选择部门</span></div>
+                            <div class="input-blockeds">
+                                <input type="text" id="xzmc">
+                            </div>
+                            <div id="tree-block">
+                                <div id="tree-1">
+                                    <ul class="ztree" id="deparmentTree"></ul>
+                                </div>
+                                <div style="background: #ffffff;">
+                                    <button type="button" class="btn btn-default close-tree" style="float: right;">取消</button>
+                                    <button type="button" class="btn btn-info determineDepartment" style="float: right;margin-right: 5px;">确定</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">部门编码：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="zxbm">
+                            </div>
+                        </li>
                         <li class="floatLeft">
                             <div class="labels">姓名：</div>
                             <div class="input-blockeds">
@@ -621,12 +650,6 @@
                             <div class="labels">工号：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxNum">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels">电话：</div>
-                            <div class="input-blockeds">
-                                <input type="text" id="zxPhone">
                             </div>
                         </li>
                         <li class="floatRight">

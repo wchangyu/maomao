@@ -60,6 +60,7 @@ li{
 }
 .news-content{
     margin: 0;
+    float: left;
     background: #ffffff;
     max-height: 400px;
     overflow: hidden;
@@ -94,9 +95,6 @@ li{
 .tab-active-bottom{
     border-bottom: 4px solid #e23838;
 }
-.news-word{
-    overflow: hidden;
-}
 .news-word ul{
     width: 100%;
     border-bottom: none;
@@ -105,16 +103,18 @@ li{
     top:0;
     z-index: 1;
     background: #ffffff;
+    opacity: 0;
 }
 .news-content-active{
-    display: block !important;
+    display: block;
 }
 .item{
     display: block;
     overflow: hidden;
     width: 500px;
     height: 400px;
-
+    /*background: url('http://192.168.1.112/BEEWebAPI/BankNewsImage/594a8bd4c796bf1_w1000_h754.jpg') no-repeat;
+    background-position: center;*/
 }
 .news-content-list{
     border: 1px solid #ececec;

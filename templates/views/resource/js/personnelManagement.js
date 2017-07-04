@@ -28,12 +28,17 @@ $(function(){
             department:'',
             role:'',
             remarks:'',
-            order:''
+            order:'',
+            position:'',
+            pinyin:''
         }
     });
 
-    //获取部门
-    getDepartment();
+    //获取部门(条件选择)
+    getDepartment($('#rybm'),'flag');
+
+    //获取部门（登记的时候）
+    getDepartment($('#djbm'));
 
     //获取角色
     getRole();
@@ -282,8 +287,7 @@ $(function(){
             prm = {
                 "userName":user.username,
                 "userNum":user.jobnumber,
-                "password":user.password='',
-                //"":user.name,
+                "password":user.password,
                 "email":user.email,
                 "phone":user.fixedtelephone,
                 "mobile":user.mobilephone,
@@ -291,9 +295,12 @@ $(function(){
                 "roleNum":user.role,
                 "remark":user.remarks,
                 "sort":user.order,
-                "userID":_userIdName
+                "userID":_userIdName,
+                "pos":user.position,
+                "pinyin":user.pinyin
             };
         }
+        console.log(prm);
         //发送数据
         $.ajax({
             type:'post',
@@ -347,39 +354,10 @@ $(function(){
             disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
             disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
         }
-        //调用查看详情接口
-        /*var prm = {
-
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + '',
-            data:prm,
-            success:function(result){
-                //获取数据
-                //绑定数据
-                user.username='';
-                user.jobnumber='';
-                user.password='';
-                user.confirmpassword='';
-                user.name='';
-                user.email='';
-                user.fixedtelephone='';
-                user.mobilephone='';
-                user.department='';
-                user.role='';
-                user.remarks='';
-                user.order='';
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
-            }
-        })*/
     }
 
     //获取部门
-    function getDepartment(){
+    function getDepartment(el,flag){
         var prm = {
             "departNum": "",
             "departName": "",
@@ -390,12 +368,17 @@ $(function(){
             url:_urls + 'RBAC/rbacGetDeparts',
             data:prm,
             success:function(result){
-                var str = '<option value="0">全部</option>'
+                var str = ''
+                if(flag){
+                    str = '<option value="">全部</option>';
+                }else{
+                    str = '';
+                }
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].departNum +
                         '">' + result[i].departName + '</option>'
                 }
-                $('#rybm').append(str);
+                el.append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;
