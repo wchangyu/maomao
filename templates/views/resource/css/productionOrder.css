@@ -129,7 +129,7 @@
     margin-bottom: 0;
 }
 .progressBar li{
-    margin:17px 0;
+    margin:23px 0;
 }
 .progressNum{
     width: 20px;
@@ -378,7 +378,7 @@ table.dataTable.table-condensed > thead > tr > th{
     float: right;
 }
 .record-title{
-    width: 66px;
+    width: 70px;
     float: left;
     font-weight: bold;
 }

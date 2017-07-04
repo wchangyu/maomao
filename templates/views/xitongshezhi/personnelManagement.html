@@ -304,7 +304,7 @@
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
                                             </div>
                                         </div>
                                     </li>
@@ -408,69 +408,68 @@
                         <validator name="validation">
                             <form novalidate>
                                 <li class="floatLeft">
-                                    <div class="labels">用户名：<span v-show="$validation.username.notempty" style="display: none">请输入用户名</span></div>
+                                    <div class="labels colorTip">用户名：<span v-show="$validation.username.notempty" style="display: none">请输入用户名</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="username" v-validate:username= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">工号：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入工号</span></div>
+                                    <div class="labels colorTip">工号：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入工号</span><span class="jobNumberExists" style="display: none">输入的工号已存在</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="jobnumber" v-validate:jobnumber= "['notempty']" initial='off'>
+                                        <input type="text" v-model="jobnumber" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">密码：<span v-show="$validation.password.notempty" style="display: none">请输入密码</span></div>
+                                    <div class="labels colorTip">密码：<span v-show="$validation.password.notempty" style="display: none">请输入密码</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="password" v-validate:password= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">确认密码：<span v-show="$validation.confirmpassword.notempty" style="display: none">请确认密码</span></div>
+                                    <div class="labels colorTip">确认密码：<span style="display: none" v-show="$validation.confirmpassword.notempty">请确认密码</span><span class="confirmpassword"></span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="confirmpassword" v-validate:confirmpassword= "['notempty']" initial='off'>
+                                        <input type="text" v-model="confirmpassword" @keyup="keyUp()" v-validate:confirmpassword= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">职位：<span v-show="$validation.position.notempty" style="display: none">请输入姓名</span></div>
+                                    <div class="labels colorTip">职位：<span v-show="$validation.position.notempty" style="display: none">请输入职位</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="position" v-validate:position= "['notempty']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatRight">
-                                    <div class="labels">邮箱：<span v-show="$validation.email.notempty" style="display: none">请输入职位</span></div>
+                                <li class="floatRight colorTip">
+                                    <div class="labels">邮箱：<span style="display: none">请输入正确邮箱</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="email" v-validate:email= "['notempty']" initial='off'>
+                                        <input type="text" v-model="email">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">电话：<span v-show="$validation.fixedtelephone.notempty" style="display: none">请输入电话</span></div>
+                                    <div class="labels colorTip">电话：<span v-show="$validation.fixedtelephone.notempty" style="display: none">请输入电话</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="fixedtelephone" v-validate:fixedtelephone= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">手机：<span v-show="$validation.mobilephone.notempty" style="display: none">请输入手机</span></div>
+                                    <div class="labels colorTip">手机：<span v-show="$validation.mobilephone.notempty" style="display: none">请输入手机</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="mobilephone" v-validate:mobilephone= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">拼音：<span v-show="$validation.Pinyin.notempty" style="display: none">请输入电话</span></div>
+                                    <div class="labels colorTip">拼音：<span v-show="$validation.pinyin.notempty" style="display: none">请输入拼音</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="Pinyin" v-validate:Pinyin= "['notempty']" initial='off'>
+                                        <input type="text" v-model="pinyin" v-validate:pinyin= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">部门：</div>
+                                    <div class="labels colorTip">部门：</div>
                                     <div class="input-blockeds">
                                         <select v-model="department" id="djbm">
-
                                         </select>
                                     </div>
                                 </li>
                                 <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">角色：</div>
+                                    <div class="labels colorTip">角色：</div>
                                     <div class="input-blockeds">
                                         <select v-model="role">
                                             <option value="1" selected>一级任务</option>
@@ -481,7 +480,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">排序：</div>
+                                    <div class="labels colorTip">排序：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="order" placeholder="请填写数字">
                                     </div>

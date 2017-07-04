@@ -286,7 +286,7 @@
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
                                             </div>
                                         </div>
                                     </li>
@@ -378,8 +378,8 @@
 <!--弹窗-->
 <!--新增用户-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 434px;width: 332px !important;">
-        <div class="modal-content" style="height: 434px;width: 332px !important;">
+    <div class="modal-dialog" style="height: 494px;width: 332px !important;">
+        <div class="modal-content" style="height: 494px;width: 332px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">新增用户</h4>
@@ -390,6 +390,12 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
+                                <div class="labels">部门编码：<span style="display: none" class="isExist">编码已存在</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="num" @keyup="keyUp()" placeholder="可填写，可自动生成">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
                                 <div class="labels">部门名：<span v-show="$validation.username.notempty" style="display: none">请输入用户名</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="name" v-validate:username= "['notempty']" initial='off'>
@@ -399,10 +405,9 @@
                                 <div class="labels">上级部门：</div>
                                 <div class="input-blockeds">
                                     <select v-model="higherdepartment">
-                                        <option value="1" selected>一级任务</option>
-                                        <option value="2">二级任务</option>
-                                        <option value="3">三级任务</option>
-                                        <option value="4">四级任务</option>
+                                        <option v-for="option in option" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
                                     </select>
                                 </div>
                             </li>
