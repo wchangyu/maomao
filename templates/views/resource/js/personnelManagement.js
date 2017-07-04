@@ -13,6 +13,12 @@ $(function(){
         return /[^.\s]{1,500}$/.test(val)
     });
 
+    //邮箱验证
+    Vue.validator('emailFormat',function(val){
+        val=val.replace(/^\s+|\s+$/g,'');
+        return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(val);
+    })
+
     //新增用户登记对象
     var user = new Vue({
         el:'#user',
@@ -31,6 +37,31 @@ $(function(){
             order:'',
             position:'',
             pinyin:''
+        },
+        methods:{
+            keyUp:function(){
+                if( user.password != user.confirmpassword ){
+                    $('.confirmpassword').show().html('两次输入密码不一致！');
+                    if( user.confirmpassword == '' ){
+                        $('.confirmpassword').hide();
+                    }
+                }else{
+                    $('.confirmpassword').hide();
+                }
+            },
+            keyUpJob:function(){
+                var existFlag = false;
+                for(var i=0;i<_allPersonalArr.length;i++){
+                    if(_allPersonalArr[i].userNum == user.jobnumber){
+                        existFlag = true;
+                    }
+                }
+                if(existFlag){
+                    $('.jobNumberExists').show();
+                }else{
+                    $('.jobNumberExists').hide();
+                }
+            }
         }
     });
 
@@ -152,7 +183,7 @@ $(function(){
         user.email='';
         user.fixedtelephone='';
         user.mobilephone='';
-        user.department='';
+        user.department=$('#djbm').children('option:selected').attr('value');
         user.role='';
         user.remarks='';
         user.order= '';
@@ -166,12 +197,12 @@ $(function(){
             editOrView('RBAC/rbacAddUser','登记成功!','登记失败!');
         })
         //编辑确定按钮功能
-        .on('click','bianji',function(){
+        .on('click','.bianji',function(){
             //发送请求
             editOrView('RBAC/rbacUptUser','编辑成功!','编辑失败!');
         })
         //删除确定按钮功能
-        .on('click','shanchu',function(){
+        .on('click','.shanchu',function(){
             //发送请求
             editOrView('RBAC/rbacDelUser','删除成功!','删除失败!','false');
         })
@@ -300,7 +331,6 @@ $(function(){
                 "pinyin":user.pinyin
             };
         }
-        console.log(prm);
         //发送数据
         $.ajax({
             type:'post',
@@ -315,6 +345,7 @@ $(function(){
                     //提示登记失败
                     tipInfo($('#myModal1'),'提示',errorMeg,'flag');
                 }
+                conditionSelect();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;

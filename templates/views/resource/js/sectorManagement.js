@@ -17,9 +17,26 @@ $(function(){
     var department = new Vue({
         el:'#department',
         data:{
+            num:'',
             name:'',
             higherdepartment:'',
+            option:[],
             order:''
+        },
+        methods:{
+            keyUp:function(){
+                var existFlag = false;
+                for(var i=0;i<_allDepartmentArr.length;i++){
+                    if(_allDepartmentArr[i].departNum == department.num){
+                        existFlag = true;
+                    }
+                }
+                if(existFlag){
+                    $('.isExist').show();
+                }else{
+                    $('.isExist').hide();
+                }
+            }
         }
     })
 
@@ -102,7 +119,7 @@ $(function(){
         moTaiKuang($('#myModal'),'新增');
         //初始化登记表
         department.name='';
-        department.higherdepartment='';
+        department.higherdepartment=department.option[0].value;
         department.order=''
     });
 
@@ -111,17 +128,17 @@ $(function(){
         //登记确定按钮功能
         .on('click','.dengji',function(){
             //发送请求
-            editOrView('','登记成功!','登记失败!');
+            editOrView('RBAC/rbacAddDepart','登记成功!','登记失败!');
         })
         //编辑确定按钮功能
-        .on('click','bianji',function(){
+        .on('click','.bianji',function(){
             //发送请求
-            editOrView('','编辑成功!','编辑失败!');
+            editOrView('RBAC/rbacUptDepart','编辑成功!','编辑失败!');
         })
         //删除确定按钮功能
-        .on('click','shanchu',function(){
+        .on('click','.shanchu',function(){
             //发送请求
-            editOrView('','删除成功!','删除失败!','false');
+            editOrView('RBAC/rbacDelDepart','删除成功!','删除失败!','flag');
         });
 
     //表格操作
@@ -178,7 +195,7 @@ $(function(){
         who.find('.modal-body').html(meg);
     }
 
-    //获取条件查询
+    //获取条件查询flagy用来标识是所有列表还是下拉框
     function conditionSelect(){
         //获取条件
         var filterInput = [];
@@ -200,6 +217,15 @@ $(function(){
                     _allDepartmentArr.push(result[i]);
                 }
                 datasTable($('#personal-table'),result);
+                for(var i=0;i<result.length;i++){
+                    if(result[i].parentNum == ''){
+                        var obj = {};
+                        obj.text = result[i].departName;
+                        obj.value = result[i].departNum;
+                        department.option.push(obj);
+                    }
+                }
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;
@@ -225,14 +251,21 @@ $(function(){
     function editOrView(url,successMeg,errorMeg,flag){
         //判断是编辑、登记、还是删除
         if(flag){
-            var prm = {};
+            var prm = {
+                "departNum":department.num,
+                "departName":department.name,
+                "userID":_userIdName
+            };
         }else{
             var prm = {
-                "":department.name,
-                "":department.higherdepartment,
-                "":department.order
+                "departNum":department.num,
+                "departName":department.name,
+                "parentNum":department.higherdepartment,
+                "sort":department.order,
+                "userID":_userIdName
             };
         }
+        console.log(prm);
         //发送数据
         $.ajax({
             type:'post',
@@ -247,6 +280,7 @@ $(function(){
                     //提示登记失败
                     tipInfo($('#myModal1'),'提示',errorMeg,'flag');
                 }
+                conditionSelect();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;
@@ -257,10 +291,10 @@ $(function(){
 
     //查看、删除绑定数据
     function bindingData(el,flag){
-        var thisBM = el.parent('tr').children('.departNum').html();
-        console.log(_allDepartmentArr);
+        var thisBM = el.parents('tr').children('.departNum').html();
         for(var i=0;i<_allDepartmentArr.length;i++){
             if( _allDepartmentArr[i].departNum == thisBM ){
+                department.num = _allDepartmentArr[i].departNum;
                 department.name = _allDepartmentArr[i].departName;
                 department.higherdepartment = _allDepartmentArr[i].parentNum;
                 department.order = _allDepartmentArr[i].sort
@@ -278,4 +312,6 @@ $(function(){
             disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
         }
     }
+
+
 })
