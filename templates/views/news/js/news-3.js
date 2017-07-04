@@ -68,7 +68,21 @@ $(function(){
                     },
                     {
                         title:'作者',
-                        data:'f_PublishUser'
+                        data:'f_Author'
+                    },
+                    {
+                        title:'是否推荐',
+                        data:'f_IsRecommend',
+                        render:function(data, type, row, meta){
+
+                            if(data == 1){
+
+                                return '已推荐';
+                            }else{
+                                return '未推荐'
+                            }
+                        }
+
                     },
                     {
                         title:'操作',
@@ -95,9 +109,10 @@ $(function(){
                 ]
             });
             //表格区域设置样式
-            $('.main-contents-table').addClass('tableHover');
-            $('.main-contents-table').eq(0).removeClass('tableHover');
+            $('.main-contents-table').hide();
+            $('.main-contents-table').eq(0).show();
             //轮流赋值
+            console.log(result);
             for(var i=0;i<result.length;i++){
                 var tableBlock = $('.table').eq(i);
                 datasTable(tableBlock,result[i].newsContents);
@@ -114,8 +129,8 @@ $(function(){
         $(this).parent().children('span').removeClass('spanhover');
         $(this).addClass('spanhover');
         var list = $(this).parent().next().children();
-        list.addClass('tableHover');
-        list.eq($(this).index()).removeClass('tableHover');
+        list.hide();
+        list.eq($(this).index()).show();
     });
     //删除
     $('.tableBlock').on('click','.option-delete',function(){

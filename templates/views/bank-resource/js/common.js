@@ -22,6 +22,8 @@ $('.modal-footer .btn-default').on('click',function(){
         $(this).parent().parent().parent().find('input').val('');
 
 });
+//点击页面空白处，无法关闭模态框
+$('.modal').attr('data-backdrop','static');
 
 //给表格加入数据
 function setData(){

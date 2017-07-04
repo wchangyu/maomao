@@ -47,21 +47,22 @@ $(function(){
                     var html1 = '';
                     console.log(showArr.length)
                     for(var i=0;i<showArr.length;i++){
-
                         if(i == 0){
                             html += '<a class="item active" style="height: 100%">' +
                                 ' <div class="img"></div>' +
                                 ' <div class="carousel-caption"></div>' +
                                 '</a>';
 
-                            html1 += '<li data-target="#myCarousel" data-slide-to="1" class="active"></li>'
+
+
+                            html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
                         }else{
                             html += '<a class="item" style="height: 100%">' +
                                 ' <div class="img"></div>' +
                                 ' <div class="carousel-caption"></div>' +
                                 '</a>';
 
-                            html1 += '<li data-target="#myCarousel" data-slide-to="1" class=""></li>'
+                            html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class=""></li>'
                         }
 
 
@@ -140,6 +141,7 @@ $(function(){
         })
         //动态创建list方法
         function creatEle(result,attr,liBlock,ulList,flag){
+            console.log(result);
             for(var i=0;i<result[attr].length;i++){
                 //创建tab li 的字符串
                 var topRightLi = '';
@@ -159,8 +161,8 @@ $(function(){
                         var newsList = '';
                         if(flag){
                             var lengths = 0
-                            if(_allNewsArr[j].newsContents.length>10){
-                                lengths = 10;
+                            if(_allNewsArr[j].newsContents.length>5){
+                                lengths = 5;
                             }else{
                                 lengths = _allNewsArr[j].newsContents.length;
                             }
@@ -171,7 +173,13 @@ $(function(){
                                 ulList.find('.news-content').eq(i).append(newsList);
                             }
                         }else{
-                            for(var z=0;z<_allNewsArr[j].newsContents.length;z++){
+                            var lengths = 0
+                            if(_allNewsArr[j].newsContents.length>5){
+                                lengths = 5;
+                            }else{
+                                lengths = _allNewsArr[j].newsContents.length;
+                            }
+                            for(var z=0;z<lengths;z++){
                                 newsList = ''
                                 newsList += '<li><a href="./news-4.html?id=' + _allNewsArr[j].newsContents[z].pK_NewsID + '&come=1' +
                                     '"><h3>' + _allNewsArr[j].newsContents[z].f_NewsTitle + '</h3></a></li>';

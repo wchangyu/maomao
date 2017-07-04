@@ -66,3 +66,11 @@ table.dataTable tbody th, table.dataTable tbody td {
 .table span{
     cursor: pointer;
 }
+#dateTables{
+    min-width:1000px;
+}
+
+#dateTables_wrapper{
+    width:100%;
+    overflow: auto;
+}

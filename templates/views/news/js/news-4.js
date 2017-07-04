@@ -22,7 +22,9 @@ $(function(){
                 //描述
                 $('.desc').html(result.f_NewsDesc);
                 //内容
-                $('.content').append(result.f_NewsContent);
+                var str = result.f_NewsContent;
+                str = str.replace(/&nbsp./g, "&nbsp;");
+                $('.content').append(str);
             }
         },
         error:function(jqXHR, textStatus, errorThrown){

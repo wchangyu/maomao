@@ -430,10 +430,11 @@ function getStartData(){
             //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
                 myAlter("超时");
+            }else{
+                myAlter("请求失败！");
             }
-            myAlter("请求失败！");
+
         }
     });
 
@@ -544,10 +545,11 @@ function getMainData(){
             //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
                 myAlter("超时");
+            }else{
+                myAlter("请求失败！");
             }
-            myAlter("请求失败！");
+
         }
     });
 };
@@ -559,6 +561,19 @@ function changeData(){
         var data = $(this).val();
 
         if(data == '' || isNaN(data) ||　data < 0){
+
+            setTimeout(function(){
+
+                for(var i=0; i<$('.month-data').length; i++){
+
+                    var isFocus=$('.month-data').eq(i).is(":focus");
+                    if(isFocus){
+                        $('.month-data').eq(i).blur();
+                    }
+                }
+
+            },5);
+
             myAlter('请输入正确数据');
             getFocus1($(this));
 

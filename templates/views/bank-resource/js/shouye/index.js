@@ -436,6 +436,8 @@ $(document).ready(function(){
     //点击能耗分析中单位构成下的切换按钮
     $('.unit-form .top-cut li a').on('click',function(){
 
+        if($(this).parent().prop('class') != 'showData')
+
         getUnitFormData();
     });
 
@@ -674,7 +676,7 @@ function getEnergyStatistics(){
                         arrows = '<p class="percentage">' + percentage.toFixed(1) + '%</p>'
                     }
 
-                    html += '<div class="small-part col-lg-4 col-md-12 col-sm-12 col-xs-12">' +
+                    html += '<div class="small-part col-lg-4 col-md-4 col-sm-6 col-xs-6">' +
                         '	<div class="small-part-content">' +
                         '		<p class="amout">' +
                         '			<b>' + o.currentEnergyData.toFixed(1) + '</b>' +
@@ -714,7 +716,7 @@ function getEnergyStatistics(){
                             arrows = '<p class="percentage">'+ percentage.toFixed(1)+'%</p>'
                         }
 
-                        html1 +='<div class="small-part col-lg-4 col-md-12 col-sm-12 col-xs-12">' +
+                        html1 +='<div class="small-part col-lg-4 col-md-4 col-sm-6 col-xs-6">' +
                             '	<div class="small-part-content">' +
                             '		<p class="amout">' +
                             '			<b>'+ o.currentEnergyData.toFixed(1)+'</b>' +
@@ -978,7 +980,7 @@ option1 = {
                     },
                     //以下为是否显示
                     label: {
-                        show: false
+                        show: true
                     }
                 }
             }
@@ -1157,7 +1159,7 @@ option2 = {
     ],
     series : [
         {
-            name: '',
+            name: '666',
             type: 'bar',
             data: [18203, 23489, 29034, 104970, 131744, 630230],
             markLine: {
@@ -1959,6 +1961,41 @@ function getAllBankName(){
 
 }
 
+//单位构成中显示数据按钮
+$('.top-cut .showData').on('click',function(){
+
+    $(this).parents('.specific-data').find('.show-main').children().eq(0).css({
+        display:'none'
+    });
+
+    $(this).parents('.specific-data').find('.show-main').children().eq(1).css({
+        display:'none'
+    });
+
+    var txt = $(this).html();
+    if(txt == '显示数据'){
+
+        $(this).parent().find('.onClicks').click();
+
+        $(this).parents('.specific-data').find('.show-main').children().eq(1).css({
+            display:'block'
+        });
+
+        $(this).html('显示图表');
+    }else if(txt == '显示图表'){
+        $(this).parents('.specific-data').find('.show-main').children().eq(0).css({
+            display:'block'
+        });
+
+        $(this).parent().find('.onClicks').click();
+
+        $(this).html('显示数据');
+
+    }
+
+
+
+});
 
 
 //点击切换按钮时
@@ -1977,6 +2014,18 @@ $('.top-cut li a').on('click',function(){
 window.onresize = function () {
     if(myChart ){
         myChart.resize();
-
     }
+    if(myChart1 ){
+        myChart1.resize();
+    }
+    if(myChart2 ){
+        myChart2.resize();
+    }
+    if(myChart3 ){
+        myChart3.resize();
+    }
+    if(myChart4 ){
+        myChart4.resize();
+    }
+
 };

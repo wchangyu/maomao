@@ -885,7 +885,7 @@ option = {
             name: '访问来源',
             type: 'pie',
             radius : '95%',
-            center: ['40%', '50%'],
+            center: ['50%', '50%'],
             data:[
                 {value:335, name:'昼'},
                 {value:310, name:'夜'}

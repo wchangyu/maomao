@@ -81,6 +81,7 @@ h3 span{
 .small-part{
     height:100px;
     position: relative;
+    min-width:210px;
 }
 .small-part-content{
     padding-top:16px;
@@ -211,8 +212,21 @@ h3 span{
 #energy-analyze .specific-data{
 
 }
+.top-cut .showData{
+    cursor: pointer;
+
+}
+.top-cut .showData:hover{
+
+    color:darkorange;
+    border-bottom:1px solid darkorange;
+}
 .top-cut{
     padding-top:15px;
+}
+.top-cut .showData{
+    border-bottom:1px solid #333;
+    line-height:17px;
 }
 .top-cut select{
     /*padding-left:10px;*/
@@ -268,6 +282,7 @@ h3 span{
     /*display: none;*/
     display: block;
 }
+
 
 #energy-analyze .energy-rank{
     display: none;

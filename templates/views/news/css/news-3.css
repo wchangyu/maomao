@@ -31,8 +31,7 @@ li{
     background: #ffffff !important;
 }
 .tableHover{
-    z-index: 0 !important;
-    opacity: 0 !important;
+    display: none;
 }
 .main-contents-table{
     background: #ffffff;
@@ -40,10 +39,8 @@ li{
     padding: 20px;
     border:1px solid #ccc;
     border-top: none;
-    position: absolute;
-    top: 38px;left: 0;
     width: 100%;
-    z-index: 2;
+    float:left;
 }
 .hide-block{
     opacity: 0 !important;
