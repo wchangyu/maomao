@@ -69,7 +69,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-                    var url = sessionStorage.apiUrlPrefix + "Account/Login";
+                    var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,
                         type:"post",
@@ -88,6 +88,9 @@ var Login = function() {
                                     localStorage.BEE_userpassword = password;
                                 }
                                 sessionStorage.userName=name1;
+                                if(res.userName){
+                                    sessionStorage.realUserName = res.userName;
+                                }
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();
