@@ -1,5 +1,6 @@
 /**
  * Created by went on 2016/8/2.
+ * 2017/7/6 添加modbus支持
  */
 var userMonitor = (function(){
 
@@ -772,7 +773,7 @@ var userMonitor = (function(){
             }else{
                 alertMessage("没有权限");
             }
-        }else if(procDef.cType == 100){     //空调温控面板设置
+        }else if(procDef.cType == 100 || procDef.cType==99){     //空调温控面板设置，modbus
             if(_hasControlAuth){
                 _airClickPos = getMousePos();       //获取当前的鼠标点，保存
                 $.ajax({
@@ -785,10 +786,18 @@ var userMonitor = (function(){
                     success:function(data){
                         if(!data){ return; }
                         _isOperating = true;
-                        if(data.flag){       //绘制空调面板
+                        if(data.flag==1){       //绘制空调面板
                             drawControls(data.prDefId,_airClickPos[0],_airClickPos[1],true);
-                        }else{      //绘制控制面板
-                            drawControls(data.prDefId,_airClickPos[0],_airClickPos[1]);
+                        }else if(data.flag==2){      //绘制控制面板
+                            var curCtrlstmp = _.findWhere(_procCtrls,{'prDefId':data.prDefId});
+                            var curCtrls = (_.sortBy(curCtrlstmp,'showOrder')).reverse();
+                            if(!curCtrls || curCtrls.length==0){
+                                //绘制modbus面板
+                                drawModbusPanel(data.prDefId,data.inputDataNum,_airClickPos[0],_airClickPos[1]);
+                            }else{
+                                drawControls(data.prDefId,_airClickPos[0],_airClickPos[1]);
+                            }
+
                         }
                     },
                     error:function(xhr,res,err){ logAjaxError("GetAirPtProp" , err); }
@@ -1157,7 +1166,114 @@ var userMonitor = (function(){
         $tdButtons.append($btnOK);$tdButtons.append($btnCancel);
         $trButtons.append($tdButtons);
         $trButtons.appendTo($table);
+        $divCtrls.append($table);
+        setDivControlsVisible(true);
     };
+
+    //绘制modbus的控制面板
+    var drawModbusPanel = function(prDefId,inputDataNum,left,top){
+        var $contentmain = $("#content-main-right");
+        var $divCtrls = setCtrlPanel($contentmain,left,top);
+        if($divCtrls.attr("data-prdefid") == prDefId && $divCtrls.attr("data-ctrltype") == "modbus" ){      //如果当前的def控制已经绘制，直接显示
+            setDivControlsVisible(true);
+            return;
+        }
+        $divCtrls.attr("data-prdefid",prDefId);     //设置当前divCtrls的defID
+        $divCtrls.attr("data-ctrltype","modbus");
+        $divCtrls.empty();
+        $divCtrls.css({"width":"300px","height":"300px"});
+        var $table = $("<table>");      //生成显示table
+        var prd = _.findWhere(_procDefs,{"prDefId":prDefId});
+        var title = "输入值(回车换行):";
+        if(prd){
+            title = prd.prDefNM + " " + title;
+        }
+        var $caption = $("<caption style='font-size:12px;color:blue;'>输入值</caption>");
+        $table.append($caption);
+        var $btnOK = $("<button>"),$btnCancel = $("<button>");
+        $btnOK.attr("data-prdefid",prDefId);
+        $btnOK.attr("data-inputnum",inputDataNum);
+        var $tr = $("<tr>"),$td = $("<td>");        //输入提示行
+        $td.css("text-align","center");
+        var htmlName = '<span>' + title + '</span>';
+        $td.append(htmlName);
+        $td.appendTo($tr);
+        $tr.appendTo($table);
+
+        var $tr1 = $("<tr>"),$td1 = $("<td>");        //输入提示行
+        $td1.css("text-align","center");
+        var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="36" rows="10"  wrap="physical" autofocus></textarea>';
+        $td1.append(htmlTextarea);
+        $td1.appendTo($tr1);
+        $tr1.appendTo($table);
+        var $tr2 = $("<tr>"),$td2 = $("<td>");        //输入提示行
+        $td2.css("text-align","left");
+        var htmlP = "<p id='ctrl-panel-p' style='font-weight: bold;color:red;'>读取数据的最大行数:(" + inputDataNum +  ")</p>";
+        $td2.append(htmlP);
+        $tr2.append($td2);
+        $tr2.appendTo($table);
+
+        var $trButtons = $("<tr>"),$tdButtons = $("<td>");         //确定 取消 按钮列
+        $tdButtons.css("text-align","right");
+        $btnOK.addClass("btn").addClass("btn-default");         //设置按钮的样式
+        $btnCancel.addClass("btn").addClass("btn-default");
+        var btnStyle = {
+            "padding" : "0 0",
+            "background-color" : "#09a4d8",
+            "color" : "#0000FF",
+            "width" : "100px",
+            "height" : "24px"
+        };
+        $btnOK.css(btnStyle);$btnOK.html("确定");
+        $btnCancel.css(btnStyle);$btnCancel.html("取消");
+        $btnCancel.on("click",function(){ setDivControlsVisible(false);});       //cancel按钮关闭当前
+
+        $btnOK.on("click",function(){
+            var taVal = $("#ctrl-panel-textarea").val();
+            if(!taVal){alertMessage("请输入值!");return;}
+            var prDefId = $(this).attr("data-prdefid");
+            var inputDataNum = $(this).attr("data-inputnum");
+            //检验换行符的个数
+            var reg=/\n|\r/g;
+            var arr = taVal.split('\n');
+            var isAllNum = true;
+            var paras = "";     //指令字符串
+            for(var i= 0,len = arr.length;i<len && i<inputDataNum;i++){      //判断每行是不是数字
+                if(arr[i] != +arr[i] && i<(len-1)){
+                    isAllNum = false;
+                    alertMessage('第'+(i+1) + '行不是数字');
+                    break;
+                }
+                paras += arr[i] + ",";
+            }
+            if(isAllNum && paras!=""){
+                var prd = _.findWhere(_procDefs,{"prDefId":prDefId});
+                paras = paras.substring(0,paras.length - 1);
+                $.ajax({
+                    type:'post',
+                    data:{
+                        "setValue" : paras,
+                        "CKID" : prd.ckId,
+                        "ctype" : prd.cType
+                    },
+                    url:_urlPrefix + "PR/SendCtrlCommand",
+                    success:function(data){
+                        setDivControlsVisible(false);
+                    },
+                    error:function(xhr,res,err){
+                        logAjaxError("SendModbusCmd",err);
+                        alertMessage("发送指令失败!");
+                    }
+                }
+                );
+            }
+        });
+        $tdButtons.append($btnOK);$tdButtons.append($btnCancel);
+        $trButtons.append($tdButtons);
+        $trButtons.appendTo($table);
+        $divCtrls.append($table);
+        setDivControlsVisible(true);
+    }
 
     //设置主面板的点击事件，隐藏面板
     function setMainClick($contentmain,panelId){//鼠标移除隐藏事件
@@ -1213,8 +1329,8 @@ var userMonitor = (function(){
         var $btn = $("<button>");
         $btn.html(temp);
         $btn.attr("name",temp);
-        $btn.width(baseWidth + "px");
-        $btn.height(baseHeight + "px");
+        $btn.css("height",baseHeight + "px");
+        $btn.css("width",baseWidth + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");
@@ -1258,8 +1374,8 @@ var userMonitor = (function(){
         var $btn = $("<button>");
         $btn.html(curCtrl.text);
         $btn.attr("id",curCtrl.id);
-        $btn.width(baseWidth + "px");
-        $btn.height(baseHeight + "px");
+        $btn.css("height",baseHeight + "px");
+        $btn.css("width",baseWidth + "px");
         $btn.addClass("btn");
         $btn.addClass("btn-default");
         $btn.css("padding","0 0");

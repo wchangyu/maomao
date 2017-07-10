@@ -63,9 +63,9 @@
       "暖通空调系统":{
         "type":"0",
         "content":"暖通空调系统",
-        "uri":"../yongnengjiance/energyMonitor.html?a=3",
+        "uri":"../yongnengjiance/energyMonitor.html?a=4",
         "uid":"",
-        "arg":"0,0",
+        "arg":"2,8",
         "iconclass":""
       },
       "给排水系统":{
