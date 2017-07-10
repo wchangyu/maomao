@@ -276,8 +276,8 @@
                             <!--下方数据展示-->
                             <div class="content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <!--头部数据信息-->
-                                <div class="show-header">
-                                    <ul class="left-cut">
+                                <div class="show-header" style="height:auto">
+                                    <ul class="left-cut" style="float: left">
                                         <li>
                                             <a href="javascript:;" class="onClick">能耗曲线</a>
                                         </li>
@@ -293,24 +293,24 @@
                                         <li>
                                             <a href="javascript:;">冷却塔电耗曲线</a>
                                         </li>
+                                        <div class="clearfix"></div>
                                     </ul>
-                                    <ul class="show-header-right">
+                                    <ul class="show-header-right" style="">
                                         <li class="header-right-lists header-right-lists-1">
                                         </li>
                                         <li class="header-right-lists">单位：<span></span></li>
                                         <li class="header-right-lists right-text" ></li>
                                         <li class="text-content">还记得你说家是唯一的城堡，随着稻香河流继续奔跑，微微笑，小时候的梦我知道，不要哭让萤火虫带着我逃跑，乡间的歌谣永远的依靠。回家吧，回到最初的美好。</li>
+                                        <div class="clearfix"></div>
                                     </ul>
+                                    <div class="clearfix"></div>
                                 </div>
 
                                 <!--主题chart图-->
                                 <div class="show-main row" >
-                                    <!--左侧chart图-->
-                                    <div class="main-data col-lg-9 col-md-12 col-sm-12 col-xs-12" id="energy-demand">
 
-                                    </div>
                                     <!--右侧数据框-->
-                                    <div class="L-right col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="L-right" style="width:300px;float: right">
                                         <div class="rheader-content-right">
                                             <div class="rheader-content-rights">
                                                 <!-- 累计耗电标题 -->
@@ -338,15 +338,14 @@
                                         </div>
                                     </div>
 
-
-
                                     <!--左侧chart图-->
-                                    <div class="main-data col-lg-5 col-md-12 col-sm-12 col-xs-12" id="energy-demand1">
+                                    <div class="main-data" id="energy-demand" style="margin-right:300px;">
 
                                     </div>
 
+
                                     <!--右侧chart图-->
-                                    <div class="main-data col-lg-7 col-md-12 col-sm-12 col-xs-12" id="energy-demand2">
+                                    <div class="main-data" style="width:800px;float: right" id="energy-demand2">
                                         <h3 class="the-title">冷站节能潜力分析</h3>
                                         <!--空调冷站-->
                                         <div style="width:700px;margin:100px auto;" class="ruler-box ruler-box1">
@@ -437,6 +436,13 @@
                                         </div>
 
                                     </div>
+
+
+                                    <!--左侧chart图-->
+                                    <div class="main-data" style="margin-right:800px;"  id="energy-demand1">
+
+                                    </div>
+
 
                                     <div class="clearfix"></div>
                                 </div>

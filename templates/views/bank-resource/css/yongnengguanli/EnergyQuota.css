@@ -23,3 +23,17 @@ table.dataTable tbody th, table.dataTable tbody td {
     color:red;
     font-size:14px;
 }
+
+#dateTables{
+    min-width:1000px;
+}
+
+#dateTables_wrapper{
+    width:100%;
+    overflow: auto;
+}
+
+input:focus{
+    outline: 2px solid #27a9d4 ;
+    outline:-webkit-focus-ring-color auto 5px;
+}

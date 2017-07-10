@@ -67,9 +67,9 @@ $(function(){
                 "data": 'wxRQZ',
                 render:function(data, type, row, meta){
                     if(data == 1){
-                        return "<div class='checker'><span class='checked'><input type='checkbox'></span></div>"
+                        return "<div class='checker'><span class='checked'><input type='checkbox' disabled='disabled'></span></div>"
                     }else{
-                        return "<div class='checker'><span><input type='checkbox'></span></div>"
+                        return "<div class='checker'><span><input type='checkbox' disabled='disabled'></span></div>"
                     }
                 }
             },

@@ -44,8 +44,10 @@
     <!--非框架中的样式-->
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/common.css"/>
-    <link rel="stylesheet" href="../bank-resource/css/yongnengguanli/EnergyEfficientRank.css"/>
+    <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
+
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/DeviceType.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -223,7 +225,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                 </div>
             </div>
@@ -231,98 +232,39 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="total-warp container">
-                        <div class="wrap row">
-                            <!--上方条件搜索-->
-                            <div class="content-main-top col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="condition-query refer-unit-table">
-
-                                    <li>
-                                        <label for="">能效：</label>
-
-                                        <select name="" id="energy-type" class="energy-type" >
-                                            <option value="1">空调冷站能效</option>
-                                            <option value="2">信息机房PUE</option>
-                                        </select>
-
-
-                                    </li>
-
-                                    <li>
-                                        <label for="">时间：</label>
-
-                                        <select name="" id="post-date" class="datatimeblock person-type" >
-
-                                            <option >本月</option>
-                                            <option >上月</option>
-                                            <option >本年</option>
-                                            <option >上年</option>
-                                            <option  class="custom-time">自定义</option>
-                                        </select>
-
-                                        <input  class="show-date"/>
-
-                                    </li>
-
-
-                                    <li><button class="top-btn top-refer" style="margin-right:20px">确定</button></li>
-                                    <li><button class="top-btn top-refer" style="margin-right:20px">取消</button></li>
-
-                                    <div class="clearfix"></div>
+                    <!--外部包裹-->
+                    <div class="out-content">
+                        <!--内部包裹-->
+                        <div class="inner-content">
+                            <!--页面主体-->
+                            <div class="main-content">
+                                <!--头部横条-->
+                                <ul class="main-content-header">
+                                    <li class="main-content-header-lists0">计量设备类型列表</li>
                                 </ul>
-                            </div>
 
-                            <!--下方数据展示-->
-                            <div class="content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <!--头部数据信息-->
-                                <div class="show-header">
-                                    <span class="show-title1">四川央行 </span>
-                                    <span class="show-title2"> 总用单位面积标煤 </span>
-                                    <span class="show-title3" style=""> </span>
-                                    <ul class="show-header-right">
-                                        <li class="header-right-lists header-right-lists-1">
-                                        </li>
-                                        <li class="header-right-lists">单位：<span></span></li>
-                                    </ul>
+                                <!--具体内容-->
+                                <!--搜索部分-->
+                                <div class="main-content-body row">
+
+                                    <div class="col-md-3" style="margin-bottom:20px;">
+                                        <button class="top-btn window-btn top-add" data-toggle='modal' data-target='#add-measure'
+                                                style="margin-left:30px;">添加</button>
+
+                                    </div>
                                 </div>
-
-                                <!--主题chart图-->
-                                <div class="show-main row" >
-                                    <!--右侧数据框-->
-                                    <div class="L-right" style="width:250px;float: right">
-                                        <div class="rheader-content-right1">
-                                            <div class="rheader-content-rights1 content-rightss-one-1">
-                                                <!-- 最大值比最小值 -->
-                                                <p class="maxValue">最大值</p>
-                                                <p></p>
-                                                <p class="minValue">最小值</p>
-                                                <span class="proportion1">=0</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <!--左侧chart图-->
-                                    <div class="main-data" style="margin-right:250px;" id="energy-demand">
-
-                                    </div>
-
-                                    <!--下方对比表格-->
-                                    <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="">
-                                        <h3 style="">对比分析</h3>
-                                        <table class="table table-striped table-bordered table-advance table-hover
-" id="dateTables">
+                                <!--表格部分-->
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-content-table" style="overflow: auto;">
+                                        <table class="table table-striped table-bordered table-advance table-hover" id="dateTables" style="min-width:930px;">
                                             <thead>
-                                            <tr></tr>
+
                                             </thead>
                                             <tbody>
-                                            <tr></tr>
-                                            <tr></tr>
+
                                             </tbody>
                                         </table>
                                     </div>
-
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                         </div>
@@ -333,35 +275,208 @@
         </div>
     </div>
 
-    <!--自定义时间-->
-    <div class='modal fade' id='choose-date' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
-        <div class='modal-dialog'style='width:30%;min-width:400px;margin:15% auto'>
+
+    <!--新增计量设备弹窗-->
+    <div class='modal fade' id='add-measure' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:40%;margin:50px auto; min-width:430px;'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">自定义时间</div>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">新增计量设备类型</div>
                     <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-div" style="min-height:430px">
+                            <div class="add-deploy" style="border:none;margin-top:0;min-height:410px">
+                                <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">开始日期：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input chooseDate-month chooseDates" value="" placeholder="选择时间">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for=""  class="input-label">计量设备类型名称：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input add-sign energy-type" style="">
+                                            <label for="" class="input-label" style="width:125px">能耗类型：</label>
+                                            <div class="add-input-father" style="display:inline-block">
+                                                <div class="add-input-block" style="margin-left:0;">
+                                                    <div type="text" class="add-input add-input-select" style="">
+                                                        <span>电</span>
+                                                        <div class="add-input-arrow" style="transform: rotate(540deg);"></div>
+                                                    </div>
+                                                </div>
+                                                <ul class="add-select-block" style="z-index: 1000; display: none;">
+                                                    <li>电</li>
+                                                    <li>水</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:125px">是否在线：</label>
+
+                                            <div class="add-input-father" style="display:inline-block">
+                                                <div class="add-input-block" style="margin-left:0;">
+                                                    <div type="text" class="add-input add-input-select" style="">
+                                                        <span ids="1">在线表</span>
+                                                        <div class="add-input-arrow" style="transform: rotate(540deg);"></div>
+                                                    </div>
+                                                </div>
+                                                <ul class="add-select-block" style="z-index: 1000; display: none;">
+                                                    <li  ids="1">在线表</li>
+                                                    <li  ids="0">手抄表</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input type-number">
+                                            <label for=""  class="input-label">默认上限值：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for=""  class="">仪表规格：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input  type-number">
+                                            <label for=""  class="input-label">量程：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
                             </div>
-
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">结束日期：</label>
-
-                            <div class="add-input-block">
-                                <input type="text" class="add-input chooseDate-month chooseDates" value="" placeholder="选择时间">
-                            </div>
-
                         </div>
                     </div>
                     <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-primary top-btn'>提交更改</button>
                         <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--修改计量设备弹窗-->
+    <div class='modal fade' id='alter-measure' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:40%;margin:50px auto; min-width:430px;'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">修改计量设备类型</div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-div" style="min-height:430px">
+                            <div class="add-deploy" style="border:none;margin-top:0;min-height:410px">
+                                <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
+
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for=""  class="input-label">计量设备类型名称：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input add-sign energy-type" style="">
+                                            <label for="" class="input-label" style="width:125px">能耗类型：</label>
+                                            <div class="add-input-father" style="display:inline-block">
+                                                <div class="add-input-block" style="margin-left:0;">
+                                                    <div type="text" class="add-input add-input-select" style="">
+                                                        <span>电</span>
+                                                        <div class="add-input-arrow" style="transform: rotate(540deg);"></div>
+                                                    </div>
+                                                </div>
+                                                <ul class="add-select-block" style="z-index: 1000; display: none;">
+                                                    <li>电</li>
+                                                    <li>水</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:125px">是否在线：</label>
+
+                                            <div class="add-input-father" style="display:inline-block">
+                                                <div class="add-input-block" style="margin-left:0;">
+                                                    <div type="text" class="add-input add-input-select" style="">
+                                                        <span ids="1">在线表</span>
+                                                        <div class="add-input-arrow" style="transform: rotate(540deg);"></div>
+                                                    </div>
+                                                </div>
+                                                <ul class="add-select-block" style="z-index: 1000; display: none;">
+                                                    <li  ids="1">在线表</li>
+                                                    <li  ids="0">手抄表</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input type-number">
+                                            <label for=""  class="input-label">默认上限值：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input">
+                                            <label for=""  class="">仪表规格：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-sm-12 col-xs-12 inner-input  type-number">
+                                            <label for=""  class="input-label">量程：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary top-btn'>提交更改</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--删除计量设备弹窗-->
+    <div class='modal fade' id='remove-measure' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:20px">提示</h3>
+                    <p style="font-size:20px">真的要删除数据 <b style="color:red"></b> 吗？</p>
+                    <div class='modal-footer' style="border:none">
+                        <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
                     </div>
                 </div>
             </div>
@@ -387,7 +502,7 @@
 
     <!--loading图-->
     <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+        <div class='modal-dialog'style='width:92px;height:124px;margin:15% auto;background:url("img/timg1.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
 
         </div>
     </div>
@@ -438,8 +553,14 @@
 <script src="../bank-resource/js/lib/bootstrap-datepicker.js"></script>
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<script src="../bank-resource/js/yongnengguanli/EnergyEfficientRank.js"></script>
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
+
+
+<script src="./js/commonIP.js"></script>
+<script src="js/DeviceType.js"></script>
+
+
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -449,6 +570,8 @@
 
     });
 </script>
+
+
 
 <!-- END JAVASCRIPTS -->
 </body>

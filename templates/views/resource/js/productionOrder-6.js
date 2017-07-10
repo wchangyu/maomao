@@ -193,7 +193,7 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'当前报修时间',
+                title:'报修至截至本日12:00已累计故障（天、时、分）',
                 data:'timeSpan'
             },
             {

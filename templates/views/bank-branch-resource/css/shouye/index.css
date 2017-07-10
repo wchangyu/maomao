@@ -82,9 +82,11 @@ h3 span{
 .main-data-top-center{
 
 }
+
 .small-part{
     height:100px;
     position: relative;
+    min-width: 210px;
 }
 .small-part-content{
     padding-top:16px;

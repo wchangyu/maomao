@@ -10,11 +10,17 @@ $(function(){
             async:false,
             success:function(result){
                 //console.log(result);
+                if(result.length == 0){
+                    moTaiKuang($('#myModal'),'请先添加栏目！');
+                }
+
                 var str = '';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="'+ result[i].pK_NewsType+ '" >' + result[i].f_NewsTypeName +'</option>'
                 }
+
                 $('#column').append(str);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
 
@@ -61,9 +67,13 @@ $(function(){
                 //内容
                 var ue = UE.getEditor('editor');
                 //写入内容
+                var str = result.f_NewsContent;
+                str = str.replace(/&nbsp./g, "&nbsp;");
+
                 ue.ready(function() {
-                    ue.setContent(result.f_NewsContent, true);
+                    ue.setContent(str, true);
                 });
+                console.log(result.f_NewsContent);
                 //作者
                 $('#author').val(result.f_Author);
                 //是否推荐(上传图片)

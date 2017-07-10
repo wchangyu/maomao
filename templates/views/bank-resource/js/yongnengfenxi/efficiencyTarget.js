@@ -254,7 +254,7 @@ option1 = {
 window.onresize = function () {
     if(myChart ){
         myChart.resize();
-
+        myChart1.resize()
     }
 };
 //获取页面初始数据
