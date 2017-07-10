@@ -1,0 +1,32 @@
+.table-block-title{
+    font-size: 23px;
+    text-align: center;
+    color: #777;
+    margin-bottom: 20px;
+}
+.statistical-time{
+    margin: 20px 0;
+    font-size: 14px;
+    color: #999999;
+    text-align: right;
+}
+.title-info{
+    font-size: 15px;
+}
+.goods-num{
+    color: #333333;
+    text-decoration: underline;
+}
+.table thead tr th{
+    border-bottom:none !important;
+}
+.table tfoot tr th{
+    text-align: center;
+}
+.content-main-contents{
+    float: left;
+    width: 100%;
+}
+tfoot tr th{
+    border-bottom: none !important;
+}

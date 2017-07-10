@@ -395,19 +395,19 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
-                                <div class="labels">角色编码：<span class="roleNum1" style="display: none">角色编码已存在</span></div>
+                                <div class="labels">角色编码：<span class="roleNum1 colorTip" style="display: none">角色编码已存在</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="num" @keyup="keyUp()" placeholder="可填写，可自动生成">
+                                    <input type="text" v-model="num" @keyup="keyUp()" placeholder="可填写，可自动生成" class="xtbm">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">角色名：<span v-show="$validation.username.notempty" style="display: none">请输入角色名</span></div>
+                                <div class="labels colorTip">角色名：<span v-show="$validation.username.notempty" style="display: none">请输入角色名</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="name" v-validate:username= "['notempty']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">排序：<span v-show="$validation.order.notempty" style="display: none">序号</span></div>
+                                <div class="labels">排序：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="order" v-validate:order= "['notempty']" initial='off'>
                                 </div>

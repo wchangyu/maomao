@@ -75,6 +75,8 @@ $(function(){
     var _editFlag = false;
     //标记部门是默认的还是手动选择的，如果是默认的话1，手动选择为2
     var _autoOrHand = 1;
+    //ztree数据选中节点的数组
+    var _ztreeArr = [];
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -281,6 +283,7 @@ $(function(){
     $('.zhiXingRenYuanButton').click(function (){
         //模态框显示
         moTaiKuang($('#myModal7'),'添加责任人');
+        //获得所有ztree节点数据；
         getDpartment();
         if(_autoOrHand == 1){
             //点击的时候获得选择的车间的bm的值
@@ -706,7 +709,10 @@ $(function(){
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
             'wxKeshi':'',
-            "gdZht": 1,
+            "gdZht": 0,
+            "gdZhts": [
+                1,5
+            ],
             'userID':_userIdName
         }
         $.ajax({
@@ -995,9 +1001,16 @@ $(function(){
                 workDones.remarks = result.bxBeizhu;
                 _imgNum = result.hasImage;
                 workDones.wxremark = result.wxBeizhu;
-                //负责人(初始化)
-                var fzr = [];
-                datasTable($('#personTable1'),fzr);
+                //负责人(初始化);
+                //fzr = result.gdWxLeaders;
+                for(var i=0;i<result.gdWxLeaders.length;i++){
+                    var obj = {};
+                    obj.userName = result.gdWxLeaders[i].wxRName;
+                    obj.userNum = result.gdWxLeaders[i].wxRen;
+                    obj.mobile = result.gdWxLeaders[i].wxRDh;
+                    _zhixingRens.push(obj);
+                }
+                datasTable($('#personTable1'),_zhixingRens);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1057,7 +1070,6 @@ $(function(){
             }
         };
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);
-
     }
     //更新维修备注
     function upDateWXRemark(){

@@ -118,9 +118,14 @@ $(function(){
         //登记模态框出现
         moTaiKuang($('#myModal'),'新增');
         //初始化登记表
-        department.name='';
-        department.higherdepartment=department.option[0].value;
-        department.order=''
+        department.num = '';
+        department.name = '';
+        department.higherdepartment = department.option[0].value;
+        department.order = '';
+        var disableArea = $('#department').find('.input-blockeds');
+        disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
+        disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
+        disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
     });
 
     //操作确定按钮
@@ -158,6 +163,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
             bindingData($(this));
+            $('.bmbm').attr('disabled',true).addClass('disabled-block');
         })
         //删除
         .on('click','.option-delete',function(){
@@ -204,7 +210,7 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "departName":filterInput[0],
+            "departName":$('#bmmc').val(),
             "userID":_userIdName
         }
         $.ajax({
@@ -217,6 +223,12 @@ $(function(){
                     _allDepartmentArr.push(result[i]);
                 }
                 datasTable($('#personal-table'),result);
+                department.option = [];
+                var obj = {
+                    text:'请选择',
+                    value:''
+                }
+                department.option.push(obj);
                 for(var i=0;i<result.length;i++){
                     if(result[i].parentNum == ''){
                         var obj = {};
@@ -225,11 +237,9 @@ $(function(){
                         department.option.push(obj);
                     }
                 }
-
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -249,44 +259,52 @@ $(function(){
 
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag){
-        //判断是编辑、登记、还是删除
-        if(flag){
-            var prm = {
-                "departNum":department.num,
-                "departName":department.name,
-                "userID":_userIdName
-            };
+        //判断必填项是否为空
+        if( department.name == '' ){
+            tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            var prm = {
-                "departNum":department.num,
-                "departName":department.name,
-                "parentNum":department.higherdepartment,
-                "sort":department.order,
-                "userID":_userIdName
-            };
-        }
-        console.log(prm);
-        //发送数据
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    //提示登记成功
-                    tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                    $('#myModal').modal('hide');
-                }else if(result == 3){
-                    //提示登记失败
-                    tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+            if( $('.isExist')[0].style.display == 'none' ){
+                //判断是编辑、登记、还是删除
+                if(flag){
+                    var prm = {
+                        "departNum":department.num,
+                        "departName":department.name,
+                        "userID":_userIdName
+                    };
+                }else{
+                    var prm = {
+                        "departNum":department.num,
+                        "departName":department.name,
+                        "parentNum":department.higherdepartment,
+                        "sort":department.order,
+                        "userID":_userIdName
+                    };
                 }
-                conditionSelect();
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                //发送数据
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            //提示登记成功
+                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                            $('#myModal').modal('hide');
+                        }else if(result == 3){
+                            //提示登记失败
+                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                        }
+                        conditionSelect();
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }else{
+                tipInfo($('#myModal1'),'提示','部门编码已存在！','flag');
             }
-        })
+        }
+
     }
 
     //查看、删除绑定数据

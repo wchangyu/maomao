@@ -527,7 +527,10 @@ $(function(){
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
             'wxKeshi':'',
-            "gdZht": 2,
+            "gdZht": 0,
+            "gdZhts": [
+                2,5
+            ],
             'userID':_userIdName
         }
         $.ajax({

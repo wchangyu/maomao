@@ -297,7 +297,6 @@ $(function(){
         $('.table-title span').removeClass('spanhover');
         $(this).addClass('spanhover');
         $('.tableHover').hide();
-        $('.tableHover').css({'opacity':0});
         $('.tableHover').eq($(this).index()).show();
     });
     $('#myModal')

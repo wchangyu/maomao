@@ -205,10 +205,19 @@ $(function(){
         ],
         "aoColumnDefs": [
             {
+                aTargets: [ 1 ],
+                render:function(data, type, full){
+                    console.log(data);
+                    return "<span style='width:130px;'>" + data + "</span>";
+                }
+            }
+        ]
+        /*"aoColumnDefs": [
+            {
                 sDefaultContent: '',
                 aTargets: [ '_all' ]
             }
-        ]
+        ]*/
     });
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());

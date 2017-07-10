@@ -248,12 +248,12 @@ var BEE = (function(){
         var year = now.getFullYear(),month = now.getMonth(),day = now.getDate();
         var st = year + "-" + month + "-" + day + " 00:00:00";
         var et = year + "-" + month + "-" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
-         var prmData = {
-             "st" : st,
-             "et" : et,
-             "excTypeInnerId":"",
-             "energyType":"",
-             "pointerIds":ptIds
+        var prmData = {
+            "st" : st,
+            "et" : et,
+            "excTypeInnerId":"",
+            "energyType":"",
+            "pointerIds":ptIds
         };
         $.ajax({
             type:'post',
@@ -287,6 +287,7 @@ var BEE = (function(){
         var $badge = $("#header_notification_bar .badge");
         var $alarmDetail = $("#header_notification_bar .external>h3>span");
         var $alarmBlock = $("#header_notification_bar");
+        var $alertSong = $('.song-block');
         $badge.removeClass("badge-danger");
         if($badge.length>0){        //设置当前报警显示的内容
             if(dataLength==0){
@@ -296,12 +297,17 @@ var BEE = (function(){
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem(alaDataLength);
                 }
+                $alertSong.removeAttr('autoplay');
+                $alertSong.removeAttr('loop');
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
                 $alarmDetail.html(dataLength);
                 $alarmBlock.show();
                 sessionStorage.alaDataLength = dataLength;
+                //声音
+                $alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
+                $alertSong.attr('loop','loop');          //循环播放
             }
         }
     }
