@@ -54,7 +54,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style type="text/css" media=print>
+        .noprint{display : none }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -272,9 +274,9 @@
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">工单操作</li>
+                                    <li class="main-contents-header-lists0 noprint">工单操作</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
                                     <li><label for="">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <!--<input type="text" class="global_filter " id="global_filter">-->
@@ -306,6 +308,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
@@ -415,7 +418,7 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">任务类型 *：</div>
+                                <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
                                         <option value="1">一级任务</option>
@@ -473,10 +476,19 @@
                                     <input type="text" v-model="sbMC">
                                 </div>
                             </li>
-                            <li class="floatLight">
+                            <li class="floatLeft">
                                 <div class="labels">安装地点：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="azAddress">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">任务来源：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
                                 </div>
                             </li>
                             <!--<li class="floatLight">

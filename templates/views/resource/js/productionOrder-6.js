@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdNum = sessionStorage.getItem('userName');
+    //获得用户名
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -69,6 +71,10 @@ $(function(){
     var _stateFlag = false;
     //负责人标识
     var _leaderFlag = false;
+    //状态值
+    var _gdState = 0;
+    //重发值
+    var _gdCircle = 0;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable(   {
@@ -98,17 +104,21 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,3,4,5,6,7,8,9,10,11]
+                }
             }
         ],
         "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'工单号',
-                data:'gdCode',
-                className:'gongdanId',
+                data:'gdCode2',
                 render:function(data, type, row, meta){
-                    return '<a href="productionOrder_see.html?gdCode=' +  data +  '&userID=' + _userIdName + '&gdZht=' + row.gdZht +
+                    return '<span class="gongdanId" gdCode="' + row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
                         '"' +
                         'target="_blank">' + data + '</a>'
                 }
@@ -149,7 +159,7 @@ $(function(){
                 }
             },
             {
-                title:'任务类型',
+                title:'任务级别',
                 data:'gdLeixing',
                 render:function(data, type, full, meta){
                     if(data == 1){
@@ -159,7 +169,7 @@ $(function(){
                     }if(data == 3){
                         return '三级任务'
                     }if(data == 4){
-                        return '四   级任务'
+                        return '四级任务'
                     }
                 }
             },
@@ -193,7 +203,7 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'报修至截至本日12:00已累计故障（天、时、分）',
+                title:'报修至截止本日12:00已累计故障（天、时、分）',
                 data:'timeSpan'
             },
             {
@@ -204,6 +214,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
+                "className":'noprint',
                 "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
             }
         ]
@@ -314,6 +325,7 @@ $(function(){
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //获得当前的页数，
@@ -331,12 +343,14 @@ $(function(){
             moTaiKuang($('#myModal'));
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
-            var gongDanCode = $this.find('.gongdanId').children('a').html();
+            var gongDanCode = $this.children('td').children('.gongdanId').attr('gdCode');
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -346,7 +360,11 @@ $(function(){
                 data:prm,
                 success:function(result){
                     var indexs = result.gdZht;
-                    if(0<indexs && indexs<8){
+                    var progressBarList = $('.progressBarList');
+                    var timeContent = $('.record-list');
+                    //console.log(progressBarList);
+                    //console.log(timeContent);
+                    /*if(0<indexs){
                         $('.progressBar').children('li').css({'color':'#333333'});
                         $('.processing-record ul').children('.record-list').hide();
                         for(var i=0;i<indexs;i++){
@@ -356,7 +374,7 @@ $(function(){
                     }else{
                         $('.progressBar').children('.progressBarList').css({'color':'#333333'});
                         $('.processing-record ul').children('.record-list').hide();
-                    }
+                    }*/
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
                         $('.inpus').parent('span').removeClass('checked');
@@ -387,15 +405,15 @@ $(function(){
                     //待下发记录时间
                     progressContent(0,0,result.gdShij);
                     //待下发相关人员
-                    progressContent(0,2,result.bxRen);
+                    progressContent(0,2,result.createUserName);
                     //调度下发时间
                     progressContent(1,0,result.shouLiShij);
                     //调度下发人员
-                    progressContent(1,2,result.shouLiRen);
+                    progressContent(1,2,result.shouLiRenName);
                     //分派时间
                     progressContent(2,0,result.paiGongShij);
                     //分派人
-                    progressContent(2,2,result.paigongUser);
+                    progressContent(2,2,result.paigongUserName);
                     //开始执行时间
                     progressContent(3,0,result.jiedanShij);
                     var ddRen = '';
@@ -418,11 +436,31 @@ $(function(){
                     //关闭时间
                     progressContent(6,0,result.guanbiShij);
                     //关单人
-                    progressContent(6,2,ddRen);
+                    progressContent(6,2,result.pjRenName);
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                    //根绝时间，判断取消之前处于什么状态
+                    if(indexs == 999){
+                        $('.progressBarList:last').children('.progressName').html('取消');
+                        //控制显示红色
+                        progressContent(6,0,result.quxiaoShij);
+                        //重新遍历一下时间和对应的进度，如果时间为空，对应的进度置为黑色。
+                    }else{
+                        $('.progressBarList:last').children('.progressName').html('关闭');
+                    }
+                    //变色
+                    for(var i=0;i<timeContent.length;i++){
+                        var timeLength = timeContent.eq(i).children('div').eq(0).children('.record-content').html();
+                        if(timeLength != ''){
+                            progressBarList.eq(i).css({'color':'#db3d32'});
+                        }else{
+                            progressBarList.eq(i).css({'color':'#333'});
+                            //当时间为''的话，执行人员也是空
+                            timeContent.eq(i).children('div').eq(2).children('.record-content').html('');
+                        }
+                    }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -434,6 +472,7 @@ $(function(){
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
+            _gdCircle = $(this).children('.gongdanId').children('span').attr('gdcircle');
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
@@ -446,14 +485,16 @@ $(function(){
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
-            var gdCode = parseInt($this.find('.gongdanId').children('a').html());
+            var gdCode = parseInt($this.children('td').children('.gongdanId').attr('gdCode'));
             var gdZht = parseInt($this.children('.ztz').html());
+            _gdState = gdZht
             _gdCode = gdCode;
             var prm = {
                 "gdCode": gdCode,
                 "gdZht": gdZht,
                 "wxKeshi": "",
-                "userID": _userIdName
+                "userID": _userIdNum,
+                'gdCircle':_gdCircle
             }
             $.ajax({
                 type:'post',
@@ -508,12 +549,13 @@ $(function(){
             }else if( gdState == 3 || gdState == 4 || gdState == 5 ){
                 htState = 2;
             }
-            var gdCodes = _currentClick.children('td').eq(0).html();
+            var gdCodes = _currentClick.children('td').eq(0).children('span').attr('gdcode');
             var gdInfo = {
                 "gdCode": gdCodes,
                 "gdZht": htState,
                 "wxKeshi": "",
-                "userID": _userIdName
+                "userID": _userIdNum,
+                'userName':_userIdName
             }
             $.ajax({
                 type:'post',
@@ -524,7 +566,9 @@ $(function(){
                         _stateFlag = true;
                         if(htState == 1){
                             //删除该工单负责人
-                            manager('YWGD/ywGDDelWxLeader','flag');
+                            if(_fuZeRen.length>0){
+                                manager('YWGD/ywGDDelWxLeader','flag');
+                            }
                             if( _stateFlag && _leaderFlag ){
                                 $('#myModal1').modal('hide');
                                 moTaiKuang($('#myModal3'),'flag');
@@ -546,8 +590,13 @@ $(function(){
                             }
                         }else if(htState == 2){
                             //删除该工单的执行人和材料
-                            Worker('YWGD/ywGDDelWxR','flag');
-                            CaiLiao('YWGD/ywGDDelWxCl','flag');
+                            if(_zhixingRens.length>0){
+                                Worker('YWGD/ywGDDelWxR','flag');
+                            }
+                            //判断有无材料
+                            if(_weiXiuCaiLiao.length >0){
+                                CaiLiao('YWGD/ywGDDelWxCl','flag');
+                            }
                             if( _workerFlag && _WLFlag && _stateFlag ){
                                 $('#myModal1').modal('hide');
                                 moTaiKuang($('#myModal3'),'flag');
@@ -593,8 +642,9 @@ $(function(){
     $('#myModal2').find('.btn-primary').click(function (){
         if(_currentChexiao){
             var gdInfo = {
-                'gdCode':_gdCode,
-                'userID':_userIdName
+                "gdCode": _gdCode,
+                "userID": _userIdNum,
+                "userName": _userIdName
             }
             $.ajax({
                 type:'post',
@@ -694,7 +744,7 @@ $(function(){
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            "gdCode":filterInput[0],
+            "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
@@ -702,12 +752,13 @@ $(function(){
             "gdZht":$('#gdzt').val(),
             "pjRen":filterInput[6],
             "shouliren": filterInput[8],
-            "userID":_userIdName,
+            "userID":_userIdNum,
             //故障位置
             "gdLeixing":$('#rwlx').val(),
             "wxRen":filterInput[7],
             "wxdidian":filterInput[8],
-            "isCalcTimeSpan":1
+            "isCalcTimeSpan":1,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
@@ -776,7 +827,8 @@ $(function(){
         var gdWR = {
             gdCode :_gdCode,
             gdWxRs:workerArr,
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName
         }
         $.ajax({
             type:'post',
@@ -812,7 +864,8 @@ $(function(){
         var gdWxCl = {
             gdCode:_gdCode,
             gdWxCls:cailiaoArr,
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName
         }
         $.ajax({
             type:'post',
@@ -848,7 +901,8 @@ $(function(){
         var gdWR = {
             gdCode:_gdCode,
             gdWxRs:fzrArrr,
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName
         }
         $.ajax({
             type:'post',

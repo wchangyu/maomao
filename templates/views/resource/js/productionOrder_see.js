@@ -5,7 +5,9 @@ $(function(){
     var splitPrm = _prm.split('&');
     var _gdCode = splitPrm[0].split('=')[1];
     var _userID = splitPrm[1].split('=')[1];
-    var _gdState = splitPrm[2].split('=')[1];
+    var _userName = splitPrm[2].split('=')[1];
+    var _gdState = splitPrm[3].split('=')[1];
+    var _gdCircle = splitPrm[3].split('=')[1];
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -133,7 +135,9 @@ $(function(){
         "gdCode": _gdCode,
         "gdZht": _gdState,
         "wxKeshi": "",
-        "userID": _userID
+        "userID": _userID,
+        "userName":_userName,
+        'gdCircle':_gdCircle
     }
     $.ajax({
         'type':'post',

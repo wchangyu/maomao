@@ -55,7 +55,9 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style type="text/css" media=print>
+        .noprint{display : none }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -138,210 +140,214 @@
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
-<div class="page-container">
-    <!-- BEGIN SIDEBAR -->
-    <div class="page-sidebar-wrapper">
-        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <div class="page-sidebar navbar-collapse collapse">
-            <!-- BEGIN SIDEBAR MENU -->
-            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+<div class="loading">
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-                <li class="sidebar-toggler-wrapper">
-                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                    <div class="sidebar-toggler">
-                    </div>
-                    <!-- END SIDEBAR TOGGLER BUTTON -->
-                </li>
-            </ul>
-            <!-- END SIDEBAR MENU -->
-        </div>
-    </div>
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
-    <div class="page-content-wrapper">
-        <div class="page-content">
-            <!-- BEGIN STYLE CUSTOMIZER -->
-            <div class="theme-panel hidden-xs hidden-sm">
-                <div class="toggler">
-                </div>
-                <div class="toggler-close">
-                </div>
-                <div class="theme-options">
-                    <div class="theme-option theme-colors clearfix">
-						<span>
-						配色 </span>
-                        <ul>
-                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
-                            </li>
-                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
-                            </li>
-                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
-                            </li>
-                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
-                            </li>
-                            <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
-                            <!--</li>-->
-                            <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
-                            <!--</li>-->
-                        </ul>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						布局 </span>
-                        <select class="layout-option form-control input-sm">
-                            <option value="fluid" selected="selected">平铺</option>
-                            <option value="boxed">盒式</option>
-                        </select>
-                    </div>
-
-                    <div class="theme-option">
-						<span>
-						侧边菜单 </span>
-                        <select class="sidebar-menu-option form-control input-sm">
-                            <option value="accordion" selected="selected">手风琴式</option>
-                            <option value="hover">鼠标悬停</option>
-                        </select>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						侧边位置 </span>
-                        <select class="sidebar-pos-option form-control input-sm">
-                            <option value="left" selected="selected">左</option>
-                            <option value="right">右</option>
-                        </select>
-                    </div>
-                    <div class="theme-option">
-						<span>
-						底部 </span>
-                        <select class="page-footer-option form-control input-sm">
-                            <option value="fixed">位置固定</option>
-                            <option value="default" selected="selected">默认</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- END STYLE CUSTOMIZER -->
-            <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
-            </h3>
-            <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-
-                        <i class="fa fa-angle-right"></i>
+            <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <div class="page-sidebar navbar-collapse collapse">
+                <!-- BEGIN SIDEBAR MENU -->
+                <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                    <li class="sidebar-toggler-wrapper">
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <div class="sidebar-toggler">
+                        </div>
+                        <!-- END SIDEBAR TOGGLER BUTTON -->
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
-                <div class="page-toolbar">
-                    <!--<div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                        跳转 <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#">跳转点1</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点2</a>
-                            </li>
-                            <li>
-                                <a href="#">跳转点3</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">跳转点4</a>
-                            </li>
-                        </ul>
-                    </div>-->
-                </div>
+                <!-- END SIDEBAR MENU -->
             </div>
-            <!-- END PAGE HEADER-->
-            <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="total-warp">
-                        <div class="wrap">
-                            <!-- 标题 -->
-                            <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">工单操作</li>
-                                </ul>
-                                <ul class="condition-query">
-                                    <li><label for="">工单号：</label>
-                                        <div class="input-blocked" id="filter_global">
-                                            <input type="text" class="filterInput">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">车站：</label>
-                                        <div class="input-blocked">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">报修日期：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min" name="min">
-                                        </div>
-                                        <label for="">到</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="datatimeblock max" name="max">
-                                        </div>
-                                    </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li>
-                                        <div class="cont-col1">
-                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="cont-col1">
-                                            <div class="quickCreat label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>快速报障
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="excelButton"></li>
-                                    <div class="clearfix"></div>
-                                </ul>
-                                <!-- 表格 -->
-                                <div class="content-main-contents">
-                                    <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <!-- BEGIN STYLE CUSTOMIZER -->
+                <div class="theme-panel hidden-xs hidden-sm">
+                    <div class="toggler">
+                    </div>
+                    <div class="toggler-close">
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option theme-colors clearfix">
+						<span>
+						配色 </span>
+                            <ul>
+                                <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                                </li>
+                                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                                </li>
+                                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                                </li>
+                                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                                </li>
+                                <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
+                                <!--</li>-->
+                                <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
+                                <!--</li>-->
+                            </ul>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						布局 </span>
+                            <select class="layout-option form-control input-sm">
+                                <option value="fluid" selected="selected">平铺</option>
+                                <option value="boxed">盒式</option>
+                            </select>
+                        </div>
+
+                        <div class="theme-option">
+						<span>
+						侧边菜单 </span>
+                            <select class="sidebar-menu-option form-control input-sm">
+                                <option value="accordion" selected="selected">手风琴式</option>
+                                <option value="hover">鼠标悬停</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						侧边位置 </span>
+                            <select class="sidebar-pos-option form-control input-sm">
+                                <option value="left" selected="selected">左</option>
+                                <option value="right">右</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+						<span>
+						底部 </span>
+                            <select class="page-footer-option form-control input-sm">
+                                <option value="fixed">位置固定</option>
+                                <option value="default" selected="selected">默认</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+                <!-- END STYLE CUSTOMIZER -->
+                <!-- BEGIN PAGE HEADER-->
+                <h3 class="page-title">
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                    </ul>
+                    <div class="showOrHidden"></div>
+                    <div class="page-toolbar">
+                        <!--<div class="btn-group pull-right">
+                            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                            跳转 <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="#">跳转点1</a>
+                                </li>
+                                <li>
+                                    <a href="#">跳转点2</a>
+                                </li>
+                                <li>
+                                    <a href="#">跳转点3</a>
+                                </li>
+                                <li class="divider">
+                                </li>
+                                <li>
+                                    <a href="#">跳转点4</a>
+                                </li>
+                            </ul>
+                        </div>-->
+                    </div>
+                </div>
+                <!-- END PAGE HEADER-->
+                <!-- BEGIN PAGE CONTENT-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="total-warp">
+                            <div class="wrap">
+                                <!-- 标题 -->
+                                <div class="content-main-contents content-main-right">
+                                    <ul class="content-main-contents-header">
+                                        <li class="main-contents-header-lists0 noprint">工单操作</li>
+                                    </ul>
+                                    <ul class="condition-query noprint">
+                                        <li><label for="">工单号：</label>
+                                            <div class="input-blocked" id="filter_global">
+                                                <input type="text" class="filterInput">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="">车站：</label>
+                                            <div class="input-blocked">
+                                                <input type="text">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="">报修日期：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock min" name="min">
+                                            </div>
+                                            <label for="">到</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock max" name="max">
+                                            </div>
+                                        </li>
+                                        <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                        <li><button class="btn btn-success btn1 resites">重置</button></li>
+                                        <li>
+                                            <div class="cont-col1">
+                                                <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="cont-col1">
+                                                <div class="quickCreat label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>快速报障
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
+                                        <li class="excelButton"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <!-- 表格 -->
+                                    <div class="content-main-contents">
+                                        <div class="main-contents-table">
+                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <!--<img src="../resource/img/loading.gif" alt="">-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT-->
             </div>
-            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END CONTENT -->
+        <!-- BEGIN QUICK SIDEBAR -->
+        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+        <!-- END QUICK SIDEBAR -->
     </div>
-    <!-- END CONTENT -->
-    <!-- BEGIN QUICK SIDEBAR -->
-    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
-    <!-- END QUICK SIDEBAR -->
 </div>
+
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="page-footer">
@@ -388,6 +394,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <script src="../resource/js/productionOrder-1.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -420,7 +427,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels colorTip">任务类型 *：</div>
+                                    <div class="labels colorTip">任务级别 *：</div>
                                     <div class="input-blockeds">
                                         <select v-model="rwlx">
                                             <option value="1" selected>一级任务</option>
@@ -482,6 +489,15 @@
                                     <div class="labels">安装地点：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="azAddress">
+                                    </div>
+                                </li>
+                                <li class="floatRight" style="line-height: 26px;">
+                                    <div class="labels">工单来源 ：</div>
+                                    <div class="input-blockeds">
+                                        <select v-model="gdly" class="gdly">
+                                            <option value="1">车站报修</option>
+                                            <option value="2">现场人员报修</option>
+                                        </select>
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>
@@ -610,7 +626,7 @@
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels colorTip">任务类型 *：</div>
+                                    <div class="labels colorTip">任务级别 *：</div>
                                     <div class="input-blockeds">
                                         <select v-model="rwlx">
                                             <option value="1">一级任务</option>
@@ -678,6 +694,15 @@
                                     <div class="labels">安装地点：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="azAddress">
+                                    </div>
+                                </li>
+                                <li class="floatLight" style="line-height: 26px;">
+                                    <div class="labels">工单来源 ：</div>
+                                    <div class="input-blockeds">
+                                        <select v-model="gdly" class="gdly">
+                                            <option value="1">车站报修</option>
+                                            <option value="2">现场人员报修</option>
+                                        </select>
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>

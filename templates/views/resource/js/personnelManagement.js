@@ -275,7 +275,7 @@ $(function(){
             "departNum":$('#rybm').val(),
             "roleNum":$('#ryjs').val(),
             "userID": _userIdName
-        }
+        };
         $.ajax({
             type:'post',
             url:_urls + 'RBAC/rbacGetUsers',
@@ -318,13 +318,13 @@ $(function(){
                 var prm = {};
                  if(flag){
                      prm = {
-                         "userName": user.username,
+                         "userName2": user.username,
                          "userNum": user.jobnumber,
                          "userID":_userIdName
                      };
                  }else{
                      prm = {
-                         "userName":user.username,
+                         "userName2":user.username,
                          "userNum":user.jobnumber,
                          "password":user.password,
                          "email":user.email,

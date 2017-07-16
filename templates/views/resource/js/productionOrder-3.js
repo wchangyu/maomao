@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
+    //获得用户名id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -38,7 +40,8 @@ $(function(){
             azAddress:'',
             remarks:'',
             weixiukeshis:'',
-            wxremark:''
+            wxremark:'',
+            gdly:1
         }
     });
     //所有负责人列表
@@ -50,9 +53,9 @@ $(function(){
     //存放设备部门的所有数据
     var _allDataBM = [];
     //设备系统
-    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName');
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
     //设备部门
-    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','flag');
+    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','ddNum','flag');
     //保存上一条登记信息的对象
     var _obj = {};
     //保存上一条信息中责任人的对象
@@ -75,8 +78,10 @@ $(function(){
     var _editFlag = false;
     //标记部门是默认的还是手动选择的，如果是默认的话1，手动选择为2
     var _autoOrHand = 1;
-    //ztree数据选中节点的数组
-    var _ztreeArr = [];
+    //重发值
+    var _gdCircle = 0;
+    //重发成功标识
+    var _reSendFlag = false;
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -106,14 +111,23 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,4,5,6,7]
+                }
             },
         ],
         'columns':[
             {
                 title:'工单号',
-                data:'gdCode',
-                className:'gongdanId'
+                data:'gdCode2',
+                className:'gongdanId',
+                render:function(data, type, row, meta){
+                    return '<span gdCode="' +  row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '>' +  data +
+                        '</span>'
+                }
             },
             {
                 title:'工单类型',
@@ -175,6 +189,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
+                "className":'noprint',
                 "defaultContent": "<span class='data-option option-option btn default btn-xs green-stripe'>下发</span>" +
                 "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
 
@@ -263,6 +278,9 @@ $(function(){
     /*------------------------------------表格绑定事件---------------------------*/
     $('#scrap-datatables tbody')
         .on('click','.option-option',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
+            //工单来源显示
+            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this),'flag');
             //改变确定按钮类名
@@ -271,6 +289,9 @@ $(function(){
             $('.showImage').hide();
         })
         .on('click','.option-edit',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
+            //工单来源显示
+            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this));
             //改变确定按钮类名
@@ -408,6 +429,7 @@ $(function(){
     });
     // 登记按钮
     $('.creatButton').click(function(){
+        $('.gdly').parents('li').show();
         //修改确定按钮
         moTaiKuang($('#myModal'),'登记');
         $('#myModal').find('.btn-primary').addClass('dengji').removeClass('paigongButton').removeClass('bianji').html('登记');
@@ -431,10 +453,10 @@ $(function(){
         workDones.weixiukeshis = '';
         workDones.remarks = '';
         if( _allDataXT.length !=0 ){
-            workDones.matter = _allDataXT[0].dsName;
+            workDones.matter = _allDataXT[0].dsNum;
         }
         if( _allDataBM.length !=0 ){
-            workDones.section = _allDataBM[0].ddName;
+            workDones.section = _allDataBM[0].ddNum;
         }
         _zhixingRens = [];
         datasTable($('#personTable1'),_zhixingRens);
@@ -467,8 +489,8 @@ $(function(){
                 bxDianhua:workDones.telephone,
                 bxRen:workDones.person,
                 wxDidian:workDones.place,
-                bxKeshi:workDones.section,
-                wxShiX:workDones.matter,
+                bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                 wxShebei:workDones.sbSelect,
                 dcName:workDones.sbLX,
                 dName:workDones.sbMC,
@@ -477,6 +499,10 @@ $(function(){
                 bxBeizhu:workDones.remarks,
                 //gdWxLeaders:fzrArr,
                 gdSrc:1,
+                bxKeshiNum:workDones.section,
+                wxShiXNum:workDones.matter,
+                userId:_userIdNum,
+                userName:_userIdName,
             }
             //判断_obj和_fzrObjext是否为空
             if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
@@ -487,8 +513,8 @@ $(function(){
                     bxDianhua:workDones.telephone,
                     bxRen:workDones.person,
                     wxDidian:workDones.place,
-                    bxKeshi:workDones.section,
-                    wxShiX:workDones.matter,
+                    bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                    wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                     wxShebei:workDones.sbSelect,
                     dcName:workDones.sbLX,
                     dName:workDones.sbMC,
@@ -497,6 +523,11 @@ $(function(){
                     bxBeizhu:workDones.remarks,
                     //gdWxLeaders:fzrArr,
                     gdSrc:1,
+                    userId:_userIdNum,
+                    userName:_userIdName,
+                    gdCodeSrc:workDones.gdly,
+                    bxKeshiNum:workDones.section,
+                    wxShiXNum:workDones.matter
                 };
                 _fzrObj = fzrArr;
                 var gdInfo1 = {
@@ -505,8 +536,8 @@ $(function(){
                     bxDianhua:workDones.telephone,
                     bxRen:workDones.person,
                     wxDidian:workDones.place,
-                    bxKeshi:workDones.section,
-                    wxShiX:workDones.matter,
+                    bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                    wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                     wxShebei:workDones.sbSelect,
                     dcName:workDones.sbLX,
                     dName:workDones.sbMC,
@@ -514,7 +545,12 @@ $(function(){
                     wxKeshi:workDones.weixiukeshis,
                     bxBeizhu:workDones.remarks,
                     gdWxLeaders:fzrArr,
-                    gdSrc:1
+                    gdSrc:1,
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    gdCodeSrc:workDones.gdly,
+                    bxKeshiNum:workDones.section,
+                    wxShiXNum:workDones.matter
                 }
                 $.ajax({
                     type:'post',
@@ -548,8 +584,8 @@ $(function(){
                         bxDianhua:workDones.telephone,
                         bxRen:workDones.person,
                         wxDidian:workDones.place,
-                        bxKeshi:workDones.section,
-                        wxShiX:workDones.matter,
+                        bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                        wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                         wxShebei:workDones.sbSelect,
                         dcName:workDones.sbLX,
                         dName:workDones.sbMC,
@@ -558,6 +594,10 @@ $(function(){
                         bxBeizhu:workDones.remarks,
                         gdWxLeaders:fzrArr,
                         gdSrc:1,
+                        userID:_userIdNum,
+                        userName:_userIdName,
+                        bxKeshiNum:workDones.section,
+                        wxShiXNum:workDones.matter
                     }
                     $.ajax({
                         type:'post',
@@ -609,35 +649,68 @@ $(function(){
         })
         //下发
         .on('click','.paigongButton',function(){
-            //更新负责人
-            assigFZR();
-            upDateWXRemark();
-            upData();
-            //根据三个状态值提示
-            if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
-                moTaiKuang($('#myModal4'),'提示','flag');
-                $('#myModal4').find('.modal-body').html('工单下发成功！')
-                $('#myModal').modal('hide');
+            //先判断是第一次下发还是重发
+            if(_gdState == 5){
+                //调用重发接口
+                reSend();
+                upDateWXRemark();
+                assigFZR();
+                if(_leaderFlag && _wxBZFlag && _reSendFlag){
+                    moTaiKuang($('#myModal4'),'提示','flag');
+                    $('#myModal4').find('.modal-body').html('工单下发成功！')
+                    $('#myModal').modal('hide');
+                }else{
+                    var str = '';
+                    if( _leaderFlag == false ){
+                        str += '工长增加失败，'
+                    }else{
+                        str += '工长增加成功，'
+                    }
+                    if( _wxBZFlag == false ){
+                        str += '维修备注修改失败，'
+                    }else{
+                        str += '维修备注修改成功，'
+                    }
+                    if( _reSendFlag == false ){
+                        str += '工单重发失败！'
+                    }else{
+                        str += '工单重发成功！'
+                    }
+                    moTaiKuang($('#myModal4'),'提示','flag');
+                    $('#myModal4').find('.modal-body').html(str);
+                }
             }else{
-                var str = '';
-                if( _leaderFlag == false ){
-                    str += '工长增加失败，'
+                //更新负责人
+                assigFZR();
+                upDateWXRemark();
+                upData();
+                //根据三个状态值提示
+                if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
+                    moTaiKuang($('#myModal4'),'提示','flag');
+                    $('#myModal4').find('.modal-body').html('工单下发成功！')
+                    $('#myModal').modal('hide');
                 }else{
-                    str += '工长增加成功，'
+                    var str = '';
+                    if( _leaderFlag == false ){
+                        str += '工长增加失败，'
+                    }else{
+                        str += '工长增加成功，'
+                    }
+                    if( _wxBZFlag == false ){
+                        str += '维修备注修改失败，'
+                    }else{
+                        str += '维修备注修改成功，'
+                    }
+                    if( _upDateStateFlag == false ){
+                        str += '工单下发失败！'
+                    }else{
+                        str += '工单下发成功！'
+                    }
+                    moTaiKuang($('#myModal4'),'提示','flag');
+                    $('#myModal4').find('.modal-body').html(str);
                 }
-                if( _wxBZFlag == false ){
-                    str += '维修备注修改失败，'
-                }else{
-                    str += '维修备注修改成功，'
-                }
-                if( _upDateStateFlag == false ){
-                    str += '工单下发失败！'
-                }else{
-                    str += '工单下发成功！'
-                }
-                moTaiKuang($('#myModal4'),'提示','flag');
-                $('#myModal4').find('.modal-body').html(str);
             }
+
             conditionSelect();
         })
         //获取图片
@@ -692,6 +765,8 @@ $(function(){
         _determineDeObj.userNum = $('#zxNum').val();
         fzr();
     })
+    //不打印部分
+    noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -704,7 +779,7 @@ $(function(){
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            'gdCode':filterInput[0],
+            'gdCode2':filterInput[0],
             'gdSt':realityStart,
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
@@ -713,7 +788,8 @@ $(function(){
             "gdZhts": [
                 1,5
             ],
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',
@@ -801,7 +877,7 @@ $(function(){
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdName
+            "userID": _userIdNum
         }
         $.ajax({
             type:'post',
@@ -878,7 +954,8 @@ $(function(){
             gdCode :gdCode,
             gdZht : 2,
             wxKeshi:'',
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName
         }
         $.ajax({
             type:'post',
@@ -898,9 +975,9 @@ $(function(){
         })
     }
     //ajaxFun（select的值）
-    function ajaxFun(url,allArr,select,text,flag){
+    function ajaxFun(url,allArr,select,text,num,flag){
         var prm = {
-            'userID':_userIdName
+            'userID':_userIdNum
         }
         prm[text] = '';
         $.ajax({
@@ -913,13 +990,13 @@ $(function(){
                 var str = '';
                 if(flag){
                     for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][text] +'"' + 'bm="' + result[i].departNum +
+                        str += '<option' + ' value="' + result[i][num] +'"' + 'bm="' + result[i].departNum +
                             '">' + result[i][text] + '</option>'
                         allArr.push(result[i]);
                     }
                 }else{
                     for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][text] +'">' + result[i][text] + '</option>'
+                        str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
                         allArr.push(result[i]);
                     }
                 }
@@ -964,13 +1041,15 @@ $(function(){
         $this.addClass('tables-hover');
         //获取数据
         var gongDanState = $this.children('.ztz').html();
-        var gongDanCode = $this.children('.gongdanId').html();
+        var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
         gdCode = gongDanCode;
         _gdState = gongDanState;
         var prm = {
             'gdCode':gongDanCode,
             'gdZht':gongDanState,
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'gdCircle':_gdCircle
         }
         //每次获取弹出框中执行人员的数量
         $.ajax({
@@ -986,13 +1065,22 @@ $(function(){
                     $('#workDones').find('.inpus').parent('span').removeClass('checked');
                     $('#workDones').find('#twos1').parent('span').addClass('checked');
                 }
+                //selecrt绑定值
+                if(result.bxKeshiNum == ''){
+                    workDones.section = 0;
+                }else{
+                    workDones.section = result.bxKeshiNum;
+                }
+                if(result.wxShiXNum == ''){
+                    workDones.matter = 0;
+                }else{
+                    workDones.matter = result.wxShiXNum;
+                }
                 //绑定弹窗数据
                 workDones.rwlx = result.gdLeixing;
                 workDones.telephone = result.bxDianhua;
                 workDones.person = result.bxRen;
                 workDones.place = result.wxDidian;
-                workDones.section = result.bxKeshi;
-                workDones.matter = result.wxShiX;
                 workDones.sbSelect = result.wxShebei;
                 workDones.sbLX = result.dcName;
                 workDones.sbMC = result.dName;
@@ -1001,6 +1089,7 @@ $(function(){
                 workDones.remarks = result.bxBeizhu;
                 _imgNum = result.hasImage;
                 workDones.wxremark = result.wxBeizhu;
+                _gdCircle = result.gdCircle;
                 //负责人(初始化);
                 //fzr = result.gdWxLeaders;
                 for(var i=0;i<result.gdWxLeaders.length;i++){
@@ -1078,7 +1167,8 @@ $(function(){
             "gdZht": _gdState,
             "wxKeshi": '',
             "wxBeizhu": workDones.wxremark,
-            "userID": _userIdName
+            "userID": _userIdNum,
+            "userName":_userIdName
         };
         $.ajax({
             type:'post',
@@ -1118,7 +1208,10 @@ $(function(){
         var gdWR = {
             gdCode : gdCode,
             gdWxRs : fzrArr,
-            userID : _userIdName
+            userID : _userIdNum,
+            userName : _userIdName,
+            gdZht:_gdState,
+            gdCircle:_gdCircle
         }
         $.ajax({
             type:'post',
@@ -1158,8 +1251,9 @@ $(function(){
                 wxKeshi:workDones.weixiukeshis,
                 bxBeizhu:workDones.remarks,
                 gdSrc:1,
-                userID:_userIdName,
-                gdLeixing:workDones.rwlx
+                userID:_userIdNum,
+                gdLeixing:workDones.rwlx,
+                userName:_userIdName
 
             }
             $.ajax({
@@ -1179,5 +1273,35 @@ $(function(){
                  }
             })
         }
+    }
+    //不打印部分
+    function noPrint(el){
+        el.addClass('noprint')
+    }
+    //重发接口
+    function reSend(){
+        var gi = {
+            "gdCode": gdCode,
+            "gdZht": 2,
+            "gdCircle": _gdCircle + 1,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZhtChP',
+            data:gi,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _reSendFlag = true;
+                }else{
+                    _reSendFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

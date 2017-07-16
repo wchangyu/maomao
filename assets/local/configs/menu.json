@@ -981,6 +981,14 @@
         "arg":"",
         "iconclass":""
       },
+      "仓库管理":{
+        "type":"0",
+        "content":"仓库管理",
+        "uri":"../cangkuguanli/warehouseManagement-10.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "入库管理":{
         "type":"0",
         "content":"入库管理",
@@ -993,6 +1001,38 @@
         "type":"0",
         "content":"出库管理",
         "uri":"../cangkuguanli/warehouseManagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "破损管理":{
+        "type":"0",
+        "content":"破损管理",
+        "uri":"../cangkuguanli/warehouseManagement-11.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "移库管理":{
+        "type":"0",
+        "content":"移库管理",
+        "uri":"../cangkuguanli/warehouseManagement-12.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "盘点管理":{
+        "type":"0",
+        "content":"盘点管理",
+        "uri":"../cangkuguanli/warehouseManagement-13.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "退货管理":{
+        "type":"0",
+        "content":"退货管理",
+        "uri":"../cangkuguanli/warehouseManagement-14.html",
         "uid":"",
         "arg":"",
         "iconclass":""

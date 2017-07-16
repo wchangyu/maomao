@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdNum = sessionStorage.getItem('userName');
+    //获得用户名
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -63,6 +65,10 @@ $(function(){
     var _wxRemarkFlag = false;
     //记录状态
     var _stateFlag = false;
+    //维修内容变量
+    var _wxContent = '';
+    //重发值
+    var _gdCircle = 0
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -92,14 +98,23 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,4,5,6]
+                }
             },
         ],
         'columns':[
             {
                 title:'工单号',
-                data:'gdCode',
-                className:'gongdanId'
+                data:'gdCode2',
+                className:'gongdanId',
+                render:function(data, type, row, meta){
+                    return '<span gdCode="' +  row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '>' +  data +
+                        '</span>'
+                }
             },
             {
                 title:'工单类型',
@@ -157,6 +172,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": 'gdZht',
+                "className":'noprint',
                 render:function(data, type, full, meta){
                     if(data == 1){
                         return "<span class='data-option option-edit btn default btn-xs green-stripe'>待下发</span>"
@@ -243,14 +259,15 @@ $(function(){
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            "gdCode":filterInput[0],
+            "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
             "gdZht":3,
             "gdZhts":[0],
-            "userID":_userIdName
+            "userID":_userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
@@ -368,11 +385,43 @@ $(function(){
    $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
-    //关闭按钮
+
+    //选择执行状态事件
+    $('#option-select').change(function(){
+        if( $('.current-state').attr('ztz') == 3 && $('#option-select').val() != 4){
+            $('.errorTips').html('当前状态下请先选择执行任务操作！');
+        }else{
+            $('.errorTips').html('');
+        }
+    })
+
+    //进展确定按钮
+    $('.progressAdd').click(function(){
+        var wxArr = _wxContent.split(' ');//["一站台东侧显示屏黑屏↵一站台东侧显示屏黑屏↵一站台东侧显示屏黑屏"]
+        var str = wxArr[0];
+        if( $('#wxbeizhu').val() == '' ){
+            str += $('#newBeiZhu').val();
+        }else{
+            if( str.substring(str.length - 1, str.length) == '\n' ){
+                str += $('#newBeiZhu').val();
+            }else{
+                str = str + '\n';
+                str += $('#newBeiZhu').val();
+            }
+        }
+        //将字符串显示到维修内容区域
+        $('#wxbeizhu').val(str);
+    });
+    //撤销
+    $('.progressDel').click(function(){
+        //还原成原来的字符串
+        $('#wxbeizhu').val(_wxContent);
+    })
     /*----------------------------表格绑定事件-----------------------------------*/
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
@@ -391,12 +440,14 @@ $(function(){
             $('#myApp33').find('textarea').attr('disabled',true);
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
-            var gongDanCode = $this.children('.gongdanId').html();
+            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -456,6 +507,9 @@ $(function(){
                     _wxOffice = result.wxKeshi;
                     //维修内容
                     $('#wxbeizhu').val(result.wxBeizhu);
+                    _wxContent = result.wxBeizhu;
+                    //最新进展
+                    $('#newBeiZhu').val('');
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -538,7 +592,9 @@ $(function(){
             "gdZht": $('#option-select').val(),
             "wxKeshi": _wxOffice,
             "wxBeizhu": $('#wxbeizhu').val(),
-            "userID": _userIdName
+            "userID": _userIdNum,
+            "userName":_userIdName,
+            "lastUpdateInfo":$('#newBeiZhu').val()
         }
         $.ajax({
             type:'post',
@@ -565,7 +621,8 @@ $(function(){
         var gdInfo = {
             'gdCode':gdCode,
             'gdZht':$('#option-select').val(),
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',

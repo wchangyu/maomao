@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
+    //获得用户名id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -73,6 +75,8 @@ $(function(){
     var _gdCode;
     //记录当前工单详情有几个图
     var _imgNum = 0;
+    //重发值
+    var _gdCircle = 0;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -101,15 +105,24 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,4,5,6]
+                }
             }
         ],
         "dom":'t<"F"lip>',
         "columns": [
             {
                 title:'工单号',
-                data:'gdCode',
-                className:'gongdanId'
+                data:'gdCode2',
+                className:'gongdanId',
+                render:function(data, type, row, meta){
+                    return '<span gdCode="' +  row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '>' +  data +
+                        '</span>'
+                }
             },
             {
                 title:'工单类型',
@@ -164,7 +177,7 @@ $(function(){
                 data:'gdShij'
             },
             {
-                class:'pingjia',
+                class:'pingjia noprint',
                 title:'操作',
                 "targets": -1,
                 "data": null, //tablePingjia
@@ -285,13 +298,13 @@ $(function(){
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var ztz = $('#gdzt').val();
         var prm = {
-            "gdCode":filterInput[0],
+            "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
             "gdZht":6,
-            "userID":_userIdName,
+            "userID":_userIdNum,
         };
         if(ztz==2)
         {
@@ -305,8 +318,8 @@ $(function(){
                 "gdZhts": [
                     1,2,3,4,5,6
                 ],
-                "userID":_userIdName,
-
+                "userID":_userIdNum,
+                "userName":_userIdName
             };
         }
 
@@ -331,7 +344,8 @@ $(function(){
         var gdInfo = {
             'gdCode':_gdCode,
             'gdZht':7,
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',
@@ -388,6 +402,7 @@ $(function(){
     $('#scrap-datatables tbody')
         //双击背景色改变，查看详情
         .on('click','.option-edit',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //当前行变色
@@ -399,13 +414,15 @@ $(function(){
             moTaiKuang($('#myModal'),'查看详情','flag');
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
-            var gongDanCode = $this.children('.gongdanId').html();
+            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             //根据工单状态，确定按钮的名称
             _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -456,6 +473,7 @@ $(function(){
         })
         //去评价
         .on('click','.tablePingjia',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             pingjia.beizhu = '';
             //初始化一下radio评价按钮
             pingjia.pickeds = '5';
@@ -468,13 +486,13 @@ $(function(){
             moTaiKuang($('#myModal1'),'关闭工单')
             //给评价弹窗绑定基本数据
             var gongDanState = parseInt($this.children('td').eq(2).html());
-            var gongDanCode = $this.children('td').eq(0).html();
+            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             _gdCode = gongDanCode;
-            gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'gdCircle':_gdCircle
             }
             $.ajax({
                 type:'post',
@@ -545,7 +563,8 @@ $(function(){
             'gdCode':_gdCode,
             'pjBz': pingjia.beizhu,
             'pingjia':pingjia.pickeds,
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',

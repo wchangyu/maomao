@@ -18,8 +18,10 @@ $(function (){
     //实际发送时间
     var realityStart;
     var realityEnd;
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    //获得用户名id
+    var _userIdNum = sessionStorage.getItem('userName');
+    //获得用户名id
+    var _userIdName = sessionStorage.getItem('realUserName');
     /*-------------------------表格初始化--------------------------*/
     //页面表格
     $('#scrap-datatables').DataTable({
@@ -207,7 +209,8 @@ $(function (){
             'gdEt':realityEnd,
             'wxKeshi':filterInput[3],
             'bxKeshi':filterInput[2],
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',
