@@ -132,6 +132,7 @@
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
   "alarmInterval":"0",
-  "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟"
-
+  "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
+  "alarmAlert":"0",
+  "alarmSong":"0"
 }
