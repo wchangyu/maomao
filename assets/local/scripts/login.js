@@ -327,6 +327,13 @@ var Login = function() {
                     var isShowTitleEprName = data["isShowTitleEprName"] || "";
                     sessionStorage.isShowTitleEprName = isShowTitleEprName;     //存储到暂存区，在本次session中使用
 
+                    //报警弹框
+                    var alarmAlert = data["alarmAlert"] || "0";
+                    sessionStorage.alarmAlert = alarmAlert;
+                    //报警声音
+                    var alarmSong = data["alarmSong"] || "0";
+                    sessionStorage.alarmSong = alarmSong;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

@@ -1087,6 +1087,7 @@ var userMonitor = (function(){
         _GlobalPara = glbPara;      //将globalpara存到当前类的全局变量中
         var $contentmain = $("#content-main-right");
         var $divCtrls = setCtrlPanel($contentmain,left,top);
+        var prDefId = glbPara.id;
         if($divCtrls.attr("data-prdefid") == prDefId && $divCtrls.attr("data-ctrltype") == "globalpara" ){      //如果当前的def控制已经绘制，直接显示
             setDivControlsVisible(true);
             return;
