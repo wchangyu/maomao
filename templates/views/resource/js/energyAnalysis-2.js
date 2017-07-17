@@ -295,6 +295,7 @@ function getPointerData(){
 				})
 			},
 			success:function(result){
+				myChart11.hideLoading();
 				allBranch = [];
 				nums ++;
 				var datas,dataSplits,object,maxData,minData;

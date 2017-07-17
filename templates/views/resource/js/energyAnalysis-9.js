@@ -330,6 +330,7 @@ function _ajaxGetPointers(){
 				})
 			},
 			success:function(result){
+				myChart11.hideLoading();
 				allBranch = [];
 				allBranch.push(result);
 				nums ++;

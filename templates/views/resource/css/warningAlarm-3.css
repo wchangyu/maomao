@@ -30,3 +30,6 @@
 .real-time{
     text-align: center;
 }
+.dataTables_scrollBody{
+    height: auto !important;
+}
