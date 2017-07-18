@@ -111,6 +111,11 @@ $(function(){
         conditionSelect();
     })
 
+    //重置
+    $('.resites').click(function(){
+        $('#bmmc').val('');
+    })
+
     //新增按钮
     $('.creatButton').click(function(){
         //添加类名

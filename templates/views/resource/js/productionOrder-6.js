@@ -362,19 +362,6 @@ $(function(){
                     var indexs = result.gdZht;
                     var progressBarList = $('.progressBarList');
                     var timeContent = $('.record-list');
-                    //console.log(progressBarList);
-                    //console.log(timeContent);
-                    /*if(0<indexs){
-                        $('.progressBar').children('li').css({'color':'#333333'});
-                        $('.processing-record ul').children('.record-list').hide();
-                        for(var i=0;i<indexs;i++){
-                            $('.progressBar').children('.progressBarList').eq(i).css({'color':'#db3d32'});
-                            $('.processing-record ul').children('.record-list').eq(i).show();
-                        }
-                    }else{
-                        $('.progressBar').children('.progressBarList').css({'color':'#333333'});
-                        $('.processing-record ul').children('.record-list').hide();
-                    }*/
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
                         $('.inpus').parent('span').removeClass('checked');

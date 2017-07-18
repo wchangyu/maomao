@@ -68,8 +68,14 @@ $(function(){
     //获取部门（登记的时候）
     getDepartment($('#djbm'));
 
+    //条件查询
+    getDepartment($('#rybm'),'flag');
+
     //获取角色（登记）
     getRole($('#jsbm'));
+
+    //角色
+    getRole($('#ryjs'),'flag');
 
     //存放所有员工列表的数组
     var _allPersonalArr = [];
@@ -163,6 +169,13 @@ $(function(){
     //查询按钮
     $('#selected').click(function(){
         conditionSelect();
+    });
+
+    //重置按钮
+    $('.resites').click(function(){
+        $('.filterInput').val('');
+        $('#rybm').children('option').eq(0).attr('selected','selected');
+        $('#ryjs').children('option').eq(0).attr('selected','selected');
     })
 
     //新增按钮
@@ -270,7 +283,7 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "userName":filterInput[0],
+            "userName2":filterInput[0],
             "userNum":filterInput[1],
             "departNum":$('#rybm').val(),
             "roleNum":$('#ryjs').val(),
@@ -379,8 +392,8 @@ $(function(){
                 //绑定数据
                 user.username = _allPersonalArr[i].userName;
                 user.jobnumber = _allPersonalArr[i].userNum;
-                user.password = _allPersonalArr[i].password;
-                user.confirmpassword = _allPersonalArr[i].password;
+                user.password = '';
+                user.confirmpassword = '';
                 user.email = _allPersonalArr[i].email;
                 user.fixedtelephone = _allPersonalArr[i].phone;
                 user.mobilephone = _allPersonalArr[i].mobile;
@@ -390,6 +403,7 @@ $(function(){
                 user.order = _allPersonalArr[i].sort;
             }
         }
+
         //查看不可操作
         var disableArea = $('#user').find('.input-blockeds');
         if(flag){

@@ -144,19 +144,17 @@ $(function(){
         'url':_urls + 'YWGD/ywGDGetDetail',
         'data':prm,
         'success':function(result){
-            console.log(result);
             //赋值
             var indexs = result.gdZht;
-            if(0<indexs && indexs<8){
-                $('.progressBar').children('li').css({'color':'#333333'});
-                $('.processing-record ul').children('.record-list').hide();
-                for(var i=0;i<indexs;i++){
-                    $('.progressBar').children('.progressBarList').eq(i).css({'color':'#db3d32'});
-                    $('.processing-record ul').children('.record-list').eq(i).show();
-                }
+            var progressBarList = $('.progressBarList');
+            var timeContent = $('.record-list');
+            //绑定弹窗数据
+            if(result.gdJJ == 1){
+                $('.inpus').parent('span').removeClass('checked');
+                $('#ones').parent('span').addClass('checked');
             }else{
-                $('.progressBar').children('.progressBarList').css({'color':'#333333'});
-                $('.processing-record ul').children('.record-list').hide();
+                $('.inpus').parent('span').removeClass('checked');
+                $('#twos').parent('span').addClass('checked');
             }
             //绑定弹窗数据
             if(result.gdJJ == 1){
@@ -188,15 +186,15 @@ $(function(){
             //待下发记录时间
             progressContent(0,0,result.gdShij);
             //待下发相关人员
-            progressContent(0,2,result.bxRen);
+            progressContent(0,2,result.createUserName);
             //调度下发时间
             progressContent(1,0,result.shouLiShij);
             //调度下发人员
-            progressContent(1,2,result.shouLiRen);
+            progressContent(1,2,result.shouLiRenName);
             //分派时间
             progressContent(2,0,result.paiGongShij);
             //分派人
-            progressContent(2,2,result.paigongUser);
+            progressContent(2,2,result.paigongUserName);
             //开始执行时间
             progressContent(3,0,result.jiedanShij);
             var ddRen = '';
@@ -219,11 +217,31 @@ $(function(){
             //关闭时间
             progressContent(6,0,result.guanbiShij);
             //关单人
-            progressContent(6,2,ddRen);
+            progressContent(6,2,result.pjRenName);
             //查看执行人员
             datasTable($("#personTable1"),result.wxRens);
             //维修材料
             datasTable($("#personTables1"),result.wxCls);
+            //根绝时间，判断取消之前处于什么状态
+            if(indexs == 999){
+                $('.progressBarList:last').children('.progressName').html('取消');
+                //控制显示红色
+                progressContent(6,0,result.quxiaoShij);
+                //重新遍历一下时间和对应的进度，如果时间为空，对应的进度置为黑色。
+            }else{
+                $('.progressBarList:last').children('.progressName').html('关闭');
+            }
+            //变色
+            for(var i=0;i<timeContent.length;i++){
+                var timeLength = timeContent.eq(i).children('div').eq(0).children('.record-content').html();
+                if(timeLength != ''){
+                    progressBarList.eq(i).css({'color':'#db3d32'});
+                }else{
+                    progressBarList.eq(i).css({'color':'#333'});
+                    //当时间为''的话，执行人员也是空
+                    timeContent.eq(i).children('div').eq(2).children('.record-content').html('');
+                }
+            }
         },
         'error':function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);
