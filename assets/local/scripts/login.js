@@ -61,7 +61,7 @@ var Login = function() {
                 var name1 = $name.val(),password1 = $password.val();
                 var name = Went.utility.wCoder.wEncode(name1);
                 var password = Went.utility.wCoder.wEncode(password1);
-                var accParams = {"userID":name,"userPwd":password};
+                var accParams = {"userID":name,"userPwd":password,"userSrc":"web"};
                 var rememberme = $('input[name=remember]').parent().hasClass("checked");
                 if(rememberme){
                     //$.cookie("rememberme","1");
@@ -80,7 +80,10 @@ var Login = function() {
                                 showAlertInfo("请输入正确的用户名");
                             }else if(res.data === "1"){
                                 showAlertInfo("请输入正确的密码");
-                            }else {
+                            }else if(res.data==="98"){
+                                showAlertInfo("没有登录web系统权限");
+                            }
+                            else {
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
