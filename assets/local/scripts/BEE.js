@@ -8,6 +8,7 @@ var BEE = (function(){
     var _localImgPath = 'local/img/';
     var _localCssPath = 'local/css/';
     var _localConfigsPath = 'local/configs/';
+    var _isAlarmShow = false;
 
     String.prototype.endWith = function(s){
         var d = this.length - s.length;
@@ -228,11 +229,14 @@ var BEE = (function(){
         if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
             setPageTopRightAlarmData(sessionStorage.alaDataLength);
         }
+        if(_isAlarmShow){
+            return;
+        }
         if(!sessionStorage.pointers){ return;}      //当前没有楼宇
         if(sessionStorage.alaInsDataTime && sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){      //如果上次有数据时间
             var lastTime = (new Date(sessionStorage.alaInsDataTime)).getTime();
             var nowTime = (new Date()).getTime();
-            var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+            var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
             if(nowTime - lastTime < refreshItv && refreshItv>0){
                 setTimeout(getAlarmInfo,refreshItv);        //下次刷新数据使用
                 return;
@@ -278,14 +282,14 @@ var BEE = (function(){
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
-                    var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                    var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                     setTimeout(getAlarmInfo,refreshItv);            //下一次获取数据
                 }
             },
             error:function(xhr,res,err){
                 setPageTopRightAlarmData(0);        //出错时候，清除显示
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
-                    var refreshItv = parseInt(sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                    var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                     setTimeout(getAlarmInfo,refreshItv);
                 }
             }
@@ -298,105 +302,114 @@ var BEE = (function(){
         var $alarmBlock = $("#header_notification_bar");
         var $alertSong = $('#audioMain');
         $badge.removeClass("badge-danger");
-        var str = '<div class="modal fade" id="myModal00" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">' +
+        if($('#myModal00').length == 0){
+            var str = '<div class="modal fade" id="myModal00" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">' +
                 '<div class="modal-dialog" style="height: 836px;width: 1100px !important;">' +
                 '<div class="modal-content" style="height: 836px;width: 1100px !important;">' +
                 '<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">报警详情</h4></div>' +
                 '<div class="modal-body"><table id="alarmTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%"></table></div>' +
                 '<div class="modal-footer"><button type="button" class="btn btn-default classNote" data-dismiss="modal">关闭</button></div>' +
                 '</div></div></div>'
-        $('body').append(str);
-        var $alarmTable = $('#alarmTable');
-        if($alarmTable){
-            $alarmTable.DataTable({
-                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                "paging": true,   //是否分页
-                "destroy": true,//还原初始化了的datatable
-                "searching": false,
-                "ordering": false,
-                // "scrollY": "300px",
-                'language': {
-                    'emptyTable': '没有数据',
-                    'loadingRecords': '加载中...',
-                    'processing': '查询中...',
-                    'lengthMenu': '每页 _MENU_ 条',
-                    'zeroRecords': '没有数据',
-                    'info': '第_PAGE_页/共_PAGES_页',
-                    'infoEmpty': '没有数据',
-                    'paginate':{
-                        "previous": "上一页",
-                        "next": "下一页",
-                        "first":"首页",
-                        "last":"尾页"
-                    }
-                },
-                "dom":'B<"clear">lfrtip',
-                'buttons': [
-
-                ],
-                "columns": [
-                    {
-                        "title":"时间",
-                        "data":"dataDate",
-                        "render":function(data,type,row,meta){
-                            if(data && data.length >0){
-                                return data.split('T')[0] + ' ' + data.split('T')[1];
-                            }
+            $('body').append(str);
+            $('#myModal00').off('hidden.bs.modal',"**");
+            $('#myModal00').on('hidden.bs.modal',function(){
+                _isAlarmShow = true;
+                var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                setTimeout(getAlarmInfo,refreshItv);
+            });
+            var $alarmTable = $('#alarmTable');
+            if($alarmTable){
+                $alarmTable.DataTable({
+                    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                    "paging": true,   //是否分页
+                    "destroy": true,//还原初始化了的datatable
+                    "searching": false,
+                    "ordering": false,
+                    // "scrollY": "300px",
+                    'language': {
+                        'emptyTable': '没有数据',
+                        'loadingRecords': '加载中...',
+                        'processing': '查询中...',
+                        'lengthMenu': '每页 _MENU_ 条',
+                        'zeroRecords': '没有数据',
+                        'info': '第_PAGE_页/共_PAGES_页',
+                        'infoEmpty': '没有数据',
+                        'paginate':{
+                            "previous": "上一页",
+                            "next": "下一页",
+                            "first":"首页",
+                            "last":"尾页"
                         }
                     },
-                    {
-                        "title": "支路",
-                        "class":"L-checkbox",
-                        "data":"cName"
-                    },
-                    {
-                        "title": "名称",
-                        "data":"pointerName"
-                    },
-                    {
-                        "title": "报警类型",
-                        "data":"cDtnName"
-                    },
-                    {
-                        "title": "报警条件",
-                        "data":"expression"
-                    },
-                    {
-                        "title": "此时数据",
-                        "data":"data"
-                    },
-                    {
-                        "title": "单位房间",
-                        "data":"rowDetailsExcDatas"
-                    },
-                    {
-                        "title": "报警等级",
-                        "data":"priority"
-                    },
-                    {
-                        "class":"alaLogID alaLogIDs hide",
-                        "data":"alaLogID"
-                    },
-                    {
-                        "class":"alaLogID pointerID hide",
-                        "data":"pointerID"
-                    },
-                    {
-                        "title": "处理备注",
-                        "targets": -1,
-                        "data": null,
-                        "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal02' onclick='addInfo($(this))'>点击处理</button>" +
-                        "<div class='modal fade' id='myModal02' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>" +
-                        "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
-                        "<div class='modal-content'>" +
-                        "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><input type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
-                        "</div>" +
-                        "</div>" +
-                        "</div>"
-                    }
-                ]
-            });
+                    "dom":'B<"clear">lfrtip',
+                    'buttons': [
+
+                    ],
+                    "columns": [
+                        {
+                            "title":"时间",
+                            "data":"dataDate",
+                            "render":function(data,type,row,meta){
+                                if(data && data.length >0){
+                                    return data.split('T')[0] + ' ' + data.split('T')[1];
+                                }
+                            }
+                        },
+                        {
+                            "title": "支路",
+                            "class":"L-checkbox",
+                            "data":"cName"
+                        },
+                        {
+                            "title": "名称",
+                            "data":"pointerName"
+                        },
+                        {
+                            "title": "报警类型",
+                            "data":"cDtnName"
+                        },
+                        {
+                            "title": "报警条件",
+                            "data":"expression"
+                        },
+                        {
+                            "title": "此时数据",
+                            "data":"data"
+                        },
+                        {
+                            "title": "单位房间",
+                            "data":"rowDetailsExcDatas"
+                        },
+                        {
+                            "title": "报警等级",
+                            "data":"priority"
+                        },
+                        {
+                            "class":"alaLogID alaLogIDs hide",
+                            "data":"alaLogID"
+                        },
+                        {
+                            "class":"alaLogID pointerID hide",
+                            "data":"pointerID"
+                        },
+                        {
+                            "title": "处理备注",
+                            "targets": -1,
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal02' onclick='addInfo($(this))'>点击处理</button>" +
+                            "<div class='modal fade' id='myModal02' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>" +
+                            "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
+                            "<div class='modal-content'>" +
+                            "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><input type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
+                            "</div>" +
+                            "</div>" +
+                            "</div>"
+                        }
+                    ]
+                });
+            }
         }
+
         if($badge.length>0){        //设置当前报警显示的内容
             if(dataLength==0){
                $badge.html("");            //当前警告的小圆点
@@ -424,18 +437,22 @@ var BEE = (function(){
                     $alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
                     $alertSong.attr('loop','loop');
                     $('#myModal00').modal('show');
+                    _isAlarmShow = true;
                 }else if(alarmAlert == 1 &&  alarmSong == 0){  //声音关闭，弹窗开启
                     $alertSong.removeAttr('autoplay');
                     $alertSong.removeAttr('loop');
                     $('#myModal00').modal('show');
+                    _isAlarmShow = true;
                 }else if(alarmAlert == 0 &&  alarmSong == 1){ //声音开启，弹窗关闭
                     $alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
                     $alertSong.attr('loop','loop');
                     $('#myModal00').modal('hide');
+                    _isAlarmShow = false;
                 }else if(alarmAlert == 0 && alarmSong == 0){ //声音关闭，弹窗关闭
                     $alertSong.removeAttr('autoplay');
                     $alertSong.removeAttr('loop');
                     $('#myModal00').modal('hide');
+                    _isAlarmShow = false;
                 }
             }
         }
