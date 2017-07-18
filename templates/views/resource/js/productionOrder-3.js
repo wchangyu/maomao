@@ -734,10 +734,19 @@ $(function(){
             moTaiKuang($('#myModal5'),'图片详情','flag');
             var imgSrc = $(this).attr('src')
             $('#myModal5').find('img').attr('src',imgSrc);
-        })
+        });
+    //查询
     $('#selected').on('click',function(){
         conditionSelect();
     });
+
+    //重置
+    $('.resites').click(function(){
+        $('.filterInput').val('');
+        //时间置为今天
+        $('.min').val(_initStart);
+        $('.max').val(_initEnd);
+    })
 
     $('#myModal7').on('click','.xzDepartment',function(){
         _autoOrHand = 2;

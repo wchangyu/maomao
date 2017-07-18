@@ -98,8 +98,7 @@ $(function(){
                 "data": null,
                 "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                 "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
-                "<span class='data-option option-assigned btn default btn-xs green-stripe'>分配权限</span>"
+                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
             }
         ]
@@ -113,6 +112,11 @@ $(function(){
     //查询按钮
     $('#selected').click(function(){
         conditionSelect();
+    })
+
+    //重置
+    $('.resites').click(function(){
+        $('.filterInput').val('');
     })
 
     //新增按钮
@@ -213,7 +217,6 @@ $(function(){
         }
         var prm = {
             "roleName":filterInput[0],
-            "roleNum":'',
             "userID":_userIdName
         }
         $.ajax({
@@ -225,7 +228,7 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     _allRoleArr.push(result[i]);
                 }
-                datasTable($('#role-table'),result)
+                datasTable($('#role-table'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
