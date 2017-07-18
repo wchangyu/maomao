@@ -245,7 +245,7 @@ var BEE = (function(){
             ptIds.push(pointers[i].pointerID);
         }
         var now = new Date();
-        var year = now.getFullYear(),month = now.getMonth(),day = now.getDate();
+        var year = now.getFullYear(),month = now.getMonth() + 1,day = now.getDate();
         var st = year + "-" + month + "-" + day + " 00:00:00";
         var et = year + "-" + month + "-" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
         var prmData = {
@@ -455,7 +455,7 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 setTheme();
-                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval=='0') {
+                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
             }

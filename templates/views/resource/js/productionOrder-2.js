@@ -627,6 +627,7 @@ $(function(){
             moTaiKuang($('#myModal4'),'flag');
         }else{
             if(_gdCircle == 5){
+                _gdCircle = parseInt(_gdCircle) + 1;
                 //重发
                 reSend();
                 //更新维修备注
@@ -1348,7 +1349,7 @@ $(function(){
         var gi = {
             "gdCode": gdCode,
             "gdZht": 3,
-            "gdCircle": _gdCircle + 1,
+            "gdCircle": _gdCircle,
             "userID": _userIdNum,
             "userName": _userIdName
         }

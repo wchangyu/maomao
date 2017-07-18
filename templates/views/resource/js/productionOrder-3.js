@@ -652,8 +652,9 @@ $(function(){
             //先判断是第一次下发还是重发
             if(_gdState == 5){
                 //调用重发接口
-                reSend();
                 upDateWXRemark();
+                _gdCircle = parseInt(_gdCircle) + 1;
+                reSend();
                 assigFZR();
                 if(_leaderFlag && _wxBZFlag && _reSendFlag){
                     moTaiKuang($('#myModal4'),'提示','flag');
@@ -1292,7 +1293,7 @@ $(function(){
         var gi = {
             "gdCode": gdCode,
             "gdZht": 2,
-            "gdCircle": _gdCircle + 1,
+            "gdCircle": _gdCircle,
             "userID": _userIdNum,
             "userName": _userIdName
         }

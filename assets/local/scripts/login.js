@@ -80,7 +80,10 @@ var Login = function() {
                                 showAlertInfo("请输入正确的用户名");
                             }else if(res.data === "1"){
                                 showAlertInfo("请输入正确的密码");
-                            }else {
+                            }else if(res.data==="98"){
+                                showAlertInfo("没有登录web系统权限");
+                            }
+                            else {
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
