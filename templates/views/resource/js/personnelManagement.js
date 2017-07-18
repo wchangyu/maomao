@@ -312,57 +312,61 @@ $(function(){
         if( user.username == '' || user.jobnumber == '' ){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            //判断两次密码是否一致
-            if($('.confirmpassword')[0].style.display == 'none'){
-                //判断是编辑、登记、还是删除
-                var prm = {};
-                 if(flag){
-                     prm = {
-                         "userName2": user.username,
-                         "userNum": user.jobnumber,
-                         "userID":_userIdName
-                     };
-                 }else{
-                     prm = {
-                         "userName2":user.username,
-                         "userNum":user.jobnumber,
-                         "password":user.password,
-                         "email":user.email,
-                         "phone":user.fixedtelephone,
-                         "mobile":user.mobilephone,
-                         "departNum":user.department,
-                         "roleNum":user.role,
-                         "remark":user.remarks,
-                         "sort":user.order,
-                         "userID":_userIdName,
-                         "pos":user.position,
-                         "pinyin":user.pinyin
-                     };
-                 }
-                 //发送数据
-                 $.ajax({
-                     type:'post',
-                     url:_urls + url,
-                     data:prm,
-                     success:function(result){
-                         if(result == 99){
-                            //提示登记成功
-                             tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                             $('#myModal').modal('hide');
-                         }else if(result == 3){
-                             //提示登记失败
-                             tipInfo($('#myModal1'),'提示',errorMeg,'flag');
-                         }
-                         conditionSelect();
-                     },
-                     error:function(jqXHR, textStatus, errorThrown){
-                        console.log(jqXHR.responseText);
-                     }
-                 })
+            //判断工号是否重复
+            if($('.jobNumberExists')[0].style.display != 'none'){
+                tipInfo($('#myModal1'),'提示','该工号已存在！','flag');
             }else{
-                tipInfo($('#myModal1'),'提示','两次密码填写不一致！','flag');
+                //判断两次密码是否一致
+                if($('.confirmpassword')[0].style.display == 'none'){
+                    //判断是编辑、登记、还是删除
+                    var prm = {};
+                    if(flag){
+                        prm = {
+                            "userName2": user.username,
+                            "userNum": user.jobnumber,
+                            "userID":_userIdName
+                        };
+                    }else{
+                        prm = {
+                            "userName2":user.username,
+                            "userNum":user.jobnumber,
+                            "password":user.password,
+                            "email":user.email,
+                            "phone":user.fixedtelephone,
+                            "mobile":user.mobilephone,
+                            "departNum":user.department,
+                            "roleNum":user.role,
+                            "remark":user.remarks,
+                            "sort":user.order,
+                            "userID":_userIdName,
+                            "pos":user.position,
+                            "pinyin":user.pinyin
+                        };
+                    }
+                    //发送数据
+                    $.ajax({
+                        type:'post',
+                        url:_urls + url,
+                        data:prm,
+                        success:function(result){
+                            if(result == 99){
+                                //提示登记成功
+                                tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                                $('#myModal').modal('hide');
+                            }else if(result == 3){
+                                //提示登记失败
+                                tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                            }
+                            conditionSelect();
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
+                        }
+                    })
+                }else{
+                    tipInfo($('#myModal1'),'提示','两次密码填写不一致！','flag');
+                }
             }
-
         }
     }
 

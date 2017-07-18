@@ -28,3 +28,5 @@ sessionStorage.menuUri          记录当前的菜单配置中的uri(例如:../x
 sessionStorage.menuStr          菜单的源字符串记录
 sessionStorage.isShowTitleEprName 是否在systemTitle的基础上追加企业名称
 sessionStorage.enterPriseList   唯一的企业列表集合(企业ID和企业名称)
+sessionStorage.alarmAlert      记录是否开启报警弹窗
+sessionStorage.alarmSong       记录是否开启报警声音
