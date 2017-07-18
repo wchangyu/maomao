@@ -196,14 +196,14 @@ $(function(){
             },
             {
                 title:'最新处理情况',
-                data:'wxBeizhu'
+                data:'lastUpdateInfo'
             },
             {
                 title:'受理时间',
                 data:'shouLiShij'
             },
             {
-                title:'报修至截止本日12:00已累计故障（天、时、分）',
+                title:'故障发生时长',
                 data:'timeSpan'
             },
             {
