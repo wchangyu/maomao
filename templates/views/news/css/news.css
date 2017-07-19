@@ -103,7 +103,6 @@ li{
     top:0;
     z-index: 1;
     background: #ffffff;
-    opacity: 0;
 }
 .news-content-active{
     display: block;

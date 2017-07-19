@@ -76,9 +76,9 @@ var Login = function() {
                         data:accParams,
                         //async:true,
                         success:function(res){
-                            if(res.data === "2"){
+                            if(res == "2"){
                                 showAlertInfo("请输入正确的用户名");
-                            }else if(res.data === "1"){
+                            }else if(res == "1"){
                                 showAlertInfo("请输入正确的密码");
                             }else {
                                 //$.cookie("username", name1);
@@ -137,6 +137,7 @@ var Login = function() {
         });
 
         $('.login-form input').keypress(function(e) {
+
             if (e.which == 13) {
                 if ($('.login-form').validate().form()) {
                     $('.login-form').submit(); //form validation success, call ajax form submit

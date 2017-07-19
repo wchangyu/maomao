@@ -45,16 +45,9 @@
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
-    <!--<link rel="stylesheet" href="../bank-resource/css/common.css"/>-->
-    <!--<link rel="stylesheet" href="../bank-resource/css/shouye/index.css"/>-->
-
-
-    <!--<link rel="stylesheet" href="./button/bootstrap.css">-->
-    <!--<link rel="stylesheet" href="./button/buttons.dataTables.min.css">-->
-    <!--<link href="./admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>-->
-    <!--<link rel="stylesheet" href="./css/jquery.dataTables.min.css">-->
+    <link rel="stylesheet" href="css/lib/lanrenzhijia.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/UnitProfessional.css">
+    <link rel="stylesheet" href="./css/OfficeUsedSettle.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -237,33 +230,62 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12">
-                    <!--外部包裹-->
                     <div class="out-content">
-                        <!--内部包裹-->
                         <div class="inner-content">
-                            <!--页面主体-->
                             <div class="main-content">
-                                <!--头部横条-->
-                                <ul class="main-content-header">
-                                    <li class="main-content-header-lists0">单位专业列表</li>
-                                </ul>
 
-                                <!--具体内容-->
-                                <!--搜索部分-->
-                                <div class="main-content-body row">
 
-                                    <div class="col-md-3" style="margin-bottom:20px;">
-                                        <button class="top-btn window-btn" data-toggle='modal' data-target='#add-people'
-                                                style="margin-left:30px;">添加</button>
+                                <!--右侧查询部分-->
+                                <div class="main-content">
+                                    <ul class="main-content-header">
+                                        <li class="main-content-header-lists0">用能信息查询</li>
+                                    </ul>
 
-                                    </div>
-                                </div>
-                                <!--表格部分-->
-                                <div class="row">
-                                    <div class="col-lg-6 col-md- col-sm-10 col-xs-10 main-content-table" style="overflow: auto;">
-                                        <table class="table table-striped table-bordered table-advance table-hover" id="dateTables">
+                                    <!--搜索部分-->
+
+                                    <ul class="condition-query refer-unit-table">
+
+                                        <li>
+                                            <label for="">开始日期：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="chooseDate startDate">
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <label for="">结束日期：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="chooseDate endDate">
+                                            </div>
+                                        </li>
+
+                                        <li><button class="top-btn top-refer" style="margin-right:20px">查询</button></li>
+
+
+                                        <div class="clearfix"></div>
+                                    </ul>
+
+                                    <ul class="main-content-header">
+                                        <li class="main-content-header-lists0">列表操作</li>
+                                    </ul>
+
+                                    <ul class="condition-query">
+
+
+                                        <li> <button class="top-btn window-btn top-btn2" >临时生成超额用能列表</button></li>
+                                        <li class="the-wrong" style="display: none"><img src="img/theWrong.png" alt=""><a href="javascript:;" class="openWrong">查看错误</a></li>
+
+                                        <div class="clearfix"></div>
+                                    </ul>
+
+                                    <ul class="main-content-header">
+                                        <li class="main-content-header-lists0">列表展示</li>
+                                    </ul>
+
+                                    <div class="main-content-table" style="overflow: auto;width:100%;">
+                                        <table class="table table-striped table-bordered table-advance table-hover" id="dateTables" style="">
                                             <thead>
 
                                             </thead>
@@ -283,34 +305,38 @@
     </div>
 
 
-    <!--新增单位专业弹窗-->
-    <div class='modal fade' id='add-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:30%;margin:15% auto'>
+    <!--某二级单位加减费用修改-->
+    <div class='modal fade' id='alter-cost' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:30%;margin:15% auto;min-width:450px;'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">新增单位专业</div>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">修改加减费用</div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">单位专业：</label>
+                            <label for="" class="" style="width:95px;">应缴费用：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
+                            <div class="add-input-block" style="background: rgb(235, 235, 228)">
+                                <input type="text" class="add-input shouldPay" disabled="disabled">
                             </div>
-                            <span class="hooks hooks1"></span>
-                            <span class="marks marks1"></span>
-                            <span class="hint-text hint-text1"></span>
                         </div>
+
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">系数K：</label>
+                            <label for="" class="input-label" style="width:95px;">加减费用：</label>
 
                             <div class="add-input-block">
-                                <input type="text" class="add-input">
+                                <input type="text" class="add-input smallChange">
                             </div>
-                            <span class="hooks hooks2"></span>
-                            <span class="marks marks2"></span>
-                            <span class="hint-text hint-text2"></span>
                         </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="" style="width:95px;">备注：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input add-comment" >
+                            </div>
+                        </div>
+
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-primary top-btn'>提交更改</button>
@@ -321,28 +347,134 @@
         </div>
     </div>
 
-    <!--修改单位专业弹窗-->
-    <div class='modal fade' id='alter-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:30%;margin:15% auto'>
+    <!--查看详情弹窗-->
+    <div class='modal fade' id='show-details' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='margin:60px auto;min-width:850px;'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">修改单位专业</div>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;">用能信息详情</div>
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="wrap" style="margin-top:10px">
+                            <div class="tabs1 tabs">
+                                <a href="#" hidefocus="true" class="active">电</a>
+                                <a href="#" hidefocus="true">水</a>
+                                <a href="#" hidefocus="true">气</a>
+                            </div>
+                            <div class="swiper-container" style="padding-top:20px;height:560px;">
+                                <!--定额列表-->
+                                <div class="ament-data" style="margin-left:0px;margin-right:30px;">
+                                    <b>用电单价：</b>
+                                    <span>电表11</span>
+                                </div>
+
+                                <div class="ament-data" style="margin-right:30px;">
+                                    <b>定额量：</b>
+                                    <span>电</span>
+                                </div>
+
+                                <div class="ament-data">
+                                    <b>用能量：</b>
+                                    <span>累加</span>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                        <label for="" class="" style="">特殊加减用能量：</label>
+
+                                        <div class="add-input-block">
+                                            <input type="text" class="add-input smallEnergy" value="" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-12 col-xs-12 inner-input add-sign">
+                                        <label for="" class="" style="">实际用能量：</label>
+                                        <div class="add-input-block" style="background-color:rgb(235, 235, 228)">
+                                            <input type="text" class="add-input actualEnergy" value="" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-10 col-sm-12 col-xs-12 inner-input">
+                                        <label for="" class="" style="">备注：</label>
+
+                                        <div class="add-input-block" style="width:70%">
+                                            <textarea name="yj" cols="40" rows="3" style="resize:none;width:100%;height:60px" class="add-input remarks" maxlength="100"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="ament-data" style="margin-left:0px;margin-right:30px;">
+                                    <b>超额用能量：</b>
+                                    <span>电表11</span>
+                                </div>
+
+                                <div class="ament-data" style="margin-right:30px;">
+                                    <b>应缴费用：</b>
+                                    <span style="color:red">电</span>
+                                </div>
+
+                                <div class="col-sm-12 col-xs-12 quota-data-bottom" style="">
+                                    <h3 class="table-heads" style="text-align:center;margin-bottom:10px;">二级单位抄表记录</h3>
+                                    <table class="table table-striped" id="dateTables1">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary top-btn'>提交更改</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--生成超额用能列表弹窗-->
+    <div class='modal fade' id='product-list' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:30%;margin:15% auto;min-width:450px;'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">生成超额用能二级单位列表</div>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">单位专业：</label>
+                            <label for="" class="" style="width:95px;">开始日期：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
+                            <div class="add-input-block" style="background: rgb(235, 235, 228)">
+                                <input type="text" class="add-input" disabled="disabled">
                             </div>
                         </div>
+
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">系数K：</label>
+                            <label for="" style="width:95px;">结束日期：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
+                            <div class="add-input-block"  style="background: rgb(235, 235, 228)">
+                                <input type="text" class="add-input" disabled="disabled">
                             </div>
                         </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
+                            <label for="" class="input-label" style="width:95px;">结算名称：</label>
+
+                            <div class="add-input-block">
+                                <input type="text" class="add-input add-comment" >
+                            </div>
+                        </div>
+
                     </div>
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-primary top-btn'>提交更改</button>
@@ -353,15 +485,35 @@
         </div>
     </div>
 
-    <!--删除单位专业弹窗-->
-    <div class='modal fade' id='remove-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+    <!--是否确定生成超额用能列表-->
+    <div class='modal fade' id='sure-product' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='max-width:700px;margin:150px auto'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h3 style="margin-bottom:20px">提示</h3>
-                    <p style="font-size:20px">真的要删除数据 <b style="color:red"></b> 吗？</p>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px">是否确定生成超额用能列表？</p>
+
                     <div class='modal-footer' style="border:none">
+
                         <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--是否就错误信息生成超额用能列表-->
+    <div class='modal fade' id='theHint' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='max-width:700px;margin:150px auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px"> <b style="color:red"></b> </p>
+
+                    <div class='modal-footer' style="border:none">
+
+                        <button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
                         <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
                     </div>
                 </div>
@@ -371,7 +523,7 @@
 
     <!--自定义弹窗-->
     <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+        <div class='modal-dialog'style='max-width:700px;margin:150px auto'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <h3 style="margin-bottom:18px">提示</h3>
@@ -440,19 +592,10 @@
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<!--<script src="js/lib/jquery-3.0.0.min.js"></script>-->
-<!--<script src="js/lib/bootstrap.min.js"></script>-->
-<!--<script src="js/lib/jquery.dataTables.min.js"></script>-->
-<!--<script src="./button/dataTables.buttons.min.js"></script>-->
-<!--<script src="./button/dataTables.tableTools.min.js"></script>-->
-<!--<script src="./button/jszip.min.js"></script>-->
-<!--<script src="js/lib/vfs_fonts.js"></script>-->
-<!--<script src="./button/buttons.html5.min.js"></script>-->
+
+<script src="js/lib/jQuery.Hz2Py-min.js"  type="text/javascript"></script>
 <script src="./js/commonIP.js"></script>
-<script src="js/UnitProfessional.js"></script>
-
-
+<script src="js/OfficeUsedSettle.js"></script>
 
 <script>
     jQuery(document).ready(function() {
