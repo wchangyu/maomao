@@ -226,9 +226,9 @@ var BEE = (function(){
     //设置页面右上角报警信息
     //保存当前数据的时间和数据到sessionStorage中，每次打开时候比对时间，如果时间超过数据时间+刷新时间，则重新载入
     var getAlarmInfo = function(){
-        if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
-            setPageTopRightAlarmData(sessionStorage.alaDataLength);
-        }
+        //if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
+        //    setPageTopRightAlarmData(sessionStorage.alaDataLength);
+        //}
         if(_isAlarmShow){
             return;
         }
@@ -250,14 +250,14 @@ var BEE = (function(){
         }
         var now = new Date();
         var year = now.getFullYear(),month = now.getMonth() + 1,day = now.getDate();
-        var st = year + "-" + month + "-" + day + " 00:00:00";
-        var et = year + "-" + month + "-" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
+        var st = year + "/" + month + "/" + day + " 00:00:00";
+        var et = year + "/" + month + "/" + day + " " + now.getHours() + ":" + now.getMinutes() + ":00";
         var prmData = {
             "st" : st,
             "et" : et,
             "excTypeInnerId":"",
             "energyType":"",
-            "pointerIds":ptIds
+            "pointerIds":ptIds,
         };
         $.ajax({
             type:'post',
@@ -288,7 +288,6 @@ var BEE = (function(){
     }
 
     function setPageTopRightAlarmData(dataLength,data){
-        console.log(data);
         var $badge = $("#header_notification_bar .badge");
         var $alarmDetail = $("#header_notification_bar .external>h3>span");
         var $alarmBlock = $("#header_notification_bar");
@@ -305,7 +304,8 @@ var BEE = (function(){
             $('body').append(str);
             $('#myModal00').off('hidden.bs.modal',"**");
             $('#myModal00').on('hidden.bs.modal',function(){
-                _isAlarmShow = true;
+                _isAlarmShow = false;
+                console.log(666);
                 var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                 setTimeout(getAlarmInfo,refreshItv);
             });
@@ -420,9 +420,9 @@ var BEE = (function(){
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
                 }
-                $alertSong.removeAttr('autoplay');
+                /*$alertSong.removeAttr('autoplay');
                 $alertSong.removeAttr('loop');
-                $('#myModal00').modal('hide');
+                $('#myModal00').modal('hide');*/
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
@@ -431,28 +431,42 @@ var BEE = (function(){
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
-                //声音
                 //$alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
-                //$alertSong.attr('loop','loop');          //循环播放
-               // $('#myModal00').modal('show');
+                //$alertSong.attr('loop','loop');
+               //$('#myModal00').modal('show');
+                //声音
+                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
+                var node = document.getElementById('#header_notification_bar');
+
+                //$('#myModal00').off('shown.bs.modal');
+
                 if(alarmAlert == 1 && alarmSong == 1){  //声音开启，弹窗开启
-                    $alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
-                    $alertSong.attr('loop','loop');
                     $('#myModal00').modal('show');
+
+                    $('#myModal00').one('shown.bs.modal', function () {
+                        var childNode= document.getElementsByTagName('audio')[0];
+
+                        if(!childNode){
+                            $('#header_notification_bar').append(audioStr);
+                        }
+
+                    });
                     _isAlarmShow = true;
                 }else if(alarmAlert == 1 &&  alarmSong == 0){  //声音关闭，弹窗开启
-                    $alertSong.removeAttr('autoplay');
-                    $alertSong.removeAttr('loop');
                     $('#myModal00').modal('show');
                     _isAlarmShow = true;
                 }else if(alarmAlert == 0 &&  alarmSong == 1){ //声音开启，弹窗关闭
-                    $alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
-                    $alertSong.attr('loop','loop');
+
+                    var childNode= document.getElementsByTagName('audio')[0];
+                    console.log(childNode);
+
+                    if(!childNode){
+                        $('#header_notification_bar').append(audioStr);
+                    }
+
                     $('#myModal00').modal('hide');
                     _isAlarmShow = false;
                 }else if(alarmAlert == 0 && alarmSong == 0){ //声音关闭，弹窗关闭
-                    $alertSong.removeAttr('autoplay');
-                    $alertSong.removeAttr('loop');
                     $('#myModal00').modal('hide');
                     _isAlarmShow = false;
                 }
