@@ -88,10 +88,10 @@ $(function(){
                 "targets": -1,
                 "data": "flag",
                 "render":function(data,type,row,meta){
-                    if(data>0){
-                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>已阅读";
+                    if(data==1){
+                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
                     }else{
-                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>未阅读";
+                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未阅读</span>";
                     }
                 }
             },
@@ -206,22 +206,22 @@ function alarmHistory(){
         async:false,
         data:prm,
         success:function(result){
-            console.log(result);
-                var pcids = [];
-                for(var i=0;i<result.length;i++){
-                    totalArr.push(result[i]);
-                    if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
-                        pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
+            var dataArr = [];
+            var pcids = [];
+            for(var i=0;i<result.length;i++){
+                totalArr.push(result[i]);
+                if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
+                    pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
+                }
+            }
+            for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
+                for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
+                    if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
+                        dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
+                        break;  //跳处循环；
                     }
                 }
-                for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
-                    for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
-                        if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
-                            dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
-                            break;  //跳处循环；
-                        }
-                    }
-                }
+            }
             datasTable($("#datatables"),dataArr);
             //console.log(dataArr);
         }
@@ -315,7 +315,8 @@ function processingNote (){
         'msgTime':nowDays,
         'alaLogId':_alaLogId,
         'alaMessage':_texts
-    }
+    };
+
     $.ajax(
         {
             'type':'post',
@@ -325,6 +326,7 @@ function processingNote (){
             success:function(result){
                 $("#myModal").modal('hide');
                 $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
+                $('.choice[data-alaLogID="' + _alaLogId  + '"]').parents('.L-checkbox').children('.yuedu').html('已阅读');
             }
         }
     )

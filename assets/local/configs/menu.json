@@ -41,7 +41,7 @@
         "content":"变配电系统-空调",
         "uri":"../yongnengjiance/energyMonitor.html?a=1",
         "uid":"",
-        "arg":"2,1",
+        "arg":"2,7",
         "iconclass":""
       },
       "变配电系统3":{
@@ -63,9 +63,9 @@
       "暖通空调系统":{
         "type":"0",
         "content":"暖通空调系统",
-        "uri":"../yongnengjiance/energyMonitor.html?a=3",
+        "uri":"../yongnengjiance/energyMonitor.html?a=4",
         "uid":"",
-        "arg":"0,0",
+        "arg":"2,8",
         "iconclass":""
       },
       "给排水系统":{
@@ -858,6 +858,45 @@
       }
     }
   },
+  "故障明细表":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"故障明细表",
+    "submenu":{
+      "周故障分析表":{
+        "type":"0",
+        "content":"周故障分析表",
+        "uri":"../guzhangfenxibiao/weekBugList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "日故障分析表":{
+        "type":"0",
+        "content":"日故障分析表",
+        "uri":"../guzhangfenxibiao/dailyBugList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障修复明细总表":{
+        "type":"0",
+        "content":"故障修复明细总表",
+        "uri":"../guzhangfenxibiao/totalFailureRepairList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障未修复明细表":{
+        "type":"0",
+        "content":"故障未修复明细表",
+        "uri":"../guzhangfenxibiao/failureRepairList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
   "系统设置":{
     "type":"1",
     "iconclass":"icon-settings",
@@ -891,6 +930,14 @@
         "type":"0",
         "content":"资源管理",
         "uri":"../xitongshezhi/resourceManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "修改密码":{
+        "type":"0",
+        "content":"修改密码",
+        "uri":"../xitongshezhi/changePwd.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -934,6 +981,14 @@
         "arg":"",
         "iconclass":""
       },
+      "仓库管理":{
+        "type":"0",
+        "content":"仓库管理",
+        "uri":"../cangkuguanli/warehouseManagement-10.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "入库管理":{
         "type":"0",
         "content":"入库管理",
@@ -946,6 +1001,38 @@
         "type":"0",
         "content":"出库管理",
         "uri":"../cangkuguanli/warehouseManagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "破损管理":{
+        "type":"0",
+        "content":"破损管理",
+        "uri":"../cangkuguanli/warehouseManagement-11.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "移库管理":{
+        "type":"0",
+        "content":"移库管理",
+        "uri":"../cangkuguanli/warehouseManagement-12.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "盘点管理":{
+        "type":"0",
+        "content":"盘点管理",
+        "uri":"../cangkuguanli/warehouseManagement-13.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "退货管理":{
+        "type":"0",
+        "content":"退货管理",
+        "uri":"../cangkuguanli/warehouseManagement-14.html",
         "uid":"",
         "arg":"",
         "iconclass":""

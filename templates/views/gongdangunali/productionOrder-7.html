@@ -307,7 +307,7 @@
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
@@ -417,7 +417,7 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">任务类型 *：</div>
+                                <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
                                         <option value="1">一级任务</option>
@@ -529,8 +529,17 @@
                         <div style="font-size: 16px;">维修反馈</div>
                         <div class="labels">维修内容：</div>
                         <div class="input-blockeds" style="height: auto;margin-bottom: 20px;">
-                            <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" id="wxbeizhu"></textarea>
+                            <textarea style="width: 100%;height: 100px;outline: none"  class="wxbeizhu" id="wxbeizhu"></textarea>
                         </div>
+                        <div class="labels">进展：</div>
+                        <div class="input-blockeds" style="height: auto;margin-bottom: 5px;width: 188px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" id="newBeiZhu"></textarea>
+                        </div>
+                        <div style="float:right;margin-bottom: 20px;">
+                            <button type="button" class="btn btn-default progressAdd" style="font-size: 10px !important;padding: 4px 8px !important;">添加</button>
+                            <button type="button" class="btn btn-default progressDel" style="font-size: 10px !important;padding: 4px 8px !important;">撤销</button>
+                        </div>
+                        <div class="clearfix"></div>
                         <div class="labels">当前状态：</div>
                         <div class="input-blockeds" style="height: auto;margin-bottom: 20px;width: 188px;">
                             <input type="text" class="current-state" style="width: 186px;">

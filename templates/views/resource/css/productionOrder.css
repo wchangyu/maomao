@@ -286,7 +286,7 @@
     color: #00b0f0;
 }
 textarea{
-    text-indent: 10px;
+    padding:10px;
     border: none;
     line-height: 20px !important;
 }
@@ -386,7 +386,7 @@ table.dataTable.table-condensed > thead > tr > th{
     margin-top: 15px;
 }
 .processing-record ul li{
-    margin-bottom: 15px;
+    margin-bottom: 22px;
 }
 .record-content{
     margin-bottom: 0;

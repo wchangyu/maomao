@@ -61,7 +61,7 @@ var Login = function() {
                 var name1 = $name.val(),password1 = $password.val();
                 var name = Went.utility.wCoder.wEncode(name1);
                 var password = Went.utility.wCoder.wEncode(password1);
-                var accParams = {"userID":name,"userPwd":password};
+                var accParams = {"userID":name,"userPwd":password,"userSrc":"web"};
                 var rememberme = $('input[name=remember]').parent().hasClass("checked");
                 if(rememberme){
                     //$.cookie("rememberme","1");
@@ -69,7 +69,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-                    var url = sessionStorage.apiUrlPrefix + "Account/Login";
+                    var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,
                         type:"post",
@@ -80,7 +80,10 @@ var Login = function() {
                                 showAlertInfo("请输入正确的用户名");
                             }else if(res == "1"){
                                 showAlertInfo("请输入正确的密码");
-                            }else {
+                            }else if(res.data==="98"){
+                                showAlertInfo("没有登录web系统权限");
+                            }
+                            else {
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
@@ -88,6 +91,9 @@ var Login = function() {
                                     localStorage.BEE_userpassword = password;
                                 }
                                 sessionStorage.userName=name1;
+                                if(res.userName){
+                                    sessionStorage.realUserName = res.userName;
+                                }
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();
@@ -324,6 +330,13 @@ var Login = function() {
                     //获取是否在systemTitle的基础上追加企业名称
                     var isShowTitleEprName = data["isShowTitleEprName"] || "";
                     sessionStorage.isShowTitleEprName = isShowTitleEprName;     //存储到暂存区，在本次session中使用
+
+                    //报警弹框
+                    var alarmAlert = data["alarmAlert"] || "0";
+                    sessionStorage.alarmAlert = alarmAlert;
+                    //报警声音
+                    var alarmSong = data["alarmSong"] || "0";
+                    sessionStorage.alarmSong = alarmSong;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

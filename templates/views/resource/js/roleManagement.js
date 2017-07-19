@@ -89,13 +89,16 @@ $(function(){
                 data:'remark'
             },
             {
+                title:'排序',
+                data:'sort'
+            },
+            {
                 title:'操作',
                 "targets": -1,
                 "data": null,
                 "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                 "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
-                "<span class='data-option option-assigned btn default btn-xs green-stripe'>分配权限</span>"
+                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
             }
         ]
@@ -109,6 +112,11 @@ $(function(){
     //查询按钮
     $('#selected').click(function(){
         conditionSelect();
+    })
+
+    //重置
+    $('.resites').click(function(){
+        $('.filterInput').val('');
     })
 
     //新增按钮
@@ -132,7 +140,7 @@ $(function(){
         })
         //编辑确定按钮功能
         .on('click','.bianji',function(){
-            //发送请求
+            //发送请求(编码不许修改);
             editOrView('RBAC/rbacUptRole','编辑成功!','编辑失败!');
         })
         //删除确定按钮功能
@@ -158,6 +166,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
             bindingData($(this));
+            $('.xtbm').attr('disabled',true).addClass('disabled-block');
         })
         //删除
         .on('click','.option-delete',function(){
@@ -208,7 +217,6 @@ $(function(){
         }
         var prm = {
             "roleName":filterInput[0],
-            "roleNum":'',
             "userID":_userIdName
         }
         $.ajax({
@@ -220,10 +228,10 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     _allRoleArr.push(result[i]);
                 }
-                datasTable($('#role-table'),result)
+                datasTable($('#role-table'),result);
             },
-            error:function(){
-
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -243,39 +251,51 @@ $(function(){
 
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag){
-        //判断是编辑、登记、还是删除
-        if(flag){
-            var prm = {
-                "roleNum":role.num,
-                "roleName":role.name,
-                "userID":_userIdName
-            };
+        //首先判断必填项是否为空
+        if( role.name == '' ){
+            tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            var prm = {
-                "roleNum":role.num,
-                "roleName":role.name,
-                "remark":role.remarks,
-                "sort":role.order,
-                "userID":_userIdName
-            };
-        }
-        //发送数据
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    //提示登记成功
-                    tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                    $('#myModal').modal('hide');
-                }else if(result == 3){
-                    //提示登记失败
-                    tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+            if($('.roleNum1')[0].style.display == 'none'){
+                //判断是编辑、登记、还是删除
+                if(flag){
+                    var prm = {
+                        "roleNum":role.num,
+                        "roleName":role.name,
+                        "userID":_userIdName
+                    };
+                }else{
+                    var prm = {
+                        "roleNum":role.num,
+                        "roleName":role.name,
+                        "remark":role.remarks,
+                        "sort":role.order,
+                        "userID":_userIdName
+                    };
                 }
-                conditionSelect();
+                //发送数据
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            //提示登记成功
+                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                            $('#myModal').modal('hide');
+                        }else if(result == 3){
+                            //提示登记失败
+                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                        }
+                        conditionSelect();
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }else{
+                tipInfo($('#myModal1'),'提示','角色编码已存在！','flag');
             }
-        })
+        }
     }
 
     //查看、删除绑定数据

@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
+    //获得用户名id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //存放执行人信息的数组
@@ -58,35 +60,7 @@ $(function(){
         //获取内容的时候先将首尾空格删除掉；
         val=val.replace(/^\s+|\s+$/g,'');
         return /[^.\s]{1,500}$/.test(val)
-    })
-    //登记信息绑定
-    var app33 = new Vue({
-        el:'#myApp33',
-        data:{
-            picked:'1',
-            rwlx:'1',
-            telephone:'',
-            person:'',
-            place:'',
-            section:'',
-            matter:'',
-            sbSelect:'',
-            sbLX:'',
-            sbMC:'',
-            sbBM:'',
-            azAddress:'',
-            remarks:''
-
-        },
-        methods:{
-            radios:function(){
-                $('#myApp33').find('.inpus').click(function(a){
-                    $('#myApp33').find('.inpus').parent('span').removeClass('checked');
-                    $(this).parent('span').addClass('checked');
-                })
-            }
-        }
-    })
+    });
     //添加执行人信息绑定
     var zhiXingRen = new Vue({
         el:'#zhiXingRen',
@@ -139,8 +113,16 @@ $(function(){
     var _autoOrHand = 1;
     //保存所有设备部门的数组
     var _allDataBM = [];
+    //保存所有设备系统数组
+    var _allDataXT = [];
     //设备部门
-    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('#cjz'),'ddName','flag');
+    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('#cjz'),'ddName','ddNum','flag');
+    //设备系统
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
+    //重发值
+    var _gdCircle = 0;
+    //重发成功标识
+    var _reSendFlag = false;
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -170,14 +152,23 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,3,4,5,6]
+                }
             },
         ],
         'columns':[
             {
                 title:'工单号',
-                data:'gdCode',
-                className:'gongdanId'
+                data:'gdCode2',
+                className:'gongdanId',
+                render:function(data, type, row, meta){
+                    return '<span gdCode="' +  row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '>' +  data +
+                        '</span>'
+                }
             },
             {
                 title:'工单类型',
@@ -234,6 +225,7 @@ $(function(){
                 title:'操作',
                 "targets": -1,
                 "data": null,
+                "className":'noprint',
                 "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>受理</span>"
 
             }
@@ -376,10 +368,14 @@ $(function(){
     /*-----------------------------页面加载时调用的方法------------------------------*/
     //条件查询
     conditionSelect();
+
+    //不打印部分
+    noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
     /*---------------------------------表格绑定事件-------------------------------------*/
     $('#scrap-datatables tbody')
         //受理操作
         .on('click','.option-edit',function(){
+            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
@@ -395,7 +391,7 @@ $(function(){
             $('.zhiXingRenYuanButton').show();
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
-            var gongDanCode = $this.children('.gongdanId').html();
+            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             gdCode = gongDanCode;
             _gdState = gongDanState;
             if( gongDanState == '待接单' ){
@@ -411,7 +407,9 @@ $(function(){
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -427,13 +425,22 @@ $(function(){
                         $('#workDones').find('.inpus').parent('span').removeClass('checked');
                         $('#workDones').find('#twos1').parent('span').addClass('checked');
                     }
+                    //selecrt绑定值
+                    if(result.bxKeshiNum == ''){
+                        workDones.section = 0;
+                    }else{
+                        workDones.section = result.bxKeshiNum;
+                    }
+                    if(result.wxShiXNum == ''){
+                        workDones.matter = 0;
+                    }else{
+                        workDones.matter = result.wxShiXNum;
+                    }
                     //绑定弹窗数据
                     workDones.rwlx = result.gdLeixing;
                     workDones.telephone = result.bxDianhua;
                     workDones.person = result.bxRen;
                     workDones.place = result.wxDidian;
-                    workDones.section = result.bxKeshi;
-                    workDones.matter = result.wxShiX;
                     workDones.sbSelect = result.wxShebei;
                     workDones.sbLX = result.dcName;
                     workDones.sbMC = result.dName;
@@ -443,6 +450,8 @@ $(function(){
                     workDones.remarks = result.bxBeizhu;
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
+                    //记录重发值
+                    _gdCircle = result.gdCircle;
                     //执行人、物料
                     //_zhixingRens = result.wxRens;
                     _zhixingRens = [];
@@ -522,13 +531,17 @@ $(function(){
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            'gdCode':filterInput[0],
+            'gdCode2':filterInput[0],
             'gdSt':realityStart,
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
             'wxKeshi':'',
-            "gdZht": 2,
-            'userID':_userIdName
+            "gdZht": 0,
+            "gdZhts": [
+                2,5
+            ],
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             type:'post',
@@ -603,36 +616,6 @@ $(function(){
         $('.datatimeblock').eq(0).val(_initStart);
         $('.datatimeblock').eq(1).val(_initEnd);
     })
-    //登记弹框，点击确定，获得数据，向后台传参
-    $('#createGongdan').find('.btn-success').click(function(){
-        var gdInfo = {
-            'gdJJ':app33.picked,
-            'bxRen':app33.person,
-            'bxDianhua':app33.telephone,
-            'bxKeshi':app33.section,
-            'wxDidian':app33.place,
-            'wxShiX':app33.matter,
-            'wxKeshi':app33.sections,
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDCreDJ',
-            data:gdInfo,
-            success:function(result){
-                var str = '<div class="alert alert-success" style="text-align: center;"> <button class="close" data-close="alert"></button><span>' + result
-                '</span>';
-                $('.gongdanContent').append(str);
-                //5秒之后自动关闭
-                setTimeout(function(){$(".gongdanContent .alert").hide();},2000);
-                //刷新表格
-                conditionSelect();
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    })
     //点击派工，切换状态
     $('.paigongButton').click(function(){
         //如果维修科室没有添加的话，出现弹出框，无法实现派工
@@ -643,48 +626,95 @@ $(function(){
             $('#myModal4').find('.modal-body').html('请选择执行人员！');
             moTaiKuang($('#myModal4'),'flag');
         }else{
-            //更新维修备注
-            upDateWXRemark();
-            //执行人添加
-            Worker('YWGD/ywGDAddWxR');
-            //材料添加
-            if( _weiXiuCaiLiao.length >0){
-                CaiLiao('YWGD/ywGDAddWxCl');
+            if(_gdCircle == 5){
+                _gdCircle = parseInt(_gdCircle) + 1;
+                //重发
+                reSend();
+                //更新维修备注
+                upDateWXRemark();
+                //执行人添加
+                Worker('YWGD/ywGDAddWxR');
+                //材料添加
+                if( _weiXiuCaiLiao.length >0){
+                    CaiLiao('YWGD/ywGDAddWxCl');
+                }else{
+                    _WLFlag = true;
+                }
+                //根据状态提示
+                if( _workerFlag && _WLFlag && _wxBZFlag && _reSendFlag ){
+                    $('#myModal4').find('.modal-body').html('工单分派成功！');
+                    moTaiKuang($('#myModal4'),'flag');
+                    $('#myModal').modal('hide');
+                }else{
+                    var str = '';
+                    if( _workerFlag == false ){
+                        str += '执行人添加失败，'
+                    }else{
+                        str += '执行人添加成功，'
+                    }
+                    if( _WLFlag == false ){
+                        str += '维修材料添加失败，'
+                    }else{
+                        str += '维修材料添加成功，'
+                    }
+                    if( _wxBZFlag == false ){
+                        str += '维修内容修改失败，'
+                    }else{
+                        str += '维修内容添加成功，'
+                    }
+                    if( _reSendFlag == false ){
+                        str += '工单分派失败！'
+                    }else{
+                        str += '工单分派成功！'
+                    }
+                    $('#myModal4').find('.modal-body').html(str);
+                    moTaiKuang($('#myModal4'),'flag');
+                    $('#myModal').modal('hide');
+                }
             }else{
-                _WLFlag = true;
-            }
-            //更新状态
-            upDate();
-            //根据状态提示
-            if( _workerFlag && _WLFlag && _wxBZFlag && _upDateStateFlag ){
-                $('#myModal4').find('.modal-body').html('工单分派成功！');
-                moTaiKuang($('#myModal4'),'flag');
-                $('#myModal').modal('hide');
-            }else{
-                var str = '';
-                if( _workerFlag == false ){
-                    str += '执行人添加失败，'
+                //更新维修备注
+                upDateWXRemark();
+                //执行人添加
+                Worker('YWGD/ywGDAddWxR');
+                //材料添加
+                if( _weiXiuCaiLiao.length >0){
+                    CaiLiao('YWGD/ywGDAddWxCl');
                 }else{
-                    str += '执行人添加成功，'
+                    _WLFlag = true;
                 }
-                if( _WLFlag == false ){
-                    str += '维修材料添加失败，'
+                //更新状态
+                upDate();
+                //根据状态提示
+                if( _workerFlag && _WLFlag && _wxBZFlag && _upDateStateFlag ){
+                    $('#myModal4').find('.modal-body').html('工单分派成功！');
+                    moTaiKuang($('#myModal4'),'flag');
+                    $('#myModal').modal('hide');
                 }else{
-                    str += '维修材料添加成功，'
+                    var str = '';
+                    if( _workerFlag == false ){
+                        str += '执行人添加失败，'
+                    }else{
+                        str += '执行人添加成功，'
+                    }
+                    if( _WLFlag == false ){
+                        str += '维修材料添加失败，'
+                    }else{
+                        str += '维修材料添加成功，'
+                    }
+                    if( _wxBZFlag == false ){
+                        str += '维修内容修改失败，'
+                    }else{
+                        str += '维修内容添加成功，'
+                    }
+                    if( _upDateStateFlag == false ){
+                        str += '工单分派失败！'
+                    }else{
+                        str += '工单分派成功！'
+                    }
+                    $('#myModal4').find('.modal-body').html(str);
+                    moTaiKuang($('#myModal4'),'flag');
+                    $('#myModal').modal('hide');
                 }
-                if( _wxBZFlag == false ){
-                    str += '维修内容修改失败，'
-                }else{
-                    str += '维修内容添加成功，'
-                }
-                if( _upDateStateFlag == false ){
-                    str += '工单分派失败！'
-                }else{
-                    str += '工单分派成功！'
-                }
-                $('#myModal4').find('.modal-body').html(str);
-                moTaiKuang($('#myModal4'),'flag');
-                $('#myModal').modal('hide');
             }
             conditionSelect();
         }
@@ -1031,7 +1061,7 @@ $(function(){
              itemNum : $.trim($('#wpbms').val()),
              itemName: $.trim($('#wpmcs').val()),
              cateName: $.trim($('#flmcs').val()),
-             userID:_userIdName
+             userID:_userIdNum
          }
          $.ajax({
              type:'post',
@@ -1056,7 +1086,7 @@ $(function(){
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdName
+            "userID": _userIdNum
         }
         $.ajax({
             type:'post',
@@ -1097,7 +1127,10 @@ $(function(){
         var gdWR = {
             gdCode :gdCode,
             gdWxRs:workerArr,
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            gdZht:_gdState,
+            gdCircle:_gdCircle
         }
         $.ajax({
             type:'post',
@@ -1133,7 +1166,9 @@ $(function(){
         var gdWxCl = {
             gdCode:gdCode,
             gdWxCls:cailiaoArr,
-            userID:_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            gdCircle:_gdCircle
         }
         $.ajax({
             type:'post',
@@ -1224,7 +1259,8 @@ $(function(){
             "gdZht": _gdState,
             "wxKeshi": '',
             "wxBeizhu": workDones.wxremark,
-            "userID": _userIdName
+            "userID": _userIdNum,
+            "userName":_userIdName
         };
         $.ajax({
             type:'post',
@@ -1249,7 +1285,8 @@ $(function(){
             'gdCode':gdCode,
             'gdZht':3,
             'wxKeshi':workDones.weixiukeshis,
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
         $.ajax({
             url:_urls + 'YWGD/ywGDUptPaig',
@@ -1271,9 +1308,9 @@ $(function(){
     }
     //获取所有设备部门
     //ajaxFun（select的值）
-    function ajaxFun(url,allArr,select,text,flag){
+    function ajaxFun(url,allArr,select,text,num,flag){
         var prm = {
-            'userID':_userIdName
+            'userID':_userIdNum
         }
         prm[text] = '';
         $.ajax({
@@ -1286,17 +1323,47 @@ $(function(){
                 var str = '';
                 if(flag){
                     for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][text] +'"' + 'bm="' + result[i].departNum +
+                        str += '<option' + ' value="' + result[i][num] +'"' + 'bm="' + result[i].departNum +
                             '">' + result[i][text] + '</option>'
                         allArr.push(result[i]);
                     }
                 }else{
                     for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][text] +'">' + result[i][text] + '</option>'
+                        str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
                         allArr.push(result[i]);
                     }
                 }
                 select.append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //不打印部分
+    function noPrint(el){
+        el.addClass('noprint')
+    }
+    //重发
+    function reSend(){
+        var gi = {
+            "gdCode": gdCode,
+            "gdZht": 3,
+            "gdCircle": _gdCircle,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZhtChP',
+            data:gi,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _reSendFlag = true;
+                }else{
+                    _reSendFlag = false;
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

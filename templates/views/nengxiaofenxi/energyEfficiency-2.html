@@ -44,7 +44,10 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <!--datatables-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -93,51 +96,8 @@
                             <h3><span class="bold">0 </span> 当日报警</h3>
                             <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
                         </li>
-                        <li>
-                            <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="time">刚刚</span>
-									<span class="details">
-									<span class="label label-sm label-icon label-success">
-									<i class="fa fa-plus"></i>
-									</span>
-									系统正常. </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="time">3 分钟</span>
-									<span class="details">
-									<span class="label label-sm label-icon label-danger">
-									<i class="fa fa-bolt"></i>
-									</span>
-									系统停机. </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="time">10 分钟</span>
-									<span class="details">
-									<span class="label label-sm label-icon label-warning">
-									<i class="fa fa-bell-o"></i>
-									</span>
-									没有响应. </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">
-                                        <span class="time">14 小时</span>
-									<span class="details">
-									<span class="label label-sm label-icon label-info">
-									<i class="fa fa-bullhorn"></i>
-									</span>
-									系统错误. </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
+                    <audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" preload="auto" style="display: none"></audio>
                 </li>
                 <!-- END NOTIFICATION DROPDOWN -->
 
@@ -482,6 +442,18 @@
 <script src="../../../assets/local/scripts/BEE.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--datatable-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script src="../resource/js/alarm.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

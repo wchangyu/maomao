@@ -8,8 +8,9 @@ sessionStorage.energyItems  当前系统的能耗分项
 sessionStorage.offices      当前系统的全部分户
 sessionStorage.pointers     当前系统的楼宇，根据用户名获取
 sessionStorage.userAuth     当前用户的权限
-sessionStorage.userName     当前用户名
-localStorage.BEE_username    当前用户名 记住用户密码使用
+sessionStorage.userName     当前用户登录名,ID
+sessionStorage.realUserName 当前用户的姓名
+localStorage.BEE_username    当前用户登录名,ID 记住用户密码使用
 localStorage.BEE_userpassword 当前用户密码 同上
 localStorage.BEE_remember    登录的记住用户名
 sessionStorage.allEnergyType   当前系统的能耗类型，楼宇选择模块、首页使用
@@ -27,3 +28,5 @@ sessionStorage.menuUri          记录当前的菜单配置中的uri(例如:../x
 sessionStorage.menuStr          菜单的源字符串记录
 sessionStorage.isShowTitleEprName 是否在systemTitle的基础上追加企业名称
 sessionStorage.enterPriseList   唯一的企业列表集合(企业ID和企业名称)
+sessionStorage.alarmAlert      记录是否开启报警弹窗
+sessionStorage.alarmSong       记录是否开启报警声音

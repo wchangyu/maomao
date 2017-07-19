@@ -313,7 +313,7 @@ function _ajaxGetPointers(){
 	}else{
 		postPointerID.push(pointerID)
 	}
-	
+
 	timeDisposal();
 	var allBranch=[];
 	var dataX=[];
@@ -350,9 +350,7 @@ function _ajaxGetPointers(){
 				})
 			},
 			success:function(result){
-
-
-
+				myChart11.hideLoading();
 				allBranch = [];
 				allBranch.push(result);
 				nums ++;

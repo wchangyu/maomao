@@ -427,6 +427,7 @@ function getItemizedData(){
 			},
 			async:true,
 			success:function(result){
+				myChart11.hideLoading();
 				allBranch = [];
 				allBranch.push(result);
 				nums ++;

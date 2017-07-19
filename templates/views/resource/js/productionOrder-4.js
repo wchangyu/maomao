@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdNum = sessionStorage.getItem('userName');
+    //获得用户名
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -51,6 +53,7 @@ $(function(){
     });
     var _gdState;
     var gdCode;
+    var _gdCircle = 0;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -248,13 +251,14 @@ $(function(){
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var prm = {
-            "gdCode":filterInput[0],
+            "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
             "bxKeshi":filterInput[1],
             "wxKeshi":filterInput[4],
             "gdZht":6,
-            "userID":_userIdName
+            "userID":_userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
@@ -275,7 +279,8 @@ $(function(){
         var gdInfo = {
             'gdCode':gdCode,
             'gdZht':7,
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName
         }
           $.ajax({
             type:'post',
@@ -351,7 +356,9 @@ $(function(){
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
-                'userID':_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle + 1
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -371,8 +378,8 @@ $(function(){
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
-                    app33.section = result.bxKeshi;
-                    app33.matter = result.wxShiX;
+                    app33.section = result.bxKeshiNum;
+                    app33.matter = result.wxShiXNum;
                     app33.sections = result.wxKeshi;
                     app33.remarks = result.bxBeizhu;
                     app33.wxbeizhu = result.wxBeizhu;

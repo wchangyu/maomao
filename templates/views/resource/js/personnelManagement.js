@@ -25,8 +25,8 @@ $(function(){
         data:{
             username:'',
             jobnumber:'',
-            password:'',
-            confirmpassword:'',
+            password:'123456',
+            confirmpassword:'123456',
             name:'',
             email:'',
             fixedtelephone:'',
@@ -65,14 +65,17 @@ $(function(){
         }
     });
 
-    //获取部门(条件选择)
-    getDepartment($('#rybm'),'flag');
-
     //获取部门（登记的时候）
     getDepartment($('#djbm'));
 
-    //获取角色
-    getRole();
+    //条件查询
+    getDepartment($('#rybm'),'flag');
+
+    //获取角色（登记）
+    getRole($('#jsbm'));
+
+    //角色
+    getRole($('#ryjs'),'flag');
 
     //存放所有员工列表的数组
     var _allPersonalArr = [];
@@ -166,6 +169,13 @@ $(function(){
     //查询按钮
     $('#selected').click(function(){
         conditionSelect();
+    });
+
+    //重置按钮
+    $('.resites').click(function(){
+        $('.filterInput').val('');
+        $('#rybm').children('option').eq(0).attr('selected','selected');
+        $('#ryjs').children('option').eq(0).attr('selected','selected');
     })
 
     //新增按钮
@@ -177,16 +187,21 @@ $(function(){
         //初始化登记表
         user.username='';
         user.jobnumber='';
-        user.password='';
-        user.confirmpassword='';
+        user.password='123456';
+        user.confirmpassword='123456';
         user.name='';
         user.email='';
         user.fixedtelephone='';
         user.mobilephone='';
-        user.department=$('#djbm').children('option:selected').attr('value');
+        user.department= '';
+        user.role='';
         user.role='';
         user.remarks='';
         user.order= '';
+        var disableArea = $('#user').find('.input-blockeds');
+        disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
+        disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
+        disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
     });
 
     //操作确定按钮
@@ -223,6 +238,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
             bindingData($(this));
+            $('.ghbm').attr('disabled',true).addClass('disabled-block');
         })
         //删除
         .on('click','.option-delete',function(){
@@ -267,12 +283,12 @@ $(function(){
             filterInput.push(filterInputValue.eq(i).val());
         }
         var prm = {
-            "userName":filterInput[0],
+            "userName2":filterInput[0],
             "userNum":filterInput[1],
             "departNum":$('#rybm').val(),
             "roleNum":$('#ryjs').val(),
             "userID": _userIdName
-        }
+        };
         $.ajax({
             type:'post',
             url:_urls + 'RBAC/rbacGetUsers',
@@ -285,8 +301,7 @@ $(function(){
                 datasTable($('#personal-table'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -306,52 +321,66 @@ $(function(){
 
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag){
-        //判断是编辑、登记、还是删除
-        var prm = {};
-        if(flag){
-            prm = {
-                "userName": user.username,
-                "userNum": user.jobnumber,
-                "userID":_userIdName
-            };
+        //判断必填项是否为空
+        if( user.username == '' || user.jobnumber == '' ){
+            tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            prm = {
-                "userName":user.username,
-                "userNum":user.jobnumber,
-                "password":user.password,
-                "email":user.email,
-                "phone":user.fixedtelephone,
-                "mobile":user.mobilephone,
-                "departNum":user.department,
-                "roleNum":user.role,
-                "remark":user.remarks,
-                "sort":user.order,
-                "userID":_userIdName,
-                "pos":user.position,
-                "pinyin":user.pinyin
-            };
-        }
-        //发送数据
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    //提示登记成功
-                    tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                    $('#myModal').modal('hide');
-                }else if(result == 3){
-                    //提示登记失败
-                    tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+            //判断工号是否重复
+            if($('.jobNumberExists')[0].style.display != 'none'){
+                tipInfo($('#myModal1'),'提示','该工号已存在！','flag');
+            }else{
+                //判断两次密码是否一致
+                if($('.confirmpassword')[0].style.display == 'none'){
+                    //判断是编辑、登记、还是删除
+                    var prm = {};
+                    if(flag){
+                        prm = {
+                            "userName2": user.username,
+                            "userNum": user.jobnumber,
+                            "userID":_userIdName
+                        };
+                    }else{
+                        prm = {
+                            "userName2":user.username,
+                            "userNum":user.jobnumber,
+                            "password":user.password,
+                            "email":user.email,
+                            "phone":user.fixedtelephone,
+                            "mobile":user.mobilephone,
+                            "departNum":user.department,
+                            "roleNum":user.role,
+                            "remark":user.remarks,
+                            "sort":user.order,
+                            "userID":_userIdName,
+                            "pos":user.position,
+                            "pinyin":user.pinyin
+                        };
+                    }
+                    //发送数据
+                    $.ajax({
+                        type:'post',
+                        url:_urls + url,
+                        data:prm,
+                        success:function(result){
+                            if(result == 99){
+                                //提示登记成功
+                                tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                                $('#myModal').modal('hide');
+                            }else if(result == 3){
+                                //提示登记失败
+                                tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                            }
+                            conditionSelect();
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
+                        }
+                    })
+                }else{
+                    tipInfo($('#myModal1'),'提示','两次密码填写不一致！','flag');
                 }
-                conditionSelect();
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
             }
-        })
+        }
     }
 
     //查看、删除绑定数据
@@ -363,8 +392,8 @@ $(function(){
                 //绑定数据
                 user.username = _allPersonalArr[i].userName;
                 user.jobnumber = _allPersonalArr[i].userNum;
-                user.password = _allPersonalArr[i].password;
-                user.confirmpassword = _allPersonalArr[i].password;
+                user.password = '';
+                user.confirmpassword = '';
                 user.email = _allPersonalArr[i].email;
                 user.fixedtelephone = _allPersonalArr[i].phone;
                 user.mobilephone = _allPersonalArr[i].mobile;
@@ -374,6 +403,7 @@ $(function(){
                 user.order = _allPersonalArr[i].sort;
             }
         }
+
         //查看不可操作
         var disableArea = $('#user').find('.input-blockeds');
         if(flag){
@@ -403,7 +433,7 @@ $(function(){
                 if(flag){
                     str = '<option value="">全部</option>';
                 }else{
-                    str = '';
+                    str = '<option value="">请选择</option>';
                 }
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].departNum +
@@ -412,14 +442,13 @@ $(function(){
                 el.append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
 
     //获取角色
-    function getRole(){
+    function getRole(el,flag){
         var prm = {
             "roleNum": "",
             "roleName": "",
@@ -430,11 +459,20 @@ $(function(){
             url:_urls + 'RBAC/rbacGetRoles',
             data:prm,
             success:function(result){
-                //console.log(result);
+                var str = ''
+                if(flag){
+                    str = '<option value="">全部</option>';
+                }else{
+                    str = '<option value="">请选择</option>';
+                }
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].roleNum +
+                        '">' + result[i].roleName + '</option>'
+                }
+                el.append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
-                var info = JSON.parse(jqXHR.responseText).message;
-                console.log(info);
+                console.log(jqXHR.responseText);
             }
         })
     }
