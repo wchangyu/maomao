@@ -266,16 +266,7 @@ var BEE = (function(){
             dataType:'json',
             success:function(data){
                 if(data){       //设置右上角的报警数据显示情况
-                    setPageTopRightAlarmData(data.length);
-                    var table = $('#alarmTable').dataTable();
-                    if(data.length == 0){
-                        table.fnClearTable();
-                        table.fnDraw();
-                    }else{
-                        table.fnClearTable();
-                        table.fnAddData(data);
-                        table.fnDraw();
-                    }
+                    setPageTopRightAlarmData(data.length,data);
                 }else{
                     setPageTopRightAlarmData(0);
                 }
@@ -296,13 +287,14 @@ var BEE = (function(){
         });
     }
 
-    function setPageTopRightAlarmData(dataLength){
+    function setPageTopRightAlarmData(dataLength,data){
+        console.log(data);
         var $badge = $("#header_notification_bar .badge");
         var $alarmDetail = $("#header_notification_bar .external>h3>span");
         var $alarmBlock = $("#header_notification_bar");
         var $alertSong = $('#audioMain');
         $badge.removeClass("badge-danger");
-        if($('#myModal00').length == 0){
+        if($('#myModal00').length == 0 && dataLength>0 && data){
             var str = '<div class="modal fade" id="myModal00" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">' +
                 '<div class="modal-dialog" style="height: 836px;width: 1100px !important;">' +
                 '<div class="modal-content" style="height: 836px;width: 1100px !important;">' +
@@ -407,7 +399,17 @@ var BEE = (function(){
                         }
                     ]
                 });
+                var table = $('#alarmTable').dataTable();
+                if(data.length == 0){
+                    table.fnClearTable();
+                    table.fnDraw();
+                }else{
+                    table.fnClearTable();
+                    table.fnAddData(data);
+                    table.fnDraw();
+                }
             }
+
         }
 
         if($badge.length>0){        //设置当前报警显示的内容

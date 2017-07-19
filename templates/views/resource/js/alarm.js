@@ -9,7 +9,7 @@ function addInfo(el){
 }
 function addClick(){
     //获取当前用户名
-    _texts = $('##myModal02').find('input').val();
+    _texts = $('#myModal02').find('input').val();
      var prm = {
          'userId':_userIdNum,
          'msgTime':nowDays,
@@ -23,6 +23,7 @@ function addClick(){
              'async':false,
              'data':prm,
              success:function(result){
+                 console.log(result);
                  refreshData();
                 $("#myModal02").modal('hide');
                 $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');

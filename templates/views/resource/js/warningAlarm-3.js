@@ -88,10 +88,10 @@ $(function(){
                 "targets": -1,
                 "data": "flag",
                 "render":function(data,type,row,meta){
-                    if(data>0){
-                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>已阅读";
+                    if(data==1){
+                        return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
                     }else{
-                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div>未阅读";
+                        return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未阅读</span>";
                     }
                 }
             },
@@ -206,7 +206,6 @@ function alarmHistory(){
         async:false,
         data:prm,
         success:function(result){
-            console.log(result);
             var dataArr = [];
             var pcids = [];
             for(var i=0;i<result.length;i++){
@@ -316,7 +315,8 @@ function processingNote (){
         'msgTime':nowDays,
         'alaLogId':_alaLogId,
         'alaMessage':_texts
-    }
+    };
+
     $.ajax(
         {
             'type':'post',
@@ -326,6 +326,7 @@ function processingNote (){
             success:function(result){
                 $("#myModal").modal('hide');
                 $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
+                $('.choice[data-alaLogID="' + _alaLogId  + '"]').parents('.L-checkbox').children('.yuedu').html('已阅读');
             }
         }
     )
