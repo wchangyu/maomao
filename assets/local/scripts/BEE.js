@@ -67,7 +67,7 @@ var BEE = (function(){
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
                             sessionStorage.menuSecond = menu[p]["content"];
                             sessionStorage.menuUri = menu[p]["uri"];
-                            console.log(sessionStorage.menuUri);
+
                         }
                         if(menu[p]["iconclass"]){
                             li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
@@ -171,11 +171,11 @@ var BEE = (function(){
         }
 
         var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
-        console.log(sessionStorage.menuUri);
+
         if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
             curLoginPage = "../" + curLoginPage;
         }
-        console.log(curLoginPage);
+
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
     }
@@ -305,7 +305,7 @@ var BEE = (function(){
             $('#myModal00').off('hidden.bs.modal',"**");
             $('#myModal00').on('hidden.bs.modal',function(){
                 _isAlarmShow = false;
-                console.log(666);
+
                 var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                 setTimeout(getAlarmInfo,refreshItv);
             });
@@ -458,7 +458,7 @@ var BEE = (function(){
                 }else if(alarmAlert == 0 &&  alarmSong == 1){ //声音开启，弹窗关闭
 
                     var childNode= document.getElementsByTagName('audio')[0];
-                    console.log(childNode);
+
 
                     if(!childNode){
                         $('#header_notification_bar').append(audioStr);
