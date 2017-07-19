@@ -1,0 +1,89 @@
+/*实时能耗*/
+#energy-demand {
+    height: 411px;
+    width:85%;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    float:left;
+}
+/*实时能耗右侧数据*/
+.right-total-data{
+    height:411px;
+    width:15%;
+    float:right;
+    background:#eee;
+}
+.top-cut {
+    padding-bottom: 6px;
+}
+.top-cut li {
+    float: left;
+    margin-left: 15px;
+    font-size: 16px;
+}
+.top-cut li a {
+    color: #666;
+}
+.top-cut li a:hover {
+    color: orangered;
+}
+.right-total-data .single-data{
+    padding-top:10px;
+    height:33%;
+    width:100%;
+}
+.right-total-data .single-data .left-data{
+    float:left;
+    width:70%;
+
+}
+.right-total-data .single-data .left-data p{
+    height:100px;
+    line-height: 80px;
+    font-weight: 600;
+    font-size:20px;
+    text-align: center;
+}
+
+.right-total-data .single-data .right-ratio{
+    float:right;
+    width:30%;
+    height:100px;
+}
+.right-total-data .single-data .right-ratio .top-percent{
+    width:100%;
+    height:50%;
+    background: url(../../bank-resource/img/up.png) no-repeat 1px center;
+    background-size: 20% 33%;
+}
+
+.right-total-data .single-data .right-ratio .top-percent1{
+    width:100%;
+    height:100%;
+    background: url(../../bank-resource/img/up.png) no-repeat 1px 30px;
+    background-size: 20% 18%;
+
+}
+
+.right-total-data .single-data .right-ratio .top-percent p{
+    text-align: right;
+    padding-right:5px;
+    color:#999;
+}
+
+.onClicks {
+    color: darkorange !important;
+}
+
+#energy-demand1 {
+    height: 440px;
+}
+#energy-demand2 {
+    height: 380px;
+}
+#energy-demand3 {
+    height: 380px;
+}
+#energy-demand4 {
+    height: 380px;
+}

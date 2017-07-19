@@ -41,7 +41,40 @@ var ObjectSelection = function(){
     this._$ulPointers;
     this._$ulOffices;
     this._hasAllPointer;
-    this.allPointerName = "全院";      //全部楼宇的名称，可能移到配置文件
+
+    //存放已配置的全部楼宇名称
+    var getPointerName = '';
+
+    //从配置项中获取楼宇名称
+    $.ajax({
+        type:'get',
+        url:"../../../assets/local/configs/config.json",
+        async:false,//取消异步请求
+        beforeSend:function(){
+
+        },
+        complete:function(){
+            $('#theLoading').modal('hide');
+        },
+        success:function(result){
+
+            if(result.allPointerName){
+                getPointerName = result.allPointerName;
+            }
+
+        },
+        error:function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+
+    });
+
+    if(getPointerName != ''){
+        this.allPointerName = getPointerName;
+    }else{
+        this.allPointerName = "全院";      //全部楼宇的名称，可能移到配置文件
+    }
+
 
     //从sessionStorage中获取楼宇
     this.getSessionStoragePointers = function(){

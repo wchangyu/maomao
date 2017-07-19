@@ -45,16 +45,9 @@
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../bank-resource/css/lib/jquery.dataTables.min.css"/>
-    <!--<link rel="stylesheet" href="../bank-resource/css/common.css"/>-->
-    <!--<link rel="stylesheet" href="../bank-resource/css/shouye/index.css"/>-->
-
-
-    <!--<link rel="stylesheet" href="./button/bootstrap.css">-->
-    <!--<link rel="stylesheet" href="./button/buttons.dataTables.min.css">-->
-    <!--<link href="./admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>-->
-    <!--<link rel="stylesheet" href="./css/jquery.dataTables.min.css">-->
+    <link rel="stylesheet" href="css/lib/lanrenzhijia.css">
     <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./css/UnitProfessional.css">
+    <link rel="stylesheet" href="./css/PointerMeterUnit.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -232,45 +225,66 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                 </div>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row" >
+            <div class="row">
                 <div class="col-md-12">
-                    <!--外部包裹-->
                     <div class="out-content">
-                        <!--内部包裹-->
                         <div class="inner-content">
-                            <!--页面主体-->
-                            <div class="main-content">
-                                <!--头部横条-->
-                                <ul class="main-content-header">
-                                    <li class="main-content-header-lists0">单位专业列表</li>
-                                </ul>
+                            <div class="main-content main-tree">
+                                <!--左侧树状图-->
+                                <div class="main-content-left" style="width:350px;position:absolute;left:15px;top:0;padding-left:15px;padding-right:15px">
+                                    <ul class="main-content-header">
+                                        <li class="main-content-header-lists0">楼宇计量设备列表</li>
+                                    </ul>
+                                    <!--树状图-->
+                                    <div class="content_wrap" style="text-align: center;">
 
-                                <!--具体内容-->
-                                <!--搜索部分-->
-                                <div class="main-content-body row">
 
-                                    <div class="col-md-3" style="margin-bottom:20px;">
-                                        <button class="top-btn window-btn" data-toggle='modal' data-target='#add-people'
-                                                style="margin-left:30px;">添加</button>
+                                        <div class="zTreeDemoBackground left">
+                                            <input type="text" id="key" placeholder="请输入计量设备名称">
+                                            <div class="tip" style="width:230px;height:30px;color:red;margin:0 auto;display:none;">*抱歉，没找到您要搜索的内容</div>
+                                            <ul id="treeMultiple" class="ztree" style="height: 650px; width:280px; overflow-y: auto;margin:0 auto"></ul>
+                                        </div>
+
 
                                     </div>
                                 </div>
-                                <!--表格部分-->
-                                <div class="row">
-                                    <div class="col-lg-6 col-md- col-sm-10 col-xs-10 main-content-table" style="overflow: auto;">
-                                        <table class="table table-striped table-bordered table-advance table-hover" id="dateTables">
-                                            <thead>
 
-                                            </thead>
-                                            <tbody>
+                                <!--右侧数据部分-->
+                                <div class="main-content-right " style="margin-left:365px;">
+                                    <ul class="main-content-header">
+                                        <li class="main-content-header-lists0">计量设备管理</li>
+                                    </ul>
 
-                                            </tbody>
-                                        </table>
+                                    <div class="main-content-body row">
+
+                                        <div class="col-md-3" style="margin-bottom:20px;">
+                                            <button class="top-btn add-btn" data-toggle='modal' data-target='#add-deploy'
+                                                    style="margin-left:30px;width:210px;">更改公摊比例</button>
+
+                                        </div>
+                                    </div>
+                                    <!--表格部分-->
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main-content-table" style="overflow: auto;">
+                                            <table class="table table-striped table-bordered table-advance table-hover"  id="dateTables1" style="margin-bottom:15px;min-width:1200px">
+
+                                            </table>
+
+                                            <table class="table table-striped table-bordered table-advance table-hover" id="dateTables" style="min-width:1200px">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -283,86 +297,110 @@
     </div>
 
 
-    <!--新增单位专业弹窗-->
-    <div class='modal fade' id='add-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:30%;margin:15% auto'>
+    <!--公摊比例调整弹窗-->
+    <div class='modal fade' id='change-meter' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:50%;margin:50px auto;min-width:901px'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">新增单位专业</div>
+                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px;">二级单位公摊比例调整</div>
+                    <!--展示表格-->
+                    <div class="ament-data" style="margin-left:30px;margin-right:30px;"><b>计量设备名称：</b>
+                        <span>*********表</span>
+                    </div>
+
+                    <div class="ament-data" style="margin-right:30px;"><b>计量区域：</b>
+                        <span>电</span>
+                    </div>
+
+                    <div class="ament-data"><b>能耗类型：</b>
+                        <span>累加</span>
+                    </div>
+
+                    <div class="ament-data"><b>计量设备状态：</b>
+                        <span>手抄表</span>
+                    </div>
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">单位专业：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
-                            </div>
-                            <span class="hooks hooks1"></span>
-                            <span class="marks marks1"></span>
-                            <span class="hint-text hint-text1"></span>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">系数K：</label>
 
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-div" style="min-height:330px">
+                            <div class="add-deploy" style="border:none;margin-top:0;min-height:310px">
+                                <form action="" method="get" class="deploy-form" style="margin-bottom:20px">
+
+                                    <div class="row" style="margin-bottom:10px;">
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">抄表起始日期：</label>
+
+                                            <div class="add-input-block" style="background-color: rgb(235, 235, 228);">
+                                                <input type="text" class="add-input startDates" value="" disabled="true">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">抄表起数：</label>
+
+                                            <div class="add-input-block" style="background-color: rgb(235, 235, 228);">
+                                                <input type="text" class="add-input read-start" value="" disabled="true">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">抄表结束日期：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input chooseDate endDates" value=""  placeholder="选择时间">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input type-number">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">设备终止读数：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input end-number read-end" value="" placeholder="请输入终止读数">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">圈数：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input cycle-number" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 col-xs-12 inner-input">
+                                            <label for="" class="input-label" style="width:135px;margin-right:40px;">抄表人：</label>
+
+                                            <div class="add-input-block">
+                                                <input type="text" class="add-input" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </form>
+
+                                <!--展示表格-->
+                                <div class="main-content-table">
+                                    <h3 class="table-heads" style="text-align:center;margin-bottom:10px;">二级单位公摊表</h3>
+                                    <table class="table table-striped" id="dateTables2">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <span class="hooks hooks2"></span>
-                            <span class="marks marks2"></span>
-                            <span class="hint-text hint-text2"></span>
                         </div>
                     </div>
+
                     <div class='modal-footer'>
                         <button type='button' class='btn btn-primary top-btn'>提交更改</button>
                         <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--修改单位专业弹窗-->
-    <div class='modal fade' id='alter-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:30%;margin:15% auto'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                    <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">修改单位专业</div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">单位专业：</label>
-
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner-input">
-                            <label for="" class="input-label" style="width:95px;">系数K：</label>
-
-                            <div class="add-input-block">
-                                <input type="text" class="add-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='button' class='btn btn-primary top-btn'>提交更改</button>
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--删除单位专业弹窗-->
-    <div class='modal fade' id='remove-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:600px;margin:15% auto'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <h3 style="margin-bottom:20px">提示</h3>
-                    <p style="font-size:20px">真的要删除数据 <b style="color:red"></b> 吗？</p>
-                    <div class='modal-footer' style="border:none">
-                        <button type='button' class='btn btn-primary top-btn'>确定</button>
-                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
                     </div>
                 </div>
             </div>
@@ -371,7 +409,7 @@
 
     <!--自定义弹窗-->
     <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+        <div class='modal-dialog'style='max-width:700px;margin:150px auto'>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <h3 style="margin-bottom:18px">提示</h3>
@@ -440,19 +478,10 @@
 <script src="../bank-resource/js/lib/moment.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/echarts.common.min.js"></script>
 <script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<!--<script src="js/lib/jquery-3.0.0.min.js"></script>-->
-<!--<script src="js/lib/bootstrap.min.js"></script>-->
-<!--<script src="js/lib/jquery.dataTables.min.js"></script>-->
-<!--<script src="./button/dataTables.buttons.min.js"></script>-->
-<!--<script src="./button/dataTables.tableTools.min.js"></script>-->
-<!--<script src="./button/jszip.min.js"></script>-->
-<!--<script src="js/lib/vfs_fonts.js"></script>-->
-<!--<script src="./button/buttons.html5.min.js"></script>-->
+
+<script src="js/lib/jQuery.Hz2Py-min.js"  type="text/javascript"></script>
 <script src="./js/commonIP.js"></script>
-<script src="js/UnitProfessional.js"></script>
-
-
+<script src="js/PointerMeterUnit.js"></script>
 
 <script>
     jQuery(document).ready(function() {

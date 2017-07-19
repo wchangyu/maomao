@@ -1,0 +1,131 @@
+*{
+    margin:0;
+    padding: 0;
+}
+li{
+    list-style: none
+}
+.choosePosition{
+    width:350px;
+    height:auto;
+    position: fixed;
+    right:30px;
+    top:210px;
+    background:white;
+    box-shadow: 5px 10px 5px rgba(0,0,0,.15);
+
+}
+.showTitle{
+
+}
+.showTitle h3{
+    padding-left: 10px;
+    color:#666;
+    font-weight: 500;
+    border-bottom: 1px solid #999;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+}
+.showTitle h3 span{
+    float:right;
+    font-size:16px;
+}
+
+label {
+    display: inline-block;
+    /* max-width: 100%; */
+    margin-bottom: 5px;
+    font-weight: 700;
+    max-width: none !important;
+}
+
+.search-value-list{
+    max-height: 500px;
+    overflow-y: auto;
+}
+/*地图大小*/
+#container{
+    width:100%;
+    height:900px;
+}
+
+/*右上角下拉窗*/
+.showCompany{
+    width:100%;
+    height: auto;
+    background: white;
+    border:1px solid #999;
+    padding-right:20px;
+    padding-left:15px;
+    box-sizing: border-box;
+    padding-top:10px;
+}
+
+
+
+
+/*右侧表格样式*/
+#dateTables_info{
+    display: none;
+}
+table.dataTable thead th, table.dataTable thead td {
+    padding: 10px 10px;
+
+}
+#dateTables tbody tr td:nth-child(1){
+    color:white;
+    background:#37baa0;
+    margin-bottom:5px;
+    width:200px;
+}
+#dateTables tbody tr td:nth-child(2){
+  text-align: center;
+    font-weight: 600;
+    font-size:16px;
+}
+thead tr th:nth-child(2){
+    text-align: center !important;
+
+}
+thead tr th:nth-child(1){
+
+    color:#666;
+    font-size:20px;
+
+}
+
+#dateTables .green{
+    color:#38e1a4
+}
+#dateTables .blue{
+    color:#4bdff5
+}
+#dateTables .yellow{
+    color:#f3d26e
+}
+#dateTables .red{
+    color:#e0722f
+}
+#dateTables tbody tr{
+    margin-bottom:5px;
+}
+
+#dateTables{
+    border-collapse: separate !important;
+    border-spacing: 3px;
+
+}
+/*搜索框*/
+.dataTables_filter input {
+    width: 240px;
+    height: 30px;
+    border-radius: 5px;
+}
+.dataTables_filter label {
+    font-size: 16px;
+    color:#666;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: left;
+    text-align: right;
+}

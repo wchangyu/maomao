@@ -295,6 +295,25 @@ function _ajaxGetPointers(){
 		pointerNames = pts[0].pointerName
 	};
 	if(!pointerID) { return; };
+
+	//存放要传的楼宇集合
+	var postPointerID = [];
+
+	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+
+	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+
+	if(pointerID == 0){
+		$(nodes1).each(function(i,o){
+
+			postPointerID.push(o.pointerID);
+		})
+
+		postPointerID.pop();
+	}else{
+		postPointerID.push(pointerID)
+	}
+
 	timeDisposal();
 	var allBranch=[];
 	var dataX=[];
@@ -313,6 +332,7 @@ function _ajaxGetPointers(){
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
 			'pointerId':pointerID,
+			'pointerIds':postPointerID,
 			'startTime':startsTimess,
 			'endTime':endsTimess,
 			'dateType':_ajaxDataType_1
@@ -427,6 +447,8 @@ function _ajaxGetPointers(){
 					option11.xAxis.data = dataX;
 					option11.series = dataY;
 					myChart11.setOption(option11);
+
+					myChart11.hideLoading();
 				}
 			},
 			error:function(jqXHR, textStatus, errorThrown){

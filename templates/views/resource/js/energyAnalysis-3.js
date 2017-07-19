@@ -350,10 +350,30 @@ function getPointerData(){
 		pointerNames = pts[0].pointerName;
 	}
 	if(!pointerID) { return; }
+
+	//存放要传的楼宇集合
+	var postPointerID = [];
+
+	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+
+	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+
+	if(pointerID == 0){
+		$(nodes1).each(function(i,o){
+
+			postPointerID.push(o.pointerID);
+		})
+
+		postPointerID.pop();
+	}else{
+		postPointerID.push(pointerID)
+	}
+
 	//定义获得本期数据的参数
 	var ecParams = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
+		'pointerIds':postPointerID,
 		'startTime':newStr,
 		'endTime':newStr1,
 		'dateType':_ajaxDateType
@@ -362,6 +382,7 @@ function getPointerData(){
 	var ecParamss = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
+		'pointerIds':postPointerID,
 		'startTime':huanNewStr,
 		'endTime':huanNewStr1,
 		'dateType':_ajaxDateType
@@ -370,6 +391,7 @@ function getPointerData(){
 	var ecParamsss = {
 		'ecTypeId':_ajaxEcType,
 		'pointerID':pointerID,
+		'pointerIds':postPointerID,
 		'startTime':tongNewStr,
 		'endTime':tongNewStr1,
 		'dateType':_ajaxDateType

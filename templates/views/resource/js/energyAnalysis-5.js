@@ -506,7 +506,7 @@ function getItemizedData(){
 			_allData.push(result);
 		},
 		error:function(xhr,res,err){
-			console.log("GetECByTypeAndPointer:" + err);
+			console.log("GetWRData:" + err);
 		}
 	})
 	//确定xy轴

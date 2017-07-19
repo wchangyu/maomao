@@ -84,7 +84,15 @@ $(document).ready(function() {
             }
 
 
-        ]
+        ],
+        //重绘表头
+        "headerCallback":function(thead, data, start, end, display){
+
+            $(thead).find('th').eq(1).html(  '能耗累计('+ unit + ')');
+            $(thead).find('th').eq(2).html(  '最大值('+ unit + ')');
+            $(thead).find('th').eq(3).html(  '最小值('+ unit + ')');
+            $(thead).find('th').eq(4).html(  '平均值('+ unit + ')');
+        }
     });
     _table = $('#dateTables').dataTable();
 

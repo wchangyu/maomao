@@ -95,7 +95,16 @@ $(document).ready(function() {
 
 
 
-        ]
+        ],
+        //重绘表头
+        "headerCallback":function(thead, data, start, end, display){
+
+            console.log(666);
+            $(thead).find('th').eq(1).html(  '累计('+ unit + ')');
+            $(thead).find('th').eq(2).html(  '峰值('+ unit + ')');
+            $(thead).find('th').eq(3).html(  '谷值('+ unit + ')');
+            $(thead).find('th').eq(4).html(  '平均值('+ unit + ')');
+        }
     });
     _table = $('#dateTables').dataTable();
 
@@ -591,6 +600,8 @@ function getMainData(){
             //重绘chart图
             myChart.hideLoading();
             myChart.setOption(option);
+
+            console.log(dataArrs);
 
             ajaxSuccess();
 

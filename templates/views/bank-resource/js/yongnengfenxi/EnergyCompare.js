@@ -9,8 +9,6 @@ $(document).ready(function() {
     //console.log('ok');
 
     //初始化table表单
-
-
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -83,7 +81,16 @@ $(document).ready(function() {
             }
 
 
-        ]
+        ],
+        //重绘表头
+        "headerCallback":function(thead, data, start, end, display){
+
+            $(thead).find('th').eq(2).html(  '能耗累计('+ unit + ')');
+            $(thead).find('th').eq(3).html(  '最大值('+ unit + ')');
+            $(thead).find('th').eq(4).html(  '最小值('+ unit + ')');
+            $(thead).find('th').eq(5).html(  '平均值('+ unit + ')');
+        }
+
     });
     _table = $('#dateTables').dataTable();
 
@@ -522,9 +529,6 @@ function getMainData(){
 
                 option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
             });
-
-
-
 
 
             //console.log(option.legend.data[0]);

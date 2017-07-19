@@ -224,9 +224,29 @@ function getPointerDatas(){
 		pointerNames = pts[0].pointerName;
 	};
 	if(!pointerID) { return; }
+
+	//存放要传的楼宇集合
+	var postPointerID = [];
+
+	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+
+	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+
+	if(pointerID == 0){
+		$(nodes1).each(function(i,o){
+
+			postPointerID.push(o.pointerID);
+		})
+
+		postPointerID.pop();
+	}else{
+		postPointerID.push(pointerID)
+	}
+
 	var ecParams = {
 		ecTypeId : _ajaxEcType,
 		pointerId : pointerID,
+		pointerIds : postPointerID,
 		startTime: currentDate
 	}
 	$.ajax({
