@@ -605,9 +605,13 @@ $(function(){
                         data:gdInfo1,
                         success:function(result){
                             if(result == 99){
-                                moTaiKuang($('#myModal4'),'提示','flag');
-                                $('#myModal4').find('.modal-body').html('添加成功！');
-                                $('#myModal').modal('hide');
+                                //更新状态
+                                upData();
+                                if(_upDateStateFlag == true){
+                                    moTaiKuang($('#myModal4'),'提示','flag');
+                                    $('#myModal4').find('.modal-body').html('添加成功！');
+                                    $('#myModal').modal('hide');
+                                }
                                 //更新状态
                                 conditionSelect()
                             }else{

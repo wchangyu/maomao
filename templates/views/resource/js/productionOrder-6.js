@@ -325,7 +325,7 @@ $(function(){
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
-            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
+            _gdCircle = $(this).parents('tr').children('td').children('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //获得当前的页数，
@@ -459,7 +459,8 @@ $(function(){
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
-            _gdCircle = $(this).children('.gongdanId').children('span').attr('gdcircle');
+            _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
+            console.log(_gdCircle);
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
