@@ -19,6 +19,7 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
@@ -447,13 +448,13 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">车站：</div>
+                                <div class="labels colorTip">车站 *：</div>
                                 <div class="input-blockeds">
                                     <select class="cjz" v-model="section"></select>
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
+                                <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
                                 <div class="input-blockeds">
                                     <select class="xitong" v-model="matter"></select>
                                 </div>
@@ -464,26 +465,26 @@
                                     <input type="text" v-model="sbSelect">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <!--<li class="floatLeft">
                                 <div class="labels">设备类型：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbLX">
                                 </div>
-                            </li>
-                            <li class="floatRight">
+                            </li>-->
+                            <li class="floatLeft">
                                 <div class="labels">设备名称：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbMC">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">安装地点：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="azAddress">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels">任务来源：</div>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">任务来源 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="gdly" class="gdly">
                                         <option value="1">车站报修</option>

@@ -305,7 +305,6 @@ var BEE = (function(){
             $('#myModal00').off('hidden.bs.modal',"**");
             $('#myModal00').on('hidden.bs.modal',function(){
                 _isAlarmShow = false;
-                console.log(666);
                 var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                 setTimeout(getAlarmInfo,refreshItv);
             });
@@ -420,9 +419,9 @@ var BEE = (function(){
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
                 }
-                /*$alertSong.removeAttr('autoplay');
+                $alertSong.removeAttr('autoplay');
                 $alertSong.removeAttr('loop');
-                $('#myModal00').modal('hide');*/
+                $('#myModal00').modal('hide');
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
@@ -431,16 +430,17 @@ var BEE = (function(){
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
-                //$alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
-                //$alertSong.attr('loop','loop');
-               //$('#myModal00').modal('show');
                 //声音
                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
-                var node = document.getElementById('#header_notification_bar');
 
                 //$('#myModal00').off('shown.bs.modal');
 
                 if(alarmAlert == 1 && alarmSong == 1){  //声音开启，弹窗开启
+
+                    if($('#audioMain')){
+                        $('#header_notification_bar').children('audio').remove();
+                    }
+
                     $('#myModal00').modal('show');
 
                     $('#myModal00').one('shown.bs.modal', function () {
@@ -458,7 +458,6 @@ var BEE = (function(){
                 }else if(alarmAlert == 0 &&  alarmSong == 1){ //声音开启，弹窗关闭
 
                     var childNode= document.getElementsByTagName('audio')[0];
-                    console.log(childNode);
 
                     if(!childNode){
                         $('#header_notification_bar').append(audioStr);

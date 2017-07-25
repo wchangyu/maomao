@@ -393,6 +393,7 @@ $(function(){
                 url:_urls + 'YWGD/ywGDGetDJ',
                 data:prm,
                 success:function(result){
+                    console.log(result);
                     if(result[0].gdJJ == 1){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#ones').parent('span').addClass('checked');

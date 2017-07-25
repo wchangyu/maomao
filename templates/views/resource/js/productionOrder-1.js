@@ -241,7 +241,7 @@ $(function () {
         data:'bxKeshi'
       },
       {
-        title:'维修事项',
+        title:'设备类型',
         data:'wxShiX'
       },
       {
@@ -651,7 +651,7 @@ $(function () {
           }
       })
       //查看图片
-      .on('click','#viewImage',function(){
+      .on('click','.viewImage',function(){
         $('.loading').showLoading();
         if(_imgNum){
           $('.loading').hideLoading();

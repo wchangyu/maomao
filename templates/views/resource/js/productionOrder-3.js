@@ -174,7 +174,7 @@ $(function(){
                 data:'bxKeshi'
             },
             {
-                title:'维修事项',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
@@ -306,6 +306,7 @@ $(function(){
         moTaiKuang($('#myModal7'),'添加责任人');
         //获得所有ztree节点数据；
         getDpartment();
+        console.log(_autoOrHand);
         if(_autoOrHand == 1){
             //点击的时候获得选择的车间的bm的值
             var bm = $('.cjz').children('option:selected').attr('bm');
@@ -754,7 +755,6 @@ $(function(){
     })
 
     $('#myModal7').on('click','.xzDepartment',function(){
-        _autoOrHand = 2;
         _departmentArr = [];
         $('#tree-block').show();
         //加载部门
@@ -762,16 +762,17 @@ $(function(){
     })
     //选择部门确定按钮
     $('.determineDepartment').click(function(){
+        _autoOrHand = 2;
         $('#tree-block').hide();
     })
     //选择部门取消按钮
     $('.close-tree').click(function(){
         $('#tree-block').hide();
-        _determineDeObj.pId = '';
-        _determineDeObj.name = '';
-        _determineDeObj.id = '';
-        $('#xzmc').val('');
-        $('#zxbm').val('');
+        //_determineDeObj.pId = '';
+        //_determineDeObj.name = '';
+        //_determineDeObj.id = '';
+        //$('#xzmc').val('');
+        //$('#zxbm').val('');
     })
     //条件查询人员
     $('.zhixingButton').click(function(){
@@ -1256,8 +1257,8 @@ $(function(){
                 bxDianhua:workDones.telephone,
                 bxRen:workDones.person,
                 wxDidian:workDones.place,
-                bxKeshi:workDones.section,
-                wxShiX:workDones.matter,
+                bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                 wxShebei:workDones.sbSelect,
                 dcName:workDones.sbLX,
                 dName:workDones.sbMC,
@@ -1267,8 +1268,9 @@ $(function(){
                 gdSrc:1,
                 userID:_userIdNum,
                 gdLeixing:workDones.rwlx,
-                userName:_userIdName
-
+                userName:_userIdName,
+                bxKeshiNum:workDones.section,
+                wxShiXNum:workDones.matter
             }
             $.ajax({
                 type:'post',

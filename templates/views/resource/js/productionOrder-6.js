@@ -179,7 +179,7 @@ $(function(){
                 className:'ztz'
             },
             {
-                title:'系统名称',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
@@ -460,7 +460,6 @@ $(function(){
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
             _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
-            console.log(_gdCircle);
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;

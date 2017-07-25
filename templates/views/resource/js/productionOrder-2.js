@@ -210,7 +210,7 @@ $(function(){
                 data:'bxKeshi'
             },
             {
-                title:'维修事项',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
