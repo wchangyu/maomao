@@ -82,7 +82,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
         "pagingType":"full_numbers",
         "bStateSave":true,
         'language': {
@@ -501,7 +501,7 @@ $(function(){
     $('.chexiao').click(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
-            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5){
+            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5 || zhuangtai == 6 || zhuangtai == 7){
                 moTaiKuang($('#myModal1'));
             }else{
                 $('#myModal3').find('.modal-body').html('无法操作');
@@ -533,7 +533,7 @@ $(function(){
             var htState = 0;
             if(gdState == 2){
                 htState = 1;
-            }else if( gdState == 3 || gdState == 4 || gdState == 5 ){
+            }else if( gdState == 3 || gdState == 4 || gdState == 5 || gdState == 6 || gdState == 7){
                 htState = 2;
             }
             var gdCodes = _currentClick.children('td').eq(0).children('span').attr('gdcode');
@@ -745,7 +745,8 @@ $(function(){
             "wxRen":filterInput[7],
             "wxdidian":filterInput[8],
             "isCalcTimeSpan":1,
-            "userName":_userIdName
+            "userName":_userIdName,
+            "gdJJ":$('#gdlx').val()
         }
         $.ajax({
             type:'post',

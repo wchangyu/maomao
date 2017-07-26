@@ -1221,6 +1221,21 @@
           "iconclass":""
         }
       }
+  },
+  "天气":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"天气",
+    "submenu":{
+      "天气":{
+        "type":"0",
+        "content":"天气",
+        "uri":"../shouye/weather.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
   }
 
 }

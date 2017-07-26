@@ -37,7 +37,6 @@ $(function(){
 	var _energyTypeSel = new ETSelection();
 	_energyTypeSel.initPointers($(".energy-types"),undefined,function(){
 	});
-
 	/*---------------------------------------日历部分-------------------------------*/
 	//日历初始化
 	monthDate();
@@ -165,6 +164,74 @@ $(function(){
 			}
 		]
 	};
+	option71 = {
+		tooltip : {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'shadow',
+				label: {
+					show: true
+				}
+			}
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		grid: {
+			top: '12%',
+			left: '1%',
+			right: '10%',
+			containLabel: true
+		},
+		xAxis: [
+			{
+				type : 'category',
+				data : []
+			}
+		],
+		yAxis: [
+			{
+				type : 'value'
+			}
+		],
+		dataZoom: [
+			{
+				show: true,
+				start: 0,
+				end: 100
+			},
+			{
+				type: 'inside',
+				start: 94,
+				end: 100
+			},
+			{
+				show: true,
+				yAxisIndex: 0,
+				filterMode: 'empty',
+				width: 30,
+				height: '80%',
+				showDataShadow: false,
+				left: '93%'
+			}
+		],
+		series : [
+			{
+				name: '',
+				type: 'bar',
+				data: []
+			}
+		],
+		color:['#6bb1a6']
+	};
 	var myChart71 = echarts.init(document.getElementById('rheader-content-71'));
 	var myChart72 = echarts.init(document.getElementById('rheader-content-72'));
 	var myChart73 = echarts.init(document.getElementById('rheader-content-73'));
@@ -173,6 +240,24 @@ $(function(){
 	var myChart82 = echarts.init(document.getElementById('rheader-content-82'));
 	var myChart83 = echarts.init(document.getElementById('rheader-content-83'));
 
+
+	//页面加载默认调用
+	//所有楼宇
+	allPointerId();
+	//所有科室
+	allOfficeId();
+	//能耗种类
+	getEcType();
+	//科室种类
+	getEcTypeWord();
+	//排序类型
+	orderTypes();
+	//楼宇
+	getPointerData();
+	//科室
+	getOfficesData();
+	//配置页面信息
+	setEnergyInfos();
 	/*----------------------------------------事件----------------------------------*/
 	//对象选择卡
 	$('.left-middle-tabs').click(function(){
@@ -222,6 +307,8 @@ $(function(){
 		getPointerData();
 		//科室
 		getOfficesData();
+		//配置页面信息
+		setEnergyInfos();
 	})
 	/*---------------------------------------------其他方法------------------------------*/
 	//记录当前选中的是年or月
@@ -437,9 +524,9 @@ $(function(){
 			}
 			//全部
 
-			option70.xAxis[0].data = theTotleArrX;
-			option70.series[0].data = theTotleArrY;
-			myChart73.setOption(option70);
+			option71.xAxis[0].data = theTotleArrX;
+			option71.series[0].data = theTotleArrY;
+			myChart73.setOption(option71);
 			var theTotleProportion = theTotleArrY[0] / theTotleArrY[theTotleArrY.length-1];
 			if(theTotleArrY[theTotleArrY.length-1] == 0){
 				$('.L-rheader-content-right-1 .rheader-content-leff').eq(3).children('.theFirstFiveProportion').html('-')
@@ -604,9 +691,9 @@ $(function(){
 				$('.L-rheader-content-right-2 .rheader-content-leff').eq(2).children('.theFirstFiveProportion').html(theAfterFiveProportion.toFixed(2));
 			}
 			//全部
-			option70.xAxis[0].data = theTotleArrX;
-			option70.series[0].data = theTotleArrY;
-			myChart83.setOption(option70);
+			option71.xAxis[0].data = theTotleArrX;
+			option71.series[0].data = theTotleArrY;
+			myChart83.setOption(option71);
 			var theTotleProportion = theTotleArrY[0] / theTotleArrY[theTotleArrY.length-1];
 			if(theTotleArrY[theTotleArrY.length-1] == 0){
 				$('.L-rheader-content-right-2 .rheader-content-leff').eq(3).children('.theFirstFiveProportion').html('-')
