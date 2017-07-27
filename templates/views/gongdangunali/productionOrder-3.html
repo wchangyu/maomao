@@ -447,6 +447,23 @@
                                     <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                 </div>
                             </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">任务来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">线路：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="lineRoute" id="lineRoute" @change="selectLine">
+
+                                    </select>
+                                </div>
+                            </li>
                             <li class="floatRight">
                                 <div class="labels colorTip">车站 *：</div>
                                 <div class="input-blockeds">
@@ -465,12 +482,6 @@
                                     <input type="text" v-model="sbSelect">
                                 </div>
                             </li>
-                            <!--<li class="floatLeft">
-                                <div class="labels">设备类型：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="sbLX">
-                                </div>
-                            </li>-->
                             <li class="floatLeft">
                                 <div class="labels">设备名称：</div>
                                 <div class="input-blockeds">
@@ -483,15 +494,7 @@
                                     <input type="text" v-model="azAddress">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">任务来源 *：</div>
-                                <div class="input-blockeds">
-                                    <select v-model="gdly" class="gdly">
-                                        <option value="1">车站报修</option>
-                                        <option value="2">现场人员报修</option>
-                                    </select>
-                                </div>
-                            </li>
+
                             <!--<li class="floatLight">
                                 <div class="labels colorTip">维修班组 *：</div>
                                 <div class="input-blockeds">

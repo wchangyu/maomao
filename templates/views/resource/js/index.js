@@ -442,7 +442,6 @@ function getClassEcData(){
     }else{
         postPointerID = pointerID;
     }
-    console.log(postPointerID);
 
     var ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'dateType':_dataRanges};
     $.ajax({

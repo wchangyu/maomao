@@ -344,9 +344,11 @@ $(function(){
 	//根据当前选择的能耗类型设置页面信息
 	function setEnergyInfos(){
 		var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-		for(var i=0;i<jsonText.alltypes.length;i++){
-			if(jsonText.alltypes[i].etid == _ajaxEcType){
-				$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+		if(jsonText){
+			for(var i=0;i<jsonText.alltypes.length;i++){
+				if(jsonText.alltypes[i].etid == _ajaxEcType){
+					$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+				}
 			}
 		}
 	}
@@ -355,10 +357,12 @@ $(function(){
 	function getEcType(){
 		var aaa =[];
 		var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-		for(var i=0;i<jsonText.alltypes.length;i++){
-			aaa.push(jsonText.alltypes[i].etid);
+		if(jsonText){
+			for(var i=0;i<jsonText.alltypes.length;i++){
+				aaa.push(jsonText.alltypes[i].etid);
+			}
+			_ajaxEcType = aaa[$('.selectedEnergy').index()];
 		}
-		_ajaxEcType = aaa[$('.selectedEnergy').index()];
 	}
 
 	//判断选择的排序（总能耗，单位面积or总人数）
@@ -707,25 +711,32 @@ $(function(){
 	function getEcTypeWord(){
 		var aaa =[];
 		var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-		for(var i=0;i<jsonText.alltypes.length;i++){
-			aaa.push(jsonText.alltypes[i].etname);
+		if(jsonText){
+			for(var i=0;i<jsonText.alltypes.length;i++){
+				aaa.push(jsonText.alltypes[i].etname);
+			}
+			_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
 		}
-		_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
 	}
 
 	//获取楼宇id
 	function allPointerId(){
 		var data = JSON.parse(sessionStorage.getItem("pointers"));
-		for(var i=0;i<data.length;i++){
-			_allPointerArr.push(data[i].pointerID);
+		//console.log(data);
+		if(data){
+			for(var i=0;i<data.length;i++){
+				_allPointerArr.push(data[i].pointerID);
+			}
 		}
 	}
 
 	//获取所有科室id
 	function allOfficeId(){
 		var data = JSON.parse(sessionStorage.getItem("offices"));
-		for(var i=0;i<data.length;i++){
-			_allOfficeArr.push(data[i].f_OfficeID);
+		if(data){
+			for(var i=0;i<data.length;i++){
+				_allOfficeArr.push(data[i].f_OfficeID);
+			}
 		}
 	}
 })

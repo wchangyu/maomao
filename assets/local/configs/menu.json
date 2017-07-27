@@ -122,14 +122,6 @@
     "iconclass":"icon-pie-chart",
     "content":"用能分析",
     "submenu": {
-      "能耗指标":{
-        "type":"0",
-        "content":"能耗指标",
-        "uri":"../yongnengfenxi/energyAnalysis-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "横向对比":{
         "type":"0",
         "content":"横向对比",
@@ -193,53 +185,6 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      },
-      "用能趋势":{
-        "type":"0",
-        "content":"用能趋势",
-        "uri":"../yongnengfenxi/energyAnalysis-7.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "电能质量":{
-        "type":"0",
-        "content":"电能质量",
-        "uri":"../yongnengfenxi/energyAnalysis-8.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "能效分析":{
-    "type":"1",
-    "iconclass":"icon-bulb",
-    "content":"能效分析",
-    "submenu":{
-      "冷站能效":{
-        "type":"0",
-        "content":"冷站能效",
-        "uri":"../nengxiaofenxi/energyEfficiency-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "锅炉房能效":{
-        "type":"0",
-        "content":"锅炉房能效",
-        "uri":"../nengxiaofenxi/energyEfficiency-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "信息机房能效":{
-        "type":"0",
-        "content":"信息机房能效",
-        "uri":"../nengxiaofenxi/energyEfficiency-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
       }
     }
   },
@@ -255,30 +200,6 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      },
-      "能效排名":{
-        "type":"0",
-        "content":"能效排名",
-        "uri":"../yongnengguanli/energyManage-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "定额设定":{
-        "type":"0",
-        "content":"定额设定",
-        "uri":"../yongnengguanli/energyManage-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "目标考核":{
-        "type":"0",
-        "content":"目标考核",
-        "uri":"../yongnengguanli/energyManage-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
       }
     }
   },
@@ -287,14 +208,6 @@
     "iconclass":"icon-bell",
     "content":"报警预警",
     "submenu":{
-      "用能预警":{
-        "type":"0",
-        "content":"用能预警",
-        "uri":"../baojingyujing/warningAlarm-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "用能报警":{
         "type":"0",
         "content":"用能报警",
@@ -307,105 +220,6 @@
         "type":"0",
         "content":"实时报警",
         "uri":"../baojingyujing/warningAlarm-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "预警报警设置":{
-        "type":"0",
-        "content":"预警报警设置",
-        "uri":"../baojingyujing/warningAlarm-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "节能足迹":{
-    "type":"1",
-    "iconclass":"icon-cursor",
-    "content":"节能足迹",
-    "submenu":{
-      "节能项目档案管理":{
-        "type":"0",
-        "content":"节能项目档案管理",
-        "uri":"../jienengzuji/savingRemember-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "用能量验证":{
-        "type":"0",
-        "content":"用能量验证",
-        "uri":"../jienengzuji/savingRemember-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "节能报表":{
-        "type":"0",
-        "content":"节能报表",
-        "uri":"../jienengzuji/savingRemember-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "用能报表":{
-    "type":"1",
-    "content":"用能报表",
-    "uri":"",
-    "iconclass":"icon-note"
-  },
-  "运维管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"运维管理",
-    "submenu":{
-      "设备档案管理":{
-        "type":"0",
-        "content":"设备档案管理",
-        "uri":"../yunweiguanli/EquipmentAanagement-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "设备维保管理":{
-        "type":"0",
-        "content":"设备维保管理",
-        "uri":"../yunweiguanli/EquipmentAanagement-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "设备维保记录":{
-        "type":"0",
-        "content":"设备维保记录",
-        "uri":"../yunweiguanli/EquipmentAanagement-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "设备维修派单":{
-        "type":"0",
-        "content":"设备维修派单",
-        "uri":"../yunweiguanli/EquipmentAanagement-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "系统首页":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"系统首页",
-    "submenu":{
-      "系统首页":{
-        "type":"0",
-        "content":"系统首页",
-        "uri":"../xitongshouye/systemHomePage.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -453,37 +267,6 @@
         "type":"0",
         "content":"字典管理",
         "uri":"../zichanguanli/assetManagement-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "故障管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"故障管理",
-    "submenu":{
-      "故障上报":{
-        "type":"0",
-        "content":"故障上报",
-        "uri":"../guzhangguanli/faultManagement-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "故障处理":{
-        "type":"0",
-        "content":"故障处理",
-        "uri":"../guzhangguanli/faultManagement-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "故障查询":{
-        "type":"0",
-        "content":"故障查询",
-        "uri":"../guzhangguanli/faultManagement-3.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -592,169 +375,6 @@
       }
     }
   },
-  "知识库管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"知识库管理",
-    "submenu":{
-      "知识库管理":{
-        "type":"0",
-        "content":"知识库管理",
-        "uri":"../zhishikuguanli/knowledgeBase-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "知识库检索":{
-        "type":"0",
-        "content":"知识库检索",
-        "uri":"../zhishikuguanli/knowledgeBase-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "知识库分类":{
-        "type":"0",
-        "content":"知识库分类",
-        "uri":"../zhishikuguanli/knowledgeBase-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "人员管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"人员管理",
-    "submenu":{
-      "巡捡员管理":{
-        "type":"0",
-        "content":"巡捡员管理",
-        "uri":"../renyuanguanli/personnelManagement-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "日周报管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"日周报管理",
-    "submenu":{
-      "日报管理":{
-        "type":"0",
-        "content":"日报管理",
-        "uri":"../rizhoubaoguanli/dayWeeklyManagement-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "周报管理":{
-        "type":"0",
-        "content":"周报管理",
-        "uri":"../rizhoubaoguanli/dayWeeklyManagement-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "节能监控":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"节能监控",
-    "submenu":{
-      "节能监控一":{
-        "type":"0",
-        "content":"节能监控一",
-        "uri":"../jienengjiankong/EnergySavingMonitoring-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "节能监控二":{
-        "type":"0",
-        "content":"节能监控二",
-        "uri":"../jienengjiankong/EnergySavingMonitoring-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "节能监控三":{
-        "type":"0",
-        "content":"节能监控三",
-        "uri":"../jienengjiankong/EnergySavingMonitoring-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "能效管理":{
-    "type":"1",
-    "iconclass":"icon-settings",
-    "content":"能效管理",
-    "submenu":{
-      "能效管理一":{
-        "type":"0",
-        "content":"能效管理一",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-1.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理二":{
-        "type":"0",
-        "content":"能效管理二",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-2.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理三":{
-        "type":"0",
-        "content":"能效管理三",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-3.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理四":{
-        "type":"0",
-        "content":"能效管理四",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理五":{
-        "type":"0",
-        "content":"能效管理五",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-5.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理六":{
-        "type":"0",
-        "content":"能效管理六",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-6.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "能效管理七":{
-        "type":"0",
-        "content":"能效管理七",
-        "uri":"../nengxiaoguanli/managementEnergyEfficiency-7.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
   "维修管理":{
     "type":"1",
     "iconclass":"icon-settings",
@@ -852,6 +472,14 @@
         "type":"0",
         "content":"地图预览",
         "uri":"../map-preview/mapPreview.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "操作台":{
+        "type":"0",
+        "content":"操作台",
+        "uri":"../gongdangunali/option.html",
         "uid":"",
         "arg":"",
         "iconclass":""

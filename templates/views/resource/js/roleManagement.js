@@ -126,9 +126,12 @@ $(function(){
         //登记模态框出现
         moTaiKuang($('#myModal'),'新增');
         //初始化登记表
+        role.num='';
         role.name='';
         role.remark='';
-        role.order=''
+        role.order='';
+        $('#myModal').find('.input-blockeds').children('input').attr('disabled',false).removeClass('disabled-block');
+        $('#myModal').find('.input-blockeds').children('textarea').attr('disabled',false).removeClass('disabled-block');
     });
 
     //操作确定按钮

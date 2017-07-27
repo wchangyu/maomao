@@ -263,3 +263,6 @@
 .hide{
 	display: none !important;
 }
+.ztree li a{
+	line-height: inherit !important;
+}

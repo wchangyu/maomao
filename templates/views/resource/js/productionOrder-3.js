@@ -42,6 +42,31 @@ $(function(){
             weixiukeshis:'',
             wxremark:'',
             gdly:1
+        },
+        methods: {
+            selectLine:function(){
+                //首先将select子元素清空；
+                $('.cjz').empty();
+                //获得选中的线路的value
+                var values = $('#lineRoute').val();
+                if(values == ''){
+                    //所有车站
+                    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','ddNum','flag');
+                }else{
+                    console.log()
+                    for(var i=0;i<_lineArr.length;i++){
+                        if(values == _lineArr[i].dlNum){
+                            //创建对应的车站
+                            var str = '<option value="">请选择</option>';
+                            for(var j=0;j<_lineArr[i].deps.length;j++){
+                                str += '<option value="' + _lineArr[i].deps[j].ddNum +
+                                    '">'+ _lineArr[i].deps[j].ddName + '</option>';
+                            }
+                            $('.cjz').append(str);
+                        }
+                    }
+                }
+            }
         }
     });
     //所有负责人列表
@@ -82,6 +107,9 @@ $(function(){
     var _gdCircle = 0;
     //重发成功标识
     var _reSendFlag = false;
+
+    //存放所有线路的数据
+    var _lineArr = [];
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -203,6 +231,8 @@ $(function(){
         console.log('')
     };
     conditionSelect();
+
+    lineRouteData($('#lineRoute'));
     //已选择的执行人表格
     var col = [
         {
@@ -453,12 +483,6 @@ $(function(){
         workDones.azAddress = '';
         workDones.weixiukeshis = '';
         workDones.remarks = '';
-        if( _allDataXT.length !=0 ){
-            workDones.matter = _allDataXT[0].dsNum;
-        }
-        if( _allDataBM.length !=0 ){
-            workDones.section = _allDataBM[0].ddNum;
-        }
         _zhixingRens = [];
         datasTable($('#personTable1'),_zhixingRens);
     });
@@ -888,17 +912,19 @@ $(function(){
     //获得负责人列表数据
     function fzr(){
         var prm = {
-            "userName": $('#zxName').val(),
+            "userName2": $('#zxName').val(),
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdNum
+            "userID": _userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/ywGetWXLeaders',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allZXRArr =[];
                 for(var i=0;i<result.length;i++){
                     _allZXRArr.push(result[i]);
@@ -1002,7 +1028,7 @@ $(function(){
             data:prm,
             success:function(result){
                 //给select赋值
-                var str = '';
+                var str = '<option value="">请选择</option>';
                 if(flag){
                     for(var i=0;i<result.length;i++){
                         str += '<option' + ' value="' + result[i][num] +'"' + 'bm="' + result[i].departNum +
@@ -1316,6 +1342,30 @@ $(function(){
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //线路
+    function lineRouteData(el) {
+        var prm = {
+            'userID':_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGetDLines',
+            data:prm,
+            success:function(result){
+                _lineArr = [];
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _lineArr.push(result[i]);
+                    str += '<option value="' + result[i].dlNum +
+                        '">' + result[i].dlName +'</option>'
+                }
+                el.append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
             }
         })

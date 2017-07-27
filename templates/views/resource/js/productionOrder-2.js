@@ -1082,15 +1082,16 @@ $(function(){
     //获取所有执行人员
     function getRY(){
         var prm = {
-            "userName": $('#zxName').val(),
+            "userName2": $('#zxName').val(),
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdNum
+            "userID": _userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/ywGetWXRens',
             data:prm,
             success:function(result){
                 _allZXRArr =[];

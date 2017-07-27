@@ -173,3 +173,6 @@ a{
     border: none;
     outline: none;
 }
+.ztree li a{
+    line-height: inherit !important;
+}

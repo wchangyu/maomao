@@ -97,8 +97,17 @@ var ObjectSelection = function(){
 
     this.getSessionStorageOffices = function(){
         var strOffices = sessionStorage.offices;
+        var tempAllOffice = [];
         if(strOffices){
-            this._allOffices = JSON.parse(strOffices);
+            //this._allOffices = JSON.parse(strOffices);
+            tempAllOffice = JSON.parse(strOffices);
+            for(var i=0;i<tempAllOffice.length;i++){
+                var obj = {};
+                obj.f_OfficeID = tempAllOffice[i].f_OfficeID;
+                obj.f_ParentID = tempAllOffice[i].f_ParentID;
+                obj.f_OfficeName = tempAllOffice[i].f_OfficeName;
+                this._allOffices.push(obj);
+            }
         }
     }
 
@@ -230,7 +239,7 @@ var ObjectSearch = function(){
     this._officeZTreeId;
     this.searchOfficeNode = function(e){    //搜索科室节点
         var objSearch = e.data.that;      //e是下的键的对象包含的信息
-        console.log(e);
+        //console.log(e);
         var ztree = $.fn.zTree.getZTreeObj(objSearch._officeZTreeId);    //"allOffices"得到树的id
         var keyName = 'f_OfficeName';  //树节点的名字
         objSearch.search(ztree,keyName,objSearch._$officeSearchKey,objSearch._$officeTips);  //objSearch._$officeSearchKey搜索框   objSearch._$officeTips提示框

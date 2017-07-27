@@ -1,5 +1,5 @@
 $(function(){
-    /*--------------------------全局变量初始化设置----------------------------------*/
+    /*--------------------------------------左上--------------------------------------*/
     //获得用户名
     var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
@@ -75,9 +75,8 @@ $(function(){
     var _gdState = 0;
     //重发值
     var _gdCircle = 0;
-    /*--------------------------表格初始化---------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable(   {
+    var table = $('#scrap-datatables11').DataTable(   {
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -208,7 +207,7 @@ $(function(){
             },
             {
                 title:'督察督办责任人',
-                data:'paigongUserName'
+                data:'paigongUser'
             },
             {
                 title:'操作',
@@ -319,11 +318,11 @@ $(function(){
     });
     //条件查询
     conditionSelect();
-    /*----------------------------表格绑定事件-----------------------------------*/
+    //表格绑定事件
     var _currentChexiao = false;
     var _currentClick;
-    $('#scrap-datatables tbody')
-        //查看详情
+    $('#scrap-datatables11 tbody')
+    //查看详情
         .on('click','.option-edit',function(){
             _gdCircle = $(this).parents('tr').children('td').children('.gongdanId').attr('gdcircle');
             //图片区域隐藏
@@ -338,7 +337,7 @@ $(function(){
             var $this = $(this).parents('tr');
             currentTr = $this;
             currentFlat = true;
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('#scrap-datatables11 tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
             //获取详情
@@ -462,7 +461,7 @@ $(function(){
                     currentPages = $('.paginate_button').eq(i).html();
                 }
             }
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('#scrap-datatables11 tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
             var gdCode = parseInt($this.children('td').children('.gongdanId').attr('gdCode'));
@@ -671,7 +670,7 @@ $(function(){
             var imgSrc = $(this).attr('src')
             $('#myModal4').find('img').attr('src',imgSrc);
         })
-    /*------------------------按钮功能-----------------------------------------*/
+    //按钮功能
     //查询按钮
     $('#selected').click(function(){
         //判断起止时间是否为空
@@ -714,7 +713,7 @@ $(function(){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
-    /*----------------------------方法-----------------------------------------*/
+    //方法
     function conditionSelect(){
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
@@ -747,7 +746,7 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                datasTable($("#scrap-datatables"),result);
+                datasTable($("#scrap-datatables11"),result);
                 var aaa = currentPages;
                 for(var i=0 ;i<$('.paginate_button').length; i++){
                     if($('.paginate_button').eq(i).html() == aaa){
@@ -906,5 +905,155 @@ $(function(){
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
     }
+
+
+
+
+
+    /*-------------------------------------表格初始化------------------------------*/
+    var _tables = $('.main-contents-table .table').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": true,
+        "ordering": false,
+        "pagingType":"full_numbers",
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs'
+            }
+        ],
+        "dom":'t<"F"lip>',
+        "columns": [
+            {
+                title:'物品编号',
+                data:'itemNum'
+            },
+            {
+                title:'物品名称',
+                data:'itemName'
+            },
+            {
+                title:'类别',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
+            },
+            {
+                title:'预警下限',
+                data:'minNum'
+            },
+            {
+                title:'预警上限',
+                data:'maxNum'
+            },
+            {
+                title:'库存数',
+                data:'num'
+            }
+        ],
+    });
+    //自定义按钮位置
+    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    //加载页面的时候，隐藏其他两个导出按钮
+    for( var i=1;i<$('.excelButton').children().length;i++ ){
+        $('.excelButton').children().eq(i).addClass('hidding');
+    };
+    /*------------------------------------表格数据--------------------------------*/
+    conditionSelect11();
+    /*------------------------------------表格按钮-------------------------------*/
+    $('#selected10').click(function(){
+        conditionSelect11();
+    })
+    //状态选项卡（选择确定/待确定状态）
+    $('.table-title').children('span').click(function(){
+        $('.table-title').children('span').removeClass('spanhover');
+        $(this).addClass('spanhover');
+        $('.main-contents-table').addClass('hide-block');
+        $('.main-contents-table').eq($(this).index()).removeClass('hide-block');
+        //导出按钮显示
+        for( var i=0;i<$('.excelButton').children().length;i++ ){
+            $('.excelButton').children().eq(i).addClass('hidding');
+        };
+        $('.excelButton').children().eq($(this).index()).removeClass('hidding');
+    })
+    /*------------------------------------其他方法-------------------------------*/
+    //条件查询
+    function conditionSelect11(){
+        //获取条件
+        var filterInput = [];
+        var filterInputValue = $('.condition-query11').find('.input-blocked').children('input');
+        for(var i=0;i<filterInputValue.length;i++){
+            filterInput.push(filterInputValue.eq(i).val());
+        }
+        var prm = {
+            'itemNum':filterInput[0],
+            'itemName':filterInput[1],
+            'userID':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptItemStock',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                var downState = [];
+                var upState = [];
+                var nomalState = [];
+                for(var i=0;i<result.length;i++){
+                    if(result[i].alarmState == 0){
+                        nomalState.push(result[i])
+                    }else if(result[i].alarmState == 1){
+                        downState.push(result[i])
+                    }else if(result[i].alarmState == 2){
+                        upState.push(result[i]);
+                    }
+                }
+                datasTable11($('#scrap-datatables'),result);
+                datasTable11($('#scrap-datatables1'),downState);
+                datasTable11($('#scrap-datatables2'),upState);
+                datasTable11($('#scrap-datatables3'),nomalState);
+            }
+        })
+    }
+    //dataTables表格填数据
+    function datasTable11(tableId,arr){
+        var table = tableId.dataTable();
+        if(arr.length == 0){
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+    }
+    /*----------------------------打印部分去掉的东西-----------------------------*/
+    //导出按钮,每页显示数据条数,表格页码打印隐藏
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
+
+
+    //全屏
+
 
 })
