@@ -4,8 +4,15 @@ $(function(){
     var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+
+    replaceIP(_urlImg,_urls);
+
     //存放执行人信息的数组
     var _zhixingRens = [];
     var _weiXiuCaiLiao = [];
@@ -47,7 +54,9 @@ $(function(){
             azAddress:'',
             remarks:'',
             weixiukeshis:'',
-            wxremark:''
+            wxremark:'',
+            gdly:'',
+            whether:''
         }
     })
     //自定义验证器
@@ -450,6 +459,7 @@ $(function(){
                     workDones.remarks = result.bxBeizhu;
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
+                    workDones.gdly = result.gdCodeSrc;
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料
@@ -728,7 +738,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -1370,5 +1381,11 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
     }
 })

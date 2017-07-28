@@ -6,6 +6,9 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -40,7 +43,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
+            azAddress:'',
+            whether:'',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -388,6 +393,7 @@ $(function(){
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
+                    app33.gdly = result.gdCodeSrc;
                     //进度条赋值
                     //待下发记录时间
                     progressContent(0,0,result.gdShij);
@@ -654,7 +660,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        _urlImg + '?gdcode=' + _gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -905,6 +912,12 @@ $(function(){
     //进度条赋值
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
     }
 
 })

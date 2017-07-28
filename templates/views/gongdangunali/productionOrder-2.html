@@ -413,6 +413,13 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">是否维保 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
+                                    <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
@@ -423,70 +430,73 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">车站：</div>
                                 <div class="input-blockeds">
                                     <select id="cjz" v-model="section"></select>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
                                 <div class="input-blockeds">
                                     <select class="xitong" v-model="matter"></select>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">设备编码：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbSelect">
                                 </div>
                             </li>
-                            <!--<li class="floatLeft">
-                                <div class="labels">设备类型：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="sbLX">
-                                </div>
-                            </li>-->
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">设备名称：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbMC">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">设备车间站：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbBM">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">安装地点：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="azAddress">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels colorTip">维修班组 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="weixiukeshis" class="weixiukeshis">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">工单来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
                                 </div>
                             </li>
                             <div class="clearfix"></div>

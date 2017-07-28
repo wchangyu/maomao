@@ -6,6 +6,9 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -39,7 +42,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
+            azAddress:'',
+            whether:'',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -457,6 +462,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+                    app33.gdly = result.gdCodeSrc;
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
@@ -587,7 +593,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        _urlImg + '?gdcode=' + _gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -607,5 +614,10 @@ $(function(){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
-
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+    }
 })

@@ -6,6 +6,9 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -41,7 +44,8 @@ $(function(){
             remarks:'',
             weixiukeshis:'',
             wxremark:'',
-            gdly:1
+            gdly:1,
+            whether:1
         },
         methods: {
             selectLine:function(){
@@ -66,7 +70,13 @@ $(function(){
                         }
                     }
                 }
-            }
+            },
+            selects: function () {
+                $('#workDones').find('.whether').click(function (a) {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $(this).parent('span').addClass('checked');
+                })
+            },
         }
     });
     //所有负责人列表
@@ -748,7 +758,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -1369,5 +1380,11 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
     }
 })

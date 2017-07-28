@@ -26,7 +26,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
+            azAddress:'',
+            whether:'',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -182,6 +184,7 @@ $(function(){
             _zhixingRens = result.wxRens;
             _fuZeRen = result.gdWxLeaders;
             _imgNum = result.hasImage;
+            app33.gdly = result.gdCodeSrc;
             //进度条赋值
             //待下发记录时间
             progressContent(0,0,result.gdShij);
