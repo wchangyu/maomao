@@ -6,6 +6,9 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -39,7 +42,9 @@ $(function(){
             sbBM:'',
             azAddress:'',
             sections:'',
-            remarks:''
+            remarks:'',
+            whether:'0',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -364,7 +369,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -464,6 +470,13 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#three').parent('span').addClass('checked');
+                    }
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -478,6 +491,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+                    $('.otime').val(result.gdFsShij.split(' ')[0]);
                     //查看执行人员
                     _zhixingRens = [];
                     for(var i=0;i<result.wxRens.length;i++){
@@ -510,6 +524,7 @@ $(function(){
                     _wxContent = result.wxBeizhu;
                     //最新进展
                     $('#newBeiZhu').val('');
+                    app33.gdly = result.gdCodeSrc;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -641,4 +656,10 @@ $(function(){
             }
         })
     };
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+    }
 })

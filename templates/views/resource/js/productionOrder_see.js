@@ -12,7 +12,7 @@ $(function(){
     var app33 = new Vue({
         el:'#myApp33',
         data:{
-            picked:'0',
+            picked:'',
             telephone:'',
             person:'',
             place:'',
@@ -26,15 +26,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
-        },
-        methods:{
-            radios:function(){
-                $('.inpus').click(function(a){
-                    $('.inpus').parent('span').removeClass('checked');
-                    $(this).parent('span').addClass('checked');
-                })
-            }
+            azAddress:'',
+            whether:'',
+            gdly:''
         }
     });
     var _imgNum = 0;
@@ -150,20 +144,23 @@ $(function(){
             var timeContent = $('.record-list');
             //绑定弹窗数据
             if(result.gdJJ == 1){
-                $('.inpus').parent('span').removeClass('checked');
-                $('#ones').parent('span').addClass('checked');
+                console.log('ones')
+                $('.inpus').attr('checked',false);
+                $('#ones').attr('checked',true);
             }else{
-                $('.inpus').parent('span').removeClass('checked');
-                $('#twos').parent('span').addClass('checked');
+                console.log('twos');
+                $('.inpus').attr('checked',false);
+                $('#twos').attr('checked',true);
             }
             //绑定弹窗数据
-            if(result.gdJJ == 1){
-                $('.inpus').parent('span').removeClass('checked');
-                $('#ones').parent('span').addClass('checked');
-            }else{
-                $('.inpus').parent('span').removeClass('checked');
-                $('#twos').parent('span').addClass('checked');
+            if (result.gdRange == 1) {
+                $('.whether').attr('checked',false);
+                $('#four').attr('checked',true);
+            } else {
+                $('.whether').attr('checked',false);
+                $('#three').attr('checked',true);
             }
+            $('.otime').val(result.gdFsShij.split(' ')[0]);
             //app33.picked = result.gdJJ;
             app33.telephone = result.bxDianhua;
             app33.person = result.bxRen;
@@ -182,6 +179,7 @@ $(function(){
             _zhixingRens = result.wxRens;
             _fuZeRen = result.gdWxLeaders;
             _imgNum = result.hasImage;
+            app33.gdly = result.gdCodeSrc;
             //进度条赋值
             //待下发记录时间
             progressContent(0,0,result.gdShij);
