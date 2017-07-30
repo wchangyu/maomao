@@ -421,8 +421,8 @@
                             <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels colorTip">是否维保 *：</div>
                                 <div class="input-blockeds">
-                                    <input type="radio" class="whether" id="three1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                    <input type="radio" class="whether" id="four1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
+                                    <input type="radio" class="whether" id="three1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
+                                    <input type="radio" class="whether" id="four1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
@@ -507,25 +507,31 @@
                                     <input type="text" v-model="weixiukeshis">
                                 </div>
                             </li>-->
-                            <div class="clearfix"></div>
-                            <div>
-                                <div class="labels">故障描述：</div>
-                                <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="labels">维修内容：</div>
-                                <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="wxremark" id="wxremark"></textarea>
-                                </div>
-                            </div>
-                            <div style="margin-top: 10px;">
-                                <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
-                                <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                            </div>
                         </form>
                     </validator>
+                    <li class="floatRight" style="line-height: 26px;">
+                        <div class="labels">发生时间：</div>
+                        <div class="input-blockeds">
+                            <input type="text" class="datatimeblock otime">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">故障描述：</div>
+                        <div class="input-blockeds" style="height:62px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" class="remarkDes"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="labels">维修内容：</div>
+                        <div class="input-blockeds" style="height:62px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" v-model="wxremark" id="wxremark"></textarea>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
+                        <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                    </div>
                     <div class="table-block">
                         <div class="table-title">
                             <span class="spanhover">负责人</span>

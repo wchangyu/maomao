@@ -38,15 +38,15 @@
             <li class="floatLeft" style="line-height: 26px;">
                 <div class="labels">工单类型：</div>
                 <div class="input-blockeds">
-                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
-                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
+                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked"><label for="ones">快速</label>
+                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked"><label for="twos">普通</label>
                 </div>
             </li>
             <li class="floatRight" style="line-height: 26px;">
                 <div class="labels colorTip">是否维保 *：</div>
                 <div class="input-blockeds">
-                    <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="three" style="display: inline-block;vertical-align: middle">是</label>
-                    <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="four" style="display: inline-block;vertical-align: middle">否</label>
+                    <input type="radio" class="whether" id="three" value="1" v-model="whether" style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="three" style="display: inline-block;vertical-align: middle">是</label>
+                    <input type="radio" class="whether" id="four" value="0" v-model="whether" style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="four" style="display: inline-block;vertical-align: middle">否</label>
                 </div>
             </li>
             <li class="floatLeft" style="line-height: 26px;">
@@ -127,6 +127,12 @@
                         <option value="1">车站报修</option>
                         <option value="2">现场人员报修</option>
                     </select>
+                </div>
+            </li>
+            <li class="floatLeft" style="line-height: 26px;">
+                <div class="labels">发生时间：</div>
+                <div class="input-blockeds">
+                    <input type="text" class="datatimeblock otime">
                 </div>
             </li>
             <div class="clearfix"></div>

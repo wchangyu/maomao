@@ -246,6 +246,16 @@ $(function(){
         $('#miaoshu').val('');
         $('.lujing').html('');
         $('#thelist').empty();
+        var lis = $('#myApp33').children().children();
+        for(var i=0;i<lis.length;i++){
+            lis.eq(i).children().eq(1).children().attr('disabled',false);
+        }
+        //位置input框
+        $('#weizhi').attr('disabled',false);
+        //描述input框
+        $('#miaoshu').attr('disabled',false);
+        $('#gouzhi').attr('disabled',false);
+        $('#anzhuang').attr('disabled',false);
     })
     //查询
     $('#selected').click(function (){

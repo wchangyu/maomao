@@ -375,6 +375,14 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#three').parent('span').addClass('checked');
+                    }
+                    $('.otime').val(result.gdFsShij.split(' ')[0]);
                     //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;

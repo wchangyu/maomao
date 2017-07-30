@@ -41,11 +41,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             azAddress:'',
-            remarks:'',
             weixiukeshis:'',
-            wxremark:'',
             gdly:1,
-            whether:1
+            whether:0,
         },
         methods: {
             selectLine:function(){
@@ -319,8 +317,6 @@ $(function(){
     $('#scrap-datatables tbody')
         .on('click','.option-option',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //工单来源显示
-            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this),'flag');
             //改变确定按钮类名
@@ -330,8 +326,6 @@ $(function(){
         })
         .on('click','.option-edit',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //工单来源显示
-            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this));
             //改变确定按钮类名
@@ -482,7 +476,7 @@ $(function(){
         //数据初始化
         workDones.picked = 0;
         $('#workDones').find('.inpus').parent('span').removeClass('checked');
-        $('#workDones').find('#twos1').parent('span').addClass('checked');
+        $('#workDones').find('#three1').parent('span').addClass('checked');
         workDones.rwlx = 4;
         workDones.telephone = '';
         workDones.person = '';
@@ -492,9 +486,14 @@ $(function(){
         workDones.sbMC = '';
         workDones.azAddress = '';
         workDones.weixiukeshis = '';
-        workDones.remarks = '';
+        $('.remarkDes').val('');
         _zhixingRens = [];
         datasTable($('#personTable1'),_zhixingRens);
+        workDones.whether = 0;
+        workDones.lineRoute = '';
+        workDones.section = '';
+        workDones.matter = '';
+
     });
     $('#myModal')
         //登记
@@ -531,13 +530,15 @@ $(function(){
                 dName:workDones.sbMC,
                 installAddress:workDones.azAddress,
                 wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:workDones.remarks,
+                bxBeizhu:$('.remarkDes').val(),
                 //gdWxLeaders:fzrArr,
                 gdSrc:1,
                 bxKeshiNum:workDones.section,
                 wxShiXNum:workDones.matter,
                 userId:_userIdNum,
                 userName:_userIdName,
+                gdRange:workDones.whether,
+                gdFsShij:$('.otime').val()
             }
             //判断_obj和_fzrObjext是否为空
             if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
@@ -555,14 +556,16 @@ $(function(){
                     dName:workDones.sbMC,
                     installAddress:workDones.azAddress,
                     wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:workDones.remarks,
+                    bxBeizhu:$('.remarkDes').val(),
                     //gdWxLeaders:fzrArr,
                     gdSrc:1,
                     userId:_userIdNum,
                     userName:_userIdName,
                     gdCodeSrc:workDones.gdly,
                     bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter
+                    wxShiXNum:workDones.matter,
+                    gdRange:workDones.whether,
+                    gdFsShij:$('.otime').val()
                 };
                 _fzrObj = fzrArr;
                 var gdInfo1 = {
@@ -578,14 +581,16 @@ $(function(){
                     dName:workDones.sbMC,
                     installAddress:workDones.azAddress,
                     wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:workDones.remarks,
+                    bxBeizhu:$('.remarkDes').val(),
                     gdWxLeaders:fzrArr,
                     gdSrc:1,
                     userID:_userIdNum,
                     userName:_userIdName,
                     gdCodeSrc:workDones.gdly,
                     bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter
+                    wxShiXNum:workDones.matter,
+                    gdRange:workDones.whether,
+                    gdFsShij:$('.otime').val()
                 }
                 $.ajax({
                     type:'post',
@@ -626,13 +631,15 @@ $(function(){
                         dName:workDones.sbMC,
                         installAddress:workDones.azAddress,
                         wxKeshi:workDones.weixiukeshis,
-                        bxBeizhu:workDones.remarks,
+                        bxBeizhu:$('.remarkDes').val(),
                         gdWxLeaders:fzrArr,
                         gdSrc:1,
                         userID:_userIdNum,
                         userName:_userIdName,
                         bxKeshiNum:workDones.section,
-                        wxShiXNum:workDones.matter
+                        wxShiXNum:workDones.matter,
+                        gdRange:workDones.whether,
+                        gdFsShij:$('.otime').val()
                     }
                     $.ajax({
                         type:'post',
@@ -1117,6 +1124,13 @@ $(function(){
                     $('#workDones').find('.inpus').parent('span').removeClass('checked');
                     $('#workDones').find('#twos1').parent('span').addClass('checked');
                 }
+                if (result.gdRange == 1) {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $('#workDones').find('#four').parent('span').addClass('checked');
+                } else {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $('#workDones').find('#three').parent('span').addClass('checked');
+                }
                 //selecrt绑定值
                 if(result.bxKeshiNum == ''){
                     workDones.section = 0;
@@ -1138,9 +1152,10 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
-                workDones.remarks = result.bxBeizhu;
+                $('.otime').val(result.gdFsShij.split(' ')[0]);
+                $('.remarkDes').val(result.bxBeizhu);
                 _imgNum = result.hasImage;
-                workDones.wxremark = result.wxBeizhu;
+                $('#wxremark').val(result.wxBeizhu);
                 _gdCircle = result.gdCircle;
                 //负责人(初始化);
                 //fzr = result.gdWxLeaders;
@@ -1218,7 +1233,7 @@ $(function(){
             "gdCode": gdCode,
             "gdZht": _gdState,
             "wxKeshi": '',
-            "wxBeizhu": workDones.wxremark,
+            "wxBeizhu": $('#wxremark').val(),
             "userID": _userIdNum,
             "userName":_userIdName
         };
@@ -1301,13 +1316,15 @@ $(function(){
                 dName:workDones.sbMC,
                 installAddress:workDones.azAddress,
                 wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:workDones.remarks,
+                bxBeizhu:$('.remarkDes').val(),
                 gdSrc:1,
                 userID:_userIdNum,
                 gdLeixing:workDones.rwlx,
                 userName:_userIdName,
                 bxKeshiNum:workDones.section,
-                wxShiXNum:workDones.matter
+                wxShiXNum:workDones.matter,
+                gdRange:workDones.whether,
+                gdFsShij:$('.otime').val()
             }
             $.ajax({
                 type:'post',

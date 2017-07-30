@@ -446,6 +446,13 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#three').parent('span').addClass('checked');
+                    }
                     //绑定弹窗数据
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
@@ -463,6 +470,7 @@ $(function(){
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
                     app33.gdly = result.gdCodeSrc;
+                    $('.otime').val(result.gdFsShij.split(' ')[0]);
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料

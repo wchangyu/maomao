@@ -434,6 +434,13 @@ $(function(){
                         $('#workDones').find('.inpus').parent('span').removeClass('checked');
                         $('#workDones').find('#twos1').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#workDones').find('.whether').parent('span').removeClass('checked');
+                        $('#workDones').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#workDones').find('.whether').parent('span').removeClass('checked');
+                        $('#workDones').find('#three').parent('span').addClass('checked');
+                    }
                     //selecrt绑定值
                     if(result.bxKeshiNum == ''){
                         workDones.section = 0;
@@ -460,6 +467,7 @@ $(function(){
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
+                    $('.otime').val(result.gdFsShij.split(' ')[0]);
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料

@@ -59,7 +59,7 @@ $(function () {
     el: '#myApp33',
     data: {
       picked: '1',
-      whether:'1',
+      whether:'0',
       rwlx: 4,
       telephone: '',
       person: '',
@@ -70,7 +70,6 @@ $(function () {
       sbLX: '',
       sbMC: '',
       azAddress: '',
-      remarks: '',
       gdly: 1,
       lineRoute: ''
     },
@@ -123,10 +122,10 @@ $(function () {
       sbLX: '',
       sbMC: '',
       azAddress: '',
-      beizhus: '',
-      weixiuBZ: '',
       gdly: '1',
-      lineRoute: ''
+      lineRoute: '',
+      whether:0,
+
     },
     methods: {
       radios: function () {
@@ -532,19 +531,20 @@ $(function () {
     app33.telephone = '';
     app33.person = '';
     app33.place = '';
-    app33.remarks = '';
+    $('.remarkDes').eq(0).val('');
     app33.sbSelect = '';
     app33.sbLX = '';
     app33.sbMC = '';
     app33.azAddress = '';
     app33.gdly = 1;
-    app33.whether = 1;
+    app33.whether = 0;
     $('.whether').parent('span').removeClass('checked');
     $('#three').parent('span').addClass('checked');
     app33.lineRoute = '';
     app33.section = '';
     app33.matter = '';
     moTaiKuang($('#myModal'), '登记');
+    $('.otime').val(_initStart);
   });
 
   //快速登记按钮
@@ -563,8 +563,8 @@ $(function () {
     quickWork.sbLX = '';
     quickWork.sbMC = '';
     quickWork.azAddress = '';
-    quickWork.beizhus = '';
-    quickWork.weixiuBZ = '';
+    $('.remarkDes').eq(1).val('');
+    $('.weixiuBZ').val('');
     quickWork.gdly = '1';
     moTaiKuang($('#myModal4'), '快速报障');
     //将执行人默认为本人
@@ -581,6 +581,8 @@ $(function () {
     quickWork.lineRoute = '';
     quickWork.section = '';
     quickWork.matter = '';
+    quickWork.whether = 0;
+    $('.otimes').val(_initStart);
   })
 
   //确定按钮
@@ -601,7 +603,7 @@ $(function () {
             'wxDidian': app33.place,
             'wxShiX': $('.xitong').eq(0).children('option:selected').html(),
             'wxKeshi': '',
-            'bxBeizhu': app33.remarks,
+            'bxBeizhu': $('.remarkDes').eq(0).val(),
             'userID': _userIdNum,
             'gdLeixing': app33.rwlx,
             'dName': app33.sbMC,
@@ -611,7 +613,9 @@ $(function () {
             'installAddress': app33.azAddress,
             'gdCodeSrc': app33.gdly,
             'bxKeshiNum': app33.section,
-            'wxShiXNum': app33.matter
+            'wxShiXNum': app33.matter,
+            'gdRange':app33.whether,
+            'gdFsShij':$('.otime').val()
           };
           //将发送请求的对象付给_obj;
           if ($.isEmptyObject(_obj)) {
@@ -623,7 +627,7 @@ $(function () {
               'wxDidian': app33.place,
               'wxShiX': $('.xitong').eq(0).children('option:selected').html(),
               'wxKeshi': '',
-              'bxBeizhu': app33.remarks,
+              'bxBeizhu': $('.remarkDes').eq(0).val(),
               'userID': _userIdNum,
               'gdLeixing': app33.rwlx,
               'dName': app33.sbMC,
@@ -633,7 +637,9 @@ $(function () {
               'installAddress': app33.azAddress,
               'gdCodeSrc': app33.gdly,
               'bxKeshiNum': app33.section,
-              'wxShiXNum': app33.matter
+              'wxShiXNum': app33.matter,
+              'gdRange':app33.whether,
+              'gdFsShij':$('.otime').val()
             };
             register();
           } else {
@@ -666,7 +672,7 @@ $(function () {
             'wxDidian': app33.place,
             'wxShiX': $('.xitong').eq(0).children('option:selected').html(),
             'wxKeshi': '',
-            'bxBeizhu': app33.remarks,
+            'bxBeizhu': $('.remarkDes').eq(0).val(),
             'userID': _userIdNum,
             'gdLeixing': app33.rwlx,
             'dName': app33.sbMC,
@@ -677,7 +683,9 @@ $(function () {
             'userName': _userIdName,
             'gdCodeSrc': app33.gdly,
             'bxKeshiNum': app33.section,
-            'wxShiXNum': app33.matter
+            'wxShiXNum': app33.matter,
+            'gdRange':app33.whether,
+            'gdFsShij':$('.otime').val()
           };
           $.ajax({
             type: 'post',
@@ -748,7 +756,7 @@ $(function () {
         'wxDidian': quickWork.place,
         'wxShiX': $('.xitong').eq(1).children('option:selected').html(),
         'wxKeshi': quickWork.weixiukeshis,
-        'bxBeizhu': quickWork.beizhus,
+        'bxBeizhu': $('.remarkDes').eq(1).val(),
         'userID': _userIdNum,
         'gdLeixing': quickWork.rwlx,
         'dName': quickWork.sbMC,
@@ -756,10 +764,12 @@ $(function () {
         'wxShebei': quickWork.sbSelect,
         'dcName': quickWork.sbLX,
         'installAddress': quickWork.azAddress,
-        'wxBeizhu': quickWork.weixiuBZ,
+        'wxBeizhu': $('.weixiuBZ').val(),
         'gdCodeSrc': quickWork.gdly,
         'bxKeshiNum': quickWork.section,
-        'wxShiXNum': quickWork.matter
+        'wxShiXNum': quickWork.matter,
+        'gdRange':quickWork.whether,
+        'gdFsShij':$('.otimes').val()
       };
       if ($.isEmptyObject(_quickObj)) {
         _quickObj = {
@@ -770,7 +780,7 @@ $(function () {
           'wxDidian': quickWork.place,
           'wxShiX': $('.xitong').eq(1).children('option:selected').html(),
           'wxKeshi': quickWork.weixiukeshis,
-          'bxBeizhu': quickWork.beizhus,
+          'bxBeizhu': $('.remarkDes').eq(1).val(),
           'userID': _userIdNum,
           'gdLeixing': quickWork.rwlx,
           'dName': quickWork.sbMC,
@@ -778,10 +788,12 @@ $(function () {
           'wxShebei': quickWork.sbSelect,
           'dcName': quickWork.sbLX,
           'installAddress': quickWork.azAddress,
-          'wxBeizhu': quickWork.weixiuBZ,
+          'wxBeizhu': $('.weixiuBZ'),
           'gdCodeSrc': quickWork.gdly,
           'bxKeshiNum': quickWork.section,
-          'wxShiXNum': quickWork.matter
+          'wxShiXNum': quickWork.matter,
+          'gdRange':quickWork.whether,
+          'gdFsShij':$('.otimes').val()
         };
         QuickRegister();
       } else {
@@ -807,8 +819,6 @@ $(function () {
       .on('click', '.option-see', function () {
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
         $('.loading').showLoading();
-        //工单来源隐藏
-        $('.gdly').parents('li').hide();
         //绑定数据
         ViewOrEdit($(this), 'flag');
         //图片区域隐藏
@@ -818,8 +828,6 @@ $(function () {
       .on('click', '.option-edit', function () {
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
         $('.loading').showLoading();
-        //工单来源隐藏
-        $('.gdly').parents('li').hide();
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('编辑');
         //绑定数据
         ViewOrEdit($(this));
@@ -980,7 +988,7 @@ $(function () {
       'wxDidian': app33.place,
       'wxShiX': $('.xitong').eq(0).children('option:selected').html(),
       'wxKeshi': '',
-      'bxBeizhu': app33.remarks,
+      'bxBeizhu': $('.remarkDes').eq(0).val(),
       'userID': _userIdNum,
       'gdLeixing': app33.rwlx,
       'dName': app33.sbMC,
@@ -991,7 +999,9 @@ $(function () {
       'userName': _userIdName,
       'gdCodeSrc': app33.gdly,
       'bxKeshiNum': app33.section,
-      'wxShiXNum': app33.matter
+      'wxShiXNum': app33.matter,
+      'gdRange':app33.whether,
+      'gdFsShij':$('.otime').val()
     };
     $.ajax({
       type: 'post',
@@ -1037,7 +1047,7 @@ $(function () {
       'wxDidian': quickWork.place,
       'wxShiX': $('.xitong').eq(1).children('option:selected').html(),
       'wxKeshi': quickWork.weixiukeshis,
-      'bxBeizhu': quickWork.beizhus,
+      'bxBeizhu': $('.remarkDes').eq(1).val(),
       'userID': _userIdNum,
       'gdLeixing': quickWork.rwlx,
       'dName': quickWork.sbMC,
@@ -1046,11 +1056,13 @@ $(function () {
       'dcName': quickWork.sbLX,
       'installAddress': quickWork.azAddress,
       'gdWxRs': weixiuRen,
-      'wxBeizhu': quickWork.weixiuBZ,
+      'wxBeizhu': $('.weixiuBZ').val(),
       'userName': _userIdName,
       'gdCodeSrc': app33.gdly,
       'bxKeshiNum': quickWork.section,
-      'wxShiXNum': quickWork.matter
+      'wxShiXNum': quickWork.matter,
+      'gdRange':quickWork.whether,
+      'gdFsShij':$('.otimes').val()
     };
     $.ajax({
       type: 'post',
@@ -1119,6 +1131,13 @@ $(function () {
           $('#myApp33').find('.inpus').parent('span').removeClass('checked');
           $('#myApp33').find('#twos').parent('span').addClass('checked');
         }
+        if (result.gdRange == 1) {
+          $('#myApp33').find('.whether').parent('span').removeClass('checked');
+          $('#myApp33').find('#four').parent('span').addClass('checked');
+        } else {
+          $('#myApp33').find('.whether').parent('span').removeClass('checked');
+          $('#myApp33').find('#three').parent('span').addClass('checked');
+        }
         //selecrt绑定值
         if (result.bxKeshiNum == '') {
           app33.section = 0;
@@ -1134,13 +1153,14 @@ $(function () {
         app33.telephone = result.bxDianhua;
         app33.person = result.bxRen;
         app33.place = result.wxDidian;
-        app33.remarks = result.bxBeizhu;
+        $('.remarkDes').eq(0).val(result.bxBeizhu),
         app33.sbSelect = result.wxShebei;
         app33.sbLX = result.dcName;
         app33.sbMC = result.dName;
         app33.azAddress = result.installAddress;
         app33.rwlx = result.gdLeixing;
         _imgNum = result.hasImage;
+        $('.otime').val(result.gdFsShij.split(' ')[0]);
         //所有input不可操作
         if (flag) {
           $('#myApp33').find('input').attr('disabled', true).addClass('disabled-block');
