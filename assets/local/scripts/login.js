@@ -76,9 +76,9 @@ var Login = function() {
                         data:accParams,
                         //async:true,
                         success:function(res){
-                            if(res == "2"){
+                            if(res.data == "2"){
                                 showAlertInfo("请输入正确的用户名");
-                            }else if(res == "1"){
+                            }else if(res.data == "1"){
                                 showAlertInfo("请输入正确的密码");
                             }else if(res.data==="98"){
                                 showAlertInfo("没有登录web系统权限");
