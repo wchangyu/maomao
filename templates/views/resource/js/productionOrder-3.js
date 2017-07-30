@@ -44,6 +44,7 @@ $(function(){
             weixiukeshis:'',
             gdly:1,
             whether:0,
+            picked:0
         },
         methods: {
             selectLine:function(){
@@ -476,7 +477,7 @@ $(function(){
         //数据初始化
         workDones.picked = 0;
         $('#workDones').find('.inpus').parent('span').removeClass('checked');
-        $('#workDones').find('#three1').parent('span').addClass('checked');
+        $('#workDones').find('#twos1').parent('span').addClass('checked');
         workDones.rwlx = 4;
         workDones.telephone = '';
         workDones.person = '';
@@ -1126,10 +1127,10 @@ $(function(){
                 }
                 if (result.gdRange == 1) {
                     $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#four').parent('span').addClass('checked');
+                    $('#workDones').find('#four1').parent('span').addClass('checked');
                 } else {
                     $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#three').parent('span').addClass('checked');
+                    $('#workDones').find('#three1').parent('span').addClass('checked');
                 }
                 //selecrt绑定值
                 if(result.bxKeshiNum == ''){
