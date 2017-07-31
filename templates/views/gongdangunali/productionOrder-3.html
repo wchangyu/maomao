@@ -39,6 +39,8 @@
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!--datatimepicker-->
+    <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -385,6 +387,8 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../resource/js/productionOrder-3.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -419,12 +423,21 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">任务来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <!--<li class="floatRight" style="line-height: 26px;">
                                 <div class="labels colorTip">是否维保 *：</div>
                                 <div class="input-blockeds">
                                     <input type="radio" class="whether" id="three1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
                                     <input type="radio" class="whether" id="four1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
                                 </div>
-                            </li>
+                            </li>-->
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
@@ -492,15 +505,6 @@
                                     <input type="text" v-model="azAddress">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">任务来源 *：</div>
-                                <div class="input-blockeds">
-                                    <select v-model="gdly" class="gdly">
-                                        <option value="1">车站报修</option>
-                                        <option value="2">现场人员报修</option>
-                                    </select>
-                                </div>
-                            </li>
                             <!--<li class="floatLight">
                                 <div class="labels colorTip">维修班组 *：</div>
                                 <div class="input-blockeds">
@@ -509,10 +513,10 @@
                             </li>-->
                         </form>
                     </validator>
-                    <li class="floatRight" style="line-height: 26px;">
+                    <li class="floatLeft" style="line-height: 26px;">
                         <div class="labels">发生时间：</div>
                         <div class="input-blockeds">
-                            <input type="text" class="datatimeblock otime">
+                            <input type="text" class="otime">
                         </div>
                     </li>
                     <div class="clearfix"></div>

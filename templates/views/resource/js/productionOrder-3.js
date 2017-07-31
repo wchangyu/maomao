@@ -16,6 +16,16 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+    //datatimepicker
+    $('.otime').datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        forceParse: 0,
+    });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
@@ -28,7 +38,7 @@ $(function(){
     //工单号
     var gdCode = '';
     //查看详细信息的Vue形式
-    var workDones = new Vue({
+    var workDones = new Vue(    {
         el:'#workDones',
         data:{
             rwlx:'',
@@ -44,6 +54,7 @@ $(function(){
             weixiukeshis:'',
             gdly:1,
             whether:0,
+            picked:0
         },
         methods: {
             selectLine:function(){
@@ -476,7 +487,7 @@ $(function(){
         //数据初始化
         workDones.picked = 0;
         $('#workDones').find('.inpus').parent('span').removeClass('checked');
-        $('#workDones').find('#three1').parent('span').addClass('checked');
+        $('#workDones').find('#twos1').parent('span').addClass('checked');
         workDones.rwlx = 4;
         workDones.telephone = '';
         workDones.person = '';
@@ -493,7 +504,8 @@ $(function(){
         workDones.lineRoute = '';
         workDones.section = '';
         workDones.matter = '';
-
+        var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+        $('.otime').val(_inittime);
     });
     $('#myModal')
         //登记
@@ -1126,10 +1138,10 @@ $(function(){
                 }
                 if (result.gdRange == 1) {
                     $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#four').parent('span').addClass('checked');
+                    $('#workDones').find('#four1').parent('span').addClass('checked');
                 } else {
                     $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#three').parent('span').addClass('checked');
+                    $('#workDones').find('#three1').parent('span').addClass('checked');
                 }
                 //selecrt绑定值
                 if(result.bxKeshiNum == ''){
@@ -1152,7 +1164,7 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
-                $('.otime').val(result.gdFsShij.split(' ')[0]);
+                $('.otime').val(result.gdFsShij);
                 $('.remarkDes').val(result.bxBeizhu);
                 _imgNum = result.hasImage;
                 $('#wxremark').val(result.wxBeizhu);

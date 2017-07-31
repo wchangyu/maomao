@@ -467,7 +467,7 @@ $(function(){
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
-                    $('.otime').val(result.gdFsShij.split(' ')[0]);
+                    $('.otime').val(result.gdFsShij);
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料

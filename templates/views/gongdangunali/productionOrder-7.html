@@ -417,12 +417,21 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">工单来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <!--<li class="floatRight" style="line-height: 26px;">
                                 <div class="labels colorTip">是否维保 *：</div>
                                 <div class="input-blockeds">
                                     <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
                                     <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
                                 </div>
-                            </li>
+                            </li>-->
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
@@ -495,15 +504,6 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">工单来源 *：</div>
-                                <div class="input-blockeds">
-                                    <select v-model="gdly" class="gdly">
-                                        <option value="1">车站报修</option>
-                                        <option value="2">现场人员报修</option>
-                                    </select>
-                                </div>
-                            </li>
-                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">发生时间：</div>
                                 <div class="input-blockeds">
                                     <input type="text" class="datatimeblock otime">

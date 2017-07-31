@@ -213,7 +213,7 @@ $(function(){
             },
             {
                 title:'督察督办责任人',
-                data:'paigongUserName'
+                data:'wxUserNames'
             },
             {
                 title:'操作',
@@ -382,7 +382,7 @@ $(function(){
                         $('#myApp33').find('.whether').parent('span').removeClass('checked');
                         $('#myApp33').find('#three').parent('span').addClass('checked');
                     }
-                    $('.otime').val(result.gdFsShij.split(' ')[0]);
+                    $('.otime').val(result.gdFsShij);
                     //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;

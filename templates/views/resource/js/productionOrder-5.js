@@ -470,7 +470,7 @@ $(function(){
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
                     app33.gdly = result.gdCodeSrc;
-                    $('.otime').val(result.gdFsShij.split(' ')[0]);
+                    $('.otime').val(result.gdFsShij);
                     //查看执行人员
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
