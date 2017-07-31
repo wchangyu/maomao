@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by went on 2016/5/5.
  */
 
@@ -391,7 +391,7 @@ var BEE = (function(){
                             "<div class='modal fade' id='myModal02' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>" +
                             "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
                             "<div class='modal-content'>" +
-                            "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><input type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
+                            "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><textarea type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></textarea></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
                             "</div>" +
                             "</div>" +
                             "</div>"
