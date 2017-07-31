@@ -16,6 +16,16 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+    //datatimepicker
+    $('.otime').datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        forceParse: 0,
+    });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
@@ -28,7 +38,7 @@ $(function(){
     //工单号
     var gdCode = '';
     //查看详细信息的Vue形式
-    var workDones = new Vue({
+    var workDones = new Vue(    {
         el:'#workDones',
         data:{
             rwlx:'',
@@ -494,7 +504,8 @@ $(function(){
         workDones.lineRoute = '';
         workDones.section = '';
         workDones.matter = '';
-
+        var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+        $('.otime').val(_inittime);
     });
     $('#myModal')
         //登记
@@ -1153,7 +1164,7 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
-                $('.otime').val(result.gdFsShij.split(' ')[0]);
+                $('.otime').val(result.gdFsShij);
                 $('.remarkDes').val(result.bxBeizhu);
                 _imgNum = result.hasImage;
                 $('#wxremark').val(result.wxBeizhu);

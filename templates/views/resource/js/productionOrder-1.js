@@ -26,6 +26,17 @@ $(function () {
     format: 'yyyy/mm/dd'
   });
 
+  //datatimepicker
+  $('.otime').datetimepicker({
+    language:  'zh-CN',//此处修改
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    forceParse: 0,
+  });
+
   //设置初始时间(主表格时间)
   var _initStart = moment().format('YYYY/MM/DD');
   var _initEnd = moment().format('YYYY/MM/DD');
@@ -544,7 +555,8 @@ $(function () {
     app33.section = '';
     app33.matter = '';
     moTaiKuang($('#myModal'), '登记');
-    $('.otime').val(_initStart);
+    var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+    $('.otime').val(_inittime);
   });
 
   //快速登记按钮
@@ -582,7 +594,8 @@ $(function () {
     quickWork.section = '';
     quickWork.matter = '';
     quickWork.whether = 0;
-    $('.otimes').val(_initStart);
+    var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+    $('.otimes').val(_inittime);
   })
 
   //确定按钮
@@ -1160,7 +1173,7 @@ $(function () {
         app33.azAddress = result.installAddress;
         app33.rwlx = result.gdLeixing;
         _imgNum = result.hasImage;
-        $('.otime').val(result.gdFsShij.split(' ')[0]);
+        $('.otime').val(result.gdFsShij);
         //所有input不可操作
         if (flag) {
           $('#myApp33').find('input').attr('disabled', true).addClass('disabled-block');

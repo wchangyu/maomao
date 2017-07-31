@@ -160,7 +160,7 @@ $(function(){
                 $('.whether').attr('checked',false);
                 $('#three').attr('checked',true);
             }
-            $('.otime').val(result.gdFsShij.split(' ')[0]);
+            $('.otime').val(result.gdFsShij);
             //app33.picked = result.gdJJ;
             app33.telephone = result.bxDianhua;
             app33.person = result.bxRen;

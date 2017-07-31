@@ -491,7 +491,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
-                    $('.otime').val(result.gdFsShij.split(' ')[0]);
+                    $('.otime').val(result.gdFsShij);
                     //查看执行人员
                     _zhixingRens = [];
                     for(var i=0;i<result.wxRens.length;i++){
