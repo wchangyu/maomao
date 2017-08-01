@@ -875,7 +875,6 @@ $(function () {
       async: false,
       data: prm,
       success: function (result) {
-        console.log(result);
         $('.loading').hideLoading();
         datasTable($("#scrap-datatables"), result);
       },
@@ -1121,7 +1120,6 @@ $(function () {
     var gongDanState = $this.children('.ztz').html();
     var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
     _gdCode = gongDanCode;
-    console.log(_gdCircle);
     var prm = {
       'gdCode': gongDanCode,
       'gdZht': gongDanState,
