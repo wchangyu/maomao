@@ -134,6 +134,6 @@
   "alarmInterval":"0",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
-  "alarmAlert":"0",
-  "alarmSong":"0"
+  "alarmAlert":"1",
+  "alarmSong":"1"
 }

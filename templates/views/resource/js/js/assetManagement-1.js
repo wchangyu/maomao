@@ -13,6 +13,8 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+    //二维码地址
+    var _erweimaPath = 'http://ip/ApService/showQR.aspx';
     //设置初始时间
     var _initStart = moment().format('YYYY-MM-DD');
     var _initEnd = moment().format('YYYY-MM-DD');
@@ -207,7 +209,6 @@ $(function(){
             {
                 aTargets: [ 1 ],
                 render:function(data, type, full){
-                    console.log(data);
                     return "<span style='width:130px;'>" + data + "</span>";
                 }
             }
@@ -229,7 +230,7 @@ $(function(){
         var $myModal = $('#myModal');
         $myModal.find('.btn-primary').show();
         $myModal.find('.btn-primary').removeClass('bianji').addClass('dengji');
-        moTaiKuang($myModal);
+        moTaiKuang($myModal,'添加设备');
         //初始化
         myApp33.sbbm = '';
         myApp33.mingcheng = '';
@@ -264,6 +265,8 @@ $(function(){
     //表格操作查看按钮
     _table.find('tbody')
         .on('click','.option-see',function(){
+            $('.QRcode').empty();
+            $('.QRcode').hide();
             //样式
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
@@ -276,9 +279,10 @@ $(function(){
             //获取绑定的值
             var $myModal = $('#myModal');
             $myModal.find('.btn-primary').hide();
-            moTaiKuang($myModal);
+            moTaiKuang($myModal,'查看设备','flag');
             //绑定数据
-            var $thisNum = $(this).parents('tr').find('.dNum').html();
+            var $thisNum = $(this).parents('tr').find('.dNum').children('span').html();
+            _thisRowBM = $thisNum;
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
                     var pathName = '';
@@ -317,6 +321,8 @@ $(function(){
             $('#miaoshu').attr('disabled',true);
         })
         .on('click','.option-edite',function(){
+            $('.QRcode').empty();
+            $('.QRcode').hide();
             //样式
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
@@ -332,9 +338,10 @@ $(function(){
             $myModal.find('.btn-primary').show();
             //添加编辑类，删除登记类
             $myModal.find('.btn-primary').removeClass('dengji').addClass('bianji');
-            moTaiKuang($myModal);
+            moTaiKuang($myModal,'编辑设备');
             //绑定原数据
-            var $thisNum = $(this).parents('tr').find('.dNum').html();
+            var $thisNum = $(this).parents('tr').find('.dNum').children('span').html();
+            _thisRowBM = $thisNum;
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
                     var pathName = '';
@@ -367,11 +374,13 @@ $(function(){
             $('#ctlBtn').attr('disabled',false);
         })
         .on('click','.option-delete',function(){
+            $('.QRcode').empty();
+            $('.QRcode').hide();
             //样式
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            _thisRowBM = $(this).parents('tr').find('.dNum').html();
+            _thisRowBM = $(this).parents('tr').find('.dNum').children('span').html();
             for(var i=0;i<_allDateArr.length;i++ ){
                 if(_allDateArr[i].dNum == _thisRowBM){
                     _thisRowID = _allDateArr[i].id
@@ -379,9 +388,9 @@ $(function(){
             }
             //提示框，确定要删除吗？
             var $myModal = $('#myModal3');
-            moTaiKuang($myModal);
+            moTaiKuang($myModal,'确定要删除吗？');
             //绑定信息
-            var $thisNum = $(this).parents('tr').find('.dNum').html();
+            var $thisNum = $(this).parents('tr').find('.dNum').children('span').html();
             for(var i=0;i<_allDateArr.length;i++){
                 if(_allDateArr[i].dNum == $thisNum){
                     $('#sbbms').val(_allDateArr[i].dNum);
@@ -429,7 +438,7 @@ $(function(){
                     if(result == 99 ){
                         var $myModal2 = $('#myModal2');
                         $myModal2.find('.modal-body').html('新增成功');
-                        moTaiKuang($myModal2);
+                        moTaiKuang($myModal2,'提示','flag');
                         conditionSelect();
                         $('#myModal').modal('hide');
                     }
@@ -473,7 +482,7 @@ $(function(){
             success:function(result){
                 if(result == 99){
                     $('#myModal2').find('.modal-body').html('编辑成功');
-                    moTaiKuang($('#myModal2'));
+                    moTaiKuang($('#myModal2'),'提示','flag');
                     conditionSelect();
                     $('#myModal').modal('hide');
                 }
@@ -494,7 +503,7 @@ $(function(){
                 success:function(result){
                     if( result == 99 ){
                         $('#myModal2').find('.modal-body').html('删除成功');
-                        moTaiKuang($('#myModal2'));
+                        moTaiKuang($('#myModal2'),'提示','flag');
                         conditionSelect();
                     }
                 }
@@ -582,19 +591,39 @@ $(function(){
     $btn.click(function(){
         uploader.upload();
     })
-    //给上传文件的队列添加删除文件的小按钮
+    //查看二维码
+    $('.viewImage').click(function(){
+        if( $('.QRcode').children().length == 0 ){
+            $('.QRcode').empty();
+            $('.QRcode').show();
+            var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
+                '"' + 'style="width:100px;height:100px;"' +
+                '>';
+            $('.QRcode').append(str);
+        }else{
+            $('.QRcode').empty();
+            $('.QRcode').hide();
+        }
+
+    });
     /*-----------------------------------------其他方法-------------------------------*/
     //确定新增弹出框的位置
-    function moTaiKuang(who){
+    function moTaiKuang(who, title, flag) {
         who.modal({
-            show:false,
-            backdrop:'static'
+            show: false,
+            backdrop: 'static'
         })
+        who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+        }
     }
     //ajaxFun（select的值）
     function ajaxFun(url,allArr,select,text,num,arr){
@@ -681,5 +710,12 @@ $(function(){
     //时间格式处理
     function timeForma(time){
         return time.split(' ')[0].replace(/-/g,'/');
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

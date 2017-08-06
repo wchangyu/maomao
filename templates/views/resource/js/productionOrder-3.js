@@ -8,7 +8,6 @@ $(function(){
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //图片ip
     var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
-    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -778,7 +777,7 @@ $(function(){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
                     str += '<img class="viewIMG" src="' +
-                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -1415,5 +1414,6 @@ $(function(){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
+        return str;
     }
 })

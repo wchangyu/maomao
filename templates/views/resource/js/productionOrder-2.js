@@ -11,8 +11,6 @@ $(function(){
     //图片ip
     var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
 
-    replaceIP(_urlImg,_urls);
-
     //存放执行人信息的数组
     var _zhixingRens = [];
     var _weiXiuCaiLiao = [];
@@ -637,12 +635,16 @@ $(function(){
     //点击派工，切换状态
     $('.paigongButton').click(function(){
         //如果维修科室没有添加的话，出现弹出框，无法实现派工
-        if(workDones.weixiukeshis == ''){
-            $('#myModal4').find('.modal-body').html('请填写维修班组！');
-            moTaiKuang($('#myModal4'),'flag');
-        }else if(_zhixingRens.length == 0){
-            $('#myModal4').find('.modal-body').html('请选择执行人员！');
-            moTaiKuang($('#myModal4'),'flag');
+        if(_zhixingRens.length == 0 || $('.weixiukeshis').val() == ''){
+            if(_zhixingRens.length == 0){
+                $('#myModal4').find('.modal-body').html('请选择执行人员！');
+                moTaiKuang($('#myModal4'),'flag');
+            }
+            if($('.weixiukeshis').val() == ''){
+                $('#myModal4').find('.modal-body').html('维修班组不能为空！');
+                moTaiKuang($('#myModal4'),'flag');
+            }
+
         }else{
             if(_gdCircle == 5){
                 _gdCircle = parseInt(_gdCircle) + 1;
@@ -747,7 +749,7 @@ $(function(){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
                     str += '<img class="viewIMG" src="' +
-                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -898,6 +900,8 @@ $(function(){
             }
         }
         datasTable($('#personTable1'),_zhixingRens);
+        //获取维修部门
+        $('.weixiukeshis').val($('#xzmc').val());
     })
     //选择执行人员删除按钮
     $('#personTable1 tbody').on('click','.tableDeleted',function(){
@@ -1304,7 +1308,7 @@ $(function(){
         var gdInfo = {
             'gdCode':gdCode,
             'gdZht':3,
-            'wxKeshi':workDones.weixiukeshis,
+            'wxKeshi':$('.weixiukeshis').val(),
             'userID':_userIdNum,
             'userName':_userIdName
         }
@@ -1395,5 +1399,6 @@ $(function(){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
+        return str;
     }
 })

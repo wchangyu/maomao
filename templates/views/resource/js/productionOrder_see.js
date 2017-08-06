@@ -2,6 +2,8 @@ $(function(){
     var _prm = window.location.search;
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     var splitPrm = _prm.split('&');
     var _gdCode = splitPrm[0].split('=')[1];
     var _userID = splitPrm[1].split('=')[1];
@@ -257,7 +259,8 @@ $(function(){
         if(_imgNum){
             var str = '';
             for(var i=0;i<_imgNum;i++){
-                str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                str += '<img class="viewIMG" src="' +
+                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
                     '">'
             }
             $('.showImage').html('');
@@ -307,5 +310,12 @@ $(function(){
         }else{
             who.find('.btn-primary').show();
         }
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

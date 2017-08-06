@@ -16,8 +16,6 @@ $(function () {
   //图片ip
   var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
 
-  replaceIP(_urlImg,_urls);
-
   //开始/结束时间插件
   $('.datatimeblock').datepicker({
     language: 'zh-CN',
@@ -735,7 +733,7 @@ $(function () {
           var str = '';
           for(var i=0;i<_imgNum;i++){
             str += '<img class="viewIMG" src="' +
-                _urlImg + '?gdcode=' + _gdCode + '&no=' + i +
+                replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
                 '">'
           }
           $('.showImage').html('');
@@ -875,7 +873,6 @@ $(function () {
       async: false,
       data: prm,
       success: function (result) {
-        console.log(result);
         $('.loading').hideLoading();
         datasTable($("#scrap-datatables"), result);
       },
@@ -1121,7 +1118,6 @@ $(function () {
     var gongDanState = $this.children('.ztz').html();
     var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
     _gdCode = gongDanCode;
-    console.log(_gdCircle);
     var prm = {
       'gdCode': gongDanCode,
       'gdZht': gongDanState,
@@ -1236,5 +1232,6 @@ $(function () {
     var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
     var res = ip.exec(str1);  /*211.100.28.180*/
     str = str.replace(ip,res);
+    return str;
   }
 })

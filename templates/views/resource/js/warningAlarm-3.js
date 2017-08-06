@@ -120,7 +120,7 @@ $(function(){
                 "<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
                 "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
                 "<div class='modal-content'>" +
-                "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><input type='text' class='modal-body'><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button><button type='button' class='btn btn-primary submitNote'>提交更改</button></div></div>" +
+                "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><textarea type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></textarea></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote'>提交更改</button><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button></div></div>" +
                 "</div>" +
                 "</div>" +
                 "</div>"
@@ -181,8 +181,10 @@ var excTypeInnderId = " ";
 var pointerID = [];
 function getPointerID(){
     var getPointers = JSON.parse(sessionStorage.getItem('pointers'));
-    for(var i=0;i<getPointers.length;i++){
-        pointerID.push(getPointers[i].pointerID)
+    if(getPointers){
+        for(var i=0;i<getPointers.length;i++){
+            pointerID.push(getPointers[i].pointerID)
+        }
     }
 }
 //实时数据（开始）；

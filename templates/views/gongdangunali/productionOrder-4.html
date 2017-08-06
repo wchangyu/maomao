@@ -277,36 +277,116 @@
                                 <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">工单操作</li>
                                 </ul>
+                                <ul class="top-option"></ul>
                                 <ul class="condition-query noprint">
-                                    <li><label for="">工单号：</label>
+                                    <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
-                                            <input type="text" class="global_filter" id="global_filter">
+                                            <input type="text" class="global_filter" id="gdcode">
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">车间站：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">受理时间：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">报修日期：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min" name="min">
+                                            <input type="text" class="datatimeblock min">
                                         </div>
                                         <label for="">到</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="datatimeblock max" name="max">
+                                            <input type="text" class="datatimeblock max">
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">维修班组：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">闭环时间：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <input type="text" class="datatimeblock">
+                                        </div>
+                                        <label for="">到</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock">
                                         </div>
                                     </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
+                                        <div class="input-blocked">
+                                            <select  id="gdzt" class="returnZero">
+                                                <option value="0" selected>全部</option>
+                                                <option value="1">待下发</option>
+                                                <option value="2">待分派</option>
+                                                <option value="3">待执行</option>
+                                                <option value="4">执行中</option>
+                                                <option value="5">等待资源</option>
+                                                <option value="6">待关单</option>
+                                                <option value="7">任务关闭</option>
+                                                <option value="999">任务取消</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单类型：</label>
+                                        <div class="input-blocked">
+                                            <select  id="gdlx" class="returnEmpty">
+                                                <option value="">全部</option>
+                                                <option value="0">普通</option>
+                                                <option value="1">快速</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">线路：</label>
+                                        <div class="input-blocked">
+                                            <select id="line" class="returnEmpty"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
+                                        <div class="input-blocked">
+                                            <select id="station"class="returnEmpty"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">故障描述：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="gzms">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">影响单位：</label>
+                                        <div class="input-blocked">
+                                            <select id="yxdw"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">用户分类：</label>
+                                        <div class="input-blocked">
+                                            <select id="userClass"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">任务级别：</label>
+                                        <div class="input-blocked">
+                                            <select id="rwlx" class="returnZero">
+                                                <option value="0">全部</option>
+                                                <option value="1">一级任务</option>
+                                                <option value="2">二级任务</option>
+                                                <option value="3">三级任务</option>
+                                                <option value="4">四级任务</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <br>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
+                                    <li>
+                                        <button type="button" class="btn red delete chexiao">
+                                            <i class="fa fa-trash"></i>
+                                            <span>回退</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn red delete zuofei" title="未完成的工单可进行作废操作">
+                                            <i class="fa fa-trash"></i>
+                                            <span>取消</span>
+                                        </button>
+                                    </li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
@@ -383,7 +463,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-4.js"></script>
+<script src="../resource/js/productionOrder-6.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -395,14 +475,14 @@
 <!-- END JAVASCRIPTS -->
 <!--模态框详情-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 665px;">
-        <div class="modal-content" style="height: 665px;">
+    <div class="modal-dialog" style="height: 711px;width:1000px !important;">
+        <div class="modal-content" style="height: 711px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">工单明细</h4>
+                <h4 class="modal-title" id="myModalLabel">工单详情</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent">
+                <div class="gongdanContent" style="width: 668px;float: left;height:563px!important;">
                     <ul class="gongdanList" id="myApp33">
                         <li class="floatLeft" style="line-height: 26px;">
                             <div class="labels">工单类型：</div>
@@ -412,6 +492,22 @@
                             </div>
                         </li>
                         <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels colorTip">工单来源 *：</div>
+                            <div class="input-blockeds">
+                                <select v-model="gdly" class="gdly">
+                                    <option value="1">车站报修</option>
+                                    <option value="2">现场人员报修</option>
+                                </select>
+                            </div>
+                        </li>
+                        <!--<li class="floatRight" style="line-height: 26px;">
+                            <div class="labels colorTip">是否维保 *：</div>
+                            <div class="input-blockeds">
+                                <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
+                                <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
+                            </div>
+                        </li>-->
+                        <li class="floatLeft" style="line-height: 26px;">
                             <div class="labels colorTip">任务级别 *：</div>
                             <div class="input-blockeds">
                                 <select v-model="rwlx">
@@ -422,90 +518,88 @@
                                 </select>
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">报修电话：</div>
-                            <div class="input-blockeds disabled-block" >
+                            <div class="input-blockeds">
                                 <input type="text" v-model="telephone" class="shishi">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLeft">
                             <div class="labels">报修人信息：</div>
-                            <div class="input-blockeds disabled-block">
+                            <div class="input-blockeds">
                                 <input type="text" v-model="person">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">故障位置：</div>
-                            <div class="input-blockeds disabled-block">
+                            <div class="input-blockeds">
                                 <input type="text" v-model="place">
                             </div>
                         </li>
-                        <li class="floatRight">
-                            <div class="labels">车间站：</div>
+                        <li class="floatLeft">
+                            <div class="labels">车站：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="section">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">设备类型：</div>
-                            <div class="input-blockeds disabled-block">
+                            <div class="input-blockeds">
                                 <input type="text" v-model="matter">
                             </div>
                         </li>
-                        <li class="floatRight">
-                            <div class="labels">设备编码：</div>
+                        <li class="floatLeft">
+                            <div class="labels">维修设备：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbSelect">
                             </div>
                         </li>
-                        <!--<li class="floatLeft">
-                            <div class="labels">设备类型：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="sbLX">
-                            </div>
-                        </li>-->
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">设备名称：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbMC">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLeft">
                             <div class="labels">设备车间站：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbBM">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatRight">
                             <div class="labels">安装地点：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="azAddress">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLeft">
                             <div class="labels">维修班组：</div>
-                            <div class="input-blockeds disabled-block">
+                            <div class="input-blockeds">
                                 <input type="text" v-model="sections">
+                            </div>
+                        </li>
+                        <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels">发生时间：</div>
+                            <div class="input-blockeds">
+                                <input type="text" class="datatimeblock otime">
                             </div>
                         </li>
                         <div class="clearfix"></div>
                         <div>
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks" disabled="true"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
                             </div>
                         </div>
                         <div>
-                            <div class="labels colorTip">维修内容 *：</div>
+                            <div class="labels">维修内容：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
                             </div>
                         </div>
-                        <div>
-                            <div class="labels">图片：</div>
-                            <div class="input-blockeds" style="height:32px;">
-                                <textarea style="width: 100%;height: 30px;outline: none" class="imgBlock"></textarea>
-                            </div>
+                        <div style="margin-top: 10px;">
+                            <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
+                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                         </div>
                         <div class="table-block">
                             <div class="table-title">
@@ -518,34 +612,220 @@
                                     <tbody></tbody>
                                 </table>
                             </div>
-                            <div class="tableHover">
+                            <div class="tableHover" style="display:none;">
                                 <table class="table table-hover" id="personTables1">
                                     <thead></thead>
                                     <tbody></tbody>
                                 </table>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                     </ul>
                 </div>
+                <div class="right-content">
+                    <p style="margin-bottom: 0">处理记录</p>
+                    <ul class="progressBar">
+                        <li class="progressBarList">
+                            <div class="progressNum">01</div>
+                            <div class="progressName">登记</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">02</div>
+                            <div class="progressName">受理</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">03</div>
+                            <div class="progressName">分派</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">04</div>
+                            <div class="progressName">执行</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">05</div>
+                            <div class="progressName">等待</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">06</div>
+                            <div class="progressName">完成</div>
+                        </li>
+                        <li class="progressBarList">
+                            <div class="progressNum">07</div>
+                            <div class="progressName">关闭</div>
+                        </li>
+                    </ul>
+                    <div class="processing-record">
+                        <ul>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">工单登记</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">受理工单：</div>
+                                    <p class="record-content">调度下发</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">组长分派</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">开始执行</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">等待资源</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">执行结束</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                            <li class="record-list">
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录时间：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">记录事项：</div>
+                                    <p class="record-content">关闭工单</p>
+                                </div>
+                                <div style="overflow: hidden">
+                                    <div class="record-title">相关人员：</div>
+                                    <p class="record-content"></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框确认撤销吗？-->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel1">提示</h4>
+            </div>
+            <div class="modal-body">您确定要进行回退操作吗？</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框确认作废-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">您确定要进行取消操作吗？</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 <!--所有提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
+                <h4 class="modal-title" id="myModalLabel3">提示</h4>
             </div>
-            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-body">未完成状态工单无法进行撤销操作</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm1">确定</button>
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--图片详情显示-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
