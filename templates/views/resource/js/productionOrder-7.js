@@ -8,7 +8,6 @@ $(function(){
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //图片ip
     var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
-    replaceIP(_urlImg,_urls);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -347,12 +346,12 @@ $(function(){
                     $('#myModal').modal('hide');
                 }else{
                     var str = '';
-                    if( _wxRemarkFlag == flag ){
+                    if( _wxRemarkFlag == false ){
                         str += '维修内容修改失败，'
                     }else{
                         str += '维修内容修改成功，'
                     }
-                    if( _stateFlag == flag ){
+                    if( _stateFlag == false ){
                         str += '操作失败，'
                     }else{
                         str += '操作成功，'
@@ -370,7 +369,7 @@ $(function(){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
                     str += '<img class="viewIMG" src="' +
-                        _urlImg + '?gdcode=' + gdCode + '&no=' + i +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -394,12 +393,24 @@ $(function(){
 
     //选择执行状态事件
     $('#option-select').change(function(){
+        //等待资源的时间
+        $('.waitingForResources').find('input').val(_initStart);
+        $('.waitingForResources').hide();
+        $('#newBeiZhu').attr('disabled',false);
         if( $('.current-state').attr('ztz') == 3 && $('#option-select').val() != 4){
             $('.errorTips').html('当前状态下请先选择执行任务操作！');
+            $('.waitingForResources').hide();
+            $('#newBeiZhu').attr('disabled',false);
         }else{
             $('.errorTips').html('');
+            //当选中等待资源时，预计完成时间和信息显示，最新进展为不可操作
+            if($('#option-select').val() == 5){
+                $('.waitingForResources').show();
+                $('#newBeiZhu').attr('disabled',true);
+            }
         }
     })
+
 
     //进展确定按钮
     $('.progressAdd').click(function(){
@@ -633,11 +644,23 @@ $(function(){
     };
     //转化状态
     function getGongDan(){
-        var gdInfo = {
-            'gdCode':gdCode,
-            'gdZht':$('#option-select').val(),
-            'userID':_userIdNum,
-            'userName':_userIdName
+        var gdInfo;
+        if($('#option-select').val() == 5){
+            gdInfo = {
+                'gdCode':gdCode,
+                'gdZht':$('#option-select').val(),
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'dengMemo':$('.waitingForResources').find('textarea').val(),
+                'yjShij':$('.waitingForResources').find('input').val()
+            }
+        }else{
+            gdInfo = {
+                'gdCode':gdCode,
+                'gdZht':$('#option-select').val(),
+                'userID':_userIdNum,
+                'userName':_userIdName
+            }
         }
         $.ajax({
             type:'post',
@@ -661,5 +684,6 @@ $(function(){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
+        return str;
     }
 })
