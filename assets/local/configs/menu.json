@@ -423,7 +423,7 @@
       "工单综合查询":{
         "type":"0",
         "content":"工单综合查询",
-        "uri":"../gongdangunali/productionOrder-6.html",
+        "uri":"../gongdangunali/productionOrder-4.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -859,6 +859,29 @@
         "type":"0",
         "content":"天气",
         "uri":"../shouye/weather.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "测试":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"测试",
+    "submenu":{
+      "三列":{
+        "type":"0",
+        "content":"三列",
+        "uri":"../cols/three.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "两列":{
+        "type":"0",
+        "content":"两列",
+        "uri":"../cols/two.html",
         "uid":"",
         "arg":"",
         "iconclass":""
