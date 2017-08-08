@@ -30,15 +30,6 @@ function _datasTable(tableId,arr){
     }
 }
 
-//条件查询
-function _conditionSelectFun(prm,url,success){
-    $.ajax({
-        type:'post',
-        url:_urls + url,
-        data:prm,
-        success:success,
-        error:function(jqXHR, textStatus, errorThrown){
-            console.log(jqXHR.responseText);
-        }
-    })
-}
+//导出
+
+

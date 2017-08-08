@@ -65,20 +65,12 @@ $(function(){
                 data:'cateName'
             },
             {
-                title:'仓库类型',
+                title:'仓库条码',
                 data:'cateName'
             },
             {
-                title:'是否禁用',
+                title:'备注',
                 data:'createUser'
-            },
-            {
-                title:'是否默认',
-                data:'createTime'
-            },
-            {
-                title:'创建时间',
-                data:'cateRemark'
             },
             {
                 title:'操作',
@@ -165,7 +157,7 @@ $(function(){
                 for(var i=0;i<_allData.length;i++){
                     _allData.push(result[i]);
                 }
-                datasTable($("#scrap-datatables"),result)
+                //datasTable($("#scrap-datatables"),result)
             }
         })
     }
