@@ -1,16 +1,8 @@
+
 $(function(){
 	/*-------------------------------------全局变量-----------------------------------*/
 	//获取本地url
 	var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-	//设置开始和结束初始值
-	var _ajaxStartTime = moment().startOf('month').format("YYYY-MM-DD");
-
-	var _ajaxEndTime = moment().endOf('month').format("YYYY-MM-DD");
-
-	var _ajaxStartTime_1=moment().subtract(1,'d').format("YYYY/MM/DD");
-
-	var _ajaxEndTime_1=moment().format("YYYY/MM/DD");
 
 	//能耗种类
 	var _ajaxEcType='';
@@ -44,46 +36,7 @@ $(function(){
 	//时间控件
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		var inputValue = $('#datetimepicker').val();
-		if(_ajaxDataType == '月'){
-			var now = moment(inputValue).startOf('month');
-			var nows = moment(inputValue).endOf('month');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startMonth = now.format("YYYY-MM-DD");
-			var endMonth = nows.add(1,'d').format("YYYY-MM-DD");
-			var end = nowStart + "到" + nowEnd;
-			_ajaxStartTime = startMonth;
-			var aa = $('.datetimepickereType').text();
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startMonth.split('-');
-			var endSplit = endMonth.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}else if(_ajaxDataType == '年'){
-			var now = moment(inputValue).startOf('year');
-			var nows = moment(inputValue).endOf('year');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startYear = now.format("YYYY-MM-DD");
-			var endYear = nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "到" + nowEnd;
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startYear;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startYear.split('-');
-			var endSplit = endYear.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}
+		_selectTime();
 	});
 
 	$('.types').change(function(){
@@ -741,3 +694,11 @@ $(function(){
 		}
 	}
 })
+//设置开始和结束初始值
+var _ajaxStartTime = moment().startOf('month').format("YYYY-MM-DD");
+
+var _ajaxEndTime = moment().endOf('month').format("YYYY-MM-DD");
+
+var _ajaxStartTime_1=moment().subtract(1,'d').format("YYYY/MM/DD");
+
+var _ajaxEndTime_1=moment().format("YYYY/MM/DD");

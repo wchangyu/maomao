@@ -1,4 +1,7 @@
 $(function(){
+	//日期插件
+	$('.datetimeStart').html(_ajaxStartTime);
+	$('.datetimeEnd').html(_ajaxEndTime);
 	//楼宇
 	getSessionStoragePointer();
 	//读取能耗种类
@@ -23,77 +26,12 @@ $(function(){
 	//日历插件
 	$('.datetimepickereType').html(_ajaxStartTime +'到'+_ajaxEndTime);
 	//日历格式初始化
-	initDate();
+	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		inputValue = $('#datetimepicker').val();
-		if(_ajaxDataType=="周"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('week');
-			startWeek = now.add(1,'d').format("YYYY-MM-DD");
-			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			var endWeekd = now.subtract(1,'d').format("YYYY-MM-DD");
-			end =startWeek + "到" +endWeekd;
-			_ajaxDataType_1='日';
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startWeek;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startstime = startWeek.split('-');
-			var endstime = endWeek.split('-');
-			_ajaxStartTime_1 = startstime[0] + '/' + startstime[1] + '/' +startstime[2];
-			_ajaxEndTime_1 = endstime[0] + '/' + endstime[1] + '/' + endstime[2]
-		}else if(_ajaxDataType=="月"){
-			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
-			var endMonth=moment(inputValue).endOf('month').add(1,'d').format("YYYY-MM-DD");
-			var endMonths=moment(inputValue).endOf('month').format('YYYY-MM-DD');
-			end =startMonth+"到"+endMonths;
-			_ajaxDataType_1='日';
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startMonth;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startstime = startMonth.split('-');
-			var endsTime = endMonth.split('-');
-			_ajaxStartTime_1 = startstime[0] + '/' +startstime[1] + '/' + startstime[2];
-			_ajaxEndTime_1 = endsTime[0] + '/' + endsTime[1] + '/' + endsTime[2];
-		}else if(_ajaxDataType=="年"){
-			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
-			var endYear=moment(inputValue).endOf('year').add(1,'d').format("YYYY-MM-DD");
-			var endYears=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-			end = startYear+"到"+endYears;
-			_ajaxDataType_1='月'
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startYear;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startstime = startYear.split('-');
-			var endstime = endYear.split('-');
-			_ajaxStartTime_1 = startstime[0] + '/' + startstime[1] + '/' + startstime[2];
-			_ajaxEndTime_1 = endstime[0] + '/' + endstime[1] + '/' + endstime[2];
-		}
+		_selectTime();
 	});
-	//监测每次的select值，将选项清零
-	$('.types').change(function(){
-		var bbaa = $('.types').find('option:selected').val();
-		if(bbaa == '月'){
-			monthDate();
-		}else if(bbaa == '年'){
-			yearDate();
-		}else{
-			initDate();
-		}
-		$('.datetimepickereType').empty();
-	})
+
 	//echarts
 	myChart41 = echarts.init(document.getElementById('rheader-content-41'));
 	option41 = {
@@ -348,11 +286,13 @@ function getBranchZtree(){
 function getSessionStoragePointer(){
 	var jsonText1=sessionStorage.getItem('pointers');
 	var htmlTxet1 = JSON.parse(jsonText1);
-	var _allSter1 ='<option value="'+htmlTxet1[0].pointerID+'">'+htmlTxet1[0].pointerName+'</option>';
-	for(var i=1;i<htmlTxet1.length;i++){
-		_allSter1 +='<option value="'+htmlTxet1[i].pointerID+'">'+htmlTxet1[i].pointerName+'</option>';
+	if(htmlTxet1){
+		var _allSter1 ='<option value="'+htmlTxet1[0].pointerID+'">'+htmlTxet1[0].pointerName+'</option>';
+		for(var i=1;i<htmlTxet1.length;i++){
+			_allSter1 +='<option value="'+htmlTxet1[i].pointerID+'">'+htmlTxet1[i].pointerName+'</option>';
+		}
+		$('#selectPointer').append(_allSter1);
 	}
-	$('#selectPointer').append(_allSter1);
 }
 //搜索框功能
 function focusKey(e) {
@@ -438,8 +378,11 @@ var _ajaxDataType_1='日';
 //获得数据的时候 能耗选择的id(_ajaxEcType) 楼宇id(_ajaxPointerId) 开始时间(_ajaxStartTime_1) 结束时间(_ajaxEndTime_1) 时间颗粒度(_ajaxDataType_1)
 //选择的楼宇
 var  sessionPointer=JSON.parse(sessionStorage.getItem('pointers'));
-var _ajaxPointerId=sessionPointer[0].pointerID;
-var _ajaxgetPointerName=sessionPointer[0].pointerName;
+if(sessionPointer){
+	var _ajaxPointerId=sessionPointer[0].pointerID;
+	var _ajaxgetPointerName=sessionPointer[0].pointerName;
+}
+
 function getPointerId(){
 	_ajaxPointerId=$('#selectPointer').find('option:selected').val();
 	_ajaxgetPointerName=$('#selectPointer').find('option:selected').text();
@@ -579,38 +522,4 @@ function getItemizedData(){
 	option42.series[0].data[0].value = totalWorkTimeData;
 	option42.series[0].data[1].value = totalYrestTimeData;
 	myChart42.setOption(option42);
-}
-//月的时间初始化
-function monthDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 1,
-		maxViewMode: 2,
-		minViewMode:1,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//年的时间初始化
-function yearDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 2,
-		maxViewMode: 2,
-		minViewMode:2,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//一般时间初始化
-function initDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	)
 }
