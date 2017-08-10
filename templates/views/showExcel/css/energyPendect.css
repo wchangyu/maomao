@@ -53,17 +53,26 @@
 .right-total-data .single-data .right-ratio .top-percent{
     width:100%;
     height:50%;
-    background: url(../../bank-resource/img/up.png) no-repeat 1px center;
+    background: url(../img/up2.png) no-repeat 1px center;
     background-size: 20% 33%;
 }
 
 .right-total-data .single-data .right-ratio .top-percent1{
     width:100%;
     height:100%;
-    background: url(../../bank-resource/img/up.png) no-repeat 1px 30px;
+    background: url(../img/up2.png) no-repeat 1px 30px;
     background-size: 20% 18%;
 
 }
+.fall-down{
+    background: url(../img/up.png) no-repeat 1px center !important;
+    background-size: 20% 33% !important;
+}
+.fall-down1{
+    background: url(../img/up.png) no-repeat 1px 30px !important;
+    background-size: 20% 18% !important;
+}
+
 
 .right-total-data .single-data .right-ratio .top-percent p{
     text-align: right;
@@ -111,4 +120,7 @@
 .alarm-list li p:nth-child(1){
     font-size:16px;
 
+}
+.dataTables_scrollHead {
+    border-bottom: none !important;
 }

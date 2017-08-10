@@ -36,7 +36,7 @@ function getPointersId(){
 //从本地存储中获取分户ID列表
 function getOfficesId(){
 
-    //存放楼宇ID列表
+    //存放分户ID列表
     var officeIdArr = [];
 
     var officeArr = $.parseJSON(sessionStorage.getItem('offices'));
@@ -63,3 +63,4 @@ function getUnitID(num){
         }
     }
 }
+

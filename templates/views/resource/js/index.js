@@ -414,35 +414,28 @@ var arr_7=[];
 function getClassEcData(){
 
     var pts = _objectSel.getSelectedPointers();
+
+    console.log(pts);
+
     var pointerID = [];
 
     //存放要传的楼宇集合
     var postPointerID = [];
 
-    var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
-
-    var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
-
     if(pts.length>0) {
+
         pointerID.push(pts[0].pointerID);
         pointerNames = pts[0].pointerName;
     };
+    pointerNames = 11;
 
-    if(!pointerID) { return; }
+    if(!pointerID) { return ;}
 
-    if(pointerID[0] == 0){
+   $(pts).each(function(i,o){
 
-        $(nodes1).each(function(i,o){
+       postPointerID.push(o.pointerID)
+   })
 
-            postPointerID.push(o.pointerID);
-        })
-
-        postPointerID.pop();
-    }else{
-        postPointerID = pointerID;
-    }
-    console.log(postPointerID);
 
     var ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'dateType':_dataRanges};
     $.ajax({
@@ -510,31 +503,25 @@ function getOfficeClassEcData(){
 }
 //楼宇分项电耗
 function PointerPowerConsumption()  {
-    var pts = _objectSel.getSelectedPointers()
+    var pts = _objectSel.getSelectedPointers();
     var pointerID = [];
 
     //存放要传的楼宇集合
     var postPointerID = [];
 
-    var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+    if(pts.length>0) {
 
-    var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+        pointerID.push(pts[0].pointerID);
+        pointerNames = pts[0].pointerName;
+    };
 
-    if(pts.length>0)
-    { pointerID.push(pts[0].pointerID)};
-    if(pointerID.length == 0) { return; };
+    if(!pointerID) { return ;}
 
-    if(pointerID[0] == 0){
+    $(pts).each(function(i,o){
 
-        $(nodes1).each(function(i,o){
+        postPointerID.push(o.pointerID)
+    })
 
-            postPointerID.push(o.pointerID);
-        })
-
-        postPointerID.pop();
-    }else{
-        postPointerID = pointerID;
-    }
 
 
     var ecParams={'pointerIDs':postPointerID,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
@@ -619,29 +606,30 @@ function OfficePowerConsumption(){
 //楼宇能耗费用
 function PointerCharge(){
     var pts = _objectSel.getSelectedPointers(),pointerID;
+    var pointerID = [];
 
     //存放要传的楼宇集合
+
     var postPointerID = [];
 
-    var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+    if(pts.length>0) {
 
-    var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+        pointerID.push(pts[0].pointerID);
+        pointerNames = pts[0].pointerName;
+    };
 
-    if(pts.length>0) { pointerID = pts[0].pointerID};
-    if(!pointerID) { return; }
-    var ecParams = {};
-    if(pointerID==0){
-        $(nodes1).each(function(i,o){
+    if(!pointerID) { return ;}
 
-            postPointerID.push(o.pointerID);
-        })
+    $(pts).each(function(i,o){
 
-        postPointerID.pop();
+        postPointerID.push(o.pointerID)
+    });
+
+
 
         ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
-    }else{
-        ecParams={'pointerOrOfficeId':pointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'0'};
-    }
+
+
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',

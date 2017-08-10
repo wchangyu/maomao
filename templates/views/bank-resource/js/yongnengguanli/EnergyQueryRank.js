@@ -51,7 +51,6 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
@@ -242,7 +241,7 @@ function getMainData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            //console.log(data);
+            console.log(data);
 
             if(data.length == 0){
                 myChart.hideLoading();

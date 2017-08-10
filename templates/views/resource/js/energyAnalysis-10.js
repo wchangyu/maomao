@@ -410,7 +410,7 @@ function getItemizedData(){
 		var _ajaxEnds = _ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':select_ID,
-			'pointerId':_ajaxPointerId,
+			'pointerIds':_ajaxPointerId,
 			'startTime':_ajaxStarts,
 			'endTime':_ajaxEnds,
 			'dateType':_ajaxDataType_1

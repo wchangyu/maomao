@@ -170,7 +170,7 @@ var BEE = (function(){
             $('.totalTitle').html(systemName);
         }
 
-        var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
+        var curLoginPage = sessionStorage.curLoginPage || "../login_3.html";
 
         if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
             curLoginPage = "../" + curLoginPage;

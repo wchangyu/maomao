@@ -345,6 +345,7 @@ function getPointerData(){
 	var totalAllDatass;
 	//确定楼宇id
 	var pts = _objectSel.getSelectedPointers(),pointerID;
+
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
@@ -354,20 +355,10 @@ function getPointerData(){
 	//存放要传的楼宇集合
 	var postPointerID = [];
 
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+	$(pts).each(function(i,o){
 
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
-	if(pointerID == 0){
-		$(nodes1).each(function(i,o){
-
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID.push(pointerID)
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	//定义获得本期数据的参数
 	var ecParams = {

@@ -266,6 +266,7 @@ function getPointerData(){
 	var average=0;
 	var dataXx=[];
 	var pts = _objectSel.getSelectedPointers(),pointerID = [],pointerNames = [];
+	console.log(pts);
 	if(pts.length>0) {
 		for(var i=0;i<pts.length;i++){
 			pointerID.push(pts[i].pointerID);
@@ -277,7 +278,7 @@ function getPointerData(){
 		pointerIds = pointerID[i];
 		var ecParams={
 			'ecTypeId':_ajaxEcType,
-			'pointerId': pointerIds,
+			'pointerIds': pointerIds,
 			'startTime':_ajaxStartTime_1,
 			'endTime':_ajaxEndTime_1,
 			'dateType':_ajaxDataType_1
