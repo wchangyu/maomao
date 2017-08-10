@@ -327,3 +327,6 @@
 .tree-1{
 	background: #ffffff;
 }
+.ztree li a{
+	line-height: inherit !important;
+}

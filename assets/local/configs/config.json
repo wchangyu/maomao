@@ -119,10 +119,10 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.111/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.111/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor":"http://192.168.1.111/HQUeditorImage/controller.ashx",
+  "apiUriPrefixUEditor":"http://192.168.1.109/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
@@ -134,7 +134,6 @@
   "alarmInterval":"0.2",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
-  "allPointerNameComment":"",
-  "alarmAlert":"0",
-  "alarmSong":"0"
+  "alarmAlert":"1",
+  "alarmSong":"1"
 }

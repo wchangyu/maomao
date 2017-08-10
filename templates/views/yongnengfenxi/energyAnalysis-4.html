@@ -26,8 +26,6 @@
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
-    <script src="../resource/js/energyAnalysis-4.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
@@ -292,9 +290,14 @@
                                                 </select>
                                             </div>
                                             <div id='wrapper'>
-                                                <div class="left-middle-input">
-                                                    <div class="datetimepickereType"></div>
-                                                    <div class="datetimeInput">
+                                                <div class="left-middle-input" style="height:auto;">
+                                                    <div class="datetimepickereType" style="display: none;"></div>
+                                                    <div style="width: 150px;display: inline-block;vertical-align: middle;line-height: 25px;">
+                                                        <div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>
+                                                        <div class="clearfix"></div>
+                                                        <div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>
+                                                    </div>
+                                                    <div class="datetimeInput" style="float: none;display: inline-block;vertical-align: middle">
                                                         <input type="text" id="datetimepicker">
                                                     </div>
                                                 </div>
@@ -395,6 +398,9 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script src="../resource/js/energyAnalysis-4.js"></script>
+<script src="../resource/js/showOrHidden.js"></script>
 
 <script src="../resource/js/alarm.js"></script>
 <script>

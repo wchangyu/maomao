@@ -1,51 +1,109 @@
 $(function(){
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //全局变量
+    /*
+    * 用户名 _userIdName 本地地址 _url*/
+    //日历插件初始化
+    _timeComponentsFun($('.datatimeblock'));
 
+    //开始时间
+    var _date = moment().format('YYYY/MM/DD');
+
+    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY/MM/DD');
+
+    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY/MM/DD');
+
+    //设置初始时间
+    $('.datatimeblock').eq(0).val(_dataWeekStart);
+
+    $('.datatimeblock').eq(1).val(_dataWeekEnd);
+
+    var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
+
+    //存放合计的数组
+    var _totalNum = [];
+
+    //存放数据属性名的数组
+    var _totalAttr = [];
+
+    //报障总数
+    var _totalNums = 0;
+
+    /*--------------------------------------按钮事件---------------------------------*/
+    $('#selected').click(function(){
+        //本周客服设备故障上报及处理情况
+        conditionSelect('YWGD/ywGDRptGDs',$('#failure-reporting'),'flag');
+
+        //本周发现或反馈的客服设备惯性、典型（重点）故障情况
+        conditionSelect('YWGD/ywGDRptTypic',$('#failure-info'));
+
+        //未修复
+        conditionSelect('YWGD/ywGDRptWaiting',$('#failure-to-repair'));
+    })
     /*------------------------------------表格初始化------------------------------------------*/
     var failureReportingCol = [
         {
-            title:'用户名',
-            data:'userName'
-
+            title:'站（段）名',
+            data:'departName',
+            render: function (data, type, row, meta){
+                return '<span num="' + row.departNum +
+                    '">' + data + '</span>'
+            }
         },
         {
-            title:'工号',
-            data:'userNum',
-            className:'userNum'
+            title:'月报修故障累计（件）',
+            data:'gdCountM'
         },
         {
-            title:'部门',
-            data:'departName'
+            title:'本周报修故障累计（件）',
+            data:'gdCountW'
         },
         {
-            title:'角色',
-            data:'roleName'
+            title:'任务完成',
+            data:'tkComplete'
         },
         {
-            title:'邮箱',
-            data:'email'
+            title:'非维保范围',
+            data:'tkCancel'
         },
         {
-            title:'手机',
-            data:'mobile'
+            title:'待完成',
+            data:'tkWait'
         },
         {
-            title:'固定电话',
-            data:'mobile'
+            title:'自动售（取）票机',
+            data:'shoupiaoji'
         },
         {
-            title:'备注',
-            data:'remark'
+            title:'闸机',
+            data:'zhaji'
         },
         {
-            title:'排序',
-            data:'sort'
+            title:'引导系统',
+            data:'yindao'
+        },
+        {
+            title:'系统监控系统',
+            data:'shipin'
+        },
+        {
+            title:'广播系统',
+            data:'guangbo'
+        },
+        {
+            title:'旅服机房设备',
+            data:'lvfujifang'
+        },
+        {
+            title:'空调系统',
+            data:'kongtiao'
+        },
+        {
+            title:'其他',
+            data:'qita'
         }
     ];
 
+    //重绘表头
     function headerFn(thead, data, start, end, display){
         //在第一个的后边添加一个标签
         if( $(thead).parent('thead').children('tr').length <2 ){
@@ -63,18 +121,19 @@ $(function(){
         }
         //添加第二个
         var secondTh = '<th class="second"></th>';
-        $('.second').attr('colspan',5).html('11111111');
+        $('.second').attr('colspan',5).html('其中本周：故障处置情况（件）');
         if( firstTr.children('.second').length == 0 ){
             firstTr.append(secondTh);
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',3).html('2222222222222');
+        $('.third').attr('colspan',3).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
     }
 
+    //重绘脚部
     function footerFn(tfoot, data, start, end, display){
         var lengths = $(tfoot).parents('.table').find('thead').find('.sorting_disabled').length;
         var tr = $(tfoot).parents('table').children('tfoot').children('tr');
@@ -87,47 +146,62 @@ $(function(){
             $('tfoot').find('tr').append(str);
         }
         $(tfoot).parents('.table').find('tfoot').find(tr).eq(0).children('th').eq(0).html('合计');
-        $(tfoot).parents('.table').find('tfoot').find(tr).eq(1).children('th').eq(0).html('故障发生率');
     }
 
-    initTable($('#failure-reporting'),failureReportingCol,headerFn,footerFn);
+    //合计计算
+    function totalFn(nRow, aData, iDisplayIndex, iDisplayIndexFull){
+        var lengths = _totalAttr.length;
+        //首先遍历aData的属性名称
+        for(var i=2;i<lengths;i++){
+            _totalNum[i] += aData[_totalAttr[i]];
+        };
+    }
+
+    //重绘合计数据
+    function drawFn(){
+        var ths = $('#failure-reporting').find('tfoot').children('tr').eq(0).children('th');
+        for(var i=1;i<ths.length;i++){
+            ths.eq(i).html(_totalNum[i+1]);
+        }
+        for(var i=0;i<_totalNum.length;i++){
+            _totalNum[i] = 0;
+        }
+    }
+
+    initTable($('#failure-reporting'),failureReportingCol,headerFn,footerFn,totalFn,drawFn);
 
     var failureToRepairCol = [
         {
             title:'站（段）名',
-            data:''
+            data:'wxKeshi'
         },
         {
             title:'故障报修时间',
-            data:''
+            data:'gdShij'
         },
         {
             title:'故障设备及类别',
-            data:''
+            data:'bxBeizhu'
         },
         {
             title:'报修至截止本日12:00已累计故障（时、分）',
-            data:''
+            data:'timeSpan'
         },
         {
             title:'处置过程',
-            data:''
+            data:'wxBeizhu'
         },
         {
             title:'预计完成时限',
-            data:''
+            data:'yjShij'
         },
         {
             title:'督察督办责任人',
-            data:''
+            data:'wxUserNames'
         },
         {
             title:'故障未处理原因分析',
-            data:''
-        },
-        {
-            title:'备注',
-            data:''
+            data:'dengMemo'
         }
     ];
 
@@ -136,23 +210,23 @@ $(function(){
     var failureInfoCol = [
         {
             title:'站（段）名',
-            data:''
+            data:'bxkeshi'
         },
         {
             title:'故障报修或发现时间',
-            data:''
+            data:'gdShij'
         },{
             title:'故障类别',
-            data:''
+            data:'bxBeizhu'
         },{
             title:'处置情况',
-            data:''
+            data:'lastUpdateInfo'
         },{
             title:'原因分析',
-            data:''
+            data:'reason'
         },{
             title:'整改措施',
-            data:''
+            data:'method'
         },
     ];
 
@@ -193,24 +267,262 @@ $(function(){
 
     $('.dt-buttons').eq(0).show();
 
-    conditionSelect();
+    /*---------------------------------------------------------------------------------------*/
+    //导出
+    $('.excelButton11').eq(0).on('click',function(){
+        FFExcel($('#failure-reporting')[0])
+    });
+    $('.excelButton11').eq(1).on('click',function(){
+        FFExcel($('#failure-to-repair')[0])
+    });
+    $('.excelButton11').eq(2).on('click',function(){
+        FFExcel($('#failure-info')[0])
+    });
+    //IE浏览器中导出复杂表头为excel文件
+    function AutoExcel(tableId){
 
-    function conditionSelect(){
+        var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
+
+        var oWB = oXL.Workbooks.Add();//新建一个Excel工作簿
+
+        var oSheet = oWB.ActiveSheet;//指定要写入内容的工作表为活动工作表
+
+        //var table = document.getElementById("failure-reporting");//指定要写入的数据源的id
+        var table = tableId;//指定要写入的数据源的id
+
+        var hang = table.rows.length;//取数据源行数
+
+        var lie = table.rows(0).cells.length;//取数据源列数
+
+        var totleLie= 0 ;
+
+//初始化表头
+
+        for(i = 0 ;i <lie ;i++ ){
+
+            totleLie=totleLie+ table.rows(0).cells(i).colSpan;
+
+        }
+
+// Add table headers going cell by cell.
+
+        for (i=0;i<hang;i++){//在Excel中写行
+
+            var offset = 0 ;
+
+            for (j=0;j<totleLie;j++){//在Excel中写列
+
+//定义格式
+
+                var obj = table.rows(i).cells(j) ;
+
+                if(obj == null) continue ;
+
+                if( obj.nodeName=="TH"){
+
+                    if(obj.colSpan==1 && obj.rowSpan==1){
+
+                        do{
+
+                            oSheet.Cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
+
+                            offset++ ;
+
+                        }while(oSheet.Cells(i+1,offset).value==null)
+
+                        oSheet.Cells(i+1,offset).HorizontalAlignment = 3;
+
+                        oSheet.Cells(i+1,offset).NumberFormatLocal = "@";//将单元格的格式定义为文本
+
+                        oSheet.Cells(i+1,offset).Font.Bold = true;//加粗
+
+                        oSheet.Cells(i+1,offset).Font.Size = 10;//字体大小
+
+                    }else{
+
+                        do{
+
+                            oSheet.cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;
+
+//offset = offset + obj.colSpan;
+
+                            offset++;
+
+                        }while(oSheet.Cells(i+1,offset).value==null)
+
+                        oSheet.Range(oSheet.cells(i+1,offset),oSheet.cells(i+ obj.rowSpan,offset+obj.colSpan -1)).Select();
+
+                        oXL.Selection.HorizontalAlignment = 3;
+
+                        oXL.Selection.MergeCells = true;
+
+                        oXL.Selection.Font.Bold = true;//加粗
+
+                        oXL.Selection.Font.Size = 10;//字体大小
+
+                    }
+
+                }else{
+
+                    oSheet.Cells(i+1,j+1).NumberFormatLocal = "@";//将单元格的格式定义为文本
+
+//oSheet.Cells(i+1,j+1).Font.Bold = true;//加粗
+
+                    oSheet.Cells(i+1,j+1).Font.Size = 10;//字体大小
+
+                    oSheet.Cells(i+1,j+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
+
+                }
+
+            }
+
+        }
+
+        var xlDiagonalDown = 5 ;
+
+        var xlDiagonalUp = 6 ;
+
+        var xlEdgeBottom = 9 ;
+
+        var xlEdgeLeft = 7 ;
+
+        var xlEdgeRight = 10 ;
+
+        var xlEdgeTop = 8 ;
+
+        var xlInsideHorizontal = 12 ;
+
+        var xlInsideVertical = 11 ;
+
+        var xlNone = -4142 ;
+
+        var xlContinuous = 1	;
+
+        var xlThin = 2 ;
+
+        oSheet.Range(oSheet.cells(1,1),oSheet.cells(hang,totleLie)).Select();
+
+        oXL.Selection.Borders(xlDiagonalDown).LineStyle = xlNone;
+
+        oXL.Selection.Borders(xlDiagonalUp).LineStyle = xlNone;
+
+        oXL.Selection.Borders(xlEdgeLeft).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlEdgeLeft).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlEdgeLeft).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlEdgeLeft).Weight = xlThin;
+
+        oXL.Selection.Borders(xlEdgeTop).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlEdgeTop).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlEdgeTop).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlEdgeTop).Weight = xlThin;
+
+        oXL.Selection.Borders(xlEdgeBottom).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlEdgeBottom).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlEdgeBottom).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlEdgeBottom).Weight = xlThin;
+
+        oXL.Selection.Borders(xlEdgeRight).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlEdgeRight).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlEdgeRight).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlEdgeRight).Weight = xlThin;
+
+        oXL.Selection.Borders(xlInsideVertical).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlInsideVertical).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlInsideVertical).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlInsideVertical).Weight = xlThin;
+
+        oXL.Selection.Borders(xlInsideHorizontal).LineStyle = xlContinuous;
+
+        oXL.Selection.Borders(xlInsideHorizontal).ColorIndex = 0;
+
+        oXL.Selection.Borders(xlInsideHorizontal).TintAndShade = 0;
+
+        oXL.Selection.Borders(xlInsideHorizontal).Weight = xlThin;
+
+        oXL.Visible = true;
+
+        oXL.UserControl = true;
+
+        oXL=null;
+
+    }
+
+    //FF浏览器下导出
+    function FFExcel(tableId){
+        var explorer = navigator.userAgent ;
+        //判断是否是IE浏览器
+        if(explorer.indexOf("Trident") >= 0){
+            AutoExcel(tableId);
+        }else{
+            //获得id为mytable的table的html元素
+            var table=tableId;
+            // 克隆（复制）此table元素，这样对复制品进行修改（如添加或改变table的标题等），导出复制品，而不影响原table在浏览器中的展示。
+            table = table.cloneNode(true);
+            //下面五行代码就是用来改变table中的某些信息的，不需要的话可以注释，或修改。
+            var name=$(".big-title").text();
+            var caption_orig = table.getElementsByTagName("caption");
+
+            // 下面的代码才是真正用来将html table导出Excel表格（我从stackoverflow上看到的，修改了一点点，不会再有中文乱码问题了。）
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><?xml version="1.0" encoding="UTF-8" standalone="yes"?><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table style="vnd.ms-excel.numberformat:@">{table}</table></body></html>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))); }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }); };
+            if (!table.nodeType) table = document.getElementById('dateTables');
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
+            window.location.href = uri + base64(format(template, ctx));
+        }
+    }
+    /*---------------------------------------------------------------------------------------*/
+
+    //本周客服设备故障上报及处理情况
+    conditionSelect('YWGD/ywGDRptGDs',$('#failure-reporting'),'flag');
+
+    //本周发现或反馈的客服设备惯性、典型（重点）故障情况
+    conditionSelect('YWGD/ywGDRptTypic',$('#failure-info'));
+
+    //未修复
+    conditionSelect('YWGD/ywGDRptWaiting',$('#failure-to-repair'));
+
+    //条件查询
+    function conditionSelect(url,tableId,flag){
         //获取条件
         var prm = {
-            "userName":'',
-            "userNum":'',
-            "departNum":'',
-            "roleNum":'',
-            "userID": _userIdName
+            "gdSt":$('.datatimeblock').eq(0).val(),
+            "gdEt":_dataEndFact,
+            "userID":_userIdNum,
+            "userName ":_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + url,
             data:prm,
             success:function(result){
-                //console.log(result);
-                datasTable($('#failure-reporting'),result);
+                if(flag){
+                    for(var key in result[0]){
+                        _totalAttr.push(key);
+                    }
+                    for(var i=0;i<result.length;i++){
+                        _totalNums += result[i].gdCountW
+                    }
+                    $('.goods-num').html(_totalNums);
+                }
+
+                _datasTable(tableId,result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -218,21 +530,8 @@ $(function(){
         })
     }
 
-    //表格赋值
-    function datasTable(tableId,arr){
-        var table = tableId.dataTable();
-        if(arr.length == 0){
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
-        }
-    }
-
     //表格初始化
-    function initTable(table,arr,headerCallBack,footerCallBack){
+    function initTable(table,arr,headerCallBack,footerCallBack,fnRowCallback,drawCallback){
         var table =  table.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "paging": true,   //是否分页
@@ -266,11 +565,12 @@ $(function(){
             "dom":'t<"F"lip>',
             "columns": arr,
             "headerCallback":headerCallBack,
-            "footerCallback": footerCallBack
+            "footerCallback": footerCallBack,
+            "fnRowCallback": fnRowCallback,
+            "drawCallback":drawCallback
         });
         table.buttons().container().appendTo($('.excelButton'),table.table().container());
     }
-
 
     /*-----------------------------------------按钮--------------------------------------*/
     $('.table-title span').click(function(){
@@ -280,7 +580,7 @@ $(function(){
         var tabDiv = $(this).parents('.table-title').next().children('div');
         tabDiv.addClass('hide-block');
         tabDiv.eq($(this).index()).removeClass('hide-block');
-        $('.dt-buttons').hide();
-        $('.dt-buttons').eq($(this).index()).show();
+        $('.excelButton11').hide();
+        $('.excelButton11').eq($(this).index()).show();
     });
 })

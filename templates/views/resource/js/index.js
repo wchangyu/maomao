@@ -422,6 +422,11 @@ function getClassEcData(){
     //存放要传的楼宇集合
     var postPointerID = [];
 
+    var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+
+    var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
+
+
     if(pts.length>0) {
 
         pointerID.push(pts[0].pointerID);

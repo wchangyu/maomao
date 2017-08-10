@@ -19,6 +19,7 @@
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
@@ -38,6 +39,8 @@
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!--datatimepicker-->
+    <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -384,6 +387,8 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../resource/js/productionOrder-3.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -418,6 +423,22 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">任务来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <!--<li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">是否维保 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="whether" id="three1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
+                                    <input type="radio" class="whether" id="four1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
+                                </div>
+                            </li>-->
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
@@ -428,32 +449,40 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                 </div>
                             </li>
+                            <li class="floatLeft">
+                                <div class="labels">线路：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="lineRoute" id="lineRoute" @change="selectLine">
+
+                                    </select>
+                                </div>
+                            </li>
                             <li class="floatRight">
-                                <div class="labels">车站：</div>
+                                <div class="labels colorTip">车站 *：</div>
                                 <div class="input-blockeds">
                                     <select class="cjz" v-model="section"></select>
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels colorTip">维修事项 *：<span v-show="$validation.matter.persons">维修事项不能为空</span></div>
+                                <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
                                 <div class="input-blockeds">
                                     <select class="xitong" v-model="matter"></select>
                                 </div>
@@ -465,30 +494,15 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">设备类型：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="sbLX">
-                                </div>
-                            </li>
-                            <li class="floatRight">
                                 <div class="labels">设备名称：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbMC">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">安装地点：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="azAddress">
-                                </div>
-                            </li>
-                            <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels">任务来源：</div>
-                                <div class="input-blockeds">
-                                    <select v-model="gdly" class="gdly">
-                                        <option value="1">车站报修</option>
-                                        <option value="2">现场人员报修</option>
-                                    </select>
                                 </div>
                             </li>
                             <!--<li class="floatLight">
@@ -497,25 +511,31 @@
                                     <input type="text" v-model="weixiukeshis">
                                 </div>
                             </li>-->
-                            <div class="clearfix"></div>
-                            <div>
-                                <div class="labels">故障描述：</div>
-                                <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="labels">维修内容：</div>
-                                <div class="input-blockeds" style="height:62px;">
-                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="wxremark" id="wxremark"></textarea>
-                                </div>
-                            </div>
-                            <div style="margin-top: 10px;">
-                                <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
-                                <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                            </div>
                         </form>
                     </validator>
+                    <li class="floatLeft" style="line-height: 26px;">
+                        <div class="labels">发生时间：</div>
+                        <div class="input-blockeds">
+                            <input type="text" class="otime">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">故障描述：</div>
+                        <div class="input-blockeds" style="height:62px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" class="remarkDes"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="labels">维修内容：</div>
+                        <div class="input-blockeds" style="height:62px;">
+                            <textarea style="width: 100%;height: 60px;outline: none" v-model="wxremark" id="wxremark"></textarea>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
+                        <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                    </div>
                     <div class="table-block">
                         <div class="table-title">
                             <span class="spanhover">负责人</span>

@@ -2,6 +2,8 @@ $(function(){
     var _prm = window.location.search;
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     var splitPrm = _prm.split('&');
     var _gdCode = splitPrm[0].split('=')[1];
     var _userID = splitPrm[1].split('=')[1];
@@ -12,7 +14,7 @@ $(function(){
     var app33 = new Vue({
         el:'#myApp33',
         data:{
-            picked:'0',
+            picked:'',
             telephone:'',
             person:'',
             place:'',
@@ -26,15 +28,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
-        },
-        methods:{
-            radios:function(){
-                $('.inpus').click(function(a){
-                    $('.inpus').parent('span').removeClass('checked');
-                    $(this).parent('span').addClass('checked');
-                })
-            }
+            azAddress:'',
+            whether:'',
+            gdly:''
         }
     });
     var _imgNum = 0;
@@ -150,20 +146,23 @@ $(function(){
             var timeContent = $('.record-list');
             //绑定弹窗数据
             if(result.gdJJ == 1){
-                $('.inpus').parent('span').removeClass('checked');
-                $('#ones').parent('span').addClass('checked');
+                console.log('ones')
+                $('.inpus').attr('checked',false);
+                $('#ones').attr('checked',true);
             }else{
-                $('.inpus').parent('span').removeClass('checked');
-                $('#twos').parent('span').addClass('checked');
+                console.log('twos');
+                $('.inpus').attr('checked',false);
+                $('#twos').attr('checked',true);
             }
             //绑定弹窗数据
-            if(result.gdJJ == 1){
-                $('.inpus').parent('span').removeClass('checked');
-                $('#ones').parent('span').addClass('checked');
-            }else{
-                $('.inpus').parent('span').removeClass('checked');
-                $('#twos').parent('span').addClass('checked');
+            if (result.gdRange == 1) {
+                $('.whether').attr('checked',false);
+                $('#four').attr('checked',true);
+            } else {
+                $('.whether').attr('checked',false);
+                $('#three').attr('checked',true);
             }
+            $('.otime').val(result.gdFsShij);
             //app33.picked = result.gdJJ;
             app33.telephone = result.bxDianhua;
             app33.person = result.bxRen;
@@ -182,6 +181,7 @@ $(function(){
             _zhixingRens = result.wxRens;
             _fuZeRen = result.gdWxLeaders;
             _imgNum = result.hasImage;
+            app33.gdly = result.gdCodeSrc;
             //进度条赋值
             //待下发记录时间
             progressContent(0,0,result.gdShij);
@@ -259,7 +259,8 @@ $(function(){
         if(_imgNum){
             var str = '';
             for(var i=0;i<_imgNum;i++){
-                str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                str += '<img class="viewIMG" src="' +
+                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
                     '">'
             }
             $('.showImage').html('');
@@ -309,5 +310,12 @@ $(function(){
         }else{
             who.find('.btn-primary').show();
         }
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

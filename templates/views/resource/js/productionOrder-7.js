@@ -6,6 +6,8 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -39,7 +41,9 @@ $(function(){
             sbBM:'',
             azAddress:'',
             sections:'',
-            remarks:''
+            remarks:'',
+            whether:'0',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -342,12 +346,12 @@ $(function(){
                     $('#myModal').modal('hide');
                 }else{
                     var str = '';
-                    if( _wxRemarkFlag == flag ){
+                    if( _wxRemarkFlag == false ){
                         str += '维修内容修改失败，'
                     }else{
                         str += '维修内容修改成功，'
                     }
-                    if( _stateFlag == flag ){
+                    if( _stateFlag == false ){
                         str += '操作失败，'
                     }else{
                         str += '操作成功，'
@@ -364,7 +368,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -388,12 +393,24 @@ $(function(){
 
     //选择执行状态事件
     $('#option-select').change(function(){
+        //等待资源的时间
+        $('.waitingForResources').find('input').val(_initStart);
+        $('.waitingForResources').hide();
+        $('#newBeiZhu').attr('disabled',false);
         if( $('.current-state').attr('ztz') == 3 && $('#option-select').val() != 4){
             $('.errorTips').html('当前状态下请先选择执行任务操作！');
+            $('.waitingForResources').hide();
+            $('#newBeiZhu').attr('disabled',false);
         }else{
             $('.errorTips').html('');
+            //当选中等待资源时，预计完成时间和信息显示，最新进展为不可操作
+            if($('#option-select').val() == 5){
+                $('.waitingForResources').show();
+                $('#newBeiZhu').attr('disabled',true);
+            }
         }
     })
+
 
     //进展确定按钮
     $('.progressAdd').click(function(){
@@ -464,6 +481,13 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#three').parent('span').addClass('checked');
+                    }
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
                     app33.place = result.wxDidian;
@@ -478,6 +502,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+                    $('.otime').val(result.gdFsShij);
                     //查看执行人员
                     _zhixingRens = [];
                     for(var i=0;i<result.wxRens.length;i++){
@@ -510,6 +535,7 @@ $(function(){
                     _wxContent = result.wxBeizhu;
                     //最新进展
                     $('#newBeiZhu').val('');
+                    app33.gdly = result.gdCodeSrc;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -618,11 +644,23 @@ $(function(){
     };
     //转化状态
     function getGongDan(){
-        var gdInfo = {
-            'gdCode':gdCode,
-            'gdZht':$('#option-select').val(),
-            'userID':_userIdNum,
-            'userName':_userIdName
+        var gdInfo;
+        if($('#option-select').val() == 5){
+            gdInfo = {
+                'gdCode':gdCode,
+                'gdZht':$('#option-select').val(),
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'dengMemo':$('.waitingForResources').find('textarea').val(),
+                'yjShij':$('.waitingForResources').find('input').val()
+            }
+        }else{
+            gdInfo = {
+                'gdCode':gdCode,
+                'gdZht':$('#option-select').val(),
+                'userID':_userIdNum,
+                'userName':_userIdName
+            }
         }
         $.ajax({
             type:'post',
@@ -641,4 +679,11 @@ $(function(){
             }
         })
     };
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
+    }
 })

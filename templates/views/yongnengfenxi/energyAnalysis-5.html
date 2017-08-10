@@ -22,8 +22,6 @@
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
-    <script src="../resource/js/energyAnalysis-5.js"></script>
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
@@ -283,12 +281,18 @@
                                                 <option value="年">按年</option>
                                             </select>
                                         </div>
-                                        <div class="left-middle-input">
-                                            <div class="datetimepickereType"></div>
-                                            <div class="datetimeInput">
+                                        <div class="left-middle-input" style="height:auto;">
+                                            <div class="datetimepickereType" style="display: none;"></div>
+                                            <div style="width: 150px;display: inline-block;vertical-align: middle;line-height: 25px;">
+                                                <div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>
+                                                <div class="clearfix"></div>
+                                                <div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>
+                                            </div>
+                                            <div class="datetimeInput" style="float: none;display: inline-block;vertical-align: middle">
                                                 <input type="text" id="datetimepicker">
                                             </div>
                                         </div>
+                                        <div class="clearfix"></div>
                                         <div id='wrapper'>
                                             <p>工作时段选择</p>
                                             <div class="time-interval">
@@ -512,6 +516,9 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script src="../resource/js/energyAnalysis-5.js"></script>
+<script src="../resource/js/showOrHidden.js"></script>
 
 <script src="../resource/js/alarm.js"></script>
 <script>

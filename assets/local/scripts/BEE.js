@@ -1,4 +1,4 @@
-/**
+ /**
  * Created by went on 2016/5/5.
  */
 
@@ -67,7 +67,7 @@ var BEE = (function(){
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
                             sessionStorage.menuSecond = menu[p]["content"];
                             sessionStorage.menuUri = menu[p]["uri"];
-
+                            console.log(sessionStorage.menuUri);
                         }
                         if(menu[p]["iconclass"]){
                             li += '<i class="' + menu[p]["iconclass"] +  '"></i>';
@@ -170,12 +170,12 @@ var BEE = (function(){
             $('.totalTitle').html(systemName);
         }
 
-        var curLoginPage = sessionStorage.curLoginPage || "../login_3.html";
-
+        var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
+        console.log(sessionStorage.menuUri);
         if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
             curLoginPage = "../" + curLoginPage;
         }
-
+        console.log(curLoginPage);
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
     }
@@ -305,7 +305,6 @@ var BEE = (function(){
             $('#myModal00').off('hidden.bs.modal',"**");
             $('#myModal00').on('hidden.bs.modal',function(){
                 _isAlarmShow = false;
-
                 var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                 setTimeout(getAlarmInfo,refreshItv);
             });
@@ -392,7 +391,7 @@ var BEE = (function(){
                             "<div class='modal fade' id='myModal02' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop='static'>" +
                             "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
                             "<div class='modal-content'>" +
-                            "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><input type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
+                            "<div class='modal-header'><button type='button' class='close' aria-hidden='true' onclick='closes()'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><div class='modal-body'><textarea type='text'  style='width: 538px;line-height: 30px;border: 1px solid #CCCCCC;outline: none'></textarea></div><div class='modal-footer'><button type='button' class='btn btn-primary submitNote' onclick='addClick()'>提交更改</button><button type='button' class='btn btn-default' onclick='closes()'>关闭</button></div></div>" +
                             "</div>" +
                             "</div>" +
                             "</div>"
@@ -420,9 +419,9 @@ var BEE = (function(){
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
                 }
-                /*$alertSong.removeAttr('autoplay');
+                $alertSong.removeAttr('autoplay');
                 $alertSong.removeAttr('loop');
-                $('#myModal00').modal('hide');*/
+                $('#myModal00').modal('hide');
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
@@ -431,16 +430,17 @@ var BEE = (function(){
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
-                //$alertSong.attr('autoplay','autoplay');  //如果有报警信息，自动播放
-                //$alertSong.attr('loop','loop');
-               //$('#myModal00').modal('show');
                 //声音
                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
-                var node = document.getElementById('#header_notification_bar');
 
                 //$('#myModal00').off('shown.bs.modal');
 
                 if(alarmAlert == 1 && alarmSong == 1){  //声音开启，弹窗开启
+
+                    if($('#audioMain')){
+                        $('#header_notification_bar').children('audio').remove();
+                    }
+
                     $('#myModal00').modal('show');
 
                     $('#myModal00').one('shown.bs.modal', function () {
@@ -458,7 +458,6 @@ var BEE = (function(){
                 }else if(alarmAlert == 0 &&  alarmSong == 1){ //声音开启，弹窗关闭
 
                     var childNode= document.getElementsByTagName('audio')[0];
-
 
                     if(!childNode){
                         $('#header_notification_bar').append(audioStr);

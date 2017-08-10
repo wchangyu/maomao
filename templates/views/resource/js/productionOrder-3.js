@@ -6,12 +6,24 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
+    });
+    //datatimepicker
+    $('.otime').datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        forceParse: 0,
     });
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
@@ -25,7 +37,7 @@ $(function(){
     //工单号
     var gdCode = '';
     //查看详细信息的Vue形式
-    var workDones = new Vue({
+    var workDones = new Vue(    {
         el:'#workDones',
         data:{
             rwlx:'',
@@ -38,10 +50,41 @@ $(function(){
             sbLX:'',
             sbMC:'',
             azAddress:'',
-            remarks:'',
             weixiukeshis:'',
-            wxremark:'',
-            gdly:1
+            gdly:1,
+            whether:0,
+            picked:0
+        },
+        methods: {
+            selectLine:function(){
+                //首先将select子元素清空；
+                $('.cjz').empty();
+                //获得选中的线路的value
+                var values = $('#lineRoute').val();
+                if(values == ''){
+                    //所有车站
+                    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','ddNum','flag');
+                }else{
+                    console.log()
+                    for(var i=0;i<_lineArr.length;i++){
+                        if(values == _lineArr[i].dlNum){
+                            //创建对应的车站
+                            var str = '<option value="">请选择</option>';
+                            for(var j=0;j<_lineArr[i].deps.length;j++){
+                                str += '<option value="' + _lineArr[i].deps[j].ddNum +
+                                    '">'+ _lineArr[i].deps[j].ddName + '</option>';
+                            }
+                            $('.cjz').append(str);
+                        }
+                    }
+                }
+            },
+            selects: function () {
+                $('#workDones').find('.whether').click(function (a) {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $(this).parent('span').addClass('checked');
+                })
+            },
         }
     });
     //所有负责人列表
@@ -82,6 +125,9 @@ $(function(){
     var _gdCircle = 0;
     //重发成功标识
     var _reSendFlag = false;
+
+    //存放所有线路的数据
+    var _lineArr = [];
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -174,7 +220,7 @@ $(function(){
                 data:'bxKeshi'
             },
             {
-                title:'维修事项',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
@@ -203,6 +249,8 @@ $(function(){
         console.log('')
     };
     conditionSelect();
+
+    lineRouteData($('#lineRoute'));
     //已选择的执行人表格
     var col = [
         {
@@ -279,8 +327,6 @@ $(function(){
     $('#scrap-datatables tbody')
         .on('click','.option-option',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //工单来源显示
-            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this),'flag');
             //改变确定按钮类名
@@ -290,8 +336,6 @@ $(function(){
         })
         .on('click','.option-edit',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //工单来源显示
-            $('.gdly').parents('li').hide();
             //数据绑定
             editOrOption($(this));
             //改变确定按钮类名
@@ -306,6 +350,7 @@ $(function(){
         moTaiKuang($('#myModal7'),'添加责任人');
         //获得所有ztree节点数据；
         getDpartment();
+        console.log(_autoOrHand);
         if(_autoOrHand == 1){
             //点击的时候获得选择的车间的bm的值
             var bm = $('.cjz').children('option:selected').attr('bm');
@@ -451,15 +496,15 @@ $(function(){
         workDones.sbMC = '';
         workDones.azAddress = '';
         workDones.weixiukeshis = '';
-        workDones.remarks = '';
-        if( _allDataXT.length !=0 ){
-            workDones.matter = _allDataXT[0].dsNum;
-        }
-        if( _allDataBM.length !=0 ){
-            workDones.section = _allDataBM[0].ddNum;
-        }
+        $('.remarkDes').val('');
         _zhixingRens = [];
         datasTable($('#personTable1'),_zhixingRens);
+        workDones.whether = 0;
+        workDones.lineRoute = '';
+        workDones.section = '';
+        workDones.matter = '';
+        var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+        $('.otime').val(_inittime);
     });
     $('#myModal')
         //登记
@@ -496,13 +541,15 @@ $(function(){
                 dName:workDones.sbMC,
                 installAddress:workDones.azAddress,
                 wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:workDones.remarks,
+                bxBeizhu:$('.remarkDes').val(),
                 //gdWxLeaders:fzrArr,
                 gdSrc:1,
                 bxKeshiNum:workDones.section,
                 wxShiXNum:workDones.matter,
                 userId:_userIdNum,
                 userName:_userIdName,
+                gdRange:workDones.whether,
+                gdFsShij:$('.otime').val()
             }
             //判断_obj和_fzrObjext是否为空
             if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
@@ -520,14 +567,16 @@ $(function(){
                     dName:workDones.sbMC,
                     installAddress:workDones.azAddress,
                     wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:workDones.remarks,
+                    bxBeizhu:$('.remarkDes').val(),
                     //gdWxLeaders:fzrArr,
                     gdSrc:1,
                     userId:_userIdNum,
                     userName:_userIdName,
                     gdCodeSrc:workDones.gdly,
                     bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter
+                    wxShiXNum:workDones.matter,
+                    gdRange:workDones.whether,
+                    gdFsShij:$('.otime').val()
                 };
                 _fzrObj = fzrArr;
                 var gdInfo1 = {
@@ -543,14 +592,16 @@ $(function(){
                     dName:workDones.sbMC,
                     installAddress:workDones.azAddress,
                     wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:workDones.remarks,
+                    bxBeizhu:$('.remarkDes').val(),
                     gdWxLeaders:fzrArr,
                     gdSrc:1,
                     userID:_userIdNum,
                     userName:_userIdName,
                     gdCodeSrc:workDones.gdly,
                     bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter
+                    wxShiXNum:workDones.matter,
+                    gdRange:workDones.whether,
+                    gdFsShij:$('.otime').val()
                 }
                 $.ajax({
                     type:'post',
@@ -591,13 +642,15 @@ $(function(){
                         dName:workDones.sbMC,
                         installAddress:workDones.azAddress,
                         wxKeshi:workDones.weixiukeshis,
-                        bxBeizhu:workDones.remarks,
+                        bxBeizhu:$('.remarkDes').val(),
                         gdWxLeaders:fzrArr,
                         gdSrc:1,
                         userID:_userIdNum,
                         userName:_userIdName,
                         bxKeshiNum:workDones.section,
-                        wxShiXNum:workDones.matter
+                        wxShiXNum:workDones.matter,
+                        gdRange:workDones.whether,
+                        gdFsShij:$('.otime').val()
                     }
                     $.ajax({
                         type:'post',
@@ -723,7 +776,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -754,7 +808,6 @@ $(function(){
     })
 
     $('#myModal7').on('click','.xzDepartment',function(){
-        _autoOrHand = 2;
         _departmentArr = [];
         $('#tree-block').show();
         //加载部门
@@ -762,16 +815,17 @@ $(function(){
     })
     //选择部门确定按钮
     $('.determineDepartment').click(function(){
+        _autoOrHand = 2;
         $('#tree-block').hide();
     })
     //选择部门取消按钮
     $('.close-tree').click(function(){
         $('#tree-block').hide();
-        _determineDeObj.pId = '';
-        _determineDeObj.name = '';
-        _determineDeObj.id = '';
-        $('#xzmc').val('');
-        $('#zxbm').val('');
+        //_determineDeObj.pId = '';
+        //_determineDeObj.name = '';
+        //_determineDeObj.id = '';
+        //$('#xzmc').val('');
+        //$('#zxbm').val('');
     })
     //条件查询人员
     $('.zhixingButton').click(function(){
@@ -887,17 +941,19 @@ $(function(){
     //获得负责人列表数据
     function fzr(){
         var prm = {
-            "userName": $('#zxName').val(),
+            "userName2": $('#zxName').val(),
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdNum
+            "userID": _userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/ywGetWXLeaders',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allZXRArr =[];
                 for(var i=0;i<result.length;i++){
                     _allZXRArr.push(result[i]);
@@ -1001,7 +1057,7 @@ $(function(){
             data:prm,
             success:function(result){
                 //给select赋值
-                var str = '';
+                var str = '<option value="">请选择</option>';
                 if(flag){
                     for(var i=0;i<result.length;i++){
                         str += '<option' + ' value="' + result[i][num] +'"' + 'bm="' + result[i].departNum +
@@ -1079,6 +1135,13 @@ $(function(){
                     $('#workDones').find('.inpus').parent('span').removeClass('checked');
                     $('#workDones').find('#twos1').parent('span').addClass('checked');
                 }
+                if (result.gdRange == 1) {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $('#workDones').find('#four1').parent('span').addClass('checked');
+                } else {
+                    $('#workDones').find('.whether').parent('span').removeClass('checked');
+                    $('#workDones').find('#three1').parent('span').addClass('checked');
+                }
                 //selecrt绑定值
                 if(result.bxKeshiNum == ''){
                     workDones.section = 0;
@@ -1100,9 +1163,10 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
-                workDones.remarks = result.bxBeizhu;
+                $('.otime').val(result.gdFsShij);
+                $('.remarkDes').val(result.bxBeizhu);
                 _imgNum = result.hasImage;
-                workDones.wxremark = result.wxBeizhu;
+                $('#wxremark').val(result.wxBeizhu);
                 _gdCircle = result.gdCircle;
                 //负责人(初始化);
                 //fzr = result.gdWxLeaders;
@@ -1180,7 +1244,7 @@ $(function(){
             "gdCode": gdCode,
             "gdZht": _gdState,
             "wxKeshi": '',
-            "wxBeizhu": workDones.wxremark,
+            "wxBeizhu": $('#wxremark').val(),
             "userID": _userIdNum,
             "userName":_userIdName
         };
@@ -1256,19 +1320,22 @@ $(function(){
                 bxDianhua:workDones.telephone,
                 bxRen:workDones.person,
                 wxDidian:workDones.place,
-                bxKeshi:workDones.section,
-                wxShiX:workDones.matter,
+                bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                wxShiX:$('.xitong').eq(0).children('option:selected').html(),
                 wxShebei:workDones.sbSelect,
                 dcName:workDones.sbLX,
                 dName:workDones.sbMC,
                 installAddress:workDones.azAddress,
                 wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:workDones.remarks,
+                bxBeizhu:$('.remarkDes').val(),
                 gdSrc:1,
                 userID:_userIdNum,
                 gdLeixing:workDones.rwlx,
-                userName:_userIdName
-
+                userName:_userIdName,
+                bxKeshiNum:workDones.section,
+                wxShiXNum:workDones.matter,
+                gdRange:workDones.whether,
+                gdFsShij:$('.otime').val()
             }
             $.ajax({
                 type:'post',
@@ -1317,5 +1384,36 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //线路
+    function lineRouteData(el) {
+        var prm = {
+            'userID':_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGetDLines',
+            data:prm,
+            success:function(result){
+                _lineArr = [];
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _lineArr.push(result[i]);
+                    str += '<option value="' + result[i].dlNum +
+                        '">' + result[i].dlName +'</option>'
+                }
+                el.append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

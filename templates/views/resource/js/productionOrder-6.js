@@ -6,6 +6,8 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -16,12 +18,17 @@ $(function(){
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
-    //显示时间
+    //受理显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
-    //显示时间
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
+    //实际传输时间初始化
+    var slrealityStart = moment($('datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
+    var slrealityEnd = moment($('datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+    var bhrealityStart = moment($('datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
+    var bhrealityEnd = moment($('datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+    //闭环时间
+    //$('.datatimeblock').eq(2).val(_initStart);
+   // $('.datatimeblock').eq(3).val(_initEnd);
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -40,7 +47,9 @@ $(function(){
             sbLX:'',
             sbMC:'',
             sbBM:'',
-            azAddress:''
+            azAddress:'',
+            whether:'',
+            gdly:''
         },
         methods:{
             radios:function(){
@@ -75,6 +84,22 @@ $(function(){
     var _gdState = 0;
     //重发值
     var _gdCircle = 0;
+    //设备类型数组
+    var _allDataXT = [];
+    //车站数组
+    var _allDataBM = [];
+    //线路数组
+    var _lineArr = [];
+    //影响用户数组
+    var _InfluencingArr = [];
+    //设备系统
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#sblx'), 'dsName', 'dsNum');
+    //所有车站数据
+    ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
+    //线路数据
+    lineRouteData($('#line'));
+    //影响单位
+    InfluencingUnit();
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable(   {
@@ -82,7 +107,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
         "pagingType":"full_numbers",
         "bStateSave":true,
         'language': {
@@ -179,7 +204,7 @@ $(function(){
                 className:'ztz'
             },
             {
-                title:'系统名称',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
@@ -208,7 +233,7 @@ $(function(){
             },
             {
                 title:'督察督办责任人',
-                data:'paigongUser'
+                data:'wxUserNames'
             },
             {
                 title:'操作',
@@ -370,6 +395,14 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('#twos').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#myApp33').find('.whether').parent('span').removeClass('checked');
+                        $('#myApp33').find('#three').parent('span').addClass('checked');
+                    }
+                    $('.otime').val(result.gdFsShij);
                     //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;
                     app33.person = result.bxRen;
@@ -388,6 +421,7 @@ $(function(){
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
+                    app33.gdly = result.gdCodeSrc;
                     //进度条赋值
                     //待下发记录时间
                     progressContent(0,0,result.gdShij);
@@ -403,23 +437,16 @@ $(function(){
                     progressContent(2,2,result.paigongUserName);
                     //开始执行时间
                     progressContent(3,0,result.jiedanShij);
-                    var ddRen = '';
-                     for(var i=0;i<result.wxRens.length;i++){
-                     ddRen += result.wxRens[i].wxRName;
-                         if(i!=result.wxRens.length-1){
-                             ddRen += ','
-                         }
-                     }
                     //执行人
-                    progressContent(3,2,ddRen);
+                    progressContent(3,2,result.wxUserNames);
                     //等待时间
                     progressContent(4,0,result.dengShij);
                     //等待人
-                    progressContent(4,2,ddRen);
+                    progressContent(4,2,result.wxUserNames);
                     //完工时间
                     progressContent(5,0,result.wanGongShij);
                     //完工人
-                    progressContent(5,2,ddRen);
+                    progressContent(5,2,result.wxUserNames);
                     //关闭时间
                     progressContent(6,0,result.guanbiShij);
                     //关单人
@@ -460,7 +487,6 @@ $(function(){
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
             _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
-            console.log(_gdCircle);
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
@@ -502,7 +528,7 @@ $(function(){
     $('.chexiao').click(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
-            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5){
+            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5 || zhuangtai == 6 || zhuangtai == 7){
                 moTaiKuang($('#myModal1'));
             }else{
                 $('#myModal3').find('.modal-body').html('无法操作');
@@ -534,7 +560,7 @@ $(function(){
             var htState = 0;
             if(gdState == 2){
                 htState = 1;
-            }else if( gdState == 3 || gdState == 4 || gdState == 5 ){
+            }else if( gdState == 3 || gdState == 4 || gdState == 5 || gdState == 6 || gdState == 7){
                 htState = 2;
             }
             var gdCodes = _currentClick.children('td').eq(0).children('span').attr('gdcode');
@@ -547,7 +573,7 @@ $(function(){
             }
             $.ajax({
                 type:'post',
-                url:_urls + 'YWGD/ywGDUptZht',
+                url:_urls + 'YWGD/ywGDReturn',
                 data:gdInfo,
                 success:function(result){
                     if(result == 99){
@@ -662,7 +688,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + _gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -703,8 +730,9 @@ $(function(){
         var inputs = parents.find('input');
         inputs.val('');
         //时间置为今天
-        $('.min').val(_initStart);
-        $('.max').val(_initEnd);
+        $('.datatimeblock').val(_initStart);
+        $('.returnZero').val(0);
+        $('.returnEmpty').val('');
     })
     //弹窗切换表格效果
     $('.table-title span').click(function(){
@@ -719,19 +747,76 @@ $(function(){
     $('.modal').find('.btn-primary').click(function(){
         $(this).parents('.modal').modal('hide')
     })
+    //线路车站联动
+    $('#line').change(function(){
+        //首先将select子元素清空；
+        $('#station').empty();
+        //获得选中的线路的value
+        var values = $('#line').val();
+        if(values == ''){
+            //所有车站数据
+            ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
+        }else{
+            for(var i=0;i<_lineArr.length;i++){
+                if(values == _lineArr[i].dlNum){
+                    //创建对应的车站
+                    var str = '<option value="">请选择</option>';
+                    for(var j=0;j<_lineArr[i].deps.length;j++){
+                        str += '<option value="' + _lineArr[i].deps[j].ddNum +
+                            '">'+ _lineArr[i].deps[j].ddName + '</option>';
+                    }
+                    $('#station').append(str);
+                }
+            }
+        }
+    });
+    //印象单位联动
+    $('#yxdw').change(function(){
+        var values = $('#yxdw').val();
+        $('#userClass').empty();
+        if(values == ''){
+            InfluencingUnit('flag');
+        }else{
+            for(var i=0;i<_InfluencingArr.length;i++){
+                if(values == _InfluencingArr[i].departNum){
+                    console.log(_InfluencingArr[i]);
+                    var str = '<option value="">请选择</option>';
+                    for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+                        str += '<option value="' + _InfluencingArr[i].wxBanzus[j].departNum +
+                            '">' + _InfluencingArr[i].wxBanzus[j].departName + '</option>'
+                    }
+                    $('#userClass').append(str);
+                }
+            }
+        }
+    });
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
+        if($('.datatimeblock').eq(0).val() == ''){
+            slrealityStart = ''
+        }else{
+            slrealityStart = moment($('.datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        var prm = {
+        if($('.datatimeblock').eq(1).val() == ''){
+            slrealityEnd = ''
+        }else{
+            slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(2).val() == ''){
+            bhrealityStart = ''
+        }else{
+            bhrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(3).val() == ''){
+            bhrealityEnd = ''
+        }else{
+            bhrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+
+        /*var prm = {
             "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
@@ -746,12 +831,53 @@ $(function(){
             "wxRen":filterInput[7],
             "wxdidian":filterInput[8],
             "isCalcTimeSpan":1,
-            "userName":_userIdName
+            "userName":_userIdName,
+            "gdJJ":$('#gdlx').val()
+        }*/
+        var prm2 ={
+            gdCode2:$('#gdcode').val(),
+            gdSt:slrealityStart,
+            gdEt:slrealityEnd,
+            gdGuanbiSt:bhrealityStart,
+            gdGuanbiEt:bhrealityEnd,
+            gdZht:$('#gdzt').val(),
+            gdJJ:$('#gdlx').val(),
+            dlNum:$('#line').val(),
+            gdLeixing:$('#rwlx').val(),
+            userID:_userIdNum,
+            userName:_userIdName
+        };
+        var userArr = [];
+        var cheArr = [];
+        if($('#yxdw').val() != '' && $('#userClass').val() == ''){
+            for(var i=0;i<_InfluencingArr.length;i++){
+                if( $('#yxdw').val() == _InfluencingArr[i].departNum ){
+                    for(var j = 0;j<_InfluencingArr[i].wxBanzus.length;j++){
+                        userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
+                    }
+                }
+            }
+            prm2.wxKeshis = userArr;
+        }else{
+            prm2.wxKeshi = $('#userClass').val();
+        }
+        if( $('#line').val() != '' && $('#station').val() == ''){
+            var values = $('#line').val();
+            for(var i=0;i<_lineArr.length;i++){
+                if( values == _lineArr[i].dlNum ){
+                    for(var j=0;j<_lineArr[i].deps.length;j++){
+                        cheArr.push(_lineArr[i].deps[j].ddNum);
+                    }
+                }
+            }
+            prm2.bxKeshiNums = cheArr;
+        }else{
+            prm2.bxKeshiNum = $('#station').val()
         }
         $.ajax({
             type:'post',
-            url: _urls + 'YWGD/ywGDGetDJ',
-            data:prm,
+            url: _urls + 'YWGD/ywGDGetZh2',
+            data:prm2,
             async:false,
             success:function(result){
                 datasTable($("#scrap-datatables"),result);
@@ -913,5 +1039,104 @@ $(function(){
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
     }
-
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
+    }
+    //ajaxFun（设备类型select的值）
+    function ajaxFun(url, allArr, select, text, num) {
+        var prm = {
+            'userID': _userIdNum
+        }
+        prm[text] = '';
+        $.ajax({
+            type: 'post',
+            url: _urls + url,
+            async: false,
+            data: prm,
+            success: function (result) {
+                //给select赋值
+                var str = '<option value="">请选择</option>';
+                for (var i = 0; i < result.length; i++) {
+                    str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+                    allArr.push(result[i]);
+                }
+                select.append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //线路数据
+    function lineRouteData(el) {
+        var prm = {
+            'userID':_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGetDLines',
+            data:prm,
+            success:function(result){
+                _lineArr = [];
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _lineArr.push(result[i]);
+                    str += '<option value="' + result[i].dlNum +
+                        '">' + result[i].dlName +'</option>'
+                }
+                el.append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //获取到影响单位、用户分类
+    function InfluencingUnit(flag){
+        var prm = {
+            "id": 0,
+            "ddNum": "",
+            "ddName": "",
+            "ddPy": "",
+            "daNum": "",
+            "userID": _userIdNum,
+            "userName": _userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+            data:prm,
+            success:function(result){
+                var str = '<option value="">请选择</option>';
+                var str1 = '<option value="">请选择</option>';
+                if(flag){
+                    for(var i=0;i<result.wxBanzus.length;i++){
+                        str1 += '<option value="' + result.wxBanzus[i].departNum +
+                            '">' + result.wxBanzus[i].departName + '</option>';
+                    }
+                    $('#userClass').append(str1);
+                }else{
+                    _InfluencingArr = [];
+                    for(var i=0;i<result.stations.length;i++){
+                        _InfluencingArr.push(result.stations[i]);
+                        str += '<option value="' + result.stations[i].departNum +
+                            '">' + result.stations[i].departName + '</option>';
+                    }
+                    for(var i=0;i<result.wxBanzus.length;i++){
+                        str1 += '<option value="' + result.wxBanzus[i].departNum +
+                            '">' + result.wxBanzus[i].departName + '</option>';
+                    }
+                    $('#yxdw').append(str);
+                    $('#userClass').append(str1);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
 })

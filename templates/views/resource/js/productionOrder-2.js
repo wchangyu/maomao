@@ -4,8 +4,13 @@ $(function(){
     var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+
     //存放执行人信息的数组
     var _zhixingRens = [];
     var _weiXiuCaiLiao = [];
@@ -47,7 +52,9 @@ $(function(){
             azAddress:'',
             remarks:'',
             weixiukeshis:'',
-            wxremark:''
+            wxremark:'',
+            gdly:'',
+            whether:''
         }
     })
     //自定义验证器
@@ -210,7 +217,7 @@ $(function(){
                 data:'bxKeshi'
             },
             {
-                title:'维修事项',
+                title:'设备类型',
                 data:'wxShiX'
             },
             {
@@ -425,6 +432,13 @@ $(function(){
                         $('#workDones').find('.inpus').parent('span').removeClass('checked');
                         $('#workDones').find('#twos1').parent('span').addClass('checked');
                     }
+                    if (result.gdRange == 1) {
+                        $('#workDones').find('.whether').parent('span').removeClass('checked');
+                        $('#workDones').find('#four').parent('span').addClass('checked');
+                    } else {
+                        $('#workDones').find('.whether').parent('span').removeClass('checked');
+                        $('#workDones').find('#three').parent('span').addClass('checked');
+                    }
                     //selecrt绑定值
                     if(result.bxKeshiNum == ''){
                         workDones.section = 0;
@@ -450,6 +464,8 @@ $(function(){
                     workDones.remarks = result.bxBeizhu;
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
+                    workDones.gdly = result.gdCodeSrc;
+                    $('.otime').val(result.gdFsShij);
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料
@@ -619,12 +635,16 @@ $(function(){
     //点击派工，切换状态
     $('.paigongButton').click(function(){
         //如果维修科室没有添加的话，出现弹出框，无法实现派工
-        if(workDones.weixiukeshis == ''){
-            $('#myModal4').find('.modal-body').html('请填写维修班组！');
-            moTaiKuang($('#myModal4'),'flag');
-        }else if(_zhixingRens.length == 0){
-            $('#myModal4').find('.modal-body').html('请选择执行人员！');
-            moTaiKuang($('#myModal4'),'flag');
+        if(_zhixingRens.length == 0 || $('.weixiukeshis').val() == ''){
+            if(_zhixingRens.length == 0){
+                $('#myModal4').find('.modal-body').html('请选择执行人员！');
+                moTaiKuang($('#myModal4'),'flag');
+            }
+            if($('.weixiukeshis').val() == ''){
+                $('#myModal4').find('.modal-body').html('维修班组不能为空！');
+                moTaiKuang($('#myModal4'),'flag');
+            }
+
         }else{
             if(_gdCircle == 5){
                 _gdCircle = parseInt(_gdCircle) + 1;
@@ -728,7 +748,8 @@ $(function(){
             if(_imgNum){
                 var str = '';
                 for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="http://211.100.28.180/ApService/dimg.aspx?gdcode=' + gdCode + '&no=' + i +
+                    str += '<img class="viewIMG" src="' +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
                         '">'
                 }
                 $('.showImage').html('');
@@ -879,6 +900,8 @@ $(function(){
             }
         }
         datasTable($('#personTable1'),_zhixingRens);
+        //获取维修部门
+        $('.weixiukeshis').val($('#xzmc').val());
     })
     //选择执行人员删除按钮
     $('#personTable1 tbody').on('click','.tableDeleted',function(){
@@ -1082,15 +1105,16 @@ $(function(){
     //获取所有执行人员
     function getRY(){
         var prm = {
-            "userName": $('#zxName').val(),
+            "userName2": $('#zxName').val(),
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
             "roleNum": "",
-            "userID": _userIdNum
+            "userID": _userIdNum,
+            "userName":_userIdName
         }
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/ywGetWXRens',
             data:prm,
             success:function(result){
                 _allZXRArr =[];
@@ -1284,7 +1308,7 @@ $(function(){
         var gdInfo = {
             'gdCode':gdCode,
             'gdZht':3,
-            'wxKeshi':workDones.weixiukeshis,
+            'wxKeshi':$('.weixiukeshis').val(),
             'userID':_userIdNum,
             'userName':_userIdName
         }
@@ -1369,5 +1393,12 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

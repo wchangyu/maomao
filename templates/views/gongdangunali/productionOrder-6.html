@@ -363,7 +363,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">任务分类：</label>
+                                        <label for="">任务级别：</label>
                                         <div class="input-blocked">
                                             <select id="rwlx">
                                                 <option value="0">全部</option>
@@ -465,7 +465,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-6.js"></script>
+<script src="../resource/js/productionOrder-4.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -494,6 +494,22 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">工单来源 *：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                        <option value="1">车站报修</option>
+                                        <option value="2">现场人员报修</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <!--<li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">是否维保 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
+                                    <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
+                                </div>
+                            </li>-->
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
@@ -504,46 +520,40 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">报修电话：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="telephone" class="shishi">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">报修人信息：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="person">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">故障位置：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="place">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">车站：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="section">
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels">维修事项：</div>
+                            <li class="floatRight">
+                                <div class="labels">设备类型：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="matter">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">维修设备：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbSelect">
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">设备类型：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="sbLX">
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -568,6 +578,12 @@
                                 <div class="labels">维修班组：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sections">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">发生时间：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="datatimeblock otime">
                                 </div>
                             </li>
                             <div class="clearfix"></div>
