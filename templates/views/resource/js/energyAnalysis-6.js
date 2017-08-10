@@ -1,4 +1,9 @@
 $(function(){
+    //日期插件
+    //$('.datetimeStart').html(_ajaxStartTime);
+    //$('.datetimeEnd').html(_ajaxEndTime);
+    //$('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
+
     //读取能耗种类
     _energyTypeSel = new ETSelection();
     _energyTypeSel.initPointers($(".energy-types"),undefined,function(){

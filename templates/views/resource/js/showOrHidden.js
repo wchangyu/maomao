@@ -36,6 +36,10 @@ $(function(){
         $('.datetimeEnd').html('');
     })
 
+
+    addSearchBox();
+
+
 })
 //日历时间
 function _selectTime(){
@@ -218,12 +222,9 @@ function _setEnergyInfo(){
         }
     }
 }
-    });
-
-    addSearchBox();
 
 
-});
+
 
 //搜索楼宇时
 $(document).on('keyup','.input-search-value',function(){
@@ -263,7 +264,7 @@ function addSearchBox(){
     //判断是否存在楼宇select列表
     if($('#selectPointer')){
 
-        var html = '<input type="text" placeholder="请输入楼宇名称搜索" class="input-search-value form-control" style="height:30px !important; margin-bottom:5px;">';
+        var html = '<input type="text" placeholder="请输入楼宇名称搜索" class="input-search-value form-control" style="height:30px !important; width:180px;margin:0 auto; margin-bottom:5px;">';
 
         //给楼宇列表上方增加搜索框
         $('#selectPointer').before(html);

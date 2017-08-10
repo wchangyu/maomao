@@ -318,6 +318,8 @@ $(function(){
         //获得选中的楼宇的信息；
         _pointer_ID = _objectSel.getSelectedPointers();
 
+        console.log(_pointer_ID);
+
         _energy_ID =  getNodeInfo(_energy,_energy_ID);
 
         _alarm_ID = getNodeInfo(_alarm,_alarm_ID);
@@ -560,10 +562,13 @@ $(function(){
     function alarmHistory(){
         var pointer = [];
         var energy = '';
-        var alarm = ''
-        if( _pointer_ID[0].pointerID == '0'){
-            pointer = [0];
+        var alarm = '';
+        for(var i=0; i<_pointer_ID.length; i++){
+            pointer.push(_pointer_ID[i].pointerID);
         }
+        //if( _pointer_ID[0].pointerID == '0'){
+        //    pointer = [0];
+        //}
         if(_alarm_ID.length !=0){
             alarm = _alarm_ID[0].id;
             if( _alarm_ID[0].id=='000' ){
