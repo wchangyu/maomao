@@ -6,6 +6,9 @@
 	margin-left: 30px;
 	cursor: pointer;
 }
+.tree-1 {
+	text-align: left !important;
+}
 .electricity{
 	background: url(../img/electricity_hover.png)no-repeat;
 	background-size: 50px;

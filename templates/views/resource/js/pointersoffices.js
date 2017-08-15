@@ -42,8 +42,7 @@ var ObjectSelection = function(){
     this._$ulOffices;
     this._hasAllPointer;
 
-    this.getSelectType;
-
+    this.getSelectType;           //获取当前是单选框还是复选框
     //存放已配置的全部楼宇名称
     var getPointerName = '';
 
@@ -108,6 +107,7 @@ var ObjectSelection = function(){
     this.getSessionStorageOffices = function(){
         var strOffices = sessionStorage.offices;
         var tempAllOffice = [];
+
         if(strOffices){
             //this._allOffices = JSON.parse(strOffices);
             tempAllOffice = JSON.parse(strOffices);
@@ -115,9 +115,15 @@ var ObjectSelection = function(){
                 var obj = {};
                 obj.f_OfficeID = tempAllOffice[i].f_OfficeID;
                 obj.f_ParentID = tempAllOffice[i].f_ParentID;
+                obj.id = tempAllOffice[i].f_OfficeID;
+                obj.pId = tempAllOffice[i].f_ParentID;
                 obj.f_OfficeName = tempAllOffice[i].f_OfficeName;
+                if(i == 0){
+                   obj.open = true;
+                }
                 this._allOffices.push(obj);
             }
+
         }
     }
 
@@ -192,7 +198,7 @@ var ObjectSelection = function(){
         if(this._$ulPointers){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
-            zTreePointer.checkNode(nodes[0],true,true,false);
+            zTreePointer.checkNode(nodes[0],true,false,false);
             zTreePointer.expandNode(nodes[0],true,false,true);
         }
     }
@@ -235,7 +241,7 @@ var ObjectSelection = function(){
             zTreeOffice = $.fn.zTree.init(this._$ulOffices,setting,this._allOffices);
             var nodes = zTreeOffice.getNodes();
 
-            zTreeOffice.checkNode(nodes[0],true,true,false);
+            zTreeOffice.checkNode(nodes[0],true,false,false);
             zTreeOffice.expandNode(nodes[0],true,false,true);
         }
     }
@@ -389,10 +395,10 @@ function getCompactArr(tempAllPointers,isCheckAll){
         obj.pId = arr[i].parent;
         //当前类型：0 区域 1 企业 2 楼宇
         obj.nodeType = 0;
-
+        //
         //if(isCheckAll == false){
         //
-        //    obj.nocheck=true;
+        //    obj.checked=false;
         //}
         ztreeArr.push(obj);
         for(var j=0;j<arr[i].children.length;j++){
@@ -456,43 +462,6 @@ function unique(a,attr) {
 
     return res;
 }
-
-function unique1(a,arr) {
-
-   var newArr = [];
-
-    for(var k=0; k<arr.length; k++){
-
-        var res = [];
-
-        var attr = arr[k];
-
-        for (var i = 0, len = a.length; i < len; i++) {
-            var item = a[i];
-            for (var j = 0, jLen = res.length; j < jLen; j++) {
-                //console.log(i + '' + res);
-                if (res[j][attr] === item[attr]){
-                    //console.log(333);
-                    break;
-                }
-
-            }
-            if (j === jLen){
-
-                res.push(item);
-
-            }
-
-        }
-
-       newArr.push(res);
-    }
-    console.log(newArr);
-
-    return newArr;
-}
-
-
 
 //获取要传递给后台的楼宇列表
 function getPostPointerID(treeObj,selectType){
@@ -569,20 +538,4 @@ function getPostPointerID(treeObj,selectType){
 
 
     return postPointerID;
-}
-
-//深拷贝的方法
-function deepCopy(src,obj){
-
-    obj = obj || (Array.isArray(src) ? [] : {});
-    for(var i in src){
-        if(src.hasOwnProperty(i)){
-            if(typeof src[i] == 'object' && src[i]!=null){
-                obj[i] = Array.isArray(src[i]) ? [] : {};
-                deepCopy(src[i],obj[i]);
-            }else{
-                obj[i] = src[i];
-            }
-        }
-    }
 }

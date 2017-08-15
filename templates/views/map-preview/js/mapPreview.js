@@ -14,6 +14,34 @@ var markerArr = [
 ];
 //获取本地url
 var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
+//地图样式配置
+var  mapStyle ={
+
+    "styleJson":[
+        {
+            "style":"dark"
+        },
+        {
+            "featureType": "highway",
+            "elementType": "all",
+            "stylers": {
+                "visibility": "off"
+            }
+        },
+        {
+            "featureType": "railway",
+            "elementType": "geometry.stroke",
+            "stylers": {
+
+                "visibility": "off"
+            }
+        }
+
+    ]
+};
+
+
 //获取后台数据
 function getData(){
 
@@ -35,7 +63,7 @@ function getData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+
             markerArr = [];
 
             //存放搜索框中内容
@@ -60,6 +88,8 @@ function getData(){
 
             //新建百度地图
             map = new BMap.Map("container");
+
+            map.setMapStyle(mapStyle);
 
             map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
 //可以进行缩放
@@ -99,7 +129,10 @@ getData();
 
 var map;
 
-
+(function(){
+    window.BMap_loadScriptTime = (new Date).getTime();
+    document.write('<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=8d6c8b8f3749aed6b1aff3aad6f40e37&services=&t=20170803155555"></script>');
+})();
 
 //右上角城市切换功能
 function detail(){

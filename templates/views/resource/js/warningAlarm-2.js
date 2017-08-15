@@ -1,4 +1,15 @@
 $(function(){
+
+    var _ajaxEndTime = moment().format("YYYY/MM/DD");
+
+    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+
+    //日期插件
+    $('.datetimeStart').html(_ajaxStartTime);
+    $('.datetimeEnd').html(_ajaxEndTime);
+    $('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
+
+
     //目的：描绘区域位置树、报警类型树，能耗种类树，时间选择
     /*-----------------------全局变量-------------------------*/
     var _url = sessionStorage.apiUrlPrefix;
@@ -33,9 +44,11 @@ $(function(){
     /*-------------------------时间------------------------*/
     //显示时间
     //显示开始结束时间，
-    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+
 
     var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
+
+
 
     var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
 

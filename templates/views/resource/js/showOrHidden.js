@@ -34,11 +34,31 @@ $(function(){
         $('.datetimepickereType').empty();
         $('.datetimeStart').html('');
         $('.datetimeEnd').html('');
-    })
+    });
 
+    //点击切换楼宇或单位时，改变上方能耗类型
+    $('.left-middle-tab').on('click',function(){
+
+        //判断页面中是否存在能耗类型选项
+        if(typeof _energyTypeSel!="undefined" ){
+            if($(this).index() == 0){
+
+                _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+                    getEcType();
+                });
+            }else{
+
+                _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
+                    getEcType();
+                });
+            }
+        }else{
+
+        };
+
+    });
 
     addSearchBox();
-
 
 })
 //日历时间
@@ -264,7 +284,9 @@ function addSearchBox(){
     //判断是否存在楼宇select列表
     if($('#selectPointer')){
 
-        var html = '<input type="text" placeholder="请输入楼宇名称搜索" class="input-search-value form-control" style="height:30px !important; width:180px;margin:0 auto; margin-bottom:5px;">';
+        var theWidth = $('#selectPointer').width() + 2;
+
+        var html = '<input type="text" placeholder="请输入楼宇名称搜索" class="input-search-value form-control" style="height:30px !important; width:'+theWidth+'px; margin-bottom:5px;">';
 
         //给楼宇列表上方增加搜索框
         $('#selectPointer').before(html);
