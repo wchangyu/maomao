@@ -748,7 +748,7 @@ function getOfficeData(){
 		data:ecParams,
 		async:false,
 		beforeSend:function(){
-			_myChart.showLoading({
+			myChart16.showLoading({
 				text:'获取数据中',
 				effect:'whirling'
 			})
@@ -759,6 +759,7 @@ function getOfficeData(){
 		error:function(jqXHR, textStatus, errorThrown){
 			console.log(JSON.parse(jqXHR.responseText).message);
 			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				myChart16.hideLoading();
 				allData = [];
 			}
 		}
