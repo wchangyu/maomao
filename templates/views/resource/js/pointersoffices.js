@@ -42,6 +42,8 @@ var ObjectSelection = function(){
     this._$ulOffices;
     this._hasAllPointer;
 
+    this.getSelectType;
+
     //存放已配置的全部楼宇名称
     var getPointerName = '';
 
@@ -80,20 +82,28 @@ var ObjectSelection = function(){
     this.getSessionStoragePointers = function(){
         var strPointers = sessionStorage.pointers;
         var tempAllPointers = [];
+
         if(strPointers){
             tempAllPointers = JSON.parse(strPointers);
         }
+
+        //tempAllPointers = tempAllPointers.splice(0,10);
         if(this._hasAllPointer){     //是否使用全部楼宇
             var pointerAll = {
                 pointerID: "0",
                 pointerName: this.allPointerName,
                 childPointers:tempAllPointers
             };
-            this._allPointers.push(pointerAll);
+            //this._allPointers.push(pointerAll);
+            this._allPointers = getCompactArr(tempAllPointers,true);
+
         }else{
-            this._allPointers = tempAllPointers;
+            //this._allPointers = tempAllPointers;
+            this._allPointers = getCompactArr(tempAllPointers,false);
         }
+
     };
+
 
     this.getSessionStorageOffices = function(){
         var strOffices = sessionStorage.offices;
@@ -133,14 +143,14 @@ var ObjectSelection = function(){
         if(!treeObj){
             return;
         }
-        var nodes = treeObj.getCheckedNodes(true);
-        var selectedPointers = [],curPointer = {};
-        for(var i = 0; i < nodes.length; i++){
-            curPointer = {};
-            curPointer.pointerID = nodes[i].pointerID;
-            curPointer.pointerName = nodes[i].pointerName;
-            selectedPointers.push(curPointer);
-        }
+        var selectType = this.getSelectType;
+        var selectedPointers = getPostPointerID(treeObj,selectType);
+        //for(var i = 0; i < nodes.length; i++){
+        //    curPointer = {};
+        //    curPointer.pointerID = nodes[i].pointerID;
+        //    curPointer.pointerName = nodes[i].pointerName;
+        //    selectedPointers.push(curPointer);
+        //}
         return selectedPointers;
     }
 
@@ -149,26 +159,26 @@ var ObjectSelection = function(){
     this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode){
         this._$ulPointers = $ulPointers;
         this._hasAllPointer = hasAllPointer;
+        this.getSelectType = multiSelectionMode;
         this.getSessionStoragePointers();
         var zTreePointer;
         var setting1 = {
             check: {
                 enable: true,
                 chkStyle: "radio",
-                chkboxType: { "Y": "ps", "N": "ps" },
-                radioType: 'all'
+                chkboxType: { "Y": "s", "N": "ps" },
+                radioType : "all"
             },
             data: {
-                key: {
-                    name: "pointerName",
-                    children:"childPointers"
+                key:{
+                    name:'name'
                 },
                 simpleData: {
-                    enable: false
+                    enable: true
                 }
             },
             view:{
-                showIcon: false
+                showIcon:false
             },
             callback: {
                 onClick: function(e,treeId,treeNode){zTreePointer.checkNode(treeNode,!treeNode.checked,true)}
@@ -248,7 +258,7 @@ var ObjectSearch = function(){
     this.searchPointerNode = function(e){
         var objSearch = e.data.that;
         var ztree = $.fn.zTree.getZTreeObj(objSearch._pointerZTreeId);
-        var keyName = 'pointerName';
+        var keyName = 'name';
         objSearch.search(ztree,keyName,objSearch._$pointerSearchKey,objSearch._$pointerTips);
     }
 
@@ -320,5 +330,259 @@ var ObjectSearch = function(){
         //.isParent记录 treeNode 节点是否为父节点。
         //.isFirstNode 记录 treeNode 节点是否为同级节点中的第一个节点。
         return !node.isParent && node.isFirstNode;
+    }
+}
+
+//获取正确的Ztree树结构数据
+function getCompactArr(tempAllPointers,isCheckAll){
+    //
+    //var allGetDataArr = unique1(tempAllPointers,["districtID","enterpriseID","pointerID"]);
+
+    var _districArr = unique(tempAllPointers,'districtID');
+
+
+    var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+    var _pointerArr = unique(tempAllPointers,'pointerID');
+
+    var arr = [];
+    for(var i=0;i<_districArr.length;i++){
+
+        var obj = {};
+        obj.districtID = _districArr[i].districtID;
+        obj.districtName = _districArr[i].districtName;
+        obj.parent = '';
+        obj.children = [];
+
+        for(var j=0;j<_enterpriseArr.length;j++){
+            var obj1 = {};
+            obj1.enterpriseID = _enterpriseArr[j].enterpriseID;
+            obj1.eprName = _enterpriseArr[j].eprName;
+            obj1.parent = obj.districtID;
+            obj1.children = [];
+
+            if( _enterpriseArr[j].districtID == _districArr[i].districtID){
+
+                obj.children.push(obj1);
+            }
+            for(var z=0;z<_pointerArr.length;z++){
+
+                if(_pointerArr[z].enterpriseID == _enterpriseArr[j].enterpriseID){
+                    var obj11 = {};
+                    obj11.pointerID = _pointerArr[z].pointerID;
+                    obj11.pointerName = _pointerArr[z].pointerName;
+                    obj11.parent = obj1.enterpriseID;
+
+                    obj1.children.push(obj11);
+                }
+
+            }
+        }
+        arr.push(obj);
+    }
+
+
+    var ztreeArr = [];
+    for(var i=0;i<arr.length;i++){
+        var obj = {};
+        obj.name = arr[i].districtName;
+        obj.id = arr[i].districtID;
+        obj.pId = arr[i].parent;
+        //当前类型：0 区域 1 企业 2 楼宇
+        obj.nodeType = 0;
+
+        //if(isCheckAll == false){
+        //
+        //    obj.nocheck=true;
+        //}
+        ztreeArr.push(obj);
+        for(var j=0;j<arr[i].children.length;j++){
+            var obj1 = {};
+            obj1.name = arr[i].children[j].eprName;
+            obj1.id = arr[i].children[j].enterpriseID;
+            obj1.pId = arr[i].children[j].parent;
+            //当前类型：0 区域 1 企业 2 楼宇
+            obj1.nodeType = 1;
+
+            if(i == 0 && j == 0){
+                obj1.open = true;
+            }
+            //if(isCheckAll == false){
+            //
+            //    obj1.nocheck=true;
+            //}
+            ztreeArr.push(obj1);
+            for(var z=0;z<arr[i].children[j].children.length;z++){
+                var obj11 = {};
+                obj11.name = arr[i].children[j].children[z].pointerName;
+                obj11.id = arr[i].children[j].children[z].pointerID;
+                obj11.pId = arr[i].children[j].children[z].parent;
+                //当前类型：0 区域 1 企业 2 楼宇
+                obj11.nodeType = 2;
+                if(isCheckAll == false && i == 0 && j == 0 && z == 0){
+
+                   obj11.checked = true
+                }
+
+                ztreeArr.push(obj11);
+            }
+        }
+    }
+    //console.log(ztreeArr);
+    return ztreeArr;
+}
+
+//数组去重
+function unique(a,attr) {
+
+    var res = [];
+
+    for (var i = 0, len = a.length; i < len; i++) {
+        var item = a[i];
+        for (var j = 0, jLen = res.length; j < jLen; j++) {
+            //console.log(i + '' + res);
+            if (res[j][attr] === item[attr]){
+                //console.log(333);
+                break;
+            }
+
+        }
+        if (j === jLen){
+
+            res.push(item);
+
+        }
+
+    }
+
+    return res;
+}
+
+function unique1(a,arr) {
+
+   var newArr = [];
+
+    for(var k=0; k<arr.length; k++){
+
+        var res = [];
+
+        var attr = arr[k];
+
+        for (var i = 0, len = a.length; i < len; i++) {
+            var item = a[i];
+            for (var j = 0, jLen = res.length; j < jLen; j++) {
+                //console.log(i + '' + res);
+                if (res[j][attr] === item[attr]){
+                    //console.log(333);
+                    break;
+                }
+
+            }
+            if (j === jLen){
+
+                res.push(item);
+
+            }
+
+        }
+
+       newArr.push(res);
+    }
+    console.log(newArr);
+
+    return newArr;
+}
+
+
+
+//获取要传递给后台的楼宇列表
+function getPostPointerID(treeObj,selectType){
+
+
+    //获取到选中的节点
+    var nodes = treeObj.getCheckedNodes(true);
+
+    var postPointerID = [];
+
+    //如果为复选框
+    if(selectType){
+        $(nodes).each(function(i,o){
+
+            //如果勾选楼宇节点
+            if(o.nodeType == 2){
+
+                var obj = {};
+                obj.pointerID = o.id;
+                obj.pointerName = o.name;
+                postPointerID.push(obj);
+            }
+
+        })
+    //    如果是单选框
+    }else{
+
+        $(nodes).each(function(i,o){
+
+            //如果勾选区域节点
+            if(o.nodeType == 0){
+
+                //获取2级节点
+                var arr1 = o.children;
+                $(arr1).each(function(i,o){
+
+                    //获取3级节点
+                    var arr2 = o.children;
+
+                    $(arr2).each(function(i,o){
+                        var obj = {};
+                        obj.pointerID = o.id;
+                        obj.pointerName = o.name;
+                        postPointerID.push(obj);
+                    })
+                })
+
+            }
+            //如果勾选企业节点
+            if(o.nodeType == 1){
+                //获取3级节点
+                var arr2 = o.children;
+
+                $(arr2).each(function(i,o){
+                    var obj = {};
+                    obj.pointerID = o.id;
+                    obj.pointerName = o.name;
+                    postPointerID.push(obj);
+                })
+
+            }
+            //如果勾选楼宇节点
+            if(o.nodeType == 2){
+
+                var obj = {};
+                obj.pointerID = o.id;
+                obj.pointerName = o.name;
+                postPointerID.push(obj);
+            }
+
+        })
+    }
+
+
+
+    return postPointerID;
+}
+
+//深拷贝的方法
+function deepCopy(src,obj){
+
+    obj = obj || (Array.isArray(src) ? [] : {});
+    for(var i in src){
+        if(src.hasOwnProperty(i)){
+            if(typeof src[i] == 'object' && src[i]!=null){
+                obj[i] = Array.isArray(src[i]) ? [] : {};
+                deepCopy(src[i],obj[i]);
+            }else{
+                obj[i] = src[i];
+            }
+        }
     }
 }

@@ -1,0 +1,47 @@
+{
+  "allEnergyType": {
+    "comment": "注释属性:全部能耗类型,两项项分别为分项ID，分项名，分项单位,以及对应能耗类型的最大值设置",
+    "alltypes": [
+      {
+        "etid": "01",
+        "etname": "电",
+        "dayMax":"1",
+        "weekMax":"7",
+        "monthMax":"15",
+        "yearMax":"150"
+      },
+      {
+        "etid": "211",
+        "etname": "水",
+        "dayMax":"1",
+        "weekMax":"7",
+        "monthMax":"15",
+        "yearMax":"150"
+      },
+      {
+        "etid": "311",
+        "etname": "气",
+        "dayMax":"1",
+        "weekMax":"7",
+        "monthMax":"15",
+        "yearMax":"150"
+      },
+      {
+        "etid": "412",
+        "etname": "暖",
+        "dayMax":"1",
+        "weekMax":"7",
+        "monthMax":"15",
+        "yearMax":"150"
+      },
+      {
+        "etid": "511",
+        "etname": "冷",
+        "dayMax":"1",
+        "weekMax":"7",
+        "monthMax":"15",
+        "yearMax":"150"
+      }
+    ]
+  }
+}

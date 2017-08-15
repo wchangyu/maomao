@@ -233,29 +233,18 @@ function getPointerData(){
 	var pointerID = [];
 
 	//存放要传的楼宇集合
-	var postPointerID = [];
-
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
-
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
 	}
 	if(pointerID.length == 0) { return; }
 
-	if(pointerID[0] == 0){
+	var postPointerID = [];
 
-		$(nodes1).each(function(i,o){
+	$(pts).each(function(i,o){
 
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID = pointerID;
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	var energyItemIds=['01','40','02','41','42'];
 	var waterArr =['211'];

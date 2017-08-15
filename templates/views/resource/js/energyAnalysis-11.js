@@ -507,3 +507,14 @@ function getSelectedTime(){
 		selectTime.push($('.selectTime').eq(i).html())
 	}
 }
+
+function unitConversion(num){
+	if(num>10000){
+		num= num/10000;
+		num=num.toFixed(2);
+		var num_=num + '万';
+		return num_;
+	}else{
+		return num.toFixed(2);
+	}
+}

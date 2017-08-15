@@ -69,7 +69,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-                    var url = sessionStorage.apiUrlPrefix + "Account/Login2";
+                    var url = sessionStorage.apiUrlPrefix + "Account/Login";
                     $.ajax({
                         url:url,
                         type:"post",
@@ -106,7 +106,7 @@ var Login = function() {
                     });
 
                     //$.ajax({
-                    //    url:'http://192.168.1.125/BEEWebAPI/token',
+                    //    url:'http://192.168.1.109/BEEWebAPI/token',
                     //    type:"post",
                     //    data: {
                     //        'grant_type': 'password',
@@ -114,12 +114,12 @@ var Login = function() {
                     //        'password': password
                     //    },
                     //    success: function (data, status) {
-                    //        console.log(data);
                     //
                     //        getToken = data;
-                    //        alert('获取Token成功' + "," + status + "," + data.access_token);
+                    //        //alert('获取Token成功' + "," + status + "," + data.access_token);
                     //
                     //        sessionStorage.setItem("access_token",  data.access_token);
+                    //        sessionStorage.setItem("access_timeout",  data['.expires']);
                     //
                     //        if(rememberme){
                     //            localStorage.BEE_username = name1;

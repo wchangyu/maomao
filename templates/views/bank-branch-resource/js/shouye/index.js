@@ -1539,8 +1539,6 @@ function getDataQuality(){
 
             var sArr = [];
 
-
-
                 var obj1 = {
                     name:'在线支路',
                     value:data.serviceOnCount

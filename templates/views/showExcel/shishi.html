@@ -1,0 +1,287 @@
+<HTML lang="en">
+
+<HEAD>
+    <meta charset="utf-8"/>
+    <TITLE>将页面中指定表格的数据导入到Excel中</TITLE>
+
+    <SCRIPT LANGUAGE="javascript">
+
+        function AutoExcel(){
+
+            var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
+
+            var oWB = oXL.Workbooks.Add();//新建一个Excel工作簿
+
+            var oSheet = oWB.ActiveSheet;//指定要写入内容的工作表为活动工作表
+
+            var table = document.getElementById("data");//指定要写入的数据源的id
+
+            var hang = table.rows.length;//取数据源行数
+
+            var lie = table.rows(0).cells.length;//取数据源列数
+
+            var totleLie= 0 ;
+
+//初始化表头
+
+            for(i = 0 ;i <lie ;i++ ){
+
+                totleLie=totleLie+ table.rows(0).cells(i).colSpan;
+
+            }
+
+// Add table headers going cell by cell.
+
+            for (i=0;i<hang;i++){//在Excel中写行
+
+                var offset = 0 ;
+
+                for (j=0;j<totleLie;j++){//在Excel中写列
+
+//定义格式
+
+                    var obj = table.rows(i).cells(j) ;
+
+                    if(obj == null) continue ;
+
+                    if( obj.nodeName=="TH"){
+
+                        if(obj.colSpan==1 && obj.rowSpan==1){
+
+                            do{
+
+                                oSheet.Cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
+
+                                offset++ ;
+
+                            }while(oSheet.Cells(i+1,offset).value==null)
+
+                            oSheet.Cells(i+1,offset).HorizontalAlignment = 3;
+
+                            oSheet.Cells(i+1,offset).NumberFormatLocal = "@";//将单元格的格式定义为文本
+
+                            oSheet.Cells(i+1,offset).Font.Bold = true;//加粗
+
+                            oSheet.Cells(i+1,offset).Font.Size = 10;//字体大小
+
+                        }else{
+
+                            do{
+
+                                oSheet.cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;
+
+//offset = offset + obj.colSpan;
+
+                                offset++;
+
+                            }while(oSheet.Cells(i+1,offset).value==null)
+
+                            oSheet.Range(oSheet.cells(i+1,offset),oSheet.cells(i+ obj.rowSpan,offset+obj.colSpan -1)).Select();
+
+                            oXL.Selection.HorizontalAlignment = 3;
+
+                            oXL.Selection.MergeCells = true;
+
+                            oXL.Selection.Font.Bold = true;//加粗
+
+                            oXL.Selection.Font.Size = 10;//字体大小
+
+                        }
+
+                    }else{
+
+                        oSheet.Cells(i+1,j+1).NumberFormatLocal = "@";//将单元格的格式定义为文本
+
+//oSheet.Cells(i+1,j+1).Font.Bold = true;//加粗
+
+                        oSheet.Cells(i+1,j+1).Font.Size = 10;//字体大小
+
+                        oSheet.Cells(i+1,j+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
+
+                    }
+
+                }
+
+            }
+
+            var xlDiagonalDown = 5 ;
+
+            var xlDiagonalUp = 6 ;
+
+            var xlEdgeBottom = 9 ;
+
+            var xlEdgeLeft = 7 ;
+
+            var xlEdgeRight = 10 ;
+
+            var xlEdgeTop = 8 ;
+
+            var xlInsideHorizontal = 12 ;
+
+            var xlInsideVertical = 11 ;
+
+            var xlNone = -4142 ;
+
+            var xlContinuous = 1	;
+
+            var xlThin = 2 ;
+
+            oSheet.Range(oSheet.cells(1,1),oSheet.cells(hang,totleLie)).Select();
+
+            oXL.Selection.Borders(xlDiagonalDown).LineStyle = xlNone;
+
+            oXL.Selection.Borders(xlDiagonalUp).LineStyle = xlNone;
+
+            oXL.Selection.Borders(xlEdgeLeft).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlEdgeLeft).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlEdgeLeft).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlEdgeLeft).Weight = xlThin;
+
+            oXL.Selection.Borders(xlEdgeTop).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlEdgeTop).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlEdgeTop).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlEdgeTop).Weight = xlThin;
+
+            oXL.Selection.Borders(xlEdgeBottom).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlEdgeBottom).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlEdgeBottom).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlEdgeBottom).Weight = xlThin;
+
+            oXL.Selection.Borders(xlEdgeRight).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlEdgeRight).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlEdgeRight).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlEdgeRight).Weight = xlThin;
+
+            oXL.Selection.Borders(xlInsideVertical).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlInsideVertical).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlInsideVertical).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlInsideVertical).Weight = xlThin;
+
+            oXL.Selection.Borders(xlInsideHorizontal).LineStyle = xlContinuous;
+
+            oXL.Selection.Borders(xlInsideHorizontal).ColorIndex = 0;
+
+            oXL.Selection.Borders(xlInsideHorizontal).TintAndShade = 0;
+
+            oXL.Selection.Borders(xlInsideHorizontal).Weight = xlThin;
+
+            oXL.Visible = true;
+
+            oXL.UserControl = true;
+
+            oXL=null;
+
+        }
+
+    </SCRIPT>
+
+</HEAD>
+
+<BODY>
+
+<table border="0" width="300" id="data" bgcolor="black" cellspacing="1">
+
+    <thead>
+
+    <tr bgcolor="white">
+
+        <th colspan='3' rowspan="3">编号</th>
+
+        <th colspan='3'>姓名</th>
+
+        <th colspan='1' rowspan='2' >哈哈</th>
+
+        <th colspan='1' >哈哈</th>
+
+    </tr>
+
+    <tr bgcolor="white">
+
+        <th colspan='3' rowspan="2">编号</th>
+
+        <th>姓名</th>
+
+    </tr>
+
+    <tr bgcolor="white">
+
+        <th>姓名</th>
+
+        <th>true</th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    <tr bgcolor="white">
+
+        <td>0001</td>
+
+        <td>张三</td>
+
+        <td>22</td>
+
+        <td>女</td>
+
+        <td>0001</td>
+
+        <td>张三</td>
+
+        <td>22</td>
+
+        <td>女</td>
+
+    </tr>
+
+    <tr bgcolor="white">
+
+        <td>0002</td>
+
+        <td>李四</td>
+
+        <td>23</td>
+
+        <td>男</td>
+
+        <td>0002</td>
+
+        <td>李四</td>
+
+        <td>23</td>
+
+        <td>男</td>
+
+    </tr>
+
+    </tbody>
+
+</table>
+
+<br/>
+<input type="button" name="out_excel" onclick="AutoExcel();" value="导出到excel">
+<!--[if IE ]>
+
+
+
+<![endif]-->
+
+</BODY>
+
+</HTML>
