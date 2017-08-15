@@ -816,24 +816,6 @@ $(function(){
             bhrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
 
-        /*var prm = {
-            "gdCode2":filterInput[0],
-            "gdSt":realityStart,
-            "gdEt":realityEnd,
-            "bxKeshi":filterInput[1],
-            "wxKeshi":filterInput[4],
-            "gdZht":$('#gdzt').val(),
-            "pjRen":filterInput[6],
-            "shouliren": filterInput[8],
-            "userID":_userIdNum,
-            //故障位置
-            "gdLeixing":$('#rwlx').val(),
-            "wxRen":filterInput[7],
-            "wxdidian":filterInput[8],
-            "isCalcTimeSpan":1,
-            "userName":_userIdName,
-            "gdJJ":$('#gdlx').val()
-        }*/
         var prm2 ={
             gdCode2:$('#gdcode').val(),
             gdSt:slrealityStart,

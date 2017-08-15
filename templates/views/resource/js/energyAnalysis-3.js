@@ -752,6 +752,7 @@ function getOfficeData(){
 			myChart16.hideLoading();
 
 			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				myChart16.hideLoading();
 				allData = [];
 			}
 		}

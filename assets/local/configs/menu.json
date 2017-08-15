@@ -428,6 +428,14 @@
         "arg":"",
         "iconclass":""
       },
+      "未完成工单管理":{
+        "type":"0",
+        "content":"处理中工单",
+        "uri":"../gongdangunali/productionOrder-8.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "班组维修工作量统计报表":{
         "type":"0",
         "content":"部门维修工作量统计报表",
