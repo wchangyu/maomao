@@ -1,0 +1,78 @@
+.main-content-left {
+    border: 1px solid #ccc;
+    /* position: relative; */
+}
+
+#dateTables0_info{
+    display: none;
+}
+#dateTables0_wrapper{
+    width:90%;
+    margin:0 auto;
+}
+.tableCheck {
+    width: 18px;
+    height: 18px;
+}
+#dateTables0 .adjust-comment{
+    text-align:left !important;
+}
+table .adjust-comment{
+    text-align:left !important;
+}
+.dataTables_scrollBody{
+    border:1px solid #ccc ;
+    border-top:none;
+}
+table span {
+    display: block;
+    height: 21px;
+    vertical-align: middle;
+}
+font {
+    display: inline-block;
+    height: 16px;
+}
+
+span .pay-not1 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: red;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+
+span .pay-not2 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: green;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+span .pay-not0 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: black;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+#dateTables1_wrapper{
+    width:800px;
+}
+td span{
+    position:relative;
+    width:120px !important;
+    margin:0 auto;
+}
+body {
+    padding-right: 0 !important;
+}
+.dataTables_scrollHead {
+    border-right: none !important;
+}
