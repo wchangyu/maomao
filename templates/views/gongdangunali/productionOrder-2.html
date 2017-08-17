@@ -421,13 +421,6 @@
                                     </select>
                                 </div>
                             </li>
-                            <!--<li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">是否维保 *：</div>
-                                <div class="input-blockeds">
-                                    <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                    <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
-                                </div>
-                            </li>-->
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
@@ -527,7 +520,6 @@
                     <div class="table-block">
                         <div class="table-title">
                             <span class="spanhover">执行人员</span>
-                            <span>维修材料</span>
                         </div>
                         <div>
                             <div class="tableHover">
@@ -540,24 +532,9 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <table class="table table-hover" id="personTable1">
+                                <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTable1">
                                     <thead>
                                     </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                            <div class="tableHover" style="display: none;">
-                                <ul class="condition-query" style="margin-left: 10px;">
-                                    <li style="width: 133px;">
-                                        <div class="cont-col1" style="cursor: pointer">
-                                            <div class="label label-sm label-warning tianJiaCaiLiao" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <table class="table table-hover" id="personTables1">
-                                    <thead></thead>
                                     <tbody></tbody>
                                 </table>
                             </div>
@@ -687,143 +664,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm addZXR">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框添加维修材料-->
-    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 308px;">
-            <div class="modal-content" style="height: 308px;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabe3">操作维修材料</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="gongdanContent" style="height: 155px;">
-                            <ul class="gongdanList" id="weiXiuCaiLiao">
-                                <validator name="validation">
-                                    <form novalidate>
-                                        <li class="floatLeft">
-                                            <div class="labels">物品编码：<span v-if="$validation.wpbm.persons">物品编码不能为空</span></div>
-                                            <div class="input-blockeds">
-                                                <input type="text" v-model="wpbm" class="wpbm" placeholder="点击选择物料编码" v-validate:wpbm="['persons']" initial='off'>
-                                            </div>
-                                        </li>
-                                        <li class="floatRight">
-                                            <div class="labels">物品名称：<span v-if="$validation.wpmc.persons">物品名称不能为空</span></div>
-                                            <div class="input-blockeds">
-                                                <input type="text" v-model="wpmc" placeholder="选择物料编码自动填写名称" disabled="disabled" v-validate:wpmc="['persons']" initial='off'>
-                                            </div>
-                                        </li>
-                                        <li class="floatLeft">
-                                            <div class="labels">数量：<span v-if="$validation.wpsl.persons">物品数量不能为空</span></div>
-                                            <div class="input-blockeds">
-                                                <input type="text" v-model="wpsl" v-validate:wpsl="['persons']" initial='off'>
-                                            </div>
-                                        </li>
-                                        <li class="floatRight">
-                                            <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
-                                                <span>该物料信息已存在</span>
-                                            </div>
-                                        </li>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </validator>
-                            </ul>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary secondButtons">确定</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-<!--选择物料-->
-<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 520px;">
-        <div class="modal-content" style="height: 520px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">操作维修材料</h4>
-            </div>
-            <div class="modal-body">
-                <div class="gongdanContent" style="height: 360px;">
-                    <ul class="gongdanList">
-                        <li class="floatLeft">
-                            <div class="labels">物品编码：</div>
-                            <div class="input-blockeds">
-                                <input type="text" id="wpbms">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <div class="labels">物品名称：</div>
-                            <div class="input-blockeds">
-                                <input type="text" id="wpmcs">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels">分类名称：</div>
-                            <div class="input-blockeds">
-                                <input type="text" id="flmcs">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <button type="button" class="btn btn-success tianJiaSelect" style="margin-top: 27px;">查询</button>
-                            <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
-                                <span>该物料已存在</span>
-                            </div>
-                        </li>
-                        <div class="clearfix"></div>
-                    </ul>
-                    <table id="weiXiuCaiLiaoTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm addWL">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--删除物料提示框-->
-<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 282px;">
-        <div class="modal-content" style="height: 282px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">确定要删除吗？</h4>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li class="floatLeft">
-                        <div class="labels">物品编码：</div>
-                        <div class="input-blockeds">
-                            <input type="text" class="wpbms">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">物品名称：</div>
-                        <div class="input-blockeds">
-                            <input type="text" class="wpmcs">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">数量：</div>
-                        <div class="input-blockeds">
-                            <input type="text" class="flmcs">
-                        </div>
-                    </li>
-                    <div class="clearfix"></div>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm removeButton">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

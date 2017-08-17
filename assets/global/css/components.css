@@ -13703,3 +13703,12 @@ Transparent Button
   background: transparent;
   color: #888;
 }
+
+
+/*南昌标题修改*/
+/*.page-logo a img{
+  height:100% !important;
+}
+.totalTitle{
+  display: none !important;
+}*/
