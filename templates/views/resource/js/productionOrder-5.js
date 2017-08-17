@@ -272,20 +272,16 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'材料分析',
+                title:'备件编码',
                 data:'wxCl'
             },
             {
-                title:'维修材料',
+                title:'备件名称',
                 data:'wxClName'
             },
             {
                 title:'数量',
                 data:'clShul'
-            },
-            {
-                title:'使用人',
-                data:' '
             }
         ]
     });

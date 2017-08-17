@@ -81,18 +81,6 @@ $(function(){
             }
         }
     });
-    //点击确定，自动填写物料编码和名称
-    var _wlBM = '';
-    var _wlMC = '';
-    //添加物料信息
-    var wuLiaoInfo = new Vue({
-        el:'#weiXiuCaiLiao',
-        data:{
-            wpbm:'',
-            wpmc:'',
-            wpsl:''
-        }
-    })
     var _zhixingRenTable = $('#zhixingRenTable');
     //存储所有执行人的数组
     var _allZXRArr = [];
@@ -114,8 +102,6 @@ $(function(){
     var _upDateStateFlag = false;
     //工人状态更新成功标识
     var _workerFlag = false;
-    //物料状态更新成功标识
-    var _WLFlag = false;
     //标记部门是默认的还是手动选择的，如果是默认的话1，手动选择为2
     var _autoOrHand = 1;
     //保存所有设备部门的数组
@@ -308,50 +294,6 @@ $(function(){
     //添加表头复选框
     var creatCheckBox = '<input type="checkbox">';
     $('thead').find('.checkeds').prepend(creatCheckBox);
-    //材料表格
-    var col4 = [
-        {
-            title:'物料编码',
-            data:'wxCl',
-            className:'wxCl'
-        },
-        {
-            title:'物料名称',
-            data:'wxClName',
-            className:'wxClName'
-        },
-        {
-            title:'数量',
-            data:'clShul',
-            className:'clShul'
-        },
-        {
-            title:'操作',
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
-
-        }
-    ];
-    tableInit($('#personTables1'),col4);
-    //增加材料表格
-    var col5 = [
-        {
-            title:'分类名称',
-            data:'cateName'
-        },
-        {
-            title:'物料编码',
-            data:'itemNum',
-            className:'wlbm'
-        },
-        {
-            title:'物料名称',
-            data:'itemName',
-            className:'wlmc'
-        }
-    ];
-    tableInit($('#weiXiuCaiLiaoTable'),col5);
     //快速添加工单
     //执行人员表格
     var col6 = [
@@ -469,7 +411,6 @@ $(function(){
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料
-                    //_zhixingRens = result.wxRens;
                     _zhixingRens = [];
                     for(var i=0;i<result.wxRens.length;i++){
                         var obj = {};
@@ -478,7 +419,6 @@ $(function(){
                         obj.mobile = result.wxRens[i].wxRDh;
                         _zhixingRens.push(obj);
                     }
-                    _weiXiuCaiLiao = result.wxCls;
                     //添加后的执行人员
                     if(_zhixingRens.length == 0){
                         var table = $("#personTable1").dataTable();
@@ -489,8 +429,7 @@ $(function(){
                         table.fnAddData(_zhixingRens);
                         table.fnDraw();
                     }
-                    //添加后的维修材料
-                    datasTable($("#personTables1"),_weiXiuCaiLiao)
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -597,15 +536,6 @@ $(function(){
         }
     }
     /*----------------------------------按钮触发的事件-----------------------------*/
-    //弹窗切换表格效果
-    $('.table-title span').click(function(){
-        var $this = $(this);
-        $this.parent('.table-title').children('span').removeClass('spanhover');
-        $this.addClass('spanhover');
-        var tableContent = $this.parent('.table-title').next().children('.tableHover');
-        tableContent.hide();
-        tableContent.eq($(this).index()).show();
-    });
     //查询按钮功能
     $('#selected').click(function(){
         //判断起止时间是否为空
@@ -654,14 +584,8 @@ $(function(){
                 upDateWXRemark();
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR');
-                //材料添加
-                if( _weiXiuCaiLiao.length >0){
-                    CaiLiao('YWGD/ywGDAddWxCl');
-                }else{
-                    _WLFlag = true;
-                }
                 //根据状态提示
-                if( _workerFlag && _WLFlag && _wxBZFlag && _reSendFlag ){
+                if( _workerFlag && _wxBZFlag && _reSendFlag ){
                     $('#myModal4').find('.modal-body').html('工单分派成功！');
                     moTaiKuang($('#myModal4'),'flag');
                     $('#myModal').modal('hide');
@@ -671,11 +595,6 @@ $(function(){
                         str += '执行人添加失败，'
                     }else{
                         str += '执行人添加成功，'
-                    }
-                    if( _WLFlag == false ){
-                        str += '维修材料添加失败，'
-                    }else{
-                        str += '维修材料添加成功，'
                     }
                     if( _wxBZFlag == false ){
                         str += '维修内容修改失败，'
@@ -696,16 +615,10 @@ $(function(){
                 upDateWXRemark();
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR');
-                //材料添加
-                if( _weiXiuCaiLiao.length >0){
-                    CaiLiao('YWGD/ywGDAddWxCl');
-                }else{
-                    _WLFlag = true;
-                }
                 //更新状态
                 upDate();
                 //根据状态提示
-                if( _workerFlag && _WLFlag && _wxBZFlag && _upDateStateFlag ){
+                if( _workerFlag  && _wxBZFlag && _upDateStateFlag ){
                     $('#myModal4').find('.modal-body').html('工单分派成功！');
                     moTaiKuang($('#myModal4'),'flag');
                     $('#myModal').modal('hide');
@@ -715,11 +628,6 @@ $(function(){
                         str += '执行人添加失败，'
                     }else{
                         str += '执行人添加成功，'
-                    }
-                    if( _WLFlag == false ){
-                        str += '维修材料添加失败，'
-                    }else{
-                        str += '维修材料添加成功，'
                     }
                     if( _wxBZFlag == false ){
                         str += '维修内容修改失败，'
@@ -921,97 +829,7 @@ $(function(){
         _zhixingRens.removeByValue($thisBM,'userNum');
         datasTable($('#personTable1'),_zhixingRens);
     });
-    /*----------------------------------添加材料功能材料----------------------------------------*/
-    //点击选择材料按钮
-    $('.tianJiaCaiLiao').click(function(){
-        moTaiKuang($('#myModal3'));
-        //初始化
-        wuLiaoInfo.wpbm = '';
-        wuLiaoInfo.wpmc = '';
-        wuLiaoInfo.wpsl = '';
-        $('.exists').hide();
-    })
 
-    //物料列表条件查询
-    $('.tianJiaSelect').click(function(){
-        getWP();
-    })
-
-    //选择物料信息
-    $('.wpbm').click(function(){
-        moTaiKuang($('#myModal5'));
-        //标识已选的物品（改变背景色）
-        getWP();
-        var fn1 = function( row, data, index ) {
-            for(var i=0;i<_weiXiuCaiLiao.length;i++){
-                if(data.itemNum == _weiXiuCaiLiao[i].wxCl){
-                    $('td:eq(0)', row).parents('tr').addClass('pink');
-                }
-            }
-
-        }
-        tableInit($('#weiXiuCaiLiaoTable'),col5,fn1);
-    })
-
-    //点击第二层弹窗的确定，给第一个弹窗的表格赋值
-    $('.secondButtons').click(function(){
-        //获取填写的信息
-        var obj = {};
-        obj.wxClID = 0,
-        obj.wxCl = wuLiaoInfo.wpbm,
-        obj.wxClName = wuLiaoInfo.wpmc,
-        obj.clShul = wuLiaoInfo.wpsl
-        //判断是否是重复的
-        if(_weiXiuCaiLiao.length == 0){
-            _weiXiuCaiLiao.push(obj);
-            $('#myModal3').modal('hide');
-            datasTable($("#personTables1"),_weiXiuCaiLiao);
-        }else{
-            var flag = false;
-            for(var i=0;i<_weiXiuCaiLiao.length;i++){
-                if(_weiXiuCaiLiao[i].wxCl == obj.wxCl){
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag){
-                $('.exists').show();
-            }else{
-                $('.exists').hide();
-                _weiXiuCaiLiao.push(obj);
-                $('#myModal3').modal('hide');
-                //传回给第一个弹框的表格
-                datasTable($("#personTables1"),_weiXiuCaiLiao);
-            }
-        }
-    });
-
-    $('#weiXiuCaiLiaoTable tbody').on('click','tr',function(){
-        var $this = $(this);
-        var tableTr = $this.parents('.table').find('tr');
-        tableTr.css('background','#ffffff');
-        $this.css('background','#FBEC88');
-        _wlBM = $this.children('.wlbm').html();
-        _wlMC = $this.children('.wlmc').html();
-    });
-
-    //点击确定选择的物料编码和名称
-    $('.addWL').click(function(){
-        wuLiaoInfo.wpbm = _wlBM;
-        wuLiaoInfo.wpmc = _wlMC;
-    })
-    //材料表格删除按钮
-    $('#personTables1 tbody').on('click','.tableDeleted',function(){
-        var $this = $(this).parents('tr');
-        moTaiKuang($('#myModal6'));
-        $('.wpbms').val($this.children('.wxCl').html());
-        $('.wpmcs').val($this.children('.wxClName').html());
-        $('.flmcs').val($this.children('.clShul').html());
-    });
-    $('#myModal6').on('click','.removeButton',function(){
-            _weiXiuCaiLiao.removeByValue($('.wpbms').val(),"wxCl");
-            datasTable($('#personTables1'),_weiXiuCaiLiao);
-    })
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
     //模态框自适应
     function moTaiKuang(who,flag){

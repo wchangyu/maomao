@@ -1,4 +1,15 @@
 $(function(){
+
+    var _ajaxEndTime = moment().format("YYYY/MM/DD");
+
+    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+
+    //日期插件
+    $('.datetimeStart').html(_ajaxStartTime);
+    $('.datetimeEnd').html(_ajaxEndTime);
+    $('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
+
+
     //目的：描绘区域位置树、报警类型树，能耗种类树，时间选择
     /*-----------------------全局变量-------------------------*/
     var _url = sessionStorage.apiUrlPrefix;
@@ -33,9 +44,11 @@ $(function(){
     /*-------------------------时间------------------------*/
     //显示时间
     //显示开始结束时间，
-    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+
 
     var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
+
+
 
     var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
 
@@ -318,6 +331,8 @@ $(function(){
         //获得选中的楼宇的信息；
         _pointer_ID = _objectSel.getSelectedPointers();
 
+        console.log(_pointer_ID);
+
         _energy_ID =  getNodeInfo(_energy,_energy_ID);
 
         _alarm_ID = getNodeInfo(_alarm,_alarm_ID);
@@ -560,10 +575,13 @@ $(function(){
     function alarmHistory(){
         var pointer = [];
         var energy = '';
-        var alarm = ''
-        if( _pointer_ID[0].pointerID == '0'){
-            pointer = [0];
+        var alarm = '';
+        for(var i=0; i<_pointer_ID.length; i++){
+            pointer.push(_pointer_ID[i].pointerID);
         }
+        //if( _pointer_ID[0].pointerID == '0'){
+        //    pointer = [0];
+        //}
         if(_alarm_ID.length !=0){
             alarm = _alarm_ID[0].id;
             if( _alarm_ID[0].id=='000' ){

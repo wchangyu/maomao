@@ -532,7 +532,7 @@ function getMainData(){
                 $(dataArr).each(function(i,o){
 
 
-                    sArr.push((o.data * 100000).toFixed(2));
+                    sArr.push((o.data).toFixed(2));
 
                 });
                 //显示数据

@@ -1,0 +1,114 @@
+.main-content-left {
+    border: 1px solid #ccc;
+    /* position: relative; */
+}
+
+#dateTables0_info{
+    display: none;
+}
+#dateTables0_wrapper{
+    width:90%;
+    margin:0 auto;
+}
+.tableCheck {
+    width: 18px;
+    height: 18px;
+}
+#dateTables0 .adjust-comment{
+    text-align:left !important;
+}
+table .adjust-comment{
+    text-align:left !important;
+}
+.main-content-left .dataTables_scrollBody{
+    border:1px solid #ccc ;
+    border-top:none;
+}
+table span {
+    display: block;
+    height: 21px;
+   line-height:21px;
+}
+font {
+    display: inline-block;
+    height: 16px;
+}
+
+span .pay-not1 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: red;
+    margin-right: 5px;
+
+}
+
+span .pay-not2 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: green;
+    margin-right: 5px;
+
+
+}
+span .pay-not0 {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: black;
+    margin-right: 5px;
+
+}
+
+/**查看详情弹窗*!*/
+.tabs a {
+    width:19% !important;
+}
+
+.swiper-container {
+    width: 97%;
+    border: 1px solid #c1c6ce;
+}
+.tabs{
+    width: 97%;
+    margin:0 auto;
+}
+.ament-data {
+    padding-left: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.ament-data span{
+    display: inline-block;
+    width:80px;
+}
+
+#show-details1 .inner-input label {
+    width: 135px;
+    text-align: left;
+    padding-left: 20px;
+    margin-right:10px;
+}
+#show-details1 .inner-input {
+    margin-left: 0px;
+    margin-bottom:8px;
+}
+#dateTables2_info{
+    display: none;
+}
+td span{
+    position:relative;
+    width:120px !important;
+    margin:0 auto;
+}
+body {
+    padding-right: 0 !important;
+}
+#dateTables0_wrapper .dataTables_scrollHead {
+    border-right: 0 !important;
+}

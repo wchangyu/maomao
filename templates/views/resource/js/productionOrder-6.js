@@ -27,8 +27,8 @@ $(function(){
     var bhrealityStart = moment($('datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
     var bhrealityEnd = moment($('datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
     //闭环时间
-    $('.datatimeblock').eq(2).val(_initStart);
-    $('.datatimeblock').eq(3).val(_initEnd);
+    //$('.datatimeblock').eq(2).val(_initStart);
+   // $('.datatimeblock').eq(3).val(_initEnd);
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -325,20 +325,16 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'材料分析',
+                title:'备件编码',
                 data:'wxCl'
             },
             {
-                title:'维修材料',
+                title:'备件名称',
                 data:'wxClName'
             },
             {
                 title:'数量',
                 data:'clShul'
-            },
-            {
-                title:'使用人',
-                data:' '
             }
         ]
     });
@@ -567,7 +563,6 @@ $(function(){
             var gdInfo = {
                 "gdCode": gdCodes,
                 "gdZht": htState,
-                "wxKeshi": "",
                 "userID": _userIdNum,
                 'userName':_userIdName
             }
@@ -795,28 +790,27 @@ $(function(){
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
-        slrealityStart = moment($('.datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
-        slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        bhrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
-        bhrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        /*var prm = {
-            "gdCode2":filterInput[0],
-            "gdSt":realityStart,
-            "gdEt":realityEnd,
-            "bxKeshi":filterInput[1],
-            "wxKeshi":filterInput[4],
-            "gdZht":$('#gdzt').val(),
-            "pjRen":filterInput[6],
-            "shouliren": filterInput[8],
-            "userID":_userIdNum,
-            //故障位置
-            "gdLeixing":$('#rwlx').val(),
-            "wxRen":filterInput[7],
-            "wxdidian":filterInput[8],
-            "isCalcTimeSpan":1,
-            "userName":_userIdName,
-            "gdJJ":$('#gdlx').val()
-        }*/
+        if($('.datatimeblock').eq(0).val() == ''){
+            slrealityStart = ''
+        }else{
+            slrealityStart = moment($('.datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(1).val() == ''){
+            slrealityEnd = ''
+        }else{
+            slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(2).val() == ''){
+            bhrealityStart = ''
+        }else{
+            bhrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(3).val() == ''){
+            bhrealityEnd = ''
+        }else{
+            bhrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+
         var prm2 ={
             gdCode2:$('#gdcode').val(),
             gdSt:slrealityStart,

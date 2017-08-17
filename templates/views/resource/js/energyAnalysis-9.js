@@ -1,4 +1,7 @@
 $(function(){
+	//日期插件
+	$('.datetimeStart').html(_ajaxStartTime);
+	$('.datetimeEnd').html(_ajaxEndTime);
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime_1 +'到'+_ajaxStartTime_1));
 
 	_objectSel = new ObjectSelection();
@@ -11,80 +14,10 @@ $(function(){
 	var objSearchs = new ObjectSearch();
 	objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 	//日历格式初始化
-	initDate();
+	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
-		var inputValue;
 		dataType();
-		inputValue = $('#datetimepicker').val();
-
-		if(_ajaxDataType=="日"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('day');
-			var startDay= now.format("YYYY-MM-DD");
-			var endDay= now.add(1,'d').format("YYYY-MM-DD");
-			_ajaxStartTime=startDay;
-			_ajaxDataType_1='小时';
-			var end=startDay + "到" +startDay;
-			var aa = $('.datetimepickereType').text();
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-		}else if(_ajaxDataType=="周"){
-			var now = moment(inputValue).startOf('week');
-			var nowStart = now.add(1,'d').format("YYYY-MM-DD");
-			var nowEnd = now.add(6,'d').format("YYYY-MM-DD");
-			var startWeek = now.add(1,'d').format("YYYY-MM-DD");
-			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =nowStart + "到" + nowEnd;
-			_ajaxDataType_1='日'
-			//通过查找arr，判断目前选的与数组里的是不是重复
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startWeek;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-		}else if(_ajaxDataType=="月"){
-			var now = moment(inputValue).startOf('month');
-			var nows = moment(inputValue).endOf('month');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startMonth = now.format("YYYY-MM-DD");
-			var endMonth = nows.add(1,'d').format("YYYY-MM-DD");
-			end =nowStart + "到" + nowEnd;
-			_ajaxDataType_1='日';
-
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startMonth;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-		}else if(_ajaxDataType=="年"){
-			var now = moment(inputValue).startOf('year');
-			var nows = moment(inputValue).endOf('year');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startYear = now.format("YYYY-MM-DD");
-			var endYear = nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "到" + nowEnd;
-			_ajaxDataType_1='月'
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startYear;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-		}
-		$('.datetimepickereType').delegate('.selectTime','click',function(){
-			//点击删除选中的时间，相应的数组也要删除；
-			$(this).remove();
-		})
+		_selectTime();
 	});
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
@@ -155,17 +88,6 @@ $(function(){
 	$('.page-title').append(smalls);
 	setEnergyInfos();
 	$('small').html(pointerNames);
-	$('.types').change(function(){
-		var bbaa = $('.types').find('option:selected').val();
-		if(bbaa == '月'){
-			monthDate();
-		}else if(bbaa == '年'){
-			yearDate();
-		}else{
-			initDate();
-		}
-		$('.datetimepickereType').empty();
-	})
 	$('.btn').click(function(){
 		myChart11 = echarts.init(document.getElementById('rheader-content-14'));
 		getEcType();
@@ -215,37 +137,45 @@ var _ajaxEcType="01";
 function getEcType(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		aaa.push(jsonText.alltypes[i].etid)
+	if(jsonText){
+		for(var i=0;i<jsonText.alltypes.length;i++){
+			aaa.push(jsonText.alltypes[i].etid)
+		}
+		_ajaxEcType = aaa[$('.selectedEnergy').index()];
 	}
-	_ajaxEcType = aaa[$('.selectedEnergy').index()];
+
 }
 //设置getECType的初始值(文字，office时用);
 var _ajaxEcTypeWord="电";
 function getEcTypeWord(){
 	var aaa =[];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		aaa.push(jsonText.alltypes[i].etname);
+	if(jsonText){
+		for(var i=0;i<jsonText.alltypes.length;i++){
+			aaa.push(jsonText.alltypes[i].etname);
+		}
+		_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
 	}
-	_ajaxEcTypeWord = aaa[$('.selectedEnergy').index()];
 }
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		if(jsonText.alltypes[i].etid == _ajaxEcType){
-			$('#th0').html('对比对象');
-			$('.ths').html('出现时刻');
-			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
-			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
-			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
-			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
-			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
-			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
-			$('.header-one').html(jsonText.alltypes[i].etname);
+	if(jsonText){
+		for(var i=0;i<jsonText.alltypes.length;i++){
+			if(jsonText.alltypes[i].etid == _ajaxEcType){
+				$('#th0').html('对比对象');
+				$('.ths').html('出现时刻');
+				$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+				$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+				$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+				$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
+				$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+				$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+				$('.header-one').html(jsonText.alltypes[i].etname);
+			}
 		}
 	}
+
 }
 //获取dataType
 var _ajaxDataType='日';
@@ -255,7 +185,8 @@ function dataType(){
 	_ajaxDataType=dataType;
 }
 //设置开始和结束初始值
-var _ajaxStartTime=moment().format("YYYY/MM/DD");
+var _ajaxStartTime=moment().format("YYYY-MM-DD");
+var _ajaxEndTime = moment().format("YYYY-MM-DD");
 var _ajaxStartTime_1=moment().subtract(1,'d').format("YYYY-MM-DD");
 var _ajaxEndTime_1=moment().add(1,'d').format("YYYY-MM-DD");
 //选中时间处理
@@ -299,20 +230,10 @@ function _ajaxGetPointers(){
 	//存放要传的楼宇集合
 	var postPointerID = [];
 
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+	$(pts).each(function(i,o){
 
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
-	if(pointerID == 0){
-		$(nodes1).each(function(i,o){
-
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID.push(pointerID)
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	timeDisposal();
 	var allBranch=[];
@@ -637,38 +558,4 @@ function unitConversion(num){
 	}else{
 		return num.toFixed(2);
 	}
-}
-//月的时间初始化
-function monthDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 1,
-		maxViewMode: 2,
-		minViewMode:1,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//年的时间初始化
-function yearDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 2,
-		maxViewMode: 2,
-		minViewMode:2,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//一般时间初始化
-function initDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	)
 }

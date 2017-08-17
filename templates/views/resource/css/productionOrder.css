@@ -92,20 +92,26 @@
 }
 /*表格部分*/
 .table-block{
-    padding-top: 10px;
+    margin-top: 10px;
     position: relative;
+    border: 1px solid #cccccc;
+    border-top: none;
+}
+.tableHover table{
+    border-left: none !important;
+    border-right: none !important;
 }
 .table-title{
     padding: 10px;
     padding-left: 0;
     border-bottom: 1px solid #cccccc;
     height: 38px;
+    border-right: none;
 }
 .table-title span{
     padding: 10px;
     cursor: pointer;
     background: #f5f5f5;
-    border-left:1px solid #cccccc;
     border-right: 1px solid #cccccc;
     border-top: 1px solid #cccccc;
     line-height: 19px;
@@ -116,9 +122,6 @@
 .tableHover{
     background: #ffffff;
     width: 100% !important;
-    border: 1px solid #cccccc;
-    border-top: none;
-    float: left;
 }
 /*进度条*/
 .progressBar{
@@ -413,4 +416,33 @@ table.dataTable.table-condensed > thead > tr > th{
     border-top: none;
     display: none;
     height: 265px;
+}
+.wxcl-title{
+    line-height: 30px;
+    background: #f6f6f6;
+    border-bottom: 2px solid #848484;
+}
+.deal-with{
+    margin: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+}
+.deal-with-list{
+    padding: 10px;
+}
+.deal-with-list li{
+    margin: 5px 0;
+}
+.list-dot{
+    display: inline-block;
+    vertical-align: middle;
+    width: 5px;
+    height: 5px;
+    background: #666;
+    border-radius: 50% !important;
+    margin-right: 10px;
+}
+textarea{
+    resize: none;
 }

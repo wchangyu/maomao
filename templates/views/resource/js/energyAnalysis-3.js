@@ -345,6 +345,7 @@ function getPointerData(){
 	var totalAllDatass;
 	//确定楼宇id
 	var pts = _objectSel.getSelectedPointers(),pointerID;
+
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
@@ -354,20 +355,10 @@ function getPointerData(){
 	//存放要传的楼宇集合
 	var postPointerID = [];
 
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+	$(pts).each(function(i,o){
 
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
-	if(pointerID == 0){
-		$(nodes1).each(function(i,o){
-
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID.push(pointerID)
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	//定义获得本期数据的参数
 	var ecParams = {
@@ -748,7 +739,7 @@ function getOfficeData(){
 		data:ecParams,
 		async:false,
 		beforeSend:function(){
-			_myChart.showLoading({
+			myChart16.showLoading({
 				text:'获取数据中',
 				effect:'whirling'
 			})
@@ -758,7 +749,10 @@ function getOfficeData(){
 		},
 		error:function(jqXHR, textStatus, errorThrown){
 			console.log(JSON.parse(jqXHR.responseText).message);
+			myChart16.hideLoading();
+
 			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				myChart16.hideLoading();
 				allData = [];
 			}
 		}
@@ -1017,5 +1011,5 @@ function getOfficeData(){
 	option14.series[1].data[0] = totalAllData;
 	option14.series[1].data[1] = totalAllDatass;
 	myChart16.setOption(option14);
-
+	myChart16.hideLoading();
 }

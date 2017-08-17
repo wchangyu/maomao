@@ -228,20 +228,10 @@ function getPointerDatas(){
 	//存放要传的楼宇集合
 	var postPointerID = [];
 
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
+	$(pts).each(function(i,o){
 
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
-	if(pointerID == 0){
-		$(nodes1).each(function(i,o){
-
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID.push(pointerID)
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	var ecParams = {
 		ecTypeId : _ajaxEcType,

@@ -1,4 +1,7 @@
 $(function(){
+	//日期插件
+	$('.datetimeStart').html(_ajaxStartTime);
+	$('.datetimeEnd').html(_ajaxEndTime);
 	$('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
 	//读取能耗种类
 	_energyTypeSel = new ETSelection();
@@ -36,102 +39,10 @@ $(function(){
 		$(this).addClass('selectedEnergy');
 	});
 	//日历格式初始化
-	initDate();
-	$('.types').change(function(){
-		var bbaa = $('.types').find('option:selected').val();
-		if(bbaa == '月'){
-			monthDate();
-		}else if(bbaa == '年'){
-			yearDate();
-		}else{
-			initDate();
-		}
-		$('.datetimepickereType').empty();
-	})
+	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		inputValue = $('#datetimepicker').val();
-		if(_ajaxDataType=="日"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('day');
-			var startDay = now.format("YYYY-MM-DD");
-			var endDay = now.add(1,'d').format("YYYY-MM-DD");
-			_ajaxStartTime=startDay;
-			_ajaxDataType_1='小时';
-			var end=startDay + "-" +startDay;
-			var aa = $('.datetimepickereType').text();
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startDay.split('-');
-			var endSplit = endDay.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}else if(_ajaxDataType=="周"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('week');
-			//页面显示时间
-			var nowStart = now.add(1,'d').format("YYYY-MM-DD");
-			var endStart = now.add(6,'d').format("YYYY-MM-DD");
-			//实际计算开始结束时间
-			var startWeek = now.subtract(6,'d').format("YYYY-MM-DD");
-			var endWeek = now.add(7,'d').format("YYYY-MM-DD");
-			end =nowStart + "-" + endStart;
-			_ajaxDataType_1='日';
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startWeek;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startWeek.split('-');
-			var endSplit = endWeek.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}else if(_ajaxDataType=="月"){
-			var now = moment(inputValue).startOf('month');
-			var nows = moment(inputValue).endOf('month');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startMonth = now.format("YYYY-MM-DD");
-			var endMonth = nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "-" + nowEnd;
-			_ajaxDataType_1 = '日';
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime = startMonth;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startMonth.split('-');
-			var endSplit = endMonth.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}else if(_ajaxDataType=="年"){
-			var now = moment(inputValue).startOf('year');
-			var nows = moment(inputValue).endOf('year');
-			var nowStart = now.format("YYYY-MM-DD");
-			var nowEnd = nows.format("YYYY-MM-DD");
-			var startYear = now.format("YYYY-MM-DD");
-			var endYear = nows.add(1,'d').format("YYYY-MM-DD");
-			end = nowStart + "-" + nowEnd;
-			_ajaxDataType_1='月'
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startYear;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').html(end);
-				}
-			}
-			var startSplit = startYear.split('-');
-			var endSplit = endYear.split('-');
-			_ajaxStartTime_1 = startSplit[0] + '/' + startSplit[1] + '/' + startSplit[2];
-			_ajaxEndTime_1 = endSplit[0] + '/' + endSplit[1] + '/' + endSplit[2];
-		}
+		_selectTime();
 	});
 	//echarts
 	myChart36 = echarts.init(document.getElementById('energy-parts-total'));
@@ -305,6 +216,7 @@ function getEcType(){
 }
 //设置开始和结束初始值
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+var _ajaxEndTime = moment().subtract(1,'d').format("YYYY-MM-DD");
 var	_ajaxStartTime_1=moment().subtract(1,'d').format("YYYY/MM/DD");
 var _ajaxEndTime_1=moment().format("YYYY/MM/DD");
 //获取楼宇分项数据
@@ -321,29 +233,18 @@ function getPointerData(){
 	var pointerID = [];
 
 	//存放要传的楼宇集合
-	var postPointerID = [];
-
-	var treeObj = $.fn.zTree.getZTreeObj(_objectSel._$ulPointers.attr('id'));
-
-	var nodes1 = treeObj.getCheckedNodes(false).concat(treeObj.getCheckedNodes(true));
-
 	if(pts.length > 0){
 		pointerID = pts[0].pointerID;
 		pointerNames = pts[0].pointerName;
 	}
 	if(pointerID.length == 0) { return; }
 
-	if(pointerID[0] == 0){
+	var postPointerID = [];
 
-		$(nodes1).each(function(i,o){
+	$(pts).each(function(i,o){
 
-			postPointerID.push(o.pointerID);
-		})
-
-		postPointerID.pop();
-	}else{
-		postPointerID = pointerID;
-	}
+		postPointerID.push(o.pointerID)
+	});
 
 	var energyItemIds=['01','40','02','41','42'];
 	var waterArr =['211'];
@@ -406,14 +307,14 @@ function getPointerData(){
 				myChart40.hideLoading();
 			},
 			error:function(jqXHR, textStatus, errorThrown){
-				console.log(JSON.parse(jqXHR.responseText).message);
-				if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-					myChart36.hideLoading();
-					myChart37.hideLoading();
-					myChart38.hideLoading();
-					myChart39.hideLoading();
-					myChart40.hideLoading();
-				}
+				console.log(jqXHR.responseText);
+				//if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+				//	myChart36.hideLoading();
+				//	myChart37.hideLoading();
+				//	myChart38.hideLoading();
+				//	myChart39.hideLoading();
+				//	myChart40.hideLoading();
+				//}
 			}
 		})
 		for(z=0;z<nameArr.length;z++){
@@ -563,38 +464,4 @@ function getOfficeData(){
 		}
 	}
 
-}
-//月的时间初始化
-function monthDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 1,
-		maxViewMode: 2,
-		minViewMode:1,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//年的时间初始化
-function yearDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 2,
-		maxViewMode: 2,
-		minViewMode:2,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//一般时间初始化
-function initDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	)
 }

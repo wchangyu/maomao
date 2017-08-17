@@ -1,0 +1,47 @@
+#dateTables tr td {
+    text-align: left;
+    border: 1px solid grey;
+    vertical-align: middle;
+}
+#dateTables thead{
+    border: 1px solid;
+}
+#dateTables .diagonal{
+    background: url("../img/diagonal.png") no-repeat center #DDD;
+    background-size: 170% 230%;
+    width:150px;
+    height:82px;
+    padding: 0;
+    position: relative;
+}
+#dateTables .diagonal .top{
+    position: absolute;
+    left:90px;
+    top:15px;
+}
+#dateTables .diagonal .bottom{
+    position: absolute;
+    left:20px;
+    top:45px;
+}
+#dateTables{
+    border: 1px solid grey;
+}
+#dateTables tbody tr td {
+    height: auto;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid grey;
+}
+
+#dateTables_info{
+    display: none;
+}
+.top-message{
+    font-size:20px;
+    margin-bottom:10px;
+}
+.bottom-message{
+    font-size:18px;
+    margin-bottom:10px;
+}

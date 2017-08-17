@@ -1,4 +1,7 @@
 $(function(){
+	//日期插件
+	$('.datetimeStart').html(_ajaxStartTime);
+	$('.datetimeEnd').html(_ajaxEndTime);
 	$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(_ajaxStartTime +'到'+_ajaxStartTime));
 	//楼宇
 	getSessionStoragePointer();
@@ -16,92 +19,11 @@ $(function(){
 	treeObject();
 	//确定时间
 	//日历格式初始化
-	initDate();
+	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
-		var inputValue;
 		dataType();
-		inputValue = $('#datetimepicker').val();
-		if(_ajaxDataType=="日"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('day');
-			var startDay= now.format("YYYY-MM-DD");
-			var endDay= now.add(1,'d').format("YYYY-MM-DD");
-			_ajaxStartTime=startDay;
-			_ajaxDataType_1='小时';
-			var end=startDay + "到" +startDay;
-			var aa = $('.datetimepickereType').text();
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-			_ajaxStartTime_1=startDay.split('-')[0]+'/'+startDay.split('-')[1]+'/'+startDay.split('-')[2];
-			_ajaxEndTime_1=endDay.split('-')[0]+'/'+endDay.split('-')[1]+'/'+endDay.split('-')[2];
-		}else if(_ajaxDataType=="周"){
-			inputValue = $('#datetimepicker').val();
-			var now = moment(inputValue).startOf('week');
-			var startWeek=now.format("YYYY-MM-DD");
-			startWeek = now.add(1,'d').format("YYYY-MM-DD");
-			var endWeek = now.add(6,'d').format("YYYY-MM-DD");
-			end =startWeek + "到" +endWeek;
-			_ajaxDataType_1='日';
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startWeek;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-
-			_ajaxStartTime_1=startWeek.split('-')[0]+'/'+startWeek.split('-')[1]+'/'+startWeek.split('-')[2];
-			_ajaxEndTime_1=endWeek.split('-')[0]+'/'+endWeek.split('-')[1]+'/'+endWeek.split('-')[2];
-		}else if(_ajaxDataType=="月"){
-			var startMonth=moment(inputValue).startOf('month').format("YYYY-MM-DD");
-			var endMonth=moment(inputValue).endOf('month').format("YYYY-MM-DD");
-			end =startMonth+"到"+endMonth;
-			_ajaxDataType_1='日';
-
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startMonth;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-
-			_ajaxStartTime_1=startMonth.split('-')[0]+'/'+startMonth.split('-')[1]+'/'+startMonth.split('-')[2];
-			_ajaxEndTime_1=endMonth.split('-')[0]+'/'+endMonth.split('-')[1]+'/'+endMonth.split('-')[2];
-		}else if(_ajaxDataType=="年"){
-			var startYear=moment(inputValue).startOf('year').format("YYYY-MM-DD");
-			var endYear=moment(inputValue).endOf('year').format("YYYY-MM-DD");
-			end = startYear+"到"+endYear;
-			_ajaxDataType_1='月'
-			var aa = $('.datetimepickereType').text();
-			_ajaxStartTime=startYear;
-			if(_ajaxStartTime.match(/^((?:20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)){
-				if(aa.indexOf(end)<0){
-					$('.datetimepickereType').append($('<p class="selectTime" title="点击删除选项">').html(end));
-				}
-			}
-			_ajaxStartTime_1=startYear.split('-')[0]+'/'+split('-')[1]+'/'+split('-')[2];
-			_ajaxEndTime_1=endYear.split('-')[0]+'/'+endYear.split('-')[1]+'/'+endYear.split('-')[2];
-		}
-		$('.datetimepickereType').delegate('.selectTime','click',function(){
-			$(this).remove();
-		})
-	})
-	//监测每次的select值，将选项清零
-	$('.types').change(function(){
-		var bbaa = $('.types').find('option:selected').val();
-		if(bbaa == '月'){
-			monthDate();
-		}else if(bbaa == '年'){
-			yearDate();
-		}else{
-			initDate();
-		}
-		$('.datetimepickereType').empty();
-	})
+		_selectTime();
+	});
 	//echarts
 	myChart11 = echarts.init(document.getElementById('rheader-content-14'));
 	option11 = {
@@ -194,11 +116,13 @@ window.onresize = function () {
 function getSessionStoragePointer(){
 	var jsonText1=sessionStorage.getItem('pointers');
 	var htmlTxet1 = JSON.parse(jsonText1);
-	var _allSter1 ='<option value="'+htmlTxet1[0].pointerID+'">'+htmlTxet1[0].pointerName+'</option>';
-	for(var i=1;i<htmlTxet1.length;i++){
-		_allSter1 +='<option value="'+htmlTxet1[i].pointerID+'">'+htmlTxet1[i].pointerName+'</option>';
+	if(htmlTxet1){
+		var _allSter1 ='<option value="'+htmlTxet1[0].pointerID+'">'+htmlTxet1[0].pointerName+'</option>';
+		for(var i=1;i<htmlTxet1.length;i++){
+			_allSter1 +='<option value="'+htmlTxet1[i].pointerID+'">'+htmlTxet1[i].pointerName+'</option>';
+		}
+		$('#selectPointer').append(_allSter1);
 	}
-	$('#selectPointer').append(_allSter1);
 }
 //初始化能耗种类
 var _ajaxEcType = '01';
@@ -208,27 +132,31 @@ function getEcType(){
 	var aaa =[];
 	var bbb = [];
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		aaa.push(jsonText.alltypes[i].etid);
-		bbb.push(jsonText.alltypes[i].etname);
+	if(jsonText){
+		for(var i=0;i<jsonText.alltypes.length;i++){
+			aaa.push(jsonText.alltypes[i].etid);
+			bbb.push(jsonText.alltypes[i].etname);
+		}
+		_ajaxEcType = aaa[$('.selectedEnergy').index()];
+		_itemName = bbb[$('.selectedEnergy').index()];
 	}
-	_ajaxEcType = aaa[$('.selectedEnergy').index()];
-	_itemName = bbb[$('.selectedEnergy').index()];
 }
 //根据当前选择的能耗类型设置页面信息
 function setEnergyInfos(){
 	var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
-	for(var i=0;i<jsonText.alltypes.length;i++){
-		if(jsonText.alltypes[i].etid == _ajaxEcType){
-			$('#th0').html('对比对象');
-			$('.ths').html('出现时刻');
-			$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
-			$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
-			$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
-			$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
-			$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
-			$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
-			$('.header-one').html(jsonText.alltypes[i].etname);
+	if(jsonText){
+		for(var i=0;i<jsonText.alltypes.length;i++){
+			if(jsonText.alltypes[i].etid == _ajaxEcType){
+				$('#th0').html('对比对象');
+				$('.ths').html('出现时刻');
+				$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+				$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+				$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+				$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
+				$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+				$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+				$('.header-one').html(jsonText.alltypes[i].etname);
+			}
 		}
 	}
 }
@@ -253,6 +181,7 @@ function treeObject(){
 }
 //时间处理
 var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+var _ajaxEndTime = moment().subtract(1,'d').format("YYYY-MM-DD");
 var	_ajaxStartTime_1=moment().subtract(1,'d').format("YYYY/MM/DD");
 var _ajaxEndTime_1=moment().subtract(1,'d').format("YYYY/MM/DD");
 var _ajaxStartA=[];
@@ -272,8 +201,10 @@ function timeDisposal(){
 }
 //选择的楼宇
 var  sessionPointer=JSON.parse(sessionStorage.getItem('pointers'));
-var _ajaxPointerId=sessionPointer[0].pointerID;
-var _ajaxgetPointerName=sessionPointer[0].pointerName;
+if(sessionPointer){
+	var _ajaxPointerId=sessionPointer[0].pointerID;
+	var _ajaxgetPointerName=sessionPointer[0].pointerName;
+}
 function getPointerId(){
 	_ajaxPointerId=$('#selectPointer').find('option:selected').val();
 	_ajaxgetPointerName=$('#selectPointer').find('option:selected').text();
@@ -375,9 +306,11 @@ function getBranchZtree(){
 	};
 	var zNodes = new Array();
 	var aaa = [];
-	for (var i =0; i<EnItdata.length; i++) {
-		if(EnItdata[i].energyItemType ==  _itemName){
-			aaa.push(EnItdata[i]);
+	if(EnItdata){
+		for (var i =0; i<EnItdata.length; i++) {
+			if(EnItdata[i].energyItemType ==  _itemName){
+				aaa.push(EnItdata[i]);
+			}
 		}
 	}
 	for(var i=0;i<aaa.length;i++){
@@ -410,7 +343,7 @@ function getItemizedData(){
 		var _ajaxEnds = _ajaxEndA[i];
 		var ecParams={
 			'ecTypeId':select_ID,
-			'pointerId':_ajaxPointerId,
+			'pointerIds':_ajaxPointerId,
 			'startTime':_ajaxStarts,
 			'endTime':_ajaxEnds,
 			'dateType':_ajaxDataType_1
@@ -712,38 +645,4 @@ function unitConversion(num){
 	}else{
 		return num.toFixed(2);
 	}
-}
-//月的时间初始化
-function monthDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 1,
-		maxViewMode: 2,
-		minViewMode:1,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//年的时间初始化
-function yearDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker({
-		startView: 2,
-		maxViewMode: 2,
-		minViewMode:2,
-		format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-		language: "zh-CN" //汉化
-	})
-}
-//一般时间初始化
-function initDate(){
-	$('#datetimepicker').datepicker('destroy');
-	$('#datetimepicker').datepicker(
-		{
-			language:  'zh-CN',
-			todayBtn: 1,
-			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
-		}
-	)
 }

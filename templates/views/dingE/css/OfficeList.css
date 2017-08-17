@@ -1,0 +1,558 @@
+body,html,div,dl,dt,dd,ul,li,ol,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,p,th,td,a,img,span {
+    margin:0;
+    padding:0;
+    font-family:'微软雅黑'
+}
+li{
+    list-style-type: none;
+}
+body {
+    padding-right: 0 !important;
+}
+
+/*外层包裹div*/
+.out-content{
+    width: 100%;
+    height: auto;
+}
+/*内层包裹div*/
+.inner-content{
+    width: 100%;
+    height: 100%;
+}
+/*主体内容*/
+.main-content{
+    height: 100%;
+    left: 0 !important;
+}
+
+/*头部横条*/
+.main-content-header{
+    margin-bottom: 20px;
+    height: 30px;
+}
+.main-content-header-lists0 {
+    background: #808080;
+    color: #fff;
+    margin-bottom: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-indent: 10px !important;
+}
+
+/*单位搜索部分*/
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size:14px;
+
+}
+.rct-form-control {
+    position: relative;
+    padding: 6px 9px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #e3e3e3;
+    border-radius: 4px;
+    line-height: normal;
+    box-sizing: border-box;
+    background-color: #fff;
+    vertical-align: middle;
+    outline: 0;
+}
+
+.button-block{
+    margin-top: 20px;
+}
+
+.input-blocked{
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+    vertical-align: middle;
+}
+.input-blocked input,select{
+    border: none;
+    height: 28px !important;
+    outline: none;
+    margin: 0 5px;
+}
+.condition-query li select{
+    width:160px;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+}
+
+.condition-query li{
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    float:left;
+    margin-right: 25px;
+    color:#333 !important;
+}
+/*上方按钮样式*/
+.top-btn {
+    border-width: 0;
+    font-size: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+
+    border-radius: 4px;
+    color: #fff;
+    background-color: #45B6AF;
+    border-color: #3ea49d;
+    width:80px;
+}
+.top-btn:hover{
+    color: #fff;
+    background-color: #3b9c96;
+    border-color: #307f7a;
+    outline: none;
+}
+.window-btn {
+    width: 116px;
+}
+
+/*表格部分*/
+.main-contents-table {
+    text-align: center;
+    margin-top: 30px;
+}
+.dataTables_length {
+    float: right !important;
+}
+#dateTables th, td{
+    text-align: center;
+}
+
+/*新增二级单位弹窗*/
+#add-unit .inner-input{
+    margin-left: 0;
+}
+#alter-unit .inner-input{
+    margin-left: 0;
+}
+.add-window{
+    width:60%;
+    min-height:500px;
+    margin:10px auto;
+}
+
+.add-title {
+    font-size: 26px;
+    line-height: 50px;
+    padding: 20px;
+    padding-top: 5px;
+    padding-bottom:10px;
+    border-bottom: 1px solid #ddd;
+    font-weight:700;
+}
+.add-main-content{
+    margin-bottom:10px;
+}
+.add-input-block {
+    width: 202px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+}
+.add-input {
+    width: 190px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    line-height: 30px;
+    height: 30px;
+    text-align:left;
+}
+.inner-input{
+    margin-top:15px;
+
+}
+.input-label{
+    background:url("../img/asterisk.png") no-repeat 0 center;
+
+}
+.inner-input label{
+    width:115px;
+    text-align:left;
+    padding-left:20px;
+
+}
+/*手动调整配置框*/
+.add-deploy{
+    border:1px solid #c1c6ce;
+    width:100%;
+    margin-bottom:10px;
+    position:absolute;
+    height:523px;
+}
+.deploy-header{
+    font-weight: 600;
+    position:absolute;
+    background:#ccc;
+    left:20px;
+    top:-20px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    width:160px;
+}
+.deploy-form{
+    padding-left:80px;
+}
+.deploy-form label{
+    margin-right:0px;
+    font-size:16px;
+}
+#adjust-deploy .deploy-form label{
+    margin-right:40px;
+}
+.deploy-form label input{
+    margin-right:5px;
+}
+.add-deploy .inner-input{
+    text-align: left;
+}
+.add-deploy .row{
+    margin-bottom:20px;
+}
+.add-input option{
+    width:302px;
+    border:none
+}
+.add-deploy select{
+    border:none;
+    outline: none;
+}
+.add-input-father {
+    width: 202px;
+    position: relative;
+    display: inline-block;
+}
+.add-input-block {
+    width: 202px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+}
+.add-input-arrow {
+    width: 10px;
+    height: 10px;
+    background: url(../img/down-arrow.png) no-repeat;
+    background-size: 10px;
+    background-position: 95% center;
+    float: right;
+    margin-top: 10px;
+}
+.add-select-block {
+    margin: 0;
+    padding: 0;
+    width: 202px;
+    padding: 0 5px 0 5px;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    background: white;
+    display: none;
+    top: 29px;
+}
+.add-select-block li {
+    list-style: none;
+    line-height: 25px;
+    cursor: pointer;
+    text-align: left;
+}
+/*左侧表格样式*/
+.main-content-table{
+    margin-bottom:20px;
+    width:98%;
+}
+.bottom-div .main-content-table{
+    height:345px;
+    overflow-y: auto;
+}
+.bottom-div .row{
+
+}
+#dateTables1{
+    width:80%;
+}
+#dateTables1_info{
+    display:none;
+}
+#dateTables1 th, td{
+    text-align:center
+}
+.bottom-div{
+    height:611px;
+}
+.add-deploy h2{
+    margin:200px auto;
+    text-align:center;
+}
+/*右侧表格样式*/
+#dateTables2_info{
+    display: none;
+}
+#dateTables2{
+    width:80%;
+}
+#dateTables9 ,#dateTables11{
+    width:80%;
+}
+#dateTables9_info, #dateTables11_info{
+    display:none;
+}
+#dateTables2 th, td{
+    text-align:center
+}
+.table-heads{
+    margin-left:20px;
+    margin-bottom:20px;
+    width:90%;
+    text-align:center;
+}
+.bottom-div label{
+    width:120px;
+}
+.add-sign img{
+    margin-left:10px;
+}
+#add-unit .dataTables_scroll{
+    width:82%;
+   margin:0 auto;
+
+}
+/*定额弹窗样式*/
+.quota-window{
+    width:50%;
+    min-height: 300px;
+}
+.quota-main-content {
+    margin-bottom: 10px;
+    padding-left:30px;
+}
+.quota-data{
+    font-size:18px;
+}
+.quota-data table{
+    width:100%;
+}
+.quota-data-table td{
+    border:1px solid #999999;
+}
+/*上面的表格*/
+#dateTables3_info{
+    display:none;
+}
+.table th,td{
+    text-align:center
+}
+/*下方的表格*/
+#dateTables4_info{
+    display: none;
+}
+.quota-data-bottom{
+    overflow-x: auto;
+}
+#dateTables5_info{
+    display: none;
+}
+.ament-data{
+    padding-left:20px;
+    font-size:16px;
+    margin-bottom:10px;
+}
+.ament-data b{
+    margin-right:15px;
+}
+/*人工修订定额弹窗*/
+.revise-form{
+    padding-left:20px;
+}
+.revise-form .revise-checkbox{
+    margin-left:30px;
+}
+.revise-form .input-label{
+    width:165px;
+}
+.revise-form .inner-input{
+    text-align:left;
+}
+#dateTables7_info{
+    display: none;
+}
+#dateTables8_info {
+    display: none;
+}
+.modal-dialog{
+    min-width:250px;
+}
+.dataTables_wrapper .dataTable .onFocus{
+    background:#fbec88
+}
+.theHidden{
+    display:none !important;
+}
+
+/*查看定额弹窗*/
+
+.row-left  p{
+    font-size:20px;
+    margin-left:30px;
+    margin-bottom:10px;
+}
+.row-right  p {
+    font-size: 20px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+.tabs1{
+    width:97%;
+    margin:0 auto;
+}
+.tabs1 a{
+    width:120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+#quota .swiper-container{
+    width:97%;
+    border:1px solid #c1c6ce;
+
+}
+.quota-data-bottom p{
+    font-size:20px;
+    margin-top:15px;
+    margin-bottom:10px;
+}
+.quota-data table{
+    font-size:15px;
+}
+#dateTables11-1_info{
+    display: none;
+}
+#dateTables1-1_info{
+    display: none;
+}
+
+.inner-input1{
+    margin-top: 15px;
+}
+.inner-input1 label {
+    width: 115px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+/*备注信息*/
+.adjust-comment span{
+    max-width: 100px;
+
+    display: inline-block;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+}
+.modal{
+    overflow: auto !important;
+}
+.modal-backdrop.in {
+    filter: alpha(opacity=30);
+    opacity: 0.3 !important;
+}
+#dateTables1-1{
+    width:681px !important;
+}
+#dateTables11-1{
+    width:681px !important;
+}
+
+/*选择日期的input框的样式*/
+.chooseDate {
+    cursor: pointer;
+}
+.chooseDate {
+    background: url(../img/times.png) no-repeat 160px center;
+    background-size: auto 80%;
+}
+#dateTables-log0_info,#dateTables-log1_info{
+    display: none;
+}
+
+#dateTables-log0 td,th{
+    font-size:14px;
+}
+#dateTables-log0 td{
+    min-height:45px !important;
+}
+.small-picture {
+    background: url(../img/smallTimes.png) no-repeat 140px center;
+    background-size: auto 70%;
+}
+td label{
+    width:auto !important;
+}
+td input{
+    height:28px;
+    border-radius: 3px;
+}
+.hidden-table{
+    margin-bottom:0px !important;
+    border:1px solid;
+    border-color: rgb(169, 169, 169);
+
+}
+.hidden-table td{
+    border:1px solid ;
+    border-color: rgb(169, 169, 169);
+    background:#ddd;
+}
+
+#dateTables2{
+    width:820px !important;
+}
+#dateTables-log1 .shown td,th{
+    /*height:40px;*/
+}
+#dateTables11{
+    width:820px !important;
+}
+#dateTables9{
+    width:820px !important;
+}
+#dateTables10_info{
+    display: none;
+}

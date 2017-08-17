@@ -224,18 +224,19 @@
                     </li>
                 </ul>
                 <div class="showOrHidden"></div>
+                <button class="ceshi">测试按钮</button>
                 <div class="page-toolbar">
                 </div>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
+            <div class="row" id="content" style="background: white">
                 <div class="col-md-12">
                     <div class="total-warp container">
                         <div class="wrap row">
 
                             <!--左侧实时能耗-->
-                            <div class="content-main-bottom col-lg-9 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
+                            <div class="real-time-energy content-main-bottom col-lg-9 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
                                 <!--头部数据信息-->
                                 <h3 style="">实时能耗
                                     <span style="float:right;font-weight: 500;font-size: 16px;">单位：
@@ -244,10 +245,10 @@
                                 </h3>
 
                                 <ul class="top-cut">
-                                    <li><a href="javascript:;">电</a></li>
-                                    <li><a href="javascript:;"  class="onClicks">水</a></li>
-                                    <li><a href="javascript:;">冷</a></li>
-                                    <li><a href="javascript:;">热</a></li>
+                                    <li><a href="javascript:;" type="100">电</a></li>
+                                    <li><a href="javascript:;"  class="onClicks" type="200">水</a></li>
+                                    <li><a href="javascript:;" type="500">冷</a></li>
+                                    <li><a href="javascript:;" type="400">热</a></li>
                                     <div class="clearfix"></div>
                                 </ul>
 
@@ -314,7 +315,7 @@
                                             <div class="right-ratio">
                                                 <div class="top-percent top-percent1" style="padding-top:20px;">
                                                     <p> 2%</p>
-                                                    <p> 同比</p>
+                                                    <p> 环比</p>
                                                 </div>
 
                                             </div>
@@ -327,7 +328,7 @@
                             </div>
 
                             <!--右侧能耗构成-->
-                            <div class="content-main-bottom col-lg-3 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
+                            <div class="energy-constitute content-main-bottom col-lg-3 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
                                 <!--头部数据信息-->
                                 <h3 style="">能耗构成</h3>
 
@@ -353,7 +354,7 @@
                             </div>
 
                             <!--面积指标-->
-                            <div class="content-main-bottom col-lg-4 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
+                            <div class="area-energy-data content-main-bottom col-lg-4 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
                                 <!--头部数据信息-->
                                 <h3 style="">面积指标</h3>
 
@@ -387,13 +388,13 @@
                             </div>
 
                             <!--用能排名-->
-                            <div class="content-main-bottom col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
+                            <div class="energy-ranking content-main-bottom col-lg-5 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
                                 <!--头部数据信息-->
                                 <h3 style="">用能排名
 
                                     <div style="float: right" class="top-choose-energy">
-                                        <a href="javascript:;"  class="onClicks">电</a>
-                                        <a href="javascript:;">水</a>
+                                        <a href="javascript:;"  class="onClicks" type="100">电</a>
+                                        <a href="javascript:;" type="200">水</a>
                                     </div>
 
                                 </h3>
@@ -425,29 +426,39 @@
                                 <h3 style="">报警</h3>
 
                                 <!--左侧chart图-->
-                                <div class="main-data" style="height:380px;" id="energy-demand5">
+                                <div class="main-data" style="height:380px;overflow-y: auto" id="energy-demand5">
 
-                                    <ul class="alarm-list">
-                                        <li>
-                                            <p>内科8#楼体验中心16#门温度环境报警</p>
-                                            <p><span>2017/7/17</span> <span>15:15:00</span></p>
-                                        </li>
+                                    <!--<ul class="alarm-list">-->
+                                        <!--<li>-->
+                                            <!--<p>内科8#楼体验中心16#门温度环境报警</p>-->
+                                            <!--<p><span>2017/7/17</span> <span>15:15:00</span></p>-->
+                                        <!--</li>-->
 
-                                        <li>
-                                            <p>小儿呼吸科2（1#楼五层）湿度环境报警</p>
-                                            <p><span>2017/7/17</span> <span>15:15:00</span></p>
-                                        </li>
+                                        <!--<li>-->
+                                            <!--<p>小儿呼吸科2（1#楼五层）湿度环境报警</p>-->
+                                            <!--<p><span>2017/7/17</span> <span>15:15:00</span></p>-->
+                                        <!--</li>-->
 
-                                        <li>
-                                            <p>外科七层手术室温度环境报警</p>
-                                            <p><span>2017/7/17</span> <span>15:15:00</span></p>
-                                        </li>
+                                        <!--<li>-->
+                                            <!--<p>外科七层手术室温度环境报警</p>-->
+                                            <!--<p><span>2017/7/17</span> <span>15:15:00</span></p>-->
+                                        <!--</li>-->
 
-                                        <li>
-                                            <p>内科8#楼体验中心16#门温度环境报警</p>
-                                            <p><span>2017/7/17</span> <span>15:15:00</span></p>
-                                        </li>
-                                    </ul>
+                                        <!--<li>-->
+                                            <!--<p>内科8#楼体验中心16#门温度环境报警</p>-->
+                                            <!--<p><span>2017/7/17</span> <span>15:15:00</span></p>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+
+                                    <table class="table" id="dateTables">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+
 
                                 </div>
 
@@ -555,7 +566,9 @@
 <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
 <!-- END CORE PLUGINS -->
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
 <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
@@ -566,8 +579,10 @@
 <!--非框架中的js-->
 <script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
 <script src="../bank-branch-resource/js/lib/moment.min.js"></script>
+<script src="../bank-resource/js/lib/html2canvas.js"></script>
+<script src="../bank-resource/js/lib/jspdf.debug.js"></script>
 <script src="../resource/js/echarts.min.js"></script>
-<script src="../bank-resource/js/common.js"></script>
+<script src="js/common.js"></script>
 <script src="js/energyPendect.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -575,7 +590,6 @@
         BEE.init();
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-
     });
 </script>
 

@@ -1,0 +1,20 @@
+
+.inner-input label{
+    width:146px !important;
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=30);
+    opacity: 0.3 !important;
+}
+#dateTables_info{
+    display: none !important;
+}
+th, td { white-space: nowrap; }
+div.dataTables_wrapper {
+    width: 1050px;
+    margin: 0 0;
+}
+body {
+    padding-right: 0 !important;
+}

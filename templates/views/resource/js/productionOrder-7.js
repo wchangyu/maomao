@@ -53,7 +53,16 @@ $(function(){
                 })
             }
         }
-    })
+    });
+    //添加物料信息
+    var wuLiaoInfo = new Vue({
+        el:'#weiXiuCaiLiao',
+        data:{
+            wpbm:'',
+            wpmc:'',
+            wpsl:''
+        }
+    });
     //定位当前页索引值
     var currentPages = 0;
     var currentRow = '';
@@ -72,7 +81,28 @@ $(function(){
     //维修内容变量
     var _wxContent = '';
     //重发值
-    var _gdCircle = 0
+    var _gdCircle = 0;
+    //所有维修材料的数组
+    var _allWLArr = [];
+    //存放已选择的维修材料的数据
+    var _weiXiuCaiLiao = [];
+    //点击确定，自动填写物料编码和名称
+    var _wlBM = '';
+    var _wlMC = '';
+    //删除物品的时候的编码
+    var _deleteBM = '';
+    //记录当前备件状态
+    var _sparePart = 0;
+    //存放获得的备件状态常量
+    var _sparePartArr = [];
+    //记录申请备件是否成功
+    var _sparePartFlag = false;
+    //添加材料是否成功
+    var _pjFlag = false;
+    //点击详情的时候，记录原有的备件数组
+    var _primaryBJ = [];
+    //原因分类
+    classificationReasons();
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -233,11 +263,12 @@ $(function(){
     tableInit($('#personTable1'),col2);
     var col3 = [
         {
-            title:'材料分析',
-            data:'wxCl'
+            title:'备件编码',
+            data:'wxCl',
+            className:'wpbm'
         },
         {
-            title:'维修材料',
+            title:'备件名称',
             data:'wxClName'
         },
         {
@@ -245,8 +276,10 @@ $(function(){
             data:'clShul'
         },
         {
-            title:'使用人',
-            data:' '
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
         }
     ];
     tableInit($('#personTables1'),col3);
@@ -302,7 +335,8 @@ $(function(){
                 conditionSelect();
             }
         }
-    })
+    });
+
     //重置按钮功能
     $('.resites').click(function(){
         //清空input框内容
@@ -312,14 +346,8 @@ $(function(){
         //时间置为今天
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
-    })
-    //弹窗切换表格效果
-    $('.table-title span').click(function(){
-        $('.table-title span').removeClass('spanhover');
-        $(this).addClass('spanhover');
-        $('.tableHover').hide();
-        $('.tableHover').eq($(this).index()).show();
     });
+
     $('#myModal')
         //操作
         .on('click','.execute',function(){
@@ -389,7 +417,7 @@ $(function(){
 
    $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
-    })
+    });
 
     //选择执行状态事件
     $('#option-select').change(function(){
@@ -409,8 +437,7 @@ $(function(){
                 $('#newBeiZhu').attr('disabled',true);
             }
         }
-    })
-
+    });
 
     //进展确定按钮
     $('.progressAdd').click(function(){
@@ -429,10 +456,140 @@ $(function(){
         //将字符串显示到维修内容区域
         $('#wxbeizhu').val(str);
     });
+
     //撤销
     $('.progressDel').click(function(){
         //还原成原来的字符串
         $('#wxbeizhu').val(_wxContent);
+    });
+
+    //维修材料按钮
+    $('.option-wxcl').click(function(){
+        //弹出框显示
+        moTaiKuang($('#myModal4'),'维修备件申请');
+        //获取处理过程
+        logInformation();
+        //获取配件状态常量
+        stateConstant();
+        $('.deal-with-list').empty();
+        datasTable($('#personTables1'),_primaryBJ);
+
+    });
+
+    //增加维修材料
+    $('.tianJiaCaiLiao').click(function(){
+        //弹出框显示
+        moTaiKuang($('#myModal5'),'添加维修备件');
+        //初始化
+        wuLiaoInfo.wpbm = '';
+        wuLiaoInfo.wpmc = '';
+        wuLiaoInfo.wpsl = '';
+        $('.exists').hide();
+    });
+
+    //选择物品
+    $('.select-goods').click(function(){
+        //弹出框显示
+        moTaiKuang($('#myModal6'),'选择维修备件');
+        //获取数据
+        getWP();
+        var fn1 = function( row, data, index ) {
+            for(var i=0;i<_weiXiuCaiLiao.length;i++){
+                if(data.itemNum == _weiXiuCaiLiao[i].wxCl){
+                    $('td:eq(0)', row).parents('tr').addClass('pink');
+                }
+            }
+
+        }
+        var col5 = [
+            {
+                title:'分类名称',
+                data:'cateName'
+            },
+            {
+                title:'物料编码',
+                data:'itemNum',
+                className:'wlbm'
+            },
+            {
+                title:'物料名称',
+                data:'itemName',
+                className:'wlmc'
+            }
+        ];
+        tableInit($('#weiXiuCaiLiaoTable'),col5,fn1);
+    });
+
+    //选择物品表格点击事件
+    $('#weiXiuCaiLiaoTable tbody').on('click','tr',function(){
+        var $this = $(this);
+        var tableTr = $this.parents('.table').find('tr');
+        tableTr.css('background','#ffffff');
+        $this.css('background','#FBEC88');
+        _wlBM = $this.children('.wlbm').html();
+        _wlMC = $this.children('.wlmc').html();
+    });
+
+    //点击确定选择的物料编码和名称
+    $('.addWL').click(function(){
+        wuLiaoInfo.wpbm = _wlBM;
+        wuLiaoInfo.wpmc = _wlMC;
+    })
+
+    //选择维修材料
+    $('.secondButtons').click(function(){
+        //获取填写的信息
+        var obj = {};
+        obj.wxClID = 0,
+            obj.wxCl = wuLiaoInfo.wpbm,
+            obj.wxClName = wuLiaoInfo.wpmc,
+            obj.clShul = wuLiaoInfo.wpsl
+        //判断是否是重复的
+        if(_weiXiuCaiLiao.length == 0){
+            _weiXiuCaiLiao.push(obj);
+            $('#myModal5').modal('hide');
+            datasTable($("#personTables1"),_weiXiuCaiLiao);
+        }else{
+            var flag = false;
+            for(var i=0;i<_weiXiuCaiLiao.length;i++){
+                if(_weiXiuCaiLiao[i].wxCl == obj.wxCl){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
+                $('.exists').show();
+            }else{
+                $('.exists').hide();
+                _weiXiuCaiLiao.push(obj);
+                $('#myModal5').modal('hide');
+                //传回给第一个弹框的表格
+                datasTable($("#personTables1"),_weiXiuCaiLiao);
+            }
+        }
+    });
+
+    //按条件查询维修材料
+    $('.tianJiaSelect').click(function(){
+        getWP();
+    })
+
+    //材料表格删除按钮
+    $('#personTables1 tbody').on('click','.tableDeleted',function(){
+        var $this = $(this).parents('tr');
+        $('#myModal2').find('.modal-body').html('确定要删除吗？');
+        moTaiKuang($('#myModal2'),'提示');
+        $('#myModal2').find('.btn-primary').addClass('removeButton');
+        $('.wpbms').val($this.children('.wxCl').html());
+        $('.wpmcs').val($this.children('.wxClName').html());
+        $('.flmcs').val($this.children('.clShul').html());
+        _deleteBM = $(this).parents('tr').children('.wpbm').html();
+    });
+
+    $('#myModal2').on('click','.removeButton',function(){
+        _weiXiuCaiLiao.removeByValue(_deleteBM,"wxCl");
+        datasTable($('#personTables1'),_weiXiuCaiLiao);
+        $('#myModal2').find('.btn-primary').removeClass('removeButton');
     })
     /*----------------------------表格绑定事件-----------------------------------*/
     $('#scrap-datatables tbody')
@@ -515,16 +672,30 @@ $(function(){
                     datasTable($("#personTable1"),_zhixingRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+                    _weiXiuCaiLiao = [];
+                    _primaryBJ = [];
+                    for(var i=0;i<result.wxCls.length;i++){
+                        _weiXiuCaiLiao.push(result.wxCls[i]);
+                        _primaryBJ.push(result.wxCls[i]);
+                    }
+                    //通过判断状态，哪些隐藏，哪些显示
+                    $('.errorTips').html('');
+                    //操作类型改为请选择
+                    $('#option-select').val('');
                     //给当前状态赋值
                     var currentState = '';
                     if(result.gdZht == 3){
-                        currentState = '待执行'
+                        currentState = '待执行';
+                        $('.waitingForResources').hide();
                     }else if(result.gdZht == 4){
-                        currentState = '执行中'
+                        currentState = '执行中';
+                        $('.waitingForResources').hide();
                     }else if(result.gdZht == 5){
-                        currentState = '等待资源'
+                        currentState = '等待资源';
+                        $('.waitingForResources').show();
                     }else if(result.gdZht == 6){
-                        currentState = '待关单'
+                        currentState = '待关单';
+                        $('.waitingForResources').hide();
                     }
                     $('.current-state').val(currentState);
                     $('.current-state').attr('ztz',result.gdZht);
@@ -536,12 +707,65 @@ $(function(){
                     //最新进展
                     $('#newBeiZhu').val('');
                     app33.gdly = result.gdCodeSrc;
+                    //获取当前备件状态
+                    //_sparePart = result.clStatus;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
                 }
             });
         });
+
+    //配件增加删除确定按钮
+    $('#myModal4').on('click','.btn-primary',function(){
+        //首先判断原有网页中的_weiXiuCaiLiao和备注有没有改变。
+
+        if(_primaryBJ.length != _weiXiuCaiLiao.length){
+            //不一样
+            //添加
+            CaiLiao('YWGD/ywGDAddWxCl');
+            //申请备件
+            applySparePart();
+            setTimeout(function(){
+                if(_pjFlag && _sparePartFlag ){
+                    moTaiKuang($('#myModal2'),'提示','flag');
+                    $('#myModal2').find('.modal-body').html('操作成功！');
+                }else{
+                    if( _pjFlag && !_sparePartFlag ){
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal2').find('.modal-body').html('备件修改成功，备件操作失败！');
+                    }else if( !_pjFlag && _sparePartFlag ){
+                        $('#myModal2').find('.modal-body').html('备件修改失败，备件操作成功！');
+                    }
+                }
+            },1000);
+        }else{
+            if( objectInArr(_primaryBJ,_weiXiuCaiLiao) == false){
+                //不一样
+                //添加
+                CaiLiao('YWGD/ywGDAddWxCl');
+                //申请备件
+                applySparePart();
+                setTimeout(function(){
+                    if(_pjFlag && _sparePartFlag ){
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal2').find('.modal-body').html('操作成功！');
+                    }else{
+                        if( _pjFlag && !_sparePartFlag ){
+                            moTaiKuang($('#myModal2'),'提示','flag');
+                            $('#myModal2').find('.modal-body').html('备件修改成功，备件操作失败！');
+                        }else if( !_pjFlag && _sparePartFlag ){
+                            $('#myModal2').find('.modal-body').html('备件修改失败，备件操作成功！');
+                        }
+                    }
+                },1000);
+            }else{
+                //一样
+                $('#myModal4').modal('hide');
+            }
+        }
+
+    })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
@@ -578,7 +802,7 @@ $(function(){
         }
     }
     //表格初始化方法
-    function tableInit(tableID,col){
+    function tableInit(tableID,col,fun){
         tableID.DataTable({
             'autoWidth': false,  //用来启用或禁用自动列的宽度计算
             'paging': true,   //是否分页
@@ -608,7 +832,8 @@ $(function(){
                     text: '保存为excel格式',
                 },
             ],
-            'columns':col
+            'columns':col,
+            'rowCallback': fun
         })
     }
     //修改维修备注方法
@@ -652,7 +877,8 @@ $(function(){
                 'userID':_userIdNum,
                 'userName':_userIdName,
                 'dengMemo':$('.waitingForResources').find('textarea').val(),
-                'yjShij':$('.waitingForResources').find('input').val()
+                'yjShij':$('.waitingForResources').find('input').val(),
+                'dengyy':$('#watting').val()
             }
         }else{
             gdInfo = {
@@ -685,5 +911,225 @@ $(function(){
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
         return str;
+    }
+    //获取所有物料
+    function getWP(){
+        var prm = {
+            itemNum : $.trim($('#wpbms').val()),
+            itemName: $.trim($('#wpmcs').val()),
+            cateName: $.trim($('#flmcs').val()),
+            userID:_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItems',
+            data:prm,
+            success:function(result){
+                _allWLArr = [];
+                for(var i=0;i<result.length;i++){
+                    _allWLArr.push(result[i]);
+                }
+                datasTable($('#weiXiuCaiLiaoTable'),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //数组删除指定元素的值
+    Array.prototype.removeByValue = function(val,attr) {
+        for(var i=0; i<this.length; i++) {
+            if(this[i][attr] == val) {
+                this.splice(i, 1);
+                break;
+            }
+        }
+    }
+    //数组删除指定索引
+    Array.prototype.remove=function(obj){
+        for(var i =0;i <this.length;i++){
+            var temp = this[i];
+            if(!isNaN(obj)){
+                temp=i;
+            }
+            if(temp == obj){
+                for(var j = i;j <this.length;j++){
+                    this[j]=this[j+1];
+                }
+                this.length = this.length-1;
+            }
+        }
+    }
+    //材料添加删除
+    function CaiLiao(url,flag){
+        var cailiaoArr = [];
+        for(var i=0;i<_weiXiuCaiLiao.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxClID = _weiXiuCaiLiao[i].wxClID
+            }
+            obj.wxCl = _weiXiuCaiLiao[i].wxCl;
+            obj.wxClName = _weiXiuCaiLiao[i].wxClName;
+            obj.clShul = _weiXiuCaiLiao[i].clShul;
+            obj.gdCode = gdCode;
+            cailiaoArr.push(obj);
+        }
+        var gdWxCl = {
+            gdCode:gdCode,
+            gdWxCls:cailiaoArr,
+            userID:_userIdNum,
+            userName:_userIdName,
+            gdCircle:_gdCircle
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWxCl,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _pjFlag = true;
+                    $('#myModal4').modal('hide');
+                }else{
+                    _pjFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //获取日志信息（备件logType始终传2）
+    function logInformation(){
+        var gdLogQPrm = {
+            "gdCode": gdCode,
+            "logType": 2,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                console.log(result);
+                var str = '';
+                for(var i =0;i<result.length;i++){
+                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+                }
+                $('.deal-with-list').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //获取配件状态常量
+    function stateConstant(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetPjStatus',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                _sparePartArr = [];
+                var str = '<option value="">请选择</option>'
+                for(var i=0;i<result.statuses.length;i++){
+                    _sparePartArr.push(result.statuses[i]);
+                    str += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clStatus + '</option>';
+                }
+                $('#stateConstant').append(str);
+                //var nowState = '';
+                //if(result.clStatus == 1){
+                //    nowState = "申请配件";
+                //}else if(result.clStatus == 2){
+                //    nowState = "确认配件";
+                //}else if(result.clStatus == 3){
+                //    nowState = "仓库处理";
+                //}else if(result.clStatus == 4){
+                //    nowState = "仓库发货"
+                //}else if(result.clStatus == 5){
+                //    nowState = "备件到达"
+                //}else if(result.clStatus == 99){
+                //    nowState = "备件取消"
+                //}
+                //$('.nowState').val(nowState);
+                //$('.nowState').attr('state',result.clStatus);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //申请备件
+    function applySparePart(){
+        var prm = {
+            "gdCode": gdCode,
+            "clStatusId": 1,
+            "clStatus": '申请备件',
+            "clLastUptInfo": $('#bjremark').val(),
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptPeijStatus',
+            data:prm,
+            success:function(result){
+                if( result == 99 ){
+                    _sparePartFlag = true;
+                }else{
+                    _sparePartFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //获取到分类原因
+    function classificationReasons(){
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDengdyy',
+            data:prm,
+            success:function(result){
+                var str = '<option>请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].reasonNum + '">' + result[i].reasonDesc + '</option>';
+                }
+                $('#watting').append(str);
+            }
+        })
+    }
+    //判断两个对象是否相同
+    function isEqual(obj1,obj2){
+        for(var name in obj1){
+            if(obj1[name]!==obj2[name]) return false;
+        }
+        for(var name in obj2){
+            if(obj1[name]!==obj2[name]) return false;
+        }
+        return true;
+    }
+    //数组中的对象比较
+    function objectInArr(arr1,arr2){
+        for(var i=0;i<arr1.length;i++){
+            for(var j=0;j<arr2.length;j++){
+                if( isEqual(arr1[i],arr2[j]) ){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
     }
 })
