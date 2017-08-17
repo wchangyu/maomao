@@ -1,15 +1,18 @@
 /**
  * Created by admin on 2017/5/23.
  */
-
+//获取用户名以及对应的IP地址
 var _userIdName = sessionStorage.getItem('userName');
 var _url = sessionStorage.getItem('apiUrlPrefix');
 
 var _urlLength = _url.length;
 
+//对从session中获取的IP地址进行处理
 var IP1 = _url.substring(0,_urlLength-1);
 
 var IP = IP1;
+
+//ajax延迟时间设置
 var theTimes = 30000;
 
 //弹窗关闭时清空已输入过的信息
@@ -545,7 +548,5 @@ $('.datatimeblock').on('change',function(){
                 $('#choose-date').modal('show');
                 $('#choose-date input').val('');
         }
-
-
 });
 

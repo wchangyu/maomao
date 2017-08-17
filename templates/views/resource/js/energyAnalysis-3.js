@@ -749,6 +749,8 @@ function getOfficeData(){
 		},
 		error:function(jqXHR, textStatus, errorThrown){
 			console.log(JSON.parse(jqXHR.responseText).message);
+			myChart16.hideLoading();
+
 			if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
 				myChart16.hideLoading();
 				allData = [];
@@ -1009,5 +1011,5 @@ function getOfficeData(){
 	option14.series[1].data[0] = totalAllData;
 	option14.series[1].data[1] = totalAllDatass;
 	myChart16.setOption(option14);
-
+	myChart16.hideLoading();
 }

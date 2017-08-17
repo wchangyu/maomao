@@ -11,6 +11,7 @@ $(function(){
 	});
 	//分项zTree
 	$('.energy-types').delegate('div','click',function(){
+		console.log('330');
 		getBranchZtree();
 		treeObject();
 	});
@@ -242,6 +243,7 @@ function getEcType(){
 var treeObj;
 function getBranchZtree(){
 	var EnItdata=JSON.parse(sessionStorage.getItem('energyItems'));
+
 	var setting = {
 		check: {
 			enable: true,
