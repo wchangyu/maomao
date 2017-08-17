@@ -479,6 +479,8 @@ $(function(){
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+            logInformation();
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
@@ -1112,6 +1114,32 @@ $(function(){
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取日志信息（备件logType始终传2）
+    function logInformation(){
+        var gdLogQPrm = {
+            "gdCode": _gdCode,
+            "logType": 2,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                $('.deal-with-list').empty();
+                var str = '';
+                for(var i =0;i<result.length;i++){
+                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+                }
+                $('.deal-with-list').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })

@@ -479,6 +479,8 @@ $(function(){
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+            logInformation();
         })
         //去评价
         .on('click','.tablePingjia',function(){
@@ -623,5 +625,30 @@ $(function(){
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
         return str;
+    }
+    //获取日志信息（备件logType始终传2）
+    function logInformation(){
+        var gdLogQPrm = {
+            "gdCode": _gdCode,
+            "logType": 2,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                $('.deal-with-list').empty();
+                var str = '';
+                for(var i =0;i<result.length;i++){
+                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+                }
+                $('.deal-with-list').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })
