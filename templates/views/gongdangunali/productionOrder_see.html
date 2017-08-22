@@ -43,13 +43,6 @@
                 </div>
             </li>
             <li class="floatRight" style="line-height: 26px;">
-                <div class="labels colorTip">是否维保 *：</div>
-                <div class="input-blockeds">
-                    <input type="radio" class="whether" id="three" value="1" v-model="whether" style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="three" style="display: inline-block;vertical-align: middle">是</label>
-                    <input type="radio" class="whether" id="four" value="0" v-model="whether" style="margin: 0 5px 0 10px;cursor:pointer;width: 15px;height: 15px;display: inline-block;vertical-align: middle"><label for="four" style="display: inline-block;vertical-align: middle">否</label>
-                </div>
-            </li>
-            <li class="floatLeft" style="line-height: 26px;">
                 <div class="labels colorTip">任务级别 *：</div>
                 <div class="input-blockeds">
                     <select v-model="rwlx">
@@ -60,67 +53,67 @@
                     </select>
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLeft">
                 <div class="labels">报修电话：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="telephone" class="shishi">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatRight">
                 <div class="labels">报修人信息：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="person">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLeft">
                 <div class="labels">故障位置：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="place">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatRight">
                 <div class="labels">车站：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="section">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLeft">
                 <div class="labels">设备类型：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="matter">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatRight">
                 <div class="labels">维修设备：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbSelect">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLeft">
                 <div class="labels">设备名称：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbMC">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatRight">
                 <div class="labels">设备车间站：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbBM">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLeft">
                 <div class="labels">安装地点：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="azAddress">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatRight">
                 <div class="labels">维修班组：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sections">
                 </div>
             </li>
-            <li class="floatRight" style="line-height: 26px;">
+            <li class="floatLeft" style="line-height: 26px;">
                 <div class="labels colorTip">工单来源 *：</div>
                 <div class="input-blockeds">
                     <select v-model="gdly" class="gdly">
@@ -129,7 +122,7 @@
                     </select>
                 </div>
             </li>
-            <li class="floatLeft" style="line-height: 26px;">
+            <li class="floatRight" style="line-height: 26px;">
                 <div class="labels">发生时间：</div>
                 <div class="input-blockeds">
                     <input type="text" class="datatimeblock otime">
@@ -155,28 +148,46 @@
             <div class="table-block">
                 <div class="table-title">
                     <span class="spanhover">执行人员</span>
-                    <span>维修材料</span>
                 </div>
-                <div class="tableHover">
-                    <table class="table table-hover" id="personTable1">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
+                <span class="draw-border" style="padding-top: 20px;"></span>
+                <div class="tableHoverL">
+                    <div class="tableHover">
+                        <table class="table table-hover" id="personTable1">
+                            <thead>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="tableHover" style="display: none">
-                    <table class="table table-hover" id="personTables1">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
+            </div>
+            <div class="table-block">
+                <div class="table-title">
+                    <span class="spanhover">维修备件</span>
                 </div>
-                <div class="clearfix"></div>
+                <span class="draw-border" style="padding-top: 20px;"></span>
+                <div class="tableHoverL">
+                    <div class="tableHover">
+                        <table class="table table-hover" id="personTables1">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="deal-with">处理记录</div>
+                <div>
+                    <ul class="deal-with-list">
+
+                    </ul>
+                </div>
             </div>
         </ul>
     </div>
     <div class="right-content">
         <p style="margin-bottom: 0">处理记录</p>
-        <ul class="progressBar">
-            <li>
+        <!--<ul class="progressBar">
+            &lt;!&ndash;<li>
                 <div class="progressNum" style="color:#db3d32">01</div>
                 <div class="progressName" style="color:#db3d32">登记</div>
             </li>
@@ -203,11 +214,11 @@
             <li class="progressBarList">
                 <div class="progressNum">07</div>
                 <div class="progressName">关闭</div>
-            </li>
-        </ul>
+            </li>&ndash;&gt;
+        </ul>-->
         <div class="processing-record">
             <ul style="font-size: 13px; ">
-                <li>
+                <!--<li>
                     <div style="overflow: hidden">
                         <div class="record-title">记录时间：</div>
                         <p class="record-content"></p>
@@ -304,7 +315,7 @@
                         <div class="record-title">相关人员：</div>
                         <p class="record-content">李雷，韩梅梅</p>
                     </div>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>

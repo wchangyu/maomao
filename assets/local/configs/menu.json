@@ -436,6 +436,22 @@
         "arg":"",
         "iconclass":""
       },
+      "备件管理":{
+        "type":"0",
+        "content":"备件管理",
+        "uri":"../gongdangunali/productionOrder-9.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "备件管理1":{
+        "type":"0",
+        "content":"备件管理",
+        "uri":"../gongdangunali/productionOrder-9.html?arg=1",
+        "uid":"",
+        "arg":"1",
+        "iconclass":""
+      },
       "班组维修工作量统计报表":{
         "type":"0",
         "content":"部门维修工作量统计报表",

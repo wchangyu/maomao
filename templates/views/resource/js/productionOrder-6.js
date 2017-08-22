@@ -26,9 +26,6 @@ $(function(){
     var slrealityEnd = moment($('datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
     var bhrealityStart = moment($('datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
     var bhrealityEnd = moment($('datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-    //闭环时间
-    //$('.datatimeblock').eq(2).val(_initStart);
-   // $('.datatimeblock').eq(3).val(_initEnd);
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -131,7 +128,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,3,4,5,6,7,8,9,10,11]
+                    columns:[0,1,2,3,5,6,7,8,9,10,11,12]
                 }
             }
         ],
@@ -228,12 +225,19 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'故障发生时长',
-                data:'timeSpan'
-            },
-            {
                 title:'督察督办责任人',
                 data:'wxUserNames'
+            },
+            {
+                title:'超时',
+                data:'timeSpan',
+                render:function(data, type, full, meta){
+                    if(data>0){
+                        return '<span style="color: red;">' + data + '</span>';
+                    }else{
+                        return '<span style="color: green;">' + data + '</span>';
+                    }
+                }
             },
             {
                 title:'操作',
@@ -325,20 +329,16 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'材料分析',
+                title:'备件编码',
                 data:'wxCl'
             },
             {
-                title:'维修材料',
+                title:'备件名称',
                 data:'wxClName'
             },
             {
                 title:'数量',
                 data:'clShul'
-            },
-            {
-                title:'使用人',
-                data:' '
             }
         ]
     });
@@ -369,7 +369,7 @@ $(function(){
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('td').children('.gongdanId').attr('gdCode');
-            gdCode = gongDanCode;
+            _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
@@ -384,9 +384,7 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
-                    var indexs = result.gdZht;
                     var progressBarList = $('.progressBarList');
-                    var timeContent = $('.record-list');
                     //绑定弹窗数据
                     if(result.gdJJ == 1){
                         $('.inpus').parent('span').removeClass('checked');
@@ -422,59 +420,6 @@ $(function(){
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
                     app33.gdly = result.gdCodeSrc;
-                    //进度条赋值
-                    //待下发记录时间
-                    progressContent(0,0,result.gdShij);
-                    //待下发相关人员
-                    progressContent(0,2,result.createUserName);
-                    //调度下发时间
-                    progressContent(1,0,result.shouLiShij);
-                    //调度下发人员
-                    progressContent(1,2,result.shouLiRenName);
-                    //分派时间
-                    progressContent(2,0,result.paiGongShij);
-                    //分派人
-                    progressContent(2,2,result.paigongUserName);
-                    //开始执行时间
-                    progressContent(3,0,result.jiedanShij);
-                    //执行人
-                    progressContent(3,2,result.wxUserNames);
-                    //等待时间
-                    progressContent(4,0,result.dengShij);
-                    //等待人
-                    progressContent(4,2,result.wxUserNames);
-                    //完工时间
-                    progressContent(5,0,result.wanGongShij);
-                    //完工人
-                    progressContent(5,2,result.wxUserNames);
-                    //关闭时间
-                    progressContent(6,0,result.guanbiShij);
-                    //关单人
-                    progressContent(6,2,result.pjRenName);
-                    //查看执行人员
-                    datasTable($("#personTable1"),result.wxRens);
-                    //维修材料
-                    datasTable($("#personTables1"),result.wxCls);
-                    //根绝时间，判断取消之前处于什么状态
-                    if(indexs == 999){
-                        $('.progressBarList:last').children('.progressName').html('取消');
-                        //控制显示红色
-                        progressContent(6,0,result.quxiaoShij);
-                        //重新遍历一下时间和对应的进度，如果时间为空，对应的进度置为黑色。
-                    }else{
-                        $('.progressBarList:last').children('.progressName').html('关闭');
-                    }
-                    //变色
-                    for(var i=0;i<timeContent.length;i++){
-                        var timeLength = timeContent.eq(i).children('div').eq(0).children('.record-content').html();
-                        if(timeLength != ''){
-                            progressBarList.eq(i).css({'color':'#db3d32'});
-                        }else{
-                            progressBarList.eq(i).css({'color':'#333'});
-                            //当时间为''的话，执行人员也是空
-                            timeContent.eq(i).children('div').eq(2).children('.record-content').html('');
-                        }
-                    }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -483,6 +428,10 @@ $(function(){
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+            //备件处理过程
+            logInformation(2);
+            //工单处理过程
+            logInformation(1);
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
@@ -567,7 +516,6 @@ $(function(){
             var gdInfo = {
                 "gdCode": gdCodes,
                 "gdZht": htState,
-                "wxKeshi": "",
                 "userID": _userIdNum,
                 'userName':_userIdName
             }
@@ -827,7 +775,8 @@ $(function(){
             dlNum:$('#line').val(),
             gdLeixing:$('#rwlx').val(),
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            isCalcTimeSpan:1
         };
         var userArr = [];
         var cheArr = [];
@@ -1117,6 +1066,43 @@ $(function(){
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取日志信息（备件logType始终传2）
+    function logInformation(logType){
+        var gdLogQPrm = {
+            "gdCode": _gdCode,
+            "logType": logType,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                if(logType == 2){
+                    var str = '';
+                    for(var i =0;i<result.length;i++){
+                        str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' + result[i].logContent+ '</li>';
+                    }
+                    $('.deal-with-list').empty();
+                    $('.deal-with-list').append(str);
+                }else if(logType == 1){
+                    var str = '';
+                    for(var i=0;i<result.length;i++){
+                        str += '<li><span class="list-dot"> </span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;' + result[i].logTitle + '</li>';
+                    }
+                    $('.processing-record ul').empty();
+                    console.log(result);
+                    $('.processing-record ul').append(str);
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })

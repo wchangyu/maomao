@@ -399,47 +399,35 @@
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">入库单类型 ：</div>
+                                    <div class="labels">出库单类型 ：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="" v-model="rkleixing">
-                                            <!--<option value="1">采购入库</option>
-                                            <option value="2">借出退还入库</option>
-                                            <option value="3">借用入库</option>-->
-                                            <option v-for="option in options" v-bind:value="option.value">
-                                                {{ option.text }}
-                                            </option>
+                                        <select name="" id="rkleixing" v-model="rkleixing">
                                         </select>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">供应商编号：</div>
+                                    <div class="labels">工单号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gysbianhao" placeholder="输入关键字搜索或者双击选择">
+                                        <input type="text" v-model="gdCode">
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">供应商名称 ：</div>
+                                    <div class="labels">材料员名称 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gysmingcheng" >
+                                        <input type="text" v-model="clymc">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">供应商联系人：</div>
+                                    <div class="labels">材料员电话 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gyslianxiren">
+                                        <input type="text" v-model="clydh">
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">供应商联系方式 ：</div>
+                                    <div class="labels">仓库选择 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gysphone" >
-                                    </div><!--v-model="matter"-->
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">供应商联系地址 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="gysdizhi" >
-                                    </div><!--v-model="matter"-->
+                                        <select id="ckselect" v-model="ckselect"></select>
+                                    </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">制单人 ：</div>

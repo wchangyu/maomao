@@ -103,6 +103,7 @@ var Demo = function () {
             var color_ = (Metronic.isRTL() ? color + '-rtl' : color);
             $('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
             $('.page-logo img').attr("src", Layout.getLayoutImgPath() + 'logo-' + color + '.png');
+
         };
 
         $('.theme-colors > li', panel).click(function () {

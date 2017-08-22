@@ -70,6 +70,10 @@ $(function(){
                 data:'num'
             },
             {
+                title:'仓库',
+                data:'storageName'
+            },
+            {
                 title:'台账类型',
                 data:'ivtType'
             },

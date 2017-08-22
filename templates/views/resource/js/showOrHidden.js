@@ -36,6 +36,23 @@ $(function(){
         $('.datetimeEnd').html('');
     });
 
+    //对象选择(楼宇、科室切换)
+    $(".left-middle-tab").click(function(){
+        $(".left-middle-tab").css({
+            "border":"2px solid #7f7f7f",
+            "background":"#fff",
+            "color":"#333"
+        })
+        $(this).css({
+            "background":"#7f7f7f",
+            "border":"2px solid #7f7f7f",
+            "color":"#ffffff"
+        })
+        $(".tree-1").css({
+            display:"none"
+        }),
+            $(".tree-1")[$(this).index()].style.display="block"
+    });
     //点击切换楼宇或单位时，改变上方能耗类型
     $('.left-middle-tab').on('click',function(){
 
@@ -58,6 +75,7 @@ $(function(){
 
     });
 
+    //王常宇
     addSearchBox();
 
 })
@@ -200,6 +218,7 @@ function _monthDate(){
         language: "zh-CN" //汉化
     })
 }
+
 //年的时间初始化
 function _yearDate(){
     $('#datetimepicker').datepicker('destroy');
@@ -211,6 +230,7 @@ function _yearDate(){
         language: "zh-CN" //汉化
     })
 }
+
 //一般时间初始化
 function _initDate(){
     $('#datetimepicker').datepicker('destroy');
@@ -223,6 +243,7 @@ function _initDate(){
         }
     )
 }
+
 //根据当前选择的能耗类型设置页面信息
 function _setEnergyInfo(){
     if(_energyTypeSel){
@@ -241,6 +262,50 @@ function _setEnergyInfo(){
             }
         }
     }
+}
+
+//获取能耗种类参数方法
+function _getEcTypeValue(el){
+    var aaa =[];
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            aaa.push(jsonText.alltypes[i].etid)
+        }
+        el = aaa[$('.selectedEnergy').index()];
+        return el;
+    }
+};
+
+//获取能耗种类方法（电、水、气）
+function _getEcType(el){
+    var _energyTypeSel = new ETSelection();
+    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
+        el = _getEcTypeValue(el);
+    });
+}
+
+//楼宇ztree树
+function _getPointerZtree(pointerId){
+    var _objectSel = new ObjectSelection();
+    _objectSel.initPointers(pointerId,true);
+    return _objectSel;
+}
+
+//科室ztree树
+function _getOfficeZtree(officesId){
+    var _objectSel = new ObjectSelection();
+    _objectSel.initOffices(officesId);
+    return _objectSel;
+}
+
+
+//楼宇、科室搜索功能
+function _searchPO(tip,pointerId,tips,officeId){
+    var objSearchs = new ObjectSearch();
+    objSearchs.initPointerSearch($("#keys"),tip,pointerId);
+    var objSearch = new ObjectSearch();
+    objSearch.initOfficeSearch($("#key"),tips,officeId);
 }
 
 

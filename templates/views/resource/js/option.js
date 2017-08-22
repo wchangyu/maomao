@@ -746,7 +746,11 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                datasTable($("#scrap-datatables11"),result);
+                var aa = [];
+                for(var i=0;i<result.length;i++){
+                    aa.push(result[i])
+                }
+                datasTable($("#scrap-datatables11"),aa);
                 var aaa = currentPages;
                 for(var i=0 ;i<$('.paginate_button').length; i++){
                     if($('.paginate_button').eq(i).html() == aaa){
@@ -905,6 +909,17 @@ $(function(){
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
     }
+    //台风放大事件
+    $('.typhoonButton').find('.fullscreen').click(function(){
+        //点击放大的时候，false，缩小的时候，true
+        if($(this).hasClass('on')){
+            //缩小情况
+            $('.hide-content-top').hide();
+        }else{
+            //放大情况
+            $('.hide-content-top').show();
+        }
+    })
 
 
 
@@ -1016,7 +1031,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKRptItemStock',
             data:prm,
             success:function(result){
-                console.log(result);
                 var downState = [];
                 var upState = [];
                 var nomalState = [];

@@ -911,3 +911,45 @@ body {
 .block-spinner-bar > div {
   background: #da594a;
 }
+
+
+/*-------------------------------------------------运维定制颜色-----------------------------------------*/
+
+.table-advance thead tr th{
+  background: #c0d0e0 !important;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+  border:2px solid #c0d0e0 !important;
+}
+.table-bordered{
+  border:2px solid #c0d0e0 !important;
+}
+
+.btn-success{
+  background: #5a8dc4 !important;
+}
+.spanhover{
+  background: #e1e1e1 !important;
+}
+.excelButton span{
+  color: #ffffff!important;
+}
+.btn-success:hover{
+  background: #1484d0 !important;
+}
+.saveAs:hover{
+  background: #1484d0 !important;
+}
+.table-title~.main-contents-table{
+  background: #e1e1e1 !important;
+}
+.saveAs{
+  color: #333 !important;
+  background-color: #5a8dc4 !important;
+  border-color: #dddddd !important;
+  background-image:none !important;
+  filter:chroma(color=#000000) !important;
+  outline: hidden !important;
+  font-size: 14px !important;
+}

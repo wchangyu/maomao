@@ -3,14 +3,14 @@ $(function(){
     /*
     * 用户名 _userIdName 本地地址 _url*/
     //日历插件初始化
-    _timeComponentsFun($('.datatimeblock'));
+    _timeHMSComponentsFun($('.datatimeblock'));
 
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
 
-    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY/MM/DD');
+    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD') + ' 00:00';
 
-    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY/MM/DD');
+    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD') + ' 00:00';
 
     //设置初始时间
     $('.datatimeblock').eq(0).val(_dataWeekStart);
@@ -131,22 +131,23 @@ $(function(){
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
-    }
+    };
 
     //重绘脚部
-    function footerFn(tfoot, data, start, end, display){
-        var lengths = $(tfoot).parents('.table').find('thead').find('.sorting_disabled').length;
-        var tr = $(tfoot).parents('table').children('tfoot').children('tr');
-        var th = $(tfoot).parents('table').children('tfoot').children('tr').children('th');
+    function footerFn(tfoot, data, start, end, display,dom){
+        console.log(tfoot);
+        var lengths = $(tfoot).parents('#failure-reporting').find('thead').find('.sorting_disabled').length;
+        var tr = $(tfoot).parents('#failure-reporting').children('tfoot').children('tr');
+        var th = $(tfoot).parents('#failure-reporting').children('tfoot').children('tr').children('th');
         var str = '';
-        if($(tfoot).parents('.table').find('tfoot').find('th').length == 0){
+        if($(tfoot).parents('#failure-reporting').find('tfoot').find('th').length == 0){
             for(var i=0;i<lengths;i++){
                 str += '<th></th>';
             }
-            $('tfoot').find('tr').append(str);
+            $('#failure-reporting tfoot').find('tr').append(str);
         }
-        $(tfoot).parents('.table').find('tfoot').find(tr).eq(0).children('th').eq(0).html('合计');
-    }
+        $(tfoot).parents('#failure-reporting').find('tfoot').find(tr).eq(0).children('th').eq(0).html('合计');
+    };
 
     //合计计算
     function totalFn(nRow, aData, iDisplayIndex, iDisplayIndexFull){
@@ -155,7 +156,7 @@ $(function(){
         for(var i=2;i<lengths;i++){
             _totalNum[i] += aData[_totalAttr[i]];
         };
-    }
+    };
 
     //重绘合计数据
     function drawFn(){
@@ -166,7 +167,7 @@ $(function(){
         for(var i=0;i<_totalNum.length;i++){
             _totalNum[i] = 0;
         }
-    }
+    };
 
     initTable($('#failure-reporting'),failureReportingCol,headerFn,footerFn,totalFn,drawFn);
 
@@ -580,7 +581,7 @@ $(function(){
         var tabDiv = $(this).parents('.table-title').next().children('div');
         tabDiv.addClass('hide-block');
         tabDiv.eq($(this).index()).removeClass('hide-block');
-        $('.excelButton11').hide();
+        $('.excelButton11') .hide();
         $('.excelButton11').eq($(this).index()).show();
     });
 })
