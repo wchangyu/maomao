@@ -128,7 +128,7 @@
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
   "pageTitle":"能源管理系统",
   "themeColor":"default",
-  "themecolors":"blue/darkblue/default/grey/light/light2,default=dark,light和light2废弃",
+  "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
   "alarmInterval":"0.2",

@@ -71,7 +71,7 @@ $(function(){
 
         }
     ]
-    tableInit(_$tableLX,col);
+    tableInit(_$tableLX,col,$('.excelButton').eq(0));
     //设备区域
     var col1 = [
         {
@@ -102,7 +102,7 @@ $(function(){
 
         }
     ];
-    tableInit(_$tableQY,col1);
+    tableInit(_$tableQY,col1,$('.excelButton').eq(1));
     //设备系统
     var col2 = [
         {
@@ -132,7 +132,7 @@ $(function(){
 
         }
     ];
-    tableInit(_$tableXT,col2);
+    tableInit(_$tableXT,col2,$('.excelButton').eq(2));
     //设备部门
     var col3 = [
         {
@@ -162,7 +162,7 @@ $(function(){
 
         }
     ];
-    tableInit(_$tableBM,col3);
+    tableInit(_$tableBM,col3,$('.excelButton').eq(3));
     /*--------------------------------表格数据---------------------------*/
     //默认全部表格加载数据；
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,_$tableLX,'dcName');
@@ -179,8 +179,9 @@ $(function(){
     });
     //设备类型增加按钮
     $('.addFun').click(function(){
+        $('#myModal').find('.modal-title').html('添加');
         //获取当前新增按钮时属于哪个表格的
-        _$thisTable = $(this).parent().next().next().next().next();
+        _$thisTable = $(this).parents('.table-block-list').find('table');
         //清空输入框
         myApp33.sblxbm = '';
         myApp33.sblxmc = '';
@@ -230,6 +231,7 @@ $(function(){
     $('.table tbody')
     //设备类型编辑按钮
         .on('click','.option-edit',function(){
+            $('#myModal').find('.modal-title').html('编辑');
             //样式
             var $this = $(this).parents('tr');
             $(this).parents('.table').find('tr').removeClass('tables-hover');
@@ -465,8 +467,8 @@ $(function(){
             }
         }
     //表格初始化方法
-    function tableInit(tableID,col){
-        tableID.DataTable({
+    function tableInit(tableID,col,button){
+        var _tables = tableID.DataTable({
             'autoWidth': false,  //用来启用或禁用自动列的宽度计算
             'paging': true,   //是否分页
             'destroy': true,//还原初始化了的datatable
@@ -493,7 +495,7 @@ $(function(){
                 {
                     text:'新增',
                     className:'saveAs addFun btn btn-success'
-                },
+                }
             ],
             'columns':col,
             'aoColumnDefs':[
@@ -502,7 +504,8 @@ $(function(){
                     aTargets: [ '_all' ]
                 }
             ],
-        })
+        });
+        _tables.buttons().container().appendTo(button,_tables.table().container());
     }
     //编辑内容赋值方法
     function editContent( arr,num,name,py,pid,bm ){

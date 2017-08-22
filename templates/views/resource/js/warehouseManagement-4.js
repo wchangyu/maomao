@@ -1,9 +1,13 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
+    //获得用户id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //仓库
+    warehouse();
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -52,6 +56,10 @@ $(function(){
             {
                 title:'规格',
                 data:'size'
+            },
+            {
+                title:'仓库',
+                data:'storageName'
             },
             {
                 title:'预警下限',
@@ -103,7 +111,10 @@ $(function(){
         var prm = {
             'itemNum':filterInput[0],
             'itemName':filterInput[1],
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'storageNum':$('#ckSelect').val()
+
         }
         $.ajax({
             type:'post',
@@ -141,6 +152,29 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+    //仓库选择
+    function warehouse(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                var str = '<option value="">请选择</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                }
+                $('#ckSelect').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏

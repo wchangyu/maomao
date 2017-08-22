@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
+    //获得用户id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -27,21 +29,17 @@ $(function(){
         data:{
             'bianhao':'',
             'rkleixing':'',
-            options: [
-                { text: '采购入库', value: '1' },
-                { text: '借出退还入库', value: '2' },
-                { text: '借用入库', value: '3' }
-            ],
-            'gysbianhao':'',
-            'gysmingcheng':'',
-            'gyslianxiren':'',
-            'gysdizhi':'',
             'zhidanren':'',
             'remarks':'',
-            'gysphone':'',
             'shijian':'',
+            'ckselect':'',
+            'gdCode':'',
+            'clymc':'',
+            'clydh':''
         }
     });
+    warehouse();
+    rkLX();
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -81,7 +79,11 @@ $(function(){
                 className:'orderNum'
             },
             {
-                title:'日期',
+                title:'仓库',
+                data:'storageName'
+            },
+            {
+                title:'创建日期',
                 data:'createTime'
             },
             {
@@ -210,16 +212,15 @@ $(function(){
         for(var i=0;i<_allData.length;i++){
             if(_allData[i].orderNum == $thisDanhao){
                 //绑定数据
-                myApp33.rkleixing = $.trim($('#myApp33').find('select').find('option').eq(_allData[i].outType-1).val());
+                myApp33.rkleixing = _allData[i].outType;
                 myApp33.bianhao = _allData[i].orderNum;
-                myApp33.gysbianhao = _allData[i].supNum;
-                myApp33.gysmingcheng = _allData[i].supName;
-                myApp33.gyslianxiren = _allData[i].contactName;
-                myApp33.gysdizhi = _allData[i].address;
                 myApp33.remarks = _allData[i].remark;
-                myApp33.gysphone = _allData[i].phone;
-                myApp33.zhidanren = _allData[i].contactName;
+                myApp33.zhidanren = _allData[i].createUser;
                 myApp33.shijian = _allData[i].createTime;
+                myApp33.gdCode =_allData[i].contractOrder;
+                myApp33.clymc = _allData[i].cusName;
+                myApp33.clydh = _allData[i].phone;
+                myApp33.ckselect = _allData[i].storageNum;
             }
         }
         //判断如果是查看功能的话，确认按钮消失
@@ -237,6 +238,9 @@ $(function(){
             data:prm,
             success:function(result){
                 datasTable($('#personTable1'),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     })
@@ -262,7 +266,9 @@ $(function(){
             data:prm,
             success:function(result){
                 datasTable($('#scrap-datatables'),result)
-
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
         //符合当前条件的出库管理列表
@@ -282,6 +288,9 @@ $(function(){
                 if(result.length>0){
                     _allData = result;
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -309,6 +318,60 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+    //仓库选择
+    function warehouse(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                var str = '<option value="">请选择</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                }
+                $('#ckselect').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //入库类型
+    function rkLX(flag){
+        var prm = {
+            "catType": 2,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetInOutCate',
+            data:prm,
+            success:function(result){
+                if(flag){
+                    var str = '<option value="">全部</option>';
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+                    }
+                    $('.tiaojian').append(str);
+                }else{
+                    var str = '<option value="">请选择</option>';
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+                    }
+                    $('#rkleixing').append(str);
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏

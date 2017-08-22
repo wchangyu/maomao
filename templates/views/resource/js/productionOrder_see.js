@@ -136,27 +136,19 @@ $(function(){
         'url':_urls + 'YWGD/ywGDGetDetail',
         'data':prm,
         'success':function(result){
+            console.log(result);
             //赋值
             var indexs = result.gdZht;
             var progressBarList = $('.progressBarList');
             var timeContent = $('.record-list');
             //绑定弹窗数据
+            console.log(result.gdJJ);
             if(result.gdJJ == 1){
-                console.log('ones')
-                $('.inpus').attr('checked',false);
-                $('#ones').attr('checked',true);
+                $('.inpus').removeAttr('checked');
+                $('#ones').click();
             }else{
-                console.log('twos');
-                $('.inpus').attr('checked',false);
-                $('#twos').attr('checked',true);
-            }
-            //绑定弹窗数据
-            if (result.gdRange == 1) {
-                $('.whether').attr('checked',false);
-                $('#four').attr('checked',true);
-            } else {
-                $('.whether').attr('checked',false);
-                $('#three').attr('checked',true);
+                $('.inpus').removeAttr('checked');
+                $('#twos').click();
             }
             $('.otime').val(result.gdFsShij);
             //app33.picked = result.gdJJ;
@@ -179,65 +171,69 @@ $(function(){
             _imgNum = result.hasImage;
             app33.gdly = result.gdCodeSrc;
             //进度条赋值
-            //待下发记录时间
-            progressContent(0,0,result.gdShij);
-            //待下发相关人员
-            progressContent(0,2,result.createUserName);
-            //调度下发时间
-            progressContent(1,0,result.shouLiShij);
-            //调度下发人员
-            progressContent(1,2,result.shouLiRenName);
-            //分派时间
-            progressContent(2,0,result.paiGongShij);
-            //分派人
-            progressContent(2,2,result.paigongUserName);
-            //开始执行时间
-            progressContent(3,0,result.jiedanShij);
-            var ddRen = '';
-            for(var i=0;i<result.wxRens.length;i++){
-                ddRen += result.wxRens[i].wxRName;
-                if(i!=result.wxRens.length-1){
-                    ddRen += ','
-                }
-            }
-            //执行人
-            progressContent(3,2,ddRen);
-            //等待时间
-            progressContent(4,0,result.dengShij);
-            //等待人
-            progressContent(4,2,ddRen);
-            //完工时间
-            progressContent(5,0,result.wanGongShij);
-            //完工人
-            progressContent(5,2,ddRen);
-            //关闭时间
-            progressContent(6,0,result.guanbiShij);
-            //关单人
-            progressContent(6,2,result.pjRenName);
-            //查看执行人员
-            datasTable($("#personTable1"),result.wxRens);
-            //维修材料
-            datasTable($("#personTables1"),result.wxCls);
+            ////待下发记录时间
+            //progressContent(0,0,result.gdShij);
+            ////待下发相关人员
+            //progressContent(0,2,result.createUserName);
+            ////调度下发时间
+            //progressContent(1,0,result.shouLiShij);
+            ////调度下发人员
+            //progressContent(1,2,result.shouLiRenName);
+            ////分派时间
+            //progressContent(2,0,result.paiGongShij);
+            ////分派人
+            //progressContent(2,2,result.paigongUserName);
+            ////开始执行时间
+            //progressContent(3,0,result.jiedanShij);
+            //var ddRen = '';
+            //for(var i=0;i<result.wxRens.length;i++){
+            //    ddRen += result.wxRens[i].wxRName;
+            //    if(i!=result.wxRens.length-1){
+            //        ddRen += ','
+            //    }
+            //}
+            ////执行人
+            //progressContent(3,2,ddRen);
+            ////等待时间
+            //progressContent(4,0,result.dengShij);
+            ////等待人
+            //progressContent(4,2,ddRen);
+            ////完工时间
+            //progressContent(5,0,result.wanGongShij);
+            ////完工人
+            //progressContent(5,2,ddRen);
+            ////关闭时间
+            //progressContent(6,0,result.guanbiShij);
+            ////关单人
+            //progressContent(6,2,result.pjRenName);
+            ////查看执行人员
+            //datasTable($("#personTable1"),result.wxRens);
+            ////维修材料
+            //datasTable($("#personTables1"),result.wxCls);
             //根绝时间，判断取消之前处于什么状态
-            if(indexs == 999){
-                $('.progressBarList:last').children('.progressName').html('取消');
-                //控制显示红色
-                progressContent(6,0,result.quxiaoShij);
-                //重新遍历一下时间和对应的进度，如果时间为空，对应的进度置为黑色。
-            }else{
-                $('.progressBarList:last').children('.progressName').html('关闭');
-            }
+            //if(indexs == 999){
+            //    $('.progressBarList:last').children('.progressName').html('取消');
+            //    //控制显示红色
+            //    progressContent(6,0,result.quxiaoShij);
+            //    //重新遍历一下时间和对应的进度，如果时间为空，对应的进度置为黑色。
+            //}else{
+            //    $('.progressBarList:last').children('.progressName').html('关闭');
+            //}
             //变色
-            for(var i=0;i<timeContent.length;i++){
-                var timeLength = timeContent.eq(i).children('div').eq(0).children('.record-content').html();
-                if(timeLength != ''){
-                    progressBarList.eq(i).css({'color':'#db3d32'});
-                }else{
-                    progressBarList.eq(i).css({'color':'#333'});
-                    //当时间为''的话，执行人员也是空
-                    timeContent.eq(i).children('div').eq(2).children('.record-content').html('');
-                }
-            }
+            //for(var i=0;i<timeContent.length;i++){
+            //    var timeLength = timeContent.eq(i).children('div').eq(0).children('.record-content').html();
+            //    if(timeLength != ''){
+            //        progressBarList.eq(i).css({'color':'#db3d32'});
+            //    }else{
+            //        progressBarList.eq(i).css({'color':'#333'});
+            //        //当时间为''的话，执行人员也是空
+            //        timeContent.eq(i).children('div').eq(2).children('.record-content').html('');
+            //    }
+            //}
+            //备件处理过程
+            logInformation(2);
+            //工单处理过程
+            logInformation(1);
         },
         'error':function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);
@@ -313,5 +309,40 @@ $(function(){
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
         return str;
+    }
+    //获取日志信息（备件logType始终传2）
+    function logInformation(logType){
+        var gdLogQPrm = {
+            "gdCode": _gdCode,
+            "logType": logType,
+            "userID": _userID,
+            "userName": _userName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                if(logType == 2){
+                    var str = '';
+                    for(var i =0;i<result.length;i++){
+                        str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' + result[i].logContent+ '</li>';
+                    }
+                    $('.deal-with-list').empty();
+                    $('.deal-with-list').append(str);
+                }else if(logType == 1){
+                    var str = '';
+                    for(var i=0;i<result.length;i++){
+                        str += '<li><span class="list-dot"> </span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;' + result[i].logTitle +  '</li>';
+                    }
+                    $('.processing-record ul').empty();
+                    $('.processing-record ul').append(str);
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })
