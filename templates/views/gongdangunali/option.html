@@ -70,6 +70,19 @@
             min-height: 600px;
             padding: 0px 20px 10px 20px;
         }
+        .hide-content-top{
+            width:48px;
+            height:48px;
+            position:absolute;
+            cursor:pointer;
+            left:0;
+            top:890px;
+            background: url('../resource/img/upward.png') no-repeat;
+
+        }
+        .hide-content-top-down{
+            background: url('../resource/img/downward.png') no-repeat;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -422,43 +435,52 @@
                                             </div>
                                         </div>
                                         <div class="main-block" style="height:360px;overflow-y: scroll">
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60px" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=nanchang&num=5&site=12"></iframe>
+                                            <!--上方各地天气显示-->
+                                            <div class="main-block-top">
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60px" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=nanchang&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=fuzhou&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=xiamen&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=jiujiang&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=ganzhou&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=shangrao&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=xinyu&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=zhangping&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=quanzhou&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=jinggangshan&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=sanming&num=5&site=12"></iframe>
+                                                </div>
+                                                <div style="text-align: center;margin: 10px 0;height: 60px !important;">
+                                                    <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=nanping&num=5&site=12"></iframe>
+                                                </div>
+                                                <!--控制上方各地天气是否显示-->
+
                                             </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=fuzhou&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=xiamen&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=jiujiang&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=ganzhou&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=shangrao&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=xinyu&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=zhangping&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=quanzhou&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=jinggangshan&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=sanming&num=5&site=12"></iframe>
-                                            </div>
-                                            <div style="text-align: center;margin: 10px 0;height: 60px !important;">
-                                                <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&py=nanping&num=5&site=12"></iframe>
-                                            </div>
-                                            <iframe width="100%" scrolling="no" height="460px" frameborder="0" allowtransparency="true" src="http://typhoon.zjwater.gov.cn/wap.htm?from=singlemessage&isappinstalled=0"></iframe>
+                                            <span class="hide-content-top" style=""></span>
+
+                                            <iframe width="100%" scrolling="no" height="460px" frameborder="0" allowtransparency="true" src="http://typhoon.zjwater.gov.cn/wap.htm?from=singlemessage&isappinstalled=0" id="bottom-map" >
+
+                                            </iframe>
                                         </div>
                                     </div>
                                 </div>

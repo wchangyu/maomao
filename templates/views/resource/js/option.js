@@ -1055,5 +1055,23 @@ $(function(){
 
     //全屏
 
+    var hideNum = 0;
+    //隐藏各地天地信息按钮
+    $('.hide-content-top').on('click',function(){
 
+         if(hideNum % 2 == 0){
+             $('.main-block-top').hide();
+             $(this).addClass('hide-content-top-down');
+             $('#bottom-map').remove();
+             var mapNode =    '<iframe width="100%" scrolling="no" height="100%" frameborder="0" allowtransparency="true" src="http://typhoon.zjwater.gov.cn/wap.htm?from=singlemessage&isappinstalled=0" id="bottom-map"></iframe>';
+             $(this).after(mapNode);
+         }else{
+             $('.main-block-top').show();
+             $(this).removeClass('hide-content-top-down');
+             $('#bottom-map').remove();
+             var mapNode =    '<iframe width="100%" scrolling="no" height="460px" frameborder="0" allowtransparency="true" src="http://typhoon.zjwater.gov.cn/wap.htm?from=singlemessage&isappinstalled=0" id="bottom-map"></iframe>';
+             $(this).after(mapNode);
+         }
+        hideNum++;
+    });
 })

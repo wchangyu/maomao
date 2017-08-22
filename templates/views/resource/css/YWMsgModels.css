@@ -1,0 +1,15 @@
+.startsTime{
+    height: 28px;
+    margin-bottom: 5px;
+    width: 270px;
+    font-size:20px;
+}
+input,textarea{
+    margin-bottom:15px !important;
+}
+.datatimeblock {
+    background: url(../img/clendar.png) no-repeat;
+    background-size: 25px;
+    background-position: 90% center;
+    cursor: pointer;
+}

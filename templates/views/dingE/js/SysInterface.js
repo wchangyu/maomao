@@ -2,6 +2,7 @@
  * Created by admin on 2017/8/15.
  */
 $(document).ready(function(){
+
     //调用获取后台数据方法，进行数据获取
     alarmHistory();
     //初始化table表单
@@ -381,6 +382,29 @@ $(document).ready(function(){
         //changeTable();
     };
 });
+
+var name = "The Window";
+var object = {
+    name : "My Object",
+    getNameFunc : function(){
+        return function(){
+            return this.name;
+        };
+    }
+};
+//var name = "The Window";
+//var object = {
+//    name : "My Object",
+//    getNameFunc : function(){
+//        var that = this;
+//        return function(){
+//            return that.name;
+//        };
+//    }
+//};
+
+console.log(object.getNameFunc()());
+
 var table;
 //存放系统接口分类
 var _faceType = [];

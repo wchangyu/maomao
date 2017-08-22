@@ -1,0 +1,104 @@
+table textarea{
+    resize:none;
+}
+#picker div {
+    width: 82px !important;
+    height: 38px !important;
+}
+#ctlBtn{
+    height:38px;
+    margin-left:10px;
+}
+#thelist .thumbnail {
+    display: inline-block;
+    margin-right: 10px;
+    max-width: 120px;
+    max-height: 180px;
+    cursor: pointer;
+}
+.file-title{
+    line-height: 23px;
+}
+.top-key-word{
+    line-height: 23px;
+}
+.cont-col1 {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.cont-col1:hover {
+    opacity: 1;
+}
+#knowledge-title{
+    height:38px;
+    margin-bottom:5px;
+    width: 370px;
+    font-size:20px;
+}
+.colorTip {
+    color: #db3d32;
+}
+table  tr th{
+    text-align: center !important;
+}
+
+.tables-hover {
+    background: #FBEC88 !important;
+}
+.knowledge-title{
+    height:38px;
+    margin-bottom:5px;
+    width: 370px;
+    font-size:20px;
+}
+.hidden{
+    display: none !important;
+}
+
+input,textarea{
+    padding-left:5px;
+}
+
+.uploader-list-show .thumbnail {
+    display: inline-block;
+    margin-right: 10px;
+    max-width: 120px;
+    max-height: 150px;
+}
+#thelist0 .thumbnail {
+    display: inline-block;
+    margin-right: 10px;
+    max-width: 120px;
+    max-height: 180px;
+    cursor: pointer;
+
+
+}
+.thumbnail img{
+    width:80px;
+    height:80px;
+}
+.info{
+    overflow: hidden;
+    width:100%;
+    text-overflow:ellipsis;
+    cursor: pointer;
+}
+.content-main-right {
+   width:100%;
+    padding-left:0;
+    padding-right:0;
+}
+.del-files{
+    width:100%;
+    /*background:red;*/
+    text-align: center;
+
+}
+.del-files a{
+    color:black;
+}
+
+.hasChecked{
+    background:#999;
+}
