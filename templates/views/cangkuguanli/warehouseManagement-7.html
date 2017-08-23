@@ -400,45 +400,27 @@
                                 <li class="floatRight">
                                     <div class="labels">入库单类型 ：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="" v-model="rkleixing">
-                                            <!--<option value="1">采购入库</option>
-                                            <option value="2">借出退还入库</option>
-                                            <option value="3">借用入库</option>-->
-                                            <option v-for="option in options" v-bind:value="option.value">
-                                                {{ option.text }}
-                                            </option>
+                                        <select name="" id="rkleixing" v-model="rkleixing">
                                         </select>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">供应商编号：</div>
+                                    <div class="labels">供货方名称 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gysbianhao" placeholder="输入关键字搜索或者双击选择">
+                                        <input type="text" v-model="supplierMC">
                                     </div>
                                 </li>
                                 <li class="floatRight">
-                                    <div class="labels">供应商名称 ：</div>
+                                    <div class="labels">供货方发票编号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gysmingcheng" >
+                                        <input type="text" v-model="supplierBM">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">供应商联系人：</div>
+                                    <div class="labels">仓库选择 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gyslianxiren">
+                                        <select id="ckselect" v-model="ckselect"></select>
                                     </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">供应商联系方式 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="gysphone" >
-                                    </div><!--v-model="matter"-->
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">供应商联系地址 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="gysdizhi" >
-                                    </div><!--v-model="matter"-->
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">制单人 ：</div>

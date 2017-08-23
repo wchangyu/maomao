@@ -810,6 +810,7 @@ $(function(){
         datasTable($('#personTable1'),_zhixingRens);
         //获取维修部门
         $('.weixiukeshis').val($('#xzmc').val());
+        $('.weixiukeshis').attr('data-bm',$('#zxbm').val());
     })
     //选择执行人员删除按钮
     $('#personTable1 tbody').on('click','.tableDeleted',function(){
@@ -1127,6 +1128,7 @@ $(function(){
             'gdCode':gdCode,
             'gdZht':3,
             'wxKeshi':$('.weixiukeshis').val(),
+            'wxKeshiNum':$('.weixiukeshis').attr('data-bm'),
             'userID':_userIdNum,
             'userName':_userIdName
         }

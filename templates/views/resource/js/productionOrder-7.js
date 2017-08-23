@@ -68,6 +68,8 @@ $(function(){
     var currentRow = '';
     //当前那工单号
     var gdCode = '';
+    //当前工单状态
+    var _gdState = '';
     //当前维修班组
     var _wxOffice = '';
     //记录当前工单详情有几个图
@@ -93,8 +95,6 @@ $(function(){
     var _deleteBM = '';
     //记录当前备件状态
     var _sparePart = 0;
-    //存放获得的备件状态常量
-    var _sparePartArr = [];
     //记录申请备件是否成功
     var _sparePartFlag = false;
     //添加材料是否成功
@@ -465,15 +465,30 @@ $(function(){
 
     //维修材料按钮
     $('.option-wxcl').click(function(){
-        //弹出框显示
-        moTaiKuang($('#myModal4'),'维修备件申请');
-        //获取处理过程
-        logInformation();
         //获取配件状态常量
         stateConstant();
+        //获取处理过程
+        logInformation();
         $('.deal-with-list').empty();
-        datasTable($('#personTables1'),_primaryBJ);
-
+        //获取detail
+        var prm = {
+            'gdCode':gdCode,
+            'gdZht':_gdState,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'gdCircle':_gdCircle
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            success:function(result){
+                datasTable($('#personTables1'),result.wxCls);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     });
 
     //增加维修材料
@@ -615,6 +630,7 @@ $(function(){
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
+            _gdState = gongDanState;
             gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -1012,53 +1028,11 @@ $(function(){
             url:_urls + 'YWGD/ywDGGetLog',
             data:gdLogQPrm,
             success:function(result){
-                console.log(result);
                 var str = '';
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
                 $('.deal-with-list').append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-    //获取配件状态常量
-    function stateConstant(){
-        var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetPjStatus',
-            data:prm,
-            success:function(result){
-                console.log(result);
-                _sparePartArr = [];
-                var str = '<option value="">请选择</option>'
-                for(var i=0;i<result.statuses.length;i++){
-                    _sparePartArr.push(result.statuses[i]);
-                    str += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clStatus + '</option>';
-                }
-                $('#stateConstant').append(str);
-                //var nowState = '';
-                //if(result.clStatus == 1){
-                //    nowState = "申请配件";
-                //}else if(result.clStatus == 2){
-                //    nowState = "确认配件";
-                //}else if(result.clStatus == 3){
-                //    nowState = "仓库处理";
-                //}else if(result.clStatus == 4){
-                //    nowState = "仓库发货"
-                //}else if(result.clStatus == 5){
-                //    nowState = "备件到达"
-                //}else if(result.clStatus == 99){
-                //    nowState = "备件取消"
-                //}
-                //$('.nowState').val(nowState);
-                //$('.nowState').attr('state',result.clStatus);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1131,5 +1105,36 @@ $(function(){
                 }
             }
         }
+    }
+    //获取备件状态
+    function stateConstant(){
+        var prm = {
+            "gdCode":gdCode,
+            "userID": _userIdNum,
+            "userName": _userIdName,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetPjStatus',
+            data:prm,
+            success:function(result){
+                _sparePart = result.clStatus;
+                //先根据当前的状态判断是否显示确定按钮和增加维修备件按钮，还有备注是否可以编辑
+                //弹出框显示
+                if(_sparePart>1){
+                    moTaiKuang($('#myModal4'),'维修备件申请','flag');
+                    $('.tianJiaCaiLiao').hide();
+                    $('#bjremark').attr('disabled',true);
+                }else{
+                    moTaiKuang($('#myModal4'),'维修备件申请');
+                    $('.tianJiaCaiLiao').show();
+                    $('#bjremark').attr('disabled',false);
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

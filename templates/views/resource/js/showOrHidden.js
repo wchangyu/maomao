@@ -78,8 +78,6 @@ $(function(){
     //王常宇
     addSearchBox();
 
-
-});
 })
 //日历时间
 function _selectTime(){

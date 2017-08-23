@@ -1,7 +1,9 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
+    //获得用户id
+    var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //新增vue对象数据绑定
@@ -11,7 +13,28 @@ $(function(){
             'num':'',
             'name':'',
             'barnum':'',
-            'beizhu':''
+            'beizhu':'',
+            'location':''
+        },
+        methods:{
+            keyUpJob:function(){
+                var existFlag = false;
+                var allArr = [];
+                var values = wharehouse.num;
+                for(var i=0;i<_allData.length;i++){
+                    if( values !=  _allData[i].storageNum){
+                        existFlag = true;
+                    }else{
+                        existFlag = false;
+                    }
+                    allArr.push(existFlag);
+                }
+                if(allArr.indexOf(false)<0){
+                    $('.quchong').hide();
+                }else{
+                    $('.quchong').show();
+                }
+            }
         }
     });
     //验证必填项（非空）
@@ -57,20 +80,20 @@ $(function(){
         "columns": [
             {
                 title:'仓库编号',
-                data:'cateNum',
+                data:'storageNum',
                 className:'bianma'
             },
             {
                 title:'仓库名称',
-                data:'cateName'
+                data:'storageName'
             },
             {
-                title:'仓库条码',
-                data:'cateName'
+                title:'排序',
+                data:'sort'
             },
             {
                 title:'备注',
-                data:'createUser'
+                data:'remark'
             },
             {
                 title:'操作',
@@ -84,7 +107,7 @@ $(function(){
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //页面加载数据
-    conditionSelect()
+    conditionSelect();
     /*-------------------------------------按钮功能-------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -99,6 +122,9 @@ $(function(){
     })
     //新增
     $('.creatButton').click(function(){
+        //都可以编辑
+        $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+        $('#myApp33').find('textarea').attr('disabled',false);
         //清空所有内容
         wharehouse.name = '';
         wharehouse.num = '';
@@ -113,51 +139,50 @@ $(function(){
             moTaiKuang($('#myModal'),'编辑仓库');
             //绑定数据
             bindData($(this));
+            //编码不可编辑
+            $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+            $('#myApp33').find('input').eq(0).attr('disabled',true).addClass('disabled-block');
         })
         .on('click','.option-delete',function(){
-            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
             moTaiKuang($('#myModal'),'确定要删除吗？');
             //绑定数据
             bindData($(this));
+            //都不可编辑
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true);
         })
     //确定按钮
     $('#myModal')
         //登记确定按钮
         .on('click','.dengji',function(){
-            sendMessage('','新增成功！','新增失败','1');
+            sendMessage('YWCK/ywCKAddStorage','新增成功！','新增失败',$('#myModal'),'1');
         })
         //编辑确定按钮
         .on('click','.bianji',function(){
-            sendMessage('','编辑成功！','编辑失败','2');
+            sendMessage('YWCK/ywCKUptStorage','编辑成功！','编辑失败',$('#myModal'),'1');
         })
         //删除确定按钮
         .on('click','.shanchu', function () {
-            sendMessage('','删除成功！','删除失败','3');
+            sendMessage('YWCK/ywCKDelStorage','删除成功！','删除失败',$('#myModal'),'2');
         })
     /*-------------------------------------方法---------------------------------*/
     function conditionSelect(){
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
         var prm = {
-            "cateNum":filterInput[0],
-            "cateName":filterInput[1],
-            "userID":_userIdName
+            userID:_userIdNum,
+            userName:_userIdName
         }
         $.ajax({
             type:'post',
-            url: _urls + 'YWCK/ywCKGetItemCate',
+            url: _urls + 'YWCK/ywCKGetStorages',
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 _allData = [];
-                for(var i=0;i<_allData.length;i++){
+                for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);
                 }
-                //datasTable($("#scrap-datatables"),result)
+                datasTable($("#scrap-datatables"),result)
             }
         })
     }
@@ -201,18 +226,32 @@ $(function(){
     function bindData(el){
         var $this = el.parents('tr');
         var $thisBM = $this.children('.bianma').html();
-        for(var i=0;i<_allData.length;i++){
-            if(_allData[i].num == $thisBM){
-                //赋值
-                wharehouse.num = _allData[i].num;
-                wharehouse.name = _allData[i].name;
-                wharehouse.barnum = _allData[i].barnum;
-                wharehouse.beizhu = _allData[i].beizhu;
-            }
+        var prm = {
+            storageNum:$thisBM,
+            userID:_userIdNum,
+            userName:_userIdName
         }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                if(result.length>0){
+                    //赋值
+                    wharehouse.num = result[0].storageNum;
+                    wharehouse.name = result[0].storageName;
+                    wharehouse.barnum = result[0]['sort'];
+                    wharehouse.beizhu = result[0].remark;
+                    wharehouse.location = result[0].address;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
     //登记/编辑/删除
-    function sendMessage(url,succcessMeg,errorMeg,flag){
+    function sendMessage(url,succcessMeg,errorMeg,tipBlock,flag){
         //判断非空
         if( wharehouse.name == '' ){
             tipInfo($('#myModal2'),'提示','请填写红色必填项！','flag');
@@ -221,20 +260,16 @@ $(function(){
             var prm = {};
             if(flag == 1){
                 //登记
-                prm.name = wharehouse.name;
-                prm.barnum = wharehouse.barnum;
-                prm.beizhu = wharehouse.beizhu;
-                prm.userID = _userIdName;
+                prm.storageNum = wharehouse.num;
+                prm.storageName = wharehouse.name;
+                prm.sort  = wharehouse.barnum;
+                prm.remark = wharehouse.beizhu;
+                prm.address = wharehouse.location;
             }else if(flag == 2){
-                prm.num = wharehouse.num;
-                prm.name = wharehouse.name;
-                prm.barnum = wharehouse.barnum;
-                prm.beizhu = wharehouse.beizhu;
-                prm.userID = _userIdName;
-            }else if(flag == 3){
-                prm.num = wharehouse.num;
-                prm.userID = _userIdName;
+                prm.storageNum = wharehouse.num;
             }
+            prm.userID = _userIdNum;
+            prm.userName = _userIdName;
             $.ajax({
                 type:'post',
                 url:_urls + url,
@@ -242,8 +277,11 @@ $(function(){
                 success:function(result){
                     if(result == 99){
                         tipInfo($('#myModal2'),'提示',succcessMeg,'flag');
+                        conditionSelect();
+                        tipBlock.modal('hide');
                     }else{
                         tipInfo($('#myModal2'),'提示',errorMeg,'flag');
+                        tipBlock.modal('show');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){

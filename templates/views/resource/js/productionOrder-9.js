@@ -10,6 +10,9 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
+    //获取arg
+    var _arg = sessionStorage.getItem("menuArg");
+
     //时间初始化
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -120,11 +123,12 @@ $(function(){
                 title: '工单号',
                 data: 'gdCode2',
                 className: 'gongdanId',
-                render: function (data, type, row, meta) {
-                    return '<span gdCode="' + row.gdCode +
+                render:function(data, type, row, meta){
+                    return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '>' + data +
-                        '</span>'
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '"' +
+                        'target="_blank">' + data + '</a>'
                 }
             },
             {
@@ -446,7 +450,6 @@ $(function(){
                     $('#loading').show();
                 },
                 success:function(result){
-                    console.log(result.wxCls);
                     //维修材料
                     datasTable($("#personTables11"),result.wxCls);
                 },
@@ -494,13 +497,15 @@ $(function(){
             userID:_userIdNum,
             userName:_userIdName,
         };
+        if(_arg == 1){
+            prm.arg = 1;
+        }
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetPeijGD',
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 datasTable($("#scrap-datatables"),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -557,20 +562,33 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetPjStatus',
             data:prm,
             success:function(result){
-                console.log(result);
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.statuses.length;i++){
-                    str += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clStatus + '</option>';
-                    if(result.clStatus == result.statuses[i].clStatusID){
-                        $('.nowState').val(result.statuses[i].clStatus);
-                        $('.nowState').attr('state',result.clStatus);
-                    }
+                        str += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clStatus + '</option>';
+                        if(result.clStatus == result.statuses[i].clStatusID){
+                            $('.nowState').val(result.statuses[i].clStatus);
+                            $('.nowState').attr('state',result.clStatus);
+                        }
                 }
                 $('#line-point').empty();
                 $('#line-point').append(str);
+                var str1 = '<option value="">请选择</option>';
+                if(flag){
+                    for(var i=0;i<result.statuses.length;i++){
+                        if(result.statuses[i].clOpt != ''){
+                            if(result.statuses[i].clStatusID > result.clStatus){
+                                str1 += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clOpt + '</option>';
+                                if(result.clStatus == result.statuses[i].clStatusID){
+                                    $('.nowState').val(result.statuses[i].clStatus);
+                                    $('.nowState').attr('state',result.clStatus);
+                                }
+                            }
+                        }
+                    }
+                }
                 if(flag){
                     $('#stateConstant').empty();
-                    $('#stateConstant').append(str);
+                    $('#stateConstant').append(str1);
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -595,7 +613,7 @@ $(function(){
                 console.log(result);
                 var str = '';
                 for(var i =0;i<result.length;i++){
-                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' +  result[i].logContent + '</li>'
                 }
                 $('.deal-with-list').empty();
                 $('.deal-with-list').append(str);

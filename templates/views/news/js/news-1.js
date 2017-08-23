@@ -49,6 +49,7 @@ $(function(){
             url:_url + 'News/GetNewsContentByID?'+ 'PK_NewsID=' + _id,
             async:false,
             success: function (result) {
+                console.log(result);
                 _publishDate = result.f_PublishDate;
                 _publishUser = result.f_PublishUser;
                 _uploadImg = result.f_RecommImgName.split('\\')[1] + '\\' + result.f_RecommImgName.split('\\')[2];
@@ -209,6 +210,7 @@ $(function(){
         var fileNamePath = {
             '':_uploaderPath
         }
+        console.log(_uploaderPath);
         $('#thelist').find('.file-item').remove();
         $.ajax({
             type:'post',

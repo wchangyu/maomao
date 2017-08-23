@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -26,8 +26,7 @@
     <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
-    <script src="../resource/js/vue.js"></script>
-    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
+    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
@@ -35,10 +34,7 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
-    <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
-    <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -53,11 +49,13 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/knowledgeBase-1.css">
+    <link rel="stylesheet" href="../resource/css/YWMsgModels.css">
+
+
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-    <style type="text/css" media=print>
-        .noprint{display : none }
-    </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -231,7 +229,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title noprint">
+            <h3 class="page-title">
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -273,31 +271,45 @@
                     <div class="total-warp">
                         <div class="wrap">
                             <!-- 标题 -->
-                            <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">产品管理</li>
+                            <!-- 左边选择区域 -->
+                            <!--<div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">-->
+                            <!--<div class="content-main">-->
+                            <!--<div class="main-left-middle">-->
+                            <!--<div class="left-middle-header">范围选择</div>-->
+                            <!--<div class="left-middle-main">-->
+                            <!--<div class="tree-1 tree-3"id="tree-2">-->
+                            <!--<ul class="allPointer ztree" id="allPointer"></ul>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="clearfix"></div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="content-main-contents content-main-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="content-main-contents-header">
+                                    <li class="main-contents-header-lists0">条件查询</li>
                                 </ul>
-                                <ul class="condition-query noprint">
-                                    <li>
-                                        <label for="">时间：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="datatimeblock min" name="min">
-                                        </div>
-                                        <label for="">到</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="datatimeblock max" name="max">
+                                <ul class="condition-query">
+                                    <li><label for="">公告标题：</label><input type="text" class="file-title"></li>
+
+                                    <li><button class="btn btn-success btn1">查询</button></li>
+                                    <li style="padding-top:2px;">
+                                        <div class="cont-col1">
+                                            <div class="btn22 creatButton label label-sm label-warning" style="line-height: 34px;padding: 8px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                                            </div>
                                         </div>
                                     </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
-                                    <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
+
                                 <!-- 表格 -->
-                                <div class="content-main-contents">
+                                <ul class="content-main-contents-header content-main-contents-header-1">
+                                    <li class="main-contents-header-lists0">公告浏览</li>
+                                </ul>
+                                <div class="content-main-contents content-main-contents-1">
                                     <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                        <table id="browse-datatables" class="table table-striped b-t b-light  table-bordered table-advance table-hover dataTable no-footer" cellspacing="0" width="100%">
                                             <thead>
                                             </thead>
                                             <tbody>
@@ -315,6 +327,174 @@
             <!-- END PAGE CONTENT-->
         </div>
     </div>
+
+    <!--模态框创建 修改公告-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 548px;min-width:700px;margin:150px auto">
+            <div class="modal-content" style="height: 548px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel1">公告信息</h4>
+                </div>
+                <div class="modal-body" style="height: 425px;overflow-y: auto">
+                    <!--主体部分-->
+                    <div class="bianjirizhi ui-accordion ui-widget ui-helper-reset ui-accordion-icons" style="">
+
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block; padding-top: 12px; padding-bottom: 12px; ">
+                            <table style="width: 100%;" class="dTable">
+                                <tbody>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">标题*：</td>
+                                    <td>
+                                        <input type="text" id="knowledge-title0" class="knowledge-title writes" maxlength="100"></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">公告内容*：</td>
+                                    <td>
+                                        <textarea  class="textarea3 writes" rows="8" style="width: 100%;" maxlength="2000"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">发布时间*：</td>
+                                    <td>
+                                        <input type="text"  class="startsTime writes datatimeblock" maxlength="100" placeholder="选择时间"></input>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class=""></td>
+                                    <td>
+                                        <label style="margin-left: 20px; margin-right: 50px;">
+
+                                                    <input class="chooseIt" name="Fruit" type="radio" values="0"  maxlength="50" checked="checked">立即发布
+                                        </label>
+
+                                        <label style="margin-left: 20px; margin-right: 50px;">
+
+                                                    <input class="chooseIt" name="Fruit" type="radio" values="1"  maxlength="50">存为草稿
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+
+    <!--模态框查看工单-->
+    <div class="modal fade" id="see-myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 548px;min-width:700px;margin:150px auto">
+            <div class="modal-content" style="height: 548px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel11">公告信息</h4>
+                </div>
+                <div class="modal-body" style="height: 425px;overflow-y: auto">
+                    <!--主体部分-->
+                    <div class="bianjirizhi ui-accordion ui-widget ui-helper-reset ui-accordion-icons" style="">
+
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block; padding-top: 12px; padding-bottom: 12px; ">
+                            <table style="width: 100%;" class="dTable">
+                                <tbody>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">标题*：</td>
+                                    <td>
+                                        <input type="text" id="knowledge-title00" class="knowledge-title writes" maxlength="100" readonly="readonly" disabled="disabled"></input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">公告内容*：</td>
+                                    <td>
+                                        <textarea  class="textarea3 writes" rows="8" style="width: 100%;" maxlength="2000" readonly="readonly" disabled="disabled"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="colorTip">发布时间*：</td>
+                                    <td>
+                                        <input type="text"  class="startsTime writes datatimeblock" maxlength="100" readonly="readonly" disabled="disabled" placeholder="选择时间"></input>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class=""></td>
+                                    <td>
+                                        <label style="margin-left: 20px; margin-right: 50px;">
+
+                                            <input class="chooseIt" name="Fruit" type="radio" values="0"  maxlength="50" checked="checked" readonly="readonly" disabled="disabled">立即发布
+                                        </label>
+
+                                        <label style="margin-left: 20px; margin-right: 50px;">
+
+                                            <input class="chooseIt" name="Fruit" type="radio" values="1"  maxlength="50" readonly="readonly" disabled="disabled">存为草稿
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+    <!--自定义弹窗-->
+    <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px"> <b style="color:red"></b> </p>
+
+                    <div class='modal-footer' style="border:none">
+
+                        <button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--loading图-->
+    <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+        </div>
+    </div>
+
+    <!--删除知识库弹窗-->
+    <div class='modal fade' id='sure-remove' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:20px">提示</h3>
+                    <p style="font-size:16px">真的要删除 <b style="color:red"></b> 吗？</p>
+                    <div class='modal-footer' style="border:none">
+                        <button type='button' class='btn btn-primary top-btn'>确定</button>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- END CONTENT -->
     <!-- BEGIN QUICK SIDEBAR -->
     <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
@@ -366,7 +546,9 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/warehouseManagement-8.js"></script>
+<script src="../resource/webUploader/webuploader.js"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/js/YWMsgModels.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -376,114 +558,6 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
-<!--弹窗-->
-<!--模态框详情-->
-<!--模态框详情-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 670px;">
-        <div class="modal-content" style="height: 670px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">新增入库单</h4>
-            </div>
-            <div class="modal-body">
-                <div class="gongdanContent">
-                    <!--主体部分-->
-                    <ul class="gongdanList" id="myApp33">
-                        <validator name="validation">
-                            <form novalidate>
-                                <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">入库单编号 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="bianhao" class="shishi" placeholder="可不填，自动生成">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">出库单类型 ：</div>
-                                    <div class="input-blockeds">
-                                        <select name="" id="rkleixing" v-model="rkleixing">
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">工单号 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="gdCode">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">材料员名称 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="clymc">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">材料员电话 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="clydh">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">仓库选择 ：</div>
-                                    <div class="input-blockeds">
-                                        <select id="ckselect" v-model="ckselect"></select>
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">制单人 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="zhidanren"  placeholder="administrator">
-                                    </div>
-                                </li>
-                                <li class="floatleft">
-                                    <div class="labels">制单时间：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="shijian">
-                                    </div>
-                                </li>
-                                <div class="clearfix"></div>
-                                <div>
-                                    <div class="labels">备注：</div>
-                                    <div class="input-blockeds" style="height:62px;">
-                                        <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                                    </div>
-                                </div>
-                            </form>
-                        </validator>
-                    </ul>
-                    <!--表格-->
-                    <div class="tableHovers">
-                        <table class="table table-hover" id="personTable1">
-                            <thead>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--所有提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">警告</h4>
-            </div>
-            <div class="modal-body">请填写红色必填项</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm1">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 </body>
 <!-- END BODY -->
 </html>
