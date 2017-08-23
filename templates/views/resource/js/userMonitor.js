@@ -959,6 +959,7 @@ var userMonitor = (function(){
                 $tr.append($td);
                 $tr.appendTo($table);
             }else if(curProcDef.recservicecfgValue.dataType == 2 || curProcDef.recservicecfgValue.dataType == 3){       //整数或者浮点
+                //$table.css({"width":"270px","height":"190px;"});
                 var $tr = $("<tr>"),$td = $("<td>");        //输入提示行
                 $td.css("text-align","left");
                 var htmlP = "<p id='ctrl-panel-p' style='font-weight: bold;color:red;'>请输入有效的范围值(" + curProcDef.recservicecfgValue.minValue +  "-" + curProcDef.recservicecfgValue.maxValue + ")</p>";
@@ -994,6 +995,7 @@ var userMonitor = (function(){
         }else{      //输入字符串信息
             var $tr1 = $("<tr>"),$td1 = $("<td>");          //输入框
             var htmlTextarea = '<textarea id="ctrl-panel-textarea" cols="50" rows="10" autofocus></textarea>';
+            $td1.append(htmlTextarea);
             $tr1.append($td1);
             $tr1.appendTo($table);
         }
