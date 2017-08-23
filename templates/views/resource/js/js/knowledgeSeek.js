@@ -34,6 +34,7 @@ $(document).ready(function(){
             {
                 title:'知识编号',
                 data:'',
+                class:'hidden',
                 render:function(data, index, row, meta){
                     return '00' + meta.row;
                 }

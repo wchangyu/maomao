@@ -39,6 +39,7 @@ $(function(){
             {
                 title:'知识编号',
                 data:'',
+                class:'hidden',
                 render:function(data, index, row, meta){
                     return '00' + meta.row;
                 }
@@ -466,9 +467,11 @@ $(function(){
 
         //获取当前id
         var _postID = $(this).parents('tr').find('td').eq(1).html();
+        //获取标题
+        var title = $(this).parents('tr').find('td').eq(2).html();
         $('#sure-remove').modal('show');
 
-
+        $('#sure-remove p b').html(title);
         //点击确定后
         $('#sure-remove .btn-primary').off('click');
         $('#sure-remove .btn-primary').on('click',function(){
