@@ -55,7 +55,6 @@ function getData(){
         beforeSend: function () {
             $('#theLoading').modal('show');
 
-
         },
 
         complete: function () {
@@ -85,6 +84,7 @@ function getData(){
                 //添加数据
                 markerArr.push(obj)
             });
+            console.log(markerArr);
 
             //新建百度地图
             map = new BMap.Map("container");
@@ -106,8 +106,6 @@ function getData(){
 
             //新的搜索对象
             new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
-
-
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -326,7 +324,7 @@ function showList(){
 // 添加信息窗口
 function addInfoWindow(marker, poi) {
     //pop弹窗标题
-    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;height:30px;font-size:16px;margin-bottom:10px">' + poi.title +'</div>';
+    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;height:30px;font-size:16px;">' + poi.title +'<button style="float:right;margin-right:20px;color:black;cursor:pointer;font-size: 12px;font-weight:500;padding:0px 5px 0px 5px;height:24px;line-height: 20px;">显示轨迹</button></div>';
     //pop弹窗信息
     var html = [];
     html.push('<div style="font-size:14px;width:100%;height:280px;">'+
@@ -365,7 +363,6 @@ function display(){
 
     });
     $('.showCompany').toggle();
-
 
 }
 $('.showTitle p .close').on('click',function(){
