@@ -13,6 +13,77 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+
+
+    //设置延迟时间
+    var theTimes = 300000;
+    //获取设备系统与设备类型对应的父子关系
+    var _relativeArr1 = [];
+    getSelectContent('YWDev/GetDevSysGroupClass', _relativeArr1);
+    //获取车务段与车站对应的父子关系
+    var _relativeArr2 = [];
+    getSelectContent('YWDev/GetDevAreaGroupDep',_relativeArr2);
+    function getSelectContent(url,arr){
+
+        $.ajax({
+            type: 'get',
+            url: _urls + url,
+            timeout: theTimes,
+            success: function (data) {
+
+                $(data).each(function(i,o){
+                   arr.push(o);
+                })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                }else{
+
+                }
+
+            }
+        });
+    };
+
+    //动态获取指定的设备类型或者车务段
+    function getAllContent(id,arr,flag){
+        var getArr = [];
+        if(flag){
+            $(arr).each(function(i,o){
+
+                if(id == o.dsNum){
+                    var pushArr = o.devClasss;
+                    $(pushArr).each(function(i,o){
+                        var obj = {};
+                        obj.text = o.dcName;
+                        obj.value = o.dcNum;
+                        getArr.push(obj)
+                    });
+                    return getArr;
+                }
+            });
+        }else{
+            $(arr).each(function(i,o){
+
+                if(id == o.daNum){
+                    var pushArr = o.devDeps;
+                    $(pushArr).each(function(i,o){
+                        var obj = {};
+                        obj.text = o.ddName;
+                        obj.value = o.ddNum;
+                        getArr.push(obj)
+                    });
+                    return getArr;
+                }
+            });
+        }
+        return getArr
+
+    }
     //二维码地址
     var _erweimaPath = 'http://ip/ApService/showQR.aspx';
     //设置初始时间
@@ -45,11 +116,7 @@ $(function(){
             'bianhao':'',
             'chandi':'',
             'yuanzhi':'',
-            'yuanzhileixing':'0',
-            'options5':[
-                {text:'元',value:0},
-                {text:'万元',value:1}
-            ],
+            'xsbbm':'',
             'options3':[],
             'zhuangtai':'1',
             'options4':[
@@ -64,6 +131,23 @@ $(function(){
             'nianxian':'',
             'baoxiu':'',
             'pinyin':''
+        },
+        'methods':{
+            'change':function(){
+                //根据设备系统获取设备类型
+                myApp33.options = getAllContent(myApp33.ssXT,_relativeArr1,true);
+                if(myApp33.options.length > 0){
+                    myApp33.zcLX = myApp33.options[0].value;
+                }
+
+            },
+            'change1':function(){
+                //根据车务段获取车站
+                myApp33.options3 = getAllContent(myApp33.ssQY,_relativeArr2,false);
+                if(myApp33.options3.length > 0){
+                    myApp33.ssbumen = myApp33.options3[0].value;
+                }
+            }
         }
     });
     //存放所有列表中的数据
@@ -90,6 +174,7 @@ $(function(){
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#leixing'),'dcName','dcNum',myApp33.options);
     if( _allDataLX.length !=0 ){
         myApp33.zcLX = _allDataLX[0].dcNum;
+
     }
     //设备区域
     ajaxFun('YWDev/ywDMGetDAs',_allDataQY,$('#quyu'),'daName','daNum',myApp33.options1);
@@ -151,10 +236,15 @@ $(function(){
             {
                 title:'设备编码',
                 data:'dNum',
-                className:'dNum',
+                className:'dNum hidden',
                 render:function timeForma(data){
                     return '<span>'+data+'</span>'
                 }
+            },
+            {
+                title:'设备编码',
+                data:'dNewNum'
+
             },
             {
                 title:'规格型号',
@@ -202,7 +292,7 @@ $(function(){
                 }
             },
             {
-                title:'设备部门',
+                title:'车站',
                 data:'ddName',
             },
             {
@@ -240,17 +330,19 @@ $(function(){
         myApp33.sbbm = '';
         myApp33.mingcheng = '';
         myApp33.pinyin = '';
-        myApp33.zhuangtai = '';
+        myApp33.zhuangtai = '1';
         myApp33.pingpai = '';
         myApp33.guige = '';
         myApp33.gongyingshang = '';
         myApp33.shengchanshang = '';
         myApp33.nianxian = '';
         myApp33.baoxiu = '';
+        //新增字段
         myApp33.bianhao = '';
         myApp33.chandi = '';
         myApp33.yuanzhi = '';
-        myApp33.yuanzhileixing='0';
+        myApp33.xsbbm = '';
+
         $('#gouzhi').val('');
         $('#anzhuang').val('');
         $('#miaoshu').val('');
@@ -266,11 +358,22 @@ $(function(){
         $('#miaoshu').attr('disabled',false);
         $('#gouzhi').attr('disabled',false);
         $('#anzhuang').attr('disabled',false);
+        //根据设备系统获取设备类型
+        myApp33.options = getAllContent(myApp33.ssXT,_relativeArr1,true);
+        if(myApp33.options.length > 0){
+            myApp33.zcLX = myApp33.options[0].value;
+        }
+        //根据车务段获取车站
+        myApp33.options3 = getAllContent(myApp33.ssQY,_relativeArr2,false);
+        if(myApp33.options3.length > 0){
+            myApp33.ssbumen = myApp33.options3[0].value;
+        }
+
     })
     //查询
     $('#selected').click(function (){
         conditionSelect();
-    })
+    });
     //表格操作查看按钮
     _table.find('tbody')
         .on('click','.option-see',function(){
@@ -313,6 +416,14 @@ $(function(){
                     myApp33.shengchanshang = _allDateArr[i].prodName;
                     myApp33.nianxian = _allDateArr[i].life;
                     myApp33.baoxiu = _allDateArr[i].maintain;
+                    //新添加的
+                    myApp33.bianhao = _allDateArr[i].factoryNum;
+                    myApp33.chandi = _allDateArr[i].devOrigin;
+                    myApp33.yuanzhi = _allDateArr[i].devMoney;
+
+                    myApp33.xsbbm = _allDateArr[i].dNewNum;
+
+
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
@@ -373,12 +484,33 @@ $(function(){
                     myApp33.shengchanshang = _allDateArr[i].prodName;
                     myApp33.nianxian = _allDateArr[i].life;
                     myApp33.baoxiu = _allDateArr[i].maintain;
+                    //新添加的
+                    myApp33.bianhao = _allDateArr[i].factoryNum;
+                    myApp33.chandi = _allDateArr[i].devOrigin;
+                    myApp33.yuanzhi = _allDateArr[i].devMoney;
+
+                    myApp33.xsbbm = _allDateArr[i].dNewNum;
+
+
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
                     $('.lujing').html(pathName);
+
+                    //根据设备系统获取设备类型
+                    myApp33.options = getAllContent(myApp33.ssXT,_relativeArr1,true);
+
+                    //根据车务段获取车站
+
+                    myApp33.options3 = getAllContent(myApp33.ssQY,_relativeArr2,false);
+
                 }
             };
+            //查看只读；
+            var lis = $('#myApp33').children().children();
+            for(var i=0;i<lis.length;i++){
+                lis.eq(i).children().eq(1).children().attr('disabled',false);
+            }
             //上传文件按钮可操作
             $('#ctlBtn').attr('disabled',false);
         })
@@ -413,6 +545,12 @@ $(function(){
     $('.modal')
     //新增确定按钮
         .on('click','.dengji',function(){
+            if(myApp33.ssXT == '' || myApp33.mingcheng == '' || myApp33.zcLX == '' || myApp33.colorTip == '' || myApp33.ssbumen == ''){
+                var $myModal2 = $('#myModal2');
+                $myModal2.find('.modal-body').html('请填写红色必填项');
+                moTaiKuang($myModal2,'提示','flag');
+                return false;
+            }
             //上传文件出现
             $('#uploader').show();
             //获取填入的内容
@@ -440,10 +578,12 @@ $(function(){
                 'description':$('#miaoshu').val(),
                 'docPath':$('.lujing').html(),
                 'userID':_userIdName,
+                //新增字段
                 'factoryNum':myApp33.biaohao,
                 'devOrigin':myApp33.chandi,
                 'devMoney':myApp33.yuanzhi,
-                'devMoneyType':myApp33.yuanzhileixing
+
+                'dNewNum':myApp33.xsbbm
             }
             $.ajax({
                 type:'post',
@@ -488,7 +628,13 @@ $(function(){
             'installAddress':$('#weizhi').val(),
             'description':$('#miaoshu').val(),
             'docPath':$('.lujing').html(),
-            'userID':_userIdName
+            'userID':_userIdName,
+            //新增字段
+            'factoryNum':myApp33.biaohao,
+            'devOrigin':myApp33.chandi,
+            'devMoney':myApp33.yuanzhi,
+
+            'dNewNum':myApp33.xsbbm
         };
         $.ajax({
             type:'post',
@@ -705,7 +851,7 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
-                datasTable($('#browse-datatables'),result);
+                jumpNow($('#browse-datatables'),result);
             }
         })
     }
@@ -733,4 +879,81 @@ $(function(){
         str = str.replace(ip,res);
         return str;
     }
-})
+    //提交更改后跳转到当前页
+    function jumpNow(tableId,arr){
+        arr.reverse();
+        var dom ='#'+ tableId[0].id + '_paginate';
+        console.log(dom);
+        var txt = $(dom).children('span').children('.current').html();
+
+        datasTable(tableId,arr);
+        var num = txt - 1;
+        var dom = $(dom).children('span').children().eq(num);
+        console.log(txt);
+        console.log(dom);
+        dom.click();
+    }
+
+    $('#xitong').change(function(){
+
+        var value = $('#xitong').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataLX).each(function(i,o){
+
+                str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+            });
+            $('#leixing').html('');
+            $('#leixing').html(str);
+            return false;
+        }
+
+        $(_relativeArr1).each(function(i,o){
+
+            if(value == o.dsNum){
+                var pushArr = o.devClasss;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+                });
+                console.log(str);
+                $('#leixing').html('');
+                $('#leixing').html(str);
+                return false;
+            }
+        });
+    });
+
+    $('#quyu').change(function(){
+
+        var value = $('#quyu').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataBM).each(function(i,o){
+
+                str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+            });
+            $('#bumen').html('');
+            $('#bumen').html(str);
+            return false;
+        }
+
+        $(_relativeArr2).each(function(i,o){
+
+            if(value == o.daNum){
+                var pushArr = o.devDeps;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+                });
+                console.log(str);
+                $('#bumen').html('');
+                $('#bumen').html(str);
+                return false;
+            }
+        });
+    });
+});
+

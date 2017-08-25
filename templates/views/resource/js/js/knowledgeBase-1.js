@@ -234,7 +234,6 @@ $(function(){
 
                     var string1 = "bmp,jpg, png ,tiff,gif,pcx,tga,exif,fpx,svg,psd";
 
-
                     if(string1.indexOf(o.f_FileExtension) != -1){
                         fileHtml += '<div id="' + o.pK_KnowledgeFileID + '" class="file-item thumbnail">' +
                             '<img src="'+ o.f_FileAllPath+'">' +
@@ -440,9 +439,9 @@ $(function(){
                         $('#myModal').modal('hide');
 
                         //重新获取后台数据
-                        getShowKnowledgeData('');
-                        //对表格进行重绘
-                        ajaxSuccess1(_knowledgeDataArr);
+                        getShowKnowledgeData('',true);
+                        ////对表格进行重绘
+                        //ajaxSuccess1(_knowledgeDataArr);
                     }
 
                 },
@@ -487,7 +486,6 @@ $(function(){
                 beforeSend: function () {
 
                 },
-
                 complete: function () {
                     $('#theLoading').modal('hide');
                 },
@@ -495,9 +493,9 @@ $(function(){
                     $('#theLoading').modal('hide');
 
                     //重新获取后台数据
-                    getShowKnowledgeData('');
-                    //对表格进行重绘
-                    ajaxSuccess1(_knowledgeDataArr);
+                    getShowKnowledgeData('',true);
+                    ////对表格进行重绘
+                    //ajaxSuccess1(_knowledgeDataArr);
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -539,7 +537,7 @@ var _knowledgeDataArr = [];
 
 getShowKnowledgeData('');
 
-function getShowKnowledgeData(knowTitle){
+function getShowKnowledgeData(knowTitle,flag){
 
     $.ajax({
         type: 'get',
@@ -561,9 +559,14 @@ function getShowKnowledgeData(knowTitle){
             //console.log(data);
             _knowledgeDataArr = data;
 
-            //对表格进行重绘
-            ajaxSuccess1(_knowledgeDataArr)
-
+            _knowledgeDataArr.reverse();
+            //判断是否需要停留在当前页
+            if(flag){
+                jumpNow($('#browse-datatables'), _knowledgeDataArr)
+            }else{
+                //对表格进行重绘
+                ajaxSuccess1(_knowledgeDataArr)
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#theLoading').modal('hide');
@@ -584,7 +587,8 @@ $(document).on('keydown',function(e){
     var theEvent = window.event || e;
     var code = theEvent.keyCode || theEvent.which;
 
-    if(code == 13){
+    if(code == 13 && $('#myModal').hasClass('in') == false){
+
         $('.btn1').click();
         return false;
     }
@@ -716,6 +720,8 @@ uploader.on( 'uploadSuccess', function( file,response ) {
 
 uploader.on( 'uploadError', function( file ) {
     $( '#'+file.id ).find('p.state').text('上传出错');
+    myAlter('上传错误');
+    $( '#'+file.id ).remove();
 });
 uploader.on( 'uploadComplete', function( file ) {
     $( '#'+file.id ).find('.progress').fadeOut();
@@ -905,4 +911,15 @@ function ifAllShouldWrite(dom){
     }
 
     return true;
+};
+
+//提交更改后跳转到当前页
+function jumpNow(tableID,arr){
+    var dom = '#' + tableID[0].id + '_paginate';
+    var txt = $(dom).children('span').children('.current').html();
+
+    ajaxSuccess1(arr);
+    var num = txt - 1;
+    var dom = $(dom).children('span').children().eq(num);
+    dom.click();
 }
