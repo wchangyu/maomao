@@ -338,9 +338,9 @@ $(function(){
                         $('#myModal').modal('hide');
 
                         //重新获取后台数据
-                        getShowKnowledgeData('');
-                        //对表格进行重绘
-                        ajaxSuccess1(_msgDataArr);
+                        getShowKnowledgeData('',true);
+                        ////对表格进行重绘
+                        //ajaxSuccess1(_msgDataArr);
                     }
 
                 },
@@ -393,9 +393,9 @@ $(function(){
                     $('#theLoading').modal('hide');
 
                     //重新获取后台数据
-                    getShowKnowledgeData('');
-                    //对表格进行重绘
-                    ajaxSuccess1(_msgDataArr);
+                    getShowKnowledgeData('',true);
+                    ////对表格进行重绘
+                    //ajaxSuccess1(_msgDataArr);
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -437,7 +437,7 @@ var _msgDataArr = [];
 
 getShowKnowledgeData('');
 
-function getShowKnowledgeData(msgTitle){
+function getShowKnowledgeData(msgTitle,flag){
 
     $.ajax({
         type: 'get',
@@ -445,7 +445,6 @@ function getShowKnowledgeData(msgTitle){
         timeout: theTimes,
         data:{
             "msgTitle" : msgTitle
-
         },
         beforeSend: function () {
             $('#theLoading').modal('show');
@@ -456,11 +455,19 @@ function getShowKnowledgeData(msgTitle){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            //console.log(data);
+            console.log(data);
             _msgDataArr = data;
 
-            //对表格进行重绘
-            ajaxSuccess1(_msgDataArr)
+            ////对表格进行重绘
+            //ajaxSuccess1(_msgDataArr)
+
+            //判断是否需要停留在当前页
+            if(flag){
+                jumpNow($('#browse-datatables'), _msgDataArr)
+            }else{
+                //对表格进行重绘
+                ajaxSuccess1(_msgDataArr)
+            }
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -482,7 +489,8 @@ $(document).on('keydown',function(e){
     var theEvent = window.event || e;
     var code = theEvent.keyCode || theEvent.which;
 
-    if(code == 13){
+    if(code == 13 && $('#myModal').hasClass('in') == false){
+
         $('.btn1').click();
         return false;
     }
@@ -514,4 +522,15 @@ function ifAllShouldWrite(dom){
     }
 
     return true;
+}
+
+//提交更改后跳转到当前页
+function jumpNow(tableID,arr){
+    var dom = '#' + tableID[0].id + '_paginate';
+    var txt = $(dom).children('span').children('.current').html();
+
+    ajaxSuccess1(arr);
+    var num = txt - 1;
+    var dom = $(dom).children('span').children().eq(num);
+    dom.click();
 }

@@ -22,6 +22,14 @@ $(function(){
     var _allDateArr = [];
     //存放所有选中的数据
     var _selectedArr = [];
+    //存放设备类型的所有数据
+    var _allDataLX = [];
+    //存放设备区域的所有数据
+    var _allDataQY = [];
+    //存放设备系统的所有数据
+    var _allDataXT = [];
+    //存放设备部门的所有数据
+    var _allDataBM = [];
     //表格
     var _table = $('#scrap-datatables');
     /*-------------------------表格初始化------------------------------*/
@@ -81,7 +89,7 @@ $(function(){
                 data:'spec',
             },
             {
-                title:'设备类型',
+                title:'设备类别',
                 data:'dcName',
             },
             {
@@ -116,11 +124,13 @@ $(function(){
                         return '维修'
                     }else if( data == 3 ){
                         return '报废'
+                    }else{
+                        return ''
                     }
                 }
             },
             {
-                title:'设备部门',
+                title:'车站',
                 data:'ddName',
             },
             {
@@ -132,13 +142,13 @@ $(function(){
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     conditionSelect();
     //获取设备类型
-    ajaxFun('YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum');
+    ajaxFun('YWDev/ywDMGetDCs',$('#leixing'),'dcName','dcNum',_allDataLX);
     //设备区域
-    ajaxFun('YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum');
+    ajaxFun('YWDev/ywDMGetDAs',$('#quyu'),'daName','daNum',_allDataQY);
     //设备系统
-    ajaxFun('YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum');
+    ajaxFun('YWDev/ywDMGetDSs',$('#xitong'),'dsName','dsNum',_allDataXT);
     //设备部门
-    ajaxFun('YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum');
+    ajaxFun('YWDev/ywDMGetDDs',$('#bumen'),'ddName','ddNum',_allDataBM);
     /*-------------------------按钮功能------------------------------*/
     $('#selected').click(function(){
         conditionSelect();
@@ -334,7 +344,7 @@ $(function(){
         }
     }
     //ajaxFun（select的值）
-    function ajaxFun(url,select,text,num){
+    function ajaxFun(url,select,text,num,allArr){
         var prm = {
             'userID':_userIdName
         }
@@ -348,7 +358,8 @@ $(function(){
                 //给select赋值
                 var str = '<option value="">全部</option>'
                 for(var i=0;i<result.length;i++){
-                    str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
+                    str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>';
+                    allArr.push(result[i]);
                 }
                 select.append(str);
             }
@@ -366,4 +377,100 @@ $(function(){
         var markBlockTop = (markHeight - markBlockHeight)/2;
         who.find('.modal-dialog').css({'margin-top':markBlockTop});
     }
+
+    //设置延迟时间
+    var theTimes = 300000;
+    //获取设备系统与设备类型对应的父子关系
+    var _relativeArr1 = [];
+    getSelectContent('YWDev/GetDevSysGroupClass', _relativeArr1);
+    //获取车务段与车站对应的父子关系
+    var _relativeArr2 = [];
+    getSelectContent('YWDev/GetDevAreaGroupDep',_relativeArr2);
+    function getSelectContent(url,arr){
+
+        $.ajax({
+            type: 'get',
+            url: _urls + url,
+            timeout: theTimes,
+            success: function (data) {
+
+                $(data).each(function(i,o){
+                    arr.push(o);
+                })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                }else{
+
+                }
+
+            }
+        });
+    };
+
+    $('#xitong').change(function(){
+
+        var value = $('#xitong').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataLX).each(function(i,o){
+
+                str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+            });
+            $('#leixing').html('');
+            $('#leixing').html(str);
+            return false;
+        }
+
+        $(_relativeArr1).each(function(i,o){
+
+            if(value == o.dsNum){
+                var pushArr = o.devClasss;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+                });
+                console.log(str);
+                $('#leixing').html('');
+                $('#leixing').html(str);
+                return false;
+            }
+        });
+    });
+
+    $('#quyu').change(function(){
+
+        var value = $('#quyu').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataBM).each(function(i,o){
+
+                str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+            });
+            $('#bumen').html('');
+            $('#bumen').html(str);
+            return false;
+        }
+
+        $(_relativeArr2).each(function(i,o){
+
+            if(value == o.daNum){
+                var pushArr = o.devDeps;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+                });
+                console.log(str);
+                $('#bumen').html('');
+                $('#bumen').html(str);
+                return false;
+            }
+        });
+    });
 })

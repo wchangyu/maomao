@@ -300,17 +300,18 @@
                                             </select>
                                         </div>
                                     </li>
+
                                     <li>
-                                        <label for="">设备类型：</label>
+                                        <label for="">车务段：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="leixing">
+                                            <select name="" id="quyu">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">设备区域：</label>
+                                        <label for="">车站：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="quyu">
+                                            <select name="" id="bumen">
                                             </select>
                                         </div>
                                     </li>
@@ -322,12 +323,13 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">设备部门：</label>
+                                        <label for="">设备类别：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="bumen">
+                                            <select name="" id="leixing">
                                             </select>
                                         </div>
                                     </li>
+
                                     <li>
                                         <label for="">安装时间：</label>
                                         <div class="input-blocked">
@@ -449,20 +451,10 @@
                 <ul class="gongdanList" id="myApp33">
                     <validator name="validation">
                         <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLeft" style="line-height: 26px;display: none">
                                 <div class="labels">设备编码 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="sbbm" placeholder="自动生成" readonly="readonly">
-                                </div>
-                            </li>
-                            <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">设备类型 *：</div>
-                                <div class="input-blockeds">
-                                    <select name=""  v-model="zcLX" id="sblx">
-                                        <option v-for="option in options" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
                                 </div>
                             </li>
                             <li class="floatLeft">
@@ -478,9 +470,21 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">设备区域 *：</div>
+                                <div class="labels">设备编码 ：</div>
                                 <div class="input-blockeds">
-                                    <select name=""  v-model="ssQY" id="sbqy">
+                                    <input type="text"  v-model="xsbbm">
+                                </div>
+                            </li>
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">出厂编号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="bianhao" placeholder="">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">车务段 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="ssQY" id="sbqy" @change = 'change1()'>
                                         <option v-for="option in options1" v-bind:value="option.value">
                                             {{ option.text }}
                                         </option>
@@ -490,15 +494,16 @@
                             <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels colorTip">设备系统 *：</div>
                                 <div class="input-blockeds">
-                                    <select name=""  v-model="ssXT" id="sbxt">
+                                    <select name=""  v-model="ssXT" id="sbxt" @change = 'change()'>
                                         <option v-for="option in options2" v-bind:value="option.value">
                                             {{ option.text }}
                                         </option>
                                     </select>
                                 </div>
                             </li>
+
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">设备部门 *：</div>
+                                <div class="labels colorTip">车站 *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssbumen" id="sbbm">
                                         <option v-for="option in options3" v-bind:value="option.value">
@@ -507,6 +512,30 @@
                                     </select>
                                 </div>
                             </li>
+
+
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels colorTip">设备类别 *：</div>
+                                <div class="input-blockeds">
+                                    <select name=""  v-model="zcLX" id="sblx">
+                                        <option v-for="option in options" v-bind:value="option.value">
+                                            {{ option.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </li>
+
+
+
+
+
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">产地：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="chandi" placeholder="">
+                                </div>
+                            </li>
+
                             <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">状态 ：</div>
                                 <div class="input-blockeds">
@@ -518,36 +547,49 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">安装位置：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  id="weizhi">
+                                </div>
+                            </li>
+                            <!--<li class="floatRight" style="line-height: 26px;">-->
+                                <!--<div class="labels">原值类型：</div>-->
+                                <!--<div class="input-blockeds">-->
+                                   <!---->
+                                <!--</div>-->
+                            <!--</li>-->
+
+                            <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">品牌：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="pingpai">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">规格型号 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="guige">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">供应商：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="gongyingshang">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">生产商 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="shengchanshang">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">使用年限（年） ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="nianxian">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">保修期（年） ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="baoxiu">
@@ -569,10 +611,16 @@
                         </div>
                     </div>
                     <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">安装位置：</div>
+                        <div class="labels">设备原值（元）：</div>
                         <div class="input-blockeds">
-                            <input type="text"  id="weizhi">
+                            <input type="text"  v-model="yuanzhi" placeholder="" style="">
+
                         </div>
+                        <!--<select name="" v-model="yuanzhileixing" style="width:100px;display: inline-block;    height: 28px !important; border: 1px solid #ebebeb;">-->
+                        <!--<option v-for="option in options5" v-bind:value="option.value">-->
+                        <!--{{ option.text }}-->
+                        <!--</option>-->
+                        <!--</select>-->
                     </li>
                     <div class="clearfix"></div>
                     <div>
@@ -639,7 +687,7 @@
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">设备类型 ：</div>
+                        <div class="labels">设备类别 ：</div>
                         <div class="input-blockeds">
                             <input type="text" readonly="readonly" id="sblxs">
                         </div>
