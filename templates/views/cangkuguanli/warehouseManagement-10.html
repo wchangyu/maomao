@@ -400,7 +400,7 @@
                             <li class="floatLeft">
                                 <div class="labels colorTip">仓库编码 *：<span v-show="$validation.num.requireds" style="display: none">请输入仓库编码</span><span class="quchong colorTip" style="display: none;">仓库编码已存在</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" placeholder="请输入仓库名称" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="keyUpJob()">
+                                    <input type="text" placeholder="请输入仓库编码" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="keyUpJob()">
                                 </div>
                             </li>
                             <li class="floatRight">

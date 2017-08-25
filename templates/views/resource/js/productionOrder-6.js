@@ -201,8 +201,12 @@ $(function(){
                 className:'ztz'
             },
             {
-                title:'设备类型',
+                title:'系统类型',
                 data:'wxShiX'
+            },
+            {
+                title:'设备名称',
+                data:'dName'
             },
             {
                 title:'车站',
@@ -467,6 +471,7 @@ $(function(){
                     if(result){
                         _zhixingRens = result.wxRens;
                         _weiXiuCaiLiao = result.wxCls;
+                        _fuZeRen = result.gdWxLeaders;
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -492,16 +497,19 @@ $(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
             if(zhuangtai == 7){
-                $('#myModal3').find('.modal-body').html('已完成状态工单无法进行取消操作');
-                moTaiKuang($('#myModal3'),'flag');
+                $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
+                moTaiKuang($('#myModal2'),'提示','flag');
+            }else if(zhuangtai == 999){
+                $('#myModal2').find('.modal-body').html('该工单已取消！');
+                moTaiKuang($('#myModal2'),'提示','flag');
             }else{
                 moTaiKuang($('#myModal2'));
             }
         }else{
-            $('#myModal3').find('.modal-body').html('请选择要报废的工单!');
-            moTaiKuang($('#myModal3'),'flag');
+            $('#myModal2').find('.modal-body').html('请选择要报废的工单!');
+            moTaiKuang($('#myModal2'),'flag');
         }
-    })
+    });
     //撤销（回退）
     $('#myModal1').find('.btn-primary').click(function (){
         if(_currentChexiao){
@@ -776,7 +784,8 @@ $(function(){
             gdLeixing:$('#rwlx').val(),
             userID:_userIdNum,
             userName:_userIdName,
-            isCalcTimeSpan:1
+            isCalcTimeSpan:1,
+            wxShiXNum:$('#xtlx').val()
         };
         var userArr = [];
         var cheArr = [];
@@ -892,7 +901,7 @@ $(function(){
             }
         });
     }
-    //删除无聊方法
+    //删除物料方法
     function CaiLiao(url,flag){
         var cailiaoArr = [];
         for(var i=0;i<_weiXiuCaiLiao.length;i++){
@@ -966,10 +975,6 @@ $(function(){
             }
         })
     }
-    //进度条赋值
-    function progressContent(elIndex,childrenIndex,time){
-        $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
-    }
     //IP替换
     function replaceIP(str,str1){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
@@ -986,7 +991,6 @@ $(function(){
         $.ajax({
             type: 'post',
             url: _urls + url,
-            async: false,
             data: prm,
             success: function (result) {
                 //给select赋值
@@ -996,6 +1000,15 @@ $(function(){
                     allArr.push(result[i]);
                 }
                 select.append(str);
+
+                if(url == 'YWDev/ywDMGetDSs'){
+                    var str1 = '<option value="">请选择</option>';
+                    for(var i=0;i<result.length;i++){
+                        str1 += '<option value="' + result[i].dsNum +
+                            '">' + result[i].dsName + '</option>'
+                    }
+                    $('#xtlx').append(str1);
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1107,4 +1120,5 @@ $(function(){
             }
         })
     }
+
 })

@@ -305,11 +305,12 @@ $(function(){
             "wxKeshi":filterInput[4],
             "gdZht":6,
             "userID":_userIdNum,
+            "userName":_userIdName
         };
         if(ztz==2)
         {
             prm = {
-                "gdCode":filterInput[0],
+                "gdCode2":filterInput[0],
                 "gdSt":realityStart,
                 "gdEt":realityEnd,
                 "bxKeshi":filterInput[1],

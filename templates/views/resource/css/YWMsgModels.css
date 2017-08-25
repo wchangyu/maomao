@@ -1,7 +1,7 @@
 .startsTime{
     height: 28px;
     margin-bottom: 5px;
-    width: 270px;
+    width: 260px;
     font-size:20px;
 }
 input,textarea{
@@ -10,6 +10,9 @@ input,textarea{
 .datatimeblock {
     background: url(../img/clendar.png) no-repeat;
     background-size: 25px;
-    background-position: 90% center;
+    background-position: 99% center;
     cursor: pointer;
+}
+#myModal label{
+    font-size: 16px !important;
 }

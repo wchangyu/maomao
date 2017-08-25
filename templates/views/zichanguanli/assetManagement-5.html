@@ -305,17 +305,18 @@
                                             </select>
                                         </div>
                                     </li>
+
                                     <li>
-                                        <label for="">设备类型：</label>
+                                        <label for="">车务段：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="leixing">
+                                            <select name="" id="quyu">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">设备区域：</label>
+                                        <label for="">车站：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="quyu">
+                                            <select name="" id="bumen">
                                             </select>
                                         </div>
                                     </li>
@@ -327,12 +328,13 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">设备部门：</label>
+                                        <label for="">设备类别：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="bumen">
+                                            <select name="" id="leixing">
                                             </select>
                                         </div>
                                     </li>
+
                                     <li>
                                         <label for="">距保修期(月)：</label>
                                         <div class="input-blocked">
@@ -465,7 +467,7 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">设备类型 *：</div>
+                                <div class="labels colorTip">设备类别 *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="zcLX" id="sblx">
                                         <option v-for="option in options" v-bind:value="option.value">
@@ -487,7 +489,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">设备区域 *：</div>
+                                <div class="labels colorTip">车务段 *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssQY" id="sbqy">
                                         <option v-for="option in options1" v-bind:value="option.value">
@@ -507,7 +509,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">设备部门 *：</div>
+                                <div class="labels colorTip">车站 *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssbumen" id="sbbm">
                                         <option v-for="option in options3" v-bind:value="option.value">

@@ -28,8 +28,18 @@ $(function(){
     //报障总数
     var _totalNums = 0;
 
+    //修改时间
+    $('.startTime').html($('.datatimeblock').eq(0).val());
+
+    $('.endTime').html($('.datatimeblock').eq(1).val());
+
     /*--------------------------------------按钮事件---------------------------------*/
     $('#selected').click(function(){
+        //修改时间
+        $('.startTime').html($('.datatimeblock').eq(0).val());
+
+        $('.endTime').html($('.datatimeblock').eq(1).val());
+
         //本周客服设备故障上报及处理情况
         conditionSelect('YWGD/ywGDRptGDs',$('#failure-reporting'),'flag');
 
@@ -514,6 +524,7 @@ $(function(){
             data:prm,
             success:function(result){
                 if(flag){
+                    _totalNums = 0;
                     for(var key in result[0]){
                         _totalAttr.push(key);
                     }

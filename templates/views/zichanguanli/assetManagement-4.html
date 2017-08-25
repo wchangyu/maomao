@@ -63,6 +63,32 @@
             border: 1px solid #ccc;
             line-height: 30px;
         }
+        .btn-success{
+            line-height: 34px;
+            height:34px!important;
+            padding: 8px 14px;
+            font-family: 微软雅黑;
+            font-size: 14px;
+            background-color: #dfba49 !important;
+            opacity: 0.9;
+            width:75px;
+            border:none !important;
+        }
+        .btn-success:hover{
+            opacity: 1;
+            background-color: #dfba49 !important;
+            border:none !important;
+            height:34px !important;
+        }
+        .btn-success span{
+            color:white;
+        }
+        .excelButton{
+            padding-top:10px;
+            display: block;
+            height:40px;
+            margin-bottom:10px;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -280,14 +306,23 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="table-title" style="height: 36px;">
-                                <span class="spanhover">设备类型</span>
-                                <span>设备区域</span>
-                                <span>设备系统</span>
-                                <span>设备部门</span>
+                                <span class="spanhover">设备系统</span>
+                                <span >设备类别</span>
+                                <span>车务段</span>
+                                <span>车站</span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="table-block"style="margin-top: 0;">
-                                <div class="table-block-list" style="width: 100%">
+                                <div class="table-block-list" style="width: 100%;">
+                                    <div class="excelButton"></div>
+                                    <table id="system-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-block-list" style="width: 100%;display: none">
                                     <div class="excelButton">
                                     </div>
                                     <table id="asset-type-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
@@ -300,15 +335,6 @@
                                 <div class="table-block-list" style="width: 100%;display: none">
                                     <div class="excelButton"></div>
                                     <table id="area-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                        <thead>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="table-block-list" style="width: 100%;display: none">
-                                    <div class="excelButton"></div>
-                                    <table id="system-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                         <thead>
                                         </thead>
                                         <tbody>
@@ -398,8 +424,8 @@
 <!-- END BODY -->
 <!--添加设备-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 403px;width: 331px !important;">
-        <div class="modal-content" style="height: 403px;width: 331px !important;">
+    <div class="modal-dialog" style="height: auto;width: 331px !important;margin:-200px auto">
+        <div class="modal-content" style="height: auto;width: 331px  !important;margin:-200px auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">添加</h4>
@@ -410,23 +436,33 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
-                                <div class="labels">设备类型编码 ：</div>
+                                <div class="labels">设备类别编码 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="sblxbm" placeholder="自动生成" readonly="readonly">
                                 </div>
                             </li>
+                            <li class="floatRight equipment-system">
+                                <div class="labels colorTip" >设备系统 ：</div>
+                                <div class="input-blockeds">
+                                    <select  v-model="sbxt" id="equipment-system">
+
+                                    </select>
+                                </div>
+                            </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">设备类型名称 *：<span v-show="$validation.sblxmc.requireds">设备类型名称不能为空</span></div>
+                                <div class="labels colorTip">设备类别名称 *：<span v-show="$validation.sblxmc.requireds">设备类别名称不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sblxmc"  v-validate:sblxmc="['requireds']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">拼音简码 ：</div>
+                                <div class="labels colorTip">拼音简码 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="pyjm">
                                 </div>
                             </li>
+
+
                             <div class="clearfix"></div>
                         </form>
                     </validator>
@@ -451,13 +487,13 @@
             <div class="modal-body">
                 <ul>
                     <li class="floatLeft">
-                        <div class="labels">设备类型编码 ：</div>
+                        <div class="labels">设备类别编码 ：</div>
                         <div class="input-blockeds">
                             <input type="text" readonly="readonly" id="sbbm">
                         </div>
                     </li>
                     <li class="floatRight">
-                        <div class="labels">设备类型名称 ：</div>
+                        <div class="labels">设备类别名称 ：</div>
                         <div class="input-blockeds">
                             <input type="text" readonly="readonly" id="sbmc">
                         </div>

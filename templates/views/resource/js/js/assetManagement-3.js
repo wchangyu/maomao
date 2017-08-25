@@ -123,7 +123,7 @@ $(function(){
                 data:'spec',
             },
             {
-                title:'设备类型',
+                title:'设备类别',
                 data:'dcName',
             },
             {
@@ -162,7 +162,7 @@ $(function(){
                 }
             },
             {
-                title:'设备部门',
+                title:'车站',
                 data:'ddName',
             },
             {
@@ -326,4 +326,100 @@ $(function(){
     function timeForma(time){
         return time.split(' ')[0].replace(/-/g,'/');
     }
+
+    //设置延迟时间
+    var theTimes = 300000;
+    //获取设备系统与设备类型对应的父子关系
+    var _relativeArr1 = [];
+    getSelectContent('YWDev/GetDevSysGroupClass', _relativeArr1);
+    //获取车务段与车站对应的父子关系
+    var _relativeArr2 = [];
+    getSelectContent('YWDev/GetDevAreaGroupDep',_relativeArr2);
+    function getSelectContent(url,arr){
+
+        $.ajax({
+            type: 'get',
+            url: _urls + url,
+            timeout: theTimes,
+            success: function (data) {
+
+                $(data).each(function(i,o){
+                    arr.push(o);
+                })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                }else{
+
+                }
+
+            }
+        });
+    };
+
+    $('#xitong').change(function(){
+
+        var value = $('#xitong').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataLX).each(function(i,o){
+
+                str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+            });
+            $('#leixing').html('');
+            $('#leixing').html(str);
+            return false;
+        }
+
+        $(_relativeArr1).each(function(i,o){
+
+            if(value == o.dsNum){
+                var pushArr = o.devClasss;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
+                });
+                console.log(str);
+                $('#leixing').html('');
+                $('#leixing').html(str);
+                return false;
+            }
+        });
+    });
+
+    $('#quyu').change(function(){
+
+        var value = $('#quyu').val();
+        if(value == ''){
+            var str = '<option value="">全部</option>';
+            $(_allDataBM).each(function(i,o){
+
+                str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+            });
+            $('#bumen').html('');
+            $('#bumen').html(str);
+            return false;
+        }
+
+        $(_relativeArr2).each(function(i,o){
+
+            if(value == o.daNum){
+                var pushArr = o.devDeps;
+                var str = '<option value="">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
+                });
+                console.log(str);
+                $('#bumen').html('');
+                $('#bumen').html(str);
+                return false;
+            }
+        });
+    });
 })
