@@ -233,6 +233,7 @@ $(function(){
         })
         //编辑
         .on('click','.option-edit',function(){
+            console.log('1111');
             //详情框
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
@@ -389,6 +390,7 @@ $(function(){
         //根据工号绑定数据
         for(var i=0;i<_allPersonalArr.length;i++){
             if(_allPersonalArr[i].userNum == thisBM){
+                //console.log(_allPersonalArr[i]);
                 //绑定数据
                 user.username = _allPersonalArr[i].userName;
                 user.jobnumber = _allPersonalArr[i].userNum;
@@ -401,6 +403,7 @@ $(function(){
                 user.role = _allPersonalArr[i].roleNum;
                 user.remarks = _allPersonalArr[i].remark;
                 user.order = _allPersonalArr[i].sort;
+                user.position = _allPersonalArr[i].pos;
             }
         }
 

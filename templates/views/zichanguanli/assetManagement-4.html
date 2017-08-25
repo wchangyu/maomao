@@ -281,9 +281,9 @@
                             <!-- 标题 -->
                             <div class="table-title" style="height: 36px;">
                                 <span class="spanhover">设备类型</span>
-                                <span>设备区域</span>
+                                <span>车务段</span>
                                 <span>设备系统</span>
-                                <span>设备部门</span>
+                                <span>车站</span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="table-block"style="margin-top: 0;">
@@ -398,8 +398,8 @@
 <!-- END BODY -->
 <!--添加设备-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 403px;width: 331px !important;">
-        <div class="modal-content" style="height: 403px;width: 331px !important;">
+    <div class="modal-dialog" style="height: auto;width: 331px !important;margin:-200px auto">
+        <div class="modal-content" style="height: auto;width: 331px  !important;margin:-200px auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">添加</h4>
@@ -415,6 +415,14 @@
                                     <input type="text"  v-model="sblxbm" placeholder="自动生成" readonly="readonly">
                                 </div>
                             </li>
+                            <li class="floatRight equipment-system">
+                                <div class="labels colorTip" >设备系统 ：</div>
+                                <div class="input-blockeds">
+                                    <select  v-model="sbxt" id="equipment-system">
+
+                                    </select>
+                                </div>
+                            </li>
                             <li class="floatRight">
                                 <div class="labels colorTip">设备类型名称 *：<span v-show="$validation.sblxmc.requireds">设备类型名称不能为空</span></div>
                                 <div class="input-blockeds">
@@ -422,11 +430,13 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">拼音简码 ：</div>
+                                <div class="labels colorTip">拼音简码 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="pyjm">
                                 </div>
                             </li>
+
+
                             <div class="clearfix"></div>
                         </form>
                     </validator>

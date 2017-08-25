@@ -268,7 +268,7 @@
 /*模态框*/
 .modal-dialog,.modal-content{
     width: 700px !important;
-    height: 500px;
+    /*height: 500px;*/
     background: #ffffff;
 }
 .modals .modal-dialog,.modals .modal-content{
@@ -463,4 +463,24 @@ textarea{
 }
 .dataTables_scrollHead{
     background: #dddddd !important;
+}
+.accord-with-list{
+    position: relative;
+    z-index: 10;
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    border-top: none;
+    width: 300px;
+    left: -1px;
+    top: 1px;
+    text-indent: 10px;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.accord-with-list li{
+    cursor: pointer;
+    width: 280px;
+}
+.li-color{
+    background: #ebebeb;
 }
