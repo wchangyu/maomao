@@ -64,7 +64,8 @@ $(function(){
     //当前选中的一条物品列表
     var _$thisWP = '';
     //仓库选择
-    warehouse();
+    warehouse($('#ckselect'));
+    warehouse($('#ckSelect1'));
     //出库类型
     rkLX();
     rkLX('flag');
@@ -690,6 +691,11 @@ $(function(){
                         //点击一下当前的数字，自动指向当前页
                         currentTable.children('span').children('.paginate_button').eq(currentPages).click();
                         $(this).removeClass('shenhe');
+                    }else{
+                        var $myModal = $('#myModal2');
+                        $myModal.find('.modal-body').html('确认失败，可能是库存不足的原因！');
+                        $myModal.find('.btn-primary').removeClass('.xiaoShanchu').removeClass('daShanchu');
+                        moTaiKuang($myModal,'提示','flag');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -802,26 +808,26 @@ $(function(){
                         data:'itemName'
                     },
                     {
-                        title:'分类编码',
-                        data:'cateNum'
+                        title:'仓库',
+                        data:'storageName'
                     },
                     {
                         title:'分类名称',
                         data:'cateName'
                     },
                     {
-                        title:'主要供货商',
-                        data:'cusName'
-                    },
-                    {
                         title:'剩余数量',
-                        data:'cusName'
+                        data:'num'
                     }
                 ],
             });
             wlList();
         },300);
 
+    });
+    //出库物品条件查询
+    $('#selected1').click(function(){
+        wlList();
     })
     /*------------------------------------表格数据--------------------------------*/
     conditionSelect();
@@ -910,7 +916,7 @@ $(function(){
         }
     }
     //仓库选择
-    function warehouse(){
+    function warehouse(el){
         var prm = {
             "userID": _userIdNum,
             "userName": _userIdName
@@ -924,7 +930,7 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
                 }
-                $('#ckselect').append(str);
+                el.append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -934,18 +940,19 @@ $(function(){
     //获取物品列表
     function wlList(){
         var prm = {
-            'ItemNum':'',
-            'itemName':'',
-            'cateName':'',
-            'userID':_userIdName
+            'ItemNum':$('.filterInput1').eq(0).val(),
+            'itemName':$('.filterInput1').eq(1).val(),
+            'storageNum':$('#ckSelect1').val(),
+            'userID':_userIdNum
         }
 
         $.ajax({
             type:'post',
-            url:_urls + 'YWCK/ywCKGetItems',
+            url:_urls + 'YWCK/ywCKRptItemStock',
             async:false,
             data:prm,
             success:function(result){
+                console.log(result);
                 _wpListArr = result;
                 datasTable($('#wuPinListTable'),result);
             },
