@@ -455,7 +455,7 @@ function getShowKnowledgeData(msgTitle,flag){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             _msgDataArr = data;
 
             ////对表格进行重绘

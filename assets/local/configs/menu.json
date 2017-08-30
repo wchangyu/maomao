@@ -911,6 +911,53 @@
         "iconclass":""
       }
     }
+  },
+  "统计分析":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"统计分析",
+    "submenu":{
+      "系统故障时间":{
+        "type":"0",
+        "content":"系统故障时间",
+        "uri":"../tongjifenxi/systemDealTime.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障月统计":{
+        "type":"0",
+        "content":"故障月统计",
+        "uri":"../tongjifenxi/systemMonthCount.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障率统计":{
+        "type":"0",
+        "content":"故障率统计",
+        "uri":"../tongjifenxi/failureRate.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障具体分析":{
+        "type":"0",
+        "content":"故障具体分析",
+        "uri":"../tongjifenxi/systemCount.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "故障消除率":{
+        "type":"0",
+        "content":"故障消除率",
+        "uri":"../tongjifenxi/removeFaultRate.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
   }
 
 }
