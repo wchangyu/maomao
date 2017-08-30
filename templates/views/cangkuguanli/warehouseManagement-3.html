@@ -394,8 +394,8 @@
 <!--弹窗-->
 <!--模态框新增出库-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 670px;">
-        <div class="modal-content" style="height: 670px;">
+    <div class="modal-dialog" style="height: 670px;width: 1020px !important;">
+        <div class="modal-content" style="height: 670px;width: 1020px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">新增出库单</h4>
@@ -406,50 +406,50 @@
                     <ul class="gongdanList" id="myApp33">
                         <validator name="validation">
                             <form novalidate>
-                                <li class="floatLeft" style="line-height: 26px;">
+                                <li class="gdList" style="line-height: 26px;">
                                     <div class="labels">出库单编号 ：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="gdList">
                                     <div class="labels colorTip">出库类型 *：</div>
                                     <div class="input-blockeds">
                                         <select name="" id="rkleixing" v-model="rkleixing">
                                         </select>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="gdList">
                                     <div class="labels">工单号 ：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="gdCode">
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="gdList">
                                     <div class="labels">材料员名称 ：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="clymc">
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="gdList">
                                     <div class="labels">材料员电话 ：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="clydh">
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="gdList">
                                     <div class="labels">仓库选择 ：</div>
                                     <div class="input-blockeds">
                                         <select id="ckselect" v-model="ckselect"></select>
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="gdList">
                                     <div class="labels">制单人 ：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="zhidanren"  placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
-                                <li class="floatleft">
+                                <li class="gdList">
                                     <div class="labels">制单时间：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="shijian" placeholder="自动生成" readonly="readonly">
@@ -499,13 +499,13 @@
 </div>
 <!--模态框新增产品-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 649px;">
-        <div class="modal-content" style="height: 649px;">
+    <div class="modal-dialog" style="height: 800px;width: 1020px !important;">
+        <div class="modal-content" style="height: 800px;width: 1020px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel1">出库物品</h4>
             </div>
-            <div class="modal-body" style="height: 530px;overflow-y: scroll">
+            <div class="modal-body" style="height: 680px;overflow-y: scroll">
                 <ul class="condition-query">
                     <li style="width: 133px;">
                         <div class="cont-col1" style="cursor: pointer">
@@ -519,41 +519,108 @@
                 <ul class="gongdanList" id="workDone">
                     <validator name="validation">
                         <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="gdList">
+                                <div class="labels">物品id：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="goodsId" class="goodsId auto-input" @keyup="searchid()">
+                                    <ul class="accord-with-list" data-num="0" style="display: none">
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="gdList" style="line-height: 26px;">
                                 <div class="labels colorTip">物品编号 *：<span v-show="$validation.bianhao.requireds" style="display: none">请选择物品编号</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="not-editable" v-model="bianhao" v-validate:bianhao= "['requireds']" initial='off'  @keyup="searchbm()" style="cursor: pointer">
+                                    <input type="text" class="not-editable auto-input" v-model="bianhao" v-validate:bianhao= "['requireds']" initial='off'  @keyup="searchbm()" style="cursor: pointer">
                                     <ul class="accord-with-list" data-num="1" style="display: none">
                                     </ul>
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="gdList">
                                 <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text"  class="not-editable" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()">
+                                    <input type="text"  class="not-editable auto-input" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()">
                                     <ul class="accord-with-list" data-num="2" style="display: none">
                                     </ul>
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels">物品条形码：</div>
+                            <li class="gdList">
+                                <div class="labels">规格型号：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="not-editable" v-model="itemBarCode">
+                                    <input type="text" class="not-editable auto-input" v-model="size">
                                 </div>
                             </li>
-                            <li class="floatRight">
-                                <div class="labels">批次：</div>
+                            <li class="gdList">
+                                <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="batchNum">
+                                    <input type="radio" class="inpus auto-input" id="ones" value="1" v-model="picked" v-on:click="radios" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="inpus auto-input" id="twos" value="0" v-model="picked" v-on:click="radios" ><label for="twos" class="auto-input" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels colorTip">数量 *：<span v-show="$validation.num.requireds" style="display: none">请输入物品数量</span></div>
+                            <li class="gdList">
+                                <div class="labels">单位：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="num" v-validate:num= "['requireds']" initial='off'>
+                                    <input type="text" v-model="unit" class="auto-input">
                                 </div>
                             </li>
-                            <li class="floatRight" style="margin-top: 27px;">
+                            <li class="gdList">
+                                <div class="labels">品质：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="quality" class="auto-input">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">质保期：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="warranty" class="datatimeblock auto-input" @focus="time()">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">剩余数量：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="redundant" class="auto-input">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                            <br>
+                            <hr style="width: 920px;">
+                            <li class="gdList">
+                                <div class="labels colorTip">数量 *：<span v-show="$validation.num.requireds" style="display: none">请输入物品数量</span><span class="colorTip format-error" style="display: none;">前请输入正整数</span><span class="colorTip format-error2" style="display: none;">数量要小于库存</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="addFun1()">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">出库单价：<span class="colorTip format-error1" style="display: none;">请输入大于0的数</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="outPrice" @keyup="addFun2()">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">总金额：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="amount" placeholder="0">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">工单号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="gdCode">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">车站：</div>
+                                <div class="input-blockeds">
+                                    <select  id="chezhan" v-model="chezhan"></select>
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                            <div>
+                                <div class="labels">备注：</div>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remark"></textarea>
+                                </div>
+                            </div>
+                            <li class="gdList" style="margin-top: 27px;">
                                 <button type="button" class="btn btn-success" id="addRK">添加</button>
                                 <button type="button" class="btn btn-success" id="editRK">编辑</button>
                                 <button type="button" class="btn btn-success" id="addReset">重置</button>
@@ -563,7 +630,7 @@
                     </validator>
                 </ul>
                 <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
-                    <table id="wuPinListTable1" class="wptable table table-condensed b-t b-light row-border hover order-column" cellspacing="0" style="width: 626px !important;">
+                    <table id="wuPinListTable1" class="wptable table table-condensed b-t b-light row-border hover order-column" cellspacing="0">
                         <thead>
                         </thead>
                         <tbody>

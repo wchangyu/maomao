@@ -109,13 +109,14 @@ $(function(){
         myApp33.num = '';
         myApp33.beizhu = '';
         $('#myModal').find('.btn-primary').removeClass('xiugai').addClass('dengji');
-        moTaiKuang($('#myModal'));
+        moTaiKuang($('#myModal'),'添加');
+        $('.lbbm').removeClass('disabled-block');
     })
     //登记按钮
     $('#myModal').on('click','.dengji',function(){
         if(myApp33.name == ''){
             $('#myModal2').find('.modal-body').html('请填写红色必填项');
-            moTaiKuang($('#myModal2'));
+            moTaiKuang($('#myModal2'),'提示','flag');
         }else{
             var prm = {
                 'cateName':myApp33.name,
@@ -129,12 +130,18 @@ $(function(){
                 success:function(result){
                     if(result == '执行成功'){
                         $('#myModal2').find('.modal-body').html('添加成功！');
-                        moTaiKuang($('#myModal2'))
+                        moTaiKuang($('#myModal2'),'提示','flag');
                         //刷新列表
                         conditionSelect();
                         $(this).parents('.modal').modal('hide');
+                    }else{
+                        $('#myModal2').find('.modal-body').html('添加失败！');
+                        moTaiKuang($('#myModal2'),'提示','flag');
                     }
                     $('#myModal').modal('hide');
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
                 }
             })
         }
@@ -142,7 +149,8 @@ $(function(){
     //修改按钮
     $('#myModal').on('click','.xiugai',function(){
         if(myApp33.name == ''){
-            moTaiKuang($('#myModal2'));
+            moTaiKuang($('#myModal2'),'提示','flag');
+            $('#myModal2').find('.modal-body').html('类别名称不能为空！');
         }else {
             var prm = {
                 'cateNum':myApp33.num,
@@ -157,11 +165,17 @@ $(function(){
                 success:function(result){
                     if(result == 99){
                         $('#myModal2').find('.modal-body').html('修改成功！');
-                        moTaiKuang($('#myModal2'))
+                        moTaiKuang($('#myModal2'),'提示','flag');
                         //刷新列表
                         conditionSelect();
                         $('#myModal').modal('hide');
+                    }else{
+                        $('#myModal2').find('.modal-body').html('修改失败！');
+                        moTaiKuang($('#myModal2'),'提示','flag');
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
                 }
             })
         }
@@ -179,9 +193,15 @@ $(function(){
             success:function(result){
                 if(result == 99){
                     $('#myModal2').find('.modal-body').html('删除成功！');
-                    moTaiKuang($('#myModal2'))
+                    moTaiKuang($('#myModal2'),'提示','flag');
                     conditionSelect();
+                }else{
+                    $('#myModal2').find('.modal-body').html('删除失败！');
+                    moTaiKuang($('#myModal2'),'提示','flag');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     });
@@ -206,9 +226,11 @@ $(function(){
                 myApp33.num = allData[i].cateNum;
                 myApp33.name = allData[i].cateName;
                 myApp33.beizhu = allData[i].cateRemark;
-                moTaiKuang($('#myModal'));
+                moTaiKuang($('#myModal'),'编辑');
             }
-        }
+        };
+        //编码不能编辑
+        $('.lbbm').addClass('disabled-block');
     })
     //删除
     $('#scrap-datatables tbody')
@@ -223,7 +245,7 @@ $(function(){
                 //绑定信息
                 $('#lbxx').val(allData[i].cateNum);
                 $('#lbmc').val(allData[i].cateName);
-                moTaiKuang($('#myModal3'));
+                moTaiKuang($('#myModal3'),'确定要删除吗？');
             }
         }
     })
@@ -248,20 +270,29 @@ $(function(){
             success:function(result){
                 allData = result;
                 datasTable($("#scrap-datatables"),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
     //模态框自适应
-    function moTaiKuang(who){
+    function moTaiKuang(who, title, flag) {
         who.modal({
-            show:false,
-            backdrop:'static'
+            show: false,
+            backdrop: 'static'
         })
+        who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){

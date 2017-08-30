@@ -53,13 +53,13 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
+                title:'物品id',
+                data:'sn'
+            },
+            {
                 name: 'second',
                 title:'物品编号',
                 data:'itemNum'
-            },
-            {
-                title:'物品条码',
-                data:'itemBarCode'
             },
             {
                 title:'物品名称',

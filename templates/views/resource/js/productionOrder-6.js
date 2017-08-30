@@ -433,9 +433,11 @@ $(function(){
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
             //备件处理过程
-            logInformation(2);
+            //logInformation(2);
             //工单处理过程
-            logInformation(1);
+            //logInformation(1);
+            //综合
+            logInformation(0);
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
@@ -1110,7 +1112,13 @@ $(function(){
                         str += '<li><span class="list-dot"> </span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;' + result[i].logTitle + '</li>';
                     }
                     $('.processing-record ul').empty();
-                    console.log(result);
+                    $('.processing-record ul').append(str);
+                }else{
+                    var str = '';
+                    for(var i =0;i<result.length;i++){
+                        str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' + result[i].logContent+ '</li>';
+                    }
+                    $('.processing-record ul').empty();
                     $('.processing-record ul').append(str);
                 }
 

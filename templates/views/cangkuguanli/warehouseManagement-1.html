@@ -445,9 +445,10 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">条形码 ：</div>
+                                <div class="labels">是否耐用品 ：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="tiaoxingbar">
+                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" ><label for="ones" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" ><label for="twos" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="floatLeft">

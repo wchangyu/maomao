@@ -861,7 +861,9 @@ $(function(){
             "wxBeizhu": $('#wxbeizhu').val(),
             "userID": _userIdNum,
             "userName":_userIdName,
-            "lastUpdateInfo":$('#newBeiZhu').val()
+            "lastUpdateInfo":$('#newBeiZhu').val(),
+            'dengyy':$('#watting').val(),
+            'dengyyStr':$('#watting').children('option:selected').html()
         }
         $.ajax({
             type:'post',
@@ -894,7 +896,8 @@ $(function(){
                 'userName':_userIdName,
                 'dengMemo':$('.waitingForResources').find('textarea').val(),
                 'yjShij':$('.waitingForResources').find('input').val(),
-                'dengyy':$('#watting').val()
+                'dengyy':$('#watting').val(),
+                'dengyyStr':$('#watting').children('option:selected').html()
             }
         }else{
             gdInfo = {
@@ -1121,7 +1124,7 @@ $(function(){
                 _sparePart = result.clStatus;
                 //先根据当前的状态判断是否显示确定按钮和增加维修备件按钮，还有备注是否可以编辑
                 //弹出框显示
-                if(_sparePart>1){
+                if(_sparePart>result.statuses[0].clStatusID){
                     moTaiKuang($('#myModal4'),'维修备件申请','flag');
                     $('.tianJiaCaiLiao').hide();
                     $('#bjremark').attr('disabled',true);
