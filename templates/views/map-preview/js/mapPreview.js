@@ -324,7 +324,7 @@ function showList(){
 // 添加信息窗口
 function addInfoWindow(marker, poi) {
     //pop弹窗标题
-    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;height:30px;font-size:16px;">' + poi.title +'<button style="float:right;margin-right:20px;color:black;cursor:pointer;font-size: 12px;font-weight:500;padding:0px 5px 0px 5px;height:24px;line-height: 20px;">显示运动轨迹</button></div>';
+    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px;width:100%;height:30px;font-size:16px;">' + poi.title +'<button style="float:right;margin-right:20px;color:black;cursor:pointer;font-size: 12px;font-weight:500;padding:0px 5px 0px 5px;height:24px;line-height: 20px;" onclick="showTrack(\''+poi.id+'\',\''+poi.point+'\')" class="show-track" title="运动轨迹"></button></div>';
     //pop弹窗信息
     var html = [];
     html.push('<div style="font-size:14px;width:100%;height:280px;">'+
@@ -336,7 +336,11 @@ function addInfoWindow(marker, poi) {
     var openInfoWinFun = function () {
 
         marker.openInfoWindow(infoWindow);
-
+        if(showTrackNum % 2 == 0) {
+            $('.show-track').removeClass('show-track1');
+        }else{
+            $('.show-track').addClass('show-track1');
+        }
     };
     var closeInfoWinFun = function () {
 
@@ -403,6 +407,194 @@ function showAll(){
 
 }
 
+//判断当前应该显示还是隐藏轨迹
+var showTrackNum = 0;
+
+//显示运动轨迹
+function showTrack(string,point){
+
+    if(showTrackNum % 2 != 0){
+        $('.show-track').removeClass('show-track1');
+        //隐藏运动轨迹 刷新页面
+      $(polylineArr).each(function(i,o){
+          map.removeOverlay(o);
+      });
+        var num = 0;
+        //获取当年需显示轨迹的对象
+        $(markerArr).each(function(i,o){
+            if(string == o.id){
+                num = i
+            }
+        });
+
+        //把其他点重新显示
+        $(makeArr).each(function(i,o){
+            if(i != num){
+                map.addOverlay(o);
+            }
+        });
+        showTrackNum ++;
+    }else{
+        //获取当前时间
+        var startTime = moment().format('YYYY-MM-DD');
+        var endTime = moment().add(1,'day').format('YYYY-MM-DD');
+
+        //获取人员运动轨迹
+        $.ajax({
+            type: 'get',
+            url: _urls + "/YWTrajectory/GetSysUserLocation",
+            timeout: theTimes,
+            data:{
+                "userNum": string,
+                'st':startTime,
+                'et':endTime
+            },
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+
+            },
+
+            complete: function () {
+                //$('#theLoading').modal('hide');
+            },
+            success: function (data) {
+                $('#theLoading').modal('hide');
+                //无轨迹信息
+                if(data.length ==0){
+                    myAlter('无轨迹信息');
+                    return false;
+                }
+                //清空添加线数组
+                polylineArr = [];
+                points = [];
+                bPoints = [];
+
+                $('.show-track').addClass('show-track1');
+                var num = 0;
+                //获取当年需显示轨迹的对象
+                $(markerArr).each(function(i,o){
+                    if(string == o.id){
+                        num = i
+                    }
+                });
+                //把其他点隐藏起来，防止干扰
+                $(makeArr).each(function(i,o){
+                    if(i != num){
+                        map.removeOverlay(o);
+                    }
+                });
+
+
+                var obj = {
+
+                };
+                obj.longitude = point.split(",")[0];
+                obj.latitude = point.split(",")[1];
+                data.unshift(obj);
+                console.log(data);
+                $(data).each(function(i,o){
+                    var p0 = o.longitude;
+                    var p1 = o.latitude;
+
+                    //给每个被选中地点添加事件
+                    dynamicLine(p0,p1);
+                });
+                showTrackNum ++;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $('#theLoading').modal('hide');
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    myAlter("超时");
+                }else{
+                    myAlter("请求失败！");
+                }
+
+            }
+        });
+    }
+
+
+}
+//数据准备,
+var points = [];//原始点信息数组
+var bPoints = [];//百度化坐标数组。用于更新显示范围。
+
+//存放添加线
+var polylineArr = [];
+
+//添加线
+function addLine(points){
+
+    var linePoints = [],pointsLen = points.length,i,polyline;
+    if(pointsLen == 0){
+        return;
+    }
+    // 创建标注对象并添加到地图
+    for(i = 0;i <pointsLen;i++){
+        linePoints.push(new BMap.Point(points[i].lng,points[i].lat));
+    }
+
+    polyline = new BMap.Polyline(linePoints, {strokeColor:"blue", strokeWeight:10, strokeOpacity:0.5});   //创建折线
+    map.addOverlay(polyline);   //增加折线
+
+    polylineArr.push(polyline);
+}
+
+
+
+//生成新的点，加入到轨迹中。
+function dynamicLine(lng,lat){
+
+    var lng = lng;
+    var lat = lat;
+    var id = getRandom(1000);
+    var point = {"lng":lng,"lat":lat,"status":1,"id":id}
+    var makerPoints = [];
+    var newLinePoints = [];
+    var len;
+
+    //makerPoints.push(point);
+    //addMarker(makerPoints);//增加对应该的轨迹点
+    points.push(point);
+    bPoints.push(new BMap.Point(lng,lat));
+    len = points.length;
+    newLinePoints = points.slice(len-2, len);//最后两个点用来画线。
+
+    addLine(newLinePoints);//增加轨迹线
+    setZoom(bPoints);
+}
+
+// 获取随机数
+function getRandom(n){
+    return Math.random()*n+1
+}
+
+//根据点信息实时更新地图显示范围，让轨迹完整显示。设置新的中心点和显示级别
+function setZoom(bPoints){
+    var view = map.getViewport(eval(bPoints));
+    var mapZoom = parseInt(view.zoom) - 1;
+    var centerPoint = view.center;
+    map.centerAndZoom(centerPoint,mapZoom);
+}
+
+//在轨迹点上创建图标，并添加点击事件，显示轨迹点信息。points,数组。
+function addMarker(points){
+    var pointsLen = points.length;
+    if(pointsLen == 0){
+        return;
+    }
+    var myIcon = new BMap.Icon("img/blue.png", new BMap.Size(55, 55)
+    );
+    // 创建标注对象并添加到地图
+    for(var i = 0;i <pointsLen;i++){
+        var point = new BMap.Point(points[i].lng,points[i].lat);
+        var marker = new BMap.Marker(point, {icon: myIcon});
+        map.addOverlay(marker);
+    }
+}
 
 ////搜索功能
 //$(function(){
