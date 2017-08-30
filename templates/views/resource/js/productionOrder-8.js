@@ -20,7 +20,7 @@ $(function(){
     });
 
     //设置初始时间(主表格时间)
-    var _initStart = moment().format('YYYY/MM/DD');
+    var _initStart = moment().subtract(6, 'month').startOf('day').format('YYYY/MM/DD');;
     var _initEnd = moment().format('YYYY/MM/DD');
 
     //选择设备时间
@@ -59,6 +59,9 @@ $(function(){
 
     //记录当前工单号码
     var _gdCode = '';
+
+    //记录当前的状态
+    var _gdState = '';
 
     //查看值绑定vue对象
     //弹出框信息绑定vue对象
@@ -116,6 +119,24 @@ $(function(){
         }
     });
 
+    //执行人数组
+    var _zhixingRens = [];
+
+    //材料数组
+    var _weiXiuCaiLiao = [];
+
+    //负责人数组
+    var _fuZeRen = [];
+
+    //执行人员的标识
+    var _workerFlag = false;
+    //物料的标识
+    var _WLFlag = false;
+    //状态标识
+    var _stateFlag = false;
+    //负责人标识
+    var _leaderFlag = false;
+
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -123,7 +144,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": false,
+        "ordering": true,
         "pagingType": "full_numbers",
         'language': {
             'emptyTable': '没有数据',
@@ -155,79 +176,113 @@ $(function(){
         "dom": 't<"F"lip>',
         "columns": [
             {
-                title: '工单号',
-                data: 'gdCode2',
-                className: 'gongdanId',
-                render: function (data, type, row, meta) {
-                    return '<span gdCode="' + row.gdCode +
+                title:'工单号',
+                data:'gdCode2',
+                render:function(data, type, row, meta){
+                    return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '>' + data +
-                        '</span>'
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '"' +
+                        'target="_blank">' + data + '</a>'
                 }
             },
             {
-                title: '工单类型',
-                data: 'gdJJ',
-                render: function (data, type, full, meta) {
-                    if (data == 0) {
+                title:'工单类型',
+                data:'gdJJ',
+                render:function(data, type, full, meta){
+                    if(data == 0){
                         return '普通'
-                    }
-                    if (data == 1) {
+                    }if(data == 1){
                         return '快速'
                     }
                 }
             },
             {
-                title: '工单状态',
-                data: 'gdZht',
-                className: 'gongdanZt',
-                render: function (data, type, full, meta) {
-                    if (data == 1) {
+                title:'工单状态',
+                data:'gdZht',
+                className:'gongdanZt',
+                render:function(data, type, full, meta){
+                    if(data == 1){
                         return '待下发'
-                    }
-                    if (data == 2) {
+                    }if(data == 2){
                         return '待分派'
-                    }
-                    if (data == 3) {
+                    }if(data == 3){
                         return '待执行'
-                    }
-                    if (data == 4) {
+                    }if(data == 4){
                         return '执行中'
-                    }
-                    if (data == 5) {
+                    }if(data == 5){
                         return '等待资源'
-                    }
-                    if (data == 6) {
+                    }if(data == 6){
                         return '待关单'
-                    }
-                    if (data == 7) {
+                    }if(data == 7){
                         return '任务关闭'
-                    }
-                    if (data == 999) {
+                    }if(data == 999){
                         return '任务取消'
                     }
                 }
             },
             {
-                title: '状态值',
-                data: 'gdZht',
-                className: 'ztz'
+                title:'任务级别',
+                data:'gdLeixing',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '一级任务'
+                    }if(data == 2){
+                        return '二级任务'
+                    }if(data == 3){
+                        return '三级任务'
+                    }if(data == 4){
+                        return '四级任务'
+                    }
+                }
             },
             {
-                title: '车站',
-                data: 'bxKeshi'
+                title:'工单状态值',
+                data:'gdZht',
+                className:'ztz'
             },
             {
-                title: '设备类型',
-                data: 'wxShiX'
+                title:'系统类型',
+                data:'wxShiX'
             },
             {
-                title: '故障位置',
-                data: 'wxDidian'
+                title:'设备名称',
+                data:'dName'
             },
             {
-                title: '登记时间',
-                data: 'gdShij'
+                title:'车站',
+                data:'bxKeshi'
+            },
+            {
+                title:'故障位置',
+                data:'wxDidian'
+            },
+            {
+                title:'故障描述',
+                data:'bxBeizhu'
+            },
+            {
+                title:'最新处理情况',
+                data:'lastUpdateInfo'
+            },
+            {
+                title:'受理时间',
+                data:'shouLiShij'
+            },
+            {
+                title:'督察督办责任人',
+                data:'wxUserNames'
+            },
+            {
+                title:'超时',
+                data:'timeSpan',
+                render:function(data, type, full, meta){
+                    if(data>0){
+                        return '<span style="color: red;">' + data + '</span>';
+                    }else{
+                        return '<span style="color: green;">' + data + '</span>';
+                    }
+                }
             },
             {
                 title: '操作',
@@ -405,10 +460,12 @@ $(function(){
         $('.max').val(_initEnd);
     });
 
+    var _currentChexiao = false;
+    var _currentClick;
     //查看详情
     $('#scrap-datatables')
         .on('click','.option-see',function(){
-            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
+            _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //当前行变色
@@ -420,7 +477,7 @@ $(function(){
             moTaiKuang($('#myModal'),'查看详情','flag');
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
-            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
+            var gongDanCode = $(this).parents('tr').find('.gongdanId').attr('gdCode');
             //根据工单状态，确定按钮的名称
             _gdCode = gongDanCode;
             var prm = {
@@ -489,7 +546,7 @@ $(function(){
             logInformation();
         })
         .on('click','.tablePingjia',function(){
-            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
+            _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             pingjia.beizhu = '';
             //初始化一下radio评价按钮
             pingjia.pickeds = '5';
@@ -502,7 +559,7 @@ $(function(){
             moTaiKuang($('#myModal1'),'关闭工单')
             //给评价弹窗绑定基本数据
             var gongDanState = parseInt($this.children('td').eq(2).html());
-            var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
+            var gongDanCode = $(this).parents('tr').find('.gongdanId').attr('gdCode');
             _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
@@ -528,8 +585,42 @@ $(function(){
                     console.log(jqXHR.responseText);
                 }
             })
-        });
-
+        })
+        .on('click','tr',function(){
+        _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
+        var $this = $(this);
+        _currentChexiao = true;
+        _currentClick = $this;
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+        $this.addClass('tables-hover');
+        //获得详情
+        var gdCode = parseInt($this.children('td').children('.gongdanId').attr('gdCode'));
+        var gdZht = parseInt($this.children('.ztz').html());
+        _gdState = gdZht
+        _gdCode = gdCode;
+        var prm = {
+            "gdCode": gdCode,
+            "gdZht": gdZht,
+            "wxKeshi": "",
+            "userID": _userIdNum,
+            'gdCircle':_gdCircle
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            success:function(result){
+                if(result){
+                    _zhixingRens = result.wxRens;
+                    _weiXiuCaiLiao = result.wxCls;
+                    _fuZeRen = result.gdWxLeaders;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    })
     //关单确定按钮
     //去评价
     $('.pingjiaButton').click(function(){
@@ -558,6 +649,171 @@ $(function(){
             }
         })
     });
+
+    //回退；
+    $('.chexiao').click(function(){
+        if(_currentClick){
+            var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+            if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5 || zhuangtai == 6 || zhuangtai == 7){
+                moTaiKuang($('#myModal3'),'回退');
+            }else{
+                $('#myModal2').find('.modal-body').html('无法操作');
+                moTaiKuang($('#myModal2'),'提示','flag');
+            }
+        }else{
+            $('#myModal2').find('.modal-body').html('请选择要回退的工单!');
+            moTaiKuang($('#myModal2'),'提示','flag');
+        }
+    });
+
+    //取消
+    $('.zuofei').click(function(){
+        if(_currentClick){
+            var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+            if(zhuangtai == 7){
+                $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
+                moTaiKuang($('#myModal2'),'提示','flag');
+            }else if(zhuangtai == 999){
+                $('#myModal2').find('.modal-body').html('该工单已取消！');
+                moTaiKuang($('#myModal2'),'提示','flag');
+            }else{
+                moTaiKuang($('#myModal4'),'取消');
+            }
+        }else{
+            $('#myModal2').find('.modal-body').html('请选择要报废的工单!');
+            moTaiKuang($('#myModal2'),'提示','flag');
+        }
+    });
+
+    //撤销（回退）
+    $('#myModal3').find('.btn-primary').click(function (){
+        if(_currentChexiao){
+            var gdState = parseInt(_currentClick.find('.ztz').html());
+            var htState = 0;
+            if(gdState == 2){
+                htState = 1;
+            }else if( gdState == 3 || gdState == 4 || gdState == 5 || gdState == 6 || gdState == 7){
+                htState = 2;
+            }
+            var gdCodes = _currentClick.children('td').eq(0).children('span').attr('gdcode');
+            var gdInfo = {
+                "gdCode": gdCodes,
+                "gdZht": htState,
+                "userID": _userIdNum,
+                'userName':_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWGD/ywGDReturn',
+                data:gdInfo,
+                success:function(result){
+                    if(result == 99){
+                        _stateFlag = true;
+                        if(htState == 1){
+                            //删除该工单负责人
+                            if(_fuZeRen.length>0){
+                                manager('YWGD/ywGDDelWxLeader','flag');
+                            }
+                            if( _stateFlag && _leaderFlag ){
+                                $('#myModal3').modal('hide');
+                                moTaiKuang($('#myModal2'),'提示','flag');
+                                $('#myModal2').find('.modal-body').html('回退成功！');
+                            }else{
+                                var str = '';
+                                if( _leaderFlag == false ){
+                                    str += '工长删除失败，'
+                                }else{
+                                    str += '工长删除成功，'
+                                }
+                                if( _stateFlag == false ){
+                                    str += '退回失败！'
+                                }else{
+                                    str += '退回成功！'
+                                }
+                                moTaiKuang($('#myModal2'), '提示','flag');
+                                $('#myModal2').find('.modal-body').html(str);
+                            }
+                        }else if(htState == 2){
+                            //删除该工单的执行人和材料
+                            if(_zhixingRens.length>0){
+                                Worker('YWGD/ywGDDelWxR','flag');
+                            }
+                            //判断有无材料
+                            if(_weiXiuCaiLiao.length >0){
+                                CaiLiao('YWGD/ywGDDelWxCl','flag');
+                            }
+                            if( _workerFlag && _WLFlag && _stateFlag ){
+                                $('#myModal3').modal('hide');
+                                moTaiKuang($('#myModal2'),'提示','flag');
+                                $('#myModal2').find('.modal-body').html('回退成功！');
+                            }else{
+                                var str = '';
+                                if( _workerFlag == false ){
+                                    str += '执行人删除失败，'
+                                }else{
+                                    str += '执行人删除成功，'
+                                }
+                                if( _WLFlag == false ){
+                                    str += '物料删除失败，'
+                                }else{
+                                    str += '物料删除成功，'
+                                }
+                                if( _stateFlag == false ){
+                                    str += '退回失败，'
+                                }else{
+                                    str += '退回成功，'
+                                }
+                                moTaiKuang($('#myModal2'),'提示','flag');
+                                $('#myModal2').find('.modal-body').html(str);
+                            }
+                        }
+                        conditionSelect();
+                        $('#myModal3').modal('hide');
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal2').find('.modal-body').html('回退成功！');
+                    }else{
+                        _stateFlag = false;
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal2').find('.modal-body').html('回退失败！');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+        }
+    })
+    //作废(取消)
+    $('#myModal4').find('.btn-primary').click(function (){
+        if(_currentChexiao){
+            var gdInfo = {
+                "gdCode": _gdCode,
+                "userID": _userIdNum,
+                "userName": _userIdName
+            }
+            $.ajax({
+                type:'post',
+                url: _urls + 'YWGD/ywGDDel',
+                data:gdInfo,
+                success:function(result){
+                    if(result == 99){
+                        conditionSelect();
+                        $('#myModal2').find('.modal-body').html('工单取消成功！');
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal4').modal('hide');
+                    }else{
+                        $('#myModal2').find('.modal-body').html('工单取消失败！');
+                        moTaiKuang($('#myModal2'),'提示','flag');
+                        $('#myModal4').modal('hide');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+        }
+        $('#myModal1').modal('hide');
+    })
 
     /*------------------------------其他方法-------------------------------------------------*/
     //ajaxFun（select的值）
@@ -670,7 +926,6 @@ $(function(){
             }
         })
     }
-
 
     //获取到影响单位、用户分类
     function InfluencingUnit(flag){
@@ -818,6 +1073,120 @@ $(function(){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
                 $('.deal-with-list').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //删除执行人方法
+    function Worker(url,flag){
+        var workerArr = [];
+        for(var i=0; i<_zhixingRens.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxrID = _zhixingRens[i].wxrID;
+            }
+            obj.wxRen = _zhixingRens[i].wxRen;
+            obj.wxRName = _zhixingRens[i].wxRName;
+            obj.wxRDh = _zhixingRens[i].wxRDh;
+            obj.gdCode = _gdCode;
+            workerArr.push(obj);
+        }
+        var gdWR = {
+            gdCode :_gdCode,
+            gdWxRs:workerArr,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWR,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _workerFlag = true;
+                }else{
+                    _workerFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        });
+    }
+
+    //删除物料方法
+    function CaiLiao(url,flag){
+        var cailiaoArr = [];
+        for(var i=0;i<_weiXiuCaiLiao.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxClID = _weiXiuCaiLiao[i].wxClID
+            }
+            obj.wxCl = _weiXiuCaiLiao[i].wxCl;
+            obj.wxClName = _weiXiuCaiLiao[i].wxClName;
+            obj.clShul = _weiXiuCaiLiao[i].clShul;
+            obj.gdCode = _gdCode;
+            cailiaoArr.push(obj);
+        }
+        var gdWxCl = {
+            gdCode:_gdCode,
+            gdWxCls:cailiaoArr,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWxCl,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _WLFlag = true;
+                }else{
+                    _WLFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //删除责任人
+    function manager(url,flag){
+        var fzrArrr = [];
+        for(var i=0;i<_fuZeRen.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxrID = _fuZeRen[i].wxrID;
+            }
+            obj.wxRen = _fuZeRen[i].wxRen;
+            obj.wxRName = _fuZeRen[i].wxRName;
+            obj.wxRDh = _fuZeRen[i].wxRDh;
+            obj.gdCode = _gdCode;
+            fzrArrr.push(obj);
+        }
+        var gdWR = {
+            gdCode:_gdCode,
+            gdWxRs:fzrArrr,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWR,
+            async:false,
+            success:function(result){
+                if(result == 99){
+                    _leaderFlag = true;
+                }else{
+                    _leaderFlag = false;
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

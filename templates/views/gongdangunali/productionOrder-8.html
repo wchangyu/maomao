@@ -60,6 +60,16 @@
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
+    <style>
+        .table.dataTable thead .sorting:after{
+            content:'' !important;
+            opacity:0 !important;
+        }
+        .table.dataTable thead .sorting_asc:after{
+            content:'' !important;
+            opacity:0 !important;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -299,13 +309,13 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <label for="">影响单位：</label>
+                                            <label for="">所属车间：</label>
                                             <div class="input-blocked">
                                                 <select id="influence-unite"></select>
                                             </div>
                                         </li>
                                         <li>
-                                            <label for="">用户分类：</label>
+                                            <label for="">所属维保组：</label>
                                             <div class="input-blocked">
                                                 <select id="userClass"></select>
                                             </div>
@@ -328,6 +338,18 @@
                                         </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
+                                        <li>
+                                            <button type="button" class="btn red delete chexiao">
+                                                <i class="fa fa-trash"></i>
+                                                <span>回退</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn red delete zuofei" title="未完成的工单可进行作废操作">
+                                                <i class="fa fa-trash"></i>
+                                                <span>取消</span>
+                                            </button>
+                                        </li>
                                         <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                         <li class="excelButton"></li>
                                         <div class="clearfix"></div>
@@ -667,6 +689,38 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary pingjiaButton">关闭工单</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框确认撤销吗？-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel1">提示</h4>
+            </div>
+            <div class="modal-body">您确定要进行回退操作吗？</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框确认作废-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">您确定要进行取消操作吗？</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

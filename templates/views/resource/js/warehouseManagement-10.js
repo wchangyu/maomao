@@ -129,6 +129,8 @@ $(function(){
         wharehouse.name = '';
         wharehouse.num = '';
         wharehouse.beizhu = '';
+        wharehouse.barnum = '';
+        wharehouse.location = '';
         $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
         moTaiKuang($('#myModal'),'新增仓库');
     });

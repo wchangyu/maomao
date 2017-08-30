@@ -79,7 +79,7 @@ $(function(){
     var _gdCode = '';
 
     //存放常量
-    var _constant = [];
+    var _stateArr = [];
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -135,18 +135,10 @@ $(function(){
                 title: '备件进度',
                 data: 'clStatusID',
                 render:function(data, type, full, meta){
-                    if(data == 1){
-                        return '待确认'
-                    }if(data == 2){
-                        return '待仓库处理'
-                    }if(data == 3){
-                        return '待发货'
-                    }if(data == 4){
-                        return '备件在途'
-                    }if(data == 5){
-                        return '备件到达'
-                    }if(data == 6){
-                        return '备件取消'
+                    for(var i=0;i<_stateArr.length;i++){
+                        if(data == _stateArr[i].clStatusID){
+                            return _stateArr[i].clStatus
+                        }
                     }
                 }
             },
@@ -562,8 +554,10 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetPjStatus',
             data:prm,
             success:function(result){
+                _stateArr = [];
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.statuses.length;i++){
+                    _stateArr.push(result.statuses[i]);
                         str += '<option value="' + result.statuses[i].clStatusID + '">' + result.statuses[i].clStatus + '</option>';
                         if(result.clStatus == result.statuses[i].clStatusID){
                             $('.nowState').val(result.statuses[i].clStatus);
