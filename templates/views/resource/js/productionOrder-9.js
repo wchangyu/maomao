@@ -39,7 +39,7 @@ $(function(){
 
     var slrealityEnd = '';
 
-    stateConstant();
+    stateConstant(1);
 
     //重发值
     var _gdCircle = 0;
@@ -304,6 +304,10 @@ $(function(){
             {
                 title:'数量',
                 data:'clShul'
+            },
+            {
+                title:'库存',
+                data:'kucun'
             }
         ]
     });
@@ -442,8 +446,39 @@ $(function(){
                     $('#loading').show();
                 },
                 success:function(result){
-                    //维修材料
-                    datasTable($("#personTables11"),result.wxCls);
+                    var bmArr = [];
+                    //存放物料的数组
+                    var wlArr = [];
+                    //console.log(result.wxCls);
+                    for(var i=0;i<result.wxCls.length;i++){
+                        wlArr.push(result.wxCls[i]);
+                        bmArr.push(result.wxCls[i].wxCl);
+                    }
+                    //根据itemNums获取多个物品的库存
+                    var prm = {
+                        userID : _userIdNum,
+                        userName : _userIdName,
+                        itemNums:bmArr
+                    };
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWCK/ywCKRptGetItemStockByItemNums',
+                        data:prm,
+                        success:function(result){
+                            for(var i=0;i<wlArr.length;i++){
+                                for(var j=0;j<result.length;j++){
+                                    if(wlArr[i].wxCl == result[j].itemNum){
+                                        wlArr[i].kucun = result[j].num
+                                    }
+                                }
+                            }
+                            //维修材料
+                            datasTable($("#personTables11"),wlArr);
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
+                        }
+                    })
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -454,6 +489,8 @@ $(function(){
             logInformation();
 
             stateConstant('flag');
+
+
         })
 
     $('#myModal4').on('click','.btn-primary',function(){
@@ -540,7 +577,7 @@ $(function(){
     }
 
     //当前状态
-    //获取配件状态常量
+    //获取配件状态常量 flag的时候，1获取操作类型下拉框。否则，2是条件查询获取的下拉框  3判断状态，
     function stateConstant(flag){
         var prm = {
             "userID": _userIdNum,
@@ -575,10 +612,20 @@ $(function(){
                                 if(result.clStatus == result.statuses[i].clStatusID){
                                     $('.nowState').val(result.statuses[i].clStatus);
                                     $('.nowState').attr('state',result.clStatus);
+                                    //显示隐藏按钮
+                                    //console.log($('.nowState').attr('state'));
+                                    if($('.nowState').attr('state') > _stateArr[0].clStatusID){
+                                        //隐藏
+                                        $('.tianJiaCaiLiao').hide();
+                                    }else{
+                                        //显示
+                                        $('.tianJiaCaiLiao').show();
+                                    }
                                 }
                             }
                         }
                     }
+                    $('.tianJiaCaiLiao').hide();
                 }
                 if(flag){
                     $('#stateConstant').empty();
@@ -604,7 +651,6 @@ $(function(){
             url:_urls + 'YWGD/ywDGGetLog',
             data:gdLogQPrm,
             success:function(result){
-                console.log(result);
                 var str = '';
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' +  result[i].logContent + '</li>'

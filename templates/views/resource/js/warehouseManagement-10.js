@@ -92,6 +92,10 @@ $(function(){
                 data:'sort'
             },
             {
+                title:'仓库所在地',
+                data:'address'
+            },
+            {
                 title:'备注',
                 data:'remark'
             },
@@ -106,6 +110,8 @@ $(function(){
     });
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    //仓库select
+    conditionSelect('flag');
     //页面加载数据
     conditionSelect();
     /*-------------------------------------按钮功能-------------------------------*/
@@ -169,10 +175,12 @@ $(function(){
             sendMessage('YWCK/ywCKDelStorage','删除成功！','删除失败',$('#myModal'),'2');
         })
     /*-------------------------------------方法---------------------------------*/
-    function conditionSelect(){
+    //查询仓库，无参数的时候，查询仓库列表，有参数的时候，是条件查询select
+    function conditionSelect(flag){
         var prm = {
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            storageNum:$('#ck-select').val()
         }
         $.ajax({
             type:'post',
@@ -185,6 +193,17 @@ $(function(){
                     _allData.push(result[i]);
                 }
                 datasTable($("#scrap-datatables"),result)
+                if(flag){
+                    var str = '<option value="">全部</option>';
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="' + result[i].storageNum +
+                            '">' + result[i].storageName + '</option>'
+                    }
+                    $('#ck-select').append(str);
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }

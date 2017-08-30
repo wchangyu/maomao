@@ -618,12 +618,13 @@ $(function(){
     //dataTables表格填数据
     function datasTable(tableId,arr){
 
-        arr.reverse();
+
         if(arr.length == 0){
                 var table = tableId.dataTable();
                 table.fnClearTable();
                 table.fnDraw();
         }else{
+                arr.reverse();
                 var table = tableId.dataTable();
                 table.fnClearTable();
                 table.fnAddData(arr);

@@ -3,19 +3,28 @@ $(function(){
     /*
     * 用户名 _userIdName 本地地址 _url*/
     //日历插件初始化
-    _timeHMSComponentsFun($('.datatimeblock'));
+    //日期
+    _dataComponentsFun($('.datatimeblock'));
+
+    //时间
+    _timeComponentsFun($('.timeblock'));
 
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
 
-    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD') + ' 00:00';
+    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD');
 
-    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD') + ' 00:00';
+    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD');
 
-    //设置初始时间
+    //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
 
     $('.datatimeblock').eq(1).val(_dataWeekEnd);
+
+    //设置初始时间
+    $('.timeblock').eq(0).val('00:00:00');
+
+    $('.timeblock').eq(1).val('00:00:00');
 
     var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
 
@@ -125,7 +134,7 @@ $(function(){
         var firstTh = secondTr.children('th').eq(0);
         firstTh.addClass('first').attr('rowspan',2);
         firstTr.attr('role','row');
-        //添加
+        ////添加
         if( firstTr.children('.first').length == 0 ){
             firstTr.append(firstTh);
         }
@@ -137,15 +146,16 @@ $(function(){
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',3).html('其中：累计故障类别');
+        $('.third').attr('colspan',8).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
+
+        $('.first').eq(1).attr('rowspan',1);
     };
 
     //重绘脚部
     function footerFn(tfoot, data, start, end, display,dom){
-        console.log(tfoot);
         var lengths = $(tfoot).parents('#failure-reporting').find('thead').find('.sorting_disabled').length;
         var tr = $(tfoot).parents('#failure-reporting').children('tfoot').children('tr');
         var th = $(tfoot).parents('#failure-reporting').children('tfoot').children('tr').children('th');
@@ -511,10 +521,14 @@ $(function(){
 
     //条件查询
     function conditionSelect(url,tableId,flag){
+        var startTime = $('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val();
+        var endTime = $('.datatimeblock').eq(1).val() + ' ' + $('.timeblock').eq(1).val();
+        //console.log(startTime);
+        //console.log(endTime);
         //获取条件
         var prm = {
-            "gdSt":$('.datatimeblock').eq(0).val(),
-            "gdEt":_dataEndFact,
+            "gdSt":startTime,
+            "gdEt":endTime,
             "userID":_userIdNum,
             "userName ":_userIdName
         }
@@ -552,6 +566,8 @@ $(function(){
             "ordering": false,
             "pagingType":"full_numbers",
             "bStateSave":true,
+            "aLengthMenu": [ 10, 25, 50, 100],
+            "iDisplayLength":25,//默认每页显示的条数
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',
@@ -592,7 +608,8 @@ $(function(){
         var tabDiv = $(this).parents('.table-title').next().children('div');
         tabDiv.addClass('hide-block');
         tabDiv.eq($(this).index()).removeClass('hide-block');
-        $('.excelButton11') .hide();
+        $('.excelButton11').parent('li') .hide();
+        $('.excelButton11').eq($(this).index()).parent('li').show();
         $('.excelButton11').eq($(this).index()).show();
     });
 })

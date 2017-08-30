@@ -75,7 +75,7 @@ $(function(){
     /*-------------------------------------------表格初始化------------------------------------------*/
     //资产浏览表格
     var _tables = _table.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "autoWidth": true,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
@@ -110,32 +110,42 @@ $(function(){
                 visible: false
             },
             {
-                title:'设备编号',
-                data:'dNum',
-                className:'dNum'
-            },
-            {
                 title:'设备名称',
                 data:'dName',
+                className:'dName'
             },
             {
-                title:'规格型号',
-                data:'spec',
-            },
-            {
-                title:'设备类别',
-                data:'dcName',
-            },
-            {
-                title:'购置日期',
-                data:'purDate',
+                title:'设备编码',
+                data:'dNum',
+                className:'dNum hidden',
                 render:function timeForma(data){
-                    return data.split(' ')[0].replace(/-/g,'/');
+                    return '<span>'+data+'</span>'
                 }
             },
             {
-                title:'保修年限',
-                data:'maintain',
+                title:'设备编码',
+                data:'dNewNum'
+
+            },
+            {
+                title:'规格型号',
+                data:'spec'
+            },
+            {
+                title:'所属车站',
+                data:'ddName'
+            },
+            {
+                title:'安装位置',
+                data:'installAddress'
+            },
+            {
+                title:'设备系统',
+                data:'dsName'
+            },
+            {
+                title:'设备类别',
+                data:'dcName'
             },
             {
                 title:'安装时间',
@@ -145,34 +155,14 @@ $(function(){
                 }
             },
             {
-                title:'使用年限',
-                data:'life',
-            },
-            {
-                title:'状态',
-                data:'status',
-                render:function(data, type, full, meta){
-                    if( data == 1){
-                        return '正常'
-                    }else if( data ==2 ){
-                        return '维修'
-                    }else if( data == 3 ){
-                        return '报废'
-                    }
-                }
-            },
-            {
-                title:'车站',
-                data:'ddName',
-            },
-            {
-                title:'设备系统',
-                data:'dsName',
+                title:'保修年限',
+                data:'maintain'
             },
             {
                 title:'操作',
                 "targets": -1,
                 "data": null,
+                'class':'caozuo',
                 "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                 "<span class='data-option option-edite btn default btn-xs green-stripe'><a href='' title='右击文件另存为'>下载</a></span>"
             }

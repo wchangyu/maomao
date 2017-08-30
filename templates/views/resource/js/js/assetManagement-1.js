@@ -194,7 +194,7 @@ $(function(){
     /*----------------------------表格初始化------------------------------*/
     //资产浏览表格
     var _tables = _table.DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "autoWidth": true,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
@@ -232,6 +232,7 @@ $(function(){
             {
                 title:'设备名称',
                 data:'dName',
+                className:'dName'
             },
             {
                 title:'设备编码',
@@ -248,22 +249,23 @@ $(function(){
             },
             {
                 title:'规格型号',
-                data:'spec',
+                data:'spec'
             },
             {
-                title:'设备类型',
-                data:'dcName',
+                title:'所属车站',
+                data:'ddName'
             },
             {
-                title:'购置日期',
-                data:'purDate',
-                render:function timeForma(data){
-                    return data.split(' ')[0].replace(/-/g,'/');
-                }
+                title:'安装位置',
+                data:'installAddress'
             },
             {
-                title:'保修年限',
-                data:'maintain',
+                title:'设备系统',
+                data:'dsName'
+            },
+            {
+                title:'设备类别',
+                data:'dcName'
             },
             {
                 title:'安装时间',
@@ -273,36 +275,29 @@ $(function(){
                 }
             },
             {
-                title:'使用年限',
-                data:'life',
+                title:'保修年限',
+                data:'maintain'
             },
-            {
-                title:'状态',
-                data:'status',
-                render:function(data, type, full, meta){
-                    if( data == 1){
-                        return '正常'
-                    }else if( data ==2 ){
-                        return '维修'
-                    }else if( data == 3 ){
-                        return '报废'
-                    }else{
-                        return ''
-                    }
-                }
-            },
-            {
-                title:'车站',
-                data:'ddName',
-            },
-            {
-                title:'设备系统',
-                data:'dsName',
-            },
+            //{
+            //    title:'状态',
+            //    data:'status',
+            //    render:function(data, type, full, meta){
+            //        if( data == 1){
+            //            return '正常'
+            //        }else if( data ==2 ){
+            //            return '维修'
+            //        }else if( data == 3 ){
+            //            return '报废'
+            //        }else{
+            //            return ''
+            //        }
+            //    }
+            //},
             {
                 title:'操作',
                 "targets": -1,
                 "data": null,
+                "class":'caozuo',
                 "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                                   "<span class='data-option option-edite btn default btn-xs green-stripe'>编辑</span>" +
                                   "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
@@ -321,6 +316,10 @@ $(function(){
     conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
+        //上传文件出现
+        $('#uploader').show();
+        $('#thelist').empty();
+
         //首先添加增加类
         var $myModal = $('#myModal');
         $myModal.find('.btn-primary').show();
@@ -424,6 +423,7 @@ $(function(){
                     myApp33.xsbbm = _allDateArr[i].dNewNum;
 
 
+                    $('#weizhi').val(_allDateArr[i].installAddress);
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
@@ -491,7 +491,7 @@ $(function(){
 
                     myApp33.xsbbm = _allDateArr[i].dNewNum;
 
-
+                    $('#weizhi').val(_allDateArr[i].installAddress);
                     $('#gouzhi').val(timeForma(_allDateArr[i].purDate));
                     $('#anzhuang').val( timeForma(_allDateArr[i].installDate));
                     $('#miaoshu').val(_allDateArr[i].description);
@@ -545,7 +545,7 @@ $(function(){
     $('.modal')
     //新增确定按钮
         .on('click','.dengji',function(){
-            if(myApp33.ssXT == '' || myApp33.mingcheng == '' || myApp33.zcLX == '' || myApp33.colorTip == '' || myApp33.ssbumen == ''){
+            if(myApp33.ssXT == '' || myApp33.mingcheng == '' || myApp33.zcLX == '' || myApp33.colorTip == '' || myApp33.ssbumen == '' || $('#weizhi').val() == '' ){
                 var $myModal2 = $('#myModal2');
                 $myModal2.find('.modal-body').html('请填写红色必填项');
                 moTaiKuang($myModal2,'提示','flag');
@@ -848,6 +848,7 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
@@ -881,7 +882,11 @@ $(function(){
     }
     //提交更改后跳转到当前页
     function jumpNow(tableId,arr){
-        arr.reverse();
+
+        if(arr.length > 0){
+            arr.reverse();
+        }
+
         var dom ='#'+ tableId[0].id + '_paginate';
         console.log(dom);
         var txt = $(dom).children('span').children('.current').html();

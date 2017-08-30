@@ -1,0 +1,7 @@
+#energy-demand{
+    height:600px;
+    border:1px solid #666;
+}
+.show{
+    display: block !important;
+}

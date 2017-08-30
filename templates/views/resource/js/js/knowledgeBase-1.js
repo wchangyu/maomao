@@ -558,8 +558,9 @@ function getShowKnowledgeData(knowTitle,flag){
             $('#theLoading').modal('hide');
             //console.log(data);
             _knowledgeDataArr = data;
-
-            _knowledgeDataArr.reverse();
+            if(data.length > 0){
+                _knowledgeDataArr.reverse();
+            }
             //判断是否需要停留在当前页
             if(flag){
                 jumpNow($('#browse-datatables'), _knowledgeDataArr)

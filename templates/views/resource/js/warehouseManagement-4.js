@@ -58,6 +58,21 @@ $(function(){
                 data:'size'
             },
             {
+                title:'是否耐用',
+                data:'isSpare',
+                render:function(data, type, full, meta){
+                    if(data == 0){
+                        return '否'
+                    }if(data == 1){
+                        return '是'
+                    }
+                }
+            },
+            {
+                title:'品质',
+                data:'batchNum'
+            },
+            {
                 title:'仓库',
                 data:'storageName'
             },
