@@ -10,9 +10,6 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
-    //获取arg
-    //var _arg = sessionStorage.getItem("menuArg");
-
     //时间初始化
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -80,10 +77,6 @@ $(function(){
     var _stateArr = [];
 
     stateConstant(1);
-
-    var _trend = '';
-    //备件走向
-    determineTrend();
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -446,8 +439,10 @@ $(function(){
                 url: _urls + 'YWGD/ywGDGetDetail',
                 async:false,
                 data:prm,
+                beforeSend:function(){
+                    $('#loading').show();
+                },
                 success:function(result){
-                    //console.log(result);
                     var bmArr = [];
                     //存放物料的数组
                     var wlArr = [];
@@ -496,8 +491,7 @@ $(function(){
         })
 
     $('#myModal4').on('click','.btn-primary',function(){
-        //首先判断操作类型是否选择了、
-        if($('#stateConstant').val() == ''){
+        if( $('#stateConstant').val() == '' ){
             $('#myModal2').find('.modal-body').html('请选择操作类型');
             moTaiKuang($('#myModal2'),'提示','flag');
         }else{
@@ -526,9 +520,6 @@ $(function(){
             userID:_userIdNum,
             userName:_userIdName,
         };
-            //if(_arg == 1){
-            //    prm.arg = 1;
-            //}
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetPeijGD',
@@ -578,7 +569,6 @@ $(function(){
 
     //当前状态
     //获取配件状态常量 flag的时候，1获取操作类型下拉框。否则，2是条件查询获取的下拉框  3判断状态，
-    //1的时候，获取条件查询下面的下拉框
     function stateConstant(flag){
         var prm ={
             "userID": _userIdNum,
@@ -599,7 +589,7 @@ $(function(){
                     var str ='<option value="">请选择</option>';
                     for(var i=0;i<result.statuses.length;i++){
                         _stateArr.push(result.statuses[i]);
-                        if(result.statuses[i].clType == 2){
+                        if(result.statuses[i].clType == 3){
                             str += '<option value="' + result.statuses[i].clStatusID +
                                 '">' + result.statuses[i].clStatus + '</option>';
                         }
@@ -609,9 +599,16 @@ $(function(){
                 }else if(flag == 2){
                     //备件管理中操作类型以及现在工单的备件状态码
                     var str ='<option value="">请选择</option>';
+                    console.log(result.statuses);
+                    var values = '';
                     for(var i=0;i<result.statuses.length;i++){
-                        if(result.statuses[i].clType == 2){
-                            str += '<option value="' + result.statuses[i].clTo +
+                        if(result.statuses[i].clType == 3){
+                            if(result.statuses[i].clTo == ''){
+                                values = result.statuses[i].clStatusID;
+                            }else{
+                                values = result.statuses[i].clTo;
+                            }
+                            str += '<option value="' + values +
                                 '">' + result.statuses[i].clOpt + '</option>';
                         }
                     }
@@ -649,7 +646,7 @@ $(function(){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' +  result[i].logContent + '</li>'
                 }
                 $('.deal-with-list').empty();
-                $('.deal-with-list').append(str).show();
+                $('.deal-with-list').append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -659,16 +656,9 @@ $(function(){
 
     //申请备件
     function applySparePart(){
-        var stateTrend = $('#stateConstant').val();
-        var arr = $('#stateConstant').val().split(',');
-        if(_trend == ''){
-            stateTrend = arr[0];
-        }else{
-            stateTrend = arr[1];
-        }
         var prm = {
             "gdCode": _gdCode,
-            "clStatusId": stateTrend,
+            "clStatusId": $('#stateConstant').val(),
             "clStatus": $('#stateConstant').children('option:selected').html(),
             "clLastUptInfo": $('#bjremark').val(),
             "userID": _userIdNum,
@@ -688,26 +678,6 @@ $(function(){
                     $('#myModal2').find('.modal-body').html('操作失败');
                     moTaiKuang($('#myModal2'),'提示','flag');
                 }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-
-    //获取确定备件的走向
-    function determineTrend(){
-        var prm ={
-            gdCode:_gdCode,
-            userID:_userIdNum,
-            userName:_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywDGGetCK2',
-            data:prm,
-            success:function(result){
-                _trend = result;
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

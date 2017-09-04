@@ -42,6 +42,10 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
+                title:'物品序列号',
+                data:'sn'
+            },
+            {
                 title:'物品编号',
                 data:'itemNum'
             },
@@ -87,6 +91,13 @@ $(function(){
             {
                 title:'库存数',
                 data:'num'
+            },
+            {
+                title:'金额',
+                data:'amount',
+                render:function(data, type, full, meta){
+                    return data.toFixed(2)
+                }
             }
         ],
     });

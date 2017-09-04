@@ -53,7 +53,7 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'物品id',
+                title:'物品序列号',
                 data:'sn'
             },
             {
@@ -68,6 +68,29 @@ $(function(){
             {
                 title:'数量',
                 data:'num'
+            },
+            {
+                title:'单价',
+                data:'price',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
+            },
+            {
+                title:'金额',
+                data:'amount',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+                }
             },
             {
                 title:'仓库',

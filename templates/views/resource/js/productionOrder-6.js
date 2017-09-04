@@ -19,8 +19,8 @@ $(function(){
     var _initStart = moment().format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
     //受理显示时间
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
+    //$('.min').val(_initStart);
+    //$('.max').val(_initEnd);
     //实际传输时间初始化
     var slrealityStart = moment($('datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
     var slrealityEnd = moment($('datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
@@ -99,7 +99,7 @@ $(function(){
     InfluencingUnit();
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable(   {
+    var table = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -664,21 +664,17 @@ $(function(){
             var imgSrc = $(this).attr('src')
             $('#myModal4').find('img').attr('src',imgSrc);
         })
+
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
         //判断起止时间是否为空
-        if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal3').find('.modal-body').html('起止时间不能为空');
+        //结束时间不能小于开始时间
+        if( $('.min').val() > $('.max').val() ){
+            $('#myModal3').find('.modal-body').html('起止时间不能大于结束时间');
             moTaiKuang($('#myModal3'),'flag');
-        }else {
-            //结束时间不能小于开始时间
-            if( $('.min').val() > $('.max').val() ){
-                $('#myModal3').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal3'),'flag');
-            }else{
-                conditionSelect();
-            }
+        }else{
+            conditionSelect()
         }
     })
     //重置按钮功能
@@ -688,7 +684,7 @@ $(function(){
         var inputs = parents.find('input');
         inputs.val('');
         //时间置为今天
-        $('.datatimeblock').val(_initStart);
+        //$('.datatimeblock').val(_initStart);
         $('.returnZero').val(0);
         $('.returnEmpty').val('');
     })
