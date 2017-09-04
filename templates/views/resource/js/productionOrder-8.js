@@ -285,12 +285,24 @@ $(function(){
                 }
             },
             {
-                title: '操作',
-                "targets": -1,
-                "data": null,
-                "className": 'noprint',
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                "<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>"
+                //title: '操作',
+                //"targets": -1,
+                //"data": null,
+                //"className": 'noprint',
+                //"defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                //"<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>" + "<span class='data-option option-beijian btn default btn-xs green-stripe'>维修备件管理</span>"
+                title:'操作',
+                data:'clStatus',
+                render:function(data, type, full, meta){
+                    //console.log(data);
+                    if(data==10){
+                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>" + "<span class='data-option option-beijian btn default btn-xs green-stripe'>备件审核</span>"
+                    }else{
+                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>"
+                    }
+                }
             }
         ]
     });
@@ -394,6 +406,50 @@ $(function(){
             {
                 title:'数量',
                 data:'clShul'
+            }
+        ]
+    });
+
+    //维修管理
+    $('#personTables11').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+        },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '保存为excel格式',
+                className:'hiddenButton'
+            }
+        ],
+        "dom":'t<"F"lip>',
+        "columns": [
+            {
+                title:'备件编码',
+                data:'wxCl'
+            },
+            {
+                title:'备件名称',
+                data:'wxClName'
+            },
+            {
+                title:'数量',
+                data:'clShul'
+            },
+            {
+                title:'库存',
+                data:'kucun'
             }
         ]
     });
@@ -621,6 +677,85 @@ $(function(){
             }
         })
     })
+        .on('click','.option-beijian',function(){
+            moTaiKuang($('#myModal5'),'维修备件申请');
+            _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
+            //图片区域隐藏
+            $('.showImage').hide();
+            //当前行变色
+            var $this = $(this).parents('tr');
+            currentTr = $this;
+            currentFlat = true;
+            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $this.addClass('tables-hover');
+            //获取详情
+            var gongDanState = parseInt($this.children('.ztz').html());
+            var gongDanCode = $this.find('.gongdanId').attr('gdCode');
+            //根据工单状态，确定按钮的名称
+            _gdCode = gongDanCode;
+            var prm = {
+                'gdCode':gongDanCode,
+                'gdZht':gongDanState,
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'gdCircle':_gdCircle
+            }
+            //每次获取弹出框中执行人员的数量
+            $.ajax({
+                type:'post',
+                url: _urls + 'YWGD/ywGDGetDetail',
+                async:false,
+                data:prm,
+                success:function(result){
+                    var bmArr = [];
+                    //存放物料的数组
+                    var wlArr = [];
+                    //console.log(result.wxCls);
+                    for(var i=0;i<result.wxCls.length;i++){
+                        wlArr.push(result.wxCls[i]);
+                        bmArr.push(result.wxCls[i].wxCl);
+                    }
+                    //根据itemNums获取多个物品的库存
+                    var prm = {
+                        userID : _userIdNum,
+                        userName : _userIdName,
+                        itemNums:bmArr
+                    };
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWCK/ywCKRptGetItemStockByItemNums',
+                        data:prm,
+                        success:function(result){
+                            for(var i=0;i<wlArr.length;i++){
+                                for(var j=0;j<result.length;j++){
+                                    if(wlArr[i].wxCl == result[j].itemNum){
+                                        wlArr[i].kucun = result[j].num
+                                    }
+                                }
+                            }
+                            //维修材料
+                            datasTable($("#personTables11"),wlArr);
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
+                        }
+                    })
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            });
+            //获取日志
+
+            logInformation();
+
+            stateConstant('2');
+
+            //备件走向
+            determineTrend();
+
+            $('#bjremark').val('');
+        })
     //关单确定按钮
     //去评价
     $('.pingjiaButton').click(function(){
@@ -814,6 +949,14 @@ $(function(){
         }
         $('#myModal1').modal('hide');
     })
+
+    $('#myModal5').on('click','.btn-primary:nth-child(1)',function(){
+        applySparePart($(this),'flag');
+    });
+
+    $('#myModal5').on('click','.btn-primary:nth-child(2)',function(){
+        applySparePart($(this));
+    });
 
     /*------------------------------其他方法-------------------------------------------------*/
     //ajaxFun（select的值）
@@ -1186,6 +1329,128 @@ $(function(){
                     _leaderFlag = true;
                 }else{
                     _leaderFlag = false;
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //当前状态
+    //获取配件状态常量 flag的时候，1获取操作类型下拉框。否则，2是条件查询获取的下拉框  3判断状态，
+    //1的时候，获取条件查询下面的下拉框
+    function stateConstant(flag)    {
+        var prm ={
+            "userID": _userIdNum,
+            "userName": _userIdName,
+        }
+        if(flag == 2){
+            prm.gdCode=_gdCode
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetPjStatus',
+            data:prm,
+            async:false,
+            success:function(result){
+                if(flag == 1){
+                    _stateArr = [];
+                    //获取条件查询时候的备件进度下拉框
+                    var str ='<option value="">请选择</option>';
+                    for(var i=0;i<result.statuses.length;i++){
+                        _stateArr.push(result.statuses[i]);
+                        if(result.statuses[i].clType == 2){
+                            str += '<option value="' + result.statuses[i].clStatusID +
+                                '">' + result.statuses[i].clStatus + '</option>';
+                        }
+                    }
+                    $('#line-point').empty();
+                    $('#line-point').append(str);
+                }else if(flag == 2){
+                    //备件管理中操作类型以及现在工单的备件状态码
+                    var str ='';
+                    for(var i=0;i<result.statuses.length;i++){
+                        if(result.statuses[i].clType == 2){
+                            //    str += '<option value="' + result.statuses[i].clTo +
+                            //        '">' + result.statuses[i].clOpt + '</option>';
+                            str += '<button type="button" class="btn btn-primary"' + 'data-value='+ result.statuses[i].clTo +
+                                '>' + result.statuses[i].clOpt + '</button>'
+                        }
+                        //<button type="button" class="btn btn-primary">确定</button>
+                    }
+                    str += '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
+                    //$('#stateConstant').empty();
+                    //$('#stateConstant').append(str);
+                    $('#myModal5').find('.modal-footer').empty();
+                    $('#myModal5').find('.modal-footer').append(str);
+                    for(var i=0;i<result.statuses.length;i++){
+                        if(result.clStatus == result.statuses[i].clStatusID){
+                            $('.nowState').val(result.statuses[i].clStatus);
+                            $('.nowState').attr('bjState',result.statuses[i].clStatusID);
+                        }
+                    }
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取确定备件的走向
+    function determineTrend(){
+        var prm ={
+            gdCode:_gdCode,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetCK2',
+            data:prm,
+            success:function(result){
+                _trend = result;
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //申请备件(同意【flag】，拒绝)
+    function applySparePart(el,flag){
+        var stateTrend = el.attr('data-value');
+        var stateHtml = el.html();
+        if(flag){
+            var arr = stateTrend.split(',');
+            if(_trend == ''){
+                stateTrend = arr[0];
+            }else{
+                stateTrend = arr[1];
+            }
+        }
+        var prm = {
+            "gdCode": _gdCode,
+            "clStatusId": stateTrend,
+            "clStatus": stateHtml,
+            "clLastUptInfo": $('#bjremark').val(),
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptPeijStatus',
+            data:prm,
+            success:function(result){
+                if( result == 99 ){
+                    $('#myModal2').find('.modal-body').html('操作成功');
+                    moTaiKuang($('#myModal2'),'提示','flag');
+                    $('#myModal5').modal('hide');
+                    conditionSelect();
+                }else{
+                    $('#myModal2').find('.modal-body').html('操作失败');
+                    moTaiKuang($('#myModal2'),'提示','flag');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){

@@ -103,6 +103,10 @@ $(function(){
     var _primaryBJ = [];
     //原因分类
     classificationReasons();
+    //备件操作状态
+    var _bjStateWillNum = '';
+    //备件操作名称
+    var _bjStateWillName = '';
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -351,19 +355,14 @@ $(function(){
     $('#myModal')
         //操作
         .on('click','.execute',function(){
-        //先判断现在的状态是否可执行操作方法
-        var currentZTZ = $('.current-state').attr('ztz');
-        var currentOption = $('#option-select').val();
-        //判断当前状态和执行任务状态
-        if(  currentZTZ == currentOption ){
-            //只发送维修备注请求
-            wxRmark();
-        }else{
-            if( currentZTZ == 3 && currentOption != 4 ){
-                //提示请执行任务
-                $('.errorTips').html('当前状态下请先选择执行任务操作！');
+            //先判断现在的状态是否可执行操作方法
+            var currentZTZ = $('.current-state').attr('ztz');
+            var currentOption = $('#option-select').val();
+            //判断当前状态和执行任务状态
+            if(  currentZTZ == currentOption ){
+                //只发送维修备注请求
+                wxRmark();
             }else{
-                $('.errorTips').html('');
                 //状态转换+维修内容
                 wxRmark();
                 getGongDan();
@@ -389,8 +388,8 @@ $(function(){
                 }
                 conditionSelect();
             }
-        }
-    })
+                $('#myModal').modal('hide');
+        })
         //查看图片
         .on('click','#viewImage',function(){
             if(_imgNum){
@@ -695,26 +694,27 @@ $(function(){
                         _primaryBJ.push(result.wxCls[i]);
                     }
                     //通过判断状态，哪些隐藏，哪些显示
-                    $('.errorTips').html('');
                     //操作类型改为请选择
                     $('#option-select').val('');
                     //给当前状态赋值
                     var currentState = '';
                     if(result.gdZht == 3){
                         currentState = '待执行';
-                        $('.waitingForResources').hide();
                     }else if(result.gdZht == 4){
                         currentState = '执行中';
-                        $('.waitingForResources').hide();
                     }else if(result.gdZht == 5){
                         currentState = '等待资源';
-                        $('.waitingForResources').show();
                     }else if(result.gdZht == 6){
                         currentState = '待关单';
-                        $('.waitingForResources').hide();
                     }
+                    $('.waitingForResources').hide();
                     $('.current-state').val(currentState);
                     $('.current-state').attr('ztz',result.gdZht);
+                    if(result.gdZht == 3){
+                        stateOption('flag');
+                    }else{
+                        stateOption();
+                    }
                     //维修科室
                     _wxOffice = result.wxKeshi;
                     //维修内容
@@ -854,6 +854,18 @@ $(function(){
     }
     //修改维修备注方法
     function wxRmark(){
+        var dengyy = '';
+        if($('#watting').val() == ''){
+            dengyy = ''
+        }else{
+            $('#watting').val();
+        }
+        var dengyyStr = '';
+        if($('#watting').children('option:selected').html() == '请选择'){
+            dengyyStr = ''
+        }else{
+            dengyyStr = $('#watting').children('option:selected').html();
+        }
         var gdInfo = {
             "gdCode": gdCode,
             "gdZht": $('#option-select').val(),
@@ -862,8 +874,8 @@ $(function(){
             "userID": _userIdNum,
             "userName":_userIdName,
             "lastUpdateInfo":$('#newBeiZhu').val(),
-            'dengyy':$('#watting').val(),
-            'dengyyStr':$('#watting').children('option:selected').html()
+            'dengyy':dengyy,
+            'dengyyStr':dengyyStr
         }
         $.ajax({
             type:'post',
@@ -889,6 +901,7 @@ $(function(){
     function getGongDan(){
         var gdInfo;
         if($('#option-select').val() == 5){
+
             gdInfo = {
                 'gdCode':gdCode,
                 'gdZht':$('#option-select').val(),
@@ -1035,7 +1048,7 @@ $(function(){
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
-                $('.deal-with-list').append(str);
+                $('.deal-with-list').append(str).show();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1046,12 +1059,13 @@ $(function(){
     function applySparePart(){
         var prm = {
             "gdCode": gdCode,
-            "clStatusId": 1,
-            "clStatus": '申请备件',
+            "clStatusId": _bjStateWillNum,
+            "clStatus": _bjStateWillName,
             "clLastUptInfo": $('#bjremark').val(),
             "userID": _userIdNum,
             "userName": _userIdName
         }
+        console.log(prm);
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptPeijStatus',
@@ -1079,7 +1093,7 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDengdyy',
             data:prm,
             success:function(result){
-                var str = '<option>请选择</option>';
+                var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].reasonNum + '">' + result[i].reasonDesc + '</option>';
                 }
@@ -1122,6 +1136,8 @@ $(function(){
             data:prm,
             success:function(result){
                 _sparePart = result.clStatus;
+                _bjStateWillNum = 10;
+                _bjStateWillName = '待确认';
                 //先根据当前的状态判断是否显示确定按钮和增加维修备件按钮，还有备注是否可以编辑
                 //弹出框显示
                 if(_sparePart>result.statuses[0].clStatusID){
@@ -1139,5 +1155,21 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //操作状态选择(flag：当前状态为3的时候)
+    function stateOption(flag){
+        var arr = [{name:'请选择',num:''},{name:'执行任务',num:'4'},{name:'等待资源',num:'5'},{name:'完成任务',num:'6'}];
+        var str = '';
+        if(flag){
+            str = '';
+            str += '<option value="4">执行任务</option>'
+        }else{
+            str = '';
+            for(var i=0;i<arr.length;i++){
+                str +='<option value="' + arr[i].num + '">' + arr[i].name +'</option>';
+            }
+        }
+        $('#option-select').empty();
+        $('#option-select').append(str);
     }
 })

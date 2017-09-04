@@ -77,7 +77,9 @@ $(function(){
                 workDone.amount = Number(workDone.inPrice) * Number(workDone.num);
             },
             addFun2:function(){
-                var mny = /^\d+(\.\d+)?$/;
+                //var mny = /^\d+(\.\d+)?$/;
+                //var mny = /^(?!^0\.0?0$)^[0-9][0-9]?(\.[0-9]{1,2})?$|^99$/;
+                var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;//(正整数或者保留两位小数)；
                 if(workDone.inPrice != ''){
                     if(mny.test(workDone.inPrice)){
                         $('.format-error1').hide();
@@ -88,6 +90,22 @@ $(function(){
                     $('.format-error1').hide();
                 }
                 workDone.amount = Number(workDone.inPrice) * Number(workDone.num);
+                //判断是整数
+                var zheng = /^\d+$/;
+                var xiao = /^\d+(\.\d+)?$/;
+                if(zheng.test(workDone.amount)){
+                    workDone.amount = Number(workDone.inPrice) * Number(workDone.num);
+                }else if(xiao.test(workDone.amount)){
+                    workDone.amount = workDone.amount.toFixed(2);
+                }
+            },
+            addFun3:function(){
+                var mny = /^([1-9][0-9]*(\.[0-9]{1,2})?|0\.(?!0+$)[0-9]{1,4})$/;
+                if(mny.test(workDone.amount)){
+                    $('.format-error2').hide();
+                }else{
+                    $('.format-error2').show();
+                }
             },
             searchbm:function(e){
                 var value = $.trim(workDone.bianhao);
@@ -122,6 +140,49 @@ $(function(){
                     todayHighlight: 1,
                     format: 'yyyy/mm/dd'
                 });
+            },
+            timeblur:function(){
+                setTimeout(function(){
+                    $('.datepicker').hide();
+                },200)
+            },
+            focusFun:function(){
+                _pzNum =-1;
+                $('.pinzhixx').show();
+            },
+            blurFun:function(){
+                setTimeout(function(){
+                    $('.pinzhixx').hide();
+                },200)
+            },
+            selectFun:function(e){
+                var e = e || window.event;
+                var lis = $('.pinzhixx').children('div');
+                if(e.keyCode == 40){
+                    //向下
+                    if(_pzNum<lis.length-1){
+                        _pzNum++;
+                    }else{
+                        _pzNum = lis.length-1;
+                    }
+                    lis.removeClass('li-color');
+                    lis.eq(_pzNum).addClass('li-color');
+
+                }else if(e.keyCode == 38){
+                    //向上
+                    if(_pzNum>0){
+                        _pzNum--;
+                    }else{
+                        _pzNum = 0;
+                    }
+                    lis.removeClass('li-color');
+                    lis.eq(_pzNum).addClass('li-color');
+                }else if(e.keyCode == 13){
+                    //回车
+                    workDone.quality = $('.pinzhixx').children('.li-color').html();
+                    var pzNum = $('.pinzhixx').children('.li-color').attr('data-value');
+                    $('.quality').attr('data-pzNum',pzNum);
+                }
             }
         }
     });
@@ -152,6 +213,8 @@ $(function(){
     //存放当前入库单号
     var _$thisRKnum = '';
     wlList();
+    //记录品质选项的上下键index
+    var _pzNum = -1;
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('.main-contents-table .table').DataTable({
         'autoWidth': false,  //用来启用或禁用自动列的宽度计算
@@ -306,7 +369,7 @@ $(function(){
                 data:'num'
             },
             {
-                title:'入库价格',
+                title:'入库单价',
                 data:'inPrice'
             },
             {
@@ -491,6 +554,8 @@ $(function(){
         datasTable($('#wuPinListTable1'),_rukuArr);
 
         $('#myModal1').on('shown.bs.modal', function () {
+            //让日历插件首先失去焦点
+            $('.warranty').focus().blur();
             //自动聚焦
             $('.not-editable').eq(0).focus();
         })
@@ -973,7 +1038,7 @@ $(function(){
         .on('click','li',function(){
             workDone.bianhao = $(this).children('.dataNum').html();
             workDone.mingcheng = $(this).children('.dataName').html();
-            workDone.size = $(this).attr('data-size');
+            workDone.size = $(this).children('.dataSize').html();
             workDone.picked = $(this).attr('data-durable');
             workDone.unit = $(this).attr('data-unit');
             if(workDone.picked == 0){
@@ -1114,7 +1179,7 @@ $(function(){
         $('.auto-input').attr('disabled',false).removeClass('disabled-block');
     });
     //编辑(编码和名称不能修改)
-    $('#editRK').click(function(){
+    $('#editRK').click(function()   {
         $('.not-editable').attr('disabled',false).removeClass('disabled-block');
         if(workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == ''){
             var myModal = $('#myModal2');
@@ -1261,7 +1326,28 @@ $(function(){
             }
         }
         $('#myModal4').modal('hide');
-    })
+    });
+    //入库产品的回车自动聚焦功能
+    $('.inputType').keyup(function(e){
+        var e = e||window.event;
+        if(e.keyCode == 13){
+            $(this).parents('.gdList').next('li').find('.inputType').focus();
+        }
+    });
+    //入库产品--品质选择
+    $('.pinzhixx')
+        .on('click','div',function(){
+            workDone.quality = $('.pinzhixx').children('.li-color').html();
+            var pzNum = $('.pinzhixx').children('.li-color').attr('data-value');
+            $('.quality').attr('data-pzNum',pzNum);
+            $(this).parents('.gdList').next('li').find('.inputType').focus();
+        })
+        .on('mouseover','div',function(){
+            $(this).parent('.pinzhixx').children('div').removeClass('li-color');
+            $(this).addClass('li-color');
+            _pzNum = $('.li-color').index();
+
+        })
     /*------------------------------------其他方法-------------------------------*/
     //确定新增弹出框的位置
     function moTaiKuang(who,title, flag) {
@@ -1390,7 +1476,6 @@ $(function(){
             success:function(result){
                 _wpListArr = result;
                 if(flag){
-                    console.log(result);
                     datasTable($('#wuPinListTable'),result);
                 }
             },
@@ -1504,17 +1589,30 @@ $(function(){
                     workDone.size = lis.eq(i).children('.dataSize').html();
                     workDone.picked = lis.eq(i).attr('data-durable');
                     workDone.unit = lis.eq(i).attr('data-unit');
-                    if(lis.eq(i).attr('data-durable') == 0){
+                    if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
-                    }else if(lis.eq(i).attr('data-durable') == 1){
+                        //物品id必须跟物品编码一样
+                        workDone.goodsId = workDone.bianhao;
+                        //置为不可操作
+                        $('.goodsId').attr('disabled',true).addClass('disabled-block');
+                        $('.rknum').attr('disabled',false).removeClass('disabled-block');
+                        workDone.num = '';
+                    }else if(workDone.picked == 1){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(0).addClass('checked');
+                        $('.goodsId').attr('disabled',false).removeClass('disabled-block');
+                        workDone.num = '1';
                     }
                     //选择完之后，关闭
                     $('.accord-with-list').hide();
                 }
             }
+            setTimeout(function(){
+                if(workDone.mingcheng != ''){
+                    $('.inputType').eq(6).focus();
+                }
+            },200);
         }else{
             if(e.keyCode != 9){
                 $('.accord-with-list').eq(index).empty();

@@ -96,7 +96,15 @@ $(function(){
             },
             {
                 title:'总价',
-                data:'amount'
+                data:'amount',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'操作',
@@ -159,15 +167,31 @@ $(function(){
             },
             {
                 title:'数量',
-                data:'num'
+                data:'num',
             },
             {
                 title:'入库价格',
-                data:'outPrice'
+                data:'outPrice',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'总金额',
-                data:'amount'
+                data:'amount',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'操作',

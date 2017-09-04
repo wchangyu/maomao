@@ -399,7 +399,7 @@
 <!--loadding-->
 <!--<img id="loading" src="../resource/img/loading.gif" alt="" style="position: absolute;z-index: 9999999999999999999;top:45%;left:45%;display: none">-->
 <!--模态框待派工-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  >
         <div class="modal-dialog" style="height: 770px;width:1090px !important;">
             <div class="modal-content" style="height: 770px;width: 1090px !important;">
                 <div class="modal-header">
@@ -562,13 +562,9 @@
                             <div class="labels">操作类型：</div>
                             <div class="input-blockeds" style="width: 165px;margin-bottom: 10px;">
                                 <select id="option-select" style="width: 163px;">
-                                    <option value="">请选择</option>
-                                    <option value="4">执行任务</option>
-                                    <option value="5">等待资源</option>
-                                    <option value="6">完成任务</option>
                                 </select>
                             </div>
-                            <div class="colorTip errorTips"></div>
+                            <!--<div class="colorTip errorTips">当前状态下请先选择执行任务操作！</div>-->
                         </div>
                         <div class="waitingForResources" style="float: left">
                             <div class="labels">等待原因：</div>
@@ -651,7 +647,7 @@
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
-                    <div class="deal-with">处理记录</div>
+                    <div class="deal-with" style="display: inline-block;">处理记录</div>
                     <div>
                         <ul class="deal-with-list">
                         </ul>

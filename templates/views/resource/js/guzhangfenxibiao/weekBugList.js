@@ -169,13 +169,13 @@ $(function(){
         $(tfoot).parents('#failure-reporting').find('tfoot').find(tr).eq(0).children('th').eq(0).html('合计');
     };
 
-    //合计计算
+    //合计计算(加载一行计算一次合计)
     function totalFn(nRow, aData, iDisplayIndex, iDisplayIndexFull){
         var lengths = _totalAttr.length;
         //首先遍历aData的属性名称
         for(var i=2;i<lengths;i++){
             _totalNum[i] += aData[_totalAttr[i]];
-        };
+        }
     };
 
     //重绘合计数据

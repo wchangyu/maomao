@@ -436,20 +436,28 @@
         "arg":"",
         "iconclass":""
       },
-      "备件管理":{
+      "备件确认":{
         "type":"0",
-        "content":"备件管理",
+        "content":"备件确认",
         "uri":"../gongdangunali/productionOrder-9.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "备件管理1":{
+      "备件管理":{
         "type":"0",
         "content":"备件管理",
-        "uri":"../gongdangunali/productionOrder-9.html?arg=1",
+        "uri":"../gongdangunali/productionOrder-10.html",
         "uid":"",
-        "arg":"1",
+        "arg":"",
+        "iconclass":""
+      },
+      "备件仓库处理":{
+        "type":"0",
+        "content":"备件仓库处理",
+        "uri":"../gongdangunali/productionOrder-11.html",
+        "uid":"",
+        "arg":"",
         "iconclass":""
       },
       "班组维修工作量统计报表":{

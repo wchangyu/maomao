@@ -60,16 +60,6 @@
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
-    <style>
-        .table.dataTable thead .sorting:after{
-            content:'' !important;
-            opacity:0 !important;
-        }
-        .table.dataTable thead .sorting_asc:after{
-            content:'' !important;
-            opacity:0 !important;
-        }
-    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -297,31 +287,13 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <label for="">线点：</label>
+                                            <label for="">备件进度：</label>
                                             <div class="input-blocked">
                                                 <select id="line-point"></select>
                                             </div>
                                         </li>
                                         <li>
-                                            <label for="">车站：</label>
-                                            <div class="input-blocked">
-                                                <select id="station"></select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">所属车间：</label>
-                                            <div class="input-blocked">
-                                                <select id="influence-unite"></select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">所属维保组：</label>
-                                            <div class="input-blocked">
-                                                <select id="userClass"></select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">受理日期：</label>
+                                            <label for="">时间：</label>
                                             <div class="input-blocked">
                                                 <input type="text" class="datatimeblock min" name="min">
                                             </div>
@@ -330,26 +302,8 @@
                                                 <input type="text" class="datatimeblock max" name="max">
                                             </div>
                                         </li>
-                                        <li>
-                                            <label for="">原因分类：</label>
-                                            <div class="input-blocked">
-                                                <select id="cause-classification"></select>
-                                            </div>
-                                        </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                        <li>
-                                            <button type="button" class="btn red delete chexiao">
-                                                <i class="fa fa-trash"></i>
-                                                <span>回退</span>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="btn red delete zuofei" title="未完成的工单可进行作废操作">
-                                                <i class="fa fa-trash"></i>
-                                                <span>取消</span>
-                                            </button>
-                                        </li>
                                         <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                         <li class="excelButton"></li>
                                         <div class="clearfix"></div>
@@ -431,7 +385,6 @@
 <script type="text/javascript" charset="utf-8" src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="../resource/js/productionOrder-8.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -440,6 +393,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/productionOrder-11.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--查看详情-->
@@ -593,12 +547,10 @@
                                     </table>
                                 </div>
                             </div>
-
                             <div class="clearfix"></div>
-                            <div class="deal-with">处理记录</div>
+                            <div class="deal-with" style="display: inline-block">处理记录</div>
                             <div>
                                 <ul class="deal-with-list">
-
                                 </ul>
                             </div>
                         </div>
@@ -611,123 +563,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--关单-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 665px">
-        <div class="modal-content" style="height: 665px">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">工单评价</h4>
-            </div>
-            <div class="modal-body">
-                <div class="gongdanContent">
-                    <ul class="gongdanList" id="pingjia">
-                        <li class="floatLeft" style="line-height: 26px;display: block">
-                            <div class="labels colorTip">满意度 *：</div>
-                            <div class="input-blockeds">
-                                <input type="radio" class="inpus" v-model="pickeds" id="henmanyi" value="5" style="margin-left: -10px !important;" v-on:click="radioss"><label for="henmanyi">很满意</label>
-                                <input type="radio" class="inpus" v-model="pickeds" id="manyi" value="4" style="margin-left: -10px !important;" v-on:click="radioss"><label for="manyi">满意</label>
-                                <input type="radio" class="inpus" v-model="pickeds" id="yiban" value="3" style="margin-left: -10px !important;" v-on:click="radioss"><label for="yiban">一般</label>
-                                <input type="radio" class="inpus" v-model="pickeds" id="cha" value="2" style="margin-left: -10px !important;" v-on:click="radioss"><label for="cha">差</label>
-                                <input type="radio" class="inpus" v-model="pickeds" id="hencha" value="1" style="margin-left: -10px !important;" v-on:click="radioss"><label for="hencha">很差</label>
-                            </div>
-                        </li>
-                        <div class="clearfix"></div>
-                        <div>
-                            <div class="labels">评价意见：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhu"></textarea>
-                            </div>
-                        </div>
-                        <p>详细信息如下：</p>
-                        <li class="floatLeft">
-                            <div class="labels">报修电话：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="baoxiudianhua" disabled="true">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <div class="labels">车站：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="baoxiubumen" disabled="true">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels">报修人姓名：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="baoxiurenxingming" disabled="true">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <div class="labels">故障位置：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="weixiudidian" disabled="true">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels">维修班组：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block" v-model="weixiubumen" disabled="true">
-                            </div>
-                        </li>
-                        <div class="clearfix"></div>
-                        <div>
-                            <div class="labels">备注：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="baoxiubeizhu" disabled="true"></textarea>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="labels">维修内容：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu" disabled="true"></textarea>
-                            </div>
-                        </div>
-
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary pingjiaButton">关闭工单</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框确认撤销吗？-->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">提示</h4>
-            </div>
-            <div class="modal-body">您确定要进行回退操作吗？</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--模态框确认作废-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
-            </div>
-            <div class="modal-body">您确定要进行取消操作吗？</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <!--维修材料弹出框-->
-<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 935px !important;height: 494px;">
         <div class="modal-content" style="width: 935px !important;height: 494px;">
             <div class="modal-header">
@@ -755,16 +592,12 @@
                             <input type="text" class="nowState" style="width: 238px;">
                         </div>
                     </div>
-                    <!--<div style="display: inline-block;vertical-align: middle">-->
-                    <!--<div class="labels colorTip">操作类型 *：</div>-->
-                    <!--<div class="input-blockeds" style="height: auto;width: 240px;">-->
-                    <!--<select id="stateConstant" style="outline: none;width: 238px;">-->
-                    <!--<option value="">请选择</option>-->
-                    <!--<option value="20">确认</option>-->
-                    <!--<option value="0">退回</option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <!--</div>-->
+                    <div style="display: inline-block;vertical-align: middle">
+                        <div class="labels colorTip">操作类型 *：</div>
+                        <div class="input-blockeds" style="height: auto;width: 240px;">
+                            <select id="stateConstant" style="outline: none;width: 238px;"></select>
+                        </div>
+                    </div>
                     <div>
                         <div class="labels">备注：</div>
                         <div class="input-blockeds" style="height: auto;width: 372px;">
@@ -773,7 +606,7 @@
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
-                    <div class="deal-with" style="display: inline-block">处理记录</div>
+                    <div class="deal-with">处理记录</div>
                     <div>
                         <ul class="deal-with-list">
                             <!--<li><span class="list-dot"></span>2017-08-15 某某某处理</li>-->
@@ -784,9 +617,8 @@
             </div>
             <div class="clearfix"></div>
             <div class="modal-footer">
-
-                <!--<button type="button" class="btn btn-primary">确定</button>-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

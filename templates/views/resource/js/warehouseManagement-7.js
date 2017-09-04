@@ -95,11 +95,27 @@ $(function(){
             },
             {
                 title:'总数',
-                data:'count'
+                data:'count',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'总价',
-                data:'amount'
+                data:'amount',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'操作',
@@ -166,11 +182,27 @@ $(function(){
             },
             {
                 title:'入库价格',
-                data:'inPrice'
+                data:'inPrice',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'总金额',
-                data:'amount'
+                data:'amount',
+                render:function(data, type, full, meta){
+                    if(data){
+                        return data.toFixed(2)
+                    }else{
+                        return ''
+                    }
+
+                }
             },
             {
                 title:'操作',

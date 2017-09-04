@@ -311,6 +311,12 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li>
+                                        <button type="button" class="btn red zuofei">
+                                            <i class="fa fa-trash"></i>
+                                            <span>取消</span>
+                                        </button>
+                                    </li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
@@ -325,6 +331,20 @@
                                             </tbody>
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->
+                                    </div>
+                                </div>
+                                <div class="associated-station" style="display: none;">
+                                    <p style="text-align: center;font-size: 18px;">同一车站未闭环的工单</p>
+                                    <div class="content-main-contents">
+                                        <div class="main-contents-table">
+                                            <table id="table-other" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <!--<img src="../resource/img/loading.gif" alt="">-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -721,6 +741,202 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm removeWorkerButton">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--取消弹出框-->
+<div class="modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 236px;">
+        <div class="modal-content" style="height: 236px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">提示</h4>
+            </div>
+            <div class="modal-body">
+                <label for="">取消理由</label>
+                <div class="input-blockeds" style="height:62px;">
+                    <textarea style="width: 100%;height: 60px;outline: none"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--同一车站未闭环工单-->
+<div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 711px;width:1000px !important;">
+        <div class="modal-content" style="height: 711px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">工单详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="width: 668px;float: left;height:563px!important;">
+                    <ul class="gongdanList" id="myApp33">
+                        <li class="floatLeft" style="line-height: 26px;">
+                            <div class="labels">工单类型：</div>
+                            <div class="input-blockeds">
+                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
+                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
+                            </div>
+                        </li>
+                        <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels colorTip">工单来源 *：</div>
+                            <div class="input-blockeds">
+                                <select v-model="gdly" class="gdly">
+                                    <option value="1">车站报修</option>
+                                    <option value="2">现场人员报修</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="floatLeft" style="line-height: 26px;">
+                            <div class="labels colorTip">任务级别 *：</div>
+                            <div class="input-blockeds">
+                                <select v-model="rwlx">
+                                    <option value="1">一级任务</option>
+                                    <option value="2">二级任务</option>
+                                    <option value="3">三级任务</option>
+                                    <option value="4">四级任务</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">报修电话：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="telephone" class="shishi">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">报修人信息：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="person">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">故障位置：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="place">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">车站：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="section">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">设备类型：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="matter">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">维修设备：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbSelect">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">设备名称：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbMC">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">设备车间站：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sbBM">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">安装地点：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="azAddress">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">维修班组：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="sections">
+                            </div>
+                        </li>
+                        <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels">发生时间：</div>
+                            <div class="input-blockeds">
+                                <input type="text" class="datatimeblock otime">
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                        <div>
+                            <div class="labels">故障描述：</div>
+                            <div class="input-blockeds" style="height:62px;">
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="labels">维修内容：</div>
+                            <div class="input-blockeds" style="height:62px;">
+                                <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="button" class="btn btn-info" id="viewImage1">查看图片</button>
+                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                        </div>
+                        <div class="table-block">
+                            <div class="table-title">
+                                <span class="spanhover">执行人员</span>
+                            </div>
+                            <span class="draw-border"></span>
+                            <div class="tableHoverL">
+                                <div class="tableHover">
+                                    <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTable10">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="table-block">
+                            <div class="table-title">
+                                <span class="spanhover">维修备件</span>
+                            </div>
+                            <div class="tableHoverL">
+                                <div class="tableHover">
+                                    <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTables10">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="deal-with">处理记录</div>
+                            <div>
+                                <ul class="deal-with-list">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+                <div class="right-content">
+                    <p style="margin-bottom: 0">处理记录</p>
+                    <div class="processing-record">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
