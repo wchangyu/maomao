@@ -140,8 +140,16 @@ $(function(){
                 }
             },
             {
-                title: '最新状态',
+                title: '备注',
                 data: 'clLastUptInfo'
+            },
+            {
+                title:'最新状态',
+                data:'lastUpdateInfo'
+            },
+            {
+                title:'车站',
+                data:'bxKeshi'
             },
             {
                 title: '督办人',
@@ -487,7 +495,7 @@ $(function(){
 
             stateConstant('2');
 
-
+            $('#bjremark').val('');
         })
 
     $('#myModal4').on('click','.btn-primary',function(){
@@ -519,6 +527,7 @@ $(function(){
             clStatusId:$('#line-point').val(),
             userID:_userIdNum,
             userName:_userIdName,
+            clType:3
         };
         $.ajax({
             type:'post',
@@ -599,7 +608,6 @@ $(function(){
                 }else if(flag == 2){
                     //备件管理中操作类型以及现在工单的备件状态码
                     var str ='<option value="">请选择</option>';
-                    console.log(result.statuses);
                     var values = '';
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.statuses[i].clType == 3){

@@ -82,8 +82,6 @@ $(function(){
     stateConstant(1);
 
     var _trend = '';
-    //备件走向
-    determineTrend();
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -447,11 +445,9 @@ $(function(){
                 async:false,
                 data:prm,
                 success:function(result){
-                    //console.log(result);
                     var bmArr = [];
                     //存放物料的数组
                     var wlArr = [];
-                    //console.log(result.wxCls);
                     for(var i=0;i<result.wxCls.length;i++){
                         wlArr.push(result.wxCls[i]);
                         bmArr.push(result.wxCls[i].wxCl);
@@ -492,18 +488,19 @@ $(function(){
 
             stateConstant('2');
 
+            //备件走向
+            determineTrend();
 
+            $('#bjremark').val('');
         })
 
-    $('#myModal4').on('click','.btn-primary',function(){
-        //首先判断操作类型是否选择了、
-        if($('#stateConstant').val() == ''){
-            $('#myModal2').find('.modal-body').html('请选择操作类型');
-            moTaiKuang($('#myModal2'),'提示','flag');
-        }else{
-            applySparePart();
-        }
-    })
+    $('#myModal4').on('click','.btn-primary:nth-child(1)',function(){
+        applySparePart($(this),'flag');
+    });
+
+    $('#myModal4').on('click','.btn-primary:nth-child(2)',function(){
+        applySparePart($(this));
+    });
 
     /*------------------------------其他方法-------------------------------------------------*/
     //条件查询
@@ -525,10 +522,8 @@ $(function(){
             clStatusId:$('#line-point').val(),
             userID:_userIdNum,
             userName:_userIdName,
+            clType:2
         };
-            //if(_arg == 1){
-            //    prm.arg = 1;
-            //}
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetPeijGD',
@@ -608,15 +603,21 @@ $(function(){
                     $('#line-point').append(str);
                 }else if(flag == 2){
                     //备件管理中操作类型以及现在工单的备件状态码
-                    var str ='<option value="">请选择</option>';
+                    var str ='';
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.statuses[i].clType == 2){
-                            str += '<option value="' + result.statuses[i].clTo +
-                                '">' + result.statuses[i].clOpt + '</option>';
+                        //    str += '<option value="' + result.statuses[i].clTo +
+                        //        '">' + result.statuses[i].clOpt + '</option>';
+                            str += '<button type="button" class="btn btn-primary"' + 'data-value='+ result.statuses[i].clTo +
+                                '>' + result.statuses[i].clOpt + '</button>'
                         }
+                        //<button type="button" class="btn btn-primary">确定</button>
                     }
-                    $('#stateConstant').empty();
-                    $('#stateConstant').append(str);
+                    str += '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
+                    //$('#stateConstant').empty();
+                    //$('#stateConstant').append(str);
+                    $('#myModal4').find('.modal-footer').empty();
+                    $('#myModal4').find('.modal-footer').append(str);
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.clStatus == result.statuses[i].clStatusID){
                             $('.nowState').val(result.statuses[i].clStatus);
@@ -657,19 +658,22 @@ $(function(){
         })
     }
 
-    //申请备件
-    function applySparePart(){
-        var stateTrend = $('#stateConstant').val();
-        var arr = $('#stateConstant').val().split(',');
-        if(_trend == ''){
-            stateTrend = arr[0];
-        }else{
-            stateTrend = arr[1];
+    //申请备件(同意【flag】，拒绝)
+    function applySparePart(el,flag){
+        var stateTrend = el.attr('data-value');
+        var stateHtml = el.html();
+        if(flag){
+            var arr = stateTrend.split(',');
+            if(_trend == ''){
+                stateTrend = arr[0];
+            }else{
+                stateTrend = arr[1];
+            }
         }
         var prm = {
             "gdCode": _gdCode,
             "clStatusId": stateTrend,
-            "clStatus": $('#stateConstant').children('option:selected').html(),
+            "clStatus": stateHtml,
             "clLastUptInfo": $('#bjremark').val(),
             "userID": _userIdNum,
             "userName": _userIdName
