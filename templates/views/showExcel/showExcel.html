@@ -239,7 +239,8 @@
                         <span style="float:right"><b>时间：</b>2016-1-12</span>
                     </div>
                     <button class="save-button">保存为excel</button>
-                    <table class="table table-striped table-bordered table-advance table-hover
+                    <input style="height:26px" type="button" name="btnExcel" value="导出excel" onClick="ExportExcel(this,'dateTables','','表头');"/>
+                    <table class="table table-striped table-bordered table-advance table-hover tableNr
 " id="dateTables">
                         <thead>
                             <tr>
@@ -331,6 +332,7 @@
 <script rel="stylesheet" src="../bank-branch-resource/js/lib/echarts.common.min.js"></script>
 <script rel="stylesheet" src="../bank-branch-resource/js/lib/jquery.dataTables.min.js"></script>
 <script src="../bank-branch-resource/js/common.js"></script>
+<script type="text/javascript" src="js/excel.js"></script>
 <script src="js/showExcel.js"></script>
 <script>
     jQuery(document).ready(function() {

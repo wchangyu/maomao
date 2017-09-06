@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -287,7 +287,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" class="input-label">车务段选择：</label>
+                                        <label for="" class="input-label">车间选择：</label>
 
                                         <div class="add-input-father" style="margin-left:10px">
                                             <div class="add-input-block" style="margin-left:0">
@@ -319,10 +319,20 @@
                                     <li style="line-height: 30px;">
                                         <label for="">未修复时段：</label>
                                         <div class="input-blocked" style="height:32px">
-                                            <select name="" id="no-repair" value="1">
+                                            <select name="" id="no-repair" value="72">
                                                 <option value="72">72小时</option>
                                                 <option value="48">48小时</option>
                                                 <option value="24">24小时</option>
+                                            </select>
+                                        </div>
+
+                                    </li>
+                                    <li style="line-height: 30px;">
+                                        <label for="">报修截止时间：</label>
+                                        <div class="input-blocked" style="height:32px">
+                                            <select name="" id="report-repair" value="12">
+                                                <option value="12">12时</option>
+                                                <option value="18">18时</option>
                                             </select>
                                         </div>
 
@@ -337,7 +347,7 @@
                                     <li><button class="btn btn-success excelButton11" style="display: none">导出</button></li>
                                     <div class="clearfix"></div>
                                 </ul>
-                                <div class="table-block-title">江西铁路实业发展有限公司客服设备设施周故障分析表</div>
+                                <div class="table-block-title">江西铁路实业发展有限公司客服设备设施本周故障分析表</div>
                                 <div style="overflow: hidden;position: relative">
                                     <div class="statistical-time">统计时间：<span class="startTime">2017年6月11日18时0分</span> 至 <span class="endTime">2017年6月12日18时0分</span></div>
                                     <div class="table-title">
@@ -359,8 +369,8 @@
                                                     <tbody>
                                                     </tbody>
                                                     <tfoot>
-                                                        <tr>
-                                                        </tr>
+                                                    <tr>
+                                                    </tr>
                                                     </tfoot>
                                                 </table>
                                             </div>
@@ -370,7 +380,7 @@
                                                 <table id="failure-to-repair" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">
                                                     <caption style="font-size: 18px;color: #777;">
                                                         二、客服设备故障未修复重点情况：
-                                                        <span class="title-info">1、上周待处理故障<b></b></b>件，本周已修复<b>3</b>件，仍未修复<b></b>件。2、本周待处理故障<b></b>件。<font>3、本周取消个数<b>3</b>件。</font>具体明细如下：</span>
+
                                                     </caption>
                                                     <thead>
                                                     </thead>
@@ -457,7 +467,7 @@
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/guzhangfenxibiao/weekBugList.js"></script>
+<script src="../resource/js/guzhangfenxibiao/secondWeekBugList.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

@@ -201,10 +201,9 @@ $(document).ready(function(){
                 title:'公摊比例(%)',
                 data:'f_EquallyShared',
                 render:function(data, type, full, meta){
-                   return data * 100
+                   return (data * 100).toFixed(1)
 
                 }
-
             },
             {
                 title:'安装位置',

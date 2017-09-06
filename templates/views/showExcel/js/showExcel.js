@@ -33,7 +33,6 @@ $(document).ready(function(){
             {
                 title:'序号',
                 data:"index"
-
             },
             {
                 data:"enterpriseID"

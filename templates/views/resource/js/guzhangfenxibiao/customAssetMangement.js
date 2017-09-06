@@ -1,7 +1,10 @@
+/**
+ * Created by admin on 2017/9/4.
+ */
 $(function(){
     //全局变量
     /*
-    * 用户名 _userIdName 本地地址 _url*/
+     * 用户名 _userIdName 本地地址 _url*/
     //日历插件初始化
     //日期
     _dataComponentsFun($('.datatimeblock'));
@@ -12,16 +15,18 @@ $(function(){
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
 
-    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekStart = moment(_date).subtract(7,'d').format('YYYY-MM-DD');
 
-    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekEnd = moment(_date).format('YYYY-MM-DD');
 
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
 
-
+    $('.datatimeblock').eq(1).val(_dataWeekEnd);
     //设置初始时间
     $('.timeblock').eq(0).val('00:00');
+
+    $('.timeblock').eq(1).val('00:00');
 //
 //
     var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
@@ -36,19 +41,19 @@ $(function(){
     var _totalNums = 0;
 
     //修改时间
-    $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
+    $('.startTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-    $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+    $('.endTime').html($('.datatimeblock').eq(1).val() +" "+ $('.timeblock').eq(1).val());
 
     /*--------------------------------------按钮事件---------------------------------*/
     $('#selected').click(function(){
         //修改时间
-        $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
+        $('.startTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+        $('.endTime').html($('.datatimeblock').eq(1).val() +" "+ $('.timeblock').eq(1).val());
 
         //本周客服设备故障上报及处理情况
-        conditionSelect('YWGDReport/GetWeekGDAreaReportReturn',$('#failure-reporting'),'flag');
+        conditionSelect('YWGDReport/GetSectionGDAreaReportReturn',$('#failure-reporting'),'flag');
 
         //本周发现或反馈的客服设备惯性、典型（重点）故障情况
         conditionSelect('YWGDReport/GetGDDepRptTypicReturn',$('#failure-info'));
@@ -71,7 +76,8 @@ $(function(){
         },
         {
             title:'月报修故障累计（件）',
-            data:'gdCountM'
+            data:'gdCountM',
+            class:'theHidden'
         },
         {
             title:'本周报修故障累计（件）',
@@ -233,10 +239,10 @@ $(function(){
             data:'ddName'
         },
         {
-            title:' 故障报修时间',
+            title:'故障报修时间',
             data:'gdShiJ',
             render: function (data, type, row, meta){
-               return '<span style="display: inline-block;width:146px;">'+data+'</span>'
+                return '<span style="display: inline-block;width:146px;">'+data+'</span>'
             }
         },
         {
@@ -244,7 +250,7 @@ $(function(){
             data:'gdDevInfoSys'
         },
         {
-            title:'报修至截止本周六18:00\n已累计故障（时、分）',
+            title:'报修至截止本日18:00\n已累计故障（时、分）',
             data:'gdHaoShi',
             class:'shortTh'
         },
@@ -301,18 +307,18 @@ $(function(){
             }
         },
         {
-          title:'故障处理级别',
-          data:'gdState',
-          render: function (data, type, row, meta){
+            title:'故障处理级别',
+            data:'gdState',
+            render: function (data, type, row, meta){
 
-              if(data == 0){
+                if(data == 0){
                     return '<span class="sign"><b class="red"></b>滞留到本周故障</span>'
-              }else if(data == 2){
-                  return '<span class="sign"><b class="yellow"></b>本周三级以上故障</span>'
-              }else if(data == 1){
-                  return '<span class="sign"><b class="green"></b>本周普通故障</span>'
-              }
-          }
+                }else if(data == 1){
+                    return '<span class="sign"><b class="yellow"></b>本周三级以上故障</span>'
+                }else if(data == 2){
+                    return '<span class="sign"><b class="green"></b>本周普通故障</span>'
+                }
+            }
         },
         {
             title:'原因分析',
@@ -588,7 +594,7 @@ $(function(){
     function conditionSelect(url,tableId,flag,title){
         var startTime = $('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val();
 
-        var endTime = moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val();
+        var endTime = $('.datatimeblock').eq(1).val() +' ' + $('.timeblock').eq(1).val();
 
         //传递给后台的车务段集合
         var postArr = [];
@@ -608,8 +614,8 @@ $(function(){
 
         //获取条件
         var prm = {
-            "st":endTime,
-            "et":startTime,
+            "st":startTime,
+            "et":endTime,
             "daNums":postArr,
             "gdRepariQuantum ":gdRepariQuantum
         }
@@ -813,7 +819,7 @@ $(function(){
 
 
                 //本周客服设备故障上报及处理情况
-                conditionSelect('YWGDReport/GetWeekGDAreaReportReturn',$('#failure-reporting'),'flag');
+                conditionSelect('YWGDReport/GetSectionGDAreaReportReturn',$('#failure-reporting'),'flag');
 
                 //本周发现或反馈的客服设备惯性、典型（重点）故障情况
                 conditionSelect('YWGDReport/GetGDDepRptTypicReturn',$('#failure-info'));

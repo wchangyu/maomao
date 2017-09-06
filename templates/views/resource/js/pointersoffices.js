@@ -43,6 +43,7 @@ var ObjectSelection = function(){
     this._hasAllPointer;
 
     this.getSelectType;           //获取当前是单选框还是复选框
+    this.getShowRadio;           //获取当前是否显示一级，二级选框
     //存放已配置的全部楼宇名称
     var getPointerName = '';
 
@@ -94,11 +95,20 @@ var ObjectSelection = function(){
                 childPointers:tempAllPointers
             };
             //this._allPointers.push(pointerAll);
-            this._allPointers = getCompactArr(tempAllPointers,true);
+            if(this.getShowRadio){
+                this._allPointers = getCompactArr(tempAllPointers,true,true);
+            }else{
+                this._allPointers = getCompactArr(tempAllPointers,true);
+            }
+
 
         }else{
             //this._allPointers = tempAllPointers;
-            this._allPointers = getCompactArr(tempAllPointers,false);
+            if(this.getShowRadio){
+                this._allPointers = getCompactArr(tempAllPointers,false,true);
+            }else{
+                this._allPointers = getCompactArr(tempAllPointers,false);
+            }
         }
 
     };
@@ -162,10 +172,11 @@ var ObjectSelection = function(){
 
     //设置ztree Source
     //ul:JQ元素
-    this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode){
+    this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode,getShowRadio){
         this._$ulPointers = $ulPointers;
         this._hasAllPointer = hasAllPointer;
         this.getSelectType = multiSelectionMode;
+        this.getShowRadio = getShowRadio;
         this.getSessionStoragePointers();
         var zTreePointer;
         var setting1 = {
@@ -200,6 +211,7 @@ var ObjectSelection = function(){
             var nodes = zTreePointer.getNodes();
             zTreePointer.checkNode(nodes[0],true,false,false);
             zTreePointer.expandNode(nodes[0],true,false,true);
+
         }
     }
 
@@ -340,7 +352,7 @@ var ObjectSearch = function(){
 }
 
 //获取正确的Ztree树结构数据
-function getCompactArr(tempAllPointers,isCheckAll){
+function getCompactArr(tempAllPointers,isCheckAll,flag){
     //
     //var allGetDataArr = unique1(tempAllPointers,["districtID","enterpriseID","pointerID"]);
 
@@ -385,7 +397,7 @@ function getCompactArr(tempAllPointers,isCheckAll){
         }
         arr.push(obj);
     }
-
+    console.log(flag);
 
     var ztreeArr = [];
     for(var i=0;i<arr.length;i++){
@@ -395,11 +407,15 @@ function getCompactArr(tempAllPointers,isCheckAll){
         obj.pId = arr[i].parent;
         //当前类型：0 区域 1 企业 2 楼宇
         obj.nodeType = 0;
+
         //
         //if(isCheckAll == false){
         //
         //    obj.checked=false;
         //}
+        if(flag){
+            obj.nocheck=true;
+        }
         ztreeArr.push(obj);
         for(var j=0;j<arr[i].children.length;j++){
             var obj1 = {};
@@ -416,6 +432,10 @@ function getCompactArr(tempAllPointers,isCheckAll){
             //
             //    obj1.nocheck=true;
             //}
+
+            if(flag){
+                obj1.nocheck=true;
+            }
             ztreeArr.push(obj1);
             for(var z=0;z<arr[i].children[j].children.length;z++){
                 var obj11 = {};
@@ -433,6 +453,7 @@ function getCompactArr(tempAllPointers,isCheckAll){
             }
         }
     }
+
     //console.log(ztreeArr);
     return ztreeArr;
 }

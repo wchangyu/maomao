@@ -1,0 +1,3 @@
+#failure-reporting tfoot tr th:nth-child(2){
+    display: none !important;
+}

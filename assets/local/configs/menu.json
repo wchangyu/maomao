@@ -515,17 +515,33 @@
     "iconclass":"icon-settings",
     "content":"故障明细表",
     "submenu":{
-      "周故障分析表":{
+      "站段周故障分析表":{
         "type":"0",
-        "content":"周故障分析表",
+        "content":"站段周故障分析表",
         "uri":"../guzhangfenxibiao/weekBugList.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "日故障分析表":{
+      "站段自定义故障分析表":{
         "type":"0",
-        "content":"日故障分析表",
+        "content":"站段自定义故障分析表",
+        "uri":"../guzhangfenxibiao/customAssetMangement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "车间周故障分析表":{
+        "type":"0",
+        "content":"车间周故障分析表",
+        "uri":"../guzhangfenxibiao/secondWeekBugList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "车间日故障分析表":{
+        "type":"0",
+        "content":"车间日故障分析表",
         "uri":"../guzhangfenxibiao/dailyBugList.html",
         "uid":"",
         "arg":"",

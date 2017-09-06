@@ -89,13 +89,17 @@ $(document).ready(function(){
     var st = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
     var et = moment().startOf('month').format('YYYY-MM-DD');
 
+
+    //页面显示的时间
+    var showET = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
+
     $('.min').val(st);
-    $('.max').val(et);
+    $('.max').val(showET);
     //获取后台数据放入页面
     $('.btn-success').on('click',function(){
         //获取开始结束时间
         var startTime = $('.min').val();
-        var endTime = $('.max').val();
+        var endTime = moment($('.max').val()).add(1,'day').format('YYYY-MM-DD');
 
         if(startTime == '' || endTime == ''){
             myAlter('请输入时间进行查询');
@@ -122,6 +126,10 @@ $(document).ready(function(){
                 postUrl = '/YWGDAnalysis/GDDClassCount';
                 postName = 'dClasss';
                 postArr.push($('#refer-station').val());
+            }else if($('#refer-point').val() == 0){
+                postUrl = '/YWGDAnalysis/GDDSysCount';
+                postName = 'dSyss';
+                postArr = DSystemArr;
             }
         //    选择按车站查看
         }else if(typeVal == 2){
@@ -297,7 +305,7 @@ function getAllDSystem(){
                 DSystemArr.push(o.dsNum);
             })
 
-            $('#refer-station').html(DSystemSelect);
+            $('#refer-station').html('<option value="0" >全部</option>');
             $('.btn-success').click();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

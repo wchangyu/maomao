@@ -56,7 +56,8 @@
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
-    <link rel="stylesheet" href="../resource/css/failureRate.css">
+    <link rel="stylesheet" href="../resource/css/systemDealTime.css">
+    <link rel="stylesheet" href="css/mapPreview.css">
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -279,51 +280,31 @@
                                 <!-- 标题 -->
                                 <div class="content-main-contents content-main-right">
                                     <ul class="content-main-contents-header">
-                                        <li class="main-contents-header-lists0 noprint">故障率</li>
-                                    </ul>
-                                    <ul class="condition-query noprint">
-                                        <li><label for="">显示对象：</label>
-                                            <div class="input-blocked">
-                                                <select name="" value="1" id="refer-type">
-                                                    <option value="1">线点</option>
-                                                    <option value="2">车站</option>
-                                                    <option value="3">系统</option>
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li style="display: none"><label for="">线点：</label>
-                                            <div class="input-blocked">
-                                                <select name="" value="" id="refer-point">
-
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li style="display: none"><label for="">车站：</label>
-                                            <div class="input-blocked">
-                                                <select name="" value="" id="refer-station">
-
-                                                </select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">开始时间：</label>
-                                            <div class="input-blocked">
-                                                <input type="text" class="datatimeblock min" name="min">
-                                            </div>
-                                            <label for="">结束时间：</label>
-                                            <div class="input-blocked">
-                                                <input type="text" class="datatimeblock max" name="max">
-                                            </div>
-                                        </li>
-                                        <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-
-                                        <div class="clearfix"></div>
+                                        <li class="main-contents-header-lists0 noprint">系统故障时间</li>
                                     </ul>
                                     <!-- eChart图 -->
                                     <div class="content-main-contents">
                                         <!--chart图-->
-                                        <div class="main-data " id="energy-demand">
+                                        <div class="main-data " id="energy-demand" style="height:800px !important;">
+                                            <!--<div class="toolContainer" style="width:195px; height:34px;background:white;box-shadow: 1px 2px 1px rgba(0,0,0,.15);color:#4c4c4c;background-color: #f1f1f1;position: fixed;right:80px;top:160px;">-->
+                                                <!--<div id="onOff" style="background: url(&quot;img/off.png&quot;) 0px 1.5px no-repeat;">-->
+                                                    <!--楼宇列表开关-->
+                                                <!--</div>-->
 
+                                            <!--</div>-->
+                                            <!--<div class="left-middle-main" style="width:250px;position: absolute;height:500px;right:100px;top:100px;border:1px solid #999;overflow-y: auto">-->
+                                                <!--<div class="left-middle-content">-->
+                                                    <!--<div class="left-middle-tab">区域位置</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="tree-1 tree-3">-->
+                                                    <!--<div class="left-middle-input">-->
+                                                        <!--<input type="text"  id="keys" class="empty form-control" placeholder="搜索...">-->
+                                                    <!--</div>-->
+                                                    <!--<div class="tipess"></div>-->
+                                                    <!--<ul class="allPointer ztree" id="allPointer">-->
+                                                    <!--</ul>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -416,8 +397,8 @@
 <script type="text/javascript" charset="utf-8" src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/failureRate.js"></script>
+
+<script src="js/insertion.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
