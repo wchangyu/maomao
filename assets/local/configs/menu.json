@@ -34,7 +34,8 @@
         "uri":"../yongnengjiance/energyMonitor.html",
         "uid":"",
         "arg":"0,0",
-        "iconclass":""
+        "iconclass":"",
+        "usepointer":"1"
       },
       "变配电系统2":{
         "type":"0",

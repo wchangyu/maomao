@@ -1,5 +1,6 @@
 一.菜单配置
-type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;
+type:0代表具体菜单,1代表上级菜单;content:显示文本;url:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;
+iconclass:图标class http://simplelineicons.com/搜索图标,格式为".icon-xxx",去掉其中的.;
 二.参数配置
     二.1 能耗类型配置allEnergyType officeEnergyType
     注释属性:全部能耗类型,三项分别为分项ID，分项名，分项单位,img:首页显示的类型小图片,color:首页显示的颜色,img2:各个功能页面用到的类型小图片
