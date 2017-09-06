@@ -25,7 +25,7 @@
     margin-bottom: 4px;
 }
 .gongdanList li{
-    width: 300px;
+    width: 200px;
 }
 .labels{
     line-height: 30px;
@@ -39,11 +39,17 @@
     line-height: 28px;
     border: none;
     outline: none;
-    display: block;
-    width: 298px;
+    width: 198px;
     background: #ffffff;
-    height:28px;
+    height:27px;
     text-indent: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#workDone form li .input-blockeds input{
+    display: inline-block;
+    vertical-align: middle;
+    width: 176px;
 }
 .floatLeft{
     float: left;
@@ -192,7 +198,7 @@
 }
 /*下拉框样式统一*/
 .input-blockeds select{
-    width:298px;
+    width:198px;
     height: 28px;
     border: none;
     outline: none;
@@ -305,7 +311,7 @@ table.dataTable.table-condensed > thead > tr > th{
     text-align: center !important;
 }
 .table tbody tr td{
-    text-align: center !important;
+    text-align: center;
 }
 .hidding{
     display: none !important;
@@ -502,4 +508,17 @@ textarea{
 }
 .li-color{
     background: #ebebeb !important;
+}
+.selectBlock{
+    display: inline-block;width:20px;height:28px;vertical-align: middle;
+    cursor: pointer;
+    background: url("../img/selectImg.png")no-repeat;
+    background-size: 10px;
+    background-position: center;
+}
+.pinzhixx{
+    z-index: 10;
+}
+.right-justify{
+    text-align: right !important;
 }

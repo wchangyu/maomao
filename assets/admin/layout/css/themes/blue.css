@@ -995,3 +995,6 @@ body {
 .table-striped>tbody>tr:nth-of-type(odd) {
   background-color: #eaf4fd;
 }
+.table-advance tr td:first-child{
+  border-left-width: 2px !important;
+}

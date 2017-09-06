@@ -721,6 +721,14 @@
         "arg":"",
         "iconclass":""
       },
+      "出入库总汇":{
+        "type":"0",
+        "content":"出入库总汇",
+        "uri":"../cangkuguanli/warehouseManagement-15.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "台账记录":{
         "type":"0",
         "content":"台账记录",
