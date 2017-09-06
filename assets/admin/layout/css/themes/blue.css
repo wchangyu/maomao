@@ -916,33 +916,33 @@ body {
 /*-------------------------------------------------运维定制颜色-----------------------------------------*/
 
 .table-advance thead tr th{
-  background: #c0d0e0 !important;
+  background: #e1e8f2 !important;
 }
 
 .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
-  border:2px solid #c0d0e0 !important;
+  border:2px solid #e1e8f2 !important;
 }
 .table-bordered{
-  border:2px solid #c0d0e0 !important;
+  border:2px solid #e1e8f2 !important;
 }
 
 .btn-success{
-  background: #5a8dc4 !important;
+  background: #4796b7 !important;
 }
 .spanhover{
-  background: #e1e1e1 !important;
+  background: #ffffff !important;
 }
 .excelButton span{
   color: #ffffff!important;
 }
 .btn-success:hover{
-  background: #1484d0 !important;
+  background: #2a6796 !important;
 }
 .saveAs:hover{
   background: #1484d0 !important;
 }
 .table-title~.main-contents-table{
-  background: #e1e1e1 !important;
+  background: #ffffff !important;
 }
 .saveAs{
   color: #333 !important;
@@ -952,4 +952,49 @@ body {
   filter:chroma(color=#000000) !important;
   outline: hidden !important;
   font-size: 14px !important;
+}
+.page-header.navbar{
+  background-color:#1d2645;
+}
+.main-contents-header-lists0{
+  background-color:#343959;
+}
+.page-bar{
+  background-color:#dceffd;
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a, .page-sidebar .page-sidebar-menu > li.active > a, .page-sidebar .page-sidebar-menu > li.active.open > a{
+  background-color:#4d91be;
+}
+.page-sidebar {
+  background-color: #153b60;
+  /* Default sidebar */
+  /* light sidebar */
+  /* Sidebar search */
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a, .page-sidebar .page-sidebar-menu > li > a{
+  border: 1px solid #153b60;
+}
+.sidebar-toggler{
+  background-color: #20323c;
+}
+.page-sidebar .sidebar-toggler {
+  background: url(../../img/sidebar_inline_toggler_icon_darkblue.jpg);
+}
+
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a, .page-sidebar .page-sidebar-menu > li:hover > a, .page-sidebar .page-sidebar-menu > li.open > a {
+  background:#0e3256;
+  color: aliceblue;
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a:hover, .page-sidebar .page-sidebar-menu > li.active > a:hover, .page-sidebar .page-sidebar-menu > li.active.open > a:hover{
+  background:#0e3256;
+  color: aliceblue;
+}
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a, .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar .page-sidebar-menu .sub-menu > li.active > a{
+  background-color:#204265 !important;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #eaf4fd;
+}
+.table-advance tr td:first-child{
+  border-left-width: 2px !important;
 }

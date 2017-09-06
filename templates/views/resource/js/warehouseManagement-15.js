@@ -2,24 +2,41 @@ $(function(){
     /*--------------------------------全局变量---------------------------------*/
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
-        language:  'zh-CN',
-        todayBtn: 1,
-        todayHighlight: 1,
-        format: 'yyyy/mm/dd'
+        startView: 1,
+        maxViewMode: 2,
+        minViewMode:1,
+        format: "yyyy/mm",//选择日期后，文本框显示的日期格式
+        language: "zh-CN" //汉化
     });
+
+    //获得用户id
+    var _userIdNum = sessionStorage.getItem('userName');
+
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
     //设置初始时间
-    var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
+    var _initStart = moment().format('YYYY/MM');
+
+    var _initEnd = moment().format('YYYY/MM');
+
     //显示时间
     $('.min').val(_initStart);
+
     $('.max').val(_initEnd);
+
     var realityStart = '';
+
     var realityEnd = '';
+
+    //获得仓库
+    getWarehouse();
+
     /*-------------------------------------表格初始化------------------------------*/
+
     var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -53,79 +70,87 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'物品序列号',
-                data:'sn'
+                //title:'商品分类',
+                data:''
             },
             {
-                name: 'second',
-                title:'物品编号',
-                data:'itemNum'
+                //name: 'second',
+                //title:'商品编码',
+                data:''
             },
             {
-                title:'物品名称',
-                data:'itemName'
+                //title:'存放位置',
+                data:''
             },
             {
-                title:'数量',
-                data:'num'
+                //title:'商品名称',
+                data:''
             },
             {
-                title:'单价',
-                data:'price',
-                render:function(data, type, full, meta){
-                    if(data){
-                        return data.toFixed(2)
-                    }else{
-                        return ''
-                    }
-
-                }
+                //title:'规格型号',
+                data:''
             },
             {
-                title:'金额',
-                data:'amount',
-                render:function(data, type, full, meta){
-                    if(data){
-                        return data.toFixed(2)
-                    }else{
-                        return ''
-                    }
-                }
+                //title:'单位',
+                data:''
             },
             {
-                title:'仓库',
-                data:'storageName'
+                //title:'数量',
+                data:''
             },
             {
-                title:'台账类型',
-                data:'ivtType'
+                //title:'单价',
+                data:''
             },
             {
-                title:'关联单号',
-                data:'orderNum'
+                //title:'金额',
+                data:''
             },
             {
-                title:'创建时间',
-                data:'createTime'
+                //title:'数量',
+                data:''
             },
             {
-                title:'操作人',
-                data:'createUser'
-            }
+                //title:'金额',
+                data:''
+            },
+            {
+                //title:'数量',
+                data:''
+            },
+            {
+                //title:'金额',
+                data:''
+            },
+            {
+                //title:'数量',
+                data:''
+            },
+            {
+                //title:'单价',
+                data:''
+            },
+            {
+                //title:'金额',
+                data:''
+            },
         ],
-        "rowsGroup": [
-            'second:name',
-            0,
-            1,
-        ],
+        //"rowsGroup": [
+        //    'second:name',
+        //    0,
+        //    1,
+        //],
     });
+
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     /*------------------------------------表格数据--------------------------------*/
-    conditionSelect();
+
+    //conditionSelect();
     /*-------------------------------------按钮事件-------------------------------*/
+
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect();
+        //conditionSelect();
     })
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
@@ -155,6 +180,7 @@ $(function(){
             }
         })
     }
+
     //dataTables表格填数据
     function datasTable(tableId,arr){
         if(arr.length == 0){
@@ -167,5 +193,29 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+
+    //获取仓库
+    function getWarehouse(){
+        var prm ={
+            userID:_userIdNum,
+            userName:_userIdName,
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                //console.log(result);
+                var str = '<option value="">全部</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result.storageNum + '">' + result[i].storageName + '</option>';
+                }
+                $('#storage').append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

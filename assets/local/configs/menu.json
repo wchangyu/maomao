@@ -33,8 +33,9 @@
         "content":"变配电系统",
         "uri":"../yongnengjiance/energyMonitor.html",
         "uid":"",
-        "arg":"2,5",
-        "iconclass":""
+        "arg":"0,0",
+        "iconclass":"",
+        "usepointer":"1"
       },
       "变配电系统2":{
         "type":"0",
@@ -436,20 +437,28 @@
         "arg":"",
         "iconclass":""
       },
-      "备件管理":{
+      "备件确认":{
         "type":"0",
-        "content":"备件管理",
+        "content":"备件确认",
         "uri":"../gongdangunali/productionOrder-9.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "备件管理1":{
+      "备件管理":{
         "type":"0",
         "content":"备件管理",
-        "uri":"../gongdangunali/productionOrder-9.html?arg=1",
+        "uri":"../gongdangunali/productionOrder-10.html",
         "uid":"",
-        "arg":"1",
+        "arg":"",
+        "iconclass":""
+      },
+      "备件仓库处理":{
+        "type":"0",
+        "content":"备件仓库处理",
+        "uri":"../gongdangunali/productionOrder-11.html",
+        "uid":"",
+        "arg":"",
         "iconclass":""
       },
       "班组维修工作量统计报表":{
@@ -725,6 +734,14 @@
         "type":"0",
         "content":"出库报表",
         "uri":"../cangkuguanli/warehouseManagement-8.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "出入库总汇":{
+        "type":"0",
+        "content":"出入库总汇",
+        "uri":"../cangkuguanli/warehouseManagement-15.html",
         "uid":"",
         "arg":"",
         "iconclass":""
