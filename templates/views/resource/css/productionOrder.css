@@ -25,7 +25,7 @@
     margin-bottom: 4px;
 }
 .gongdanList li{
-    width: 200px;
+    width: 300px;
 }
 .labels{
     line-height: 30px;
@@ -34,23 +34,24 @@
     height: 30px;
     border: 1px solid #ebebeb;
     background: #ffffff;
+    vertical-align: middle;
 }
 .input-blockeds input{
     line-height: 28px;
     border: none;
     outline: none;
-    width: 198px;
+    width: 298px;
     background: #ffffff;
-    height:27px;
+    height:28px;
     text-indent: 10px;
-    display: inline-block;
-    vertical-align: middle;
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
 }
-#workDone form li .input-blockeds input{
-    display: inline-block;
-    vertical-align: middle;
-    width: 176px;
-}
+/*#workDone form li .input-blockeds input{*/
+    /*display: inline-block;*/
+    /*vertical-align: middle;*/
+    /*width: 176px;*/
+/*}*/
 .floatLeft{
     float: left;
 }
@@ -198,7 +199,7 @@
 }
 /*下拉框样式统一*/
 .input-blockeds select{
-    width:198px;
+    width:298px;
     height: 28px;
     border: none;
     outline: none;
@@ -389,9 +390,9 @@ table.dataTable.table-condensed > thead > tr > th{
     float: left;
     font-weight: bold;
 }
-.processing-record ul{
-    margin-top: 15px;
-}
+/*.processing-record ul{*/
+    /*margin-top: 15px;*/
+/*}*/
 .processing-record ul li{
     margin-bottom: 8px;
 }
@@ -431,7 +432,6 @@ table.dataTable.table-condensed > thead > tr > th{
     display: inline-block;
     border: 1px solid #ccc;
     padding: 5px 10px;
-    display: none;
 }
 .deal-with-list{
     padding: 10px;
@@ -521,4 +521,47 @@ textarea{
 }
 .right-justify{
     text-align: right !important;
+}
+.multiple-condition{
+    width:150px;
+    height:30px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+}
+.spare-part{
+    border:#909090 1px solid;background:#fff;color:#333;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+    box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+    width: 600px;position: absolute;top: 30px;left: -80px;padding: 10px 20px;z-index:10;
+    display: none;
+}
+.see-spare{
+    color: #00a0e9;
+    cursor: pointer;
+}
+.see-spare:hover{
+    color: #0000cc;
+}
+.spare-close{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("../img/close.png") no-repeat;
+    background-size: 10px;
+    background-position: center;
+    float: right;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.gdList{
+    width: 200px !important;
+}
+.gdList .input-blockeds input{
+    width: 175px;
+}
+.gdList .input-blockeds select{
+    width: 198px;
 }

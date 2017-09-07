@@ -1,0 +1,147 @@
+body{
+    background:white;
+}
+.main-content-entry{
+    width: 1010px;
+    border: 1px solid #ccc;
+    margin: 0px auto;
+    padding: 20px;
+
+}
+
+/*上方显示抬头*/
+.top-titles{
+    width:100%;
+    text-align: center;
+    height:60px;
+    margin-bottom:10px;
+}
+/*左侧标题*/
+.top-titles .left-titles{
+    float:left;
+    width:30%;
+    height:60px;
+    font-size:16px;
+    text-align: left;
+    box-sizing: border-box;
+    padding-left: 80px;
+}
+.top-name{
+    display: inline-block;
+    margin-bottom:15px;
+}
+.bottom-line{
+    display: inline-block;
+    width:180px;
+    border-bottom:2px solid #000000;
+}
+/*中间的标题*/
+.top-titles .center-titles{
+    float:left;
+    width:50%;
+    height:60px;
+}
+.top-titles .center-titles h1{
+    height:60px;
+    line-height: 20px;
+    margin:0 !important;
+    font-weight: 600;
+}
+.top-titles .center-titles h1 span{
+    margin-left:18px;
+    border:3px solid black;
+    border-radius: 100% !important;
+    display: inline-block;
+    width:50px;
+    height:50px;
+    line-height:40px;
+    -webkit-text-fill-color:white;/*伪空心的文字，与背景色有关*/
+    -webkit-text-stroke-color:black;
+    -webkit-text-stroke-width:1px;      /*W3C标准*/
+    text-fill-color:white;
+    text-stroke-color:black;
+    text-stroke-width:1px;
+}
+.top-titles .right-titles{
+    height:60px;
+    width:20%;
+    padding-top:30px;
+    font-size:16px;
+    box-sizing: border-box;
+    float:left;
+}
+
+/*中间具体信息*/
+.center-message li {
+    font-size:16px;
+    margin-bottom:28px;
+    padding-left:80px;
+    box-sizing: border-box;
+}
+.center-message li span b{
+    border-bottom:2px solid black;
+    height:1px;
+    display: inline-block;
+}
+/*下方表格*/
+.bottom-main-table{
+    width:100%;
+    padding-left:80px;
+    box-sizing: border-box;
+    position: relative;
+}
+#entry-datatables{
+    width:800px !important;
+    font-size:16px;
+    color:black !important;
+    border:2px solid #333 !important;
+    margin-bottom:20px !important;
+}
+#entry-datatables thead tr td{
+    text-align: center !important;
+    vertical-align: middle;
+    color:black !important;
+}
+#entry-datatables td{
+    border-color:#333;
+}
+.bottom-person-message span{
+    font-size:16px;
+    display: inline-block;
+    height:30px;
+}
+.bottom-person-message span b{
+    width:90px;
+    height:28px;
+    border-bottom:2px solid #000000;
+    display: inline-block;
+}
+.identifying{
+    font-size:16px;
+    position: absolute;
+    right:40px;
+    top:-5px;
+}
+.identifying b{
+    border-radius: 100%;
+    width:18px;
+    height:18px;
+    border:1px solid #333;
+    display: inline-block;
+    text-align: center;
+    line-height: 14px;
+
+
+}
+/*打印按钮*/
+.noprint{
+    width:1010px;
+    height:150px;
+    margin:0 auto !important;
+    position: relative;
+}
+.noprint .btn-success{
+    position: absolute;
+    bottom:1px;
+    left:0px;
+}

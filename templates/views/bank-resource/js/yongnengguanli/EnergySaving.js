@@ -145,8 +145,6 @@ function getStartData(){
             }
         }
     });
-
-
 }
 getStartData();
 var myChart = echarts.init(document.getElementById('energy-demand'));

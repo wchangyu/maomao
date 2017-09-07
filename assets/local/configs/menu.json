@@ -753,6 +753,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "供应商管理":{
+        "type":"0",
+        "content":"供应商管理",
+        "uri":"../cangkuguanli/providerManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
@@ -992,5 +1000,4 @@
       }
     }
   }
-
 }

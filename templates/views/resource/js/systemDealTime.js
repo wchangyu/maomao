@@ -113,11 +113,38 @@ $(document).ready(function(){
         var postVal = $('#refer-spot').val();
 
         var typeVal = $('#refer-type').val();
-        if(postVal == null){
+
+        console.log(postVal);
+        console.log(typeVal);
+        if(typeVal ==3){
+
+            postUrl = 'YWGDAnalysis/GetGDDepartDealTime';
+            postName = 'departNums';
+            console.log($('#refer-spot').val());
+            if($('#refer-spot').val() == 0){
+                $(DPartArr).each(function(i,o){
+                    var arr = o.wxBanzus;
+                    $(arr).each(function(i,o){
+                        postArr.push(o.departNum);
+                    });
+                });
+            }else{
+                $(DPartArr).each(function(i,o){
+                    if(o.departNum == $('#refer-point').val()){
+                        var arr = o.wxBanzus;
+                        $(arr).each(function(i,o){
+                            postArr.push(o.departNum);
+                        });
+                    }
+
+                });
+            }
+
+        }else if(postVal == null){
             postArr = DStationArr;
             postUrl = 'YWGDAnalysis/GetGDDealTime';
             postName = 'ddNums';
-        }else if(postVal == 0 && typeVal != 3){
+        }else if(postVal == 0){
             console.log(11);
             postArr = DLineArr;
             postUrl = 'YWGDAnalysis/GetGDDLineDealTime';
@@ -141,29 +168,6 @@ $(document).ready(function(){
                 postName = 'ddNums';
                 postArr.push(postVal);
 
-            }else if(typeVal ==3){
-
-                postUrl = 'YWGDAnalysis/GetGDDepartDealTime';
-                postName = 'departNums';
-                if($('#refer-point').val() == 0){
-                    $(DPartArr).each(function(i,o){
-                        var arr = o.wxBanzus;
-                        $(arr).each(function(i,o){
-                            postArr.push(o.departNum);
-                        });
-                    });
-                }else{
-                    $(DPartArr).each(function(i,o){
-                        if(o.departNum == $('#refer-point').val()){
-                            var arr = o.wxBanzus;
-                            $(arr).each(function(i,o){
-                                postArr.push(o.departNum);
-                            });
-                        }
-
-                    });
-
-                }
             }
 
         }
@@ -189,7 +193,7 @@ $(document).ready(function(){
             },
             data:prm,
             success: function (data) {
-              console.log(data);
+
                 var xArr = [];
                 var sArr = [];
                 if(data.length == 0){
