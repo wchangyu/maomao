@@ -90,6 +90,7 @@ $(function(){
         "searching": true,
         "ordering": false,
         "pagingType": "full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -191,6 +192,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -243,6 +245,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -283,6 +286,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -657,7 +661,7 @@ $(function(){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' +  result[i].logContent + '</li>'
                 }
                 $('.deal-with-list').empty();
-                $('.deal-with-list').append(str);
+                $('.deal-with-list').append(str).show();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

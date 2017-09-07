@@ -7,30 +7,41 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd'
     });
+
     //获得用户id
     var _userIdNum = sessionStorage.getItem('userName');
+
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
     //设置初始时间
     var _initStart = moment().format('YYYY/MM/DD');
+
     var _initEnd = moment().format('YYYY/MM/DD');
+
     //显示时间
     $('.min').val(_initStart);
+
     $('.max').val(_initEnd);
+
     //出库产品index上下键
     var _num = -1;
+
     //记录品质选项的上下键index
     var _pzNum = -1;
+
     //验证必填项（非空）
     Vue.validator('requireds', function (val) {
         //获取内容的时候先将首尾空格删除掉；
         val=val.replace(/^\s+|\s+$/g,'');
         return /[^.\s]{1,500}$/.test(val)
     })
+
     //新增入库单的vue对象
-   var myApp33 = new Vue({
+    var myApp33 = new Vue({
         el:'#myApp33',
         data:{
             'bianhao':'',
@@ -49,6 +60,7 @@ $(function(){
 
        }
     });
+
     //新增入库产品的vue对象
     var workDone = new Vue({
         'el':'#workDone',
@@ -73,16 +85,18 @@ $(function(){
         methods:{
             addFun1:function(){
                 var mny = /^[0-9]*[1-9][0-9]*$/;
+                //首先确定数量填写了
                 if(workDone.num != ''){
+                    //判断是否符合正则（正整数）;
                     if(mny.test(workDone.num)){
-                        $('.format-error').hide();
-                        if(workDone.num>workDone.redundant){
+                        $('.format-error4').hide();
+                        if(parseInt(workDone.num)>parseInt(workDone.redundant)){
                             $('.format-error2').show();
                         }else{
                             $('.format-error2').hide();
                         }
                     }else{
-                        $('.format-error').show();
+                        $('.format-error4').show();
                     }
                 }else{
                     $('.format-error').hide();
@@ -90,6 +104,7 @@ $(function(){
                 }
                 var amount = Number(workDone.outPrice) * Number(workDone.num);
                 workDone.amount = amount.toFixed(2);
+                console.log(mny.test(workDone.num));
 
             },
             addFun2:function(){
@@ -145,8 +160,7 @@ $(function(){
                             '</span>' +'</li>'
                     }
                 }
-                $('.accord-with-list').eq(2).empty();
-                $('.accord-with-list').eq(2).append(str);
+                $('.accord-with-list').eq(2).empty().append(str);
             },
             keySn:function(e){
                 var value = $.trim(workDone.goodsId);
@@ -231,349 +245,375 @@ $(function(){
             },
         }
     });
+
+    //出库
+    var chukuObject = new Vue({
+        el:'#chukuObject',
+        data:{
+            ck:'',
+            bianhao:'',
+            mingcheng:'',
+            size:'',
+            picked:'',
+            goodsId:'',
+            unit:'',
+            quality:'',
+            warranty:'',
+            shengyu:'',
+            num:'',
+            outPrice:'',
+            amount:'',
+            gdCode:'',
+            chezhan:'',
+            remark:''
+        }
+    })
+
     //存放入库产品的数组
     var _rukuArr = [];
+
     //存放当前条件下的所有数据
     var _allData = [];
+
     //存放删除入库单
     var _$thisRemoveRowDa = '';
+
     //存放入库单当前删除行的坐标
     var _$thisRemoveRowXiao = '';
+
     //存放物品列表
     var _wpListArr = [];
+
     //当前选中的一条物品列表
     var _wpObject = {};
+
     //var _$thisWP = '';
     //仓库选择
     warehouse($('#ckselect'));
+
     warehouse($('#ckSelect1'));
+
     //出库类型
     rkLX();
     rkLX('flag');
+
     //存放所有车站
     var _chezhanArr = [];
+
     //车站
     chezhan();
+
     //所有工单列表的数组
     var _gdArr = [];
+
     //所有工单列表
     gdList();
+
     //所有仓库的数据
     var _ckArr = [];
+
     //获取仓库列表
     warehouse($('.pinzhixx').eq(0));
+
+    //出库单号
+    var _$thisRKnum = '';
+
     /*-------------------------------------表格初始化------------------------------*/
-    var _tables = $('.main-contents-table .table').DataTable({
-        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-        'paging': true,   //是否分页
-        'destroy': true,//还原初始化了的datatable
-        'searching': true,
-        'ordering': false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'sSearch':'查询',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs'
+        }
+    ];
+
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+
+    var col = [
+        {
+            title:'出库单号',
+            data:'orderNum',
+            className:'orderNum'
         },
-        "dom":'t<"F"lip>',
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs btn btn-success'
-            }
-        ],
-        'columns':[
-            {
-                title:'出库单号',
-                data:'orderNum',
-                className:'orderNum'
-            },
-            {
-                title:'出库类型',
-                data:'outType',
-                render:function(data, type, full, meta){
-                    if(data == 9){
-                        return '其他'
-                    }if(data == 1){
-                        return '领用出库'
-                    }if(data == 2){
-                        return '借货出库'
-                    }if(data == 3){
-                        return '借用还出'
-                    }
-                },
-                className:'outType'
-
-            },
-            {
-                title:'材料员名称',
-                data:'cusName'
-            },
-            {
-                title:'材料员电话',
-                data:'phone'
-            },
-            {
-                title:'创建时间',
-                data:'createTime'
-            },
-            {
-                title:'审核时间',
-                data:'auditTime'
-            },
-            {
-                title:'制单人',
-                data:'createUser'
-            },
-            {
-                title:'备注',
-                data:'remark'
-            },
-            {
-                title:'操作',
-                data:'status',
-                render:function(data, type, full, meta){
-                    if(data == 1){
-                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                            "<span class='data-option option-confirmed btn default btn-xs green-stripe'>已审核</span>" +
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
-                    }if(data == 0){
-                        return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                            "<span class='data-option option-confirm btn default btn-xs green-stripe'>待审核</span>" +
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
-                    }
+        {
+            title:'出库类型',
+            data:'outType',
+            render:function(data, type, full, meta){
+                if(data == 9){
+                    return '其他'
+                }if(data == 1){
+                    return '领用出库'
+                }if(data == 2){
+                    return '借货出库'
+                }if(data == 3){
+                    return '借用还出'
                 }
+            },
+            className:'outType'
 
+        },
+        {
+            title:'材料员名称',
+            data:'cusName'
+        },
+        {
+            title:'材料员电话',
+            data:'phone'
+        },
+        {
+            title:'创建时间',
+            data:'createTime'
+        },
+        {
+            title:'审核时间',
+            data:'auditTime'
+        },
+        {
+            title:'制单人',
+            data:'createUser'
+        },
+        {
+            title:'备注',
+            data:'remark'
+        },
+        {
+            title:'操作',
+            data:'status',
+            render:function(data, type, full, meta){
+                if(data == 1){
+                    return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                        "<span class='data-option option-confirmed btn default btn-xs green-stripe'>已审核</span>" +
+                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                }if(data == 0){
+                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                        "<span class='data-option option-confirm btn default btn-xs green-stripe'>待审核</span>" +
+                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                }
             }
-        ]
-    });
-    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+
+        }
+    ];
+
+    tableInit($('.main-contents-table .table'),col,buttonVisible,'flag');
+
     $.fn.dataTable.ext.errMode = function (s, h, m) {
         console.log('')
     };
+
     //加载页面的时候，隐藏其他两个导出按钮
     for( var i=1;i<$('.excelButton').children().length;i++ ){
         $('.excelButton').children().eq(i).addClass('hidding');
     };
+
     //新增弹框内的表格
-    $('#wuPinListTable1').DataTable({
-        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-        'paging': true,   //是否分页
-        'destroy': true,//还原初始化了的datatable
-        'searching': true,
-        'ordering': false,
-        bLengthChange:false,
-        "iDisplayLength":100,//默认每页显示的条数
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'sSearch':'查询',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
+    var col2 = [
+        {
+            title:'物品编号',
+            data:'itemNum',
+            className:'bianma'
+        },
+        {
+            title:'物品名称',
+            data:'itemName'
+        },
+        {
+            title:'物品序列号',
+            data:'sn'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'仓库',
+            data:'storageName'
+        },
+        {
+            title:'单位',
+            data:'unitName'
+        },
+        {
+            title:'数量',
+            data:'num',
+            className:'right-justify'
+        },
+        {
+            title:'出库单价',
+            data:'outPrice',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = parseFloat(data).toFixed(2)
+                return data
             }
         },
-        "dom":'t<"F"lip>',
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs hidding'
+        {
+            title:'总金额',
+            data:'amount',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = parseFloat(data).toFixed(2)
+                return data
             }
-        ],
-        'columns':[
-            {
-                title:'物品编号',
-                data:'itemNum',
-                className:'bianma'
-            },
-            {
-                title:'物品名称',
-                data:'itemName'
-            },
-            {
-                title:'物品序列号',
-                data:'sn'
-            },
-            {
-                title:'规格型号',
-                data:'size'
-            },
-            {
-                title:'仓库',
-                data:'storageName'
-            },
-            {
-                title:'单位',
-                data:'unitName'
-            },
-            {
-                title:'数量',
-                data:'num',
-                className:'right-justify'
-            },
-            {
-                title:'出库单价',
-                data:'outPrice',
-                className:'right-justify',
-                render:function(data, type, full, meta){
-                    var data = parseFloat(data).toFixed(2)
-                    return data
-                }
-            },
-            {
-                title:'总金额',
-                data:'amount',
-                className:'right-justify',
-                render:function(data, type, full, meta){
-                    var data = parseFloat(data).toFixed(2)
-                    return data
-                }
-            },
-            {
-                title:'品质',
-                data:'batchNum'
-            },
-            {
-                title:'备注',
-                data:'outMemo'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-bianji btn default btn-xs green-stripe' data-flag=1>编辑</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+        },
+        {
+            title:'品质',
+            data:'batchNum'
+        },
+        {
+            title:'备注',
+            data:'outMemo'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-bianji btn default btn-xs green-stripe' data-flag=1>编辑</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
 
-            }
-        ]
-    });
+        }
+    ];
+
+    tableInit($('#wuPinListTable1'),col2,buttonHidden);
 
     //查看详情的表格
-    $('#personTable1').DataTable({
-        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-        'paging': true,   //是否分页
-        'destroy': true,//还原初始化了的datatable
-        'searching': true,
-        'ordering': false,
-        "iDisplayLength":100,//默认每页显示的条数
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'sSearch':'查询',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
+    var col3 = [
+        {
+            title:'仓库',
+            data:'storageName'
+        },
+        {
+            title:'物品编号',
+            data:'itemNum',
+            className:'bianma'
+        },
+        {
+            title:'物品名称',
+            data:'itemName'
+        },
+        {
+            title:'物品序列号',
+            data:'sn'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'单位',
+            data:'unitName'
+        },
+        {
+            title:'数量',
+            data:'num',
+            className:'right-justify'
+        },
+        {
+            title:'出库单价',
+            data:'outPrice',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = parseFloat(data).toFixed(2)
+                return data
             }
         },
-        "dom":'t<"F"lip>',
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '保存为excel格式',
-                className:'saveAs hidding'
+        {
+            title:'总金额',
+            data:'amount',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = parseFloat(data).toFixed(2)
+                return data
             }
-        ],
-        'columns':[
-            {
-                title:'仓库',
-                data:'storageName'
-            },
-            {
-                title:'物品编号',
-                data:'itemNum',
-                className:'bianma'
-            },
-            {
-                title:'物品名称',
-                data:'itemName'
-            },
-            {
-                title:'物品序列号',
-                data:'sn'
-            },
-            {
-                title:'规格型号',
-                data:'size'
-            },
-            {
-                title:'单位',
-                data:'unitName'
-            },
-            {
-                title:'数量',
-                data:'num',
-                className:'right-justify'
-            },
-            {
-                title:'出库单价',
-                data:'outPrice',
-                className:'right-justify',
-                render:function(data, type, full, meta){
-                    var data = parseFloat(data).toFixed(2)
-                    return data
+        },
+        {
+            title:'品质',
+            data:'batchNum'
+        },
+        {
+            title:'备注',
+            data:'outMemo'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+
+        }
+    ];
+
+    tableInit($('#personTable1'),col3,buttonHidden);
+
+    //选择出库材料表格
+    var col4 = [
+        {
+            title:'序列号',
+            data:'sn',
+            className:'xuliehao'
+        },
+        {
+            title:'物品编码',
+            className:'bianma',
+            data:'itemNum'
+        },
+        {
+            title:'物品名称',
+            className:'mingcheng',
+            data:'itemName'
+        },
+        {
+            title:'仓库',
+            data:'storageName',
+            className:'cangku'
+        },
+        {
+            title:'是否耐用',
+            data:'isSpare',
+            render:function(data, type, full, meta){
+                if(data == 0){
+                    return '否'
+                }if(data == 1){
+                    return '是'
                 }
             },
-            {
-                title:'总金额',
-                data:'amount',
-                className:'right-justify',
-                render:function(data, type, full, meta){
-                    var data = parseFloat(data).toFixed(2)
-                    return data
-                }
-            },
-            {
-                title:'品质',
-                data:'batchNum'
-            },
-            {
-                title:'备注',
-                data:'outMemo'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+            className:'isSpare'
+        },
+        {
+            title:'规格型号',
+            data:'size',
+            className:'size'
+        },
+        {
+            title:'分类名称',
+            data:'cateName'
+        },
+        {
+            title:'剩余数量',
+            data:'num',
+            className:'num'
+        }
+    ];
 
-            }
-        ]
-    });
+    tableInit($('#wuPinListTable'),col4,buttonHidden);
 
-    $('#wuPinListTable').DataTable({
+    wlList();
+
+    //备件表格
+    $('#table-spare').DataTable({
         'autoWidth': false,  //用来启用或禁用自动列的宽度计算
         'paging': true,   //是否分页
         'destroy': true,//还原初始化了的datatable
         'searching': true,
         'ordering': false,
         bLengthChange:false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -600,54 +640,35 @@ $(function(){
         ],
         "columns": [
             {
-                title:'序列号',
-                data:'sn',
-                className:'xuliehao'
+                title:'备件编码',
+                //data:''
             },
             {
-                title:'物品编码',
-                className:'bianma',
-                data:'itemNum'
+                title:'备件名称',
+                //data:''
             },
             {
-                title:'物品名称',
-                className:'mingcheng',
-                data:'itemName'
+                title:'数量',
+                //data:''
             },
             {
-                title:'仓库',
-                data:'storageName',
-                className:'cangku'
-            },
-            {
-                title:'是否耐用',
-                data:'isSpare',
-                render:function(data, type, full, meta){
-                    if(data == 0){
-                        return '否'
-                    }if(data == 1){
-                        return '是'
-                    }
-                },
-                className:'isSpare'
-            },
-            {
-                title:'规格型号',
-                data:'size',
-                className:'size'
-            },
-            {
-                title:'分类名称',
-                data:'cateName'
-            },
-            {
-                title:'剩余数量',
-                data:'num',
-                className:'num'
+                title:'库存',
+                //data:''
             }
+
         ],
     });
-    wlList();
+
+    //查看备件按钮
+    $('.see-spare').click(function(){
+        $('.spare-part').show();
+    })
+
+    //关闭
+    $('.spare-close').click(function(){
+        $('.spare-part').hide();
+    })
+
     /*-------------------------------------按钮事件-------------------------------*/
     //状态选项卡
     $('.table-title').children('span').click(function(){
@@ -661,6 +682,7 @@ $(function(){
         };
         $('.excelButton').children().eq($(this).index()).removeClass('hidding');
     });
+
     //查询按钮
     $('#selected').click(function(){
         //时间验证
@@ -679,6 +701,7 @@ $(function(){
             }
         }
     })
+
     //重置按钮
     //点击重置按钮的时候，所有input框清空，时间还原成今天的
     $('.resites').click(function(){
@@ -690,12 +713,14 @@ $(function(){
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
     })
+
     //新增按钮(出现模态框)
     $('.creatButton').on('click',function(){
         //审核备注不显示
         $('.shRemarks').hide();
         //所有输入框不可操作；
         $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+        $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
         $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
         $('#myApp33').find('textarea').attr('disabled',false);
         //新增物品按钮隐藏
@@ -724,6 +749,7 @@ $(function(){
         datasTable($('#personTable1'),_rukuArr);
         moTaiKuang($('#myModal'),'添加');
     })
+
     //新增确认按钮
     $('#myModal').on('click','.dengji',function(){
         //先判断 必填项
@@ -753,6 +779,7 @@ $(function(){
                 obj.userName = _userIdName;
                 obj.storageName = _rukuArr[i].storageName;
                 obj.storageNum = _rukuArr[i].storageNum;
+                obj.batchNum = _rukuArr[i].batchNum;
                 outStoreDetails1.push(obj);
             }
             //获取填写的入库信息
@@ -795,6 +822,7 @@ $(function(){
             })
         }
     });
+
     //新增产品按钮(出现模态框)
     $('.zhiXingRenYuanButton').on('click',function(){
         //编辑的时候，编码和名称，条形码不能修改。
@@ -840,11 +868,13 @@ $(function(){
             $('.not-editable').eq(0).focus();
         })
     })
+
     //增加入库单操作(仅仅是全端静态操作，没有涉及数据库)
     $('#myModal1').on('click','.ruku',function(){
         $('#myModal1').modal('hide');
         datasTable($('#personTable1'),_rukuArr);
     })
+
     $('.main-contents-table .table tbody')
         .on('click','.option-see',function(){
             //审核备注不显示
@@ -857,6 +887,7 @@ $(function(){
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
                     //绑定数据
@@ -874,24 +905,15 @@ $(function(){
             //获取当前入库单号的
             moTaiKuang($('#myModal'),'查看','flag')
             //获取入库信息的详细物品信息
-            var prm = {
-                'orderNum':$thisDanhao,
-                'userID':_userIdNum
+            function sucFun1(result){
+                console.log('111');
+                console.log(result);
+                datasTable($('#personTable1'),result)
             }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKGetOutStorageDetail',
-                data:prm,
-                async:false,
-                success:function(result){
-                    datasTable($('#personTable1'),result)
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            })
+            detailInfo($thisDanhao,sucFun1);
             //所有输入框不可操作；
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true);
             //新增物品按钮隐藏
@@ -899,7 +921,7 @@ $(function(){
             //入库产品删除按钮不可操作
             $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
         })
-        .on('click','.option-edit',function(){
+            .on('click','.option-edit',function(){
             //审核备注不显示
             $('.shRemarks').hide();
             $('.tableHovers').children('.condition-query').show();
@@ -909,6 +931,7 @@ $(function(){
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
                     //绑定数据
@@ -926,27 +949,16 @@ $(function(){
             //获取当前入库单号的
             moTaiKuang($('#myModal'),'编辑');
             //获取入库信息的详细物品信息
-            var prm = {
-                'orderNum':$thisDanhao,
-                'userID':_userIdNum
+            function sucFun2(result){
+                _rukuArr = result;
+                datasTable($('#personTable1'),result)
             }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKGetOutStorageDetail',
-                data:prm,
-                async:false,
-                success:function(result){
-                    _rukuArr = result;
-                    datasTable($('#personTable1'),result)
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            });
+            detailInfo($thisDanhao,sucFun2);
             //判断状态是已确认还是待确定
             if( $(this).next().html() == '已审核' ){
                 //所有输入框不可操作；
                 $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+                $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
                 $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
                 $('#myApp33').find('textarea').attr('disabled',true);
                 //新增物品按钮隐藏
@@ -956,6 +968,7 @@ $(function(){
             }else if( $(this).next().html() == '待审核' ){
                 //所有输入框不可操作；
                 $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+                $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
                 $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
                 $('#myApp33').find('textarea').attr('disabled',false);
                 //新增物品按钮隐藏
@@ -973,6 +986,7 @@ $(function(){
             $this.addClass('tables-hover');
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
             _$thisRemoveRowDa = $thisDanhao;
+            _$thisRKnum = $thisDanhao;
             //提示框，确定要删除吗？
             var $myModal = $('#myModal3');
             //绑定信息
@@ -1028,25 +1042,13 @@ $(function(){
             //获取当前入库单号的
             moTaiKuang($('#myModal'),'审核');
             //获取入库信息的详细物品信息
-            var prm = {
-                'orderNum':$thisDanhao,
-                'userID':_userIdNum,
-                'userName':_userIdName
+            function sucFun3(result){
+                datasTable($('#personTable1'),result)
             }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKGetOutStorageDetail',
-                data:prm,
-                async:false,
-                success:function(result){
-                    datasTable($('#personTable1'),result)
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            })
+            detailInfo($thisDanhao,sucFun3);
             //所有操作框均为只读
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true);
             $('.shRemarks').find('textarea').attr('disabled',false);
@@ -1060,6 +1062,7 @@ $(function(){
             $('#myModal2').find('.modal-body').html('已确认，不能进行该操作');
             moTaiKuang($('#myModal2'),'提示','flag');
         })
+
     //表格编辑确认按钮
     $('#myModal')
         .on('click','.bianji',function(){
@@ -1159,6 +1162,7 @@ $(function(){
                 }
             })
         })
+
     //入库单确认删除操作
     $('.modal').on('click','.daShanchu',function(){
         var prm = {
@@ -1185,14 +1189,49 @@ $(function(){
             }
         })
     })
+
     //删除入库产品操作
-    $('#personTable1 tbody').on('click','.option-shanchu',function(){
+    $('#personTable1 tbody')
+        .on('click','.option-shanchu',function(){
         _$thisRemoveRowXiao = $(this);
         $('#myModal2').find('.modal-body').html('确定要删除吗？');
         moTaiKuang($('#myModal2'),'提示');
         //新添加类名，实现入库单操作；
         $('#myModal2').find('.btn-primary').removeClass('removeButton').addClass('xiaoShanchu');
-    });
+    })
+        .on('click','.option-see1',function(){
+            moTaiKuang($('#myModal6'),'出库产品详情','flag');
+            //获取详情赋值
+            function sucFun3(result){
+                chukuObject.ck = result[0].storageName;
+                chukuObject.bianhao = result[0].itemNum;
+                chukuObject.mingcheng = result[0].itemName;
+                chukuObject.size = result[0].size;
+                chukuObject.picked = result[0].isSpare;
+                chukuObject.goodsId = result[0].sn;
+                chukuObject.unit = result[0].unitName;
+                chukuObject.quality = result[0].batchNum;
+                chukuObject.warranty = result[0].maintainDate;
+                chukuObject.num = result[0].num;
+                chukuObject.outPrice = result[0].outPrice;
+                chukuObject.amount = result[0].amount;
+                chukuObject.gdCode = result[0].gdCode2;
+                chukuObject.chezhan = result[0].bxKeshi;
+                chukuObject.remark = result[0].outMemo;
+                if(chukuObject.picked == 0){
+                    $('.durable').parent('span').removeClass('checked');
+                    $('.durable').parent('span').eq(1).addClass('checked');
+                }else{
+                    $('.durable').parent('span').removeClass('checked');
+                    $('.durable').parent('span').eq(0).addClass('checked');
+                }
+            }
+            //所有信息不可编辑
+            $('#chukuObject').find('.gdList').children('.input-blockeds').addClass('disabled-block');
+            $('#chukuObject').find('.gdList').children('.input-blockeds').children('input').addClass('disabled-block').attr('disabled',true);
+            detailInfo(_$thisRKnum,sucFun3);
+        })
+
     //入库产品删除操作按钮
     $('#myModal2').on('click','.xiaoShanchu',function(){
         //首先获取当前删除的表格的编码
@@ -1202,6 +1241,7 @@ $(function(){
         $('#myModal2').modal('hide');
         $(this).removeClass('xiaoShanchu');
     })
+
     //选择物品列表
     $('#wuPinListTable tbody').on('click','tr',function(){
         $('#wuPinListTable tbody').children('tr').removeClass('tables-hover');
@@ -1215,6 +1255,7 @@ $(function(){
         _wpObject.isSpare = $(this).children('.isSpare').html();
         _wpObject.num = $(this).children('.num').html();
     });
+
     $('#myModal4').find('.btn-primary').on('click',function(){
         for(var i=0;i<_wpListArr.length;i++){
             if(_wpListArr[i].itemNum == _wpObject.bm && _wpListArr[i].itemName == _wpObject.mc && _wpListArr[i].sn == _wpObject.sn && _wpListArr[i].size == _wpObject.size && _wpListArr[i].storageName == _wpObject.cangku && _wpListArr[i].num == _wpObject.num){
@@ -1239,27 +1280,31 @@ $(function(){
         }
         $('#myModal4').modal('hide');
     });
+
     //选择物品列表
     $('.tianJiaruku').click(function(){
         moTaiKuang($('#myModal4'));
         wlList('flag');
     });
+
     //出库物品条件查询
     $('#selected1').click(function(){
         wlList('flag');
     });
+
     //其他点击事件
     $('.accord-with-list').children('li').not();
+
     //第二层的添加入库产品按钮
     $('#addRK').click(function(){
-        //验证必填项
-        if( workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' ){
+        //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
+        if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.gdCode == '' || workDone.chezhan == '' ){
             var myModal = $('#myModal2');
             //提示框
             myModal.find('.modal-body').html('请填写红色必填项');
             moTaiKuang(myModal,'提示','flag');
         }else{
-            var o = $('.format-error')[0].style.display;
+            var o = $('.format-error4')[0].style.display;
             var s = $('.format-error1')[0].style.display;
             var a = $('.format-error2')[0].style.display;
             if(o!='none' && s!='none' && a!= 'none'){
@@ -1329,6 +1374,7 @@ $(function(){
             }
         }
     });
+
     //添加入库产品之后，重置按钮
     //重置
     $('#addReset').click(function(){
@@ -1357,6 +1403,7 @@ $(function(){
         $('.not-editable').attr('disabled',false).removeClass('disabled-block');
         $('.not-editable').parents('.input-blockeds').removeClass('disabled-block');
     });
+
     $('#wuPinListTable1 tbody')
         .on('click','.option-shanchu',function(){
         _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
@@ -1411,7 +1458,7 @@ $(function(){
         //编辑之后，保存
         .on('click','.option-save',function(){
             $('.not-editable').attr('disabled',false).removeClass('disabled-block');
-            if(workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == ''){
+            if(workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.gdCode == '' || workDone.chezhan == ''){
                 var myModal = $('#myModal2');
                 //提示框
                 myModal.find('.modal-body').html('请填写红色必填项');
@@ -1462,6 +1509,7 @@ $(function(){
                 $('.not-editable').parents('.input-blockeds').removeClass('disabled-block');
             }
         })
+
     $('#myModal2').on('click','.removeButton',function(){
         //静态删除
         _rukuArr.removeByValue(_$thisRemoveRowXiao);
@@ -1469,6 +1517,7 @@ $(function(){
         $('this').removeClass('removeButton');
         $('#myModal2').modal('hide');
     });
+
     //入库产品的回车自动聚焦功能
     $('.inputType').keyup(function(e){
         var e = e||window.event;
@@ -1476,6 +1525,7 @@ $(function(){
             $(this).parents('.gdList').next('li').find('.inputType').focus();
         }
     });
+
     //选择工单
     $('.pinzhixx').eq(1)
         .on('click','div',function(e){
@@ -1489,12 +1539,14 @@ $(function(){
             $(this).parents('.hidden1').hide();
 
             e.stopPropagation();
+            _pzNum = -1;
         })
         .on('mouseover','div',function(e){
             $(this).parent('.pinzhixx').children('div').removeClass('li-color');
             $(this).addClass('li-color');
             _pzNum = $('.li-color').index();
         });
+
     //仓库选择
     $('.pinzhixx').eq(0)
         .on('click','div',function(e){
@@ -1555,6 +1607,8 @@ $(function(){
             $(this).parents('.hidden1').hide();
 
             e.stopPropagation();
+
+            _pzNum = -1;
         })
         .on('mouseover','div',function(e){
             $(this).parent('.pinzhixx').children('div').removeClass('li-color');
@@ -1562,9 +1616,11 @@ $(function(){
             _pzNum = $('.li-color').index();
 
         });
+
     $('.warranty').on('changeDate',function(e){
         $('.warranty').datepicker('hide');
     });
+
     //点击状态下出现选项
     $('.selectBlock').click(function(e){
         var e = event || window.event;
@@ -1576,6 +1632,7 @@ $(function(){
         }
         e.stopPropagation();
     });
+
     //物品编码点击
     $('.accord-with-list').eq(0)
         .on('click','li',function(e){
@@ -1609,7 +1666,7 @@ $(function(){
                         '</span>' +'</li>'
                 }
             }
-            $('.accord-with-list').eq(2).append(str);
+            $('.accord-with-list').eq(2).empty().append(str);
             //其他项初始化
             workDone.goodsId = '';
             workDone.size = '';
@@ -1631,24 +1688,28 @@ $(function(){
                 $('.inpus').parent('span').removeClass('checked');
                 $('.inpus').parent('span').eq(0).addClass('checked');
             }
+            _num = -1;
         })
         .on('mouseover','li',function(){
             $(this).parent('.accord-with-list').children('li').removeClass('li-color');
             $(this).addClass('li-color');
             _num = $('.li-color').index();
         });
+
     //物品名称点击
     $('.accord-with-list').eq(1)
         .on('click','li',function(e){
             workDone.bianhao = $(this).children('.dataNum').html();
             workDone.mingcheng = $(this).children('.dataName').html();
             $(this).parents('.accord-with-list').hide();
+            _num =-1;
         })
         .on('mouseover','li',function(){
             $(this).parent('.accord-with-list').children('li').removeClass('li-color');
             $(this).addClass('li-color');
             _num = $('.li-color').index();
         });
+
     //序列号选择
     $('.accord-with-list').eq(2)
         .on('click','li',function(e){
@@ -1674,16 +1735,20 @@ $(function(){
             workDone.gdCode = '';
             workDone.chezhan = '';
             workDone.remark = '';
+            _num = -1;
         })
         .on('mouseover','li',function(){
             $(this).parent('.accord-with-list').children('li').removeClass('li-color');
             $(this).addClass('li-color');
             _num = $('.li-color').index();
         });
+
     $(document).click(function(){
         $('.hidden1').hide();
     });
+
     /*------------------------------------表格数据--------------------------------*/
+
     conditionSelect();
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
@@ -1729,6 +1794,7 @@ $(function(){
             }
         })
     }
+
     //确定新增弹出框的位置
     function moTaiKuang(who, title, flag) {
         who.modal({
@@ -1747,6 +1813,40 @@ $(function(){
             who.find('.btn-primary').show();
         }
     }
+
+    //表格初始化
+    function tableInit(tableId,col,buttons,flag){
+        var _tables = tableId.DataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": true,   //是否分页
+            "destroy": true,//还原初始化了的datatable
+            "searching": false,
+            "ordering": false,
+            "iDisplayLength":50,//默认每页显示的条数
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '没有数据',
+                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                'infoEmpty': '没有数据',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            "dom":'B<"clear">lfrtip',
+            'buttons':buttons,
+            "columns": col
+        })
+        if(flag){
+            _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+        }
+    }
+
     //dataTables表格填数据
     function datasTable(tableId,arr){
         if(arr.length == 0){
@@ -1760,6 +1860,7 @@ $(function(){
             table.fnDraw();
         }
     }
+
     //根据value删除数组
     Array.prototype.removeByValue = function(val) {
         for(var i=0; i<this.length; i++) {
@@ -1769,6 +1870,7 @@ $(function(){
             }
         }
     }
+
     //仓库选择
     function warehouse(el){
         var prm = {
@@ -1795,6 +1897,7 @@ $(function(){
             }
         })
     }
+
     //获取物品列表
     function wlList(flag){
         var prm = {
@@ -1839,6 +1942,7 @@ $(function(){
             }
         })
     }
+
     //入库类型
     function rkLX(flag){
         var prm = {
@@ -1856,13 +1960,13 @@ $(function(){
                     for(var i=0;i<result.length;i++){
                         str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
                     }
-                    $('.tiaojian').append(str);
+                    $('.tiaojian').empty().append(str);
                 }else{
                     var str = '<option value="">请选择</option>';
                     for(var i=0;i<result.length;i++){
                         str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
                     }
-                    $('#rkleixing').append(str);
+                    $('#rkleixing').empty().append(str);
                 }
 
             },
@@ -1871,6 +1975,7 @@ $(function(){
             }
         })
     }
+
     //获取车站
     function chezhan(){
         var prm = {
@@ -1897,13 +2002,14 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
                 }
-                $('#chezhan').append(str);
+                $('#chezhan').empty().append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
     }
+
     //键盘选择出库产品(专门针对物品id的)
     function keySelect(value,index,flag){
         var e = e || window.event;
@@ -1945,6 +2051,7 @@ $(function(){
             }
 
         }else if(e.keyCode == 13){
+            _num = -1;
             if(flag){
                 var lis = $('.accord-with-list').eq(index).children('li');
                 for(var i=0;i<lis.length;i++){
@@ -2068,10 +2175,11 @@ $(function(){
 
                 $('.accord-with-list').eq(index).show();
 
-                $('.accord-with-list').eq(index).append(str);
+                $('.accord-with-list').eq(index).empty().append(str);
             }
         }
     }
+
     //获取所有工单
     function gdList(){
         var prm = {
@@ -2087,7 +2195,8 @@ $(function(){
             userID:_userIdNum,
             userName:_userIdName,
             isCalcTimeSpan:1,
-            wxShiXNum:''
+            wxShiXNum:'',
+            isApplyWxCl:1
         }
         $.ajax({
             type:'post',
@@ -2101,23 +2210,23 @@ $(function(){
                     _gdArr.push(result[i]);
                     str += '<div data-dds="' + _gdArr[i].bxKeshiNum +
                         '"data-ddsName="' + _gdArr[i].bxKeshi +
+                        '"data-gdCode="' + _gdArr[i].gdCode +
                         '">' + _gdArr[i].gdCode2 + '</div>';
                 }
-                $('.pinzhixx').eq(1).empty();
-                $('.pinzhixx').eq(1).append(str);
+                $('.pinzhixx').eq(1).empty().append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
     }
+
     //键盘选择工单和仓库(仓库不关联车站，用flag)
     function keyGDCK(value,index,flag){
         var e = e || window.event;
         //下键40 上键38
         if(e.keyCode == 40){
             //按下键的时候，
-
             //获得所有li
             var lis = $('.pinzhixx').eq(index).children('div');
             if(_pzNum<lis.length-1){
@@ -2153,6 +2262,7 @@ $(function(){
             }
 
         }else if(e.keyCode == 13){
+            _pzNum = -1;
             var lis = $('.pinzhixx').eq(index).children('div');
             for(var i=0;i<lis.length;i++){
                 if(flag){
@@ -2162,6 +2272,41 @@ $(function(){
                         $('.cangku').attr('data-name',lis.eq(i).attr('data-name'));
                         //选择完之后，关闭
                         $('.pinzhixx').eq(index).hide();
+                        var arr = [];
+                        var str = '';
+                        for(var i=0;i<_wpListArr.length;i++){
+                            if($('.cangku').attr('data-num') == _wpListArr[i].storageNum){
+
+                                arr.push(_wpListArr[i]);
+                                //生成编码列表
+                                //for(var i=0;i<_ckArr.length;i++){
+                                //    if(_ckArr[i].storageName.indexOf(searchValue)>=0 || _ckArr[i].storageNum.indexOf(searchValue)>=0){
+                                //        includeArr = [];
+                                //        includeArr.push(_ckArr[i]);
+                                //        str +='<div data-num="' + _ckArr[i].storageNum + '"data-name="' + _ckArr[i].storageName +
+                                //            '">' + _ckArr[i].storageName + '</div>'
+                                //    }
+                                //}
+                                str += '<li data-durable="' + _wpListArr[i].isSpare +
+                                    '"' + 'data-unit="' + _wpListArr[i].unitName +
+                                    '"data-quality="' + _wpListArr[i].batchNum +
+                                    '"data-maintainDate="' +  _wpListArr[i].maintainDate +
+                                    '"' + 'data-sn="' + _wpListArr[i].sn +
+                                    '"' + 'data-shengyu="' + _wpListArr[i].num +
+                                    '"' +
+                                    '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
+                                    '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
+                                    '<span class="dataSize" style="margin-left: 20px;">' +
+                                    _wpListArr[i].size+'</span>' +
+                                    '</li>';
+                            }
+                        }
+                        //console.log(str);
+                        $('.accord-with-list').eq(0).empty().append(str);
+                        if(arr.length == 0){
+                            $('#myModal2').find('.modal-body').html('该仓库无库存，请选择其他仓库');
+                            moTaiKuang($('#myModal2'),'提示','flag');
+                        }
                     }
                     //其他项初始化
                     workDone.bianhao = '';
@@ -2213,8 +2358,7 @@ $(function(){
                                 '">' + _ckArr[i].storageName + '</div>'
                             } }
 
-                    $('.pinzhixx').eq(index).empty();
-                    $('.pinzhixx').eq(index).append(str);
+                    $('.pinzhixx').eq(index).empty().append(str);
                     if(includeArr.length>0){
                         $('.pinzhixx').eq(index).show();
                     }
@@ -2229,8 +2373,7 @@ $(function(){
                                 '">' + _gdArr[i].gdCode2 + '</div>';
                         }
                     }
-                    $('.pinzhixx').eq(index).empty();
-                    $('.pinzhixx').eq(index).append(str);
+                    $('.pinzhixx').eq(index).empty().append(str);
                     if(includeArr.length>0){
                         $('.pinzhixx').eq(index).show();
                     }
@@ -2238,5 +2381,26 @@ $(function(){
 
             }
         }
+    }
+
+    //根据工单号，获得备件详细信息
+    function detailInfo(num,seccessFun){
+        var prm = {
+            'orderNum':num,
+            'userID':_userIdNum,
+            'userName':_userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetOutStorageDetail',
+            data:prm,
+            async:false,
+            success:function(result){
+                seccessFun(result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

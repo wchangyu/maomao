@@ -92,6 +92,7 @@ $(function(){
         "searching": true,
         "ordering": false,
         "pagingType": "full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -185,6 +186,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -237,6 +239,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -262,6 +265,14 @@ $(function(){
             {
                 title:'备件名称',
                 data:'wxClName'
+            },
+            {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
             },
             {
                 title:'数量',
@@ -277,6 +288,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -302,6 +314,14 @@ $(function(){
             {
                 title:'备件名称',
                 data:'wxClName'
+            },
+            {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
             },
             {
                 title:'数量',

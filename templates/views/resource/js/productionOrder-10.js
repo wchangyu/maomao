@@ -87,6 +87,7 @@ $(function(){
         "searching": true,
         "ordering": false,
         "pagingType": "full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -188,6 +189,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -240,6 +242,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -280,6 +283,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -305,6 +309,14 @@ $(function(){
             {
                 title:'备件名称',
                 data:'wxClName'
+            },
+            {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
             },
             {
                 title:'数量',
@@ -436,10 +448,10 @@ $(function(){
             _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
-                'gdZht':gongDanState,
+                //'gdZht':gongDanState,
                 'userID':_userIdNum,
                 'userName':_userIdName,
-                'gdCircle':_gdCircle
+                //'gdCircle':_gdCircle
             }
             //每次获取弹出框中执行人员的数量
             $.ajax({
@@ -654,7 +666,7 @@ $(function(){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' +  result[i].logContent + '</li>'
                 }
                 $('.deal-with-list').empty();
-                $('.deal-with-list').append(str);
+                $('.deal-with-list').append(str).show();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

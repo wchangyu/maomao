@@ -146,6 +146,7 @@ $(function(){
         "searching": true,
         "ordering": true,
         "pagingType": "full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -285,16 +286,9 @@ $(function(){
                 }
             },
             {
-                //title: '操作',
-                //"targets": -1,
-                //"data": null,
-                //"className": 'noprint',
-                //"defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                //"<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>" + "<span class='data-option option-beijian btn default btn-xs green-stripe'>维修备件管理</span>"
                 title:'操作',
                 data:'clStatus',
                 render:function(data, type, full, meta){
-                    //console.log(data);
                     if(data==10){
                         return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
                         "<span class='data-option tablePingjia btn default btn-xs purple'>关单</span>" + "<span class='data-option option-beijian btn default btn-xs green-stripe'>备件审核</span>"
@@ -325,6 +319,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -377,6 +372,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -417,6 +413,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -442,6 +439,14 @@ $(function(){
             {
                 title:'备件名称',
                 data:'wxClName'
+            },
+            {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
             },
             {
                 title:'数量',
@@ -1027,7 +1032,8 @@ $(function(){
             gdEt:slrealityEnd,
             userID:_userIdNum,
             userName:_userIdName,
-            gdZhts:[1,2,3,4,5,6]
+            gdZhts:[1,2,3,4,5,6],
+            isCalcTimeSpan:1
         };
         var userArr = [];
         var cheArr = [];
@@ -1215,7 +1221,7 @@ $(function(){
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
-                $('.deal-with-list').append(str);
+                $('.deal-with-list').append(str).show();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

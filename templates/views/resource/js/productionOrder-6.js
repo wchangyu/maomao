@@ -106,6 +106,7 @@ $(function(){
         "searching": true,
         "ordering": true,
         "pagingType":"full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
         "bStateSave":true,
         'language': {
             'emptyTable': '没有数据',
@@ -137,10 +138,17 @@ $(function(){
             {
                 title:'工单号',
                 data:'gdCode2',
+                //render:function(data, type, row, meta){
+                //    return '<span class="gongdanId" gdCode="' + row.gdCode +
+                //        '"' + "gdCircle=" + row.gdCircle +
+                //        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                //        '"' +
+                //        'target="_blank">' + data + '</a>'
+                //}
                 render:function(data, type, row, meta){
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
                         '"' +
                         'target="_blank">' + data + '</a>'
                 }
@@ -264,6 +272,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -314,6 +323,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',

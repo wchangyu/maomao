@@ -60,7 +60,9 @@ $(function(){
         data:{
             wpbm:'',
             wpmc:'',
-            wpsl:''
+            wpsl:'',
+            wpsize:'',
+            flmc:''
         }
     });
     //定位当前页索引值
@@ -107,6 +109,8 @@ $(function(){
     var _bjStateWillNum = '';
     //备件操作名称
     var _bjStateWillName = '';
+    //选择备件对象
+    var _bjObject = {};
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -115,6 +119,7 @@ $(function(){
         'destroy': true,//还原初始化了的datatable
         'searching': true,
         'ordering': false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -274,6 +279,14 @@ $(function(){
         {
             title:'备件名称',
             data:'wxClName'
+        },
+        {
+            title:'分类',
+            data:'cateName',
+        },
+        {
+            title:'规格',
+            data:'size'
         },
         {
             title:'数量',
@@ -518,7 +531,8 @@ $(function(){
         var col5 = [
             {
                 title:'分类名称',
-                data:'cateName'
+                data:'cateName',
+                className:'flmc'
             },
             {
                 title:'物料编码',
@@ -529,6 +543,11 @@ $(function(){
                 title:'物料名称',
                 data:'itemName',
                 className:'wlmc'
+            },
+            {
+                title:'型号',
+                data:'size',
+                className:'size'
             }
         ];
         tableInit($('#weiXiuCaiLiaoTable'),col5,fn1);
@@ -540,28 +559,35 @@ $(function(){
         var tableTr = $this.parents('.table').find('tr');
         tableTr.css('background','#ffffff');
         $this.css('background','#FBEC88');
-        _wlBM = $this.children('.wlbm').html();
-        _wlMC = $this.children('.wlmc').html();
+        _bjObject.flmc = $this.children('.flmc').html();
+        _bjObject.wpbm = $this.children('.wlbm').html();
+        _bjObject.wpmc = $this.children('.wlmc').html();
+        _bjObject.size = $this.children('.size').html();
     });
 
     //点击确定选择的物料编码和名称
     $('.addWL').click(function(){
-        wuLiaoInfo.wpbm = _wlBM;
-        wuLiaoInfo.wpmc = _wlMC;
+        wuLiaoInfo.flmc = _bjObject.flmc;
+        wuLiaoInfo.wpmc = _bjObject.wpmc;
+        wuLiaoInfo.wpsize = _bjObject.size;
+        wuLiaoInfo.wpbm = _bjObject.wpbm;
     })
 
     //选择维修材料
     $('.secondButtons').click(function(){
         //获取填写的信息
         var obj = {};
-        obj.wxClID = 0,
-            obj.wxCl = wuLiaoInfo.wpbm,
-            obj.wxClName = wuLiaoInfo.wpmc,
-            obj.clShul = wuLiaoInfo.wpsl
+            obj.wxClID = 0;
+            obj.wxCl = wuLiaoInfo.wpbm;
+            obj.wxClName = wuLiaoInfo.wpmc;
+            obj.clShul = wuLiaoInfo.wpsl;
+            obj.cateName = wuLiaoInfo.flmc;
+            obj.size = wuLiaoInfo.wpsize;
         //判断是否是重复的
         if(_weiXiuCaiLiao.length == 0){
             _weiXiuCaiLiao.push(obj);
             $('#myModal5').modal('hide');
+            console.log(_weiXiuCaiLiao);
             datasTable($("#personTables1"),_weiXiuCaiLiao);
         }else{
             var flag = false;
@@ -578,6 +604,7 @@ $(function(){
                 _weiXiuCaiLiao.push(obj);
                 $('#myModal5').modal('hide');
                 //传回给第一个弹框的表格
+                console.log(_weiXiuCaiLiao);
                 datasTable($("#personTables1"),_weiXiuCaiLiao);
             }
         }
@@ -825,6 +852,7 @@ $(function(){
             'destroy': true,//还原初始化了的datatable
             'searching': true,
             'ordering': false,
+            "iDisplayLength":50,//默认每页显示的条数
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',

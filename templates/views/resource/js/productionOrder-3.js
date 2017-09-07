@@ -483,8 +483,18 @@ $(function(){
                 url:_urls + 'YWGD/ywGDGetZh2',
                 data:prm,
                 success:function(result){
-                    $(".associated-station").show();
-                    datasTable($("#table-other"),result);
+                    var arr = [];
+                    for(var i=0;i<result.length;i++){
+                        if(gdCode != result[i].gdCode ){
+                            arr.push(result[i]);
+                        }
+                    }
+                    if(arr.length>0){
+                        $(".associated-station").show();
+                        datasTable($("#table-other"),arr);
+                    }else{
+                        $(".associated-station").hide();
+                    }
                 }
             })
         });
@@ -1216,6 +1226,7 @@ $(function(){
             'destroy': true,//还原初始化了的datatable
             'searching': true,
             'ordering': false,
+            "iDisplayLength":50,//默认每页显示的条数
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',
@@ -1737,6 +1748,7 @@ $(function(){
             'destroy': true,//还原初始化了的datatable
             'searching': true,
             'ordering': false,
+            "iDisplayLength":50,//默认每页显示的条数
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',
