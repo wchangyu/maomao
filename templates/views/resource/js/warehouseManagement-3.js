@@ -339,7 +339,11 @@ $(function(){
         {
             title:'出库单号',
             data:'orderNum',
-            className:'orderNum'
+            className:'orderNum',
+            render:function(data, type, row, meta){
+                return '<a href="outboundOrder.html?orderNum=' + row.orderNum +
+                    '" target="_blank">' + row.orderNum + '</a>'
+            }
         },
         {
             title:'出库类型',
@@ -886,7 +890,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
@@ -921,7 +925,7 @@ $(function(){
             //入库产品删除按钮不可操作
             $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
         })
-            .on('click','.option-edit',function(){
+        .on('click','.option-edit',function(){
             //审核备注不显示
             $('.shRemarks').hide();
             $('.tableHovers').children('.condition-query').show();
@@ -930,7 +934,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
@@ -984,7 +988,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _$thisRemoveRowDa = $thisDanhao;
             _$thisRKnum = $thisDanhao;
             //提示框，确定要删除吗？
@@ -1020,7 +1024,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){

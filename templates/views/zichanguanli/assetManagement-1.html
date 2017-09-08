@@ -15,9 +15,9 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-    <link rel="shortcut icon" href="http://simbyone.com/wp-content/uploads/2014/04/3455e6f65c33232a060c28829a49b1cb.png">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -294,14 +294,9 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">设备状态：</label>
+                                        <label for="">设备编码：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="zhuangtai">
-                                                <option value="0">全部</option>
-                                                <option value="1">正常</option>
-                                                <option value="2">维修</option>
-                                                <option value="3">报废</option>
-                                            </select>
+                                            <input type="text" id="bianhao">
                                         </div>
                                     </li>
 
@@ -319,6 +314,7 @@
                                             </select>
                                         </div>
                                     </li>
+
                                     <li>
                                         <label for="">设备系统：</label>
                                         <div class="input-blocked">
@@ -330,6 +326,31 @@
                                         <label for="">设备类别：</label>
                                         <div class="input-blocked">
                                             <select name="" id="leixing">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">设备状态：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="zhuangtai">
+                                                <option value="0">全部</option>
+                                                <option value="1">正常</option>
+                                                <option value="2">维修</option>
+                                                <option value="3">报废</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">车间:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="chejian">
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="">维修班组：</label>
+                                        <div class="input-blocked">
+                                            <select name="" id="banzu">
                                             </select>
                                         </div>
                                     </li>
@@ -352,7 +373,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="excelButton">
+                                    <li class="excelButton" style="margin-left: 0px;">
                                     </li>
                                     <div class="clearfix"></div>
                                 </ul>

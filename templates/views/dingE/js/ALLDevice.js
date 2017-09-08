@@ -8,7 +8,6 @@ $(document).ready(function(){
 
     //select 优化动画
 
-
     $(document).on('click', function () {
         if ($('.add-select-block').is(':hidden')) {
             $('.add-select-block').css({
@@ -301,7 +300,12 @@ $(document).ready(function(){
             buildDate = $("#add-meter .add-input").eq(9).val();
         }else{
 
-            buildDate = $("#add-meter .bookbuilding").eq(0).find('span').html();
+            if($("#add-meter .bookbuilding").eq(0).find('span').html() != ''){
+                buildDate = $("#add-meter .bookbuilding").eq(0).find('span').html();
+            }else{
+                buildDate = $("#add-meter .add-input").eq(9).val();
+            }
+
         };
 
 
@@ -494,6 +498,8 @@ $(document).ready(function(){
                     $('#alter-meter').find('.type-number').eq(2).find('.add-input').attr('placeHolder','不可输入');
                     $('#alter-meter').find('.type-number').eq(2).find('.add-input').attr('disabled','true');
                     $('#alter-meter').find('.type-number').eq(3).find('.add-input').attr('disabled','true');
+                    $('#alter-meter').find('.type-number').eq(3).find('.add-input').attr('placeHolder','不可输入');
+                    $('#alter-meter').find('.type-number').eq(3).find('label').removeClass('input-label');
 
 
                 }else{
@@ -525,6 +531,8 @@ $(document).ready(function(){
                     $('#alter-meter').find('.type-number').eq(2).find('.add-input').attr('placeHolder','');
                     $('#alter-meter').find('.type-number').eq(2).find('.add-input').removeAttr('disabled');
                     $('#alter-meter').find('.type-number').eq(3).find('.add-input').removeAttr('disabled');
+                    $('#alter-meter').find('.type-number').eq(3).find('.add-input').removeAttr('placeHolder');
+                    $('#alter-meter').find('.type-number').eq(3).find('label').addClass('input-label');
                 }
 
                 changeColor()
@@ -570,7 +578,12 @@ $(document).ready(function(){
             if(number0 == 0){
                 buildDate = $("#alter-meter .add-input").eq(9).val();
             }else{
-                buildDate = $("#alter-meter .bookbuilding").eq(0).find('span').html();
+
+                if($("#alter-meter .bookbuilding").eq(0).find('span').html() != ''){
+                    buildDate = $("#alter-meter .bookbuilding").eq(0).find('span').html();
+                }else{
+                    buildDate = $("#alter-meter .add-input").eq(9).val();
+                }
             };
             console.log(buildDate);
             var startNum = $("#alter-meter .add-input").eq(10).val();
@@ -1262,6 +1275,9 @@ function putMeterType(dom){
         $('#add-meter').find('.type-number').eq(2).find('.add-input').attr('disabled','true');
         $('#add-meter').find('.type-number').eq(3).find('.add-input').attr('disabled','true');
 
+        $('#add-meter').find('.type-number').eq(3).find('.add-input').attr('placeHolder','不可输入');
+        $('#add-meter').find('.type-number').eq(3).find('label').removeClass('input-label');
+
         $('#add-meter').find('.get-online-message').addClass('top-btn');
         $('#alter-meter').find('.get-online-message').removeAttr('disabled');
     }
@@ -1272,6 +1288,7 @@ function putMeterType(dom){
 $('.top-btns').on('click',function(){
     console.log('11');
     $('#add-meter').find('input').val('');
+    $('#add-meter .choose-building').find('span').html('');
 
     putMeterType('.meter-type');
 
@@ -1293,7 +1310,7 @@ $('.top-btns').on('click',function(){
         console.log(txt);
         //手抄表
         if(num0 == 0){
-
+            console.log(44);
 
             $(this).parents('.deploy-form').find('.number-machine').find('.add-input').attr('placeHolder','不可输入');
             $(this).parents('.deploy-form').find('.number-machine').find('img').css({
@@ -1327,7 +1344,8 @@ $('.top-btns').on('click',function(){
             $(this).parents('.deploy-form').find('.type-number').eq(2).find('.add-input').removeAttr('disabled');
             $(this).parents('.deploy-form').find('.type-number').eq(3).find('.add-input').removeAttr('disabled');
 
-
+            $(this).parents('.deploy-form').find('.type-number').eq(3).find('.add-input').removeAttr('placeHolder');
+            $(this).parents('.deploy-form').find('.type-number').eq(3).find('label').addClass('input-label');
 
 
         }else {
@@ -1358,6 +1376,9 @@ $('.top-btns').on('click',function(){
             $(this).parents('.deploy-form').find('.type-number').eq(2).find('.add-input').attr('placeHolder','不可输入');
             $(this).parents('.deploy-form').find('.type-number').eq(2).find('.add-input').attr('disabled','true');
             $(this).parents('.deploy-form').find('.type-number').eq(3).find('.add-input').attr('disabled','true');
+
+            $(this).parents('.deploy-form').find('.type-number').eq(3).find('.add-input').attr('placeHolder','不可输入');
+            $(this).parents('.deploy-form').find('.type-number').eq(3).find('label').removeClass('input-label');
 
 
             var doms = $('.in');
@@ -1828,8 +1849,22 @@ $('.get-online-message').on('click',function(){
                     var txt2 = data.f_FilingNumber;
 
                     that.parents('.deploy-form').find('.bookbuilding').eq(0).find('span').html(txt1);
+                    that.parents('.deploy-form').find('.bookbuilding').eq(0).find('span').css({
+                        display:'inline-block'
+                    });
+                    that.parents('.deploy-form').find('.bookbuilding').eq(0).find('input').css({
+                        display:'none'
+                    });
                     that.parents('.deploy-form').find('.bookbuilding').eq(1).find('.add-input').val(txt2);
+
+                    that.parents('.deploy-form').find('.bookbuilding').eq(0).find('.add-input').removeAttr('disabled');
+                    that.parents('.deploy-form').find('.bookbuilding').eq(1).find('.add-input').removeAttr('disabled');
+                    that.parents('.deploy-form').find('.bookbuilding').eq(1).find('.add-input').parent().css({
+
+                        backgroundColor: 'rgb(255, 255, 255)'
+                    });
                 }
+
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1879,7 +1914,7 @@ function checkedNull(dom){
             }
         }else if(i==7){
             if(online == 0){
-                if( $(dom).find('.input-label').eq(i).next().find('input').val() == ''){
+                if( $(dom).find('.input-label').eq(i).next().find('input').val() == '' ){
                     var txt = $(dom).find('.input-label').eq(i).next().find('input').parent().prev().html().split('：')[0];
 
                     console.log(txt);
@@ -1888,7 +1923,7 @@ function checkedNull(dom){
                     return false;
                 };
             }else{
-                if( $(dom).find('.input-label').eq(i).next().find('span').html() == ''){
+                if( $(dom).find('.input-label').eq(i).next().find('span').html() == '' && $(dom).find('.input-label').eq(i).next().find('input').val() == ''){
                     var txt = $(dom).find('.input-label').eq(i).next().find('input').parent().prev().html().split('：')[0];
 
                     console.log(txt);
@@ -1969,4 +2004,31 @@ function checkedStartNum(dom){
 
     return true;
 }
+
+$('.bookbuilding span').on('click',function(){
+
+    var theTime = $(this).html();
+
+    if(theTime != ''){
+        $(this).css({
+            display:'none'
+        });
+
+        $(this).next().css({
+            display:'inline-block'
+        });
+        $(this).next().val(theTime);
+         $(this).html('');
+    }
+
+});
+
+$('#alter-meter  .start-number .add-input-block').on('click',function(){
+
+   $(this).find('input').removeAttr('disabled');
+
+    $(this).css({
+        background:'rgb(255, 255, 255)'
+    })
+});
 

@@ -1,0 +1,149 @@
+.timeblock{
+    width:80px !important;
+}
+.inline-block1{
+    width:90px !important;
+}
+.main-contents-table {
+    text-align: center;
+    margin-top: 0px !important;
+}
+.statistical-time{
+    position: absolute;
+    right:20px;
+    top:-10px;
+}
+.input-blocked select {
+
+    width: 90px !important;
+
+}
+#failure-reporting .sorting_disabled{
+    vertical-align: middle;
+}
+.condition-query {
+    margin-top: 10px !important;
+}
+.table-block-title {
+    margin-bottom: 10px !important;
+}
+
+/*下拉框样式*/
+
+.add-input-arrow {
+    width: 10px;
+    height: 10px;
+    background: url(../img/down-arrow.png) no-repeat;
+    background-size: 10px;
+    background-position: 95% center;
+    float: right;
+    margin-top: 10px;
+}
+.add-input-father {
+    width: 182px;
+    position: relative;
+    display: inline-block;
+}
+.add-input-block {
+    width: 182px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+}
+.add-input {
+    width: 170px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    line-height: 30px;
+    height: 30px;
+    text-align: left;
+}
+.add-select-block {
+    margin: 0;
+    width: 182px;
+    padding: 0 5px 0 5px;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    background: white;
+    display: none;
+    top: 29px;
+}
+.add-select-block li {
+    list-style: none;
+    line-height: 18px !important;
+    cursor: pointer;
+    text-align: left;
+    float:none !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #888 !important;
+    border-color: #666;
+}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
+    color: #fff;
+    background-color: #777 !important;
+    border-color: #666;
+}
+.title-info b{
+    color: #333333;
+    text-decoration: underline;
+}
+table .sign{
+    position: relative;
+    padding-left:18px;
+    display: inline-block;
+}
+table .sign b{
+    width:14px;
+    height:14px;
+    display: inline-block;
+    border-radius: 100%;
+    margin-right:4px;
+    position: absolute;
+    top: 2px;
+    left: 0;
+}
+.red{
+
+    background:darkred;
+}
+.yellow{
+    background:red;
+}
+.green{
+    background:orange;
+}
+.theHidden{
+    display: none !important;
+}
+
+.add-select-block li:last-child{
+
+    text-align: right;
+
+}
+.min,.max{
+    width:130px;
+}
+table thead tr th{
+    vertical-align:middle !important;
+}
+.shortTh{
+    width:180px !important;
+}
+
+
+/*.checker{*/
+    /*float:right !important;*/
+    /*height:26px !important;*/
+    /*padding-top:5px !important;*/
+    /*box-sizing: border-box;*/
+/*}*/

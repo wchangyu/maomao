@@ -87,13 +87,16 @@ $(document).ready(function(){
     var st = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
     var et = moment().startOf('month').format('YYYY-MM-DD');
 
+    //页面显示的时间
+    var showET = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
+
     $('.min').val(st);
-    $('.max').val(et);
+    $('.max').val(showET);
     //获取后台数据放入页面
     $('.btn-success').on('click',function(){
         //获取开始结束时间
         var startTime = $('.min').val();
-        var endTime = $('.max').val();
+        var endTime = moment($('.max').val()).add(1,'day').format('YYYY-MM-DD');
 
         if(startTime == '' || endTime == ''){
             myAlter('请输入时间进行查询');
@@ -110,7 +113,34 @@ $(document).ready(function(){
         var postVal = $('#refer-spot').val();
 
         var typeVal = $('#refer-type').val();
-        if(postVal == null){
+
+        console.log(postVal);
+        console.log(typeVal);
+        if(typeVal ==3){
+
+            postUrl = 'YWGDAnalysis/GetGDDepartDealTime';
+            postName = 'departNums';
+            console.log($('#refer-spot').val());
+            if($('#refer-spot').val() == 0){
+                $(DPartArr).each(function(i,o){
+                    var arr = o.wxBanzus;
+                    $(arr).each(function(i,o){
+                        postArr.push(o.departNum);
+                    });
+                });
+            }else{
+                $(DPartArr).each(function(i,o){
+                    if(o.departNum == $('#refer-point').val()){
+                        var arr = o.wxBanzus;
+                        $(arr).each(function(i,o){
+                            postArr.push(o.departNum);
+                        });
+                    }
+
+                });
+            }
+
+        }else if(postVal == null){
             postArr = DStationArr;
             postUrl = 'YWGDAnalysis/GetGDDealTime';
             postName = 'ddNums';
@@ -139,6 +169,7 @@ $(document).ready(function(){
                 postArr.push(postVal);
 
             }
+
         }
 
         var prm = {
@@ -162,7 +193,7 @@ $(document).ready(function(){
             },
             data:prm,
             success: function (data) {
-              console.log(data);
+
                 var xArr = [];
                 var sArr = [];
                 if(data.length == 0){
@@ -219,6 +250,8 @@ $('#refer-type').on('change',function(){
         $('#refer-spot').html(DLinesSelect);
     }else if(theVal == 2){
         $('#refer-spot').html(DStationSelect);
+    }else if(theVal == 3){
+        $('#refer-spot').html(DPartSelect);
     }
 
 });
@@ -228,6 +261,10 @@ var DLineArr = [];
  //存放车站
 var DStationSelect = '';
 var DStationArr = [];
+
+//存放维修班组
+var DPartSelect = '';
+var DPartArr = [];
 
  getAllDLines();
 
@@ -298,3 +335,39 @@ function getAllDStations(){
         }
     });
 };
+
+getAllDPart();
+//获取全部车间（维修班组）
+function getAllDPart(){
+
+    $.ajax({
+        type: 'post',
+        url: _urls + '/YWGD/ywGDGetWxBanzuStation',
+        timeout: theTimes,
+        data:{
+            'userID':_userIdName,
+            'ddNum':''
+        },
+        success: function (data) {
+            console.log(data);
+            DPartSelect += '<option value="0">全部</option>'
+            $(data.stations).each(function(i,o){
+
+                DPartSelect += '<option value="'+ o.departNum+'">'+ o.departName+'</option>';
+                DPartArr.push(o);
+            })
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            //console.log(textStatus);
+
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                myAlter('超时')
+            }else{
+                myAlter('请求失败')
+            }
+
+        }
+    });
+}

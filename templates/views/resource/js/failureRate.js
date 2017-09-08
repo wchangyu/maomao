@@ -30,7 +30,7 @@ $(document).ready(function(){
         tooltip : {
             'trigger':'item',
             'show':true,
-            'formatter': '{b} :({d}%)'
+            'formatter': '{b} : {c} ({d}%)'
 
         },
         legend: {
@@ -52,7 +52,7 @@ $(document).ready(function(){
                     normal: {
                         show: true,
                         position: 'outside',
-                        formatter: '{b} :({d}%)'
+                        formatter: '{b} : {c} ({d}%)'
                     }
                 },
                 itemStyle: {
@@ -85,13 +85,16 @@ $(document).ready(function(){
     var st = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD');
     var et = moment().startOf('month').format('YYYY-MM-DD');
 
+    //页面显示的时间
+    var showET = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD');
+
     $('.min').val(st);
-    $('.max').val(et);
+    $('.max').val(showET);
     //获取后台数据放入页面
     $('.btn-success').on('click',function(){
         //获取开始结束时间
         var startTime = $('.min').val();
-        var endTime = $('.max').val();
+        var endTime = moment($('.max').val()).add(1,'day').format('YYYY-MM-DD');
 
         if(startTime == '' || endTime == ''){
             myAlter('请输入时间进行查询');
@@ -122,20 +125,25 @@ $(document).ready(function(){
                 postUrl = '/YWGDAnalysis/GetGDDSysRate';
                 postName = 'ddNums';
                 var theVal = $('#refer-station').val();
-                //车站选择全部时
-                if(theVal == 0){
-                    $(relationArr).each(function(i,o){
-                        if(o.dlNum == $('#refer-point').val()){
-                            var arr = o.deps;
-                            $(arr).each(function(i,o){
-                                postArr.push(o.ddNum);
-                            })
-                        }
-                    });
+                if($('#refer-point').val() == 0){
+                    postArr =  DStationArr;
                 }else{
+                    //车站选择全部时
+                    if(theVal == 0){
+                        $(relationArr).each(function(i,o){
+                            if(o.dlNum == $('#refer-point').val()){
+                                var arr = o.deps;
+                                $(arr).each(function(i,o){
+                                    postArr.push(o.ddNum);
+                                })
+                            }
+                        });
+                    }else{
 
-                    postArr.push(theVal);
+                        postArr.push(theVal);
+                    }
                 }
+
             }
 
 
@@ -227,6 +235,9 @@ $('#refer-type').on('change',function(){
 $('#refer-point').on('change',function(){
     console.log(33);
     var theVal = $(this).val();
+    if(theVal == 0){
+        $('#refer-station').html('<option value="0">全部</option>');
+    }
 
     $(relationArr).each(function(i,o){
 
@@ -263,7 +274,7 @@ function getAllDLines(){
         },
         success: function (data) {
             console.log(data);
-            DLinesSelect += '';
+            DLinesSelect += '<option value="0">全部</option>';
 
             $(data).each(function(i,o){
                 relationArr.push(o);
@@ -273,11 +284,11 @@ function getAllDLines(){
             $('#refer-point').html(DLinesSelect);
 
             var startHtml =  '<option value="0">全部</option>';
-            var startArr = data[0].deps;
-            $(startArr).each(function(i,o){
-                startHtml += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>';
-            });
-            $('#refer-station').html(startHtml);
+            //var startArr = data[0].deps;
+            //$(startArr).each(function(i,o){
+            //    startHtml += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>';
+            //});
+            $('#refer-station').html('<option value="0">全部</option>');
 
             $('.btn-success').click();
         },

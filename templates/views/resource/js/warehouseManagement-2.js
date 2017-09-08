@@ -287,7 +287,11 @@ $(function(){
         {
             title:'入库单号',
             data:'orderNum',
-            className:'orderNum'
+            className:'orderNum',
+            render:function(data, type, row, meta){
+                return '<a href="godownEntry.html?orderNum=' + row.orderNum +
+                    '" target="_blank">' + row.orderNum + '</a>'
+            }
         },
         {
             title:'入库类型',
@@ -738,7 +742,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _gdCode = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
@@ -780,7 +784,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _gdCode = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
@@ -839,7 +843,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _gdCode = $thisDanhao;
             _$thisRemoveRowDa = $thisDanhao;
             //提示框，确定要删除吗？
@@ -878,7 +882,7 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
             _gdCode = $thisDanhao;
             _$thisRKnum = $thisDanhao;
             for(var i=0;i<_allData.length;i++){

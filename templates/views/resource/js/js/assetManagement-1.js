@@ -820,16 +820,25 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        if( filterInput[2] == ''){
+        if( filterInput[3] == ''){
             realityStart = ''
         }else{
-            realityStart = filterInput[2] + ' 00:00:00';
+            realityStart = filterInput[3] + ' 00:00:00';
         }
-        if( filterInput[2] == '' ){
+        if( filterInput[3] == '' ){
             realityEnd = ''
         }else{
-            realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+            realityEnd = moment(filterInput[4]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
+        var id1 = $('#chejian').val();
+        var id2 = $('#banzu').val();
+
+        var departNums = getPostTrain(id1,id2);
+        var flag = departNums[0];
+        if(!flag){
+            departNums = [];
+        }
+        console.log(departNums);
         var prm =   {
             'st':realityStart,
             'et':realityEnd,
@@ -840,6 +849,8 @@ $(function(){
             'ddNum':$('#bumen').val(),
             'dsNum':$('#xitong').val(),
             'dcNum':$('#leixing').val(),
+            'dNewNum':$('#bianhao').val(),
+            'departNums':departNums,
             'userID':_userIdName
         }
         $.ajax({
@@ -848,7 +859,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }
@@ -897,7 +907,63 @@ $(function(){
         console.log(txt);
         console.log(dom);
         dom.click();
+    };
+
+    //存放车站与维修班组
+    var DPartSelect = '';
+    var DPartArr = [];
+
+    var DMainSelect = '';
+    var DMainArr = [];
+    getAllDPart();
+    //获取全部车间（维修班组）
+    function getAllDPart(){
+
+        $.ajax({
+            type: 'post',
+            url: _urls + '/YWGD/ywGDGetWxBanzuStation',
+            timeout: theTimes,
+            data:{
+                'userID':_userIdName,
+                'ddNum':''
+            },
+            success: function (data) {
+                //console.log(data);
+                DPartSelect += '<option value="0">全部</option>';
+                DMainSelect += '<option value="0">全部</option>'
+                $(data.stations).each(function(i,o){
+
+                    DPartSelect += '<option value="'+ o.departNum+'">'+ o.departName+'</option>';
+                    DPartArr.push(o);
+                });
+
+                $(data.wxBanzus).each(function(i,o){
+
+                    DMainSelect += '<option value="'+ o.departNum+'">'+ o.departName+'</option>';
+                    DMainArr.push(o.departNum);
+
+                });
+
+                $('#chejian').html(DPartSelect);
+
+                $('#banzu').html(DMainSelect)
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                    myAlter('超时')
+                }else{
+                    myAlter('请求失败')
+                }
+
+            }
+        });
     }
+
 
     $('#xitong').change(function(){
 
@@ -960,5 +1026,57 @@ $(function(){
             }
         });
     });
+
+    $('#chejian').change(function(){
+
+        var value = $('#chejian').val();
+        if(value == 0){
+            var str = '<option value="">全部</option>';
+
+            $('#banzu').html(DMainSelect);
+            return false;
+        }
+
+        $(DPartArr).each(function(i,o){
+
+            if(value == o.departNum){
+                var pushArr = o.wxBanzus;
+                var str = '<option value="0">全部</option>';
+                $(pushArr).each(function(i,o){
+
+                    str += '<option value="'+ o.departNum+'">'+ o.departName+'</option>'
+                });
+                $('#banzu').html('');
+                $('#banzu').html(str);
+                return false;
+            }
+        });
+    });
+
+    //获取要传递给后台的维修班组集合
+    function getPostTrain(id1,id2){
+        var postArr = [];
+        //维修班组为全部时
+        if(id2 == 0){
+            //如果车间为全部时
+            if(id1 == 0){
+               return DMainArr;
+            }else{
+                $(DPartArr).each(function(i,o){
+                     if(o.departNum == id1){
+                         $(o.wxBanzus).each(function(i,o){
+                            postArr.push(o.departNum);
+                         })
+
+                     }
+                });
+            }
+        }else{
+            postArr.push(id2);
+        }
+
+        return postArr
+    }
+
 });
 
