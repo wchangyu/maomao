@@ -761,6 +761,22 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "材料月报表":{
+        "type":"0",
+        "content":"材料月报表",
+        "uri":"../cangkuguanli/materialMonthlyReport.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "材料总支出":{
+        "type":"0",
+        "content":"材料总支出",
+        "uri":"../cangkuguanli/totalMaterialChange.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
@@ -877,43 +893,43 @@
     }
   },
   "结算操作":{
-      "type":"1",
-      "iconclass":"icon-note",
-      "content":"结算操作",
-      "submenu":{
-        "二级单位用能信息表":{
-          "type":"0",
-          "content":"二级单位用能信息表",
-          "uri":"../dingE/OfficeUsedSettle.html",
-          "uid":"",
-          "arg":"",
-          "iconclass":""
-        },
-        "超额用能二级单位列表":{
-          "type":"0",
-          "content":"超额用能二级单位列表",
-          "uri":"../dingE/OfficeExcessEnergy.html",
-          "uid":"",
-          "arg":"",
-          "iconclass":""
-        },
-        "二级单位用能支付金额汇总列表":{
-          "type":"0",
-          "content":"二级单位用能支付金额汇总列表",
-          "uri":"../dingE/OfficeChargeList.html",
-          "uid":"",
-          "arg":"",
-          "iconclass":""
-        },
-        "单位纵向比较":{
-          "type":"0",
-          "content":"单位纵向比较",
-          "uri":"../dingE/OfficePortraitQuery.html",
-          "uid":"",
-          "arg":"",
-          "iconclass":""
-        }
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"结算操作",
+    "submenu":{
+      "二级单位用能信息表":{
+        "type":"0",
+        "content":"二级单位用能信息表",
+        "uri":"../dingE/OfficeUsedSettle.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "超额用能二级单位列表":{
+        "type":"0",
+        "content":"超额用能二级单位列表",
+        "uri":"../dingE/OfficeExcessEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "二级单位用能支付金额汇总列表":{
+        "type":"0",
+        "content":"二级单位用能支付金额汇总列表",
+        "uri":"../dingE/OfficeChargeList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "单位纵向比较":{
+        "type":"0",
+        "content":"单位纵向比较",
+        "uri":"../dingE/OfficePortraitQuery.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
+    }
   },
   "天气":{
     "type":"1",

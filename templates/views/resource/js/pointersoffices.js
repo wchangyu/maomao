@@ -47,29 +47,9 @@ var ObjectSelection = function(){
     //存放已配置的全部楼宇名称
     var getPointerName = '';
 
-    //从配置项中获取楼宇名称
-    $.ajax({
-        type:'get',
-        url:"../../../assets/local/configs/config.json",
-        async:false,//取消异步请求
-        beforeSend:function(){
+    //从session中获取楼宇名称
+    getPointerName = sessionStorage.getItem('allPointerName');
 
-        },
-        complete:function(){
-            $('#theLoading').modal('hide');
-        },
-        success:function(result){
-
-            if(result.allPointerName){
-                getPointerName = result.allPointerName;
-            }
-
-        },
-        error:function (XMLHttpRequest, textStatus, errorThrown) {
-
-        }
-
-    });
 
     if(getPointerName != ''){
         this.allPointerName = getPointerName;
@@ -96,7 +76,7 @@ var ObjectSelection = function(){
             };
             //this._allPointers.push(pointerAll);
             if(this.getShowRadio){
-                this._allPointers = getCompactArr(tempAllPointers,true,true);
+                this._allPointers = getCompactArr(tempAllPointers,false,true);
             }else{
                 this._allPointers = getCompactArr(tempAllPointers,true);
             }
@@ -198,7 +178,23 @@ var ObjectSelection = function(){
                 showIcon:false
             },
             callback: {
-                onClick: function(e,treeId,treeNode){zTreePointer.checkNode(treeNode,!treeNode.checked,true)}
+                onClick: function(e,treeId,treeNode){
+                    zTreePointer.checkNode(treeNode,!treeNode.checked,true);
+                    if(getShowRadio){
+                        //获取楼宇ID
+
+                        var id =  zTreePointer.getCheckedNodes(true)[0].id;
+                        sessionStorage.curPointerId = id;
+
+                        if(userMonitor){
+                            userMonitor.getProcsByPointerId();
+                        }
+                    }
+                },
+                asyncSuccess:function(event, treeId, treeNode, msg){
+
+                }
+
             }
         };
         //楼宇
@@ -209,9 +205,18 @@ var ObjectSelection = function(){
         if(this._$ulPointers){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
-            zTreePointer.checkNode(nodes[0],true,false,false);
-            zTreePointer.expandNode(nodes[0],true,false,true);
+            if(getShowRadio){
 
+            }else{
+                zTreePointer.checkNode(nodes[0],true,false,false);
+                zTreePointer.expandNode(nodes[0],true,false,true);
+            }
+
+
+            if(userMonitor){
+
+                userMonitor.getProcsByPointerId();
+            }
         }
     }
 
@@ -424,10 +429,6 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
             obj1.pId = arr[i].children[j].parent;
             //当前类型：0 区域 1 企业 2 楼宇
             obj1.nodeType = 1;
-
-            if(i == 0 && j == 0){
-                obj1.open = true;
-            }
             //if(isCheckAll == false){
             //
             //    obj1.nocheck=true;
@@ -435,6 +436,19 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
 
             if(flag){
                 obj1.nocheck=true;
+                if(sessionStorage.curPointerId){
+
+                }else{
+                    if(i == 0 && j == 0){
+                        obj1.open = true;
+                        obj.open = true;
+                    }
+                }
+            }else{
+                if(i == 0 && j == 0){
+                    obj1.open = true;
+                    obj.open = true;
+                }
             }
             ztreeArr.push(obj1);
             for(var z=0;z<arr[i].children[j].children.length;z++){
@@ -444,10 +458,32 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
                 obj11.pId = arr[i].children[j].children[z].parent;
                 //当前类型：0 区域 1 企业 2 楼宇
                 obj11.nodeType = 2;
-                if(isCheckAll == false && i == 0 && j == 0 && z == 0){
+                if(sessionStorage.curPointerId){
+                   var id = sessionStorage.curPointerId;
+                    if( obj11.id == id){
+                        if(flag){
+                            obj11.checked = true;
+                            obj1.open = true;
+                            obj.open = true;
+                        }
+                    }
 
-                   obj11.checked = true
+                }else{
+                    if(isCheckAll == false && i == 0 && j == 0 && z == 0){
+
+                        if(flag){
+                            if(sessionStorage.curPointerId){
+
+                            }else{
+                                sessionStorage.curPointerId = obj11.id;
+                                obj11.checked = true;
+                            }
+
+
+                        }
+                    }
                 }
+
 
                 ztreeArr.push(obj11);
             }

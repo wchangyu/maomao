@@ -338,6 +338,10 @@ var Login = function() {
                     var alarmSong = data["alarmSong"] || "0";
                     sessionStorage.alarmSong = alarmSong;
 
+                    //zTree绘制楼宇列表时是否显示全部楼宇
+                    var allPointerName = data["allPointerName"] || '';
+                    sessionStorage.allPointerName = allPointerName;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 
