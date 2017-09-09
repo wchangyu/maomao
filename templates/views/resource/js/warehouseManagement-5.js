@@ -103,7 +103,10 @@ $(function(){
             },
             {
                 title:'关联单号',
-                data:'orderNum'
+                data:'orderNum',
+                render:function(data, type, full, meta){
+                    return '<a >'
+                }
             },
             {
                 title:'创建时间',

@@ -761,6 +761,22 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "材料月报表":{
+        "type":"0",
+        "content":"材料月报表",
+        "uri":"../cangkuguanli/materialMonthlyReport.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "材料总支出":{
+        "type":"0",
+        "content":"材料总支出",
+        "uri":"../cangkuguanli/totalMaterialChange.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

@@ -178,6 +178,9 @@ $(function(){
             data:prm,
             success:function(result){
                 datasTable($('#scrap-datatables'),result)
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -207,7 +210,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
-                //console.log(result);
                 var str = '<option value="">全部</option>'
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result.storageNum + '">' + result[i].storageName + '</option>';

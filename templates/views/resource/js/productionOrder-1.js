@@ -3,16 +3,6 @@ $(function () {
   //页面列表加载
   $('.loading').showLoading();
 
-  //获得用户ID
-  var _userIdNum = sessionStorage.getItem('userName');
-
-  //获得用户名
-
-  var _userIdName = sessionStorage.getItem('realUserName');
-
-  //获取本地url
-  var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
   //图片ip
   var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
 
@@ -38,10 +28,6 @@ $(function () {
   //设置初始时间(主表格时间)
   var _initStart = moment().format('YYYY/MM/DD');
   var _initEnd = moment().format('YYYY/MM/DD');
-
-  //选择设备时间
-  var _initStartSB = '';
-  var _initEndSB = '';
 
   //显示时间
   $('.min').val(_initStart);
@@ -92,23 +78,12 @@ $(function () {
       selectLine:function(){
         //首先将select子元素清空；
          $('.cjz').empty();
-         //获得选中的线路的value
-         var values = $('#line-route').val();
+        var values = $('#line-route').val();
          if(values == ''){
          //所有车站
            ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('.cjz'), 'ddName', 'ddNum');
          }else{
-           for(var i=0;i<_lineArr.length;i++){
-             if(values == _lineArr[i].dlNum){
-               //创建对应的车站
-               var str = '<option value="">请选择</option>';
-               for(var j=0;j<_lineArr[i].deps.length;j++){
-                 str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                 '">'+ _lineArr[i].deps[j].ddName + '</option>';
-               }
-               $('.cjz').append(str);
-             }
-           }
+           lineRouteData('','arr');
          }
       }
     }
@@ -205,7 +180,7 @@ $(function () {
   var _lineArr = [];
 
   /*-----------------------------表格初始化----------------------------------------*/
-  //页面表格
+  //工单表格
   var table = $('#scrap-datatables').DataTable({
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
     "paging": true,   //是否分页
@@ -337,116 +312,6 @@ $(function () {
     console.log('')
   };
 
-  //初始化设备表格
-  $('#sbTable').DataTable({
-    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-    "paging": true,   //是否分页
-    "destroy": true,//还原初始化了的datatable
-    "searching": false,
-    "ordering": false,
-    "iDisplayLength":50,//默认每页显示的条数
-    'language': {
-      'emptyTable': '没有数据',
-      'loadingRecords': '加载中...',
-      'processing': '查询中...',
-      'lengthMenu': '每页 _MENU_ 条',
-      'zeroRecords': '没有数据',
-      'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-      'infoEmpty': '没有数据',
-      'paginate': {
-        "previous": "上一页",
-        "next": "下一页",
-        "first": "首页",
-        "last": "尾页"
-      }
-    },
-    "dom": 't<"F"lip>',
-    'buttons': [
-      {
-        extend: 'excelHtml5',
-        text: '导出',
-        className: 'saveAs btn btn-success'
-      }
-    ],
-    "columns": [
-      {
-        title: '编号',
-        data: 'id',
-        visible: false,
-        className: 'ids'
-      },
-      {
-        title: '设备编号',
-        data: 'dNum',
-        className: 'dNum'
-      },
-      {
-        title: '设备名称',
-        data: 'dName',
-        className: 'dName'
-      },
-      {
-        title: '规格型号',
-        data: 'spec',
-      },
-      {
-        title: '设备类型',
-        data: 'dcName',
-        className: 'dcName'
-      },
-      {
-        title: '购置日期',
-        data: 'purDate',
-        render: function timeForma(data) {
-          return data.split(' ')[0].replace(/-/g, '/');
-        }
-      },
-      {
-        title: '保修年限',
-        data: 'maintain',
-      },
-      {
-        title: '安装时间',
-        data: 'installDate',
-        render: function timeForma(data) {
-          return data.split(' ')[0].replace(/-/g, '/');
-        }
-      },
-      {
-        title: '使用年限',
-        data: 'life',
-      },
-      {
-        title: '状态',
-        data: 'status',
-        render: function (data, type, full, meta) {
-          if (data == 1) {
-            return '正常'
-          } else if (data == 2) {
-            return '维修'
-          } else if (data == 3) {
-            return '报废'
-          }
-        }
-      },
-      {
-        title: '设备部门',
-        data: 'ddName',
-        className: 'ddName'
-      },
-      {
-        title: '设备系统',
-        data: 'dsName',
-      }
-    ],
-    "aoColumnDefs": [
-      {
-        sDefaultContent: '',
-        aTargets: ['_all']
-      }
-    ]
-  });
-
   //执行人员表格
   var col2 = [
     {
@@ -466,7 +331,6 @@ $(function () {
     }
   ];
   tableInit($('#personTable1'), col2);
-
 
   /*-----------------------------页面加载时调用的方法------------------------------*/
   //条件查询
@@ -496,16 +360,12 @@ $(function () {
   //查询按钮功能
   $('#selected').click(function () {
     if ($('.min').val() == '' || $('.max').val() == '') {
-      var myModal = $('#myModal2')
-      myModal.find('.modal-body').html('起止时间不能为空!');
-      moTaiKuang(myModal, '提示', 'flag');
+      _moTaiKuang($('#myModal2'),'提示','flag','istap','起止时间不能为空!','');
     } else {
       //结束时间不能小于开始时间
       if ($('.min').val() > $('.max').val()) {
-        var myModal = $('#myModal2');
         //提示框
-        myModal.find('.modal-body').html('起止时间不能大于结束时间!');
-        moTaiKuang(myModal, '提示', 'flag');
+        _moTaiKuang($('#myModal2'),'提示','flag','istap','起止时间不能大于结束时间!','');
       } else {
         conditionSelect();
       }
@@ -554,7 +414,7 @@ $(function () {
     app33.lineRoute = '';
     app33.section = '';
     app33.matter = '';
-    moTaiKuang($('#myModal'), '登记');
+    _moTaiKuang($('#myModal'),'登记','','','','登记');
     var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
     $('.otime').val(_inittime);
   });
@@ -578,7 +438,7 @@ $(function () {
     $('.remarkDes').eq(1).val('');
     $('.weixiuBZ').val('');
     quickWork.gdly = '1';
-    moTaiKuang($('#myModal4'), '快速报障');
+    _moTaiKuang($('#myModal4'), '快速报障', '','','', '快速报障');
     //将执行人默认为本人
     var personObject = {};
     personObject.wxRName = _userIdNum;
@@ -603,9 +463,7 @@ $(function () {
   //登记
       .on('click', '.dengji', function () {
         if (app33.telephone == '' || app33.person == '' || app33.place == ''  || app33.section == '' || app33.matter == '') {
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('请填写红色必填项!');
-          moTaiKuang(myModal, '提示', 'flag');
+          _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
         } else {
           $('.loading').showLoading();
           var gdInfo = {
@@ -658,8 +516,7 @@ $(function () {
           } else {
             if (isEqual(_obj, gdInfo)) {
               //提示不能重复登记
-              moTaiKuang($('#myModal2'), '提示', 'flag');
-              $('#myModal2').find('.modal-body').html('不能重复登记！');
+              _moTaiKuang($('#myModal2'), '提示', 'flag','istap','不能重复登记！' , '');
             } else {
               //满足登记条件
               register();
@@ -671,9 +528,7 @@ $(function () {
       //编辑
       .on('click', '.bianji', function () {
         if (app33.telephone == '' || app33.person == '' || app33.place == '' || app33.section == '' || app33.matter == '') {
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('请填写红色必填项！');
-          moTaiKuang(myModal, '提示', 'flag');
+          _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项！', '');
         } else {
           $('.loading').showLoading();
           var gdInfo = {
@@ -707,17 +562,13 @@ $(function () {
             success: function (result) {
               if (result == 99) {
                 $('.loading').hideLoading();
-                var myModal = $('#myModal2');
-                myModal.find('.modal-body').html('编辑成功！');
-                moTaiKuang(myModal, '提示', 'flag');
+                _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '编辑成功！', '');
                 $('#myModal').modal('hide');
                 //刷新数据
                 conditionSelect();
               } else {
                 $('.loading').hideLoading();
-                var myModal = $('#myModal2');
-                myModal.find('.modal-body').html('编辑失败！');
-                moTaiKuang(myModal, '提示', 'flag');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','编辑失败！', '');
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -749,16 +600,14 @@ $(function () {
       })
       //图片详情
       .on('click', '.viewIMG', function () {
-        moTaiKuang($('#myModal3'), '图片详情', 'flag');
+        _moTaiKuang($('#myModal3'), '图片详情', 'flag','','');
         var imgSrc = $(this).attr('src')
         $('#myModal3').find('img').attr('src', imgSrc);
       })
 
   $('.quickDengji').click(function () {
     if (quickWork.telephone == '' || quickWork.person == '' || quickWork.place == ''  || quickWork.section == '' || quickWork.matter == '' || quickWork.weixiukeshis == '') {
-      var myModal = $('#myModal2');
-      myModal.find('.modal-body').html('请填写红色必填项');
-      moTaiKuang(myModal, '提示', 'flag');
+      _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','请填写红色必填项!', '')
     } else {
       $('.loading').showLoading();
       var gdInfo1 = {
@@ -812,8 +661,7 @@ $(function () {
       } else {
         if (isEqual(_quickObj, gdInfo1)) {
           //提示不能重复登记
-          moTaiKuang($('#myModal2'), '提示', 'flag');
-          $('#myModal2').find('.modal-body').html('不能重复登记！');
+          _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '不能重复登记！', '');
         } else {
           QuickRegister();
         }
@@ -841,7 +689,7 @@ $(function () {
       .on('click', '.option-edit', function () {
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
         $('.loading').showLoading();
-        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('编辑');
+        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('完成编辑');
         //绑定数据
         ViewOrEdit($(this));
         //图片区域隐藏
@@ -882,25 +730,6 @@ $(function () {
         console.log(jqXHR.responseText);
       }
     })
-  }
-
-  //模态框自适应
-  function moTaiKuang(who, title, flag) {
-    who.modal({
-      show: false,
-      backdrop: 'static'
-    })
-    who.find('.modal-title').html(title);
-    who.modal('show');
-    var markHeight = document.documentElement.clientHeight;
-    var markBlockHeight = who.find('.modal-dialog').height();
-    var markBlockTop = (markHeight - markBlockHeight) / 2;
-    who.find('.modal-dialog').css({'margin-top': markBlockTop});
-    if (flag) {
-      who.find('.btn-primary').hide();
-    } else {
-      who.find('.btn-primary').show();
-    }
   }
 
   //dataTables表格填数据
@@ -1023,17 +852,13 @@ $(function () {
       success: function (result) {
         if (result == 99) {
           $('.loading').hideLoading();
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('添加成功!');
-          moTaiKuang(myModal, '提示');
+          _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功', '');
           $('#myModal').modal('hide');
           //刷新表格
           conditionSelect();
         } else {
           $('.loading').hideLoading();
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('添加失败!');
-          moTaiKuang(myModal, '提示');
+          _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败', '');
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1084,17 +909,14 @@ $(function () {
       success: function (result) {
         if (result == 99) {
           $('.loading').hideLoading();
+          _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功!', '');
           $('#myModal4').modal('hide');
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('添加成功!');
-          moTaiKuang(myModal, '提示', 'flag');
           //刷新表格
           conditionSelect();
         } else {
           $('.loading').hideLoading();
-          var myModal = $('#myModal2');
-          myModal.find('.modal-body').html('添加失败!');
-          moTaiKuang(myModal, '提示', 'flag');
+          _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败!', '');
+
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1113,9 +935,9 @@ $(function () {
     $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
     $this.addClass('tables-hover');
     if (flag) {
-      moTaiKuang($('#myModal'), '工单详情', 'flag');
+      _moTaiKuang($('#myModal'), '工单详情', 'flag', '','', '');
     } else {
-      moTaiKuang($('#myModal'), '编辑工单');
+      _moTaiKuang($('#myModal'), '编辑工单', '', '','', '完成编辑');
     }
     //获取详情
     var gongDanState = $this.children('.ztz').html();
@@ -1136,19 +958,13 @@ $(function () {
       data: prm,
       success: function (result) {
         $('.loading').hideLoading();
+        //设置单选按钮
         if (result.gdJJ == 1) {
           $('#myApp33').find('.inpus').parent('span').removeClass('checked');
           $('#myApp33').find('#ones').parent('span').addClass('checked');
         } else {
           $('#myApp33').find('.inpus').parent('span').removeClass('checked');
           $('#myApp33').find('#twos').parent('span').addClass('checked');
-        }
-        if (result.gdRange == 1) {
-          $('#myApp33').find('.whether').parent('span').removeClass('checked');
-          $('#myApp33').find('#four').parent('span').addClass('checked');
-        } else {
-          $('#myApp33').find('.whether').parent('span').removeClass('checked');
-          $('#myApp33').find('#three').parent('span').addClass('checked');
         }
         //selecrt绑定值
         if (result.bxKeshiNum == '') {
@@ -1184,6 +1000,32 @@ $(function () {
           $('#myApp33').find('textarea').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('.inpus').attr('disabled', true);
         }
+        //根据车间，标注线点
+        var prm = {
+          'userID':_userIdNum,
+          'userName':_userIdNum
+        }
+        $.ajax({
+          type:'post',
+          url:_urls + 'YWGD/ywGetDLines',
+          data:prm,
+          timeout:_theTimes,
+          success:function(result){
+            var line = '';
+            for(var i=0;i<result.length;i++){
+              var datas = result[i];
+              for(var j=0;j<datas.deps.length;j++){
+                if(app33.section == datas.deps[j].ddNum){
+                  line = datas;
+                }
+              }
+            }
+            app33.lineRoute = line.dlNum;
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.responseText);
+          }
+        })
       },
       error: function (jqXHR, textStatus, errorThrown) {
         $('.loading').hideLoading();
@@ -1198,23 +1040,41 @@ $(function () {
   }
 
   //线路数据
-  function lineRouteData(el) {
+  function lineRouteData(el,arr){
     var prm = {
-      'userID':_userIdNum
+      'userID':_userIdNum,
+      'userName':_userIdName
     }
     $.ajax({
       type:'post',
       url:_urls + 'YWGD/ywGetDLines',
       data:prm,
+      timeout:_theTimes,
       success:function(result){
-        _lineArr = [];
         var str = '<option value="">请选择</option>';
         for(var i=0;i<result.length;i++){
-          _lineArr.push(result[i]);
-          str += '<option value="' + result[i].dlNum +
-              '">' + result[i].dlName +'</option>'
+          if(arr){
+            //获得选中的线路的value
+            var values = $('#line-route').val();
+            for(var i=0;i<result.length;i++){
+              if(values == result[i].dlNum){
+                //创建对应的车站
+                var str = '<option value="">请选择</option>';
+                for(var j=0;j<result[i].deps.length;j++){
+                  str += '<option value="' + result[i].deps[j].ddNum +
+                      '">'+ result[i].deps[j].ddName + '</option>';
+                }
+                $('.cjz').append(str);
+              }
+            }
+          }else{
+            str += '<option value="' + result[i].dlNum +
+                '">' + result[i].dlName +'</option>'
+          }
         }
-        el.append(str);
+        if(!arr){
+          el.empty().append(str);
+        }
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
@@ -1226,7 +1086,7 @@ $(function () {
   function selectRadio(el,classname,$this){
     el.find(classname).click(function (a) {
       el.find(classname).parent('span').removeClass('checked');
-      $(this).parent('span').addClass('checked');
+      $this.parent('span').addClass('checked');
     })
   }
 

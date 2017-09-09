@@ -441,7 +441,7 @@ $(function(){
             //数据绑定
             editOrOption($(this),'1');
             //改变确定按钮类名
-            $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji').html('下发');
+            $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji');
             //图片区域隐藏
             $('.showImage').hide();
         })
@@ -450,7 +450,7 @@ $(function(){
             //数据绑定
             editOrOption($(this));
             //改变确定按钮类名
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton').html('确定');
+            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton');
             //图片区域隐藏
             $('.showImage').hide();
         })
@@ -502,7 +502,7 @@ $(function(){
     //选择执行人按钮；
     $('.zhiXingRenYuanButton').click(function (){
         //模态框显示
-        moTaiKuang($('#myModal7'),'添加责任人');
+        _moTaiKuang($('#myModal7'), '添加责任人', '', '' ,'', '添加负责人');
         //获得所有ztree节点数据；
         getDpartment();
         if(_autoOrHand == 1){
@@ -615,7 +615,7 @@ $(function(){
                 $('.zxrDH').val(_zhixingRens[i].mobile);
             }
         }
-        moTaiKuang($('#myModal8'),'确认要删除吗？');
+        _moTaiKuang($('#myModal8'), '确认要删除吗？', '', '' ,'', '删除');
     });
     //删除负责人确定按钮
     $('.removeWorkerButton').click(function(){
@@ -630,7 +630,7 @@ $(function(){
     $('.creatButton').click(function(){
         $('.gdly').parents('li').show();
         //修改确定按钮
-        moTaiKuang($('#myModal'),'登记');
+        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记')
         $('#myModal').find('.btn-primary').addClass('dengji').removeClass('paigongButton').removeClass('bianji').html('登记');
         //初始化弹窗
         //样式初始化
@@ -659,14 +659,14 @@ $(function(){
         workDones.matter = '';
         var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
         $('.otime').val(_inittime);
+        $('.zhiXingRenYuanButton').show();
     });
     $('#myModal')
         //登记
         .on('click','.dengji',function(){
         //判断必填项是否都填了
         if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.wxKeshi  == '' ){
-            moTaiKuang($('#myModal4'),'提示');
-            $('#myModal4').find('.modal-body').html('请填写红色必填项！')
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }else{
             var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
             var fzrArr = [];
@@ -763,14 +763,12 @@ $(function(){
                     data:gdInfo1,
                     success:function(result){
                         if(result == 99){
-                            moTaiKuang($('#myModal4'),'提示','flag');
-                            $('#myModal4').find('.modal-body').html('添加成功！');
+                            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
                             $('#myModal').modal('hide');
                             //更新状态
                             conditionSelect()
                         }else{
-                            moTaiKuang($('#myModal4'),'提示','flag');
-                            $('#myModal4').find('.modal-body').html('添加失败！');
+                            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
@@ -780,8 +778,7 @@ $(function(){
             }else{
                 //不为空，判断是否相等
                 if( isEqual(_obj,gdInfo) && objectInArr(_fzrObj,fzrArr)){
-                    moTaiKuang($('#myModal4'),'提示');
-                    $('#myModal4').find('.modal-body').html('不能重复添加！');
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'不能重复添加！', '');
                 }else{
                     var gdInfo1= {
                         gdJJ:workDones.picked,
@@ -815,15 +812,13 @@ $(function(){
                                 //更新状态
                                 upData();
                                 if(_upDateStateFlag == true){
-                                    moTaiKuang($('#myModal4'),'提示','flag');
-                                    $('#myModal4').find('.modal-body').html('添加成功！');
+                                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
                                     $('#myModal').modal('hide');
                                 }
                                 //更新状态
                                 conditionSelect()
                             }else{
-                                moTaiKuang($('#myModal4'),'提示','flag');
-                                $('#myModal4').find('.modal-body').html('添加失败！');
+                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
                             }
                         },
                         error:function(jqXHR, textStatus, errorThrown){
@@ -840,8 +835,7 @@ $(function(){
             editGD();
             //根据三个状态值提示
             if( _wxBZFlag && _editFlag ){
-                moTaiKuang($('#myModal4'),'提示','flag');
-                $('#myModal4').find('.modal-body').html('工单编辑成功！');
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单编辑成功！', '');
                 $('#myModal').modal('hide');
             }else{
                 var str = '';
@@ -868,8 +862,7 @@ $(function(){
                 reSend();
                 assigFZR();
                 if(_leaderFlag && _wxBZFlag && _reSendFlag){
-                    moTaiKuang($('#myModal4'),'提示','flag');
-                    $('#myModal4').find('.modal-body').html('工单下发成功！')
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
                     $('#myModal').modal('hide');
                 }else{
                     var str = '';
@@ -888,8 +881,7 @@ $(function(){
                     }else{
                         str += '工单重发成功！'
                     }
-                    moTaiKuang($('#myModal4'),'提示','flag');
-                    $('#myModal4').find('.modal-body').html(str);
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
                 }
             }else{
                 //更新负责人
@@ -898,8 +890,7 @@ $(function(){
                 upData();
                 //根据三个状态值提示
                 if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
-                    moTaiKuang($('#myModal4'),'提示','flag');
-                    $('#myModal4').find('.modal-body').html('工单下发成功！')
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
                     $('#myModal').modal('hide');
                 }else{
                     var str = '';
@@ -918,8 +909,7 @@ $(function(){
                     }else{
                         str += '工单下发成功！'
                     }
-                    moTaiKuang($('#myModal4'),'提示','flag');
-                    $('#myModal4').find('.modal-body').html(str);
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
                 }
             }
 
@@ -944,7 +934,7 @@ $(function(){
         })
         //图片详情
         .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal5'),'图片详情','flag');
+            _moTaiKuang($('#myModal5'), '图片详情', 'flag', '' ,'', '');
             var imgSrc = $(this).attr('src')
             $('#myModal5').find('img').attr('src',imgSrc);
         });
@@ -991,11 +981,10 @@ $(function(){
     $('.zuofei').click(function(){
         //判断是否选了工单
         if(gdCode == ''){
-            $('#myModal4').find('.modal-body').html('请选择要取消的工单！');
-            moTaiKuang($('#myModal4'),'提示','flag');
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择要取消的工单！', '');
         }else{
             //弹出取消弹窗
-            moTaiKuang($('#myModal9'),'取消');
+            _moTaiKuang($('#myModal9'), '取消', '', '' ,'', '取消');
         }
     })
     //取消确定按钮
@@ -1025,13 +1014,11 @@ $(function(){
                         data:prm,
                         success:function(result){
                             if(result == 99){
-                                $('#myModal4').find('.modal-body').html('工单取消成功！');
-                                moTaiKuang($('#myModal4'),'提示','flag');
+                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单取消成功！', '');
                                 $('#myModal9').modal('hide');
                                 conditionSelect()
                             }else{
-                                $('#myModal4').find('.modal-body').html('工单取消失败！');
-                                moTaiKuang($('#myModal4'),'提示','flag');
+                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单取消失败！', '');
                             }
                         },
                         error:function(jqXHR, textStatus, errorThrown){
@@ -1039,8 +1026,7 @@ $(function(){
                         }
                     })
                 }else{
-                    $('#myModal4').find('.modal-body').html('工单取消失败！');
-                    moTaiKuang($('#myModal4'),'提示','flag');
+                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单取消失败！', '');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1050,7 +1036,7 @@ $(function(){
     });
     //同一车站未闭环工单的查看按钮
     $('#table-other').on('click','.option-see',function(){
-        moTaiKuang($('#myModal0'),'工单详情','flag');
+        _moTaiKuang($('#myModal0'), '工单详情', 'flag', '' ,'', '');
         //工单详情，赋值
         var gongDanCode = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcode');
         var gongDanState = $(this).parents('tr').children('.ztz').html();
@@ -1144,7 +1130,7 @@ $(function(){
         })
         //图片详情
         .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal4'),'图片详情','flag');
+            _moTaiKuang($('#myModal4'), '图片详情', 'flag', '' ,'', '');
             var imgSrc = $(this).attr('src')
             $('#myModal4').find('img').attr('src',imgSrc);
         })
@@ -1216,6 +1202,27 @@ $(function(){
             who.find('.btn-primary').hide();
         }else{
             who.find('.btn-primary').show();
+        }
+    }
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+        who.modal({
+            show: false,
+            backdrop: 'static'
+        })
+        who.find('.modal-title').html(title);
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
         }
     }
     //表格初始化方法
@@ -1509,18 +1516,19 @@ $(function(){
             $('#workDones').find('input').attr('disabled',true).addClass('disabled-block');
             $('#workDones').find('select').attr('disabled',true).addClass('disabled-block');
             $('#workDones').find('textarea').attr('disabled',true).addClass('disabled-block');
-            moTaiKuang($('#myModal'),'工单详情');
+            _moTaiKuang($('#myModal'),'下发','','','','下发');
             //显示选择负责人按钮
             $('.zhiXingRenYuanButton').show();
             $('#wxremark').attr('disabled',false).removeClass('disabled-block');
         }else if(flag == 2){
             return false
         }else{
+            console.log('111');
             $('#workDones').find('input').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('select').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('textarea').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('.inpus').attr('disabled',true);
-            moTaiKuang($('#myModal'),'编辑工单');
+            _moTaiKuang($('#myModal'),'编辑','','','','完成编辑');
             //隐藏选择负责人按钮
             $('.zhiXingRenYuanButton').hide();
             $('#wxremark').attr('disabled',false).removeClass('disabled-block');
@@ -1635,8 +1643,7 @@ $(function(){
     //编辑的确定按钮
     function editGD(){
         if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.wxKeshi  == '' ){
-            moTaiKuang($('#myModal4'),'提示');
-            $('#myModal4').find('.modal-body').html('请填写红色必填项！')
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }else{
             var gdInfo= {
                 gdCode:gdCode,

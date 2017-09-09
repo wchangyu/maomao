@@ -565,3 +565,8 @@ textarea{
 .gdList .input-blockeds select{
     width: 198px;
 }
+.table-head div{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
