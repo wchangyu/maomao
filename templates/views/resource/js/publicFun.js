@@ -19,7 +19,8 @@ function _timeYMDComponentsFun(el){
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
-        format: 'yyyy/mm/dd'
+        forceParse: 0,
+        format: 'yyyy/mm/dd',     forceParse: 0
     });
 }
 
@@ -30,6 +31,7 @@ function _yearDate(el){
         startView: 2,
         maxViewMode: 2,
         minViewMode:2,
+        forceParse: 0,
         format: "yyyy",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -42,6 +44,7 @@ function _monthDate(el){
         startView: 1,
         maxViewMode: 2,
         minViewMode:1,
+        forceParse: 0,
         format: "yyyy/mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
