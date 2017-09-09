@@ -55,6 +55,11 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
+    <style>
+        #scrap-datatables thead td{
+            vertical-align: middle !important;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -280,54 +285,63 @@
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min" name="min">
                                         </div>
-                                        <!--<label for="">到</label>-->
+                                        <!--<label for="">&#45;&#45;</label>-->
                                         <!--<div class="input-blocked">-->
                                             <!--<input type="text" class="datatimeblock max" name="max">-->
                                         <!--</div>-->
                                     </li>
-                                    <li><label for="">仓库：</label>
-                                        <div class="input-blocked">
-                                            <select id="storage"></select>
-                                        </div>
-                                    </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1" id="selected">结存当月</button></li>
+
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
                                 <!-- 表格 -->
                                 <div class="content-main-contents">
-                                    <div class="main-contents-table">
+                                    <div class="main-contents-table" style="margin-top: 0;">
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <td rowspan="2">商品分类</td>
-                                                    <td rowspan="2">商品编码</td>
-                                                    <td rowspan="2">存储位置</td>
-                                                    <td rowspan="2">商品名称</td>
-                                                    <td rowspan="2">规格型号</td>
-                                                    <td rowspan="2">单位</td>
-                                                    <td colspan="3" style="border-bottom: none;">商品编码</td>
-                                                    <td colspan="2">入库</td>
-                                                    <td colspan="2">出库</td>
-                                                    <td colspan="3">结存</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>数量</td>
-                                                    <td>单价</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>单价</td>
-                                                    <td>金额</td>
-                                                </tr>
-                                            </thead>
+                                            <caption>
+                                                <h2 style="text-align: center">月度汇总表</h2>
+                                                <div class="table-head">
+                                                    <div>制表日期：<span class="table-time"></span></div>
+                                                    <div>制表人：<span class="table-person"></span></div>
+                                                </div>
+                                            </caption>
+
                                             <tbody>
+                                                <tr>
+                                                    <td>2016/01/05</td>
+                                                    <td>2016/02/05</td>
+                                                    <td>2016/03/05</td>
+                                                    <td>2016/04/05</td>
+                                                    <td>2016/05/05</td>
+                                                    <td>2016/06/05</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2016/07/05</td>
+                                                    <td>2016/08/05</td>
+                                                    <td>2016/09/05</td>
+                                                    <td>2016/10/05</td>
+                                                    <td>2016/11/05</td>
+                                                    <td>2016/12/05</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2017/01/05</td>
+                                                    <td>2017/02/05</td>
+                                                    <td>2017/03/05</td>
+                                                    <td>2017/04/05</td>
+                                                    <td>2017/05/05</td>
+                                                    <td>2017/06/05</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2017/07/05</td>
+                                                    <td>2017/08/05</td>
+                                                    <td>2017/09/05</td>
+                                                    <td>2017/10/05</td>
+                                                    <td>2017/11/05</td>
+                                                    <td>2017/12/05</td>
+                                                </tr>
                                             </tbody>
+
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->
                                     </div>
@@ -393,7 +407,8 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/warehouseManagement-15.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/monthlyCollect.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

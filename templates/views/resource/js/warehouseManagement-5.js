@@ -114,7 +114,7 @@ $(function(){
             },
             {
                 title:'操作人',
-                data:'createUser'
+                data:'createUserName'
             }
         ],
         "rowsGroup": [
@@ -155,6 +155,7 @@ $(function(){
             url:_urls + 'YWCK/ywCKRptInventory',
             data:prm,
             success:function(result){
+                console.log(result);
                 datasTable($('#scrap-datatables'),result)
             }
         })

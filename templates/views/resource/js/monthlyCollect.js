@@ -1,20 +1,15 @@
 $(function(){
     //时间插件
-    _monthDate($('.datatimeblock'));
+    _timeYMDComponentsFun($('.datatimeblock'));
 
     //默认时间
-    var nowTime = moment().format('YYYY/MM');
-
-    //存放页面查询次数
-    var searchNum = 0;
+    var nowTime = moment().format('YYYY/MM/DD');
 
     $('.datatimeblock').val(nowTime);
 
-    //获取仓库
-    _getWarehouse($('#storage'));
 
     //获得初始数据
-    conditionSelect(true);
+    //conditionSelect(true);
 
     //表格初始化(buttons=1按钮显示，其他按钮隐藏)
     var col = [
@@ -82,7 +77,7 @@ $(function(){
 
 
 
-    _tableInit($('#scrap-datatables'),col,2,'',totalFn,drawFn);
+    //_tableInit($('#scrap-datatables'),col,2,'');
 
     //表格时间
     $('.table-time').html(nowTime);
@@ -114,22 +109,8 @@ $(function(){
 
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(flag){
-
-        var postTime = '';
-
         //获取时间
-        var st = $('.min').val() + '/01';
-        //获取条件
-        if(searchNum == 0){
-            var getTime =window.location.search;
-            if(getTime != ''){
-                postTime = getTime;
-            }else{
-                postTime = st;
-            }
-        }else{
-            postTime = st;
-        }
+        var postTime = $('.min').val() + '/01';
         //获取仓库名
         if(flag){
             var storageNum = '';

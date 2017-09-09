@@ -738,14 +738,6 @@
         "arg":"",
         "iconclass":""
       },
-      "出入库总汇":{
-        "type":"0",
-        "content":"出入库总汇",
-        "uri":"../cangkuguanli/warehouseManagement-15.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "台账记录":{
         "type":"0",
         "content":"台账记录",
@@ -774,6 +766,14 @@
         "type":"0",
         "content":"材料总支出",
         "uri":"../cangkuguanli/totalMaterialChange.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "月度汇总":{
+        "type":"0",
+        "content":"月度汇总",
+        "uri":"../cangkuguanli/monthlyCollect.html",
         "uid":"",
         "arg":"",
         "iconclass":""
