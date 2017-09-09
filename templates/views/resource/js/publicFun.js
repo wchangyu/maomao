@@ -172,9 +172,9 @@ function _getWarehouse(el){
         data:prm,
         timeout:_theTimes,
         success:function(result){
-            var str = '<option value="">全部</option>';
+            var str = '<option value=" ">全部</option>';
             for(var i=0;i<result.length;i++){
-                str += '<option value="' + result.storageNum + '">' + result[i].storageName + '</option>';
+                str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
             }
             el.empty().append(str);
         },

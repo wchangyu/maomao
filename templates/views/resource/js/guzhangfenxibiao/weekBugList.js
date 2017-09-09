@@ -1,13 +1,13 @@
 $(function(){
     //全局变量
     /*
-    * 用户名 _userIdName 本地地址 _url*/
+     * 用户名 _userIdName 本地地址 _url*/
     //日历插件初始化
     //日期
     _dataComponentsFun($('.datatimeblock'));
 
     //时间
-    _timeComponentsFun($('.timeblock'));
+    _timeComponentsFun1($('.timeblock'));
 
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
@@ -19,13 +19,11 @@ $(function(){
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
 
-    $('.datatimeblock').eq(1).val(_dataWeekEnd);
 
     //设置初始时间
-    $('.timeblock').eq(0).val('00:00:00');
-
-    $('.timeblock').eq(1).val('00:00:00');
-
+    $('.timeblock').eq(0).val('00:00');
+//
+//
     var _dataEndFact = moment($('.datatimeblock').eq(1).val(_dataWeekEnd)).endOf('week').add(2,'d').format('YYYY/MM/DD');
 
     //存放合计的数组
@@ -38,33 +36,36 @@ $(function(){
     var _totalNums = 0;
 
     //修改时间
-    $('.startTime').html($('.datatimeblock').eq(0).val());
+    $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-    $('.endTime').html($('.datatimeblock').eq(1).val());
+    $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
 
     /*--------------------------------------按钮事件---------------------------------*/
     $('#selected').click(function(){
         //修改时间
-        $('.startTime').html($('.datatimeblock').eq(0).val());
+        $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-        $('.endTime').html($('.datatimeblock').eq(1).val());
+        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
 
         //本周客服设备故障上报及处理情况
-        conditionSelect('YWGD/ywGDRptGDs',$('#failure-reporting'),'flag');
+        conditionSelect('YWGDReport/GetWeekGDAreaReportReturn',$('#failure-reporting'),'flag');
 
         //本周发现或反馈的客服设备惯性、典型（重点）故障情况
-        conditionSelect('YWGD/ywGDRptTypic',$('#failure-info'));
+        conditionSelect('YWGDReport/GetGDDepRptTypicReturn',$('#failure-info'));
 
         //未修复
-        conditionSelect('YWGD/ywGDRptWaiting',$('#failure-to-repair'));
+        conditionSelect('YWGDReport/GetGDDepWaitReturn',$('#failure-to-repair'));
+
+        //获取未修复中数据统计
+        conditionSelect('YWGDReport/GetGDWeekDealInfo','',false,true);
     })
     /*------------------------------------表格初始化------------------------------------------*/
     var failureReportingCol = [
         {
             title:'站（段）名',
-            data:'departName',
+            data:'daName',
             render: function (data, type, row, meta){
-                return '<span num="' + row.departNum +
+                return '<span num="' + row.daNum +
                     '">' + data + '</span>'
             }
         },
@@ -165,25 +166,60 @@ $(function(){
                 str += '<th></th>';
             }
             $('#failure-reporting tfoot').find('tr').append(str);
+            $('#failure-reporting tfoot').append('<tr></tr>');
+            $('#failure-reporting tfoot').find('tr').eq(1).append(str);
         }
         $(tfoot).parents('#failure-reporting').find('tfoot').find(tr).eq(0).children('th').eq(0).html('合计');
+        $(tfoot).parents('#failure-reporting').find('tfoot').find(tr).eq(1).children('th').eq(0).html('故障发生率');
     };
 
-    //合计计算(加载一行计算一次合计)
+    //合计计算
     function totalFn(nRow, aData, iDisplayIndex, iDisplayIndexFull){
         var lengths = _totalAttr.length;
         //首先遍历aData的属性名称
         for(var i=2;i<lengths;i++){
             _totalNum[i] += aData[_totalAttr[i]];
-        }
+        };
+
     };
 
     //重绘合计数据
     function drawFn(){
+        //合计
         var ths = $('#failure-reporting').find('tfoot').children('tr').eq(0).children('th');
+        //故障发生率
+        var ths1 = $('#failure-reporting').find('tfoot').children('tr').eq(1).children('th');
+        //计算累计故障的总数
+        var totalNums = 0
         for(var i=1;i<ths.length;i++){
             ths.eq(i).html(_totalNum[i+1]);
+            if(i > 5){
+                totalNums += _totalNum[i+1];
+            }
         }
+        for(var i=1;i<ths1.length;i++){
+            if(i < 3){
+                ths1.eq(i).html('无');
+            }else if(2 < i && i < 6){
+                var count = _totalNum[i+1];
+                if( count == 0){
+                    ths1.eq(i).html('0%');
+                }else{
+                    var num1 = _totalNum[3];
+                    var percent = ((count / num1)* 100).toFixed(1);
+                    ths1.eq(i).html(percent + '%');
+                }
+            }else{
+                var count = _totalNum[i+1];
+                if( count == 0){
+                    ths1.eq(i).html('0%');
+                }else{
+                    var percent = ((count / totalNums).toFixed(3) * 100).toFixed(1);
+                    ths1.eq(i).html(percent + '%');
+                }
+            }
+        }
+
         for(var i=0;i<_totalNum.length;i++){
             _totalNum[i] = 0;
         }
@@ -194,35 +230,46 @@ $(function(){
     var failureToRepairCol = [
         {
             title:'站（段）名',
-            data:'wxKeshi'
+            data:'ddName'
         },
         {
-            title:'故障报修时间',
-            data:'gdShij'
+            title:' 故障报修时间',
+            data:'gdShiJ',
+            render: function (data, type, row, meta){
+                return '<span style="display: inline-block;width:146px;">'+data+'</span>'
+            }
         },
         {
             title:'故障设备及类别',
-            data:'bxBeizhu'
+            data:'gdDevInfoSys'
         },
         {
-            title:'报修至截止本日12:00已累计故障（时、分）',
-            data:'timeSpan'
+            title:'报修至截止本周六18:00\n已累计故障（时、分）',
+            data:'gdHaoShi',
+            class:'shortTh'
         },
         {
             title:'处置过程',
-            data:'wxBeizhu'
+            data:'gdRepairConent'
         },
         {
             title:'预计完成时限',
-            data:'yjShij'
+            data:'gdDisposition'
         },
         {
             title:'督察督办责任人',
-            data:'wxUserNames'
+            data:'gdDuBanName'
+        },
+        {
+            title:'处理人信息',
+            data:'gdJiedanName',
+            render: function (data, type, row, meta){
+                return '<span>'+data+'</span><br/><span>'+row.gdJiedanPhone+'</span>'
+            }
         },
         {
             title:'故障未处理原因分析',
-            data:'dengMemo'
+            data:'gdCause'
         }
     ];
 
@@ -231,24 +278,50 @@ $(function(){
     var failureInfoCol = [
         {
             title:'站（段）名',
-            data:'bxkeshi'
+            data:'ddName'
         },
         {
             title:'故障报修或发现时间',
-            data:'gdShij'
-        },{
-            title:'故障类别',
-            data:'bxBeizhu'
-        },{
-            title:'处置情况',
-            data:'lastUpdateInfo'
-        },{
-            title:'原因分析',
-            data:'reason'
-        },{
-            title:'整改措施',
-            data:'method'
+            data:'devgdFsShij'
         },
+        {
+            title:'故障类别',
+            data:'dsName'
+        },
+        {
+            title:'处置情况',
+            class: 'left-align',
+            data:'gdDisposition'
+        },
+        {
+            title:'处理人信息',
+            data:'gdJiedanName',
+            render: function (data, type, row, meta){
+                return '<span>'+data+'</span><br/><span>'+row.gdJiedanPhone+'</span>'
+            }
+        },
+        {
+            title:'故障处理级别',
+            data:'gdState',
+            render: function (data, type, row, meta){
+
+                if(data == 0){
+                    return '<span class="sign"><b class="red"></b>滞留到本周故障</span>'
+                }else if(data == 2){
+                    return '<span class="sign"><b class="yellow"></b>本周三级以上故障</span>'
+                }else if(data == 1){
+                    return '<span class="sign"><b class="green"></b>本周普通故障</span>'
+                }
+            }
+        },
+        {
+            title:'原因分析',
+            data:'gdCause'
+        },
+        {
+            title:'整改措施',
+            data:'gdRectify'
+        }
     ];
 
     initTable($('#failure-info'),failureInfoCol);
@@ -277,7 +350,7 @@ $(function(){
         {
             title:'整改措施',
             data:''
-        },
+        }
     ];
 
     initTable($('#work-progress'),workProgressCol);
@@ -495,7 +568,7 @@ $(function(){
             // 克隆（复制）此table元素，这样对复制品进行修改（如添加或改变table的标题等），导出复制品，而不影响原table在浏览器中的展示。
             table = table.cloneNode(true);
             //下面五行代码就是用来改变table中的某些信息的，不需要的话可以注释，或修改。
-            var name=$(".big-title").text();
+            var name=$(".table-block-title").text();
             var caption_orig = table.getElementsByTagName("caption");
 
             // 下面的代码才是真正用来将html table导出Excel表格（我从stackoverflow上看到的，修改了一点点，不会再有中文乱码问题了。）
@@ -510,34 +583,65 @@ $(function(){
     }
     /*---------------------------------------------------------------------------------------*/
 
-    //本周客服设备故障上报及处理情况
-    conditionSelect('YWGD/ywGDRptGDs',$('#failure-reporting'),'flag');
-
-    //本周发现或反馈的客服设备惯性、典型（重点）故障情况
-    conditionSelect('YWGD/ywGDRptTypic',$('#failure-info'));
-
-    //未修复
-    conditionSelect('YWGD/ywGDRptWaiting',$('#failure-to-repair'));
-
+    //
     //条件查询
-    function conditionSelect(url,tableId,flag){
+    function conditionSelect(url,tableId,flag,title){
         var startTime = $('.datatimeblock').eq(0).val() +' ' + $('.timeblock').eq(0).val();
-        var endTime = $('.datatimeblock').eq(1).val() + ' ' + $('.timeblock').eq(1).val();
-        //console.log(startTime);
-        //console.log(endTime);
+
+        var endTime = moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val();
+
+        //传递给后台的车务段集合
+        var postArr = [];
+        var daName = $('.add-input-select span').html();
+        if(daName == '全部'){
+            postArr = DDepotArr
+        }else{
+            for(var i=0; i<$('.add-select-block li .checked').length;i++ ){
+                var DDepotNum = $('.add-select-block li .checked').eq(i).children().attr('vals');
+                postArr.push(DDepotNum);
+            }
+        }
+        console.log(postArr);
+
+        //获取故障筛选时间段
+        var gdRepariQuantum = $('#no-repair').val();
+
         //获取条件
         var prm = {
-            "gdSt":startTime,
-            "gdEt":endTime,
-            "userID":_userIdNum,
-            "userName ":_userIdName
+            "st":endTime,
+            "et":startTime,
+            "daNums":postArr,
+            "gdRepariQuantum ":gdRepariQuantum
         }
         $.ajax({
             type:'post',
             url:_urls + url,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
+                //console.log(result);
+                $('#theLoading').modal('hide');
+                if(title){
+                    $('#failure-to-repair .title-info b').eq(0).html(result.lastWeekCount);
+                    $('#failure-to-repair .title-info b').eq(1).html(result.lastWeekXiuFu);
+                    $('#failure-to-repair .title-info b').eq(2).html(result.lastWeekNoXiuFu);
+                    $('#failure-to-repair .title-info b').eq(3).html(result.curWeekNoXiuFu);
+                    $('#failure-to-repair .title-info b').eq(4).html(result.lastWeekQuxiaoFu);
+                    if(result.lastWeekQuxiaoFu == 0){
+                        $('#failure-to-repair .title-info font').hide();
+                    }else{
+                        $('#failure-to-repair .title-info font').show();
+                    }
+                    return false;
+                }
                 if(flag){
+
                     _totalNums = 0;
                     for(var key in result[0]){
                         _totalAttr.push(key);
@@ -551,6 +655,7 @@ $(function(){
                 _datasTable(tableId,result);
             },
             error:function(jqXHR, textStatus, errorThrown){
+                $('#theLoading').modal('hide');
                 console.log(jqXHR.responseText);
             }
         })
@@ -560,7 +665,7 @@ $(function(){
     function initTable(table,arr,headerCallBack,footerCallBack,fnRowCallback,drawCallback){
         var table =  table.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-            "paging": true,   //是否分页
+            "paging": false,   //是否分页
             "destroy": true,//还原初始化了的datatable
             "searching": true,
             "ordering": false,
@@ -574,7 +679,7 @@ $(function(){
                 'processing': '查询中...',
                 'lengthMenu': '每页 _MENU_ 条',
                 'zeroRecords': '没有数据',
-                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                'info': '共 _TOTAL_ 条数据',
                 'infoEmpty': '没有数据',
                 'paginate':{
                     "previous": "上一页",
@@ -612,4 +717,167 @@ $(function(){
         $('.excelButton11').eq($(this).index()).parent('li').show();
         $('.excelButton11').eq($(this).index()).show();
     });
-})
+
+    ///*-----------------------------------------下拉框事件--------------------------------------*/
+    var rotateNum = 1;
+    //点击下拉框时
+    $('.add-select-block li').html();
+    $(document).on('click',function(){
+
+        if($('.add-select-block').is(':hidden')){
+
+        }else{
+            //$('.add-select-block span').removeClass('checked');
+            $('.add-select-block').css({
+                display:'none'
+            }) ;
+            rotateNum = 2;
+            var num = rotateNum * 180;
+            var string = num + 'deg';
+            $('.add-input-select').children('div').css({
+                'transform':'rotate('+string+')'
+            })
+        }
+
+    });
+    $('.add-input-select').click(function(e){
+        $('.add-select-block').not($(this).parents('.add-input-father').children('.add-select-block')).css({
+            display:'none'
+        });
+        rotateNum++;
+        var num = rotateNum * 180;
+        var string = num + 'deg';
+
+        $(this).parents('.add-input-father').children('.add-select-block').slideToggle('fast');
+        $(this).children('div').css({
+
+            'transform':'rotate('+string+')'
+        })
+
+        e.stopPropagation();
+
+    });
+
+//设置延迟使时间
+    var theTimes = 300000;
+
+//datatimepicker只显示小时
+    function _timeComponentsFun1(el){
+        el.datetimepicker({
+            language:  'zh-CN',//此处修改
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            format : "hh:00",//日期格式
+            startView: 1,  //1时间  2日期  3月份 4年份
+            forceParse: true,
+            minView : 1,
+            minuteStep:0
+        });
+    };
+
+//存放车务段
+    var DDepotSelect = '';
+    var DDepotArr = [];
+
+    getAllDepot();
+
+//获取全部车务段以及页面初始化
+    function getAllDepot(){
+
+        $.ajax({
+            type: 'post',
+            url: _urls + '/YWDev/ywDMGetDAs',
+            timeout: theTimes,
+            data:{
+                'userID':_userIdName,
+                'ddNum':''
+            },
+            success: function (data) {
+                $(data).each(function(i,o){
+                    var id = 'd' + i;
+                    var id1 = 'uniform-' + id;
+                    DDepotSelect += '<li><div class="checker" id="'+id1+'"><span>'+
+                        '<input type="checkbox" id="'+id+'" vals="'+ o.daNum+'"></span></div>'+
+                        '<label for="'+id+'" >'+o.daName+'</label>'+
+                        '</li>';
+                    DDepotArr.push(o.daNum);
+                });
+                DDepotSelect += '  <li>'+
+                    '<button style="width:50px" class="btn-success train-depot">确定</button>'+
+                    '<button style="width:50px;margin-left:10px;" class="btn-danger">取消</button>'+
+                    '</li>'
+
+                $('.add-select-block').html(DDepotSelect);
+
+
+                //本周客服设备故障上报及处理情况
+                conditionSelect('YWGDReport/GetWeekGDAreaReportReturn',$('#failure-reporting'),'flag');
+
+                //本周发现或反馈的客服设备惯性、典型（重点）故障情况
+                conditionSelect('YWGDReport/GetGDDepRptTypicReturn',$('#failure-info'));
+
+                //未修复
+                conditionSelect('YWGDReport/GetGDDepWaitReturn',$('#failure-to-repair'));
+
+                //获取未修复中数据统计
+                conditionSelect('YWGDReport/GetGDWeekDealInfo','',false,true);
+                //防止点击li时下拉框关闭
+                $('.add-select-block li').off('click');
+                $('.add-select-block li').on('click',function(e){
+
+                    if($(this).find('span').hasClass('checked')){
+                        $(this).find('span').removeClass('checked')
+                    }else{
+                        $(this).find('span').addClass('checked');
+                    }
+
+                    //阻止事件冒泡
+                    e.stopPropagation();
+                    return false;
+                });
+
+                //下拉框中确定按钮被点击时
+                $('.add-select-block .btn-success').off('click');
+                $('.add-select-block .btn-success').on('click',function(e){
+
+                    //获取到用户选择的车务段数量
+                    var depotNum = $('.add-select-block').find('.checked').length;
+
+                    $('.add-input-select span').html('当前已选择' + depotNum + '项');
+
+                    $(document).click();
+
+                });
+
+                //下拉框中取消按钮被点击时
+                $('.add-select-block .btn-danger').off('click');
+                $('.add-select-block .btn-danger').on('click',function(e){
+
+                    $('.add-select-block span').removeClass('checked');
+
+                    $('.add-input-select span').html('全部');
+
+                    $(document).click();
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //console.log(textStatus);
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                    myAlter('超时')
+                }else{
+                    myAlter('请求失败')
+                }
+
+            }
+        });
+    }
+
+});
+
+
+
+

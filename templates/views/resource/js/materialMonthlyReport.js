@@ -10,79 +10,76 @@ $(function(){
     //获取仓库
     _getWarehouse($('#storage'));
 
+    //获得初始数据
+    conditionSelect(true);
+
     //表格初始化(buttons=1按钮显示，其他按钮隐藏)
     var col = [
         {
-            data:''
+            data:'itemNum'
         },
         {
-            data:''
+            data:'itemName'
         },
         {
-            data:''
+            data:'size'
         },
         {
-            data:''
+            data:'unitName'
         },
         {
-            data:''
+            data:'startNum'
         },
         {
-            data:''
+            data:'startAmount'
         },
         {
-            data:''
+            data:'inNum'
         },
         {
-            data:''
+            data:'inAmount'
         },
         {
-            data:''
+            data:'outNum'
         },
         {
-            data:''
+            data:'outAmount'
         },
         {
-            data:''
+            data:'num'
         },
         {
-            data:''
+            data:'amount'
         },
         {
-            data:''
-        },
-        {
-            data:''
-        },
-        {
-            data:''
-        },
-        {
-            data:''
+            data:'memo'
         }
     ];
 
     //合计计算(加载一行计算一次合计)
     function totalFn(nRow, aData, iDisplayIndex, iDisplayIndexFull){
-        var lengths = _totalAttr.length;
-        //首先遍历aData的属性名称
-        for(var i=2;i<lengths;i++){
-            _totalNum[i] += aData[_totalAttr[i]];
-        }
+
     };
 
     //重绘合计数据
     function drawFn(){
-        var ths = $('#failure-reporting').find('tfoot').children('tr').eq(0).children('th');
-        for(var i=1;i<ths.length;i++){
-            ths.eq(i).html(_totalNum[i+1]);
+        var table = $('#scrap-datatables').DataTable();
+        var ths = $('#scrap-datatables').find('tfoot').children('tr').eq(0).children('td');
+        var tds = $('#scrap-datatables').find('tbody').children('tr');
+
+        for(var i=3;i<ths.length - 1;i++){
+            var count = 0;
+            for(var j=0; j<tds.length; j++){
+                count += parseFloat(tds.eq(j).children('td').eq(i).html());
+            }
+            ths.eq(i).html(count);
         }
-        for(var i=0;i<_totalNum.length;i++){
-            _totalNum[i] = 0;
-        }
+
     };
 
-    _tableInit($('#scrap-datatables'),col,2,'');
+
+
+    _tableInit($('#scrap-datatables'),col,2,'',totalFn,drawFn);
 
     //表格时间
     $('.table-time').html(nowTime);
@@ -113,17 +110,30 @@ $(function(){
     });
 
     /*-------------------------------------其他方法--------------------------------*/
-    function conditionSelect(){
-        var prm = {
+    function conditionSelect(flag){
+        //获取时间
+        var postTime = $('.min').val() + '/01';
+        //获取仓库名
+        if(flag){
+            var storageNum = '';
+        }else{
+            var storageNum = $('#storage').val();
+        }
 
+        var prm = {
+            "dayDate": postTime,
+            "storageNum": storageNum,
+            "userID":  _userIdNum,
+            "userName": _userIdName
         };
         $.ajax({
             type:'post',
-            url:_urls + '',
+            url:_urls + 'YWCK/ywCKRptGetMonthStock',
             timeout: _theTimes,
             data:prm,
             success:function(result){
-
+                console.log(result);
+                _datasTable($("#scrap-datatables"), result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
