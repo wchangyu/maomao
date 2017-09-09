@@ -31,3 +31,5 @@ sessionStorage.isShowTitleEprName 是否在systemTitle的基础上追加企业�
 sessionStorage.enterPriseList   唯一的企业列表集合(企业ID和企业名称)
 sessionStorage.alarmAlert      记录是否开启报警弹窗
 sessionStorage.alarmSong       记录是否开启报警声音
+sessionStorage.allPointName    记录楼宇树状图是否需要显示全院
+sessionStorage.curPointerId    记录当前选中的楼宇ID

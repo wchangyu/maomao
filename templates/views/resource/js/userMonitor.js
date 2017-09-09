@@ -14,7 +14,8 @@ var userMonitor = (function(){
     var _isViewAllProcs = false;       //用户是否可以查看所有的监控方案
     _isViewAllProcs = false;  //是否查看所有数据
 
-    var _allProcs;      //全部监控方案
+    var _allProcs;      //全部监控方案，开启楼宇选择后，为当前楼宇的全部监控方案
+    var _allPointerProcs;      //全部楼宇监控方案
     //当前监控方案的子项目载入标志
     var _isProcDefLoaded = false,_isProcCrtlLoaded = false,_isProcRenderLoaded = false;
     var _procDefs;      //当前方案的defs对象
@@ -209,10 +210,28 @@ var userMonitor = (function(){
             url:_urlPrefix + "PR/PR_GetAllProcsByBindType",
             success:function(data){
                 _allProcs = data;       //暂存全部方案
-                setProcList(data);},
+                _allPointerProcs = data;
+                //setProcList(_allProcs);
+                getProcsByPointerId();
+            },
             error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByBindType",res)}
         })
     };
+
+    var getProcsByPointerId = function(){
+        var pointerId = sessionStorage["curPointerId"];
+        var menuusepointer = sessionStorage.menuusepointer;
+        if(menuusepointer){
+            if(!pointerId){
+            }
+            else{
+                var curPointerProcs = _.where(_allPointerProcs,{'bindType':2,'bindKeyId':pointerId.toString()});
+                _allProcs = curPointerProcs;
+            }
+        }
+
+        setProcList(_allProcs);
+    }
 
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
@@ -268,7 +287,10 @@ var userMonitor = (function(){
             url:_urlPrefix + "PR/PR_GetAllProcsByParameter",
             success:function(data){
                 _allProcs = data;       //暂存全部方案
-                setProcList(data); },
+                _allPointerProcs = data;
+                //setProcList(_allProcs);
+                getProcsByPointerId();
+            },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsByParameter",err); }
         });
     };
@@ -282,11 +304,16 @@ var userMonitor = (function(){
                 url:_urlPrefix + "PR/PR_GetAllProcsByProcList",
                 success:function(data){
                     _allProcs = data;       //暂存全部方案
-                    setProcList(data); },
+                    _allPointerProcs = data;
+                    //setProcList(_allProcs);
+                    getProcsByPointerId();
+                },
                 error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByProcList",err);}
             });
         }
     };
+
+
 
     //获取到全部的方案，根据混合模式加载
     var getAllProcs = function(){
@@ -296,8 +323,11 @@ var userMonitor = (function(){
             url:_urlPrefix + "PR/PR_GetAllProcsNew",
             success:function(data){
                 _allProcs = data;       //暂存全部方案
+                _allPointerProcs = data;
                 var curProcs = getLocalProcsByParameter(_configArg2);   //获取当前菜单配置的方案
-                setProcList(curProcs);      //绘制左侧列表
+                //setProcList(curProcs);      //绘制左侧列表
+                _allProcs = curProcs;
+                getProcsByPointerId();
             },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsNew" , err);}
         })
@@ -1512,6 +1542,7 @@ var userMonitor = (function(){
     //init();
     return {
         init:init,
+        getProcsByPointerId:getProcsByPointerId,
         getUserProcs:getUserProcs
     };
 })();

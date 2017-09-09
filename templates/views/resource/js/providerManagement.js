@@ -2,15 +2,7 @@
  * Created by admin on 2017/8/22.
  */
 $(function(){
-    //时间插件
-    $('.startsTime').datepicker(
-        {
-            language:  'zh-CN',
-            todayBtn: 1,
-            todayHighlight: 1,
-            format: 'yyyy-mm-dd'
-        }
-    )
+
     //供应商浏览表格
     $('#browse-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -412,12 +404,6 @@ var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
 //获取用户名
 var _userName = sessionStorage.getItem('userAuto');
-
-//当前上传路径
-var _currentPath = '';
-
-//传递给后台的文件信息集合
-var _postKnowLedgeFileArr = [];
 
 //页面展示数据
 var _msgDataArr = [];
