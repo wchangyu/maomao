@@ -5,6 +5,7 @@ $(function(){
         startView: 1,
         maxViewMode: 2,
         minViewMode:1,
+        forceParse:0,
         format: "yyyy/mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     });
@@ -32,9 +33,13 @@ $(function(){
 
     var realityEnd = '';
 
+    //存放调用搜索功能次数
+    var searchNum = 0;
+
     //获得仓库
     getWarehouse();
-
+    //页面获取初始数据
+    conditionSelect();
     /*-------------------------------------表格初始化------------------------------*/
 
     var _tables = $('.main-contents-table .table').DataTable({
@@ -156,14 +161,24 @@ $(function(){
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
     function conditionSelect(){
+
+        var postTime = '';
         //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
+        if(searchNum == 0){
+            var getTime =window.location.search;
+            if(getTime != ''){
+               postTime = getTime;
+            }else{
+                postTime = $('.min').val();
+            }
+        }else{
+            postTime = $('.min').val();
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        console.log(getTime);
+        searchNum++;
+
+        return false;
         var prm = {
             'st':realityStart,
             'et':realityEnd,
@@ -178,6 +193,7 @@ $(function(){
             data:prm,
             success:function(result){
                 datasTable($('#scrap-datatables'),result)
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

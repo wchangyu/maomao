@@ -5,14 +5,14 @@ $(function(){
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
-        format: 'yyyy/mm/dd'
+        format: 'yyyy/mm/dd',     forceParse: 0
     });
     //获得用户名
     var _userIdName = sessionStorage.getItem('userName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //设置初始时间
-    var _initStart = moment().format('YYYY/MM/DD');
+     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
     //显示时间
     $('.min').val(_initStart);

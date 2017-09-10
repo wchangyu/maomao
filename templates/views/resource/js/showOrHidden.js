@@ -214,8 +214,10 @@ function _monthDate(){
         startView: 1,
         maxViewMode: 2,
         minViewMode:1,
+        forceParse: 0,
         format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
-        language: "zh-CN" //汉化
+        language: "zh-CN",//汉化
+        forceParse: 0,
     })
 }
 
@@ -226,6 +228,7 @@ function _yearDate(){
         startView: 2,
         maxViewMode: 2,
         minViewMode:2,
+        forceParse: 0,
         format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -239,6 +242,7 @@ function _initDate(){
             language:  'zh-CN',
             todayBtn: 1,
             todayHighlight: 1,
+            forceParse: 0,
             format: 'yyyy-mm-dd'
         }
     )
