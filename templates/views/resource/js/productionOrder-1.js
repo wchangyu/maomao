@@ -689,7 +689,7 @@ $(function () {
       .on('click', '.option-edit', function () {
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
         $('.loading').showLoading();
-        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('完成编辑');
+        $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('保存');
         //绑定数据
         ViewOrEdit($(this));
         //图片区域隐藏
@@ -937,7 +937,7 @@ $(function () {
     if (flag) {
       _moTaiKuang($('#myModal'), '工单详情', 'flag', '','', '');
     } else {
-      _moTaiKuang($('#myModal'), '编辑工单', '', '','', '完成编辑');
+      _moTaiKuang($('#myModal'), '编辑工单', '', '','', '保存');
     }
     //获取详情
     var gongDanState = $this.children('.ztz').html();

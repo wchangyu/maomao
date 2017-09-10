@@ -415,6 +415,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/warehouseManagement-2.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -452,17 +453,29 @@
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">供货方名称 ：</div>
+                            <div class="labels">供货方名称 ：<a href="providerManagement.html" target="_blank">新增</a><span class="refresh"></span></div>
                             <div class="input-blockeds">
-                                <input type="text" v-model="supplierMC">
+                                <select id="supplier" v-model="supplierMC" @change="selectSupplier()"></select>
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">供货方发票编号 ：</div>
+                            <div class="labels">供货方联系人 ：</div>
                             <div class="input-blockeds">
-                                <input type="text" v-model="supplierBM">
+                                <input type="text" v-model="supplierContent">
                             </div>
                         </li>
+                        <li class="gdList">
+                            <div class="labels">供货方联系电话 ：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="supplierPhone">
+                            </div>
+                        </li>
+                        <!--<li class="gdList">-->
+                            <!--<div class="labels">供货方发票编号 ：</div>-->
+                            <!--<div class="input-blockeds">-->
+                                <!--<input type="text" v-model="supplierBM">-->
+                            <!--</div>-->
+                        <!--</li>-->
                         <li class="gdList">
                             <div class="labels">仓库选择 ：</div>
                             <div class="input-blockeds">
@@ -501,7 +514,7 @@
                             <li style="width: 133px;">
                                 <div class="cont-col1" style="cursor: pointer">
                                     <div class="label label-sm label-warning zhiXingRenYuanButton" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>新增物品
+                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>修改物品
                                     </div>
                                 </div>
                             </li>
@@ -601,7 +614,7 @@
                             <li class="gdList">
                                 <div class="labels">品质：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                   <input type="text" v-model="quality" class="inputType quality" @focus="focusFun()" @keyup="selectFun()" ><div class="selectBlock"></div>
+                                   <input type="text" v-model="quality" class="inputType quality" @focus="focusFun()" @keyup="selectFun()" v-on:click="clickFun"><div class="selectBlock"></div>
                                     <div class="pinzhixx hidden1" style="width:200px;position: absolute;top: 30px;left: 0;display: none">
                                         <div data-value="1">新件</div>
                                         <div data-value="2">良品</div>

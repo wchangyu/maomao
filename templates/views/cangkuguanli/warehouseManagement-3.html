@@ -486,7 +486,7 @@
                             <li style="width: 133px;">
                                 <div class="cont-col1" style="cursor: pointer">
                                     <div class="label label-sm label-warning zhiXingRenYuanButton" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>新增物品
+                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>修改物品
                                     </div>
                                 </div>
                             </li>
@@ -617,7 +617,7 @@
                             <li class="gdList">
                                 <div class="labels">工单号 ：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <input type="text" class="inputType children1" v-model="gdCode" @keyup="selectGD()"><div class="selectBlock"></div>
+                                    <input type="text" class="inputType children1 gdCode" v-model="gdCode" @keyup="selectGD()"><div class="selectBlock"></div>
                                     <div class="pinzhixx hidden1" style="width:200px;background: #ffffff;height:200px;overflow-y:scroll;position: absolute;top: 30px;left: 0;z-index: 10;display: none"></div>
                                 </div>
                             </li>
@@ -649,6 +649,121 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ruku">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--出库产品详情-->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 513px;width: 700px !important;">
+        <div class="modal-content" style="height: 513px;width: 700px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">查看</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="gongdanList" id="chukuObject">
+                    <validator name="validation">
+                        <form novalidate>
+                            <li class="gdList" style="line-height: 26px;">
+                                <div class="labels">仓库：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="ck">
+                                </div>
+                            </li>
+                            <li class="gdList" style="line-height: 26px;">
+                                <div class="labels">物品编号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="bianhao">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">物品名称：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="mingcheng">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">规格型号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="size">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">是否耐用：</div>
+                                <div class="input-blockeds auto-input">
+                                    <input type="radio" class="durable" id="first" value="1" v-model="picked"><label for="first" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="durable" id="second" value="0" v-model="picked"><label for="second" style="line-height: 30px;">否</label>
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">物品序列号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="goodsId">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">单位：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="unit">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">品质：</div>
+                                <div class="input-blockeds" style="position: relative">
+                                    <input type="text" v-model="quality">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">质保期：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="warranty">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels colorTip">数量 *：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="num">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">出库单价：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="outPrice">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">总金额：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="amount">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">工单号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="gdCode">
+                                </div>
+                            </li>
+                            <li class="gdList">
+                                <div class="labels">车站：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="chezhan">
+                                </div>
+                            </li>
+                            <li class="gdList"style="width: 410px !important;">
+                                <div class="labels">备注：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="remark"style="width: 100% !important;">
+                                </div>
+                            </li>
+                            <div class="clearfix"></div>
+                        </form>
+                    </validator>
+                </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary ruku">确定</button>
@@ -765,6 +880,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
 </body>
 <!-- END BODY -->
 </html>

@@ -1,26 +1,15 @@
 $(function(){
-    /*--------------------------------全局变量---------------------------------*/
-    //开始/结束时间插件
-    $('.datatimeblock').datepicker({
-        language:  'zh-CN',
-        todayBtn: 1,
-        todayHighlight: 1,
-        format: 'yyyy/mm/dd'
-    });
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //设置初始时间
-    var _initStart = moment().format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
-    //显示时间
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
-    var realityStart = '';
-    var realityEnd = '';
-    /*-------------------------------------表格初始化------------------------------*/
-    var _tables = $('.main-contents-table .table').DataTable({
+    //根据传过来的值，分解信息字符串
+    var _prm = '?orderNum=0101-003&startTime=2017-01-01&endTime=2017-09-09';
+
+    var itemNum = _prm.split('&')[0].split('=')[1];
+
+    var startTime =  _prm.split('&')[1].split('=')[1];
+
+    var endTime = _prm.split('&')[2].split('=')[1];
+    /*----------------------------------------表格---------------------------------------*/
+
+    $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -129,53 +118,24 @@ $(function(){
             1,
         ],
     });
-    _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
-    /*------------------------------------表格数据--------------------------------*/
-    conditionSelect();
-    /*-------------------------------------按钮事件-------------------------------*/
-    //查询按钮
-    $('#selected').click(function(){
-        conditionSelect();
-    })
-    /*------------------------------------其他方法-------------------------------*/
-    //条件查询
-    function conditionSelect(){
-        //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
+
+    var prm = {
+        itemNum:itemNum,
+        st:startTime,
+        et:endTime,
+        userID:_userIdNum,
+        userName:_userIdName
+    };
+    $.ajax({
+        type:'post',
+        url: _urls + 'YWCK/ywCKRptInventory',
+        data:prm,
+        timeout:_theTimes,
+        success:function(result){
+            _datasTable($('#scrap-datatables'),result);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        var prm = {
-            'st':realityStart,
-            'et':realityEnd,
-            'itemNum':filterInput[0],
-            'itemName':filterInput[1],
-            'inoutType':$('.tiaojian').val(),
-            'userID':_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWCK/ywCKRptInventory',
-            data:prm,
-            success:function(result){
-                datasTable($('#scrap-datatables'),result)
-            }
-        })
-    }
-    //dataTables表格填数据
-    function datasTable(tableId,arr){
-        if(arr.length == 0){
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
-        }
-    }
+    });
 })

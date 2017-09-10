@@ -570,3 +570,16 @@ textarea{
     vertical-align: middle;
     margin-right: 10px;
 }
+.refresh{
+    display: inline-block;
+    width: 15px;
+    height:15px;
+    background:url("../img/refresh.png") no-repeat;
+    vertical-align: sub;
+    background-size: 10px;
+    background-position: center;
+    cursor: pointer;
+}
+.table.dataTable thead .sorting_desc:after {
+    content: "" !important;
+}
