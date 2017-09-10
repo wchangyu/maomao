@@ -139,13 +139,13 @@ $(function(){
         wharehouse.barnum = '';
         wharehouse.location = '';
         $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
-        moTaiKuang($('#myModal'),'新增仓库');
+        _moTaiKuang($('#myModal'), '新增仓库', '', '' ,'', '新增');
     });
     //编辑按钮
     $('#scrap-datatables')
         .on('click','.option-edit',function(){
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
-            moTaiKuang($('#myModal'),'编辑仓库');
+            _moTaiKuang($('#myModal'), '编辑仓库','', '' ,'', '保存');
             //绑定数据
             bindData($(this));
             //编码不可编辑
@@ -154,7 +154,7 @@ $(function(){
         })
         .on('click','.option-delete',function(){
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
-            moTaiKuang($('#myModal'),'确定要删除吗？');
+            _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除')
             //绑定数据
             bindData($(this));
             //都不可编辑
@@ -208,28 +208,27 @@ $(function(){
             }
         })
     }
-    //模态框自适应
-    function moTaiKuang(who,title,flag){
+    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
-            show:false,
-            backdrop:'static'
+            show: false,
+            backdrop: 'static'
         })
+        who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        who.find('.modal-title').html(title);
-        if(flag){
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
             who.find('.btn-primary').hide();
-        }else{
+        } else {
             who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
         }
-    };
-    //修改提示信息
-    function tipInfo(who,title,meg,flag){
-        moTaiKuang(who,title,flag);
-        who.find('.modal-body').html(meg);
+        if(istap){
+            who.find('.modal-body').html(meg);
+        }
     }
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -276,7 +275,7 @@ $(function(){
     function sendMessage(url,succcessMeg,errorMeg,tipBlock,flag){
         //判断非空
         if( wharehouse.name == '' ){
-            tipInfo($('#myModal2'),'提示','请填写红色必填项！','flag');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }else{
             //用flag来区分哪个是编辑，哪个是登记，登记不需要发送编码，编辑需要,flag=1代表登记flag=2代表编辑flag=3代表删除,
             var prm = {};
@@ -298,12 +297,11 @@ $(function(){
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        tipInfo($('#myModal2'),'提示',succcessMeg,'flag');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
+                        $('#myModal').modal('hide');
                         conditionSelect();
-                        tipBlock.modal('hide');
                     }else{
-                        tipInfo($('#myModal2'),'提示',errorMeg,'flag');
-                        tipBlock.modal('show');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,errorMeg, '');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){

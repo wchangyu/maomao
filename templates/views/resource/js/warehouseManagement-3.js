@@ -104,8 +104,6 @@ $(function(){
                 }
                 var amount = Number(workDone.outPrice) * Number(workDone.num);
                 workDone.amount = amount.toFixed(2);
-                console.log(mny.test(workDone.num));
-
             },
             addFun2:function(){
                 var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
@@ -318,6 +316,12 @@ $(function(){
     //出库单号
     var _$thisRKnum = '';
 
+    //登记成功
+    var _AddFlag = false;
+
+    //备件状态
+    var _BjFlag = false;
+
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -380,7 +384,7 @@ $(function(){
         },
         {
             title:'制单人',
-            data:'createUser'
+            data:'createUserName'
         },
         {
             title:'备注',
@@ -671,7 +675,7 @@ $(function(){
     //关闭
     $('.spare-close').click(function(){
         $('.spare-part').hide();
-    })
+    });
 
     /*-------------------------------------按钮事件-------------------------------*/
     //状态选项卡
@@ -691,15 +695,10 @@ $(function(){
     $('#selected').click(function(){
         //时间验证
         if( $('.min').val() == '' || $('.max').val() == '' ){
-            var myModal = $('#myModal2');
-            myModal.find('.modal-body').html('起止时间不能为空');
-            moTaiKuang(myModal,'提示','flag');
+            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'起止时间不能为空!', '');
         }else{
             if( $('.min').val() > $('.max').val() ){
-                var myModal = $('#myModal2');
-                //提示框
-                myModal.find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang(myModal,'提示','flag');
+                _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'起止时间不能大于结束时间!', '');
             }else{
                 conditionSelect();
             }
@@ -733,11 +732,9 @@ $(function(){
         $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
         //新增按钮置为不可操作
         $('.tableHovers').children('.condition-query').show();
-        moTaiKuang($('#myModal'),'添加');
-        //确定按钮显示
-        $('#myModal').find('.confirm').show();
+        _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
         //动态添加类名dengji删除bianji类
-        $('#myModal').find('.confirm').removeClass('bianji').addClass('dengji');
+        $('#myModal').find('.confirm').removeClass('bianji').removeClass('shenhe').addClass('dengji');
         //初始化登记框
         myApp33.bianhao='';
         myApp33.rkleixing='';
@@ -751,20 +748,17 @@ $(function(){
         //产品登记表格清空；
         _rukuArr = [];
         datasTable($('#personTable1'),_rukuArr);
-        moTaiKuang($('#myModal'),'添加');
     })
 
     //新增确认按钮
     $('#myModal').on('click','.dengji',function(){
         //先判断 必填项
         if(myApp33.rkleixing == ''){
-            var myModal = $('#myModal2');
-            //提示框
-            myModal.find('.modal-body').html('请填写红色必填项');
-            moTaiKuang(myModal,'提示','flag');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
         }else{
             var outStoreDetails1 = [];
             //入库单的信息
+            var gdArr = [];
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
                 obj.sn = _rukuArr[i].sn;
@@ -785,7 +779,10 @@ $(function(){
                 obj.storageNum = _rukuArr[i].storageNum;
                 obj.batchNum = _rukuArr[i].batchNum;
                 outStoreDetails1.push(obj);
+                //备件转换
+                gdArr.push(_rukuArr[i].gdCode);
             }
+
             //获取填写的入库信息
             var ckName = '';
             if($('#ckselect').val() == ''){
@@ -810,15 +807,25 @@ $(function(){
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        $('#myModal2').find('.modal-body').html('添加成功');
-                        moTaiKuang($('#myModal2'),'提示','flag');
+                        _AddFlag = true;
+                        //更改工单中备件状态；
+                        applySparePart(gdArr);
+                    }else{
+                        _AddFlag = false;
+                    }
+                    setTimeout(function(){
+                        if(_AddFlag && _BjFlag){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货成功！', '');
+                        }else if( !_AddFlag && _BjFlag ){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货成功！', '');
+                        }else if( _AddFlag && !_BjFlag ){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货失败！', '');
+                        }else if( !_AddFlag && !_BjFlag  ){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货失败！', '');
+                        }
                         conditionSelect();
                         $('#myModal').modal('hide');
-                    }else{
-                        $('#myModal2').find('.modal-body').html('添加失败');
-                        moTaiKuang($('#myModal2'),'提示','flag');
-                    }
-
+                    },200);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -859,7 +866,7 @@ $(function(){
             $('.inpus').parent('span').removeClass('checked');
             $('.inpus').parent('span').eq(0).addClass('checked');
         }
-        moTaiKuang($('#myModal1'),'出库物品管理');
+        _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'', '确定');
         //首先要获得原本的物品
         datasTable($('#wuPinListTable1'),_rukuArr);
         $('#myModal1').on('shown.bs.modal', function () {
@@ -907,11 +914,9 @@ $(function(){
                 }
             }
             //获取当前入库单号的
-            moTaiKuang($('#myModal'),'查看','flag')
+            _moTaiKuang($('#myModal'), '查看', 'flag', '' ,'', '');
             //获取入库信息的详细物品信息
             function sucFun1(result){
-                console.log('111');
-                console.log(result);
                 datasTable($('#personTable1'),result)
             }
             detailInfo($thisDanhao,sucFun1);
@@ -951,7 +956,7 @@ $(function(){
                 }
             }
             //获取当前入库单号的
-            moTaiKuang($('#myModal'),'编辑');
+            _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
             //获取入库信息的详细物品信息
             function sucFun2(result){
                 _rukuArr = result;
@@ -1010,7 +1015,7 @@ $(function(){
                     }
                 }
             }
-            moTaiKuang($myModal,'确定要删除吗？');
+            _moTaiKuang($('#myModal3'), '确定要删除吗？', '', '' ,'', '删除');
         })
         //入库单确认操作
         .on('click','.option-confirm',function(){
@@ -1044,7 +1049,7 @@ $(function(){
             //判断如果是查看功能的话，确认按钮消失
             $('#myModal').find('.confirm').addClass('shenhe');
             //获取当前入库单号的
-            moTaiKuang($('#myModal'),'审核');
+            _moTaiKuang($('#myModal'), '审核', '', '' ,'', '审核');
             //获取入库信息的详细物品信息
             function sucFun3(result){
                 datasTable($('#personTable1'),result)
@@ -1062,10 +1067,11 @@ $(function(){
             $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
         })
         //入库已确认操作
-        .on('click','.option-confirmed',function(){
-            $('#myModal2').find('.modal-body').html('已确认，不能进行该操作');
-            moTaiKuang($('#myModal2'),'提示','flag');
-        })
+        //.on('click','.option-confirmed',function(){
+        //    $('#myModal2').find('.modal-body').html('已确认，不能进行该操作');
+        //    moTaiKuang($('#myModal2'),'提示','flag');
+        //    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'已确认，不能进行该操作', '')
+        //})
 
     //表格编辑确认按钮
     $('#myModal')
@@ -1116,13 +1122,11 @@ $(function(){
             data:prm,
             success:function(result){
                 if(result == 99){
-                    $('#myModal2').find('.modal-body').html('修改成功');
-                    moTaiKuang($('#myModal2'),'提示','flag');
+                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改成功!', '');
                     $('#myModal').modal('hide');
                     conditionSelect();
                 }else{
-                    $('#myModal2').find('.modal-body').html('修改失败');
-                    moTaiKuang($('#myModal2'),'提示','flag');
+                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改失败!', '');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1147,18 +1151,14 @@ $(function(){
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        var $myModal = $('#myModal2');
-                        $myModal.find('.modal-body').html('确认成功');
-                        moTaiKuang($myModal,'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
                         $('#myModal').modal('hide');
                         conditionSelect();
                         //点击一下当前的数字，自动指向当前页
                         currentTable.children('span').children('.paginate_button').eq(currentPages).click();
                         $(this).removeClass('shenhe');
                     }else{
-                        var $myModal = $('#myModal2');
-                        $myModal.find('.modal-body').html('确认失败，可能是库存不足的原因！');
-                        moTaiKuang($myModal,'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认失败，可能是库存不足的原因!', '');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -1179,13 +1179,11 @@ $(function(){
             data:prm,
             success:function(result){
                 if(result == 99){
-                    moTaiKuang($('#myModal5'),'提示','flag');
-                    $('#myModal5').find('.modal-body').html('删除成功！')
+                    _moTaiKuang($('#myModal5'), '提示','flag', 'istap' ,'删除成功!', '');
                     conditionSelect();
                     $('#myModal3').modal('hide');
                 }else{
-                    moTaiKuang($('#myModal5'),'提示','flag');
-                    $('#myModal5').find('.modal-body').html('删除失败！')
+                    _moTaiKuang($('#myModal5'), '提示','flag', 'istap' ,'删除失败!', '');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1197,14 +1195,13 @@ $(function(){
     //删除入库产品操作
     $('#personTable1 tbody')
         .on('click','.option-shanchu',function(){
-        _$thisRemoveRowXiao = $(this);
-        $('#myModal2').find('.modal-body').html('确定要删除吗？');
-        moTaiKuang($('#myModal2'),'提示');
+            _$thisRemoveRowXiao = $(this);
+            _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
         //新添加类名，实现入库单操作；
         $('#myModal2').find('.btn-primary').removeClass('removeButton').addClass('xiaoShanchu');
     })
         .on('click','.option-see1',function(){
-            moTaiKuang($('#myModal6'),'出库产品详情','flag');
+            _moTaiKuang($('#myModal6'), '出库产品详情', 'flag', '' ,'', '');
             //获取详情赋值
             function sucFun3(result){
                 chukuObject.ck = result[0].storageName;
@@ -1287,7 +1284,7 @@ $(function(){
 
     //选择物品列表
     $('.tianJiaruku').click(function(){
-        moTaiKuang($('#myModal4'));
+        _moTaiKuang($('#myModal4'), '选择出库物品列表', '', '' ,'', '确定');
         wlList('flag');
     });
 
@@ -1303,17 +1300,15 @@ $(function(){
     $('#addRK').click(function(){
         //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
         if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.gdCode == '' || workDone.chezhan == '' ){
-            var myModal = $('#myModal2');
             //提示框
-            myModal.find('.modal-body').html('请填写红色必填项');
-            moTaiKuang(myModal,'提示','flag');
+            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'请填写红色必填项!', '')
         }else{
-            var o = $('.format-error4')[0].style.display;
+            var o = $('.format-error')[0].style.display;
             var s = $('.format-error1')[0].style.display;
             var a = $('.format-error2')[0].style.display;
+            var t = $('.format-error3')[0].style.display;
             if(o!='none' && s!='none' && a!= 'none'){
-                $('#myModal2').find('.modal-body').html('请输入正确的数字');
-                moTaiKuang($('#myModal2'),'提示','flag');
+                _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
             }else{
                 //首先判断输入过了没
                 var existFlag = false;
@@ -1324,9 +1319,7 @@ $(function(){
                 }
                 if(existFlag){
                     //有
-                    var myModal = $('#myModal2');
-                    myModal.find('.modal-body').html('已添加过');
-                    moTaiKuang(myModal,'提示','flag');
+                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'已添加过!', '');
                 }else{
                     //无
                     //获取入库单信息创建对象，存入_rukuArr数组
@@ -1353,6 +1346,7 @@ $(function(){
                     rukuDan.userID = _userIdNum;
                     rukuDan.userName = _userIdName;
                     rukuDan.shengyu = workDone.redundant;
+                    rukuDan.gdCode = $('.gdCode').attr('gdcode');
                     _rukuArr.push(rukuDan);
                     //console.log(_rukuArr);
                     datasTable($('#wuPinListTable1'),_rukuArr.reverse());
@@ -1410,14 +1404,12 @@ $(function(){
 
     $('#wuPinListTable1 tbody')
         .on('click','.option-shanchu',function(){
-        _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
-        $('#myModal2').find('.modal-body').html('确定要删除吗？');
-        moTaiKuang($('#myModal2'),'提示');
-        //新添加类名，实现入库单操作；
-        $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('removeButton');
-
+            _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
+            _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定要删除吗？', '删除');
+            //新添加类名，实现入库单操作；
+            $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('removeButton');
             event.stopPropagation();
-    })
+        })
         //点击表格中的数据，将内容赋值给onput，以便编辑
         .on('click','.option-bianji',function(){
             var flag = $(this).attr('data-flag');
@@ -1465,8 +1457,7 @@ $(function(){
             if(workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.gdCode == '' || workDone.chezhan == ''){
                 var myModal = $('#myModal2');
                 //提示框
-                myModal.find('.modal-body').html('请填写红色必填项');
-                moTaiKuang(myModal,'提示','flag');
+                _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请填写红色必填项!', '');
             }else{
                 var bm = workDone.bianhao;
                 for(var i=0;i<_rukuArr.length;i++){
@@ -1533,13 +1524,13 @@ $(function(){
     //选择工单
     $('.pinzhixx').eq(1)
         .on('click','div',function(e){
-            workDone.gdCode = $('.pinzhixx').eq(1).children('.li-color').html();
+            workDone.gdCode = $('.pinzhixx').eq(1).children('.li-color').children('.dataGD').html();
             var pzNum = $('.pinzhixx').eq(1).children('.li-color').attr('data-ddsName');
+            $('.gdCode').attr('gdCode',$('.pinzhixx').eq(1).children('.li-color').attr('data-gd'));
             workDone.chezhan = pzNum;
             $('.pinzhixx').eq(1).hide();
             $('.chezhan').attr('data-num',$('.pinzhixx').eq(1).children('.li-color').attr('data-dds'));
             $('.chezhan').attr('data-name',$('.pinzhixx').eq(1).children('.li-color').attr('data-ddsname'));
-
             $(this).parents('.hidden1').hide();
 
             e.stopPropagation();
@@ -1605,8 +1596,7 @@ $(function(){
             //通过长度判断该仓库是否有库存
             var lengths = $('.accord-with-list').eq(0).children().length;
             if(lengths == 0){
-                $('#myModal2').find('.modal-body').html('该仓库无库存，请选择其他仓库');
-                moTaiKuang($('#myModal2'),'提示','flag');
+                _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'该仓库无库存，请选择其他仓库!', '');
             }
             $(this).parents('.hidden1').hide();
 
@@ -1646,7 +1636,6 @@ $(function(){
             //选了编码之后，自动确认序列号列表内容
             var str = '';
             for(var i=0;i<_wpListArr.length;i++){
-                //console.log(_wpListArr[i]);
                 if(workDone.bianhao == _wpListArr[i].itemNum){
                     //确定序列号
                     var isSpareStr = '';
@@ -1692,6 +1681,30 @@ $(function(){
                 $('.inpus').parent('span').removeClass('checked');
                 $('.inpus').parent('span').eq(0).addClass('checked');
             }
+            //更改车站列表
+            var str1 = '';
+            var eligibleArr = [];
+            //首先判断的是每个工单的材料id
+            for(var i=0;i<_gdArr.length;i++){
+                var arrSplit = _gdArr[i].wxClIds.split(',');
+                for(var j=0;j<arrSplit.length;j++){
+                    if(workDone.bianhao == arrSplit[j]){
+                        eligibleArr.push(_gdArr[i]);
+                    }
+                }
+            }
+            for(var i=0;i<eligibleArr.length;i++){
+                str1 += '<div data-dds="' + eligibleArr[i].bxKeshiNum +
+                    '"data-ddsName="' + eligibleArr[i].bxKeshi +
+                    '" data-gd="' + eligibleArr[i].gdCode +
+                    '">' +'<span class="dataGD">' +
+                    eligibleArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + eligibleArr[i].wxClNames +
+                    '</span>' + '<span>' + eligibleArr[i].wxKeshi +
+                    '</span>' + '</div>';
+
+
+            }
+            $('.pinzhixx').eq(1).empty().append(str1);
             _num = -1;
         })
         .on('mouseover','li',function(){
@@ -1799,8 +1812,8 @@ $(function(){
         })
     }
 
-    //确定新增弹出框的位置
-    function moTaiKuang(who, title, flag) {
+    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
             show: false,
             backdrop: 'static'
@@ -1815,6 +1828,10 @@ $(function(){
             who.find('.btn-primary').hide();
         } else {
             who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
         }
     }
 
@@ -1992,16 +2009,6 @@ $(function(){
             url:_urls + 'YWDev/ywDMGetDDs',
             data:prm,
             success:function(result){
-                //var str = '<div data-value="">请选择</div>';
-                //_chezhanArr = [];
-                //for(var i=0;i<result.length;i++){
-                //    _chezhanArr.push(result[i]);
-                //    str +='<div data-value="' + result[i].ddNum +
-                //        '">' + result[i].ddName +
-                //        '</div>'
-                //}
-                //$('.pinzhixx').empty();
-                //$('.pinzhixx').append(str);
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
@@ -2123,6 +2130,28 @@ $(function(){
                     $('.inpus').parent('span').removeClass('checked');
                     $('.inpus').parent('span').eq(0).addClass('checked');
                 }
+                //更改车站列表
+                var str1 = '';
+                var eligibleArr = [];
+                //首先判断的是每个工单的材料id
+                for(var i=0;i<_gdArr.length;i++){
+                    var arrSplit = _gdArr[i].wxClIds.split(',');
+                    for(var j=0;j<arrSplit.length;j++){
+                        if(workDone.bianhao == arrSplit[j]){
+                            eligibleArr.push(_gdArr[i]);
+                        }
+                    }
+                }
+                for(var i=0;i<eligibleArr.length;i++){
+                    str1 += '<div data-dds="' + eligibleArr[i].bxKeshiNum +
+                        '"data-ddsName="' + eligibleArr[i].bxKeshi +
+                        '" data-gd="' + eligibleArr[i].gdCode +
+                        '">' +'<span class="dataGD">' +
+                        eligibleArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + eligibleArr[i].wxClNames +
+                        '</span>' + '<span>' + eligibleArr[i].wxKeshi +
+                        '</span>' + '</div>';
+                }
+                $('.pinzhixx').eq(1).empty().append(str1);
             }
         }else{
             if(e.keyCode != 9){
@@ -2214,8 +2243,11 @@ $(function(){
                     _gdArr.push(result[i]);
                     str += '<div data-dds="' + _gdArr[i].bxKeshiNum +
                         '"data-ddsName="' + _gdArr[i].bxKeshi +
-                        '"data-gdCode="' + _gdArr[i].gdCode +
-                        '">' + _gdArr[i].gdCode2 + '</div>';
+                        '" data-gd="' + _gdArr[i].gdCode +
+                        '">' +'<span class="dataGD">' +
+                        _gdArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + _gdArr[i].wxClNames +
+                        '</span>' + '<span>' + _gdArr[i].wxKeshi +
+                        '</span>' + '</div>';
                 }
                 $('.pinzhixx').eq(1).empty().append(str);
             },
@@ -2282,15 +2314,6 @@ $(function(){
                             if($('.cangku').attr('data-num') == _wpListArr[i].storageNum){
 
                                 arr.push(_wpListArr[i]);
-                                //生成编码列表
-                                //for(var i=0;i<_ckArr.length;i++){
-                                //    if(_ckArr[i].storageName.indexOf(searchValue)>=0 || _ckArr[i].storageNum.indexOf(searchValue)>=0){
-                                //        includeArr = [];
-                                //        includeArr.push(_ckArr[i]);
-                                //        str +='<div data-num="' + _ckArr[i].storageNum + '"data-name="' + _ckArr[i].storageName +
-                                //            '">' + _ckArr[i].storageName + '</div>'
-                                //    }
-                                //}
                                 str += '<li data-durable="' + _wpListArr[i].isSpare +
                                     '"' + 'data-unit="' + _wpListArr[i].unitName +
                                     '"data-quality="' + _wpListArr[i].batchNum +
@@ -2305,7 +2328,6 @@ $(function(){
                                     '</li>';
                             }
                         }
-                        //console.log(str);
                         $('.accord-with-list').eq(0).empty().append(str);
                         if(arr.length == 0){
                             $('#myModal2').find('.modal-body').html('该仓库无库存，请选择其他仓库');
@@ -2337,7 +2359,8 @@ $(function(){
                     }
                 }else{
                     if(lis.eq(i).attr('class') == 'li-color'){
-                        workDone.gdCode = lis.eq(i).html();
+                        workDone.gdCode = lis.eq(i).children('.dataGD').html();
+                        $('.gdCode').attr('gdCode',lis.eq(i).attr('data-gd'));
                         workDone.chezhan = lis.eq(i).attr('data-ddsName');
                         $('.chezhan').attr('data-num',lis.eq(i).attr('data-dds'));
                         $('.chezhan').attr('data-name',lis.eq(i).attr('data-ddsname'));
@@ -2368,13 +2391,28 @@ $(function(){
                     }
                 }else{
                     var str = '';
+                    var eligibleArr = [];
+                    //首先判断的是每个工单的材料id
                     for(var i=0;i<_gdArr.length;i++){
-                        if(_gdArr[i].gdCode2.indexOf(searchValue)>=0){
+                        var arrSplit = _gdArr[i].wxClIds.split(',');
+                        for(var j=0;j<arrSplit.length;j++){
+                            if(workDone.bianhao == arrSplit[j]){
+                                eligibleArr.push(_gdArr[i]);
+                            }
+                        }
+                    }
+                    for(var i=0;i<eligibleArr.length;i++){
+                        if(eligibleArr[i].gdCode2.indexOf(searchValue)>=0){
                             includeArr = [];
                             includeArr.push(_gdArr[i]);
                             str += '<div data-dds="' + _gdArr[i].bxKeshiNum +
                                 '"data-ddsName="' + _gdArr[i].bxKeshi +
-                                '">' + _gdArr[i].gdCode2 + '</div>';
+                                '" data-gd="' + _gdArr[i].gdCode +
+                                '">' +'<span class="dataGD">' +
+                                _gdArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + _gdArr[i].wxClNames +
+                                '</span>' + '<span>' + _gdArr[i].wxKeshi +
+                                '</span>' + '</div>';
+
                         }
                     }
                     $('.pinzhixx').eq(index).empty().append(str);
@@ -2401,6 +2439,33 @@ $(function(){
             async:false,
             success:function(result){
                 seccessFun(result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //更改工单备件状(点击了登记之后循环访问，确定工单号)
+    function applySparePart(arr){
+        var prm = {
+            "gdCodes": arr,
+            "clStatusId": 100,
+            "clStatus": '备件发货',
+            "clLastUptInfo": '',
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptMultiPeijStatus',
+            data:prm,
+            success:function(result){
+                if( result == 99 ){
+                    _BjFlag = true;
+                }else{
+                    _BjFlag = false;
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

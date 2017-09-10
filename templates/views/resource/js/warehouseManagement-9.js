@@ -109,15 +109,14 @@ $(function(){
         myApp33.name = '';
         myApp33.num = '';
         myApp33.beizhu = '';
-        $('#myModal').find('.btn-primary').removeClass('xiugai').addClass('dengji');
-        moTaiKuang($('#myModal'),'添加');
+        _moTaiKuang($('#myModal'), '添加', '', '' ,'', '添加')
         $('.lbbm').removeClass('disabled-block');
+        $('#myModal').find('.btn-primary').removeClass('xiugai').addClass('dengji');
     })
     //登记按钮
     $('#myModal').on('click','.dengji',function(){
         if(myApp33.name == ''){
-            $('#myModal2').find('.modal-body').html('请填写红色必填项');
-            moTaiKuang($('#myModal2'),'提示','flag');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '')
         }else{
             var prm = {
                 'cateName':myApp33.name,
@@ -130,14 +129,12 @@ $(function(){
                 data:prm,
                 success:function(result){
                     if(result == '执行成功'){
-                        $('#myModal2').find('.modal-body').html('添加成功！');
-                        moTaiKuang($('#myModal2'),'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功！', '');
                         //刷新列表
                         conditionSelect();
                         $(this).parents('.modal').modal('hide');
                     }else{
-                        $('#myModal2').find('.modal-body').html('添加失败！');
-                        moTaiKuang($('#myModal2'),'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败！', '');
                     }
                     $('#myModal').modal('hide');
                 },
@@ -150,8 +147,7 @@ $(function(){
     //修改按钮
     $('#myModal').on('click','.xiugai',function(){
         if(myApp33.name == ''){
-            moTaiKuang($('#myModal2'),'提示','flag');
-            $('#myModal2').find('.modal-body').html('类别名称不能为空！');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'类别名称不能为空！', '');
         }else {
             var prm = {
                 'cateNum':myApp33.num,
@@ -165,14 +161,12 @@ $(function(){
                 data:prm,
                 success:function(result){
                     if(result == 99){
-                        $('#myModal2').find('.modal-body').html('修改成功！');
-                        moTaiKuang($('#myModal2'),'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'修改成功！', '');
                         //刷新列表
                         conditionSelect();
                         $('#myModal').modal('hide');
                     }else{
-                        $('#myModal2').find('.modal-body').html('修改失败！');
-                        moTaiKuang($('#myModal2'),'提示','flag');
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'修改失败！', '');
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -193,12 +187,12 @@ $(function(){
             data:prm,
             success:function(result){
                 if(result == 99){
-                    $('#myModal2').find('.modal-body').html('删除成功！');
-                    moTaiKuang($('#myModal2'),'提示','flag');
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除成功！', '');
                     conditionSelect();
                 }else{
                     $('#myModal2').find('.modal-body').html('删除失败！');
                     moTaiKuang($('#myModal2'),'提示','flag');
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除成功！', '');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -227,7 +221,7 @@ $(function(){
                 myApp33.num = allData[i].cateNum;
                 myApp33.name = allData[i].cateName;
                 myApp33.beizhu = allData[i].cateRemark;
-                moTaiKuang($('#myModal'),'编辑');
+                _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
             }
         };
         //编码不能编辑
@@ -246,7 +240,7 @@ $(function(){
                 //绑定信息
                 $('#lbxx').val(allData[i].cateNum);
                 $('#lbmc').val(allData[i].cateName);
-                moTaiKuang($('#myModal3'),'确定要删除吗？');
+                _moTaiKuang($('#myModal3'), '确定要删除吗？', '', '' ,'', '删除');
             }
         }
     })
@@ -277,8 +271,8 @@ $(function(){
             }
         })
     }
-    //模态框自适应
-    function moTaiKuang(who, title, flag) {
+    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
             show: false,
             backdrop: 'static'
@@ -293,6 +287,10 @@ $(function(){
             who.find('.btn-primary').hide();
         } else {
             who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
         }
     }
     //dataTables表格填数据

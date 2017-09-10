@@ -144,7 +144,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": true,
+        "order": [13,'asc'],
         "pagingType": "full_numbers",
         "iDisplayLength":50,//默认每页显示的条数
         'language': {
@@ -264,7 +264,14 @@ $(function(){
             },
             {
                 title:'最新处理情况',
-                data:'lastUpdateInfo'
+                data:'lastUpdateInfo',
+                render:function(data, type, full, meta){
+                    if(full.clStatus == 10){
+                        return '备件进展：' + data;
+                    }else{
+                        return data
+                    }
+                }
             },
             {
                 title:'受理时间',
@@ -477,7 +484,7 @@ $(function(){
                         str += '<option value="' + _lineArr[i].deps[j].ddNum +
                             '">'+ _lineArr[i].deps[j].ddName + '</option>';
                     }
-                    $('#station').append(str);
+                    $('#station').empty().append(str);
                 }
             }
         }
@@ -497,7 +504,7 @@ $(function(){
                         str += '<option value="' + _InfluencingArr[i].wxBanzus[j].departNum +
                             '">' + _InfluencingArr[i].wxBanzus[j].departName + '</option>'
                     }
-                    $('#userClass').append(str);
+                    $('#userClass').empty().append(str);
                 }
             }
         }
@@ -524,8 +531,8 @@ $(function(){
     var _currentChexiao = false;
     var _currentClick;
     //查看详情
-    $('#scrap-datatables')
-        .on('click','.option-see',function(){
+    $('#scrap-datatables tbody')
+        .on('click','.option-see',function(e){
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
@@ -594,6 +601,7 @@ $(function(){
                     datasTable($("#personTable1"),result.wxRens);
                     //维修材料
                     datasTable($("#personTables1"),result.wxCls);
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -604,9 +612,11 @@ $(function(){
             $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
 
-            logInformation();
+            logInformation(0);
+
+            e.stopPropagation();
         })
-        .on('click','.tablePingjia',function(){
+        .on('click','.tablePingjia',function(e){
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             pingjia.beizhu = '';
             //初始化一下radio评价按钮
@@ -646,6 +656,7 @@ $(function(){
                     console.log(jqXHR.responseText);
                 }
             })
+            e.stopPropagation();
         })
         .on('click','tr',function(){
         _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
@@ -682,7 +693,7 @@ $(function(){
             }
         })
     })
-        .on('click','.option-beijian',function(){
+        .on('click','.option-beijian',function(e){
             moTaiKuang($('#myModal5'),'维修备件申请');
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏
@@ -752,7 +763,7 @@ $(function(){
             });
             //获取日志
 
-            logInformation();
+            logInformation(2);
 
             stateConstant('2');
 
@@ -760,6 +771,8 @@ $(function(){
             determineTrend();
 
             $('#bjremark').val('');
+
+            e.stopPropagation();
         })
     //关单确定按钮
     //去评价
@@ -981,7 +994,7 @@ $(function(){
                 for (var i = 0; i < result.length; i++) {
                     str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
                 }
-                select.append(str);
+                select.empty().append(str);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1006,7 +1019,7 @@ $(function(){
                     str += '<option value="' + result[i].dlNum +
                         '">' + result[i].dlName +'</option>'
                 }
-                el.append(str);
+                el.empty().append(str);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1033,7 +1046,8 @@ $(function(){
             userID:_userIdNum,
             userName:_userIdName,
             gdZhts:[1,2,3,4,5,6],
-            isCalcTimeSpan:1
+            isCalcTimeSpan:1,
+            gdZht:$('#gdzt').val(),
         };
         var userArr = [];
         var cheArr = [];
@@ -1099,7 +1113,7 @@ $(function(){
                         str1 += '<option value="' + result.wxBanzus[i].departNum +
                             '">' + result.wxBanzus[i].departName + '</option>';
                     }
-                    $('#userClass').append(str1);
+                    $('#userClass').empty().append(str1);
                 }else{
                     _InfluencingArr = [];
                     for(var i=0;i<result.stations.length;i++){
@@ -1111,8 +1125,8 @@ $(function(){
                         str1 += '<option value="' + result.wxBanzus[i].departNum +
                             '">' + result.wxBanzus[i].departName + '</option>';
                     }
-                    $('#influence-unite').append(str);
-                    $('#userClass').append(str1);
+                    $('#influence-unite').empty().append(str);
+                    $('#userClass').empty().append(str1);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1150,7 +1164,7 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].reasonNum + '">' + result[i].reasonDesc + '</option>';
                 }
-                $('#cause-classification').append(str);
+                $('#cause-classification').empty().append(str);
             }
         })
     }
@@ -1203,11 +1217,11 @@ $(function(){
         })
     }
 
-    //获取日志信息（备件logType始终传2）
-    function logInformation(){
+    //获取日志信息（备件logType始终传2,flag:查看备件的处理记录）
+    function logInformation(log){
         var gdLogQPrm = {
             "gdCode": _gdCode,
-            "logType": 2,
+            "logType": log,
             "userID": _userIdNum,
             "userName": _userIdName
         };
@@ -1221,7 +1235,7 @@ $(function(){
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
-                $('.deal-with-list').append(str).show();
+                $('.deal-with-list').empty().append(str).show();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1371,25 +1385,18 @@ $(function(){
                                 '">' + result.statuses[i].clStatus + '</option>';
                         }
                     }
-                    $('#line-point').empty();
-                    $('#line-point').append(str);
+                    $('#line-point').empty().append(str);
                 }else if(flag == 2){
                     //备件管理中操作类型以及现在工单的备件状态码
                     var str ='';
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.statuses[i].clType == 2){
-                            //    str += '<option value="' + result.statuses[i].clTo +
-                            //        '">' + result.statuses[i].clOpt + '</option>';
                             str += '<button type="button" class="btn btn-primary"' + 'data-value='+ result.statuses[i].clTo +
                                 '>' + result.statuses[i].clOpt + '</button>'
                         }
-                        //<button type="button" class="btn btn-primary">确定</button>
                     }
                     str += '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
-                    //$('#stateConstant').empty();
-                    //$('#stateConstant').append(str);
-                    $('#myModal5').find('.modal-footer').empty();
-                    $('#myModal5').find('.modal-footer').append(str);
+                    $('#myModal5').find('.modal-footer').empty().append(str);
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.clStatus == result.statuses[i].clStatusID){
                             $('.nowState').val(result.statuses[i].clStatus);

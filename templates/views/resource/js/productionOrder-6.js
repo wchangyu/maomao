@@ -104,7 +104,7 @@ $(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": true,
-        "ordering": true,
+        "order": true,
         "pagingType":"full_numbers",
         "iDisplayLength":50,//默认每页显示的条数
         "bStateSave":true,

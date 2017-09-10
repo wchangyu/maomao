@@ -1153,10 +1153,7 @@ $(function(){
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
             'wxKeshi':'',
-            "gdZht": 0,
-            "gdZhts": [
-                1,5
-            ],
+            "gdZht": 1,
             'userID':_userIdNum,
             'userName':_userIdName
         }
@@ -1187,23 +1184,6 @@ $(function(){
         }
     }
     //模态框自适应
-    function moTaiKuang(who,title,flag){
-        who.modal({
-            show:false,
-            backdrop:'static'
-        })
-        who.modal('show');
-        who.find('.modal-title').html(title);
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        if(flag){
-            who.find('.btn-primary').hide();
-        }else{
-            who.find('.btn-primary').show();
-        }
-    }
     function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
             show: false,
@@ -1523,12 +1503,11 @@ $(function(){
         }else if(flag == 2){
             return false
         }else{
-            console.log('111');
             $('#workDones').find('input').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('select').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('textarea').attr('disabled',false).removeClass('disabled-block');
             $('#workDones').find('.inpus').attr('disabled',true);
-            _moTaiKuang($('#myModal'),'编辑','','','','完成编辑');
+            _moTaiKuang($('#myModal'),'编辑','','','','保存');
             //隐藏选择负责人按钮
             $('.zhiXingRenYuanButton').hide();
             $('#wxremark').attr('disabled',false).removeClass('disabled-block');

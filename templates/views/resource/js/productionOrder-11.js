@@ -273,6 +273,14 @@ $(function(){
                 data:'wxClName'
             },
             {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
+            },
+            {
                 title:'数量',
                 data:'clShul'
             }
@@ -312,6 +320,14 @@ $(function(){
             {
                 title:'备件名称',
                 data:'wxClName'
+            },
+            {
+                title:'分类',
+                data:'cateName'
+            },
+            {
+                title:'规格',
+                data:'size'
             },
             {
                 title:'数量',
