@@ -121,7 +121,7 @@ $(function(){
         var st = $('.min').val() + '/01';
         //获取条件
         if(searchNum == 0){
-            var getTime =window.location.search;
+            var getTime =window.location.search.split('?')[1];
             if(getTime != ''){
                 postTime = getTime;
             }else{
