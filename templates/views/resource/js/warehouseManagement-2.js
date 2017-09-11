@@ -5,9 +5,9 @@ $(function(){
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
-        format: 'yyyy/mm/dd',     forceParse: 0
+        format: 'yyyy/mm/dd',
+        forceParse: 0
     });
-
     //获得用户id
     var _userIdNum = sessionStorage.getItem('userName');
 
@@ -151,7 +151,7 @@ $(function(){
                     language:  'zh-CN',
                     todayBtn: 1,
                     todayHighlight: 1,
-                    format: 'yyyy/mm/dd',     forceParse: 0
+                    format: 'yyyy/mm/dd',
                 });
             },
             timeblur:function(){
@@ -569,7 +569,7 @@ $(function(){
         $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
         $('#myApp33').find('textarea').attr('disabled',false);
         //新增物品按钮隐藏
-        $('.zhiXingRenYuanButton').show();
+        $('.zhiXingRenYuanButton').html('新增物品').show();
         //入库产品删除按钮不可操作
         $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
         //确定按钮显示
@@ -593,7 +593,7 @@ $(function(){
         //物品登记表格清空；
         _rukuArr = [];
         datasTable($('#personTable1'),_rukuArr);
-        _moTaiKuang($('#myModal'), '新增入库单','', '' ,'', '新增');
+        _moTaiKuang($('#myModal'), '新增入库单','', '' ,'', '保存');
     });
 
     //重置按钮(点击重置按钮的时候，所有input框清空，时间还原成今天的)
@@ -618,6 +618,7 @@ $(function(){
             $('.goodsId').attr('disabled',false).removeClass('disabled-block');
             $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
             $('.rknum').attr('disabled',false).removeClass('disabled-block');
+            $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
             $('.auto-input').attr('disabled',false).removeClass('disabled-block');
             $('.accord-with-list').hide();
             //初始化入库物品
@@ -849,7 +850,7 @@ $(function(){
                 $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
                 $('#myApp33').find('textarea').attr('disabled',false);
                 //新增物品按钮隐藏
-                $('.zhiXingRenYuanButton').show();
+                $('.zhiXingRenYuanButton').html('修改物品').show();
                 //入库产品删除按钮不可操作
                 $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
             }
@@ -1056,7 +1057,7 @@ $(function(){
     })
         .on('click','.option-see1',function(){
             //出现详情页面
-            _moTaiKuang($('#myModal6'), '入库产品详情', '', '' ,'', '');
+            _moTaiKuang($('#myModal6'), '入库产品详情', 'flag', '' ,'', '');
             //获取详情，赋值
             function secFun(result){
                 rukuObject.bianhao = result[0].itemNum;
@@ -1508,25 +1509,10 @@ $(function(){
         $('.hidden1').hide();
     });
 
+    //查看序列号
+
+
     /*------------------------------------其他方法-------------------------------*/
-    //确定新增弹出框的位置
-    //function moTaiKuang(who,title, flag) {
-    //    who.modal({
-    //        show: false,
-    //        backdrop: 'static'
-    //    })
-    //    who.find('.modal-title').html(title);
-    //    who.modal('show');
-    //    var markHeight = document.documentElement.clientHeight;
-    //    var markBlockHeight = who.find('.modal-dialog').height();
-    //    var markBlockTop = (markHeight - markBlockHeight) / 2;
-    //    who.find('.modal-dialog').css({'margin-top': markBlockTop});
-    //    if (flag) {
-    //        who.find('.btn-primary').hide();
-    //    } else {
-    //        who.find('.btn-primary').show();
-    //    }
-    //}
 
     //表格初始化
     function tableInit(tableId,col,buttons,flag){
@@ -1749,11 +1735,14 @@ $(function(){
             data:prm,
             success:function(result){
                 for(var i=0;i<result.length;i++){
-                    if(result[i] == workDone.goodsId){
-                        $('.isEnabled').show();
-                    }else{
-                        $('.isEnabled').hide();
-                    }
+
+                    //if(result[i] == workDone.goodsId){
+                    //    console.log('重复')
+                    //    $('.isEnabled').show();
+                    //}else{
+                    //    console.log('不重复')
+                    //    $('.isEnabled').hide();
+                    //}
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1835,7 +1824,7 @@ $(function(){
             }
             setTimeout(function(){
                 if(workDone.mingcheng != ''){
-                    $('.inputType').eq(6).focus();
+                    $('.inputType').eq(5).focus();
                 }
             },200);
         }else{

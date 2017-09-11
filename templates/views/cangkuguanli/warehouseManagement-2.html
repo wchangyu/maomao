@@ -453,7 +453,7 @@
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">供货方名称 ：<a href="providerManagement.html" target="_blank">新增</a><span class="refresh"></span></div>
+                            <div class="labels">供货方名称 ：<a href="providerManagement.html" target="_blank">【新增】</a><span class="refresh"></span></div>
                             <div class="input-blockeds">
                                 <select id="supplier" v-model="supplierMC" @change="selectSupplier()"></select>
                             </div>
@@ -586,9 +586,9 @@
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels">物品序列号：<div class="multiple-condition" style="width: 122px;"><span class="isEqual colorTip" style="display: none">不耐用时，物品id要与物品编码一致</span><span class="isEnabled colorTip" style="display: none">物品id已存在</span></div></div>
+                                <div class="labels">物品序列号：<div class="multiple-condition" style="width: 70px;"><span class="isEqual colorTip" style="display: none">不耐用时，物品id要与物品编码一致</span><span class="isEnabled colorTip" style="display: none">物品id已存在</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="goodsId" class="goodsId inputType" @keyup="isequal()">
+                                    <input type="text" v-model="goodsId" class="goodsId inputType" @blur="isequal()">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -829,7 +829,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel4">选择物品列表</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y: scroll;height: 500px;">
                 <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
                     <table id="wuPinListTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0">
                         <thead>
