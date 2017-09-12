@@ -60,7 +60,7 @@ var BEE = (function(){
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
-                        li = '<li><a href="' + menu[p]["uri"] +'">';
+                        li = '<li><a href="' + menu[p]["uri"] +'" type="'+menu[p]["arg"]+'">';
                         if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
                         {
                             li = '<li class="active"><a   href="' + menu[p]["uri"] +'">';

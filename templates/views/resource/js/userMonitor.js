@@ -224,13 +224,21 @@ var userMonitor = (function(){
         }
         return -1;
     };
-
+    //定义数组删除某个元素的方法
     Array.prototype.remove = function(val) {
         var index = this.indexOf(val);
         if (index > -1) {
             this.splice(index, 1);
         }
     };
+    //定义查询数组中是否包含某个元素的方法
+    Array.prototype.contains = function ( needle ) {
+        for (i in this) {
+            if (this[i] == needle) return true;
+        }
+        return false;
+    }
+
 
     var getProcsByPointerId = function(){
         var pointerId = sessionStorage["curPointerId"];
@@ -244,6 +252,18 @@ var userMonitor = (function(){
             }
         }
         console.log(_allProcs);
+        //存放获得的所有类型集合
+        var pubProcTypeArr = [];
+        $(_allProcs).each(function(i,o){
+            var typeNum = o.pubProcType;
+            if(pubProcTypeArr.contains(typeNum)){
+
+            }else{
+                pubProcTypeArr.push(typeNum)
+            }
+        });
+        console.log(pubProcTypeArr);
+
         //var arg = sessionStorage.menuArg;
         //if(arg.split(',')[0] == 2){
         //    var type =arg.split(',')[1];
@@ -481,6 +501,9 @@ var userMonitor = (function(){
                                 'transform-origin': 'left top 0px',
                                 'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
                             })
+                            $('.page-content').css({
+                                'overflow':'hidden !important'
+                            })
 
                         });
 
@@ -499,6 +522,9 @@ var userMonitor = (function(){
                         }else{
                             //$(".page-content").width(_originPageWidth);
                             $(".total-wrap").width(_originPageWidth);
+                            $('.page-content').css({
+                                'overflow':'hidden'
+                            })
                         }
 
 
@@ -507,9 +533,15 @@ var userMonitor = (function(){
                     if((1330 + _leftWidth) > _originPageWidth){
                         //$(".page-content").width(1330 + _leftWidth);
                         $(".total-wrap").width(1330 + _leftWidth);
+                        $('.page-content').css({
+                            'overflow':'hidden'
+                        })
                     }else{
                         //$(".page-content").width(_originPageWidth);
                         $(".total-wrap").width(_originPageWidth);
+                        $('.page-content').css({
+                            'overflow':'hidden'
+                        })
                     }
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){

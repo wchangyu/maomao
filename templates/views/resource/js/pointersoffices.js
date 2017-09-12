@@ -198,6 +198,29 @@ var ObjectSelection = function(){
 
                     }
                 },
+                onCheck:function(e,treeId,treeNode){
+
+
+                        if(getShowRadio){
+                            //获取楼宇ID
+
+                            var id =  zTreePointer.getCheckedNodes(true)[0].id;
+
+                            sessionStorage.curPointerId = id;
+
+                            var pointerName =  zTreePointer.getCheckedNodes(true)[0].name;
+                            $('#onOff1').html(pointerName);
+
+                            $('#add-point-byBEE').hide('fast');
+
+                            if(userMonitor != 'defined'){
+                                userMonitor.getProcsByPointerId();
+                            }
+
+                        }
+
+
+                },
                 asyncSuccess:function(event, treeId, treeNode, msg){
 
                 }
