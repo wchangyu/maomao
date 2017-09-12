@@ -13,7 +13,7 @@
 	-webkit-justify-content: flex-start;
 	-webkit-box-pack:start;
 	-ms-flex-pack: start;
-	overflow-x: scroll;
+	overflow-x: auto;
 	position:relative;
 }
 .content-main-1{
@@ -31,14 +31,16 @@
 	border: 1px solid #ccc;
 	background: #f1f3fa;
 	vertical-align: top;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .content-main-right{
 	margin-left: 0;
 	height: 100%;
 	width:100%;
-	overflow-y: scroll;
-	overflow-x: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 .content-main-left ul{
 	margin: 0px;
@@ -59,7 +61,7 @@
 .chooseFunction{
 	margin-top: 10px;
 	margin-left:6px;
-	min-width: 250px;
+	/*min-width: 250px;*/
 }
 .functions{
 	display: inline-block;
@@ -116,7 +118,7 @@
 }
 
 .content-main-right{
-	border: 1px solid #ccc;
+	/*border: 1px solid #ccc;*/
 	position:relative;
 }
 .content-right{

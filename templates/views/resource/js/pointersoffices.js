@@ -76,7 +76,7 @@ var ObjectSelection = function(){
             };
             //this._allPointers.push(pointerAll);
             if(this.getShowRadio){
-                this._allPointers = getCompactArr(tempAllPointers,false,true);
+                this._allPointers = getCompactArr1(tempAllPointers,false,true);
             }else{
                 this._allPointers = getCompactArr(tempAllPointers,true);
             }
@@ -85,7 +85,7 @@ var ObjectSelection = function(){
         }else{
             //this._allPointers = tempAllPointers;
             if(this.getShowRadio){
-                this._allPointers = getCompactArr(tempAllPointers,false,true);
+                this._allPointers = getCompactArr1(tempAllPointers,false,true);
             }else{
                 this._allPointers = getCompactArr(tempAllPointers,false);
             }
@@ -184,11 +184,18 @@ var ObjectSelection = function(){
                         //获取楼宇ID
 
                         var id =  zTreePointer.getCheckedNodes(true)[0].id;
+
                         sessionStorage.curPointerId = id;
 
-                        if(userMonitor){
+                        var pointerName =  zTreePointer.getCheckedNodes(true)[0].name;
+                        $('#onOff1').html(pointerName);
+
+                        $('#add-point-byBEE').hide('fast');
+
+                        if(userMonitor != 'defined'){
                             userMonitor.getProcsByPointerId();
                         }
+
                     }
                 },
                 asyncSuccess:function(event, treeId, treeNode, msg){
@@ -213,7 +220,7 @@ var ObjectSelection = function(){
             }
 
 
-            if(userMonitor){
+            if(typeof userMonitor != 'undefined'){
 
                 userMonitor.getProcsByPointerId();
             }
@@ -433,7 +440,7 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
             //
             //    obj1.nocheck=true;
             //}
-
+            //判断是否打开当前页的Pointer列表
             if(flag){
                 obj1.nocheck=true;
                 if(sessionStorage.curPointerId){
@@ -465,6 +472,7 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
                             obj11.checked = true;
                             obj1.open = true;
                             obj.open = true;
+                            $('#onOff1').html(arr[i].children[j].children[z].pointerName);
                         }
                     }
 
@@ -477,9 +485,8 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
                             }else{
                                 sessionStorage.curPointerId = obj11.id;
                                 obj11.checked = true;
+
                             }
-
-
                         }
                     }
                 }
@@ -489,6 +496,109 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
             }
         }
     }
+
+    //console.log(ztreeArr);
+    return ztreeArr;
+}
+
+//获取正确的Ztree树结构数据
+function getCompactArr1(tempAllPointers,isCheckAll,flag){
+    //
+    //var allGetDataArr = unique1(tempAllPointers,["districtID","enterpriseID","pointerID"]);
+
+        var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
+        var _pointerArr = unique(tempAllPointers,'pointerID');
+
+        var arr = [];
+        for(var j=0;j<_enterpriseArr.length;j++){
+            var obj1 = {};
+            obj1.enterpriseID = _enterpriseArr[j].enterpriseID;
+            obj1.eprName = _enterpriseArr[j].eprName;
+            obj1.parent = '';
+            obj1.children = [];
+
+            for(var z=0;z<_pointerArr.length;z++){
+
+                if(_pointerArr[z].enterpriseID == _enterpriseArr[j].enterpriseID){
+                    var obj11 = {};
+                    obj11.pointerID = _pointerArr[z].pointerID;
+                    obj11.pointerName = _pointerArr[z].pointerName;
+                    obj11.parent = obj1.enterpriseID;
+
+                    obj1.children.push(obj11);
+                }
+
+            }
+            arr.push(obj1);
+        }
+
+    var ztreeArr = [];
+
+        for(var j=0;j<arr.length;j++){
+            var obj1 = {};
+            obj1.name = arr[j].eprName;
+            obj1.id = arr[j].enterpriseID;
+            obj1.pId = arr[j].parent;
+            //当前类型：0 区域 1 企业 2 楼宇
+            obj1.nodeType = 1;
+            //if(isCheckAll == false){
+            //
+            //    obj1.nocheck=true;
+            //}
+            //判断是否打开当前页的Pointer列表
+            if(flag){
+                obj1.nocheck=true;
+                if(sessionStorage.curPointerId){
+
+                }else{
+                    if( j == 0){
+                        obj1.open = true;
+
+                    }
+                }
+            }else{
+                if(j == 0){
+                    obj1.open = true;
+
+                }
+            }
+            ztreeArr.push(obj1);
+            for(var z=0;z<arr[j].children.length;z++){
+                var obj11 = {};
+                obj11.name = arr[j].children[z].pointerName;
+                obj11.id = arr[j].children[z].pointerID;
+                obj11.pId = arr[j].children[z].parent;
+                //当前类型：0 区域 1 企业 2 楼宇
+                obj11.nodeType = 2;
+                if(sessionStorage.curPointerId){
+                    var id = sessionStorage.curPointerId;
+                    if( obj11.id == id){
+                        if(flag){
+                            obj11.checked = true;
+                            obj1.open = true;
+                            $('#onOff1').html(arr[j].children[z].pointerName);
+                        }
+                    }
+
+                }else{
+                    if(isCheckAll == false &&  j == 0 && z == 0){
+
+                        if(flag){
+                            if(sessionStorage.curPointerId){
+
+                            }else{
+                                sessionStorage.curPointerId = obj11.id;
+                                obj11.checked = true;
+
+                            }
+                        }
+                    }
+                }
+
+
+                ztreeArr.push(obj11);
+            }
+        }
 
     //console.log(ztreeArr);
     return ztreeArr;

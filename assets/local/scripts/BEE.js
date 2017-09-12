@@ -63,7 +63,7 @@ var BEE = (function(){
                         li = '<li><a href="' + menu[p]["uri"] +'">';
                         if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
                         {
-                            li = '<li class="active"><a href="' + menu[p]["uri"] +'">';
+                            li = '<li class="active"><a   href="' + menu[p]["uri"] +'">';
                             sessionStorage.menuArg = menu[p]["arg"];        //存储各个菜单的menuArg参数
                             sessionStorage.menuSecond = menu[p]["content"];
                             sessionStorage.menuUri = menu[p]["uri"];
@@ -482,6 +482,7 @@ var BEE = (function(){
          //判断是否需要显示楼宇
          var _isShowPointer = sessionStorage.getItem('menuusepointer');
 
+         console.log(_isShowPointer);
          //如果不需要显示，终止函数
          if(_isShowPointer != 1){
              return false;
@@ -493,19 +494,33 @@ var BEE = (function(){
              '           楼宇列表' +
 
              '   </div>';
-         $('body').append(buttonHtml);
+         //$('body').append(buttonHtml);fa-building
 
          //给页面上方添加显示当前楼宇的字段
-         var pointerHtml = '<li><a href="javascript:void(0);">北京南站</a><i class="fa fa-angle-right"></i></li>';
+         var pointerHtml = '<a href="javascript:void(0);" id="onOff1" style="color: rgb(102, 102, 102);" title="点击切换地点">清华美院</a><i class="fa fa-building" style="font-size: 16px;margin-left:10px;"></i>';
 
-         //$('.page-breadcrumb li').eq(0).after(pointerHtml);
+         $('.page-title').html(pointerHtml);
 
          //下方楼宇列表
-         var html = ' <div class="left-middle-main" style="width:250px;position: fixed;height:500px;right:35px;top:240px;border:1px solid #999;overflow-y: auto;background:#f1f1e3;box-shadow: 1px 2px 1px rgba(0,0,0,.15);display: none" id="add-point-byBEE">' +
-             '     <div class="left-middle-content" style="width:100%;margin-top:0">' +
-             '         <div class="left-middle-tab" style="width:100%;text-align: center;height:30px;">区域位置</div>' +
+         //var html = ' <div class="left-middle-main" style="width:250px;position: fixed;height:500px;right:35px;top:240px;border:1px solid #999;overflow-y: auto;background:#f1f1e3;box-shadow: 1px 2px 1px rgba(0,0,0,.15);display: none" id="add-point-byBEE">' +
+         //    '     <div class="left-middle-content" style="width:100%;margin-top:0">' +
+         //    '         <div class="left-middle-tab" style="width:100%;text-align: center;height:30px;">区域位置</div>' +
+         //    '     </div>' +
+         //    '     <div class="tree-1 tree-3" style="background:none">' +
+         //    '         <div class="left-middle-input">' +
+         //    '             <input id="keys" type="tplaceholder="搜索..." >' +
+         //    '         </div>' +
+         //    '         <div class="tipess"></div>' +
+         //    '         <ul class="allPointer ztree" id="allPointer">' +
+         //    '         </ul>' +
+         //    '     </div>' +
+         //    ' </div>';
+
+         var html = ' <div class="left-middle-main" style="width:250px;position: absolute;height:500px;left:255px;top:100px;border:1px solid #999;overflow-y: auto;background:#dceffd;box-shadow: 1px 2px 1px rgba(0,0,0,.15);display: none" id="add-point-byBEE">' +
+             '     <div class="left-middle-content" style="width:100%;margin-top:0;background:#4d91be !important;">' +
+             '         <div class="left-middle-tab" style="width:100%;text-align: center;height:30px;background:#4d91be !important;">区域位置</div>' +
              '     </div>' +
-             '     <div class="tree-1 tree-3" style="background:none">' +
+             '     <div class="tree-1 tree-3" style="background: none;">' +
              '         <div class="left-middle-input">' +
              '             <input id="keys" type="tplaceholder="搜索..." >' +
              '         </div>' +
@@ -526,8 +541,9 @@ var BEE = (function(){
          objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
 
          //上方开关绑定事件
-         $('#onOff').off('click');
-         $('#onOff').on('click',function(){
+         $('#onOff1').off('click');
+         $('#onOff1').on('click',function(){
+             console.log(33);
 
              if($('#add-point-byBEE').is(':hidden')){
 

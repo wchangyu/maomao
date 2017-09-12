@@ -218,6 +218,20 @@ var userMonitor = (function(){
         })
     };
 
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+
     var getProcsByPointerId = function(){
         var pointerId = sessionStorage["curPointerId"];
         var menuusepointer = sessionStorage.menuusepointer;
@@ -229,7 +243,16 @@ var userMonitor = (function(){
                 _allProcs = curPointerProcs;
             }
         }
-
+        console.log(_allProcs);
+        //var arg = sessionStorage.menuArg;
+        //if(arg.split(',')[0] == 2){
+        //    var type =arg.split(',')[1];
+        //    $(_allProcs).each(function(i,o){
+        //       if(o.pubProcType != type){
+        //           _allProcs.remove(o);
+        //       }
+        //    });
+        //}
         setProcList(_allProcs);
     }
 
@@ -242,7 +265,7 @@ var userMonitor = (function(){
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
-                $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                $ul.append($("<li>",{text:procs[i].showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
                     return function() {initializeProcSubs(procId);selectLi($(this));};
                 })(procs[i].procID)));
             }
@@ -257,7 +280,7 @@ var userMonitor = (function(){
                             curProc = curProc || obj;
                             isProcFind = true;
                         }
-                        $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                        $ul.append($("<li>",{text:obj.showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
                             return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
                     }
                 }
@@ -432,22 +455,60 @@ var userMonitor = (function(){
                 var $divMain = $("#content-main-right");
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
+
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
-                    if((imgWidth + _leftWidth) > _originPageWidth){
-                        $(".page-content").width(imgWidth + _leftWidth);
-                        $(".total-wrap").width(imgWidth + _leftWidth);
-                    }else{
-                        $(".page-content").width(_originPageWidth);
-                        $(".total-wrap").width(_originPageWidth);
-                    }
+
+
+
+                        var norWidth = $('.page-title').width();
+                        //实际宽度
+                        var realWidth = norWidth - _leftWidth;
+
+                        //缩放比例计算
+                        var ratioZoom = realWidth / imgWidth;
+
+                        console.log(norWidth);
+
+                        $(window).resize(function () {          //当浏览器大小变化时
+                            var norWidth1 = $('.page-title').width();
+                            //实际宽度
+                            var realWidth1 = norWidth1 - _leftWidth;
+                            //缩放比例计算
+                            var ratioZoom1 = realWidth1 / imgWidth;
+
+                            $('.content-main-right').css({
+                                'transform-origin': 'left top 0px',
+                                'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+                            })
+
+                        });
+
+
+                        $('.content-main-right').css({
+                            'transform-origin': 'left top 0px',
+                            'transform': 'scale('+ratioZoom+', '+ratioZoom+')'
+                        })
+
+                        if((imgWidth + _leftWidth) > _originPageWidth){
+                            //$(".page-content").width(imgWidth + _leftWidth);
+                            $(".total-wrap").width(imgWidth + _leftWidth);
+                            $('.page-content').css({
+                                'overflow':'hidden'
+                            })
+                        }else{
+                            //$(".page-content").width(_originPageWidth);
+                            $(".total-wrap").width(_originPageWidth);
+                        }
+
+
                 }else{
                     $divMain.width( 1330);
                     if((1330 + _leftWidth) > _originPageWidth){
-                        $(".page-content").width(1330 + _leftWidth);
+                        //$(".page-content").width(1330 + _leftWidth);
                         $(".total-wrap").width(1330 + _leftWidth);
                     }else{
-                        $(".page-content").width(_originPageWidth);
+                        //$(".page-content").width(_originPageWidth);
                         $(".total-wrap").width(_originPageWidth);
                     }
                 }
@@ -1558,7 +1619,7 @@ $(function(){
                 'margin-left':'0px'
             },100);
             $('.showOrHidden').css({
-                'background':'url("./work_parts/img/show.png")no-repeat',
+                'background':'url("../resource/img/show.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
             })
@@ -1570,11 +1631,12 @@ $(function(){
                     display:'block'
                 });
                 $('.showOrHidden').css({
-                    'background':'url("./work_parts/img/hidden.png")no-repeat',
+                    'background':'url("../resource/img/hidden.png")no-repeat',
                     'background-size':'20px',
                     'background-position':'center'
                 })
             })
         }
     })
-})
+});
+
