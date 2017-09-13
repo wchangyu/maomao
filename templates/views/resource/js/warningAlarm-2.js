@@ -2,7 +2,7 @@ $(function(){
 
     var _ajaxEndTime = moment().format("YYYY/MM/DD");
 
-    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY-MM-DD");
+    var _ajaxStartTime = moment().subtract(1,'d').format("YYYY/MM/DD");
 
     //日期插件
     $('.datetimeStart').html(_ajaxStartTime);
@@ -44,11 +44,7 @@ $(function(){
     /*-------------------------时间------------------------*/
     //显示时间
     //显示开始结束时间，
-
-
     var _ajaxStartTime_1 = moment().subtract(1,'d').format("YYYY/MM/DD");
-
-
 
     var _ajaxEndTime_1 = moment().format("YYYY/MM/DD");
 
@@ -331,8 +327,6 @@ $(function(){
         //获得选中的楼宇的信息；
         _pointer_ID = _objectSel.getSelectedPointers();
 
-        console.log(_pointer_ID);
-
         _energy_ID =  getNodeInfo(_energy,_energy_ID);
 
         _alarm_ID = getNodeInfo(_alarm,_alarm_ID);
@@ -443,18 +437,18 @@ $(function(){
                         chkStyle: "radio",
                         chkboxType: { "Y": "ps", "N": "ps" },
                         radioType: 'all'
-
                     },
                     data: {
                         key: {
-                            title: "title"
+                            title: ""
                         },
                         simpleData: {
                             enable: true
                         }
                     },
                     view: {
-                        showIcon: false
+                        showIcon: false,
+                        showTitle:true
                     },
                     callback: {
                         onClick:function (event,treeId,treeNode){
@@ -508,14 +502,15 @@ $(function(){
                     },
                     data: {
                         key: {
-                            title: "title"
+                            title: ""
                         },
                         simpleData: {
                             enable: true
                         }
                     },
                     view: {
-                        showIcon: false
+                        showIcon: false,
+                        showTitle:true
                     },
                     callback: {
                         onClick:function (event,treeId,treeNode){
@@ -543,10 +538,6 @@ $(function(){
         var curPointer = {};
 
         variable = [];
-
-        //variable.splice(0,1);
-
-        //console.log(variable);
 
         for(var i=0;i<nodes.length;i++){
             curPointer = {};

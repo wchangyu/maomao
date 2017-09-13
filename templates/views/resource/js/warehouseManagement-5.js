@@ -8,7 +8,8 @@ $(function(){
         format: 'yyyy/mm/dd',     forceParse: 0
     });
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdNum = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //设置初始时间
@@ -19,6 +20,7 @@ $(function(){
     $('.max').val(_initEnd);
     var realityStart = '';
     var realityEnd = '';
+    warehouse();
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -154,7 +156,8 @@ $(function(){
             'itemNum':filterInput[0],
             'itemName':filterInput[1],
             'inoutType':$('.tiaojian').val(),
-            'userID':_userIdName
+            'userID':_userIdNum,
+            'storageNum':$('#ck').val()
         }
         $.ajax({
             type:'post',
@@ -178,5 +181,29 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
+    }
+    //仓库选择
+    function warehouse(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                var str = '<option value="">请选择</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                }
+                $('#ck').empty().append(str);
+                myApp33.ckselect = result[0].storageNum;
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

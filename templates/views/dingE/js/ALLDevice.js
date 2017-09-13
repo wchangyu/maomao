@@ -5,7 +5,7 @@
 
 var rotateNum = 1;
 $(document).ready(function(){
-
+    console.log(sessionStorage.getItem('menuArg'));
     //select 优化动画
 
     $(document).on('click', function () {

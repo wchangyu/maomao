@@ -14,38 +14,42 @@ $(function(){
     $('.btn1').on('click',function(){
         var st = $('.min').val();
         var et = $('.max').val();
-        var prm = {
-            "lastDayDate": st,
-            "dayDate": et,
-            "userID":  _userIdNum,
-            "userName": _userIdName
-        };
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWCK/ywCKRptCheckMonthStock',
-            timeout: _theTimes,
-            data:prm,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
+        if(st == '' || et == ''){
+            _moTaiKuang($('#myModal2'),'提示','flag','istap','起止时间不能为空！','');
+        }else{
+            var prm = {
+                "lastDayDate": st,
+                "dayDate": et,
+                "userID":  _userIdNum,
+                "userName": _userIdName
+            };
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWCK/ywCKRptCheckMonthStock',
+                timeout: _theTimes,
+                data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
 
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            success:function(result){
-                console.log(result);
-                $('#theLoading').modal('hide');
-                if(result == 99){
-                    myAlter('结存成功')
-                }else{
-                    myAlter('结存失败')
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                success:function(result){
+                    $('#theLoading').modal('hide');
+                    if(result == 99){
+                        myAlter('结存成功');
+                        conditionSelect();
+                    }else{
+                        myAlter('结存失败')
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    $('#theLoading').modal('hide');
+                    console.log(jqXHR.responseText);
                 }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                $('#theLoading').modal('hide');
-                console.log(jqXHR.responseText);
-            }
-        })
+            })
+        }
     });
 
     ////表格人
@@ -87,24 +91,20 @@ $(function(){
             timeout: _theTimes,
             data:prm,
             success:function(result){
-                //console.log(result);
-                //result.reverse();
+                $('#selected').attr('disabled',false);
                 var html = '';
                 for(var i=0; i<result.length; i++){
                     var showTime = result[i].split(' ')[0];
-                    //console.log(showTime);
-                    //console.log(result.length - 1);
                     if(i == 0){
                         if(result.length < 2){
-                            $('.min').val(showTime);
-                            $('#selected').attr('disabled',false);
+                            $('.min').val(showTime.replace(/-/g,'/'));
+
                         }
                         html += '<tr><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td>'
                     }else if(i == result.length - 1){
                         html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td></tr>';
 
-                        $('.min').val(showTime);
-                        $('#selected').attr('disabled',false);
+                        $('.min').val(showTime.replace(/-/g,'/'));
                     }else if(i % 6 != 0){
                         html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td>'
                     }else{
@@ -114,8 +114,6 @@ $(function(){
                     }
                 }
                 $('#scrap-datatables tbody').html(html);
-
-
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

@@ -6,7 +6,6 @@
  */
 
 $(document).ready(function() {
-
     // 基于准备好的dom，初始化echarts实例
     //console.log('ok');
 
