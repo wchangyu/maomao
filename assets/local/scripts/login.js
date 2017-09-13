@@ -210,6 +210,9 @@ var Login = function() {
         }
     };
 
+    //根据用户名获取流程图，存放到sessionstorage中
+    //var get
+
     //根据楼宇列表获取唯一支行列表
     var getEnterpriseList = function(){
 

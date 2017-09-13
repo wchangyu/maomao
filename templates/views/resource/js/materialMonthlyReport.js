@@ -119,10 +119,12 @@ $(function(){
 
         //获取时间
         var st = $('.min').val() + '/01';
+        console.log(st);
         //获取条件
         if(searchNum == 0){
             var getTime =window.location.search.split('?')[1];
-            if(getTime != ''){
+
+            if(getTime){
                 postTime = getTime;
             }else{
                 postTime = st;
@@ -130,6 +132,7 @@ $(function(){
         }else{
             postTime = st;
         }
+
         //获取仓库名
         if(flag){
             var storageNum = '';
