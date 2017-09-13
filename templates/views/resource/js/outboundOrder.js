@@ -11,11 +11,6 @@ $(document).ready(function(){
     function getGodownMessage(){
         //从路径中获取出库单号
         var outboundOrder = window.location.search.split('=')[1];
-
-        if(!outboundOrder){
-            outboundOrder = 'IOS17090215583889';
-        }
-
         $.ajax({
             type: 'post',
             url: _urls + "YWCK/ywCKGetOutStorageDetail",
@@ -40,6 +35,7 @@ $(document).ready(function(){
                         '     <td>'+ o.num+'</td>' +
                         '     <td>'+ o.outPrice+'</td>' +
                         '     <td>'+ o.amount+'</td>'+
+                        '     <td>'+ o.gdCode2+'</td>'+
                         '     <td class="small-size">'+ o.outMemo+'</td>' +
                         ' </tr>';
                     countNum += o.amount;
@@ -64,11 +60,36 @@ $(document).ready(function(){
                 "userName": _userName
             },
             success: function (data) {
-                console.log(data);
+                var inType = data[0].outType;
+                var inTypeName = '';
+                //获取入库类型
+                var prm = {
+                    "catType": 2,
+                    "userID": _userIdName,
+                    "userName": _userName
+                }
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKGetInOutCate',
+                    data:prm,
+                    timeout:theTimes,
+                    success:function(result){
+                        for(var i=0;i<result.length;i++){
+                            if(inType == result[i].catNum){
+                                inTypeName = result[i].catName;
+                            }
+                        }
+                        //title
+                        $('.top-title').children('span').html(inTypeName);
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
                 //获取自编号
                 $('.self-num b').html(data[0].orderNum);
                 //获取制单人
-                $('.creat-name b').html(data[0].createUser);
+                $('.creat-name b').html(data[0].createUserName);
                 //获取审核人
                 $('.top-message span b').eq(3).html(data[0].auditUserName);
                 //获取制单日期

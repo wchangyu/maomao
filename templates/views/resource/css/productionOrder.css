@@ -489,7 +489,7 @@ textarea{
 }
 .accord-with-list li{
     cursor: pointer;
-    width: 280px;
+    width: 100%;
 }
 .gdList{
     float: left;

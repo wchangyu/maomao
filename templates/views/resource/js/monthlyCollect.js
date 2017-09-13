@@ -87,22 +87,24 @@ $(function(){
             timeout: _theTimes,
             data:prm,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 //result.reverse();
                 var html = '';
                 for(var i=0; i<result.length; i++){
                     var showTime = result[i].split(' ')[0];
-
-                    console.log(result.length - 1);
+                    //console.log(showTime);
+                    //console.log(result.length - 1);
                     if(i == 0){
                         if(result.length < 2){
                             $('.min').val(showTime);
+                            $('#selected').attr('disabled',false);
                         }
                         html += '<tr><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td>'
                     }else if(i == result.length - 1){
                         html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td></tr>';
 
                         $('.min').val(showTime);
+                        $('#selected').attr('disabled',false);
                     }else if(i % 6 != 0){
                         html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td>'
                     }else{

@@ -135,6 +135,14 @@ $(function(){
                     $('.format-error3').show();
                 }
             },
+            addFun4:function(){
+                var outPrince = workDone.outPrice;
+                workDone.outPrice = parseFloat(outPrince).toFixed(2);
+            },
+            addFun5:function(){
+                var outPrince = workDone.amount;
+                workDone.amount = parseFloat(outPrince).toFixed(2);
+            },
             focusSn:function(e){
                 ////序列号选择（首先获得名称和编码，将名称和编码相同的都放在index2里）
                 var bm = $.trim(workDone.bianhao);
@@ -327,6 +335,9 @@ $(function(){
 
     //备件状态
     var _BjFlag = false;
+
+    //审核标志
+    var _examineRen = false;
 
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
@@ -558,7 +569,7 @@ $(function(){
             title:'操作',
             "targets": -1,
             "data": null,
-            "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+            "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
 
         }
     ];
@@ -768,8 +779,10 @@ $(function(){
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
         }else{
             var outStoreDetails1 = [];
-            //入库单的信息
+            //工单的信息
             var gdArr = [];
+            //材料工单
+            var clArr = [];
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
                 obj.sn = _rukuArr[i].sn;
@@ -791,7 +804,10 @@ $(function(){
                 obj.batchNum = _rukuArr[i].batchNum;
                 outStoreDetails1.push(obj);
                 //备件转换
-                gdArr.push(_rukuArr[i].gdCode);
+                if(_rukuArr[i].gdCode){
+                    gdArr.push(_rukuArr[i].gdCode);
+                    clArr.push(_rukuArr[i].itemName);
+                }
             }
 
             //获取填写的入库信息
@@ -821,19 +837,27 @@ $(function(){
                     if(result == 99){
                         _AddFlag = true;
                         //更改工单中备件状态；
-                        applySparePart(gdArr);
+                        applySparePart(gdArr,clArr);
                     }else{
                         _AddFlag = false;
                     }
                     setTimeout(function(){
-                        if(_AddFlag && _BjFlag){
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货成功！', '');
-                        }else if( !_AddFlag && _BjFlag ){
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货成功！', '');
-                        }else if( _AddFlag && !_BjFlag ){
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货失败！', '');
-                        }else if( !_AddFlag && !_BjFlag  ){
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货失败！', '');
+                        if(_BjFlag == ''){
+                            if(_AddFlag){
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功！', '');
+                            }else{
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败！', '');
+                            }
+                        }else{
+                            if(_AddFlag && _BjFlag){
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货成功！', '');
+                            }else if( !_AddFlag && _BjFlag ){
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货成功！', '');
+                            }else if( _AddFlag && !_BjFlag ){
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货失败！', '');
+                            }else if( !_AddFlag && !_BjFlag  ){
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货失败！', '');
+                            }
                         }
                         conditionSelect();
                         $('#myModal').modal('hide');
@@ -1053,7 +1077,12 @@ $(function(){
                     myApp33.shijian = _allData[i].createTime;
                     myApp33.remarks = _allData[i].remark;
                     //myApp33.shRemarks = _allData[i].
-
+                    //判断制单人和审核人是不是一样
+                    if(_allData[i].createUser == _userIdNum){
+                        _examineRen = false;
+                    }else{
+                        _examineRen = true;
+                    }
                 }
             }
             //判断如果是查看功能的话，确认按钮消失
@@ -1145,36 +1174,42 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
-            var prm = {
-                'OrderNum':_$thisRKnum,
-                'userID':_userIdNum,
-                'userName':_userIdName,
-                'auditMemo':myApp33.shRemarks
-            }
-            //获得当前的页数，
-            $thisTbale = $(this).parents('.table');
-            currentTable = $thisTbale.next().next();
-            currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKConfirmOutStorage',
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
-                        $('#myModal').modal('hide');
-                        conditionSelect();
-                        //点击一下当前的数字，自动指向当前页
-                        currentTable.children('span').children('.paginate_button').eq(currentPages).click();
-                        $(this).removeClass('shenhe');
-                    }else{
-                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认失败，可能是库存不足的原因!', '');
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+            _examineRen = true;
+            if(!_examineRen){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
+            }else{
+                var prm = {
+                    'OrderNum':_$thisRKnum,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'auditMemo':myApp33.shRemarks
                 }
-            })
+                //获得当前的页数，
+                $thisTbale = $(this).parents('.table');
+                currentTable = $thisTbale.next().next();
+                currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKConfirmOutStorage',
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
+                            $('#myModal').modal('hide');
+                            conditionSelect();
+                            //点击一下当前的数字，自动指向当前页
+                            currentTable.children('span').children('.paginate_button').eq(currentPages).click();
+                            $(this).removeClass('shenhe');
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认失败，可能是库存不足的原因!', '');
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }
+
         })
 
     //入库单确认删除操作
@@ -1371,7 +1406,6 @@ $(function(){
                     rukuDan.shengyu = workDone.redundant;
                     rukuDan.gdCode = $('.gdCode').attr('gdcode');
                     _rukuArr.push(rukuDan);
-                    //console.log(_rukuArr);
                     datasTable($('#wuPinListTable1'),_rukuArr.reverse());
                     //添加完之后，自动清空，并获得焦点
                     workDone.bianhao = '';
@@ -1679,7 +1713,8 @@ $(function(){
                         '><label>序列号</label><span class="dataSn">' + snStr + '</span>' + '<span data-isSpare="' + _wpListArr[i].isSpare +
                         '"class="dataIsSpare" style="margin: 0 10px;">' + isSpareStr + '</span>' +'<label>数量</label><span class="dataNum">' + _wpListArr[i].num + '</span>' +
                         '<span class="dataStorageName" style="margin-left: 10px;">' + _wpListArr[i].storageName +
-                        '</span>' +'</li>'
+                        '</span>'+'<span style="margin: 0 10px;">' + _wpListArr[i].batchNum +
+                        '</span>' +'</li>';
                 }
             }
             $('.accord-with-list').eq(2).empty().append(str);
@@ -1704,10 +1739,10 @@ $(function(){
                     $('.inpus').parent('span').eq(0).addClass('checked');
                 }
                 var outPrice = '';
-                if($('.dataNum').html() == 0){
+                if(info.children('.dataNum').html() == 0){
                     outPrice = ''
                 }else{
-                    outPrice = parseFloat(info.attr('data-amount'))/parseFloat($('.dataNum').html());
+                    outPrice = parseFloat(info.attr('data-amount'))/parseFloat(info.children('.dataNum').html());
                 }
                 workDone.outPrice = outPrice.toFixed(2);
                 workDone.num = 0;
@@ -2208,7 +2243,8 @@ $(function(){
                             '><label>序列号</label><span class="dataSn">' + snStr + '</span>' + '<span data-isSpare="' + _wpListArr[i].isSpare +
                             '"class="dataIsSpare" style="margin: 0 10px;">' + isSpareStr + '</span>' +'<label>数量</label><span class="dataNum">' + _wpListArr[i].num + '</span>' +
                             '<span class="dataStorageName" style="margin-left: 10px;">' + _wpListArr[i].storageName +
-                            '</span>' +'</li>'
+                            '</span>'+ '<span style="margin: 0 10px;">' + _wpListArr[i].batchNum +
+                            '</span>' +'</li>';
                     }
                 }
                 $('.accord-with-list').eq(2).empty().append(str2);
@@ -2236,7 +2272,7 @@ $(function(){
                     if($('.dataNum').html() == 0){
                         outPrice = ''
                     }else{
-                        outPrice = parseFloat(info.attr('data-amount'))/parseFloat($('.dataNum').html());
+                        outPrice = parseFloat(info.attr('data-amount'))/parseFloat(info.children('.dataNum').html());
                     }
                     workDone.outPrice = outPrice.toFixed(2);
                     workDone.num = 0;
@@ -2643,30 +2679,36 @@ $(function(){
     }
 
     //更改工单备件状(点击了登记之后循环访问，确定工单号)
-    function applySparePart(arr){
-        var prm = {
-            "gdCodes": arr,
-            "clStatusId": 100,
-            "clStatus": '备件发货',
-            "clLastUptInfo": '',
-            "userID": _userIdNum,
-            "userName": _userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDUptMultiPeijStatus',
-            data:prm,
-            success:function(result){
-                if( result == 99 ){
-                    _BjFlag = true;
-                }else{
-                    _BjFlag = false;
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+    function applySparePart(arr,cl){
+        console.log(arr);
+        if(arr.length){
+            var prm = {
+                "gdCodes": arr,
+                "clStatusId": 100,
+                "clStatus": '备件发货',
+                "clLastUptInfo": '',
+                "userID": _userIdNum,
+                "userName": _userIdName,
+                'wxClNames':cl
             }
-        })
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWGD/ywGDUptMultiPeijStatus',
+                data:prm,
+                success:function(result){
+                    if( result == 99 ){
+                        _BjFlag = true;
+                    }else{
+                        _BjFlag = false;
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+        }else{
+            _BjFlag = '';
+        }
     }
 
     //数组删除指定元素的值

@@ -120,6 +120,10 @@ $(function(){
                     $('.format-error3').show();
                 }
             },
+            addFun4:function(){
+                var inPrince = workDone.inPrice;
+                workDone.inPrice = parseFloat(inPrince).toFixed(2);
+            },
             searchbm:function(e){
                 var value = $.trim(workDone.bianhao);
                 keySelect(value,0)
@@ -281,6 +285,8 @@ $(function(){
     getSupplier();
 
     var _rotate;
+
+    var _examineRen = false;
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -628,7 +634,7 @@ $(function(){
             workDone.size = '';
             workDone.picked = 0;
             workDone.unit = '';
-            workDone.quality = '';
+            workDone.quality = '新件';
             workDone.warranty = '';
             workDone.num = '';
             workDone.inPrice = '';
@@ -759,12 +765,13 @@ $(function(){
             _gdCode = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
+                    console.log(_allData[i]);
                     //绑定数据
                     myApp33.rkleixing = _allData[i].inType;
                     myApp33.bianhao = _allData[i].orderNum;
                     myApp33.remarks = _allData[i].remark;
                     myApp33.gysphone = _allData[i].phone;
-                    myApp33.zhidanren = _allData[i].createUser;
+                    myApp33.zhidanren = _allData[i].createUserName;
                     myApp33.shijian = _allData[i].createTime;
                     myApp33.supplierMC = _allData[i].supNum;
                     myApp33.supplierBM = _allData[i].contractOrder;
@@ -808,7 +815,7 @@ $(function(){
                     myApp33.bianhao = _allData[i].orderNum;
                     myApp33.remarks = _allData[i].remark;
                     myApp33.gysphone = _allData[i].phone;
-                    myApp33.zhidanren = _allData[i].createUser;
+                    myApp33.zhidanren = _allData[i].createUserName;
                     myApp33.shijian = _allData[i].createTime;
                     myApp33.supplierMC = _allData[i].supNum;
                     myApp33.supplierBM = _allData[i].contractOrder;
@@ -909,13 +916,19 @@ $(function(){
                     myApp33.bianhao = _allData[i].orderNum;
                     myApp33.remarks = _allData[i].remark;
                     myApp33.gysphone = _allData[i].phone;
-                    myApp33.zhidanren = _allData[i].createUser;
+                    myApp33.zhidanren = _allData[i].createUserName;
                     myApp33.shijian = _allData[i].createTime;
                     myApp33.supplierMC = _allData[i].supNum;
                     myApp33.supplierBM = _allData[i].contractOrder;
                     myApp33.ckselect = _allData[i].storageNum;
                     myApp33.supplierContent = _allData[i].contactName;
                     myApp33.supplierPhone = _allData[i].phone;
+                    //判断制单人和审核人是不是一样
+                    if(_allData[i].createUser == _userIdNum){
+                        _examineRen = false;
+                    }else{
+                        _examineRen = true;
+                    }
                 }
             }
             //判断如果是查看功能的话，确认按钮消失
@@ -1007,37 +1020,42 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
-             var prm = {
-                 'OrderNum':_$thisRKnum,
-                 'userID':_userIdNum,
-                 'userName':_userIdName,
-                 'auditMemo':myApp33.shRemarks
-             }
-             //获得当前的页数，
-             $thisTbale = $(this).parents('.table');
-             currentTable = $thisTbale.next().next();
-             currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
-             $.ajax({
-             type:'post',
-             url:_urls + 'YWCK/ywCKConfirmInStorage',
-             data:prm,
-             success:function(result){
-                 if(result == 99){
-                     _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '')
-                     $('#myModal').modal('hide');
-                     conditionSelect();
+            if( !_examineRen ){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
+            }else{
+                var prm = {
+                    'OrderNum':_$thisRKnum,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'auditMemo':myApp33.shRemarks
+                }
+                //获得当前的页数，
+                $thisTbale = $(this).parents('.table');
+                currentTable = $thisTbale.next().next();
+                currentPages = parseInt(currentTable.children('span').children('.paginate_button.current').index());
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKConfirmInStorage',
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '')
+                            $('#myModal').modal('hide');
+                            conditionSelect();
 
-                 }else{
-                     _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认失败！', '')
-                 }
-                 //点击一下当前的数字，自动指向当前页
-                 currentTable.children('span').children('.paginate_button').eq(currentPages).click();
-                 $(this).removeClass('shenhe');
-             },
-             error:function(jqXHR, textStatus, errorThrown){
-             console.log(jqXHR.responseText);
-             }
-             })
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认失败！', '')
+                        }
+                        //点击一下当前的数字，自动指向当前页
+                        currentTable.children('span').children('.paginate_button').eq(currentPages).click();
+                        $(this).removeClass('shenhe');
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }
+
         })
 
     //增加入库单操作(仅仅是全端静态操作，没有涉及数据库)
@@ -1153,9 +1171,12 @@ $(function(){
                 $('.inpus').parent('span').eq(1).addClass('checked');
                 //物品id必须跟物品编码一样
                 workDone.goodsId = workDone.bianhao;
+                $('.rknum').attr('disabled',false).removeClass('disabled-block');
+                $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
                 //置为不可操作
                 $('.goodsId').attr('disabled',true).addClass('disabled-block');
                 $('.goodsId').parents('.input-blockeds').addClass('disabled-block');
+                workDone.num = '';
             }else if(workDone.picked == 1){
                 $('.inpus').parent('span').removeClass('checked');
                 $('.inpus').parent('span').eq(0).addClass('checked');
@@ -1164,6 +1185,7 @@ $(function(){
                 $('.rknum').attr('disabled',true).addClass('disabled-block');
                 $('.rknum').parents('.input-blockeds').addClass('disabled-block');
                 workDone.num = '1';
+                workDone.goodsId = '';
             }
             $(this).parents('.hidden1').hide();
             e.stopPropagation();
@@ -1230,7 +1252,7 @@ $(function(){
                     workDone.size = '';
                     workDone.picked = 0;
                     workDone.unit = '';
-                    workDone.quality = '';
+                    workDone.quality = '新件';
                     workDone.warranty = '';
                     workDone.num = '';
                     workDone.inPrice = '';
@@ -1263,7 +1285,7 @@ $(function(){
         workDone.size = '';
         workDone.picked = 0;
         workDone.unit = '';
-        workDone.quality = '';
+        workDone.quality = '新件';
         workDone.warranty = '';
         workDone.num = '';
         workDone.inPrice = '';
@@ -1365,14 +1387,13 @@ $(function(){
                     var bm = workDone.bianhao;
                     for(var i=0;i<_rukuArr.length;i++){
                         if(bm == _rukuArr[i].itemNum){
-                            //console.log(_rukuArr);
                             _rukuArr[i].num = workDone.num;
                             _rukuArr[i].inPrice = workDone.inPrice;
                             _rukuArr[i].amount = workDone.amount;
-                            _rukuArr[i].size = workDone.size;
-                            _rukuArr[i].unitName = workDone.unit;
                             _rukuArr[i].inMemo = workDone.remark;
                             _rukuArr[i].sn = workDone.goodsId;
+                            _rukuArr[i].batchNum = workDone.quality;
+                            _rukuArr[i].maintainDate = workDone.warranty;
                         }
                     }
                     datasTable($('#wuPinListTable1'),_rukuArr.reverse());
@@ -1383,7 +1404,7 @@ $(function(){
                     workDone.size = '';
                     workDone.picked = 0;
                     workDone.unit = '';
-                    workDone.quality = '';
+                    workDone.quality = '新件';
                     workDone.warranty = '';
                     workDone.num = '';
                     workDone.inPrice = '';
@@ -1476,7 +1497,7 @@ $(function(){
         workDone.picked = 0;
         workDone.goodsId = '';
         workDone.unit = '';
-        workDone.quality = '';
+        workDone.quality = '新件';
         workDone.warranty = '';
         workDone.num ='';
         workDone.inPrice = '';
@@ -1491,6 +1512,8 @@ $(function(){
         }
         $('.goodsId').attr('disabled',false).removeClass('disabled-block');
         $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
+        $('.rknum').attr('disabled',false).removeClass('disabled-block');
+        $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
     });
 
     //点击下拉三角，出现的地方
@@ -1823,10 +1846,12 @@ $(function(){
                 }
             }
             setTimeout(function(){
-                if(workDone.mingcheng != ''){
+                if(workDone.goodsId != ''){
+                    $('.inputType').eq(8).focus();
+                }else{
                     $('.inputType').eq(5).focus();
                 }
-            },200);
+            },300);
         }else{
             if(e.keyCode != 9){
                 _num = -1;
