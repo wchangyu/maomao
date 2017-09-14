@@ -1,6 +1,5 @@
 $(function(){
     var _prm = window.location.search;
-    console.log(_prm);
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 

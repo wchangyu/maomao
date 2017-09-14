@@ -69,6 +69,8 @@ $(function(){
             //当前开始结束时间
             var startDay = now.format("YYYY-MM-DD");
             var endDay = now.add(1,'d').format("YYYY-MM-DD");
+            $('.datetimeStart').html(startDay);
+            $('.datetimeEnd').html(startDay);
             //上一阶段开始结束时间
             var startsDay = now.subtract(2,'d').format("YYYY-MM-DD");
             var endsDay = now.add(1,'d').format("YYYY-MM-DD");
@@ -97,6 +99,8 @@ $(function(){
             //页面显示时间
             var nowStart = now.add(1,'d').format("YYYY-MM-DD");
             var nowEnd = now.add(6,'d').format("YYYY-MM-DD");
+            $('.datetimeStart').html(nowStart);
+            $('.datetimeEnd').html(nowEnd);
             //当前开始结束时间
             var startWeek = now.subtract(6,'d').format("YYYY-MM-DD");
             var endWeek = now.add(7,'d').format("YYYY-MM-DD");
@@ -127,6 +131,8 @@ $(function(){
             //页面显示时间
             var nowStart = now.format("YYYY-MM-DD");
             var nowEnd = nows.format("YYYY-MM-DD");
+            $('.datetimeStart').html(nowStart);
+            $('.datetimeEnd').html(nowEnd);
             //当前开始结束时间
             var startMonth=now.format("YYYY-MM-DD");
             var endMonth=nows.add(1,'d').format("YYYY-MM-DD");
@@ -156,6 +162,8 @@ $(function(){
             var nows = moment(inputValue).endOf('year');
             var nowStart = now.format("YYYY-MM-DD");
             var nowEnd = nows.format("YYYY-MM-DD");
+            $('.datetimeStart').html(nowStart);
+            $('.datetimeEnd').html(nowEnd);
             var startYear=now.format("YYYY-MM-DD");
             var endYear=nows.add(1,'d').format("YYYY-MM-DD");
             end = nowStart+"到"+nowEnd;

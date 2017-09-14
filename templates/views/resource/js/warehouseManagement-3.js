@@ -1,5 +1,6 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
+    sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -569,7 +570,16 @@ $(function(){
             title:'操作',
             "targets": -1,
             "data": null,
-            "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
+            render:function(data, type, full, meta){
+                return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>" +
+                    "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?gdCode=" + full.gdCode2 +
+                "&orderNum=" + full.orderNum +
+                "&itemNum=" + full.itemNum +
+                "&storageNum=" + full.storageNum +
+                "&sn=" + full.sn +
+                "' target=_blank>用料单</a></span>"
+            }
+            //"defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
 
         }
     ];
@@ -1365,7 +1375,7 @@ $(function(){
             var a = $('.format-error2')[0].style.display;
             var t = $('.format-error3')[0].style.display;
             var b = $('.format-error4')[0].style.display;
-            if(o!='none' && s!='none' && a!= 'none'){
+            if(o!='none' && s!='none' && a!= 'none' && t!='none' && b!= 'none'){
                 _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
             }else{
                 //首先判断输入过了没

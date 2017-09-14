@@ -68,7 +68,9 @@ $(function () {
       sbMC: '',
       azAddress: '',
       gdly: 1,
-      lineRoute: ''
+      lineRoute: '',
+      gdCode:'',
+      state:''
     },
     methods: {
       radios: function () {
