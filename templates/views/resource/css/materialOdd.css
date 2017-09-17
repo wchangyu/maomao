@@ -32,7 +32,6 @@ body{
 }
 .bottom-line{
     display: inline-block;
-    width:180px;
     border-bottom:2px solid #000000;
 }
 /*中间的标题*/
@@ -80,7 +79,6 @@ body{
 }
 .center-message li span b{
     border-bottom:2px solid black;
-    height:1px;
     display: inline-block;
 }
 /*下方表格*/
@@ -90,19 +88,19 @@ body{
     box-sizing: border-box;
     position: relative;
 }
-#entry-datatables{
+.table{
     width:800px !important;
     font-size:16px;
     color:black !important;
     border:2px solid #333 !important;
     margin-bottom:20px !important;
 }
-#entry-datatables thead tr td{
+.table thead tr td{
     text-align: center !important;
     vertical-align: middle;
     color:black !important;
 }
-#entry-datatables td{
+.table td{
     border-color:#333;
 }
 .bottom-person-message span{

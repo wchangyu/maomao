@@ -341,13 +341,11 @@ $(function(){
     $('#selected').click(function(){
         //判断起止时间是否为空
         if( $('.min').val() == '' || $('.max').val() == '' ){
-            $('#myModal2').find('.modal-body').html('起止时间不能为空');
-            moTaiKuang($('#myModal2'),'提示','flag');
+            _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'起止时间不能为空', '');
         }else {
             //结束时间不能小于开始时间
             if( $('.min').val() > $('.max').val() ){
-                $('#myModal2').find('.modal-body').html('起止时间不能大于结束时间');
-                moTaiKuang($('#myModal2'),'提示','flag');
+                _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'起止时间不能大于结束时间', '');
             }else{
                 conditionSelect();
             }
@@ -381,8 +379,7 @@ $(function(){
                 getGongDan();
                 //根据标识提示
                 if( _wxRemarkFlag && _stateFlag ){
-                    moTaiKuang($('#myModal2'),'提示','flag');
-                    $('#myModal2').find('.modal-body').html('操作成功！');
+                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'操作成功！', '');
                     $('#myModal').modal('hide');
                 }else{
                     var str = '';
@@ -396,8 +393,7 @@ $(function(){
                     }else{
                         str += '操作成功，'
                     }
-                    moTaiKuang($('#myModal2'),'提示','flag');
-                    $('#myModal2').find('.modal-body').html(str);
+                    _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,str, '');
                 }
                 conditionSelect();
             }
@@ -422,7 +418,7 @@ $(function(){
         })
         //图片详情
         .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal3'),'图片详情','flag');
+            _moTaiKuang($('#myModal3'),'图片详情','flag', '' ,'', '');
             var imgSrc = $(this).attr('src')
             $('#myModal3').find('img').attr('src',imgSrc);
         })
@@ -506,7 +502,7 @@ $(function(){
     //增加维修材料
     $('.tianJiaCaiLiao').click(function(){
         //弹出框显示
-        moTaiKuang($('#myModal5'),'添加维修备件');
+        _moTaiKuang($('#myModal5'), '添加维修备件', '', '' ,'', '确定');
         //初始化
         wuLiaoInfo.wpbm = '';
         wuLiaoInfo.wpmc = '';
@@ -517,7 +513,7 @@ $(function(){
     //选择物品
     $('.select-goods').click(function(){
         //弹出框显示
-        moTaiKuang($('#myModal6'),'选择维修备件');
+        _moTaiKuang($('#myModal6'), '添加维修备件', '', '' ,'', '确定');
         //获取数据
         getWP();
         var fn1 = function( row, data, index ) {
@@ -618,8 +614,7 @@ $(function(){
     //材料表格删除按钮
     $('#personTables1 tbody').on('click','.tableDeleted',function(){
         var $this = $(this).parents('tr');
-        $('#myModal2').find('.modal-body').html('确定要删除吗？');
-        moTaiKuang($('#myModal2'),'提示');
+        _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
         $('#myModal2').find('.btn-primary').addClass('removeButton');
         $('.wpbms').val($this.children('.wxCl').html());
         $('.wpmcs').val($this.children('.wxClName').html());
@@ -644,7 +639,7 @@ $(function(){
             currentFlat = true;
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            moTaiKuang($('#myModal'),'工单详情');
+            _moTaiKuang($('#myModal'),'工单详情', '', '' ,'', '保存');
             //获得当前分页的页
             currentPages = parseInt($(this).parents('.table').next().next().children('span').children('.current').html())-1;
             currentRow = $(this).parents('tr').index();
@@ -759,8 +754,9 @@ $(function(){
             });
         });
 
-    //配件增加删除确定按钮
-    $('#myModal4').on('click','.btn-primary',function(){
+    //申请备件
+    $('#myModal4')
+        .on('click','.apply',function(){
         //首先判断原有网页中的_weiXiuCaiLiao和备注有没有改变。
 
         if(_primaryBJ.length != _weiXiuCaiLiao.length){
@@ -771,14 +767,14 @@ $(function(){
             applySparePart();
             setTimeout(function(){
                 if(_pjFlag && _sparePartFlag ){
-                    moTaiKuang($('#myModal2'),'提示','flag');
-                    $('#myModal2').find('.modal-body').html('操作成功！');
+                    _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'操作成功！', '');
                 }else{
                     if( _pjFlag && !_sparePartFlag ){
-                        moTaiKuang($('#myModal2'),'提示','flag');
-                        $('#myModal2').find('.modal-body').html('备件修改成功，备件操作失败！');
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'备件修改成功，备件操作失败！', '');
                     }else if( !_pjFlag && _sparePartFlag ){
-                        $('#myModal2').find('.modal-body').html('备件修改失败，备件操作成功！');
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'备件修改失败，备件操作成功！', '');
+                    }else{
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'操作失败！', '');
                     }
                 }
             },1000);
@@ -791,14 +787,14 @@ $(function(){
                 applySparePart();
                 setTimeout(function(){
                     if(_pjFlag && _sparePartFlag ){
-                        moTaiKuang($('#myModal2'),'提示','flag');
-                        $('#myModal2').find('.modal-body').html('操作成功！');
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'操作成功！', '');
                     }else{
                         if( _pjFlag && !_sparePartFlag ){
-                            moTaiKuang($('#myModal2'),'提示','flag');
-                            $('#myModal2').find('.modal-body').html('备件修改成功，备件操作失败！');
+                            _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'备件修改成功，备件操作失败！', '');
                         }else if( !_pjFlag && _sparePartFlag ){
-                            $('#myModal2').find('.modal-body').html('备件修改失败，备件操作成功！');
+                            _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'备件修改失败，备件操作成功！', '');
+                        }else{
+                            _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'操作失败！', '');
                         }
                     }
                 },1000);
@@ -809,26 +805,58 @@ $(function(){
         }
 
     })
+        .on('click','.receipt',function(){
+            //确认收货
+            var prm = {
+                "gdCode": gdCode,
+                "clStatusId": 999,
+                "clStatus": '备件到达',
+                "clLastUptInfo": $('#bjremark').val(),
+                "userID": _userIdNum,
+                "userName": _userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWGD/ywGDUptPeijStatus',
+                data:prm,
+                timeout:30000,
+                success:function(result){
+                    console.log(result);
+                    if(result == 99){
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认收货成功！', '');
+                    }else{
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认收货失败！', '');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+        })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
-    //模态框自适应
-    function moTaiKuang(who,title,flag){
+    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
-            show:false,
-            backdrop:'static'
+            show: false,
+            backdrop: 'static'
         })
         who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        if(flag){
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
             who.find('.btn-primary').hide();
-        }else{
+        } else {
             who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
         }
     }
     //dataTables表格填数据
@@ -1092,8 +1120,7 @@ $(function(){
             "clLastUptInfo": $('#bjremark').val(),
             "userID": _userIdNum,
             "userName": _userIdName
-        }
-        console.log(prm);
+        };
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptPeijStatus',
@@ -1168,16 +1195,33 @@ $(function(){
                 _bjStateWillName = '待确认';
                 //先根据当前的状态判断是否显示确定按钮和增加维修备件按钮，还有备注是否可以编辑
                 //弹出框显示
-                if(_sparePart>result.statuses[0].clStatusID){
-                    moTaiKuang($('#myModal4'),'维修备件申请','flag');
+                //先把clTo999的显示的备件状态显示出来，
+                var bjState = [];
+                for(var i=0;i<result.statuses.length;i++){
+                    if(result.statuses[i].clTo == 999){
+                        bjState.push(result.statuses[i].clStatusID);
+                    }
+                }
+                if(_sparePart == bjState[0] || _sparePart == bjState[1]){
+                    //确认收货
+                    _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '确认收货');
                     $('.tianJiaCaiLiao').hide();
                     $('#bjremark').attr('disabled',true);
+                    //修改类名
+                    $('#myModal4').find('.btn-primary').removeClass('apply').addClass('receipt');
                 }else{
-                    moTaiKuang($('#myModal4'),'维修备件申请');
-                    $('.tianJiaCaiLiao').show();
-                    $('#bjremark').attr('disabled',false);
+                    if(_sparePart>result.statuses[1].clStatusID){
+                        _moTaiKuang($('#myModal4'),'维修备件申请','flag', '' ,'', '');
+                        $('.tianJiaCaiLiao').hide();
+                        $('#bjremark').attr('disabled',true);
+                    }else{
+                        _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '申请备件');
+                        $('.tianJiaCaiLiao').show();
+                        $('#bjremark').attr('disabled',false);
+                        //修改类名
+                        $('#myModal4').find('.btn-primary').removeClass('receipt').addClass('apply');
+                    }
                 }
-
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

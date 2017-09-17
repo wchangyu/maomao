@@ -422,6 +422,18 @@
                         <validator name="validation">
                             <form novalidate>
                                 <li class="floatLeft" style="line-height: 26px;">
+                                    <div class="labels">工单号：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" model="gdCode" class="gdCode">
+                                    </div>
+                                </li>
+                                <li class="floatRight" style="line-height: 26px;">
+                                    <div class="labels colorTip">工单状态：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" model="state" class="gdState">
+                                    </div>
+                                </li>
+                                <li class="floatLeft" style="line-height: 26px;">
                                     <div class="labels colorTip">工单类型 *：</div>
                                     <div class="input-blockeds">
                                         <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" ><label for="ones">快速</label>
@@ -507,9 +519,15 @@
                             </form>
                         </validator>
                         <li class="floatLeft" style="line-height: 26px;">
-                            <div class="labels">发生时间：</div>
+                            <div class="labels">故障发生时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="otime">
+                            </div>
+                        </li>
+                        <li class="floatRight" style="line-height: 26px;">
+                            <div class="labels">工单登记时间：</div>
+                            <div class="input-blockeds">
+                                <input type="text" class="dtime">
                             </div>
                         </li>
                         <div class="clearfix"></div>

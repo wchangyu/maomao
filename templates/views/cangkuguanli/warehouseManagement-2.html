@@ -614,7 +614,7 @@
                             <li class="gdList">
                                 <div class="labels">品质：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                   <input type="text" v-model="quality" class="inputType quality" @focus="focusFun()" @keyup="selectFun()" v-on:click="clickFun"><div class="selectBlock"></div>
+                                   <input type="text" v-model="quality" class="inputType quality" data-pznum="1" @focus="focusFun()" @keyup="selectFun()" v-on:click="clickFun"><div class="selectBlock"></div>
                                     <div class="pinzhixx hidden1" style="width:200px;position: absolute;top: 30px;left: 0;display: none">
                                         <div data-value="1">新件</div>
                                         <div data-value="2">良品</div>
@@ -637,7 +637,7 @@
                             <li class="gdList">
                                 <div class="labels">入库单价：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="inPrice" @keyup="addFun2()" class="inputType">
+                                    <input type="text" v-model="inPrice" @keyup="addFun2()"@blur="addFun4()" class="inputType">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -653,7 +653,7 @@
                                 </div>
                             </li>
                             <li class="gdList" style="margin-top: 27px;">
-                                <button type="button" class="btn btn-success inputType" id="addRK">添加</button>
+                                <button type="button" class="btn btn-success" id="addRK">添加</button>
                                 <button type="button" class="btn btn-success" id="addReset">重置</button>
                             </li>
                             <div class="clearfix"></div>

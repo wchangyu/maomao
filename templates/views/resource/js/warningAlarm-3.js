@@ -169,7 +169,7 @@ $(function(){
 
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
-                historyArr.push(totalArr[i])
+                historyArr.push(totalArr[i]);
             }
         }
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;

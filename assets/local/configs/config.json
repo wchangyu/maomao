@@ -119,7 +119,7 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
@@ -135,7 +135,5 @@
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
   "alarmAlert":"0",
-  "alarmSong":"0",
-  "changeMenuByProcs":"1",
-  "changeMenuByProcsComment":"是否根据流程图来动态绘制菜单列表"
+  "alarmSong":"0"
 }

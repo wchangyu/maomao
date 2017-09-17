@@ -552,7 +552,7 @@
                                 <div class="labels">物品序列号：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="goodsId" class="not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;">
+                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;">
                                     </ul>
                                 </div>
                             </li>
@@ -602,13 +602,13 @@
                             <li class="gdList">
                                 <div class="labels colorTip">出库单价 *：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="inputType" v-model="outPrice" @keyup="addFun2()">
+                                    <input type="text" class="inputType" v-model="outPrice" @keyup="addFun2()" @blur="addFun4()">
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels colorTip">总金额 *：<span class="colorTip format-error3" style="display: none;">输入整数或保留两位小数</span></div>
+                                <div class="labels colorTip">总金额 *：<div class="multiple-condition" style="width: 138px;"><span class="colorTip format-error3" style="display: none;">整数或保留两位小数</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="inputType" v-model="amount" placeholder="0" @keyup="addFun3()">
+                                    <input type="text" class="inputType" v-model="amount" placeholder="0" @keyup="addFun3()" @blur="addFun5()">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -877,7 +877,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
 </body>
 <!-- END BODY -->
 </html>

@@ -45,9 +45,8 @@ $(document).ready(function(){
                 $('#entry-datatables .small-count').html(countNum);
                 $('#entry-datatables .big-count').html(smalltoBIG(countNum));
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         });
 
@@ -61,11 +60,36 @@ $(document).ready(function(){
                 "userName": _userName
             },
             success: function (data) {
-                console.log(data);
+                var inType = data[0].inType;
+                var inTypeName = '';
+                //获取入库类型
+                var prm = {
+                    "catType": 1,
+                    "userID": _userIdName,
+                    "userName": _userName
+                }
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKGetInOutCate',
+                    data:prm,
+                    timeout:theTimes,
+                    success:function(result){
+                        for(var i=0;i<result.length;i++){
+                            if(inType == result[i].catNum){
+                                inTypeName = result[i].catName;
+                            }
+                        }
+                        //title
+                        $('.top-title').children('span').html(inTypeName);
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
                 //获取自编号
                 $('.self-num b').html(data[0].orderNum);
                 //获取制单人
-                $('.creat-name b').html(data[0].createUser);
+                $('.creat-name b').html(data[0].createUserName);
                 //获取审核人
                 $('.top-message span b').eq(3).html(data[0].auditUserName);
                 //获取制单日期
@@ -75,9 +99,8 @@ $(document).ready(function(){
                 //获取供货单位
                 $('#entry-datatables .unit-name').html(data[0].supName);
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         });
     }

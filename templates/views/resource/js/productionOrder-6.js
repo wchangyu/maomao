@@ -197,6 +197,17 @@ $(function(){
                 }
             },
             {
+                title:'工单来源',
+                data:'gdCodeSrc',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '车站报修'
+                    }else{
+                        return '现场人员报修'
+                    }
+                }
+            },
+            {
                 title:'工单状态值',
                 data:'gdZht',
                 className:'ztz'
@@ -208,6 +219,10 @@ $(function(){
             {
                 title:'设备名称',
                 data:'dName'
+            },
+            {
+                title:'设备位置',
+                data:'installAddress'
             },
             {
                 title:'车站',
