@@ -28,6 +28,7 @@ $(function(){
         contentType:'application/json',
         timeout:_theTimes,
         success:function(result){
+            console.log(result);
             //左上
             $('.left-titles').children('.bottom-line').html(result.compName);
             //右上
@@ -35,7 +36,7 @@ $(function(){
             //领料部门
             $('.two').html(result.wxBz);
             //工单号
-            $('.three').html(result.gdCode2);
+            $('.three').html(result.gdCode2bxKeshi);
             //用途
             $('.four').html(result.bxBeizhu);
             //材料编号
@@ -52,6 +53,12 @@ $(function(){
             $('.table-four').html(result.price);
             //金额
             $('.table-five').html(result.amount);
+            //时间
+            var showTime = result.createTime.split(' ')[0];
+            //按年月日分开显示
+            $('.years').html(showTime.split('-')[0]);
+            $('.months').html(showTime.split('-')[1]);
+            $('.days').html(showTime.split('-')[2]);
         },
         error:function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);

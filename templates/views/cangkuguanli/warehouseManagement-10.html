@@ -15,9 +15,6 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-
-
-
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -274,38 +271,68 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">仓库管理</li>
-                                </ul>
-                                <ul class="condition-query noprint">
-                                    <li><label for="">仓库：</label>
-                                        <div class="input-blocked">
-                                            <select id="ck-select"></select>
-                                        </div>
-                                    </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
-                                    <li>
-                                        <div class="cont-col1">
-                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                                <div class="table-title" style="height: 36px;">
+                                    <span class="spanhover">仓库管理</span>
+                                    <span>库区管理</span>
+                                </div>
+                                <!--仓库管理-->
+                                <div class="table-block-list">
+                                    <ul class="condition-query noprint">
+                                        <li>
+                                            <div class="cont-col1">
+                                                <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                                                </div>
                                             </div>
+                                        </li>
+                                        <li class="excelButton"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <!-- 表格 -->
+                                    <div class="content-main-contents">
+                                        <div class="main-contents-table">
+                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <!--<img src="../resource/img/loading.gif" alt="">-->
                                         </div>
-                                    </li>
-                                    <li class="excelButton"></li>
-                                    <div class="clearfix"></div>
-                                </ul>
-                                <!-- 表格 -->
-                                <div class="content-main-contents">
-                                    <div class="main-contents-table">
-                                        <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <!--<img src="../resource/img/loading.gif" alt="">-->
+                                    </div>
+                                </div>
+                                <!--库区管理-->
+                                <div class="table-block-list kq-manage" style="display: none">
+                                    <ul class="condition-query noprint">
+                                        <li><label for="">仓库：</label>
+                                            <div class="input-blocked">
+                                                <select id="ck-select"></select>
+                                            </div>
+                                        </li>
+                                        <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                        <li><button class="btn btn-success btn1 resites">重置</button></li>
+                                        <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
+                                        <li>
+                                            <div class="cont-col1">
+                                                <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="excelButton"></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <!-- 表格 -->
+                                    <div class="content-main-contents">
+                                        <div class="main-contents-table">
+                                            <table id="scrap-datatables1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <!--<img src="../resource/img/loading.gif" alt="">-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -368,6 +395,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../bank-resource/js/common.js"></script>
 <script src="../resource/js/warehouseManagement-10.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -445,6 +473,61 @@
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--新增库区-->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 323px;margin:200px auto">
+        <div class="modal-content" style="height:323px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel1">添加库区</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <ul class="gongdanList" id="myApp11">
+                    <validator name="validation">
+                        <form novalidate>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">库区编码 *：<span v-show="$validation.num.requireds" style="display: none">请输入库区编码</span><span class="quchong colorTip" style="display: none;">库区编码已存在</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请输入库区编码" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="keyUpJob() " class="localNum">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">库区名称 *：<span v-show="$validation.name.requireds" style="display: none">请输入库区名称</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" placeholder="请输入库区名称" v-model="name" v-validate:name= "['requireds']" initial='off' class="localName">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">所属仓库 ：</div>
+                                <div class="input-blockeds">
+                                    <select type="text" placeholder="" v-model="barnum" class="ck-list">
+
+                                    </select>
+                                </div>
+
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">库区排序 ：</div>
+                                <div class="input-blockeds" >
+
+                                        <input type="text" placeholder="请输入库区序号" v-model="barnum" class="local-sort">
+
+                                </div>
+                            </li>
+
+                            <div class="clearfix"></div>
+                        </form>
+                    </validator>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

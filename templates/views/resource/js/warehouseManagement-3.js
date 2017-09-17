@@ -571,13 +571,18 @@ $(function(){
             "targets": -1,
             "data": null,
             render:function(data, type, full, meta){
-                return "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>" +
-                    "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?gdCode=" + full.gdCode2 +
-                "&orderNum=" + full.orderNum +
-                "&itemNum=" + full.itemNum +
-                "&storageNum=" + full.storageNum +
-                "&sn=" + full.sn +
-                "' target=_blank>用料单</a></span>"
+                var html = "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>";
+               if(full.gdCode2 != ''){
+                   html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?gdCode=" + full.gdCode2 +
+                       "&orderNum=" + full.orderNum +
+                       "&itemNum=" + full.itemNum +
+                       "&storageNum=" + full.storageNum +
+                       "&sn=" + full.sn +
+                       "' target=_blank>用料单</a></span>"
+               }
+                return html;
+
+
             }
             //"defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
 

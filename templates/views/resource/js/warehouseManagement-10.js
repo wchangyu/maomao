@@ -111,14 +111,79 @@ $(function(){
     });
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+
+    //库区管理表格初始化
+    var _table = $('#scrap-datatables1').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": true,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        "pagingType":"full_numbers",
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs'
+            }
+        ],
+        "dom":'t<"F"lip>',
+        "columns": [
+            {
+                title:'库区编号',
+                data:'localNum',
+                className:'bianma'
+            },
+            {
+                title:'库区名称',
+                data:'localName'
+            },
+            {
+                title:'所属仓库',
+                data:'storageName'
+            },
+            {
+                title:'排序',
+                data:'sort'
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs purple'><i class=''></i>编辑</span><span class='data-option option-delete btn default btn-xs black'><i class='fa fa-trash-o'></i>删除</span>"
+
+            }
+        ]
+    });
+    //自定义按钮位置
+    _table.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+
     //仓库select
-    conditionSelect('flag');
+    conditionSelect('YWCK/ywCKGetStorages','flag');
     //页面加载数据
-    conditionSelect();
+    conditionSelect('YWCK/ywCKGetStorages');
+    conditionSelect('YWCK/ywCKGetLocations',false,true);
     /*-------------------------------------按钮功能-------------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect();
+        conditionSelect('YWCK/ywCKGetLocations',false,true);
     })
     //重置
     $('.resites').click(function(){
@@ -129,6 +194,13 @@ $(function(){
     })
     //新增
     $('.creatButton').click(function(){
+        if(!$('.kq-manage').is(":hidden")){
+
+            $('#myModal1 input').val('');
+            $('#myModal1 .btn-primary').attr('type','add');
+            _moTaiKuang($('#myModal1'), '新增库区', '', '' ,'', '新增');
+            return false;
+        }
         //都可以编辑
         $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
         $('#myApp33').find('textarea').attr('disabled',false);
@@ -147,7 +219,7 @@ $(function(){
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
             _moTaiKuang($('#myModal'), '编辑仓库','', '' ,'', '保存');
             //绑定数据
-            bindData($(this));
+            bindData($(this),'YWCK/ywCKGetStorages');
             //编码不可编辑
             $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
             $('#myApp33').find('input').eq(0).attr('disabled',true).addClass('disabled-block');
@@ -156,7 +228,7 @@ $(function(){
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
             _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除')
             //绑定数据
-            bindData($(this));
+            bindData($(this),'YWCK/ywCKGetStorages');
             //都不可编辑
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
             $('#myApp33').find('textarea').attr('disabled',true);
@@ -177,7 +249,7 @@ $(function(){
         })
     /*-------------------------------------方法---------------------------------*/
     //查询仓库，无参数的时候，查询仓库列表，有参数的时候，是条件查询select
-    function conditionSelect(flag){
+    function conditionSelect(url,flag1,flag2){
         var prm = {
             userID:_userIdNum,
             userName:_userIdName,
@@ -185,7 +257,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url: _urls + 'YWCK/ywCKGetStorages',
+            url: _urls + url,
             data:prm,
             async:false,
             success:function(result){
@@ -193,15 +265,23 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i]);
                 }
-                datasTable($("#scrap-datatables"),result)
-                if(flag){
+                if(flag2){
+                    console.log(result);
+                    datasTable($('#scrap-datatables1'),result);
+                }else{
+                    datasTable($('#scrap-datatables'),result);
+                }
+
+                if(flag1){
                     var str = '<option value="">全部</option>';
+                    var str1 = '';
                     for(var i=0;i<result.length;i++){
-                        str += '<option value="' + result[i].storageNum +
+                        str1 += '<option value="' + result[i].storageNum +
                             '">' + result[i].storageName + '</option>'
                     }
-                    $('#ck-select').append(str);
-                }
+                    $('#ck-select').append(str + str1);
+                    $('.ck-list').append(str1);
+            }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -244,26 +324,38 @@ $(function(){
         }
     }
     //绑定数据
-    function bindData(el){
+    function bindData(el,url,flag){
         var $this = el.parents('tr');
         var $thisBM = $this.children('.bianma').html();
         var prm = {
-            storageNum:$thisBM,
             userID:_userIdNum,
             userName:_userIdName
         }
+        if(flag){
+            prm.localNum=$thisBM
+        }else{
+            prm.storageNum=$thisBM
+        }
         $.ajax({
             type:'post',
-            url:_urls + 'YWCK/ywCKGetStorages',
+            url:_urls + url,
             data:prm,
             success:function(result){
                 if(result.length>0){
                     //赋值
-                    wharehouse.num = result[0].storageNum;
-                    wharehouse.name = result[0].storageName;
-                    wharehouse.barnum = result[0]['sort'];
-                    wharehouse.beizhu = result[0].remark;
-                    wharehouse.location = result[0].address;
+                    if(flag){
+                       $('#myModal1 .localNum').val(result[0].localNum);
+                        $('#myModal1 .localName').val(result[0].localName);
+                        $('#myModal1 .ck-list').val(result[0].storageNum);
+                        $('#myModal1 .local-sort').val(result[0].sort);
+                    }else{
+                        wharehouse.num = result[0].storageNum;
+                        wharehouse.name = result[0].storageName;
+                        wharehouse.barnum = result[0]['sort'];
+                        wharehouse.beizhu = result[0].remark;
+                        wharehouse.location = result[0].address;
+                    }
+
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -313,4 +405,94 @@ $(function(){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
-})
+
+    /*--------------------------------按钮事件--------------------------*/
+    //tab切换
+    $('.table-title').find('span').click(function(){
+        $('.table-title').find('span').removeClass('spanhover');
+        $(this).addClass('spanhover');
+        $('.table-block-list').hide();
+        $('.table-block-list').eq($(this).index()).show();
+    });
+    //编辑按钮
+    $('#scrap-datatables1')
+        .on('click','.option-edit',function(){
+            $('#myModal1').find('.btn-primary').attr('type','redact');
+            _moTaiKuang($('#myModal1'), '编辑','', '' ,'', '保存');
+            //绑定数据
+            bindData($(this),'YWCK/ywCKGetLocations',true);
+            //编码不可编辑
+            $('#myApp11').find('input').attr('disabled',false).removeClass('disabled-block');
+            $('#myApp11').find('input').eq(0).attr('disabled',true).addClass('disabled-block');
+        })
+        .on('click','.option-delete',function(){
+            $('#myModal1').find('.btn-primary').attr('type','remove');
+            _moTaiKuang($('#myModal1'), '确定要删除吗？', '', '' ,'', '删除');
+            //绑定数据
+            bindData($(this),'YWCK/ywCKGetLocations',true);
+            //都不可编辑
+            $('#myApp11').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp11').find('textarea').attr('disabled',true);
+        })
+
+    //点击模态框确定按钮时按钮
+    $('#myModal1').on('click','.btn-primary',function(){
+        //新增时
+        if($(this).attr('type') == 'add'){
+            postKQdata('YWCK/ywCKAddLocation','0','新增成功');
+        }
+        //修改时
+        if($(this).attr('type') == 'redact'){
+            postKQdata('YWCK/ywCKUptLocation','0','修改成功');
+        }
+        //删除时
+        if($(this).attr('type') == 'remove'){
+            postKQdata('YWCK/ywCKDelLocation','0','删除成功');
+        }
+    });
+
+    //给后台传递数据
+    function postKQdata(url,flag,succcessMeg){
+
+        //获取库区编码
+        var localNum = $('#myModal1 .localNum').val();
+        //获取库区名称
+        var localName = $('#myModal1 .localName').val();
+        //获取库区所属仓库编号
+        var storageNum = $('#myModal1 .ck-list').val();
+        //获取库区所属仓库名称
+        var storageName = $('#myModal1 .ck-list').find("option:selected").text();
+        //获取库区排序
+        var localSort = $('#myModal1 .local-sort').val();
+        if( localNum == '' || localName == '') {
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap', '请填写红色必填项！', '');
+            return false;
+        }
+        var prm = {};
+        prm.storageNum = storageNum;
+        prm.storageName = storageName;
+        prm.localNum = localNum;
+        prm.localName = localName;
+        prm.sort = localSort;
+        prm.userID = _userIdNum;
+        prm.userName = _userIdName;
+        //给后台传递参数
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:prm,
+            success:function(result){
+                if(result == 99){
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
+                    $('#myModal1').modal('hide');
+                    conditionSelect('YWCK/ywCKGetLocations',false,true);
+                }else{
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出现错误', '');
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+});
