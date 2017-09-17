@@ -24,7 +24,11 @@ var BEE = (function(){
         if(sessionStorage.menuStr){
             var str = sessionStorage.menuStr;
             var $sidebar = $(".page-sidebar-menu");
-            getHTMLFromMenu(JSON.parse(str), $sidebar);
+            if(sessionStorage.changeMenuByProcs == 1){
+                getHTMLFromMenu(changeMenuByProcs(JSON.parse(str)),$sidebar);
+            }else{
+                getHTMLFromMenu(JSON.parse(str), $sidebar);
+            }
             setPageTitle();
             setHeaderInfo();
         }
@@ -482,7 +486,7 @@ var BEE = (function(){
          //判断是否需要显示楼宇
          var _isShowPointer = sessionStorage.getItem('menuusepointer');
 
-         console.log(_isShowPointer);
+         //console.log(_isShowPointer);
          //如果不需要显示，终止函数
          if(_isShowPointer != 1){
              return false;
@@ -500,21 +504,6 @@ var BEE = (function(){
          var pointerHtml = '<a href="javascript:void(0);" id="onOff1" style="color: rgb(102, 102, 102);" title="点击切换地点">清华美院</a><i class="fa fa-building" style="font-size: 16px;margin-left:10px;"></i>';
 
          $('.page-title').html(pointerHtml);
-
-         //下方楼宇列表
-         //var html = ' <div class="left-middle-main" style="width:250px;position: fixed;height:500px;right:35px;top:240px;border:1px solid #999;overflow-y: auto;background:#f1f1e3;box-shadow: 1px 2px 1px rgba(0,0,0,.15);display: none" id="add-point-byBEE">' +
-         //    '     <div class="left-middle-content" style="width:100%;margin-top:0">' +
-         //    '         <div class="left-middle-tab" style="width:100%;text-align: center;height:30px;">区域位置</div>' +
-         //    '     </div>' +
-         //    '     <div class="tree-1 tree-3" style="background:none">' +
-         //    '         <div class="left-middle-input">' +
-         //    '             <input id="keys" type="tplaceholder="搜索..." >' +
-         //    '         </div>' +
-         //    '         <div class="tipess"></div>' +
-         //    '         <ul class="allPointer ztree" id="allPointer">' +
-         //    '         </ul>' +
-         //    '     </div>' +
-         //    ' </div>';
 
          var html = ' <div class="left-middle-main" style="width:250px;position: absolute;height:500px;left:255px;top:100px;border:1px solid #999;overflow-y: auto;background:#dceffd;box-shadow: 1px 2px 1px rgba(0,0,0,.15);display: none" id="add-point-byBEE">' +
              '     <div class="left-middle-content" style="width:100%;margin-top:0;background:#4d91be !important;">' +
@@ -554,8 +543,154 @@ var BEE = (function(){
              }
          })
 
-     }
+     };
 
+     Array.prototype.indexOf = function(val) {
+         for (var i = 0; i < this.length; i++) {
+             if (this[i] == val) return i;
+         }
+         return -1;
+     };
+     //定义数组删除某个元素的方法
+     Array.prototype.remove = function(val) {
+         var index = this.indexOf(val);
+         if (index > -1) {
+             this.splice(index, 1);
+         }
+     };
+
+    //根据流程图动态绘制菜单
+     var changeMenuByProcs = function(menu){
+         console.log(menu);
+         //将对象转化为数组，方便处理
+         var _menuArr = transform(menu);
+         //删除对象中第一个元素
+         _menuArr.shift();
+         //定义新的菜单对象
+         var _newMenu = {};
+         _newMenu.content = menu.content;
+         $(_menuArr).each(function(i,o){
+             //调用菜单处理函数
+             var _showMenu = changeMenuByArg(o);
+             if(_showMenu){
+                _newMenu[_showMenu['content']] = _showMenu;
+             }
+         })
+         console.log(_newMenu);
+         return _newMenu;
+     };
+     //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
+     var changeMenuByArg = function(menu){
+         //获取父级菜单下的子菜单,并将其转化为数组
+         var _childMenuArr = transform(menu.submenu);
+         $(_childMenuArr).each(function(i,o){
+            //判断子菜单是否需要保留
+            var isRetain =  retainChildMenu(o);
+             //不需要保留则直接移除
+             if(!isRetain){
+                 _childMenuArr.remove(o);
+             }
+         });
+         //判断主菜单下是否存在子菜单
+         if(_childMenuArr.length == 0){
+             return false;
+         }else{
+             var obj = {};
+             $(_childMenuArr).each(function(i,o){
+                 obj[o.content] = o;
+             });
+         }
+         menu.submenu = obj;
+         //返回筛选后的菜单
+         return menu;
+     };
+
+     //根据流程图判断以及Arg参数判断子菜单是否需要保留
+     var retainChildMenu = function(childMenu){
+        //首先判断是否是流程图界面
+         var uri = childMenu.uri;
+         if(!uri){
+             return true;
+         }
+
+         //非流程图界面
+         if(uri.indexOf('energyMonitor.html') == -1){
+             //非流程图界面不需要隐藏，返回true；
+             return true;
+         }else{
+            // 获取全部流程图
+             var allProcsArr = JSON.parse(sessionStorage.allProcs);
+            //获取到当前的arg参数
+             var arg = childMenu.arg;
+            //判断是否需要根据楼宇获取对应流程图
+             var pointer = childMenu.usepointer;
+             //需要根据楼宇判断
+             if(pointer){
+                 // 获取页面中存储的楼宇列表
+                 var curPointer = sessionStorage.curPointerId;
+                 if(!curPointer){
+                     //获取楼宇列表
+                     var pointerID = JSON.parse(sessionStorage.pointers)[0].pointerID;
+                     sessionStorage.curPointerId = pointerID;
+                     curPointer = pointerID;
+                 }
+                 //对流程图根据楼宇进行筛选
+                 $(allProcsArr).each(function(i,o){
+                     if(o.bindType != 2 || o.bindKeyId != curPointer){
+                         allProcsArr.remove(o);
+                     }
+                 })
+             }
+            //根据arg参数及流程图对子菜单进行判断
+             return ifExistProcs(allProcsArr,arg);
+         }
+     };
+
+     //根据arg参数判断当前菜单下是否存在流程图
+     var ifExistProcs = function(procsArr,arg){
+        // 获取流程图显示方式
+        var showStyle = arg.split(',')[0];
+         //获取具体筛选条件
+         var type =arg.split(',')[1];
+         //根据流程图类型进行判断
+         if(showStyle == 0 || showStyle == 2){
+             $(procsArr).each(function(i,o){
+                 if(o.pubProcType != type){
+                     procsArr.remove(o);
+                 }
+             });
+         //    根据流程图方案ID进行判断
+         }else if(showStyle == 1){
+             $(procsArr).each(function(i,o){
+                 if(type.indexOf(o.procID) == -1){
+                     procsArr.remove(o);
+                 }
+             });
+             //    根据流程图楼宇ID进行判断
+         }else if(showStyle == 3){
+             $(procsArr).each(function(i,o){
+                 if(o.bindKeyId != type){
+                     procsArr.remove(o);
+                 }
+             });
+         }
+         //判断是否存在符合条件的流程图
+         if(procsArr.length == 0){
+             return false;
+         }else{
+             return true;
+         }
+
+     };
+
+     //数组转化为对象
+     function transform(obj){
+         var arr = [];
+         for(var item in obj){
+             arr.push(obj[item]);
+         }
+         return arr;
+     };
 
     return {
         //getMenu: getMenu

@@ -91,6 +91,7 @@ var Login = function () {
 									localStorage.BEE_userpassword = password;
 								}
 								sessionStorage.userName=name1;
+								sessionStorage.userpassword=password;
 								getPointersByUser(name1);
 								getAllOffices();
 								getAllEnergyItems();

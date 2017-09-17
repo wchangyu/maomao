@@ -50,7 +50,19 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style>
+        table.dataTable thead .sorting:after {
+            opacity: 0;
+            content:'';
+        }
+        table.dataTable thead .sorting_desc:after {
+            content: "";
+            opacity: 0;
+        }
+        .table thead th{
+            text-align: center !important;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

@@ -114,13 +114,12 @@ $(document).ready(function(){
 
         var typeVal = $('#refer-type').val();
 
-        console.log(postVal);
-        console.log(typeVal);
+
         if(typeVal ==3){
 
             postUrl = 'YWGDAnalysis/GetGDDepartDealTime';
             postName = 'departNums';
-            console.log($('#refer-spot').val());
+            postArr.length = 0;
             if($('#refer-spot').val() == 0){
                 $(DPartArr).each(function(i,o){
                     var arr = o.wxBanzus;
@@ -129,8 +128,9 @@ $(document).ready(function(){
                     });
                 });
             }else{
+
                 $(DPartArr).each(function(i,o){
-                    if(o.departNum == $('#refer-point').val()){
+                    if(o.departNum == $('#refer-spot').val()){
                         var arr = o.wxBanzus;
                         $(arr).each(function(i,o){
                             postArr.push(o.departNum);

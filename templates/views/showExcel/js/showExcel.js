@@ -3,6 +3,8 @@
  */
 $(document).ready(function(){
 
+    //var session =
+
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
