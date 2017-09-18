@@ -389,6 +389,8 @@ $(function () {
 
   //登记按钮
   $('.creatButton').click(function () {
+    //工单号、状态、工单登记时间不显示seeBlock
+    $('.seeBlock').hide();
     //添加登记类
     $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji').html('登记');
     //所有input可操作
@@ -686,6 +688,7 @@ $(function () {
         $('.loading').showLoading();
         //绑定数据
         ViewOrEdit($(this), 'flag');
+        $('.seeBlock').show();
         //图片区域隐藏
         $('.showImage').hide();
       })
@@ -696,6 +699,7 @@ $(function () {
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('保存');
         //绑定数据
         ViewOrEdit($(this));
+        $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
         //图片区域隐藏
         $('.showImage').hide();
       })
@@ -724,7 +728,7 @@ $(function () {
     $.ajax({
       type: 'post',
       url: _urls + 'YWGD/ywGDGetDJ',
-      async: false,
+      timeout:30000,
       data: prm,
       success: function (result) {
         $('.loading').hideLoading();
@@ -759,7 +763,7 @@ $(function () {
     $.ajax({
       type: 'post',
       url: _urls + url,
-      async: false,
+      timeout:30000,
       data: prm,
       success: function (result) {
         //给select赋值
@@ -768,7 +772,7 @@ $(function () {
           str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
           allArr.push(result[i]);
         }
-        select.append(str);
+        select.empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);
@@ -958,7 +962,7 @@ $(function () {
     $.ajax({
       type: 'post',
       url: _urls + 'YWGD/ywGDGetDetail',
-      async: false,
+      timeout:30000,
       data: prm,
       success: function (result) {
         $('.loading').hideLoading();
@@ -992,7 +996,11 @@ $(function () {
         app33.azAddress = result.installAddress;
         app33.rwlx = result.gdLeixing;
         _imgNum = result.hasImage;
+        app33.gdCode = result.gdCode2;
+        app33.state = result.gdZht;
+        app33.state = stateTransform(result.gdZht);
         $('.otime').val(result.gdFsShij);
+        $('.dtime').val(result.gdShij);
         //所有input不可操作
         if (flag) {
           $('#myApp33').find('input').attr('disabled', true).addClass('disabled-block');
@@ -1027,6 +1035,7 @@ $(function () {
             app33.lineRoute = line.dlNum;
           },
           error: function (jqXHR, textStatus, errorThrown) {
+            $('.loading').hideLoading();
             console.log(jqXHR.responseText);
           }
         })
@@ -1100,5 +1109,33 @@ $(function () {
     var res = ip.exec(str1);  /*211.100.28.180*/
     str = str.replace(ip,res);
     return str;
+  }
+
+  //状态值转换
+  function stateTransform(ztz){
+    if (ztz == 1) {
+      return '待下发'
+    }
+    if (ztz == 2) {
+      return '待分派'
+    }
+    if (ztz == 3) {
+      return '待执行'
+    }
+    if (ztz == 4) {
+      return '执行中'
+    }
+    if (ztz == 5) {
+      return '等待资源'
+    }
+    if (ztz == 6) {
+      return '待关单'
+    }
+    if (ztz == 7) {
+      return '任务关闭'
+    }
+    if (ztz == 999) {
+      return '任务取消'
+    }
   }
 })

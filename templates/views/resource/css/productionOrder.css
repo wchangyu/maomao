@@ -586,3 +586,11 @@ textarea{
 .table.dataTable thead .sorting_desc:after {
     content: "" !important;
 }
+.bjImg{
+    padding: 10px;
+    display: none;
+}
+.bjImgList{
+    width: 100px;
+    height: 100px;
+}

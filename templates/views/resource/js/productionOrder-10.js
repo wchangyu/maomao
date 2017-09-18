@@ -10,6 +10,9 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
+    //图片ip
+    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+
     //时间初始化
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -508,9 +511,16 @@ $(function(){
             stateConstant('2');
 
             $('#bjremark').val('');
+
+            //备件有一个图片的情况下
+            var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
+                '">';
+            $('.bjImg').empty().append(str).show();
+
         })
 
-    $('#myModal4').on('click','.btn-primary',function(){
+    $('#myModal4')
+        .on('click','.btn-primary',function(){
         if( $('#stateConstant').val() == '' ){
             $('#myModal2').find('.modal-body').html('请选择操作类型');
             moTaiKuang($('#myModal2'),'提示','flag');
@@ -518,7 +528,12 @@ $(function(){
             applySparePart();
         }
     })
-
+        //.on('click','.viewBjIMG',function(){
+        //    //备件有一个图片的情况下
+        //    var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
+        //        '">';
+        //    $('.bjImg').empty().append(str).show();
+        //})
     /*------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -703,5 +718,13 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
     }
 })

@@ -274,10 +274,10 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">工单操作</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
                                     <li><label for="">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <!--<input type="text" class="global_filter " id="global_filter">-->
@@ -405,6 +405,18 @@
                 <ul class="gongdanList" id="workDones" style="height: 551px;overflow-y: scroll">
                     <validator name="validation">
                         <form novalidate>
+                            <li class="floatLeft seeBlock" style="line-height: 26px;">
+                                <div class="labels">工单号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="gdCode">
+                                </div>
+                            </li>
+                            <li class="floatRight seeBlock" style="line-height: 26px;">
+                                <div class="labels colorTip">工单状态：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="state">
+                                </div>
+                            </li>
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">工单类型 *：</div>
                                 <div class="input-blockeds">
@@ -496,6 +508,12 @@
                                 <div class="labels">发生时间：</div>
                                 <div class="input-blockeds">
                                     <input type="text" class="datatimeblock otime">
+                                </div>
+                            </li>
+                            <li class="floatLeft seeBlock" style="line-height: 26px;">
+                                <div class="labels">工单登记时间：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="dtime">
                                 </div>
                             </li>
                             <div class="clearfix"></div>
