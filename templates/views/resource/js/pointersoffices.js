@@ -192,9 +192,16 @@ var ObjectSelection = function(){
 
                         $('#add-point-byBEE').hide('fast');
 
-                        if(userMonitor != 'defined'){
+
+                        if(typeof userMonitor != 'undefined'){
                             userMonitor.getProcsByPointerId();
                         }
+
+                        if(typeof alarmHistory != 'undefined'){
+
+                            alarmHistory()
+                        }
+                        window.location.reload();
 
                     }
                 },
@@ -203,7 +210,7 @@ var ObjectSelection = function(){
 
                         if(getShowRadio){
                             //获取楼宇ID
-
+                            getAllProce
                             var id =  zTreePointer.getCheckedNodes(true)[0].id;
 
                             sessionStorage.curPointerId = id;
@@ -213,9 +220,16 @@ var ObjectSelection = function(){
 
                             $('#add-point-byBEE').hide('fast');
 
-                            if(userMonitor != 'defined'){
+                            if(typeof userMonitor != 'undefined'){
                                 userMonitor.getProcsByPointerId();
                             }
+
+                            if(typeof alarmHistory != 'undefined'){
+
+                                alarmHistory()
+                            }
+
+                            window.location.reload();
 
                         }
 
@@ -611,6 +625,7 @@ function getCompactArr1(tempAllPointers,isCheckAll,flag){
 
                             }else{
                                 sessionStorage.curPointerId = obj11.id;
+                                $('#onOff1').html(arr[j].children[z].pointerName);
                                 obj11.checked = true;
 
                             }

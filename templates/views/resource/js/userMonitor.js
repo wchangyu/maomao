@@ -251,7 +251,7 @@ var userMonitor = (function(){
                 _allProcs = curPointerProcs;
             }
         }
-        console.log(_allProcs);
+        //console.log(_allProcs);
         //存放获得的所有类型集合
         var pubProcTypeArr = [];
         $(_allProcs).each(function(i,o){
@@ -262,17 +262,20 @@ var userMonitor = (function(){
                 pubProcTypeArr.push(typeNum)
             }
         });
-        console.log(pubProcTypeArr);
+        //console.log(pubProcTypeArr);
+        //当arg参数为2（全部）时，对流程图根据系统类型进行筛选
+        var arg = sessionStorage.menuArg;
+        if(arg){
+            if(arg.split(',')[0] == 2){
+                var type =arg.split(',')[1];
+                $(_allProcs).each(function(i,o){
+                    if(o.pubProcType != type){
+                        _allProcs.remove(o);
+                    }
+                });
+            }
+        }
 
-        //var arg = sessionStorage.menuArg;
-        //if(arg.split(',')[0] == 2){
-        //    var type =arg.split(',')[1];
-        //    $(_allProcs).each(function(i,o){
-        //       if(o.pubProcType != type){
-        //           _allProcs.remove(o);
-        //       }
-        //    });
-        //}
         setProcList(_allProcs);
     }
 
@@ -480,15 +483,13 @@ var userMonitor = (function(){
                     imgWidth = proc.procStyle.imageSizeWidth;
 
 
-
+                        /*----------------页面自适应-----------------*/
                         var norWidth = $('.page-title').width();
                         //实际宽度
                         var realWidth = norWidth - _leftWidth;
 
                         //缩放比例计算
                         var ratioZoom = realWidth / imgWidth;
-
-                        console.log(norWidth);
 
                         $(window).resize(function () {          //当浏览器大小变化时
                             var norWidth1 = $('.page-title').width();

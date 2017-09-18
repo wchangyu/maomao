@@ -9,6 +9,7 @@ sessionStorage.offices      当前系统的全部分户
 sessionStorage.pointers     当前系统的楼宇，根据用户名获取
 sessionStorage.userAuth     当前用户的权限
 sessionStorage.userName     当前用户登录名,ID
+sessionStorage.userpassword 当前用户密码 同上
 sessionStorage.realUserName 当前用户的姓名
 localStorage.BEE_username    当前用户登录名,ID 记住用户密码使用
 localStorage.BEE_userpassword 当前用户密码 同上
@@ -33,3 +34,5 @@ sessionStorage.alarmAlert      记录是否开启报警弹窗
 sessionStorage.alarmSong       记录是否开启报警声音
 sessionStorage.allPointName    记录楼宇树状图是否需要显示全院
 sessionStorage.curPointerId    记录当前选中的楼宇ID
+sessionStorage.allProcs        记录全部的流程图
+sessionStorage.changeMenuByProcs 是否根据流程图动态绘制菜单

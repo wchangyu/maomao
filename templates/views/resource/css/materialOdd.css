@@ -143,3 +143,9 @@ body{
     bottom:1px;
     left:0px;
 }
+/*年月日显示*/
+.center-message span font{
+    width:60px;
+    display: inline-block;
+    text-align: center;
+}

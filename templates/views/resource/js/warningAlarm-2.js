@@ -41,6 +41,9 @@ $(function(){
 
     //报警类型变量
     var _alarm;
+
+    //后台数据
+    var totalArr = [];
     /*-------------------------时间------------------------*/
     //显示时间
     //显示开始结束时间，
@@ -203,7 +206,7 @@ $(function(){
 
     /*--------------------------表格-------------------------*/
     //初始化表格
-    $('#datatables').DataTable({
+    table = $('#datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -252,7 +255,7 @@ $(function(){
             },
             {
                 "title": "支路",
-                "class":"L-checkbox",
+                "class":"L-checkbox cname",
                 "data":"cName"
             },
             {
@@ -303,6 +306,13 @@ $(function(){
                 "visible":"false"
             },
             {
+                "title": "查看",
+                "class":'L-button',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
+            },
+            {
                 "title": "处理备注",
                 "targets": -1,
                 "data": null,
@@ -348,6 +358,30 @@ $(function(){
             $this.parent($('span')).addClass('checked');
         }else{
             $this.parent($('span')).removeClass('checked');
+        }
+    } );
+
+    $('#datatables tbody').on('click', 'td .details-control', function () {
+        var $this = $(this);
+        var cnames = $this.parents('tr').children('.cname').html();
+        var pointerIDs = $this.parents('tr').children('.pointerID').html();
+        var historyArr = [];
+
+        for(var i=0;i<totalArr.length;i++){
+            if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
+                historyArr.push(totalArr[i])
+            }
+        }
+        var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+        var row = table.row( tr );
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(historyArr) ).show();
+            tr.addClass('shown');
         }
     } );
 
@@ -410,6 +444,47 @@ $(function(){
         _ajaxDataType=dataType;
     }
 
+    //显示隐藏
+    function format ( d ) {
+        var theader = '<table class="table">' +
+            '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>单位房间</td><td>报警等级</td></tr></thead>';
+        var theaders = '</table>';
+        var tbodyer = '<tbody>'
+        var tbodyers = '</tbody>';
+        var str = '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
+            '</td><td>' + d[1].cName +
+            '</td><td>' + d[1].pointerName +
+            '</td><td>' + d[1].cDtnName +
+            '</td><td>' + d[1].expression +
+            '</td><td>' + d[1].data +
+            '</td><td>' + d[1].sysLogID +
+            '</td><td>' + d[1].priority +
+            '</td></tr>';
+        for(var i=2;i< d.length;i++){
+            var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
+            str += '<tr><td>' + atime +
+                '</td><td>' + d[i].cName +
+                '</td><td>' + d[i].pointerName +
+                '</td><td>' + d[i].cDtnName +
+                '</td><td>' + d[i].expression +
+                '</td><td>' + d[i].data +
+                '</td><td>' + d[i].sysLogID +
+                '</td><td>' + d[i].priority +
+                '</td></tr>'
+        }
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
+
+    //去重
+    function existItem(arr,item){ //遍历数组中的所有数，如果有相同的pointerID&&cdataID，返回true，如果没有的话返回false；
+        for(var i= 0,len=arr.length;i<len;i++){
+            if(arr[i].pointerID==item.pointerID && arr[i].cdataID==item.cdataID){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //范围选择树
     function getPointer(){
         //读取楼宇和科室的zTree；
@@ -420,9 +495,20 @@ $(function(){
 
     //能耗种类
     function energyTypes(){
+
+        var typeFlag = false;
+        var localType;
+        //获取本地存储的能耗种类
+        if(sessionStorage.getItem('menuArg')){
+            localType = sessionStorage.getItem('menuArg').split(',')[0];
+        }
+
+        if(localType != '' && localType != 0) {
+            typeFlag = true;
+        }
         var zNodes = [];
         var allAlarmInfo={};
-        allAlarmInfo.id="000";
+        allAlarmInfo.id="0";
         allAlarmInfo.name="全部";
         allAlarmInfo.checked="true";
         allAlarmInfo.open = "true";
@@ -434,7 +520,14 @@ $(function(){
             async:false,
             success:function(result){
                 for(var i=0;i<result.length;i++){
-                    totalData.push(result[i]);
+                    if(typeFlag){
+                        if(localType.indexOf(result[i].energyTypeID) != -1){
+                            totalData.push(result[i]);
+                        }
+                    }else{
+                        totalData.push(result[i]);
+                    }
+
                 }
                 for(var i=0;i<totalData.length;i++){
                     zNodes.push({id:totalData[i].energyTypeID,name:totalData[i].energyTypeName,pId:allAlarmInfo.id});
@@ -475,9 +568,20 @@ $(function(){
 
     //报警类型
     function typeOfAlarm(){
+
+        var typeFlag = false;
+        //获取本地存储的报警类型
+        var localType;
+        if(sessionStorage.getItem('menuArg')){
+            localType = sessionStorage.getItem('menuArg').split(',')[1];
+        }
+        if(localType != '' && localType != -1) {
+            typeFlag = true;
+        }
+
         var zNodes=[];
         var allAlarmInfo={};
-        allAlarmInfo.id="000";
+        allAlarmInfo.id="-1";
         allAlarmInfo.name="全部";
         allAlarmInfo.checked="true";
         allAlarmInfo.open = "true";
@@ -494,7 +598,14 @@ $(function(){
                 }
                 var branchArr=[];
                 for(var i=0;i<result.length;i++){
-                    branchArr.push(result[i]);
+                    if(typeFlag){
+                        if(localType.indexOf(result[i].innerID) != -1){
+                            branchArr.push(result[i]);
+                        }
+                    }else{
+                        branchArr.push(result[i]);
+                    }
+
                 }
                 //遍历数组，确定zNodes；
                 for(var i=0;i<branchArr.length;i++){
@@ -578,6 +689,11 @@ $(function(){
         for(var i=0; i<_pointer_ID.length; i++){
             pointer.push(_pointer_ID[i].pointerID);
         }
+        //获取检测类型
+        var localType = sessionStorage.getItem('menuArg').split(',')[2];
+        if(!localType){
+            localType = '';
+        }
         //if( _pointer_ID[0].pointerID == '0'){
         //    pointer = [0];
         //}
@@ -600,7 +716,8 @@ $(function(){
             'et' : _ajaxEndTime_1 + ' 00:00:00',
             'pointerIds' : pointer,
             'excTypeInnderId' : alarm,
-            'energyType' : energy
+            'energyType' : energy,
+            'groupTypeId' : localType
         };
         $.ajax({
             type:'post',
@@ -611,8 +728,25 @@ $(function(){
                 $('.main-contents-table').children('img').show();
             },
             success:function(result){
+                totalArr.length = 0;
                 $('.main-contents-table').children('img').hide();
-                datasTable($('#datatables'),result);
+                var dataArr = [];
+                var pcids = [];
+                for(var i=0;i<result.length;i++){
+                    totalArr.push(result[i]);
+                    if(!existItem(pcids,result[i])){  //没有存在相同的pointerID&&cdataID；确保pcids数组中所有pointerID和csataID不同
+                        pcids.push({"pointerID":result[i].pointerID,"cdataID":result[i].cdataID});
+                    }
+                }
+                for(var i= 0,len=pcids.length,lenD=result.length;i<len;i++){ //推荐写法
+                    for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
+                        if(pcids[i].pointerID==result[j].pointerID && pcids[i].cdataID== result[j].cdataID){
+                            dataArr.push(result[j]);  //因为后台返回的数据是降序，所以只要有一个就push到dataArr中
+                            break;  //跳处循环；
+                        }
+                    }
+                }
+                datasTable($("#datatables"),dataArr);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

@@ -1,6 +1,26 @@
+/**
+ * Created by admin on 2017/9/14.
+ */
 $(function(){
-    //显示时间；
-    $('.real-time').html(showStartRealTime + '到' + showStartRealTime);
+
+
+    //开始/结束时间插件
+    $('.datatimeblock').datepicker({
+        language:  'zh-CN',
+        todayBtn: 1,
+        todayHighlight: 1,
+        format: 'yyyy/mm/dd',
+        autoclose:true,
+        forceParse: 0
+    });
+
+    //获得当前时间
+    var now = moment().format("YYYY-MM-DD");
+    $('.max').val( now);
+    $('.min').val(moment().subtract('1','days').format("YYYY-MM-DD"));
+
+    ////显示时间；
+    //$('.real-time').html(showStartRealTime + '到' + showStartRealTime);
     //指定楼宇为全部；
     getPointerID();
     //表格初始化
@@ -169,7 +189,7 @@ $(function(){
 
         for(var i=0;i<totalArr.length;i++){
             if(totalArr[i].cName == cnames && totalArr[i].pointerID == pointerIDs){
-                historyArr.push(totalArr[i]);
+                historyArr.push(totalArr[i])
             }
         }
         var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
@@ -194,11 +214,57 @@ $(function(){
         _texts = $(this).parents('.modal-header').children('.modal-body').val();
         processingNote();
     })
+
+    $('.btn-success').on('click',function(){
+        alarmHistory()
+    });
+
+
+
 });
+
+Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+Demo.init(); // init demo features
+BEE.init();
+
+//点击回车键时触发
+$(document).on('keydown',function(e){
+    var theEvent = window.event || e;
+    var code = theEvent.keyCode || theEvent.which;
+
+    if(code == 13 && $('#myModal').hasClass('in') == false){
+
+        $('.btn1').click();
+        return false;
+    }
+});
+
+//获取默认的监测类型
+
+var monitorType = sessionStorage.getItem('menuArg');
+
+if(!monitorType){
+    monitorType = '';
+}else{
+    monitorType = monitorType.split(',')[2];
+
+    if( !monitorType){
+        monitorType = '';
+    }
+}
+
 //指定能耗种类的类型为全部；
-var _ajaxEcType = " ";
-//指定全部报警类型为全部；
-var excTypeInnderId = " ";
+var _ajaxEcType = sessionStorage.getItem('menuArg');
+console.log( _ajaxEcType);
+if(!_ajaxEcType){
+    _ajaxEcType = '0';
+}else{
+    _ajaxEcType = _ajaxEcType.split(',')[0]
+}
+
+////指定全部报警类型为全部；
+//var excTypeInnderId = " ";
 var pointerID = [];
 function getPointerID(){
     var getPointers = JSON.parse(sessionStorage.getItem('pointers'));
@@ -208,34 +274,50 @@ function getPointerID(){
         }
     }
 }
-//实时数据（开始）；
-var startRealTime = moment().format('YYYY/MM/DD') + " 00:00:00";
-var endRealTime = moment().add(1,'d').format('YYYY/MM/DD') + " 00:00:00";
-var showStartRealTime = moment().format('YYYY-MM-DD');
+
+
 //获取历史数据
 var dataArr = [];
 var totalArr = [];
-function alarmHistory(){
+alarmHistory = function(){
+    //时间处理；
+    var startRealTime = $('.min').val() + " 00:00:00";
+    var endRealTime =  moment($('.max').val()).add(1,'days').format('YYYY-MM-DD') + " 00:00:00";
+    //报警类型
+    var excTypeInnderId = $('#refer-type').val();
+    //获取当前楼宇ID
+    var curPointerID = sessionStorage.getItem('curPointerId');
+
+    pointerID.length = [];
+    pointerID.push(curPointerID);
+
     var prm = {
         'st' : startRealTime,
         'et' : endRealTime,
         'pointerIds' : pointerID,
         'excTypeInnderId' : excTypeInnderId,
         'energyType' : _ajaxEcType,
+        'groupTypeId':monitorType
     };
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
-        async:false,
         data:prm,
+        beforeSend: function () {
+            $('#theLoading').modal('show');
+        },
+
+        complete: function () {
+            $('#theLoading').modal('hide');
+        },
         success:function(result){
             var dataArr = [];
             var pcids = [];
             var showArr = [];
             $(result).each(function(i,o){
-               if(o.flag == 2 || o.flag == 0){
-                   showArr.push(o)
-               }
+                if(o.flag == 2 || o.flag == 0){
+                    showArr.push(o)
+                }
             });
             for(var i=0;i<showArr.length;i++){
 
@@ -255,6 +337,14 @@ function alarmHistory(){
             }
             datasTable($("#datatables"),dataArr);
             //console.log(dataArr);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#theLoading').modal('hide');
+            //console.log(textStatus);
+
+                myAlter("请求失败！");
+
+
         }
     });
 }
@@ -361,4 +451,37 @@ function processingNote (){
             }
         }
     )
+}
+
+typeOfAlarm();
+//报警类型
+function typeOfAlarm(){
+
+    //var typeFlag = false;
+    ////获取本地存储的报警类型
+    //var localType = sessionStorage.getItem('menuArg').split(',')[1];
+    //if(localType != '' && localType != 0) {
+    //    typeFlag = true;
+    //}
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        async:false,
+        success:function(result){
+            if(result.length == 0){ //没有数据时候跳出,清除树
+                return;
+            }
+            var branchHtml = '<option value="-1">全部</option>';
+
+            for(var i=0;i<result.length;i++){
+
+                   branchHtml += '<option value="'+result[i].innerID+'">'+result[i].cDtnName+'</option>';
+            }
+            $('#refer-type').html( branchHtml);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
 }

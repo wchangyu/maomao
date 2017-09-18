@@ -91,6 +91,7 @@ var Login = function() {
                                     localStorage.BEE_userpassword = password;
                                 }
                                 sessionStorage.userName=name1;
+                                sessionStorage.userpassword=password;
                                 if(res.userName){
                                     sessionStorage.realUserName = res.userName;
                                 }
@@ -99,6 +100,7 @@ var Login = function() {
                                 getAllEnergyItems();
                                 getMenu();
                                 sessionStorage.userAuth = convertAuthTo01Str(res.userAuth);     //存储权限字符串
+                                getAllProce(name1);
                             }
                         },
                         error:function(xhr,res,err){
@@ -174,7 +176,7 @@ var Login = function() {
     }
 
     var directToIndex = function(){
-        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded){
+        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
@@ -182,6 +184,7 @@ var Login = function() {
                 window.location.href = "shouye/index.html";
             }
         }
+
     }
 
 
@@ -297,9 +300,39 @@ var Login = function() {
                 }
             }
         );
+    };
+
+    //获取全部流程图
+    var getAllProce = function(userId){
+
+        var _isViewAllProcs = false;
+        if(sessionStorage.userAuth){
+            var userAuth = sessionStorage.userAuth;
+
+            if(userAuth.charAt(52) == "1"){
+                _isViewAllProcs = true;
+            }
+        }
+        if(userId) {
+            var dataStr = {'userID': userId,'isViewAllProcs':_isViewAllProcs};
+            $.ajax({
+                    type:'get',
+                    url:sessionStorage.apiUrlPrefix + 'PR/PR_GetAllProcsByUser',
+                    data:dataStr,
+                    success:function(data){
+                        console.log(data);
+                        sessionStorage.allProcs = JSON.stringify(data);
+                        _isProceLoaded = true;
+                        directToIndex();
+                    },
+                    error:function(xhr,res,errText){
+
+                    }
+                }
+            );
+
+        }
     }
-
-
 
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
@@ -344,6 +377,10 @@ var Login = function() {
                     //zTree绘制楼宇列表时是否显示全部楼宇
                     var allPointerName = data["allPointerName"] || '';
                     sessionStorage.allPointerName = allPointerName;
+
+                    //是否根据流程图动态绘制菜单
+                    var changeMenuByProcs = data["changeMenuByProcs"] || '';
+                    sessionStorage.changeMenuByProcs = changeMenuByProcs;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
