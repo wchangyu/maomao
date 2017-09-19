@@ -532,6 +532,14 @@
                                     <div class="pinzhixx hidden1" style="width: 200px;background: #ffffff;height:200px;overflow-y:scroll;position: absolute;top: 30px;left: 0;display: none"></div>
                                 </div>
                             </li>
+                            <li class="gdList">
+                                <div class="labels colorTip">库区 *:<span class="kuweiReq" style="display: none">请选择库位</span></div>
+                                <div class="input-blockeds" style="position: relative">
+                                    <input type="text" class="not-editable auto-input inputType kuwei" v-model="kuwei" @keyup="kuweiFun()"><div class="selectBlock"></div>
+                                    <ul class="kuqu-list hidden1" style="display: none">
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="gdList" style="line-height: 26px;">
                                 <div class="labels colorTip">物品编号 *：<span v-show="$validation.bianhao.requireds" style="display: none">请选择物品编号</span></div>
                                 <div class="input-blockeds">

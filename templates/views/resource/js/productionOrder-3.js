@@ -53,7 +53,10 @@ $(function(){
             weixiukeshis:'',
             gdly:1,
             whether:0,
-            picked:0
+            picked:0,
+            gdCode:'',
+            state:'',
+
         },
         methods: {
             selectLine:function(){
@@ -440,6 +443,7 @@ $(function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //数据绑定
             editOrOption($(this),'1');
+            $('.seeBlock').show();
             //改变确定按钮类名
             $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji');
             //图片区域隐藏
@@ -449,6 +453,8 @@ $(function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //数据绑定
             editOrOption($(this));
+            $('.seeBlock').show();
+            $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
             //改变确定按钮类名
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton');
             //图片区域隐藏
@@ -628,6 +634,7 @@ $(function(){
     });
     // 登记按钮
     $('.creatButton').click(function(){
+        $('.seeBlock').hide();
         $('.gdly').parents('li').show();
         //修改确定按钮
         _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记')
@@ -849,6 +856,7 @@ $(function(){
                 }else{
                     str += '工单编辑成功！'
                 }
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
             }
             conditionSelect();
         })
@@ -941,6 +949,8 @@ $(function(){
     //查询
     $('#selected').on('click',function(){
         conditionSelect();
+        //同一车站不闭环隐藏
+        $('.associated-station').hide();
     });
 
     //重置
@@ -965,11 +975,6 @@ $(function(){
     //选择部门取消按钮
     $('.close-tree').click(function(){
         $('#tree-block').hide();
-        //_determineDeObj.pId = '';
-        //_determineDeObj.name = '';
-        //_determineDeObj.id = '';
-        //$('#xzmc').val('');
-        //$('#zxbm').val('');
     })
     //条件查询人员
     $('.zhixingButton').click(function(){
@@ -1057,7 +1062,6 @@ $(function(){
                 $.ajax({
                     type:'post',
                     url: _urls + 'YWGD/ywGDGetDetail',
-                    async:false,
                     data:prm,
                     success:function(result){
                         var progressBarList = $('.progressBarList');
@@ -1471,7 +1475,10 @@ $(function(){
                 workDones.sbMC = result.dName;
                 workDones.azAddress = result.installAddress;
                 workDones.weixiukeshis = result.wxKeshi;
+                workDones.gdCode = result.gdCode2;
+                workDones.state = stateTransform(result.gdZht);
                 $('.otime').val(result.gdFsShij);
+                $('.dtime').val(result.gdShij);
                 $('.remarkDes').val(result.bxBeizhu);
                 _imgNum = result.hasImage;
                 $('#wxremark').val(result.wxBeizhu);
@@ -1810,5 +1817,32 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+    //状态值转换
+    function stateTransform(ztz){
+        if (ztz == 1) {
+            return '待下发'
+        }
+        if (ztz == 2) {
+            return '待分派'
+        }
+        if (ztz == 3) {
+            return '待执行'
+        }
+        if (ztz == 4) {
+            return '执行中'
+        }
+        if (ztz == 5) {
+            return '等待资源'
+        }
+        if (ztz == 6) {
+            return '待关单'
+        }
+        if (ztz == 7) {
+            return '任务关闭'
+        }
+        if (ztz == 999) {
+            return '任务取消'
+        }
     }
 })

@@ -37,6 +37,36 @@ $(function(){
             }
         }
     });
+    //库区Vue对象
+    var reservoir = new Vue(    {
+        el:'#myApp11',
+        data:{
+            num:'',
+            name:'',
+            barnum:'',
+            inventory:''
+        },
+        methods:{
+            keyUpJob1:function(){
+                var existFlag = false;
+                var allArr = [];
+                var values = reservoir.num;
+                for(var i=0;i<_allKQ.length;i++){
+                    if( values !=  _allKQ[i].localNum){
+                        existFlag = true;
+                    }else{
+                        existFlag = false;
+                    }
+                    allArr.push(existFlag);
+                }
+                if(allArr.indexOf(false)<0){
+                    $('.kquchong').hide();
+                }else{
+                    $('.kquchong').show();
+                }
+            }
+        }
+    })
     //验证必填项（非空）
     Vue.validator('requireds', function (val) {
         //获取内容的时候先将首尾空格删除掉；
@@ -45,6 +75,8 @@ $(function(){
     })
     //存放当前列表的数据
     var _allData = [];
+    //存放库区列表数组
+    var _allKQ = [];
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -175,6 +207,9 @@ $(function(){
     //自定义按钮位置
     _table.buttons().container().appendTo($('.excelButton'),_tables.table().container());
 
+    //默认界面只显示第一个导出按钮
+    $('.excelButton .dt-buttons').eq(1).hide();
+
     //仓库select
     conditionSelect('YWCK/ywCKGetStorages','flag');
     //页面加载数据
@@ -237,18 +272,18 @@ $(function(){
     $('#myModal')
         //登记确定按钮
         .on('click','.dengji',function(){
-            sendMessage('YWCK/ywCKAddStorage','新增成功！','新增失败',$('#myModal'),'1');
+            sendMessage('YWCK/ywCKAddStorage','新增成功！','新增失败','1');
         })
         //编辑确定按钮
         .on('click','.bianji',function(){
-            sendMessage('YWCK/ywCKUptStorage','编辑成功！','编辑失败',$('#myModal'),'1');
+            sendMessage('YWCK/ywCKUptStorage','编辑成功！','编辑失败','2');
         })
         //删除确定按钮
         .on('click','.shanchu', function () {
-            sendMessage('YWCK/ywCKDelStorage','删除成功！','删除失败',$('#myModal'),'2');
+            sendMessage('YWCK/ywCKDelStorage','删除成功！','删除失败','3');
         })
     /*-------------------------------------方法---------------------------------*/
-    //查询仓库，无参数的时候，查询仓库列表，有参数的时候，是条件查询select
+    //查询仓库，①无参数的时候，查询仓库，②flag1 select下拉框 ③flag2查询库区
     function conditionSelect(url,flag1,flag2){
         var prm = {
             userID:_userIdNum,
@@ -261,17 +296,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                _allData = [];
-                for(var i=0;i<result.length;i++){
-                    _allData.push(result[i]);
-                }
-                if(flag2){
-                    console.log(result);
-                    datasTable($('#scrap-datatables1'),result);
-                }else{
-                    datasTable($('#scrap-datatables'),result);
-                }
-
                 if(flag1){
                     var str = '<option value="">全部</option>';
                     var str1 = '';
@@ -279,9 +303,21 @@ $(function(){
                         str1 += '<option value="' + result[i].storageNum +
                             '">' + result[i].storageName + '</option>'
                     }
-                    $('#ck-select').append(str + str1);
-                    $('.ck-list').append(str1);
-            }
+                    $('#ck-select').empty().append(str + str1);
+                    $('.ck-list').empty().append(str1);
+                }else if(flag2){
+                    _allKQ = [];
+                    for(var i=0;i<result.length;i++){
+                        _allKQ.push(result[i]);
+                    }
+                    datasTable($('#scrap-datatables1'),result);
+                }else{
+                    _allData = [];
+                    for(var i=0;i<result.length;i++){
+                        _allData.push(result[i]);
+                    }
+                    datasTable($('#scrap-datatables'),result);
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -364,42 +400,60 @@ $(function(){
         })
     }
     //登记/编辑/删除
-    function sendMessage(url,succcessMeg,errorMeg,tipBlock,flag){
-        //判断非空
-        if( wharehouse.name == '' ){
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-        }else{
-            //用flag来区分哪个是编辑，哪个是登记，登记不需要发送编码，编辑需要,flag=1代表登记flag=2代表编辑flag=3代表删除,
-            var prm = {};
-            if(flag == 1){
-                //登记
-                prm.storageNum = wharehouse.num;
-                prm.storageName = wharehouse.name;
-                prm.sort  = wharehouse.barnum;
-                prm.remark = wharehouse.beizhu;
-                prm.address = wharehouse.location;
-            }else if(flag == 2){
-                prm.storageNum = wharehouse.num;
-            }
-            prm.userID = _userIdNum;
-            prm.userName = _userIdName;
-            $.ajax({
-                type:'post',
-                url:_urls + url,
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
-                        $('#myModal').modal('hide');
-                        conditionSelect();
-                    }else{
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,errorMeg, '');
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+    function sendMessage(url,succcessMeg,errorMeg,flag){
+        //判断仓库编码是否重复
+        var firstTip = $('.quchong')[0].style.display;
+        var ckName = $('.ckName').css('display');
+        // 首先判断是否为空
+        if(ckName == 'none' && wharehouse.num != '' && wharehouse.name != ''){
+            //判断编号是否重复
+            if(firstTip == 'none'){
+                //用flag来区分哪个是编辑，哪个是登记，登记不需要发送编码，编辑需要,flag=1代表登记flag=2代表编辑flag=3代表删除,
+                var prm = {};
+                if(flag == 1){
+                    //登记
+                    prm.storageNum = wharehouse.num;
+                    prm.storageName = wharehouse.name;
+                    prm.sort  = wharehouse.barnum;
+                    prm.remark = wharehouse.beizhu;
+                    prm.address = wharehouse.location;
+                }else if(flag == 2){
+                    prm.storageNum = wharehouse.num;
+                    prm.storageNum = wharehouse.num;
+                    prm.storageName = wharehouse.name;
+                    prm.sort  = wharehouse.barnum;
+                    prm.remark = wharehouse.beizhu;
+                    prm.address = wharehouse.location;
+                }else if(flag == 3){
+                    prm.storageNum = wharehouse.num;
                 }
-            })
+                prm.userID = _userIdNum;
+                prm.userName = _userIdName;
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
+                            $('#myModal').modal('hide');
+                            //刷新仓库
+                            conditionSelect('YWCK/ywCKGetStorages');
+                            //舒心仓库列表
+                            conditionSelect('YWCK/ywCKGetStorages','flag');
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,errorMeg, '');
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }else{
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'仓库编码不能重复！', '');
+            }
+        }else{
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }
     }
     /*----------------------------打印部分去掉的东西-----------------------------*/
@@ -413,6 +467,9 @@ $(function(){
         $(this).addClass('spanhover');
         $('.table-block-list').hide();
         $('.table-block-list').eq($(this).index()).show();
+        //默认界面只显示第一个导出按钮
+        $('.table-block-list').find('.excelButton .dt-buttons').hide();
+        $('.table-block-list').eq($(this).index()).find('.excelButton .dt-buttons').eq($(this).index()).show();
     });
     //编辑按钮
     $('#scrap-datatables1')
@@ -466,33 +523,39 @@ $(function(){
         var localSort = $('#myModal1 .local-sort').val();
         if( localNum == '' || localName == '') {
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap', '请填写红色必填项！', '');
-            return false;
-        }
-        var prm = {};
-        prm.storageNum = storageNum;
-        prm.storageName = storageName;
-        prm.localNum = localNum;
-        prm.localName = localName;
-        prm.sort = localSort;
-        prm.userID = _userIdNum;
-        prm.userName = _userIdName;
-        //给后台传递参数
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
-                    $('#myModal1').modal('hide');
-                    conditionSelect('YWCK/ywCKGetLocations',false,true);
-                }else{
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出现错误', '');
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            //return false;
+        }else{
+            var kqc = $('.kquchong').css('display');
+            if(kqc == 'none'){
+                var prm = {};
+                prm.storageNum = storageNum;
+                prm.storageName = storageName;
+                prm.localNum = localNum;
+                prm.localName = localName;
+                prm.sort = localSort;
+                prm.userID = _userIdNum;
+                prm.userName = _userIdName;
+                //给后台传递参数
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
+                            $('#myModal1').modal('hide');
+                            conditionSelect('YWCK/ywCKGetLocations',false,true);
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出现错误', '');
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }else{
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap', '库区编码不能重复！', '');
             }
-        })
+        }
     }
 });

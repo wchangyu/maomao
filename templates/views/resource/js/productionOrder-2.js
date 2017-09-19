@@ -54,7 +54,9 @@ $(function(){
             weixiukeshis:'',
             wxremark:'',
             gdly:'',
-            whether:''
+            whether:'',
+            gdCode:'',
+            state:''
         }
     })
     //自定义验证器
@@ -408,7 +410,10 @@ $(function(){
                     _imgNum = result.hasImage;
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
+                    workDones.gdCode = result.gdCode2;
+                    workDones.state = stateTransform(result.gdZht);
                     $('.otime').val(result.gdFsShij);
+                    $('.dtime').val(result.gdShij);
                     //记录重发值
                     _gdCircle = result.gdCircle;
                     //执行人、物料
@@ -1222,5 +1227,32 @@ $(function(){
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
         return str;
+    }
+    //状态值转换
+    function stateTransform(ztz){
+        if (ztz == 1) {
+            return '待下发'
+        }
+        if (ztz == 2) {
+            return '待分派'
+        }
+        if (ztz == 3) {
+            return '待执行'
+        }
+        if (ztz == 4) {
+            return '执行中'
+        }
+        if (ztz == 5) {
+            return '等待资源'
+        }
+        if (ztz == 6) {
+            return '待关单'
+        }
+        if (ztz == 7) {
+            return '任务关闭'
+        }
+        if (ztz == 999) {
+            return '任务取消'
+        }
     }
 })

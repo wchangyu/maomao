@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -421,16 +421,16 @@
                     <ul class="gongdanList" id="myApp33" style="height: 512px;overflow-y: scroll">
                         <validator name="validation">
                             <form novalidate>
-                                <li class="floatLeft" style="line-height: 26px;">
+                                <li class="floatLeft seeBlock" style="line-height: 26px;">
                                     <div class="labels">工单号：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" model="gdCode" class="gdCode">
+                                        <input type="text" v-model="gdCode">
                                     </div>
                                 </li>
-                                <li class="floatRight" style="line-height: 26px;">
+                                <li class="floatRight seeBlock" style="line-height: 26px;">
                                     <div class="labels colorTip">工单状态：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" model="state" class="gdState">
+                                        <input type="text" v-model="state">
                                     </div>
                                 </li>
                                 <li class="floatLeft" style="line-height: 26px;">
@@ -493,7 +493,7 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
+                                    <div class="labels colorTip">设备类型 *：</div>
                                     <div class="input-blockeds">
                                         <select class="xitong" v-model="matter"></select>
                                     </div>
@@ -524,7 +524,7 @@
                                 <input type="text" class="otime">
                             </div>
                         </li>
-                        <li class="floatRight" style="line-height: 26px;">
+                        <li class="floatRight seeBlock" style="line-height: 26px;">
                             <div class="labels">工单登记时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="dtime">
@@ -579,13 +579,6 @@
                                         </select>
                                     </div>
                                 </li>
-                                <!--<li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels colorTip">是否维保 *：</div>
-                                    <div class="input-blockeds">
-                                        <input type="radio" class="whether" id="three1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                        <input type="radio" class="whether" id="four1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
-                                    </div>
-                                </li>-->
                                 <li class="floatLeft" style="line-height: 26px;">
                                     <div class="labels colorTip">任务级别 *：</div>
                                     <div class="input-blockeds">
@@ -630,7 +623,7 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
+                                    <div class="labels colorTip">设备类型 *：</div>
                                     <div class="input-blockeds">
                                         <select class="xitong" v-model="matter"></select>
                                     </div>

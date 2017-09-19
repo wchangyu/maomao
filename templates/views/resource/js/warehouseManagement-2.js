@@ -33,13 +33,6 @@ $(function(){
     //记录选择入库产品的上下键选项的index
     var _num = -1;
 
-    //验证必填项（非空）
-    Vue.validator('requireds', function (val) {
-        //获取内容的时候先将首尾空格删除掉；
-        val=val.replace(/^\s+|\s+$/g,'');
-        return /[^.\s]{1,500}$/.test(val)
-    });
-
     //新增入库单的vue对象
     var myApp33 = new Vue({
         el:'#myApp33',
@@ -79,7 +72,8 @@ $(function(){
             'num':'',
             'inPrice':'',
             'amount':0,
-            'remark':''
+            'remark':'',
+            'kuwei':''
         },
         methods:{
             addFun1:function(){
@@ -211,6 +205,74 @@ $(function(){
             },
             clickFun:function(e){
                 e.stopPropagation();
+            },
+            kuweiFun:function(e){
+                var e = e || window.event;
+                //区分上下回车键
+                if(e.keyCode == 40){
+                    //按下键的时候，
+                    //获得所有li
+                    var lis = $('.kuqu-list').eq(0).children('li');
+                    if(_num<lis.length-1){
+                        _num ++;
+                    }else{
+                        _num = lis.length-1;
+                    }
+                    lis.removeClass('li-color');
+                    lis.eq(_num).addClass('li-color');
+                    //首先获取ul的高度
+                    var ulHeight = $('.kuqu-list').eq(0).height();
+                    var num = parseInt(ulHeight/30);
+                    //判断放了几个ul
+                    if(_num > num){
+                        var height = (_num - num) * 30;
+                        $('.kuqu-list').eq(0).scrollTop(height);
+                    }
+                }else if(e.keyCode == 38){
+                    var lis = $('.kuqu-list').eq(0).children('li');
+                    if(_num<1){
+                        _num =0;
+                    }else{
+                        _num--;
+                    }
+                    lis.removeClass('li-color');
+                    lis.eq(_num).addClass('li-color');
+                    //首先获取ul的高度
+                    var ulHeight = $('.accord-with-list').eq(index).height();
+                    var num = parseInt(ulHeight/30);
+                    if(_num < lis.length -num){
+                        var height = (_num-num) * 30;
+                        $('.accord-with-list').eq(index).scrollTop(height);
+                    }
+                }else if(e.keyCode == 13){
+                    //选中
+                    var lis = $('.kuqu-list').children('li');
+                    for(var i=0;i<lis.length;i++){
+                        if(lis.eq(i).attr('class') == 'li-color'){
+                            workDone.kuwei = lis.eq(i).html();
+                            $('.kuwei').attr('data-num',lis.eq(i).attr('data-num'));
+                        }
+                    }
+                    $('.kuqu-list').hide();
+                }else{
+                    if(e.keyCode != 9){
+                        //比较
+                        _num = -1;
+                        var searchValue = workDone.kuwei;
+                        var includeArr = [];
+                        var str = '';
+                        for(var i=0;i<_kuquArr.length;i++){
+                            if(_kuquArr[i].localName.indexOf(searchValue)>=0 || _kuquArr[i].localNum.indexOf(searchValue)>=0){
+                                includeArr.push(_kuquArr[i]);
+                                str += '<li data-num="' + _kuquArr[i].localNum + '">' + _kuquArr[i].localName + '</li>'
+                            }
+                        }
+                        $('.kuqu-list').empty().append(str);
+                        if(includeArr.length>0){
+                            $('.kuqu-list').show();
+                        }
+                    }
+                }
             }
         }
     });
@@ -232,7 +294,14 @@ $(function(){
             amount:'',
             remark:''
         }
-    })
+    });
+
+    //验证必填项（非空）
+    Vue.validator('requireds', function (val) {
+        //获取内容的时候先将首尾空格删除掉；
+        val=val.replace(/^\s+|\s+$/g,'');
+        return /[^.\s]{1,500}$/.test(val)
+    });
 
     //记录当前工单号
     var _gdCode = '';
@@ -287,6 +356,9 @@ $(function(){
     var _rotate;
 
     var _examineRen = false;
+
+    //根据仓库，获得对应的库区
+    var _kuquArr = [];
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -615,18 +687,48 @@ $(function(){
 
     //新增物品按钮(出现模态框)
     $('.zhiXingRenYuanButton').on('click',function(){
+        //库区清空
+        $('.kuwei').val('');
         //先选择仓库
         if($('#ckselect').val() == ''){
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请先选择仓库', '');
         }else{
             //编辑的时候，编码和名称，条形码不能修改。
             $('.not-editable').attr('disabled',false).removeClass('disabled-block');
+            $('.not-editable').parent('.input-blockeds').removeClass('disabled-block');
             $('.goodsId').attr('disabled',false).removeClass('disabled-block');
             $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
             $('.rknum').attr('disabled',false).removeClass('disabled-block');
             $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
             $('.auto-input').attr('disabled',false).removeClass('disabled-block');
+            $('.auto-input').parent('.input-blockeds').removeClass('disabled-block');
             $('.accord-with-list').hide();
+            //获取仓库，获得对应的库区
+            $.ajax({
+                type:'post',
+                url:_urls + 'YWCK/ywCKGetStorages',
+                data:{
+                    'storageNum':myApp33.ckselect,
+                    'hasLocation':1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName
+                },
+                timeout:_theTimes,
+                success:function(result){
+                    var str = '';
+                    _kuquArr = [];
+                    for(var i=0;i<result.length;i++){
+                        for(var j=0;j<result[i].locations.length;j++){
+                            _kuquArr.push(result[i].locations[j]);
+                            str += '<li data-num="' + result[i].locations[j].localNum + '">' + result[i].locations[j].localName + '</li>'
+                        }
+                    }
+                    $('.kuqu-list').empty().append(str);
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
             //初始化入库物品
             workDone.goodsId = '';
             workDone.bianhao = '';
@@ -702,6 +804,8 @@ $(function(){
                 obj.userName = _userIdName;
                 obj.storageName = _rukuArr[i].storageName;
                 obj.storageNum = _rukuArr[i].storageNum;
+                obj.localName = _rukuArr[i].localName;
+                obj.localNum = _rukuArr[i].localNum;
                 inStoreDetails1.push(obj);
             }
             var ckName = '';
@@ -765,7 +869,6 @@ $(function(){
             _gdCode = $thisDanhao;
             for(var i=0;i<_allData.length;i++){
                 if(_allData[i].orderNum == $thisDanhao){
-                    console.log(_allData[i]);
                     //绑定数据
                     myApp33.rkleixing = _allData[i].inType;
                     myApp33.bianhao = _allData[i].orderNum;
@@ -1020,6 +1123,7 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
+            //_examineRen = true;
             if( !_examineRen ){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
@@ -1235,6 +1339,8 @@ $(function(){
                     rukuDan.inPrice = workDone.inPrice;
                     rukuDan.amount = workDone.amount;
                     rukuDan.inMemo = workDone.remark;
+                    rukuDan.localNum = $('.kuwei').attr('data-num');
+                    rukuDan.localName = workDone.kuwei;
                     var ckName = '';
                     if($('#ckselect').val() == ''){
                         ckName = ''
@@ -1258,6 +1364,7 @@ $(function(){
                     workDone.inPrice = '';
                     workDone.amount = 0;
                     workDone.remark = '';
+                    workDone.kuwei = '';
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1341,11 +1448,13 @@ $(function(){
             var bm = $this.find('.bianma').html();
             for(var i=0;i<_rukuArr.length;i++){
                 if(_rukuArr[i].itemNum == bm){
+                    console.log(_rukuArr[i]);
                     //赋值
                     workDone.bianhao = _rukuArr[i].itemNum;
                     workDone.mingcheng = _rukuArr[i].itemName;
                     workDone.size = _rukuArr[i].size;
                     workDone.picked = _rukuArr[i].isSpare;
+                    workDone.kuwei = _rukuArr[i].localName;
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1481,7 +1590,6 @@ $(function(){
             $('.quality').attr('data-pzNum',pzNum);
             $(this).parents('.gdList').next('li').find('.inputType').focus();
             $(this).parents('.hidden1').hide();
-
             e.stopPropagation();
         })
         .on('mouseover','div',function(){
@@ -1532,9 +1640,21 @@ $(function(){
         $('.hidden1').hide();
     });
 
+    //库位点击选择
+    $('.kuqu-list')
+        .on('click','li',function(e){
+            //赋值
+            workDone.kuwei = $(this).html();
+            $('.kuwei').attr('data-num',$(this).attr('data-num'));
+            $(this).parents('.hidden1').hide();
+            e.stopPropagation();
+        })
+        .on('mouseover','li',function(e){
+            $(this).parents('.kuqu-list').children('li').removeClass('li-color');
+            $(this).addClass('li-color');
+        })
+
     //查看序列号
-
-
     /*------------------------------------其他方法-------------------------------*/
 
     //表格初始化

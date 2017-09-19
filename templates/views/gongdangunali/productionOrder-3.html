@@ -409,7 +409,6 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="../resource/js/productionOrder-3.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -419,8 +418,7 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
-
-
+<script src="../resource/js/productionOrder-3.js"></script>
 <!--弹窗-->
 <!--模态框详细工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -435,6 +433,18 @@
                 <ul class="gongdanList" id="workDones" style="height: 551px;overflow-y: scroll">
                     <validator name="validation">
                         <form novalidate>
+                            <li class="floatLeft seeBlock" style="line-height: 26px;">
+                                <div class="labels">工单号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="gdCode">
+                                </div>
+                            </li>
+                            <li class="floatRight seeBlock" style="line-height: 26px;">
+                                <div class="labels colorTip">工单状态：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="state">
+                                </div>
+                            </li>
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">工单类型 *：</div>
                                 <div class="input-blockeds">
@@ -451,13 +461,6 @@
                                     </select>
                                 </div>
                             </li>
-                            <!--<li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">是否维保 *：</div>
-                                <div class="input-blockeds">
-                                    <input type="radio" class="whether" id="three1" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                    <input type="radio" class="whether" id="four1" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
-                                </div>
-                            </li>-->
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">任务级别 *：</div>
                                 <div class="input-blockeds">
@@ -525,18 +528,18 @@
                                     <input type="text" v-model="azAddress">
                                 </div>
                             </li>
-                            <!--<li class="floatLight">
-                                <div class="labels colorTip">维修班组 *：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="weixiukeshis">
-                                </div>
-                            </li>-->
                         </form>
                     </validator>
                     <li class="floatLeft" style="line-height: 26px;">
                         <div class="labels">发生时间：</div>
                         <div class="input-blockeds">
                             <input type="text" class="otime">
+                        </div>
+                    </li>
+                    <li class="floatRight seeBlock" style="line-height: 26px;">
+                        <div class="labels">工单登记时间：</div>
+                        <div class="input-blockeds">
+                            <input type="text" class="dtime">
                         </div>
                     </li>
                     <div class="clearfix"></div>
@@ -773,7 +776,7 @@
         <div class="modal-content" style="height: 711px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">工单详情</h4>
+                <h4 class="modal-title">工单详情</h4>
             </div>
             <div class="modal-body">
                 <div class="gongdanContent" style="width: 668px;float: left;height:563px!important;">
@@ -869,6 +872,12 @@
                             <div class="labels">发生时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="datatimeblock otime">
+                            </div>
+                        </li>
+                        <li class="floatRight seeBlock" style="line-height: 26px;">
+                            <div class="labels">工单登记时间：</div>
+                            <div class="input-blockeds">
+                                <input type="text" class="dtime">
                             </div>
                         </li>
                         <div class="clearfix"></div>
