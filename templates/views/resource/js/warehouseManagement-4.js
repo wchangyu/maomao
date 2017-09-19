@@ -2,10 +2,13 @@ $(function(){
     /*--------------------------------全局变量---------------------------------*/
     //获得用户id
     var _userIdNum = sessionStorage.getItem('userName');
+
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
     //仓库
     warehouse();
     /*-------------------------------------表格初始化------------------------------*/
@@ -82,6 +85,10 @@ $(function(){
                 data:'storageName'
             },
             {
+                title:'库区',
+                data:'localName'
+            },
+            {
                 title:'预警下限',
                 data:'minNum'
             },
@@ -102,18 +109,33 @@ $(function(){
             }
         ],
     });
+
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+
     //加载页面的时候，隐藏其他两个导出按钮
     for( var i=1;i<$('.excelButton').children().length;i++ ){
         $('.excelButton').children().eq(i).addClass('hidding');
     };
     /*------------------------------------表格数据--------------------------------*/
+    //查询
     conditionSelect();
-    /*------------------------------------表格按钮-------------------------------*/
+    /*------------------------------------按钮事件-------------------------------*/
+    //查询
     $('#selected').click(function(){
         conditionSelect();
-    })
+    });
+
+    //重置
+    $('.resites').click(function(){
+        //input清空
+        $('.condition-query').find('input').val('');
+        //select赋初始值
+        $('.condition-query').find('select').val('');
+        //是否默认：是
+        $('#greaterThan').val(1);
+    });
+
     //状态选项卡（选择确定/待确定状态）
     $('.table-title').children('span').click(function(){
         $('.table-title').children('span').removeClass('spanhover');
@@ -125,6 +147,31 @@ $(function(){
             $('.excelButton').children().eq(i).addClass('hidding');
         };
         $('.excelButton').children().eq($(this).index()).removeClass('hidding');
+    });
+
+    //仓库选择
+    $('#ckSelect').on('change',function(){
+        //根据仓库，联动库区
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetLocations',
+            data:{
+                storageNum:$('#ckSelect').val(),
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            success:function(result){
+                console.log(result);
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].localNum + '">' + result[i].localName + '</option>';
+                }
+                $('#kqSelect').empty().append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     })
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
@@ -140,7 +187,8 @@ $(function(){
             'itemName':filterInput[1],
             'userID':_userIdNum,
             'userName':_userIdName,
-            'storageNum':$('#ckSelect').val()
+            'storageNum':$('#ckSelect').val(),
+            'localNum':$('#kqSelect').val()
 
         }
         $.ajax({
@@ -148,7 +196,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKRptItemStock',
             data:prm,
             success:function(result){
-                console.log(result);
                 var downState = [];
                 var upState = [];
                 var nomalState = [];
@@ -168,6 +215,7 @@ $(function(){
             }
         })
     }
+
     //dataTables表格填数据
     function datasTable(tableId,arr){
         var table = tableId.dataTable();
@@ -180,18 +228,19 @@ $(function(){
             table.fnDraw();
         }
     }
+
     //仓库选择
     function warehouse(){
         var prm = {
             "userID": _userIdNum,
-            "userName": _userIdName
+            "userName": _userIdName,
+            "hasLocation":1
         }
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
-                console.log(result);
                 var str = '<option value="">请选择</option>'
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';

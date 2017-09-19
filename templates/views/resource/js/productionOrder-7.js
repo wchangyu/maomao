@@ -583,7 +583,6 @@ $(function(){
         if(_weiXiuCaiLiao.length == 0){
             _weiXiuCaiLiao.push(obj);
             $('#myModal5').modal('hide');
-            console.log(_weiXiuCaiLiao);
             datasTable($("#personTables1"),_weiXiuCaiLiao);
         }else{
             var flag = false;
@@ -758,7 +757,6 @@ $(function(){
     $('#myModal4')
         .on('click','.apply',function(){
         //首先判断原有网页中的_weiXiuCaiLiao和备注有没有改变。
-
         if(_primaryBJ.length != _weiXiuCaiLiao.length){
             //不一样
             //添加
@@ -1113,13 +1111,18 @@ $(function(){
     }
     //申请备件
     function applySparePart(){
+        var arr = [];
+        for(var i=0;i<_weiXiuCaiLiao.length;i++){
+            arr.push(_weiXiuCaiLiao[i].wxClName);
+        }
         var prm = {
             "gdCode": gdCode,
             "clStatusId": _bjStateWillNum,
             "clStatus": _bjStateWillName,
             "clLastUptInfo": $('#bjremark').val(),
             "userID": _userIdNum,
-            "userName": _userIdName
+            "userName": _userIdName,
+            "wxClNames":arr
         };
         $.ajax({
             type:'post',

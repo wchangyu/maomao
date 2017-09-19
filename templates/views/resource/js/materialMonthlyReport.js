@@ -112,6 +112,31 @@ $(function(){
         _FFExcel($('#scrap-datatables')[0]);
     });
 
+    //仓库选择
+    //仓库选择
+    $('#storage').on('change',function(){
+        //根据仓库，联动库区
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetLocations',
+            data:{
+                storageNum:$('#storage').val(),
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            success:function(result){
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].localNum + '">' + result[i].localName + '</option>';
+                }
+                $('#kqSelect').empty().append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    })
+
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(flag){
 
@@ -119,7 +144,6 @@ $(function(){
 
         //获取时间
         var st = $('.min').val() + '/01';
-        console.log(st);
         //获取条件
         if(searchNum == 0){
             var getTime =window.location.search.split('?')[1];
@@ -143,8 +167,10 @@ $(function(){
         var prm = {
             "dayDate": postTime,
             "storageNum": storageNum,
+            'hasNum':$('#greaterThan').val(),
             "userID":  _userIdNum,
-            "userName": _userIdName
+            "userName": _userIdName,
+            'localNum':$('#kqSelect').val()
         };
         $.ajax({
             type:'post',
@@ -152,7 +178,6 @@ $(function(){
             timeout: _theTimes,
             data:prm,
             success:function(result){
-                console.log(result);
                 _datasTable($("#scrap-datatables"), result);
             },
             error:function(jqXHR, textStatus, errorThrown){

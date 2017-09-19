@@ -594,3 +594,17 @@ textarea{
     width: 100px;
     height: 100px;
 }
+.kuqu-list{
+    width: 100% !important;
+    line-height: 30px;
+    z-index: 10;
+    border: 1px solid #ebebeb;
+    background: #ffffff;
+    position: relative;
+    border-top: none;
+    text-indent: 10px;
+}
+.kuqu-list li{
+    cursor: pointer;
+    width: 100% !important;
+}

@@ -100,7 +100,7 @@ var Login = function() {
                                 getAllEnergyItems();
                                 getMenu();
                                 sessionStorage.userAuth = convertAuthTo01Str(res.userAuth);     //存储权限字符串
-                                getAllProce(name1);
+                                //getAllProce(name1);
                             }
                         },
                         error:function(xhr,res,err){
@@ -176,7 +176,15 @@ var Login = function() {
     }
 
     var directToIndex = function(){
-        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
+        //if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
+        //    if(sessionStorage.redirectFromPage){
+        //        window.location.href = sessionStorage.redirectFromPage;
+        //        sessionStorage.removeItem('redirectFromPage');
+        //    }else{
+        //        window.location.href = "shouye/index.html";
+        //    }
+        //}
+        if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded){
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');

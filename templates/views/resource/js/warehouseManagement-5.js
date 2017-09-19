@@ -7,17 +7,23 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd',     forceParse: 0
     });
+
     //获得用户名
     var _userIdNum = sessionStorage.getItem('userName');
+
     var _userIdName = sessionStorage.getItem('realUserName');
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
     //设置初始时间
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
+
     //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
+
     var realityStart = '';
     var realityEnd = '';
     warehouse();
@@ -138,6 +144,43 @@ $(function(){
     //查询按钮
     $('#selected').click(function(){
         conditionSelect();
+    });
+
+    //重置
+    $('.resites').click(function(){
+        //input清空
+        $('.condition-query').find('input').val('');
+        //select
+        $('.condition-query').find('select').val('');
+        //时间
+        $('.min').val(_initStart);
+        $('.max').val(_initEnd);
+        //是否
+        $('#greaterThan').val(1);
+    });
+
+    //仓库选择
+    $('#ck').on('change',function(){
+        //根据仓库，联动库区
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetLocations',
+            data:{
+                storageNum:$('#ck').val(),
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            success:function(result){
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].localNum + '">' + result[i].localName + '</option>';
+                }
+                $('#kqSelect').empty().append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     })
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
@@ -157,18 +200,20 @@ $(function(){
             'itemName':filterInput[1],
             'inoutType':$('.tiaojian').val(),
             'userID':_userIdNum,
-            'storageNum':$('#ck').val()
+            'storageNum':$('#ck').val(),
+            'localNum':$('#kqSelect').val(),
+            'hasNum':$('#greaterThan').val()
         }
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptInventory',
             data:prm,
             success:function(result){
-                console.log(result);
                 datasTable($('#scrap-datatables'),result)
             }
         })
     }
+
     //dataTables表格填数据
     function datasTable(tableId,arr){
         if(arr.length == 0){
@@ -182,6 +227,7 @@ $(function(){
             table.fnDraw();
         }
     }
+
     //仓库选择
     function warehouse(){
         var prm = {
@@ -206,4 +252,8 @@ $(function(){
             }
         })
     }
+
+    /*----------------------------打印部分去掉的东西-----------------------------*/
+    //导出按钮,每页显示数据条数,表格页码打印隐藏
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
 })
