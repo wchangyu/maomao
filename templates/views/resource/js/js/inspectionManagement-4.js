@@ -4,6 +4,7 @@ $(function(){
     var _userIdName = sessionStorage.getItem('userName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
     //时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -86,6 +87,7 @@ $(function(){
         dcNum:'',
         userID:_userIdName
     };
+
     $.ajax({
         type:'post',
         url: _urls + 'YWDevIns/YWDIGetDIItems',
@@ -520,8 +522,8 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        var realStartTime = showStartTime;
-        var realEndTime = moment(showEndTime).add(1,'d').format('YYYY/MM/DD');
+        var realStartTime = $('.condition-query .min').val();
+        var realEndTime = $('.condition-query .max').val();
         var prm = {
             itkNum:filterInput[0],
             itkName:filterInput[1],

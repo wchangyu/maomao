@@ -4,6 +4,7 @@ var Login = function() {
     var _isOfficesLoaded = false;
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
+    var _isProceLoaded = false;
 
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";

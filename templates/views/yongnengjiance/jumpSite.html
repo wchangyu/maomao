@@ -96,6 +96,7 @@
         var userPassWord = sessionStorage.getItem('userpassword');
 //       获取 URL 的主机部分
         var test = window.location.host;
+        console.log(test);
 
         //获取当前IP地址
         var  host =  "http://" + '211.100.28.180' + "/EMPW";
@@ -117,7 +118,7 @@
         var passTime = Went.utility.wCoder.wEncode(now, host+'hq');
 
         //打开的地址
-        window.location.href= host+ "?userid="+passName+"&userpwd="+passWord+"&para3="+passTime+"";
+        window.location.href= host+ "?para1="+passName+"&para2="+passWord+"&para3="+passTime+"";
     });
 </script>
 </body>

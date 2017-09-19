@@ -561,7 +561,7 @@ var BEE = (function(){
 
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
-         console.log(menu);
+
          //将对象转化为数组，方便处理
          var _menuArr = transform(menu);
          //删除对象中第一个元素
@@ -576,7 +576,7 @@ var BEE = (function(){
                 _newMenu[_showMenu['content']] = _showMenu;
              }
          })
-         console.log(_newMenu);
+         //console.log(_newMenu);
          return _newMenu;
      };
      //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
@@ -630,7 +630,10 @@ var BEE = (function(){
                  var curPointer = sessionStorage.curPointerId;
                  if(!curPointer){
                      //获取楼宇列表
-                     var pointerID = JSON.parse(sessionStorage.pointers)[0].pointerID;
+                     var pointerID;
+                     if(JSON.parse(sessionStorage.pointers).length != 0){
+                         pointerID = JSON.parse(sessionStorage.pointers)[0].pointerID;
+                     }
                      sessionStorage.curPointerId = pointerID;
                      curPointer = pointerID;
                  }

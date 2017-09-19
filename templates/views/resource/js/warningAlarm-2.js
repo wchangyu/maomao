@@ -499,13 +499,16 @@ $(function(){
         var typeFlag = false;
         var localType;
         //获取本地存储的能耗种类
-        if(sessionStorage.getItem('menuArg')){
+        if(sessionStorage.getItem('menuArg') != ''){
+
             localType = sessionStorage.getItem('menuArg').split(',')[0];
         }
 
-        if(localType != '' && localType != 0) {
+        if(localType && localType != 0) {
+
             typeFlag = true;
         }
+
         var zNodes = [];
         var allAlarmInfo={};
         allAlarmInfo.id="0";
@@ -517,7 +520,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_url + 'Alarm/GetAllEnergyTypes',
-            async:false,
             success:function(result){
                 for(var i=0;i<result.length;i++){
                     if(typeFlag){
@@ -575,7 +577,8 @@ $(function(){
         if(sessionStorage.getItem('menuArg')){
             localType = sessionStorage.getItem('menuArg').split(',')[1];
         }
-        if(localType != '' && localType != -1) {
+        console.log(localType);
+        if(localType && localType != -1) {
             typeFlag = true;
         }
 
@@ -589,7 +592,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
-            async:false,
             success:function(result){
                 if(result.length == 0){ //没有数据时候跳出,清除树
                     var lastTree = $.fn.zTree.getZTreeObj("typeSelection");

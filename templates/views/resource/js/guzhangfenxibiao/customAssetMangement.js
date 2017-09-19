@@ -235,6 +235,10 @@ $(function(){
 
     var failureToRepairCol = [
         {
+            title:'编号',
+            data:'gdCode2'
+        },
+        {
             title:'站（段）名',
             data:'ddName'
         },
@@ -257,6 +261,10 @@ $(function(){
         {
             title:'处置过程',
             data:'gdRepairConent'
+        },
+        {
+            title:'配件信息',
+            data:'gdWxCl'
         },
         {
             title:'预计完成时限',
@@ -282,6 +290,10 @@ $(function(){
     initTable($('#failure-to-repair'),failureToRepairCol);
 
     var failureInfoCol = [
+        {
+            title:'编号',
+            data:'gdCode2'
+        },
         {
             title:'站（段）名',
             data:'ddName'

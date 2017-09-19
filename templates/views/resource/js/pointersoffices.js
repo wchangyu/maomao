@@ -205,12 +205,12 @@ var ObjectSelection = function(){
 
                     }
                 },
-                onCheck:function(e,treeId,treeNode){
 
+                onCheck:function(e,treeId,treeNode){
 
                         if(getShowRadio){
                             //获取楼宇ID
-                            getAllProce
+
                             var id =  zTreePointer.getCheckedNodes(true)[0].id;
 
                             sessionStorage.curPointerId = id;
