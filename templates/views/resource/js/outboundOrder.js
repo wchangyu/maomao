@@ -21,7 +21,6 @@ $(document).ready(function(){
                 "userName": _userName
             },
             success: function (data) {
-                console.log(data);
                 //要插入的html
                 var html = '';
                 //总价
@@ -93,7 +92,7 @@ $(document).ready(function(){
                 //获取审核人
                 $('.top-message span b').eq(3).html(data[0].auditUserName);
                 //获取制单日期
-                $('.top-message span b').eq(4).html(data[0].auditTime);
+                $('.top-message span b').eq(4).html(data[0].auditTime.split(' ')[0]);
                 //获取备注
                 $('.top-message span b').eq(5).html(data[0].remark);
                 //获取供货单位

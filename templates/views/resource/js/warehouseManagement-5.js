@@ -106,6 +106,10 @@ $(function(){
                 data:'storageName'
             },
             {
+                title:'库区',
+                data:'localName'
+            },
+            {
                 title:'台账类型',
                 data:'ivtType'
             },

@@ -462,6 +462,10 @@ $(function(){
             data:'itemName'
         },
         {
+            title:'库区',
+            data:'localName'
+        },
+        {
             title:'物品序列号',
             data:'sn'
         },
@@ -527,6 +531,10 @@ $(function(){
         {
             title:'物品序列号',
             data:'sn'
+        },
+        {
+            title:'库区',
+            data:'localName'
         },
         {
             title:'规格型号',
@@ -688,7 +696,7 @@ $(function(){
     //新增物品按钮(出现模态框)
     $('.zhiXingRenYuanButton').on('click',function(){
         //库区清空
-        $('.kuwei').val('');
+        $('.kuwei').val('').removeAttr('data-num');
         //先选择仓库
         if($('#ckselect').val() == ''){
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请先选择仓库', '');
@@ -1123,7 +1131,7 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
-            //_examineRen = true;
+            _examineRen = true;
             if( !_examineRen ){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
@@ -1172,7 +1180,7 @@ $(function(){
     $('#personTable1 tbody')
         .on('click','.option-shanchu',function(){
         _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
-            _moTaiKuang($('#myModal2'),'提示', 'flag', 'istap' ,'确定要删除吗？', '');
+            _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定要删除吗？', '删除');
         //新添加类名，实现入库单操作；
         $('#myModal2').find('.btn-primary').removeClass('daShanchu').addClass('xiaoShanchu');
         $('#myModal2').find('.btn-primary').addClass('xiaoShanchu');
@@ -1316,7 +1324,7 @@ $(function(){
                 //首先判断输入过了没
                 var existFlag = false;
                 for(var i=0;i<_rukuArr.length;i++){
-                    if(workDone.bianhao == _rukuArr[i].itemNum){
+                    if(workDone.bianhao == _rukuArr[i].itemNum && workDone.kuwei == _rukuArr[i].addRK){
                         existFlag = true;
                     }
                 }
@@ -1365,6 +1373,7 @@ $(function(){
                     workDone.amount = 0;
                     workDone.remark = '';
                     workDone.kuwei = '';
+                    $('.kuwei').removeAttr('data-num');
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1398,6 +1407,8 @@ $(function(){
         workDone.inPrice = '';
         workDone.amount = 0;
         workDone.remark = '';
+        workDone.kuwei = '';
+        $('.kuwei').removeAttr('data-num');
         if(workDone.picked == 0){
             $('.inpus').parent('span').removeClass('checked');
             $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1426,7 +1437,7 @@ $(function(){
     $('#wuPinListTable1 tbody')
         .on('click','.option-shanchu',function(event){
             _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确定要删除吗？', '删除');
+            _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
             //新添加类名，实现入库单操作；
             $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
 
@@ -1519,6 +1530,8 @@ $(function(){
                     workDone.inPrice = '';
                     workDone.amount = 0;
                     workDone.remark = '';
+                    workDone.kuwei = '';
+                    $('.kuwei').removeAttr('data-num');
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
