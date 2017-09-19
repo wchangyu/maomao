@@ -105,7 +105,7 @@ $(function(){
 	//表格
 	$('#datatables').DataTable({
 		"autoWidth": false,  //用来启用或禁用自动列的宽度计算
-		"paging": false,   //是否分页
+		"paging": true,   //是否分页
 		"destroy": true,//还原初始化了的datatable
 		"searching": false,
 		"ordering": false,
@@ -134,8 +134,14 @@ $(function(){
 			}
 		],
 		"columns": [
-			{ "title": "时间"},
-			{ "title": "用量" }
+			{
+				"title": "时间",
+				"data":'date'
+			},
+			{
+				"title": "用量" ,
+				"data":"cdData"
+			}
 		]
 	});
 	//echart
@@ -171,8 +177,9 @@ function getDatas(){
 		type:'post',
 			url:url + 'pr/pr_GetPRInstHistoryData',
 			data:prm,
-			async:false,
+
 			beforeSend:function(){
+
             	$('.L-loadding').show();
 				//需求：button禁止操作，设置超时。
         	},
@@ -181,19 +188,21 @@ function getDatas(){
 					allDatas.push(data[i]);
 				}
 				$('.L-loadding').hide();
+
+				for(var i=0;i<allDatas.length;i++){
+					var aa = allDatas[i].date.split('T')[0].split('-');
+					var bb = aa[1] + '-' + aa[2];
+					var cc = allDatas[i].date.split('T')[1].split(':');
+					var Xdatas = bb + ' ' + cc[0] + ':' + cc[1];
+					dataX.push(Xdatas);
+					dataY.push(allDatas[i].cdData)
+				}
+				option.xAxis.data = dataX;
+				option.series[0].data = dataY;
+				myChart.setOption(option);
 			}
 	})
-	for(var i=0;i<allDatas.length;i++){
-		var aa = allDatas[i].date.split('T')[0].split('-');
-		var bb = aa[1] + '-' + aa[2];
-		var cc = allDatas[i].date.split('T')[1].split(':');
-		var Xdatas = bb + ' ' + cc[0] + ':' + cc[1];
-		dataX.push(Xdatas);
-		dataY.push(allDatas[i].cdData)
-	}
-	option.xAxis.data = dataX;
-	option.series[0].data = dataY;
-	myChart.setOption(option);
+
 }
 function tableImg(){
 	var dataId = _curDef.dType + "+" + _curDef.dkId;
@@ -210,8 +219,9 @@ function tableImg(){
 		type:'post',
 		url:url + 'pr/pr_GetPRInstHistoryData',
 		data:prm,
-		async:false,
+
 		success:function(result){
+			console.log(result);
 			for(var i=0;i<result.length;i++){
 				allDatas.push(result[i].cdData);
 				var aa = result[i].date.split('T')[0].split('-');
@@ -221,22 +231,23 @@ function tableImg(){
 				var dateSplit = bb + ' ' + dd;
 				allDates.push(dateSplit);
 			}
+			for(var i=0;i<allDatas.length;i++){
+				var allArrs = {};
+				allArrs.date = allDates[i];
+				allArrs.cdData = allDatas[i]
+				allArr.push(allArrs);
+			};
+			var dt = $("#datatables").dataTable();
+			//清空一下table
+			dt.fnClearTable();
+			//想表格中添加东西数据o
+			console.log(allArr);
+			dt.fnAddData(allArr);
+			//重绘表格
+			dt.fnDraw();
 		}
 	})
-	for(var i=0;i<allDatas.length;i++){
-		var allArrs = [];
-		allArrs.push(allDates[i]);
-		allArrs.push(allDatas[i]);
-		allArr.push(allArrs);
-	};
-	var dt = $("#datatables").dataTable();
-	//清空一下table
-	dt.fnClearTable();
-	//想表格中添加东西数据o
-	console.log(allArr);
-	dt.fnAddData(allArr);
-	//重绘表格
-	dt.fnDraw();
+
 
 }
 //左箭头功能图表
