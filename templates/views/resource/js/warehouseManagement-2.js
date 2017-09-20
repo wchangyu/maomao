@@ -338,9 +338,12 @@ $(function(){
     warehouse();
 
     //入库类型
-    rkLX();
+    rkLX(1);
 
-    rkLX('flag');
+    rkLX(1,'flag');
+
+    //出库类型
+    rkLX(2);
 
     //存放当前入库单号
     var _$thisRKnum = '';
@@ -359,6 +362,9 @@ $(function(){
 
     //根据仓库，获得对应的库区
     var _kuquArr = [];
+
+    //记录出库单号
+    var _chukuD = '';
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -621,6 +627,62 @@ $(function(){
         }
     ];
     tableInit($('#wuPinListTable'),col3,buttonHidden);
+
+    //选择出库单
+    var col4 = [
+        {
+            title:'出库单号',
+            data:'orderNum',
+            className:'orderNum',
+            render:function(data, type, row, meta){
+                return '<a href="outboundOrder.html?orderNum=' + row.orderNum +
+                    '" target="_blank">' + row.orderNum + '</a>'
+            }
+        },
+        {
+            title:'出库类型',
+            data:'outType',
+            render:function(data, type, full, meta){
+                if(data == 9){
+                    return '其他'
+                }if(data == 1){
+                    return '领用出库'
+                }if(data == 2){
+                    return '借货出库'
+                }if(data == 3){
+                    return '借用还出'
+                }
+            },
+            className:'outType'
+
+        },
+        {
+            title:'材料员名称',
+            data:'cusName'
+        },
+        {
+            title:'材料员电话',
+            data:'phone'
+        },
+        {
+            title:'创建时间',
+            data:'createTime'
+        },
+        {
+            title:'审核时间',
+            data:'auditTime'
+        },
+        {
+            title:'制单人',
+            data:'createUserName'
+        },
+        {
+            title:'备注',
+            data:'remark'
+        },
+    ];
+    tableInit($('#scrap-datatables3'),col4,buttonHidden);
+
     //数据
     wlList('flag');
     //点击刷新
@@ -777,6 +839,83 @@ $(function(){
         }
     });
 
+    //导入出库单按钮
+    $('.chukuDan').on('click',function(){
+        //导入出库单的按钮
+        var chuTime = moment().format('YYYY/MM/DD');
+        var chuStartTime = moment(chuTime).subtract(8,'d').format('YYYY/MM/DD');
+        $('.chukumin').val(chuStartTime);
+        $('.chukumax').val(chuTime);
+        $('.chukuHao').val('');
+        $('#ckType').val('');
+        if($('#ckselect').val() == ''){
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请先选择入库仓库！', '')
+        }else{
+            //导入出库单
+            _moTaiKuang($('#myModal7'), '出库单', '', '' ,'', '确定');
+            chukuList();
+        }
+    });
+
+    //出库单条件查询
+    $('#selected1').click(function(){
+        chukuList();
+    })
+
+    //选中入库单，写入表格
+    $('#scrap-datatables3 tbody').on('click','tr',function(){
+        //样式改变
+        $('#scrap-datatables3 tbody').find('tr').css({'background':'#ffffff'});
+        $(this).css({'background':'#FBEC88'});
+        _chukuD = $(this).children('.orderNum').children('a').html();
+    })
+
+    //选中出库单确定按钮
+    $('#myModal7').on('click','.btn-primary',function(){
+        //console.log(_chukuD);
+        $('#myModal7').modal('hide');
+        //出去出库单的详情
+        var prm = {
+            orderNum:_chukuD,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetOutStorageDetail',
+            data:prm,
+            success:function(result){
+                _rukuArr = [];
+                for(var i=0;i<result.length;i++){
+                        var obj = {};
+                        obj.sn = result[i].sn;
+                        obj.itemNum = result[i].itemNum;
+                        obj.itemName = result[i].itemName;
+                        obj.size = result[i].size;
+                        obj.isSpare = result[i].isSpare;
+                        obj.unitName = result[i].unitName;
+                        obj.batchNum = result[i].batchNum;
+                        obj.maintainDate = result[i].maintainDate;
+                        obj.num = result[i].num;
+                        obj.inPrice = result[i].outPrice;
+                        obj.amount = result[i].amount;
+                        obj.inMemo = result[i].outMemo;
+                        obj.userID=_userIdNum;
+                        obj.userName = _userIdName;
+                        obj.storageName = result[i].storageName;
+                        obj.storageNum = result[i].storageNum;
+                        obj.localName = result[i].localName;
+                        obj.localNum = result[i].localNum;
+                        _rukuArr.push(obj);
+                }
+                datasTable($('#personTable1'),_rukuArr);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    })
+
     //状态选项卡（选择确定/待确定状态）
     $('.table-title').children('span').click(function(){
         $('.table-title').children('span').removeClass('spanhover');
@@ -820,6 +959,7 @@ $(function(){
                 obj.localNum = _rukuArr[i].localNum;
                 inStoreDetails1.push(obj);
             }
+            console.log(inStoreDetails1);
             var ckName = '';
             if($('#ckselect').val() == ''){
                 ckName = ''
@@ -1464,19 +1604,22 @@ $(function(){
             $('.accord-with-list').hide();
             $('.size').attr('disabled',false).removeClass('disabled-block');
             $('.size').parent('.input-blockeds').removeClass('disabled-block');
+            //库区可修改
+            $('.kuwei').attr('disabled',false).removeClass('disabled-block');
+            $('.kuwei').parent('.input-blockeds').removeClass('disabled-block');
             //样式修改
             $('#wuPinListTable1 tbody').children('tr').css({'background':'#ffffff'});
             $this.css({'background':'#FBEC88'});
             var bm = $this.find('.bianma').html();
             for(var i=0;i<_rukuArr.length;i++){
                 if(_rukuArr[i].itemNum == bm){
-                    console.log(_rukuArr[i]);
                     //赋值
                     workDone.bianhao = _rukuArr[i].itemNum;
                     workDone.mingcheng = _rukuArr[i].itemName;
                     workDone.size = _rukuArr[i].size;
                     workDone.picked = _rukuArr[i].isSpare;
                     workDone.kuwei = _rukuArr[i].localName;
+                    $('.kuwei').attr('data-num',_rukuArr[i].localNum);
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1518,6 +1661,8 @@ $(function(){
                     var bm = workDone.bianhao;
                     for(var i=0;i<_rukuArr.length;i++){
                         if(bm == _rukuArr[i].itemNum){
+                            _rukuArr[i].localName = workDone.kuwei;
+                            _rukuArr[i].localNum = $('.kuwei').attr('data-num');
                             _rukuArr[i].num = workDone.num;
                             _rukuArr[i].inPrice = workDone.inPrice;
                             _rukuArr[i].amount = workDone.amount;
@@ -1527,7 +1672,7 @@ $(function(){
                             _rukuArr[i].maintainDate = workDone.warranty;
                         }
                     }
-                    datasTable($('#wuPinListTable1'),_rukuArr.reverse());
+                    datasTable($('#wuPinListTable1'),_rukuArr);
                     //编辑之后清空
                     workDone.goodsId = '';
                     workDone.bianhao = '';
@@ -1860,9 +2005,9 @@ $(function(){
     }
 
     //入库类型
-    function rkLX(flag){
+    function rkLX(type,flag){
         var prm = {
-            "catType": 1,
+            "catType": type,
             "userID": _userIdNum,
             "userName": _userIdName
         }
@@ -1871,18 +2016,26 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetInOutCate',
             data:prm,
             success:function(result){
-                if(flag){
+                if(type == 1){
+                    if(flag){
+                        var str = '<option value="">全部</option>';
+                        for(var i=0;i<result.length;i++){
+                            str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+                        }
+                        $('.tiaojian').empty().append(str);
+                    }else{
+                        var str = '<option value="">请选择</option>';
+                        for(var i=0;i<result.length;i++){
+                            str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+                        }
+                        $('#rkleixing').empty().append(str);
+                    }
+                }else{
                     var str = '<option value="">全部</option>';
                     for(var i=0;i<result.length;i++){
                         str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
                     }
-                    $('.tiaojian').empty().append(str);
-                }else{
-                    var str = '<option value="">请选择</option>';
-                    for(var i=0;i<result.length;i++){
-                        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
-                    }
-                    $('#rkleixing').empty().append(str);
+                    $('#ckType').empty().append(str);
                 }
 
             },
@@ -2101,6 +2254,36 @@ $(function(){
                         + result[i].supName + '</option>';
                 }
                 $('#supplier').empty().append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取出库单
+    function chukuList(){
+        var prm = {
+            "st": $('.chukumin').val(),
+            "et": $('.chukumax').val(),
+            "orderNum": $('.chukuHao').val(),
+            "outType": $('#ckType').val(),
+            "userID": _userIdNum,
+            "userName": _userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetOutStorage',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                var arr = [];
+                for(var i=0;i<result.length;i++){
+                    if(result[i].status == 1){
+                        arr.push(result[i]);
+                    }
+                }
+                datasTable($('#scrap-datatables3'),arr);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

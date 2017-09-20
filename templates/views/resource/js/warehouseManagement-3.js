@@ -2199,13 +2199,13 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWCK/ywCKGetOutStorage',
+                url:_urls + 'YWCK/ywCKGetOutStorage',
             data:prm,
             success:function(result){
                 _allData = [];
                 var confirm = [];
                 var confirmed = [];
-                    allData = result;
+                    _allData = result;
                     for(var i=0;i<result.length;i++){
                         _allData.push(result[i]);
                         if(result[i].status == 0){
