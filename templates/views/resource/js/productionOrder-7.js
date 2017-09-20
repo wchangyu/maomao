@@ -13,7 +13,8 @@ $(function(){
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
-        format: 'yyyy/mm/dd',     forceParse: 0
+        format: 'yyyy/mm/dd',
+        forceParse: 0
     });
     //设置初始时间
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
@@ -430,7 +431,7 @@ $(function(){
     //选择执行状态事件
     $('#option-select').change(function(){
         //等待资源的时间
-        $('.waitingForResources').find('input').val(_initStart);
+        //$('.waitingForResources').find('input').val(_initStart);
         $('.waitingForResources').hide();
         $('#newBeiZhu').attr('disabled',false);
         if( $('.current-state').attr('ztz') == 3 && $('#option-select').val() != 4){
@@ -746,6 +747,16 @@ $(function(){
                     app33.gdly = result.gdCodeSrc;
                     //获取当前备件状态
                     //_sparePart = result.clStatus;
+                    //预计完成时间(如果有时间的话，读出来，没有时间的话。默认今天)
+                    if(result.yjShij){
+                        $('.yjshijian').val(result.yjShij.split(' ')[0]);
+                    }else{
+                        $('.yjshijian').val(_initEnd);
+                    }
+                    //等待资源信息
+                    $('.waitingForResources').find('textarea').val(result.dengMemo);
+                    //等待原因
+                    $('#watting').val(result.dengyy);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -819,9 +830,9 @@ $(function(){
                 data:prm,
                 timeout:30000,
                 success:function(result){
-                    console.log(result);
                     if(result == 99){
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认收货成功！', '');
+                        $('#myModal4').hide();
                     }else{
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认收货失败！', '');
                     }
@@ -1103,6 +1114,8 @@ $(function(){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
                 }
                 $('.deal-with-list').append(str).show();
+                //备注
+                $('#bjremark').val()
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1209,6 +1222,7 @@ $(function(){
                     //确认收货
                     _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '确认收货');
                     $('.tianJiaCaiLiao').hide();
+                    $('.tableDeleted').attr('disabled',true);
                     $('#bjremark').attr('disabled',true);
                     //修改类名
                     $('#myModal4').find('.btn-primary').removeClass('apply').addClass('receipt');
@@ -1216,10 +1230,12 @@ $(function(){
                     if(_sparePart>result.statuses[1].clStatusID){
                         _moTaiKuang($('#myModal4'),'维修备件申请','flag', '' ,'', '');
                         $('.tianJiaCaiLiao').hide();
+                        $('.tableDeleted').attr('disabled',true);
                         $('#bjremark').attr('disabled',true);
                     }else{
                         _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '申请备件');
                         $('.tianJiaCaiLiao').show();
+                        $('.tableDeleted').attr('disabled',false);
                         $('#bjremark').attr('disabled',false);
                         //修改类名
                         $('#myModal4').find('.btn-primary').removeClass('receipt').addClass('apply');

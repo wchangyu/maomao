@@ -422,6 +422,17 @@ $(function(){
                         $('#myApp33').find('.whether').parent('span').removeClass('checked');
                         $('#myApp33').find('#three').parent('span').addClass('checked');
                     }
+                    //_zhixingRens = [];
+                    //for(var i=0;i<result.wxRens.length;i++){
+                    //    var obj = {};
+                    //    obj.userName = result.wxRens[i].wxRName;
+                    //    obj.userNum = result.wxRens[i].wxRen;
+                    //    obj.mobile = result.wxRens[i].wxRDh;
+                    //    _zhixingRens.push(obj);
+                    //}
+                    datasTable($("#personTable1"),result.wxRens);
+                    //维修材料
+                    datasTable($("#personTables1"),result.wxCls);
                     $('.otime').val(result.gdFsShij);
                     //app33.picked = result.gdJJ;
                     app33.telephone = result.bxDianhua;

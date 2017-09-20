@@ -284,6 +284,7 @@ $(function(){
         $('#workDone').children().children().children('.input-blockeds').children().attr('disabled',false);
         //添加按钮隐藏
         $('.zhiXingRenYuanButton').show();
+        $('#personTable1').find('.option-delete').attr('disabled',false);
         //初始化的时候清空表格的的值
         _allXJSelect = [];
     })
@@ -301,7 +302,6 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                console.log(_allXJSelect);
                 _allXJTMArr = [];
                 for(var i=0;i<result.length;i++){
                     _allXJTMArr.push(result[i]);
@@ -335,14 +335,12 @@ $(function(){
             ditName:$('.filter_global').children('input').val(),
             userID:_userIdName
         };
-        console.log(prm);
         $.ajax({
             type:'post',
             url: _urls + 'YWDevIns/YWDIGetDIItems',
             data:prm,
             async:false,
             success:function(result){
-                console.log(result);
                 _allXJTMArr = [];
                 for(var i=0;i<result.length;i++){
 
@@ -408,14 +406,13 @@ $(function(){
         .on('click','.xiaoshanchu',function(){
             //获取要删除的条目的编码和名称，进行删除
             _allXJSelect.removeByValue($('#xjtmbm').val());
-            console.log(_allXJSelect);
             datasTable(_tableXJ,_allXJSelect);
             $('#myModal2').modal('hide');
         })
     //表格中的按钮操作
     _table.find('tbody')
         .on('click','.option-see',function(){
-            ckOrBj($(this),true);
+            ckOrBj($(this),true,'flag');
             $('#myModal').find('.btn-primary').hide();
             //添加按钮隐藏
             $('.zhiXingRenYuanButton').hide();
@@ -468,7 +465,6 @@ $(function(){
                 url:_urls + 'YWDevIns/YWDIUptDIContent',
                 data:prm,
                 success:function(result){
-                    console.log(result);
                     if(result == 99){
                         $('#myModal').modal('hide');
                         //提示
@@ -656,8 +652,8 @@ $(function(){
             }
         })
     }
-    //查看/编辑绑定数据
-    function ckOrBj(el,zhi){
+    //查看/编辑绑定数据(flag:查看的时候传)
+    function ckOrBj(el,zhi,flag){
         //修改样式
         var $this = el.parents('tr');
         $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
@@ -689,7 +685,12 @@ $(function(){
                 for(var i=0;i<result.length;i++){
                     _allXJSelect.push(result[i]);
                 }
-                datasTable(_tableXJ,result)
+                datasTable(_tableXJ,result);
+                if(flag){
+                    $('#personTable1').find('.option-delete').attr('disabled',true);
+                }else{
+                    $('#personTable1').find('.option-delete').attr('disabled',false);
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(JSON.parse(jqXHR.responseText).message);

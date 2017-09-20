@@ -875,6 +875,8 @@ $(function(){
         $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
         $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
         $('#myApp33').find('textarea').attr('disabled',false);
+        //出库单编码、制单人、制单时间不可编辑
+        $('.automatic').attr('disabled',true).addClass('disabled-block');
         //新增物品按钮隐藏
         $('.zhiXingRenYuanButton').html('新增物品').show();
         //入库产品删除按钮不可操作
@@ -1152,6 +1154,8 @@ $(function(){
                 $('.zhiXingRenYuanButton').html('修改物品').show();
                 //入库产品删除按钮不可操作
                 $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
+                //出库单编码、制单人、制单时间不可编辑
+                $('.automatic').attr('disabled',true).addClass('disabled-block');
             }
         })
         //删除入库单

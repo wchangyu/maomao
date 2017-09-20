@@ -3,7 +3,7 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
@@ -36,10 +36,10 @@
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link id="table_color" rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css">
     <!--datatimepicker-->
     <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -397,7 +397,6 @@
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/productionOrder-1.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -406,6 +405,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/productionOrder-1.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框创建工单-->

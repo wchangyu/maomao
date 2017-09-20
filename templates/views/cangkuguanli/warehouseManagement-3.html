@@ -405,8 +405,8 @@
                             <form novalidate>
                                 <li class="gdList" style="line-height: 26px;">
                                     <div class="labels">出库单编号 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
+                                    <div class="input-blockeds automatic">
+                                        <input type="text" v-model="bianhao" class="automatic" placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
                                 <li class="gdList">
@@ -416,20 +416,6 @@
                                         </select>
                                     </div>
                                 </li>
-                                <!--<li class="gdList">-->
-                                    <!--<div class="labels">工单号 ：</div>-->
-                                    <!--<div class="input-blockeds" style="position: relative">-->
-                                        <!--<input type="text" v-model="gdCode" @keyup="selectGD()" @focus="focusGD()" @blur="blurGD()">-->
-                                        <!--<div class="pinzhixx" style="background: #ffffff;height:200px;overflow-y:scroll;position: absolute;top: 30px;left: 0;display: none"></div>-->
-                                    <!--</div>-->
-                                <!--</li>-->
-                                <!--<li class="gdList">-->
-                                    <!--<div class="labels">车站 ：</div>-->
-                                    <!--<div class="input-blockeds">-->
-                                        <!--&lt;!&ndash;<input type="text" v-model="clymc">&ndash;&gt;-->
-                                        <!--<select id="chezhan" v-model="chezhan"></select>-->
-                                    <!--</div>-->
-                                <!--</li>-->
                                 <li class="gdList">
                                     <div class="labels">发货员名称 ：</div>
                                     <div class="input-blockeds">
@@ -442,23 +428,16 @@
                                         <input type="text" v-model="clydh">
                                     </div>
                                 </li>
-                                <!--<li class="gdList">-->
-                                    <!--<div class="labels">仓库选择 ：</div>-->
-                                    <!--<div class="input-blockeds">-->
-                                        <!--<select id="ckselect" v-model="ckselect"></select>-->
-                                        <!---->
-                                    <!--</div>-->
-                                <!--</li>-->
                                 <li class="gdList">
                                     <div class="labels">制单人 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="zhidanren"  placeholder="自动生成" readonly="readonly">
+                                    <div class="input-blockeds automatic">
+                                        <input type="text" v-model="zhidanren" class="automatic"  placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
                                 <li class="gdList">
                                     <div class="labels">制单时间：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="shijian" placeholder="自动生成" readonly="readonly">
+                                    <div class="input-blockeds automatic">
+                                        <input type="text" v-model="shijian" class="automatic" placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
                                 <li class="gdList" style="width: 400px;">

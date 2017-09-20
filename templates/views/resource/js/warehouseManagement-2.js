@@ -654,6 +654,8 @@ $(function(){
         $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
         $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
         $('#myApp33').find('textarea').attr('disabled',false);
+        //入库单编号、制单人、制单时间不可编辑
+        $('.automatic').attr('disabled',true).addClass('disabled-block');
         //新增物品按钮隐藏
         $('.zhiXingRenYuanButton').html('新增物品').show();
         //入库产品删除按钮不可操作
@@ -711,6 +713,8 @@ $(function(){
             $('.auto-input').attr('disabled',false).removeClass('disabled-block');
             $('.auto-input').parent('.input-blockeds').removeClass('disabled-block');
             $('.accord-with-list').hide();
+            //入库产品的是否耐用和单位不可修改
+            $('.automatic').attr('disabled',true).addClass('disabled-block');
             //获取仓库，获得对应的库区
             $.ajax({
                 type:'post',
@@ -967,6 +971,8 @@ $(function(){
                 $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
                 $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
                 $('#myApp33').find('textarea').attr('disabled',false);
+                //入库单号、审核人、审核时间態修改
+                $('.automatic').attr('disabled',true).addClass('disabled-block');
                 //新增物品按钮隐藏
                 $('.zhiXingRenYuanButton').html('修改物品').show();
                 //入库产品删除按钮不可操作
@@ -1429,8 +1435,11 @@ $(function(){
         $('.accord-with-list').hide();
         //编辑的时候，编码，名称，规格型号，是否耐用，单位都不可修改
         $('.auto-input').attr('disabled',false).removeClass('disabled-block');
+        $('.auto-input').parents('.input-blockeds').removeClass('disabled-block');
         $('.goodsId').attr('disabled',false).removeClass('disabled-block');
         $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
+        //重置的时候，是否耐用、单位不可操作
+        $('.automatic').attr('disabled',true).addClass('disabled-block');
     });
 
     //入库物品操作静态删除
@@ -1453,6 +1462,8 @@ $(function(){
             $('.auto-input').parents('.input-blockeds').addClass('disabled-block');
             $(this).html('保存').removeClass('option-bianji').addClass('option-save');
             $('.accord-with-list').hide();
+            $('.size').attr('disabled',false).removeClass('disabled-block');
+            $('.size').parent('.input-blockeds').removeClass('disabled-block');
             //样式修改
             $('#wuPinListTable1 tbody').children('tr').css({'background':'#ffffff'});
             $this.css({'background':'#FBEC88'});
@@ -1548,6 +1559,8 @@ $(function(){
                     $('.auto-input').parents('.input-blockeds').removeClass('disabled-block');
                     //自动聚焦
                     $('.not-editable').eq(0).focus();
+                    //是否耐用，单位不可操作
+                    $('.automatic').attr('disabled',true).addClass('disabled-block');
                 }
             }
         })
