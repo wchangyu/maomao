@@ -41,7 +41,7 @@ $(function(){
 	//时间控件
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		_selectTime();
+		_selectTime(_ajaxDataType);
 	});
 
 	$('.types').change(function(){

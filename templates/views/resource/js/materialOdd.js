@@ -54,11 +54,13 @@ $(function(){
             //金额
             $('.table-five').html(result.amount);
             //时间
-            var showTime = result.createTime.split(' ')[0];
-            //按年月日分开显示
-            $('.years').html(showTime.split('-')[0]);
-            $('.months').html(showTime.split('-')[1]);
-            $('.days').html(showTime.split('-')[2]);
+            if(result.createTime){
+                var showTime = result.createTime.split(' ')[0];
+                按年月日分开显示
+                $('.years').html(showTime.split('-')[0]);
+                $('.months').html(showTime.split('-')[1]);
+                $('.days').html(showTime.split('-')[2]);
+            }
         },
         error:function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);

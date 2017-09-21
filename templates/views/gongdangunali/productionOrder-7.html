@@ -679,15 +679,15 @@
                         <validator name="validation">
                             <form novalidate>
                                 <li class="gdList">
-                                    <div class="labels">物品编码：<span v-if="$validation.wpbm.persons">物品编码不能为空</span></div>
+                                    <div class="labels colorTip">物品编码 *：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="wpbm" class="wpbm" placeholder="请选择或填写物料编码" v-validate:wpbm="['persons']" initial='off'>
+                                        <input type="text" v-model="wpbm" class="wpbm" placeholder="请选择或填写物料编码">
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels">物品名称：<span v-if="$validation.wpmc.persons">物品名称不能为空</span></div>
+                                    <div class="labels colorTip">物品名称 *：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="wpmc" placeholder="请选择或填写物料名称" v-validate:wpmc="['persons']" initial='off'>
+                                        <input type="text" v-model="wpmc" placeholder="请选择或填写物料名称">
                                     </div>
                                 </li>
                                 <li class="gdList">
@@ -703,7 +703,7 @@
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels">数量：<span v-if="$validation.wpsl.persons">物品数量不能为空</span></div>
+                                    <div class="labels colorTip">数量 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="wpsl" v-validate:wpsl="['persons']" initial='off'>
                                     </div>
@@ -740,13 +740,13 @@
                 <div class="gongdanContent" style="height: 360px;">
                     <ul class="gongdanList">
                         <li class="floatLeft">
-                            <div class="labels">物品编码：</div>
+                            <div class="labels">物品编码 ：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="wpbms">
                             </div>
                         </li>
                         <li class="floatRight">
-                            <div class="labels">物品名称：</div>
+                            <div class="labels">物品名称 ：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="wpmcs">
                             </div>
