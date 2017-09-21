@@ -136,6 +136,6 @@
   "allPointerName" : "全院",
   "alarmAlert":"0",
   "alarmSong":"0",
-  "changeMenuByProcs":"0",
+  "changeMenuByProcs":"1",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单"
 }

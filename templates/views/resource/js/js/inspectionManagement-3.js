@@ -307,7 +307,7 @@ $(function(){
         },
         {
             title:'设备类型',
-            data:'dcName',
+            data:'dcName'
         },
         {
             title:'状态',
@@ -319,6 +319,8 @@ $(function(){
                     return '维修'
                 }else if( data == 3 ){
                     return '报废'
+                }else if(data == 0){
+                    return ' '
                 }
             }
         }
@@ -341,8 +343,8 @@ $(function(){
         type:'post',
         url:_urls + 'YWDev/ywDIGetDevs',
         data:prm,
-        async:false,
         success:function(result){
+
             datasTable($('#sbmcxz'),result);
         },
         error:function(jqXHR, textStatus, errorThrown){

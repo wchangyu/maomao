@@ -1,4 +1,5 @@
-
+//记录选中的是年还是月
+var _ajaxDataType = '月';
 $(function(){
 	/*-------------------------------------全局变量-----------------------------------*/
 	//获取本地url
@@ -12,9 +13,6 @@ $(function(){
 
 	//office能耗
 	var _ajaxEcTypeWord='';
-
-	//记录选中的是年还是月
-	var _ajaxDataType = '月';
 
 	//所有楼宇
 	var _allPointerArr = [];
