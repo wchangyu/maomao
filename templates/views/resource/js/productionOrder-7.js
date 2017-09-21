@@ -572,36 +572,40 @@ $(function(){
 
     //选择维修材料
     $('.secondButtons').click(function(){
-        //获取填写的信息
-        var obj = {};
+        //验证
+        if(wuLiaoInfo.wpbm == '' || wuLiaoInfo.wpmc == '' || wuLiaoInfo.wpsl == ''){
+            _moTaiKuang($('#myModal2'), '提示', 'flag', '' ,'请填写红色必填项', '');
+        }else{
+            //获取填写的信息
+            var obj = {};
             obj.wxClID = 0;
             obj.wxCl = wuLiaoInfo.wpbm;
             obj.wxClName = wuLiaoInfo.wpmc;
             obj.clShul = wuLiaoInfo.wpsl;
             obj.cateName = wuLiaoInfo.flmc;
             obj.size = wuLiaoInfo.wpsize;
-        //判断是否是重复的
-        if(_weiXiuCaiLiao.length == 0){
-            _weiXiuCaiLiao.push(obj);
-            $('#myModal5').modal('hide');
-            datasTable($("#personTables1"),_weiXiuCaiLiao);
-        }else{
-            var flag = false;
-            for(var i=0;i<_weiXiuCaiLiao.length;i++){
-                if(_weiXiuCaiLiao[i].wxCl == obj.wxCl){
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag){
-                $('.exists').show();
-            }else{
-                $('.exists').hide();
+            //判断是否是重复的
+            if(_weiXiuCaiLiao.length == 0){
                 _weiXiuCaiLiao.push(obj);
                 $('#myModal5').modal('hide');
-                //传回给第一个弹框的表格
-                console.log(_weiXiuCaiLiao);
                 datasTable($("#personTables1"),_weiXiuCaiLiao);
+            }else{
+                var flag = false;
+                for(var i=0;i<_weiXiuCaiLiao.length;i++){
+                    if(_weiXiuCaiLiao[i].wxCl == obj.wxCl){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    $('.exists').show();
+                }else{
+                    $('.exists').hide();
+                    _weiXiuCaiLiao.push(obj);
+                    $('#myModal5').modal('hide');
+                    //传回给第一个弹框的表格
+                    datasTable($("#personTables1"),_weiXiuCaiLiao);
+                }
             }
         }
     });

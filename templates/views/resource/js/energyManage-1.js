@@ -1,4 +1,5 @@
-
+//记录选中的是年还是月
+var _ajaxDataType = '月';
 $(function(){
 	/*-------------------------------------全局变量-----------------------------------*/
 	//获取本地url
@@ -12,9 +13,6 @@ $(function(){
 
 	//office能耗
 	var _ajaxEcTypeWord='';
-
-	//记录选中的是年还是月
-	var _ajaxDataType = '月';
 
 	//所有楼宇
 	var _allPointerArr = [];
@@ -33,10 +31,17 @@ $(function(){
 	//日历初始化
 	monthDate();
 
+	//初始日期
+	var st = moment().startOf('month').format('YYYY-MM-DD');
+	var et = moment().endOf('month').format('YYYY-MM-DD');
+
+	$('.datetimeStart').html(st);
+	$('.datetimeEnd').html(et);
+
 	//时间控件
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		_selectTime();
+		_selectTime(_ajaxDataType);
 	});
 
 	$('.types').change(function(){

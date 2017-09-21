@@ -1277,7 +1277,6 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
-            _examineRen = true;
             if( !_examineRen ){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
@@ -1733,11 +1732,19 @@ $(function(){
                     workDone.goodsId = workDone.bianhao;
                     $('.goodsId').attr('disabled',true).addClass('disabled-block');
                     $('.goodsId').parents('.input-blockeds').addClass('disabled-block');
+                    //数量
+                    $('.rknum').attr('disabled',false).removeClass('disabled-block');
+                    $('.rknum').parent('.input-blockeds').removeClass('disabled-block');
+                    workDone.num = '';
                 }else if(workDone.picked == 1){
                     $('.inpus').parent('span').removeClass('checked');
                     $('.inpus').parent('span').eq(0).addClass('checked');
                     $('.goodsId').attr('disabled',false).removeClass('disabled-block').html('');
                     $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
+                    //数量
+                    $('.rknum').attr('disabled',true).addClass('disabled-block');
+                    $('.rknum').parent('.input-blockeds').addClass('disabled-block');
+                    workDone.num = 1;
                 }
                 workDone.unit = _wpListArr[i].unitName;
             }
@@ -1797,14 +1804,18 @@ $(function(){
 
     //点击下拉三角，出现的地方
     $('.selectBlock').click(function(e){
-        var e = event || window.event;
-        var this1 = $(this);
-        if(this1.next()[0].style.display == 'none'){
-            this1.next().show();
-        }else if(this1.next()[0].style.display != 'none'){
-            this1.next().hide();
+        if($(this).parent('.input-blockeds').hasClass('disabled-block')){
+            return false;
+        }else{
+            var e = event || window.event;
+            var this1 = $(this);
+            if(this1.next()[0].style.display == 'none'){
+                this1.next().show();
+            }else if(this1.next()[0].style.display != 'none'){
+                this1.next().hide();
+            }
+            e.stopPropagation();
         }
-        e.stopPropagation();
     });
 
     $(document).click(function(){
@@ -1825,7 +1836,27 @@ $(function(){
             $(this).addClass('li-color');
         })
 
-    //查看序列号
+    //入库产品条件选择
+    $('#selected2').click(function(){
+        var prm = {
+            'ItemNum':$('.filterInput1').eq(0).val(),
+            'itemName':$('.filterInput1').eq(1).val(),
+            'cateName':$('.filterInput1').eq(2).val(),
+            'userID':_userIdNum,
+            'userName':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItems',
+            data:prm,
+            success:function(result){
+                datasTable($("#wuPinListTable"),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    })
     /*------------------------------------其他方法-------------------------------*/
 
     //表格初始化
@@ -1903,16 +1934,16 @@ $(function(){
                 var confirm = [];
                 var confirmed = [];
                 _allData = [];
-               for(var i=0;i<result.length;i++){
+                for(var i=0;i<result.length;i++){
                    _allData.push(result[i]);
-               }
+                }
                 for(var i=0;i<result.length;i++){
                         if(result[i].status == 0){
                             confirm.push(result[i])
                         }else if(result[i].status == 1){
                             confirmed.push(result[i])
                         }
-                    }
+                }
                 datasTable($('#scrap-datatables1'),confirm);
                 datasTable($('#scrap-datatables2'),confirmed);
                 datasTable($('#scrap-datatables'),result);

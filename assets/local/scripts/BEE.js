@@ -584,6 +584,7 @@ var BEE = (function(){
          //获取父级菜单下的子菜单,并将其转化为数组
          var _childMenuArr = transform(menu.submenu);
          $(_childMenuArr).each(function(i,o){
+
             //判断子菜单是否需要保留
             var isRetain =  retainChildMenu(o);
              //不需要保留则直接移除
@@ -615,8 +616,8 @@ var BEE = (function(){
 
          //非流程图界面
          if(uri.indexOf('energyMonitor.html') == -1){
-             //非流程图界面不需要隐藏，返回true；
-             return true;
+             //非流程图界面判断角色权限；
+             return retainChildMenu1(childMenu);
          }else{
             // 获取全部流程图
              var allProcsArr = JSON.parse(sessionStorage.allProcs);
@@ -648,6 +649,25 @@ var BEE = (function(){
              return ifExistProcs(allProcsArr,arg);
          }
      };
+
+     //根据角色权限判断子菜单是否需要保留
+     var retainChildMenu1 = function(childMenu){
+
+         //首先判断是否存在角色权限参数
+         var arg2 = childMenu.arg2;
+         if(arg2){
+            //获取权限参数
+             var role = sessionStorage.userRole;
+             if(role && arg2.indexOf(role) >= 0 ){
+
+                 return true;
+             }else{
+                 return false;
+             }
+         }
+         return true;
+     };
+
 
      //根据arg参数判断当前菜单下是否存在流程图
      var ifExistProcs = function(procsArr,arg){

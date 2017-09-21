@@ -52,7 +52,7 @@ $(function(){
 	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		_selectTime();
+		_selectTime(_ajaxDataType);
 	});
 	//点击确定选择的是哪个能耗种类；
 	$('.typee').click(function(){

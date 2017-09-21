@@ -7,17 +7,15 @@ $(function(){
     var nowTime = moment().format('YYYY/MM');
 
     //默认开始时间
-    var startTime =moment(nowTime).startOf('month').format('YYYY/MM/DD');
+    var startTime =moment().format('YYYY/MM');
 
-    var endTime = moment(nowTime).endOf('month').add(1,'d').format('YYYY/MM/DD');
-
-    console.log(startTime);
-    console.log(endTime);
+    var endTime = moment().add(1,'months').format('YYYY/MM');
 
     //存放页面查询次数
     var searchNum = 0;
 
-    $('.datatimeblock').val(nowTime);
+    $('.min').val(startTime);
+    $('.max').val(endTime);
 
     //获取仓库
     _getWarehouse($('#storage'));
@@ -43,25 +41,37 @@ $(function(){
             data:'startNum'
         },
         {
-            data:'startAmount'
+            data:'startAmount',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
+            }
         },
         {
             data:'inNum'
         },
         {
-            data:'inAmount'
+            data:'inAmount',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
+            }
         },
         {
             data:'outNum'
         },
         {
-            data:'outAmount'
+            data:'outAmount',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
+            }
         },
         {
             data:'num'
         },
         {
-            data:'amount'
+            data:'amount',
+            render:function(data, type, full, meta){
+                return data.toFixed(2)
+            }
         },
         {
             data:'memo'
@@ -84,7 +94,8 @@ $(function(){
             for(var j=0; j<tds.length; j++){
                 count += parseFloat(tds.eq(j).children('td').eq(i).html());
             }
-            ths.eq(i).html(count);
+            var counts = count.toFixed(2);
+            ths.eq(i).html(counts);
         }
 
     };
@@ -94,7 +105,7 @@ $(function(){
     _tableInit($('#scrap-datatables'),col,2,'',totalFn,drawFn);
 
     //表格时间
-    $('.table-time').html(nowTime);
+    $('.table-time').html(startTime + '到' + endTime);
 
     //表格人
     $('.table-person').html(_userIdName);
@@ -103,7 +114,8 @@ $(function(){
     //查询
     $('#selected').click(function(){
         //改变表头的时间
-        $('.table-time').html(nowTime);
+        //$('.table-time').html(nowTime);
+        $('.table-time').html(startTime + '到' + endTime);
         //条件查询
         conditionSelect();
     });
@@ -111,7 +123,9 @@ $(function(){
     //重置
     $('.resites').click(function(){
         //时间置为今日
-        $('.datatimeblock').val(nowTime);
+        //$('.datatimeblock').val(nowTime);
+        $('.min').html(startTime);
+        $('.max').html(endTime);
         //select置为所有
         $('#storage').val('');
     });
@@ -149,22 +163,28 @@ $(function(){
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(flag){
 
-        var postTime = '';
+        var stTime = '';
+
+        var etTime = '';
 
         //获取时间
-        //var st = $('.min').val() + '/01';
+        var st = $('.min').val() + '/01';
+        var et = $('.max').val() + '/01';
         //获取条件
-        //if(searchNum == 0){
-        //    var getTime =window.location.search.split('?')[1];
-        //
-        //    if(getTime){
-        //        postTime = getTime;
-        //    }else{
-        //        postTime = st;
-        //    }
-        //}else{
-        //    postTime = st;
-        //}
+        if(searchNum == 0){
+            var postTime =window.location.search.split('?')[1];
+
+            if(postTime){
+                stTime = moment(postTime).startOf('month').format('YYYY-MM-DD');
+                etTime = moment(postTime).startOf('month').add(1,'months').format('YYYY-MM-DD');
+            }else{
+                stTime = st;
+                etTime = et;
+            }
+        }else{
+            stTime = st;
+            etTime = et;
+        }
 
         //获取仓库名
         if(flag){
@@ -174,14 +194,13 @@ $(function(){
         }
 
         var prm = {
-            //"dayDate": postTime,
             "storageNum": storageNum,
             'hasNum':$('#greaterThan').val(),
             "userID":  _userIdNum,
             "userName": _userIdName,
             'localNum':$('#kqSelect').val(),
-            "lastDayDate":startTime,
-            "dayDate":endTime
+            "lastDayDate":stTime,
+            "dayDate":etTime
 
         };
         $.ajax({

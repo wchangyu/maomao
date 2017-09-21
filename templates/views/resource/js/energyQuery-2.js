@@ -19,7 +19,7 @@ $(function(){
 	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		_selectTime();
+		_selectTime(_ajaxDataType);
 	});
 	//页面加载配置信息
 	_setEnergyInfo();
