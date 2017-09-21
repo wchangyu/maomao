@@ -240,7 +240,7 @@ var userMonitor = (function(){
     }
 
 
-    var getProcsByPointerId = function(){
+    var getProcsByPointerId = function(notSetProcList){
         var pointerId = sessionStorage["curPointerId"];
         var menuusepointer = sessionStorage.menuusepointer;
         if(menuusepointer){
@@ -250,33 +250,30 @@ var userMonitor = (function(){
                 var curPointerProcs = _.where(_allPointerProcs,{'bindType':2,'bindKeyId':pointerId.toString()});
                 _allProcs = curPointerProcs;
             }
-        }
-        //console.log(_allProcs);
-        //存放获得的所有类型集合
-        var pubProcTypeArr = [];
-        $(_allProcs).each(function(i,o){
-            var typeNum = o.pubProcType;
-            if(pubProcTypeArr.contains(typeNum)){
 
-            }else{
-                pubProcTypeArr.push(typeNum)
-            }
-        });
-        //console.log(pubProcTypeArr);
-        //当arg参数为2（全部）时，对流程图根据系统类型进行筛选
-        var arg = sessionStorage.menuArg;
-        if(arg){
-            if(arg.split(',')[0] == 2){
-                var type =arg.split(',')[1];
+            //存放获得的所有类型集合
+            var pubProcTypeArr = [];
+            $(_allProcs).each(function(i,o){
+                var typeNum = o.pubProcType;
+                if(pubProcTypeArr.contains(typeNum)){
+
+                }else{
+                    pubProcTypeArr.push(typeNum)
+                }
+            });
+            //当arg参数为2（全部）时，对流程图根据系统类型进行筛选
+            if(_configArg1==2){
                 $(_allProcs).each(function(i,o){
-                    if(o.pubProcType != type){
+                    if(o.pubProcType != _configArg2){
                         _allProcs.remove(o);
                     }
                 });
             }
         }
+        if(!notSetProcList){
+            setProcList(_allProcs);
+        }
 
-        setProcList(_allProcs);
     }
 
     //设置左侧的监控方案列表
@@ -288,9 +285,16 @@ var userMonitor = (function(){
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
-                $ul.append($("<li>",{text:procs[i].showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
-                    return function() {initializeProcSubs(procId);selectLi($(this));};
-                })(procs[i].procID)));
+                if(!procs[i].showProcName){
+                    $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                        return function() {initializeProcSubs(procId);selectLi($(this));};
+                    })(procs[i].procID)));
+                }else{
+                    $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                        return function() {initializeProcSubs(procId);selectLi($(this));};
+                    })(procs[i].procID)));
+                }
+
             }
             curProc = curProc || procs[0];
         }else {
@@ -303,8 +307,14 @@ var userMonitor = (function(){
                             curProc = curProc || obj;
                             isProcFind = true;
                         }
-                        $ul.append($("<li>",{text:obj.showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
-                            return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
+                        if(!procs[i].showProcName){
+                            $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                                return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
+                        }else{
+                            $ul.append($("<li>",{text:obj.showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                                return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
+                        }
+
                     }
                 }
             }
@@ -371,9 +381,9 @@ var userMonitor = (function(){
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
                 var curProcs = getLocalProcsByParameter(_configArg2);   //获取当前菜单配置的方案
-                //setProcList(curProcs);      //绘制左侧列表
-                _allProcs = curProcs;
-                getProcsByPointerId();
+                setProcList(curProcs);      //绘制左侧列表
+                //_allProcs = curProcs;
+                getProcsByPointerId(true);
             },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsNew" , err);}
         })
@@ -483,7 +493,7 @@ var userMonitor = (function(){
                     imgWidth = proc.procStyle.imageSizeWidth;
 
 
-                        /*----------------页面自适应-----------------*/
+                        /*----------------页面自适应 王常宇修改-----------------*/
                         var norWidth = $('.page-title').width();
                         //实际宽度
                         var realWidth = norWidth - _leftWidth;
@@ -491,12 +501,18 @@ var userMonitor = (function(){
                         //缩放比例计算
                         var ratioZoom = realWidth / imgWidth;
 
+                        _scaleX = ratioZoom;
+                        setScaleSign(_scaleX,_scaleStep);
+
                         $(window).resize(function () {          //当浏览器大小变化时
                             var norWidth1 = $('.page-title').width();
                             //实际宽度
                             var realWidth1 = norWidth1 - _leftWidth;
                             //缩放比例计算
                             var ratioZoom1 = realWidth1 / imgWidth;
+                            //对左上角放大缩小按钮重绘
+                            _scaleX = ratioZoom1;
+                            setScaleSign(_scaleX,_scaleStep);
 
                             $('.content-main-right').css({
                                 'transform-origin': 'left top 0px',

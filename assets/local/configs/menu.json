@@ -395,6 +395,7 @@
         "uri":"../gongdangunali/productionOrder-3.html",
         "uid":"",
         "arg":"",
+        "arg2":"dd01",
         "iconclass":""
       },
       "工长分配管理":{
@@ -419,6 +420,7 @@
         "uri":"../gongdangunali/productionOrder-5.html",
         "uid":"",
         "arg":"",
+        "arg2":"dd01",
         "iconclass":""
       },
       "工单综合查询":{
@@ -435,6 +437,7 @@
         "uri":"../gongdangunali/productionOrder-8.html",
         "uid":"",
         "arg":"",
+        "arg2":"dd01",
         "iconclass":""
       },
       "备件确认":{
