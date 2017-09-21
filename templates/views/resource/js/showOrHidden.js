@@ -80,7 +80,7 @@ $(function(){
 
 })
 //日历时间
-function _selectTime(){
+function _selectTime(_ajaxDataType){
     var inputValue;
     inputValue = $('#datetimepicker').val();
     if(_ajaxDataType=="日"){

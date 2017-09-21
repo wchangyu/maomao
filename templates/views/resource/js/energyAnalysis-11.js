@@ -30,7 +30,7 @@ $(function(){
 	_initDate();
 	$('#datetimepicker').on('changeDate',function(e){
 		dataType();
-		_selectTime();
+		_selectTime(_ajaxDataType);
 	});
 	//echarts
 	myChart3 = echarts.init(document.getElementById('rheader-content-14'));
