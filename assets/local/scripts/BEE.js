@@ -616,7 +616,7 @@ var BEE = (function(){
 
          //非流程图界面
          if(uri.indexOf('energyMonitor.html') == -1){
-             //非流程图界面判断角色权限 ；
+             //非流程图界面判断角色权限；
              return retainChildMenu1(childMenu);
          }else{
             // 获取全部流程图
@@ -658,8 +658,10 @@ var BEE = (function(){
          if(arg2){
             //获取权限参数
              var role = sessionStorage.userRole;
-             if(role && arg2.indexOf(role) == -1){
+             if(role && arg2.indexOf(role) >= 0 ){
 
+                 return true;
+             }else{
                  return false;
              }
          }
