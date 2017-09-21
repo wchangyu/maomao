@@ -75,6 +75,10 @@ $(function(){
                 data:'itemName'
             },
             {
+                title:'规格型号',
+                data:'size'
+            },
+            {
                 title:'数量',
                 data:'num'
             },
@@ -104,6 +108,10 @@ $(function(){
             {
                 title:'仓库',
                 data:'storageName'
+            },
+            {
+                title:'库区',
+                data:'localName'
             },
             {
                 title:'台账类型',

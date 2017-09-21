@@ -84,7 +84,7 @@ $(function () {
          $('.cjz').empty();
         var values = $('#line-route').val();
          if(values == ''){
-         //所有车站
+         //所有楼栋
            ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('.cjz'), 'ddName', 'ddNum');
          }else{
            lineRouteData('','arr');
@@ -125,12 +125,12 @@ $(function () {
         //获得选中的线路的value
         var values = $('#line-route1').val();
         if(values == ''){
-          //所有车站
+          //所有楼栋
           ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('.cjz1'), 'ddName', 'ddNum');
         }else{
           for(var i=0;i<_lineArr.length;i++){
             if(values == _lineArr[i].dlNum){
-              //创建对应的车站
+              //创建对应的楼栋
               var str = '<option value="">请选择</option>';
               for(var j=0;j<_lineArr[i].deps.length;j++){
                 str += '<option value="' + _lineArr[i].deps[j].ddNum +
@@ -282,7 +282,7 @@ $(function () {
         className: 'ztz'
       },
       {
-        title: '车站',
+        title: '楼栋',
         data: 'bxKeshi'
       },
       {
@@ -1012,7 +1012,7 @@ $(function () {
           $('#myApp33').find('textarea').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('.inpus').attr('disabled', true);
         }
-        //根据车间，标注线点
+        //根据车间，标注建筑类型
         var prm = {
           'userID':_userIdNum,
           'userName':_userIdNum
@@ -1071,7 +1071,7 @@ $(function () {
             var values = $('#line-route').val();
             for(var i=0;i<result.length;i++){
               if(values == result[i].dlNum){
-                //创建对应的车站
+                //创建对应的楼栋
                 var str = '<option value="">请选择</option>';
                 for(var j=0;j<result[i].deps.length;j++){
                   str += '<option value="' + result[i].deps[j].ddNum +

@@ -188,7 +188,8 @@ $(function(){
             'userID':_userIdNum,
             'userName':_userIdName,
             'storageNum':$('#ckSelect').val(),
-            'localNum':$('#kqSelect').val()
+            'localNum':$('#kqSelect').val(),
+            'hasNum':$('#greaterThan').val()
 
         }
         $.ajax({

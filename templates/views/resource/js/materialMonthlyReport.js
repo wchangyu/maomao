@@ -2,8 +2,17 @@ $(function(){
     //时间插件
     _monthDate($('.datatimeblock'));
 
+
     //默认时间
     var nowTime = moment().format('YYYY/MM');
+
+    //默认开始时间
+    var startTime =moment(nowTime).startOf('month').format('YYYY/MM/DD');
+
+    var endTime = moment(nowTime).endOf('month').add(1,'d').format('YYYY/MM/DD');
+
+    console.log(startTime);
+    console.log(endTime);
 
     //存放页面查询次数
     var searchNum = 0;
@@ -143,19 +152,19 @@ $(function(){
         var postTime = '';
 
         //获取时间
-        var st = $('.min').val() + '/01';
+        //var st = $('.min').val() + '/01';
         //获取条件
-        if(searchNum == 0){
-            var getTime =window.location.search.split('?')[1];
-
-            if(getTime){
-                postTime = getTime;
-            }else{
-                postTime = st;
-            }
-        }else{
-            postTime = st;
-        }
+        //if(searchNum == 0){
+        //    var getTime =window.location.search.split('?')[1];
+        //
+        //    if(getTime){
+        //        postTime = getTime;
+        //    }else{
+        //        postTime = st;
+        //    }
+        //}else{
+        //    postTime = st;
+        //}
 
         //获取仓库名
         if(flag){
@@ -165,12 +174,15 @@ $(function(){
         }
 
         var prm = {
-            "dayDate": postTime,
+            //"dayDate": postTime,
             "storageNum": storageNum,
             'hasNum':$('#greaterThan').val(),
             "userID":  _userIdNum,
             "userName": _userIdName,
-            'localNum':$('#kqSelect').val()
+            'localNum':$('#kqSelect').val(),
+            "lastDayDate":startTime,
+            "dayDate":endTime
+
         };
         $.ajax({
             type:'post',
