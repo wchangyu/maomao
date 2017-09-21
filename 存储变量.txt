@@ -11,6 +11,7 @@ sessionStorage.userAuth     当前用户的权限
 sessionStorage.userName     当前用户登录名,ID
 sessionStorage.userpassword 当前用户密码 同上
 sessionStorage.realUserName 当前用户的姓名
+sessionStorage.userRole     当前用户的角色
 localStorage.BEE_username    当前用户登录名,ID 记住用户密码使用
 localStorage.BEE_userpassword 当前用户密码 同上
 localStorage.BEE_remember    登录的记住用户名
