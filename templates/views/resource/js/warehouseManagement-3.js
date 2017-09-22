@@ -2280,7 +2280,7 @@ $(function(){
                 _allData.length = 0;
                 var confirm = [];
                 var confirmed = [];
-                    for(var i=0;i<10;i++){
+                    for(var i=0;i<result.length;i++){
                         _allData.push(result[i]);
                         if(result[i].status == 0){
                             confirm.push(result[i])
@@ -3269,7 +3269,7 @@ $(function(){
 
     //库区列表初始化
     function kqList(arr,el){
-        console.log(arr);
+        arr = [];
         var str = '';
         for(var i=0;i<arr.length;i++){
             str += '<li data-num="' + arr[i].localNum + '">' + arr[i].localName + '</li>'
