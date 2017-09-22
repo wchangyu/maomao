@@ -119,8 +119,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.102/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.102/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -138,7 +138,7 @@
   "alarmSong":"0",
   "changeMenuByProcs":"1",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"0",
+  "gongdanInterval":"1",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html"
 }
