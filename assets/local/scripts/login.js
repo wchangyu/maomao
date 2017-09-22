@@ -5,7 +5,7 @@ var Login = function() {
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
     var _isProceLoaded = false;
-
+    var _indexUrl = "shouye/index.html";
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
@@ -97,7 +97,6 @@ var Login = function() {
                                     sessionStorage.realUserName = res.userName;
                                     sessionStorage.userRole = '';
                                     if(res.role){
-
                                         sessionStorage.userRole = res.role;
                                     }
                                 }
@@ -182,12 +181,14 @@ var Login = function() {
     }
 
     var directToIndex = function(){
+
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
+
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
             }else{
-                window.location.href = "shouye/index.html";
+                window.location.href = _indexUrl;
             }
         }
         //if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded){
@@ -301,16 +302,19 @@ var Login = function() {
 
     //获取到菜单配置文件
     var getMenu = function(){
+
         var menuSrc = '../../assets/local/configs/menu.json';
         $.ajax({
                 url:menuSrc,
                 type:"get",
                 success:function(str){
+
                     sessionStorage.menuStr = JSON.stringify(str);
                     _isMenuLoaded = true;
                     directToIndex();
                 },
                 error:function(xhr,text,err){
+
                 }
             }
         );
@@ -395,6 +399,15 @@ var Login = function() {
                     //是否根据流程图动态绘制菜单
                     var changeMenuByProcs = data["changeMenuByProcs"] || '';
                     sessionStorage.changeMenuByProcs = changeMenuByProcs;
+
+                    //登录后跳转首页配置
+                    if(data["indexUrl"]){
+                        _indexUrl = data["indexUrl"];
+                    }
+
+                    //工单自动刷新开关
+                    var gongdanInterval = data["gongdanInterval"] || '';
+                    sessionStorage.gongdanInterval = gongdanInterval;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

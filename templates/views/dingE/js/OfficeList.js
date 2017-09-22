@@ -1,7 +1,5 @@
 
 
-
-
 $(document).ready(function(){
     //限定input框长度
 

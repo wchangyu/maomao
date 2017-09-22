@@ -292,8 +292,6 @@ function getStartData(){
                     $('#theLoading').modal('hide');
                 },
                 success: function (data) {
-
-                    //console.log(data);
                     pointArr = data;
                     var html= '';
                     var theValue = '';

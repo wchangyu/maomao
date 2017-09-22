@@ -94,12 +94,10 @@
         //获取用户名
         var userName = sessionStorage.getItem('userName');
         var userPassWord = sessionStorage.getItem('userpassword');
-//       获取 URL 的主机部分
-        var test = window.location.host;
-        console.log(test);
 
         //获取当前IP地址
-        var  host =  "http://" + '211.100.28.180' + "/EMPW";
+//        var  host =  "http://" + "/EMPW";
+        var host = '';
         // 获取当前时间
         var now = moment().format('YYYY-MM-DD');
 
@@ -110,8 +108,10 @@
 
         //给用户名进行加密
         var passName = Went.utility.wCoder.wEncode(userName, urlstring);
+
         //给密码解密
         var passWord = Went.utility.wCoder.wDecode(userPassWord,"");
+
         //给密码二次加密
         passWord = Went.utility.wCoder.wEncode(passWord, urlstring);
         //给日期进行加密
