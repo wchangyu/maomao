@@ -26,6 +26,7 @@ var BEE = (function(){
             var $sidebar = $(".page-sidebar-menu");
             if(sessionStorage.changeMenuByProcs == 1){
                 getHTMLFromMenu(changeMenuByProcs(JSON.parse(str)),$sidebar);
+
             }else{
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
             }
@@ -236,6 +237,8 @@ var BEE = (function(){
         //if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
         //    setPageTopRightAlarmData(sessionStorage.alaDataLength);
         //}
+
+
         if(_isAlarmShow){
             return;
         }
@@ -422,7 +425,7 @@ var BEE = (function(){
             if(dataLength==0){
                $badge.html("");            //当前警告的小圆点
                 $alarmDetail.html("");      //当前警告的下拉li第一项内容
-                $alarmBlock.hide();         //页面右上角警告的内容
+                //$alarmBlock.hide();         //页面右上角警告的内容
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
                 }
@@ -480,7 +483,31 @@ var BEE = (function(){
         }
     }
 
+     //对页面右上角当前重要信息进行重绘
+     var modificationImportInfo = function(){
+         //定义给悬浮窗中插入的信息
+         var infoHtml = '';
+         var $badge = $("#header_notification_bar .badge");
+         var $dropdownMenu = $("#header_notification_bar .dropdown-menu");
+         //对右上角显示报警数据的红圈进行隐藏
+         $badge.hide();
 
+        //根据配置信息动态改变悬浮窗中的值
+         if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+            infoHtml += '<li class="external">' +
+                '   <h3><span class="bold">0 </span> 当日报警</h3>' +
+                '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
+                '</li>';
+         }
+         if(infoHtml == ''){
+             $dropdownMenu.css({
+                 minHeight:'50px'
+             });
+         }
+         //给悬浮窗插入指定信息
+         $dropdownMenu.html(infoHtml);
+
+     };
      //给页面动态插入显示楼宇的树状图
      function insertionPointer(){
          //判断是否需要显示楼宇
@@ -727,6 +754,7 @@ var BEE = (function(){
                 //setHeaderInfo();
                 setTheme();
                 insertionPointer();
+                modificationImportInfo();
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
