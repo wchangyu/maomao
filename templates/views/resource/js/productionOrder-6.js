@@ -7,7 +7,13 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+    var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
+
+    var _isLineLoaded = false;      //线路数据是否载入
+    var _isStationLoaded = true;   //车站数据是否载入
+    var _isDepartLoaded = false;    //车间和班组数据是否载入
+    var _isFirstLoad = true;    //临时使用，0925删除
+
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -365,7 +371,7 @@ $(function(){
         ]
     });
     //条件查询
-    conditionSelect();
+    //conditionSelect();
     /*----------------------------表格绑定事件-----------------------------------*/
     var _currentChexiao = false;
     var _currentClick;
@@ -762,7 +768,6 @@ $(function(){
         }else{
             for(var i=0;i<_InfluencingArr.length;i++){
                 if(values == _InfluencingArr[i].departNum){
-                    console.log(_InfluencingArr[i]);
                     var str = '<option value="">请选择</option>';
                     for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
                         str += '<option value="' + _InfluencingArr[i].wxBanzus[j].departNum +
@@ -813,7 +818,7 @@ $(function(){
             userName:_userIdName,
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
-            gdCodeSrc:$('#gdly').val()
+            gdSrc:$('#gdly').val()
         };
         var userArr = [];
         var cheArr = [];
@@ -826,8 +831,17 @@ $(function(){
                 }
             }
             prm2.wxKeshis = userArr;
+        }else if($('#yxdw').val() == '' && $('#userClass').val() == ''){
+            console.log(_InfluencingArr);
+            for(var i=0;i<_InfluencingArr.length;i++){
+                for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+                    userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
+                }
+            }
+            prm2.wxKeshis = userArr;
         }else{
             prm2.wxKeshi = $('#userClass').val();
+
         }
         if( $('#line').val() != '' && $('#station').val() == ''){
             var values = $('#line').val();
@@ -839,8 +853,17 @@ $(function(){
                 }
             }
             prm2.bxKeshiNums = cheArr;
+        }else if($('#line').val() == '' && $('#station').val() == ''){
+            for(var i=0;i<_lineArr.length;i++){
+                if( values == _lineArr[i].dlNum ){
+                    for(var j=0;j<_lineArr[i].deps.length;j++){
+                        cheArr.push(_lineArr[i].deps[j].ddNum);
+                    }
+                }
+            }
+            prm2.bxKeshiNums = cheArr;
         }else{
-            prm2.bxKeshiNum = $('#station').val()
+            prm2.bxKeshiNum = $('#station').val();
         }
         $.ajax({
             type:'post',
@@ -1006,7 +1029,7 @@ $(function(){
     //IP替换
     function replaceIP(str,str1){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        var res = ip.exec(str1);  /*211.100.28.180*/
+        var res = ip.exec(str1);  /**/
         str = str.replace(ip,res);
         return str;
     }
@@ -1061,6 +1084,8 @@ $(function(){
                         '">' + result[i].dlName +'</option>'
                 }
                 el.append(str);
+                _isLineLoaded = true;
+                firstLoadData();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1085,6 +1110,7 @@ $(function(){
             success:function(result){
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
+
                 if(flag){
                     for(var i=0;i<result.wxBanzus.length;i++){
                         str1 += '<option value="' + result.wxBanzus[i].departNum +
@@ -1152,6 +1178,8 @@ $(function(){
                     $('#yxdw').empty().append(str);
                     $('#userClass').empty().append(str1);
                 }
+                _isDepartLoaded = true;
+                firstLoadData();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1202,4 +1230,14 @@ $(function(){
         })
     }
 
+    //页面收入默认载入数据
+    function firstLoadData(){
+        if(_isFirstLoad){
+            if(_isDepartLoaded && _isLineLoaded && _isStationLoaded){
+                conditionSelect();
+                _isFirstLoad = false;
+            }
+        }
+
+    }
 })
