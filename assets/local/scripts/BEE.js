@@ -9,6 +9,7 @@ var BEE = (function(){
     var _localCssPath = 'local/css/';
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
+    var _alarmCount = 0;
 
     String.prototype.endWith = function(s){
         var d = this.length - s.length;
@@ -26,8 +27,10 @@ var BEE = (function(){
             var $sidebar = $(".page-sidebar-menu");
             if(sessionStorage.changeMenuByProcs == 1){
                 getHTMLFromMenu(changeMenuByProcs(JSON.parse(str)),$sidebar);
+                sessionStorage.curMenuStr = JSON.stringify(changeMenuByProcs(JSON.parse(str)));
             }else{
                 getHTMLFromMenu(JSON.parse(str), $sidebar);
+                sessionStorage.curMenuStr = str;
             }
             setPageTitle();
             setHeaderInfo();
@@ -236,6 +239,8 @@ var BEE = (function(){
         //if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
         //    setPageTopRightAlarmData(sessionStorage.alaDataLength);
         //}
+
+
         if(_isAlarmShow){
             return;
         }
@@ -274,6 +279,7 @@ var BEE = (function(){
             success:function(data){
                 if(data){       //设置右上角的报警数据显示情况
                     setPageTopRightAlarmData(data.length,data);
+                    _alarmCount = data.length;
                 }else{
                     setPageTopRightAlarmData(0);
                 }
@@ -296,7 +302,7 @@ var BEE = (function(){
 
     function setPageTopRightAlarmData(dataLength,data){
         var $badge = $("#header_notification_bar .badge");
-        var $alarmDetail = $("#header_notification_bar .external>h3>span");
+        var $alarmDetail = $("#header_notification_bar .external>h3>span").eq(0);
         var $alarmBlock = $("#header_notification_bar");
         var $alertSong = $('#audioMain');
         $badge.removeClass("badge-danger");
@@ -422,7 +428,7 @@ var BEE = (function(){
             if(dataLength==0){
                $badge.html("");            //当前警告的小圆点
                 $alarmDetail.html("");      //当前警告的下拉li第一项内容
-                $alarmBlock.hide();         //页面右上角警告的内容
+                //$alarmBlock.hide();         //页面右上角警告的内容
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
                 }
@@ -480,7 +486,95 @@ var BEE = (function(){
         }
     }
 
+     //对页面右上角当前重要信息进行重绘
+     var modificationImportInfo = function(){
 
+         //定义给悬浮窗中插入的信息
+         var infoHtml = '';
+         var $badge = $("#header_notification_bar .badge");
+         var $dropdownMenu = $("#header_notification_bar .dropdown-menu");
+         //对右上角显示报警数据的红圈进行隐藏
+         $badge.hide();
+
+        //根据配置信息动态改变悬浮窗中的值
+
+         //是否需要显示报警信息
+         if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+            infoHtml += '<li class="external">' +
+                '   <h3><span class="bold">'+_alarmCount+' </span> 当日报警</h3>' +
+                '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
+                '</li>';
+         }
+
+         //是否显示工单信息
+         if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0') {
+
+             var prmData = {
+                 gdZht:0,
+                 gdZhts: [
+                     1,2,3,4,5,6
+                 ],
+                 isReturnZhtArray:1,
+                 userID:sessionStorage.getItem('userName'),
+                 userName:sessionStorage.getItem('realUserName')
+             };
+             //获取工单信息数据
+             $.ajax({
+                 type:'post',
+                 url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZh2',
+                 data:prmData,
+                 dataType:'json',
+                 success: function (data) {
+                     console.log(data);
+                     //获取新工单条数
+                     var num1 = 0;
+                     $(data.zhts).each(function(i,o){
+                        if(o == 1){
+                            num1 ++;
+                        }
+                     });
+                     //加入新工单信息
+                     infoHtml += addInfoMessage(num1,'新工单','productionOrder-3.html');
+                     //获取待审核备件
+                     var num2 = 0;
+                     $(data.clstatus).each(function(i,o){
+                         if(o == 1){
+                             num2 ++;
+                         }
+                     });
+                     infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html');
+                     console.log(infoHtml);
+                     console.log(33);
+                     //给悬浮窗插入指定信息
+                     $dropdownMenu.html(infoHtml);
+
+                 },
+                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                 }
+             });
+
+         }
+
+
+
+     };
+     //加入新工单信息
+     var addInfoMessage = function(data,string,flag){
+         var html = '';
+         html +='<li class="external">' +
+         '   <h3><span class="bold">'+data+' </span>'+string+'</h3>';
+         //获取当前菜单
+         var curMenu = sessionStorage.curMenuStr;
+         //判断是否有打开查看详细的权限
+         if(curMenu.indexOf(flag) != -1){
+             html +=  '<a href="../gongdangunali/'+flag+'" target="_blank">查看详细</a>' +
+                 '</li>';
+         }else{
+             html += '</li>'
+         }
+         return html;
+     };
      //给页面动态插入显示楼宇的树状图
      function insertionPointer(){
          //判断是否需要显示楼宇
@@ -727,6 +821,7 @@ var BEE = (function(){
                 //setHeaderInfo();
                 setTheme();
                 insertionPointer();
+                modificationImportInfo();
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }

@@ -184,7 +184,9 @@ var Login = function() {
     }
 
     var directToIndex = function(){
+
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
+
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
@@ -303,16 +305,19 @@ var Login = function() {
 
     //获取到菜单配置文件
     var getMenu = function(){
+
         var menuSrc = '../../assets/local/configs/menu.json';
         $.ajax({
                 url:menuSrc,
                 type:"get",
                 success:function(str){
+
                     sessionStorage.menuStr = JSON.stringify(str);
                     _isMenuLoaded = true;
                     directToIndex();
                 },
                 error:function(xhr,text,err){
+
                 }
             }
         );

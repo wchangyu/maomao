@@ -2,9 +2,16 @@
  * Created by admin on 2017/2/22.
  */
 
-var userName = 'xiaohong';
-var IP1 = "http://192.168.1.104/BEEWebAPI/api";
-var IP2 = 'http://211.100.28.180/DingEAPI/api';
+
+//获取用户名以及对应的IP地址
+var userName = sessionStorage.getItem('userName');
+var _url = sessionStorage.getItem('apiUrlPrefix');
+
+var _urlLength = _url.length;
+
+//对从session中获取的IP地址进行处理
+var IP1 = _url.substring(0,_urlLength-1);
+
 var IP = IP1;
 
 var theTimes = 30000;
