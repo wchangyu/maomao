@@ -163,56 +163,27 @@ function _datasTable(tableId,arr){
 };
 
 /*--------------------------获取专业名称----------------------------*/
-//获取仓库
-function _getWarehouse(el){
+//获取专业名词
+function _getProfession(url,el,attrNum,attrName){
     var prm ={
         userID:_userIdNum,
         userName:_userIdName,
     };
     $.ajax({
         type:'post',
-        url:_urls + 'YWCK/ywCKGetStorages',
+        url:_urls + url,
         data:prm,
         timeout:_theTimes,
         success:function(result){
-            var str = '<option value=" ">全部</option>';
+            var str = '<option value="">请选择</option>';
             for(var i=0;i<result.length;i++){
-                str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+                str += '<option value="' + result[i][attrNum] +
+                    '">' + result[i][attrName] + '</option>'
             }
+            console.log(str);
             el.empty().append(str);
         },
         error:function(jqXHR, textStatus, errorThrown){
-            console.log(jqXHR.responseText);
-        }
-    })
-}
-
-//获取线点
-function _lineRouteData(el,arr) {
-    var prm = {
-        'userID':_userIdNum,
-        'userName':_userIdNum
-    }
-    $.ajax({
-        type:'post',
-        url:_urls + 'YWGD/ywGetDLines',
-        data:prm,
-        timeout:_theTimes,
-        success:function(result){
-            if(arr){
-                arr = [];
-            }
-            var str = '<option value="">请选择</option>';
-            for(var i=0;i<result.length;i++){
-                if(arr){
-                    arr.push(result[i]);
-                }
-                str += '<option value="' + result[i].dlNum +
-                    '">' + result[i].dlName +'</option>'
-            }
-            el.empty().append(str);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.responseText);
         }
     })
@@ -485,4 +456,5 @@ function _replaceIP(str,str1){
     str = str.replace(ip,res);
     return str;
 }
+
 

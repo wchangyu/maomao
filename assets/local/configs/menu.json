@@ -780,6 +780,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "车间物品明细":{
+        "type":"0",
+        "content":"车间物品明细",
+        "uri":"../cangkuguanli/wbDetails.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

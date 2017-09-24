@@ -699,7 +699,6 @@ $(function () {
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('保存');
         //绑定数据
         ViewOrEdit($(this));
-        $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
         //图片区域隐藏
         $('.showImage').hide();
       })
@@ -1011,6 +1010,7 @@ $(function () {
           $('#myApp33').find('select').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('textarea').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('.inpus').attr('disabled', true);
+          $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
         }
         //根据车间，标注建筑类型
         var prm = {

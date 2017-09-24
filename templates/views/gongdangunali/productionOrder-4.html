@@ -281,7 +281,7 @@
                     <div class="total-warp">
                         <div class="wrap">
                             <!-- 标题 -->
-                            <div class="content-main-contents content-main-right">
+                            <label class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">工单操作</li>
                                 </ul>
@@ -339,6 +339,15 @@
                                         </div>
                                     </li>
                                     <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单来源：</label>
+                                        <div class="input-blocked">
+                                            <select id="gdly">
+                                                <option value="1">车站报修</option>
+                                                <option value="2">现场人员报修</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">线路：</label>
                                         <div class="input-blocked">
                                             <select id="line" class="returnEmpty"></select>
@@ -363,7 +372,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;text-align: right">所属维保组：</label>
+                                        <label for="" style="display: inline-block;text-align: right">所属班组：</label>
                                         <div class="input-blocked">
                                             <select id="userClass"></select>
                                         </div>

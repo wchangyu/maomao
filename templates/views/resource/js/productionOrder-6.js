@@ -812,7 +812,8 @@ $(function(){
             userID:_userIdNum,
             userName:_userIdName,
             isCalcTimeSpan:1,
-            wxShiXNum:$('#xtlx').val()
+            wxShiXNum:$('#xtlx').val(),
+            gdCodeSrc:$('#gdly').val()
         };
         var userArr = [];
         var cheArr = [];
@@ -1092,17 +1093,64 @@ $(function(){
                     $('#userClass').append(str1);
                 }else{
                     _InfluencingArr = [];
+                    //首先判断是在车间还是维保组里
+                    var stationsFlag = false;
+                    var wxBanzusFlag = false;
                     for(var i=0;i<result.stations.length;i++){
-                        _InfluencingArr.push(result.stations[i]);
-                        str += '<option value="' + result.stations[i].departNum +
-                            '">' + result.stations[i].departName + '</option>';
+                        if(sessionStorage.userDepartNum == result.stations[i].departNum){
+                            stationsFlag = true;
+                            break;
+                        }else{
+                            stationsFlag = false;
+                        }
                     }
                     for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
+                        if(sessionStorage.userDepartNum == result.wxBanzus[i].departNum){
+                            wxBanzusFlag = true;
+                            break;
+                        }else{
+                            wxBanzusFlag = false;
+                        }
                     }
-                    $('#yxdw').append(str);
-                    $('#userClass').append(str1);
+                    if(stationsFlag) {
+                        for (var i = 0; i < result.stations.length; i++) {
+                            if(sessionStorage.userDepartNum == result.stations[i].departNum){
+                                str = '<option value="' + result.stations[i].departNum +
+                                    '">' + result.stations[i].departName + '</option>';
+                                for (var j = 0; j < result.stations[i].wxBanzus.length; j++) {
+                                    str1 += '<option value="' + result.stations[i].wxBanzus[j].departNum +
+                                        '">' + result.stations[i].wxBanzus[j].departName + '</option>';
+                                }
+                            }
+                        }
+
+                    }else if(wxBanzusFlag){
+
+                        str1 = '<option value="' + result.wxBanzus[i].departNum +
+                            '">' + result.wxBanzus[i].departName + '</option>';
+                        for(var i=0;i<result.stations.length;i++){
+                            for(var j=0;j<result.stations[i].wxBanzus.length;j++){
+                                if(sessionStorage.userDepartNum == result.stations[i].wxBanzus[j].departNum){
+                                    str = '<option value="' + result.stations[i].departNum +
+                                        '">' + result.stations[i].departName + '</option>';
+                                }
+                            }
+                        }
+                    } else{
+                        //所属车间
+                        for(var i=0;i<result.stations.length;i++){
+                            _InfluencingArr.push(result.stations[i]);
+                            str += '<option value="' + result.stations[i].departNum +
+                                '">' + result.stations[i].departName + '</option>';
+                        }
+                        //所属班组
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                '">' + result.wxBanzus[i].departName + '</option>';
+                        }
+                    }
+                    $('#yxdw').empty().append(str);
+                    $('#userClass').empty().append(str1);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

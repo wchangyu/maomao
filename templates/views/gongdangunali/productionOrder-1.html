@@ -424,7 +424,7 @@
                                 <li class="floatLeft seeBlock" style="line-height: 26px;">
                                     <div class="labels">工单号：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="gdCode">
+                                        <input type="text" v-model="gdCode" disabled>
                                     </div>
                                 </li>
                                 <li class="floatRight seeBlock" style="line-height: 26px;">
@@ -510,21 +510,21 @@
                                         <input type="text" v-model="sbMC">
                                     </div>
                                 </li>
-                                <li class="floatRight">
-                                    <div class="labels">安装地点：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="azAddress">
-                                    </div>
-                                </li>
+                                <!--<li class="floatRight">-->
+                                    <!--<div class="labels">安装地点：</div>-->
+                                    <!--<div class="input-blockeds">-->
+                                        <!--<input type="text" v-model="azAddress">-->
+                                    <!--</div>-->
+                                <!--</li>-->
                             </form>
                         </validator>
-                        <li class="floatLeft" style="line-height: 26px;">
+                        <li class="floatRight" style="line-height: 26px;">
                             <div class="labels">故障发生时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="otime">
                             </div>
                         </li>
-                        <li class="floatRight seeBlock" style="line-height: 26px;">
+                        <li class="floatLeft seeBlock" style="line-height: 26px;">
                             <div class="labels">工单登记时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="dtime">

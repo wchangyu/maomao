@@ -86,13 +86,18 @@ $(function(){
     //重绘合计数据
     function drawFn(){
         var table = $('#scrap-datatables').DataTable();
+        //合计中的每一个td
         var ths = $('#scrap-datatables').find('tfoot').children('tr').eq(0).children('td');
+        //tbody中的每一行
         var tds = $('#scrap-datatables').find('tbody').children('tr');
-
         for(var i=3;i<ths.length - 1;i++){
             var count = 0;
-            for(var j=0; j<tds.length; j++){
-                count += parseFloat(tds.eq(j).children('td').eq(i).html());
+            if(tds.length == 1){
+                count = 0;
+            }else{
+                for(var j=0; j<tds.length; j++){
+                    count += parseFloat(tds.eq(j).children('td').eq(i).html());
+                }
             }
             var counts = count.toFixed(2);
             ths.eq(i).html(counts);
