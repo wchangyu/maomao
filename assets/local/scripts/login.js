@@ -99,6 +99,9 @@ var Login = function() {
                                     if(res.role){
                                         sessionStorage.userRole = res.role;
                                     }
+                                    if(res.departNum){
+                                        sessionStorage.userDepartNum = res.departNum;
+                                    }
                                 }
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
