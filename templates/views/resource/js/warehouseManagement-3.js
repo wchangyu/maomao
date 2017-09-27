@@ -440,6 +440,12 @@ $(function(){
 
     //所有库区
     reservoir();
+
+    //登记完成
+    var _addComplete = false;
+
+    //备件申请完成
+    var _bjComplete = false;
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -971,6 +977,7 @@ $(function(){
                 url: _urls + 'YWCK/ywCKAddOutStorage',
                 data:prm,
                 success:function(result){
+                    _addComplete = true;
                     if(result == 99){
                         _AddFlag = true;
                         //更改工单中备件状态；
@@ -978,27 +985,6 @@ $(function(){
                     }else{
                         _AddFlag = false;
                     }
-                    setTimeout(function(){
-                        if(_BjFlag == ''){
-                            if(_AddFlag){
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功！', '');
-                            }else{
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败！', '');
-                            }
-                        }else{
-                            if(_AddFlag && _BjFlag){
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货成功！', '');
-                            }else if( !_AddFlag && _BjFlag ){
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货成功！', '');
-                            }else if( _AddFlag && !_BjFlag ){
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货失败！', '');
-                            }else if( !_AddFlag && !_BjFlag  ){
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货失败！', '');
-                            }
-                        }
-                        conditionSelect();
-                        $('#myModal').modal('hide');
-                    },200);
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -3200,7 +3186,6 @@ $(function(){
 
     //更改工单备件状(点击了登记之后循环访问，确定工单号)
     function applySparePart(arr,cl){
-        console.log(arr);
         if(arr.length){
             var prm = {
                 "gdCodes": arr,
@@ -3216,11 +3201,13 @@ $(function(){
                 url:_urls + 'YWGD/ywGDUptMultiPeijStatus',
                 data:prm,
                 success:function(result){
+                    _bjComplete = true;
                     if( result == 99 ){
                         _BjFlag = true;
                     }else{
                         _BjFlag = false;
                     }
+                    addBJ();
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -3228,6 +3215,11 @@ $(function(){
             })
         }else{
             _BjFlag = '';
+            if(_AddFlag){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功！', '');
+            }else{
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败！', '');
+            }
         }
     }
 
@@ -3342,5 +3334,22 @@ $(function(){
                 '</span>' + '</div>';
         }
         el.empty().append(str);
+    }
+
+    //登记、备件发货成功执行
+    function addBJ(){
+        if( _addComplete && _bjComplete ){
+            if(_AddFlag && _BjFlag){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货成功！', '');
+            }else if( !_AddFlag && _BjFlag ){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货成功！', '');
+            }else if( _AddFlag && !_BjFlag ){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功，备件发货失败！', '');
+            }else if( !_AddFlag && !_BjFlag  ){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败，备件发货失败！', '');
+            }
+            conditionSelect();
+            $('#myModal').modal('hide');
+        }
     }
 })

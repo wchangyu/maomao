@@ -11,6 +11,9 @@ var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 //ajax延迟时间设置
 var _theTimes = 30000;
 
+//车间
+var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
+
 /*---------------------------时间初始化------------------------*/
 
 //datapicker时间插件初始化(日月年)
@@ -20,7 +23,8 @@ function _timeYMDComponentsFun(el){
         todayBtn: 1,
         todayHighlight: 1,
         forceParse: 0,
-        format: 'yyyy/mm/dd',     forceParse: 0
+        format: 'yyyy/mm/dd',
+        forceParse: 0
     });
 }
 
@@ -164,7 +168,7 @@ function _datasTable(tableId,arr){
 
 /*--------------------------获取专业名称----------------------------*/
 //获取专业名词
-function _getProfession(url,el,attrNum,attrName){
+function _getProfession(url,el,attr,attrNum,attrName){
     var prm ={
         userID:_userIdNum,
         userName:_userIdName,
@@ -176,11 +180,17 @@ function _getProfession(url,el,attrNum,attrName){
         timeout:_theTimes,
         success:function(result){
             var str = '<option value="">请选择</option>';
-            for(var i=0;i<result.length;i++){
-                str += '<option value="' + result[i][attrNum] +
-                    '">' + result[i][attrName] + '</option>'
+            if(attr){
+                for(var i=0;i<result[attr].length;i++){
+                    str += '<option value="' + result[attr][i][attrNum] +
+                        '">' + result[attr][i][attrName] + '</option>';
+                }
+            }else{
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i][attrNum] +
+                        '">' + result[i][attrName] + '</option>'
+                }
             }
-            console.log(str);
             el.empty().append(str);
         },
         error:function(jqXHR, textStatus, errorThrown){

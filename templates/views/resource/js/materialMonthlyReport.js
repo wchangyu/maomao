@@ -18,7 +18,7 @@ $(function(){
     $('.max').val(endTime);
 
     //获取仓库
-    _getWarehouse($('#storage'));
+    _getProfession('YWCK/ywCKGetStorages',$('#storage'),'','storageNum','storageName');
 
     //获得初始数据
     conditionSelect(true);

@@ -10,9 +10,9 @@ $(function(){
     var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
     var _isLineLoaded = false;      //线路数据是否载入
-    var _isStationLoaded = true;   //车站数据是否载入
+    var _isStationLoaded = false;   //车站数据是否载入
     var _isDepartLoaded = false;    //车间和班组数据是否载入
-    var _isFirstLoad = true;    //临时使用，0925删除
+    var _isSystemLoaded = false;    //系统设备是否载入
 
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -21,12 +21,6 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd',     forceParse: 0
     });
-    //设置初始时间
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
-    //受理显示时间
-    //$('.min').val(_initStart);
-    //$('.max').val(_initEnd);
     //实际传输时间初始化
     var slrealityStart = moment($('datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
     var slrealityEnd = moment($('datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
@@ -93,16 +87,22 @@ $(function(){
     var _allDataBM = [];
     //线路数组
     var _lineArr = [];
-    //影响用户数组
+    //所属维保组
     var _InfluencingArr = [];
+    //所属班组
+    var _bzArr = [];
     //设备系统
-    ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#sblx'), 'dsName', 'dsNum');
+    ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#xtlx'), 'dsName', 'dsNum');
     //所有车站数据
     ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
     //线路数据
     lineRouteData($('#line'));
     //影响单位
     InfluencingUnit();
+    //执行人方法执行
+    var _zxrComplete = false;
+    //物料方法执行
+    var _wlComplete = false;
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -247,6 +247,10 @@ $(function(){
                 data:'lastUpdateInfo'
             },
             {
+                title:'所属班组',
+                data:'wxKeshi'
+            },
+            {
                 title:'受理时间',
                 data:'shouLiShij'
             },
@@ -377,7 +381,7 @@ $(function(){
     var _currentClick;
     $('#scrap-datatables tbody')
         //查看详情
-        .on('click','.option-edit',function(){
+        .on('click','.option-edit',function(e){
             _gdCircle = $(this).parents('tr').children('td').children('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
@@ -473,6 +477,7 @@ $(function(){
             //logInformation(1);
             //综合
             logInformation(0);
+            e.stopPropagation();
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
         .on('click','tr',function(){
@@ -529,7 +534,7 @@ $(function(){
             $('#myModal3').find('.modal-body').html('请选择要回退的工单!');
             moTaiKuang($('#myModal3'),'flag');
         }
-    })
+    });
     $('.zuofei').click(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
@@ -576,63 +581,12 @@ $(function(){
                             if(_fuZeRen.length>0){
                                 manager('YWGD/ywGDDelWxLeader','flag');
                             }
-                            if( _stateFlag && _leaderFlag ){
-                                $('#myModal1').modal('hide');
-                                moTaiKuang($('#myModal3'),'flag');
-                                $('#myModal3').find('.modal-body').html('回退成功！');
-                            }else{
-                                var str = '';
-                                if( _leaderFlag == false ){
-                                    str += '工长删除失败，'
-                                }else{
-                                    str += '工长删除成功，'
-                                }
-                                if( _stateFlag == false ){
-                                    str += '退回失败！'
-                                }else{
-                                    str += '退回成功！'
-                                }
-                                moTaiKuang($('#myModal3'),'flag');
-                                $('#myModal3').find('.modal-body').html(str);
-                            }
                         }else if(htState == 2){
                             //删除该工单的执行人和材料
-                            if(_zhixingRens.length>0){
-                                Worker('YWGD/ywGDDelWxR','flag');
-                            }
+                            Worker('YWGD/ywGDDelWxR','flag');
                             //判断有无材料
-                            if(_weiXiuCaiLiao.length >0){
-                                CaiLiao('YWGD/ywGDDelWxCl','flag');
-                            }
-                            if( _workerFlag && _WLFlag && _stateFlag ){
-                                $('#myModal1').modal('hide');
-                                moTaiKuang($('#myModal3'),'flag');
-                                $('#myModal3').find('.modal-body').html('回退成功！');
-                            }else{
-                                var str = '';
-                                if( _workerFlag == false ){
-                                    str += '执行人删除失败，'
-                                }else{
-                                    str += '执行人删除成功，'
-                                }
-                                if( _WLFlag == false ){
-                                    str += '物料删除失败，'
-                                }else{
-                                    str += '物料删除成功，'
-                                }
-                                if( _stateFlag == false ){
-                                    str += '退回失败，'
-                                }else{
-                                    str += '退回成功，'
-                                }
-                                moTaiKuang($('#myModal3'),'flag');
-                                $('#myModal3').find('.modal-body').html(str);
-                            }
+                            CaiLiao('YWGD/ywGDDelWxCl','flag');
                         }
-                        conditionSelect();
-                        $('#myModal1').modal('hide');
-                        moTaiKuang($('#myModal3'),'flag');
-                        $('#myModal3').find('.modal-body').html('回退成功！');
                     }else{
                         _stateFlag = false;
                         moTaiKuang($('#myModal3'),'flag');
@@ -738,25 +692,27 @@ $(function(){
     })
     //线路车站联动
     $('#line').change(function(){
-        //首先将select子元素清空；
-        $('#station').empty();
         //获得选中的线路的value
         var values = $('#line').val();
         if(values == ''){
+            var str = '<option value="">请选择</option>';
             //所有车站数据
-            ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
+            for(var i=0;i<_allDataBM.length;i++){
+                str += '<option value="' + _allDataBM[i].ddNum + '">' + _allDataBM[i].ddName + '</option>';
+            }
+            $('#station').empty().append(str);
         }else{
+            var str = '<option value="">请选择</option>';
             for(var i=0;i<_lineArr.length;i++){
                 if(values == _lineArr[i].dlNum){
                     //创建对应的车站
-                    var str = '<option value="">请选择</option>';
                     for(var j=0;j<_lineArr[i].deps.length;j++){
                         str += '<option value="' + _lineArr[i].deps[j].ddNum +
                             '">'+ _lineArr[i].deps[j].ddName + '</option>';
                     }
-                    $('#station').append(str);
                 }
             }
+            $('#station').empty().append(str);
         }
     });
     //印象单位联动
@@ -764,18 +720,23 @@ $(function(){
         var values = $('#yxdw').val();
         $('#userClass').empty();
         if(values == ''){
-            InfluencingUnit('flag');
+            var str = '<option value="">请选择</option>';
+            for(var i=0;i<_bzArr.length;i++){
+                str += '<option value="' + _bzArr[i].departNum +
+                    '">' + _bzArr[i].departName + '</option>';
+            }
+            $('#userClass').empty().append(str);
         }else{
+            var str = '<option value="">请选择</option>';
             for(var i=0;i<_InfluencingArr.length;i++){
                 if(values == _InfluencingArr[i].departNum){
-                    var str = '<option value="">请选择</option>';
                     for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
                         str += '<option value="' + _InfluencingArr[i].wxBanzus[j].departNum +
                             '">' + _InfluencingArr[i].wxBanzus[j].departName + '</option>'
                     }
-                    $('#userClass').append(str);
                 }
             }
+            $('#userClass').empty().append(str);
         }
     });
     /*----------------------------打印部分去掉的东西-----------------------------*/
@@ -818,7 +779,7 @@ $(function(){
             userName:_userIdName,
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
-            gdSrc:$('#gdly').val()
+            gdCodeSrc:$('#gdly').val()
         };
         var userArr = [];
         var cheArr = [];
@@ -832,13 +793,12 @@ $(function(){
             }
             prm2.wxKeshis = userArr;
         }else if($('#yxdw').val() == '' && $('#userClass').val() == ''){
-            console.log(_InfluencingArr);
             for(var i=0;i<_InfluencingArr.length;i++){
                 for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
                     userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
                 }
             }
-            prm2.wxKeshis = userArr;
+            //prm2.wxKeshis = userArr;
         }else{
             prm2.wxKeshi = $('#userClass').val();
 
@@ -855,11 +815,10 @@ $(function(){
             prm2.bxKeshiNums = cheArr;
         }else if($('#line').val() == '' && $('#station').val() == ''){
             for(var i=0;i<_lineArr.length;i++){
-                if( values == _lineArr[i].dlNum ){
-                    for(var j=0;j<_lineArr[i].deps.length;j++){
-                        cheArr.push(_lineArr[i].deps[j].ddNum);
-                    }
+                for(var j=0;j<_lineArr[i].deps.length;j++){
+                    cheArr.push(_lineArr[i].deps[j].ddNum);
                 }
+
             }
             prm2.bxKeshiNums = cheArr;
         }else{
@@ -917,77 +876,96 @@ $(function(){
     }
     //删除执行人方法
     function Worker(url,flag){
-        var workerArr = [];
-        for(var i=0; i<_zhixingRens.length;i++){
-            var obj = {};
-            if(flag){
-                obj.wxrID = _zhixingRens[i].wxrID;
-            }
-            obj.wxRen = _zhixingRens[i].wxRen;
-            obj.wxRName = _zhixingRens[i].wxRName;
-            obj.wxRDh = _zhixingRens[i].wxRDh;
-            obj.gdCode = _gdCode;
-            workerArr.push(obj);
-        }
-        var gdWR = {
-            gdCode :_gdCode,
-            gdWxRs:workerArr,
-            userID:_userIdNum,
-            userName:_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:gdWR,
-            async:false,
-            success:function(result){
-                if(result == 99){
-                    _workerFlag = true;
-                }else{
-                    _workerFlag = false;
+        if(_zhixingRens.length){
+            var workerArr = [];
+            for(var i=0; i<_zhixingRens.length;i++){
+                var obj = {};
+                if(flag){
+                    obj.wxrID = _zhixingRens[i].wxrID;
                 }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+                obj.wxRen = _zhixingRens[i].wxRen;
+                obj.wxRName = _zhixingRens[i].wxRName;
+                obj.wxRDh = _zhixingRens[i].wxRDh;
+                obj.gdCode = _gdCode;
+                workerArr.push(obj);
             }
-        });
+            var gdWR = {
+                gdCode :_gdCode,
+                gdWxRs:workerArr,
+                userID:_userIdNum,
+                userName:_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + url,
+                data:gdWR,
+                async:false,
+                success:function(result){
+                    _zxrComplete = true;
+                    if(result == 99){
+                        _workerFlag = true;
+                    }else{
+                        _workerFlag = false;
+                    }
+                    completeFun();
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            });
+        }else{
+            _workerFlag = true;
+            _zxrComplete = true;
+            completeFun();
+        }
+
     }
     //删除物料方法
     function CaiLiao(url,flag){
-        var cailiaoArr = [];
-        for(var i=0;i<_weiXiuCaiLiao.length;i++){
-            var obj = {};
-            if(flag){
-                obj.wxClID = _weiXiuCaiLiao[i].wxClID
-            }
-            obj.wxCl = _weiXiuCaiLiao[i].wxCl;
-            obj.wxClName = _weiXiuCaiLiao[i].wxClName;
-            obj.clShul = _weiXiuCaiLiao[i].clShul;
-            obj.gdCode = _gdCode;
-            cailiaoArr.push(obj);
-        }
-        var gdWxCl = {
-            gdCode:_gdCode,
-            gdWxCls:cailiaoArr,
-            userID:_userIdNum,
-            userName:_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            data:gdWxCl,
-            async:false,
-            success:function(result){
-                if(result == 99){
-                    _WLFlag = true;
-                }else{
-                    _WLFlag = false;
+        if(_weiXiuCaiLiao.length){
+            console.log(11);
+            var cailiaoArr = [];
+            for(var i=0;i<_weiXiuCaiLiao.length;i++){
+                var obj = {};
+                if(flag){
+                    obj.wxClID = _weiXiuCaiLiao[i].wxClID
                 }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+                obj.wxCl = _weiXiuCaiLiao[i].wxCl;
+                obj.wxClName = _weiXiuCaiLiao[i].wxClName;
+                obj.clShul = _weiXiuCaiLiao[i].clShul;
+                obj.gdCode = _gdCode;
+                cailiaoArr.push(obj);
             }
-        })
+            var gdWxCl = {
+                gdCode:_gdCode,
+                gdWxCls:cailiaoArr,
+                userID:_userIdNum,
+                userName:_userIdName
+            }
+            $.ajax({
+                type:'post',
+                url:_urls + url,
+                data:gdWxCl,
+                async:false,
+                success:function(result){
+                    _wlComplete = true;
+                    if(result == 99){
+                        _WLFlag = true;
+                    }else{
+                        _WLFlag = false;
+                    }
+                    completeFun();
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+        }else{
+            _wlComplete = true;
+            _WLFlag = true;
+            completeFun();
+        }
+
     }
     //删除责任人
     function manager(url,flag){
@@ -1020,6 +998,26 @@ $(function(){
                 }else{
                     _leaderFlag = false;
                 }
+                if( _stateFlag && _leaderFlag ){
+                    $('#myModal1').modal('hide');
+                    moTaiKuang($('#myModal3'),'flag');
+                    $('#myModal3').find('.modal-body').html('回退成功！');
+                    conditionSelect();
+                }else{
+                    var str = '';
+                    if( _leaderFlag == false ){
+                        str += '工长删除失败，'
+                    }else{
+                        str += '工长删除成功，'
+                    }
+                    if( _stateFlag == false ){
+                        str += '退回失败！'
+                    }else{
+                        str += '退回成功！'
+                    }
+                    moTaiKuang($('#myModal3'),'flag');
+                    $('#myModal3').find('.modal-body').html(str);
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1033,10 +1031,11 @@ $(function(){
         str = str.replace(ip,res);
         return str;
     }
-    //ajaxFun（设备类型select的值）
-    function ajaxFun(url, allArr, select, text, num) {
+    //ajaxFun（设备类型select的值,flag传自己的flag变量）
+    function ajaxFun(url, allArr, select, text, num,flag) {
         var prm = {
-            'userID': _userIdNum
+            'userID': _userIdNum,
+            'userName':_userIdName
         }
         prm[text] = '';
         $.ajax({
@@ -1050,16 +1049,13 @@ $(function(){
                     str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
                     allArr.push(result[i]);
                 }
-                select.append(str);
-
+                select.empty().append(str);
                 if(url == 'YWDev/ywDMGetDSs'){
-                    var str1 = '<option value="">请选择</option>';
-                    for(var i=0;i<result.length;i++){
-                        str1 += '<option value="' + result[i].dsNum +
-                            '">' + result[i].dsName + '</option>'
-                    }
-                    $('#xtlx').append(str1);
+                    _isSystemLoaded = true;
+                }else{
+                    _isStationLoaded = true;
                 }
+                firstLoadData();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1093,7 +1089,7 @@ $(function(){
         })
     }
     //获取到影响单位、用户分类
-    function InfluencingUnit(flag){
+    function InfluencingUnit(){
         var prm = {
             "id": 0,
             "ddNum": "",
@@ -1108,18 +1104,17 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetWxBanzuStation',
             data:prm,
             success:function(result){
+                _InfluencingArr.length = 0;
+                _bzArr.length = 0;
+                for(var i=0;i<result.stations.length;i++){
+                    _InfluencingArr.push(result.stations[i]);
+                }
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    _bzArr.push(result.wxBanzus[i]);
+                }
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
-
-                if(flag){
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
-                    }
-                    $('#userClass').append(str1);
-                }else{
-                    _InfluencingArr = [];
-                    //首先判断是在车间还是维保组里
+                    //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可)
                     var stationsFlag = false;
                     var wxBanzusFlag = false;
                     for(var i=0;i<result.stations.length;i++){
@@ -1165,7 +1160,6 @@ $(function(){
                     } else{
                         //所属车间
                         for(var i=0;i<result.stations.length;i++){
-                            _InfluencingArr.push(result.stations[i]);
                             str += '<option value="' + result.stations[i].departNum +
                                 '">' + result.stations[i].departName + '</option>';
                         }
@@ -1177,9 +1171,8 @@ $(function(){
                     }
                     $('#yxdw').empty().append(str);
                     $('#userClass').empty().append(str1);
-                }
-                _isDepartLoaded = true;
-                firstLoadData();
+                    _isDepartLoaded = true;
+                    firstLoadData();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1232,12 +1225,39 @@ $(function(){
 
     //页面收入默认载入数据
     function firstLoadData(){
-        if(_isFirstLoad){
-            if(_isDepartLoaded && _isLineLoaded && _isStationLoaded){
+        if(_isDepartLoaded && _isLineLoaded && _isStationLoaded && _isSystemLoaded){
+            conditionSelect();
+        }
+    }
+
+    //执行人物料方法完毕执行
+    function completeFun(){
+        if(_zxrComplete && _wlComplete){
+            if( _workerFlag && _WLFlag && _stateFlag ){
+                $('#myModal1').modal('hide');
+                moTaiKuang($('#myModal3'),'flag');
+                $('#myModal3').find('.modal-body').html('回退成功！');
                 conditionSelect();
-                _isFirstLoad = false;
+            }else{
+                var str = '';
+                if( _workerFlag == false ){
+                    str += '执行人删除失败，'
+                }else{
+                    str += '执行人删除成功，'
+                }
+                if( _WLFlag == false ){
+                    str += '物料删除失败，'
+                }else{
+                    str += '物料删除成功，'
+                }
+                if( _stateFlag == false ){
+                    str += '退回失败，'
+                }else{
+                    str += '退回成功，'
+                }
+                moTaiKuang($('#myModal3'),'flag');
+                $('#myModal3').find('.modal-body').html(str);
             }
         }
-
     }
 })

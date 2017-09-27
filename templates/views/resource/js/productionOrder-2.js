@@ -118,6 +118,25 @@ $(function(){
     var _gdCircle = 0;
     //重发成功标识
     var _reSendFlag = false;
+    //记录维修内容修改是否执行完成
+    var _wxIsComplete = false;
+    //执行人员是否执行完成
+    var _zxrComplete = false;
+    //状态转换是否完成
+    var _ztChangeComplete = false;
+    //重发是否完成
+    var _reSendComplete = false;
+    //存放所有维保组的数组
+    var _InfluencingArr = [];
+
+    //维修班组数组
+    var _bzArr = [];
+
+    //标识在维保组中
+    var _isWBZ = false;
+
+    //标识在维修班组中
+    var _isBZ = false;
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -319,8 +338,8 @@ $(function(){
     tableInit($('#personTable2'),col6);
     /*-----------------------------页面加载时调用的方法------------------------------*/
     //条件查询
-    conditionSelect();
-
+    //conditionSelect();
+    InfluencingUnit();
     //不打印部分
     noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
     /*---------------------------------表格绑定事件-------------------------------------*/
@@ -496,13 +515,21 @@ $(function(){
             'gdSt':realityStart,
             'gdEt':realityEnd,
             'bxKeshi':filterInput[1],
-            'wxKeshi':'',
             "gdZht": 0,
             "gdZhts": [
                 2,5
             ],
             'userID':_userIdNum,
             'userName':_userIdName
+        }
+        var wbzArr = [];
+        if(_isWBZ){
+            for(var i=0;i<_bzArr.length;i++){
+                wbzArr.push(_bzArr[i].departNum);
+            }
+            prm.wxKeshis = wbzArr;
+        }else if(_isBZ){
+            prm.wxKeshi = _maintenanceTeam;
         }
         $.ajax({
             type:'post',
@@ -580,77 +607,23 @@ $(function(){
                 $('#myModal4').find('.modal-body').html('维修班组不能为空！');
                 moTaiKuang($('#myModal4'),'flag');
             }
-
         }else{
             if(_gdCircle == 5){
                 _gdCircle = parseInt(_gdCircle) + 1;
                 //重发
-                reSend();
+                reSend(2);
                 //更新维修备注
-                upDateWXRemark();
+                upDateWXRemark(2);
                 //执行人添加
-                Worker('YWGD/ywGDAddWxR');
-                //根据状态提示
-                if( _workerFlag && _wxBZFlag && _reSendFlag ){
-                    $('#myModal4').find('.modal-body').html('工单分派成功！');
-                    moTaiKuang($('#myModal4'),'flag');
-                    $('#myModal').modal('hide');
-                }else{
-                    var str = '';
-                    if( _workerFlag == false ){
-                        str += '执行人添加失败，'
-                    }else{
-                        str += '执行人添加成功，'
-                    }
-                    if( _wxBZFlag == false ){
-                        str += '维修内容修改失败，'
-                    }else{
-                        str += '维修内容添加成功，'
-                    }
-                    if( _reSendFlag == false ){
-                        str += '工单分派失败！'
-                    }else{
-                        str += '工单分派成功！'
-                    }
-                    $('#myModal4').find('.modal-body').html(str);
-                    moTaiKuang($('#myModal4'),'flag');
-                    $('#myModal').modal('hide');
-                }
+                Worker('YWGD/ywGDAddWxR',2);
             }else{
                 //更新维修备注
-                upDateWXRemark();
+                upDateWXRemark(1);
                 //执行人添加
-                Worker('YWGD/ywGDAddWxR');
+                Worker('YWGD/ywGDAddWxR',1);
                 //更新状态
-                upDate();
-                //根据状态提示
-                if( _workerFlag  && _wxBZFlag && _upDateStateFlag ){
-                    $('#myModal4').find('.modal-body').html('工单分派成功！');
-                    moTaiKuang($('#myModal4'),'flag');
-                    $('#myModal').modal('hide');
-                }else{
-                    var str = '';
-                    if( _workerFlag == false ){
-                        str += '执行人添加失败，'
-                    }else{
-                        str += '执行人添加成功，'
-                    }
-                    if( _wxBZFlag == false ){
-                        str += '维修内容修改失败，'
-                    }else{
-                        str += '维修内容添加成功，'
-                    }
-                    if( _upDateStateFlag == false ){
-                        str += '工单分派失败！'
-                    }else{
-                        str += '工单分派成功！'
-                    }
-                    $('#myModal4').find('.modal-body').html(str);
-                    moTaiKuang($('#myModal4'),'flag');
-                    $('#myModal').modal('hide');
-                }
+                upDate(1);
             }
-            conditionSelect();
         }
     })
     $('.confirm').click(function(){
@@ -838,6 +811,44 @@ $(function(){
     });
 
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
+    //获取到影响单位、用户分类
+    function InfluencingUnit(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+            data:prm,
+            success:function(result){
+                _maintenanceTeam = 'JT04';
+                _InfluencingArr.length = 0;
+                _bzArr.length = 0;
+                //判断session中的变量是在维保组还是在维修班组中，
+                for(var i=0;i<result.stations.length;i++){
+                    if(_maintenanceTeam == result.stations[i].departNum){
+                        _isWBZ = true;
+                        _InfluencingArr.push(result.stations[i]);
+                        for(var j=0;j<result.stations[i].wxBanzus.length;j++){
+                            _bzArr.push(result.stations[i].wxBanzus[j]);
+                        }
+                    }
+                }
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    if(_maintenanceTeam == result.wxBanzus[i].departNum){
+                        _isBZ = true;
+                        _bzArr.push(result.wxBanzus[i]);
+                    }
+                }
+                //按条件加载
+                conditionSelect();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
     //模态框自适应
     function moTaiKuang(who,flag){
         who.modal({
@@ -960,9 +971,6 @@ $(function(){
         var workerArr = [];
         for(var i=0; i<_zhixingRens.length;i++){
             var obj = {};
-            if(flag){
-                obj.wxClID = _zhixingRens[i].wxrID;
-            }
             obj.wxRen = _zhixingRens[i].userNum;
             obj.wxRName = _zhixingRens[i].userName;
             obj.wxRDh = _zhixingRens[i].mobile;
@@ -986,12 +994,17 @@ $(function(){
             type:'post',
             url:_urls + url,
             data:gdWR,
-            async:false,
             success:function(result){
+                _zxrComplete = true;
                 if(result == 99){
                     _workerFlag = true;
                 }else{
                     _workerFlag = false;
+                }
+                if(flag == 1){
+                    firstFP();
+                }else if(flag == 2){
+                    secondFP();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1103,7 +1116,7 @@ $(function(){
 
     }
     //更新维修备注
-    function upDateWXRemark(){
+    function upDateWXRemark(flag){
         var prm = {
             "gdCode": gdCode,
             "gdZht": _gdState,
@@ -1118,10 +1131,16 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+                _wxIsComplete = true;
                 if(result == 99){
                     _wxBZFlag = true;
                 }else{
                     _wxBZFlag = false;
+                }
+                if(flag == 1){
+                    firstFP();
+                }else if(flag == 2){
+                    secondFP();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1130,7 +1149,7 @@ $(function(){
         })
     }
     //跟新状态
-    function upDate(){
+    function upDate(flag){
         var gdInfo = {
             'gdCode':gdCode,
             'gdZht':3,
@@ -1145,12 +1164,15 @@ $(function(){
             data:gdInfo,
             async:false,
             success:function(result){
+                _ztChangeComplete = true;
                 if(result == 99){
                     _upDateStateFlag = true;
                 }else{
                     _upDateStateFlag = false;
                 }
-
+                if(flag == 1){
+                    firstFP();
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1196,7 +1218,7 @@ $(function(){
         el.addClass('noprint')
     }
     //重发
-    function reSend(){
+    function reSend(flag){
         var gi = {
             "gdCode": gdCode,
             "gdZht": 3,
@@ -1210,10 +1232,14 @@ $(function(){
             data:gi,
             async:false,
             success:function(result){
+                _reSendComplete = true;
                 if(result == 99){
                     _reSendFlag = true;
                 }else{
                     _reSendFlag = false;
+                }
+                if(flag == 2){
+                    secondFP();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1253,6 +1279,69 @@ $(function(){
         }
         if (ztz == 999) {
             return '任务取消'
+        }
+    }
+    //分派
+    function firstFP(){
+        if(_zxrComplete && _wxIsComplete && _ztChangeComplete){
+            //根据状态提示
+            if( _workerFlag  && _wxBZFlag && _upDateStateFlag ){
+                $('#myModal4').find('.modal-body').html('工单分派成功！');
+                moTaiKuang($('#myModal4'),'flag');
+                $('#myModal').modal('hide');
+            }else{
+                var str = '';
+                if( _workerFlag == false ){
+                    str += '执行人添加失败，'
+                }else{
+                    str += '执行人添加成功，'
+                }
+                if( _wxBZFlag == false ){
+                    str += '维修内容修改失败，'
+                }else{
+                    str += '维修内容添加成功，'
+                }
+                if( _upDateStateFlag == false ){
+                    str += '工单分派失败！'
+                }else{
+                    str += '工单分派成功！'
+                }
+                $('#myModal4').find('.modal-body').html(str);
+                moTaiKuang($('#myModal4'),'flag');
+                $('#myModal').modal('hide');
+                conditionSelect();
+            }
+        }
+    }
+    //重派
+    function secondFP(){
+        if(_reSendComplete && _wxIsComplete && _zxrComplete){
+            //根据状态提示
+            if( _workerFlag && _wxBZFlag && _reSendFlag ){
+                $('#myModal4').find('.modal-body').html('工单分派成功！');
+                moTaiKuang($('#myModal4'),'flag');
+                $('#myModal').modal('hide');
+            }else{
+                var str = '';
+                if( _workerFlag == false ){
+                    str += '执行人添加失败，'
+                }else{
+                    str += '执行人添加成功，'
+                }
+                if( _wxBZFlag == false ){
+                    str += '维修内容修改失败，'
+                }else{
+                    str += '维修内容添加成功，'
+                }
+                if( _reSendFlag == false ){
+                    str += '工单分派失败！'
+                }else{
+                    str += '工单分派成功！'
+                }
+                $('#myModal4').find('.modal-body').html(str);
+                moTaiKuang($('#myModal4'),'flag');
+                $('#myModal').modal('hide');
+            }
         }
     }
 })

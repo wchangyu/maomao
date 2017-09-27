@@ -420,7 +420,7 @@
         "uri":"../gongdangunali/productionOrder-5.html",
         "uid":"",
         "arg":"",
-        "arg2":"dd01",
+        "arg2":"",
         "iconclass":""
       },
       "工单综合查询":{
@@ -571,6 +571,14 @@
         "type":"0",
         "content":"故障未修复明细表",
         "uri":"../guzhangfenxibiao/failureRepairList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "未完成工单":{
+        "type":"0",
+        "content":"未完成工单",
+        "uri":"../guzhangfenxibiao/unfinishedGD.html",
         "uid":"",
         "arg":"",
         "iconclass":""
