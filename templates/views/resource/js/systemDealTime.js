@@ -16,9 +16,6 @@ $('.datatimeblock').datepicker({
 //延迟时间
 var theTimes = 30000;
 $(document).ready(function(){
-
-
-
     //初始化
     var myChart = echarts.init(document.getElementById('energy-demand'));
     // 指定图表的配置项和数据

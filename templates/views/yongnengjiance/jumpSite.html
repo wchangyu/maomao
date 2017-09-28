@@ -95,14 +95,16 @@
         var userName = sessionStorage.getItem('userName');
         var userPassWord = sessionStorage.getItem('userpassword');
 
+        var curIP = window.location.host;
+
         //获取当前IP地址
-//        var  host =  "http://" + "/EMPW";
-        var host = '';
+         var  host =  "http://" +  curIP +"/EMPW";
+
         // 获取当前时间
         var now = moment().format('YYYY-MM-DD');
 
         //加密条件
-        var urlstring  = host;
+        var urlstring  = '';
         urlstring += "hq";
         urlstring += now;
 
@@ -118,7 +120,9 @@
         var passTime = Went.utility.wCoder.wEncode(now, host+'hq');
 
         //打开的地址
-        window.location.href= host+ "?para1="+passName+"&para2="+passWord+"&para3="+passTime+"";
+        window.open(host+ "?para1="+passName+"&para2="+passWord+"&para3="+passTime+"");
+
+        window.location.href = "../shouye/index.html";
     });
 </script>
 </body>

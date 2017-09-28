@@ -7,6 +7,7 @@ const _HeatYC = 300;  //热量的年耗,100MJ/m2
 $(function(){
     //上日上年标题部分
     titleChange();
+
     //读取楼宇和科室的zTree；
     _objectSel = new ObjectSelection();
     _objectSel.initPointers($("#allPointer"),true);
@@ -378,13 +379,17 @@ $(function(){
         }
     });
 })
-  //对于用户来说的区域位置 
+//对于用户来说的区域位置
 var _changeTitle = '上日';
 var _myChart;
 var _myChart1;
 var _myChart2;
 var _myChart3;
 var _dataRanges = '日';
+function setChart1Option(ec,wc,cc,hc){
+
+}
+
 //获取楼宇ID
 //存放id
 var  arr=[];
@@ -406,10 +411,12 @@ var newStr1;
 //上月能耗费用
 var arr_6=[];
 var arr_7=[];
-//楼宇总能耗
+//楼宇总能耗（仪表盘）
 function getClassEcData(){
 
     var pts = _objectSel.getSelectedPointers();
+
+    console.log(pts);
 
     var pointerID = [];
 
@@ -430,10 +437,10 @@ function getClassEcData(){
 
     if(!pointerID) { return ;}
 
-   $(pts).each(function(i,o){
+    $(pts).each(function(i,o){
 
-       postPointerID.push(o.pointerID)
-   })
+        postPointerID.push(o.pointerID)
+    })
 
 
     var ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'dateType':_dataRanges};
@@ -442,7 +449,6 @@ function getClassEcData(){
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getClassEcData',
         data: ecParams,
         async:true,
-        timeout:30000,
         beforeSend:function(){
             _myChart1.showLoading({
                 text:'获取数据中',
@@ -454,6 +460,7 @@ function getClassEcData(){
             })
         },
         success: function (result) {
+
             _myChart1.hideLoading();
             _myChart3.hideLoading();
             setEnergyType(sessionStorage.allEnergyType,result);
@@ -467,30 +474,10 @@ function getClassEcData(){
                     dian = result[i].ecDataByArea.toFixed(2);
                 }else if(result[i].energyItemID == "511"){
                     dian = result[i].ecDataByArea.toFixed(2);
-                }else{
-                    dian = 0.00;
                 }
                 option.series[i-1].data[0].value = dian;
             }
             _myChart1.setOption(option,true);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            _myChart1.hideLoading();
-            _myChart3.hideLoading();
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option.series = dataY;
-                _myChart1.setOption(option);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
-            }
-
         }
     });
 }
@@ -508,7 +495,6 @@ function getOfficeClassEcData(){
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getOfficeClassEcData',
         data:ecParams,
         async:true,
-        timeout:30000,
         beforeSend:function(){
             _myChart1.showLoading({
                 text:'获取数据中',
@@ -516,47 +502,13 @@ function getOfficeClassEcData(){
             })
         },
         success:function(result){
-            _myChart1.hideLoading();
-            _myChart3.hideLoading();
-            setEnergyType(sessionStorage.allEnergyType,result);
-            var dian = 0;
-            for(var i=0;i<option.series.length;i++){
-                if(result[i]){
-                    if(result[i].energyItemID == "4" ){
-                        dian = result[i].ecDataByArea.toFixed(2);
-                    }else if(result[i].energyItemID == "5"){
-                        dian = (result[i].ecDataByArea * 1000).toFixed(2);//水单位t到L
-                    }
-                }
-                else{
-                    dian = 0.00;
-                }
-                option.series[i].data[0].value = dian;
-            }
-            _myChart1.setOption(option,true);
+            _myChart1.hideLoading()
             setEnergyType(sessionStorage.officeEnergyType,result)
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            _myChart3.hideLoading();
-            _myChart1.hideLoading();
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option.series = dataY;
-                _myChart1.setOption(option);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
-            }
         }
     })
 }
 //楼宇分项电耗
-function PointerPowerConsumption(){
+function PointerPowerConsumption()  {
     var pts = _objectSel.getSelectedPointers();
     var pointerID = [];
 
@@ -584,7 +536,6 @@ function PointerPowerConsumption(){
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyItemEcData',
         data: ecParams,
         async:true,
-        timeout:30000,
         beforeSend:function(){
             _myChart.showLoading({
                 text:'获取数据中',
@@ -607,18 +558,10 @@ function PointerPowerConsumption(){
             _myChart.setOption(option1);
         },
         error:function(jqXHR, textStatus, errorThrown){
-            _myChart.hideLoading();
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option1.series = dataY;
+                option1.series[0].data = [];
+                _myChart.hideLoading();
                 _myChart.setOption(option1);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
             }
         }
     })
@@ -637,7 +580,6 @@ function OfficePowerConsumption(){
         url:sessionStorage.apiUrlPrefix+'ecDatas/GetOfficeEIEC',
         data:ecParams,
         async:true,
-        timeout:30000,
         beforeSend:function(){
             _myChart.showLoading({
                 text:'获取数据中',
@@ -645,7 +587,6 @@ function OfficePowerConsumption(){
             })
         },
         success:function(result){
-            option1.series[0].data.length = 0;
             _myChart.hideLoading()
             var arr_10=[];
             for(var i=0;i<result.length;i++){
@@ -660,18 +601,10 @@ function OfficePowerConsumption(){
             _myChart.setOption(option1);
         },
         error:function(jqXHR, textStatus, errorThrown){
-            _myChart.hideLoading();
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option1.series = dataY;
-                _myChart.setOption(option1);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
+                option1.series[0].data = [];
+                _myChart.hideLoading();
+                option1.series[0].data.push(obj);
             }
         }
     })
@@ -700,15 +633,14 @@ function PointerCharge(){
 
 
 
-        ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
+    ecParams={'pointerIds':postPointerID,'startTime':newStr,'endTime':newStr1,'pointerOfficeType':'2'};
 
 
     $.ajax({
         type:'post',
         url:sessionStorage.apiUrlPrefix+'EnergyItemDatas/getEnergyMoneyCost',
         data:ecParams,
-        async:true,
-        timeout:30000,
+        async:false,
         beforeSend:function(){
             _myChart2.showLoading({
                 text:'获取数据中',
@@ -724,22 +656,6 @@ function PointerCharge(){
             option2.xAxis.data = arr_6;
             option2.series[0].data = arr_7;
             _myChart2.setOption(option2);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            _myChart2.hideLoading();
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option2.series = dataY;
-                _myChart2.setOption(option2);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
-            }
         }
     })
 }
@@ -756,8 +672,7 @@ function OfficeCharge(){
         type:'post',
         url: sessionStorage.apiUrlPrefix + "EnergyItemDatas/getEnergyMoneyCost",
         data:ecParams,
-        async:true,
-        timeout:30000,
+        async:false,
         beforeSend:function(){
             _myChart2.showLoading({
                 text:'获取数据中',
@@ -766,7 +681,6 @@ function OfficeCharge(){
         },
         success:function(result){
             _myChart2.hideLoading();
-
             for(var i=0;i<result.length;i++){
                 arr_6[i] = result[i].itemName;
                 arr_7[i] = parseInt(result[i].itemMoneyCost);
@@ -774,25 +688,10 @@ function OfficeCharge(){
             option2.xAxis.data = arr_6;
             option2.series[0].data = arr_7;
             _myChart2.setOption(option2);
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            _myChart2.hideLoading();
-            console.log(JSON.parse(jqXHR.responseText).message);
-            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option2.series = dataY;
-                _myChart2.setOption(option2);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                alert("超时");
-            }else{
-                alert("请求失败！");
-            }
         }
     })
 }
+
 //浏览器echarts自适应
 window.onresize = function () {
     if(_myChart && _myChart1 && _myChart2){
@@ -833,6 +732,7 @@ function timeLastYear(){
 //ets:sessionStorage中存储的配置文件中的能耗分类
 //ecs：从数据接口中获取的能耗数据
 function setEnergyType(ets,ecs){
+    //console.log(ets);
     var types;
     if(ets){
         types = JSON.parse(ets);       //获取缓存的配置的显示能耗分类
@@ -849,7 +749,7 @@ function setEnergyType(ets,ecs){
 }
 //设置每个能耗的块信息,div
 //et:能耗分类,ec:能耗数据
-function setEnergyBlock(et,ec){
+function setEnergyBlock(et,ec)  {
     if(!et){  //没有能耗定义信息，表示是总能耗
         et = {};
         et.etname = ec.ecClassName;

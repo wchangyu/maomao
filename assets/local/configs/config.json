@@ -136,9 +136,9 @@
   "allPointerName" : "全院",
   "alarmAlert":"0",
   "alarmSong":"0",
-  "changeMenuByProcs":"1",
+  "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"1",
+  "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html"
 }

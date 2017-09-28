@@ -16,9 +16,6 @@ $('.datatimeblock').datepicker({
 //延迟时间
 var theTimes = 30000;
 $(document).ready(function(){
-
-
-
     //初始化
     var myChart = echarts.init(document.getElementById('energy-demand'));
     // 指定图表的配置项和数据
@@ -125,7 +122,7 @@ $(document).ready(function(){
                 postUrl = '/YWGDAnalysis/GetGDDSysRate';
                 postName = 'ddNums';
                 var theVal = $('#refer-station').val();
-                if($('#refer-point').val() == 0){
+                if($('#refer-point').val() == 0 && $('#refer-station').val() == 0){
                     postArr =  DStationArr;
                 }else{
                     //车站选择全部时
@@ -229,6 +226,7 @@ $('#refer-type').on('change',function(){
         $('#refer-station').parents('li').removeClass('show');
     }
 
+
 });
 
 //改变线点时，给车站添加联动
@@ -236,9 +234,9 @@ $('#refer-point').on('change',function(){
     console.log(33);
     var theVal = $(this).val();
     if(theVal == 0){
-        $('#refer-station').html('<option value="0">全部</option>');
+        $('#refer-station').html(DStationSelect);
+        return false;
     }
-
     $(relationArr).each(function(i,o){
 
         if(theVal == o.dlNum){
@@ -288,8 +286,6 @@ function getAllDLines(){
             //$(startArr).each(function(i,o){
             //    startHtml += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>';
             //});
-            $('#refer-station').html('<option value="0">全部</option>');
-
             $('.btn-success').click();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -321,13 +317,14 @@ function getAllDStations(){
         },
         success: function (data) {
             DStationSelect += '';
-
+            DStationSelect += '<option value="0">全部</option>';
             $(data).each(function(i,o){
-                DStationSelect += '<option value="0">全部</option>';
+
                 DStationSelect += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>';
                 DStationArr.push(o.ddNum);
-            })
+            });
 
+            $('#refer-station').html(DStationSelect);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

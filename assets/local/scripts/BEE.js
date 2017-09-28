@@ -245,6 +245,9 @@ var BEE = (function(){
             return;
         }
         if(!sessionStorage.pointers){ return;}      //当前没有楼宇
+        if(!sessionStorage.alarmInterval || sessionStorage.alarmInterval=='0'){ //当前未设置报警
+            return ;
+        }
         if(sessionStorage.alaInsDataTime && sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){      //如果上次有数据时间
             var lastTime = (new Date(sessionStorage.alaInsDataTime)).getTime();
             var nowTime = (new Date()).getTime();
@@ -544,7 +547,7 @@ var BEE = (function(){
                      });
                      infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html');
                      console.log(infoHtml);
-                     console.log(33);
+
                      //给悬浮窗插入指定信息
                      $dropdownMenu.html(infoHtml);
 
@@ -626,7 +629,6 @@ var BEE = (function(){
          //上方开关绑定事件
          $('#onOff1').off('click');
          $('#onOff1').on('click',function(){
-             console.log(33);
 
              if($('#add-point-byBEE').is(':hidden')){
 

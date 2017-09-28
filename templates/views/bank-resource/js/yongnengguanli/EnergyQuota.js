@@ -522,7 +522,7 @@ function getMainData(){
             var obj = {
                 dingEValue : sumArr,
                 enterpriseID : 0000,
-                enterpriseName　: '四川央行总',
+                enterpriseName　: '合计',
                 index : theIndex
             };
 

@@ -57,7 +57,7 @@ $(document).ready(function(){
     });
 
     //初始化表格
-    console.log(unitId[0]);
+
     importantId = unitId[0];
     alarmHistory(unitId[0]);
 

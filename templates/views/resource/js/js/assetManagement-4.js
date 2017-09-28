@@ -633,6 +633,7 @@ $(function(){
 
     }
 
+
     //表格初始化方法
     function tableInit(tableID,col,button){
         var _tables = tableID.DataTable({
@@ -640,7 +641,7 @@ $(function(){
             'paging': true,   //是否分页
             'destroy': true,//还原初始化了的datatable
             'searching': true,
-            'ordering': false,
+            'ordering': true,
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',
@@ -657,7 +658,7 @@ $(function(){
                     "last":"尾页"
                 }
             },
-            "dom":'t<"F"lip>',
+            "dom":'ft<"F"lip>',
             'buttons': [
                 {
                     text:'新增',
