@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -281,7 +280,7 @@
                     <div class="total-warp">
                         <div class="wrap">
                             <!-- 标题 -->
-                            <label class="content-main-contents content-main-right">
+                            <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">工单操作</li>
                                 </ul>
@@ -290,6 +289,16 @@
                                     <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <input type="text" class="global_filter" id="gdcode">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单时间：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock gdTime">
+                                        </div>
+                                        <label for="">到</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock gdTime">
                                         </div>
                                     </li>
                                     <li>
@@ -569,7 +578,7 @@
                             </div>
                         </li>
                         <li class="floatRight">
-                            <div class="labels">设备类型：</div>
+                            <div class="labels">系统类型：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="matter">
                             </div>
@@ -584,18 +593,6 @@
                             <div class="labels">设备名称：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbMC">
-                            </div>
-                        </li>
-                        <li class="floatLeft">
-                            <div class="labels">设备车间站：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="sbBM">
-                            </div>
-                        </li>
-                        <li class="floatRight">
-                            <div class="labels">安装地点：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="azAddress">
                             </div>
                         </li>
                         <li class="floatLeft">

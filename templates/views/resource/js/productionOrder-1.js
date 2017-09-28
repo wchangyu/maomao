@@ -633,7 +633,7 @@ $(function () {
       })
 
   $('.quickDengji').click(function () {
-    if (quickWork.telephone == '' || quickWork.person == '' || quickWork.place == ''  || quickWork.section == '' || quickWork.matter == '' || quickWork.weixiukeshis == '') {
+    if (quickWork.telephone == '' || quickWork.person == '' || quickWork.place == ''  || quickWork.section == '' || quickWork.matter == '' || quickWork.weixiukeshis == '' || $('.weixiuBZ').val() == '') {
       _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','请填写红色必填项!', '')
     } else {
       $('.loading').showLoading();

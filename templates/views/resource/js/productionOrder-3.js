@@ -682,7 +682,7 @@ $(function(){
         //登记
         .on('click','.dengji',function(){
         //判断必填项是否都填了
-        if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.wxKeshi  == '' ){
+        if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
             _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }else{
             var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
@@ -848,8 +848,12 @@ $(function(){
     })
         //编辑
         .on('click','.bianji',function(){
-            upDateWXRemark(1);
-            editGD(1);
+            if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+            }else{
+                upDateWXRemark(1);
+                editGD(1);
+            }
         })
         //下发
         .on('click','.paigongButton',function(){

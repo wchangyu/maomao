@@ -1289,6 +1289,7 @@ $(function(){
                 $('#myModal4').find('.modal-body').html('工单分派成功！');
                 moTaiKuang($('#myModal4'),'flag');
                 $('#myModal').modal('hide');
+                conditionSelect();
             }else{
                 var str = '';
                 if( _workerFlag == false ){

@@ -281,6 +281,19 @@ function _getEcTypeValue(el){
     }
 };
 
+//获取能耗种类名称方法
+function _getEcTypeWord(el){
+    var aaa =[];
+    var jsonText = JSON.parse(sessionStorage.getItem('allEnergyType'));
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+            aaa.push(jsonText.alltypes[i].etname);
+        }
+        el = aaa[$('.selectedEnergy').index()];
+        return el;
+    }
+}
+
 //获取能耗种类方法（电、水、气）
 function _getEcType(el){
     var _energyTypeSel = new ETSelection();
