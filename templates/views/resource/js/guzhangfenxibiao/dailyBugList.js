@@ -234,7 +234,9 @@ $(function(){
                 }else{
 
                     var percent = ((count / totalNums)* 100).toFixed(1);
-                    ths1.eq(i).html(percent + '%');
+                    if(percent > -1){
+                        ths1.eq(i).html(percent + '%');
+                    }
                 }
             }
         }

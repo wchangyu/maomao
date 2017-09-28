@@ -213,7 +213,9 @@ $(function(){
                 }else{
                     var num1 = _totalNum[3];
                     var percent = ((count / num1)* 100).toFixed(1);
-                    ths1.eq(i).html(percent + '%');
+                    if(percent > -1){
+                        ths1.eq(i).html(percent + '%');
+                    }
                 }
             }else{
                 var count = _totalNum[i+1];
@@ -221,7 +223,9 @@ $(function(){
                     ths1.eq(i).html('0%');
                 }else{
                     var percent = ((count / totalNums).toFixed(3) * 100).toFixed(1);
-                    ths1.eq(i).html(percent + '%');
+                    if(percent > -1){
+                        ths1.eq(i).html(percent + '%');
+                    }
                 }
             }
         }

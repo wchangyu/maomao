@@ -277,7 +277,8 @@ var ObjectSelection = function(){
             check: {
                 enable: true,
                 chkStyle: "radio",
-                chkboxType: { "Y": "ps", "N": "ps" }
+                chkboxType: { "Y": "ps", "N": "ps" },
+                radioType : "all"
             },
             data: {
                 key: {
@@ -387,6 +388,9 @@ var ObjectSearch = function(){
         //展开 / 折叠 指定的节点
         zTree.expandNode(node,true,false,false);
         //pNode父节点
+        if(typeof node == 'function'){
+            return false;
+        }
         var pNode = node.getParentNode();
         if(pNode != null){
             this._nodeList.push(pNode);
@@ -402,12 +406,8 @@ var ObjectSearch = function(){
 
 //获取正确的Ztree树结构数据
 function getCompactArr(tempAllPointers,isCheckAll,flag){
-    //
-    //var allGetDataArr = unique1(tempAllPointers,["districtID","enterpriseID","pointerID"]);
 
     var _districArr = unique(tempAllPointers,'districtID');
-
-
     var _enterpriseArr = unique(tempAllPointers,'enterpriseID');
     var _pointerArr = unique(tempAllPointers,'pointerID');
 
@@ -446,8 +446,6 @@ function getCompactArr(tempAllPointers,isCheckAll,flag){
         }
         arr.push(obj);
     }
-    console.log(flag);
-
     var ztreeArr = [];
     for(var i=0;i<arr.length;i++){
         var obj = {};

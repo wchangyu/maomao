@@ -4,7 +4,7 @@
 //获取用户名以及对应的IP地址
 var _userIdName = sessionStorage.getItem('userName');
 var _url = sessionStorage.getItem('apiUrlPrefix');
-
+console.log(_url);
 var _urlLength = _url.length;
 
 //对从session中获取的IP地址进行处理

@@ -82,8 +82,6 @@ $(function(){
         }
     ]
     tableInit(_$tableLX,col,$('.excelButton').eq(0));
-
-
     //车务段
     var col1 = [
         {
@@ -362,8 +360,10 @@ $(function(){
     $('#myModal')
     //设备类别编辑确认按钮
         .on('click','.xiugai',function(){
+            console.log(myApp33.sbxt);
             //判断必填项是不是填写了
             if( myApp33.sblxmc == '' || myApp33.pyjm == ''){
+                console.log(33);
                 moTaiKuang($('#myModal2'));
 
                 $('#myModal2').find('.modal-body').html('请填写红色必填项');
@@ -632,6 +632,8 @@ $(function(){
         }
 
     }
+
+
     //表格初始化方法
     function tableInit(tableID,col,button){
         var _tables = tableID.DataTable({
@@ -639,7 +641,7 @@ $(function(){
             'paging': true,   //是否分页
             'destroy': true,//还原初始化了的datatable
             'searching': true,
-            'ordering': false,
+            'ordering': true,
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',
@@ -656,7 +658,6 @@ $(function(){
                     "last":"尾页"
                 }
             },
-            //"dom":'B<"clear">lfrtip',
             "dom":'ft<"F"lip>',
             'buttons': [
                 {
@@ -670,7 +671,7 @@ $(function(){
                     sDefaultContent: '',
                     aTargets: [ '_all' ]
                 }
-            ]
+            ],
         });
         _tables.buttons().container().appendTo(button,_tables.table().container());
     }

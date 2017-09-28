@@ -13,6 +13,7 @@ var Login = function() {
     }
 
     var handleLogin = function() {
+
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
@@ -85,6 +86,7 @@ var Login = function() {
                                 showAlertInfo("没有登录web系统权限");
                             }
                             else {
+                                console.log(33);
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
@@ -184,6 +186,7 @@ var Login = function() {
     }
 
     var directToIndex = function(){
+
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
@@ -341,7 +344,7 @@ var Login = function() {
                     url:sessionStorage.apiUrlPrefix + 'PR/PR_GetAllProcsByUser',
                     data:dataStr,
                     success:function(data){
-                        console.log(data);
+
                         sessionStorage.allProcs = JSON.stringify(data);
                         _isProceLoaded = true;
                         directToIndex();
@@ -361,6 +364,7 @@ var Login = function() {
         //保存当前的登录页面，提供给退出登录时候使用
         var curLoginPage = window.location.href;
         curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
+        console.log(curLoginPage);
         sessionStorage.curLoginPage = curLoginPage;
         configSrc = src || configSrc;
         if(!sessionStorage.apiUrlPrefix) {
