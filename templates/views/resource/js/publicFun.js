@@ -11,6 +11,9 @@ var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 //ajax延迟时间设置
 var _theTimes = 30000;
 
+//车间
+var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
+
 /*---------------------------时间初始化------------------------*/
 
 //datapicker时间插件初始化(日月年)
@@ -20,7 +23,8 @@ function _timeYMDComponentsFun(el){
         todayBtn: 1,
         todayHighlight: 1,
         forceParse: 0,
-        format: 'yyyy/mm/dd',     forceParse: 0
+        format: 'yyyy/mm/dd',
+        forceParse: 0
     });
 }
 
@@ -163,56 +167,33 @@ function _datasTable(tableId,arr){
 };
 
 /*--------------------------获取专业名称----------------------------*/
-//获取仓库
-function _getWarehouse(el){
+//获取专业名词
+function _getProfession(url,el,attr,attrNum,attrName){
     var prm ={
         userID:_userIdNum,
         userName:_userIdName,
     };
     $.ajax({
         type:'post',
-        url:_urls + 'YWCK/ywCKGetStorages',
+        url:_urls + url,
         data:prm,
         timeout:_theTimes,
         success:function(result){
-            var str = '<option value=" ">全部</option>';
-            for(var i=0;i<result.length;i++){
-                str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+            var str = '<option value="">请选择</option>';
+            if(attr){
+                for(var i=0;i<result[attr].length;i++){
+                    str += '<option value="' + result[attr][i][attrNum] +
+                        '">' + result[attr][i][attrName] + '</option>';
+                }
+            }else{
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i][attrNum] +
+                        '">' + result[i][attrName] + '</option>'
+                }
             }
             el.empty().append(str);
         },
         error:function(jqXHR, textStatus, errorThrown){
-            console.log(jqXHR.responseText);
-        }
-    })
-}
-
-//获取线点
-function _lineRouteData(el,arr) {
-    var prm = {
-        'userID':_userIdNum,
-        'userName':_userIdNum
-    }
-    $.ajax({
-        type:'post',
-        url:_urls + 'YWGD/ywGetDLines',
-        data:prm,
-        timeout:_theTimes,
-        success:function(result){
-            if(arr){
-                arr = [];
-            }
-            var str = '<option value="">请选择</option>';
-            for(var i=0;i<result.length;i++){
-                if(arr){
-                    arr.push(result[i]);
-                }
-                str += '<option value="' + result[i].dlNum +
-                    '">' + result[i].dlName +'</option>'
-            }
-            el.empty().append(str);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.responseText);
         }
     })
@@ -485,4 +466,5 @@ function _replaceIP(str,str1){
     str = str.replace(ip,res);
     return str;
 }
+
 

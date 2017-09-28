@@ -4,7 +4,7 @@ $(function () {
   $('.loading').showLoading();
 
   //图片ip
-  var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+  var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
   //开始/结束时间插件
   $('.datatimeblock').datepicker({
@@ -80,14 +80,26 @@ $(function () {
         selectRadio($('#myApp33'),'.whether');
       },
       selectLine:function(){
-        //首先将select子元素清空；
-         $('.cjz').empty();
-        var values = $('#line-route').val();
+        //首先将select子元
+         var values = $('#line-route').val();
          if(values == ''){
-         //所有楼栋
-           ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('.cjz'), 'ddName', 'ddNum');
+          //所有车站
+            var str = '<option value="">请选择</option>';
+           for(var i=0;i<_allDataBM.length;i++){
+              str += '<option value="' + _allDataBM[i].ddNum +
+                  '">' + _allDataBM[i].ddName + '</option>'
+           }
+           $('.cjz').empty().append(str);
          }else{
-           lineRouteData('','arr');
+           var str = '<option value="">请选择</option>';
+           for(var i=0;i<_lineArr.length;i++){
+             if(app33.lineRoute == _lineArr[i].dlNum){
+               for(var j=0;j<_lineArr[i].deps.length;j++){
+                 str += '<option value="' + _lineArr[i].deps[j].ddNum + '">' + _lineArr[i].deps[j].ddName + '</option>'
+               }
+             }
+           }
+           $('.cjz').empty().append(str);
          }
       }
     }
@@ -120,25 +132,26 @@ $(function () {
         selectRadio($('#quickWork'),'.inpus',$(this));
       },
       selectLine:function(){
-        //首先将select子元素清空；
-        $('.cjz1').empty();
-        //获得选中的线路的value
+        //首先将select子元
         var values = $('#line-route1').val();
         if(values == ''){
-          //所有楼栋
-          ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('.cjz1'), 'ddName', 'ddNum');
+          //所有车站
+          var str = '<option value="">请选择</option>';
+          for(var i=0;i<_allDataBM.length;i++){
+            str += '<option value="' + _allDataBM[i].ddNum +
+                '">' + _allDataBM[i].ddName + '</option>'
+          }
+          $('.cjz1').empty().append(str);
         }else{
+          var str = '<option value="">请选择</option>';
           for(var i=0;i<_lineArr.length;i++){
-            if(values == _lineArr[i].dlNum){
-              //创建对应的楼栋
-              var str = '<option value="">请选择</option>';
+            if(quickWork.lineRoute == _lineArr[i].dlNum){
               for(var j=0;j<_lineArr[i].deps.length;j++){
-                str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                    '">'+ _lineArr[i].deps[j].ddName + '</option>'
+                str += '<option value="' + _lineArr[i].deps[j].ddNum + '">' + _lineArr[i].deps[j].ddName + '</option>'
               }
-              $('.cjz1').append(str);
             }
           }
+          $('.cjz1').empty().append(str);
         }
       },
       selects: function () {
@@ -183,6 +196,20 @@ $(function () {
   //存放所有线路的数据
   var _lineArr = [];
 
+  //获取线路数据
+  lineRouteData(_lineArr);
+
+  //存放所有维保组的数组
+  var _InfluencingArr = [];
+
+  //维修班组数组
+  var _bzArr = [];
+
+  //标识在维保组中
+  var _isWBZ = false;
+
+  //标识在维修班组中
+  var _isBZ = false;
   /*-----------------------------表格初始化----------------------------------------*/
   //工单表格
   var table = $('#scrap-datatables').DataTable({
@@ -338,13 +365,7 @@ $(function () {
 
   /*-----------------------------页面加载时调用的方法------------------------------*/
   //条件查询
-  conditionSelect();
-
-  //线路数据
-  lineRouteData($('#line-route'));
-
-  //线路数据（快速）
-  lineRouteData($('#line-route1'));
+  InfluencingUnit();
 
   //不打印部分
   noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
@@ -699,12 +720,48 @@ $(function () {
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('保存');
         //绑定数据
         ViewOrEdit($(this));
-        $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
         //图片区域隐藏
         $('.showImage').hide();
       })
 
   /*-------------------------------方法----------------------------------------*/
+  //获取到影响单位、用户分类
+  function InfluencingUnit(){
+    var prm = {
+      "userID": _userIdNum,
+      "userName": _userIdNum
+    }
+    $.ajax({
+      type:'post',
+      url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+      data:prm,
+      success:function(result){
+        _InfluencingArr.length = 0;
+        _bzArr.length = 0;
+        //判断session中的变量是在维保组还是在维修班组中，
+        for(var i=0;i<result.stations.length;i++){
+          if(_maintenanceTeam == result.stations[i].departNum){
+            _isWBZ = true;
+            _InfluencingArr.push(result.stations[i]);
+            for(var j=0;j<result.stations[i].wxBanzus.length;j++){
+              _bzArr.push(result.stations[i].wxBanzus[j]);
+            }
+          }
+        }
+        for(var i=0;i<result.wxBanzus.length;i++){
+          if(_maintenanceTeam == result.wxBanzus[i].departNum){
+            _isBZ = true;
+            _bzArr.push(result.wxBanzus[i]);
+          }
+        }
+        //按条件加载
+        conditionSelect();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseText);
+      }
+    })
+  }
   //条件查询
   function conditionSelect() {
     //获取条件
@@ -720,10 +777,18 @@ $(function () {
       'gdSt': realityStart,
       'gdEt': realityEnd,
       'bxKeshi': filterInput[1],
-      'wxKeshi': '',
       "gdZht": 1,
       'userID': _userIdNum,
       'userName': _userIdName,
+    };
+    var wbzArr = [];
+    if(_isWBZ){
+      for(var i=0;i<_bzArr.length;i++){
+        wbzArr.push(_bzArr[i].departNum);
+      }
+      prm.wxKeshis = wbzArr;
+    }else if(_isBZ){
+      prm.wxKeshi = _maintenanceTeam;
     }
     $.ajax({
       type: 'post',
@@ -735,6 +800,7 @@ $(function () {
         datasTable($("#scrap-datatables"), result);
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        $('.loading').hideLoading();
         console.log(jqXHR.responseText);
       }
     })
@@ -1011,34 +1077,8 @@ $(function () {
           $('#myApp33').find('select').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('textarea').attr('disabled', false).removeClass('disabled-block');
           $('#myApp33').find('.inpus').attr('disabled', true);
+          $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
         }
-        //根据车间，标注建筑类型
-        var prm = {
-          'userID':_userIdNum,
-          'userName':_userIdNum
-        }
-        $.ajax({
-          type:'post',
-          url:_urls + 'YWGD/ywGetDLines',
-          data:prm,
-          timeout:_theTimes,
-          success:function(result){
-            var line = '';
-            for(var i=0;i<result.length;i++){
-              var datas = result[i];
-              for(var j=0;j<datas.deps.length;j++){
-                if(app33.section == datas.deps[j].ddNum){
-                  line = datas;
-                }
-              }
-            }
-            app33.lineRoute = line.dlNum;
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            $('.loading').hideLoading();
-            console.log(jqXHR.responseText);
-          }
-        })
       },
       error: function (jqXHR, textStatus, errorThrown) {
         $('.loading').hideLoading();
@@ -1052,8 +1092,8 @@ $(function () {
     el.addClass('noprint')
   }
 
-  //线路数据
-  function lineRouteData(el,arr){
+  //线路数据,所有车站
+  function lineRouteData(arr){
     var prm = {
       'userID':_userIdNum,
       'userName':_userIdName
@@ -1064,30 +1104,16 @@ $(function () {
       data:prm,
       timeout:_theTimes,
       success:function(result){
+        _lineArr.length = 0;
+        for(var i=0;i<result.length;i++){
+          _lineArr.push(result[i]);
+        }
         var str = '<option value="">请选择</option>';
         for(var i=0;i<result.length;i++){
-          if(arr){
-            //获得选中的线路的value
-            var values = $('#line-route').val();
-            for(var i=0;i<result.length;i++){
-              if(values == result[i].dlNum){
-                //创建对应的楼栋
-                var str = '<option value="">请选择</option>';
-                for(var j=0;j<result[i].deps.length;j++){
-                  str += '<option value="' + result[i].deps[j].ddNum +
-                      '">'+ result[i].deps[j].ddName + '</option>';
-                }
-                $('.cjz').append(str);
-              }
-            }
-          }else{
-            str += '<option value="' + result[i].dlNum +
-                '">' + result[i].dlName +'</option>'
-          }
+          str += '<option value="' + result[i].dlNum + '">' + result[i].dlName + '</option>';
         }
-        if(!arr){
-          el.empty().append(str);
-        }
+        $('#line-route').empty().append(str);
+        $('#line-route1').empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR.responseText);

@@ -976,6 +976,7 @@ $(function(){
         applySparePart($(this));
     });
 
+
     /*------------------------------其他方法-------------------------------------------------*/
     //ajaxFun（select的值）
     function ajaxFun(url, select, text, num) {
@@ -1028,7 +1029,7 @@ $(function(){
     }
 
     //条件查询
-    function conditionSelect(){
+    function conditionSelect(flag){
         if($('.datatimeblock').eq(0).val() == ''){
             slrealityStart = ''
         }else{
@@ -1045,9 +1046,13 @@ $(function(){
             gdEt:slrealityEnd,
             userID:_userIdNum,
             userName:_userIdName,
-            gdZhts:[1,2,3,4,5,6],
+            gdZht:0,
+            gdZhts: [
+                1,2,3,4,5,6
+            ],
             isCalcTimeSpan:1,
             gdZht:$('#gdzt').val(),
+            //isReturnZhtArray:1
         };
         var userArr = [];
         var cheArr = [];
@@ -1471,4 +1476,5 @@ $(function(){
             }
         })
     }
+
 })

@@ -1,0 +1,231 @@
+$(function(){
+    //时间插件
+    _timeYMDComponentsFun($('.datatimeblock'));
+
+    //默认开始时间
+    var endTime =moment().format('YYYY/MM/DD');
+
+    var startTime = moment().subtract(7,'d').format('YYYY/MM/DD');
+
+    $('.min').val(startTime);
+
+    $('.max').val(endTime);
+
+    //存储所有仓库信息
+    var _ckArr = [];
+
+    //所有仓库
+    warehouse();
+
+    //所属车间、所属维保组
+    wbz();
+
+    //仓库库区联动
+    $('#storage').change(function(){
+        //根据已选仓库，确定库区
+        console.log(_ckArr);
+        var str = '<option value="">请选择</option>';
+        for(var i=0;i<_ckArr.length;i++){
+            if($('#storage').val() == _ckArr[i].storageNum){
+                for(var j=0;j<_ckArr[i].locations.length;j++){
+                    str += '<option value="' + _ckArr[i].locations[j].localNum +
+                        '">' + _ckArr[i].locations[j].localName + '</option>'
+                }
+            }
+        }
+        $('#kqSelect').empty().append(str);
+    })
+
+    //印象单位联动
+    $('#yxdw').change(function(){
+        var values = $('#yxdw').val();
+        $('#userClass').empty();
+        if(values == ''){
+            wbz('flag');
+        }else{
+            for(var i=0;i<_InfluencingArr.length;i++){
+                if(values == _InfluencingArr[i].departNum){
+                    var str = '<option value="">请选择</option>';
+                    for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+                        str += '<option value="' + _InfluencingArr[i].wxBanzus[j].departNum +
+                            '">' + _InfluencingArr[i].wxBanzus[j].departName + '</option>'
+                    }
+                    $('#userClass').append(str);
+                }
+            }
+        }
+    });
+
+    conditionSelect();
+
+    /*---------------------------------表格初始化------------------------------*/
+    var col = [
+        {
+            title:'物品序列号',
+            data:'sn'
+        },
+        {
+            title:'物品编号',
+            data:'itemNum'
+        },
+        {
+            title:'物品名称',
+            data:'itemName'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'数量',
+            data:'num'
+        },
+        {
+            title:'单价',
+            data:'price'
+        },
+        {
+            title:'金额',
+            data:'amount'
+        },
+        {
+            title:'仓库',
+            data:'storageName'
+        },
+        {
+            title:'库区',
+            data:'localName'
+        },
+        {
+            title:'所属车间',
+            data:'departName2'
+        },
+        {
+            title:'所属班组',
+            data:'departName'
+        },
+        {
+            title:'时间',
+            data:'createTime'
+        }
+    ];
+    _tableInit($('#scrap-datatables'),col,'1','flag','','');
+
+    /*----------------------------------按钮事件------------------------------*/
+    //查询
+    $('#selected').click(function(){
+        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == ''){
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项！', '');
+        }else{
+            conditionSelect();
+        }
+    })
+
+    //重置
+    $('.resites').click(function(){
+        //input时间重置
+        $('.min').val(startTime);
+        $('.max').val(endTime);
+        //select清空
+        $('.condition-query').find(select).val('');
+    })
+
+    /*---------------------------------其他方法--------------------------------*/
+    //获取车间、维保组
+    function wbz(flag){
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+            data:{
+                "userID": _userIdNum,
+                "userName": _userIdNum
+            },
+            success:function(result){
+                var str = '<option value="">请选择</option>';
+                var str1 = '<option value="">请选择</option>';
+                if(flag){
+                    for(var i=0;i<result.wxBanzus.length;i++){
+                        str1 += '<option value="' + result.wxBanzus[i].departNum +
+                            '">' + result.wxBanzus[i].departName + '</option>';
+                    }
+                    $('#userClass').append(str1);
+                }else{
+                    _InfluencingArr = [];
+                    for(var i=0;i<result.stations.length;i++){
+                        _InfluencingArr.push(result.stations[i]);
+                        str += '<option value="' + result.stations[i].departNum +
+                            '">' + result.stations[i].departName + '</option>';
+                    }
+                    for(var i=0;i<result.wxBanzus.length;i++){
+                        str1 += '<option value="' + result.wxBanzus[i].departNum +
+                            '">' + result.wxBanzus[i].departName + '</option>';
+                    }
+                    $('#yxdw').append(str);
+                    $('#userClass').append(str1);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //条件查询
+    function conditionSelect(){
+        var endTime1 = moment(endTime).add(1,'d').format('YYYY/MM/DD')
+        var prm ={
+            st:$('.min').val(),
+            et:endTime1,
+            departNum2:$('#yxdw').val(),
+            departNum:$('#userClass').val(),
+            storageNum:$('#storage').val(),
+            localNum:$('#kqSelect').val(),
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptGetDepOutDetail',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+                _datasTable($('#scrap-datatables'),result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //仓库
+    function warehouse(){
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:{
+                'hasLocation':1,
+                'userID':_userIdNum,
+                'userName':_userIdName
+            },
+            timeout:_theTimes,
+            success:function(result){
+                _ckArr.length = 0;
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i]);
+                    str += '<option value="' + result[i].storageNum
+                        + '">' + result[i].storageName + '</option>'
+                }
+                $('#storage').empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    /*----------------------------打印部分去掉的东西-----------------------------*/
+    //导出按钮,每页显示数据条数,表格页码打印隐藏
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+
+})

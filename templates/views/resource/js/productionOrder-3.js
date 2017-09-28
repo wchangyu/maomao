@@ -155,6 +155,16 @@ $(function(){
     var _lineArr = [];
     //记录当前车间
     var _chejian = '';
+    //记录维修内容修改是否执行完成
+    var _wxIsComplete = false;
+    //工单编辑是否完成
+    var _gdEditeComplete = false;
+    //状态转换是否完成
+    var _ztChangeComplete = false;
+    //分配负责人是否完成
+    var _fzrComplete = false;
+    //重发是否完成
+    var _reSendComplete = false;
     /*---------------------------------表格初始化---------------------------------*/
     //页面表格
     var col1 = [
@@ -838,90 +848,30 @@ $(function(){
     })
         //编辑
         .on('click','.bianji',function(){
-            upDateWXRemark();
-            editGD();
-            //根据三个状态值提示
-            if( _wxBZFlag && _editFlag ){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单编辑成功！', '');
-                $('#myModal').modal('hide');
-            }else{
-                var str = '';
-                if( _wxBZFlag == false ){
-                    str += '维修内容修改失败，'
-                }else{
-                    str += '维修内容修改成功，'
-                }
-                if( _editFlag == false ){
-                    str += '工单编辑失败！'
-                }else{
-                    str += '工单编辑成功！'
-                }
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
-            }
-            conditionSelect();
+            upDateWXRemark(1);
+            editGD(1);
         })
         //下发
         .on('click','.paigongButton',function(){
-            //先判断是第一次下发还是重发
-            if(_gdState == 5){
-                //调用重发接口
-                upDateWXRemark();
-                _gdCircle = parseInt(_gdCircle) + 1;
-                reSend();
-                assigFZR();
-                if(_leaderFlag && _wxBZFlag && _reSendFlag){
-                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
-                    $('#myModal').modal('hide');
+            //首先判断是否选择了负责人
+            if(_zhixingRens.length){
+                //先判断是第一次下发还是重发
+                if(_gdState == 5){
+                    //调用重发接口
+                    upDateWXRemark(3);
+                    _gdCircle = parseInt(_gdCircle) + 1;
+                    reSend(3);
+                    assigFZR(3);
                 }else{
-                    var str = '';
-                    if( _leaderFlag == false ){
-                        str += '工长增加失败，'
-                    }else{
-                        str += '工长增加成功，'
-                    }
-                    if( _wxBZFlag == false ){
-                        str += '维修备注修改失败，'
-                    }else{
-                        str += '维修备注修改成功，'
-                    }
-                    if( _reSendFlag == false ){
-                        str += '工单重发失败！'
-                    }else{
-                        str += '工单重发成功！'
-                    }
-                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+                    //更新负责人
+                    assigFZR(2);
+                    upDateWXRemark(2);
+                    upData(2);
                 }
+                conditionSelect();
             }else{
-                //更新负责人
-                assigFZR();
-                upDateWXRemark();
-                upData();
-                //根据三个状态值提示
-                if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
-                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
-                    $('#myModal').modal('hide');
-                }else{
-                    var str = '';
-                    if( _leaderFlag == false ){
-                        str += '工长增加失败，'
-                    }else{
-                        str += '工长增加成功，'
-                    }
-                    if( _wxBZFlag == false ){
-                        str += '维修备注修改失败，'
-                    }else{
-                        str += '维修备注修改成功，'
-                    }
-                    if( _upDateStateFlag == false ){
-                        str += '工单下发失败！'
-                    }else{
-                        str += '工单下发成功！'
-                    }
-                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
-                }
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择工长', '');
             }
-
-            conditionSelect();
         })
         //获取图片
         .on('click','#viewImage',function(){
@@ -1326,7 +1276,7 @@ $(function(){
         }
     }
     //更新状态
-    function upData(){
+    function upData(flag){
         var gdInfo = {
             gdCode :gdCode,
             gdZht : 2,
@@ -1340,10 +1290,14 @@ $(function(){
             data:gdInfo,
             async:false,
             success:function(result){
+                _ztChangeComplete = true;
                 if(result == 99){
                     _upDateStateFlag = true;
                 }else{
                     _upDateStateFlag = false;
+                }
+                if(flag == 2){
+                    firstXF();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1556,8 +1510,8 @@ $(function(){
         };
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);
     }
-    //更新维修备注
-    function upDateWXRemark(){
+    //更新维修备注（flag判断进行什么操作。1、编辑）；
+    function upDateWXRemark(flag){
         var prm = {
             "gdCode": gdCode,
             "gdZht": _gdState,
@@ -1572,10 +1526,19 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+                _wxIsComplete = true;
                 if(result == 99){
                     _wxBZFlag = true;
                 }else{
                     _wxBZFlag = false;
+                }
+                //判断编辑工单和维修备注是否成功
+                if(flag == 1){
+                    editeWXbz();
+                }else if(flag == 2){
+                    firstXF();
+                }else if(flag == 3){
+                    secondXF();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1584,7 +1547,7 @@ $(function(){
         })
     }
     //分配负责人
-    function assigFZR(){
+    function assigFZR(flag){
         var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
         var fzrArr = [];
         for(var i=0;i<_zhixingRens.length;i++){
@@ -1615,10 +1578,14 @@ $(function(){
             data:gdWR,
             async:false,
             success:function(result){
+                _fzrComplete = true;
                 if(result == 99){
                     _leaderFlag = true;
                 }else{
                     _leaderFlag = false;
+                }
+                if(flag == 2){
+                    firstXF();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1626,8 +1593,8 @@ $(function(){
              }
         })
     }
-    //编辑的确定按钮
-    function editGD(){
+    //编辑的确定按钮(flag,标明要做什么操作 1、编辑功能)
+    function editGD(flag){
         if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.wxKeshi  == '' ){
             _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }else{
@@ -1660,11 +1627,17 @@ $(function(){
                 data:gdInfo,
                 async:false,
                 success:function(result){
+                    _gdEditeComplete = true;
                     if(result == 99){
                         _editFlag = true;
                     }else{
                         _editFlag = false;
                     }
+                    //判断编辑工单和维修备注是否成功
+                    if(flag == 1){
+                        editeWXbz();
+                    }
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
@@ -1677,7 +1650,7 @@ $(function(){
         el.addClass('noprint')
     }
     //重发接口
-    function reSend(){
+    function reSend(flag){
         var gi = {
             "gdCode": gdCode,
             "gdZht": 2,
@@ -1691,10 +1664,14 @@ $(function(){
             data:gi,
             async:false,
             success:function(result){
+                _reSendComplete = true;
                 if(result == 99){
                     _reSendFlag = true;
                 }else{
                     _reSendFlag = false;
+                }
+                if(flag == 3){
+                    secondXF();
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1843,6 +1820,87 @@ $(function(){
         }
         if (ztz == 999) {
             return '任务取消'
+        }
+    }
+    //工单内容修改执行完毕并且维修备注修改执行完毕（1）
+    function editeWXbz(){
+        if( _wxIsComplete && _gdEditeComplete ){
+            //根据三个状态值提示
+            if( _wxBZFlag && _editFlag ){
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单编辑成功！', '');
+                $('#myModal').modal('hide');
+            }else{
+                var str = '';
+                if( _wxBZFlag == false ){
+                    str += '维修内容修改失败，'
+                }else{
+                    str += '维修内容修改成功，'
+                }
+                if( _editFlag == false ){
+                    str += '工单编辑失败！'
+                }else{
+                    str += '工单编辑成功！'
+                }
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+            }
+            conditionSelect();
+        }
+    }
+    //第一次下发(2)
+    function firstXF(){
+        if(_ztChangeComplete && _fzrComplete && _wxIsComplete){
+            //根据三个状态值提示
+            if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
+                $('#myModal').modal('hide');
+                conditionSelect();
+            }else{
+                var str = '';
+                if( _leaderFlag == false ){
+                    str += '工长增加失败，'
+                }else{
+                    str += '工长增加成功，'
+                }
+                if( _wxBZFlag == false ){
+                    str += '维修备注修改失败，'
+                }else{
+                    str += '维修备注修改成功，'
+                }
+                if( _upDateStateFlag == false ){
+                    str += '工单下发失败！'
+                }else{
+                    str += '工单下发成功！'
+                }
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+            }
+        }
+    }
+    //重发（3）
+    function secondXF(){
+        if( _wxIsComplete && _reSendComplete && _fzrComplete){
+            if(_leaderFlag && _wxBZFlag && _reSendFlag){
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
+                $('#myModal').modal('hide');
+                conditionSelect()
+            }else{
+                var str = '';
+                if( _leaderFlag == false ){
+                    str += '工长增加失败，'
+                }else{
+                    str += '工长增加成功，'
+                }
+                if( _wxBZFlag == false ){
+                    str += '维修备注修改失败，'
+                }else{
+                    str += '维修备注修改成功，'
+                }
+                if( _reSendFlag == false ){
+                    str += '工单重发失败！'
+                }else{
+                    str += '工单重发成功！'
+                }
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+            }
         }
     }
 })

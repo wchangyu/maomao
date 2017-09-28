@@ -59,6 +59,9 @@
             vertical-align: middle !important;
         }
     </style>
+    <style type="text/css" media=print>
+        .noprint{display : none }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -275,13 +278,13 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
-                                <ul class="condition-query">
+                                <ul class="condition-query noprint">
 
                                     <li>
-                                        <label for="">时间：</label>
+                                        <label for="" class="colorTip">时间 *：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min">
                                         </div>
@@ -302,18 +305,21 @@
                                             </select>
                                         </div>
                                     </li>
-                                    <li><label for="">数量是否大于0：</label>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 81px;text-align: right" class="colorTip">所属车间 *：</label>
                                         <div class="input-blocked">
-                                            <select id="greaterThan">
-                                                <option value="0">否</option>
-                                                <option value="1" selected>是</option>
-                                            </select>
+                                            <select id="yxdw"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;text-align: right">所属班组：</label>
+                                        <div class="input-blocked">
+                                            <select id="userClass"></select>
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1">打印</button></li>
-                                    <li><button class="btn btn-success excelButton11">导出</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
@@ -321,60 +327,11 @@
                                 <div class="content-main-contents">
                                     <div class="main-contents-table" style="margin-top: 0;">
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                            <caption>
-                                                <h2 style="text-align: center">材料收入、发出与结存月报表</h2>
-                                                <div class="table-head">
-
-                                                </div>
-                                            </caption>
                                             <thead>
-                                                <tr>
-                                                    <td rowspan="2">卡片号</td>
-                                                    <td rowspan="2">材料名称</td>
-                                                    <td rowspan="2">规格</td>
-                                                    <td rowspan="2">计量单位</td>
-                                                    <td colspan="2">期初库存</td>
-                                                    <td colspan="2">本期输入</td>
-                                                    <td colspan="2">本期发出</td>
-                                                    <td colspan="2">月末存结</td>
-                                                    <!--<td colspan="2">仓库</td>-->
-                                                    <td colspan="2"></td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <td>数量</td>
-                                                    <td>金额</td>
-                                                    <!--<td>数量</td>-->
-                                                    <!--<td>金额</td>-->
-                                                    <td>备注</td>
-                                                </tr>
                                             </thead>
                                             <tbody>
                                             </tbody>
                                             <tfoot>
-                                                <tr>
-                                                    <td>共计</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <!--<td></td>-->
-                                                    <!--<td></td>-->
-                                                    <td></td>
-                                                </tr>
                                             </tfoot>
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->
@@ -442,7 +399,7 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/materialMonthlyReport.js"></script>
+<script src="../resource/js/wbDetails.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
