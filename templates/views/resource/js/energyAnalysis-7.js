@@ -263,18 +263,34 @@ function getPointerDatas(){
 			dataWeekY.push(datas[j].data);
 		}
 	}
+	//获取当前选中的能耗类型
+	var typeName = $('.selectedEnergy p').html();
+	var legendName = '用'+typeName + '量';
+	$('.header-one').html(typeName);
+	$('.header-two').html(pointerNames);
 	option46.xAxis[0].data = dataMonthX;
 	option46.series[0].data = dataMonthY;
 	option46.series[1].data = dataMonthY;
+	option46.legend.data[0] = legendName;
+	option46.series[0].name = legendName;
+	option46.series[1].name = legendName;
 	myChart46.setOption(option46);
 	option46.xAxis[0].data = dataWeekX;
 	option46.series[0].data = dataWeekY;
 	option46.series[1].data = dataWeekY;
+
 	myChart45.setOption(option46);
 }
 //科室数据
 function getOfficeDatas(){
+	var dataMothData = [];
+	var dataWeekData = [];
+	var dataMonthX = [];
+	var dataWeekX = [];
+	var dataMonthY = [];
+	var dataWeekY = [];
 	var ofs = _objectSel.getSelectedOffices();
+	console.log(ofs);
 	if(ofs.length>0) {
 		officeID = ofs[0].f_OfficeID;
 		officeNames = ofs[0].f_OfficeName;
@@ -282,15 +298,50 @@ function getOfficeDatas(){
 	if(!officeID){ return; }
 	var ecParams = {
 		ecTypeId : _ajaxEcTypeWord,
-		pointerId : officeID,
+		pointerId : -1,
+		officeId : officeID,
 		startTime: currentDate
-	}
+	};
 	$.ajax({
 		type:'post',
-		url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+		url:sessionStorage.apiUrlPrefix+'EcDatas/GetEnergyTrendencyData',
 		data:ecParams,
 		async:false,
 		success:function(result){
+			dataMothData.push(result.monthDatas);
+			dataWeekData.push(result.weekDatas);
 		}
 	})
+
+	for(var i=0;i<dataMothData.length;i++){
+		var datas = dataMothData[i];
+		for(var j=0;j<datas.length;j++){
+			dataMonthX.push(datas[j].dataRange);
+			dataMonthY.push(datas[j].data);
+		}
+	}
+	for(var i=0;i<dataWeekData.length;i++){
+		var datas = dataWeekData[i];
+		for(var j=0;j<datas.length;j++){
+			dataWeekX.push(datas[j].dataRange);
+			dataWeekY.push(datas[j].data);
+		}
+	}
+	//获取当前选中的能耗类型
+	var typeName = $('.selectedEnergy p').html();
+	var legendName = '用'+typeName + '量';
+	$('.header-one').html(typeName);
+	$('.header-two').html(officeNames);
+	option46.xAxis[0].data = dataMonthX;
+	option46.series[0].data = dataMonthY;
+	option46.series[1].data = dataMonthY;
+	option46.legend.data[0] = legendName;
+	option46.series[0].name = legendName;
+	option46.series[1].name = legendName;
+	myChart46.setOption(option46);
+	option46.xAxis[0].data = dataWeekX;
+	option46.series[0].data = dataWeekY;
+	option46.series[1].data = dataWeekY;
+
+	myChart45.setOption(option46);
 }

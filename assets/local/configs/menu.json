@@ -420,7 +420,7 @@
         "uri":"../gongdangunali/productionOrder-5.html",
         "uid":"",
         "arg":"",
-        "arg2":"",
+        "arg2":"dd01",
         "iconclass":""
       },
       "工单综合查询":{
@@ -571,14 +571,6 @@
         "type":"0",
         "content":"故障未修复明细表",
         "uri":"../guzhangfenxibiao/failureRepairList.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "未完成工单":{
-        "type":"0",
-        "content":"未完成工单",
-        "uri":"../guzhangfenxibiao/unfinishedGD.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -785,14 +777,6 @@
         "type":"0",
         "content":"月度汇总",
         "uri":"../cangkuguanli/monthlyCollect.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "车间物品明细":{
-        "type":"0",
-        "content":"车间物品明细",
-        "uri":"../cangkuguanli/wbDetails.html",
         "uid":"",
         "arg":"",
         "iconclass":""

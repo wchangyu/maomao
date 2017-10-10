@@ -111,7 +111,7 @@ getStartData();
 var myChart = echarts.init(document.getElementById('energy-demand'));
 option = {
     title : {
-        text: '四川分行总'
+        text: '全部'
     },
     tooltip: {
         trigger: 'item',
@@ -170,7 +170,7 @@ var myChart1 = echarts.init(document.getElementById('energy-demand1'));
 // 指定图表的配置项和数据
 option1 = {
     title : {
-        text: '各支行'
+        text: '各明细'
     },
     tooltip : {
         trigger: 'axis'

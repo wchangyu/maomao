@@ -14,7 +14,6 @@ var ETSelection = function(){
         var allEnergyType = JSON.parse(strEnergyType);
         this.initETSel(allEnergyType,$divETs,divETCssClassName,etCallBack);
     }
-
     //设置分户相关的能耗种类
     //$divETs：外层的div容器
     //divETCssClassName:div的css类名，必须是flex排布，如果没有此参数，则直接添加flex样式
@@ -81,8 +80,5 @@ var ETSelection = function(){
             $divETs.append($div);
         }
     }
-
-
-
 }
 

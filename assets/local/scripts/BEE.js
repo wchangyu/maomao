@@ -257,6 +257,7 @@ var BEE = (function(){
                 return;
             }
         }
+
         if(document.getElementById('header_notification_bar') == null){ return;}        //当前页面没有显示报警数据的位置
         var pointers = JSON.parse(sessionStorage.pointers);
         var ptIds = [];

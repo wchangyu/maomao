@@ -1060,7 +1060,7 @@ $(function(){
         if(id2 == 0){
             //如果车间为全部时
             if(id1 == 0){
-               return DMainArr;
+               return [];
             }else{
                 $(DPartArr).each(function(i,o){
                      if(o.departNum == id1){
