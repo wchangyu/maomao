@@ -2,11 +2,18 @@ $(function(){
     //记录能耗种类
     var _ajaxEcType = '';
 
+    //记录能耗种类名称
+    var _ajaxEcTypeWord = '';
+
     //读取能耗种类
     _getEcType(_ajaxEcType);
 
+    _getEcTypeWord(_ajaxEcTypeWord);
+
     //默认能耗种类
     _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+
+    _ajaxEcTypeWord = _getEcTypeWord(_ajaxEcTypeWord);
 
     //楼宇ztree树
     var _pointerZtree = _getPointerZtree($("#allPointer"));
@@ -140,11 +147,15 @@ $(function(){
                 type : 'value'
             }
         ],
+        grid: {
+            left: '20%',
+            right: '10%'
+        },
         series : [
             {
                 name:'累计值',
                 type:'bar',
-                barMaxWidth: '60',
+                barMaxWidth: '50',
                 data:[],
                 itemStyle:{
                     normal:{
@@ -174,10 +185,17 @@ $(function(){
         //获得选择的能耗类型
         _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
-        //获取选择的区域位置
+        //先判断获取的是楼宇还是科室
+        var o = $('.tree-3')[0].style.display;
+        var a = $('.tree-2')[0].style.display;
+        if(a == 'none'){
+            //楼宇数据
+            getPointerData();
+        }else{
+            //科室数据
+            getOfficeData();
+        }
 
-        //楼宇数据
-        getPointerData();
     });
 
 	//时间选择
@@ -277,15 +295,15 @@ $(function(){
         var allData = [];
         var allDataX = [];
         var allDataY = [];
-        var totalAllData;
+        var totalAllData = 0;
         //(环比)
         var huanData = [];
         var huanDataY = [];
-        var huanTotalData;
+        var huanTotalData = 0;
         //(同比)
         var tongData = [];
         var tongDataY = [];
-        var tongTotalData;
+        var tongTotalData = 0;
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers(),pointerID;
 
@@ -350,7 +368,10 @@ $(function(){
             success:function(result){
                 //myChartTopLeft.hideLoading();
                 //myChartTopRight.hideLoading();
-                allData.push(result);
+                allData.length = 0;
+                for(var i=0;i<result.length;i++){
+                    allData.push(result[i]);
+                }
                 //发送环比请求
                 $.ajax({
                     type:'post',
@@ -369,48 +390,49 @@ $(function(){
                     success:function(result){
                         //myChartTopLeft.hideLoading();
                         //myChartTopRight.hideLoading();
-                        huanData.push(result);
+                        totalAllData = 0;
+                        huanTotalData = 0;
+                        allDataX.length = 0;
+                        allDataY.length = 0;
+                        huanData.length = 0;
+                        huanDataY.length = 0;
+                        for(var i=0;i<result.length;i++){
+                            huanData.push(result[i]);
+                        }
                         //绘制echarts
                         if( _ajaxDateType == '日' ){
                             $('.right-top').eq(1).css({'opacity':1});
                             $('.right-top').eq(0).css({'opacity':1});
                             //确定x轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
-                                for(var j=0;j<datas.length;j++){
-                                    var dataSplit = datas[j].dataDate.split('T')[1].split(':');
-                                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                    if(allData.indexOf(dataJoin)<0){
-                                        allDataX.push(dataJoin);
-                                    }
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                if(allDataX.indexOf(dataJoin)<0){
+                                    allDataX.push(dataJoin);
                                 }
-                            };
+                            }
                             //确定本期y轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[1].split(':');
-                                        var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                        if(dataJoin == allDataX[j]){
-                                            allDataY.push(datas[z].data)
-                                        }
+                                    if(dataJoin == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
                                     }
                                 }
-                            };
+                            }
                             //确定环比的y轴
                             for(var i=0;i<huanData.length;i++){
-                                var datas = huanData[i];
+                                var dataSplit = huanData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[1].split(':');
-                                        var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                        if(dataJoin == allDataX[j]){
-                                            huanDataY.push(datas[z].data)
-                                        }
+                                    if(dataJoin == allDataX[j]){
+                                        huanDataY.push(huanData[i].data);
+                                        huanTotalData += huanData[i].data;
                                     }
                                 }
-                            };
+                            }
                         }else{
                             if(_ajaxDateType == '周'){
                                 $('.right-top').eq(1).css({'opacity':0});
@@ -419,33 +441,26 @@ $(function(){
                             }
                             //确定本期的x轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i]
-                                for(var j=0;j<datas.length;j++){
-                                    var dataSplit = datas[j].dataDate.split('T')[0];
-                                    if(allDataX.indexOf(dataSplit)<0){
-                                        allDataX.push(dataSplit);
-                                    }
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                if(allDataX.indexOf(dataSplit)<0){
+                                    allDataX.push(dataSplit);
                                 }
-                            };
+                            }
                             //确定本期的y轴数据
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
+                                var dataSplit = allData[i].dataDate.split('T')[0];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[0];
-                                        if(dataSplit == allDataX[j]){
-                                            allDataY.push(datas[z].data);
-                                        }
+                                    if(dataSplit == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
                                     }
                                 }
-                            };
+                            }
                             //确定环比y轴数据
                             for(var i=0;i<huanData.length;i++){
-                                var datas = huanData[i];
-                                for(var j=0;j<datas.length;j++){
-                                    huanDataY.push(datas[j].data);
-                                }
-                            };
+                                huanDataY.push(huanData[i].data);
+                                huanTotalData += huanData[i].data;
+                            }
                         };
 						//给echarts赋值
 						//环比柱状图
@@ -455,26 +470,35 @@ $(function(){
 						myChartTopLeft.setOption(optionBar);
 						//电-环比分析-柱状图
 						optionLineBar.series[0].data[0] = totalAllData;
-						optionLineBar.series[0].data[1] = huanData;
+						optionLineBar.series[0].data[1] = huanTotalData;
 						optionLineBar.series[1].data[0] = totalAllData;
-						optionLineBar.series[1].data[1] = huanData;
+						optionLineBar.series[1].data[1] = huanTotalData;
 						myChartTopRight.setOption(optionLineBar);
-
                         //计算总和
-                        //计算所有的纵坐标的总和
-                        totalAllData = 0;
-                        for(var i=0;i<allDataY.length;i++){
-                            totalAllData += parseInt(allDataY[i]);
-                        };
-                        huanTotalData = 0;
-                        for(var i=0;i<huanDataY.length;i++){
-                            huanTotalData += parseInt(huanDataY[i]);
-                        };
-                        console.log(totalAllData);
-                        console.log(huanTotalData);
                         //总电div
-                        $('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
-                        //$('.huanbizhi').html(huanData);
+                        var aa = parseFloat(totalAllData.toFixed(2));
+                        var bb = parseInt(huanTotalData.toFixed(2));
+                        $('.right-top').eq(0).find(".content-left-top-tips span:eq(0)").html(aa);
+                        $('.huanbizhi').html(bb);
+                        if(aa>bb){
+                            $('.content-left-top-arrow').eq(0).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow1.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }else{
+                            $('.content-left-top-arrow').eq(0).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow2.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }
 
                     },
                     error:function(jqXHR, textStatus, errorThrown){
@@ -492,44 +516,45 @@ $(function(){
                     url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndPointer',
                     data:tongParams,
                     success:function(result){
-                        tongData.push(result);
+                        totalAllData = 0;
+                        tongTotalData = 0;
+                        allDataX.length = 0;
+                        allDataY.length = 0;
+                        tongDataY.length = 0;
+                        tongData.length = 0;
+                        for(var i=0;i<result.length;i++){
+                            tongData.push(result[i]);
+                        }
                         if( _ajaxDateType == '日' ){
                             $('.right-top').eq(1).css({'opacity':1});
                             $('.right-top').eq(0).css({'opacity':1});
                             //确定x轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
-                                for(var j=0;j<datas.length;j++){
-                                    var dataSplit = datas[j].dataDate.split('T')[1].split(':');
-                                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                    if(allData.indexOf(dataJoin)<0){
-                                        allDataX.push(dataJoin);
-                                    }
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                if(allDataX.indexOf(dataJoin)<0){
+                                    allDataX.push(dataJoin);
                                 }
-                            };
+                            }
                             //确定本期y轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[1].split(':');
-                                        var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                        if(dataJoin == allDataX[j]){
-                                            allDataY.push(datas[z].data)
-                                        }
+                                    if(dataJoin == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
                                     }
                                 }
                             };
                             //确定环比的y轴
                             for(var i=0;i<tongData.length;i++){
-                                var datas = tongData[i];
+                                var dataSplit = tongData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[1].split(':');
-                                        var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                                        if(dataJoin == allDataX[j]){
-                                            tongDataY.push(datas[z].data)
-                                        }
+                                    if(dataJoin == allDataX[j]){
+                                        tongDataY.push(tongData[i].data);
+                                        tongTotalData += tongData[i].data;
                                     }
                                 }
                             };
@@ -540,34 +565,28 @@ $(function(){
                                 $('.right-top').eq(1).css({'opacity':1});
                             }
                             //确定本期的x轴
+                            //确定本期的x轴
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i]
-                                for(var j=0;j<datas.length;j++){
-                                    var dataSplit = datas[j].dataDate.split('T')[0];
-                                    if(allDataX.indexOf(dataSplit)<0){
-                                        allDataX.push(dataSplit);
-                                    }
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                if(allDataX.indexOf(dataSplit)<0){
+                                    allDataX.push(dataSplit);
                                 }
-                            };
+                            }
                             //确定本期的y轴数据
                             for(var i=0;i<allData.length;i++){
-                                var datas = allData[i];
+                                var dataSplit = allData[i].dataDate.split('T')[0];
                                 for(var j=0;j<allDataX.length;j++){
-                                    for(var z=0;z<datas.length;z++){
-                                        var dataSplit = datas[z].dataDate.split('T')[0];
-                                        if(dataSplit == allDataX[j]){
-                                            allDataY.push(datas[z].data);
-                                        }
+                                    if(dataSplit == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
                                     }
                                 }
-                            };
+                            }
                             //确定环比y轴数据
                             for(var i=0;i<tongData.length;i++){
-                                var datas = tongData[i];
-                                for(var j=0;j<datas.length;j++){
-                                    tongData.push(datas[j].data);
-                                }
-                            };
+                                tongDataY.push(tongData[i].data);
+                                tongTotalData += tongData[i].data;
+                            }
                         };
                         //给echarts赋值
                         //环比柱状图
@@ -577,24 +596,387 @@ $(function(){
                         myChartBottomLeft.setOption(optionBar);
                         //电-环比分析-柱状图
                         optionLineBar.series[0].data[0] = totalAllData;
-                        optionLineBar.series[0].data[1] = tongData;
+                        optionLineBar.series[0].data[1] = tongTotalData;
                         optionLineBar.series[1].data[0] = totalAllData;
-                        optionLineBar.series[1].data[1] = tongData;
+                        optionLineBar.series[1].data[1] = tongTotalData;
                         myChartBottomRight.setOption(optionLineBar);
-
-                        //计算总和
-                        //计算所有的纵坐标的总和
-                        totalAllData = 0;
-                        for(var i=0;i<allDataY.length;i++){
-                            totalAllData += parseInt(allDataY[i]);
-                        };
-                        huanTotalData = 0;
-                        for(var i=0;i<huanDataY.length;i++){
-                            huanTotalData += parseInt(huanDataY[i]);
-                        };
                         //总电div
-                        $('.right-top').find(".content-left-top-tips span:eq(0)").html(totalAllData);
-                        //$('.huanbizhi').html(huanData);
+                        var aa = parseFloat(totalAllData.toFixed(2));
+                        var bb = parseFloat(tongTotalData.toFixed(2));
+                        $('.right-top').eq(1).find(".content-left-top-tips span:eq(0)").html(aa);
+                        $('.tongbizhi').eq(0).html(bb);
+                        if(aa>bb){
+                            $('.content-left-top-arrow').eq(1).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow1.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }else{
+                            $('.content-left-top-arrow').eq(1).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow2.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(JSON.parse(jqXHR.responseText).message);
+                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                            tongData = [];
+                        }
+                    }
+                })
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(JSON.parse(jqXHR.responseText).message);
+                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    allData = [];
+                    myChartTopLeft.hideLoading();
+                    myChartTopRight.hideLoading();
+                }
+            }
+        })
+    }
+
+    //科室位置
+    function getOfficeData(){
+        //确定选中的科室id
+        //定义存放返回数据的数组（本期 X Y）
+        var allData = [];
+        var allDataX = [];
+        var allDataY = [];
+        var totalAllData = 0;
+        //(环比)
+        var huanData = [];
+        var huanDataY = [];
+        var huanTotalData = 0;
+        //(同比)
+        var tongData = [];
+        var tongDataY = [];
+        var tongTotalData = 0;
+        //确定楼宇id
+        var ofs = _officeZtree.getSelectedOffices(),officeID;
+
+        for(var i=0;i<ofs.length;i++){
+            officeID = ofs[i].f_OfficeID;
+            officeNames = ofs[i].f_OfficeName;
+        }
+        if(!ofs) { return; }
+        //存放要传的楼宇集合
+        var postOfficeID = [];
+
+        $(ofs).each(function(i,o){
+
+            postOfficeID.push(o.officeID)
+        });
+
+        //定义获得本期数据的参数
+        var ecParams = {
+            'ecTypeId':_ajaxEcTypeWord,
+            'officeId':officeID,
+            'startTime':_nowTimeStart,
+            'endTime':_nowTimeEnd,
+            'dateType':_ajaxType
+        }
+
+        //环比(前一天，前一周，前一个月，前一年)
+        var huanParams = {
+            'ecTypeId':_ajaxEcTypeWord,
+            'officeId':officeID,
+            'startTime':_huanTimeStart,
+            'endTime':_huanTimeEnd,
+            'dateType':_ajaxType
+        }
+
+        //同比(去年的同一时期，没有周，环比和同比的年一样)
+        var tongParams = {
+            'ecTypeId':_ajaxEcTypeWord,
+            'officeId':officeID,
+            'startTime':_tongTimeStart,
+            'endTime':_tongTimeEnd,
+            'dateType':_ajaxType
+        }
+
+        //发送本期请求
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+            data:ecParams,
+            beforeSend:function(){
+                //myChartTopLeft.showLoading({
+                //    text:'获取数据中',
+                //    effect:'whirling'
+                //});
+                //myChartTopRight.showLoading({
+                //    text:'获取数据中',
+                //    effect:'whirling'
+                //});
+            },
+            success:function(result){
+                //myChartTopLeft.hideLoading();
+                //myChartTopRight.hideLoading();
+                allData.length = 0;
+                for(var i=0;i<result.length;i++){
+                    allData.push(result[i]);
+                }
+                //发送环比请求
+                $.ajax({
+                    type:'post',
+                    url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+                    data:huanParams,
+                    beforeSend:function(){
+                        //myChartTopLeft.showLoading({
+                        //    text:'获取数据中',
+                        //    effect:'whirling'
+                        //});
+                        //myChartTopRight.showLoading({
+                        //    text:'获取数据中',
+                        //    effect:'whirling'
+                        //});
+                    },
+                    success:function(result){
+                        //myChartTopLeft.hideLoading();
+                        //myChartTopRight.hideLoading();
+                        totalAllData = 0;
+                        huanTotalData = 0;
+                        allDataX.length = 0;
+                        allDataY.length = 0;
+                        huanData.length = 0;
+                        huanDataY.length = 0;
+                        for(var i=0;i<result.length;i++){
+                            huanData.push(result[i]);
+                        }
+                        //绘制echarts
+                        if( _ajaxDateType == '日' ){
+                            $('.right-top').eq(1).css({'opacity':1});
+                            $('.right-top').eq(0).css({'opacity':1});
+                            //确定x轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                if(allDataX.indexOf(dataJoin)<0){
+                                    allDataX.push(dataJoin);
+                                }
+                            }
+                            //确定本期y轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataJoin == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
+                                    }
+                                }
+                            }
+                            //确定环比的y轴
+                            for(var i=0;i<huanData.length;i++){
+                                var dataSplit = huanData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataJoin == allDataX[j]){
+                                        huanDataY.push(huanData[i].data);
+                                        huanTotalData += huanData[i].data;
+                                    }
+                                }
+                            }
+                        }else{
+                            if(_ajaxDateType == '周'){
+                                $('.right-top').eq(1).css({'opacity':0});
+                            }else{
+                                $('.right-top').eq(1).css({'opacity':1});
+                            }
+                            //确定本期的x轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                if(allDataX.indexOf(dataSplit)<0){
+                                    allDataX.push(dataSplit);
+                                }
+                            }
+                            //确定本期的y轴数据
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataSplit == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
+                                    }
+                                }
+                            }
+                            //确定环比y轴数据
+                            for(var i=0;i<huanData.length;i++){
+                                huanDataY.push(huanData[i].data);
+                                huanTotalData += huanData[i].data;
+                            }
+                        };
+                        //给echarts赋值
+                        //环比柱状图
+                        optionBar.xAxis[0].data = allDataX;
+                        optionBar.series[0].data = allDataY;
+                        optionBar.series[1].data = huanDataY;
+                        myChartTopLeft.setOption(optionBar);
+                        //电-环比分析-柱状图
+                        optionLineBar.series[0].data[0] = totalAllData;
+                        optionLineBar.series[0].data[1] = huanTotalData;
+                        optionLineBar.series[1].data[0] = totalAllData;
+                        optionLineBar.series[1].data[1] = huanTotalData;
+                        myChartTopRight.setOption(optionLineBar);
+                        //计算总和
+                        //总电div
+                        var aa = parseFloat(totalAllData.toFixed(2));
+                        var bb = parseInt(huanTotalData.toFixed(2));
+                        $('.right-top').eq(0).find(".content-left-top-tips span:eq(0)").html(aa);
+                        $('.huanbizhi').html(bb);
+                        if(aa>bb){
+                            $('.content-left-top-arrow').eq(0).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow1.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }else{
+                            $('.content-left-top-arrow').eq(0).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow2.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(JSON.parse(jqXHR.responseText).message);
+                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                            huanData = [];
+                            myChartTopLeft.hideLoading();
+                            myChartTopRight.hideLoading();
+                        }
+                    }
+                });
+                //发送同比请求
+                $.ajax({
+                    type:'post',
+                    url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
+                    data:tongParams,
+                    success:function(result){
+                        totalAllData = 0;
+                        tongTotalData = 0;
+                        allDataX.length = 0;
+                        allDataY.length = 0;
+                        tongDataY.length = 0;
+                        tongData.length = 0;
+                        for(var i=0;i<result.length;i++){
+                            tongData.push(result[i]);
+                        }
+                        if( _ajaxDateType == '日' ){
+                            $('.right-top').eq(1).css({'opacity':1});
+                            $('.right-top').eq(0).css({'opacity':1});
+                            //确定x轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                if(allDataX.indexOf(dataJoin)<0){
+                                    allDataX.push(dataJoin);
+                                }
+                            }
+                            //确定本期y轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataJoin == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
+                                    }
+                                }
+                            };
+                            //确定环比的y轴
+                            for(var i=0;i<tongData.length;i++){
+                                var dataSplit = tongData[i].dataDate.split('T')[1].split(':');
+                                var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataJoin == allDataX[j]){
+                                        tongDataY.push(tongData[i].data);
+                                        tongTotalData += tongData[i].data;
+                                    }
+                                }
+                            };
+                        }else{
+                            if(_ajaxDateType == '周'){
+                                $('.right-top').eq(1).css({'opacity':0});
+                            }else{
+                                $('.right-top').eq(1).css({'opacity':1});
+                            }
+                            //确定本期的x轴
+                            //确定本期的x轴
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                if(allDataX.indexOf(dataSplit)<0){
+                                    allDataX.push(dataSplit);
+                                }
+                            }
+                            //确定本期的y轴数据
+                            for(var i=0;i<allData.length;i++){
+                                var dataSplit = allData[i].dataDate.split('T')[0];
+                                for(var j=0;j<allDataX.length;j++){
+                                    if(dataSplit == allDataX[j]){
+                                        allDataY.push(allData[i].data);
+                                        totalAllData += allData[i].data;
+                                    }
+                                }
+                            }
+                            //确定环比y轴数据
+                            for(var i=0;i<tongData.length;i++){
+                                tongDataY.push(tongData[i].data);
+                                tongTotalData += tongData[i].data;
+                            }
+                        };
+                        //给echarts赋值
+                        //环比柱状图
+                        optionBar.xAxis[0].data = allDataX;
+                        optionBar.series[0].data = allDataY;
+                        optionBar.series[1].data = tongDataY;
+                        myChartBottomLeft.setOption(optionBar);
+                        //电-环比分析-柱状图
+                        optionLineBar.series[0].data[0] = totalAllData;
+                        optionLineBar.series[0].data[1] = tongTotalData;
+                        optionLineBar.series[1].data[0] = totalAllData;
+                        optionLineBar.series[1].data[1] = tongTotalData;
+                        myChartBottomRight.setOption(optionLineBar);
+                        //总电div
+                        var aa = parseFloat(totalAllData.toFixed(2));
+                        var bb = parseFloat(tongTotalData.toFixed(2));
+                        $('.right-top').eq(1).find(".content-left-top-tips span:eq(0)").html(aa);
+                        $('.tongbizhi').eq(0).html(bb);
+                        if(aa>bb){
+                            $('.content-left-top-arrow').eq(1).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow1.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }else{
+                            $('.content-left-top-arrow').eq(1).css({
+                                display: 'inline-block',
+                                width: '40px',
+                                height: '40px',
+                                background: 'url(../resource/img/prompt-arrow2.png)no-repeat -3px -5px',
+                                'background-size': '90%',
+                                'margin-right': '-30px',
+                            })
+                        }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
                         console.log(JSON.parse(jqXHR.responseText).message);

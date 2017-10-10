@@ -13,8 +13,12 @@ $(function(){
     var _isStationLoaded = false;   //车站数据是否载入
     var _isDepartLoaded = false;    //车间和班组数据是否载入
     var _isSystemLoaded = false;    //系统设备是否载入
-
-    //开始/结束时间插件
+    //工单时间
+    var gdETime = moment().format('YYYY/MM/DD');
+    var gdSTime =moment().subtract(30,'d').format('YYYY/MM/DD');
+    $('.gdTime').eq(0).val(gdSTime);
+    $('.gdTime').eq(1).val(gdETime);
+        //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
         todayBtn: 1,
@@ -22,10 +26,12 @@ $(function(){
         format: 'yyyy/mm/dd',     forceParse: 0
     });
     //实际传输时间初始化
-    var slrealityStart = moment($('datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
-    var slrealityEnd = moment($('datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-    var bhrealityStart = moment($('datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
-    var bhrealityEnd = moment($('datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+    var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';
+    var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
+    var slrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
+    var slrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+    var bhrealityStart = moment($('.datatimeblock').eq(4).val()).format('YYYY/MM/DD') + ' 00:00:00';
+    var bhrealityEnd = moment($('.datatimeblock').eq(5).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -58,7 +64,7 @@ $(function(){
         }
     });
     //定位当前页
-    var currentPages = 0;
+    //var currentPages = 0;
     //执行人数组
     var _zhixingRens = [];
     //物料数组
@@ -111,7 +117,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": true,
         "order": true,
-        "pagingType":"full_numbers",
+        //"pagingType":"full_numbers",
         "iDisplayLength":50,//默认每页显示的条数
         "bStateSave":true,
         'language': {
@@ -386,11 +392,11 @@ $(function(){
             //图片区域隐藏
             $('.showImage').hide();
             //获得当前的页数，
-            for( var i=0;i<$('.paginate_button').length;i++){
-                if($('.paginate_button').eq(i).hasClass('current')){
-                    currentPages = $('.paginate_button').eq(i).html();
-                }
-            }
+            //for( var i=0;i<$('.paginate_button').length;i++){
+            //    if($('.paginate_button').eq(i).hasClass('current')){
+            //        currentPages = $('.paginate_button').eq(i).html();
+            //    }
+            //}
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
@@ -480,17 +486,19 @@ $(function(){
             e.stopPropagation();
         })
         // 单机选中(为了单击的时候就获得执行人员和物料，所以要直接调用获得详情接口)
-        .on('click','tr',function(){
+        .on('click','tr',function(e){
+            var scrollTopNum = $(window).scrollTop();
+            $('body').scrollTop(scrollTopNum);
             _gdCircle = $(this).children('td').children('.gongdanId').attr('gdcircle');
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
             //获得当前的页数，
-            for( var i=0;i<$('.paginate_button').length;i++){
-                if($('.paginate_button').eq(i).hasClass('current')){
-                    currentPages = $('.paginate_button').eq(i).html();
-                }
-            }
+            //for( var i=0;i<$('.paginate_button').length;i++){
+            //    if($('.paginate_button').eq(i).hasClass('current')){
+            //        currentPages = $('.paginate_button').eq(i).html();
+            //    }
+            //}
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
@@ -744,31 +752,43 @@ $(function(){
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
-        if($('.datatimeblock').eq(0).val() == ''){
-            slrealityStart = ''
+        if($('.gdTime').eq(0).val() == ''){
+            gdrealityStart = ''
         }else{
-            slrealityStart = moment($('.datatimeblock').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00';
+            gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00'
         }
-        if($('.datatimeblock').eq(1).val() == ''){
-            slrealityEnd = ''
+        if($('.gdTime').eq(1).val() == ''){
+            gdrealityEnd = ''
         }else{
-            slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+            gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
         if($('.datatimeblock').eq(2).val() == ''){
-            bhrealityStart = ''
+            slrealityStart = ''
         }else{
-            bhrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
+            slrealityStart = moment($('.datatimeblock').eq(2).val()).format('YYYY/MM/DD') + ' 00:00:00';
         }
         if($('.datatimeblock').eq(3).val() == ''){
+            slrealityEnd = ''
+        }else{
+            slrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(4).val() == ''){
+            bhrealityStart = ''
+        }else{
+            bhrealityStart = moment($('.datatimeblock').eq(4).val()).format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        if($('.datatimeblock').eq(5).val() == ''){
             bhrealityEnd = ''
         }else{
-            bhrealityEnd = moment($('.datatimeblock').eq(3).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+            bhrealityEnd = moment($('.datatimeblock').eq(5).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
 
         var prm2 ={
             gdCode2:$('#gdcode').val(),
-            gdSt:slrealityStart,
-            gdEt:slrealityEnd,
+            gdSt:gdrealityStart,
+            gdEt:gdrealityEnd,
+            gdStShoul:slrealityStart,
+            gdEtShoul:slrealityEnd,
             gdGuanbiSt:bhrealityStart,
             gdGuanbiEt:bhrealityEnd,
             gdZht:$('#gdzt').val(),
@@ -831,12 +851,12 @@ $(function(){
             async:false,
             success:function(result){
                 datasTable($("#scrap-datatables"),result);
-                var aaa = currentPages;
-                for(var i=0 ;i<$('.paginate_button').length; i++){
-                    if($('.paginate_button').eq(i).html() == aaa){
-                        $('.paginate_button').eq(i).click();
-                    }
-                }
+                //var aaa = currentPages;
+                //for(var i=0 ;i<$('.paginate_button').length; i++){
+                //    if($('.paginate_button').eq(i).html() == aaa){
+                //        $('.paginate_button').eq(i).click();
+                //    }
+                //}
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

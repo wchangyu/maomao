@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -413,7 +412,7 @@
                                 </div>
                             </li>
                             <li class="floatRight seeBlock" style="line-height: 26px;">
-                                <div class="labels colorTip">工单状态：</div>
+                                <div class="labels">工单状态：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="state">
                                 </div>
@@ -470,7 +469,7 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">设备类型 *：<span v-show="$validation.matter.persons">设备类型不能为空</span></div>
+                                <div class="labels colorTip">系统类型 *：<span v-show="$validation.matter.persons">系统类型不能为空</span></div>
                                 <div class="input-blockeds">
                                     <select class="xitong" v-model="matter"></select>
                                 </div>
@@ -488,18 +487,6 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">设备车间站：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="sbBM">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels">安装地点：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="azAddress">
-                                </div>
-                            </li>
-                            <li class="floatLeft">
                                 <div class="labels">维修班组 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="weixiukeshis" class="weixiukeshis">
@@ -511,7 +498,7 @@
                                     <input type="text" class="datatimeblock otime">
                                 </div>
                             </li>
-                            <li class="floatLeft seeBlock" style="line-height: 26px;">
+                            <li class="floatL seeBlock" style="line-height: 26px;">
                                 <div class="labels">工单登记时间：</div>
                                 <div class="input-blockeds">
                                     <input type="text" class="dtime">
