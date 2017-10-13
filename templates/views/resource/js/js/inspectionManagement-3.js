@@ -57,9 +57,9 @@ $(function(){
     var _weifenpeiArr = [];
     var _qiyongArr = [];
     var _jinyongArr = [];
-    //存放所有供选择的巡检条目数组
+    //存放所有供选择的巡检步骤数组
     var _allXJTMArr = [];
-    //存放所有已选择的巡检条目数组
+    //存放所有已选择的巡检步骤数组
     var _allXJSelect = [];
     //存放设备类型的所有数据
     var _allDataLX = [];
@@ -82,17 +82,17 @@ $(function(){
     var _allData = [];
     //存放选中的内容的编码
     var _selectNRBM = '';
-    //存放内容选择时选择的条目
+    //存放内容选择时选择的步骤
     var _nrArr = [];
-    //存放添加巡检条目和通过内容选择条目的数组
+    //存放添加巡检步骤和通过内容选择步骤的数组
     var _QCArr = [];
     //设备分类
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#sbfl'),'dcName','dcNum');
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#shebeileixings'),'dcName','dcNum');
-    //从巡检内容中添加条目的设备分类
+    //从巡检内容中添加步骤的设备分类
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#sblx1'),'dcName','dcNum');
     ajaxFun('YWDev/ywDMGetDCs',_allDataLX,$('#shebeileixings1'),'dcName','dcNum');
-    //页面加载的时候，首先把设备条目加载出来
+    //页面加载的时候，首先把设备步骤加载出来
     //获取数据
     var prm = {
         ditName:'',
@@ -226,7 +226,7 @@ $(function(){
     for( var i=1;i<$('.excelButton').children().length;i++ ){
         $('.excelButton').children().eq(i).addClass('hidding');
     };
-    //添加巡检条目表格
+    //添加巡检步骤表格
     var col=[
         {
             class:'checkeds',
@@ -239,16 +239,16 @@ $(function(){
             data:'dcName'
         },
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -258,23 +258,23 @@ $(function(){
     ]
     tableInit(_tableAdd,col);
 
-    //巡检条目已选结果表格
+    //巡检步骤已选结果表格
     var col1=[
         {
             title:'设备类型',
             data:'dcName'
         },
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -437,16 +437,16 @@ $(function(){
             data:'dcName'
         },
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -623,7 +623,7 @@ $(function(){
         }
     });
 
-    //复选框点击事件（添加巡检条目）
+    //复选框点击事件（添加巡检步骤）
     _tableAdd.find('tbody').on( 'click', 'input', function () {
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
@@ -720,11 +720,11 @@ $(function(){
         var empty = [];
         datasTable(_tableXJ,empty);
         datasTable(_tableZXR,empty);
-        //初始化执行人员和条目选择的表格
+        //初始化执行人员和步骤选择的表格
         _allXJSelect = [];
         _zhixingRens = [];
     })
-    //添加巡检条目按钮
+    //添加巡检步骤按钮
     getTM();
     $('.zhiXingRenYuanButton').click(function(){
         moTaiKuang($('#myModal1'));
@@ -743,7 +743,7 @@ $(function(){
         //初始化一下
         $('#zhiXingPerson thead').find('.checker').children('span').removeClass('checked');
     });
-    //添加巡检条目确定按钮
+    //添加巡检步骤确定按钮
     $('.selectTableList').click(function(){
         _allXJSelect = [];
         //获取选中的列表
@@ -769,7 +769,7 @@ $(function(){
         //放入表格中
         datasTable($('#personTable1'),vas);
     });
-    //删除巡检条目按钮
+    //删除巡检步骤按钮
     _tableXJ.children('tbody').on('click','.option-delete',function(){
         //样式
         var $this = $(this).parents('tr');
@@ -783,10 +783,10 @@ $(function(){
         $('#xjtmmc').val($thisRow.find('.bianma').next().html());
         moTaiKuang($myModal);
     })
-    //删除巡检条目确定按钮(静态数据)
+    //删除巡检步骤确定按钮(静态数据)
     $('.xiaoshanchu').click(function(){
         _QCArr = [];
-        //获取要删除的条目的编码和名称，进行删除
+        //获取要删除的步骤的编码和名称，进行删除
         _allXJSelect.removeByValue($('#xjtmbm').val(),'ditNum');
         //删除一次再次重新获取值，
         for(var i=0;i<_allXJSelect.length;i++){
@@ -842,7 +842,7 @@ $(function(){
             ckOrBj($(this));
             //样式都置为不可操作
             $('#myModal').find('.btn-primary').hide();
-            //条目添加的查看按钮设为不可操作
+            //步骤添加的查看按钮设为不可操作
             $('.zhiXingRenYuanButton').hide();
             $('.zhiXingRenYuanButton1').hide();
             $('.zhiXingRenYuanButtons').hide();
@@ -1127,7 +1127,7 @@ $(function(){
             }
         });
     });
-    //设备条目的条件选择
+    //设备步骤的条件选择
     $('#selecte').click(function(){
         var prm = {
             dcNum:$('#shebeileixings').val(),
@@ -1186,7 +1186,7 @@ $(function(){
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
-    //从巡检内容中选择条目
+    //从巡检内容中选择步骤
     $('.zhiXingRenYuanButton1').click(function(){
         moTaiKuang($('#myModal6'))
     })
@@ -1199,7 +1199,7 @@ $(function(){
     $('#selecte1').click(function(){
         xjnrSelect()
     })
-    //点击巡检条目的查看，弹出详情
+    //点击巡检步骤的查看，弹出详情
     $('#myModal6').on('click','.option-seeNR',function(){
         var $thisBM = $(this).parents('tr').children('.bianma').html();
         /*for(var i=0;i<_allData.length;i++){
@@ -1483,7 +1483,7 @@ $(function(){
                 $('#jssj').val(_allDataArr[i].finishDate);
             }
         }
-        //获取巡检条目
+        //获取巡检步骤
         var prm = {
             dipNum:$thisBM,
             userID:_userIdName
@@ -1505,7 +1505,7 @@ $(function(){
                 for(var i=0;i<result.dipMembers.length;i++){
                     _zhixingRens.push(result.dipMembers[i]);
                 }
-                //找到存放所有巡检条目的数组，比较
+                //找到存放所有巡检步骤的数组，比较
                 datasTable(_tableXJ,_allXJSelect);
                 datasTable(_tableZXR,_zhixingRens);
             },
@@ -1586,7 +1586,7 @@ $(function(){
             }
         })
     }
-    //获取所有巡检条目项目
+    //获取所有巡检步骤项目
     function getTM(){
         //获取数据
         var prm = {

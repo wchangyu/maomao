@@ -484,13 +484,6 @@
                                 </select>
                             </div>
                         </li>
-                        <!--<li class="floatRight" style="line-height: 26px;">
-                            <div class="labels colorTip">是否维保 *：</div>
-                            <div class="input-blockeds">
-                                <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
-                            </div>
-                        </li>-->
                         <li class="floatLeft" style="line-height: 26px;">
                             <div class="labels colorTip">任务级别 *：</div>
                             <div class="input-blockeds">
@@ -758,21 +751,16 @@
                             <input type="text" class="nowState" style="width: 238px;">
                         </div>
                     </div>
-                    <!--<div style="display: inline-block;vertical-align: middle">-->
-                    <!--<div class="labels colorTip">操作类型 *：</div>-->
-                    <!--<div class="input-blockeds" style="height: auto;width: 240px;">-->
-                    <!--<select id="stateConstant" style="outline: none;width: 238px;">-->
-                    <!--<option value="">请选择</option>-->
-                    <!--<option value="20">确认</option>-->
-                    <!--<option value="0">退回</option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <!--</div>-->
                     <div>
                         <div class="labels">备注：</div>
                         <div class="input-blockeds" style="height: auto;width: 372px;">
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
+                    </div>
+                    <div class="bjpicture" style="margin-top: 20px;display: none;">
+                        <div class="labels">备件图片：</div>
+                        <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
+                        <div class="bjImg"></div>
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">

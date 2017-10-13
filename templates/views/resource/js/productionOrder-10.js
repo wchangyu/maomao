@@ -393,7 +393,7 @@ $(function(){
                     if (result.gdRange == 1) {
                         $('#myApp33').find('.whether').parent('span').removeClass('checked');
                         $('#myApp33').find('#four').parent('span').addClass('checked');
-                    } else {
+                    }else {
                         $('#myApp33').find('.whether').parent('span').removeClass('checked');
                         $('#myApp33').find('#three').parent('span').addClass('checked');
                     }

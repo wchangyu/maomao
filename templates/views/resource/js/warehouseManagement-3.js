@@ -15,6 +15,9 @@ $(function(){
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
 
+    //获取角色权限
+    var  _userRole = sessionStorage.getItem("userRole");
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
@@ -966,6 +969,7 @@ $(function(){
                 'outStoreDetails':outStoreDetails1,
                 'userID':_userIdNum,
                 'userName':_userIdName,
+                'b_UserRole':_userRole,
                 'storageName':ckName,
                 'storageNum':$('#ckselect').val(),
                 'contractOrder':myApp33.gdCode,
@@ -1292,6 +1296,8 @@ $(function(){
             'remark':myApp33.remarks,
             'outStoreDetails':outStoreDetails1,
             'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
             'storageName':ckName,
             'storageNum':$('#ckselect').val(),
             'contractOrder':myApp33.gdCode,
@@ -1325,6 +1331,7 @@ $(function(){
                     'OrderNum':_$thisRKnum,
                     'userID':_userIdNum,
                     'userName':_userIdName,
+                    'b_UserRole':_userRole,
                     'auditMemo':myApp33.shRemarks
                 }
                 //获得当前的页数，
@@ -1359,7 +1366,9 @@ $(function(){
     $('.modal').on('click','.daShanchu',function(){
         var prm = {
             'orderNum':_$thisRemoveRowDa,
-            'userID':_userIdNum
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
         }
         $.ajax({
             type:'post',
@@ -1822,7 +1831,8 @@ $(function(){
                     'storageNum':$('.cangku').attr('data-num'),
                     'hasLocation':1,
                     'userID':_userIdNum,
-                    'userName':_userIdName
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
                 },
                 timeout:30000,
                 success:function(result){
@@ -2256,7 +2266,9 @@ $(function(){
             'et':realityEnd,
             'orderNum':filterInput[0],
             'outType':$('.tiaojian').val(),
-            'userID':_userIdNum
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
         }
         $.ajax({
             type:'post',
@@ -2367,8 +2379,9 @@ $(function(){
     //仓库选择(出库物品option flag)
     function warehouse(el,flag){
         var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdName,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
             "hasLocation":1
         }
         $.ajax({
@@ -2406,8 +2419,9 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetLocations',
             data:{
-                userID:_userIdNum,
-                userName:_userIdName
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'b_UserRole':_userRole,
             },
             success:function(result){
                 _kqArr = [];
@@ -2427,9 +2441,10 @@ $(function(){
             'ItemNum':$('.filterInput1').eq(0).val(),
             'itemName':$('.filterInput1').eq(1).val(),
             'storageNum':$('#ckSelect1').val(),
-            'userID':_userIdNum,
             'hasNum':0,
-            'userName':_userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
         }
 
         $.ajax({
@@ -2472,8 +2487,9 @@ $(function(){
     function rkLX(flag){
         var prm = {
             "catType": 2,
-            "userID": _userIdNum,
-            "userName": _userIdName
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
         }
         $.ajax({
             type:'post',
@@ -2504,8 +2520,9 @@ $(function(){
     //获取车站
     function chezhan(){
         var prm = {
-            'userId':_userIdNum,
+            'userID':_userIdNum,
             'userName':_userIdName,
+            'b_UserRole':_userRole,
             'ddName':''
         };
         $.ajax({
@@ -2907,8 +2924,9 @@ $(function(){
             gdJJ:'',
             dlNum:'',
             gdLeixing:'',
-            userID:_userIdNum,
-            userName:_userIdName,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
             isCalcTimeSpan:1,
             wxShiXNum:'',
             isApplyWxCl:1
@@ -3019,7 +3037,8 @@ $(function(){
                                 'storageNum':$('.cangku').attr('data-num'),
                                 'hasLocation':1,
                                 'userID':_userIdNum,
-                                'userName':_userIdName
+                                'userName':_userIdName,
+                                'b_UserRole':_userRole,
                             },
                             timeout:30000,
                             success:function(result){
@@ -3168,7 +3187,8 @@ $(function(){
         var prm = {
             'orderNum':num,
             'userID':_userIdNum,
-            'userName':_userIdName
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
         };
         $.ajax({
             type:'post',
@@ -3192,8 +3212,9 @@ $(function(){
                 "clStatusId": 100,
                 "clStatus": '备件发货',
                 "clLastUptInfo": '',
-                "userID": _userIdNum,
-                "userName": _userIdName,
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'b_UserRole':_userRole,
                 'wxClNames':cl
             }
             $.ajax({

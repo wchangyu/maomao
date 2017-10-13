@@ -12,8 +12,8 @@ $(function(){
     var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
     var splitPrm = _prm.split('&');
     var _gdCode = splitPrm[0].split('=')[1];
-    var _gdState = splitPrm[1].split('=')[1];
-    var _gdCircle = splitPrm[2].split('=')[1];
+    //var _gdState = splitPrm[1].split('=')[1];
+    var _gdCircle = splitPrm[1].split('=')[1];
     //弹出框信息绑定vue对象
     var app33 = new Vue({
         el:'#myApp33',
@@ -129,7 +129,7 @@ $(function(){
     });
     var prm = {
         "gdCode": _gdCode,
-        "gdZht": _gdState,
+        //"gdZht": _gdState,
         "wxKeshi": "",
         "userID": _userIdNum,
         "userName":_userIdName,
@@ -171,6 +171,11 @@ $(function(){
             datasTable($('#personTables1'),result.wxCls);
             //所有处理过程
             logInformation(0);
+            //所有框不可编辑
+            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('disabled',true);
+            $('#myApp33').children('li').eq(0).children('.input-blockeds').addClass('disabled-block');
         },
         'error':function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);

@@ -281,9 +281,9 @@
                                         </select>
                                     </li>
                                     <li>
-                                        <label for=""> 巡检内容名称名称：</label>
+                                        <label for=""> 巡检内容名称：</label>
                                         <div class="input-blocked">
-                                            <input type="text" class="filterInput">
+                                            <input type="text" class="xjContent">
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success" id="selected">查询</button></li>
@@ -437,6 +437,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/inspectionManagement-2.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -473,7 +474,7 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels">设备分类</div>
+                                    <div class="labels colorTip">设备分类 *：</div>
                                     <div class="input-blockeds">
                                         <select name=""  v-model="sbfl" id="sblx">
                                             <option v-for="option in options" v-bind:value="option.value">
@@ -495,7 +496,7 @@
                             <div class="table-title">
                                 <span class="spanhover">巡检项目</span>
                             </div>
-                            <div class="tableHover" style="z-index: 1">
+                            <div class="tableHoverL" style="z-index: 1">
                                 <ul class="condition-query">
                                     <li style="width: 133px;">
                                         <div class="cont-col1" style="cursor: pointer">
@@ -522,13 +523,13 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--增加巡检条目-->
+<!--增加巡检步骤-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 575px;">
         <div class="modal-content" style="height: 575px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabe2">添加巡检条目</h4>
+                <h4 class="modal-title" id="myModalLabe2">添加巡检步骤</h4>
             </div>
             <div class="modal-body">
                 <ul style="margin-bottom: 0px;" class="condition-query">
@@ -538,7 +539,7 @@
                         </select>
                     </li>
                     <li>
-                        <label for=""> 设备巡检条目名称：</label>
+                        <label for=""> 设备巡检步骤名称：</label>
                         <div class="input-blocked" id="filter_global">
                             <input type="text" class="filterInput">
                         </div>
@@ -560,7 +561,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--巡检条目删除提示框-->
+<!--巡检步骤删除提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 211px;">
         <div class="modal-content" style="height: 211px;">
@@ -571,13 +572,13 @@
             <div class="modal-body">
                 <ul>
                     <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">条目编码 ：</div>
+                        <div class="labels">步骤编码 ：</div>
                         <div class="input-blockeds">
                             <input type="text" readonly="readonly" id="xjtmbm">
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">条目名称 ：</div>
+                        <div class="labels">步骤名称 ：</div>
                         <div class="input-blockeds">
                             <input type="text" readonly="readonly" id="xjtmmc">
                         </div>
@@ -598,7 +599,7 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h4 class="modal-title">提示</h4>
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">

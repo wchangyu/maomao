@@ -8,6 +8,9 @@ var _userIdNum = sessionStorage.getItem('userName');
 //获取本地url
 var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
+//获取角色权限
+var  _userRole = sessionStorage.getItem("userRole");
+
 //ajax延迟时间设置
 var _theTimes = 30000;
 
@@ -465,6 +468,16 @@ function _replaceIP(str,str1){
     var res = ip.exec(str1);  /*211.100.28.180*/
     str = str.replace(ip,res);
     return str;
+}
+
+//根据value值删除数组中的某项
+Array.prototype.removeByValue = function(val,attr) {
+    for(var i=0; i<this.length; i++) {
+        if(this[i][attr] == val) {
+            this.splice(i, 1);
+            break;
+        }
+    }
 }
 
 

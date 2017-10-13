@@ -94,9 +94,9 @@ $(function(){
             }
         }
     })
-    //选中的条目数组
+    //选中的步骤数组
     var _allXJSelect = [];
-    //设备条目
+    //设备步骤
     var _tiaoMuArr = [];
     var prm = {
         ditName:'',
@@ -178,7 +178,7 @@ $(function(){
                 className:'dNum'
             },
             {
-                title:'条目名称',
+                title:'步骤名称',
                 data:'ditName'
             },
             {
@@ -232,19 +232,19 @@ $(function(){
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('');
     };
-    //条目表格初始化
+    //步骤表格初始化
     var col2 = [
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -354,7 +354,7 @@ $(function(){
             moTaiKuang($('#myModal2'));
             var $thisBM = $(this).parents('tr').children('.bianma').html();
             var $thisSBBM = '';
-            //根据巡检任务单号，获得条目编码
+            //根据巡检任务单号，获得步骤编码
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
                 $thisSBBM = _allDataArr[i].ditNum

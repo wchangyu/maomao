@@ -468,7 +468,6 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 beforeSend:function(){
                     $('#loading').show();
@@ -482,6 +481,17 @@ $(function(){
                         wlArr.push(result.wxCls[i]);
                         bmArr.push(result.wxCls[i].wxCl);
                     }
+                    //备件图片
+                    console.log(result.hasBjImage);
+                    if(result.hasBjImage>0){
+                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
+                            '">';
+                        $('.bjImg').empty().append(str).show();
+                        $('.bjpicture').show();
+                    }else{
+                        $('.bjpicture').hide();
+                    }
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,
