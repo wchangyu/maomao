@@ -20,7 +20,7 @@ var loginArr = JSON.parse(sessionStorage.getItem('enterPriseList'));
 
 //支行ID
 var EnterpriseID;
-//支行名称
+//单位名称
 var EnterpriseName;
 
 if(loginArr.length > 0){
@@ -29,7 +29,7 @@ if(loginArr.length > 0){
         EnterpriseName = loginArr[0].eprName;
 }
 
-//测试支行名称与ID
+//测试单位名称与ID
 //EnterpriseID =  11001815;
 //EnterpriseName = '眉山支行';
 

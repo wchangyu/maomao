@@ -43,9 +43,17 @@
     margin: 0 !important;
   }
 }
+/*
+table样式
+
+*/
+.table thead tr th{
+  vertical-align: middle !important;
+}
 /***
 Page Header
 ***/
+
 .page-header.navbar {
   width: 100%;
   padding: 0 20px 0 20px;

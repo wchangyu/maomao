@@ -185,8 +185,8 @@ function dataType(){
 	_ajaxDataType=dataType;
 }
 //设置开始和结束初始值
-var _ajaxStartTime=moment().format("YYYY-MM-DD");
-var _ajaxEndTime = moment().format("YYYY-MM-DD");
+var _ajaxStartTime=moment().subtract(1,'d').format("YYYY-MM-DD");
+var _ajaxEndTime = moment().subtract(1,'d').format("YYYY-MM-DD");
 var _ajaxStartTime_1=moment().subtract(1,'d').format("YYYY-MM-DD");
 var _ajaxEndTime_1=moment().add(1,'d').format("YYYY-MM-DD");
 //选中时间处理

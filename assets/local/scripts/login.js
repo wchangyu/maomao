@@ -71,6 +71,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
+
                     var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,
@@ -86,7 +87,6 @@ var Login = function() {
                                 showAlertInfo("没有登录web系统权限");
                             }
                             else {
-                                console.log(33);
                                 //$.cookie("username", name1);
                                 //$.cookie("userpassword", password);
                                 if(rememberme){
@@ -114,6 +114,7 @@ var Login = function() {
                             }
                         },
                         error:function(xhr,res,err){
+
                         }
                     });
 

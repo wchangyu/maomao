@@ -487,7 +487,6 @@ function getClassEcData(){
             }else{
                 alert("请求失败！");
             }
-
         }
     });
 }

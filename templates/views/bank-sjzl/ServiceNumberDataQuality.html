@@ -469,7 +469,9 @@
         $('#span_zh_uncount').html(res.serviceUnCount);
         $('#span_zh_unper').html(res.serviceUnCountPer);
         if (oTable) {
-            oTable.fnDestroy();
+            var table = $('#table').dataTable();
+            table.fnClearTable();
+            table.fnDestroy();
         }
         oTable = $("#table").DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -500,6 +502,7 @@
             "aoColumns": [, , , ]
         });
         var dsArr = [];
+
         if(res.serviceDataQualityDs!=null){
             for (var i = 0; i < res.serviceDataQualityDs.length; i++) {
                 var dscArr = [];
@@ -539,9 +542,14 @@
         $('#span_ServiceOFFTotalPer').html(res.serviceFaultCountPer);
         $('#span_ServiceUnTotalPer').html(res.serviceUnCountPer);
         var opt_lgs = [];
-        for (var i = 0; i < res.lgs.length; i++) {
-            opt_lgs.push(res.lgs[i]);
-        }
+
+//        for (var i = 0; i < res.lgs.length; i++) {
+//            opt_lgs.push(res.lgs[i]);
+//        }
+        opt_lgs.push(res.lgs[1]);
+        opt_lgs.push(res.lgs[0]);
+        opt_lgs.push(res.lgs[2]);
+        console.log(opt_lgs);
         var opt_xAs = [];
         for (var i = 0; i < res.xs.length; i++) {
             opt_xAs.push(res.xs[i]);
@@ -549,7 +557,7 @@
         var opt_srs = [];
         for (var i = 0; i < res.ys.length; i++) {
             var object = {};
-            object.name = res.lgs[i];
+            object.name = opt_lgs[i];
             object.type = 'bar';
             object.stack = 's';
             object.data = [];
