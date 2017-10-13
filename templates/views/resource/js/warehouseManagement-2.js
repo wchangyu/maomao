@@ -8,14 +8,6 @@ $(function(){
         format: 'yyyy/mm/dd',
         forceParse: 0
     });
-    //获得用户id
-    var _userIdNum = sessionStorage.getItem('userName');
-
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('realUserName');
-
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
     //设置初始时间
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
@@ -785,7 +777,8 @@ $(function(){
                     'storageNum':myApp33.ckselect,
                     'hasLocation':1,
                     'userID':_userIdNum,
-                    'userName':_userIdName
+                    'userName':_userIdName,
+                    b_UserRole:_userRole,
                 },
                 timeout:_theTimes,
                 success:function(result){
@@ -878,7 +871,8 @@ $(function(){
         var prm = {
             orderNum:_chukuD,
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -973,6 +967,7 @@ $(function(){
                 'inStoreDetails':inStoreDetails1,
                 'userID':_userIdNum,
                 'userName':_userIdName,
+                b_UserRole:_userRole,
                 'storageName':ckName,
                 'storageNum':$('#ckselect').val(),
                 'supName':$('#supplier').children('option:selected').html(),
@@ -980,8 +975,6 @@ $(function(){
                 'supNum':myApp33.supplierMC,
                 'contactName':myApp33.supplierContent,
                 'phone':myApp33.supplierPhone
-
-
             }
             $.ajax({
                 type:'post',
@@ -1250,7 +1243,9 @@ $(function(){
             'inType':myApp33.rkleixing,
             'remark':myApp33.remarks,
             'inStoreDetails':inStoreDetails1,
-            'userID':_userIdName,
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
             'storageName':ckName,
             'storageNum':$('#ckselect').val(),
             'supName':myApp33.supplierMC,
@@ -1282,8 +1277,9 @@ $(function(){
             }else{
                 var prm = {
                     'OrderNum':_$thisRKnum,
-                    'userID':_userIdNum,
-                    'userName':_userIdName,
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    b_UserRole:_userRole,
                     'auditMemo':myApp33.shRemarks
                 }
                 //获得当前的页数，
@@ -1363,7 +1359,7 @@ $(function(){
 
     //入库物品删除操作按钮
     $('#myModal2').on('click','.xiaoShanchu',function(){
-        _rukuArr.removeByValue(_$thisRemoveRowXiao);
+        _rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
         datasTable($('#personTable1'),_rukuArr);
         $('#myModal2').modal('hide');
     })
@@ -1372,7 +1368,9 @@ $(function(){
     $('.modal').on('click','.daShanchu',function(){
         var prm = {
             'orderNum':_$thisRemoveRowDa,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -1711,7 +1709,7 @@ $(function(){
 
     $('#myModal2').on('click','.removeButton',function(){
         //静态删除
-        _rukuArr.removeByValue(_$thisRemoveRowXiao);
+        _rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
         datasTable($('#wuPinListTable1'),_rukuArr.reverse());
         $('#myModal2').modal('hide');
         $(this).removeClass('removeButton');
@@ -1842,8 +1840,9 @@ $(function(){
             'ItemNum':$('.filterInput1').eq(0).val(),
             'itemName':$('.filterInput1').eq(1).val(),
             'cateName':$('.filterInput1').eq(2).val(),
-            'userID':_userIdNum,
-            'userName':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -1921,8 +1920,9 @@ $(function(){
             'et':realityEnd,
             'orderNum':filterInput[0],
             'inType':$('.tiaojian').val(),
-            'userID':_userIdNum,
-            'userName':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -1955,21 +1955,12 @@ $(function(){
         })
     }
 
-    //根据value删除数组
-    Array.prototype.removeByValue = function(val) {
-        for(var i=0; i<this.length; i++) {
-            if(this[i].itemNum == val) {
-                this.splice(i, 1);
-                break;
-            }
-        }
-    }
-
     //仓库选择
     function warehouse(){
         var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -1996,7 +1987,9 @@ $(function(){
             'ItemNum':'',
             'itemName':'',
             'cateName':'',
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
 
         $.ajax({
@@ -2039,8 +2032,9 @@ $(function(){
     function rkLX(type,flag){
         var prm = {
             "catType": type,
-            "userID": _userIdNum,
-            "userName": _userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -2080,7 +2074,8 @@ $(function(){
     function getWPid(){
         var prm = {
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -2239,8 +2234,9 @@ $(function(){
     function detailInfo(num,seccessFun){
         var prm = {
             'orderNum':num,
-            'userID':_userIdNum,
-            'userName':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         };
         $.ajax({
             type:'post',
@@ -2299,8 +2295,9 @@ $(function(){
             "et": $('.chukumax').val(),
             "orderNum": $('.chukuHao').val(),
             "outType": $('#ckType').val(),
-            "userID": _userIdNum,
-            "userName": _userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',

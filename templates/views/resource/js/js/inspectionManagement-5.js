@@ -63,9 +63,9 @@ $(function(){
             jhbm:''
         }
     });
-    //选中的条目数组
+    //选中的步骤数组
     var _allXJSelect = [];
-    //设备条目
+    //设备步骤
     var _tiaoMuArr = [];
     var prm = {
         ditName:'',
@@ -196,23 +196,23 @@ $(function(){
         console.log('');
     };
     //接单弹出框中的表格初始化
-    //条目表格
+    //步骤表格
     var col1=[
         {
             title:'设备类型',
             data:'dcName'
         },
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -238,19 +238,19 @@ $(function(){
     ];
     //添加执行人员表格
     tableInit($('#personTable2'),col5);
-    //执行中的条目表格
+    //执行中的步骤表格
     var col2 = [
         {
-            title:'条目编码',
+            title:'步骤编码',
             data:'ditNum',
             className:'bianma'
         },
         {
-            title:'条目名称',
+            title:'步骤名称',
             data:'ditName'
         },
         {
-            title:'条目参考值',
+            title:'步骤参考值',
             data:'stValue'
         },
         {
@@ -316,7 +316,7 @@ $(function(){
                     $('#beizhu').val(_allDataArr[i].remark);
                 }
             };
-            //加载表格下属条目和执行人
+            //加载表格下属步骤和执行人
             var prm = {
                 dipNum:workDone.jhbm,
                 userID:_userIdName
@@ -326,7 +326,7 @@ $(function(){
                 url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
                 data:prm,
                 success:function(result){
-                    //找到存放所有巡检条目的数组，比较
+                    //找到存放所有巡检步骤的数组，比较
                     _allXJSelect = [];
                     for(var j=0;j<_tiaoMuArr.length;j++){
                         for(var i=0;i<result.dipItems.length;i++){
@@ -383,7 +383,7 @@ $(function(){
                 data:prm,
                 success:function(result){
                     _allXJSelect = [];
-                    //找到存放所有巡检条目的数组，比较
+                    //找到存放所有巡检步骤的数组，比较
                     for(var j=0;j<_tiaoMuArr.length;j++){
                         for(var i=0;i<result.dipItems.length;i++){
                             if( result.dipItems[i].ditNum == _tiaoMuArr[j].ditNum ){

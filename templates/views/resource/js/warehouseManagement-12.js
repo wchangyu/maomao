@@ -7,10 +7,6 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd',     forceParse: 0
     });
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //设置初始时间
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
@@ -126,7 +122,9 @@ $(function(){
                         'ItemNum':'',
                         'itemName':'',
                         'cateName':'',
-                        'userID':_userIdName
+                        userID:_userIdNum,
+                        userName:_userIdName,
+                        b_UserRole:_userRole,
                     }
 
                     $.ajax({
@@ -137,6 +135,9 @@ $(function(){
                         success:function(result){
                             _wpListArr = result;
                             datasTable($('#wuPinListTable'),result);
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
                         }
                     })
                 },300);
@@ -440,7 +441,9 @@ $(function(){
             'address':myApp33.gysdizhi,
             'remark':myApp33.remarks,
             'inStoreDetails':inStoreDetails1,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -455,6 +458,9 @@ $(function(){
                     conditionSelect();
                 }
 
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     });
@@ -496,7 +502,9 @@ $(function(){
             //获取入库信息的详细物品信息
             var prm = {
                 'orderNum':$thisDanhao,
-                'userID':_userIdName
+                userID:_userIdNum,
+                userName:_userIdName,
+                b_UserRole:_userRole,
             }
             $.ajax({
                 type:'post',
@@ -505,6 +513,9 @@ $(function(){
                 async:false,
                 success:function(result){
                     datasTable($('#personTable1'),result)
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
                 }
             })
             //所有操作框均为只读
@@ -548,7 +559,9 @@ $(function(){
             //获取入库信息的详细物品信息
             var prm = {
                 'orderNum':$thisDanhao,
-                'userID':_userIdName
+                userID:_userIdNum,
+                userName:_userIdName,
+                b_UserRole:_userRole,
             }
             //获得当前的页数，
             $thisTbale = $(this).parents('.table');
@@ -565,6 +578,9 @@ $(function(){
                         _rukuArr.push(result[i]);
                     }
                     datasTable($('#personTable1'),result)
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
                 }
             })
             //判断状态是已确认还是待确定
@@ -628,7 +644,9 @@ $(function(){
             var $thisDanhao = $(this).parents('tr').find('.orderNum').html();
             var prm = {
                 'OrderNum':$thisDanhao,
-                'userID':_userIdName
+                userID:_userIdNum,
+                userName:_userIdName,
+                b_UserRole:_userRole,
             }
             //获得当前的页数，
             $thisTbale = $(this).parents('.table');
@@ -648,6 +666,9 @@ $(function(){
                         //点击一下当前的数字，自动指向当前页
                         currentTable.children('span').children('.paginate_button').eq(currentPages).click();
                     }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
                 }
             })
         })
@@ -683,7 +704,9 @@ $(function(){
             'address':myApp33.gysdizhi,
             'remark':myApp33.remarks,
             'inStoreDetails':inStoreDetails1,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -699,6 +722,9 @@ $(function(){
                 //点击一下当前的数字，自动指向当前页
                 currentTable.children('span').children('.paginate_button').eq(currentPages).click();
 
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     })
@@ -746,7 +772,9 @@ $(function(){
     $('.modal').on('click','.daShanchu',function(){
         var prm = {
             'orderNum':_$thisRemoveRowDa,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -766,6 +794,9 @@ $(function(){
                         currentTable.children('span').children('.paginate_button').eq(currentPages).click();
                     }
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     })
@@ -827,7 +858,9 @@ $(function(){
             'et':realityEnd,
             'orderNum':filterInput[0],
             'inType':$('.tiaojian').val(),
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -853,6 +886,9 @@ $(function(){
                 datasTable($('#scrap-datatables2'),confirmed);
                 datasTable($('#scrap-datatables'),result);
 
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }

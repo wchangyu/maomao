@@ -608,3 +608,22 @@ textarea{
     cursor: pointer;
     width: 100% !important;
 }
+.power{
+    padding: 10px;
+    cursor: pointer;
+}
+.power li{
+    line-height: 30px;
+}
+.power-right{
+    border: 1px solid #808080;
+}
+.power-right li{
+    text-align: initial;
+}
+.power li:hover{
+    background: #cccccc;
+}
+.active11{
+    background: #c0cfdd;
+}

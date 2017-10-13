@@ -6,14 +6,14 @@ $(function(){
     var _ajaxEcTypeWord = '';
 
     //读取能耗种类
-    _getEcType(_ajaxEcType);
+    _getEcType('initPointers');
 
-    _getEcTypeWord(_ajaxEcTypeWord);
+    _getEcTypeWord();
 
     //默认能耗种类
-    _ajaxEcType =_getEcTypeValue(_ajaxEcType);
+    _ajaxEcType =_getEcTypeValue();
 
-    _ajaxEcTypeWord = _getEcTypeWord(_ajaxEcTypeWord);
+    _ajaxEcTypeWord = _getEcTypeWord();
 
     //楼宇ztree树
     var _pointerZtree = _getPointerZtree($("#allPointer"));
@@ -219,6 +219,17 @@ $(function(){
 		$('.typee').removeClass('selectedEnergy')
 		$(this).addClass('selectedEnergy');
 	});
+
+    //楼宇科室选择
+    $('.left-middle-tab').click(function(){
+        $('.tree-1').hide();
+        $('.tree-1').eq($(this).index()).show();
+        if($(this).index() == 0){
+            _getEcType('initPointers');
+        }else if ($(this).index() == 1){
+            _getEcType('initOffices');
+        }
+    })
 
     //chart图自适应
     window.onresize = function () {

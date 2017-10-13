@@ -4,6 +4,8 @@ $(function(){
     var _userIdNum = sessionStorage.getItem('userName');
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
+    //获取角色权限
+    var  _userRole = sessionStorage.getItem("userRole");
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     //开始/结束时间插件
@@ -256,7 +258,9 @@ $(function(){
         //获取入库信息的详细物品信息
         var prm = {
             'orderNum':$thisDanhao,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -284,7 +288,9 @@ $(function(){
         var prm = {
             'st':realityStart,
             'et':realityEnd,
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -303,7 +309,9 @@ $(function(){
             'et':realityEnd,
             'orderNum':'',
             'inType':'',
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -348,8 +356,9 @@ $(function(){
     //仓库选择
     function warehouse(){
         var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -371,8 +380,9 @@ $(function(){
     function rkLX(flag){
         var prm = {
             "catType": 2,
-            "userID": _userIdNum,
-            "userName": _userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',

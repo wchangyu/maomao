@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -281,160 +281,38 @@
                                     <li class="main-contents-header-lists0">权限分配</li>
                                 </ul>
                                 <div class="table-title">
-                                    <span class="spanhover">系统设置</span>
-                                    <span>基本资料</span>
+                                    <span class="spanhover">仓库权限</span>
+                                    <!--<span>基本资料</span>-->
                                 </div>
                                 <div class="main-contents-table" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;float:left;width: 100%">
-                                    <div>
-                                        <div class="list-block">
-                                            <div class="list-left">员工管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="employeeList">
-                                                    <label for="employeeList">员工列表</label>
-                                                </div>
-                                                    <div class="list-right-list">
-                                                        <input type="checkbox" id="editEmployee">
-                                                        <label for="editEmployee">新增/编辑员工</label>
-                                                    </div>
-                                                    <div class="list-right-list">
-                                                        <input type="checkbox" id="queryEmployee">
-                                                        <label for="queryEmployee">查询员工</label>
-                                                    </div>
-                                                    <div class="list-right-list">
-                                                        <input type="checkbox" id="saveEmployee">
-                                                        <label for="saveEmployee">保存员工</label>
-                                                    </div>
-                                                    <div class="list-right-list">
-                                                        <input type="checkbox" id="DeleteEmployee">
-                                                        <label for="DeleteEmployee">删除员工</label>
-                                                    </div>
-                                                    <div class="list-right-list">
-                                                        <input type="checkbox" id="excel">
-                                                        <label for="excel">导出Excel</label>
-                                                    </div>
+                                    <ul class="condition-query">
+                                        <li><label for="">角色名称：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="filterInput" placeholder="请输入角色名称">
                                             </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="list-left">角色管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="roleList">
-                                                    <label for="roleList">角色列表</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="editRole">
-                                                    <label for="editRole">新增/编辑</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="queryRole">
-                                                    <label for="queryRole">查询角色</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="saveRole">
-                                                    <label for="saveRole">保存角色</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="DeleteRole">
-                                                    <label for="DeleteRole">删除角色</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="excelRole">
-                                                    <label for="excelRole">导出Excel</label>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="list-left">部门管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="departmentList">
-                                                    <label for="departmentList">部门列表</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="editDepartment">
-                                                    <label for="editDepartment">新增/编辑</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="queryDepartment">
-                                                    <label for="queryDepartment">查询部门</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="saveDepartment">
-                                                    <label for="saveDepartment">保存部门</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="DeleteDepartment">
-                                                    <label for="DeleteDepartment">删除部门</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="excelDepartment">
-                                                    <label for="excelDepartment">导出Excel</label>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="list-left">资源管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="resourceList">
-                                                    <label for="resourceList">资源管理列表</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="editResource">
-                                                    <label for="editResource">查询资源</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="excelResource">
-                                                    <label for="excelResource">导出Excel</label>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="list-left">权限管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="permissionsList">
-                                                    <label for="permissionsList">权限分配页面</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="savePermissions">
-                                                    <label for="savePermissions">保存权限</label>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="list-block">
-                                            <div class="list-left">标识符管理</div>
-                                            <div class="list-right">
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="identifierList">
-                                                    <label for="identifierList">标识符列表</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="queryIdentifier">
-                                                    <label for="queryIdentifier">查询标识符</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="saveIdentifier">
-                                                    <label for="saveIdentifier">保存标识符</label>
-                                                </div>
-                                                <div class="list-right-list">
-                                                    <input type="checkbox" id="excelIdentifier">
-                                                    <label for="excelIdentifier">导出Excel</label>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
+                                        </li>
+                                        <li><button class="btn btn-success btn1" id="roleSelected">查询</button></li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                    <ul class="power-left power col-lg-6 col-md-6 col-sm-12">
+                                        <li>
+                                            权限列表
+                                        </li>
+
+                                    </ul>
+                                    <div class="power col-lg-6 col-md-6 col-sm-12" style="border: 1px solid #808080;">
+                                        <div style="line-height: 40px;text-align: initial" class="allSelect"><input type="checkbox" style="margin-bottom: 10px;">全选</div>
+                                        <ul class="power-right" style="border: none">
+                                            <li>
+                                                仓库列表
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="btn btn-primary save">保存</button>
                                     </div>
                                 </div>
-                                <div class="main-contents-table hide-block" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;float:left;width: 100%;">
-                                    <div style="height:300px;background: yellow"></div>
-                                </div>
+                                <!--<div class="main-contents-table hide-block" style="margin-top: 0;padding: 20px;border:1px solid #ccc;border-top: none;float:left;width: 100%;">-->
+                                    <!--<div style="height:300px;background: yellow"></div>-->
+                                <!--</div>-->
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -495,6 +373,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/permissionAssignment.js"></script>
 <script>
     jQuery(document).ready(function() {

@@ -153,7 +153,7 @@ $(function(){
                 render:function(data, type, row, meta){
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle +
                         '"' +
                         'target="_blank">' + data + '</a>'
                 }
@@ -231,10 +231,6 @@ $(function(){
             {
                 title:'设备名称',
                 data:'dName'
-            },
-            {
-                title:'设备位置',
-                data:'installAddress'
             },
             {
                 title:'车站',

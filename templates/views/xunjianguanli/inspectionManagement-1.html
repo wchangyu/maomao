@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -283,7 +283,7 @@
                                         </select>
                                     </li>
                                     <li>
-                                        <label for=""> 设备巡检条目名称：</label>
+                                        <label for=""> 设备巡检步骤名称：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <input type="text" class="filterInput">
                                         </div>
@@ -304,7 +304,7 @@
                                         <table class="table table-bordered">
                                             <caption>
                                                 <label for="">请选择设备类型</label>
-                                                <select name="" id="">
+                                                    <select name="" id="">
                                                     <option value="">阀门</option>
                                                     <option value="">空调</option>
                                                     <option value="">空调</option>
@@ -439,6 +439,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/inspectionManagement-1.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -451,19 +452,25 @@
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 551px;width: 333px!important;">
-        <div class="modal-content" style="height: 551px;width: 333px!important;">
+    <div class="modal-dialog" style="height: 608px;width: 333px!important;">
+        <div class="modal-content" style="height: 608px;width: 333px!important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">添加</h4>
             </div>
-            <div class="modal-body" style="height: 433px;">
+            <div class="modal-body" style="height: 488px;">
                 <!--主体部分-->
                 <ul class="gongdanList" id="myApp33">
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">项目名称 *：<span v-show="$validation.mingcheng.requireds">请输入项目名称</span></div>
+                                <div class="labels">步骤编码 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" class="bianma1" v-model="bianma" placeholder="自动生成" disabled>
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">步骤名称 *：<span v-show="$validation.mingcheng.requireds">请输入项目名称</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
                                 </div>
@@ -479,7 +486,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">项目描述：</div>
+                                <div class="labels">步骤描述：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="miaoshu" >
                                 </div>
@@ -495,7 +502,7 @@
                                 </div>
                             </li>
                             <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels">项目参考值 ：</div>
+                                <div class="labels">步骤参考值 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="cankaozhi">
                                 </div>
@@ -545,13 +552,13 @@
             <div class="modal-body">
                 <ul>
                     <li class="floatLeft">
-                        <div class="labels">条目编码：</div>
+                        <div class="labels">步骤编码：</div>
                         <div class="input-blockeds">
                             <input type="text"id="tmbm">
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">条目名称 ：</div>
+                        <div class="labels">步骤名称 ：</div>
                         <div class="input-blockeds">
                             <input type="text"id="tmmc">
                         </div>

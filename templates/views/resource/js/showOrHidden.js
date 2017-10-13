@@ -269,36 +269,35 @@ function _setEnergyInfo(){
 }
 
 //获取能耗种类参数方法
-function _getEcTypeValue(el){
+function _getEcTypeValue(){
     var aaa =[];
     var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
     if(jsonText){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etid)
         }
-        el = aaa[$('.selectedEnergy').index()];
+        var el = aaa[$('.selectedEnergy').index()];
         return el;
     }
 };
 
 //获取能耗种类名称方法
-function _getEcTypeWord(el){
+function _getEcTypeWord(){
     var aaa =[];
     var jsonText = JSON.parse(sessionStorage.getItem('allEnergyType'));
     if(jsonText){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etname);
         }
-        el = aaa[$('.selectedEnergy').index()];
+        var el = aaa[$('.selectedEnergy').index()];
         return el;
     }
 }
 
-//获取能耗种类方法（电、水、气）
-function _getEcType(el){
+//能耗种类方法（电、水、气）
+function _getEcType(attr){
     var _energyTypeSel = new ETSelection();
-    _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
-        el = _getEcTypeValue(el);
+    _energyTypeSel[attr]($(".energy-types"),undefined,function(){
     });
 }
 

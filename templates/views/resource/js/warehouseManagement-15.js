@@ -10,15 +10,6 @@ $(function(){
         language: "zh-CN" //汉化
     });
 
-    //获得用户id
-    var _userIdNum = sessionStorage.getItem('userName');
-
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('realUserName');
-
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
     //设置初始时间
     var _initStart = moment().format('YYYY/MM');
 
@@ -185,7 +176,9 @@ $(function(){
             'itemNum':filterInput[0],
             'itemName':filterInput[1],
             'inoutType':$('.tiaojian').val(),
-            'userID':_userIdName
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
         }
         $.ajax({
             type:'post',
@@ -220,6 +213,7 @@ $(function(){
         var prm ={
             userID:_userIdNum,
             userName:_userIdName,
+            b_UserRole:_userRole,
         };
         $.ajax({
             type:'post',

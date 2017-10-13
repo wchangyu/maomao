@@ -6,6 +6,9 @@ $(function(){
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
 
+    //获取角色权限
+    var  _userRole = sessionStorage.getItem("userRole");
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
@@ -158,7 +161,8 @@ $(function(){
             data:{
                 storageNum:$('#ckSelect').val(),
                 userID:_userIdNum,
-                userName:_userIdName
+                userName:_userIdName,
+                b_UserRole:_userRole,
             },
             success:function(result){
                 console.log(result);
@@ -187,6 +191,7 @@ $(function(){
             'itemName':filterInput[1],
             'userID':_userIdNum,
             'userName':_userIdName,
+            'b_UserRole':_userRole,
             'storageNum':$('#ckSelect').val(),
             'localNum':$('#kqSelect').val(),
             'hasNum':$('#greaterThan').val()
@@ -235,6 +240,7 @@ $(function(){
         var prm = {
             "userID": _userIdNum,
             "userName": _userIdName,
+            "b_UserRole":_userRole,
             "hasLocation":1
         }
         $.ajax({

@@ -13,6 +13,9 @@ $(function(){
 
     var _userIdName = sessionStorage.getItem('realUserName');
 
+    //获取角色权限
+    var  _userRole = sessionStorage.getItem("userRole");
+
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
@@ -176,7 +179,8 @@ $(function(){
             data:{
                 storageNum:$('#ck').val(),
                 userID:_userIdNum,
-                userName:_userIdName
+                userName:_userIdName,
+                b_UserRole:_userRole
             },
             success:function(result){
                 var str = '<option value="">请选择</option>';
@@ -208,6 +212,8 @@ $(function(){
             'itemName':filterInput[1],
             'inoutType':$('.tiaojian').val(),
             'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
             'storageNum':$('#ck').val(),
             'localNum':$('#kqSelect').val(),
             'hasNum':$('#greaterThan').val()
@@ -240,7 +246,8 @@ $(function(){
     function warehouse(){
         var prm = {
             "userID": _userIdNum,
-            "userName": _userIdName
+            "userName": _userIdName,
+            "b_UserRole":_userRole
         }
         $.ajax({
             type:'post',

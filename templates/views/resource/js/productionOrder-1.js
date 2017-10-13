@@ -758,6 +758,7 @@ $(function () {
         conditionSelect();
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        $('.loading').hideLoading();
         console.log(jqXHR.responseText);
       }
     })
@@ -841,6 +842,7 @@ $(function () {
         select.empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        $('.loading').hideLoading();
         console.log(jqXHR.responseText);
       }
     })
@@ -909,8 +911,8 @@ $(function () {
       'gdLeixing': app33.rwlx,
       'dName': app33.sbMC,
       'gdSrc': 2,
-      'wxShebei': app33.sbSelect,
-      'dcName': app33.sbLX,
+      'wxShebei': app33.sbLX,
+      'dcName': app33.sbSelect,
       'installAddress': app33.azAddress,
       'userName': _userIdName,
       'gdCodeSrc': app33.gdly,
@@ -1116,6 +1118,7 @@ $(function () {
         $('#line-route1').empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        $('.loading').hideLoading();
         console.log(jqXHR.responseText);
       }
     })

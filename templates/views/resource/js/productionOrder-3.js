@@ -449,7 +449,7 @@ $(function(){
     });
     /*------------------------------------表格绑定事件---------------------------*/
     $('#scrap-datatables tbody')
-        .on('click','.option-option',function(){
+        .on('click','.option-option',function(e){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //数据绑定
             editOrOption($(this),'1');
@@ -458,6 +458,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji');
             //图片区域隐藏
             $('.showImage').hide();
+            //e.stopPropagation();
         })
         .on('click','.option-edit',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
@@ -469,8 +470,9 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton');
             //图片区域隐藏
             $('.showImage').hide();
+            //e.stopPropagation();
         })
-        .on('click','tr',function(){
+        .on('click','tr',function(e){
             _gdCircle = $(this).children('.gongdanId').children('span').attr('gdcircle');
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $(this).addClass('tables-hover');
@@ -513,6 +515,7 @@ $(function(){
                     }
                 }
             })
+            e.stopPropagation();
         });
     /*----------------------------------按钮事件---------------------------------*/
     //选择执行人按钮；
