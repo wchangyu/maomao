@@ -207,7 +207,6 @@ var BEE = (function(){
         }
     }
 
-
     //设置theme
     var setTheme = function(){
         /*
@@ -529,7 +528,7 @@ var BEE = (function(){
                  data:prmData,
                  dataType:'json',
                  success: function (data) {
-                     console.log(data);
+                     //console.log(data);
                      //获取新工单条数
                      var num1 = 0;
                      $(data.zhts).each(function(i,o){
@@ -547,8 +546,6 @@ var BEE = (function(){
                          }
                      });
                      infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html');
-                     console.log(infoHtml);
-
                      //给悬浮窗插入指定信息
                      $dropdownMenu.html(infoHtml);
 
@@ -559,9 +556,6 @@ var BEE = (function(){
              });
 
          }
-
-
-
      };
      //加入新工单信息
      var addInfoMessage = function(data,string,flag){
@@ -609,10 +603,10 @@ var BEE = (function(){
              '     </div>' +
              '     <div class="tree-1 tree-3" style="background: none;">' +
              '         <div class="left-middle-input">' +
-             '             <input id="keys" type="tplaceholder="搜索..." >' +
+             '             <input id="keys1" type="tplaceholder="搜索..." >' +
              '         </div>' +
              '         <div class="tipess"></div>' +
-             '         <ul class="allPointer ztree" id="allPointer">' +
+             '         <ul class="allPointer ztree" id="allPointers">' +
              '         </ul>' +
              '     </div>' +
              ' </div>';
@@ -621,11 +615,11 @@ var BEE = (function(){
 
          //获取楼宇列表
          _objectSel = new ObjectSelection();
-         _objectSel.initPointers($("#allPointer"),true,false,true);
+         _objectSel.initPointers($("#allPointers"),true,false,true);
 
          //搜索功能（楼宇）
          var objSearchs = new ObjectSearch();
-         objSearchs.initPointerSearch($("#keys"),$(".tipess"),"allPointer");
+         objSearchs.initPointerSearch($("#keys1"),$(".tipess"),"allPointers");
 
          //上方开关绑定事件
          $('#onOff1').off('click');
@@ -764,7 +758,6 @@ var BEE = (function(){
          }
          return true;
      };
-
 
      //根据arg参数判断当前菜单下是否存在流程图
      var ifExistProcs = function(procsArr,arg){

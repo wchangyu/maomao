@@ -809,6 +809,9 @@ $(function(){
                     allArr.push(result[i]);
                 }
                 select.append(str);
+                //if(text == 'ddName'){
+                //    console.log(result);
+                //}
             }
         })
     }

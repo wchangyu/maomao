@@ -113,7 +113,7 @@ $(document).ready(function(){
         //数据源
         'columns':[
             {
-                title:'支行名称',
+                title:'单位名称',
                 data:"enterpriseName",
                 render:function(data, type, row, meta) {
                     if(data.length > 6){
@@ -215,7 +215,7 @@ $(document).ready(function(){
         //数据源
         'columns':[
             {
-                title:'支行名称',
+                title:'单位名称',
                 data:"enterpriseName",
                 render:function(data, type, row, meta) {
                     if(data.length > 6){

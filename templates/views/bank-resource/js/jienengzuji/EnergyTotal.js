@@ -40,9 +40,8 @@ var typeArr = [];
 //获取能耗查询页面初始数据
 function getStartData(){
 
-
     //获取查询对象
-
+    
     $.ajax({
         type: 'get',
         url: IP + "/EnergySavingTrack/GetShowEneryItemByQuery",

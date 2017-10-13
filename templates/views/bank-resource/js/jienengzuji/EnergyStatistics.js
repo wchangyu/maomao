@@ -57,7 +57,7 @@ $(document).ready(function() {
                 class:'theHidden'
             },
             {
-                title:'支行名称',
+                title:'单位名称',
                 data:"enterpriseName",
                 class:'',
                 render:function(data, type, full, meta){

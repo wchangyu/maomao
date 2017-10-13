@@ -479,10 +479,7 @@ function getClassEcData(){
             _myChart3.hideLoading();
             console.log(JSON.parse(jqXHR.responseText).message);
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option.series = dataY;
+                option.series[0].data = [];
                 _myChart1.setOption(option);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -490,7 +487,6 @@ function getClassEcData(){
             }else{
                 alert("请求失败！");
             }
-
         }
     });
 }
@@ -541,10 +537,7 @@ function getOfficeClassEcData(){
             _myChart1.hideLoading();
             console.log(JSON.parse(jqXHR.responseText).message);
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option.series = dataY;
+                option.series[0].data = [];
                 _myChart1.setOption(option);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -609,10 +602,7 @@ function PointerPowerConsumption(){
         error:function(jqXHR, textStatus, errorThrown){
             _myChart.hideLoading();
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option1.series = dataY;
+                option1.series[0].data = [];
                 _myChart.setOption(option1);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -662,10 +652,7 @@ function OfficePowerConsumption(){
         error:function(jqXHR, textStatus, errorThrown){
             _myChart.hideLoading();
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option1.series = dataY;
+                option1.series[0].data = [];
                 _myChart.setOption(option1);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -729,10 +716,7 @@ function PointerCharge(){
             _myChart2.hideLoading();
             console.log(JSON.parse(jqXHR.responseText).message);
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option2.series = dataY;
+                option2.series[0].data = [];
                 _myChart2.setOption(option2);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
@@ -779,10 +763,7 @@ function OfficeCharge(){
             _myChart2.hideLoading();
             console.log(JSON.parse(jqXHR.responseText).message);
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                var obj = {};
-                obj.data = [];
-                dataY.push(obj);
-                option2.series = dataY;
+                option2.series[0].data = [];
                 _myChart2.setOption(option2);
             }
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
