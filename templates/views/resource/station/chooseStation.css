@@ -1,0 +1,169 @@
+.color{
+    background: #ebebeb;
+}
+.select-li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+.add-input-father {
+    width: 182px;
+    position: relative;
+    display: inline-block;
+}
+.add-input-block {
+    width: 172px;
+    border-radius: 5px;
+    border: 1px solid #a9a9a9;
+    display: inline-block;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+}
+.add-input {
+    width: 160px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    line-height: 28px;
+    height: 28px;
+    text-align: left;
+}
+.add-input-arrow {
+    width: 10px;
+    height: 10px;
+    background: url(img/down-arrow.png) no-repeat;
+    background-size: 7px 12px;
+    background-position: 95% center;
+    float: right;
+    margin-top: 10px;
+}
+.add-select-block{
+    z-index: 1000;
+    margin: 0;
+    width: 182px;
+    /*padding: 0 5px 0 5px;*/
+    position: absolute;
+    /*border: 1px solid #ccc;*/
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    background: white;
+    display: none;
+    top: 31px;
+    left:-258px;
+}
+.ac_title {
+    margin: 1px;
+    margin-bottom: 0;
+    border-width: 0;
+    padding: 6px 0 5px 15px;
+    text-align: left;
+    background-color: #eef1f8;
+    position: relative;
+    z-index: 100;
+    color: #666;
+}
+.com_hotresults {
+    padding: 0;
+    margin: 0;
+    z-index: 99998;
+    text-align: center;
+    font-size: 12px;
+    border: #2b8cce solid 1px;
+    position: relative;
+    background: #FFF;
+}
+.com_hotresults a.ac_close {
+    position: absolute;
+    top: 6px;
+    right: 9px;
+    text-indent: -9999em;
+    display: block;
+    width: 17px;
+    font: 1px/1px arial;
+    height: 17px;
+    background: url(img/close_show_citys.jpg) 0;
+}
+.com_hotresults .AbcSearch {
+    padding: 5px 5px 0 5px;
+}
+.AbcSearch {
+    border-bottom: #66c8e8 solid 2px;
+    background: #298cce;
+    height: 25px;
+}
+.com_hotresults ul {
+    padding: 0;
+    margin: 0;
+    list-style-position: outside;
+    list-style: none;
+    z-index: 100;
+}
+.AbcSearch .action {
+    background: #66c8e8;
+    border-radius: 5px 5px 0 0 !important;
+    -moz-border-radius: 5px 5px 0 0 !important;
+    -ms-border-radius: 5px 5px 0 0 !important;
+    -o-border-radius: 5px 5px 0 0 !important;
+    -webkit-border-radius: 5px 5px 0 0 !important;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: -1px;
+    position: relative;
+}
+.AbcSearch li {
+    width: 86px;
+    padding: 0 8px;
+    color: #e6f9ff;
+    height: 25px;
+    line-height: 25px;
+}
+.com_hotresults li {
+    padding: 2px 0 0 0;
+    margin: 0;
+    height: 25px;
+    line-height: 25px;
+    float: left;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+#abc{
+
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    box-sizing: content-box;
+}
+ul.popcitylist {
+    padding-left: 20px;
+}
+ul.popcitylist {
+    overflow: hidden;
+    zoom: 1;
+    margin-left: 6px;
+    _margin-left: 1px;
+}
+ul.popcitylist .ac_letter {
+    margin: 0 0 0 -20px;
+    width: 20px;
+    font-weight: 700;
+    color: #298cce;
+    _display: inline;
+}
+ul.popcitylist li {
+    text-align: left;
+    width: 65px;
+    overflow: hidden;
+    margin: 0 6px;
+    color: #666;
+}
+.ac_title button{
+    padding: 0;
+    height: 21px;
+    line-height: 18px;
+    background: #ddd;
+    margin-left: 10px;
+}

@@ -181,8 +181,8 @@
       },
       "系统损耗":{
         "type":"0",
-        "content":"用能趋势",
-        "uri":"../yongnengfenxi/energyAnalysis-7.html",
+        "content":"系统损耗",
+        "uri":"../yongnengfenxi/energyAnalysis-6.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -395,7 +395,6 @@
         "uri":"../gongdangunali/productionOrder-3.html",
         "uid":"",
         "arg":"",
-        "arg2":"dd01,admin",
         "iconclass":""
       },
       "工长分配管理":{
@@ -420,7 +419,6 @@
         "uri":"../gongdangunali/productionOrder-5.html",
         "uid":"",
         "arg":"",
-        "arg2":"dd01",
         "iconclass":""
       },
       "工单综合查询":{
@@ -437,7 +435,6 @@
         "uri":"../gongdangunali/productionOrder-8.html",
         "uid":"",
         "arg":"",
-        "arg2":"dd01",
         "iconclass":""
       },
       "备件确认":{
@@ -555,6 +552,14 @@
         "type":"0",
         "content":"车间日故障分析表",
         "uri":"../guzhangfenxibiao/dailyBugList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "车间未修复故障分析表":{
+        "type":"0",
+        "content":"车间未修复故障分析表",
+        "uri":"../guzhangfenxibiao/undoneBugList.html",
         "uid":"",
         "arg":"",
         "iconclass":""

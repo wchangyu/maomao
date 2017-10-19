@@ -35,7 +35,7 @@ var userMonitor = (function(){
     var _scaleX = 1;        //变形比例
     var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
     var _refreshAction;
-
+    var _imgProcSrc;            //存放背景图地址
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -238,7 +238,6 @@ var userMonitor = (function(){
         }
         return false;
     }
-
 
     var getProcsByPointerId = function(notSetProcList){
         var pointerId = sessionStorage["curPointerId"];
@@ -592,6 +591,8 @@ var userMonitor = (function(){
 
                         var img = $("<img>");
                         img.attr("src",data["imgUrl"]);
+                        //对背景图地址进行更新
+                        _imgProcSrc = data["imgUrl"];
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
                         if(imgWidth){ img.width(imgWidth); }

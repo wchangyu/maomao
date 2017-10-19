@@ -14,6 +14,8 @@ $(function(){
         format: 'yyyy/mm/dd',     forceParse: 0
     });
 
+    //页面插入station选择框
+    addStationDom($('#bumen').parent());
 
     //设置延迟时间
     var theTimes = 300000;
@@ -841,7 +843,7 @@ $(function(){
         if(!flag){
             departNums = [];
         }
-        console.log(departNums);
+        //console.log($('#bumen').val());
         var prm =   {
             'st':realityStart,
             'et':realityEnd,
@@ -901,14 +903,14 @@ $(function(){
         }
 
         var dom ='#'+ tableId[0].id + '_paginate';
-        console.log(dom);
+        //console.log(dom);
         var txt = $(dom).children('span').children('.current').html();
 
         datasTable(tableId,arr);
         var num = txt - 1;
         var dom = $(dom).children('span').children().eq(num);
-        console.log(txt);
-        console.log(dom);
+        //console.log(txt);
+        //console.log(dom);
         dom.click();
     };
 
@@ -991,7 +993,7 @@ $(function(){
 
                     str += '<option value="'+ o.dcNum+'">'+ o.dcName+'</option>'
                 });
-                console.log(str);
+                //console.log(str);
                 $('#leixing').html('');
                 $('#leixing').html(str);
                 return false;
@@ -1002,6 +1004,12 @@ $(function(){
     $('#quyu').change(function(){
 
         var value = $('#quyu').val();
+        $('#bumen').parent().next().find('.add-select-block').hide();
+        $('#bumen').parent().next().find('.add-input-select').find('span').html('全部');
+        $('#bumen').parent().next().find('.add-input-select').find('span').attr('values','');
+        $('.AbcSearch li').removeClass('action');
+        $('.AbcSearch li').eq(0).addClass('action');
+
         if(value == ''){
             var str = '<option value="">全部</option>';
             $(_allDataBM).each(function(i,o){
@@ -1010,19 +1018,25 @@ $(function(){
             });
             $('#bumen').html('');
             $('#bumen').html(str);
+            //显示根据拼音选择车站选框
+            stationArr = _allDataBM;
+            classifyArrByInitial(stationArr,0);
             return false;
         }
+
 
         $(_relativeArr2).each(function(i,o){
 
             if(value == o.daNum){
                 var pushArr = o.devDeps;
+                stationArr = pushArr;
+                classifyArrByInitial(stationArr,0);
                 var str = '<option value="">全部</option>';
                 $(pushArr).each(function(i,o){
 
                     str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
                 });
-                console.log(str);
+                //console.log(str);
                 $('#bumen').html('');
                 $('#bumen').html(str);
                 return false;
