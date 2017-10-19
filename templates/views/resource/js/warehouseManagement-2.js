@@ -357,6 +357,12 @@ $(function(){
 
     //记录出库单号
     var _chukuD = '';
+
+    //查看入库单详情中的仓库选择
+    warehouse();
+
+    //是否可以自己审核
+    var _isShenHe = sessionStorage.getItem('ckAuditType');
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -729,10 +735,9 @@ $(function(){
             myApp33.gysphone = '';
             myApp33.supplierMC = '';
             myApp33.supplierBM = '';
-            myApp33.ckselect = '';
+            myApp33.ckselect = _ckArr[0].storageNum;
             myApp33.supplierContent = '';
             myApp33.supplierPhone = ''
-        warehouse();
         //物品登记表格清空；
         _rukuArr = [];
         datasTable($('#personTable1'),_rukuArr);
@@ -866,7 +871,6 @@ $(function(){
 
     //选中出库单确定按钮
     $('#myModal7').on('click','.btn-primary',function(){
-        //console.log(_chukuD);
         $('#myModal7').modal('hide');
         //出去出库单的详情
         var prm = {
@@ -954,7 +958,6 @@ $(function(){
                 obj.localNum = _rukuArr[i].localNum;
                 inStoreDetails1.push(obj);
             }
-            console.log(inStoreDetails1);
             var ckName = '';
             if($('#ckselect').val() == ''){
                 ckName = ''
@@ -1273,6 +1276,11 @@ $(function(){
         })
     })
         .on('click','.shenhe',function(){
+            if(_isShenHe == 1){
+                _examineRen = false;
+            }else if(_isShenHe == 0){
+                _examineRen = true;
+            }
             if( !_examineRen ){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
@@ -1916,8 +1924,6 @@ $(function(){
         }
         realityStart = filterInput[1] + ' 00:00:00';
         realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        //仓库
-        console.log(_ckArr);
         var ckArr = [];
         for(var i=0;i<_ckArr.length;i++){
             ckArr.push(_ckArr[i].storageNum);
@@ -1965,7 +1971,7 @@ $(function(){
     }
 
     //仓库选择（第一次页面加载时，flag）；
-    function warehouse(flag){
+    function warehouse(){
         var prm = {
             userID:_userIdNum,
             userName:_userIdName,
@@ -1976,21 +1982,14 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
-                if(flag){
-                    //console.log(result);
-                    _ckArr.length = 0;
-                    for(var i=0;i<result.length;i++){
-                        _ckArr.push(result[i]);
-                    }
-                    conditionSelect();
-                }else{
-                    var str = '<option value="">请选择</option>'
-                    for(var i=0;i<result.length;i++){
-                        str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
-                    }
+                _ckArr.length = 0;
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i]);
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
                     $('#ckselect').empty().append(str);
-                    myApp33.ckselect = result[0].storageNum;
                 }
+                conditionSelect();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -2321,7 +2320,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetOutStorage',
             data:prm,
             success:function(result){
-                console.log(result);
                 var arr = [];
                 for(var i=0;i<result.length;i++){
                     if(result[i].status == 1){

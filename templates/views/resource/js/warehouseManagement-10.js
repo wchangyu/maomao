@@ -281,7 +281,6 @@ $(function(){
     function locationSelect(){
         var ckArr = [];
         var ckNum = '';
-        //console.log(_ckArr);
         if($('#ck-select').val() == ''){
             for(var i=0;i<_ckArr.length;i++){
                 ckArr.push(_ckArr[i].storageNum);
@@ -508,7 +507,8 @@ $(function(){
                         if(result == 99){
                             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,succcessMeg, '');
                             $('#myModal1').modal('hide');
-                            conditionSelect('YWCK/ywCKGetLocations',false,true);
+                            //conditionSelect('YWCK/ywCKGetLocations',false,true);
+                            locationSelect();
                         }else{
                             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出现错误', '');
                         }

@@ -378,6 +378,7 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
             }else{
                 var prm = {
+
                     'bxDianhua':gdObj.bxtel,
                     'bxKeshi':$('#bxkesh').children('option:selected').html(),
                     'bxKeshiNum':gdObj.bxkesh,

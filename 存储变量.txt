@@ -40,3 +40,4 @@ sessionStorage.allProcs        记录全部的流程图
 sessionStorage.changeMenuByProcs 是否根据流程图动态绘制菜单
 
 sessionStorage.gongdanInterval  工单是否开启自动刷新，0为关闭，数字为刷新的分钟
+sessionStorage.ckAuditType      是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核

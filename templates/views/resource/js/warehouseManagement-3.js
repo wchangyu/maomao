@@ -1,6 +1,6 @@
 $(function(){
     /*--------------------------------全局变量---------------------------------*/
-    sessionStorage.getItem("apiUrlPrefixYW");
+
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -396,10 +396,6 @@ $(function(){
     var _wpObject = {};
 
     //var _$thisWP = '';
-    //仓库选择
-    //warehouse($('#ckselect'));
-
-    //warehouse();
 
     //出库类型
     rkLX();
@@ -446,6 +442,10 @@ $(function(){
 
     //备件申请完成
     var _bjComplete = false;
+
+    //是否可以自己审核
+    var _isShenHe = sessionStorage.getItem('ckAuditType');
+
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -772,7 +772,7 @@ $(function(){
 
     tableInit($('#wuPinListTable'),col4,buttonHidden);
 
-    wlList();
+    //wlList();
 
     //备件表格
     $('#table-spare').DataTable({
@@ -1111,7 +1111,7 @@ $(function(){
             $('.shRemarks').hide();
             $('.tableHovers').children('.condition-query').show();
             //动态删除类名dengji
-            $('#myModal').find('.confirm').removeClass('dengji').addClass('bianji');
+            $('#myModal').find('.confirm').removeClass('shenhe').removeClass('dengji').addClass('bianji');
             var $this = $(this).parents('tr');
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
@@ -1259,68 +1259,74 @@ $(function(){
     //表格编辑确认按钮
     $('#myModal')
         .on('click','.bianji',function(){
-        var outStoreDetails1 = [];
-        //入库单的信息
-        for(var i=0;i<_rukuArr.length;i++){
-            var obj = {};
-            obj.itemNum = _rukuArr[i].itemNum;
-            obj.itemName = _rukuArr[i].itemName;
-            obj.size = _rukuArr[i].size;
-            obj.unitName = _rukuArr[i].unitName;
-            obj.num = _rukuArr[i].num;
-            obj.outPrice = _rukuArr[i].outPrice;
-            obj.amount = _rukuArr[i].amount;
-            obj.gdCode2 = _rukuArr[i].gdCode2;
-            obj.bxKeshi = _rukuArr[i].chezhan;
-            obj.bxKeshiNum = $('#chezhan').children('option:selected').html();
-            obj.outMemo = _rukuArr[i].outMemo;
-            obj.userID=_userIdNum;
-            obj.userName = _userIdName;
-            obj.storageName = _rukuArr[i].storageName;
-            obj.storageNum = _rukuArr[i].storageNum;
-            obj.sn = _rukuArr[i].sn;
-            outStoreDetails1.push(obj);
-        }
-        var ckName = '';
-        if($('#ckselect').val() == ''){
-            ckName = ''
-        }else{
-            ckName = $('#ckselect').children('option:selected').html();
-        }
-        var prm = {
-            'orderNum':myApp33.bianhao,
-            'outType':myApp33.rkleixing,
-            'remark':myApp33.remarks,
-            'outStoreDetails':outStoreDetails1,
-            'userID':_userIdNum,
-            'userName':_userIdName,
-            'b_UserRole':_userRole,
-            'storageName':ckName,
-            'storageNum':$('#ckselect').val(),
-            'contractOrder':myApp33.gdCode,
-            'cusName':myApp33.clymc,
-            'phone':myApp33.clydh
-        }
-        $.ajax({
-            type:'post',
-            url: _urls + 'YWCK/ywCKEditOutStorage',
-            data:prm,
-            success:function(result){
-                if(result == 99){
-                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改成功!', '');
-                    $('#myModal').modal('hide');
-                    conditionSelect();
-                }else{
-                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改失败!', '');
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            var outStoreDetails1 = [];
+            //入库单的信息
+            for(var i=0;i<_rukuArr.length;i++){
+                var obj = {};
+                obj.itemNum = _rukuArr[i].itemNum;
+                obj.itemName = _rukuArr[i].itemName;
+                obj.size = _rukuArr[i].size;
+                obj.unitName = _rukuArr[i].unitName;
+                obj.num = _rukuArr[i].num;
+                obj.outPrice = _rukuArr[i].outPrice;
+                obj.amount = _rukuArr[i].amount;
+                obj.gdCode2 = _rukuArr[i].gdCode2;
+                obj.bxKeshi = _rukuArr[i].chezhan;
+                obj.bxKeshiNum = $('#chezhan').children('option:selected').html();
+                obj.outMemo = _rukuArr[i].outMemo;
+                obj.userID=_userIdNum;
+                obj.userName = _userIdName;
+                obj.storageName = _rukuArr[i].storageName;
+                obj.storageNum = _rukuArr[i].storageNum;
+                obj.sn = _rukuArr[i].sn;
+                obj.localNum = _rukuArr[i].localNum;
+                obj.localName = _rukuArr[i].localName;
+                outStoreDetails1.push(obj);
             }
+            var ckName = '';
+            if($('#ckselect').val() == ''){
+                ckName = ''
+            }else{
+                ckName = $('#ckselect').children('option:selected').html();
+            }
+            var prm = {
+                'orderNum':myApp33.bianhao,
+                'outType':myApp33.rkleixing,
+                'remark':myApp33.remarks,
+                'outStoreDetails':outStoreDetails1,
+                'userID':_userIdNum,
+                'userName':_userIdName,
+                'b_UserRole':_userRole,
+                'storageName':ckName,
+                'storageNum':$('#ckselect').val(),
+                'contractOrder':myApp33.gdCode,
+                'cusName':myApp33.clymc,
+                'phone':myApp33.clydh
+            }
+            $.ajax({
+                type:'post',
+                url: _urls + 'YWCK/ywCKEditOutStorage',
+                data:prm,
+                success:function(result){
+                    if(result == 99){
+                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改成功!', '');
+                        $('#myModal').modal('hide');
+                        conditionSelect();
+                    }else{
+                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'修改失败!', '');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
         })
-    })
         .on('click','.shenhe',function(){
-            //_examineRen = true;
+            if(_isShenHe == 1){
+                _examineRen = false;
+            }else if(_isShenHe == 0){
+                _examineRen = true;
+            }
             if(!_examineRen){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
@@ -1846,11 +1852,12 @@ $(function(){
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
                 }
-            })
+            });
             //根据选中的仓库，来确定编码
             var str = '';
             for(var i=0;i<_wpListArr.length;i++){
                 if($('.cangku').attr('data-num') == _wpListArr[i].storageNum){
+                    console.log(_wpListArr[i]);
                     //确定编码的列表
                     str += '<li data-durable="' + _wpListArr[i].isSpare +
                         '"' + 'data-unit="' + _wpListArr[i].unitName +
@@ -2408,6 +2415,8 @@ $(function(){
 
                 //加载数据
                 conditionSelect();
+
+                wlList();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -2439,23 +2448,37 @@ $(function(){
 
     //获取物品列表
     function wlList(flag){
+        var ckarr = [];
+        for(var i=0;i<_ckArr.length;i++){
+            ckarr.push(_ckArr[i].storageNum);
+        }
         var prm = {
             'ItemNum':$('.filterInput1').eq(0).val(),
             'itemName':$('.filterInput1').eq(1).val(),
-            'storageNum':$('#ckSelect1').val(),
+            'storageNum':$('#ckSelect').val(),
+            'storageNums':ckarr,
             'hasNum':0,
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
         }
-
+        if( $('#ckSelect1').val() == ''){
+            prm.storageNum = '';
+            prm.storageNums = ckarr;
+        }else{
+            prm.storageNum = $('#ckSelect').val();
+            prm.storageNums = [];
+        }
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
             async:false,
             data:prm,
             success:function(result){
-                _wpListArr = result;
+                _wpListArr.length = 0;
+                for(var i=0;i<result.length;i++){
+                    _wpListArr.push(result[i]);
+                }
                 //给物品编码和物品名称赋值
                 var str = '';
                 for(var i=0;i<result.length;i++){
@@ -3239,9 +3262,13 @@ $(function(){
         }else{
             _BjFlag = '';
             if(_AddFlag){
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记成功！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增成功！', '');
+
+                $('#myModal').modal('hide');
+
+                conditionSelect();
             }else{
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'登记失败！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增失败！', '');
             }
         }
     }
