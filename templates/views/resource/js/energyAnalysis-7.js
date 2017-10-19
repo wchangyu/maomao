@@ -21,10 +21,10 @@ $(function(){
 	_ajaxEcTypeWord = _getEcTypeWord();
 
 	//楼宇ztree树
-	var _pointerZtree = _getPointerZtree($("#allPointer"));
+	var _pointerZtree = _getPointerZtree($("#allPointer"),1);
 
 	//科室ztree树
-	var _officeZtree = _getOfficeZtree($("#allOffices"));
+	var _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
 	//楼宇搜索功能
 	_searchPO($(".tipess"),"allPointer",$(".tipes"),"allOffices");

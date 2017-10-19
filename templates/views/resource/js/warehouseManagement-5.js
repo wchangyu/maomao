@@ -23,13 +23,17 @@ $(function(){
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
+    //标识仓库是否加载完毕
+    var _isWarehouse = false;
+
     //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
 
     var realityStart = '';
     var realityEnd = '';
-    warehouse();
+
+    var _ckArr = [];
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -149,8 +153,9 @@ $(function(){
         ],
     });
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
-    /*------------------------------------表格数据--------------------------------*/
-    conditionSelect();
+
+    //表格赋值
+    warehouse();
     /*-------------------------------------按钮事件-------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -205,6 +210,18 @@ $(function(){
         }
         realityStart = filterInput[2] + ' 00:00:00';
         realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        var ckArr = [];
+        var ckNum = '';
+        if($('#ck').val() == ''){
+            for(var i=0;i<_ckArr.length;i++){
+                ckArr.push(_ckArr[i].storageNum);
+            }
+            ckNum = '';
+        }else{
+
+            ckNum = $('#ck').val();
+            ckArr = [];
+        }
         var prm = {
             'st':realityStart,
             'et':realityEnd,
@@ -214,7 +231,8 @@ $(function(){
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
-            'storageNum':$('#ck').val(),
+            'storageNums':ckArr,
+            'storageNum':ckNum,
             'localNum':$('#kqSelect').val(),
             'hasNum':$('#greaterThan').val()
         }
@@ -222,8 +240,12 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKRptInventory',
             data:prm,
+            timeout:30000,
             success:function(result){
-                datasTable($('#scrap-datatables'),result)
+                datasTable($('#scrap-datatables'),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -254,19 +276,28 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
+                _isWarehouse = true;
+                _ckArr.length = 0;
                 var str = '<option value="">请选择</option>'
                 for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i]);
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
                 }
                 $('#ck').empty().append(str);
-                myApp33.ckselect = result[0].storageNum;
-
+                //myApp33.ckselect = result[0].storageNum;
+                console.log(_isWarehouse);
+                if(_isWarehouse){
+                    conditionSelect();
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
     }
+
+    //仓库是否加载完成
+
 
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏

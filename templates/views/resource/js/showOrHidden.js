@@ -301,20 +301,28 @@ function _getEcType(attr){
     });
 }
 
-//楼宇ztree树
-function _getPointerZtree(pointerId){
+//楼宇ztree树(flag = 1,单选按钮，flag = 2，复选按钮)
+function _getPointerZtree(pointerId,flag){
     var _objectSel = new ObjectSelection();
-    _objectSel.initPointers(pointerId,true);
+    if(flag == 1){
+        _objectSel.initPointers(pointerId,true);
+    }else if(flag == 2){
+        _objectSel.initPointers(pointerId,false,true);
+    }
     return _objectSel;
 }
 
-//科室ztree树
-function _getOfficeZtree(officesId){
+//科室ztree树(flag = 1,单选按钮，flag = 2，复选按钮)
+function _getOfficeZtree(officesId,flag){
     var _objectSel = new ObjectSelection();
-    _objectSel.initOffices(officesId);
+    if(flag == 1){
+        _objectSel.initOffices(officesId,false);
+    }else if(flag == 2){
+        _objectSel.initOffices(officesId,true);
+    }
+
     return _objectSel;
 }
-
 
 //楼宇、科室搜索功能
 function _searchPO(tip,pointerId,tips,officeId){
@@ -323,9 +331,6 @@ function _searchPO(tip,pointerId,tips,officeId){
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),tips,officeId);
 }
-
-
-
 
 //搜索楼宇时
 $(document).on('keyup','.input-search-value',function(){

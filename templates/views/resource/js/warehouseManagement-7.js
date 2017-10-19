@@ -44,7 +44,7 @@ $(function(){
     //入库类型
     rkLX();
     //仓库选择
-    warehouse();
+    //warehouse();
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -402,29 +402,29 @@ $(function(){
         })
     }
     //仓库选择
-    function warehouse(){
-        var prm = {
-            userID:_userIdNum,
-            userName:_userIdName,
-            b_UserRole:_userRole,
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWCK/ywCKGetStorages',
-            data:prm,
-            success:function(result){
-                console.log(result);
-                var str = '<option value="">请选择</option>'
-                for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
-                }
-                $('#ckselect').append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
+    //function warehouse(){
+    //    var prm = {
+    //        userID:_userIdNum,
+    //        userName:_userIdName,
+    //        b_UserRole:_userRole,
+    //    }
+    //    $.ajax({
+    //        type:'post',
+    //        url:_urls + 'YWCK/ywCKGetStorages',
+    //        data:prm,
+    //        success:function(result){
+    //            console.log(result);
+    //            var str = '<option value="">请选择</option>'
+    //            for(var i=0;i<result.length;i++){
+    //                str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+    //            }
+    //            $('#ckselect').append(str);
+    //        },
+    //        error:function(jqXHR, textStatus, errorThrown){
+    //            console.log(jqXHR.responseText);
+    //        }
+    //    })
+    //}
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');

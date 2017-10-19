@@ -37,6 +37,7 @@ $(function(){
         "ordering": false,
         "pagingType":"full_numbers",
         "bStateSave":true,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',

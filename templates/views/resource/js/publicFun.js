@@ -25,7 +25,6 @@ function _timeYMDComponentsFun(el){
         language:  'zh-CN',
         todayBtn: 1,
         todayHighlight: 1,
-        forceParse: 0,
         format: 'yyyy/mm/dd',
         forceParse: 0
     });

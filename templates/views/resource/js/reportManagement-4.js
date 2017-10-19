@@ -24,7 +24,7 @@ $(function (){
     var _userIdName = sessionStorage.getItem('realUserName');
     /*-------------------------表格初始化--------------------------*/
     //页面表格
-    $('#scrap-datatables').DataTable({
+    var _table = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -76,6 +76,9 @@ $(function (){
             }
         ]
     });
+
+    _table.buttons().container().appendTo($('.excelButton'),_table.table().container());
+
     $('#scrap-datatables1').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页

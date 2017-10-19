@@ -49,6 +49,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": true,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         "pagingType":"full_numbers",
         "bStateSave":true,
         'language': {
