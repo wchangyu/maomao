@@ -53,6 +53,7 @@
     <!--select插件-->
     <link rel="stylesheet" href="../resource/css/jquery.searchableSelect.css">
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style>
@@ -308,10 +309,12 @@
                                     </li>
                                     <li>
                                         <label for="">车站：</label>
-                                        <div class="input-blocked">
+                                        <div class="input-blocked" style="display: none">
                                             <select name="" id="bumen">
                                             </select>
                                         </div>
+
+
                                     </li>
 
                                     <li>
@@ -453,7 +456,9 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--select插件-->
 <!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
+<script src="../bank-resource/js/common.js"></script>
 <script src="../resource/js/js/assetManagement-1.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

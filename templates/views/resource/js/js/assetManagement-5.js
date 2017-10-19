@@ -4,6 +4,9 @@ $(function(){
     var _userIdName = sessionStorage.getItem('userName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //页面插入station选择框
+    addStationDom($('#bumen').parent());
+
     //存放所有列表中的数据
     var _allDateArr = [];
     //验证必填项（非空）
@@ -446,6 +449,12 @@ $(function(){
     $('#quyu').change(function(){
 
         var value = $('#quyu').val();
+        $('#bumen').parent().next().find('.add-select-block').hide();
+        $('#bumen').parent().next().find('.add-input-select').find('span').html('全部');
+        $('#bumen').parent().next().find('.add-input-select').find('span').attr('values','');
+        $('.AbcSearch li').removeClass('action');
+        $('.AbcSearch li').eq(0).addClass('action');
+
         if(value == ''){
             var str = '<option value="">全部</option>';
             $(_allDataBM).each(function(i,o){
@@ -454,6 +463,9 @@ $(function(){
             });
             $('#bumen').html('');
             $('#bumen').html(str);
+            //显示根据拼音选择车站选框
+            stationArr = _allDataBM;
+            classifyArrByInitial(stationArr,0);
             return false;
         }
 
@@ -461,12 +473,14 @@ $(function(){
 
             if(value == o.daNum){
                 var pushArr = o.devDeps;
+                stationArr = pushArr;
+                classifyArrByInitial(stationArr,0);
                 var str = '<option value="">全部</option>';
                 $(pushArr).each(function(i,o){
 
                     str += '<option value="'+ o.ddNum+'">'+ o.ddName+'</option>'
                 });
-                console.log(str);
+                //console.log(str);
                 $('#bumen').html('');
                 $('#bumen').html(str);
                 return false;

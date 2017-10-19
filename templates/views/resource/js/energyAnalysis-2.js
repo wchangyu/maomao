@@ -40,7 +40,7 @@ $(function(){
 	});
 	//读取楼宇和科室的zTree；
 	_objectSel = new ObjectSelection();
-	_objectSel.initPointers($("#allPointer"),false,true);
+	_objectSel.initPointers($("#allPointer"),false,true,false,true);
 	_objectSel.initOffices($("#allOffices"),true);
 	//搜索框功能(科室)
 	var objSearch = new ObjectSearch();

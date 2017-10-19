@@ -7,7 +7,7 @@
      <div class="main-left-middle">
         <div class="left-middle-header">对象选择</div>
         <div class="left-middle-tab left-middle-tab_aa_0">区域位置</div>
-        <div class="left-middle    -tab left-middle-tab_aa_0">科室单位</div>
+        <div class="left-middle    -tab left-middle-tab_aa_0">用能单位</div>
         <div class="tree-1 tree-3">
             <ul class="allPointer ztree" id="allPointer">
             </ul>
@@ -44,6 +44,7 @@ var ObjectSelection = function(){
 
     this.getSelectType;           //获取当前是单选框还是复选框
     this.getShowRadio;           //获取当前是否显示一级，二级选框
+    this.getOptFirst;            //获取当前复选框是否需要选中第一个子项
     //存放已配置的全部楼宇名称
     var getPointerName = '';
 
@@ -152,11 +153,12 @@ var ObjectSelection = function(){
 
     //设置ztree Source
     //ul:JQ元素
-    this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode,getShowRadio){
+    this.initPointers = function($ulPointers,hasAllPointer,multiSelectionMode,getShowRadio,getOptFirst){
         this._$ulPointers = $ulPointers;
         this._hasAllPointer = hasAllPointer;
         this.getSelectType = multiSelectionMode;
         this.getShowRadio = getShowRadio;
+        this.getOptFirst = getOptFirst;
         this.getSessionStoragePointers();
         var zTreePointer;
         var setting1 = {
@@ -249,11 +251,19 @@ var ObjectSelection = function(){
         if(this._$ulPointers){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
+            console.log(nodes);
             if(getShowRadio){
 
             }else{
-                zTreePointer.checkNode(nodes[0],true,false,false);
-                zTreePointer.expandNode(nodes[0],true,false,true);
+                if(getOptFirst){
+
+                    zTreePointer.checkNode(nodes[0].children[0].children[0],true,false,false);
+                    zTreePointer.expandNode(nodes[0],true,false,true);
+                }else{
+                    zTreePointer.checkNode(nodes[0],true,false,false);
+                    zTreePointer.expandNode(nodes[0],true,false,true);
+                }
+
             }
 
 
@@ -272,7 +282,7 @@ var ObjectSelection = function(){
             return;
         }
         var zTreeOffice;
-        //科室单位
+        //用能单位
         var setting = {
             check: {
                 enable: true,
