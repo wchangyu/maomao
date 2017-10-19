@@ -397,9 +397,9 @@ $(function(){
 
     //var _$thisWP = '';
     //仓库选择
-    warehouse($('#ckselect'));
+    //warehouse($('#ckselect'));
 
-    warehouse($('#ckSelect1'),'flag');
+    //warehouse();
 
     //出库类型
     rkLX();
@@ -419,9 +419,6 @@ $(function(){
 
     //所有仓库的数据
     var _ckArr = [];
-
-    //获取仓库列表
-    warehouse($('.pinzhixx').eq(0));
 
     //出库单号
     var _$thisRKnum = '';
@@ -2249,7 +2246,7 @@ $(function(){
 
     /*------------------------------------表格数据--------------------------------*/
 
-    conditionSelect();
+    warehouse();
     /*------------------------------------其他方法-------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -2261,11 +2258,16 @@ $(function(){
         }
         realityStart = filterInput[1] + ' 00:00:00';
         realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        var ckArr = [];
+        for(var i=0;i<_ckArr.length;i++){
+            ckArr.push(_ckArr[i].storageNum);
+        }
         var prm = {
             'st':realityStart,
             'et':realityEnd,
             'orderNum':filterInput[0],
             'outType':$('.tiaojian').val(),
+            'storageNums':ckArr,
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
@@ -2377,7 +2379,7 @@ $(function(){
     }
 
     //仓库选择(出库物品option flag)
-    function warehouse(el,flag){
+    function warehouse(){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -2390,22 +2392,22 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                if(flag){
-                    var str = '<option value="">请选择</option>';
+                _ckArr.length = 0;
+                var str = '<option value="">请选择</option>';
+                var str1 = '';
                     for(var i=0;i<result.length;i++){
                         str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
-                    }
-                }else{
-                    var str = '';
-                    _ckArr = [];
-                    for(var i=0;i<result.length;i++){
+
                         _ckArr.push(result[i]);
-                        str += '<div data-num="' + result[i].storageNum + '"data-name="' + result[i].storageName +
+                        str1 += '<div data-num="' + result[i].storageNum + '"data-name="' + result[i].storageName +
                             '">' + result[i].storageName + '</div>'
                     }
-                }
+                //选择出库物品列表
+                $('#ckSelect1').empty().append(str);
+                $('.pinzhixx').eq(0).empty().append(str);
 
-                el.empty().append(str);
+                //加载数据
+                conditionSelect();
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3373,4 +3375,5 @@ $(function(){
             $('#myModal').modal('hide');
         }
     }
+
 })

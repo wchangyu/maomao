@@ -921,8 +921,12 @@ $(function(){
                 if(flag == 1){
                     if(result == 99){
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'维修内容修改成功！', '');
+
+                        $('#myModal').modal('hide');
+
                     }else{
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'维修内容修改失败！', '');
+
                     }
                 }else if(flag == 2){
                     workComplete();

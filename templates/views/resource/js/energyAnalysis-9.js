@@ -189,6 +189,8 @@ $(function(){
 
 	getPointerData();
 
+	setEnergyInfos();
+
 	/*-----------------------------------------按钮方法-------------------------------*/
 
 	//查询
@@ -206,6 +208,9 @@ $(function(){
 		//清空表格，初始化echarts
 		$('#tbody').empty();
 		myChart = echarts.init(document.getElementById('rheader-content-14'));
+
+		//配置信息
+		setEnergyInfos()
 
 		//确定加载哪个数据
 		var p = $('.tree-3').css('display');
@@ -618,5 +623,26 @@ $(function(){
 		}else{
 			return num.toFixed(2);
 		}
+	}
+
+	//根据当前选择的能耗类型设置页面信息
+	function setEnergyInfos(){
+		var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+		if(jsonText){
+			for(var i=0;i<jsonText.alltypes.length;i++){
+				if(jsonText.alltypes[i].etid == _ajaxEcType){
+					$('#th0').html('对比对象');
+					$('.ths').html('出现时刻');
+					$('#th1').html('累计用' + jsonText.alltypes[i].etname + '量' + jsonText.alltypes[i].etunit);
+					$('#th2').html('用' + jsonText.alltypes[i].etname + '峰值' + jsonText.alltypes[i].etunit);
+					$('#th3').html('用' + jsonText.alltypes[i].etname + '谷值' + jsonText.alltypes[i].etunit);
+					$('#th4').html('用' + jsonText.alltypes[i].etname + '平均值' + jsonText.alltypes[i].etunit);
+					$('.header-right-lists').html('单位：' + jsonText.alltypes[i].etunit);
+					$('.right-header span').html('用' + jsonText.alltypes[i].etname + '曲线');
+					$('.header-one').html(jsonText.alltypes[i].etname);
+				}
+			}
+		}
+
 	}
 })

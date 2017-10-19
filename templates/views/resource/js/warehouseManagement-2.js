@@ -326,8 +326,8 @@ $(function(){
     //当前页在分页的span页中的index值
     var currentTable;
 
-    //加载仓库列表
-    warehouse();
+    //存放仓库数组
+    var _ckArr = [];
 
     //入库类型
     rkLX(1);
@@ -682,7 +682,8 @@ $(function(){
         getSupplier();
     })
     /*------------------------------------表格数据--------------------------------*/
-    conditionSelect();
+    //加载仓库列表
+    warehouse('flag');
     /*-------------------------------------按钮事件-------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -1915,14 +1916,22 @@ $(function(){
         }
         realityStart = filterInput[1] + ' 00:00:00';
         realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        //仓库
+        console.log(_ckArr);
+        var ckArr = [];
+        for(var i=0;i<_ckArr.length;i++){
+            ckArr.push(_ckArr[i].storageNum);
+        }
         var prm = {
             'st':realityStart,
             'et':realityEnd,
             'orderNum':filterInput[0],
             'inType':$('.tiaojian').val(),
+            'storageNums':ckArr,
             userID:_userIdNum,
             userName:_userIdName,
             b_UserRole:_userRole,
+
         }
         $.ajax({
             type:'post',
@@ -1955,8 +1964,8 @@ $(function(){
         })
     }
 
-    //仓库选择
-    function warehouse(){
+    //仓库选择（第一次页面加载时，flag）；
+    function warehouse(flag){
         var prm = {
             userID:_userIdNum,
             userName:_userIdName,
@@ -1967,13 +1976,21 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
-                var str = '<option value="">请选择</option>'
-                for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                if(flag){
+                    //console.log(result);
+                    _ckArr.length = 0;
+                    for(var i=0;i<result.length;i++){
+                        _ckArr.push(result[i]);
+                    }
+                    conditionSelect();
+                }else{
+                    var str = '<option value="">请选择</option>'
+                    for(var i=0;i<result.length;i++){
+                        str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                    }
+                    $('#ckselect').empty().append(str);
+                    myApp33.ckselect = result[0].storageNum;
                 }
-                $('#ckselect').empty().append(str);
-                myApp33.ckselect = result[0].storageNum;
-
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -2318,4 +2335,5 @@ $(function(){
             }
         })
     }
+
 })
