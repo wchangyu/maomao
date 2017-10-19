@@ -14,8 +14,10 @@ $(function(){
     //存储所有仓库信息
     var _ckArr = [];
 
+    var _InfluencingArr = [];
+
     //所有仓库
-    warehouse();
+    //warehouse();
 
     //所属车间、所属维保组
     wbz();
@@ -23,7 +25,6 @@ $(function(){
     //仓库库区联动
     $('#storage').change(function(){
         //根据已选仓库，确定库区
-        console.log(_ckArr);
         var str = '<option value="">请选择</option>';
         for(var i=0;i<_ckArr.length;i++){
             if($('#storage').val() == _ckArr[i].storageNum){
@@ -56,7 +57,10 @@ $(function(){
         }
     });
 
-    conditionSelect();
+    //conditionSelect();
+
+    //仓库是否执行完毕
+    var _isWarehouse = false;
 
     /*---------------------------------表格初始化------------------------------*/
     var col = [
@@ -110,6 +114,9 @@ $(function(){
         }
     ];
     _tableInit($('#scrap-datatables'),col,'1','flag','','');
+
+    //数据
+    warehouse();
 
     /*----------------------------------按钮事件------------------------------*/
     //查询
@@ -172,13 +179,25 @@ $(function(){
 
     //条件查询
     function conditionSelect(){
+        var ckArr = [];
+        var ckNum = '';
+        if($('#storage').val() == ''){
+            for(var i=0;i<_ckArr.length;i++){
+                ckArr.push(_ckArr[i].storageNums)
+            }
+            ckNum='';
+        }else{
+            ckNum = $('#storage').val();
+            ckArr = [];
+        }
         var endTime1 = moment(endTime).add(1,'d').format('YYYY/MM/DD')
         var prm ={
             st:$('.min').val(),
             et:endTime1,
             departNum2:$('#yxdw').val(),
             departNum:$('#userClass').val(),
-            storageNum:$('#storage').val(),
+            storageNums:ckArr,
+            storageNum:ckNum,
             localNum:$('#kqSelect').val(),
             userID:_userIdNum,
             userName:_userIdName
@@ -209,6 +228,7 @@ $(function(){
             },
             timeout:_theTimes,
             success:function(result){
+                _isWarehouse = true;
                 _ckArr.length = 0;
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
@@ -217,6 +237,9 @@ $(function(){
                         + '">' + result[i].storageName + '</option>'
                 }
                 $('#storage').empty().append(str);
+                if(_isWarehouse){
+                    conditionSelect();
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

@@ -514,7 +514,6 @@ function getOfficeClassEcData(){
         success:function(result){
             _myChart1.hideLoading();
             _myChart3.hideLoading();
-            setEnergyType(sessionStorage.allEnergyType,result);
             var dian = 0;
             for(var i=0;i<option.series.length;i++){
                 if(result[i]){
@@ -851,26 +850,26 @@ function setEnergyBlock(et,ec){
     $spanEC.html(parseInt(ec.ecData) + "&nbsp;&nbsp;" + ec.ecUnit);
     $div.append($spanEC);
     var $divComp = $("<div class='main-mark'></div>");          //同比和环比
-    var $pT = $("<p class='tongbi1'>同比:</p>");
+    var $pT = $("<p class='tongbi1'><span>同比:</span><br></p>");
     var $spanT = $("<span class='huanbizhi'></span>");
     $spanT.html(ec.dataYoY);
     if(ec.dataYoY.length > 1){
         if(ec.dataYoY.startWith("-")){
-            $pT.css("background","url(../resource/img/declineArrow.png)no-repeat 40px 0px");
+            $pT.css("background","url(../resource/img/declineArrow.png)no-repeat 9px 17px");
             $pT.css("background-size","16px");
         }else {
-            $pT.css("background","url(../resource/img/riseArrow.png)no-repeat 40px 0px");
+            $pT.css("background","url(../resource/img/riseArrow.png)no-repeat 9px 17px");
             $pT.css("background-size","16px");
         }
     }
     $pT.append($spanT);
     $divComp.append($pT);
-    var $pH = $("<p class='huanbi'>环比:</p>");
+    var $pH = $("<p class='huanbi'><span>环比:</span><br></p>");
     var $spanH = $("<span class='huanbizhi'></span>");
     $spanH.html(ec.dataDoD);
     if(ec.dataDoD.length > 1){
         if(ec.dataDoD.startWith("-")) {
-            $pH.css("background","url(../resource/img/declineArrow.png)no-repeat 40px 0px");
+            $pH.css("background","url(../resource/img/declineArrow.png)no-repeat 9px 17px");
             $pH.css("background-size","16px");
         }else{
             $pH.css("background","url(../resource/img/riseArrow.png)no-repeat 40px 0px");

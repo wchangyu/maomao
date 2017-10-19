@@ -29,6 +29,8 @@
 }
 .labels{
     line-height: 30px;
+    height: 30px;
+    overflow: hidden;
 }
 .input-blockeds{
     height: 30px;

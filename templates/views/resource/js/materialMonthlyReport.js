@@ -2,7 +2,6 @@ $(function(){
     //时间插件
     _monthDate($('.datatimeblock'));
 
-
     //默认时间
     var nowTime = moment().format('YYYY/MM');
 
@@ -17,11 +16,17 @@ $(function(){
     $('.min').val(startTime);
     $('.max').val(endTime);
 
+    //获取仓库是否执行完毕
+    var _isWarehouse = false;
+
+    //存放仓库
+    var _ckArr = [];
+
     //获取仓库
-    _getProfession('YWCK/ywCKGetStorages',$('#storage'),'','storageNum','storageName');
+    //_getProfession('YWCK/ywCKGetStorages',$('#storage'),'','storageNum','storageName');
 
     //获得初始数据
-    conditionSelect(true);
+    //conditionSelect();
 
     //表格初始化(buttons=1按钮显示，其他按钮隐藏)
     var col = [
@@ -105,8 +110,6 @@ $(function(){
 
     };
 
-
-
     _tableInit($('#scrap-datatables'),col,2,'',totalFn,drawFn);
 
     //表格时间
@@ -114,6 +117,9 @@ $(function(){
 
     //表格人
     $('.table-person').html(_userIdName);
+
+    //数据加载
+    warehouse();
 
     /*--------------------------------------按钮事件-------------------------------*/
     //查询
@@ -141,7 +147,6 @@ $(function(){
     });
 
     //仓库选择
-    //仓库选择
     $('#storage').on('change',function(){
         //根据仓库，联动库区
         $.ajax({
@@ -165,8 +170,38 @@ $(function(){
         })
     })
 
+    //获取仓库
+    function warehouse(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName,
+            "b_UserRole":_userRole
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                _isWarehouse = true;
+                _ckArr.length = 0;
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i]);
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+                }
+                $('#storage').empty().append(str);
+                if(_isWarehouse){
+                    conditionSelect();
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
     /*-------------------------------------其他方法--------------------------------*/
-    function conditionSelect(flag){
+    function conditionSelect(){
 
         var stTime = '';
 
@@ -191,15 +226,27 @@ $(function(){
             etTime = et;
         }
 
+        var ckArr = [];
+        var ckNum = '';
         //获取仓库名
-        if(flag){
-            var storageNum = '';
+        //if(flag){
+        //    var storageNum = '';
+        //}else{
+        //    var storageNum = $('#storage').val();
+        //}
+        //console.log(_ckArr);
+        if($('#storage').val() == ''){
+            for(var i=0;i<_ckArr.length;i++){
+                ckArr.push(_ckArr[i].storageNum);
+            }
+            ckNum = '';
         }else{
-            var storageNum = $('#storage').val();
+            ckNum = $('#storage').val();
+            ckArr = [];
         }
-
         var prm = {
-            "storageNum": storageNum,
+            "storageNums":ckArr,
+            "storageNum": ckNum,
             'hasNum':$('#greaterThan').val(),
             "userID":  _userIdNum,
             "userName": _userIdName,

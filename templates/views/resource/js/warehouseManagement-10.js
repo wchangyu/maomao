@@ -75,6 +75,12 @@ $(function(){
 
     //存放库区列表数组
     var _allKQ = [];
+
+    //存放所有仓库数据
+    var _ckArr = [];
+
+    //标识仓库下拉框已完成
+    var _isWarehouse = false;
     /*-------------------------------------表格初始化------------------------------*/
     //仓库
     var col = [
@@ -146,12 +152,12 @@ $(function(){
     conditionSelect('YWCK/ywCKGetStorages','flag');
     //页面加载数据
     conditionSelect('YWCK/ywCKGetStorages');
-
-    conditionSelect('YWCK/ywCKGetLocations',false,true);
     /*-------------------------------------按钮功能-------------------------------*/
     //查询按钮
     $('#selected').click(function(){
-        conditionSelect('YWCK/ywCKGetLocations',false,true);
+        //查询库区
+        //conditionSelect('YWCK/ywCKGetLocations',false,true);
+        locationSelect();
     })
 
     //重置
@@ -236,14 +242,21 @@ $(function(){
             async:false,
             success:function(result){
                 if(flag1){
+                    _isWarehouse = true;
+                    _ckArr.length = 0;
                     var str = '<option value="">全部</option>';
                     var str1 = '';
                     for(var i=0;i<result.length;i++){
+                        _ckArr.push(result[i]);
                         str1 += '<option value="' + result[i].storageNum +
                             '">' + result[i].storageName + '</option>'
                     }
                     $('#ck-select').empty().append(str + str1);
                     $('.ck-list').empty().append(str1);
+                    //console.log(_ckArr);
+                    if(_isWarehouse){
+                        locationSelect();
+                    }
                 }else if(flag2){
                     _allKQ = [];
                     for(var i=0;i<result.length;i++){
@@ -257,6 +270,45 @@ $(function(){
                     }
                     _datasTable($('#scrap-datatables'),result);
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //查询库区
+    function locationSelect(){
+        var ckArr = [];
+        var ckNum = '';
+        //console.log(_ckArr);
+        if($('#ck-select').val() == ''){
+            for(var i=0;i<_ckArr.length;i++){
+                ckArr.push(_ckArr[i].storageNum);
+            }
+            ckNum = '';
+        }else{
+            ckNum = $('#ck-select').val();
+            ckArr = [];
+        }
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+            storageNums:ckArr,
+            storageNum:ckNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetLocations',
+            timeout:_theTimes,
+            data:prm,
+            success: function (result) {
+                _allKQ = [];
+                for(var i=0;i<result.length;i++){
+                    _allKQ.push(result[i]);
+                }
+                _datasTable($('#scrap-datatables1'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -363,6 +415,9 @@ $(function(){
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
         }
     }
+
+    //仓库下拉框
+    //function
 
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏

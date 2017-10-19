@@ -12,8 +12,11 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
-    //仓库
-    warehouse();
+    //仓库是否完成
+    var _iswarehouse = false;
+
+    //存放所有数据
+    var _ckArr = [];
     /*-------------------------------------表格初始化------------------------------*/
     var _tables = $('.main-contents-table .table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -120,9 +123,9 @@ $(function(){
     for( var i=1;i<$('.excelButton').children().length;i++ ){
         $('.excelButton').children().eq(i).addClass('hidding');
     };
-    /*------------------------------------表格数据--------------------------------*/
-    //查询
-    conditionSelect();
+
+    //数据
+    warehouse();
     /*------------------------------------按钮事件-------------------------------*/
     //查询
     $('#selected').click(function(){
@@ -165,7 +168,6 @@ $(function(){
                 b_UserRole:_userRole,
             },
             success:function(result){
-                console.log(result);
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].localNum + '">' + result[i].localName + '</option>';
@@ -186,13 +188,25 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        var ckArr = [];
+        var ckNum = '';
+        if($('#ckSelect').val() == ''){
+            for(var i=0;i<_ckArr.length;i++){
+                ckArr.push(_ckArr[i].storageNum);
+            }
+            ckNum = '';
+        }else{
+            ckNum = $('#ckSelect').val();
+            ckArr = [];
+        }
         var prm = {
             'itemNum':filterInput[0],
             'itemName':filterInput[1],
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
-            'storageNum':$('#ckSelect').val(),
+            'storageNum':ckNum,
+            'storageNums':ckArr,
             'localNum':$('#kqSelect').val(),
             'hasNum':$('#greaterThan').val()
 
@@ -218,6 +232,9 @@ $(function(){
                 datasTable($('#scrap-datatables1'),downState);
                 datasTable($('#scrap-datatables2'),upState);
                 datasTable($('#scrap-datatables3'),nomalState);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -248,11 +265,18 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
+                _ckArr.length = 0;
+                _iswarehouse = true;
                 var str = '<option value="">请选择</option>'
                 for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i]);
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
                 }
-                $('#ckSelect').append(str);
+                $('#ckSelect').empty().append(str);
+                //调用条件查询
+                if(_iswarehouse){
+                    conditionSelect();
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

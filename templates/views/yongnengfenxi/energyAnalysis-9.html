@@ -48,6 +48,15 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <style>
+        .timeSelect{
+            height: 30px;
+            cursor: pointer;
+        }
+        .timeSelect:hover{
+            background: #b1cade;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -293,13 +302,16 @@
                                                 <option value="年">按年</option>
                                             </select>
                                         </div>
-                                        <div id='wrapper'>
-                                            <div class="left-middle-input" style="height:auto;">
+                                        <div id='wrapper' style="width: 330px;">
+                                            <div class="left-middle-input" style="height:auto;width:100%;">
                                                 <div class="datetimepickereType" style="display: none;"></div>
-                                                <div style="width: 150px;display: inline-block;vertical-align: middle;line-height: 25px;">
-                                                    <div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>
-                                                    <div class="clearfix"></div>
-                                                    <div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>
+                                                <div class="time-block" style="min-height: 30px;border: 1px solid #cccccc;width: 195px;display: inline-block;vertical-align: middle;line-height: 25px;">
+                                                    <!--<div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>-->
+                                                    <!--<div class="clearfix"></div>-->
+                                                    <!--<div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>-->
+                                                    <!--<div class="timeSelect">1111111111111111</div>-->
+                                                    <!--<div class="timeSelect">2222222222222222</div>-->
+                                                    <!--<div class="timeSelect">3333333333333333</div>-->
                                                 </div>
                                                 <div class="datetimeInput" style="float: none;display: inline-block;vertical-align: middle">
                                                     <input type="text" id="datetimepicker">
@@ -307,7 +319,7 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <div class="buttons">
-                                                <button class="btn btn-success">查询</button>
+                                                <button class="btn btn-success" id="selected">查询</button>
                                             </div>
                                         </div>
                                     </div>
@@ -427,7 +439,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 
-<script src="../resource/js/energyAnalysis-9.js"></script>
 <script src="../resource/js/showOrHidden.js"></script>
 
 <script src="../resource/js/alarm.js"></script>
@@ -439,6 +450,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/energyAnalysis-9.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
