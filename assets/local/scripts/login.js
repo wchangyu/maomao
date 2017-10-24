@@ -417,6 +417,9 @@ var Login = function() {
                     var gongdanInterval = data["gongdanInterval"] || '';
                     sessionStorage.gongdanInterval = gongdanInterval;
 
+                    //是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
+                    sessionStorage.ckAuditType = data["ckAuditType"] || '';
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

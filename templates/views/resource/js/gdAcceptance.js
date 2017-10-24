@@ -13,8 +13,7 @@ $(function(){
 
     $('.datatimeblock').eq(1).val(et);
 
-    /*--------------------------------------------变量----------------------------------------------------*/
-
+    /*---------------------------------------------变量--------------------------------------------------*/
     //登记vue变量
     var gdObj = new Vue({
         el:'#myApp33',
@@ -62,11 +61,10 @@ $(function(){
     //系统类型
     ajaxFun('YWDev/ywDMGetDSs', _allXTArr, $('#sbtype'), 'dsName', 'dsNum');
 
+    /*--------------------------------------------表格初始化---------------------------------------------*/
 
-    /*---------------------------------------------表格初始化----------------------------------------------*/
-
-    //未接单表格
-    var missedListCol = [
+    //待受理
+    var  pendingListCol = [
         {
             title:'工单号',
             data:''
@@ -101,7 +99,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#missed-list'),missedListCol,'2','','','');
+    _tableInit($('#pending-list'),pendingListCol,'2','','','');
 
     //执行中表格
     var inExecutionCol = [
@@ -300,11 +298,102 @@ $(function(){
 
     _tableInit($('#closing-list'),closingListCol,'2','','','');
 
-    //数据加载
-    conditionSelect();
+    //申诉
+    var appealListCol = [
+        {
+            title:'工单号',
+            data:''
+        },
+        {
+            title:'工单类型',
+            data:''
+        },
+        {
+            title:'楼栋',
+            data:''
+        },
+        {
+            title:'设备类型',
+            data:''
+        },
+        {
+            title:'故障位置',
+            data:''
+        },
+        {
+            title:'故障描述',
+            data:''
+        },
+        {
+            title:'登记时间',
+            data:''
+        },
+        {
+            title:'受理时间',
+            data:''
+        },
+        {
+            title:'接单时间',
+            data:''
+        },
+        {
+            title:'完工申请时间',
+            data:''
+        },
+        {
+            title:'关单时间',
+            data:''
+        },
+        {
+            title:'维修科室',
+            data:''
+        },
+        {
+            title:'处理人',
+            data:''
+        },
+        {
+            title:'联系电话',
+            data:''
+        },
+        {
+            title:'验收人',
+            data:''
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        }
+    ];
+
+    _tableInit($('#appeal-list'),appealListCol,'2','','','');
+
+    //负责人表格
+    var fzrListCol = [
+        {
+            title:'工号',
+            data:''
+        },
+        {
+            title:'工长名称',
+            data:''
+        },
+        {
+            title:'职位',
+            data:''
+        },
+        {
+            title:'联系电话',
+            data:''
+        }
+    ];
+
+    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     /*-------------------------------------------------按钮事件-----------------------------------------*/
 
+    //tab选项卡
     $('.table-title span').click(function(){
         var $this = $(this);
         $this.parent('.table-title').children('span').removeClass('spanhover');
@@ -314,118 +403,20 @@ $(function(){
         tabDiv.eq($(this).index()).removeClass('hide-block');
     });
 
-    //登记按钮
+    //登记
     $('.creatButton').click(function(){
 
-        //显示模态框
+        //模态框显示
         _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记');
 
-
-        //增加登记类
+        //添加登记类
         $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
 
-        //初始化
-        dataInit();
-    });
-
-    //重置按钮
-    $('.resites').click(function(){
-
-        //input清空
-        $('.filterInput').val('');
-
-        //时间重置
-        $('.datatimeblock').eq(0).val(st);
-
-        $('.datatimeblock').eq(1).val(et);
+        //对象初始化
+        dataInit()
     })
 
-    //模态框加载完成后设置发生时间
-    $('#myModal').on('shown.bs.modal', function () {
-        //让日历插件首先失去焦点
-        $('.datatimeblock').eq(2).focus();
-
-        //发生时间默认
-        var aa = moment().format('YYYY-MM-DD HH:mm:ss');
-
-        $('.datatimeblock').eq(2).val(aa);
-
-        if($('.datetimepicker:visible')){
-            $('.datetimepicker').hide();
-        }
-
-        $('.datatimeblock').eq(2).blur();
-    });
-
-    //故障原因选择
-    $('#gzDesc').change(function(){
-        var aa = $('#gzDesc').val();
-        $('.gzDesc').val(aa);
-        //$('.gzDesc').val($('#gzDesc').val());
-    })
-
-
-    //登记确定按钮
-    $('#myModal')
-        .on('click','.dengji',function(){
-            //验证非空
-            if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == ''){
-                if(gdObj.bxkesh == ''){
-                    $('.error1').show();
-                }else{
-                    $('.error1').hide();
-                }
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else{
-                var prm = {
-
-                    'bxDianhua':gdObj.bxtel,
-                    'bxKeshi':$('#bxkesh').children('option:selected').html(),
-                    'bxKeshiNum':gdObj.bxkesh,
-                    'bxRen':gdObj.bxren,
-                    //'':gdObj.pointer,
-                    'gdFsShij':$('.datatimeblock').eq(2).val(),
-                    'wxShiX':$('#sbtype').children('option:selected').html(),
-                    'wxShiXNum':gdObj.sbtype,
-                    'wxShebei':gdObj.sbnum,
-                    'dName':gdObj.sbname,
-                    'installAddress':gdObj.azplace,
-                    'wxDidian':gdObj.gzplace,
-                    'bxBeizhu':$('.gzDesc').val(),
-                    'userID': _userIdNum,
-                    'userName': _userIdName,
-                    'b_UserRole':_userRole
-
-                }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWGD/ywGDCreDJ',
-                    timeout:_theTimes,
-                    data:prm,
-                    success:function(result){
-                        if (result == 99) {
-
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功', '');
-
-                            $('#myModal').modal('hide');
-
-                            //刷新表格
-                            conditionSelect();
-
-                        } else {
-
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败', '');
-
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR.responseText);
-                    }
-                })
-            }
-        })
-
-    /*------------------------------------------------其他方法--------------------------------------------*/
+    /*-------------------------------------------------其他方法-----------------------------------------*/
     //登记项初始化
     function dataInit(){
         gdObj.bxtel = '';
@@ -468,30 +459,4 @@ $(function(){
         })
     }
 
-    //条件查询
-    function conditionSelect(){
-        var st = $('.min').val();
-        var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
-        //console.log(et);
-        var prm = {
-            'gdCode':$('.filterInput').val(),
-            'gdSt':st,
-            'gdEt':et,
-            'userID': _userIdNum,
-            'userName': _userIdName,
-            'b_UserRole':_userRole
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetDJ',
-            data:prm,
-            timeout:_theTimes,
-            success:function(result){
-                console.log(result);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
 })
