@@ -12,7 +12,8 @@ $(function(){
 			language:  'zh-CN',
 			todayBtn: 1,
 			todayHighlight: 1,
-			format: 'yyyy-mm-dd'
+			format: 'yyyy-mm-dd',
+			autoclose: true
 		}
 	).on('changeDate',function(e){
 		$('.L-leftArrow').removeAttr('disable');
@@ -139,7 +140,7 @@ $(function(){
 				"data":'date'
 			},
 			{
-				"title": "用量" ,
+				"title": "数量" ,
 				"data":"cdData"
 			}
 		]
@@ -184,6 +185,7 @@ function getDatas(){
 				//需求：button禁止操作，设置超时。
         	},
 			success:function(data){
+				console.log(data);
 				for(var i=0;i<data.length;i++){
 					allDatas.push(data[i]);
 				}
@@ -199,6 +201,12 @@ function getDatas(){
 				}
 				option.xAxis.data = dataX;
 				option.series[0].data = dataY;
+				//获取到显示名称
+				var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
+				var legend = curDef.prDefNM;
+				option.legend.data = [];
+				option.legend.data.push(legend);
+				option.series[0].name = legend;
 				myChart.setOption(option);
 			}
 	})
@@ -238,6 +246,9 @@ function tableImg(){
 				allArr.push(allArrs);
 			};
 			var dt = $("#datatables").dataTable();
+			if(allArr.length == 0){
+				return false;
+			}
 			//清空一下table
 			dt.fnClearTable();
 			//想表格中添加东西数据o

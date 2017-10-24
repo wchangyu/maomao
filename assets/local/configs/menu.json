@@ -501,6 +501,14 @@
         "arg":"",
         "iconclass":""
       },
+      "维修项目":{
+        "type":"0",
+        "content":"维修项目",
+        "uri":"../weixiuguanli/dictionariesManage.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "地图预览":{
         "type":"0",
         "content":"地图预览",
@@ -1018,37 +1026,6 @@
         "type":"0",
         "content":"故障消除率",
         "uri":"../tongjifenxi/removeFaultRate.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      }
-    }
-  },
-  "儿童医院":{
-    "type":"1",
-    "iconclass":"icon-note",
-    "content":"儿童医院",
-    "submenu":{
-      "工单报修管理":{
-        "type":"0",
-        "content":"工单报修管理",
-        "uri":"../childrenHospital/gdOrderRepair.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "工单受理管理":{
-        "type":"0",
-        "content":"工单受理管理",
-        "uri":"../childrenHospital/gdAcceptance.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "工单执行管理":{
-        "type":"0",
-        "content":"工单执行管理",
-        "uri":"../childrenHospital/gdImplement.html",
         "uid":"",
         "arg":"",
         "iconclass":""
