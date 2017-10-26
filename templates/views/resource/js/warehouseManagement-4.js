@@ -52,8 +52,8 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'物品序列号',
-                data:'sn'
+                title:'类别',
+                data:'cateName'
             },
             {
                 title:'物品编号',
@@ -64,12 +64,12 @@ $(function(){
                 data:'itemName'
             },
             {
-                title:'类别',
-                data:'cateName'
-            },
-            {
                 title:'规格',
                 data:'size'
+            },
+            {
+                title:'物品序列号',
+                data:'sn'
             },
             {
                 title:'是否耐用',
@@ -83,24 +83,12 @@ $(function(){
                 }
             },
             {
-                title:'品质',
-                data:'batchNum'
-            },
-            {
                 title:'仓库',
                 data:'storageName'
             },
             {
                 title:'库区',
                 data:'localName'
-            },
-            {
-                title:'预警下限',
-                data:'minNum'
-            },
-            {
-                title:'预警上限',
-                data:'maxNum'
             },
             {
                 title:'库存数',
@@ -112,7 +100,20 @@ $(function(){
                 render:function(data, type, full, meta){
                     return data.toFixed(2)
                 }
-            }
+            },
+            {
+                title:'品质',
+                data:'batchNum'
+            },
+            {
+                title:'预警下限',
+                data:'minNum'
+            },
+            {
+                title:'预警上限',
+                data:'maxNum'
+            },
+
         ],
     });
 

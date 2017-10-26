@@ -338,9 +338,16 @@ $(function(){
                         var includeArr = [];
                         var str = '';
                         for(var i=0;i<_kuquArr.length;i++){
-                            if(_kuquArr[i].localName.indexOf(searchValue)>=0 || _kuquArr[i].localNum.indexOf(searchValue)>=0){
-                                includeArr.push(_kuquArr[i]);
-                                str += '<li data-num="' + _kuquArr[i].localNum + '">' + _kuquArr[i].localName + '</li>'
+
+                            if( _kuquArr[i].localName == searchValue ){
+                                $('.kuwei').attr('data-num',_kuquArr[i].localNum);
+                                //加载物品编号和物品名称列表
+
+                            }else{
+                                if(_kuquArr[i].localName.indexOf(searchValue)>=0 || _kuquArr[i].localNum.indexOf(searchValue)>=0){
+                                    includeArr.push(_kuquArr[i]);
+                                    str += '<li data-num="' + _kuquArr[i].localNum + '">' + _kuquArr[i].localName + '</li>'
+                                }
                             }
                         }
                         $('.kuqu-list').empty().append(str);
@@ -1794,7 +1801,108 @@ $(function(){
     $('.inputType').keyup(function(e){
         var e = e||window.event;
         if(e.keyCode == 13){
-            $(this).parents('.gdList').next('li').find('.inputType').focus();
+
+            if( $(this).parents('.gdList').next('li').find('.inputType').attr('id') == 'addRK' ){
+
+                //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
+                if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' ){
+                    //提示框
+                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'请填写红色必填项!', '')
+                }else{
+                    var o = $('.format-error')[0].style.display;
+                    var s = $('.format-error1')[0].style.display;
+                    var a = $('.format-error2')[0].style.display;
+                    var t = $('.format-error3')[0].style.display;
+                    var b = $('.format-error4')[0].style.display;
+                    if(o!='none' && s!='none' && a!= 'none' && t!='none' && b!= 'none'){
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
+                    }else{
+                        //首先判断输入过了没
+                        var existFlag = false;
+                        for(var i=0;i<_rukuArr.length;i++){
+                            if(workDone.bianhao == _rukuArr[i].itemNum){
+                                existFlag = true;
+                            }
+                        }
+                        if(existFlag){
+                            //有
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'已添加过!', '');
+                        }else{
+                            //无
+                            //获取入库单信息创建对象，存入_rukuArr数组
+                            //首先获取仓库的值
+                            var rukuDan = {};
+                            rukuDan.sn = workDone.goodsId;
+                            rukuDan.itemNum = workDone.bianhao;
+                            rukuDan.itemName = workDone.mingcheng;
+                            rukuDan.size = workDone.size;
+                            rukuDan.num = workDone.num;
+                            rukuDan.isSpare = workDone.picked;
+                            rukuDan.batchNum = workDone.quality;
+                            rukuDan.maintainDate = workDone.warranty;
+                            rukuDan.storageName = $('.cangku').attr('data-name');
+                            rukuDan.storageNum = $('.cangku').attr('data-num');
+                            rukuDan.unitName = workDone.unit;
+                            rukuDan.outPrice = workDone.outPrice;
+                            rukuDan.amount = workDone.amount;
+                            rukuDan.gdCode2 = workDone.gdCode;
+                            rukuDan.localNum = $('.kuwei').attr('data-num');
+                            rukuDan.localName = workDone.kuwei;
+                            //车间
+                            rukuDan.bxKeshi = $('.chezhan').attr('data-name');
+                            rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
+                            rukuDan.outMemo = workDone.remark;
+                            rukuDan.userID = _userIdNum;
+                            rukuDan.userName = _userIdName;
+                            rukuDan.shengyu = workDone.redundant;
+                            rukuDan.gdCode = $('.gdCode').attr('gdcode');
+                            _rukuArr.unshift(rukuDan);
+                            datasTable($('#wuPinListTable1'),_rukuArr);
+                            //添加完之后，自动清空，并获得焦点
+                            workDone.bianhao = '';
+                            workDone.mingcheng = '';
+                            workDone.goodsId = '';
+                            workDone.size = '';
+                            workDone.picked = 0;
+                            workDone.unit = '';
+                            workDone.quality = '';
+                            workDone.warranty = '';
+                            workDone.num = 0;
+                            workDone.redundant = 0;
+                            workDone.outPrice = '';
+                            workDone.amount = 0;
+                            workDone.gdCode = '';
+                            workDone.chezhan = '';
+                            workDone.ck = '';
+                            workDone.remark = '';
+                            workDone.kuwei = '';
+                            $('.kuwei').removeAttr('data-num');
+                            $('.cangku').removeAttr('data-num').removeAttr('data-name');
+                            $('.gdCode').removeAttr('gdcode');
+                            $('.chezhan').removeAttr('data-num').removeAttr('data-name');
+
+                            //所有列表应该重新初始化（所有值）
+                            //初始化长裤列表(仓库、库区、物品、工单号)；
+                            ckList(_ckArr,$('.pinzhixx').eq(0));
+                            //库区列表
+                            kqList(_kqArr,$('.kuqu-list').eq(0));
+                            //物品编码列表
+                            wpList(_wpListArr,$('.accord-with-list').eq(0));
+                            //物品名称列表
+                            wpList(_wpListArr,$('.accord-with-list').eq(1));
+                            //序列号
+                            xlhList(_wpListArr,$('.accord-with-list').eq(2));
+                            //工单号
+                            gdsList(_gdArr,$('.pinzhixx').eq(1));
+
+                            //自动聚焦到仓库
+                            $('.inputType').eq(0).focus();
+                        }
+                    }
+                }
+            }else{
+                $(this).parents('.gdList').next('li').find('.inputType').focus();
+            }
         }
     });
 
@@ -3129,12 +3237,52 @@ $(function(){
                 if(flag){
                         var str = '';
                         for(var i=0;i<_ckArr.length;i++){
-                            if(_ckArr[i].storageName.indexOf(searchValue)>=0 || _ckArr[i].storageNum.indexOf(searchValue)>=0){
-                            includeArr = [];
-                            includeArr.push(_ckArr[i]);
-                            str +='<div data-num="' + _ckArr[i].storageNum + '"data-name="' + _ckArr[i].storageName +
-                                '">' + _ckArr[i].storageName + '</div>'
-                            } }
+                            if( _ckArr[i].storageName == searchValue ){
+
+                                str +='<div data-num="' + _ckArr[i].storageNum + '"data-name="' + _ckArr[i].storageName +
+                                    '">' + _ckArr[i].storageName + '</div>'
+                                //并且自动绑定值
+                                $('.cangku').attr('data-num',_ckArr[i].storageNum);
+                                $('.cangku').attr('data-name',_ckArr[i].storageName);
+                                setTimeout(function(){
+                                    $('.pinzhixx').eq(index).hide();
+                                },600);
+                                //加载库区
+                                $.ajax({
+                                    type:'post',
+                                    url:_urls + 'YWCK/ywCKGetStorages',
+                                    data:{
+                                        'storageNum':$('.cangku').attr('data-num'),
+                                        'hasLocation':1,
+                                        'userID':_userIdNum,
+                                        'userName':_userIdName,
+                                        'b_UserRole':_userRole,
+                                    },
+                                    timeout:30000,
+                                    success:function(result){
+                                        var str = '';
+                                        _kuquArr = [];
+                                        for(var i=0;i<result.length;i++){
+                                            for(var j=0;j<result[i].locations.length;j++){
+                                                _kuquArr.push(result[i].locations[j]);
+                                                str += '<li data-num="' + result[i].locations[j].localNum + '">' + result[i].locations[j].localName + '</li>'
+                                            }
+                                        }
+                                        $('.kuqu-list').empty().append(str);
+                                    },
+                                    error:function(jqXHR, textStatus, errorThrown){
+                                        console.log(jqXHR.responseText);
+                                    }
+                                })
+                            }else{
+                                if(_ckArr[i].storageName.indexOf(searchValue)>=0 || _ckArr[i].storageNum.indexOf(searchValue)>=0){
+                                    includeArr = [];
+                                    includeArr.push(_ckArr[i]);
+                                    str +='<div data-num="' + _ckArr[i].storageNum + '"data-name="' + _ckArr[i].storageName +
+                                        '">' + _ckArr[i].storageName + '</div>'
+                                }
+                            }
+                        }
 
                     $('.pinzhixx').eq(index).empty().append(str);
                     if(includeArr.length>0){

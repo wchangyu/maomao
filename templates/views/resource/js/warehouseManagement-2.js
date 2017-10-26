@@ -1766,9 +1766,100 @@ $(function(){
     $('.inputType').keyup(function(e){
         var e = e||window.event;
         if(e.keyCode == 13){
-            $(this).parents('.gdList').next('li').find('.inputType').focus();
+
+            if($(this).parents('.gdList').next('li').find('.inputType').attr('id') == 'addRK'){
+                //将填写的东西填写到表格里
+                //验证必填项
+                if( workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' ){
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+                }else{
+                    var o = $('.format-error')[0].style.display;
+                    var s = $('.format-error1')[0].style.display;
+                    var a = $('.isEqual')[0].style.display;
+                    var b = $('.isEnabled')[0].style.display;
+                    if(o!='none' && s!='none' && a!='none' && b!='none'){
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
+                    }else{
+                        //首先判断输入过了没
+                        var existFlag = false;
+                        for(var i=0;i<_rukuArr.length;i++){
+                            if(workDone.bianhao == _rukuArr[i].itemNum && workDone.kuwei == _rukuArr[i].addRK){
+                                existFlag = true;
+                            }
+                        }
+                        if(existFlag){
+                            //有
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'已添加过！', '');
+                        }else{
+                            //无
+                            //获取入库单信息创建对象，存入_rukuArr数组
+                            var rukuDan = {};
+                            rukuDan.sn = workDone.goodsId;
+                            rukuDan.itemNum = workDone.bianhao;
+                            rukuDan.itemName = workDone.mingcheng;
+                            rukuDan.size = workDone.size;
+                            rukuDan.isSpare = workDone.picked;
+                            rukuDan.unitName = workDone.unit;
+                            rukuDan.batchNum = workDone.quality;
+                            rukuDan.maintainDate = workDone.warranty;
+                            rukuDan.num = workDone.num;
+                            rukuDan.inPrice = workDone.inPrice;
+                            rukuDan.amount = workDone.amount;
+                            rukuDan.inMemo = workDone.remark;
+                            rukuDan.localNum = $('.kuwei').attr('data-num');
+                            rukuDan.localName = workDone.kuwei;
+                            var ckName = '';
+                            if($('#ckselect').val() == ''){
+                                ckName = ''
+                            }else{
+                                ckName = $('#ckselect').children('option:selected').html();
+                            }
+                            rukuDan.storageName = ckName;
+                            rukuDan.storageNum = $('#ckselect').val();
+                            _rukuArr.unshift(rukuDan);
+                            datasTable($('#wuPinListTable1'),_rukuArr);
+                            //添加之后自动重置
+                            workDone.goodsId = '';
+                            workDone.bianhao = '';
+                            workDone.mingcheng = '';
+                            workDone.size = '';
+                            workDone.picked = 0;
+                            workDone.unit = '';
+                            workDone.quality = '新件';
+                            workDone.warranty = '';
+                            workDone.num = '';
+                            workDone.inPrice = '';
+                            workDone.amount = 0;
+                            workDone.remark = '';
+                            workDone.kuwei = '';
+                            $('.kuwei').removeAttr('data-num');
+                            if(workDone.picked == 0){
+                                $('.inpus').parent('span').removeClass('checked');
+                                $('.inpus').parent('span').eq(1).addClass('checked');
+                            }else if(workDone.picked == 1){
+                                $('.inpus').parent('span').removeClass('checked');
+                                $('.inpus').parent('span').eq(0).addClass('checked');
+                            }
+                            //工单id置为可编辑
+                            $('.goodsId').attr('disabled',false).removeClass('disabled-block');
+                            $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
+                            $('.rknum').attr('disabled',false).removeClass('disabled-block');
+                            $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
+
+                            //自动聚焦
+                            $('.not-editable').eq(0).focus();
+                        }
+                    }
+                }
+
+            }else{
+
+                $(this).parents('.gdList').next('li').find('.inputType').focus();
+
+            }
         }
     });
+
 
     //入库产品--品质选择
     $('.pinzhixx')

@@ -35,4 +35,6 @@ $(function(){
 
     //console.log(_prm)
 
+    gdObj.gdtype = '111';
+
 })

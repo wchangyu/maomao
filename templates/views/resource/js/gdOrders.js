@@ -765,7 +765,7 @@ $(function(){
             wxKeshi:$('#wxbz').val(),
             wxKeshiNum:$('#wxbz').attr('data-bm'),
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
         };
         $.ajax({
             type:'post',
