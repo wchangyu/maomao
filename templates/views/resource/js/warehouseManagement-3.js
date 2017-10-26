@@ -1565,8 +1565,8 @@ $(function(){
                     rukuDan.userName = _userIdName;
                     rukuDan.shengyu = workDone.redundant;
                     rukuDan.gdCode = $('.gdCode').attr('gdcode');
-                    _rukuArr.push(rukuDan);
-                    datasTable($('#wuPinListTable1'),_rukuArr.reverse());
+                    _rukuArr.unshift(rukuDan);
+                    datasTable($('#wuPinListTable1'),_rukuArr);
                     //添加完之后，自动清空，并获得焦点
                     workDone.bianhao = '';
                     workDone.mingcheng = '';
@@ -1657,7 +1657,7 @@ $(function(){
 
     $('#wuPinListTable1 tbody')
         .on('click','.option-shanchu',function(){
-            _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
+            _$thisRemoveRowXiao = $(this).parents('tr').children('.bianma').html();
             _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定要删除吗？', '删除');
             //新添加类名，实现入库单操作；
             $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('removeButton');
@@ -1732,7 +1732,7 @@ $(function(){
                         _rukuArr[i].outMemo = workDone.remark;
                     }
                 }
-                datasTable($('#wuPinListTable1'),_rukuArr.reverse());
+                datasTable($('#wuPinListTable1'),_rukuArr);
                 //编辑之后清空
                 workDone.goodsId = '';
                 workDone.bianhao = '';

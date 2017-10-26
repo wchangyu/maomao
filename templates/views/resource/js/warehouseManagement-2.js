@@ -1329,7 +1329,7 @@ $(function(){
     //删除入库物品操作
     $('#personTable1 tbody')
         .on('click','.option-shanchu',function(){
-        _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
+        _$thisRemoveRowXiao = $(this).parents('tr').children('.bianma').html();
             _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定要删除吗？', '删除');
         //新添加类名，实现入库单操作；
         $('#myModal2').find('.btn-primary').removeClass('daShanchu').addClass('xiaoShanchu');
@@ -1509,8 +1509,8 @@ $(function(){
                     }
                     rukuDan.storageName = ckName;
                     rukuDan.storageNum = $('#ckselect').val();
-                    _rukuArr.push(rukuDan);
-                    datasTable($('#wuPinListTable1'),_rukuArr.reverse());
+                    _rukuArr.unshift(rukuDan);
+                    datasTable($('#wuPinListTable1'),_rukuArr);
                     //添加之后自动重置
                     workDone.goodsId = '';
                     workDone.bianhao = '';
@@ -1591,7 +1591,7 @@ $(function(){
     //入库物品操作静态删除
     $('#wuPinListTable1 tbody')
         .on('click','.option-shanchu',function(event){
-            _$thisRemoveRowXiao = $(this).parents('table').children('tbody').find('.bianma').html();
+            _$thisRemoveRowXiao = $(this).parents('tr').children('.bianma').html();
             _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
             //新添加类名，实现入库单操作；
             $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
@@ -1719,8 +1719,11 @@ $(function(){
     $('#myModal2').on('click','.removeButton',function(){
         //静态删除
         _rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
-        datasTable($('#wuPinListTable1'),_rukuArr.reverse());
+
+        datasTable($('#wuPinListTable1'),_rukuArr);
+
         $('#myModal2').modal('hide');
+
         $(this).removeClass('removeButton');
     });
 

@@ -11,6 +11,9 @@ var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 //获取角色权限
 var  _userRole = sessionStorage.getItem("userRole");
 
+//筛选只看到自己部门的工单
+var _userBM = sessionStorage.getItem("userDepartNum");
+
 //ajax延迟时间设置
 var _theTimes = 30000;
 

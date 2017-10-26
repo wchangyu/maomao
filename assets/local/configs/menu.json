@@ -1045,6 +1045,14 @@
         "arg":"",
         "iconclass":""
       },
+      "工单接单管理":{
+        "type":"0",
+        "content":"工单接单管理",
+        "uri":"../childrenHospital/gdOrders.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "工单执行管理":{
         "type":"0",
         "content":"工单执行管理",

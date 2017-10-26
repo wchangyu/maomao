@@ -68,7 +68,7 @@ $(function(){
 	var _ajaxDataType_1 = '小时';
 
 	//实际时间
-	var timeDemo = moment().format('YYYY-MM-DD');
+	var timeDemo = moment().subtract(1,'d').format('YYYY-MM-DD');
 
 	var str = '<div class="timeSelect">' + timeDemo + ' 到 ' + timeDemo + '</div>';
 
@@ -186,6 +186,14 @@ $(function(){
 	$('.datetimeStart').html(showSt);
 
 	$('.datetimeEnd').html(showEt);
+
+	var chs = $('.time-block').children();
+
+	_timeArr.length = 0;
+
+	for(var i=0;i<chs.length;i++){
+		_timeArr.push(chs.eq(i).html());
+	}
 
 	getPointerData();
 
