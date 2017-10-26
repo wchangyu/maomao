@@ -1233,7 +1233,8 @@ $(function(){
     function getDpartment(){
         var prm = {
             "departName":"",
-            "userID": "mch"
+            //"userID": "mch"
+            "userID": _userIdNum
         }
         $.ajax({
             type:'post',

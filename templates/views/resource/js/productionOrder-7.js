@@ -769,6 +769,13 @@ $(function(){
                     $('.waitingForResources').find('textarea').val(result.dengMemo);
                     //等待原因
                     $('#watting').val(result.dengyy);
+                    //如果是等待资源状态的话，需要显示
+                    if(result.gdZht == 5){
+                        $('.waitingForResources').show();
+                    }else{
+                        $('.waitingForResources').hide();
+                    }
+
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);

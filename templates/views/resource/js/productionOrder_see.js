@@ -190,6 +190,7 @@ $(function(){
 
     });
     $('#viewImage').on('click',function(){
+        $('.showImage').show();
         if(_imgNum){
             var str = '';
             for(var i=0;i<_imgNum;i++){
@@ -206,7 +207,8 @@ $(function(){
         }
     })
     $('.showImage').on('click','.viewIMG',function(){
-        moTaiKuang($('#myModal4'),'图片详情','flag');
+        //moTaiKuang($('#myModal4'),'图片详情','flag');
+        _moTaiKuang($('#myModal4'), '图片详情', 'flag', '' ,'', '');
         var imgSrc = $(this).attr('src')
         $('#myModal4').find('img').attr('src',imgSrc);
     })
@@ -224,21 +226,25 @@ $(function(){
         }
     }
     //模态框自适应
-    function moTaiKuang(who,flag){
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
         who.modal({
-            show:false,
-            backdrop:'static'
+            show: false,
+            backdrop: 'static'
         })
-        //$('#myModal2').find('.modal-body').html('起止时间不能为空');
+        who.find('.modal-title').html(title);
         who.modal('show');
         var markHeight = document.documentElement.clientHeight;
         var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        if(flag){
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
             who.find('.btn-primary').hide();
-        }else{
+        } else {
             who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
         }
     }
     //IP替换
