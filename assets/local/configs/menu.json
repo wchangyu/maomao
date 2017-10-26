@@ -72,7 +72,7 @@
       "给排水系统":{
         "type":"0",
         "content":"给排水系统",
-        "uri":"energyMonitor-3.html",
+        "uri":"../yongnengjiance/energyMonitor-3.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -497,14 +497,6 @@
         "type":"0",
         "content":"维修满意度统计报表",
         "uri":"../baobiaoguanli/reportManagement-6.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "维修项目":{
-        "type":"0",
-        "content":"维修项目",
-        "uri":"../weixiuguanli/dictionariesManage.html",
         "uid":"",
         "arg":"",
         "iconclass":""

@@ -49,7 +49,10 @@ $(function(){
         },
         {
             title:'故障编码',
-            data:'gdCode2'
+            data:'gdCode2',
+            render: function (data, type, row, meta){
+               return '<a href="../gongdangunali/productionOrder_see.html?gdCode='+row.gdCode+'&gdCircle='+row.gdCircle+'" target="_blank">'+data+'</a>'
+            }
         },
         {
             title:'系统名称',

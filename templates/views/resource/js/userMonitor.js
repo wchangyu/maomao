@@ -91,8 +91,8 @@ var userMonitor = (function(){
                 }
             }
             setScaleSign(_scaleX,_scaleStep);
-            //动态改变鹰眼显示比例
-            changeProimg();
+            ////动态改变鹰眼显示比例
+            //changeProimg();
 
         });
 
@@ -114,8 +114,8 @@ var userMonitor = (function(){
                 }
             }
             setScaleSign(_scaleX,_scaleStep);
-            //动态改变鹰眼显示比例
-            changeProimg();
+            ////动态改变鹰眼显示比例
+            //changeProimg();
 
         });
 
@@ -123,8 +123,9 @@ var userMonitor = (function(){
             $("#content-main-right").css({"transform":"","transform-orgin":""});
             _scaleX = 1;
             setScaleSign(1);
-            //动态改变鹰眼显示比例
-            changeProimg();
+
+            ////动态改变鹰眼显示比例
+            //changeProimg();
         });
 
         var $pageContext = $(".page-content");
@@ -159,6 +160,11 @@ var userMonitor = (function(){
             var sTimes = Math.abs(((scale - 1) / scaleStep)).toFixed();
             $bagde4.html(sTimes);
         }
+        if($('#eyeOnOff').html() == '切换正常模式'){
+            console.log(33);
+            changeProimg();
+        }
+
     };
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -501,6 +507,7 @@ var userMonitor = (function(){
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
                     _imgProcWidth = imgWidth;
+                    _theImgProcWidth = imgWidth;
                     /*----------------页面自适应 王常宇修改-----------------*/
                     var norWidth = $('.page-title').width();
                     //实际宽度
@@ -515,13 +522,20 @@ var userMonitor = (function(){
                     $('#right-container').width(realWidth);
 
                     $(window).resize(function () {          //当浏览器大小变化时
+                        var _leftRealwidth = _leftWidth;
+
+                        if($('.content-main-left').css('display') == 'none'){
+                            _leftRealwidth = 0;
+
+                        }
                         var norWidth1 = $('.page-title').width();
                         //实际宽度
-                        var realWidth1 = norWidth1 - _leftWidth;
+                        var realWidth1 = norWidth1 - _leftRealwidth;
                         //缩放比例计算
                         var ratioZoom1 = realWidth1 / imgWidth;
                         //对左上角放大缩小按钮重绘
                         _scaleX = ratioZoom1;
+
                         setScaleSign(_scaleX,_scaleStep);
 
                         $('.content-main-right').css({
@@ -534,6 +548,14 @@ var userMonitor = (function(){
 
                         //右侧容器宽度
                         $('#right-container').width(realWidth1);
+
+
+                        $('#container').hide();
+                        $('#eyeOnOff').html('切换鹰眼模式');
+                        $('.content-main-right').css({
+                            marginLeft:0,
+                            marginTop:0
+                        })
 
                     });
 
@@ -887,7 +909,8 @@ var userMonitor = (function(){
                 top:'10%',
                 border:'1px solid deepskyblue',
                 padding:'6px',
-                background:'skyblue'
+                background:'skyblue',
+                display:'none'
             });
             //$eyeOnOff.css("cssText","border-radius:0 10px 10px 0 !important");
 
@@ -937,6 +960,11 @@ var userMonitor = (function(){
 
             }
 
+        });
+
+        $('.functions-6').off('click')
+        $('.functions-6').on('click',function(){
+            $('#eyeOnOff').click();
         });
 
     };
@@ -1028,7 +1056,7 @@ var userMonitor = (function(){
 
         });
         //计算真实缩放比例
-        var realScale = (showWidth / 1400) * scale;
+        var realScale = (showWidth / _imgProcWidth) * scale;
 
         setScaleSign(realScale,_scaleStep);
 
@@ -1059,7 +1087,7 @@ var userMonitor = (function(){
         var $lay = $('#show-pic-big');
 
         //计算用户查看选框真实宽度
-        var realWidth = (showWidth * imgWH) / (1400 * scale);
+        var realWidth = (showWidth * imgWH) / (_imgProcWidth * scale);
 
         var realScale = showWidth / realWidth;
 
@@ -1917,12 +1945,23 @@ var userMonitor = (function(){
     return {
         init:init,
         getProcsByPointerId:getProcsByPointerId,
-        getUserProcs:getUserProcs
+        getUserProcs:getUserProcs,
+        setScaleSign:setScaleSign
     };
 })();
 
+_theImgProcWidth = 0;
+
 $(function(){
     $('.showOrHidden').click(function(){
+
+        $('#container').hide();
+        $('#eyeOnOff').html('切换鹰眼模式');
+        $('.content-main-right').css({
+            marginLeft:0,
+            marginTop:0
+        });
+
         var o1 = $(".content-main-left").css("display");
         if(o1 == 'block'){
             $('.content-main-left').css({
@@ -1935,7 +1974,14 @@ $(function(){
                 'background':'url("../resource/img/show.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
+            });
+            $('#right-container').css({
+                left:'0'
             })
+            $('#container').css({
+                left:'0'
+            });
+            changeTransform('none');
         }else if(o1 == 'none'){
             $('.content-main-left').animate({
                 'width':'250px'
@@ -1949,7 +1995,45 @@ $(function(){
                     'background-position':'center'
                 })
             })
+            $('#right-container').css({
+                left:'250px'
+            })
+            $('#container').css({
+                left:'250px'
+            })
+
+            changeTransform('block');
+
         }
     })
 });
+
+function changeTransform(o1){
+    var _leftRealwidth = 250;
+    if(o1 == 'none'){
+
+        _leftRealwidth = 0;
+
+    }
+    var norWidth1 = $('.page-title').width();
+    //实际宽度
+    var realWidth1 = norWidth1 - _leftRealwidth;
+    //缩放比例计算
+    var ratioZoom1 = realWidth1 / _theImgProcWidth;
+    //对左上角放大缩小按钮重绘
+    _scaleX = ratioZoom1;
+    console.log(ratioZoom1);
+    userMonitor.setScaleSign(_scaleX,0.05);
+
+    $('.content-main-right').css({
+        'transform-origin': 'left top 0px',
+        'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+    })
+    $('.page-content').css({
+        'overflow':'hidden !important'
+    })
+
+    //右侧容器宽度
+    $('#right-container').width(realWidth1);
+}
 
