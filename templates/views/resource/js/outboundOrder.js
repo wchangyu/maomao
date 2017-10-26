@@ -9,8 +9,12 @@ $(document).ready(function(){
     getGodownMessage();
     //获取出库单信息
     function getGodownMessage(){
+
         //从路径中获取出库单号
         var outboundOrder = window.location.search.split('=')[1];
+        if(!outboundOrder){
+            return false;
+        }
         $.ajax({
             type: 'post',
             url: _urls + "YWCK/ywCKGetOutStorageDetail",
@@ -25,6 +29,7 @@ $(document).ready(function(){
                 var html = '';
                 //总价
                 var countNum = 0;
+                //console.log(data);
                 $(data).each(function(i,o){
                     html +=' <tr>' +
                         '     <td>'+ o.itemNum+'</td>' +
@@ -32,8 +37,9 @@ $(document).ready(function(){
                         '     <td>'+ o.size+'</td>' +
                         '     <td>'+ o.unitName+'</td>' +
                         '     <td>'+ o.num+'</td>' +
-                        '     <td>'+ o.outPrice+'</td>' +
-                        '     <td>'+ o.amount+'</td>'+
+                        '     <td>'+ o.outPrice.toFixed(2)+'</td>' +
+                        '     <td>'+ o.amount.toFixed(2)+'</td>'+
+                        '     <td>'+ o.bxKeshi+'</td>'+
                         '     <td>'+ o.gdCode2+'</td>'+
                         '     <td class="small-size">'+ o.outMemo+'</td>' +
                         ' </tr>';
@@ -41,7 +47,7 @@ $(document).ready(function(){
                 });
 
                 $('.goods-message').after(html);
-                $('#entry-datatables .small-count').html(countNum);
+                $('#entry-datatables .small-count').html(countNum.toFixed(2));
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -55,10 +61,12 @@ $(document).ready(function(){
             timeout: theTimes,
             data:{
                 "orderNum": outboundOrder,
+                "igStorage":1,
                 "userID": _userIdName,
                 "userName": _userName
             },
             success: function (data) {
+
                 var inType = data[0].outType;
                 var inTypeName = '';
                 //获取入库类型

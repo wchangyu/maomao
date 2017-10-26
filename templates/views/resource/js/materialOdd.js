@@ -1,6 +1,10 @@
 $(function(){
     var _prm = window.location.search;
 
+    if(!_prm){
+        return false
+    }
+
     var gdCode2 = _prm.split('=')[1].split('&')[0];
 
     var orderNum = _prm.split('&')[1].split('=')[1];
@@ -28,6 +32,7 @@ $(function(){
         contentType:'application/json',
         timeout:_theTimes,
         success:function(result){
+
             console.log(result);
             //左上
             $('.left-titles').children('.bottom-line').html(result.compName);
@@ -50,13 +55,13 @@ $(function(){
             //实领
             $('.table-three').html(result.sendNum);
             //单价
-            $('.table-four').html(result.price);
+            $('.table-four').html(result.price.toFixed(2));
             //金额
-            $('.table-five').html(result.amount);
+            $('.table-five').html(result.amount.toFixed(2));
             //时间
             if(result.createTime){
                 var showTime = result.createTime.split(' ')[0];
-                按年月日分开显示
+                //按年月日分开显示
                 $('.years').html(showTime.split('-')[0]);
                 $('.months').html(showTime.split('-')[1]);
                 $('.days').html(showTime.split('-')[2]);

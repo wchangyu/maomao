@@ -695,8 +695,6 @@ $(function(){
                        "' target=_blank>用料单</a></span>"
                }
                 return html;
-
-
             }
             //"defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
 

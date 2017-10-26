@@ -80,8 +80,6 @@ $(function(){
 
     getMessageToShow();
 
-
-
     //获取数据
     function getMessageToShow(){
         //从地址栏获取需要传递给后台的数据

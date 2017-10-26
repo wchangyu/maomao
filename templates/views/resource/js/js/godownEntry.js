@@ -3,7 +3,7 @@
  */
 $(document).ready(function(){
     //获得用户名
-    var _userName = sessionStorage.getItem('userAuth');
+    var _userName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     getGodownMessage();
@@ -11,6 +11,9 @@ $(document).ready(function(){
     function getGodownMessage(){
         //从路径中获取入库单号
         var godownNum = window.location.search.split('=')[1];
+        if(!godownNum){
+            return false;
+        }
 
         $.ajax({
             type: 'post',
@@ -33,15 +36,15 @@ $(document).ready(function(){
                         '     <td>'+ o.size+'</td>' +
                         '     <td>'+ o.unitName+'</td>' +
                         '     <td>'+ o.num+'</td>' +
-                        '     <td>'+ o.inPrice+'</td>' +
-                        '     <td>'+ o.amount+'</td>'+
+                        '     <td>'+ o.inPrice.toFixed(2)+'</td>' +
+                        '     <td>'+ o.amount.toFixed(2)+'</td>'+
                         '     <td class="small-size">'+ o.inMemo+'</td>' +
                         ' </tr>';
                     countNum += o.amount;
                 })
 
                 $('.goods-message').after(html);
-                $('#entry-datatables .small-count').html(countNum);
+                $('#entry-datatables .small-count').html(countNum.toFixed(2));
                 $('#entry-datatables .big-count').html(smalltoBIG(countNum));
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -55,10 +58,12 @@ $(document).ready(function(){
             timeout: theTimes,
             data:{
                 "orderNum": godownNum,
+                "igStorage":1,
                 "userID": _userIdName,
                 "userName": _userName
             },
             success: function (data) {
+                //console.log(data);
                 var inType = data[0].inType;
                 var inTypeName = '';
                 //获取入库类型
@@ -66,7 +71,8 @@ $(document).ready(function(){
                     "catType": 1,
                     "userID": _userIdName,
                     "userName": _userName
-                }
+                };
+                console.log(data);
                 $.ajax({
                     type:'post',
                     url:_urls + 'YWCK/ywCKGetInOutCate',

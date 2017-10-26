@@ -124,6 +124,16 @@ var userMonitor = (function(){
             _scaleX = 1;
             setScaleSign(1);
 
+            console.log(33);
+            $('#container').hide();
+            $('#eyeOnOff').html('切换鹰眼模式');
+            $('.content-main-right').css({
+                marginLeft:0,
+                marginTop:0
+            })
+
+            $('#right-container').height(800);
+
             ////动态改变鹰眼显示比例
             //changeProimg();
         });
@@ -161,7 +171,7 @@ var userMonitor = (function(){
             $bagde4.html(sTimes);
         }
         if($('#eyeOnOff').html() == '切换正常模式'){
-            console.log(33);
+            //console.log(44);
             changeProimg();
         }
 
@@ -170,6 +180,8 @@ var userMonitor = (function(){
     //根据用户名获取当前的监控方案，对应左侧列表
     var getUserProcs = function(){
         var userName = sessionStorage.userName;     //获取当前用户名
+        console.log(_isViewAllProcs);
+
         if(_isViewAllProcs){    //访问全部的监控方案
             getProcs();
         }else{              //根据用户名获取当前用户能查看的监控方案Id
@@ -557,6 +569,8 @@ var userMonitor = (function(){
                             marginTop:0
                         })
 
+                        $('#right-container').height(800);
+
                     });
 
 
@@ -615,6 +629,9 @@ var userMonitor = (function(){
                     $divMain.height(1051);
                     $(".content-main-left").height(1051);
                 }
+                //修改左侧高度
+                $(".content-main-left").height(800);
+
                 if(proc.procStyle.backColorRGB && proc.procStyle.backColorRGB.length == 8){
                     $divMain.css("background-color","#" + proc.procStyle.backColorRGB.substr(2,6));
                 }
@@ -671,6 +688,7 @@ var userMonitor = (function(){
                 DefIDs.push(defObj);
             }
             for(i=0;i<_procRenders.length;i++){
+
                 var prr = {};
                 prr["ProcDefID"] = _procRenders[i]["prDefId"];
                 prr["ProcRenderID"] = _procRenders[i]["id"];
@@ -686,6 +704,7 @@ var userMonitor = (function(){
             if(DTypeDKIDs!="") DTypeDKIDs = DTypeDKIDs.substr(0,DTypeDKIDs.length - 1);
 
             _isInstDataLoading = true;
+            //console.log(procRenders)
             var datas = {
                 "DTypeDKIDs":DTypeDKIDs,
                 "PRRenders":procRenders,
@@ -958,6 +977,8 @@ var userMonitor = (function(){
 
                 },600);
 
+                $('#right-container').height(800);
+
             }
 
         });
@@ -966,7 +987,6 @@ var userMonitor = (function(){
         $('.functions-6').on('click',function(){
             $('#eyeOnOff').click();
         });
-
     };
 
     //鹰眼效果
@@ -980,7 +1000,7 @@ var userMonitor = (function(){
             var $container = $("<div id='container'></div>").css({
                 position:"absolute",
                 left:$('.content-main-left').width(),
-                bottom:'30%',
+                bottom:'40%',
                 border:'1px solid #ccc'
             });
 
@@ -2022,7 +2042,7 @@ function changeTransform(o1){
     var ratioZoom1 = realWidth1 / _theImgProcWidth;
     //对左上角放大缩小按钮重绘
     _scaleX = ratioZoom1;
-    console.log(ratioZoom1);
+    //console.log(ratioZoom1);
     userMonitor.setScaleSign(_scaleX,0.05);
 
     $('.content-main-right').css({
