@@ -489,6 +489,9 @@ var BEE = (function(){
         }
     }
 
+
+     var timename2;
+
      //对页面右上角当前重要信息进行重绘
      var modificationImportInfo = function(){
 
@@ -549,9 +552,47 @@ var BEE = (function(){
                      //给悬浮窗插入指定信息
                      $dropdownMenu.html(infoHtml);
 
+
+                     if(timename2){
+                         clearTimeout(timename2);
+                     }
+
+                     if(num1 != 0 || num2 != 0){
+                         $('.dropdown-menu').hide();
+                         //给上方铃铛增加闪烁效果
+                         $('.dropdown-toggle .icon-bell').hide();
+
+                         $('.dropdown-extended .dropdown-toggle').css({
+                             display:'inline-block',
+                             height:'100%',
+                             background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                             backgroundSize:'26px 24px'
+                         });
+
+                        timename2=setTimeout(function(){
+                            $('.dropdown-extended .dropdown-menu').toggle('fast');
+                        },600);
+
+                     }else{
+
+                         $(".dropdown-extended .dropdown-toggle").removeAttr("style");
+                         if(timename2){
+                             clearTimeout(timename2);
+                         }
+                         $('.dropdown-extended .dropdown-menu').hide();
+
+                     }
+                     if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                         var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                         setTimeout(modificationImportInfo,refreshItv);
+                     }
+
                  },
                  error: function (XMLHttpRequest, textStatus, errorThrown) {
-
+                     if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                         var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                         setTimeout(modificationImportInfo,refreshItv);
+                     }
                  }
              });
 
@@ -821,6 +862,7 @@ var BEE = (function(){
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
+
             }
         }
     }

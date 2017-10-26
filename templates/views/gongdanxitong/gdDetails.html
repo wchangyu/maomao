@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>工单详情</title>
     <!--MyCss-->
     <link rel="stylesheet" href="../resource/css/bootstrap.css">
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
@@ -27,6 +27,7 @@
     <script src="../resource/TableTools/js/pdfmake.min.js"></script>
     <script src="../resource/TableTools/js/vfs_fonts.js"></script>
     <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+    <script src="../resource/js/publicFun.js"></script>
     <script src="../resource/js/gdDetails.js"></script>
 </head>
 <body>
@@ -71,7 +72,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
                             <div class="single-labels starRed">报修科室：</div>
                             <div class="single-block">
-                                <select v-model="bxkesh" id="bxkesh"></select>
+                                <input v-model="bxkesh" id="bxkesh"></input>
                             </div>
                             <div style="height:30px;">
                                 <span class="colorTip noteTip"></span>
@@ -101,9 +102,9 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                            <div class="single-labels starRed">发现时间：</div>
+                            <div class="single-labels starRed">发生时间：</div>
                             <div class="single-block">
-                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                <input type="text" v-model="gztime" class="" @focus="time()" @blur="timeblur()">
                             </div>
                             <div style="height: 30px;">
                                 <span class="colorTip noteTip"></span>
@@ -123,7 +124,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
                             <div class="single-labels">设备类型：</div>
                             <div class="single-block">
-                                <select id="sbtype" v-model="sbtype"></select>
+                                <input id="sbtype" v-model="sbtype"></input>
                             </div>
                             <div style="height: 30px;">
                                 <span class="colorTip noteTip"></span>
@@ -197,7 +198,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 single-line">
                             <div class="single-labels">故障描述：</div>
                             <div class="single-block" style="width: 466px;height: 62px;">
-                                <textarea style="width: 100%;outline: none;" class="gzDesc"></textarea>
+                                <textarea style="width: 100%;outline: none;" class="gzDesc" v-model="gzcontent"></textarea>
                             </div>
                             <div style="height: 30px;">
 
@@ -217,9 +218,7 @@
                     <div class="bumen">
                         <div class="labels">选择部门</div>
                         <div class="input-blockeds" style="width: 300px;">
-                            <select id="depart">
-
-                            </select>
+                            <input id="depart"></input>
                         </div>
                     </div>
                     <table class="table table-hover" id="fzr-list">
@@ -232,11 +231,6 @@
             <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
                 <h4>维修材料清单</h4>
                 <div class="tableHover">
-                    <div class="">
-                        <div class="label label-sm label-warning addCL" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
-                            <i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料
-                        </div>
-                    </div>
                     <table class="table table-hover cl-table" id="cl-list">
                         <thead>
                         </thead>
@@ -247,9 +241,20 @@
                 </div>
             </div>
             <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
+                <h4>满意度评价</h4>
+                <div class="tableHover">
+                    <div id="pingjia1">
+                        <input type="radio" class="pjRadio" id="very-satisfied" checked data-attr="5" style="margin-left: 8px;"><label for="very-satisfied">很好</label>
+                    </div>
+                    <div style="width:300px;height:50px;border:1px solid #cccccc">
+                        <textarea id="pingjia" style="width:100%;height: 100%" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
                 <h4>验收人</h4>
                 <div class="tableHover">
-                    <div style="padding: 10px;"><label>验收人选择:</label><select id="receiver"></select></div>
+                    <div style="padding: 10px;"><label>验收人选择:</label><input id="receiver" /></div>
                 </div>
             </div>
         </div>

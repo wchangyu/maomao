@@ -36,6 +36,7 @@ var userMonitor = (function(){
     var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
     var _refreshAction;
     var _imgProcSrc;            //存放背景图地址
+    var _imgProcWidth;            //存放背景图宽度
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -90,6 +91,9 @@ var userMonitor = (function(){
                 }
             }
             setScaleSign(_scaleX,_scaleStep);
+            ////动态改变鹰眼显示比例
+            //changeProimg();
+
         });
 
         $(".functions-4").click(function(){
@@ -110,12 +114,18 @@ var userMonitor = (function(){
                 }
             }
             setScaleSign(_scaleX,_scaleStep);
+            ////动态改变鹰眼显示比例
+            //changeProimg();
+
         });
 
         $(".functions-5").click(function(){
             $("#content-main-right").css({"transform":"","transform-orgin":""});
             _scaleX = 1;
             setScaleSign(1);
+
+            ////动态改变鹰眼显示比例
+            //changeProimg();
         });
 
         var $pageContext = $(".page-content");
@@ -150,6 +160,11 @@ var userMonitor = (function(){
             var sTimes = Math.abs(((scale - 1) / scaleStep)).toFixed();
             $bagde4.html(sTimes);
         }
+        if($('#eyeOnOff').html() == '切换正常模式'){
+            console.log(33);
+            changeProimg();
+        }
+
     };
 
     //根据用户名获取当前的监控方案，对应左侧列表
@@ -354,7 +369,7 @@ var userMonitor = (function(){
     var getAllProcsByProcList = function(procLists){
         if(procLists){
             $.ajax({
-               type:"post",
+                type:"post",
                 data:{"":procLists},
                 url:_urlPrefix + "PR/PR_GetAllProcsByProcList",
                 success:function(data){
@@ -438,7 +453,7 @@ var userMonitor = (function(){
     //获取当前方案的定义
     var initializeProcDef = function(procId){
         $.ajax({
-           type:"post",
+            type:"post",
             data:{"" : procId},
             url:_urlPrefix + "PR/PR_GetDefByProcID",
             success:function(data){
@@ -466,7 +481,7 @@ var userMonitor = (function(){
     //获取render
     var initializeProcRender = function (procId) {
         $.ajax({
-           type:"post",
+            type:"post",
             data: {"" : procId},
             url:_urlPrefix + "PR/PR_GetProcRenders",
             success:function(data){
@@ -481,6 +496,7 @@ var userMonitor = (function(){
     //获取底图
     var initImg = function(procId){
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
+
         if(proc){
             var imgWidth,imgHeight;
             if(proc.procStyle){
@@ -490,58 +506,78 @@ var userMonitor = (function(){
 
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
+                    _imgProcWidth = imgWidth;
+                    _theImgProcWidth = imgWidth;
+                    /*----------------页面自适应 王常宇修改-----------------*/
+                    var norWidth = $('.page-title').width();
+                    //实际宽度
+                    var realWidth = norWidth - _leftWidth;
 
+                    //缩放比例计算
+                    var ratioZoom = realWidth / imgWidth;
 
-                        /*----------------页面自适应 王常宇修改-----------------*/
-                        var norWidth = $('.page-title').width();
+                    _scaleX = ratioZoom;
+                    setScaleSign(_scaleX,_scaleStep);
+                    //右侧容器宽度
+                    $('#right-container').width(realWidth);
+
+                    $(window).resize(function () {          //当浏览器大小变化时
+                        var _leftRealwidth = _leftWidth;
+
+                        if($('.content-main-left').css('display') == 'none'){
+                            _leftRealwidth = 0;
+
+                        }
+                        var norWidth1 = $('.page-title').width();
                         //实际宽度
-                        var realWidth = norWidth - _leftWidth;
-
+                        var realWidth1 = norWidth1 - _leftRealwidth;
                         //缩放比例计算
-                        var ratioZoom = realWidth / imgWidth;
+                        var ratioZoom1 = realWidth1 / imgWidth;
+                        //对左上角放大缩小按钮重绘
+                        _scaleX = ratioZoom1;
 
-                        _scaleX = ratioZoom;
                         setScaleSign(_scaleX,_scaleStep);
-
-                        $(window).resize(function () {          //当浏览器大小变化时
-                            var norWidth1 = $('.page-title').width();
-                            //实际宽度
-                            var realWidth1 = norWidth1 - _leftWidth;
-                            //缩放比例计算
-                            var ratioZoom1 = realWidth1 / imgWidth;
-                            //对左上角放大缩小按钮重绘
-                            _scaleX = ratioZoom1;
-                            setScaleSign(_scaleX,_scaleStep);
-
-                            $('.content-main-right').css({
-                                'transform-origin': 'left top 0px',
-                                'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
-                            })
-                            $('.page-content').css({
-                                'overflow':'hidden !important'
-                            })
-
-                        });
-
 
                         $('.content-main-right').css({
                             'transform-origin': 'left top 0px',
-                            'transform': 'scale('+ratioZoom+', '+ratioZoom+')'
+                            'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+                        })
+                        $('.page-content').css({
+                            'overflow':'hidden !important'
                         })
 
-                        if((imgWidth + _leftWidth) > _originPageWidth){
-                            //$(".page-content").width(imgWidth + _leftWidth);
-                            $(".total-wrap").width(imgWidth + _leftWidth);
-                            $('.page-content').css({
-                                'overflow':'hidden'
-                            })
-                        }else{
-                            //$(".page-content").width(_originPageWidth);
-                            $(".total-wrap").width(_originPageWidth);
-                            $('.page-content').css({
-                                'overflow':'hidden'
-                            })
-                        }
+                        //右侧容器宽度
+                        $('#right-container').width(realWidth1);
+
+
+                        $('#container').hide();
+                        $('#eyeOnOff').html('切换鹰眼模式');
+                        $('.content-main-right').css({
+                            marginLeft:0,
+                            marginTop:0
+                        })
+
+                    });
+
+
+                    $('.content-main-right').css({
+                        'transform-origin': 'left top 0px',
+                        'transform': 'scale('+ratioZoom+', '+ratioZoom+')'
+                    })
+
+                    if((imgWidth + _leftWidth) > _originPageWidth){
+                        //$(".page-content").width(imgWidth + _leftWidth);
+                        $(".total-wrap").width(imgWidth + _leftWidth);
+                        $('.page-content').css({
+                            'overflow':'hidden'
+                        })
+                    }else{
+                        //$(".page-content").width(_originPageWidth);
+                        $(".total-wrap").width(_originPageWidth);
+                        $('.page-content').css({
+                            'overflow':'hidden'
+                        })
+                    }
 
 
                 }else{
@@ -561,8 +597,12 @@ var userMonitor = (function(){
                     }
                 }
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
+
                     $divMain.height(proc.procStyle.imageSizeHeight);
                     imgHeight = proc.procStyle.imageSizeHeight;
+
+                    $(".content-main-left").height(imgHeight);
+
                     $(".content-main-left").height(imgHeight);
                     if(imgHeight<(_originPageHeight - _headHeight)){
                         //$(".total-wrap").height(_originPageHeight - _headHeight);
@@ -592,6 +632,7 @@ var userMonitor = (function(){
                         var img = $("<img>");
                         img.attr("src",data["imgUrl"]);
                         //对背景图地址进行更新
+
                         _imgProcSrc = data["imgUrl"];
                         img.css("z-index","-9999");
                         img.attr("id","imgProc");       //设置ID，需要获取到该背景图
@@ -599,6 +640,7 @@ var userMonitor = (function(){
                         if(imgHeight){ img.height(imgHeight); }
                         //TODO:图片的展示方式 curProc.ProcStyle.ImageLayout 无=0，图片重复=1，居中显示=2，拉伸显示=3，比例放大或缩小=4
                         $("#content-main-right").append(img);
+                        eageleEyeOnOff();
                     },
                     error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err); }
                 });
@@ -668,12 +710,13 @@ var userMonitor = (function(){
         if(!_isProcCrtlLoaded || !_isProcDefLoaded || !_isProcRenderLoaded) return;     //没有载入数据完成则退出
         if(!_procDefs || _procDefs.length==0) return;           //没有绘制对象则退出
         /*
-        1.绘制之前清除原有的绘制的控件
-        * */
+         1.绘制之前清除原有的绘制的控件
+         * */
         var $divContent = $("#content-main-right");
         var $img = $("#imgProc");
         $divContent.empty();
         $divContent.append($img);
+
 
         //根据def绘制对象
         var defLength = _procDefs.length;
@@ -714,7 +757,7 @@ var userMonitor = (function(){
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){
                     $spanDef.attr("data-prdefid",curProcDef.prDefId);
-                    $spanDef.on("contextmenu",function(){
+                    $spanDef.on("contextmenu",function(event){
                         var e = window.event || event;
                         e.preventDefault();
                         var curprDefId1 = $(this).attr("data-prdefid");
@@ -853,6 +896,253 @@ var userMonitor = (function(){
         refreshData();
     };
 
+    //在界面插入鹰眼模式开关
+    var eageleEyeOnOff = function(){
+        //判断是否已存在开关
+        var $ifeyeOnOff = $('#eyeOnOff').html();
+
+        if(!$ifeyeOnOff){
+            //插入开关
+            var $eyeOnOff = $("<button id='eyeOnOff'>切换鹰眼模式</button>").css({
+                position:"absolute",
+                left:($('.content-main-left').width() + 2),
+                top:'10%',
+                border:'1px solid deepskyblue',
+                padding:'6px',
+                background:'skyblue',
+                display:'none'
+            });
+            //$eyeOnOff.css("cssText","border-radius:0 10px 10px 0 !important");
+
+            $('.total-wrap').append($eyeOnOff);
+        }else{
+            if($('#eyeOnOff').html() == '切换正常模式'){
+                $('#eyeOnOff').click();
+            }
+        };
+
+        $('#eyeOnOff').off('click');
+        $('#eyeOnOff').on('click',function(){
+            $('#container').toggle();
+            if($(this).html() =='切换鹰眼模式'){
+
+                eagleEye();
+                $(this).html('切换正常模式');
+            }else{
+                $(this).html('切换鹰眼模式');
+
+                var norWidth1 = $('.page-title').width();
+                //实际宽度
+                var realWidth1 = norWidth1 - _leftWidth;
+                //缩放比例计算
+                var ratioZoom1 = realWidth1 / _imgProcWidth;
+                //对左上角放大缩小按钮重绘
+                _scaleX = ratioZoom1;
+                setScaleSign(_scaleX,_scaleStep);
+
+                $('.content-main-right').css({
+                    'transform-origin': 'left top 0px',
+                    'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+                })
+                $('.page-content').css({
+                    'overflow':'hidden !important'
+                })
+
+                //右侧容器宽度
+                $('#right-container').width(realWidth1);
+
+                $(".content-main-right").css({
+
+                    marginLeft:0,
+                    marginTop:0
+
+                },600);
+
+            }
+
+        });
+
+        $('.functions-6').off('click')
+        $('.functions-6').on('click',function(){
+            $('#eyeOnOff').click();
+        });
+
+    };
+
+    //鹰眼效果
+    var eagleEye = function(){
+
+        //判断是否已存在缩略图容器
+        var $ifcontainer = $('#container').html();
+
+        if(!$ifcontainer){
+            //插入缩略图容器
+            var $container = $("<div id='container'></div>").css({
+                position:"absolute",
+                left:$('.content-main-left').width(),
+                bottom:'30%',
+                border:'1px solid #ccc'
+            });
+
+            $('.total-wrap').append($container);
+        }
+        //清空缩略图容器
+        $('#container').empty();
+
+        //插入缩略图
+        //获取显示区宽度
+        var showWidth = $('#right-container').width();
+
+        var $img1 = $("<img src='"+_imgProcSrc+"'>");
+        var imgWH = 420;
+        var imgHH = 225;
+        var scale = 3;
+
+        //给显示区添加高度
+        $('#right-container').height(showWidth / imgWH * imgHH);
+
+        var showScale = showWidth / imgWH;
+
+        $img1.appendTo($("#container")).width(imgWH).height(imgHH);
+
+        //插入用户查看选框
+        var $lay = $("<div id='show-pic-big'></div>").css({
+            width:imgWH / scale,
+            height:imgHH/ scale,
+            //border:"solid 1px #ccc",
+            //background:"#fff",
+            //opacity:.7,
+            position:"absolute",
+            left:0,
+            top:0,
+            overflow:"hidden",
+            zIndex:10,
+            boxShadow:"0 0 10px #333",
+            border:'2px solid red'
+
+        }).appendTo("#container").hide();
+
+        $("#container").hover(function(){
+
+            $lay.show();
+
+            $(document).mousedown(function(){
+                $("#container").mousemove(function(e){
+                    var i = e.pageX - $("#container").offset().left - $lay.width() / 2;
+                    var y = e.pageY - $("#container").offset().top -$lay.height() / 2;
+                    var maxWidth = $("#container").width() -$lay.width();
+                    var maxHeight = $("#container").height() - $lay.height();
+                    var nowX = Math.max(Math.min(i,maxWidth),0);
+                    var nowY = Math.max(Math.min(y,maxHeight),0);
+                    $lay.css({
+
+                        left:nowX - 2,
+                        top:nowY - 2
+                    });
+                    $(".content-main-right").css({
+                        marginLeft:(nowX) * scale * showScale * -1,
+                        marginTop:(nowY) * scale * showScale *　-1
+                    },600);
+
+                    $(document).mouseup(function(){
+
+                        $("#container").unbind('mousemove');
+                    })
+
+                })
+
+
+            })
+
+        });
+        //计算真实缩放比例
+        var realScale = (showWidth / _imgProcWidth) * scale;
+
+        setScaleSign(realScale,_scaleStep);
+
+        $('.content-main-right').css({
+            'transform-origin': 'left top 0px',
+            'transform': 'scale('+realScale+', '+realScale+')'
+        });
+
+        $('.content-main-left').css({
+            zIndex:1000
+        });
+
+        $('.total-wrap').css({
+            overFlow:'hidden !important'
+        });
+    };
+
+    //手动改变流程图缩放比例时
+    var changeProimg = function(){
+        //获取显示区宽度
+        var showWidth = $('#right-container').width();
+        var imgWH = 420;
+        var imgHH = 225;
+
+        var showScale = showWidth / imgWH;
+        var scale = ((Math.abs(((_scaleX - 1) / _scaleStep)).toFixed()) / 20) + 1;
+
+        var $lay = $('#show-pic-big');
+
+        //计算用户查看选框真实宽度
+        var realWidth = (showWidth * imgWH) / (_imgProcWidth * scale);
+
+        var realScale = showWidth / realWidth;
+
+        //给显示区添加高度
+        $('#right-container').height(showWidth / imgWH * imgHH);
+
+        //插入用户查看选框
+        $('#show-pic-big').css({
+            width: realWidth,
+            height:imgHH/ (imgWH / realWidth)
+            //border:"solid 1px #ccc",
+            //background:"#fff",
+            //opacity:.7,
+        });
+
+        $(".content-main-right").css({
+
+            marginLeft:parseInt($lay.css("left")) * realScale * -1,
+            marginTop:parseInt($lay.css("top")) * realScale *　-1
+
+        },600);
+
+        $("#container").unbind('hover');
+
+        $("#container").hover(function(){
+
+            //$lay.show();
+
+            $(document).mousedown(function(){
+                $("#container").mousemove(function(e){
+                    var i = e.pageX - $("#container").offset().left - $lay.width() / 2;
+                    var y = e.pageY - $("#container").offset().top -$lay.height() / 2;
+                    var maxWidth = $("#container").width() -$lay.width();
+                    var maxHeight = $("#container").height() - $lay.height();
+                    var nowX = Math.max(Math.min(i,maxWidth),0);
+                    var nowY = Math.max(Math.min(y,maxHeight),0);
+
+                    $(".content-main-right").css({
+                        marginLeft:nowX * realScale * -1,
+                        marginTop:nowY * realScale *　-1
+                    },600);
+
+                    $(document).mouseup(function(){
+
+                        $("#container").unbind('mousemove');
+                    })
+
+                })
+
+
+            })
+
+        });
+    };
+
     function loadDefImg(curPRR,$Img){
         $Img.addClass(curPRR.imgID + "img");
         $.ajax({
@@ -864,7 +1154,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
         });
-    }
+    };
 
     //根据当前的def跳转到下一级的procs
     var setActionByDef = function(procDef){
@@ -918,7 +1208,7 @@ var userMonitor = (function(){
             if(_hasControlAuth){
                 _airClickPos = getMousePos();       //获取当前的鼠标点，保存
                 $.ajax({
-                   type:"post",
+                    type:"post",
                     data:{
                         "ckid":procDef.ckId,
                         "prDefId":procDef.prDefId
@@ -986,7 +1276,7 @@ var userMonitor = (function(){
 
     //获取鼠标坐标，left,top
     var getMousePos = function(){
-        var e= event || window.event;
+         var e= window.event || arguments.callee.caller.arguments[0] ;
         var pt = [];
         pt.push(e.clientX);
         pt.push(e.clientY);
@@ -1284,7 +1574,7 @@ var userMonitor = (function(){
                     if(taVal == _GlobalPara.value){ return; }       //值没有更改
                     if(taVal>_GlobalPara.minValue && taVal<_GlobalPara.maxValue){
                         $.ajax({
-                           type:"post",
+                            type:"post",
                             data: {
                                 "value": taVal,
                                 "id": _GlobalPara.id,
@@ -1394,21 +1684,21 @@ var userMonitor = (function(){
                 var prd = _.findWhere(_procDefs,{"prDefId":prDefId});
                 paras = paras.substring(0,paras.length - 1);
                 $.ajax({
-                    type:'post',
-                    data:{
-                        "setValue" : paras,
-                        "CKID" : prd.ckId,
-                        "ctype" : prd.cType
-                    },
-                    url:_urlPrefix + "PR/SendCtrlCommand",
-                    success:function(data){
-                        setDivControlsVisible(false);
-                    },
-                    error:function(xhr,res,err){
-                        logAjaxError("SendModbusCmd",err);
-                        alertMessage("发送指令失败!");
+                        type:'post',
+                        data:{
+                            "setValue" : paras,
+                            "CKID" : prd.ckId,
+                            "ctype" : prd.cType
+                        },
+                        url:_urlPrefix + "PR/SendCtrlCommand",
+                        success:function(data){
+                            setDivControlsVisible(false);
+                        },
+                        error:function(xhr,res,err){
+                            logAjaxError("SendModbusCmd",err);
+                            alertMessage("发送指令失败!");
+                        }
                     }
-                }
                 );
             }
         });
@@ -1543,10 +1833,10 @@ var userMonitor = (function(){
                 var prd = _.findWhere(_procDefs,{"prDefId":ppc.prDefId});
                 if(!prd) { return;}
                 var cmdDatas = {
-                      "setValue" : setValue,
-                      "setValueType" : 1,
-                      "CKID" : prd.ckId,
-                      "ctype" : prd.cType
+                    "setValue" : setValue,
+                    "setValueType" : 1,
+                    "CKID" : prd.ckId,
+                    "ctype" : prd.cType
                 };
                 $.ajax({            //发送控制指令
                     type : "post",
@@ -1588,7 +1878,7 @@ var userMonitor = (function(){
         $ele.css("display","-webkit-box");
         $ele.css("display","-ms-flexbox");
         $ele.css("display","-webkit-flex");
-        $ele.css("display","-moz-box");
+        $ele.css("display","-moz-flex");
         $ele.css ("flex-direction","row");
         $ele.css ("-webkit-align-items","center");
         $ele.css ("align-items","center");
@@ -1601,7 +1891,7 @@ var userMonitor = (function(){
         $ele.css("display","-webkit-box");
         $ele.css("display","-ms-flexbox");
         $ele.css("display","-webkit-flex");
-        $ele.css("display","-moz-box");
+        $ele.css("display","-moz-flex");
         if(options){
             for(var attr in options){
                 $ele.css(attr,options[attr]);
@@ -1617,6 +1907,7 @@ var userMonitor = (function(){
                 $contextMenu.appendTo($('#content-main-right'));
                 //历史数据的打开
                 $("#monitor-hisdata").on("click",function(){
+
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
@@ -1654,12 +1945,23 @@ var userMonitor = (function(){
     return {
         init:init,
         getProcsByPointerId:getProcsByPointerId,
-        getUserProcs:getUserProcs
+        getUserProcs:getUserProcs,
+        setScaleSign:setScaleSign
     };
 })();
 
+_theImgProcWidth = 0;
+
 $(function(){
     $('.showOrHidden').click(function(){
+
+        $('#container').hide();
+        $('#eyeOnOff').html('切换鹰眼模式');
+        $('.content-main-right').css({
+            marginLeft:0,
+            marginTop:0
+        });
+
         var o1 = $(".content-main-left").css("display");
         if(o1 == 'block'){
             $('.content-main-left').css({
@@ -1672,7 +1974,14 @@ $(function(){
                 'background':'url("../resource/img/show.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
+            });
+            $('#right-container').css({
+                left:'0'
             })
+            $('#container').css({
+                left:'0'
+            });
+            changeTransform('none');
         }else if(o1 == 'none'){
             $('.content-main-left').animate({
                 'width':'250px'
@@ -1686,7 +1995,45 @@ $(function(){
                     'background-position':'center'
                 })
             })
+            $('#right-container').css({
+                left:'250px'
+            })
+            $('#container').css({
+                left:'250px'
+            })
+
+            changeTransform('block');
+
         }
     })
 });
+
+function changeTransform(o1){
+    var _leftRealwidth = 250;
+    if(o1 == 'none'){
+
+        _leftRealwidth = 0;
+
+    }
+    var norWidth1 = $('.page-title').width();
+    //实际宽度
+    var realWidth1 = norWidth1 - _leftRealwidth;
+    //缩放比例计算
+    var ratioZoom1 = realWidth1 / _theImgProcWidth;
+    //对左上角放大缩小按钮重绘
+    _scaleX = ratioZoom1;
+    console.log(ratioZoom1);
+    userMonitor.setScaleSign(_scaleX,0.05);
+
+    $('.content-main-right').css({
+        'transform-origin': 'left top 0px',
+        'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+    })
+    $('.page-content').css({
+        'overflow':'hidden !important'
+    })
+
+    //右侧容器宽度
+    $('#right-container').width(realWidth1);
+}
 

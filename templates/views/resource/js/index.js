@@ -603,8 +603,7 @@ function PointerPowerConsumption(){
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                 option1.series[0].data = [];
                 _myChart.setOption(option1);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+            }else if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 alert("超时");
             }else{
                 alert("请求失败！");
@@ -653,8 +652,7 @@ function OfficePowerConsumption(){
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                 option1.series[0].data = [];
                 _myChart.setOption(option1);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+            }else if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 alert("超时");
             }else{
                 alert("请求失败！");
@@ -717,8 +715,7 @@ function PointerCharge(){
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                 option2.series[0].data = [];
                 _myChart2.setOption(option2);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+            }else if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 alert("超时");
             }else{
                 alert("请求失败！");
@@ -760,12 +757,11 @@ function OfficeCharge(){
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart2.hideLoading();
-            console.log(JSON.parse(jqXHR.responseText).message);
+            //console.log(JSON.parse(jqXHR.responseText).message);
             if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
                 option2.series[0].data = [];
                 _myChart2.setOption(option2);
-            }
-            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+            }else if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 alert("超时");
             }else{
                 alert("请求失败！");
