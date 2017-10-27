@@ -171,6 +171,129 @@ $(function(){
 
     _tableInit($('#pending-list'),pendingListCol,'2','','','');
 
+
+    //选择设备表格
+    var equipTable = $('#choose-equip').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'设备名称',
+                data:'dName'
+            },
+            {
+                title:'设备编码',
+                data:'dNewNum'
+            },
+            {
+                title:'设备类型',
+                data:'dsName',
+                render:function(data, type, row, meta){
+                    return '<span data-num="'+row.dsNum+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'安装位置',
+                data:'installAddress',
+                class:'adjust',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            }
+        ]
+    });
+    //选择维修事项表格
+    var matterTable = $('#choose-metter').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'维修项目编号',
+                data:'wxclassnum'
+            },
+            {
+                title:'维修项目名称',
+                data:'wxname',
+                class:'adjust-comment',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'项目类别名称',
+                data:'wxclassname'
+            }
+        ]
+    });
+
     //待接单
     var  dengListCol = [
         {
@@ -808,8 +931,145 @@ $(function(){
 
     })
 
+    //选择设备弹窗打开后
+    $('#choose-equipment').on('shown.bs.modal', function () {
+
+        datasTable($('#choose-equip'),equipmentArr);
+
+    });
+
+    $('#choose-equip').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择设备确定按钮
+    $('#choose-equipment .btn-primary').on('click',function() {
+        var dom = $('#choose-equip tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+                //获取地址
+                $('#equip-address').val(dom.eq(i).children().eq(5).find('span').html());
+                //获取设备名称
+                $('#equip-name').val(dom.eq(i).children().eq(2).html());
+                //获取设备编码
+                $('#equip-num').val(dom.eq(i).children().eq(3).html());
+                //获取设备类型
+                $('#sbtype').val(dom.eq(i).children().eq(4).find('span').attr('data-num'));
+
+                $('#choose-equipment').modal('hide');
+
+                return false;
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应设备', '')
+
+    });
+
+    //选择维修事项弹窗打开后
+    $('#choose-building').on('shown.bs.modal', function () {
+        getMatter();
+
+    });
+
+    $('#choose-metter').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择维修事项确定按钮
+    $('#choose-building .btn-primary').on('click',function() {
+        var dom = $('#choose-metter tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+                $('#metter').val(dom.eq(i).children().eq(3).find('span').html());
+
+                $('#choose-building').modal('hide');
+
+                return false
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应维修事项', '')
+
+    });
 
     /*-------------------------------------------------其他方法-----------------------------------------*/
+    equipmentArr = [];
+    getEuipment('');
+    //获取设备类型
+    function getEuipment(dsNum){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWDev/ywDIGetDevs',
+            data:{
+                userID:_userIdNum,
+                dsNum:dsNum
+            },
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+                console.log(result);
+                $('#theLoading').modal('hide');
+                $(result).each(function(i,o){
+                    equipmentArr.push(o);
+                })
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#theLoading').modal('hide');
+                console.log(jqXHR.responseText);
+            }
+        })
+    };
+
+    //获取维修事项
+    function getMatter(){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDWxxmGetAll',
+            data:{
+                "wxnum": ""
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+                datasTable($('#choose-metter'),result);
+            }
+        })
+    };
+
+
+    function datasTable(tableId,arr){
+
+
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+
+    }
     //登记项初始化
     function dataInit(){
         gdObj.gdtype = '0';
