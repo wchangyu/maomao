@@ -493,11 +493,11 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
-        {
+        /*{
             title:'操作',
             data:null,
             defaultContent: "<span class='data-option option-orders btn default btn-xs green-stripe'>接单</span>"
-        }
+        }*/
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
@@ -631,16 +631,18 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht2=[],zht4=[],zht6=[],zht7=[];
+                var zht2=[],zht=[];
                 for(var i=0;i<result.length;i++){
                     if(result[i].gdZht == 2){
                         zht2.push(result[i]);
+                    }else{
+                        zht.push(result[i]);
                     }
                 }
                 //未接单
                 _datasTable($('#waiting-list'),zht2);
-                //执行中
-                //_datasTable($('#in-execution'),zht2);
+                //历史工单
+                _datasTable($('#in-execution'),zht);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

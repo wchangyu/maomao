@@ -45,6 +45,28 @@ $(function(){
         }
     });
 
+    //待关单vue
+    var gbObj = new Vue({
+        el:'#guanbi',
+        data:{
+            'gdtype':'0',
+            'xttype':'1',
+            'bxtel':'',
+            'bxkesh':'',
+            'bxren':'',
+            'pointer':'',
+            'gztime':'',
+            'sbtype':'',
+            'sbnum':'',
+            'sbname':'',
+            'azplace':'',
+            'gzplace':'',
+            'wxshx':'',
+            'wxbz':'',
+            'wxcontent':''
+        }
+    })
+
     //验证vue非空（空格不算）
     Vue.validator('isEmpty', function (val) {
         //获取内容的时候先将首尾空格删除掉；
@@ -76,7 +98,10 @@ $(function(){
     var _isDeng = false;
 
     //记录当前评价的值
-    var _pjValue = 5    ;
+    var _pjValue = 5;
+
+    //重发值
+    var _gdCircle = 0;
 
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
@@ -125,7 +150,7 @@ $(function(){
         {
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
+            defaultContent: "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
         }
     ];
 
@@ -139,8 +164,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -190,11 +216,11 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
@@ -207,8 +233,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -283,8 +311,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -346,11 +376,11 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
     ];
 
     _tableInit($('#closing-list'),closingListCol,'2','','','');
@@ -358,18 +388,13 @@ $(function(){
     //执行人列表
     var fzrListCol = [
         {
-            className:'checkeds',
-            data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
-        },
-        {
             title:'工号',
-            data:'userNum',
+            data:'wxRen',
             className:'workNum'
         },
         {
             title:'执行人名称',
-            data:'userName'
+            data:'wxRName'
         },
         //{
         //    title:'职位',
@@ -377,7 +402,7 @@ $(function(){
         //},
         {
             title:'联系电话',
-            data:'mobile'
+            data:'wxRDh'
         }
     ];
 
@@ -387,33 +412,24 @@ $(function(){
     var outClListCol = [
         {
             title:'名称',
-            data:'mc'
+            data:'wxClName'
         },
         {
             title:'备件编码',
-            data:'bm',
+            data:'wxCl',
             className:'bjbm'
         },
         {
-            title:'单位',
-            data:'dw'
-        },
-        {
             title:'数量',
-            data:'sl'
+            data:'clShul'
         },
         {
             title:'单价（元）',
-            data:'dj'
+            data:'wxClPrice'
         },
         {
             title:'金额（元）',
-            data:'je'
-        },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-outshanchu btn default btn-xs green-stripe'>删除</span>"
+            data:'wxClAmount'
         }
     ];
 
@@ -545,14 +561,66 @@ $(function(){
     //待关单【关单】
     $('#waiting-list').on('click','.option-close',function(){
 
-        _gdCode = $(this).parents('tr').children('.gdCode').children('span').html();
+        _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
 
         _gdZht = $(this).parents('tr').children('.gdCode').children('span').attr('data-zht');
 
+        _gdCircle = $(this).parents('tr').children('.gdCode').children('span').attr('data-circle');
+
         //绑定数据
+        var prm = {
+            'gdCode':_gdCode,
+            'gdCircle':_gdCircle,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            timeout:_theTimes,
+            data:prm,
+            success:function(result){
+                console.log(result);
+                //绑定数据
+                gbObj.bxtel = result.bxDianhua;
+                gbObj.bxkesh = result.bxKeshi;
+                gbObj.bxren = result.bxRen;
+                gbObj.gztime = result.gdFsShij;
+                gbObj.sbtype = result.wxShiX;
+                gbObj.sbnum = result.wxShebei;
+                gbObj.sbname = result.dName;
+                gbObj.azplace = result.installAddress;
+                gbObj.gzplace = result.wxDidian;
+                gbObj.wxshx = result.wxXm;
+                gbObj.wxbz = result.wxKeshi;
+                gbObj.wxcontent = result.wxBeizhu;
+                $('.gzDesc').val(result.bxBeizhu);
+                //    'pointer':'',
+                //维修材料清单
+                var clListArr = result.wxCls;
+                if(clListArr.length > 0){
+                    _datasTable($('#cl-list'),clListArr);
+                }
+                //执行人表格
+                var fzrArr = result.wxRens;
+                _datasTable($('#fzr-list'),fzrArr);
 
+                //选择部门
+                $('#depart').val(result.bxKeshi);
+                //验收人
+                $('#receiver').val(result.yanShouRenName);
+                //工时费
+                $('#hourFee').val(result.gongShiFee);
+                //合计费用
+                $('#total').val(result.gdFee);
 
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
 
         //模态框
         _moTaiKuang($('#myModal1'), '关单', 'flag', '' ,'', '');
@@ -669,6 +737,7 @@ $(function(){
         })
 
     })
+
 
     /*------------------------------------------------其他方法--------------------------------------------*/
     //登记项初始化

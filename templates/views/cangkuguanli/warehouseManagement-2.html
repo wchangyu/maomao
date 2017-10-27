@@ -642,13 +642,13 @@
                             <li class="gdList">
                                 <div class="labels">入库单价：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="inPrice" @keyup="addFun2()"@blur="addFun4()" class="inputType">
+                                    <input type="text" v-model="inPrice" @keyup="addFun2()"@blur="addFun4()" class="inputType" placeholder="0.00">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">总金额：<span class="colorTip format-error3" style="display: none;">输入整数或保留两位小数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="amount" class="inputType" placeholder="0" @keyup="addFun3()">
+                                    <input type="text" v-model="amount" class="inputType" placeholder="0.00" @keyup="addFun3()">
                                 </div>
                             </li>
                             <li class="gdList"style="width: 410px !important;">

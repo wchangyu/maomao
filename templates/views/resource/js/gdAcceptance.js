@@ -123,10 +123,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -174,10 +174,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -208,11 +207,11 @@ $(function(){
             title:'故障描述',
             data:'bxBeizhu'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
     ];
 
     _tableInit($('#deng-list'),dengListCol,'2','','','');
@@ -225,8 +224,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -276,11 +276,11 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
@@ -293,8 +293,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -352,11 +353,11 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>关单</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>关单</span>"
+        //}
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');
@@ -369,8 +370,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -432,11 +434,6 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
     ];
 
     _tableInit($('#closing-list'),closingListCol,'2','','','');
@@ -449,8 +446,9 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '">' + data
-                '</span>'
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -512,11 +510,11 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        {
+        /*{
             title:'操作',
             data:null,
             defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
+        }*/
     ];
 
     _tableInit($('#appeal-list'),appealListCol,'2','','','');
@@ -630,22 +628,22 @@ $(function(){
     });
 
     //报修科室联动部门
-    $('#bxkesh').change(function(){
-        //确定当前
-        var currentKS = $('#bxkesh').children('option:selected').attr('data-num');
-        var arr = [];
-        var str = '<option value="">请选择</option>';
-        for(var i=0;i<_departArr.length;i++){
-
-            if(_departArr[i].departNum == currentKS){
-
-                str += '<option value="' + _departArr[i].departNum +
-                    '">' + _departArr[i].departName + '</option>'
-            }
-        }
-        $('#depart').empty().append(str);
-
-    });
+    //$('#bxkesh').change(function(){
+    //    //确定当前
+    //    var currentKS = $('#bxkesh').children('option:selected').attr('data-num');
+    //    var arr = [];
+    //    var str = '<option value="">请选择</option>';
+    //    for(var i=0;i<_departArr.length;i++){
+    //
+    //        if(_departArr[i].departNum == currentKS){
+    //
+    //            str += '<option value="' + _departArr[i].departNum +
+    //                '">' + _departArr[i].departName + '</option>'
+    //        }
+    //    }
+    //    $('#depart').empty().append(str);
+    //
+    //});
 
     //选择部门之后加载人员列表
     $('#depart').change(function(){
@@ -703,36 +701,36 @@ $(function(){
         })
         .on('click','.xiafa',function(){
 
-            //验证是否选择了负责人
-
-            var lengths = $('#fzr-list tbody').find('.checked').length;
-            //var lengths = 1;
-
-            if(lengths == 0){
-
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择负责人！', '');
+            //先判断是第一次下发还是重发
+            if(_gdZht == 5){
+                //维修内容修改
+                upDateWXRemark(false);
+                //工单重发
+                reSend();
+                //分配负责人
+                //assigFZR(false);
 
             }else{
-
-                //先判断是第一次下发还是重发
-                if(_gdZht == 5){
-                    //维修内容修改
-                    upDateWXRemark(false);
-                    //工单重发
-                    reSend();
-                    //分配负责人
-                    assigFZR(false);
-
-                }else{
-                    //维修内容修改
-                    upDateWXRemark(true);
-                    //工单下发
-                    upData();
-                    //分配负责人
-                    assigFZR(true);
-                }
-
+                //维修内容修改
+                upDateWXRemark(true);
+                //工单下发
+                upData();
+                //分配负责人
+                //assigFZR(true);
             }
+
+            //验证是否选择了负责人
+
+            //var lengths = $('#fzr-list tbody').find('.checked').length;
+            ////var lengths = 1;
+            //
+            //if(lengths == 0){
+            //
+            //    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择负责人！', '');
+            //
+            //}else{
+            //
+            //}
         })
 
     //表格操作按钮
@@ -800,6 +798,7 @@ $(function(){
         _moTaiKuang($('#myModal'), '详情', 'flag', '' ,'', '');
 
     })
+
 
     /*-------------------------------------------------其他方法-----------------------------------------*/
     //登记项初始化
@@ -997,7 +996,7 @@ $(function(){
 
         num.parents('tr').addClass('tables-hover');
 
-        _gdCode = num.parents('tr').children('.gdCode').children('span').html();
+        _gdCode = num.parents('tr').children('.gdCode').children('span').children('a').html();
 
         _gdZht = num.parents('tr').children('.gdCode').children('span').attr('data-zht');
 
@@ -1005,7 +1004,7 @@ $(function(){
 
         //请求数据
         var prm = {
-            'gdCode':num.parents('tr').children('.gdCode').children('span').html(),
+            'gdCode':_gdCode,
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
@@ -1307,9 +1306,9 @@ $(function(){
     function firstXF(){
 
         //是否执行完毕
-        if( _wxIsComplete && _fzrComplete &&  _ztChangeComplete ){
+        if( _wxIsComplete &&  _ztChangeComplete ){
             //提示
-            if(_fzrSuccess && _wxIsSuccess && _ztChangeSuccess){
+            if( _wxIsSuccess && _ztChangeSuccess){
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
 
@@ -1318,11 +1317,6 @@ $(function(){
                 conditionSelect();
             }else{
                 var str = '';
-                if( _fzrSuccess == false ){
-                    str += '工长增加失败，'
-                }else{
-                    str += '工长增加成功，'
-                }
                 if( _wxIsSuccess == false ){
                     str += '维修备注修改失败，'
                 }else{
@@ -1373,8 +1367,8 @@ $(function(){
 
     //重发操作是否完成
     function secondXF(){
-        if(_wxIsComplete && _fzrComplete && _reSendComplete){
-            if(_fzrSuccess && _wxIsSuccess && _reSendSuccess){
+        if(_wxIsComplete  && _reSendComplete){
+            if( _wxIsSuccess && _reSendSuccess){
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
 
@@ -1383,11 +1377,6 @@ $(function(){
                 conditionSelect()
             }else{
                 var str = '';
-                if( _fzrSuccess == false ){
-                    str += '工长增加失败，'
-                }else{
-                    str += '工长增加成功，'
-                }
                 if( _wxIsSuccess == false ){
                     str += '维修备注修改失败，'
                 }else{

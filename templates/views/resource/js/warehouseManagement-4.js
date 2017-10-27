@@ -114,7 +114,7 @@ $(function(){
                 data:'maxNum'
             },
 
-        ],
+        ]
     });
 
     //自定义按钮位置
@@ -233,6 +233,43 @@ $(function(){
                 datasTable($('#scrap-datatables1'),downState);
                 datasTable($('#scrap-datatables2'),upState);
                 datasTable($('#scrap-datatables3'),nomalState);
+
+                var allResult = 0;
+                var allResult1 = 0;
+                for(var i=0;i<result.length;i++){
+                    allResult += result[i].num;
+                    allResult1 += result[i].amount;
+                }
+                $('#kcs').html(allResult);
+                $('#je').html(allResult1.toFixed(2));
+
+                var allDownState = 0;
+                var allDownState1 = 0;
+                for(var i=0;i<downState.length;i++){
+                    allDownState += downState[i].num;
+                    allDownState1 += downState[i].amount;
+                }
+                $('#kcs1').html(allDownState);
+                $('#je1').html(allDownState1.toFixed(2));
+
+                var allUpState = 0;
+                var allUpState1 = 0;
+                for(var i=0;i<upState.length;i++){
+                    allUpState += upState[i].num;
+                    allUpState1 += upState[i].amount;
+                }
+                $('#kcs2').html(allUpState);
+                $('#je2').html(allUpState1.toFixed(2));
+
+                var allNomalState = 0;
+                var allNomalState1 = 0;
+                for(var i=0;i<nomalState.length;i++){
+                    allNomalState += nomalState[i].num;
+                    allNomalState1 += nomalState[i].amount;
+                }
+                $('#kcs3').html(allNomalState);
+                $('#je3').html(allNomalState1.toFixed(2));
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

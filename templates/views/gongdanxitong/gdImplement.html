@@ -702,7 +702,7 @@
                                 <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
                                     <div class="single-labels" style="font-size: 14px;width: 90px;">单价（元）</div>
                                     <div class="single-block" style="width: 192px;">
-                                        <input type="text" v-model="dj" @keyup="addFun2()">
+                                        <input type="text" v-model="dj" @keyup="addFun2()" placeholder="0.00">
                                     </div>
                                     <div style="height: 32px;">
                                         <span class="colorTip errorDJ" style="display: block;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数(保留两位)</span>
@@ -712,7 +712,7 @@
                                 <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
                                     <div class="single-labels" style="font-size: 14px;width: 90px;">金额（元）</div>
                                     <div class="single-block" style="width: 192px;">
-                                        <input type="text" v-model="je" @keyup="addFun3()">
+                                        <input type="text" v-model="je" @keyup="addFun3()" placeholder="0.00">
                                     </div>
                                     <div style="height: 32px">
                                         <span class="colorTip errorJE" style="display: block;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数(保留两位)</span>

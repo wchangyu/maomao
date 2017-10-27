@@ -364,7 +364,7 @@ $(function(){
     $('#waiting-list').on('click','.option-close',function(){
 
         //确定工单号
-        _gdCode = $(this).parents('tr').children('.gdCode').children('span').html();
+        _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
         //模态框显示
         _moTaiKuang($('#myModal'), '关闭申请', '', '' ,'', '关闭申请');
@@ -453,9 +453,19 @@ $(function(){
             obj.bm = clObj.bm;
             obj.dw = clObj.dw;
             obj.sl = clObj.sl;
-            var dj = parseFloat(clObj.dj);
+            var dj = 0;
+            if(clObj.dj == ''){
+                dj = 0.00;
+            }else{
+                dj = parseFloat(clObj.dj);
+            }
             obj.dj = dj.toFixed(2);
-            var je = parseFloat(clObj.je);
+            var je = 0;
+            if(clObj.je == ''){
+                je = 0.00
+            }else{
+                je = parseFloat(clObj.je);
+            }
             obj.je = je.toFixed(2);
             _selectedBJ.unshift(obj);
             _datasTable($('#cl-selecting'),_selectedBJ);
@@ -616,7 +626,7 @@ $(function(){
 
     /*------------------------------------------------表格初始化------------------------------------------*/
 
-    //待受理表格
+    //待执行表格
     var waitingListCol = [
         {
             title:'工单号',
@@ -624,10 +634,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -694,10 +704,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         {
@@ -747,22 +757,17 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
 
     //执行人表格
     var fzrListCol = [
-        {
-            className:'checkeds',
-            data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
-        },
         {
             title:'工号',
             data:'userNum',
@@ -1030,7 +1035,7 @@ $(function(){
 
         num.parents('tr').addClass('tables-hover');
 
-        _gdCode = num.parents('tr').children('.gdCode').children('span').html();
+        _gdCode = num.parents('tr').children('.gdCode').children('span').children('a').html();
 
         _gdZht = num.parents('tr').children('.gdCode').children('span').attr('data-zht');
 
@@ -1038,7 +1043,7 @@ $(function(){
 
         //请求数据
         var prm = {
-            'gdCode':num.parents('tr').children('.gdCode').children('span').html(),
+            'gdCode':_gdCode,
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,

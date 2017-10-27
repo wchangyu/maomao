@@ -453,6 +453,11 @@ $(function(){
     //是否可以自己审核
     var _isShenHe = sessionStorage.getItem('ckAuditType');
 
+    //物品编号完全符合的情况下
+    var _isbm = false;
+
+    var _bmObj = {};
+
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -732,7 +737,7 @@ $(function(){
         {
             title:'仓库编码',
             data:'storageNum',
-            className:'cangkuNum'
+            className:'cangkuNum hiddenButton'
         },
         {
             title:'仓库',
@@ -742,7 +747,7 @@ $(function(){
         {
             title:'库区编码',
             data:'localNum',
-            className:'localNum'
+            className:'localNum hiddenButton'
         },
         {
             title:'库区名称',
@@ -774,6 +779,16 @@ $(function(){
             title:'剩余数量',
             data:'num',
             className:'num'
+        },
+        {
+            title:'单价',
+            data:'',
+            render:function(data, type, full, meta){
+
+                var aa = Number(full.amount) / Number(full.num)
+
+                return aa.toFixed(2)
+            }
         }
     ];
 
@@ -890,12 +905,12 @@ $(function(){
         //审核备注不显示
         $('.shRemarks').hide();
         //所有输入框不可操作；
-        $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+        $('#myApp33').find('input').removeAttr('readonly').removeClass('disabled-block');
         $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
-        $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
-        $('#myApp33').find('textarea').attr('disabled',false);
+        $('#myApp33').find('select').removeAttr('readonly').removeClass('disabled-block');
+        $('#myApp33').find('textarea').removeAttr('readonly');
         //出库单编码、制单人、制单时间不可编辑
-        $('.automatic').attr('disabled',true).addClass('disabled-block');
+        $('.automatic').attr('readonly','readonly').addClass('disabled-block');
         //新增物品按钮隐藏
         $('.zhiXingRenYuanButton').html('新增物品').show();
         //入库产品删除按钮不可操作
@@ -1018,7 +1033,7 @@ $(function(){
         gdsList(_gdArr,$('.pinzhixx').eq(1));
         //编辑的时候，编码和名称，条形码不能修改。
         $('.accord-with-list').hide();
-        $('.not-editable').attr('disabled',false).removeClass('disabled-block');
+        $('.not-editable').removeAttr('readonly').removeClass('disabled-block');
         $('.not-editable').parents('.input-blockeds').removeClass('disabled-block');
         //产品登记框清空；
         workDone.bianhao = '';
@@ -1104,14 +1119,14 @@ $(function(){
             }
             detailInfo($thisDanhao,sucFun1);
             //所有输入框不可操作；
-            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
             $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
-            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
-            $('#myApp33').find('textarea').attr('disabled',true);
+            $('#myApp33').find('select').attr('readonly','readonly').addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('readonly','readonly');
             //新增物品按钮隐藏
             $('.zhiXingRenYuanButton').hide();
             //入库产品删除按钮不可操作
-            $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+            $('#personTable1 tbody').find('.option-shanchu').attr('readonly','readonly');
         })
         .on('click','.option-edit',function(){
             //审核备注不显示
@@ -1149,26 +1164,26 @@ $(function(){
             //判断状态是已确认还是待确定
             if( $(this).next().html() == '已审核' ){
                 //所有输入框不可操作；
-                $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+                $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
                 $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
-                $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
-                $('#myApp33').find('textarea').attr('disabled',true);
+                $('#myApp33').find('select').attr('readonly','readonly').addClass('disabled-block');
+                $('#myApp33').find('textarea').attr('readonly','readonly');
                 //新增物品按钮隐藏
                 $('.zhiXingRenYuanButton').hide();
                 //入库产品删除按钮不可操作
-                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+                $('#personTable1 tbody').find('.option-shanchu').attr('readonly','readonly');
             }else if( $(this).next().html() == '待审核' ){
                 //所有输入框不可操作；
-                $('#myApp33').find('input').attr('disabled',false).removeClass('disabled-block');
+                $('#myApp33').find('input').removeAttr('readonly').removeClass('disabled-block');
                 $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
-                $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
-                $('#myApp33').find('textarea').attr('disabled',false);
+                $('#myApp33').find('select').removeAttr('readonly').removeClass('disabled-block');
+                $('#myApp33').find('textarea').removeAttr('readonly');
                 //新增物品按钮隐藏
                 $('.zhiXingRenYuanButton').html('修改物品').show();
                 //入库产品删除按钮不可操作
-                $('#personTable1 tbody').find('.option-shanchu').attr('disabled',false);
+                $('#personTable1 tbody').find('.option-shanchu').removeAttr('readonly');
                 //出库单编码、制单人、制单时间不可编辑
-                $('.automatic').attr('disabled',true).addClass('disabled-block');
+                $('.automatic').attr('readonly','readonly').addClass('disabled-block');
             }
         })
         //删除入库单
@@ -1246,15 +1261,15 @@ $(function(){
             }
             detailInfo($thisDanhao,sucFun3);
             //所有操作框均为只读
-            $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+            $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
             $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
-            $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
-            $('#myApp33').find('textarea').attr('disabled',true);
-            $('.shRemarks').find('textarea').attr('disabled',false);
+            $('#myApp33').find('select').attr('readonly','readonly').addClass('disabled-block');
+            $('#myApp33').find('textarea').attr('readonly','readonly');
+            $('.shRemarks').find('textarea').attr('readonly','readonly');
             //新增物品按钮隐藏
             $('.zhiXingRenYuanButton').hide();
             //入库产品删除按钮不可操作
-            $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+            $('#personTable1 tbody').find('.option-shanchu').attr('readonly','readonly');
         })
         //入库已确认操作
         //.on('click','.option-confirmed',function(){
@@ -1436,7 +1451,7 @@ $(function(){
             }
             //所有信息不可编辑
             $('#chukuObject').find('.gdList').children('.input-blockeds').addClass('disabled-block');
-            $('#chukuObject').find('.gdList').children('.input-blockeds').children('input').addClass('disabled-block').attr('disabled',true);
+            $('#chukuObject').find('.gdList').children('.input-blockeds').children('input').addClass('disabled-block').attr('readonly','readonly');
             detailInfo(_$thisRKnum,sucFun3);
         })
 
@@ -1637,9 +1652,9 @@ $(function(){
         workDone.kuwei = '';
         $('.not-editable').eq(0).focus();
         //所有框可操作
-        $('.not-editable').attr('disabled',false).removeClass('disabled-block');
+        $('.not-editable').removeAttr('readonly').removeClass('disabled-block');
         $('#wuPinListTable1 tbody').children('tr').css('background','#ffffff');
-        $('.auto-input').attr('disabled',false).removeClass('disabled-block');
+        $('.auto-input').removeAttr('readonly').removeClass('disabled-block');
         $('.auto-input').parent('.input-blockeds').removeClass('disabled-block');
         $('.accord-with-list').hide();
         $('.not-editable').parent('.input-blockeds').removeClass('disabled-block');
@@ -1675,7 +1690,7 @@ $(function(){
             var flag = $(this).attr('data-flag');
             $(this).html('保存').removeClass('option-bianji').addClass('option-save');
             //编辑的时候，编码和名称，条形码不能修改。
-            $('.not-editable').attr('disabled',true).addClass('disabled-block');
+            $('.not-editable').attr('readonly','readonly').addClass('disabled-block');
             $('.not-editable').parents('.input-blockeds').addClass('disabled-block');
             //样式修改
             $('#wuPinListTable1 tbody').children('tr').css({'background':'#ffffff'});
@@ -1720,7 +1735,7 @@ $(function(){
         })
         //编辑之后，保存
         .on('click','.option-save',function(){
-            $('.not-editable').attr('disabled',false).removeClass('disabled-block');
+            $('.not-editable').removeAttr('readonly').removeClass('disabled-block');
             if(workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == ''){
                 //提示框
                 _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请填写红色必填项!', '');
@@ -1767,7 +1782,7 @@ $(function(){
                 workDone.kuwei = '';
                 //自动聚焦
                 $('.number1').eq(0).focus();
-                $('.not-editable').attr('disabled',false).removeClass('disabled-block');
+                $('.not-editable').removeAttr('readonly').removeClass('disabled-block');
                 $('.not-editable').parent('.input-blockeds').removeClass('disabled-block');
                 $('.kuwei').removeAttr('data-num');
                 $('.cangku').removeAttr('data-num').removeAttr('data-name');
@@ -3017,23 +3032,31 @@ $(function(){
                             }
                         }else if(workDone.kuwei != ''){
                             if($('.cangku').attr('data-num') == _wpListArr[i].storageNum && $('.kuwei').attr('data-num') == _wpListArr[i].localNum){
-                                if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
-                                    includeArr = [];
-                                    includeArr.push(_wpListArr[i]);
-                                    str += '<li data-durable="' + _wpListArr[i].isSpare +
-                                        '"' + 'data-unit="' + _wpListArr[i].unitName +
-                                        '"data-quality="' + _wpListArr[i].batchNum +
-                                        '"data-maintainDate="' +  _wpListArr[i].maintainDate +
-                                        '"' + 'data-sn="' + _wpListArr[i].sn +
-                                        '"' + 'data-shengyu="' + _wpListArr[i].num +
-                                        '"' +
-                                        '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
-                                        '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
-                                        '<span class="dataSize" style="margin-left: 20px;">' +
-                                        _wpListArr[i].size+'</span>' + '<span style="margin-left: 20px;">' + _wpListArr[i].localName +
-                                        '</span>' +
-                                        '</li>'
+                                if( _wpListArr[i].itemNum == searchValue ){
+                                    console.log(_wpListArr[i]);
+                                    //_bmObj = {};
+
+
+                                }else{
+                                    if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
+                                        includeArr = [];
+                                        includeArr.push(_wpListArr[i]);
+                                        str += '<li data-durable="' + _wpListArr[i].isSpare +
+                                            '"' + 'data-unit="' + _wpListArr[i].unitName +
+                                            '"data-quality="' + _wpListArr[i].batchNum +
+                                            '"data-maintainDate="' +  _wpListArr[i].maintainDate +
+                                            '"' + 'data-sn="' + _wpListArr[i].sn +
+                                            '"' + 'data-shengyu="' + _wpListArr[i].num +
+                                            '"' +
+                                            '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
+                                            '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
+                                            '<span class="dataSize" style="margin-left: 20px;">' +
+                                            _wpListArr[i].size+'</span>' + '<span style="margin-left: 20px;">' + _wpListArr[i].localName +
+                                            '</span>' +
+                                            '</li>'
+                                    }
                                 }
+
                             }
                         }
                     }

@@ -53,7 +53,7 @@ $(function(){
         }
     ];
     //表格初始化
-    _tableInit($('#cl-list'),clListCol,'2','','','');
+    tableInit($('#cl-list'),clListCol,'2','','','');
 
     //执行人表格
     var fzrListCol = [
@@ -76,7 +76,7 @@ $(function(){
         }
     ];
     //表格初始化
-    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
+    tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     getMessageToShow();
 
@@ -255,6 +255,62 @@ function getAppraise(num){
     }else if(num == 5){
         return '很好'
     }
+}
+
+//表格初始化
+function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs'
+        }
+    ];
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+    if(buttons == 1){
+        buttons = buttonVisible;
+    }else{
+        buttons =  buttonHidden;
+    }
+    var _tables = tableId.DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": false,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": false,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            //'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'info':'',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'t<"F"lip>',
+        'buttons':buttons,
+        "columns": col,
+        "fnRowCallback": fnRowCallback,
+        "drawCallback":drawCallback
+    });
+    if(flag){
+        _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
 }
 
 
