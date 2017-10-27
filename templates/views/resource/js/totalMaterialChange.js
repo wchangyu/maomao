@@ -128,7 +128,7 @@ $(function(){
             timeout: _theTimes,
             data:prm,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 var obj = {};
                 var count = 0;
                 obj.allAmount = result.allAmount;

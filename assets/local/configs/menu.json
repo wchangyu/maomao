@@ -72,9 +72,9 @@
       "给排水系统":{
         "type":"0",
         "content":"给排水系统",
-        "uri":"energyMonitor-3.html",
+        "uri":"../yongnengjiance/energyMonitor.html",
         "uid":"",
-        "arg":"",
+        "arg":"0,0",
         "iconclass":""
       },
       "送排风系统":{

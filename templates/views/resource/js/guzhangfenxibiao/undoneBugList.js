@@ -30,8 +30,10 @@ $(function(){
 
     /*--------------------------------------按钮事件---------------------------------*/
     $('#selected').click(function(){
+        var endTimes = $('.datatimeblock').eq(0).val();
+
         //修改时间
-        $('.startTime').html(moment().format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+        $('.startTime').html(moment(endTimes).format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
 
         //重新获取数据
         conditionSelect()
