@@ -154,7 +154,65 @@ $(function(){
         }
     ];
 
+
     _tableInit($('#missed-list'),missedListCol,'2','','','');
+
+    var matterTable = $('#choose-metter').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'维修项目编号',
+                data:'wxclassnum'
+            },
+            {
+                title:'维修项目名称',
+                data:'wxname',
+                class:'adjust-comment',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'项目类别名称',
+                data:'wxclassname'
+            }
+        ]
+    });
 
     //执行中表格
     var inExecutionCol = [
@@ -736,10 +794,77 @@ $(function(){
             }
         })
 
-    })
+    });
 
+    //选择维修事项弹窗打开后
+    $('#choose-building').on('shown.bs.modal', function () {
+        getMatter();
+
+    });
+
+    $('#choose-metter').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择维修事项确定按钮
+    $('#choose-building .btn-primary').on('click',function() {
+        var dom = $('#choose-metter tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+                $('#matter').val(dom.eq(i).children().eq(3).find('span').html())
+
+                $('#choose-building').modal('hide');
+
+                return false
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应维修事项', '')
+
+    });
 
     /*------------------------------------------------其他方法--------------------------------------------*/
+
+    //获取维修事项
+    function getMatter(){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDWxxmGetAll',
+            data:{
+                "wxnum": ""
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+                datasTable($('#choose-metter'),result);
+            }
+        })
+    }
+
+    function datasTable(tableId,arr){
+
+
+        if(arr.length == 0){
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnDraw();
+        }else{
+            arr.reverse();
+            var table = tableId.dataTable();
+            table.fnClearTable();
+            table.fnAddData(arr);
+            table.fnDraw();
+        }
+
+    }
+
+
     //登记项初始化
     function dataInit(){
         gdObj.gdtype = '0';

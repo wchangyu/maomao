@@ -52,6 +52,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -61,6 +62,16 @@
         #gzDesc{
             border: 1px solid #ebebeb;
             outline: none;
+        }
+        .dataTables_filter input {
+            width: 240px !important;
+            height: 30px;
+        }
+        .dataTables_filter label {
+            display: block;
+        }
+        .dataTables_filter{
+            float: left !important;
         }
     </style>
 </head>
@@ -437,6 +448,7 @@
 <script src="../resource/js/gdOrderRepair.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
+
 <!--模态框创建工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 500px;width: 1000px !important;">
@@ -508,9 +520,12 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                         <div class="single-labels starRed">维修事项：</div>
                                         <div class="single-block">
-                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'>
+                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' disabled="disabled" placeholder="请选择维修事项" id="matter">
                                         </div>
+                                        <!--点击图标-->
+                                        <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
                                         <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
+
                                         <!--<span class="moreDesc"></span>-->
                                     </div>
                                 </div>
@@ -547,6 +562,42 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
     </div>
+
+<!--选择维修事项弹窗-->
+<div class='modal fade' id='choose-building' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择维修事项</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                            <table class="table table-striped left-th-table" id="choose-metter">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--关闭工单-->
     <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 676px;width: 1000px !important;">

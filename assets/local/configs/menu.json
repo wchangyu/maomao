@@ -509,6 +509,14 @@
         "arg":"",
         "iconclass":""
       },
+      "维修项目":{
+        "type":"0",
+        "content":"维修项目",
+        "uri":"../weixiuguanli/dictionariesManage.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "操作台":{
         "type":"0",
         "content":"操作台",

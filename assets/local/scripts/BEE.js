@@ -496,7 +496,7 @@ var BEE = (function(){
      var modificationImportInfo = function(){
 
          //定义给悬浮窗中插入的信息
-         var infoHtml = '';
+         var infoHtml = '<li class="top-close" style="height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
          var $badge = $("#header_notification_bar .badge");
          var $dropdownMenu = $("#header_notification_bar .dropdown-menu");
          //对右上角显示报警数据的红圈进行隐藏
@@ -552,6 +552,11 @@ var BEE = (function(){
                      //给悬浮窗插入指定信息
                      $dropdownMenu.html(infoHtml);
 
+                     $('.top-close .close').off('click');
+                     $('.top-close .close').on('click',function(){
+
+                         $(this).parents('.dropdown-menu').hide();
+                     });
 
                      if(timename2){
                          clearTimeout(timename2);
