@@ -375,6 +375,18 @@ $(function(){
         //绑定信息
         bindData($(this),$('#waiting-list'));
 
+        //input不可操作；
+        $('.no-edit1').find('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //select不可操作
+        $('.no-edit1').find('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+        //故障描述
+        $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //部门不可操作
+        $('#depart').attr('disabled',true).addClass('disabled-block');
+
     })
 
     //添加材料按钮
@@ -787,7 +799,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
+    tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     //材料列表
     var clListCol = [
@@ -823,7 +835,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#cl-selecting'),clListCol,'2','','','');
+    tableInit($('#cl-selecting'),clListCol,'2','','','');
 
     //外层材料列表
     var outClListCol = [
@@ -859,7 +871,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#cl-list'),outClListCol,'2','','','');
+    tableInit($('#cl-list'),outClListCol,'2','','','');
 
     //材料选择列表
     var clSelectList =  [
@@ -1094,9 +1106,12 @@ $(function(){
                 $('#wxbz').attr('data-bm',result.wxKeshiNum);
 
                 //物料详情
-                //if(){
-                //
-                //}
+                var arr1 = [];
+                _datasTable($('#cl-list'),arr1);
+
+                $('#hourFee').val('');
+
+                $('#total').val('');
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1350,6 +1365,63 @@ $(function(){
             }
         })
     }
+
+    //表格初始化
+    function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+        var buttonVisible = [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs'
+            }
+        ];
+        var buttonHidden = [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs hiddenButton'
+            }
+        ];
+        if(buttons == 1){
+            buttons = buttonVisible;
+        }else{
+            buttons =  buttonHidden;
+        }
+        var _tables = tableId.DataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": false,   //是否分页
+            "destroy": true,//还原初始化了的datatable
+            "searching": false,
+            "ordering": false,
+            "iDisplayLength":50,//默认每页显示的条数
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '',
+                'info': '',
+                'infoEmpty': '',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            "dom":'t<"F"lip>',
+            'buttons':buttons,
+            "columns": col,
+            "fnRowCallback": fnRowCallback,
+            "drawCallback":drawCallback
+        });
+        if(flag){
+            _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+        }
+
+    }
+
+
 
 
 })

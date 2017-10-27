@@ -24,6 +24,9 @@ $(function(){
         }
     });
 
+    //记录当前工单详情有几个图
+    var _imgNum = 0;
+
     //所有的选框均不可输入，只做展示
     $('input').attr('disabled','disabled');
     $('textarea').attr('disabled','disabled');
@@ -105,7 +108,6 @@ $(function(){
             'url':_urls + 'YWGD/ywGDGetDetail',
             'data':prm,
             'success':function(result){
-                console.log(result);
                 //获取工单类型
                 var gdType = '普通';
                 if(result.gdJJ == 1){
@@ -150,6 +152,8 @@ $(function(){
                 //合计费用
                 $('#total').val(result.gdFee);
 
+                _imgNum = result.hasImage;
+
                 //维修材料清单
                 var clListArr = result.wxCls;
                 if(clListArr.length > 0){
@@ -170,7 +174,6 @@ $(function(){
                     $('#pingjia1').show();
                     $('#pingjia1 label').html(getAppraise(result.pingJia));
                 }
-
                 $('#pingjia').val(result.pjBz);
             },
             'error':function(jqXHR, textStatus, errorThrown){
@@ -229,6 +232,43 @@ $(function(){
             }
         })
     }
+
+    //查看图片
+    $('#viewImage').click(function(){
+
+        if (_imgNum) {
+            var str = '';
+            for(var i=0;i<_imgNum;i++){
+                str += '<img class="viewIMG" src="' +
+                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
+                    '">'
+            }
+            $('.showImage').html('').append(str).show();
+        } else {
+
+            $('.showImage').html('没有图片').show();
+        }
+
+    })
+
+    //查看图片
+    $('.showImage').on('click','.viewIMG',function(){
+
+        //模态框显示
+        _moTaiKuang($('#myModal4'), '图片详情', 'flag','','','');
+
+        var imgSrc = $(this).attr('src');
+
+        $('#myModal4').find('img').attr('src', imgSrc);
+
+    })
+
+    //查看进程
+    $('#viewProgress').click(function(){
+
+        _moTaiKuang($('#myModal'), '处理记录', 'flag','','','');
+
+    })
 })
 
 //获取本地url
@@ -288,10 +328,10 @@ function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
             'loadingRecords': '加载中...',
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            //'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'info':'',
-            'infoEmpty': '没有数据',
+            //'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            //'info':'',
+            //'infoEmpty': '没有数据',
             'paginate':{
                 "previous": "上一页",
                 "next": "下一页",

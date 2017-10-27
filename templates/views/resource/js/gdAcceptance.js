@@ -19,7 +19,6 @@ $(function(){
         el:'#myApp33',
         data:{
             'gdtype':'0',
-            'xttype':'1',
             'bxtel':'',
             'bxkesh':'',
             'bxren':'',
@@ -112,6 +111,12 @@ $(function(){
 
     //标记当前打开的是不是登记按钮
     var _isDeng = false;
+
+    //存放员工信息数组
+    var _workerArr = [];
+
+    //获得员工信息方法
+    workerData();
 
     /*--------------------------------------------表格初始化---------------------------------------------*/
 
@@ -576,8 +581,8 @@ $(function(){
         //维修内容不显示
         $('#wxContent').hide();
 
-        //报修科室可选择
-        $('#bxkesh').attr('disabled',false);
+        //选择部门显示
+        $('.selectBM').show();
 
         //对象初始化
         dataInit()
@@ -587,6 +592,20 @@ $(function(){
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
+            //绑定报修人信息
+            for(var i=0;i<_workerArr.length;i++){
+
+                if(_workerArr[i].userNum == _userIdNum){
+
+                    gdObj.bxtel = _workerArr[i].mobile;
+
+                    gdObj.bxkesh = _workerArr[i].departNum;
+
+                    gdObj.bxren = _workerArr[i].userName;
+
+                }
+            }
+
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
 
@@ -604,19 +623,6 @@ $(function(){
             $('.datatimeblock').eq(2).blur();
 
             ////获取维修人员信息
-            //
-            //var obj = {};
-            //
-            //obj.userNum = _userIdNum;
-            //
-            //obj.userName = _userIdName;
-            //
-            //obj.mobile = '';
-            //
-            //_fzrArr.length = 0;
-            //
-            //_fzrArr.push(obj);
-            //
             _fzrArr = [];
             _datasTable($('#fzr-list'),_fzrArr);
 
@@ -745,8 +751,8 @@ $(function(){
             //维修内容隐藏
             $('#wxContent').hide();
 
-            //报修科室可选择
-            $('#bxkesh').attr('disabled',false);
+            //选择部门隐藏
+            $('.selectBM').hide();
 
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
@@ -761,6 +767,9 @@ $(function(){
 
             //维修内容显示
             $('#wxContent').show();
+
+            //选择部门显示
+            $('.selectBM').show();
 
             //报修科室不可选择
             $('#bxkesh').attr('disabled',true);
@@ -804,7 +813,6 @@ $(function(){
     //登记项初始化
     function dataInit(){
         gdObj.gdtype = '0';
-        gdObj.xttype = '1';
         gdObj.bxtel = '';
         gdObj.bxkesh = '';
         gdObj.bxren = '';
@@ -1109,7 +1117,6 @@ $(function(){
             //传数据
             var prm = {
                 'gdJJ':gdObj.gdtype,
-                'gdRange':gdObj.xttype,
                 'bxDianhua':gdObj.bxtel,
                 'bxKeshi':$('#bxkesh').children('option:selected').html(),
                 'bxKeshiNum':gdObj.bxkesh,
@@ -1165,8 +1172,8 @@ $(function(){
         var prm = {
             gdCode :_gdCode,
             gdZht : 2,
-            wxKeshi:gdObj.wxbz,
-            wxKeshiNum:$('#wxbz').attr('data-bm'),
+            wxKeshi:$('#depart').children('option:selected').html(),
+            wxKeshiNum:$('#depart').val(),
             userID:_userIdNum,
             userName:_userIdName
         };
@@ -1390,5 +1397,32 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
             }
         }
+    }
+
+    //获取所有员工列表
+    function workerData(){
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                _workerArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _workerArr.push(result[i]);
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 })

@@ -103,6 +103,11 @@ $(function(){
     //重发值
     var _gdCircle = 0;
 
+    //存放员工信息
+    var _workerArr = [];
+
+    //获取员工方法
+    workerData();
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
 
@@ -406,7 +411,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
+    tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     //材料表格
     var outClListCol = [
@@ -433,7 +438,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#cl-list'),outClListCol,'2','','','');
+    tableInit($('#cl-list'),outClListCol,'2','','','');
 
     //数据加载
     conditionSelect();
@@ -481,6 +486,21 @@ $(function(){
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
+
+            //绑定报修人信息
+            for(var i=0;i<_workerArr.length;i++){
+
+                if(_workerArr[i].userNum == _userIdNum){
+
+                     gdObj.bxtel = _workerArr[i].mobile;
+
+                     gdObj.bxkesh = _workerArr[i].departNum;
+
+                     gdObj.bxren = _workerArr[i].userName;
+
+                }
+            }
+
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
 
@@ -494,6 +514,7 @@ $(function(){
             }
 
             $('.datatimeblock').eq(2).blur();
+
         }
 
         _isDeng = false;
@@ -582,7 +603,6 @@ $(function(){
             timeout:_theTimes,
             data:prm,
             success:function(result){
-                console.log(result);
                 //绑定数据
                 gbObj.bxtel = result.bxDianhua;
                 gbObj.bxkesh = result.bxKeshi;
@@ -607,8 +627,8 @@ $(function(){
                 var fzrArr = result.wxRens;
                 _datasTable($('#fzr-list'),fzrArr);
 
-                //选择部门
-                $('#depart').val(result.bxKeshi);
+                //绑定部门信息
+                $('#depart').val(result.wxKeshiNum);
                 //验收人
                 $('#receiver').val(result.yanShouRenName);
                 //工时费
@@ -629,6 +649,21 @@ $(function(){
         var str = '<button class="btn btn-primary shensu">申诉</button><button class="btn btn-primary guanbi">关单</button>';
 
         $('#myModal1').find('.modal-footer').prepend(str);
+
+        //input不可操作；
+        $('.no-edit1').find('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //select不可操作
+        $('.no-edit1').find('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+        //故障描述
+        $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //部门不可操作
+        $('#depart').attr('disabled',true).addClass('disabled-block');
+
+        //维修内容
+        $('.wxcontent').attr('disabled',true).addClass('disabled-block');
 
     })
 
@@ -737,7 +772,6 @@ $(function(){
         })
 
     })
-
 
     /*------------------------------------------------其他方法--------------------------------------------*/
     //登记项初始化
@@ -960,11 +994,95 @@ $(function(){
                 }
 
                 $('#bxkesh').empty().append(str);
+
+                $('#depart').empty().append(str);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //获取所有员工列表
+    function workerData(){
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                _workerArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _workerArr.push(result[i]);
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //初始化
+    function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+        var buttonVisible = [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs'
+            }
+        ];
+        var buttonHidden = [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs hiddenButton'
+            }
+        ];
+        if(buttons == 1){
+            buttons = buttonVisible;
+        }else{
+            buttons =  buttonHidden;
+        }
+        var _tables = tableId.DataTable({
+            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+            "paging": false,   //是否分页
+            "destroy": true,//还原初始化了的datatable
+            "searching": false,
+            "ordering": false,
+            "iDisplayLength":50,//默认每页显示的条数
+            'language': {
+                'emptyTable': '没有数据',
+                'loadingRecords': '加载中...',
+                'processing': '查询中...',
+                'lengthMenu': '每页 _MENU_ 条',
+                'zeroRecords': '',
+                'info': '',
+                'infoEmpty': '',
+                'paginate':{
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "first":"首页",
+                    "last":"尾页"
+                }
+            },
+            "dom":'t<"F"lip>',
+            'buttons':buttons,
+            "columns": col,
+            "fnRowCallback": fnRowCallback,
+            "drawCallback":drawCallback
+        });
+        if(flag){
+            _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+        }
+
     }
 
 })

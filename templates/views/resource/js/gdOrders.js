@@ -129,6 +129,18 @@ $(function(){
 
         //初始化
         dataInit();
+
+        //维修内容显示
+        $('.wxnr').show();
+
+        //所有input框不能操作，select也不能操作
+        $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+
+        //所有select不能操作
+        $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+
+        //故障描述不可操作
+        $('.gzDesc').removeAttr('readOnly').removeClass('disabled-block');
     });
 
     //点击登记模态框显示的回调函数
@@ -298,7 +310,20 @@ $(function(){
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('jiedan');
 
         //模态框显示
-        _moTaiKuang($('#myModal'), '接单', '', '' ,'', '接单');
+        _moTaiKuang($('#myModal'), '待接单', '', '' ,'', '接单');
+
+        //所有input框不能操作，select也不能操作
+        $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //所有select不能操作
+        $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+        //故障描述不可操作
+        $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
+
+        console.log($('.wxnr'));
+        //维修内容显示
+        $('.wxnr').hide();
 
     })
 
