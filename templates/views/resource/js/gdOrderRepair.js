@@ -469,7 +469,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
+    tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     //材料表格
     var outClListCol = [
@@ -523,6 +523,9 @@ $(function(){
 
         //增加登记类
         $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
+
+        //故障描述可操作
+        $('.gzDesc').removeAttr('readonly').removeClass('disabled-block');
 
         //初始化
         dataInit();
@@ -851,6 +854,8 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
                 $('#matter').val(dom.eq(i).children().eq(3).find('span').html())
+
+                gdObj.wxshx = dom.eq(i).children().eq(3).find('span').html();
 
                 $('#choose-building').modal('hide');
 

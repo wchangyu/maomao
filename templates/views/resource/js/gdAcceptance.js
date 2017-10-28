@@ -709,6 +709,21 @@ $(function(){
 
         //对象初始化
         dataInit()
+
+        //input不可操作
+        $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+
+        //select不可操作
+        $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+
+        //textarea不可操作
+        $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
+
+        $('#depart').attr('disabled',false).removeClass('disabled-block');
+
+
+        //报修人信息不可操作
+        $('.note-edit2').attr('disabled',true).addClass('disabled-block');
     });
 
     //点击登记模态框显示的回调函数
@@ -875,10 +890,22 @@ $(function(){
             $('#wxContent').hide();
 
             //选择部门隐藏
-            $('.selectBM').hide();
+            $('#depart').val(' ').attr('disabled',true).addClass('disabled-block').show();
 
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
+
+            //input不可操作
+            $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+
+            //select不可操作
+            $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+
+            //textarea不可操作
+            $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
+
+            //报修人信息不可操作
+            $('.note-edit2').attr('disabled',true).addClass('disabled-block');
         })
         .on('click','.option-issued',function(){
 
@@ -899,6 +926,19 @@ $(function(){
 
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('xiafa');
+
+            //input不可操作
+            $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+            //select不可操作
+            $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+            //textarea不可操作
+            $('.gzDesc').attr('disabled',true).addClass('disabled-block');
+
+            //部门可选择
+            $('#depart').val('').attr('disabled',false).removeClass('disabled-block');
+
 
         })
 

@@ -1861,7 +1861,7 @@ $(function(){
                             $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
 
                             //自动聚焦
-                            $('.not-editable').eq(0).focus();
+                            //$('.not-editable').eq(0).focus();
                         }
                     }
                 }
@@ -1869,6 +1869,8 @@ $(function(){
             }else{
 
                 $(this).parents('.gdList').next('li').find('.inputType').focus();
+
+                console.log($(this).parents('.gdList').next('li').find('.inputType'));
 
             }
         }
@@ -2308,7 +2310,7 @@ $(function(){
                 },600)
 
             }else{
-                console.log('11111111');
+                //console.log('11111111');
                 var lis = $('.accord-with-list').eq(index).children('li');
                 for(var i=0;i<lis.length;i++){
                     if(lis.eq(i).attr('class') == 'li-color'){
@@ -2376,7 +2378,7 @@ $(function(){
                                 '</li>'
                         }
                     }else{
-                        if( _wpListArr[i].itemNum == searchValue ){
+                        if( _wpListArr[i].itemNum == searchValue || _wpListArr[i].itemName == searchValue){
                             _isBm = true;
                             bmObj= {};
                             bmObj.itemNum = _wpListArr[i].itemNum;
