@@ -104,7 +104,7 @@ function _timeComponentsFun(el){
 /*-----------------------dataTable---------------------------*/
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,searching){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
@@ -124,11 +124,16 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     }else{
        buttons =  buttonHidden;
     }
+    //是否可搜索
+    var search = false;
+    if(searching){
+        search = true;
+    }
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
-        "searching": false,
+        "searching": search,
         "ordering": false,
         "iDisplayLength":50,//默认每页显示的条数
         'language': {

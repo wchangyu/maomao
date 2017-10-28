@@ -265,7 +265,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -335,7 +335,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -413,7 +413,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -549,17 +549,13 @@ $(function(){
         if(_isDeng){
 
             //绑定报修人信息
-            for(var i=0;i<_workerArr.length;i++){
+            if(_workerArr.length > 0){
 
-                if(_workerArr[i].userNum == _userIdNum){
+                gdObj.bxtel = _workerArr[0].mobile;
 
-                     gdObj.bxtel = _workerArr[i].mobile;
+                gdObj.bxkesh = _workerArr[0].departNum;
 
-                     gdObj.bxkesh = _workerArr[i].departNum;
-
-                     gdObj.bxren = _workerArr[i].userName;
-
-                }
+                gdObj.bxren = _workerArr[0].userName;
             }
 
             //让日历插件首先失去焦点
@@ -1137,7 +1133,8 @@ $(function(){
     function workerData(){
         var prm = {
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            userNum:_userIdNum
         }
         $.ajax({
             type:'post',
@@ -1146,12 +1143,7 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                _workerArr.length = 0;
-
-                for(var i=0;i<result.length;i++){
-
-                    _workerArr.push(result[i]);
-                }
+                _workerArr = result;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {

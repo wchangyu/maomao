@@ -390,7 +390,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -459,7 +459,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -536,7 +536,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -612,7 +612,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -701,6 +701,9 @@ $(function(){
         //添加登记类
         $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('xiafa').addClass('dengji');
 
+        //显示放大镜图标 用户可以选择
+        $('.fdjImg').show();
+
         //维修内容不显示
         $('#wxContent').hide();
 
@@ -708,7 +711,7 @@ $(function(){
         $('.selectBM').show();
 
         //对象初始化
-        dataInit()
+        dataInit();
 
         //input不可操作
         $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
@@ -731,19 +734,15 @@ $(function(){
 
         if(_isDeng){
             //绑定报修人信息
-            for(var i=0;i<_workerArr.length;i++){
 
-                if(_workerArr[i].userNum == _userIdNum){
+            if(_workerArr.length > 0){
 
-                    gdObj.bxtel = _workerArr[i].mobile;
+                gdObj.bxtel = _workerArr[0].mobile;
 
-                    gdObj.bxkesh = _workerArr[i].departNum;
+                gdObj.bxkesh = _workerArr[0].departNum;
 
-                    gdObj.bxren = _workerArr[i].userName;
-
-                }
+                gdObj.bxren = _workerArr[0].userName;
             }
-
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
 
@@ -880,6 +879,10 @@ $(function(){
     //表格操作按钮
     $('#pending-list')
         .on('click','.option-edit',function(){
+
+            //显示放大镜图标 用户可以选择
+            $('.fdjImg').show();
+
             //信息绑定
             bindData($(this),$('#pending-list'));
 
@@ -908,6 +911,9 @@ $(function(){
             $('.note-edit2').attr('disabled',true).addClass('disabled-block');
         })
         .on('click','.option-issued',function(){
+
+            //隐藏放大镜图标 不让用户选择
+            $('.fdjImg').hide();
 
             //信息绑定
             bindData($(this),$('#pending-list'));
@@ -1064,7 +1070,7 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 $('#theLoading').modal('hide');
                 $(result).each(function(i,o){
                     equipmentArr.push(o);
@@ -1325,6 +1331,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+                //console.log(result);
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
                 gdObj.bxkesh = result.bxKeshiNum;
@@ -1703,7 +1710,8 @@ $(function(){
     function workerData(){
         var prm = {
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            userNum:_userIdNum
         }
         $.ajax({
             type:'post',
@@ -1712,12 +1720,7 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                _workerArr.length = 0;
-
-                for(var i=0;i<result.length;i++){
-
-                    _workerArr.push(result[i]);
-                }
+                _workerArr = result;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {

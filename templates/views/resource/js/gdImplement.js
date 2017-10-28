@@ -367,7 +367,7 @@ $(function(){
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
         //模态框显示
-        _moTaiKuang($('#myModal'), '关闭申请', '', '' ,'', '关闭申请');
+        _moTaiKuang($('#myModal'), '关单申请', '', '' ,'', '申请关单');
 
         //添加类名
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('closeGD');
@@ -685,7 +685,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -755,7 +755,7 @@ $(function(){
         },
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',

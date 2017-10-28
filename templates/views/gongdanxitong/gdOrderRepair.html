@@ -451,8 +451,8 @@
 
 <!--模态框创建工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 550px;width: 1000px !important;">
-            <div class="modal-content" style="height: 550px;width: 1000px !important;">
+        <div class="modal-dialog" style="height: 500px;width: 1000px !important;">
+            <div class="modal-content" style="height: 500px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
@@ -510,7 +510,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">维修项目：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' disabled="disabled" placeholder="请选择维修事项" id="matter">
+                                                <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'  placeholder="请选择维修事项" id="matter">
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
@@ -666,7 +666,7 @@
                                     </div>
                                 </div>
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                                    <div class="tipe-block">报修人信息</div>
+                                    <div class="tipe-block">故障信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
                                             <div class="single-labels starRed">发现时间：</div>
@@ -699,17 +699,17 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line">
-                                            <div class="single-labels starRed">维修内容：</div>
+                                            <div class="single-labels">故障描述：</div>
                                             <div class="single-block" style="width: 442px;height: 62px;">
-                                                <textarea style="width: 100%;outline: none;height:100%;line-height: 30px;" v-model="wxcontent" class="wxcontent"></textarea>
+                                                <textarea style="width: 100%;height:100%;text-indent:10px;line-height: 30px;outline: none;" class="gzDesc"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line">
-                                            <div class="single-labels">故障描述：</div>
+                                            <div class="single-labels starRed">维修内容：</div>
                                             <div class="single-block" style="width: 442px;height: 62px;">
-                                                <textarea style="width: 100%;height:100%;text-indent:10px;line-height: 30px;outline: none;" class="gzDesc"></textarea>
+                                                <textarea style="width: 100%;outline: none;height:100%;line-height: 30px;" v-model="wxcontent" class="wxcontent"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -723,7 +723,7 @@
                             <div class="tipe-block">执行人列表</div>
                             <div class="tableHover" style="padding-top: 20px;">
                                 <div class="bumen">
-                                    <div class="labels" style="display: inline-block;vertical-align: middle">选择部门</div>
+                                    <div class="labels" style="display: inline-block;vertical-align: middle">维修部门</div>
                                     <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
                                         <select id="depart" style="margin: 0;">
                                         </select>
