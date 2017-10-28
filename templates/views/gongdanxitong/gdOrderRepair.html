@@ -451,108 +451,95 @@
 
 <!--模态框创建工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 500px;width: 1000px !important;">
-            <div class="modal-content" style="height: 500px;width: 1000px !important;">
+        <div class="modal-dialog" style="height: 475px;width: 1000px !important;">
+            <div class="modal-content" style="height: 475px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
                 </div>
                 <div class="modal-body">
                     <!--主体部分-->
-                    <div class="gongdanList" id="myApp33" style="height: 339px;overflow-y: scroll;font-size: 14px;overflow-x:hidden">
+                    <div class="gongdanList" id="myApp33" style="font-size: 14px;">
                         <validator name="validation">
                             <form novalidate>
-                                <div class="row" style="display: none">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">工单类型：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="gdtype">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">报修人信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">报修电话：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block">
+                                            </div>
+                                            <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
                                         </div>
-                                        <span class="colorTip noteTip"></span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">报修科室：</div>
+                                            <div class="single-block">
+                                                <select v-model="bxkesh"  id="bxkesh" style="height: 100% !important;margin: 0" disabled class="disabled-block"></select>
+                                            </div>
+                                            <span class="colorTip noteTip"></span>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">系统类型：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="xttype">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">报修人：</div>
+                                            <div class="single-block">
+                                                <input v-model="bxren" readonly="readonly" class="disabled-block">
+                                            </div>
+                                            <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">报修电话：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off'>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
+                                            <div class="single-labels">楼栋：</div>
+                                            <div class="single-block">
+                                                <input v-model="pointer">
+                                            </div>
+                                            <span class="colorTip noteTip"></span>
                                         </div>
-                                        <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">报修科室：</div>
-                                        <div class="single-block">
-                                            <select v-model="bxkesh" id="bxkesh"></select>
-                                        </div>
-                                        <span class="colorTip noteTip"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">报修人：</div>
-                                        <div class="single-block">
-                                            <input v-model="bxren">
-                                        </div>
-                                        <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels">楼栋：</div>
-                                        <div class="single-block">
-                                            <input v-model="pointer">
-                                        </div>
-                                        <span class="colorTip noteTip"></span>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">发现时间：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">故障信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">发现时间：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                            </div>
+                                            <span class="colorTip noteTip"></span>
                                         </div>
-                                        <span class="colorTip noteTip"></span>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                        <div class="single-labels starRed">维修事项：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' disabled="disabled" placeholder="请选择维修事项" id="matter">
-                                        </div>
-                                        <!--点击图标-->
-                                        <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
-                                        <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">维修项目：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' disabled="disabled" placeholder="请选择维修事项" id="matter">
+                                            </div>
+                                            <!--点击图标-->
+                                            <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
+                                            <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
 
-                                        <!--<span class="moreDesc"></span>-->
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
-                                        <div class="single-labels starRed">故障位置：</div>
-                                        <div class="single-block" style="width: 690px;">
-                                            <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 688px;">
+                                            <!--<span class="moreDesc"></span>-->
                                         </div>
-                                        <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none">请输入故障位置</span>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
-                                        <div class="single-labels">故障描述：</div>
-                                        <div class="single-block" style="width: 690px;height: 62px;">
-                                            <textarea style="width: 100%;outline: none;" class="gzDesc"></textarea>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
+                                            <div class="single-labels starRed">故障位置：</div>
+                                            <div class="single-block" style="width: 690px;">
+                                                <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 688px;">
+                                            </div>
+                                            <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none">请输入故障位置</span>
                                         </div>
-                                        <!--<span class="moreDesc"></span>-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
+                                            <div class="single-labels">故障描述：</div>
+                                            <div class="single-block" style="width: 690px;height: 62px;">
+                                                <textarea style="width: 100%;height:100%;line-height:30px;outline: none;text-indent: 10px;" class="gzDesc"></textarea>
+                                            </div>
+                                            <!--<span class="moreDesc"></span>-->
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </validator>
-                        <div style="margin-top: 10px;">
-                            <button type="button" class="btn btn-info viewImage" id="viewImage">查看图片</button>
-                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -599,205 +586,146 @@
     </div>
 </div>
 <!--关闭工单-->
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
-        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 895px;width: 1000px !important;">
+        <div class="modal-content" style="height: 895px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="">关闭工单</h4>
+                <h4 class="modal-title">关闭工单</h4>
             </div>
             <div class="modal-body">
                 <!--主体部分-->
-                <div class="gongdanList" id="guanbi" style="height: 513px;overflow-y: scroll;font-size: 14px;overflow-x: hidden">
-                    <div style="width: 470px;float: left">
+                <div class="gongdanList" id="guanbi" style="font-size: 14px;">
+                    <div style="width: 470px;float: left" class="no-edit1">
                         <validator name="validation">
                             <form novalidate>
-                                <div class="row" style="display: none">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">工单类型：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="gdtype">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">报修人信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修电话：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="bxtel">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">系统类型：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="xttype">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修科室：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="bxkesh">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">报修电话：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="bxtel">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">报修人：</div>
+                                            <div class="single-block">
+                                                <input v-model="bxren">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">报修科室：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="bxkesh">
-                                        </div>
-                                        <div style="height:30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">报修人：</div>
-                                        <div class="single-block">
-                                            <input v-model="bxren">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"  style="display: none"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels">楼栋：</div>
-                                        <div class="single-block">
-                                            <input v-model="pointer">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line" style="display: none;">
+                                            <div class="single-labels">楼栋：</div>
+                                            <div class="single-block">
+                                                <input v-model="pointer">
+                                            </div>
+                                            <div style="height: 30px;">
+                                                <span class="colorTip noteTip"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">发现时间：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">设备                                                                                                                                                                         信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备类型：</div>
+                                            <div class="single-block">
+                                                <!--<select id="sbtype" v-model="sbtype"></select>-->
+                                                <input type="text" v-model="sbtype">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">维修事项：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="wxshx">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                            <!--<span class="moreDesc"></span>-->
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备编码：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="sbnum">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels">设备类型：</div>
-                                        <div class="single-block">
-                                            <!--<select id="sbtype" v-model="sbtype"></select>-->
-                                            <input type="text" v-model="sbtype">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">设备名称：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="sbname">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels">设备编码：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="sbnum">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels">设备名称：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="sbname">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels">安装地点：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="azplace">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels">安装地点：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="azplace">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row autoFile">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">维修班组：</div>
-                                        <div class="single-block">
-                                            <input type="text" v-model="wxbz">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                    <div class="tipe-block">报修人信息</div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">发现时间：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line">
-                                        <div class="single-labels starRed">故障位置：</div>
-                                        <div class="single-block" style="width: 466px;">
-                                            <input type="text" v-model="gzplace" style="width: 464px;">
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip" style="display: none"></span>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">维修项目：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="wxshx">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line">
-                                        <div class="single-labels starRed">维修内容：</div>
-                                        <div class="single-block" style="width: 466px;height: 62px;">
-                                            <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent"></textarea>
-                                        </div>
-                                        <div style="height: 30px;">
-                                            <span class="colorTip noteTip"></span>
+                                    <div class="row autoFile">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line">
+                                            <div class="single-labels starRed">维修班组：</div>
+                                            <div class="single-block">
+                                                <input type="text" v-model="wxbz">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line">
-                                        <div class="single-labels">故障描述：</div>
-                                        <div class="single-block" style="width: 466px;height: 62px;">
-                                            <textarea style="width: 100%;outline: none;" class="gzDesc"></textarea>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels starRed">故障位置：</div>
+                                            <div class="single-block" style="width: 442px;">
+                                                <input type="text" v-model="gzplace" style="width: 440px;">
+                                            </div>
                                         </div>
-                                        <div style="height: 30px;">
-                                            <!--<span class="moreDesc"></span>-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels starRed">维修内容：</div>
+                                            <div class="single-block" style="width: 442px;height: 62px;">
+                                                <textarea style="width: 100%;outline: none;height:100%;line-height: 30px;" v-model="wxcontent" class="wxcontent"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 single-line">
+                                            <div class="single-labels">故障描述：</div>
+                                            <div class="single-block" style="width: 442px;height: 62px;">
+                                                <textarea style="width: 100%;height:100%;text-indent:10px;line-height: 30px;outline: none;" class="gzDesc"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </validator>
-                        <div style="margin-top: 10px;">
-                            <button type="button" class="btn btn-info viewImage" id=" ">查看图片</button>
-                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                        </div>
                     </div>
                     <div style="width: 470px;float: right;">
                         <!--表格-->
-                        <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
-                            <h4>执行人列表</h4>
-                            <div class="tableHover">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                            <div class="tipe-block">执行人列表</div>
+                            <div class="tableHover" style="padding-top: 20px;">
                                 <div class="bumen">
-                                    <div class="labels">选择部门</div>
-                                    <div class="input-blockeds" style="width: 300px;">
-                                        <select id="depart">
-                                            <option value="">水电科</option>
-                                            <option value="">设备科</option>
+                                    <div class="labels" style="display: inline-block;vertical-align: middle">选择部门</div>
+                                    <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                                        <select id="depart" style="margin: 0;">
                                         </select>
                                     </div>
                                 </div>
@@ -808,27 +736,21 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
-                            <h4>维修材料清单</h4>
-                            <div class="tableHover">
-
-                                <div class="">
-                                    <div class="label label-sm label-warning addCL" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
-                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料
-                                    </div>
-                                </div>
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                            <div class="tipe-block">维修材料清单</div>
+                            <div class="tableHover" style="padding-top: 20px;">
                                 <table class="table table-hover cl-table" id="cl-list">
                                     <thead>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                                <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
-                                <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;"></div>
+                                <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;text-indent: 10px;"></div>
+                                <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;text-indent: 10px;"></div>
                             </div>
                         </div>
-                        <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
-                            <h4>满意度评价</h4>
-                            <div class="tableHover">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                            <div class="tipe-block">满意度评价</div>
+                            <div class="tableHover" style="padding-top: 20px;">
                                 <div id="pingjia1">
                                     <input type="radio" class="pjRadio" id="very-satisfied" checked data-attr="5" style="margin-left: -8px;"><label for="very-satisfied">很好</label>
                                     <input type="radio" class="pjRadio" id="satisfied" data-attr="4" style="margin-left: -8px;"><label for="satisfied">好</label>
@@ -836,8 +758,8 @@
                                     <input type="radio" class="pjRadio" id="difference" data-attr="2" style="margin-left: -8px;"><label for="difference">差</label>
                                     <input type="radio" class="pjRadio" id="Poor" data-attr="1" style="margin-left: -8px;"><label for="Poor">很差</label>
                                 </div>
-                                <div style="width:300px;height:50px;border:1px solid #cccccc">
-                                    <textarea id="pingjia" style="width:100%;height: 100%" cols="30" rows="10"></textarea>
+                                <div style="width:440px;height:80px;border:1px solid #cccccc">
+                                    <textarea id="pingjia" style="width:100%;height: 100%;line-height: 30px;text-indent: 10px;outline: none;" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -845,6 +767,7 @@
                     </div>
 
                 </div>
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary dengji">确定</button>
@@ -852,7 +775,7 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
-    </div>
+</div>
 <!--图片详情显示-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
