@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title></title>
+    <title>地点管理</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -270,32 +270,32 @@
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">用户管理</li>
+                                    <li class="main-contents-header-lists0">地点管理</li>
                                 </ul>
                                 <ul class="condition-query">
-                                    <li><label for="">用户名：</label>
+                                    <li><label for="">地点名称：</label>
                                         <div class="input-blocked" id="filter_global">
-                                            <input type="text" class="filterInput" placeholder="请输入用户名">
+                                            <input type="text" class="filterInput" placeholder="请输入地点">
                                         </div>
                                     </li>
-                                    <li>
-                                        <label for="">工号：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="filterInput" placeholder="请输入工号">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">部门：</label>
-                                        <div class="input-blocked">
-                                            <select  id="rybm"></select>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="">角色：</label>
-                                        <div class="input-blocked">
-                                            <select id="ryjs"></select>
-                                        </div>
-                                    </li>
+                                    <!--<li>-->
+                                        <!--<label for="">工号：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<input type="text" class="filterInput" placeholder="请输入工号">-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<label for="">部门：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<select  id="rybm"></select>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<label for="">角色：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<select id="ryjs"></select>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li>
@@ -380,7 +380,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/personnelManagement.js"></script>
+<script src="../resource/js/xitongshezhi/siteMessage.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -392,110 +392,100 @@
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--新增用户-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 615px;">
-            <div class="modal-content" style="height: 615px;">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">新增用户</h4>
-                </div>
-                <div class="modal-body">
-                    <!--主体部分-->
-                    <ul class="gongdanList" id="user">
-                        <validator name="validation">
-                            <form novalidate>
-                                <li class="floatLeft">
-                                    <div class="labels colorTip">用户名：<span v-show="$validation.username.notempty" style="display: none">请输入用户名</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="username" v-validate:username= "['notempty']" initial='off'>
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels colorTip">工号：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入工号</span><span class="jobNumberExists" style="display: none">输入的工号已存在</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="jobnumber" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">密码：</div>
-                                    <div class="input-blockeds">
-                                        <input type="password" v-model="password" v-validate:password= "['notempty']" initial='off'>
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">确认密码：<span class="confirmpassword" style="display: none">两次密码不一致</span></div>
-                                    <div class="input-blockeds">
-                                        <input type="password" v-model="confirmpassword" @keyup="keyUp()" initial='off'>
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">职位：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="position">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">邮箱：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="email">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">电话：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="fixedtelephone">
-                                    </div>
-                                </li>
-                                <li class="floatRight">
-                                    <div class="labels">手机：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="mobilephone">
-                                    </div>
-                                </li>
-                                <li class="floatLeft">
-                                    <div class="labels">拼音：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="pinyin">
-                                    </div>
-                                </li>
-                                <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">部门：</div>
-                                    <div class="input-blockeds">
-                                        <select v-model="department" id="djbm">
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="floatLeft" style="line-height: 26px;">
-                                    <div class="labels">角色：</div>
-                                    <div class="input-blockeds">
-                                        <select v-model="role" id="jsbm">
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">排序：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="order" placeholder="请填写数字">
-                                    </div>
-                                </li>
-                                <div class="clearfix"></div>
-                                <div>
-                                    <div class="labels">备注：</div>
-                                    <div class="input-blockeds" style="height:62px;">
-                                        <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                                    </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 465px;">
+        <div class="modal-content" style="height: 465px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">新增地点</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <ul class="gongdanList" id="user">
+                    <validator name="validation">
+                        <form novalidate>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">编号：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="addressnum" v-validate:username= "['notempty']" initial='off' placeholder="自动生成" readonly="readonly">
                                 </div>
-                            </form>
-                        </validator>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary dengji">确定</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels colorTip">名称：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入名称</span><span class="jobNumberExists" style="display: none">输入的名称已存在</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="addressname" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">层数：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="plies" id="plies-num">
+                                        <option value="B3">B3</option>
+                                        <option value="B2">B2</option>
+                                        <option value="B1">B1</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="1">6</option>
+                                        <option value="2">7</option>
+                                        <option value="3">8</option>
+                                        <option value="4">9</option>
+                                        <option value="5">10</option>
+                                        <option value="1">11</option>
+                                        <option value="2">12</option>
+                                        <option value="3">13</option>
+                                        <option value="4">14</option>
+                                        <option value="5">15</option>
+                                        <option value="1">16</option>
+                                        <option value="2">17</option>
+                                        <option value="3">18</option>
+                                        <option value="4">19</option>
+                                        <option value="5">20</option>
+                                        <option value="1">21</option>
+                                        <option value="2">22</option>
+                                        <option value="3">23</option>
+                                        <option value="4">24</option>
+                                        <option value="5">25</option>
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li class="floatRight" style="line-height: 26px;">
+                                <div class="labels">部门：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="department" id="djbm">
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels">楼栋：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="build" id="building">
+                                    </select>
+                                </div>
+                            </li>
+
+                            <div class="clearfix"></div>
+                            <div>
+                                <div class="labels">备注：</div>
+                                <div class="input-blockeds" style="height:62px;">
+                                    <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </validator>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">

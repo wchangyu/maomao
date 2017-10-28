@@ -32,7 +32,7 @@ $(function(){
             url: _urls + url,
             timeout: theTimes,
             success: function (data) {
-
+                console.log(data);
                 $(data).each(function(i,o){
                    arr.push(o);
                 })

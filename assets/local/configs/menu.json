@@ -509,14 +509,6 @@
         "arg":"",
         "iconclass":""
       },
-      "维修项目":{
-        "type":"0",
-        "content":"维修项目",
-        "uri":"../weixiuguanli/dictionariesManage.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "操作台":{
         "type":"0",
         "content":"操作台",
@@ -647,6 +639,30 @@
         "type":"0",
         "content":"标识符管理",
         "uri":"../xitongshezhi/identifierManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "维修项目":{
+        "type":"0",
+        "content":"维修项目",
+        "uri":"../weixiuguanli/dictionariesManage.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "地点管理":{
+        "type":"0",
+        "content":"地点管理",
+        "uri":"../xitongshezhi/siteMessage.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "电话管理":{
+        "type":"0",
+        "content":"电话管理",
+        "uri":"../xitongshezhi/phoneMessage.html",
         "uid":"",
         "arg":"",
         "iconclass":""

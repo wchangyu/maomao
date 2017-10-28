@@ -70,9 +70,9 @@ label {
 }
 .input-blocked input,select{
     border: none;
-    height: 28px !important;
+    /*height: 28px !important;*/
     outline: none;
-    margin: 0 5px;
+    /*margin: 0 5px;*/
 }
 .condition-query li select{
     width:160px;

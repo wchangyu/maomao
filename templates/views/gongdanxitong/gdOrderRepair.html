@@ -451,15 +451,15 @@
 
 <!--模态框创建工单-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 500px;width: 1000px !important;">
-            <div class="modal-content" style="height: 500px;width: 1000px !important;">
+        <div class="modal-dialog" style="height: 550px;width: 1000px !important;">
+            <div class="modal-content" style="height: 550px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
                 </div>
                 <div class="modal-body">
                     <!--主体部分-->
-                    <div class="gongdanList" id="myApp33" style="height: 339px;overflow-y: scroll;font-size: 14px;overflow-x:hidden">
+                    <div class="gongdanList" id="myApp33" style="max-height: 400px;overflow-y: auto;font-size: 14px;overflow-x:hidden">
                         <validator name="validation">
                             <form novalidate>
                                 <div class="row" style="display: none">
@@ -520,7 +520,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                         <div class="single-labels starRed">维修事项：</div>
                                         <div class="single-block">
-                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' disabled="disabled" placeholder="请选择维修事项" id="matter">
+                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'  placeholder="请选择维修事项" id="matter">
                                         </div>
                                         <!--点击图标-->
                                         <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
