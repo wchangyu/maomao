@@ -124,6 +124,11 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     }else{
        buttons =  buttonHidden;
     }
+    ////是否可搜索
+    //var search = false;
+    //if(searching){
+    //    search = true;
+    //}
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页

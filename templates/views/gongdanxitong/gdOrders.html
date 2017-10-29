@@ -441,14 +441,14 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修电话：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off'>
+                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' class="note-edit2">
                                             </div>
                                             <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修科室：</div>
                                             <div class="single-block">
-                                                <select v-model="bxkesh" style="margin: 0;height: 100% !important;" id="bxkesh"></select>
+                                                <select v-model="bxkesh" style="margin: 0;height: 100% !important;" id="bxkesh" class="note-edit2"></select>
                                             </div>
                                             <span class="colorTip noteTip"></span>
                                         </div>
@@ -457,7 +457,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修人：</div>
                                             <div class="single-block">
-                                                <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off'>
+                                                <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off' class="note-edit2">
                                             </div>
                                             <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
                                         </div>
@@ -511,7 +511,7 @@
                                     <div class="tipe-block">故障信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels starRed">发现时间：</div>
+                                            <div class="single-labels starRed">登记时间：</div>
                                             <div class="single-block">
                                                 <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
                                             </div>
@@ -561,7 +561,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                         <div class="single-labels starRed">维修班组：</div>
                                         <div class="single-block">
-                                            <input type="text" v-model="wxbz" v-validate:wxbz= "['isEmpty']" initial='off' id="wxbz">
+                                            <input type="text" v-model="wxbz"   id="wxbz">
                                         </div>
                                         <span class="colorTip noteTip" v-show="$validation.wxbz.isEmpty">请填写维修班组</span>
                                     </div>

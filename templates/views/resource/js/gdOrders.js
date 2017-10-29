@@ -112,6 +112,13 @@ $(function(){
     //重发执行结果
     var _reSendSuccess = false;
 
+    //存放员工信息数组
+    var _workerArr = [];
+
+    //获得员工信息方法
+    workerData();
+
+
     /*-------------------------------------------------按钮事件-----------------------------------------*/
     //快速登记
     $('.creatButton').click(function(){
@@ -141,12 +148,25 @@ $(function(){
 
         //故障描述不可操作
         $('.gzDesc').removeAttr('readOnly').removeClass('disabled-block');
+
+        //报修人信息不可操作
+        $('.note-edit2').attr('disabled',true).addClass('disabled-block');
     });
 
     //点击登记模态框显示的回调函数
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
+            //绑定报修人信息
+            if(_workerArr.length > 0){
+
+                gdObj.bxtel = _workerArr[0].mobile;
+
+                gdObj.bxkesh = _workerArr[0].departNum;
+
+                gdObj.bxren = _workerArr[0].userName;
+            }
+
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
 
@@ -190,7 +210,7 @@ $(function(){
     $('#myModal')
         .on('click','.dengji',function(){
             //验证必填项
-            if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == '' || gdObj.wxbz == '' || gdObj.wxcontent == ''){
+            if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''  || gdObj.wxcontent == ''){
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
 
@@ -401,21 +421,21 @@ $(function(){
                 '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -425,25 +445,25 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
-        {
-            title:'接单时间',
-            data:'jiedanShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
+        //{
+        //    title:'接单时间',
+        //    data:'paiGongShij'
+        //},
         {
             title:'维修科室',
             data:'wxKeshi'
         },
-        {
-            title:'处理人',
-            data:'wxUserNames'
-        },
+        //{
+        //    title:'处理人',
+        //    data:'wxUserNames'
+        //},
         {
             title:'联系电话',
             data:'bxDianhua'
@@ -593,21 +613,21 @@ $(function(){
                 '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -617,16 +637,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -675,7 +695,34 @@ $(function(){
         }
     ];
 
-    _tableInit($('#fzr-list'),fzrListCol,'2','','','');
+    //_tableInit($('#fzr-list'),fzrListCol,'2','','','',true);
+
+    var _tables = $('#fzr-list').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": true,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'search':'搜索:',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'<"clear">lfrtip',
+        "columns": fzrListCol
+    });
 
     //数据
     conditionSelect();
@@ -773,7 +820,7 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 $('#theLoading').modal('hide');
                 $(result).each(function(i,o){
                     equipmentArr.push(o);
@@ -796,7 +843,7 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 //return false;
                 datasTable($('#choose-metter'),result);
             }
@@ -964,6 +1011,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+                //console.log(result);
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
                 gdObj.bxkesh = result.bxKeshiNum;
@@ -1316,6 +1364,28 @@ $(function(){
                 $('#bxkesh').empty().append(str);
 
                 $('#depart').empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+    //获取所有员工列表
+    function workerData(){
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName,
+            userNum:_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                _workerArr = result;
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

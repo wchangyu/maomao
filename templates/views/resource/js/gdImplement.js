@@ -367,7 +367,7 @@ $(function(){
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
         //模态框显示
-        _moTaiKuang($('#myModal'), '关闭申请', '', '' ,'', '关闭申请');
+        _moTaiKuang($('#myModal'), '关单申请', '', '' ,'', '申请关单');
 
         //添加类名
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('closeGD');
@@ -652,21 +652,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -676,16 +676,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -722,21 +722,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -746,16 +746,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -808,8 +808,8 @@ $(function(){
             data:'mc'
         },
         {
-            title:'备件编码',
-            data:'bm',
+            title:'规格型号',
+            data:'size',
             className:'bjbm'
         },
         {
@@ -844,8 +844,8 @@ $(function(){
             data:'mc'
         },
         {
-            title:'备件编码',
-            data:'bm',
+            title:'规格型号',
+            data:'size',
             className:'bjbm'
         },
         {

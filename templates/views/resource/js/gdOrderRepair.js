@@ -232,21 +232,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -256,16 +256,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'维修科室',
@@ -279,11 +279,11 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
-        //{
-        //    title:'操作',
-        //    data:null,
-        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        //}
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看记录</span>"
+        }
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
@@ -302,21 +302,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -326,16 +326,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -380,21 +380,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -404,16 +404,16 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
-            data:'jiedanShij'
+            data:'paiGongShij'
         },
         {
             title:'完工申请时间',
@@ -478,8 +478,8 @@ $(function(){
             data:'wxClName'
         },
         {
-            title:'备件编码',
-            data:'wxCl',
+            title:'规格型号',
+            data:'size',
             className:'bjbm'
         },
         {
@@ -549,17 +549,13 @@ $(function(){
         if(_isDeng){
 
             //绑定报修人信息
-            for(var i=0;i<_workerArr.length;i++){
+            if(_workerArr.length > 0){
 
-                if(_workerArr[i].userNum == _userIdNum){
+                gdObj.bxtel = _workerArr[0].mobile;
 
-                     gdObj.bxtel = _workerArr[i].mobile;
+                gdObj.bxkesh = _workerArr[0].departNum;
 
-                     gdObj.bxkesh = _workerArr[i].departNum;
-
-                     gdObj.bxren = _workerArr[i].userName;
-
-                }
+                gdObj.bxren = _workerArr[0].userName;
             }
 
             //让日历插件首先失去焦点
@@ -628,16 +624,16 @@ $(function(){
         conditionSelect();
     })
 
-    //执行中【查看】
-    $('#in-execution').on('click','.option-see',function(){
-
-        //绑定数据
-        bindData($(this),$('#in-execution'));
-
-        //模态框
-        _moTaiKuang($('#myModal'), '查看详情', 'flag', '' ,'', '');
-
-    })
+    ////执行中【查看】
+    //$('#in-execution').on('click','.option-see',function(){
+    //
+    //    //绑定数据
+    //    bindData($(this),$('#in-execution'));
+    //
+    //    //模态框
+    //    _moTaiKuang($('#myModal'), '查看详情', 'flag', '' ,'', '');
+    //
+    //})
 
     //待关单【关单】
     $('#waiting-list').on('click','.option-close',function(){
@@ -867,7 +863,62 @@ $(function(){
 
     });
 
+    //获取日志信息
+
+
+    $('#in-execution').on('click','.option-see',function(){
+        //获取工单号
+        var gdCode = $(this).parents('tr').find('.gdCode a').html();
+        logInformation(0,gdCode);
+
+        $('#myModal5').modal('show');
+    });
+
+
     /*------------------------------------------------其他方法--------------------------------------------*/
+    //获取日志信息（备件logType始终传2）
+    function logInformation(logType,gdCode){
+
+        var gdLogQPrm = {
+            "gdCode": gdCode,
+            "logType": logType,
+            "userID": _userIdNum,
+            "userName": _userIdName
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetLog',
+            data:gdLogQPrm,
+            success:function(result){
+                if(logType == 2){
+                    var str = '';
+                    for(var i =0;i<result.length;i++){
+                        str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' + result[i].logContent+ '</li>';
+                    }
+                    $('.deal-with-list').empty();
+                    $('.deal-with-list').append(str);
+                }else if(logType == 1){
+                    var str = '';
+                    for(var i=0;i<result.length;i++){
+                        str += '<li><span class="list-dot"> </span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;' + result[i].logTitle + '</li>';
+                    }
+                    $('.processing-record ul').empty();
+                    $('.processing-record ul').append(str);
+                }else{
+                    var str = '';
+                    for(var i =0;i<result.length;i++){
+                        str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '&nbsp;&nbsp;' + result[i].logContent+ '</li>';
+                    }
+                    $('.processing-record ul').empty();
+                    $('.processing-record ul').append(str);
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
 
     //获取维修事项
     function getMatter(){
@@ -1137,7 +1188,8 @@ $(function(){
     function workerData(){
         var prm = {
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            userNum:_userIdNum
         }
         $.ajax({
             type:'post',
@@ -1146,12 +1198,7 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                _workerArr.length = 0;
-
-                for(var i=0;i<result.length;i++){
-
-                    _workerArr.push(result[i]);
-                }
+                _workerArr = result;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
