@@ -68,7 +68,7 @@ label {
     height: 30px;
     vertical-align: middle;
 }
-.input-blocked input,select{
+.input-blocked input,.input-blocked select{
     border: none;
     /*height: 28px !important;*/
     outline: none;
@@ -179,14 +179,15 @@ label {
     text-align: center;
     margin-top: 30px;
 }
-.dataTables_length {
+.main-content-table .dataTables_length {
     float: right !important;
     margin-right:10px;
     font-weight: 700;
 }
-.dataTables_length label{
+.main-content-table .dataTables_length label{
     font-weight: 700;
 }
+
 #dateTables th, td {
     text-align: center;
 }
