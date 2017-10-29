@@ -592,10 +592,11 @@
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
                     </div>
-                    <div class="bjpicture" style="margin-top: 20px;display: none;">
+                    <div class="bjpicture" style="margin-top: 20px;display: block;">
                         <div class="labels">备件图片：</div>
                         <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
-                        <div class="bjImg"></div>
+                        <div class="bjImg">
+                        </div>
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
@@ -611,6 +612,24 @@
             <div class="clearfix"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--图片详情-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

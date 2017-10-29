@@ -280,17 +280,17 @@
                                 <ul class="condition-query noprint">
                                     <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
                                         <div class="input-blocked" id="filter_global">
-                                            <input type="text" class="global_filter" id="global_filter">
+                                            <input type="text" class="global_filter" id="gdCode">
                                         </div>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <select id="station"></select>
                                         </div>
-                                    </li>
+                                    </li>-->
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修日期：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修时间：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min" name="min">
                                         </div>
@@ -302,14 +302,14 @@
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">维修班组：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <input type="text" id="wxbz">
                                         </div>
                                     </li>
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
                                         <div class="input-blocked">
                                             <select  id="gdzt">
-                                                <option value="0" selected>全部</option>
+                                               <!-- <option value="0" selected>全部</option>
                                                 <option value="1">待下发</option>
                                                 <option value="2">待分派</option>
                                                 <option value="3">待执行</option>
@@ -317,30 +317,37 @@
                                                 <option value="5">等待资源</option>
                                                 <option value="6">待关单</option>
                                                 <option value="7">任务关闭</option>
-                                                <option value="999">任务取消</option>
+                                                <option value="999">任务取消</option>-->
+                                                <option value="0" selected>全部</option>
+                                                <option value="1">待受理</option>
+                                                <option value="2">待接单</option>
+                                                <option value="4">执行中</option>
+                                                <option value="6">待关单</option>
+                                                <option value="7">已关单</option>
+                                                <option value="11">申诉工单</option>
                                             </select>
                                         </div>
                                     </li>
+                                    <!--<li>-->
+                                        <!--<label for="" style="display: inline-block;width: 70px;text-align: right">工单类型：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<select  id="gdlx">-->
+                                                <!--<option value="">全部</option>-->
+                                                <!--<option value="0">普通</option>-->
+                                                <!--<option value="1">快速</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<label for="" style="display: inline-block;width: 70px;text-align: right">维修内容：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<input type="text">-->
+                                        <!--</div>-->
+                                    <!--</li>-->
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单类型：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">关单人：</label>
                                         <div class="input-blocked">
-                                            <select  id="gdlx">
-                                                <option value="">全部</option>
-                                                <option value="0">普通</option>
-                                                <option value="1">快速</option>
-                                            </select>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修内容：</label>
-                                        <div class="input-blocked">
-                                            <input type="text">
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">评价人：</label>
-                                        <div class="input-blocked">
-                                            <input type="text">
+                                            <input type="text" class="pjr">
                                         </div>
                                     </li>
                                     <li style="display: none">
@@ -352,27 +359,27 @@
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">执行人：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <input type="text" id="zxr">
                                         </div>
                                     </li>
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">故障位置：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <input type="text" id="gzwz">
                                         </div>
                                     </li>
-                                    <li>
-                                        <label for="">任务级别：</label>
-                                        <div class="input-blocked">
-                                            <select id="rwlx">
-                                                <option value="0">全部</option>
-                                                <option value="1">一级任务</option>
-                                                <option value="2">二级任务</option>
-                                                <option value="3">三级任务</option>
-                                                <option value="4">四级任务</option>
-                                            </select>
-                                        </div>
-                                    </li>
+                                    <!--<li>-->
+                                        <!--<label for="">任务级别：</label>-->
+                                        <!--<div class="input-blocked">-->
+                                            <!--<select id="rwlx">-->
+                                                <!--<option value="0">全部</option>-->
+                                                <!--<option value="1">一级任务</option>-->
+                                                <!--<option value="2">二级任务</option>-->
+                                                <!--<option value="3">三级任务</option>-->
+                                                <!--<option value="4">四级任务</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
                                     <br>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>

@@ -107,7 +107,13 @@ $(function(){
                 }
             },
             addFun4:function(){
-                var inPrince = workDone.inPrice;
+                var inPrince = 0;
+
+                if(inPrince == ''){
+                    inPrince = 0.00
+                }else{
+                    inPrince = Number(workDone.inPrice);
+                }
                 workDone.inPrice = parseFloat(inPrince).toFixed(2);
             },
             searchbm:function(e){
@@ -1869,8 +1875,6 @@ $(function(){
             }else{
 
                 $(this).parents('.gdList').next('li').find('.inputType').focus();
-
-                console.log($(this).parents('.gdList').next('li').find('.inputType'));
 
             }
         }

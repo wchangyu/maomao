@@ -75,6 +75,11 @@ $(function(){
     var _gdState = 0;
     //重发值
     var _gdCircle = 0;
+
+    var _allDataBM = [];
+
+    //所有车站数据
+    ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable(   {
@@ -111,10 +116,11 @@ $(function(){
             }
         ],
         "dom":'t<"F"lip>',
+        "iDisplayLength":50,//默认每页显示的条数
         "columns": [
             {
                 title:'工单号',
-                data:'gdCode2',
+                data:'gdCode',
                 render:function(data, type, row, meta){
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
@@ -158,33 +164,33 @@ $(function(){
                     }
                 }
             },
-            {
-                title:'任务级别',
-                data:'gdLeixing',
-                render:function(data, type, full, meta){
-                    if(data == 1){
-                        return '一级任务'
-                    }if(data == 2){
-                        return '二级任务'
-                    }if(data == 3){
-                        return '三级任务'
-                    }if(data == 4){
-                        return '四级任务'
-                    }
-                }
-            },
+            //{
+            //    title:'任务级别',
+            //    data:'gdLeixing',
+            //    render:function(data, type, full, meta){
+            //        if(data == 1){
+            //            return '一级任务'
+            //        }if(data == 2){
+            //            return '二级任务'
+            //        }if(data == 3){
+            //            return '三级任务'
+            //        }if(data == 4){
+            //            return '四级任务'
+            //        }
+            //    }
+            //},
             {
                 title:'工单状态值',
                 data:'gdZht',
                 className:'ztz'
             },
+            //{
+            //    title:'系统名称',
+            //    data:'wxShiX'
+            //},
             {
-                title:'系统名称',
-                data:'wxShiX'
-            },
-            {
-                title:'车站',
-                data:'bxKeshi'
+                title:'维修班组',
+                data:'wxKeshi'
             },
             {
                 title:'故障位置',
@@ -194,29 +200,33 @@ $(function(){
                 title:'故障描述',
                 data:'bxBeizhu'
             },
+            //{
+            //    title:'最新处理情况',
+            //    data:'lastUpdateInfo'
+            //},
+            //{
+            //    title:'受理时间',
+            //    data:'shouLiShij'
+            //},
+            //{
+            //    title:'故障发生时长',
+            //    data:'timeSpan'
+            //},
             {
-                title:'最新处理情况',
-                data:'lastUpdateInfo'
+                title:'关单人',
+                data:'pjRenName'
             },
             {
-                title:'受理时间',
-                data:'shouLiShij'
+                title:'维修人',
+                data:'wxUserNames'
             },
-            {
-                title:'故障发生时长',
-                data:'timeSpan'
-            },
-            {
-                title:'督察督办责任人',
-                data:'paigongUser'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "className":'noprint',
-                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
-            }
+            //{
+            //    title:'操作',
+            //    "targets": -1,
+            //    "data": null,
+            //    "className":'noprint',
+            //    "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
+            //}
         ]
     });
     table.buttons().container().appendTo($('.excelButton'),table.table().container());
@@ -725,22 +735,24 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        var realityStart = $('.min').val() + ' 00:00:00';
+        var realityEnd = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
         var prm = {
-            "gdCode2":filterInput[0],
+            "gdCode":$('#gdCode').val(),
             "gdSt":realityStart,
             "gdEt":realityEnd,
-            "bxKeshi":filterInput[1],
-            "wxKeshi":filterInput[4],
+            "bxKeshi":$('#station').val(),
+            "wxKeshi":$('#wxbz').val(),
             "gdZht":$('#gdzt').val(),
-            "pjRen":filterInput[6],
-            "shouliren": filterInput[8],
+            "pjRen":$('#pjr').val(),
+            //"shouliren": filterInput[7],
             "userID":_userIdNum,
             //故障位置
-            "gdLeixing":$('#rwlx').val(),
-            "wxRen":filterInput[7],
-            "wxdidian":filterInput[8],
+            "gdLeixing":'',
+            "wxRen":$('#zxr').val(),
+            "wxdidian":$('#gzwz').val(),
             "isCalcTimeSpan":1,
             "userName":_userIdName
         }
@@ -908,6 +920,32 @@ $(function(){
     //进度条赋值
     function progressContent(elIndex,childrenIndex,time){
         $('.processing-record ul').children('li').eq(elIndex).children('div').eq(childrenIndex).children('.record-content').html(time);
+    }
+
+    //车站
+    function ajaxFun(url, allArr, select, text, num,flag) {
+        var prm = {
+            'userID': _userIdNum,
+            'userName':_userIdName
+        }
+        prm[text] = '';
+        $.ajax({
+            type: 'post',
+            url: _urls + url,
+            data: prm,
+            success: function (result) {
+                //给select赋值
+                var str = '<option value="">请选择</option>';
+                for (var i = 0; i < result.length; i++) {
+                    str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+                    allArr.push(result[i]);
+                }
+                select.empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 
 })
