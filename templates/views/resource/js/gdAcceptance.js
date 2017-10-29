@@ -357,21 +357,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -381,13 +381,13 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
             data:'paiGongShij'
@@ -426,21 +426,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -450,13 +450,13 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
             data:'paiGongShij'
@@ -503,21 +503,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -527,13 +527,13 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
             data:'paiGongShij'
@@ -579,21 +579,21 @@ $(function(){
                     '</span>'
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }else{
-                    return '快速'
-                }
-            }
-        },
-        {
-            title:'设备类型',
-            data:'wxShiX'
-        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
         {
             title:'故障位置',
             data:'wxDidian'
@@ -603,13 +603,13 @@ $(function(){
             data:'bxBeizhu'
         },
         {
-            title:'登记时间',
+            title:'报修时间',
             data:'gdShij'
         },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
         {
             title:'接单时间',
             data:'paiGongShij'

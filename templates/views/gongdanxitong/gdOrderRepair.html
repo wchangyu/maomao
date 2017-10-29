@@ -501,7 +501,7 @@
                                     <div class="tipe-block">故障信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels starRed">发现时间：</div>
+                                            <div class="single-labels starRed">登记时间：</div>
                                             <div class="single-block">
                                                 <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
                                             </div>
@@ -669,7 +669,7 @@
                                     <div class="tipe-block">故障信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                            <div class="single-labels starRed">发现时间：</div>
+                                            <div class="single-labels starRed">登记时间：</div>
                                             <div class="single-block">
                                                 <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
                                             </div>
@@ -786,6 +786,31 @@
             </div>
             <div class="modal-body">
                 <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--处理过程-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 500px;margin-top:120px;">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <div class="right-content">
+                    <!--<p style="margin-bottom: 0">处理记录</p>-->
+                    <div class="processing-record" style="height: 350px;overflow-y: visible">
+                        <ul style="font-size: 13px; ">
+
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
