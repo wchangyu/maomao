@@ -431,6 +431,10 @@ body {
 .dataTables_filter{
     float: left !important;
 }
+.table>tbody>tr>td{
+    padding-top:2px !important;
+    padding-bottom:2px !important;
+}
 
 /*去掉吕文文放大镜*/
 .moreDesc{
