@@ -118,6 +118,7 @@ $(function(){
             addFun2:function(){
                 var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
                 if(workDone.outPrice != ''){
+
                     if(mny.test(workDone.outPrice)){
                         $('.format-error1').hide();
                     }else{
@@ -127,6 +128,7 @@ $(function(){
                     $('.format-error1').hide();
                 }
                 var amount = Number(workDone.outPrice) * Number(workDone.num);
+
                 workDone.amount = amount.toFixed(2);
             },
             addFun3:function(){
@@ -141,7 +143,7 @@ $(function(){
                 }
             },
             addFun4:function(){
-                var outPrince = workDone.outPrice;
+                var outPrince = Number(workDone.outPrice);
                 workDone.outPrice = parseFloat(outPrince).toFixed(2);
             },
             addFun5:function(){
@@ -453,10 +455,15 @@ $(function(){
     //是否可以自己审核
     var _isShenHe = sessionStorage.getItem('ckAuditType');
 
-    //物品编号完全符合的情况下
-    var _isbm = false;
+    //所有车站
+    var _allDataBM = [];
 
-    var _bmObj = {};
+    //所有车站数据
+    ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
+
+    //工单查询时间
+    var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';
+    var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
 
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
@@ -847,6 +854,74 @@ $(function(){
 
         ],
     });
+
+    //工单表格
+    var gdCol = [
+        {
+            className:'checkeds',
+            data:null,
+            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
+        },
+        {
+            title:'工单号',
+            data:'gdCode2',
+            className:'gdCodes',
+            render:function(data, type, full, meta){
+                return '<span data-gdCode="' + full.gdCode +
+                    '" data-czCode="' + full.bxKeshiNum +
+                    '">'+ data + '</span>'
+            }
+        },
+        {
+            title:'工单状态',
+            data:'gdZht',
+            render:function(data, type, full, meta){
+                if (data == 1) {
+                    return '待下发'
+                }
+                if (data == 2) {
+                    return '待分派'
+                }
+                if (data == 3) {
+                    return '待执行'
+                }
+                if (data == 4) {
+                    return '执行中'
+                }
+                if (data == 5) {
+                    return '等待资源'
+                }
+                if (data == 6) {
+                    return '待关单'
+                }
+                if (data == 7) {
+                    return '任务关闭'
+                }
+                if (data == 999) {
+                    return '任务取消'
+                }
+            }
+        },
+        {
+            title:'督察督办责任人',
+            data:'wxUserNames'
+        },
+        {
+            title:'维修系统',
+            data:'wxShiX'
+        },
+        {
+            title:'所需备件',
+            data:'wxClNames'
+        },
+        {
+            title:'车站',
+            data:'bxKeshi',
+            className:'bxKS'
+        }
+    ];
+
+    tableInit($('#gdTable'),gdCol,buttonHidden);
 
     //查看备件按钮
     $('.see-spare').click(function(){
@@ -1588,41 +1663,41 @@ $(function(){
                     _rukuArr.unshift(rukuDan);
                     datasTable($('#wuPinListTable1'),_rukuArr);
                     //添加完之后，自动清空，并获得焦点
-                    workDone.bianhao = '';
-                    workDone.mingcheng = '';
-                    workDone.goodsId = '';
-                    workDone.size = '';
-                    workDone.picked = 0;
-                    workDone.unit = '';
-                    workDone.quality = '';
-                    workDone.warranty = '';
-                    workDone.num = 0;
-                    workDone.redundant = 0;
-                    workDone.outPrice = '';
-                    workDone.amount = 0;
-                    workDone.gdCode = '';
-                    workDone.chezhan = '';
-                    workDone.ck = '';
-                    workDone.remark = '';
-                    workDone.kuwei = '';
-                    $('.kuwei').removeAttr('data-num');
-                    $('.cangku').removeAttr('data-num').removeAttr('data-name');
-                    $('.gdCode').removeAttr('gdcode');
-                    $('.chezhan').removeAttr('data-num').removeAttr('data-name');
+                    //workDone.bianhao = '';
+                    //workDone.mingcheng = '';
+                    //workDone.goodsId = '';
+                    //workDone.size = '';
+                    //workDone.picked = 0;
+                    //workDone.unit = '';
+                    //workDone.quality = '';
+                    //workDone.warranty = '';
+                    //workDone.num = 0;
+                    //workDone.redundant = 0;
+                    //workDone.outPrice = '';
+                    //workDone.amount = 0;
+                    //workDone.gdCode = '';
+                    //workDone.chezhan = '';
+                    //workDone.ck = '';
+                    //workDone.remark = '';
+                    //workDone.kuwei = '';
+                    //$('.kuwei').removeAttr('data-num');
+                    //$('.cangku').removeAttr('data-num').removeAttr('data-name');
+                    //$('.gdCode').removeAttr('gdcode');
+                    //$('.chezhan').removeAttr('data-num').removeAttr('data-name');
 
                     //所有列表应该重新初始化（所有值）
                     //初始化长裤列表(仓库、库区、物品、工单号)；
-                    ckList(_ckArr,$('.pinzhixx').eq(0));
-                    //库区列表
-                    kqList(_kqArr,$('.kuqu-list').eq(0));
-                    //物品编码列表
-                    wpList(_wpListArr,$('.accord-with-list').eq(0));
-                    //物品名称列表
-                    wpList(_wpListArr,$('.accord-with-list').eq(1));
-                    //序列号
-                    xlhList(_wpListArr,$('.accord-with-list').eq(2));
-                    //工单号
-                    gdsList(_gdArr,$('.pinzhixx').eq(1));
+                    //ckList(_ckArr,$('.pinzhixx').eq(0));
+                    ////库区列表
+                    //kqList(_kqArr,$('.kuqu-list').eq(0));
+                    ////物品编码列表
+                    //wpList(_wpListArr,$('.accord-with-list').eq(0));
+                    ////物品名称列表
+                    //wpList(_wpListArr,$('.accord-with-list').eq(1));
+                    ////序列号
+                    //xlhList(_wpListArr,$('.accord-with-list').eq(2));
+                    ////工单号
+                    //gdsList(_gdArr,$('.pinzhixx').eq(1));
                 }
             }
         }
@@ -1646,8 +1721,8 @@ $(function(){
         workDone.gdCode = '';
         workDone.chezhan = '';
         workDone.redundant = 0;
-        workDone.ck ='';
-        workDone.kuwei = '';
+        //workDone.ck ='';
+        //workDone.kuwei = '';
         $('.not-editable').eq(0).focus();
         //所有框可操作
         $('.not-editable').removeAttr('readonly').removeClass('disabled-block');
@@ -1656,8 +1731,8 @@ $(function(){
         $('.auto-input').parent('.input-blockeds').removeClass('disabled-block');
         $('.accord-with-list').hide();
         $('.not-editable').parent('.input-blockeds').removeClass('disabled-block');
-        $('.kuwei').removeAttr('data-num');
-        $('.cangku').removeAttr('data-num').removeAttr('data-name');
+        //$('.kuwei').removeAttr('data-num');
+        //$('.cangku').removeAttr('data-num').removeAttr('data-name');
         $('.gdCode').removeAttr('gdcode');
         $('.chezhan').removeAttr('data-num').removeAttr('data-name');
         //所有列表应该重新初始化（所有值）
@@ -1673,6 +1748,9 @@ $(function(){
         xlhList(_wpListArr,$('.accord-with-list').eq(2));
         //工单号
         gdsList(_gdArr,$('.pinzhixx').eq(1));
+
+        //自动聚焦
+        $('.inputType').eq(2).focus();
     });
 
     $('#wuPinListTable1 tbody')
@@ -1872,44 +1950,44 @@ $(function(){
                             _rukuArr.unshift(rukuDan);
                             datasTable($('#wuPinListTable1'),_rukuArr);
                             //添加完之后，自动清空，并获得焦点
-                            workDone.bianhao = '';
-                            workDone.mingcheng = '';
-                            workDone.goodsId = '';
-                            workDone.size = '';
-                            workDone.picked = 0;
-                            workDone.unit = '';
-                            workDone.quality = '';
-                            workDone.warranty = '';
-                            workDone.num = 0;
-                            workDone.redundant = 0;
-                            workDone.outPrice = '';
-                            workDone.amount = 0;
-                            workDone.gdCode = '';
-                            workDone.chezhan = '';
-                            workDone.ck = '';
-                            workDone.remark = '';
-                            workDone.kuwei = '';
-                            $('.kuwei').removeAttr('data-num');
-                            $('.cangku').removeAttr('data-num').removeAttr('data-name');
-                            $('.gdCode').removeAttr('gdcode');
-                            $('.chezhan').removeAttr('data-num').removeAttr('data-name');
+                            //workDone.bianhao = '';
+                            //workDone.mingcheng = '';
+                            //workDone.goodsId = '';
+                            //workDone.size = '';
+                            //workDone.picked = 0;
+                            //workDone.unit = '';
+                            //workDone.quality = '';
+                            //workDone.warranty = '';
+                            //workDone.num = 0;
+                            //workDone.redundant = 0;
+                            //workDone.outPrice = '';
+                            //workDone.amount = 0;
+                            //workDone.gdCode = '';
+                            //workDone.chezhan = '';
+                            //workDone.ck = '';
+                            //workDone.remark = '';
+                            //workDone.kuwei = '';
+                            //$('.kuwei').removeAttr('data-num');
+                            //$('.cangku').removeAttr('data-num').removeAttr('data-name');
+                            //$('.gdCode').removeAttr('gdcode');
+                            //$('.chezhan').removeAttr('data-num').removeAttr('data-name');
 
                             //所有列表应该重新初始化（所有值）
                             //初始化长裤列表(仓库、库区、物品、工单号)；
-                            ckList(_ckArr,$('.pinzhixx').eq(0));
-                            //库区列表
-                            kqList(_kqArr,$('.kuqu-list').eq(0));
-                            //物品编码列表
-                            wpList(_wpListArr,$('.accord-with-list').eq(0));
-                            //物品名称列表
-                            wpList(_wpListArr,$('.accord-with-list').eq(1));
-                            //序列号
-                            xlhList(_wpListArr,$('.accord-with-list').eq(2));
-                            //工单号
-                            gdsList(_gdArr,$('.pinzhixx').eq(1));
+                            //ckList(_ckArr,$('.pinzhixx').eq(0));
+                            ////库区列表
+                            //kqList(_kqArr,$('.kuqu-list').eq(0));
+                            ////物品编码列表
+                            //wpList(_wpListArr,$('.accord-with-list').eq(0));
+                            ////物品名称列表
+                            //wpList(_wpListArr,$('.accord-with-list').eq(1));
+                            ////序列号
+                            //xlhList(_wpListArr,$('.accord-with-list').eq(2));
+                            ////工单号
+                            //gdsList(_gdArr,$('.pinzhixx').eq(1));
 
                             //自动聚焦到仓库
-                            $('.inputType').eq(0).focus();
+                            $('.inputType').eq(2).focus();
                         }
                     }
                 }
@@ -2372,6 +2450,52 @@ $(function(){
         $('.hidden1').hide();
     });
 
+    //点击放大镜，获取工单弹出框
+    $('.fdjImg').click(function(){
+
+        $('#gdzt').val(4);
+
+        _moTaiKuang($('#myModal7'), '工单', '', '' ,'', '确定');
+
+        datasTable($('#gdTable'),_gdArr)
+
+    })
+
+    //工单条件查询
+    $('#selectedGD').click(function(){
+        GDselect();
+    })
+
+    //工单选择
+    $('#gdTable tbody').on('click','input',function(){
+
+        $('#gdTable tbody').find('input').parents('span').removeClass('checked');
+
+        $('#gdTable tbody').find('tr').removeClass('tables-hover')
+
+        $(this).parent('span').addClass('checked');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+    })
+
+    $('.rukuGD').click(function(){
+
+        var table = $('#gdTable tbody').find('.checked').parents('tr').children('.gdCodes');
+
+        $('.gdCode').attr('gdCode',table.children().attr('data-gdcode'));
+
+        workDone.gdCode = table.children().html();
+
+        workDone.chezhan = $('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html();
+
+        $('.chezhan').attr('data-num',$('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html());
+
+        $('.chezhan').attr('data-name',table.children().attr('data-czcode'));
+
+        $('#myModal7').modal('hide');
+    })
+
     /*------------------------------------表格数据--------------------------------*/
 
     warehouse();
@@ -2384,8 +2508,8 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[1] + ' 00:00:00';
-        realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        var realityStart = filterInput[1] + ' 00:00:00';
+        var realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var ckArr = [];
         for(var i=0;i<_ckArr.length;i++){
             ckArr.push(_ckArr[i].storageNum);
@@ -2863,12 +2987,12 @@ $(function(){
                         $('.inpus').parent('span').eq(0).addClass('checked');
                     }
                     var outPrice = '';
-                    if($('.dataNum').html() == 0){
-                        outPrice = ''
+                    if(info.children('.dataNum').html() == 0){
+                        outPrice = '0.00'
                     }else{
                         outPrice = parseFloat(info.attr('data-amount'))/parseFloat(info.children('.dataNum').html());
                     }
-                    workDone.outPrice = outPrice.toFixed(2);
+                    workDone.outPrice = Number(outPrice).toFixed(2);
                     workDone.num = 0;
                     //workDone.outPrice = '';
                     workDone.amount = 0;
@@ -3010,10 +3134,9 @@ $(function(){
                     }else{
                         if(workDone.kuwei == ''){
                             if($('.cangku').attr('data-num') == _wpListArr[i].storageNum){
-                                if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
-                                    includeArr = [];
-                                    includeArr.push(_wpListArr[i]);
-                                    str += '<li data-durable="' + _wpListArr[i].isSpare +
+                                if( _wpListArr[i].itemNum == searchValue || _wpListArr[i].itemName == searchValue ){
+
+                                    str += '<li class="li-color" data-durable="' + _wpListArr[i].isSpare +
                                         '"' + 'data-unit="' + _wpListArr[i].unitName +
                                         '"data-quality="' + _wpListArr[i].batchNum +
                                         '"data-maintainDate="' +  _wpListArr[i].maintainDate +
@@ -3026,14 +3149,46 @@ $(function(){
                                         _wpListArr[i].size+'</span>' + '<span style="margin-left: 20px;">' + _wpListArr[i].localName +
                                         '</span>' +
                                         '</li>'
+                                }else{
+                                    if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
+                                        includeArr = [];
+                                        includeArr.push(_wpListArr[i]);
+                                        str += '<li data-durable="' + _wpListArr[i].isSpare +
+                                            '"' + 'data-unit="' + _wpListArr[i].unitName +
+                                            '"data-quality="' + _wpListArr[i].batchNum +
+                                            '"data-maintainDate="' +  _wpListArr[i].maintainDate +
+                                            '"' + 'data-sn="' + _wpListArr[i].sn +
+                                            '"' + 'data-shengyu="' + _wpListArr[i].num +
+                                            '"' +
+                                            '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
+                                            '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
+                                            '<span class="dataSize" style="margin-left: 20px;">' +
+                                            _wpListArr[i].size+'</span>' + '<span style="margin-left: 20px;">' + _wpListArr[i].localName +
+                                            '</span>' +
+                                            '</li>'
+                                    }
                                 }
+
+                                //$('.accord-with-list').eq(index).show();
+                                //$('.accord-with-list').eq(index).empty().append(str);
                             }
                         }else if(workDone.kuwei != ''){
                             if($('.cangku').attr('data-num') == _wpListArr[i].storageNum && $('.kuwei').attr('data-num') == _wpListArr[i].localNum){
                                 if( _wpListArr[i].itemNum == searchValue ){
-                                    console.log(_wpListArr[i]);
-                                    //_bmObj = {};
 
+                                    str += '<li class="li-color" data-durable="' + _wpListArr[i].isSpare +
+                                        '"' + 'data-unit="' + _wpListArr[i].unitName +
+                                        '"data-quality="' + _wpListArr[i].batchNum +
+                                        '"data-maintainDate="' +  _wpListArr[i].maintainDate +
+                                        '"' + 'data-sn="' + _wpListArr[i].sn +
+                                        '"' + 'data-shengyu="' + _wpListArr[i].num +
+                                        '"' +
+                                        '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
+                                        '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
+                                        '<span class="dataSize" style="margin-left: 20px;">' +
+                                        _wpListArr[i].size+'</span>' + '<span style="margin-left: 20px;">' + _wpListArr[i].localName +
+                                        '</span>' +
+                                        '</li>'
 
                                 }else{
                                     if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
@@ -3059,7 +3214,6 @@ $(function(){
                         }
                     }
                 }
-
                 $('.accord-with-list').eq(index).show();
                 $('.accord-with-list').eq(index).empty().append(str);
             }
@@ -3074,7 +3228,7 @@ $(function(){
             gdEt:'',
             gdGuanbiSt:'',
             gdGuanbiEt:'',
-            gdZht:'',
+            gdZht:'4',
             gdJJ:'',
             dlNum:'',
             gdLeixing:'',
@@ -3570,6 +3724,73 @@ $(function(){
             conditionSelect();
             $('#myModal').modal('hide');
         }
+    }
+
+    //车站
+    function ajaxFun(url, allArr, select, text, num,flag) {
+        var prm = {
+            'userID': _userIdNum,
+            'userName':_userIdName
+        }
+        prm[text] = '';
+        $.ajax({
+            type: 'post',
+            url: _urls + url,
+            data: prm,
+            success: function (result) {
+                //给select赋值
+                var str = '<option value="">请选择</option>';
+                for (var i = 0; i < result.length; i++) {
+                    str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+                    allArr.push(result[i]);
+                }
+                select.empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //工单条件查询
+    function GDselect(){
+        if($('.gdTime').eq(0).val() == ''){
+            gdrealityStart = ''
+        }else{
+            gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00'
+        }
+        if($('.gdTime').eq(1).val() == ''){
+            gdrealityEnd = ''
+        }else{
+            gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        }
+        var prm = {
+            gdCode2:$('#gdcode').val(),
+            gdSt:gdrealityStart,
+            gdEt:gdrealityEnd,
+            gdZht:$('#gdzt').val(),
+            userID:_userIdNum,
+            userName:_userIdName,
+            isCalcTimeSpan:1,
+            wxShiXNum:$('#xtlx').val(),
+            gdCodeSrc:$('#gdly').val(),
+            bxKeshiNum:$('#station').val(),
+            isApplyWxCl:1
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetZh2',
+            data:prm,
+            timeout:30000,
+            success:function(result){
+
+                datasTable($('#gdTable'),result);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     }
 
 })

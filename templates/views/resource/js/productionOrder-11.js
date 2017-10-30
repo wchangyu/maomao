@@ -540,6 +540,18 @@ $(function(){
         }
     })
 
+    //查看图片
+    $('.bjImg').on('click','.viewIMG',function(){
+
+        //模态框显示
+        moTaiKuang($('#myModal5'), '图片详情', 'flag');
+
+        var imgSrc = $(this).attr('src');
+
+        $('#myModal5').find('img').attr('src', imgSrc);
+
+    })
+
     /*------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
