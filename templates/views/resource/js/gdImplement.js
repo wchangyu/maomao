@@ -531,6 +531,7 @@ $(function(){
                     clObj.sl = _selectedBJ[i].sl;
                     clObj.dj = _selectedBJ[i].dj;
                     clObj.je = _selectedBJ[i].je;
+                    clObj.size = _selectedBJ[i].size;
                 }
             }
 
