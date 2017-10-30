@@ -109,7 +109,7 @@ $(function(){
             addFun4:function(){
                 var inPrince = 0;
 
-                if(inPrince == ''){
+                if(workDone.inPrince == ''){
                     inPrince = 0.00
                 }else{
                     inPrince = Number(workDone.inPrice);
@@ -261,11 +261,9 @@ $(function(){
                         var str = '';
                         for(var i=0;i<_kuquArr.length;i++){
                             if(_kuquArr[i].localName == searchValue){
-                                //console.log(_kuquArr[i]);
-                                $('.kuwei').attr('data-num',_kuquArr[i].localNum);
-                                setTimeout(function(){
-                                    $('.kuqu-list').eq(0).hide();
-                                },600)
+
+                                str += '<li class="li-color" data-num="' + _kuquArr[i].localNum + '">' + _kuquArr[i].localName + '</li>';
+
                             }else{
                                 if(_kuquArr[i].localName.indexOf(searchValue)>=0 || _kuquArr[i].localNum.indexOf(searchValue)>=0){
                                     includeArr.push(_kuquArr[i]);
@@ -1484,15 +1482,21 @@ $(function(){
     $('#addRK').click(function(){
         //验证必填项
         if( workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' ){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
         }else{
+
             var o = $('.format-error')[0].style.display;
             var s = $('.format-error1')[0].style.display;
             var a = $('.isEqual')[0].style.display;
             var b = $('.isEnabled')[0].style.display;
             if(o!='none' && s!='none' && a!='none' && b!='none'){
+
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
+
             }else{
+
                 //首先判断输入过了没
                 var existFlag = false;
                 for(var i=0;i<_rukuArr.length;i++){
@@ -1546,6 +1550,7 @@ $(function(){
                     workDone.remark = '';
                     workDone.kuwei = '';
                     $('.kuwei').removeAttr('data-num');
+
                     if(workDone.picked == 0){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(1).addClass('checked');
@@ -1553,13 +1558,23 @@ $(function(){
                         $('.inpus').parent('span').removeClass('checked');
                         $('.inpus').parent('span').eq(0).addClass('checked');
                     }
+
                     //工单id置为可编辑
                     $('.goodsId').removeAttr('readonly').removeClass('disabled-block');
                     $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
                     $('.rknum').removeAttr('readonly').removeClass('disabled-block');
                     $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
+
                     //自动聚焦
                     $('.not-editable').eq(0).focus();
+
+                    workDone.remark = '';
+
+                    //将所有li-color类去掉
+                    //除了品质，其他的li-color都去掉
+                    $('.kuqu-list').children().removeClass('li-color');
+
+                    $('.accord-with-list').children().removeClass('li-color');
                 }
             }
         }
@@ -1659,6 +1674,8 @@ $(function(){
                         $('.inpus').parent('span').eq(0).addClass('checked');
                         $('.goodsId').removeAttr('readonly').removeClass('disabled-block');
                         $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
+                        $('.rknum').attr('readOnly','readOnly').addClass('disabled-block');
+                        $('.rknum').parents('.input-blockeds').addClass('disabled-block');
                     }
                     workDone.goodsId = _rukuArr[i].sn;
                     workDone.unit = _rukuArr[i].unitName;
@@ -1867,7 +1884,17 @@ $(function(){
                             $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
 
                             //自动聚焦
-                            //$('.not-editable').eq(0).focus();
+                            $('.not-editable').eq(0).focus();
+
+                            workDone.remark = '';
+
+                            //除了品质，其他的li-color都去掉
+                            $('.kuqu-list').children().removeClass('li-color');
+
+                            $('.accord-with-list').children().removeClass('li-color');
+
+
+
                         }
                     }
                 }
@@ -2270,51 +2297,6 @@ $(function(){
             }
 
         }else if(e.keyCode == 13){
-            if( _isBm ){
-
-                workDone.bianhao = bmObj.itemNum;
-                workDone.mingcheng = bmObj.itemName;
-                workDone.size = bmObj.size;
-                workDone.picked = bmObj.isSpare;
-                workDone.unit = bmObj.unitName;
-
-                if(workDone.picked == 0){
-                    $('.inpus').parent('span').removeClass('checked');
-                    $('.inpus').parent('span').eq(1).addClass('checked');
-                    //物品id必须跟物品编码一样
-                    workDone.goodsId = workDone.bianhao;
-                    $('.rknum').removeAttr('readonly').removeClass('disabled-block');
-                    $('.rknum').parents('.input-blockeds').removeClass('disabled-block');
-                    //置为不可操作
-                    $('.goodsId').removeAttr('readonly').addClass('disabled-block');
-                    $('.goodsId').parents('.input-blockeds').addClass('disabled-block');
-                    workDone.num = '';
-
-                    setTimeout(function(){
-                        $('.quality').focus();
-                    },800)
-                }else if(workDone.picked == 1){
-                    $('.inpus').parent('span').removeClass('checked');
-                    $('.inpus').parent('span').eq(0).addClass('checked');
-                    $('.goodsId').removeAttr('readonly').removeClass('disabled-block');
-                    $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
-                    $('.rknum').attr('readonly','readonly').addClass('disabled-block');
-                    $('.rknum').parents('.input-blockeds').addClass('disabled-block');
-                    workDone.num = '1';
-                    workDone.goodsId = '';
-
-                    setTimeout(function(){
-
-                        $('.goodsId').focus();
-                    },800)
-                }
-                setTimeout(function(){
-                    $('.accord-with-list').hide();
-
-                },600)
-
-            }else{
-                //console.log('11111111');
                 var lis = $('.accord-with-list').eq(index).children('li');
                 for(var i=0;i<lis.length;i++){
                     if(lis.eq(i).attr('class') == 'li-color'){
@@ -2340,19 +2322,34 @@ $(function(){
                             $('.goodsId').removeAttr('readonly').removeClass('disabled-block');
                             $('.goodsId').parents('.input-blockeds').removeClass('disabled-block');
                             workDone.num = '1';
+                            $('.rknum').attr('readOnly','readOnly').addClass('disabled-block');
+                            $('.rknum').parents('.input-blockeds').addClass('disabled-block');
                         }
                         //选择完之后，关闭
                         $('.accord-with-list').hide();
                     }
                 }
                 setTimeout(function(){
-                    if(workDone.goodsId != ''){
-                        $('.inputType').eq(8).focus();
+
+                    if( workDone.mingcheng == '' ){
+
+                        $('.inputType').eq(3).focus();
+
                     }else{
-                        $('.inputType').eq(5).focus();
+
+                        if(workDone.goodsId != ''){
+
+                            $('.inputType').eq(8).focus();
+
+                        }else{
+
+                            $('.inputType').eq(6).focus();
+
+                        }
+
                     }
                 },300);
-            }
+
 
         }else{
             if(e.keyCode != 9){
@@ -2383,18 +2380,31 @@ $(function(){
                         }
                     }else{
                         if( _wpListArr[i].itemNum == searchValue || _wpListArr[i].itemName == searchValue){
-                            _isBm = true;
-                            bmObj= {};
-                            bmObj.itemNum = _wpListArr[i].itemNum;
-                            bmObj.itemName = _wpListArr[i].itemName;
-                            bmObj.size = _wpListArr[i].size;
-                            bmObj.isSpare = _wpListArr[i].isSpare;
-                            bmObj.unitName = _wpListArr[i].unitName;
+                            //_isBm = true;
+                            //bmObj= {};
+                            //bmObj.itemNum = _wpListArr[i].itemNum;
+                            //bmObj.itemName = _wpListArr[i].itemName;
+                            //bmObj.size = _wpListArr[i].size;
+                            //bmObj.isSpare = _wpListArr[i].isSpare;
+                            //bmObj.unitName = _wpListArr[i].unitName;
+
+                            str += '<li class="li-color" data-durable="' + _wpListArr[i].isSpare +
+                                '"' + 'data-unit="' + _wpListArr[i].unitName +
+                                '"data-quality="' + _wpListArr[i].batchNum +
+                                '"data-maintainDate="' +  _wpListArr[i].maintainDate +
+                                '"' + 'data-sn="' + _wpListArr[i].sn +
+                                '"' + 'data-shengyu="' + _wpListArr[i].num +
+                                '"' +
+                                '>' + '<span class="dataNum">' + _wpListArr[i].itemNum +'</span>' +
+                                '<span class="dataName" style="margin-left: 20px;">' +  _wpListArr[i].itemName +'</span>' +
+                                '<span class="dataSize" style="margin-left: 20px;">' +
+                                _wpListArr[i].size+'</span>' +
+                                '</li>'
 
                         }else{
                             if(_wpListArr[i].itemNum.indexOf(searchValue)>=0 || _wpListArr[i].itemName.indexOf(searchValue)>=0 ){
 
-                                _isBm = false;
+                                //_isBm = false;
 
                                 includeArr.push(_wpListArr[i]);
                                 str += '<li data-durable="' + _wpListArr[i].isSpare +

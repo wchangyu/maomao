@@ -1020,7 +1020,7 @@ $(function(){
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
                 gdObj.wxshx=result.wxXm;
-                //gdObj.sbtype = result.
+                gdObj.sbtype = result.wxShiXNum;
                 gdObj.sbnum = result.wxShebei;
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;

@@ -62,7 +62,8 @@ $(function(){
             'dw':'',
             'sl':'',
             'dj':'',
-            'je':''
+            'je':'',
+            'size':''
         },
         methods:{
             addFun1:function(){
@@ -395,6 +396,8 @@ $(function(){
         //模态框显示
         _moTaiKuang($('#myModal1'), '添加材料', '', '' ,'', '添加材料');
 
+        //console.log(_selectedBJ);
+
         //表格数据
         _datasTable($('#cl-selecting'),_selectedBJ);
 
@@ -445,6 +448,7 @@ $(function(){
         clObj.mc = _bjObject.wpmc;
         clObj.bm = _bjObject.wpbm;
         clObj.dw = _bjObject.unit;
+        clObj.size = _bjObject.size;
         clObj.sl = '';
         clObj.dj = '';
         clObj.je = '';
@@ -465,6 +469,7 @@ $(function(){
             obj.bm = clObj.bm;
             obj.dw = clObj.dw;
             obj.sl = clObj.sl;
+            obj.size = clObj.size;
             var dj = 0;
             if(clObj.dj == ''){
                 dj = 0.00;
@@ -509,6 +514,10 @@ $(function(){
 
             //将表格中的值赋给input框
             var $thisBM = $(this).parents('tr').find('.bjbm').html();
+
+            console.log($thisBM);
+
+            console.log(_selectedBJ);
 
             for(var i=0;i<_selectedBJ.length;i++){
                 if(_selectedBJ[i].bm == $thisBM){
@@ -804,13 +813,17 @@ $(function(){
     //材料列表
     var clListCol = [
         {
+            title:'编码',
+            data:'bm',
+            className:'bjbm'
+        },
+        {
             title:'名称',
-            data:'mc'
+            data:'mc',
         },
         {
             title:'规格型号',
             data:'size',
-            className:'bjbm'
         },
         {
             title:'单位',

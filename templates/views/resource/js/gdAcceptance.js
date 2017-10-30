@@ -618,10 +618,10 @@ $(function(){
             title:'完工申请时间',
             data:'wanGongShij'
         },
-        {
-            title:'关单时间',
-            data:'guanbiShij'
-        },
+        //{
+        //    title:'关单时间',
+        //    data:'guanbiShij'
+        //},
         {
             title:'维修科室',
             data:'wxKeshi'
@@ -634,15 +634,15 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
+        //{
+        //    title:'验收人',
+        //    data:'pjRen'
+        //},
         {
-            title:'验收人',
-            data:'pjRen'
-        },
-        /*{
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }*/
+            defaultContent: "<span class='data-option option-issued btn default btn-xs green-stripe'>下发</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
+        }
     ];
 
     _tableInit($('#appeal-list'),appealListCol,'2','','','');
@@ -1009,6 +1009,18 @@ $(function(){
 
                 $('#choose-equipment').modal('hide');
 
+                //设备编码
+                gdObj.sbnum = dom.eq(i).children().eq(3).html();
+
+                //设备名称
+                gdObj.sbname = dom.eq(i).children().eq(2).html();
+
+                //安装地点
+                gdObj.azplace = dom.eq(i).children().eq(5).find('span').html();
+
+                //设备类型
+                gdObj.sbtype = dom.eq(i).children().eq(4).find('span').attr('data-num');
+
                 return false;
             }
         }
@@ -1048,6 +1060,76 @@ $(function(){
         _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应维修事项', '')
 
     });
+
+    //申诉下发按钮
+    $('#appeal-list tbody')
+        .on('click','.option-issued',function(){
+
+        //隐藏放大镜图标 不让用户选择
+        $('.fdjImg').hide();
+
+        //信息绑定
+        bindData($(this),$('#appeal-list'));
+
+        //模态框显示
+        _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
+
+        //维修内容显示
+        $('#wxContent').show();
+
+        //选择部门显示
+        $('.selectBM').show();
+
+        //报修科室不可选择
+        $('#bxkesh').attr('disabled',true);
+
+        //添加编辑类
+        $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('xiafa');
+
+        //input不可操作
+        $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //select不可操作
+        $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+        //textarea不可操作
+        $('.gzDesc').attr('disabled',true).addClass('disabled-block');
+
+        //部门可选择
+        $('#depart').val('').attr('disabled',false).removeClass('disabled-block');
+
+    })
+        .on('click','.option-edit',function(){
+            //显示放大镜图标 用户可以选择
+            $('.fdjImg').show();
+
+            //信息绑定
+            bindData($(this),$('#appeal-list'));
+
+            //模态框显示
+            _moTaiKuang($('#myModal'), '详情', '', '' ,'', '保存');
+
+            //维修内容隐藏
+            $('#wxContent').hide();
+
+            //选择部门隐藏
+            $('#depart').val(' ').attr('disabled',true).addClass('disabled-block').show();
+
+            //添加编辑类
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
+
+            //input不可操作
+            $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+
+            //select不可操作
+            $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+
+            //textarea不可操作
+            $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
+
+            //报修人信息不可操作
+            $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+        })
 
     /*-------------------------------------------------其他方法-----------------------------------------*/
     equipmentArr = [];

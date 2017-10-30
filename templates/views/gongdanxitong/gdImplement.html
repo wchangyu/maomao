@@ -647,6 +647,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">规格型号</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="size">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
                                     <div class="single-labels starRed" style="font-size: 14px;width: 90px;">数量</div>
                                     <div class="single-block" style="width: 192px;">
                                         <input type="text" v-model="sl" @keyup="addFun1()">
@@ -665,7 +671,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line" style="margin-top: -25px;">
                                     <div class="single-labels" style="font-size: 14px;width: 90px;">金额（元）</div>
                                     <div class="single-block" style="width: 192px;">
                                         <input type="text" v-model="je" @keyup="addFun3()" placeholder="0.00">

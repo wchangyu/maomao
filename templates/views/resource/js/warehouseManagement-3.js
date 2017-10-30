@@ -2056,7 +2056,6 @@ $(function(){
             var str = '';
             for(var i=0;i<_wpListArr.length;i++){
                 if($('.cangku').attr('data-num') == _wpListArr[i].storageNum){
-                    console.log(_wpListArr[i]);
                     //确定编码的列表
                     str += '<li data-durable="' + _wpListArr[i].isSpare +
                         '"' + 'data-unit="' + _wpListArr[i].unitName +
@@ -2438,7 +2437,7 @@ $(function(){
             }else{
                 outPrice = parseFloat(info.attr('data-amount'))/parseFloat(info.children('.dataNum').html());
             }
-            workDone.outPrice = outPrice.toFixed(2);
+            workDone.outPrice = Number(outPrice).toFixed(2);
         })
         .on('mouseover','li',function(){
             $(this).parent('.accord-with-list').children('li').removeClass('li-color');
@@ -2858,21 +2857,33 @@ $(function(){
                 var lis = $('.accord-with-list').eq(index).children('li');
                 for(var i=0;i<lis.length;i++){
                     if(lis.eq(i).attr('class') == 'li-color'){
+
                         workDone.goodsId = lis.eq(i).children('.dataSn').html();
+
                         workDone.size = lis.eq(i).attr('data-size');
+
+                        $('.inpus').parent('span').removeClass('checked');
+
                         if(lis.eq(i).children('.dataIsSpare').attr('data-isspare') == 0){
-                            $('.inpus').parent('span').removeClass('checked');
-                            $('.inpus').parent('span').eq(1).addClass('checked');
-                        }else if(lis.eq(i).attr('data-durable') == 1){
-                            $('.inpus').parent('span').removeClass('checked');
-                            $('.inpus').parent('span').eq(0).addClass('checked');
+
+                            $('#twos').parent('span').addClass('checked');
+
+                        }else if(lis.eq(i).children('.dataIsSpare').attr('data-isspare') == 1){
+
+
+                            $('#ones').parent('span').addClass('checked');
+
                         }
                         var outPrice = '';
-                        //console.log(lis.eq(i).children('.dataNum').html());
+
                         if(lis.eq(i).children('.dataNum').html() == 0){
+
                             outPrice = ''
+
                         }else{
+
                             outPrice = parseFloat(lis.eq(i).attr('data-amount'))/parseFloat(lis.eq(i).children('.dataNum').html());
+
                         }
                         workDone.outPrice = outPrice.toFixed(2);
                         workDone.unit = lis.eq(i).attr('data-unit');
