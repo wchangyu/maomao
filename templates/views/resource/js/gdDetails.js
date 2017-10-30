@@ -38,8 +38,8 @@ $(function(){
             data:'wxClName'
         },
         {
-            title:'备件编码',
-            data:'wxCl',
+            title:'规格型号',
+            data:'size',
             className:'bjbm'
         },
         {
@@ -120,7 +120,11 @@ $(function(){
                 //报修电话
                 gdObj.bxtel = result.bxDianhua;
                 //报修科室
-                gdObj.bxkesh = result.bxKeshi;
+                if(result.bxKeshi == '请选择'){
+                    gdObj.bxkesh = '';
+                }else{
+                    gdObj.bxkesh = result.bxKeshi;
+                }
                 //报修人
                 gdObj.bxren = result.bxRen;
                 //发现时间
@@ -144,9 +148,18 @@ $(function(){
                 //故障描述
                 gdObj.gzcontent = result.bxBeizhu;
                 //选择部门
+                if(result.bxKeshi == '请选择'){
+                    $('#depart').val('');
+                }else{
+                    $('#depart').val(result.bxKeshi);
+                }
                 $('#depart').val(result.bxKeshi);
                 //验收人
-                $('#receiver').val(result.yanShouRenName);
+                if(result.yanShouRenName == '请选择'){
+                    $('#receiver').val('');
+                }else{
+                    $('#receiver').val(result.yanShouRenName);
+                }
                 //工时费
                 $('#hourFee').val(result.gongShiFee);
                 //合计费用
@@ -156,6 +169,7 @@ $(function(){
 
                 //维修材料清单
                 var clListArr = result.wxCls;
+
                 if(clListArr.length > 0){
                     _datasTable($('#cl-list'),clListArr);
                 }

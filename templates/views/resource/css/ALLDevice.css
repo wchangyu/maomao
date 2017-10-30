@@ -411,3 +411,28 @@ body {
 .inner-input {
     margin-left: 0px !important;
 }
+
+/*放大镜图标样式*/
+.icon-fangdajing{
+    margin-top:2px;
+    font-size: 28px !important;
+    color:#0aaa73;
+    font-weight: 600;
+    cursor: pointer;
+}
+/*datatable自带搜索框*/
+.dataTables_filter input {
+    width: 160px !important;
+    height: 30px;
+}
+.dataTables_filter label {
+    display: block;
+}
+.dataTables_filter{
+    float: left !important;
+}
+
+/*去掉吕文文放大镜*/
+.moreDesc{
+    display: none !important;
+}

@@ -178,6 +178,9 @@ $(function(){
     //申请关闭是否成功
     var _gbIsSuccess = false;
 
+    //物品分类
+    classification();
+
     /*-------------------------------------------------按钮事件-----------------------------------------*/
 
     //tab切换
@@ -465,8 +468,9 @@ $(function(){
 
         }else{
             var obj = {};
-            obj.mc = clObj.mc;
             obj.bm = clObj.bm;
+            obj.mc = clObj.mc;
+            obj.size = clObj.bm;
             obj.dw = clObj.dw;
             obj.sl = clObj.sl;
             obj.size = clObj.size;
@@ -482,6 +486,10 @@ $(function(){
                 je = 0.00
             }else{
                 je = parseFloat(clObj.je);
+            }
+            if(isNaN(dj) || isNaN(je)){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请输入正确金额或单价！', '');
+                return false
             }
             obj.je = je.toFixed(2);
             _selectedBJ.unshift(obj);
@@ -514,10 +522,6 @@ $(function(){
 
             //将表格中的值赋给input框
             var $thisBM = $(this).parents('tr').find('.bjbm').html();
-
-            console.log($thisBM);
-
-            console.log(_selectedBJ);
 
             for(var i=0;i<_selectedBJ.length;i++){
                 if(_selectedBJ[i].bm == $thisBM){
@@ -853,6 +857,14 @@ $(function(){
     //外层材料列表
     var outClListCol = [
         {
+            title:'序号',
+            data:'mc',
+            render:function(data, type, full, meta){
+
+                return meta.row + 1
+            }
+        },
+        {
             title:'名称',
             data:'mc'
         },
@@ -876,11 +888,6 @@ $(function(){
         {
             title:'金额（元）',
             data:'je'
-        },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-outshanchu btn default btn-xs green-stripe'>删除</span>"
         }
     ];
 
@@ -955,6 +962,7 @@ $(function(){
         clObj.sl='';
         clObj.dj='';
         clObj.je='';
+        clObj.size = '';
         $('.no-edit').attr('disabled',false);
     }
 
@@ -1164,7 +1172,7 @@ $(function(){
         var prm = {
             itemNum : $.trim($('#wpbms').val()),
             itemName: $.trim($('#wpmcs').val()),
-            cateName: $.trim($('#flmcs').val()),
+            cateName: $('#flmcs').children('option:selected').html(),
             userID:_userIdNum,
             userName:_userIdName
         }
@@ -1434,7 +1442,32 @@ $(function(){
 
     }
 
-
+    //分类
+    function classification(){
+        var prm = {
+            cateNum:'',
+            cateName:'',
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItemCate',
+            data:prm,
+            success:function(result){
+                var str = '<option value="">请选择</option>'
+                for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].cateNum +
+                        '">' + result[i].cateName + '</option>>'
+                }
+                $('#flmcs').empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
 
 
 })
