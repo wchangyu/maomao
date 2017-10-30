@@ -436,3 +436,7 @@ body {
 .moreDesc{
     display: none !important;
 }
+/*隐藏登记时间*/
+.dj-time{
+    display: none !important;
+}
