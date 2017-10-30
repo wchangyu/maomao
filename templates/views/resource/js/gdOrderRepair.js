@@ -479,6 +479,14 @@ $(function(){
     //材料表格
     var outClListCol = [
         {
+            title:'序号',
+            data:'mc',
+            render:function(data, type, full, meta){
+
+                return meta.row + 1
+            }
+        },
+        {
             title:'名称',
             data:'wxClName'
         },
