@@ -150,20 +150,21 @@
                                 </div>
                                 <div style="margin:15px 16px;">
                                     <div class="single-line">
-                                        <div class="single-labels starRed">维修内容：</div>
-                                        <div class="single-block" style="width: 433px;height: 62px;">
-                                            <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent" v-validate:wxcontent= "['isEmpty']" initial='off'></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="margin:15px 16px;">
-                                    <div class="single-line">
                                         <div class="single-labels">故障描述：</div>
                                         <div class="single-block" style="width: 433px;height: 62px;">
                                             <textarea style="width: 100%;outline: none;" class="gzDesc" v-model="gzcontent"></textarea>
                                         </div>
                                     </div>
                                 </div>
+                                <div style="margin:15px 16px;">
+                                    <div class="single-line">
+                                        <div class="single-labels starRed">维修内容：</div>
+                                        <div class="single-block" style="width: 433px;height: 62px;">
+                                            <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent" v-validate:wxcontent= "['isEmpty']" initial='off'></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </form>
@@ -222,7 +223,7 @@
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                 <div class="tipe-block">验收人</div>
                 <div class="tableHover" style="padding-top: 20px;">
-                    <div style="padding: 10px;"><label>验收人选择:</label>&nbsp;&nbsp;&nbsp;&nbsp;<input id="receiver" /></div>
+                    <div style="padding: 10px;"><label>验收人:</label>&nbsp;&nbsp;&nbsp;&nbsp;<input id="receiver" /></div>
                 </div>
             </div>
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">

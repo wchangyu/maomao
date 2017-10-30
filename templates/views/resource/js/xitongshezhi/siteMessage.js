@@ -104,36 +104,41 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
+              title:'',
+              data:'id',
+              class:'hidden'
+            },
+            {
                 title:'地点名称',
-                data:'locName'
+                data:'locname'
             },
             {
                 title:'地点编号',
-                data:'locNum',
+                data:'locnum',
                 className:'userNum'
             },
             {
                 title:'部门',
-                data:'departName'
+                data:'departname'
             },
             {
                 title:'楼栋',
-                data:'DDName'
+                data:'ddname'
             },
             {
                 title:'层数',
-                data:'Floor'
+                data:'floor'
             },
             {
                 title:'备注',
-                data:'remark'
+                data:'memo'
             },
 
             {
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe' style='display: none'>查看</span>" +
                 "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
                 "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
@@ -150,6 +155,8 @@ $(function(){
     $('#selected').click(function(){
         conditionSelect();
     });
+    //数据初始化
+    conditionSelect();
 
     //重置按钮
     $('.resites').click(function(){
@@ -182,17 +189,17 @@ $(function(){
     //登记确定按钮功能
         .on('click','.dengji',function(){
             //发送请求
-            editOrView('RBAC/rbacAddUser','登记成功!','登记失败!');
+            editOrView('YWGD/SysLocaleCreate','登记成功!','登记失败!');
         })
         //编辑确定按钮功能
         .on('click','.bianji',function(){
             //发送请求
-            editOrView('RBAC/rbacUptUser','编辑成功!','编辑失败!');
+            editOrView('YWGD/SysLocaleUpdate','编辑成功!','编辑失败!',false,true);
         })
         //删除确定按钮功能
         .on('click','.shanchu',function(){
             //发送请求
-            editOrView('RBAC/rbacDelUser','删除成功!','删除失败!','false');
+            editOrView('YWGD/SysLocaleDelete','删除成功!','删除失败!','false');
         })
     //表格操作
     $('#personal-table tbody')
@@ -206,13 +213,13 @@ $(function(){
         })
         //编辑
         .on('click','.option-edit',function(){
-            console.log('1111');
+
             //详情框
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
             bindingData($(this));
-            $('.ghbm').attr('disabled',true).addClass('disabled-block');
+
         })
         //删除
         .on('click','.option-delete',function(){
@@ -251,23 +258,25 @@ $(function(){
     //获取条件查询
     function conditionSelect(){
         //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
+       // 地点名称
+       var locname = $('#filter_global input').val();
+        // 部门名称
+        var departname = $('#filter_global1 input').val();
+        // 楼栋名称
+        var ddname = $('#filter_global2 input').val();
+
         var prm = {
-            "userName2":filterInput[0],
-            "userNum":filterInput[1],
-            "departNum":$('#rybm').val(),
-            "roleNum":$('#ryjs').val(),
+            "locname": locname,
+            "departname": departname,
+            "ddname": ddname,
             "userID": _userIdName
         };
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/SysLocaleGetAll',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -294,40 +303,53 @@ $(function(){
     }
 
     //编辑、登记方法
-    function editOrView(url,successMeg,errorMeg,flag){
+    function editOrView(url,successMeg,errorMeg,flag,flag1){
         //判断必填项是否为空
-        if( user.addressname == '' ){
+        if( user.addressname == ''||user.plies == ''||user.department == ''||user.build == '' ){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            //判断工号是否重复
-            if($('.jobNumberExists')[0].style.display != 'none'){
-                tipInfo($('#myModal1'),'提示','该工号已存在！','flag');
-            }else{
 
                     //判断是编辑、登记、还是删除
                     var prm = {};
                     if(flag){
                         prm = {
-                            "userName2": user.username,
-                            "userNum": user.jobnumber,
                             "userID":_userIdName
                         };
+
+                            //获取当前ID
+                            for(var i=0;i<_allPersonalArr.length;i++){
+                                if(_allPersonalArr[i].locnum == user.addressnum){
+
+                                    prm.id = _allPersonalArr[i].id;
+                                }
+                            }
+
                     }else{
                         //获取部门名称
                         var departName =  $("#djbm").find("option:selected").text();
                         //获取楼宇名称
                         var buildName =  $("#building").find("option:selected").text();
                         prm = {
-                            "locNum":user.addressnum,
                             "locName":user.addressname,
-                            "Floor": user.plies,
+                            "floor": user.plies,
                             "departNum":user.department,
                             "departName":departName,
-                            "DDNum":user.build,
-                            "DDName":buildName,
-                            "Memo":user.remarks,
-                            "userID":_userIdName
+                            "ddnum":user.build,
+                            "ddname":buildName,
+                            "memo":user.remarks
+                            //"userID":_userIdName
                         };
+
+                        if(flag1){
+                            //获取当前ID
+                            for(var i=0;i<_allPersonalArr.length;i++){
+                                if(_allPersonalArr[i].locnum == user.addressnum){
+
+                                        prm.id = _allPersonalArr[i].id;
+                                }
+                            }
+                        }
+
                     }
                     //发送数据
                     $.ajax({
@@ -350,24 +372,25 @@ $(function(){
                         }
                     })
 
-            }
+
         }
     }
 
     //查看、删除绑定数据
     function bindingData(el,flag){
         var thisBM = el.parents('tr').children('.userNum').html();
+        console.log(_allPersonalArr);
         //根据工号绑定数据
         for(var i=0;i<_allPersonalArr.length;i++){
-            if(_allPersonalArr[i].userNum == thisBM){
-                //console.log(_allPersonalArr[i]);
+            if(_allPersonalArr[i].locnum == thisBM){
+                console.log(_allPersonalArr[i]);
                 //绑定数据
-                user.addressnum = _allPersonalArr[i].addressnum;
-                user.addressname = _allPersonalArr[i].addressname;
-                user.plies = _allPersonalArr[i].Floor;
-                user.build =  _allPersonalArr[i].DDNum;
-                user.department = _allPersonalArr[i].departNum;
-                user.remarks = _allPersonalArr[i].Memo;
+                user.addressnum = _allPersonalArr[i].locnum;
+                user.addressname = _allPersonalArr[i].locname;
+                user.plies = _allPersonalArr[i].floor;
+                user.build =  _allPersonalArr[i].ddnum;
+                user.department = _allPersonalArr[i].departnum;
+                user.remarks = _allPersonalArr[i].memo;
 
             }
         }

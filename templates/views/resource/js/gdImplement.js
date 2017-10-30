@@ -462,7 +462,7 @@ $(function(){
         }else{
             var obj = {};
             obj.mc = clObj.mc;
-            obj.bm = clObj.bm;
+            obj.size = clObj.bm;
             obj.dw = clObj.dw;
             obj.sl = clObj.sl;
             var dj = 0;
@@ -477,6 +477,10 @@ $(function(){
                 je = 0.00
             }else{
                 je = parseFloat(clObj.je);
+            }
+            if(isNaN(dj) || isNaN(je)){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请输入正确金额或单价！', '');
+                return false
             }
             obj.je = je.toFixed(2);
             _selectedBJ.unshift(obj);
@@ -840,6 +844,14 @@ $(function(){
     //外层材料列表
     var outClListCol = [
         {
+            title:'序号',
+            data:'mc',
+            render:function(data, type, full, meta){
+
+                return meta.row + 1
+            }
+        },
+        {
             title:'名称',
             data:'mc'
         },
@@ -863,11 +875,6 @@ $(function(){
         {
             title:'金额（元）',
             data:'je'
-        },
-        {
-            title:'操作',
-            data:null,
-            defaultContent: "<span class='data-option option-outshanchu btn default btn-xs green-stripe'>删除</span>"
         }
     ];
 

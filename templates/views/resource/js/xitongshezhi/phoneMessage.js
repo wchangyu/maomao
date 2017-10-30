@@ -103,11 +103,12 @@ $(function(){
         "columns": [
             {
                 title:'电话',
-                data:'Phone'
+                data:'phone',
+                class:'userNum'
             },
             {
                 title:'地点名称',
-                data:'locName'
+                data:'locname'
             },
             {
                 title:'描述',
@@ -115,13 +116,13 @@ $(function(){
             },
             {
                 title:'备注',
-                data:'Memo'
+                data:'memo'
             },
             {
                 title:'操作',
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe' style='display: none'>查看</span>" +
                 "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
                 "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
@@ -131,8 +132,65 @@ $(function(){
 
     table.buttons().container().appendTo($('.excelButton'),table.table().container());
 
+    var matterTable = $('#choose-metter').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'地点编号',
+                data:'locnum',
+                class:'theHidden'
+            },
+            {
+                title:'地点名称',
+                data:'locname'
+            },
+            {
+                title:'部门',
+                data:'departname',
+                class:'adjust-comment',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'楼栋',
+                data:'ddname'
+            }
+        ]
+    });
+
     //数据
-    //conditionSelect();
+    conditionSelect();
     /*----------------------------------------按钮事件-------------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -168,17 +226,17 @@ $(function(){
     //登记确定按钮功能
         .on('click','.dengji',function(){
             //发送请求
-            editOrView('RBAC/rbacAddUser','登记成功!','登记失败!');
+            editOrView('YWGD/SysPhoneCreate','登记成功!','登记失败!');
         })
         //编辑确定按钮功能
         .on('click','.bianji',function(){
             //发送请求
-            editOrView('RBAC/rbacUptUser','编辑成功!','编辑失败!');
+            editOrView('YWGD/SysPhoneUpdate','编辑成功!','编辑失败!',false,true);
         })
         //删除确定按钮功能
         .on('click','.shanchu',function(){
             //发送请求
-            editOrView('RBAC/rbacDelUser','删除成功!','删除失败!','false');
+            editOrView('YWGD/SysPhoneDelete','删除成功!','删除失败!','false');
         })
     //表格操作
     $('#personal-table tbody')
@@ -198,7 +256,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
             //绑定数据
             bindingData($(this));
-            $('.ghbm').attr('disabled',true).addClass('disabled-block');
+            //$('.ghbm').attr('disabled',true).addClass('disabled-block');
         })
         //删除
         .on('click','.option-delete',function(){
@@ -207,7 +265,41 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
             //绑定数据
             bindingData($(this),'flag');
-        })
+        });
+
+    //选择地点弹窗打开后
+    $('#choose-building').on('shown.bs.modal', function () {
+
+        getDepartment();
+
+    });
+
+    $('#choose-metter').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择地点确定按钮
+    $('#choose-building .btn-primary').on('click',function() {
+        var dom = $('#choose-metter tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+
+                user.addressnum = dom.eq(i).children().eq(1).html();
+
+                $('#choose-building').modal('hide');
+
+                return false
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应地点', '')
+
+    });
     /*---------------------------------------其他方法--------------------------------------------*/
     //模态框自适应
     function moTaiKuang(who,title,flag){
@@ -237,23 +329,18 @@ $(function(){
     //获取条件查询
     function conditionSelect(){
         //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
+        var locname = $('#filter_global input').val();
         var prm = {
-            "userName2":filterInput[0],
-            "userNum":filterInput[1],
-            "departNum":$('#rybm').val(),
-            "roleNum":$('#ryjs').val(),
+            "phone": "",
+            "locname": locname,
             "userID": _userIdName
         };
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
+            url:_urls + 'YWGD/SysPhoneGetALl',
             data:prm,
             success:function(result){
+                console.log(result);
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -280,36 +367,49 @@ $(function(){
     }
 
     //编辑、登记方法
-    function editOrView(url,successMeg,errorMeg,flag){
+    function editOrView(url,successMeg,errorMeg,flag,flag){
         //判断必填项是否为空
-        if( user.addressname == '' ){
+        if( user.addressnum == '' || user.phone == '' || user.describe == ''){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
-            //判断工号是否重复
-            if($('.jobNumberExists')[0].style.display != 'none'){
-                tipInfo($('#myModal1'),'提示','该工号已存在！','flag');
-            }else{
 
                 //判断是编辑、登记、还是删除
                 var prm = {};
                 if(flag){
                     prm = {
                         "userName2": user.username,
-                        "userNum": user.jobnumber,
                         "userID":_userIdName
                     };
+                    for(var i=0;i<_allPersonalArr.length;i++){
+                        if(_allPersonalArr[i].phone == thisBM){
+                            //console.log(_allPersonalArr[i]);
+                            //绑定id
+                            prm.id = _allPersonalArr[i].id;
+
+                        }
+                    }
                 }else{
                     //获取地点编号
-                    var addressNum =  $("#djbm").find("option:selected").text();
+                    var addressName =  $("#djbm").find("option:selected").text();
 
                     prm = {
-                        "Phone":user.phone,
-                        "locName":user.addressnum,
-                        "locNum":user.addressNum,
+                        "phone":user.phone,
+                        "locname":addressName,
+                        "locnum":user.addressnum,
                         "info": user.describe,
-                        "Memo":user.remarks,
+                        "memo":user.remarks,
                         "userID":_userIdName
                     };
+                    if(flag1){
+                        for(var i=0;i<_allPersonalArr.length;i++){
+                            if(_allPersonalArr[i].phone == thisBM){
+                                //console.log(_allPersonalArr[i]);
+                                //绑定id
+                               prm.id = _allPersonalArr[i].id;
+
+                            }
+                        }
+                    }
                 }
                 //发送数据
                 $.ajax({
@@ -332,7 +432,7 @@ $(function(){
                     }
                 })
 
-            }
+
         }
     }
 
@@ -340,18 +440,19 @@ $(function(){
     function bindingData(el,flag){
         var thisBM = el.parents('tr').children('.userNum').html();
         //根据工号绑定数据
+
         for(var i=0;i<_allPersonalArr.length;i++){
-            if(_allPersonalArr[i].userNum == thisBM){
+            if(_allPersonalArr[i].phone == thisBM){
                 //console.log(_allPersonalArr[i]);
+                //console.log(33);
                 //绑定数据
-                user.addressnum = _allPersonalArr[i].locName;
-                user.phone = _allPersonalArr[i].Phone;
+                user.addressnum = _allPersonalArr[i].locnum;
+                user.phone = _allPersonalArr[i].phone;
                 user.describe = _allPersonalArr[i].info;
-                user.remarks = _allPersonalArr[i].Memo;
+                user.remarks = _allPersonalArr[i].memo;
 
             }
         }
-
         //查看不可操作
         var disableArea = $('#user').find('.input-blockeds');
         if(flag){
@@ -365,38 +466,37 @@ $(function(){
         }
     }
 
-    //获取部门
-    function getDepartment(el,flag){
+    getDepartment();
+
+    //获取地点
+    function getDepartment(){
+
         var prm = {
-            "departNum": "",
-            "departName": "",
-            "userID": _userIdName
-        }
+            "locname": '',
+            "departname": '',
+            "ddname": '',
+            "userID": ''
+        };
         $.ajax({
             type:'post',
-            url:_urls + 'RBAC/rbacGetDeparts',
+            url:_urls + 'YWGD/SysLocaleGetAll',
             data:prm,
             success:function(result){
-                console.log(result);
-                var str = ''
-                if(flag){
-                    str = '<option value="">全部</option>';
-                }else{
-                    str = '<option value="">请选择</option>';
-                }
+                //console.log(result);
+                _allPersonalArr = [];
+                str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].departNum +
-                        '">' + result[i].departName + '</option>'
+                    _allPersonalArr.push(result[i]);
+                    str += '<option value="' + result[i].locnum +
+                        '">' + result[i].locname + '</option>'
                 }
-                el.append(str);
+                $('#djbm').html(str);
+                datasTable($('#choose-metter'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
     }
-
-
-
 
 })

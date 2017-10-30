@@ -53,6 +53,7 @@
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <link href="../resource/css/ALLDevice.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/iconfont/iconfont.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -64,7 +65,7 @@
             outline: none;
         }
         .dataTables_filter input {
-            width: 240px !important;
+            width: 160px !important;
             height: 30px;
         }
         .dataTables_filter label {
@@ -514,6 +515,7 @@
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
+                                            <!--<i class="iconfont icon-fangdajing"></i>-->
                                             <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
 
                                             <!--<span class="moreDesc"></span>-->
@@ -562,7 +564,15 @@
                     <!-- 搜索框结构 -->
                     <div class="col-sm-12 col-xs-12">
 
-                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+                            <!--增加搜索框-->
+                            <div class="add-searching-select" style="z-index:1000;position: absolute;left:240px;">
+                                <label for="">项目类别：</label>
+                                <select name="" id="add-select" style="width:120px;">
+
+                                </select>
+                                <button class="btn btn-success btn1" id="selected1" style="margin-left:10px;">查询</button>
+                            </div>
                             <table class="table table-striped left-th-table" id="choose-metter">
                                 <thead>
 
@@ -634,7 +644,7 @@
                                     </div>
                                 </div>
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                                    <div class="tipe-block">设备                                                                                                                                                                         信息</div>
+                                    <div class="tipe-block">设备信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line">
                                             <div class="single-labels">设备类型：</div>
@@ -800,9 +810,9 @@
         <div class="modal-content" style="height: 500px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title">处理记录</h4>
             </div>
-            <div class="modal-body" style="text-align: center">
+            <div class="modal-body" style="text-align: left">
                 <div class="right-content">
                     <!--<p style="margin-bottom: 0">处理记录</p>-->
                     <div class="processing-record" style="height: 350px;overflow-y: visible">

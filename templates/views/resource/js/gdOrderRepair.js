@@ -174,7 +174,7 @@ $(function(){
             'processing': '查询中...',
             'lengthMenu': '每页 _MENU_ 件',
             'zeroRecords': '没有数据',
-            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
             'search':'搜索:',
             'paginate': {
                 'first':      '第一页',
@@ -202,7 +202,8 @@ $(function(){
             },
             {
                 title:'维修项目编号',
-                data:'wxclassnum'
+                data:'wxclassnum',
+                class:'theHidden'
             },
             {
                 title:'维修项目名称',
@@ -215,6 +216,10 @@ $(function(){
             {
                 title:'项目类别名称',
                 data:'wxclassname'
+            },
+            {
+                title:'备注',
+                data:'memo'
             }
         ]
     });
@@ -874,7 +879,28 @@ $(function(){
         $('#myModal5').modal('show');
     });
 
-
+    //点击维修事项查询按钮
+    $('#selected1').on('click',function(){
+        //获取维修类别
+        var type = $('#add-select').find("option:selected").text();
+        if(type == '全部'){
+            type = '';
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDWxxmGetAll',
+            data:{
+                "wxnum": "",
+                "wxname": "",
+                "wxclassname":type
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+                datasTable($('#choose-metter'),result);
+            }
+        })
+    });
     /*------------------------------------------------其他方法--------------------------------------------*/
     //获取日志信息（备件logType始终传2）
     function logInformation(logType,gdCode){
@@ -936,6 +962,27 @@ $(function(){
             }
         })
     }
+    getMatterType();
+    //获取项目类别
+    function getMatterType(){
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDwxxmClassGetAll',
+            data:{
+                "wxnum": ""
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+               var html = '<option value=" ">全部</option>'
+                $(result).each(function(i,o){
+                    html += '<option value="'+o.wxclassnum+'">'+ o.wxclassname+'</option>'
+                })
+                $('#add-select').html(html);
+            }
+        })
+
+    }
 
     function datasTable(tableId,arr){
 
@@ -986,7 +1033,7 @@ $(function(){
             data: prm,
             success: function (result) {
                 //给select赋值
-                var str = '<option value="">请选择</option>';
+                var str = '<option value=" ">请选择</option>';
                 for (var i = 0; i < result.length; i++) {
                     str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
                     allArr.push(result[i]);
@@ -1165,7 +1212,7 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
                 _allBXArr.length = 0;
-                var str = '<option value="">请选择</option>';
+                var str = '<option value=" ">请选择</option>';
                 for(var i=0;i<result.length;i++){
 
                     _allBXArr.push(result[i]);

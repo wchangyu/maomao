@@ -49,6 +49,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/ALLDevice.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
 
@@ -405,7 +406,7 @@
                         <form novalidate>
 
                             <li class="floatLeft">
-                                <div class="labels colorTip">电话：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入电话</span><span class="jobNumberExists" style="display: none">输入的电话已存在</span></div>
+                                <div class="labels colorTip">电话：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入电话</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="phone" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
                                 </div>
@@ -420,8 +421,8 @@
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels">地点名称：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <input v-model="addressnum" id="djbm" style="display: inline-block">
-                                    </input>
+                                    <select v-model="addressnum" id="djbm" style="display: inline-block">
+                                    </select>
                                     <!--点击图片-->
                                     <img class="fdjImg" src="../resource/img/fdj.png" alt="" data-toggle="modal" data-target="#choose-building" style="position: absolute;right:-35px;top:0;cursor: pointer">
                                 </div>
@@ -445,6 +446,41 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--选择地点弹窗-->
+<div class='modal fade' id='choose-building' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择地点</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                            <table class="table table-striped left-th-table" id="choose-metter">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

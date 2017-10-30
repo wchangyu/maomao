@@ -60,10 +60,7 @@
         .noprint{display : none }
     </style>
     <style>
-        .dataTables_filter input {
-            width: 240px !important;
-            height: 30px;
-        }
+
         .dataTables_filter label {
             display: block;
         }
@@ -634,7 +631,7 @@
 
 <!--选择设备弹窗-->
 <div class='modal fade' id='choose-equipment' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+    <div class='modal-dialog'style='width:430px;margin:8% auto'>
         <div class='modal-content'>
             <div class='modal-header'>
                 <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
@@ -681,6 +678,14 @@
                     <div class="col-sm-12 col-xs-12">
 
                         <div class="main-content-table" style="overflow: auto;width:100%;">
+                            <!--增加搜索框-->
+                            <div class="add-searching-select" style="z-index:1000;position: absolute;left:240px;">
+                                <label for="">项目类别：</label>
+                                <select name="" id="add-select" style="width:120px;">
+
+                                </select>
+                                <button class="btn btn-success btn1" id="selected1" style="margin-left:10px;">查询</button>
+                            </div>
                             <table class="table table-striped left-th-table" id="choose-metter">
                                 <thead>
 
