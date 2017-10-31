@@ -623,10 +623,10 @@ $(function(){
             title:'完工申请时间',
             data:'wanGongShij'
         },
-        {
-            title:'关单时间',
-            data:'guanbiShij'
-        },
+        //{
+        //    title:'关单时间',
+        //    data:'guanbiShij'
+        //},
         {
             title:'维修科室',
             data:'wxKeshi'
@@ -639,26 +639,26 @@ $(function(){
             title:'联系电话',
             data:'bxDianhua'
         },
+        //{
+        //    title:'验收人',
+        //    data:'pjRen'
+        //},
         {
-            title:'验收人',
-            data:'pjRen'
-        },
-        /*{
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
-        }*/
+            defaultContent: "<span class='data-option option-issued btn default btn-xs green-stripe'>下发</span><span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>"
+        }
     ];
 
     _tableInit($('#appeal-list'),appealListCol,'2','','','');
 
     //负责人表格
     var fzrListCol = [
-        {
-            className:'checkeds',
-            data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
-        },
+        //{
+        //    className:'checkeds',
+        //    data:null,
+        //    defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
+        //},
         {
             title:'工号',
             data:'userNum',
@@ -809,6 +809,12 @@ $(function(){
             type:'post',
             url:_urls + 'YWGD/ywGetWXLeaders',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 for(var i=0;i<result.length;i++){
                     _fzrArr.push(result[i]);
@@ -848,6 +854,8 @@ $(function(){
 
         })
         .on('click','.xiafa',function(){
+
+            $('#theLoading').modal('show');
 
             //先判断是第一次下发还是重发
             if(_gdZht == 5){
@@ -1014,6 +1022,19 @@ $(function(){
 
                 $('#choose-equipment').modal('hide');
 
+                //设备编码
+                gdObj.sbnum = dom.eq(i).children().eq(3).html();
+
+                //设备名称
+                gdObj.sbname = dom.eq(i).children().eq(2).html();
+
+                //安装地点
+                gdObj.azplace = dom.eq(i).children().eq(5).find('span').html();
+
+                //设备类型
+                gdObj.sbtype = dom.eq(i).children().eq(4).find('span').attr('data-num');
+
+
                 return false;
             }
         }
@@ -1070,12 +1091,81 @@ $(function(){
                 "wxclassname":type
             },
             success:function(result){
-                console.log(result);
-                //return false;
+
                 datasTable($('#choose-metter'),result);
             }
         })
     });
+
+    //申诉下发按钮
+    $('#appeal-list tbody')
+        .on('click','.option-issued',function(){
+
+            //隐藏放大镜图标 不让用户选择
+            $('.fdjImg').hide();
+
+            //信息绑定
+            bindData($(this),$('#appeal-list'));
+
+            //模态框显示
+            _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
+
+            //维修内容显示
+            $('#wxContent').show();
+
+            //选择部门显示
+            $('.selectBM').show();
+
+            //报修科室不可选择
+            $('#bxkesh').attr('disabled',true);
+
+            //添加编辑类
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('xiafa');
+
+            //input不可操作
+            $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+            //select不可操作
+            $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+            //textarea不可操作
+            $('.gzDesc').attr('disabled',true).addClass('disabled-block');
+
+            //部门可选择
+            $('#depart').val('').attr('disabled',false).removeClass('disabled-block');
+
+        })
+        .on('click','.option-edit',function(){
+            //显示放大镜图标 用户可以选择
+            $('.fdjImg').show();
+
+            //信息绑定
+            bindData($(this),$('#appeal-list'));
+
+            //模态框显示
+            _moTaiKuang($('#myModal'), '详情', '', '' ,'', '保存');
+
+            //维修内容隐藏
+            $('#wxContent').hide();
+
+            //选择部门隐藏
+            $('#depart').val(' ').attr('disabled',true).addClass('disabled-block').show();
+
+            //添加编辑类
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
+
+            //input不可操作
+            $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+
+            //select不可操作
+            $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+
+            //textarea不可操作
+            $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
+
+            //报修人信息不可操作
+            $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+        })
 
     /*-------------------------------------------------其他方法-----------------------------------------*/
     equipmentArr = [];
@@ -1121,7 +1211,6 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 datasTable($('#choose-metter'),result);
             }
@@ -1139,7 +1228,6 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 var html = '<option value=" ">全部</option>'
                 $(result).each(function(i,o){
@@ -1315,9 +1403,16 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //根据状态值给表格赋值
                 var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[],zht11=[];
+
                 for(var i=0;i<result.length;i++){
                     if(result[i].gdZht == 1){
                         zht1.push(result[i]);
@@ -1381,6 +1476,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //console.log(result);
                 //赋值
@@ -1504,6 +1605,12 @@ $(function(){
                 url:_urls + url,
                 data:prm,
                 timeout:_theTimes,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
                 success:function(result){
 
                     if(result == 99){
@@ -1672,6 +1779,9 @@ $(function(){
 
         //是否执行完毕
         if( _wxIsComplete &&  _ztChangeComplete ){
+
+            //$('#theLoading').modal('hide');
+
             //提示
             if( _wxIsSuccess && _ztChangeSuccess){
 
@@ -1680,6 +1790,7 @@ $(function(){
                 $('#myModal').modal('hide');
 
                 conditionSelect();
+
             }else{
                 var str = '';
                 if( _wxIsSuccess == false ){
@@ -1733,6 +1844,9 @@ $(function(){
     //重发操作是否完成
     function secondXF(){
         if(_wxIsComplete  && _reSendComplete){
+
+            //$('#theLoading').modal('hide');
+
             if( _wxIsSuccess && _reSendSuccess){
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单下发成功！', '');

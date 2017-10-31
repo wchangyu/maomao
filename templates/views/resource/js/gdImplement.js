@@ -988,6 +988,13 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1090,6 +1097,13 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //赋值
                 gdObj.bxtel = result.bxDianhua;

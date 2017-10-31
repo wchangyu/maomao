@@ -671,6 +671,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             timeout:_theTimes,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //绑定数据
                 gbObj.bxtel = result.bxDianhua;
@@ -760,6 +766,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDUptZht',
             timeout:_theTimes,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 if(result == 99){
 
@@ -811,6 +823,12 @@ $(function(){
                         type:'post',
                         url: _urls + 'YWGD/ywGDUptZht',
                         data:gdInfo,
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
                         success:function(result){
                             if(result == 99){
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单成功！', '');
@@ -1075,6 +1093,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1123,6 +1147,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
@@ -1183,6 +1213,13 @@ $(function(){
                 url:_urls + url ,
                 timeout:_theTimes,
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
                 success:function(result){
                     if (result == 99) {
 

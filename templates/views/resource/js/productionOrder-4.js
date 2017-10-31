@@ -118,16 +118,28 @@ $(function(){
         "dom":'t<"F"lip>',
         "iDisplayLength":50,//默认每页显示的条数
         "columns": [
+            //{
+            //    title:'工单号',
+            //    data:'gdCode',
+            //    render:function(data, type, row, meta){
+            //        return '<span class="gongdanId" gdCode="' + row.gdCode +
+            //            '"' + "gdCircle=" + row.gdCircle +
+            //            '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+            //            '"' +
+            //            'target="_blank">' + data + '</a>'
+            //    }
+            //},
             {
                 title:'工单号',
                 data:'gdCode',
                 render:function(data, type, row, meta){
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '></span><a href="../gongdanxitong/gdDetails.html?gdCode=' +  row.gdCode + '&gdCircle=' + row.gdCircle +
                         '"' +
                         'target="_blank">' + data + '</a>'
                 }
+
             },
             {
                 title:'工单类型',
