@@ -686,6 +686,10 @@ $(function(){
             data:'wxDidian'
         },
         {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
             title:'故障描述',
             data:'bxBeizhu'
         },
@@ -702,12 +706,12 @@ $(function(){
             data:'paiGongShij'
         },
         {
-            title:'维修科室',
-            data:'wxKeshi'
+            title:'报修科室',
+            data:'bxKeshi'
         },
         {
-            title:'处理人',
-            data:'wxUserNames'
+            title:'报修人',
+            data:'bxRen'
         },
         {
             title:'联系电话',
@@ -729,6 +733,7 @@ $(function(){
             data:'gdCode',
             className:'gdCode',
             render:function(data, type, full, meta){
+
                 return '<span data-zht="' + full.gdZht +
                     '" data-circle="' + full.gdCircle +
                     '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
@@ -756,6 +761,10 @@ $(function(){
             data:'wxDidian'
         },
         {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
             title:'故障描述',
             data:'bxBeizhu'
         },
@@ -772,17 +781,17 @@ $(function(){
             data:'paiGongShij'
         },
         {
-            title:'维修科室',
-            data:'wxKeshi'
+            title:'报修科室',
+            data:'bxKeshi'
         },
         {
-            title:'处理人',
-            data:'wxUserNames'
+            title:'报修人',
+            data:'bxRen'
         },
         {
             title:'联系电话',
             data:'bxDianhua'
-        },
+        }
         //{
         //    title:'操作',
         //    data:null,
