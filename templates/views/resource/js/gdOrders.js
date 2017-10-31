@@ -360,6 +360,8 @@ $(function(){
         //维修内容显示
         $('.wxnr').hide();
 
+        $('#depart').attr('disabled',true)
+
     })
 
     //选择部门之后加载人员列表
@@ -461,6 +463,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
         },
         {
             title:'故障描述',
@@ -658,6 +664,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
         },
         {
             title:'故障描述',

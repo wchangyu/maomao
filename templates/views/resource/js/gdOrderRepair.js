@@ -149,6 +149,10 @@ $(function(){
             data:'wxDidian'
         },
         {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
             title:'故障描述',
             data:'bxBeizhu'
         },
@@ -193,6 +197,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
         },
         {
             title:'故障描述',
@@ -263,6 +271,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
         },
         {
             title:'故障描述',
@@ -341,6 +353,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
         },
         {
             title:'故障描述',
