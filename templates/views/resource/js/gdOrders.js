@@ -711,7 +711,7 @@ $(function(){
         {
             className:'checkeds',
             data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='radio'></span></div>"
+            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
         },
         {
             title:'工号',
@@ -1171,13 +1171,6 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1207,7 +1200,7 @@ $(function(){
 
         num.parents('tr').addClass('tables-hover');
 
-        _gdCode = num.parents('tr').children('.gdCode').children('span').children('a').html();
+        _gdCode = num.parents('tr').children('.gdCode').children('span').html();
 
         _gdZht = num.parents('tr').children('.gdCode').children('span').attr('data-zht');
 
@@ -1215,7 +1208,7 @@ $(function(){
 
         //请求数据
         var prm = {
-            'gdCode':num.parents('tr').children('.gdCode').children('span').children('a').html(),
+            'gdCode':num.parents('tr').children('.gdCode').children('span').html(),
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
@@ -1228,15 +1221,8 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
             success:function(result){
-
+                //console.log(result);
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
                 gdObj.bxkesh = result.bxKeshiNum;
@@ -1269,7 +1255,6 @@ $(function(){
                     url:_urls + 'YWGD/ywGetWXRens',
                     data:prm,
                     success:function(result){
-                        _fzrArr.length = 0;
                         for(var i=0;i<result.length;i++){
                             _fzrArr.push(result[i]);
                         }
@@ -1363,8 +1348,6 @@ $(function(){
         var allPerson = $('.checker');
 
         var allWorkNum = $('#fzr-list tbody').find('.workNum');
-
-        console.log(_fzrArr);
 
         for(var i=0;i<allPerson.length;i++){
             if(allPerson.eq(i).children('.checked').length != 0){
@@ -1470,9 +1453,6 @@ $(function(){
 
         //是否执行完毕
         if( _wxIsComplete && _fzrComplete &&  _ztChangeComplete ){
-
-            //$('#theLoading').modal('hide');
-
             //提示
             if(_fzrSuccess && _wxIsSuccess && _ztChangeSuccess){
 
@@ -1539,9 +1519,6 @@ $(function(){
     //重发操作是否完成
     function secondXF(){
         if(_wxIsComplete && _fzrComplete && _reSendComplete){
-
-            //$('#theLoading').modal('hide');
-
             if(_fzrSuccess && _wxIsSuccess && _reSendSuccess){
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
@@ -1604,7 +1581,6 @@ $(function(){
             }
         })
     }
-
     //获取所有员工列表
     function workerData(){
         var prm = {
