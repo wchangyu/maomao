@@ -102,9 +102,13 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
+                title:'id',
+                data:'id',
+                class:'userNum hidden'
+            },
+            {
                 title:'电话',
-                data:'phone',
-                class:'userNum'
+                data:'phone'
             },
             {
                 title:'地点名称',
@@ -206,6 +210,9 @@ $(function(){
 
     //新增按钮
     $('.creatButton').click(function(){
+        //显示放大镜按钮
+        $('.fdjImg').show();
+
         //添加类名
         $('#myModal').find('.btn-primary').addClass('dengji').removeClass('bianji').removeClass('shanchu');
         //登记模态框出现
@@ -250,7 +257,7 @@ $(function(){
         })
         //编辑
         .on('click','.option-edit',function(){
-            console.log('1111');
+
             //详情框
             moTaiKuang($('#myModal'),'编辑');
             $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
@@ -340,7 +347,7 @@ $(function(){
             url:_urls + 'YWGD/SysPhoneGetALl',
             data:prm,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -367,7 +374,7 @@ $(function(){
     }
 
     //编辑、登记方法
-    function editOrView(url,successMeg,errorMeg,flag,flag){
+    function editOrView(url,successMeg,errorMeg,flag,flag1){
         //判断必填项是否为空
         if( user.addressnum == '' || user.phone == '' || user.describe == ''){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
@@ -375,18 +382,12 @@ $(function(){
 
                 //判断是编辑、登记、还是删除
                 var prm = {};
+
                 if(flag){
                     prm = {
-                        "userName2": user.username,
-                        "userID":_userIdName
-                    };
-                    for(var i=0;i<_allPersonalArr.length;i++){
-                        if(_allPersonalArr[i].phone == thisBM){
-                            //console.log(_allPersonalArr[i]);
-                            //绑定id
-                            prm.id = _allPersonalArr[i].id;
-
-                        }
+                        //"userName2": user.username,
+                        "userID":_userIdName,
+                        "id":thisBM
                     }
                 }else{
                     //获取地点编号
@@ -401,14 +402,7 @@ $(function(){
                         "userID":_userIdName
                     };
                     if(flag1){
-                        for(var i=0;i<_allPersonalArr.length;i++){
-                            if(_allPersonalArr[i].phone == thisBM){
-                                //console.log(_allPersonalArr[i]);
-                                //绑定id
-                               prm.id = _allPersonalArr[i].id;
-
-                            }
-                        }
+                        prm.id = thisBM;
                     }
                 }
                 //发送数据
@@ -436,14 +430,15 @@ $(function(){
         }
     }
 
+    //存放ID
+    var thisBM;
+
     //查看、删除绑定数据
     function bindingData(el,flag){
-        var thisBM = el.parents('tr').children('.userNum').html();
+        thisBM = el.parents('tr').children('.userNum').html();
         //根据工号绑定数据
-
         for(var i=0;i<_allPersonalArr.length;i++){
-            if(_allPersonalArr[i].phone == thisBM){
-                //console.log(_allPersonalArr[i]);
+            if(_allPersonalArr[i].id == thisBM){
                 //console.log(33);
                 //绑定数据
                 user.addressnum = _allPersonalArr[i].locnum;
@@ -456,10 +451,14 @@ $(function(){
         //查看不可操作
         var disableArea = $('#user').find('.input-blockeds');
         if(flag){
+            //隐藏放大镜按钮
+            $('.fdjImg').hide();
             disableArea.children('input').attr('disabled',true).addClass('disabled-block');
             disableArea.children('select').attr('disabled',true).addClass('disabled-block');
             disableArea.children('textarea').attr('disabled',true).addClass('disabled-block');
         }else{
+            //显示放大镜按钮
+            $('.fdjImg').show();
             disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
             disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
             disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
@@ -483,10 +482,10 @@ $(function(){
             data:prm,
             success:function(result){
                 //console.log(result);
-                _allPersonalArr = [];
+
                 str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
-                    _allPersonalArr.push(result[i]);
+
                     str += '<option value="' + result[i].locnum +
                         '">' + result[i].locname + '</option>'
                 }

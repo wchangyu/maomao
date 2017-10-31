@@ -1059,7 +1059,8 @@
         "uri":"../gongdanxitong/gdOrderRepair.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "arg2":"admin"
       },
       "工单受理管理":{
         "type":"0",
@@ -1067,7 +1068,8 @@
         "uri":"../gongdanxitong/gdAcceptance.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "arg2":"admin,dd01"
       },
       "工单接单管理":{
         "type":"0",
@@ -1075,7 +1077,8 @@
         "uri":"../gongdanxitong/gdOrders.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "arg2":"admin,WXBZ01"
       },
       "工单执行管理":{
         "type":"0",
@@ -1083,7 +1086,8 @@
         "uri":"../gongdanxitong/gdImplement.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "arg2":"admin,WXBZ01,WXBZ11"
       },
       "工单综合查询":{
         "type":"0",
@@ -1091,7 +1095,8 @@
         "uri":"../gongdangunali/productionOrder-6.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "arg2":"admin,dd01"
       }
     }
   }

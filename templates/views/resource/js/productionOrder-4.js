@@ -141,17 +141,17 @@ $(function(){
                 }
 
             },
-            {
-                title:'工单类型',
-                data:'gdJJ',
-                render:function(data, type, full, meta){
-                    if(data == 0){
-                        return '普通'
-                    }if(data == 1){
-                        return '快速'
-                    }
-                }
-            },
+            //{
+            //    title:'工单类型',
+            //    data:'gdJJ',
+            //    render:function(data, type, full, meta){
+            //        if(data == 0){
+            //            return '普通'
+            //        }if(data == 1){
+            //            return '快速'
+            //        }
+            //    }
+            //},
             {
                 title:'工单状态',
                 data:'gdZht',
@@ -205,12 +205,21 @@ $(function(){
                 data:'wxKeshi'
             },
             {
+                title:'维修事项',
+                data:'wxXm'
+
+            },
+            {
                 title:'故障位置',
                 data:'wxDidian'
             },
             {
                 title:'故障描述',
                 data:'bxBeizhu'
+            },
+            {
+                title:'报修人',
+                data:'bxRen'
             },
             //{
             //    title:'最新处理情况',
@@ -232,6 +241,14 @@ $(function(){
                 title:'维修人',
                 data:'wxUserNames'
             },
+            {
+                title:'报修时间',
+                data:'gdShij'
+            },
+            {
+                title:'完工时间',
+                data:'wanGongShij'
+            }
             //{
             //    title:'操作',
             //    "targets": -1,

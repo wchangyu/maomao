@@ -312,7 +312,7 @@ $(function(){
                 data:prm,
                 timeout:_theTimes,
                 success:function(result){
-                    //console.log(result);
+
                     if(result == 99){
 
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
@@ -1355,7 +1355,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
-                //console.log(result);
+
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
 
