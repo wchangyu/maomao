@@ -417,6 +417,10 @@ var Login = function() {
                     var gongdanInterval = data["gongdanInterval"] || '';
                     sessionStorage.gongdanInterval = gongdanInterval;
 
+                    //判断右上角信息走哪条分支
+                    var gongdanIndustryType = data["gongdanIndustryType"] || '';
+                    sessionStorage.gongdanIndustryType = gongdanIndustryType;
+
                     //是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
                     sessionStorage.ckAuditType = data["ckAuditType"] || '';
 

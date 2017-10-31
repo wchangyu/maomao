@@ -431,7 +431,7 @@ body {
 .dataTables_filter{
     float: left !important;
 }
-.table>tbody>tr>td{
+.main-content-table .table>tbody>tr>td{
     padding-top:2px !important;
     padding-bottom:2px !important;
 }

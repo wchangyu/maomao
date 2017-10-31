@@ -238,8 +238,6 @@ var BEE = (function(){
         //if(sessionStorage.alaDataLength){       //如果有数据，进入页面就载入
         //    setPageTopRightAlarmData(sessionStorage.alaDataLength);
         //}
-
-
         if(_isAlarmShow){
             return;
         }
@@ -514,105 +512,225 @@ var BEE = (function(){
 
          //是否显示工单信息
          if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0') {
+             //根据配置判断走哪条支路
+             if(!sessionStorage.gongdanIndustryType || sessionStorage.gongdanIndustryType == 0){
+                 var prmData = {
+                     gdZht:0,
+                     gdZhts: [
+                         1,2,3,4,5,6
+                     ],
+                     isReturnZhtArray:1,
+                     userID:sessionStorage.getItem('userName'),
+                     userName:sessionStorage.getItem('realUserName')
+                 };
+                 //获取工单信息数据
+                 $.ajax({
+                     type:'post',
+                     url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZh2',
+                     data:prmData,
+                     dataType:'json',
+                     success: function (data) {
+                         //console.log(data);
+                         //获取新工单条数
+                         var num1 = 0;
+                         $(data.zhts).each(function(i,o){
+                             if(o == 1){
+                                 num1 ++;
+                             }
+                         });
+                         //加入新工单信息
+                         infoHtml += addInfoMessage(num1,'新工单','productionOrder-3.html','../gongdangunali/');
+                         //获取待审核备件
+                         var num2 = 0;
+                         $(data.clstatus).each(function(i,o){
+                             if(o == 1){
+                                 num2 ++;
+                             }
+                         });
+                         //加入待审核备件信息
+                         infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html','../gongdangunali/');
+                         //给悬浮窗插入指定信息
+                         $dropdownMenu.html(infoHtml);
 
-             var prmData = {
-                 gdZht:0,
-                 gdZhts: [
-                     1,2,3,4,5,6
-                 ],
-                 isReturnZhtArray:1,
-                 userID:sessionStorage.getItem('userName'),
-                 userName:sessionStorage.getItem('realUserName')
-             };
-             //获取工单信息数据
-             $.ajax({
-                 type:'post',
-                 url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZh2',
-                 data:prmData,
-                 dataType:'json',
-                 success: function (data) {
-                     //console.log(data);
-                     //获取新工单条数
-                     var num1 = 0;
-                     $(data.zhts).each(function(i,o){
-                        if(o == 1){
-                            num1 ++;
-                        }
-                     });
-                     //加入新工单信息
-                     infoHtml += addInfoMessage(num1,'新工单','productionOrder-3.html');
-                     //获取待审核备件
-                     var num2 = 0;
-                     $(data.clstatus).each(function(i,o){
-                         if(o == 1){
-                             num2 ++;
+                         $('.top-close .close').off('click');
+                         $('.top-close .close').on('click',function(){
+
+                             $(this).parents('.dropdown-menu').hide();
+                         });
+
+                         if(timename2){
+                             clearTimeout(timename2);
+                         }
+                         //判断是否需要动态弹出信息框
+                         if(num1 != 0 || num2 != 0){
+                             $('.dropdown-menu').hide();
+                             //给上方铃铛增加闪烁效果
+                             $('.dropdown-toggle .icon-bell').hide();
+
+                             $('.dropdown-extended .dropdown-toggle').css({
+                                 display:'inline-block',
+                                 height:'100%',
+                                 background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                 backgroundSize:'26px 24px'
+                             });
+
+                             timename2=setTimeout(function(){
+                                 $('.dropdown-extended .dropdown-menu').toggle('fast');
+                             },600);
+
+                         }else{
+
+                             $(".dropdown-extended .dropdown-toggle").removeAttr("style");
+                             if(timename2){
+                                 clearTimeout(timename2);
+                             }
+                             $('.dropdown-extended .dropdown-menu').hide();
+
+                         }
+                         //判断是否需要定时刷新
+                         if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                             var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                             setTimeout(modificationImportInfo,refreshItv);
+                         }
+
+                     },
+                     error: function (XMLHttpRequest, textStatus, errorThrown) {
+                         //判断是否需要定时刷新
+                         if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                             var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                             setTimeout(modificationImportInfo,refreshItv);
+                         }
+                     }
+                 });
+             }else{
+                 //获取当前菜单
+                 var curMenu = sessionStorage.curMenuStr;
+                 //待下发页面
+                 var gdAcceptance = 'gdAcceptance.html';
+                 //待接单页面
+                 var gdOrders = 'gdOrders.html';
+                 //判断是否有查看下发或者接单的权限
+                 if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdAcceptance) != -1){
+                     //获取当前时间
+                     var st = moment().format('YYYY-MM-DD');
+                     var et = moment().add('1','days').format('YYYY-MM-DD');
+                     var prmData = {
+                         gdZht:0,
+                         gdZhts: [
+                             1,2,3,4,5,6
+                         ],
+                         isReturnZhtArray:1,
+                         gdStShoul:st,
+                         gdEtShoul:et,
+                         userID:sessionStorage.getItem('userName'),
+                         userName:sessionStorage.getItem('realUserName')
+                     };
+                     //获取工单信息数据
+                     $.ajax({
+                         type:'post',
+                         url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZh2',
+                         data:prmData,
+                         dataType:'json',
+                         success: function (data) {
+                             //console.log(data);
+                             //获取新工单条数
+                             var num1 = 0;
+                             $(data.zhts).each(function(i,o){
+                                 if(o == 1){
+                                     num1 ++;
+                                 }
+                             });
+                             if(num1 > 0){
+                                 //加入待下发信息
+                                 infoHtml += addInfoMessage(num1,'待下发','gdAcceptance.html','../gongdanxitong/');
+                             }
+                             //获取待接单备件
+                             var num2 = 0;
+                             $(data.clstatus).each(function(i,o){
+                                 if(o == 1){
+                                     num2 ++;
+                                 }
+                             });
+                             if(num2 > 0){
+                                 //加入待审核备件信息
+                                 infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');
+                             }
+                             //给悬浮窗插入指定信息
+                             $dropdownMenu.html(infoHtml);
+
+                             $('.top-close .close').off('click');
+                             $('.top-close .close').on('click',function(){
+
+                                 $(this).parents('.dropdown-menu').hide();
+                             });
+
+                             if(timename2){
+                                 clearTimeout(timename2);
+                             }
+                             //判断是否需要动态弹出信息框
+                             if(num1 != 0 || num2 != 0){
+                                 $('.dropdown-menu').hide();
+                                 //给上方铃铛增加闪烁效果
+                                 $('.dropdown-toggle .icon-bell').hide();
+
+                                 $('.dropdown-extended .dropdown-toggle').css({
+                                     display:'inline-block',
+                                     height:'100%',
+                                     background:'url(../resource/img/bellSmall.gif) no-repeat center center',
+                                     backgroundSize:'26px 24px'
+                                 });
+
+                                 timename2=setTimeout(function(){
+                                     $('.dropdown-extended .dropdown-menu').toggle('fast');
+                                 },600);
+
+                             }else{
+
+                                 $(".dropdown-extended .dropdown-toggle").removeAttr("style");
+                                 if(timename2){
+                                     clearTimeout(timename2);
+                                 }
+                                 $('.dropdown-extended .dropdown-menu').hide();
+
+                             }
+                             //判断是否需要定时刷新
+                             if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                                 var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                                 setTimeout(modificationImportInfo,refreshItv);
+                             }
+
+                         },
+                         error: function (XMLHttpRequest, textStatus, errorThrown) {
+                             //判断是否需要定时刷新
+                             if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
+                                 var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
+                                 setTimeout(modificationImportInfo,refreshItv);
+                             }
                          }
                      });
-                     infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html');
+                 }else{
                      //给悬浮窗插入指定信息
                      $dropdownMenu.html(infoHtml);
-
+                     //关闭按钮
                      $('.top-close .close').off('click');
                      $('.top-close .close').on('click',function(){
 
                          $(this).parents('.dropdown-menu').hide();
                      });
-
-                     if(timename2){
-                         clearTimeout(timename2);
-                     }
-
-                     if(num1 != 0 || num2 != 0){
-                         $('.dropdown-menu').hide();
-                         //给上方铃铛增加闪烁效果
-                         $('.dropdown-toggle .icon-bell').hide();
-
-                         $('.dropdown-extended .dropdown-toggle').css({
-                             display:'inline-block',
-                             height:'100%',
-                             background:'url(../resource/img/bellSmall.gif) no-repeat center center',
-                             backgroundSize:'26px 24px'
-                         });
-
-                        timename2=setTimeout(function(){
-                            $('.dropdown-extended .dropdown-menu').toggle('fast');
-                        },600);
-
-                     }else{
-
-                         $(".dropdown-extended .dropdown-toggle").removeAttr("style");
-                         if(timename2){
-                             clearTimeout(timename2);
-                         }
-                         $('.dropdown-extended .dropdown-menu').hide();
-
-                     }
-                     if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
-                         var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
-                         setTimeout(modificationImportInfo,refreshItv);
-                     }
-
-                 },
-                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                     if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
-                         var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
-                         setTimeout(modificationImportInfo,refreshItv);
-                     }
                  }
-             });
-
+             }
          }
      };
      //加入新工单信息
-     var addInfoMessage = function(data,string,flag){
+     var addInfoMessage = function(data,title,address,catalog){
          var html = '';
          html +='<li class="external">' +
-         '   <h3><span class="bold">'+data+' </span>'+string+'</h3>';
+         '   <h3><span class="bold">'+data+' </span>'+title+'</h3>';
          //获取当前菜单
          var curMenu = sessionStorage.curMenuStr;
          //判断是否有打开查看详细的权限
-         if(curMenu.indexOf(flag) != -1){
-             html +=  '<a href="../gongdangunali/'+flag+'" target="_blank">查看详细</a>' +
+         if(curMenu.indexOf(address) != -1){
+             html +=  '<a href="'+catalog+''+address+'" target="_blank">查看详细</a>' +
                  '</li>';
          }else{
              html += '</li>'

@@ -162,68 +162,6 @@ $(function(){
 
     _tableInit($('#missed-list'),missedListCol,'2','','','');
 
-    var matterTable = $('#choose-metter').DataTable({
-        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-        'paging': true,   //是否分页
-        'destroy': true,//还原初始化了的datatable
-        'searching': true,
-        'ordering': false,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 件',
-            'zeroRecords': '没有数据',
-            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
-            'search':'搜索:',
-            'paginate': {
-                'first':      '第一页',
-                'last':       '最后一页',
-                'next':       '下一页',
-                'previous':   '上一页'
-            },
-            'infoEmpty': ''
-        },
-        'buttons': [
-
-        ],
-        "dom":'B<"clear">lfrtip',
-        //数据源
-        'columns':[
-            {
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
-            },
-            {
-                title:'id',
-                data:'id',
-                class:'theHidden'
-            },
-            {
-                title:'维修项目编号',
-                data:'wxclassnum',
-                class:'theHidden'
-            },
-            {
-                title:'维修项目名称',
-                data:'wxname',
-                class:'adjust-comment',
-                render:function(data, type, full, meta){
-                    return '<span title="'+data+'">'+data+'</span>'
-                }
-            },
-            {
-                title:'项目类别名称',
-                data:'wxclassname'
-            },
-            {
-                title:'备注',
-                data:'memo'
-            }
-        ]
-    });
-
     //执行中表格
     var inExecutionCol = [
         {
@@ -842,6 +780,69 @@ $(function(){
 
     });
 
+    //维修项目表格
+    var matterTable = $('#choose-metter').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'维修项目编号',
+                data:'wxclassnum',
+                class:'theHidden'
+            },
+            {
+                title:'维修项目名称',
+                data:'wxname',
+                class:'adjust-comment',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'项目类别名称',
+                data:'wxclassname'
+            },
+            {
+                title:'备注',
+                data:'memo'
+            }
+        ]
+    });
+
     //选择维修事项弹窗打开后
     $('#choose-building').on('shown.bs.modal', function () {
         getMatter();
@@ -876,8 +877,102 @@ $(function(){
 
     });
 
-    //获取日志信息
+    //维修项目表格
+    var areaTable = $('#choose-area-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
 
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'地点编号',
+                data:'locnum',
+                class:'theHidden'
+            },
+            {
+                title:'地点名称',
+                data:'locname',
+                class:'adjust-comment',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'部门名称',
+                data:'departname'
+            },
+            {
+                title:'楼栋名称',
+                data:'ddname'
+            }
+        ]
+    });
+
+    //选择故障地点弹窗打开后
+    $('#choose-area').on('shown.bs.modal', function () {
+        getArea();
+    });
+
+    $('#choose-area').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择故障地点确定按钮
+    $('#choose-area .btn-primary').on('click',function() {
+        var dom = $('#choose-area-table tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+
+                gdObj.gzplace = dom.eq(i).children().eq(3).find('span').html();
+
+                $('#choose-area').modal('hide');
+
+                return false;
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应故障地点', '')
+
+    });
+
+    //获取日志信息
 
     $('#in-execution').on('click','.option-see',function(){
         //获取工单号
@@ -969,7 +1064,27 @@ $(function(){
                 datasTable($('#choose-metter'),result);
             }
         })
-    }
+    };
+
+    //获取故障位置
+    function getArea(){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/SysLocaleGetAll',
+            data:{
+                "locname": "",
+                "departname": "",
+                "ddname": ""
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+                datasTable($('#choose-area-table'),result);
+            }
+        })
+    };
+
     getMatterType();
     //获取项目类别
     function getMatterType(){
@@ -1008,7 +1123,6 @@ $(function(){
         }
 
     }
-
 
     //登记项初始化
     function dataInit(){
