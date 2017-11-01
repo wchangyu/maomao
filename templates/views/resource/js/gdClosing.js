@@ -312,11 +312,11 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        //{
-        //    title:'操作',
-        //    data:null,
-        //    defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span><span class='data-option option-appeal btn default btn-xs green-stripe'>申诉</span>"
-        //}
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span><span class='data-option option-appeal btn default btn-xs green-stripe'>申诉</span>"
+        }
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');

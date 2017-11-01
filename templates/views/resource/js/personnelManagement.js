@@ -199,6 +199,7 @@ $(function(){
         user.role='';
         user.remarks='';
         user.order= '';
+        user.position = '';
         var disableArea = $('#user').find('.input-blockeds');
         disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
         disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
