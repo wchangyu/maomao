@@ -114,9 +114,13 @@ $(function(){
 
     //存放员工信息数组
     var _workerArr = [];
+    //存放所有员工信息数组
+    var _allworkerArr = [];
 
     //获得员工信息方法
     workerData();
+
+    workerData1();
 
     /*--------------------------------------------表格初始化---------------------------------------------*/
 
@@ -757,7 +761,8 @@ $(function(){
         //报修人信息不可操作
         $('.note-edit2').attr('disabled',true).addClass('disabled-block');
          // 电话信息可编辑
-        $('.bx-telphone').attr('disabled',false).removeClass('disabled-block');
+        $('.bx-change').attr('disabled',false).removeClass('disabled-block');
+
     });
 
     //点击登记模态框显示的回调函数
@@ -950,7 +955,7 @@ $(function(){
             $('.note-edit2').attr('disabled',true).addClass('disabled-block');
 
             // 电话信息可编辑
-            $('.bx-telphone').attr('disabled',false).removeClass('disabled-block');
+            $('.bx-change').attr('disabled',false).removeClass('disabled-block');
         })
         .on('click','.option-issued',function(){
 
@@ -1012,7 +1017,6 @@ $(function(){
 
         //绑定数据
         bindData($(this),$('#deng-list'));
-
 
         //模态框显示
         _moTaiKuang($('#myModal'), '详情', 'flag', '' ,'', '');
@@ -1382,6 +1386,149 @@ $(function(){
 
     });
 
+    //报修科室表格
+    var departTable = $('#choose-department-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'部门编号',
+                data:'departNum',
+                class:'adjust-comment'
+            },
+            {
+                title:'部门名称',
+                data:'departName'
+            }
+        ]
+    });
+
+    //报修人表格
+    var peopleTable = $('#choose-people-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'用户名称',
+                data:'userName',
+                class:'adjust-comment'
+            },
+            {
+                title:'职位',
+                data:'pos'
+            },
+            {
+                title:'部门',
+                data:'departName'
+            }
+        ]
+    });
+
+    //选择报修科室弹窗打开后
+    $('.choose-message').on('shown.bs.modal', function () {
+        //获取当前打开的模态框ID
+        var curID = $(this).attr('id');
+        //如果是报修科室
+        if(curID == 'choose-department'){
+            datasTable($('#choose-department-table'),_allBXArr);
+        //如果是报修人
+        }else  if(curID == 'choose-people'){
+
+            datasTable($('#choose-people-table'),_allworkerArr);
+        }
+
+    });
+
+    $('.choose-message').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择报修科室确定按钮
+    $('.choose-message .btn-primary').on('click',function() {
+        //获取当前打开的模态框ID
+        var curID = $(this).parents('.choose-message').attr('id');
+
+        var dom = $(this).parents('.choose-message').find('.table tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //如果是报修科室
+                if(curID == 'choose-department'){
+                    gdObj.bxkesh = dom.eq(i).find('.adjust-comment').html();
+                }else if(curID == 'choose-people'){
+                    gdObj.bxren = dom.eq(i).find('.adjust-comment').html();
+                }
+
+                $(this).parents('.choose-message').modal('hide');
+
+                return false;
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应信息', '')
+
+    });
 
     //申诉下发按钮
     $('#appeal-list tbody')
@@ -1449,8 +1596,8 @@ $(function(){
             //textarea不可操作
             $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
 
-            //报修人信息不可操作
-            $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+            ////报修人信息不可操作
+            //$('.note-edit2').attr('disabled',true).addClass('disabled-block');
         })
 
     //关单
@@ -2214,6 +2361,29 @@ $(function(){
             success:function(result){
 
                 _workerArr = result;
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取所有员工列表
+    function workerData1(){
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName,
+            userNum:''
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetUsers',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+               _allworkerArr = result;
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
