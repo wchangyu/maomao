@@ -1095,8 +1095,7 @@
         "uri":"../gongdanxitong/gdClosing.html",
         "uid":"",
         "arg":"",
-        "iconclass":"",
-        "arg2":"admin"
+        "iconclass":""
       },
       "工单综合查询":{
         "type":"0",

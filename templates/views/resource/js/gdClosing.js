@@ -1325,7 +1325,7 @@ $(function(){
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,
-            'createUser':_userIdNum
+            'bxKeshiNum':_userBM
         }
 
         $.ajax({
