@@ -313,45 +313,23 @@
                                         </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                        <li>
-                                            <div class="cont-col1">
-                                                <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>登记
-                                                </div>
-                                            </div>
-                                        </li>
+                                        <!--<li>-->
+                                            <!--<div class="cont-col1">-->
+                                                <!--<div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">-->
+                                                    <!--<i class="fa fa-plus" style="margin-right: 2px;"></i>登记-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</li>-->
                                         <li class="excelButton"></li>
                                         <div class="clearfix"></div>
                                     </ul>
                                     <!-- 表格 -->
                                     <div class="table-title">
-                                        <span class="spanhover">未接单</span>
-                                        <span>执行中</span>
-                                        <span>待关单</span>
+                                        <span class="spanhover">待关单</span>
                                         <span>已关单</span>
                                     </div>
                                     <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
                                         <div class="content-main-contents">
-                                            <div class="main-contents-table">
-                                                <table id="missed-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="content-main-contents hide-block">
-                                            <div class="main-contents-table">
-                                                <table id="in-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
                                                 <table id="waiting-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
@@ -446,7 +424,7 @@
         BEE.init();
     });
 </script>
-<script src="../resource/js/gdOrderRepair.js"></script>
+<script src="../resource/js/gdClosing.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 
@@ -467,23 +445,6 @@
                                     <div class="tipe-block">报修人信息</div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
-                                            <div class="single-labels starRed">报修人：</div>
-                                            <div class="single-block">
-                                                <input v-model="bxren" readonly="readonly" class="disabled-block">
-                                            </div>
-                                            <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
-                                            <div class="single-labels">楼栋：</div>
-                                            <div class="single-block">
-                                                <input v-model="pointer">
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修电话：</div>
                                             <div class="single-block">
                                                 <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block">
@@ -494,6 +455,22 @@
                                             <div class="single-labels starRed">报修科室：</div>
                                             <div class="single-block">
                                                 <select v-model="bxkesh"  id="bxkesh" style="height: 100% !important;margin: 0" disabled class="disabled-block"></select>
+                                            </div>
+                                            <span class="colorTip noteTip"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                            <div class="single-labels starRed">报修人：</div>
+                                            <div class="single-block">
+                                                <input v-model="bxren" readonly="readonly" class="disabled-block">
+                                            </div>
+                                            <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
+                                            <div class="single-labels">楼栋：</div>
+                                            <div class="single-block">
+                                                <input v-model="pointer">
                                             </div>
                                             <span class="colorTip noteTip"></span>
                                         </div>

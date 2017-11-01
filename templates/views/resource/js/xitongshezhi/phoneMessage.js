@@ -1,10 +1,14 @@
 $(function(){
     /*-----------------------------------------全局变量------------------------------------------*/
     //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
+    var _userIdName = sessionStorage.getItem('realUserName');
 
-    //获取本地url
+//获得用户id
+    var _userIdNum = sessionStorage.getItem('userName');
+
+//获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
 
     //验证必填项（非空）
     Vue.validator('notempty', function (val) {
@@ -26,6 +30,7 @@ $(function(){
             phone:'',
             addressnum:'',
             describe:'',
+            department:'',
             remarks:''
         },
         methods:{
@@ -67,6 +72,8 @@ $(function(){
 
     //存放所有地点列表的数组
     var _allPersonalArr = [];
+    //存放所有部门
+    var _allBXArr = [];
     /*----------------------------------------表格初始化-----------------------------------------*/
     var table = $('#personal-table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -113,6 +120,10 @@ $(function(){
             {
                 title:'地点名称',
                 data:'locname'
+            },
+            {
+                title:'部门名称',
+                data:'departname'
             },
             {
                 title:'描述',
@@ -195,6 +206,9 @@ $(function(){
 
     //数据
     conditionSelect();
+    //获取部门
+    bxKShiData();
+
     /*----------------------------------------按钮事件-------------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -222,6 +236,7 @@ $(function(){
         user.phone='';
         user.describe='';
         user.remarks='';
+        user.department='';
         var disableArea = $('#user').find('.input-blockeds');
         disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
         disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
@@ -307,6 +322,100 @@ $(function(){
         _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应地点', '')
 
     });
+
+    //部门表格
+    var departTable = $('#choose-department-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 件',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'部门编号',
+                data:'departNum',
+                class:'adjust-comment'
+            },
+            {
+                title:'部门名称',
+                data:'departName'
+            }
+        ]
+    });
+
+    //选择部门弹窗打开后
+    $('.choose-message').on('shown.bs.modal', function () {
+        //获取当前打开的模态框ID
+        var curID = $(this).attr('id');
+        //如果是部门
+        if(curID == 'choose-department'){
+            datasTable($('#choose-department-table'),_allBXArr);
+            //如果是报修人
+        }else  if(curID == 'choose-people'){
+            datasTable($('#choose-people-table'),_allworkerArr);
+        }
+
+    });
+
+    $('.choose-message').on('click','.tableCheck',function(){
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
+    //选择部门确定按钮
+    $('.choose-message .btn-primary').on('click',function() {
+        //获取当前打开的模态框ID
+        var curID = $(this).parents('.choose-message').attr('id');
+
+        var dom = $(this).parents('.choose-message').find('.table tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //如果是报修科室
+                if(curID == 'choose-department'){
+                    user.department = dom.eq(i).find('.adjust-comment').html();
+                }else if(curID == 'choose-people'){
+                    user.bxren = dom.eq(i).find('.adjust-comment').html();
+                }
+
+                $(this).parents('.choose-message').modal('hide');
+
+                return false;
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应信息', '')
+
+    });
+
     /*---------------------------------------其他方法--------------------------------------------*/
     //模态框自适应
     function moTaiKuang(who,title,flag){
@@ -376,7 +485,7 @@ $(function(){
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag,flag1){
         //判断必填项是否为空
-        if( user.addressnum == '' || user.phone == '' || user.describe == ''){
+        if( user.addressnum == '' || user.phone == '' || user.describe == '' || user.department==''){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
 
@@ -392,11 +501,14 @@ $(function(){
                 }else{
                     //获取地点编号
                     var addressName =  $("#djbm").find("option:selected").text();
-
+                    //获取部门
+                    var departName =  $("#bmmc").find("option:selected").text();
                     prm = {
                         "phone":user.phone,
                         "locname":addressName,
                         "locnum":user.addressnum,
+                        "departnum": user.department,
+                        "departname": departName,
                         "info": user.describe,
                         "memo":user.remarks,
                         "userID":_userIdName
@@ -445,6 +557,7 @@ $(function(){
                 user.phone = _allPersonalArr[i].phone;
                 user.describe = _allPersonalArr[i].info;
                 user.remarks = _allPersonalArr[i].memo;
+                user.department = _allPersonalArr[i].departnum;
 
             }
         }
@@ -498,4 +611,36 @@ $(function(){
         })
     }
 
-})
+    //获取部门
+    function bxKShiData(){
+        var prm = {
+            'departName':'',
+            'userID':_userIdNum,
+            'userName':_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'RBAC/rbacGetDeparts',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                _allBXArr.length = 0;
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+
+                    _allBXArr.push(result[i]);
+
+                    str += '<option value="' + result[i].departNum +
+                        '">' + result[i].departName + '</option>>';
+                }
+
+                $('#bmmc').html(str);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+});

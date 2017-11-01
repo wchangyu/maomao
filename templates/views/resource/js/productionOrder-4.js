@@ -111,7 +111,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,3,4,5,6,7,8,9,10,11]
+                    columns:[0,1,2,3,4,5,6,7,8]
                 }
             }
         ],
@@ -241,14 +241,6 @@ $(function(){
                 title:'维修人',
                 data:'wxUserNames'
             },
-            {
-                title:'报修时间',
-                data:'gdShij'
-            },
-            {
-                title:'完工时间',
-                data:'wanGongShij'
-            }
             //{
             //    title:'操作',
             //    "targets": -1,
