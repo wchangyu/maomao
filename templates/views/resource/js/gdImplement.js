@@ -312,7 +312,7 @@ $(function(){
                 data:prm,
                 timeout:_theTimes,
                 success:function(result){
-                    //console.log(result);
+
                     if(result == 99){
 
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
@@ -997,6 +997,13 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1099,6 +1106,13 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
@@ -1350,7 +1364,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
-                //console.log(result);
+
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
 

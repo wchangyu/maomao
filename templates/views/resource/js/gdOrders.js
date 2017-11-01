@@ -257,6 +257,13 @@ $(function(){
                     url:_urls + 'YWGD/ywGDCreQuickDJ',
                     data:prm,
                     timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
                     success:function(result){
                         //console.log(result);
                         if(result == 99){
@@ -279,6 +286,9 @@ $(function(){
             }
         })
         .on('click','.jiedan',function(){
+
+            $('#theLoading').modal('show');
+
             //验证是否选择了负责人
             //assigFZR(true);
             var lengths = $('#fzr-list tbody').find('.checked').length;
@@ -346,7 +356,7 @@ $(function(){
         //故障描述不可操作
         $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
 
-        console.log($('.wxnr'));
+
         //维修内容显示
         $('.wxnr').hide();
 
@@ -369,6 +379,13 @@ $(function(){
             type:'post',
             url:_urls + 'YWGD/ywGetWXRens',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 for(var i=0;i<result.length;i++){
                     _fzrArr.push(result[i]);
@@ -422,10 +439,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         //{
@@ -623,10 +640,10 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '"' + 'data-circle="' + full.gdCircle +
-                    '"' +
-                    '>' + data
-                '</span>'
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
             }
         },
         //{
@@ -839,7 +856,7 @@ $(function(){
                 "wxclassname":type
             },
             success:function(result){
-                console.log(result);
+
                 //return false;
                 datasTable($('#choose-metter'),result);
             }
@@ -1015,7 +1032,7 @@ $(function(){
                 "ddname": ""
             },
             success:function(result){
-                console.log(result);
+
                 //return false;
                 datasTable($('#choose-area-table'),result);
             }
@@ -1032,7 +1049,7 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                //console.log(result);
+
                 //return false;
                 var html = '<option value=" ">全部</option>'
                 $(result).each(function(i,o){

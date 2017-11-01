@@ -315,7 +315,7 @@ $(function(){
         {
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span>"
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span><span class='data-option option-appeal btn default btn-xs green-stripe'>申诉</span>"
         }
     ];
 
@@ -625,6 +625,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             timeout:_theTimes,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //绑定数据
                 gbObj.bxtel = result.bxDianhua;
@@ -666,12 +672,14 @@ $(function(){
         })
 
         //模态框
-        _moTaiKuang($('#myModal1'), '关单', 'flag', '' ,'', '');
+        _moTaiKuang($('#myModal1'), '待关单', '', '' ,'', '关单');
 
         //添加两个按钮
-        var str = '<button class="btn btn-primary shensu">申诉</button><button class="btn btn-primary guanbi">关单</button>';
+        //var str = '<button class="btn btn-primary shensu">申诉</button><button class="btn btn-primary guanbi">关单</button>';
+        //
+        //$('#myModal1').find('.modal-footer').prepend(str);
 
-        $('#myModal1').find('.modal-footer').prepend(str);
+        $('#myModal1').find('.modal-footer').find('.btn-primary').removeClass('shensu').addClass('guanbi');
 
         //input不可操作；
         $('.no-edit1').find('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
@@ -687,6 +695,115 @@ $(function(){
 
         //维修内容
         $('.wxcontent').attr('disabled',true).addClass('disabled-block');
+
+        //关单操作的时候，申诉理由框隐藏，申诉按钮隐藏
+        $('.reasons-appeal').hide();
+
+        //评价框显示，关单按钮显示
+        $('.satisfaction-degree').show();
+
+    })
+
+    //待关单【申诉】
+    $('#waiting-list').on('click','.option-appeal',function(){
+
+        _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
+
+
+        _gdZht = $(this).parents('tr').children('.gdCode').children('span').attr('data-zht');
+
+        _gdCircle = $(this).parents('tr').children('.gdCode').children('span').attr('data-circle');
+
+        //绑定数据
+        var prm = {
+            'gdCode':_gdCode,
+            'gdCircle':_gdCircle,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            timeout:_theTimes,
+            data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+                //绑定数据
+                gbObj.bxtel = result.bxDianhua;
+                gbObj.bxkesh = result.bxKeshi;
+                gbObj.bxren = result.bxRen;
+                gbObj.gztime = result.gdFsShij;
+                gbObj.sbtype = result.wxShiX;
+                gbObj.sbnum = result.wxShebei;
+                gbObj.sbname = result.dName;
+                gbObj.azplace = result.installAddress;
+                gbObj.gzplace = result.wxDidian;
+                gbObj.wxshx = result.wxXm;
+                gbObj.wxbz = result.wxKeshi;
+                gbObj.wxcontent = result.wxBeizhu;
+                $('.gzDesc').val(result.bxBeizhu);
+                //    'pointer':'',
+                //维修材料清单
+                var clListArr = result.wxCls;
+                if(clListArr.length > 0){
+                    _datasTable($('#cl-list'),clListArr);
+                }
+                //执行人表格
+                var fzrArr = result.wxRens;
+                _datasTable($('#fzr-list'),fzrArr);
+
+                //绑定部门信息
+                $('#depart').val(result.wxKeshiNum);
+                //验收人
+                $('#receiver').val(result.yanShouRenName);
+                //工时费
+                $('#hourFee').val(result.gongShiFee);
+                //合计费用
+                $('#total').val(result.gdFee);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+
+        //模态框
+        _moTaiKuang($('#myModal1'), '待申诉', '', '' ,'', '申诉');
+
+        //添加两个按钮
+        //var str = '<button class="btn btn-primary shensu">申诉</button><button class="btn btn-primary guanbi">关单</button>';
+
+        //$('#myModal1').find('.modal-footer').prepend(str);
+
+        $('#myModal1').find('.modal-footer').find('.btn-primary').removeClass('guanbi').addClass('shensu');
+
+        //input不可操作；
+        $('.no-edit1').find('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //select不可操作
+        $('.no-edit1').find('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+
+        //故障描述
+        $('.gzDesc').attr('readOnly','readOnly').addClass('disabled-block');
+
+        //部门不可操作
+        $('#depart').attr('disabled',true).addClass('disabled-block');
+
+        //维修内容
+        $('.wxcontent').attr('disabled',true).addClass('disabled-block');
+
+        //申诉操作的时候，申诉理由框显示，申诉按钮显示
+        $('.reasons-appeal').show();
+
+        //评价框隐藏，关单按钮隐藏
+        $('.satisfaction-degree').hide();
+
 
     })
 
@@ -707,13 +824,21 @@ $(function(){
             gdCode:_gdCode,
             gdZht:11,
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            shenSuMemo:$('#reasons-appeal').val()
         };
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptZht',
             timeout:_theTimes,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 if(result == 99){
 
@@ -765,6 +890,12 @@ $(function(){
                         type:'post',
                         url: _urls + 'YWGD/ywGDUptZht',
                         data:gdInfo,
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
                         success:function(result){
                             if(result == 99){
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单成功！', '');
@@ -1014,7 +1145,6 @@ $(function(){
                 "wxclassname":type
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 datasTable($('#choose-metter'),result);
             }
@@ -1075,7 +1205,6 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 datasTable($('#choose-metter'),result);
             }
@@ -1094,7 +1223,6 @@ $(function(){
                 "ddname": ""
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 datasTable($('#choose-area-table'),result);
             }
@@ -1205,6 +1333,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1253,6 +1387,12 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
@@ -1303,7 +1443,8 @@ $(function(){
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
-                'gdSrc': 1
+                'gdSrc': 1,
+                'gdLeixing':4
             }
             if(flag){
                 prm.gdCode = _gdCode
@@ -1313,6 +1454,13 @@ $(function(){
                 url:_urls + url ,
                 timeout:_theTimes,
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
                 success:function(result){
                     if (result == 99) {
 
@@ -1387,7 +1535,9 @@ $(function(){
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
+
                 console.log(jqXHR.responseText);
+
             }
         })
     }
