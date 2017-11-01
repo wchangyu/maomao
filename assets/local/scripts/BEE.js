@@ -56,7 +56,7 @@ var BEE = (function(){
         //        }
         //    );
         //}
-    }
+    };
 
     //将文本解析为菜单，和插入菜单的父级元素
     var getHTMLFromMenu = function(menu,$src){
@@ -189,7 +189,7 @@ var BEE = (function(){
 
         var $logout = $('.logout-page');
         $logout.attr('href',curLoginPage);
-    }
+    };
 
     //设置页面的标题部分
     var setPageTitle = function(){
@@ -205,7 +205,7 @@ var BEE = (function(){
                 $pageBreadcrumb.append('<li><a href="javascript:void(0);">' + menuSecond + '</a></li>')
             }
         }
-    }
+    };
 
     //设置theme
     var setTheme = function(){
@@ -230,7 +230,7 @@ var BEE = (function(){
         var $thisTheme = $(".theme-colors > ul > li[data-style=" + themeColor + "]",$panel);
         $themes.removeClass("current");
         $thisTheme.addClass("current");
-    }
+    };
 
     //设置页面右上角报警信息
     //保存当前数据的时间和数据到sessionStorage中，每次打开时候比对时间，如果时间超过数据时间+刷新时间，则重新载入
@@ -299,7 +299,7 @@ var BEE = (function(){
                 }
             }
         });
-    }
+    };
 
     function setPageTopRightAlarmData(dataLength,data){
         var $badge = $("#header_notification_bar .badge");
@@ -485,7 +485,7 @@ var BEE = (function(){
                 }
             }
         }
-    }
+    };
 
 
      var timename2;
@@ -634,7 +634,7 @@ var BEE = (function(){
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
-                             console.log(data);
+
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
@@ -666,7 +666,7 @@ var BEE = (function(){
                                  //加入待接单备件信息
                                  infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');
                              }
-                             console.log(num1,num2)
+                             //console.log(num1,num2)
                              //给悬浮窗插入指定信息
                              $dropdownMenu.html(infoHtml);
 
