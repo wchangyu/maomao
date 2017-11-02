@@ -1068,6 +1068,10 @@ $(function(){
 
                 gdObj.wxshx = dom.eq(i).children().eq(3).find('span').html();
 
+                console.log(dom.eq(i).children().eq(2).html());
+
+                $('#matter').attr('data-mnum',dom.eq(i).children().eq(2).html());
+
                 $('#choose-building').modal('hide');
 
                 return false
@@ -1495,7 +1499,7 @@ $(function(){
                 'wxShiX':'null',
                 //'wxShiXNum':gdObj.sbtype,
                 'wxXm':gdObj.wxshx,
-                'wxXmNum':'1',
+                'wxXmNum':$('#matter').attr('data-num'),
                 'wxShebei':gdObj.sbnum,
                 'dName':gdObj.sbname,
                 'installAddress':gdObj.azplace,

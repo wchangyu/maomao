@@ -2031,7 +2031,7 @@ $(function(){
                 //gdObj.pointer = '';
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
-                gdObj.wxshx=result.wxXm;
+                gdObj.wxxm=result.wxXm;
                 //gdObj.sbtype = result.
                 gdObj.sbnum = result.wxShebei;
                 gdObj.sbname = result.dName;
