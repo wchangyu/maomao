@@ -381,7 +381,7 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 
-<script src="../resource/js/xitongshezhi/phoneMessage.js"></script>
+<script src="../resource/js/phoneMessage.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -422,7 +422,7 @@
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">地点名称：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <select v-model="addressnum" id="djbm" style="display: inline-block">
+                                    <select v-model="addressnum" id="djbm" style="display: inline-block" class="no-choose">
                                     </select>
                                     <!--点击图片-->
                                     <img class="fdjImg" src="../resource/img/fdj.png" alt="" data-toggle="modal" data-target="#choose-building" style="position: absolute;right:-35px;top:0;cursor: pointer">
@@ -432,7 +432,7 @@
                             <li class="floatLeft" style="line-height: 26px;">
                                 <div class="labels colorTip">部门名称：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <select v-model="department" id="bmmc" style="display: inline-block">
+                                    <select v-model="department" id="bmmc" style="display: inline-block" class="no-choose">
                                     </select>
                                     <!--点击图片-->
                                     <img class="fdjImg" src="../resource/img/fdj.png" alt="" data-toggle="modal" data-target="#choose-department" style="position: absolute;right:-35px;top:0;cursor: pointer">

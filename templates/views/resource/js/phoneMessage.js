@@ -157,7 +157,7 @@ $(function(){
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 件',
+            'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
             'search':'搜索:',
@@ -241,6 +241,8 @@ $(function(){
         disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
         disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
         disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
+        //不能下拉的地点和部门
+        $('.no-choose').attr('disabled',true).addClass('disabled-block');
     });
 
     //操作确定按钮
@@ -279,6 +281,7 @@ $(function(){
             //绑定数据
             bindingData($(this));
             //$('.ghbm').attr('disabled',true).addClass('disabled-block');
+            $('.no-choose').attr('disabled',true).addClass('disabled-block');
         })
         //删除
         .on('click','.option-delete',function(){
@@ -334,7 +337,7 @@ $(function(){
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 件',
+            'lengthMenu': '每页 _MENU_ 条',
             'zeroRecords': '没有数据',
             'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
             'search':'搜索:',

@@ -390,7 +390,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/xitongshezhi/siteMessage.js"></script>
+<script src="../resource/js/siteMessage.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -421,7 +421,7 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">名称：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入名称</span></div>
+                                <div class="labels colorTip">地点名称：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入名称</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="addressname" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
                                 </div>
