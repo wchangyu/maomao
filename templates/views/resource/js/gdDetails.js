@@ -181,14 +181,25 @@ $(function(){
                 //右侧处理记录
                 logInformation(0);
 
-                //满意度
-                if(result.pingJia ==''){
+                //满意度或者申诉理由
+                if(result.gdZht == 11){
+                    $('.change-text').html('申诉理由');
+
                     $('#pingjia1').hide();
+
+                    $('#pingjia').val(result.shenSuMemo);
                 }else{
-                    $('#pingjia1').show();
-                    $('#pingjia1 label').html(getAppraise(result.pingJia));
+                    $('.change-text').html('满意度');
+                    if(result.pingJia ==''){
+                        $('#pingjia1').hide();
+                    }else{
+                        $('#pingjia1').show();
+                        $('#pingjia1').html(getAppraise(result.pingJia));
+                    }
+                    $('#pingjia').val(result.pjBz);
                 }
-                $('#pingjia').val(result.pjBz);
+
+
             },
             'error':function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

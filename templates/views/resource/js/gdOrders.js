@@ -812,6 +812,8 @@ $(function(){
 
     //选择维修事项弹窗打开后
     $('#choose-building').on('shown.bs.modal', function () {
+        $('#add-select').val(' ');
+
         getMatter();
 
     });
