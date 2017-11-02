@@ -30,7 +30,8 @@ $(function(){
             'sbname':'',
             'azplace':'',
             'gzplace':'',
-            'wxbz':''
+            'wxbz':'',
+            'wxxm':''
         },
         methods:{
             time:function(){
@@ -969,6 +970,13 @@ $(function(){
 
             // 电话信息可编辑
             $('.bx-change').attr('disabled',false).removeClass('disabled-block');
+
+            //报修人、电话不可操作，放大镜不显示
+            $('.bx-change').attr('readonly','readonly').addClass('disabled-block');
+
+            $('.gongdanList').children().children('div').eq(0).find('.fdjImg').hide();
+
+
         })
         .on('click','.option-issued',function(){
 
@@ -1106,6 +1114,7 @@ $(function(){
 
     //选择维修事项确定按钮
     $('#choose-building .btn-primary').on('click',function() {
+
         var dom = $('#choose-metter tbody tr');
         var length = dom.length;
 
@@ -1113,6 +1122,12 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
                 $('#metter').val(dom.eq(i).children().eq(3).find('span').html());
+
+                gdObj.wxxm = dom.eq(i).children().eq(3).find('span').html();
+
+                //console.log(dom.eq(i).children().eq(2).html());
+
+                $('#metter').attr('data-num',dom.eq(i).children().eq(2).html());
 
                 $('#choose-building').modal('hide');
 
@@ -1146,8 +1161,8 @@ $(function(){
         })
     });
 
-    //申诉下发按钮
-    $('#appeal-list tbody')
+    //待受理下发按钮
+    $('#pending-list tbody')
         .on('click','.option-issued',function(){
 
             //隐藏放大镜图标 不让用户选择
@@ -1188,6 +1203,8 @@ $(function(){
 
         })
         .on('click','.option-edit',function(){
+
+            console.log('待受理');
             //显示放大镜图标 用户可以选择
             $('.fdjImg').show();
 
@@ -1220,6 +1237,16 @@ $(function(){
 
             //报修人信息不可操作
             $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+
+            //报修科室
+
+            $('#bxkesh').attr('disabled',true).addClass('disabled-block');
+
+            //报修人、电话不可操作，放大镜不显示
+            $('.bx-change').attr('readonly','readonly').addClass('disabled-block');
+
+            $('.gongdanList').children().children('div').eq(0).find('.fdjImg').hide();
+
         })
 
     //故障地点表格
@@ -1598,6 +1625,7 @@ $(function(){
 
         })
         .on('click','.option-edit',function(){
+
             //显示放大镜图标 用户可以选择
             $('.fdjImg').show();
 
@@ -1630,6 +1658,16 @@ $(function(){
 
             ////报修人信息不可操作
             //$('.note-edit2').attr('disabled',true).addClass('disabled-block');
+
+            //报修人、报修电话、报修科室不可操作
+            $('.bx-change').attr('readonly','readonly').addClass('disabled-block');
+
+            //保修科室
+            $('#bxkesh').attr('disabled',true).addClass('disabled-block');
+
+            //放大镜不显示
+            $('.gongdanList').children().children('div').eq(0).find('.fdjImg').hide();
+
         })
 
 
@@ -1780,6 +1818,7 @@ $(function(){
         gdObj.gzplace = '';
         gdObj.wxshx='1';
         gdObj.bxbz = '';
+        gdObj.wxxm = '';
         $('.gzDesc').val('');
     }
 
@@ -2184,8 +2223,8 @@ $(function(){
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
                 'wxShiX':$('#sbtype').children('option:selected').html(),
                 'wxShiXNum':gdObj.sbtype,
-                'wxXm':gdObj.wxshx,
-                'wxXmNum':'1',
+                'wxXm':gdObj.wxxm,
+                'wxXmNum':$('#metter').attr('data-num'),
                 'wxShebei':gdObj.sbnum,
                 'dName':gdObj.sbname,
                 'installAddress':gdObj.azplace,
@@ -2200,35 +2239,37 @@ $(function(){
             if(flag){
                 prm.gdCode = _gdCode;
             }
-            $.ajax({
-                type:'post',
-                url:_urls + url,
-                data:prm,
-                timeout:_theTimes,
-                beforeSend: function () {
-                    $('#theLoading').modal('show');
-                },
-                complete: function () {
-                    $('#theLoading').modal('hide');
-                },
-                success:function(result){
+            console.log(prm);
 
-                    if(result == 99){
-
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
-
-                        $('#myModal').modal('hide');
-
-                        //刷新表格
-                        conditionSelect();
-                    }else{
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            })
+            //$.ajax({
+            //    type:'post',
+            //    url:_urls + url,
+            //    data:prm,
+            //    timeout:_theTimes,
+            //    beforeSend: function () {
+            //        $('#theLoading').modal('show');
+            //    },
+            //    complete: function () {
+            //        $('#theLoading').modal('hide');
+            //    },
+            //    success:function(result){
+            //
+            //        if(result == 99){
+            //
+            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
+            //
+            //            $('#myModal').modal('hide');
+            //
+            //            //刷新表格
+            //            conditionSelect();
+            //        }else{
+            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
+            //        }
+            //    },
+            //    error:function(jqXHR, textStatus, errorThrown){
+            //        console.log(jqXHR.responseText);
+            //    }
+            //})
         }
     }
 

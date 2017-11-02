@@ -609,6 +609,13 @@ $(function(){
     //待关单【关单】
     $('#waiting-list').on('click','.option-close',function(){
 
+        //初始化
+        $('#pingjia').val('');
+
+        $('.pjRadio').parent('span').removeClass('checked');
+
+        $('#very-satisfied').parent('span').addClass('checked');
+
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
 
@@ -710,6 +717,9 @@ $(function(){
 
     //待关单【申诉】
     $('#waiting-list').on('click','.option-appeal',function(){
+
+        //初始化
+        $('#reasons-appeal').val('');
 
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 

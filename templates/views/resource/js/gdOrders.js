@@ -290,8 +290,6 @@ $(function(){
         })
         .on('click','.jiedan',function(){
 
-            $('#theLoading').modal('show');
-
             //验证是否选择了负责人
             //assigFZR(true);
             var lengths = $('#fzr-list tbody').find('.checked').length;
@@ -301,6 +299,8 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择负责人！', '');
 
             }else{
+
+                $('#theLoading').modal('show');
 
                 //先判断是第一次下发还是重发
                 if(_gdZht == 5){

@@ -32,7 +32,7 @@ $(function(){
             'gzplace':'',
             'wxshx':'',
             'wxbz':'',
-            'wxcontent':''
+            'wxcontent':'',
         },
         methods:{
             time:function(){
@@ -367,6 +367,9 @@ $(function(){
     //关单
     $('#waiting-list').on('click','.option-close',function(){
 
+        //各项初始化
+        gdInit();
+
         //确定工单号
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
@@ -623,24 +626,145 @@ $(function(){
         $('#total').val(free.toFixed(2));
     })
 
+    var aa = false;
+
     //申请关单
     $('#myModal').on('click','.closeGD',function(){
 
-        if( $('#receiver').val() == '' ){
+        if(aa){
+            if( $('#receiver').val() == '' ){
 
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
 
+            }else{
+
+                if(_selectedBJ.length != 0){
+
+                    $('#theLoading').modal('show');
+                    //材料
+                    addCL();
+                    //申请
+                    closingApplication();
+
+                }else{
+
+                    var prm = {
+                        gdCode:_gdCode,
+                        gdZht:6,
+                        wxBeizhu:$('.wxcontent').val(),
+                        yanShouRen:$('#receiver').val(),
+                        yanShouRenName:$('#receiver').children('option:selected').html(),
+                        gdFee:$('#total').val(),
+                        gongShiFee:$('#hourFee').val(),
+                        userID:_userIdName,
+                        userName:_userIdNum,
+                        b_UserRole:_userRole
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWGD/ywGDReqWang',
+                        data:prm,
+                        timeout:_theTimes,
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
+                        success:function(result){
+
+                            if(result==99){
+
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请成功！', '');
+
+                                $('#myModal').hide();
+
+                                conditionSelect();
+
+                            }else{
+
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请失败！', '');
+
+                            }
+
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+
+                            console.log(jqXHR.responseText);
+
+                        }
+                    })
+
+                }
+
+            }
         }else{
 
-            //申请
-            closingApplication();
-
             if(_selectedBJ.length != 0){
+
+                $('#theLoading').modal('show');
                 //材料
                 addCL();
+                //申请
+                closingApplication();
+
+            }else{
+
+                var prm = {
+                    gdCode:_gdCode,
+                    gdZht:6,
+                    wxBeizhu:$('.wxcontent').val(),
+                    yanShouRen:$('#receiver').val(),
+                    yanShouRenName:$('#receiver').children('option:selected').html(),
+                    gdFee:$('#total').val(),
+                    gongShiFee:$('#hourFee').val(),
+                    userID:_userIdName,
+                    userName:_userIdNum,
+                    b_UserRole:_userRole
+                }
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWGD/ywGDReqWang',
+                    data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+
+                        if(result==99){
+
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请成功！', '');
+
+                            $('#myModal').modal('hide');
+
+                            conditionSelect();
+
+                        }else{
+
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请失败！', '');
+
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+
+                        console.log(jqXHR.responseText);
+
+                    }
+                })
+
             }
 
         }
+
+
+
+
 
 
     })
@@ -971,6 +1095,7 @@ $(function(){
         gdObj.wxbz = '';
         gdObj.wxcontent = ''
         $('.gzDesc').val('');
+
     };
 
     //选材料初始化
@@ -983,6 +1108,33 @@ $(function(){
         clObj.je='';
         clObj.size = '';
         $('.no-edit').attr('disabled',false);
+    }
+
+    //关单申请初始化
+    function gdInit(){
+
+        //维修材料表格初始化
+        var arr = [];
+
+        _datasTable($('#cl-list'),arr);
+
+        //工时费初始化
+        $('#hourFee').val('');
+
+        //合计金额初始化
+        $('#total').val();
+
+        //维修内容初始化
+        $('.wxcontent').val('');
+
+        //执行人初始化
+        $('#depart').val('');
+
+        _datasTable($('#fzr-list'),arr);
+
+        //验收人
+        $('#receiver').val('');
+
     }
 
     //条件查询
@@ -1281,7 +1433,7 @@ $(function(){
         var prm = {
             gdCode:_gdCode,
             gdZht:6,
-            wxBeizhu:gdObj.weixiuBZ,
+            wxBeizhu:$('.wxcontent').val(),
             yanShouRen:$('#receiver').val(),
             yanShouRenName:$('#receiver').children('option:selected').html(),
             gdFee:$('#total').val(),
@@ -1355,6 +1507,8 @@ $(function(){
                 }
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
+
+                $('#theLoading').modal('hide');
             }
         }
     }
