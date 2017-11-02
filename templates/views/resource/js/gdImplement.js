@@ -626,13 +626,22 @@ $(function(){
     //申请关单
     $('#myModal').on('click','.closeGD',function(){
 
-        //申请
-        closingApplication();
+        if( $('#receiver').val() == '' ){
 
-        if(_selectedBJ.length != 0){
-            //材料
-            addCL();
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
+
+        }else{
+
+            //申请
+            closingApplication();
+
+            if(_selectedBJ.length != 0){
+                //材料
+                addCL();
+            }
+
         }
+
 
     })
 
@@ -1367,6 +1376,8 @@ $(function(){
 
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
+                    str += '<option value="' + result[i].userNum +
+                        '">' + result[i].userName + '</option>'
 
                 }
                 $('#receiver').empty().append(str);

@@ -140,7 +140,7 @@ $(function(){
             },
             {
                 title:'固定电话',
-                data:'mobile'
+                data:'phone'
             },
             {
                 title:'备注',
@@ -297,6 +297,7 @@ $(function(){
             url:_urls + 'RBAC/rbacGetUsers',
             data:prm,
             success:function(result){
+                //console.log(result);
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -392,7 +393,6 @@ $(function(){
         //根据工号绑定数据
         for(var i=0;i<_allPersonalArr.length;i++){
             if(_allPersonalArr[i].userNum == thisBM){
-                //console.log(_allPersonalArr[i]);
                 //绑定数据
                 user.username = _allPersonalArr[i].userName;
                 user.jobnumber = _allPersonalArr[i].userNum;

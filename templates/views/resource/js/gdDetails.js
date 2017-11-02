@@ -151,9 +151,9 @@ $(function(){
                 if(result.bxKeshi == '请选择'){
                     $('#depart').val('');
                 }else{
-                    $('#depart').val(result.bxKeshi);
+                    $('#depart').val(result.wxKeshi);
                 }
-                $('#depart').val(result.bxKeshi);
+                $('#depart').val(result.wxKeshi);
                 //验收人
                 if(result.yanShouRenName == '请选择'){
                     $('#receiver').val('');
