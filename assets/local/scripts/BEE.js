@@ -153,7 +153,7 @@ var BEE = (function(){
     //设置header中信息
     var setHeaderInfo = function(){
         if(sessionStorage.pageTitle) { document.title = sessionStorage.pageTitle; }
-        var username = sessionStorage.userName || "未登录";
+        var username = sessionStorage.realUserName || "未登录";
         $('.username').html(username);
         var systemName = sessionStorage.systemName;
 

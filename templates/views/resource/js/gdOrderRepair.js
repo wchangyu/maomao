@@ -310,7 +310,7 @@ $(function(){
         },
         {
             title:'验收人',
-            data:'pjRen'
+            data:'yanShouRenName'
         },
         //{
         //    title:'操作',
@@ -396,7 +396,7 @@ $(function(){
         },
         {
             title:'验收人',
-            data:'pjRen'
+            data:'yanShouRenName'
         },
         //{
         //    title:'操作',
@@ -997,6 +997,8 @@ $(function(){
 
     //选择维修事项弹窗打开后
     $('#choose-building').on('shown.bs.modal', function () {
+
+        $('#add-select').val(' ');
         getMatter();
 
     });
@@ -1212,6 +1214,7 @@ $(function(){
             success:function(result){
                 //return false;
                 datasTable($('#choose-metter'),result);
+
             }
         })
     };

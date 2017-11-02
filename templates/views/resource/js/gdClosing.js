@@ -288,10 +288,10 @@ $(function(){
         //    title:'受理时间',
         //    data:'shouLiShij'
         //},
-        {
-            title:'接单时间',
-            data:'paiGongShij'
-        },
+        //{
+        //    title:'接单时间',
+        //    data:'paiGongShij'
+        //},
         {
             title:'完工申请时间',
             data:'wanGongShij'
@@ -310,7 +310,11 @@ $(function(){
         },
         {
             title:'验收人',
-            data:'pjRen'
+            data:'yanShouRenName'
+        },
+        {
+            title:'自动关单',
+            data:'autoCloseTime'
         },
         {
             title:'操作',
@@ -396,7 +400,7 @@ $(function(){
         },
         {
             title:'验收人',
-            data:'pjRen'
+            data:'yanShouRenName'
         },
         //{
         //    title:'操作',
@@ -1322,6 +1326,7 @@ $(function(){
             'gdCode':$('.filterInput').val(),
             'gdSt':st,
             'gdEt':et,
+            isQueryAutoCloseTime:"1",
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,
