@@ -449,9 +449,12 @@ $(function(){
     function conditionSelect(){
         //获取条件
         var locname = $('#filter_global input').val();
+        //获取部门
+        var departname = $('#filter_global1 input').val();
         var prm = {
             "phone": "",
             "locname": locname,
+            "departname":departname,
             "userID": _userIdName
         };
         $.ajax({

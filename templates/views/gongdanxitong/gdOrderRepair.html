@@ -497,7 +497,7 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修电话：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block">
+                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block bx-choose">
                                             </div>
                                             <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
                                         </div>
