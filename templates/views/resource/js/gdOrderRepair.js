@@ -494,6 +494,9 @@ $(function(){
         //故障描述可操作
         $('.gzDesc').removeAttr('readonly').removeClass('disabled-block');
 
+        //报修人电话可操作
+        $('.bx-choose').removeAttr('readonly').removeClass('disabled-block');
+
         //初始化
         dataInit();
     });
@@ -583,6 +586,8 @@ $(function(){
             _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji');
+            //报修人电话可操作
+            $('.bx-choose').removeAttr('readonly').removeClass('disabled-block');
         })
 
     //查询按钮
@@ -1213,12 +1218,14 @@ $(function(){
 
     //获取故障位置
     function getArea(){
-
+        //获取报修科室
+        var departnum = $('#bxkesh').val();
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/SysLocaleGetAll',
             data:{
                 "locname": "",
+                "departnum": departnum,
                 "departname": "",
                 "ddname": ""
             },

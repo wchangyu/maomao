@@ -779,6 +779,9 @@ $(function(){
 
                 gdObj.bxren = _workerArr[0].userName;
             }
+            var departnum = gdObj.bxkesh;
+
+            bxKShiData(departnum,true);
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
 
@@ -1516,6 +1519,10 @@ $(function(){
                 //如果是报修科室
                 if(curID == 'choose-department'){
                     gdObj.bxkesh = dom.eq(i).find('.adjust-comment').html();
+                    var departnum = gdObj.bxkesh;
+                    //console.log(departnum);
+                    bxKShiData(departnum,true);
+
                 }else if(curID == 'choose-people'){
                     gdObj.bxren = dom.eq(i).find('.adjust-comment').html();
                 }
@@ -1600,8 +1607,8 @@ $(function(){
             //$('.note-edit2').attr('disabled',true).addClass('disabled-block');
         })
 
-    //关单
 
+  //关单
 
     /*-------------------------------------------------其他方法-----------------------------------------*/
     equipmentArr = [];
@@ -1655,12 +1662,14 @@ $(function(){
 
     //获取故障位置
     function getArea(){
-
+        //获取报修科室
+        var departnum = $('#bxkesh').val();
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/SysLocaleGetAll',
             data:{
                 "locname": "",
+                "departnum": departnum,
                 "departname": "",
                 "ddname": ""
             },
@@ -1749,11 +1758,16 @@ $(function(){
     }
 
     //报修科室
-    function bxKShiData(){
+    function bxKShiData(departNum,flag){
+        //console.log(departNum,flag);
         var prm = {
             'departName':'',
             'userID':_userIdNum,
             'userName':_userIdName
+        };
+        if(flag){
+            prm.departnum = departNum;
+            prm.isWx= '1'
         }
         $.ajax({
             type:'post',
@@ -1761,6 +1775,19 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+                if(flag){
+                    var str = '<option value="">请选择</option>';
+                    for(var i=0;i<result.length;i++){
+
+                        _allBXArr.push(result[i]);
+
+                        str += '<option value="' + result[i].departNum +
+                            '">' + result[i].departName + '</option>>';
+                    }
+                    $('#depart').empty().append(str);
+
+                    return false;
+                }
                 _allBXArr.length = 0;
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
@@ -1770,7 +1797,6 @@ $(function(){
                     str += '<option value="' + result[i].departNum +
                         '">' + result[i].departName + '</option>>';
                 }
-
                 $('#bxkesh').empty().append(str);
 
                 $('#depart').empty().append(str);
@@ -1972,6 +1998,10 @@ $(function(){
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;
                 $('.gzDesc').val(result.bxBeizhu);
+
+                var departnum = gdObj.bxkesh;
+                //console.log(departnum);
+                bxKShiData(departnum,true);
 
                 //负责人信息
                 var arr = [];

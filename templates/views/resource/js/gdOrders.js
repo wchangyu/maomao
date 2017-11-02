@@ -154,6 +154,9 @@ $(function(){
 
         //报修人信息不可操作
         $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+
+        //电话信息可编辑
+        $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');;
     });
 
     //点击登记模态框显示的回调函数
@@ -333,8 +336,8 @@ $(function(){
     //接单
     $('#waiting-list').on('click','.option-orders',function(){
 
-        //选择部门显示
-        $('.bumen').show();
+        //选择部门不显示
+        $('.bumen').hide();
 
         $('.fdjImg').hide();
 
@@ -1022,17 +1025,18 @@ $(function(){
 
     //获取故障位置
     function getArea(){
-
+        //获取报修科室
+        var departnum = $('#bxkesh').val();
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/SysLocaleGetAll',
             data:{
                 "locname": "",
+                "departnum": departnum,
                 "departname": "",
                 "ddname": ""
             },
             success:function(result){
-
                 //return false;
                 datasTable($('#choose-area-table'),result);
             }
@@ -1443,6 +1447,8 @@ $(function(){
             success:function(result){
 
                 _wxIsComplete = true;
+
+                $('')
 
                 if(result == 99){
                     _wxIsSuccess = true;
