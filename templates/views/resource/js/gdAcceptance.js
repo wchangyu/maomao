@@ -1102,8 +1102,10 @@ $(function(){
 
     //选择维修事项弹窗打开后
     $('#choose-building').on('shown.bs.modal', function () {
-        getMatter();
 
+        $('#add-select').val(' ');
+
+        getMatter();
     });
 
     $('#choose-metter').on('click','.tableCheck',function(){
