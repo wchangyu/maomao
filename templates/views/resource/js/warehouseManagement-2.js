@@ -1936,14 +1936,30 @@ $(function(){
                 //入库类型
                 inType:putInList.rkleixing,
                 //供应方编号
-                supNum:putInList.bianhao,
+                supNum:$('#supplier').val(),
                 //供应方名称
-                supName:putInList.suppliermc
+                supName:putInList.suppliermc,
+                //供应方联系人
+                contactName:putInList.suppliercontent,
+                //供应方联系电话
+                phone:putInList.supplierphone,
+                //仓库名称
+                storageName:ckName,
+                //仓库编码
+                storageNum:putInList.ckselect,
 
+                //入库物品
+                inStoreDetails:inStoreDetails,
+                //用户id
+                userID:_userIdNum,
+                //用户名称
+                userName:_userIdName,
+                //角色
+                b_UserRole:_userRole,
                 /*
                 *bianhao:'',
-                 rkleixing:'',
-                 suppliermc:'',
+
+
                  suppliercontent:'',
                  supplierphone:'',
                  ckselect:'',

@@ -1060,7 +1060,16 @@
         "uid":"",
         "arg":"",
         "iconclass":"",
-        "arg2":"admin"
+        "arg2":"admin,BX01,BXZG01"
+      },
+      "工单关单管理":{
+        "type":"0",
+        "content":"工单关单管理",
+        "uri":"../gongdanxitong/gdClosing.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"",
+        "arg2":"admin,BXZG01"
       },
       "工单受理管理":{
         "type":"0",
@@ -1089,14 +1098,6 @@
         "iconclass":"",
         "arg2":"admin,WXBZ01,WXBZ11"
       },
-      "工单关单管理":{
-        "type":"0",
-        "content":"工单关单管理",
-        "uri":"../gongdanxitong/gdClosing.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
       "工单综合查询":{
         "type":"0",
         "content":"工单综合查询",
@@ -1104,7 +1105,7 @@
         "uid":"",
         "arg":"",
         "iconclass":"",
-        "arg2":"admin,dd01"
+        "arg2":"admin,dd01,hq01"
       }
     }
   }

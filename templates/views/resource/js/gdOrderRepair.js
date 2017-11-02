@@ -111,7 +111,7 @@ $(function(){
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
 
-    //未接单表格
+    //未受理表格
     var missedListCol = [
         {
             title:'工单号',
@@ -165,6 +165,55 @@ $(function(){
 
 
     _tableInit($('#missed-list'),missedListCol,'2','','','');
+
+    //未接单
+    var notEntertainedCol = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        {
+            title:'报修电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'报修科室',
+            data:'bxKeshi'
+        },
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
+        //{
+        //    title:'楼栋',
+        //    data:''
+        //},
+        {
+            title:'故障发生时间',
+            data:'gdFsShij'
+        },
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        }
+    ];
+
+    _tableInit($('#not-entertained'),notEntertainedCol,'2','','','');
 
     //执行中表格
     var inExecutionCol = [
@@ -1093,6 +1142,7 @@ $(function(){
     });
 
     $('#choose-area').on('click','.tableCheck',function(){
+
         $(".tableCheck").attr("checked",false);
 
         $(this).attr("checked",true);
@@ -1342,10 +1392,12 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht1=[],zht4=[],zht6=[],zht7=[];
+                var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[];
                 for(var i=0;i<result.length;i++){
-                    if(result[i].gdZht == 1 || result[i].gdZht == 11){
+                    if(result[i].gdZht == 1 || result[i].gdZht == 11) {
                         zht1.push(result[i]);
+                    }else if(result[i].gdZht == 2){
+                        zht2.push(result[i]);
                     }else if(result[i].gdZht == 4){
                         zht4.push(result[i]);
                     }else if(result[i].gdZht == 6){
@@ -1354,8 +1406,10 @@ $(function(){
                         zht7.push(result[i]);
                     }
                 }
-                //未接单
+                //未受理
                 _datasTable($('#missed-list'),zht1);
+                //未接单not-entertained
+                _datasTable($('#not-entertained'),zht2);
                 //执行中
                 _datasTable($('#in-execution'),zht4);
                 //待关单
