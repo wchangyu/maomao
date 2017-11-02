@@ -312,11 +312,11 @@ $(function(){
             title:'验收人',
             data:'pjRen'
         },
-        //{
-        //    title:'操作',
-        //    data:null,
-        //    defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span><span class='data-option option-appeal btn default btn-xs green-stripe'>申诉</span>"
-        //}
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单</span><span class='data-option option-appeal btn default btn-xs green-stripe'>申诉</span>"
+        }
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');
@@ -938,7 +938,7 @@ $(function(){
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
+            'lengthMenu': '每页 _MENU_ 件',
             'zeroRecords': '没有数据',
             'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
             'search':'搜索:',
@@ -1035,7 +1035,7 @@ $(function(){
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
             'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
+            'lengthMenu': '每页 _MENU_ 件',
             'zeroRecords': '没有数据',
             'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
             'search':'搜索:',
@@ -1325,7 +1325,7 @@ $(function(){
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,
-            'createUser':_userIdNum
+            'bxKeshiNum':_userBM
         }
 
         $.ajax({

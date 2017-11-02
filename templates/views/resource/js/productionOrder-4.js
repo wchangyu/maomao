@@ -241,14 +241,6 @@ $(function(){
                 title:'维修人',
                 data:'wxUserNames'
             },
-            {
-                title:'报修时间',
-                data:'gdShij'
-            },
-            {
-                title:'完工时间',
-                data:'wanGongShij'
-            }
             //{
             //    title:'操作',
             //    "targets": -1,

@@ -556,7 +556,7 @@
                             <li class="gdList">
                                 <div class="labels colorTip">库区 *:<span class="kuweiReq" v-show="$validation.kuwei.requireds" style="display: none">请选择库位</span></div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <input type="text" class="not-editable  inputType kuwei" v-model="kuwei" v-validate:kuwei= "['requireds']" initial='off' @keyup="kuweiFun()"><div class="selectBlock"></div>
+                                    <input type="text" class="inputType kuwei" v-model="kuwei" v-validate:kuwei= "['requireds']" initial='off' @keyup="kuweiFun()"><div class="selectBlock"></div>
                                     <ul class="kuqu-list hidden1" style="display: none">
                                     </ul>
                                 </div>

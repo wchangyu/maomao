@@ -481,12 +481,13 @@ textarea{
     left: -1px;
     top: 1px;
     text-indent: 10px;
-    max-height: 200px;
+    max-height: 208px;
     overflow-y: scroll;
 }
 .accord-with-list li{
     cursor: pointer;
     width: 100%;
+    line-height: 26px;
 }
 .gdList{
     float: left;
