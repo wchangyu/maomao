@@ -218,6 +218,9 @@ $(function(){
 
     var _$thisRemoveRowXiao = '';
 
+    //当前选中的入库单号
+    var _ruCode = '';
+
     /*--------------------------------------------表格初始化------------------------------------------------*/
     //入库单表格初始化（所有、待审核、已审核）
     var col = [
@@ -302,11 +305,17 @@ $(function(){
         },
         {
             title:'库区',
-            data:'localName'
+            data:'localName',
+            className:'localName',
+            render:function(data, type, full, meta){
+                return '<span data-num="' + full.localNum +
+                    '">'+ data + '</span>'
+            }
         },
         {
             title:'物品序列号',
-            data:'sn'
+            data:'sn',
+            className:'sn'
         },
         {
             title:'规格型号',
@@ -492,7 +501,17 @@ $(function(){
         //选择物品按钮名称
         $('.zhiXingRenYuanButton').html('新增物品');
 
+        //添加登记类
+        $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
+
     });
+
+    //入库单【登记】
+    $('#myModal').on('click','.dengji',function(){
+
+        djOrBj();
+
+    })
 
     //入库单【新增物品】
     $('.zhiXingRenYuanButton').click(function(){
@@ -640,35 +659,104 @@ $(function(){
         })
         .on('click','.option-shanchu',function(){
 
-            var wpNum = $(this).parents('tr').children('.bianma').html();
+            removeRK($(this));
 
-            var kwNum = $(this).parents('tr').children('.localName').children('span').attr('data-num');
+            //修改类名
+            $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
 
-            var snNum = $(this).parents('tr').children('.sn').html();
-
-            //库位编码、物品编码、物品序列号一致才能删除
-            for(var i=0;i<_rukuArr.length;i++){
-
-                if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
-
-                    _$thisRemoveRowXiao = _rukuArr[i].itemNum;
-
-                    _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
-
-                    //弹出框增加类
-                    //$('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
-
-                }
-            }
+            //var wpNum = $(this).parents('tr').children('.bianma').html();
+            //
+            //var kwNum = $(this).parents('tr').children('.localName').children('span').attr('data-num');
+            //
+            //var snNum = $(this).parents('tr').children('.sn').html();
+            //
+            ////库位编码、物品编码、物品序列号一致才能删除
+            //for(var i=0;i<_rukuArr.length;i++){
+            //
+            //    if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
+            //
+            //        _$thisRemoveRowXiao = _rukuArr[i].itemNum;
+            //
+            //        _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
+            //
+            //        //弹出框增加类（daShanchu是入库单删除、xiaoShanchu是第一层已选中的入库产品删除、removeButton是第二层已选中入库产品删除）
+            //        $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
+            //
+            //    }
+            //}
 
 
         })
 
-    //入库产品
+    //入库产品第二层弹框【删除】
     $('#myModal2')
+        .on('click','.removeButton',function(){
+
+            sureRemoveRK($('#wuPinListTable1'));
+
+            $(this).removeClass('removeButton');
+
+        })
+        //入库产品第一层
         .on('click','.xiaoShanchu',function(){
 
+            sureRemoveRK($('#personTable1'));
 
+            $(this).removeClass('xiaoShanchu');
+
+        })
+
+    //确定入库产品第二层【选择】
+    $('#myModal1').on('click','.ruku',function(){
+
+        _datasTable($('#personTable1'),_rukuArr);
+
+        $('#myModal1').modal('hide');
+
+    })
+
+    //第一层【查看】
+    $('#personTable1')
+        .on('click','.option-see1',function(){
+
+            //模态框
+            _moTaiKuang($('#myModal6'), '入库产品详情', 'flag', '' ,'', '');
+
+            //赋值
+
+
+        })
+        .on('click','.option-shanchu',function(){
+
+            removeRK($(this));
+
+            //修改类名
+            $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('removeButton').addClass('xiaoShanchu');
+
+        })
+
+    //入库单【查看】
+    $('.main-contents-table .table tbody')
+        .on('click','.option-see',function(){
+
+            //样式
+            var $this = $(this).parents('tr');
+
+            $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+
+            $this.addClass('tables-hover');
+
+            var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
+
+            _ruCode = $thisDanhao;
+
+            _moTaiKuang($('#myModal'), '查看', 'flag', '' ,'', '');
+
+            //绑定数据
+            bindData($thisDanhao);
+
+            //入库产品详情
+            detailInfo($thisDanhao);
 
         })
 
@@ -790,11 +878,26 @@ $(function(){
     /*------------------------------------------------入库产品点击事件-------------------------------------*/
     //点击下拉三角，出现的地方
     $('.selectBlock').click(function(e){
+
         if($(this).parent('.input-blockeds').hasClass('disabled-block')){
 
             return false;
 
         }else{
+
+            //初始化库区、物品下拉列表
+            if($(this).next('.kuqu-list').length != 0){
+
+                var data = $('#ckselect').val();
+
+                getKQ(data);
+
+            }else if($(this).next('.accord-with-list').length != 0){
+
+                var str = '';
+
+                arrList(str,_wpListArr,false);
+            }
 
             var e = event || window.event;
 
@@ -899,7 +1002,9 @@ $(function(){
                     }
                 }
                 _datasTable($('#scrap-datatables1'),confirm);
+
                 _datasTable($('#scrap-datatables2'),confirmed);
+
                 _datasTable($('#scrap-datatables'),result);
 
             },
@@ -1495,8 +1600,6 @@ $(function(){
                 //给物品编码和物品名称的列表赋初始值
                 arrList(str,result,false);
 
-
-                //datasTable($('#wuPinListTable'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1666,6 +1769,193 @@ $(function(){
         }
     }
 
+    //表格入库产品删除按钮
+    function removeRK($this){
 
+        console.log(111111111111);
+
+        var wpNum = $this.parents('tr').children('.bianma').html();
+
+        var kwNum = $this.parents('tr').children('.localName').children('span').attr('data-num');
+
+        var snNum = $this.parents('tr').children('.sn').html();
+
+        //库位编码、物品编码、物品序列号一致才能删除
+        for(var i=0;i<_rukuArr.length;i++){
+
+            if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
+
+                _$thisRemoveRowXiao = _rukuArr[i].itemNum;
+
+                _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
+
+                //弹出框增加类（daShanchu是入库单删除、xiaoShanchu是第一层已选中的入库产品删除、removeButton是第二层已选中入库产品删除）
+                $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
+
+            }
+        }
+    }
+
+    //表格入库产品删除确定按钮
+    function sureRemoveRK(tableId){
+
+        _rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
+
+        _datasTable(tableId,_rukuArr);
+
+        $('#myModal2').modal('hide');
+
+    }
+
+    //入库单赋值
+    function bindData(num){
+
+        for(var i=0;i<_allData.length;i++){
+            //绑定数据
+            if(_allData[i].orderNum == num){
+                //入库单号
+                putInList.bianhao = _allData[i].orderNum;
+                //入库单类型
+                putInList.rkleixing = _allData[i].inType;
+                //供货方名称
+                putInList.suppliermc = _allData[i].supNum;
+                //供货方联系人
+                putInList.suppliercontent = _allData[i].contactName;
+                //供货方联系电话
+                putInList.supplierphone = _allData[i].phone;
+                //仓库
+                putInList.ckselect = _allData[i].storageNum;
+                //制单人
+                putInList.zhidanren = _allData[i].createUserName;
+                //制单时间
+                putInList.shijian = _allData[i].createTime;
+                //备注
+                putInList.remarks = _allData[i].remark;
+                //审核备注
+                putInList.shremarks = _allData[i].auditMemo;
+            }
+        }
+
+    }
+
+    //入库产品详情
+    function detailInfo(num,seccessFun){
+        var prm = {
+            'orderNum':num,
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetInStorageDetail',
+            data:prm,
+            success:function(result){
+
+                console.log(result);
+
+                seccessFun(result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //入库单登记、编辑
+    function djOrBj(){
+
+        //验证非空
+        if( putInList.rkleixing == '' ){
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项', '');
+
+        }else{
+
+            //入库产品数组
+            var inStoreDetails = [];
+
+            for(var i=0;i<_rukuArr.length;i++){
+
+                var obj = {};
+                //序列号
+                obj.sn = _rukuArr[i].sn;
+                //是否耐用
+                obj.isSpare = _rukuArr[i].isSpare;
+                //入库产品编号
+                obj.itemNum = _rukuArr[i].itemNum;
+                //入库产品名称
+                obj.itemName = _rukuArr[i].itemName;
+                //品质
+                obj.batchNum = _rukuArr[i].batchNum;
+                //数量
+                obj.num = _rukuArr[i].num;
+                //入库价格
+                obj.inPrice = _rukuArr[i].inPrice;
+                //总金额
+                obj.amount = _rukuArr[i].amount;
+                //仓库编号
+                obj.storageNum = _rukuArr[i].storageNum;
+                //仓库名称
+                obj.storageName = _rukuArr[i].storageName;
+                //规格型号
+                obj.size = _rukuArr[i].size;
+                //单位
+                obj.unitName = _rukuArr[i].unitName;
+                //备注
+                obj.inMemo = _rukuArr[i].inMemo;
+                //质保期
+                obj.maintainDate = _rukuArr[i].maintainDate;
+                //库区编号
+                obj.localNum = _rukuArr[i].localNum;
+                //库区名称
+                obj.localName = _rukuArr[i].localName;
+                //用户id
+                obj.userID=_userIdNum;
+                //用户名
+                obj.userName = _userIdName;
+
+                inStoreDetails.push(obj);
+
+            }
+
+            //仓库选择
+            var ckName = '';
+            if($('#ckselect').val() == ''){
+
+                ckName = ''
+
+            }else{
+
+                ckName = $('#ckselect').children('option:selected').html();
+
+            }
+
+            var prm = {
+
+                //入库类型
+                inType:putInList.rkleixing,
+                //供应方编号
+                supNum:putInList.bianhao,
+                //供应方名称
+                supName:putInList.suppliermc
+
+                /*
+                *bianhao:'',
+                 rkleixing:'',
+                 suppliermc:'',
+                 suppliercontent:'',
+                 supplierphone:'',
+                 ckselect:'',
+                 zhidanren:'',
+                 shijian:'',
+                 remarks:'',
+                 shremarks:''*/
+
+            }
+
+        }
+
+    }
 
 })
