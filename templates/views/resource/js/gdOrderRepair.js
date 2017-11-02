@@ -272,7 +272,7 @@ $(function(){
             data:'wxKeshi'
         },
         {
-            title:'处理人',
+            title:'执行人',
             data:'wxUserNames'
         },
         {
@@ -350,7 +350,7 @@ $(function(){
             data:'wxKeshi'
         },
         {
-            title:'处理人',
+            title:'执行人',
             data:'wxUserNames'
         },
         {
@@ -436,7 +436,7 @@ $(function(){
             data:'wxKeshi'
         },
         {
-            title:'处理人',
+            title:'执行人',
             data:'wxUserNames'
         },
         {
