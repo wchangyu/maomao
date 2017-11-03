@@ -401,7 +401,7 @@ $(function(){
         {
             title:'验收人',
             data:'yanShouRenName'
-        },
+        }
         //{
         //    title:'操作',
         //    data:null,

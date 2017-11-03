@@ -506,6 +506,10 @@ $(function(){
             title:'验收人',
             data:'yanShouRenName'
         },
+        {
+            title:'自动关单',
+            data:'autoCloseTime'
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -2020,6 +2024,7 @@ $(function(){
             'gdCode':$('.filterInput').val(),
             'gdSt':st,
             'gdEt':et,
+            'isQueryAutoCloseTime':1,
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole
@@ -2118,7 +2123,7 @@ $(function(){
                 //gdObj.pointer = '';
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
-                gdObj.wxshx=result.wxXm;
+                gdObj.wxxm=result.wxXm;
                 //绑定维修项目编号
                 $('#metter').attr('wxnum',result.wxXmNum);
                 //gdObj.sbtype = result.
