@@ -215,6 +215,7 @@ $(function(){
     //登记确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
+
             //验证必填项
             if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''  || gdObj.wxcontent == ''){
 
@@ -239,8 +240,8 @@ $(function(){
                     'bxRen':gdObj.bxren,
                     //'':gdObj.pointer,
                     'gdFsShij':$('.datatimeblock').eq(2).val(),
-                    'wxShiX':gdObj.wxshx,
-                    'wxShiXNum':'1',
+                    'wxShiX':$('#metter').val(),
+                    'wxShiXNum':$('#metter').attr('data-num'),
                     'wxShebei':gdObj.sbnum,
                     'dName':gdObj.sbname,
                     'installAddress':gdObj.azplace,
@@ -255,36 +256,37 @@ $(function(){
                     'wxBeizhu':gdObj.wxcontent,
                     'gdWxRs':arr
                 }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWGD/ywGDCreQuickDJ',
-                    data:prm,
-                    timeout:_theTimes,
-                    beforeSend: function () {
-                        $('#theLoading').modal('show');
-                    },
-
-                    complete: function () {
-                        $('#theLoading').modal('hide');
-                    },
-                    success:function(result){
-                        //console.log(result);
-                        if(result == 99){
-
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
-
-                            $('#myModal').modal('hide');
-
-                            conditionSelect();
-
-                        }else{
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记失败！', '');
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR.responseText);
-                    }
-                })
+                console.log(prm);
+                //$.ajax({
+                //    type:'post',
+                //    url:_urls + 'YWGD/ywGDCreQuickDJ',
+                //    data:prm,
+                //    timeout:_theTimes,
+                //    beforeSend: function () {
+                //        $('#theLoading').modal('show');
+                //    },
+                //
+                //    complete: function () {
+                //        $('#theLoading').modal('hide');
+                //    },
+                //    success:function(result){
+                //        //console.log(result);
+                //        if(result == 99){
+                //
+                //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
+                //
+                //            $('#myModal').modal('hide');
+                //
+                //            conditionSelect();
+                //
+                //        }else{
+                //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记失败！', '');
+                //        }
+                //    },
+                //    error: function (jqXHR, textStatus, errorThrown) {
+                //        console.log(jqXHR.responseText);
+                //    }
+                //})
 
             }
         })
@@ -834,6 +836,10 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
                 $('#metter').val(dom.eq(i).children().eq(3).find('span').html());
+
+                $('#metter').attr('data-num',dom.eq(i).children().eq(2).html());
+
+                gdObj.wxshx = dom.eq(i).children().eq(3).find('span').html();
 
                 $('#choose-building').modal('hide');
 

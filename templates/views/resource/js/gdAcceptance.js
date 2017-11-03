@@ -2241,37 +2241,35 @@ $(function(){
             if(flag){
                 prm.gdCode = _gdCode;
             }
-            console.log(prm);
+            $.ajax({
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                timeout:_theTimes,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                success:function(result){
 
-            //$.ajax({
-            //    type:'post',
-            //    url:_urls + url,
-            //    data:prm,
-            //    timeout:_theTimes,
-            //    beforeSend: function () {
-            //        $('#theLoading').modal('show');
-            //    },
-            //    complete: function () {
-            //        $('#theLoading').modal('hide');
-            //    },
-            //    success:function(result){
-            //
-            //        if(result == 99){
-            //
-            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
-            //
-            //            $('#myModal').modal('hide');
-            //
-            //            //刷新表格
-            //            conditionSelect();
-            //        }else{
-            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
-            //        }
-            //    },
-            //    error:function(jqXHR, textStatus, errorThrown){
-            //        console.log(jqXHR.responseText);
-            //    }
-            //})
+                    if(result == 99){
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
+
+                        $('#myModal').modal('hide');
+
+                        //刷新表格
+                        conditionSelect();
+                    }else{
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
         }
     }
 
