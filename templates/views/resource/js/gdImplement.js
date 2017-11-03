@@ -441,7 +441,7 @@ $(function(){
         _gdCode = $(this).parents('tr').children('.gdCode').children('span').children('a').html();
 
         //模态框显示
-        _moTaiKuang($('#myModal'), '关单申请', '', '' ,'', '申请关单');
+        _moTaiKuang($('#myModal'), '申请关单', '', '' ,'', '申请关单');
 
         //添加类名
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('closeGD');
@@ -698,6 +698,8 @@ $(function(){
     //申请关单
     $('#myModal').on('click','.closeGD',function(){
 
+        aa = true;
+
         if(aa){
             if( $('#receiver').val() == '' ){
 
@@ -742,7 +744,7 @@ $(function(){
 
                             if(result==99){
 
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请成功！', '');
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单成功！', '');
 
                                 $('#myModal').hide();
 
@@ -750,7 +752,7 @@ $(function(){
 
                             }else{
 
-                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请失败！', '');
+                                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单失败！', '');
 
                             }
 
@@ -817,7 +819,7 @@ $(function(){
 
                         if(result==99){
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请成功！', '');
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单成功！', '');
 
                             $('#myModal').modal('hide');
 
@@ -825,7 +827,7 @@ $(function(){
 
                         }else{
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单申请失败！', '');
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单失败！', '');
 
                         }
 
@@ -953,6 +955,7 @@ $(function(){
     });
 
     $('#choose-area').on('click','.tableCheck',function(){
+
         $(".tableCheck").attr("checked",false);
 
         $(this).attr("checked",true);
@@ -979,7 +982,27 @@ $(function(){
 
     });
 
-
+    //点击维修事项查询按钮
+    $('#selected1').on('click',function(){
+        //获取维修类别
+        var type = $('#add-select').find("option:selected").text();
+        if(type == '全部'){
+            type = '';
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDWxxmGetAll',
+            data:{
+                "wxnum": "",
+                "wxname": "",
+                "wxclassname":type
+            },
+            success:function(result){
+                //return false;
+                _datasTable($('#choose-metter'),result);
+            }
+        })
+    });
 
 
     /*------------------------------------------------表格初始化------------------------------------------*/
@@ -1052,7 +1075,7 @@ $(function(){
         {
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>关单申请</span>"
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>"
         }
     ];
 
@@ -1905,7 +1928,7 @@ $(function(){
 
             if( _clIsSuccess && _gbIsSuccess ){
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加物品成功！关单申请成功！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加物品成功！申请关单成功！', '');
 
                 conditionSelect();
 
@@ -1926,10 +1949,10 @@ $(function(){
                 }
                 if( _gbIsSuccess ){
 
-                    str += '关单申请成功！'
+                    str += '申请关单成功！'
                 }else{
 
-                    str += '全单申请失败！'
+                    str += '申请关单失败！'
                 }
 
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
@@ -2145,5 +2168,32 @@ $(function(){
         })
     };
 
+    getMatterType();
+
+    //获取项目类别
+    function getMatterType(){
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDwxxmClassGetAll',
+            data:{
+                "wxnum": ""
+            },
+            success:function(result){
+                console.log(result);
+                //return false;
+                var html = '<option value=" ">全部</option>'
+                $(result).each(function(i,o){
+                    html += '<option value="'+o.wxclassnum+'">'+ o.wxclassname+'</option>'
+                })
+                $('#add-select').html(html);
+            }
+        })
+
+    }
+
+    //隐藏分页
+    $('#choose-metter_length').hide();
+    $('#choose-area-table_length').hide();
+    $('#choose-equip_length').hide();
 
 })

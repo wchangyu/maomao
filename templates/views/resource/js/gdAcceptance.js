@@ -2562,4 +2562,12 @@ $(function(){
             }
         })
     }
+
+    //隐藏分页
+    $('#choose-metter_length').hide();
+    $('#choose-area-table_length').hide();
+    $('#choose-people-table_length').hide();
+    $('#choose-phone-table_length').hide();
+    $('#choose-department-table_length').hide();
+    $('#choose-equip_length').hide();
 })
