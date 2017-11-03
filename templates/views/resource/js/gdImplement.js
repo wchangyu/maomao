@@ -244,9 +244,9 @@ $(function(){
         _isDeng = true;
 
         //显示模态框
-        _moTaiKuang($('#myModal6'), '登记', '', '' ,'', '登记');
+        _moTaiKuang($('#myModal6'), '报修', '', '' ,'', '报修');
 
-        //增加登记类
+        //增加报修类
         $('#myModal6').find('.btn-primary').removeClass('jiedan').addClass('dengji');
 
         //选择部门不显示
@@ -278,7 +278,7 @@ $(function(){
 
     });
 
-    //点击登记模态框显示的回调函数
+    //点击报修模态框显示的回调函数
     $('#myModal6').on('shown.bs.modal', function () {
 
         if(_isDeng){
@@ -330,7 +330,7 @@ $(function(){
         _isDeng = false;
     });
 
-    //登记确定按钮
+    //报修确定按钮
     $('#myModal6').on('click','.dengji',function(){
 
         //验证必填项
@@ -1383,7 +1383,7 @@ $(function(){
             },
             {
                 title:'维修项目编号',
-                data:'wxclassnum',
+                data:'wxnum',
                 class:'theHidden'
             },
             {

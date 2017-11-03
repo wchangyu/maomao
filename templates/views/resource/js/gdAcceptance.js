@@ -285,7 +285,7 @@ $(function(){
             },
             {
                 title:'维修项目编号',
-                data:'wxclassnum',
+                data:'wxnum',
                 class:'theHidden'
             },
             {
@@ -1898,8 +1898,9 @@ $(function(){
             },
             success:function(result){
                 //return false;
-               //console.log(result);
-                $('#depart').val(result);
+               console.log(result);
+
+                $('#depart').val(result[0].departNum);
 
                 //选择部门
                 gdObj.wxbz = $('#depart').children('option:selected').html();
