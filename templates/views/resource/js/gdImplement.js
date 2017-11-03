@@ -710,12 +710,24 @@ $(function(){
 
             }else{
 
+                var receiver = ''
+
+                if($('#receiver').val() == ''){
+
+                    receiver = ''
+
+                }else{
+
+                    receiver = $('#receiver').children('option:selected').html();
+
+                }
+
                 var prm = {
                     gdCode:_gdCode,
                     gdZht:6,
                     wxBeizhu:$('.wxcontent').val(),
                     yanShouRen:$('#receiver').val(),
-                    yanShouRenName:$('#receiver').children('option:selected').html(),
+                    yanShouRenName:receiver,
                     gdFee:$('#total').val(),
                     gongShiFee:$('#hourFee').val(),
                     userID:_userIdName,

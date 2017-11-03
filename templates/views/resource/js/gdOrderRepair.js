@@ -1507,7 +1507,7 @@ $(function(){
                 'wxShiX':'null',
                 //'wxShiXNum':gdObj.sbtype,
                 'wxXm':gdObj.wxshx,
-                'wxXmNum':$('#matter').attr('data-num'),
+                'wxXmNum':$('#matter').attr('data-mnum'),
                 'wxShebei':gdObj.sbnum,
                 'dName':gdObj.sbname,
                 'installAddress':gdObj.azplace,

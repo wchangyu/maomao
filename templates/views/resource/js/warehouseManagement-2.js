@@ -1947,26 +1947,16 @@ $(function(){
                 storageName:ckName,
                 //仓库编码
                 storageNum:putInList.ckselect,
-
                 //入库物品
                 inStoreDetails:inStoreDetails,
+                //备注
+                remark:putInList.remarks,
                 //用户id
                 userID:_userIdNum,
                 //用户名称
                 userName:_userIdName,
                 //角色
                 b_UserRole:_userRole,
-                /*
-                *bianhao:'',
-
-
-                 suppliercontent:'',
-                 supplierphone:'',
-                 ckselect:'',
-                 zhidanren:'',
-                 shijian:'',
-                 remarks:'',
-                 shremarks:''*/
 
             }
 
