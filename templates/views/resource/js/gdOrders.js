@@ -14,8 +14,8 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*--------------------------------------------变量----------------------------------------------------*/
-    //快速登记
-    //登记vue变量
+    //快速报修
+    //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
         data:{
@@ -54,7 +54,7 @@ $(function(){
         return /[^.\s]{1,500}$/.test(val)
     });
 
-    //标记当前打开的是不是登记按钮
+    //标记当前打开的是不是报修按钮
     var _isDeng = false;
 
     //存放报修科室数组
@@ -120,7 +120,7 @@ $(function(){
 
 
     /*-------------------------------------------------按钮事件-----------------------------------------*/
-    //快速登记
+    //快速报修
     $('.creatButton').click(function(){
 
         _isDeng = true;
@@ -129,9 +129,9 @@ $(function(){
 
 
         //显示模态框
-        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记');
+        _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
-        //增加登记类
+        //增加报修类
         $('#myModal').find('.btn-primary').removeClass('jiedan').addClass('dengji');
 
         //选择部门不显示
@@ -159,7 +159,7 @@ $(function(){
         $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');;
     });
 
-    //点击登记模态框显示的回调函数
+    //点击报修模态框显示的回调函数
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
@@ -212,7 +212,7 @@ $(function(){
         _isDeng = false;
     });
 
-    //登记确定按钮
+    //报修确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
 
@@ -230,7 +230,7 @@ $(function(){
                 obj.wxRDh = _fzrArr[0].mobile;
                 arr.push(obj);
 
-                //登记
+                //报修
                 var prm = {
                     'gdJJ':gdObj.gdtype,
                     'gdRange':gdObj.xttype,
@@ -256,37 +256,36 @@ $(function(){
                     'wxBeizhu':gdObj.wxcontent,
                     'gdWxRs':arr
                 }
-                console.log(prm);
-                //$.ajax({
-                //    type:'post',
-                //    url:_urls + 'YWGD/ywGDCreQuickDJ',
-                //    data:prm,
-                //    timeout:_theTimes,
-                //    beforeSend: function () {
-                //        $('#theLoading').modal('show');
-                //    },
-                //
-                //    complete: function () {
-                //        $('#theLoading').modal('hide');
-                //    },
-                //    success:function(result){
-                //        //console.log(result);
-                //        if(result == 99){
-                //
-                //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
-                //
-                //            $('#myModal').modal('hide');
-                //
-                //            conditionSelect();
-                //
-                //        }else{
-                //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记失败！', '');
-                //        }
-                //    },
-                //    error: function (jqXHR, textStatus, errorThrown) {
-                //        console.log(jqXHR.responseText);
-                //    }
-                //})
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWGD/ywGDCreQuickDJ',
+                    data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+                        //console.log(result);
+                        if(result == 99){
+
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速报修成功！', '');
+
+                            $('#myModal').modal('hide');
+
+                            conditionSelect();
+
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速报修失败！', '');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR.responseText);
+                    }
+                })
 
             }
         })
