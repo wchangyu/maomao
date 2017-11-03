@@ -14,7 +14,7 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*---------------------------------------------变量--------------------------------------------------*/
-    //登记vue变量
+    //vue变量
     var gdObj = new Vue({
         el:'#myApp33',
         data:{
@@ -110,7 +110,7 @@ $(function(){
     //重发执行结果
     var _reSendSuccess = false;
 
-    //标记当前打开的是不是登记按钮
+    //标记当前打开的是不是按钮
     var _isDeng = false;
 
     //存放员工信息数组
@@ -156,7 +156,7 @@ $(function(){
         //    data:''
         //},
         {
-            title:'故障发生时间',
+            title:'报修时间',
             data:'gdFsShij'
         },
         {
@@ -337,7 +337,7 @@ $(function(){
         //    data:''
         //},
         {
-            title:'故障发生时间',
+            title:'报修时间',
             data:'gdFsShij'
         },
         {
@@ -506,6 +506,10 @@ $(function(){
             title:'验收人',
             data:'yanShouRenName'
         },
+        {
+            title:'自动关单',
+            data:'autoCloseTime'
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -723,15 +727,15 @@ $(function(){
         tabDiv.eq($(this).index()).removeClass('hide-block');
     });
 
-    //登记
+    //
     $('.creatButton').click(function(){
 
         _isDeng = true;
 
         //模态框显示
-        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记');
+        _moTaiKuang($('#myModal'), '', '', '' ,'', '报修');
 
-        //添加登记类
+        //添加类
         $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('xiafa').addClass('dengji');
 
         //显示放大镜图标 用户可以选择
@@ -765,7 +769,7 @@ $(function(){
 
     });
 
-    //点击登记模态框显示的回调函数
+    //点击模态框显示的回调函数
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
@@ -883,11 +887,11 @@ $(function(){
         }
     })
 
-    //登记、编辑
+    //、编辑
     $('#myModal')
         .on('click','.dengji',function(){
 
-            optionData('YWGD/ywGDCreDJ','登记成功！','登记失败！','');
+            optionData('YWGD/ywGDCreDJ','成功！','失败！','');
 
         })
         .on('click','.bianji',function(){
@@ -1805,7 +1809,7 @@ $(function(){
         }
 
     }
-    //登记项初始化
+    //项初始化
     function dataInit(){
         gdObj.gdtype = '0';
         gdObj.bxtel = '';
@@ -2020,6 +2024,7 @@ $(function(){
             'gdCode':$('.filterInput').val(),
             'gdSt':st,
             'gdEt':et,
+            'isQueryAutoCloseTime':1,
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole
@@ -2118,7 +2123,7 @@ $(function(){
                 //gdObj.pointer = '';
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
-                gdObj.wxshx=result.wxXm;
+                gdObj.wxxm=result.wxXm;
                 //绑定维修项目编号
                 $('#metter').attr('wxnum',result.wxXmNum);
                 //gdObj.sbtype = result.
@@ -2177,7 +2182,7 @@ $(function(){
         })
     }
 
-    //登记、编辑(编辑的时候传参数flag)
+    //、编辑(编辑的时候传参数flag)
     function optionData(url,successMeg,errorMeg,flag){
         //验证非空
         if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
@@ -2241,37 +2246,35 @@ $(function(){
             if(flag){
                 prm.gdCode = _gdCode;
             }
-            console.log(prm);
+            $.ajax({
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                timeout:_theTimes,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                success:function(result){
 
-            //$.ajax({
-            //    type:'post',
-            //    url:_urls + url,
-            //    data:prm,
-            //    timeout:_theTimes,
-            //    beforeSend: function () {
-            //        $('#theLoading').modal('show');
-            //    },
-            //    complete: function () {
-            //        $('#theLoading').modal('hide');
-            //    },
-            //    success:function(result){
-            //
-            //        if(result == 99){
-            //
-            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
-            //
-            //            $('#myModal').modal('hide');
-            //
-            //            //刷新表格
-            //            conditionSelect();
-            //        }else{
-            //            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
-            //        }
-            //    },
-            //    error:function(jqXHR, textStatus, errorThrown){
-            //        console.log(jqXHR.responseText);
-            //    }
-            //})
+                    if(result == 99){
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
+
+                        $('#myModal').modal('hide');
+
+                        //刷新表格
+                        conditionSelect();
+                    }else{
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',errorMeg, '');
+                    }
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
         }
     }
 

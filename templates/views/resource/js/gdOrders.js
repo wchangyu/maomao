@@ -14,8 +14,8 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*--------------------------------------------变量----------------------------------------------------*/
-    //快速登记
-    //登记vue变量
+    //快速报修
+    //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
         data:{
@@ -54,7 +54,7 @@ $(function(){
         return /[^.\s]{1,500}$/.test(val)
     });
 
-    //标记当前打开的是不是登记按钮
+    //标记当前打开的是不是报修按钮
     var _isDeng = false;
 
     //存放报修科室数组
@@ -120,7 +120,7 @@ $(function(){
 
 
     /*-------------------------------------------------按钮事件-----------------------------------------*/
-    //快速登记
+    //快速报修
     $('.creatButton').click(function(){
 
         _isDeng = true;
@@ -129,9 +129,9 @@ $(function(){
 
 
         //显示模态框
-        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记');
+        _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
-        //增加登记类
+        //增加报修类
         $('#myModal').find('.btn-primary').removeClass('jiedan').addClass('dengji');
 
         //选择部门不显示
@@ -156,10 +156,10 @@ $(function(){
         $('.note-edit2').attr('disabled',true).addClass('disabled-block');
 
         //电话信息可编辑
-        $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');;
+        $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');
     });
 
-    //点击登记模态框显示的回调函数
+    //点击报修模态框显示的回调函数
     $('#myModal').on('shown.bs.modal', function () {
 
         if(_isDeng){
@@ -212,9 +212,10 @@ $(function(){
         _isDeng = false;
     });
 
-    //登记确定按钮
+    //报修确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
+
             //验证必填项
             if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''  || gdObj.wxcontent == ''){
 
@@ -229,7 +230,7 @@ $(function(){
                 obj.wxRDh = _fzrArr[0].mobile;
                 arr.push(obj);
 
-                //登记
+                //报修
                 var prm = {
                     'gdJJ':gdObj.gdtype,
                     'gdRange':gdObj.xttype,
@@ -239,8 +240,8 @@ $(function(){
                     'bxRen':gdObj.bxren,
                     //'':gdObj.pointer,
                     'gdFsShij':$('.datatimeblock').eq(2).val(),
-                    'wxShiX':gdObj.wxshx,
-                    'wxShiXNum':'1',
+                    'wxShiX':$('#metter').val(),
+                    'wxShiXNum':$('#metter').attr('data-num'),
                     'wxShebei':gdObj.sbnum,
                     'dName':gdObj.sbname,
                     'installAddress':gdObj.azplace,
@@ -271,14 +272,14 @@ $(function(){
                         //console.log(result);
                         if(result == 99){
 
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记成功！', '');
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速报修成功！', '');
 
                             $('#myModal').modal('hide');
 
                             conditionSelect();
 
                         }else{
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速登记失败！', '');
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'快速报修失败！', '');
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -488,13 +489,13 @@ $(function(){
         //    data:'paiGongShij'
         //},
         {
-            title:'维修科室',
-            data:'wxKeshi'
+            title:'报修科室',
+            data:'bxKeshi'
         },
-        //{
-        //    title:'执行人',
-        //    data:'wxUserNames'
-        //},
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
         {
             title:'联系电话',
             data:'bxDianhua'
@@ -834,6 +835,10 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
                 $('#metter').val(dom.eq(i).children().eq(3).find('span').html());
+
+                $('#metter').attr('data-num',dom.eq(i).children().eq(2).html());
+
+                gdObj.wxshx = dom.eq(i).children().eq(3).find('span').html();
 
                 $('#choose-building').modal('hide');
 

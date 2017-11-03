@@ -15,7 +15,7 @@ $(function(){
 
     /*--------------------------------------------变量----------------------------------------------------*/
 
-    //登记vue变量
+    //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
         data:{
@@ -94,7 +94,7 @@ $(function(){
     var _gdZht = '';
 
 
-    //标记当前打开的是不是登记按钮
+    //标记当前打开的是不是报修按钮
     var _isDeng = false;
 
     //记录当前评价的值
@@ -141,7 +141,7 @@ $(function(){
         //    data:''
         //},
         {
-            title:'故障发生时间',
+            title:'报修时间',
             data:'gdFsShij'
         },
         {
@@ -196,7 +196,7 @@ $(function(){
         //    data:''
         //},
         {
-            title:'故障发生时间',
+            title:'报修时间',
             data:'gdFsShij'
         },
         {
@@ -361,6 +361,10 @@ $(function(){
             title:'验收人',
             data:'yanShouRenName'
         },
+        {
+            title:'自动关单',
+            data:'autoCloseTime'
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -446,7 +450,7 @@ $(function(){
         {
             title:'验收人',
             data:'yanShouRenName'
-        },
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -528,16 +532,16 @@ $(function(){
         tabDiv.eq($(this).index()).removeClass('hide-block');
     });
 
-    //登记按钮
+    //报修按钮
     $('.creatButton').click(function(){
 
         _isDeng = true;
 
         //显示模态框
-        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记');
+        _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
 
-        //增加登记类
+        //增加报修类
         $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
 
         //故障描述可操作
@@ -603,7 +607,7 @@ $(function(){
     })
 
 
-    //登记确定按钮
+    //报修确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
 
@@ -1323,7 +1327,7 @@ $(function(){
             table.fnClearTable();
             table.fnDraw();
         }else{
-            arr.reverse();
+            //arr.reverse();
             var table = tableId.dataTable();
             table.fnClearTable();
             table.fnAddData(arr);
@@ -1332,7 +1336,7 @@ $(function(){
 
     }
 
-    //登记项初始化
+    //报修项初始化
     function dataInit(){
         gdObj.gdtype = '0';
         gdObj.xttype = '1';
@@ -1386,6 +1390,7 @@ $(function(){
             'gdCode':$('.filterInput').val(),
             'gdSt':st,
             'gdEt':et,
+            'isQueryAutoCloseTime':1,
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,
@@ -1478,7 +1483,7 @@ $(function(){
         })
     }
 
-    //登记、编辑方法(编辑的时候传参数flag)
+    //报修、编辑方法(编辑的时候传参数flag)
     function optionData(url,successMeg,errorMeg,flag){
         //验证非空
         if(gdObj.bxtel == ''|| gdObj.bxkesh == '' || gdObj.bxren == '' || gdObj.gzplace == '' || gdObj.wxshx == ''){
@@ -1502,7 +1507,7 @@ $(function(){
                 'wxShiX':'null',
                 //'wxShiXNum':gdObj.sbtype,
                 'wxXm':gdObj.wxshx,
-                'wxXmNum':$('#matter').attr('data-num'),
+                'wxXmNum':$('#matter').attr('data-mnum'),
                 'wxShebei':gdObj.sbnum,
                 'dName':gdObj.sbname,
                 'installAddress':gdObj.azplace,

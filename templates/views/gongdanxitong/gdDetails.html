@@ -58,13 +58,13 @@
                             <div class="tipe-block">报修人信息</div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                    <div class="single-labels starRed">报修电话：</div>
+                                    <div class="single-labels ">报修电话：</div>
                                     <div class="single-block">
                                         <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off'>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                    <div class="single-labels starRed">报修科室：</div>
+                                    <div class="single-labels ">报修科室：</div>
                                     <div class="single-block">
                                         <input v-model="bxkesh" id="bxkesh"></input>
                                     </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                    <div class="single-labels starRed">报修人：</div>
+                                    <div class="single-labels ">报修人：</div>
                                     <div class="single-block">
                                         <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off'>
                                     </div>
@@ -121,20 +121,20 @@
                             <div class="tipe-block">故障信息</div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                    <div class="single-labels starRed">发生时间：</div>
+                                    <div class="single-labels ">发生时间：</div>
                                     <div class="single-block">
                                         <input type="text" v-model="gztime" class="" @focus="time()" @blur="timeblur()">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                    <div class="single-labels starRed">维修事项：</div>
+                                    <div class="single-labels ">维修事项：</div>
                                     <div class="single-block">
                                         <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'>
                                     </div>
                                 </div>
                                 <div class="row autoFile"style="margin-left: 0;">
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line">
-                                        <div class="single-labels starRed">维修班组：</div>
+                                        <div class="single-labels ">维修班组：</div>
                                         <div class="single-block">
                                             <input type="text" v-model="wxbz" v-validate:wxbz= "['isEmpty']" initial='off' id="wxbz">
                                         </div>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div style="margin:15px 16px;">
                                     <div class="single-line" >
-                                        <div class="single-labels starRed">故障位置：</div>
+                                        <div class="single-labels ">故障位置：</div>
                                         <div class="single-block" style="width: 433px;">
                                             <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 431px;">
                                         </div>
@@ -158,7 +158,7 @@
                                 </div>
                                 <div style="margin:15px 16px;">
                                     <div class="single-line">
-                                        <div class="single-labels starRed">维修内容：</div>
+                                        <div class="single-labels ">维修内容：</div>
                                         <div class="single-block" style="width: 433px;height: 62px;">
                                             <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent" v-validate:wxcontent= "['isEmpty']" initial='off'></textarea>
                                         </div>
