@@ -970,7 +970,7 @@ $(function(){
         },
         {
             title:'规格型号',
-            data:'size',
+            data:'size'
         },
         {
             title:'单位',
