@@ -57,6 +57,11 @@
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
+    <style>
+        .theHidden{
+            display: none;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -295,13 +300,13 @@
                                         </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                        <!--<li>-->
-                                            <!--<div class="cont-col1">-->
-                                                <!--<div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">-->
-                                                    <!--<i class="fa fa-plus" style="margin-right: 2px;"></i>登记-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</li>-->
+                                        <li>
+                                            <div class="cont-col1">
+                                                <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>快速登记
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li class="excelButton"></li>
                                         <div class="clearfix"></div>
                                     </ul>
@@ -409,6 +414,175 @@
 <script src="../resource/js/gdImplement.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
+<!--快速创建-->
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
+        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">创建工单</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <div class="gongdanList" id="myApp331" style="height: 513px;overflow-y: scroll;font-size: 14px;overflow-x: hidden">
+                    <validator name="validation">
+                        <form novalidate>
+                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                <div class="tipe-block">报修人信息</div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels starRed">报修人：</div>
+                                        <div class="single-block">
+                                            <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off' class="note-edit2">
+                                        </div>
+                                        <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
+                                        <div class="single-labels">楼栋：</div>
+                                        <div class="single-block">
+                                            <input v-model="pointer">
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels starRed">报修电话：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' class="note-edit2 bx-choose">
+                                        </div>
+                                        <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels starRed">报修科室：</div>
+                                        <div class="single-block">
+                                            <select v-model="bxkesh" style="margin: 0;height: 100% !important;" id="bxkesh" class="note-edit2"></select>
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                <div class="tipe-block">设备选择</div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels">设备类型：</div>
+                                        <div class="single-block">
+                                            <select id="sbtype" style="margin: 0;height: 100% !important;" v-model="sbtype"></select>
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels">设备编码：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="sbnum" id="equip-num">
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels">设备名称：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="sbname" id="equip-name">
+                                        </div>
+                                        <!--点击图标-->
+                                        <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-equipment'>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels">安装地点：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="azplace" id="equip-address">
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                <div class="tipe-block">故障信息</div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line dj-time">
+                                        <div class="single-labels starRed">登记时间：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="gztime" class="datatimeblock" @focus="time()" @blur="timeblur()">
+                                        </div>
+                                        <span class="colorTip noteTip"></span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                        <div class="single-labels starRed">维修事项：</div>
+                                        <div class="single-block">
+                                            <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off' id="metter">
+                                        </div>
+                                        <!--点击图标-->
+                                        <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
+
+                                        <span class="colorTip noteTip" v-show="$validation.wxshx.isEmpty">请输入维修事项</span>
+                                        <!--<span class="moreDesc"></span>-->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
+                                        <div class="single-labels starRed">故障位置：</div>
+                                        <div class="single-block" style="width: 690px;">
+                                            <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 688px;">
+                                        </div>
+                                        <!--点击图标-->
+                                        <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-area'>
+                                        <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none">请输入故障位置</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
+                                        <div class="single-labels">故障描述：</div>
+                                        <div class="single-block" style="width: 690px;height: 62px;">
+                                            <textarea style="width: 100%;height:100% !important;text-indent:10px;line-height:30px;outline: none;" class="gzDesc"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row wxnr">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line" >
+                                        <div class="single-labels starRed">维修内容：</div>
+                                        <div class="single-block" style="width: 690px;height: 62px;">
+                                            <textarea style="width: 100%;outline: none;" v-model="wxcontent" class="wxcontent" v-validate:wxcontent= "['isEmpty']" initial='off'></textarea>
+                                        </div>
+                                        <span class="colorTip noteTip" v-show="$validation.wxcontent.isEmpty">请填写维修内容</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed">维修班组：</div>
+                                    <div class="single-block">
+                                        <input type="text" v-model="wxbz"   id="wxbz">
+                                    </div>
+                                    <span class="colorTip noteTip" v-show="$validation.wxbz.isEmpty">请填写维修班组</span>
+                                </div>
+                            </div>
+
+                        </form>
+                    </validator>
+                    <!--表格-->
+                    <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;position: relative">
+                        <div class="tipe-block">维修人选择</div>
+                        <div class="tableHover" style="padding-top: 10px;">
+                            <table class="table table-hover" id="fzr-list1">
+                                <thead>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
@@ -922,6 +1096,124 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--选择设备弹窗-->
+<div class='modal fade' id='choose-equipment' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:8% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择设备</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                            <table class="table table-striped left-th-table" id="choose-equip">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--选择维修事项弹窗-->
+<div class='modal fade' id='choose-building' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择维修事项</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;">
+                            <!--增加搜索框-->
+                            <div class="add-searching-select" style="z-index:1000;position: absolute;left:240px;">
+                                <label for="">项目类别：</label>
+                                <select name="" id="add-select" style="width:120px;">
+
+                                </select>
+                                <button class="btn btn-success btn1" id="selected1" style="margin-left:10px;">查询</button>
+                            </div>
+
+                            <table class="table table-striped left-th-table" id="choose-metter">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--选择故障位置弹窗-->
+<div class='modal fade' id='choose-area' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择故障位置</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+                            <table class="table table-striped left-th-table" id="choose-area-table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>

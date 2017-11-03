@@ -156,7 +156,7 @@ $(function(){
         $('.note-edit2').attr('disabled',true).addClass('disabled-block');
 
         //电话信息可编辑
-        $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');;
+        $('.bx-choose').removeAttr('disabled').removeClass('disabled-block');
     });
 
     //点击登记模态框显示的回调函数
