@@ -461,6 +461,12 @@ $(function(){
         //部门不可操作
         $('#depart').attr('disabled',true).addClass('disabled-block');
 
+        //清空材料
+        _selectedBJ = [];
+
+        //总计
+        _totalFree = 0;
+
     })
 
     //添加材料按钮
@@ -654,12 +660,18 @@ $(function(){
 
         _datasTable($('#cl-list'),_selectedBJ);
 
+        _totalFree = 0;
+
         //计算共计费用
         for(var i=0;i<_selectedBJ.length;i++){
+
             _totalFree += parseFloat(_selectedBJ[i].je);
+
         }
 
-        $('#total').val(_totalFree.toFixed(2));
+        var total = Number($('#hourFee').val()) + Number(_totalFree);
+
+        $('#total').val(total.toFixed(2));
     })
 
     //外层材料选择删除
@@ -1768,6 +1780,8 @@ $(function(){
 
                 $('#total').val('');
 
+                manHourFee(result.wxShiXNum);
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -2179,7 +2193,6 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
                 //return false;
                 var html = '<option value=" ">全部</option>'
                 $(result).each(function(i,o){
@@ -2189,6 +2202,41 @@ $(function(){
             }
         })
 
+    }
+
+    //获取工时费
+    function manHourFee(data){
+
+        if(data){
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWGD/ywGDWxxmGetAll',
+                data:{
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    b_UserRole:_userRole,
+                    wxnum:data
+                },
+                timeout:_theTimes,
+                success:function(result){
+
+                    if(result && result.length>0){
+
+                        $('#hourFee').val(result[0].workfee)
+
+                    }
+
+
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText);
+                }
+
+            })
+        }
     }
 
     //隐藏分页
