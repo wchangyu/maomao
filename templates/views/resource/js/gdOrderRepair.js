@@ -361,6 +361,10 @@ $(function(){
             title:'验收人',
             data:'yanShouRenName'
         },
+        {
+            title:'自动关单',
+            data:'autoCloseTime'
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -446,7 +450,7 @@ $(function(){
         {
             title:'验收人',
             data:'yanShouRenName'
-        },
+        }
         //{
         //    title:'操作',
         //    data:null,
@@ -1323,7 +1327,7 @@ $(function(){
             table.fnClearTable();
             table.fnDraw();
         }else{
-            arr.reverse();
+            //arr.reverse();
             var table = tableId.dataTable();
             table.fnClearTable();
             table.fnAddData(arr);
@@ -1386,6 +1390,7 @@ $(function(){
             'gdCode':$('.filterInput').val(),
             'gdSt':st,
             'gdEt':et,
+            'isQueryAutoCloseTime':1,
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,

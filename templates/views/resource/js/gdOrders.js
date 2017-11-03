@@ -490,13 +490,13 @@ $(function(){
         //    data:'paiGongShij'
         //},
         {
-            title:'维修科室',
-            data:'wxKeshi'
+            title:'报修科室',
+            data:'bxKeshi'
         },
-        //{
-        //    title:'执行人',
-        //    data:'wxUserNames'
-        //},
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
         {
             title:'联系电话',
             data:'bxDianhua'
