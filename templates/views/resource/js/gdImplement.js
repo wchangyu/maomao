@@ -1383,7 +1383,7 @@ $(function(){
             },
             {
                 title:'维修项目编号',
-                data:'wxclassnum',
+                data:'wxnum',
                 class:'theHidden'
             },
             {
