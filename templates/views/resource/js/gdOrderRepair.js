@@ -1670,4 +1670,8 @@ $(function(){
 
     }
 
+    //隐藏分页
+    $('#choose-metter_length').hide();
+    $('#choose-area-table_length').hide();
+
 })

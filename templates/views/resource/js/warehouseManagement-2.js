@@ -1862,8 +1862,8 @@ $(function(){
         })
     }
 
-    //入库单登记、编辑
-    function djOrBj(){
+    //入库单登记、编辑(true,编辑,false,登记)
+    function djOrBj(url,flag){
 
         //验证非空
         if( putInList.rkleixing == '' ){
@@ -1958,7 +1958,20 @@ $(function(){
                 //角色
                 b_UserRole:_userRole,
 
+            };
+
+            if(flag){
+
+                prm.orderNum = ''
+
             }
+            $.ajax({
+
+                type:'post',
+                url:_urls + url,
+                timeout:_theTimes,
+
+            })
 
         }
 
