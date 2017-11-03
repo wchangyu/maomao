@@ -656,8 +656,8 @@ $(function(){
                         yanShouRenName:$('#receiver').children('option:selected').html(),
                         gdFee:$('#total').val(),
                         gongShiFee:$('#hourFee').val(),
-                        userID:_userIdName,
-                        userName:_userIdNum,
+                        userID: _userIdNum,
+                        userName:_userIdName,
                         b_UserRole:_userRole
                     }
                     $.ajax({
