@@ -1175,91 +1175,91 @@ $(function(){
     });
 
     //待受理下发按钮
-    $('#pending-list tbody')
-        .on('click','.option-issued',function(){
-
-            //隐藏放大镜图标 不让用户选择
-            $('.fdjImg').hide();
-
-            //选择部门模块显示
-            $('.selectBM').show();
-
-            //信息绑定
-            bindData($(this),$('#appeal-list'),true);
-
-            //模态框显示
-            _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
-
-            //维修内容显示
-            $('#wxContent').show();
-
-            //选择部门显示
-            $('.selectBM').show();
-
-            //报修科室不可选择
-            $('#bxkesh').attr('disabled',true);
-
-            //添加编辑类
-            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('xiafa');
-
-            //input不可操作
-            $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
-
-            //select不可操作
-            $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
-
-            //textarea不可操作
-            $('.gzDesc').attr('disabled',true).addClass('disabled-block');
-
-            //部门可选择
-            $('#depart').val('').attr('disabled',false).removeClass('disabled-block');
-
-        })
-        .on('click','.option-edit',function(){
-
-            //显示放大镜图标 用户可以选择
-            $('.fdjImg').show();
-
-            //选择部门模块隐藏
-            $('.selectBM').hide();
-
-            //信息绑定
-            bindData($(this),$('#appeal-list'));
-
-            //模态框显示
-            _moTaiKuang($('#myModal'), '详情', '', '' ,'', '保存');
-
-            //维修内容隐藏
-            $('#wxContent').hide();
-
-            //选择部门隐藏
-            $('#depart').val(' ').attr('disabled',true).addClass('disabled-block').show();
-
-            //添加编辑类
-            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
-
-            //input不可操作
-            $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
-
-            //select不可操作
-            $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
-
-            //textarea不可操作
-            $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
-
-            //报修人信息不可操作
-            $('.note-edit2').attr('disabled',true).addClass('disabled-block');
-
-            //报修科室
-
-            $('#bxkesh').attr('disabled',true).addClass('disabled-block');
-
-            //报修人、电话不可操作，放大镜不显示
-            $('.bx-change').attr('readonly','readonly').addClass('disabled-block');
-
-            $('.gongdanList').children().children('div').eq(0).find('.fdjImg').hide();
-
-        })
+    //$('#pending-list tbody')
+    //    .on('click','.option-issued',function(){
+    //
+    //        //隐藏放大镜图标 不让用户选择
+    //        $('.fdjImg').hide();
+    //
+    //        //选择部门模块显示
+    //        $('.selectBM').show();
+    //
+    //        //信息绑定
+    //        bindData($(this),$('#appeal-list'),true);
+    //
+    //        //模态框显示
+    //        _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
+    //
+    //        //维修内容显示
+    //        $('#wxContent').show();
+    //
+    //        //选择部门显示
+    //        $('.selectBM').show();
+    //
+    //        //报修科室不可选择
+    //        $('#bxkesh').attr('disabled',true);
+    //
+    //        //添加编辑类
+    //        $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('xiafa');
+    //
+    //        //input不可操作
+    //        $('.single-block').children('input').attr('readOnly','readOnly').addClass('disabled-block');
+    //
+    //        //select不可操作
+    //        $('.single-block').children('select').attr('disabled',true).addClass('disabled-block');
+    //
+    //        //textarea不可操作
+    //        $('.gzDesc').attr('disabled',true).addClass('disabled-block');
+    //
+    //        //部门可选择
+    //        $('#depart').val('').attr('disabled',false).removeClass('disabled-block');
+    //
+    //    })
+    //    .on('click','.option-edit',function(){
+    //
+    //        //显示放大镜图标 用户可以选择
+    //        $('.fdjImg').show();
+    //
+    //        //选择部门模块隐藏
+    //        $('.selectBM').hide();
+    //
+    //        //信息绑定
+    //        bindData($(this),$('#appeal-list'));
+    //
+    //        //模态框显示
+    //        _moTaiKuang($('#myModal'), '详情', '', '' ,'', '保存');
+    //
+    //        //维修内容隐藏
+    //        $('#wxContent').hide();
+    //
+    //        //选择部门隐藏
+    //        $('#depart').val(' ').attr('disabled',true).addClass('disabled-block').show();
+    //
+    //        //添加编辑类
+    //        $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('xiafa').addClass('bianji');
+    //
+    //        //input不可操作
+    //        $('.single-block').children('input').removeAttr('readOnly').removeClass('disabled-block');
+    //
+    //        //select不可操作
+    //        $('.single-block').children('select').attr('disabled',false).removeClass('disabled-block');
+    //
+    //        //textarea不可操作
+    //        $('.gzDesc').attr('disabled',false).removeClass('disabled-block');
+    //
+    //        //报修人信息不可操作
+    //        $('.note-edit2').attr('disabled',true).addClass('disabled-block');
+    //
+    //        //报修科室
+    //
+    //        $('#bxkesh').attr('disabled',true).addClass('disabled-block');
+    //
+    //        //报修人、电话不可操作，放大镜不显示
+    //        $('.bx-change').attr('readonly','readonly').addClass('disabled-block');
+    //
+    //        $('.gongdanList').children().children('div').eq(0).find('.fdjImg').hide();
+    //
+    //    })
 
     //故障地点表格
     var areaTable = $('#choose-area-table').DataTable({
@@ -2191,7 +2191,13 @@ $(function(){
                 gdObj.wxxm=result.wxXm;
                 //绑定维修项目编号
                 $('#metter').attr('wxnum',result.wxXmNum);
-                //gdObj.sbtype = result.
+                for(var i=0;i<_allXTArr.length;i++ ){
+
+                    if( result.dcName == $.trim(_allXTArr[i].dsName)){
+                        $('#sbtype').val(_allXTArr[i].dsNum);
+                    }
+
+                }
                 gdObj.sbnum = result.wxShebei;
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;
@@ -2284,6 +2290,14 @@ $(function(){
                 obj.wxRDh = arr[i].mobile;
                 fzrArr.push(obj);
             }
+
+            var str = ' ';
+            if(gdObj.sbtype == ''){
+                str = ' ';
+            }else{
+                str = $('#sbtype').children('option:selected').html();
+            }
+
             //传数据
             var prm = {
                 'gdJJ':gdObj.gdtype,
@@ -2293,8 +2307,8 @@ $(function(){
                 'bxRen':gdObj.bxren,
                 //'':gdObj.pointer,
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
-                'wxShiX':$('#sbtype').children('option:selected').html(),
-                'wxShiXNum':gdObj.sbtype,
+                'wxShiX':1,
+                'wxShiXNum':1,
                 'wxXm':gdObj.wxxm,
                 'wxXmNum':$('#metter').attr('data-num'),
                 'wxShebei':gdObj.sbnum,
@@ -2306,7 +2320,10 @@ $(function(){
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
                 'gdSrc': 1,
-                'gdWxLeaders':fzrArr
+                'gdWxLeaders':fzrArr,
+                //设备类型
+                'DCName':str,
+                'DCNum':gdObj.sbtype,
             }
             if(flag){
                 prm.gdCode = _gdCode;

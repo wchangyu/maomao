@@ -1260,7 +1260,13 @@ $(function(){
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
                 gdObj.wxshx=result.wxXm;
-                gdObj.sbtype = result.wxShiXNum;
+                for(var i=0;i<_allXTArr.length;i++ ){
+
+                    if( result.dcName == $.trim(_allXTArr[i].dsName)){
+                        $('#sbtype').val(_allXTArr[i].dsNum);
+                    }
+
+                }
                 gdObj.sbnum = result.wxShebei;
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;

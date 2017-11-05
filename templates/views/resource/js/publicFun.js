@@ -14,6 +14,9 @@ var  _userRole = sessionStorage.getItem("userRole");
 //筛选只看到自己部门的工单
 var _userBM = sessionStorage.getItem("userDepartNum");
 
+//部门名称
+var _userBMName = sessionStorage.getItem("userDepartName");
+
 //ajax延迟时间设置
 var _theTimes = 30000;
 

@@ -362,6 +362,12 @@ $(function(){
             obj.wxRName = _fzrArr[0].userName;
             obj.wxRDh = _fzrArr[0].mobile;
             arr.push(obj);
+            var str = ' ';
+            if(gdObj1.sbtype == ''){
+                str = ' ';
+            }else{
+                str = $('#sbtype').children('option:selected').html();
+            }
 
             //报修
             var prm = {
@@ -373,21 +379,25 @@ $(function(){
                 'bxRen':gdObj1.bxren,
                 //'':gdObj.pointer,
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
-                'wxShiX':$('#sbtype').children('option:selected').html(),
-                'wxShiXNum':gdObj1.sbtype,
+                'wxShiX':1,
+                'wxShiXNum':1,
                 'wxXm':gdObj1.wxshx,
                 'wxXmNum':$('#metter').attr('data-num'),
+                //设备类型
+                'DCName':str,
+                'DCNum':gdObj1.sbtype,
                 'wxShebei':gdObj1.sbnum,
                 'dName':gdObj1.sbname,
-                'installAddress':gdObj.azplace,
+                'installAddress':gdObj1.azplace,
                 'wxDidian':gdObj1.gzplace,
                 'bxBeizhu':$('.gzDesc').val(),
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
                 'gdSrc': 1,
-                'gdZht':6,
-                'wxKeshi':_userBM,
+                'gdZht':4,
+                'wxKeshiNum':_userBM,
+                'wxKeshi':_userBMName,
                 'wxBeizhu':gdObj1.wxcontent,
                 'gdWxRs':arr,
             }
@@ -1229,6 +1239,10 @@ $(function(){
             data:'bxDianhua'
         },
         {
+            title:'执行人',
+            data:'wxUserNames'
+        },
+        {
             title:'操作',
             data:null,
             defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>"
@@ -1302,6 +1316,10 @@ $(function(){
         {
             title:'联系电话',
             data:'bxDianhua'
+        },
+        {
+            title:'执行人',
+            data:'wxUserNames'
         }
         //{
         //    title:'操作',
@@ -1867,7 +1885,8 @@ $(function(){
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
-                'wxKeshiNum':_userBM
+                'wxKeshiNum':_userBM,
+                'wxKeshi':_userBMName
             }
 
         }else{
@@ -2035,6 +2054,8 @@ $(function(){
                 gdObj.sbname = result.dName;
                 gdObj.azplace = result.installAddress;
                 $('.gzDesc').val(result.bxBeizhu);
+
+                $('.wxcontent').val(result.wxBeizhu);
 
                 //执行人信息
                 var arr = [];
@@ -2583,7 +2604,7 @@ $(function(){
                 }
                 if(_isFZR){
 
-                    $('.content-main-contents').eq(2).removeClass('hide-block');
+                    $('.content-main-contents').eq(2).addClass('hide-block');
 
                     $('.table-title').children('span').eq(2).show();
 
@@ -2601,6 +2622,8 @@ $(function(){
             }
         })
     }
+
+
 
     //隐藏分页
     $('#choose-metter_length').hide();
