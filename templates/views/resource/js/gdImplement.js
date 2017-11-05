@@ -776,6 +776,7 @@ $(function(){
                         data:prm,
                         timeout:_theTimes,
                         beforeSend: function () {
+                            $('#theLoading').modal('hide');
                             $('#theLoading').modal('show');
                         },
                         complete: function () {
@@ -2212,6 +2213,7 @@ $(function(){
             userName:_userIdNum,
             b_UserRole:_userRole
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDReqWang',

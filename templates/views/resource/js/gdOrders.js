@@ -1183,6 +1183,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             beforeSend: function () {
+                $('#theLoading').modal('hide');
                 $('#theLoading').modal('show');
             },
 
