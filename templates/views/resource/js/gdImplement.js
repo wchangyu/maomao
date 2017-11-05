@@ -226,6 +226,9 @@ $(function(){
     //负责人数组
     var _fzrArr = [];
 
+    //是不是工长
+    var _isFZR = false;
+
     /*-------------------------------------------------按钮事件-----------------------------------------*/
 
     //tab切换
@@ -445,7 +448,7 @@ $(function(){
     })
 
     //关单
-    $('#waiting-list').on('click','.option-close',function(){
+    $('#waiting-list,#dai-waiting-list').on('click','.option-close',function(){
 
         //各项初始化
         gdInit();
@@ -1852,19 +1855,7 @@ $(function(){
 
         var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
 
-        var isFZR = false;
-
-        for(var i=0;i<_fzrArr.length;i++){
-
-            if(_fzrArr[i].userNum == _userIdNum){
-
-                isFZR = true;
-
-                break
-            }
-
-        }
-        if(isFZR){
+        if(_isFZR){
 
             prm = {
                 'gdCode':$('.filterInput').val(),
@@ -1933,20 +1924,6 @@ $(function(){
                 _datasTable($('#dai-waiting-list'),other);
                 //历史
                 _datasTable($('#in-execution'),zht);
-
-                if( isFZR ){
-
-                    $('#dai-waiting-list').show();
-
-                    $('.table-title').children('span').show();
-
-                }else{
-
-                    $('#dai-waiting-list').hide();
-
-                    $('.table-title').children('span').eq(2).hide();
-
-                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -2586,10 +2563,35 @@ $(function(){
             },
             success:function(result){
                 _fzrArr.length=0;
+
                 for(var i=0;i<result.length;i++){
                     _fzrArr.push(result[i]);
                 }
-                conditionSelect()
+
+                for(var i=0;i<_fzrArr.length;i++){
+
+                    if(_fzrArr[i].userNum == _userIdNum){
+
+                        _isFZR = true;
+
+                        break
+                    }
+
+                }
+                if(_isFZR){
+
+                    $('.content-main-contents').eq(2).removeClass('hide-block');
+
+                    $('.table-title').children('span').eq(2).show();
+
+                }else{
+
+                    $('.content-main-contents').eq(2).addClass('hide-block');
+
+                    $('.table-title').children('span').eq(2).hide();
+
+                }
+                conditionSelect();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
