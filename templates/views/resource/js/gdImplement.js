@@ -251,7 +251,7 @@ $(function(){
         _isDeng = true;
 
         //显示模态框
-        _moTaiKuang($('#myModal6'), '报修', '', '' ,'', '报修');
+        _moTaiKuang($('#myModal6'), '快速报修', '', '' ,'', '报修');
 
         //增加报修类
         $('#myModal6').find('.btn-primary').removeClass('jiedan').addClass('dengji');
@@ -995,7 +995,7 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
 
-                gdObj.gzplace = dom.eq(i).children().eq(3).find('span').html();
+                gdObj1.gzplace = dom.eq(i).children().eq(3).find('span').html();
 
                 $('#choose-area').modal('hide');
 
@@ -2441,7 +2441,7 @@ $(function(){
                 "ddname": ""
             },
             success:function(result){
-                console.log(11111111111111111);
+
                 //return false;
                 _datasTable($('#choose-area-table'),result);
             }
