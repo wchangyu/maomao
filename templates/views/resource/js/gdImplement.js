@@ -291,20 +291,20 @@ $(function(){
         if(_isDeng){
 
             //绑定报修人信息
-            if(_workerArr.length > 0){
-                for(var i=0;i<_workerArr.length;i++){
-                    if(_workerArr[i].userNum == _userIdNum){
-
-                        console.log(_workerArr[i]);
-
-                        gdObj1.bxtel = _workerArr[i].mobile;
-
-                        gdObj1.bxkesh = _workerArr[i].departNum;
-
-                        gdObj1.bxren = _workerArr[i].userName;
-                    }
-                }
-            }
+            //if(_workerArr.length > 0){
+            //    for(var i=0;i<_workerArr.length;i++){
+            //        if(_workerArr[i].userNum == _userIdNum){
+            //
+            //            console.log(_workerArr[i]);
+            //
+            //            gdObj1.bxtel = _workerArr[i].mobile;
+            //
+            //            gdObj1.bxkesh = _workerArr[i].departNum;
+            //
+            //            gdObj1.bxren = _workerArr[i].userName;
+            //        }
+            //    }
+            //}
 
             //让日历插件首先失去焦点
             $('.datatimeblock').eq(2).focus();
@@ -1073,10 +1073,18 @@ $(function(){
 
     });
 
+    //电话选择
+    $('#choose-people-table,#choose-department-table').on('click','.tableCheck',function(){
+
+        $(".tableCheck").attr("checked",false);
+
+        $(this).attr("checked",true);
+    });
+
 
     /*------------------------------------------------表格初始化------------------------------------------*/
 
-    //待执行表格
+    //执行中表格
     var waitingListCol = [
         {
             title:'工单号',
@@ -1149,6 +1157,79 @@ $(function(){
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');
+
+    var daiWaitingListCol = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
+        {
+            title:'接单时间',
+            data:'paiGongShij'
+        },
+        {
+            title:'报修科室',
+            data:'bxKeshi'
+        },
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>"
+        }
+    ];
+
+    _tableInit($('#dai-waiting-list'),daiWaitingListCol,'2','','','');
 
     //历史表格
     var inExecutionCol = [
@@ -1824,18 +1905,48 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht4=[],zht=[];
+                var zht=[],my=[],other=[];
+
                 for(var i=0;i<result.length;i++){
                     if(result[i].gdZht == 4){
-                        zht4.push(result[i]);
+
+                        var reg = ',' + _userIdNum + ',';
+                        if(result[i].wxUserIDs.indexOf(reg)>=0){
+
+                            my.push(result[i]);
+
+                        }else{
+
+                            other.push(result[i]);
+
+                        }
+
                     }else{
+
                         zht.push(result[i]);
+
                     }
                 }
                 //执行中
-                _datasTable($('#waiting-list'),zht4);
+                _datasTable($('#waiting-list'),my);
+                //待执行中
+                _datasTable($('#dai-waiting-list'),other);
                 //历史
                 _datasTable($('#in-execution'),zht);
+
+                if( isFZR ){
+
+                    $('#dai-waiting-list').show();
+
+                    $('.table-title').children('span').show();
+
+                }else{
+
+                    $('#dai-waiting-list').hide();
+
+                    $('.table-title').children('span').eq(2).hide();
+
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

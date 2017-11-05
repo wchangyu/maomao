@@ -119,7 +119,7 @@ $(function(){
     var _allworkerArr = [];
 
     //获得员工信息方法
-    workerData();
+    //workerData();
 
     workerData1();
 
@@ -778,16 +778,16 @@ $(function(){
         if(_isDeng){
             //绑定报修人信息
 
-            if(_workerArr.length > 0){
-
-                gdObj.bxtel = _workerArr[0].mobile;
-
-                gdObj.bxkesh = _workerArr[0].departName;
-
-                gdObj.bxren = _workerArr[0].userName;
-
-                $('#bxkesh').attr('data-num',_workerArr[0].departNum);
-            }
+            //if(_workerArr.length > 0){
+            //
+            //    gdObj.bxtel = _workerArr[0].mobile;
+            //
+            //    gdObj.bxkesh = _workerArr[0].departName;
+            //
+            //    gdObj.bxren = _workerArr[0].userName;
+            //
+            //    $('#bxkesh').attr('data-num',_workerArr[0].departNum);
+            //}
             var departnum = gdObj.bxkesh;
 
             //bxKShiData(departnum,true);
