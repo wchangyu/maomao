@@ -1204,6 +1204,10 @@ $(function(){
                 _datasTable($('#waiting-list'),zht2);
                 //历史工单
                 _datasTable($('#in-execution'),zht);
+                //定时刷新
+                setTimeout(function(){
+                    conditionSelect();
+                },refreshTime);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

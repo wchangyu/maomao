@@ -1377,6 +1377,10 @@ $(function(){
                 _datasTable($('#waiting-list'),zht6);
                 //已关单
                 _datasTable($('#closing-list'),zht7);
+                //定时刷新
+                setTimeout(function(){
+                    conditionSelect();
+                },refreshTime);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
