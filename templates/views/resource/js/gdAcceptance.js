@@ -735,6 +735,7 @@ $(function(){
 
         _isDeng = true;
 
+
         //模态框显示
         _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
@@ -747,8 +748,8 @@ $(function(){
         //维修内容不显示
         $('#wxContent').hide();
 
-        //选择部门显示
-        $('.selectBM').show();
+        //选择部门不显示
+        $('.selectBM').hide();
 
         //对象初始化
         dataInit();
@@ -1763,7 +1764,7 @@ $(function(){
     //获取故障位置
     function getArea(){
         //获取报修科室
-        var departnum = $('#bxkesh').val();
+        var departnum = $('#bxkesh').attr('data-num');
         //console.log(departnum);
         $.ajax({
             type:'post',
@@ -2287,8 +2288,8 @@ $(function(){
             var prm = {
                 'gdJJ':gdObj.gdtype,
                 'bxDianhua':gdObj.bxtel,
-                'bxKeshi':$('#bxkesh').children('option:selected').html(),
-                'bxKeshiNum':gdObj.bxkesh,
+                'bxKeshi':gdObj.bxkesh,
+                'bxKeshiNum':$('#bxkesh').attr('data-num'),
                 'bxRen':gdObj.bxren,
                 //'':gdObj.pointer,
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
@@ -2310,6 +2311,8 @@ $(function(){
             if(flag){
                 prm.gdCode = _gdCode;
             }
+
+
             $.ajax({
                 type:'post',
                 url:_urls + url,
