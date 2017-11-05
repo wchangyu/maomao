@@ -103,6 +103,11 @@ var Login = function() {
                                     }
                                     if(res.departNum){
                                         sessionStorage.userDepartNum = res.departNum;
+
+                                    }
+                                    if(res.departName){
+                                        sessionStorage.userDepartName = res.departName;
+
                                     }
                                 }
                                 getPointersByUser(name1);
