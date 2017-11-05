@@ -14,7 +14,6 @@ $(function(){
     $('.datatimeblock').eq(1).val(et);
 
     /*--------------------------------------------变量----------------------------------------------------*/
-
     //报修vue变量
     var gdObj = new Vue({
         el:'#myApp33',
@@ -255,7 +254,7 @@ $(function(){
         _isDeng = true;
 
         //显示模态框
-        _moTaiKuang($('#myModal6'), '快速报修', '', '' ,'', '快速报修');
+        _moTaiKuang($('#myModal6'), '快速报修', '', '' ,'', '报修');
 
         //增加报修类
         $('#myModal6').find('.btn-primary').removeClass('jiedan').addClass('dengji');
