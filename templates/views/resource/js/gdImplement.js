@@ -761,7 +761,7 @@ $(function(){
                     var prm = {
                         gdCode:_gdCode,
                         gdZht:6,
-                        wxBeizhu:$('.wxcontent').val(),
+                        wxBeizhu:$('.wxcontent').eq(1).val(),
                         yanShouRen:$('#receiver').val(),
                         yanShouRenName:$('#receiver').children('option:selected').html(),
                         gdFee:$('#total').val(),
@@ -776,6 +776,7 @@ $(function(){
                         data:prm,
                         timeout:_theTimes,
                         beforeSend: function () {
+                            $('#theLoading').modal('hide');
                             $('#theLoading').modal('show');
                         },
                         complete: function () {
@@ -808,86 +809,7 @@ $(function(){
                 }
 
             }
-        }else{
-
-            if(_selectedBJ.length != 0){
-
-                $('#theLoading').modal('show');
-                //材料
-                addCL();
-                //申请
-                closingApplication();
-
-            }else{
-
-                var receiver = ''
-
-                if($('#receiver').val() == ''){
-
-                    receiver = ''
-
-                }else{
-
-                    receiver = $('#receiver').children('option:selected').html();
-
-                }
-
-                var prm = {
-                    gdCode:_gdCode,
-                    gdZht:6,
-                    wxBeizhu:$('.wxcontent').val(),
-                    yanShouRen:$('#receiver').val(),
-                    yanShouRenName:receiver,
-                    gdFee:$('#total').val(),
-                    gongShiFee:$('#hourFee').val(),
-                    userID:_userIdName,
-                    userName:_userIdNum,
-                    b_UserRole:_userRole
-                }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWGD/ywGDReqWang',
-                    data:prm,
-                    timeout:_theTimes,
-                    beforeSend: function () {
-                        $('#theLoading').modal('show');
-                    },
-                    complete: function () {
-
-                        $('#theLoading').modal('hide');
-                    },
-                    success:function(result){
-
-                        if(result==99){
-
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单成功！', '');
-
-                            $('#myModal').modal('hide');
-
-                            conditionSelect();
-
-                        }else{
-
-                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'申请关单失败！', '');
-
-                        }
-
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-
-                        console.log(jqXHR.responseText);
-
-                    }
-                })
-
-            }
-
         }
-
-
-
-
-
 
     })
 
@@ -2212,6 +2134,7 @@ $(function(){
             userName:_userIdNum,
             b_UserRole:_userRole
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDReqWang',

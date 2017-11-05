@@ -648,7 +648,7 @@ $(function(){
                 gbObj.bxkesh = result.bxKeshi;
                 gbObj.bxren = result.bxRen;
                 gbObj.gztime = result.gdFsShij;
-                gbObj.sbtype = result.wxShiX;
+                gbObj.sbtype = result.dName;
                 gbObj.sbnum = result.wxShebei;
                 gbObj.sbname = result.dName;
                 gbObj.azplace = result.installAddress;
@@ -1349,6 +1349,7 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             beforeSend: function () {
+                $('#theLoading').modal('hide');
                 $('#theLoading').modal('show');
             },
             complete: function () {
