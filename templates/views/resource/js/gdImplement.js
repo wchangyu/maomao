@@ -387,8 +387,9 @@ $(function(){
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
                 'gdSrc': 1,
-                'gdZht':6,
-                'wxKeshi':_userBM,
+                'gdZht':4,
+                'wxKeshiNum':_userBM,
+                'wxKeshi':_userBMName,
                 'wxBeizhu':gdObj1.wxcontent,
                 'gdWxRs':arr,
             }
@@ -1303,6 +1304,10 @@ $(function(){
         {
             title:'联系电话',
             data:'bxDianhua'
+        },
+        {
+            title:'执行人',
+            data:'wxUserNames'
         }
         //{
         //    title:'操作',
@@ -1868,7 +1873,8 @@ $(function(){
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
-                'wxKeshiNum':_userBM
+                'wxKeshiNum':_userBM,
+                'wxKeshi':_userBMName
             }
 
         }else{
@@ -2602,6 +2608,8 @@ $(function(){
             }
         })
     }
+
+
 
     //隐藏分页
     $('#choose-metter_length').hide();
