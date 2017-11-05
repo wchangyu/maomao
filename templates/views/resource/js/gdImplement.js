@@ -52,7 +52,7 @@ $(function(){
         el:'#myApp331',
         data:{
             'gdtype':'1',
-            'xttype':'1',
+            'xttype':'',
             'bxtel':'',
             'bxkesh':'',
             'bxren':'',
@@ -374,8 +374,10 @@ $(function(){
                 'bxRen':gdObj1.bxren,
                 //'':gdObj.pointer,
                 'gdFsShij':$('.datatimeblock').eq(2).val(),
-                'wxShiX':gdObj1.wxshx,
-                'wxShiXNum':$('#metter').attr('data-num'),
+                'wxShiX':$('#sbtype').children('option:selected').html(),
+                'wxShiXNum':gdObj1.sbtype,
+                'wxXm':gdObj1.wxshx,
+                'wxXmNum':$('#metter').attr('data-num'),
                 'wxShebei':gdObj1.sbnum,
                 'dName':gdObj1.sbname,
                 'installAddress':gdObj.azplace,
@@ -390,6 +392,7 @@ $(function(){
                 'wxBeizhu':gdObj1.wxcontent,
                 'gdWxRs':arr,
             }
+
             $.ajax({
                 type:'post',
                 url:_urls + 'YWGD/ywGDCreQuickDJ',
@@ -919,16 +922,16 @@ $(function(){
                 $('#choose-equipment').modal('hide');
 
                 //设备编码
-                gdObj.sbnum = dom.eq(i).children().eq(3).html();
+                gdObj1.sbnum = dom.eq(i).children().eq(3).html();
 
                 //设备名称
-                gdObj.sbname = dom.eq(i).children().eq(2).html();
+                gdObj1.sbname = dom.eq(i).children().eq(2).html();
 
                 //安装地点
-                gdObj.azplace = dom.eq(i).children().eq(5).find('span').html();
+                gdObj1.azplace = dom.eq(i).children().eq(5).find('span').html();
 
                 //设备类型
-                gdObj.sbtype = dom.eq(i).children().eq(4).find('span').attr('data-num');
+                gdObj1.sbtype = dom.eq(i).children().eq(4).find('span').attr('data-num');
 
                 return false;
             }
@@ -999,7 +1002,7 @@ $(function(){
             if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
                 //seekArr.push(dom.eq(i).children().eq(1).html())
 
-                gdObj.gzplace = dom.eq(i).children().eq(3).find('span').html();
+                gdObj1.gzplace = dom.eq(i).children().eq(3).find('span').html();
 
                 $('#choose-area').modal('hide');
 
@@ -1790,7 +1793,7 @@ $(function(){
     //初始化
     function dataInit(){
         gdObj1.gdtype = '1';
-        gdObj1.xttype = '1';
+        gdObj1.xttype = '';
         gdObj1.bxtel = '';
         gdObj1.bxkesh = '';
         gdObj1.bxren = '';
@@ -1803,7 +1806,7 @@ $(function(){
         gdObj1.gzplace = '';
         gdObj1.wxshx = '';
         gdObj1.wxbz = '';
-        gdObj1.wxcontent = ''
+        gdObj1.wxcontent = '';
         $('.gzDesc').val('');
 
     };
@@ -2419,7 +2422,7 @@ $(function(){
                 "ddname": ""
             },
             success:function(result){
-                console.log(11111111111111111);
+
                 //return false;
                 _datasTable($('#choose-area-table'),result);
             }
