@@ -314,6 +314,7 @@
                                     <div class="table-title">
                                         <span class="spanhover">执行中</span>
                                         <span>历史工单</span>
+                                        <span>代关单申请</span>
                                     </div>
                                     <!-- 表格 -->
                                     <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
@@ -330,6 +331,16 @@
                                         <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
                                                 <table id="in-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block">
+                                            <div class="main-contents-table">
+                                                <table id="dai-waiting-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -436,6 +447,7 @@
                                         <div class="single-block">
                                             <input v-model="bxren"v-validate:bxren= "['isEmpty']" initial='off' class="note-edit2">
                                         </div>
+                                        <img class="fdjImg" src="../resource/img/fdj.png" alt="" data-toggle="modal" data-target="#choose-people">
                                         <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
@@ -459,6 +471,7 @@
                                         <div class="single-block">
                                             <select v-model="bxkesh" style="margin: 0;height: 100% !important;" id="bxkesh" class="note-edit2"></select>
                                         </div>
+                                        <img class="fdjImg" src="../resource/img/fdj.png" alt="" data-toggle="modal" data-target="#choose-department">
                                         <span class="colorTip noteTip"></span>
                                     </div>
                                 </div>
@@ -469,7 +482,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                         <div class="single-labels">设备类型：</div>
                                         <div class="single-block">
-                                            <select id="sbtype" style="margin: 0;height: 100% !important;" v-model="sbtype"></select>
+                                            <select id="sbtype" style="margin: 0;height: 100% !important;" v-model="xttype"></select>
                                         </div>
                                         <span class="colorTip noteTip"></span>
                                     </div>
@@ -590,7 +603,7 @@
             <div class="modal-content" style="height: 676px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">创建工单</h4>
+                    <h4 class="modal-title" id="">创建工单</h4>
                 </div>
                 <div class="modal-body">
                     <!--主体部分-->
@@ -685,44 +698,6 @@
                         <div style="width: 470px;float: right;">
                             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
                                 <div class="tipe-block">故障信息</div>
-                                <!--<div class="row">-->
-                                <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                <!--<div class="single-labels starRed">报修时间：</div>-->
-                                <!--<div class="single-block">-->
-                                <!--<input type="text" v-model="gztime" class="datatimeblock">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                <!--<div class="single-labels starRed">维修项目：</div>-->
-                                <!--<div class="single-block">-->
-                                <!--<input type="text" v-model="wxshx">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row autoFile">-->
-                                <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                <!--<div class="single-labels starRed">维修班组：</div>-->
-                                <!--<div class="single-block">-->
-                                <!--<input type="text" v-model="wxbz" v-validate:wxbz= "['isEmpty']" initial='off' id="wxbz">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                <!--<div class="col-lg-12 col-md-12 col-sm-12 single-line">-->
-                                <!--<div class="single-labels starRed">故障位置：</div>-->
-                                <!--<div class="single-block" style="width: 442px;">-->
-                                <!--<input type="text" v-model="gzplace" style="width: 440px;">-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="row">-->
-                                <!--<div class="col-lg-12 col-md-12 col-sm-12 single-line">-->
-                                <!--<div class="single-labels">故障描述：</div>-->
-                                <!--<div class="single-block" style="width: 442px;height: 62px;">-->
-                                <!--<textarea style="width: 100%;outline: none;" class="gzDesc"></textarea>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                                <!--</div>-->
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 single-line">
                                         <div class="single-labels">维修内容：</div>
@@ -733,42 +708,27 @@
                                 </div>
                             </div>
                             <!--表格-->
-                            <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
-                                <h4>执行人列表</h4>
-                                <div class="tableHover">
-                                    <div class="bumen">
-                                        <div class="labels" style="display: inline-block;vertical-align: middle">部门</div>
-                                        <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
-                                            <select id="depart">
-                                            </select>
+                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                <div class="tipe-block">执行人列表</div>
+                                <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 10px;">
+                                    <div class="tableHover">
+                                        <div class="bumen" style="display: none;">
+                                            <div class="labels" style="display: inline-block;vertical-align: middle">部门</div>
+                                            <div class="input-blockeds" style="width: 300px;display: inline-block;vertical-align: middle">
+                                                <select id="depart">
+                                                </select>
+                                            </div>
                                         </div>
+                                        <table class="table table-hover" id="fzr-list">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
                                     </div>
-                                    <table class="table table-hover" id="fzr-list">
-                                        <thead>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
                                 </div>
                             </div>
-                            <!--<div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">-->
-                                <!--<h4>维修材料清单</h4>-->
-                                <!--<div class="tableHover">-->
-                                    <!--<div class="">-->
-                                        <!--<div class="label label-sm label-warning addCL" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">-->
-                                            <!--<i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<table class="table table-hover cl-table" id="cl-list">-->
-                                        <!--<thead>-->
-                                        <!--</thead>-->
-                                        <!--<tbody></tbody>-->
-                                    <!--</table>-->
-                                    <!--<div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>-->
-                                    <!--<div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;"></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <div class="tableHoverL" style="border: 1px solid #ebebeb;margin-top: 20px;">
-                                <h4>验收人</h4>
+                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                <div class="tipe-block">验收人</div>
                                 <div class="tableHover">
                                     <div style="padding: 10px;"><label>验收人选择:&nbsp;&nbsp;&nbsp;&nbsp;</label><select id="receiver" style="width:120px;"></select></div>
                                 </div>
@@ -1132,7 +1092,42 @@
         </div>
     </div>
 </div>
+<!--选择报修人弹窗-->
+<div class='modal fade choose-message' id='choose-people' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择报修人</div>
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
 
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+
+                            <table class="table table-striped left-th-table" id="choose-people-table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--选择维修事项弹窗-->
 <div class='modal fade' id='choose-building' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:430px;margin:10% auto'>
@@ -1192,6 +1187,43 @@
 
                         <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
                             <table class="table table-striped left-th-table" id="choose-area-table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--选择报修科室弹窗-->
+<div class='modal fade choose-message' id='choose-department' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择报修科室</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+
+                            <table class="table table-striped left-th-table" id="choose-department-table">
                                 <thead>
 
                                 </thead>

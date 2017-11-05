@@ -53,6 +53,11 @@ table样式
 /***
 Page Header
 ***/
+/*上方logo图*/
+.logo-default{
+  max-width:120px;
+  max-height:45px;
+}
 
 .page-header.navbar {
   width: 100%;

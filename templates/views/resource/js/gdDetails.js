@@ -132,7 +132,7 @@ $(function(){
                 //维修事项
                 gdObj.wxshx = result.wxXm;
                 //设备类型
-                gdObj.sbtype = result.wxShiX;
+                gdObj.sbtype = result.dcName;
                 //设备编码
                 gdObj.sbnum = result.wxShebei;
                 //设备名称
