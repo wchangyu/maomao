@@ -503,7 +503,7 @@ var BEE = (function(){
         //根据配置信息动态改变悬浮窗中的值
 
          //是否需要显示报警信息
-         if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+         if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0' && _alarmCount > 0) {
             infoHtml += '<li class="external">' +
                 '   <h3><span class="bold">'+_alarmCount+' </span> 当日报警</h3>' +
                 '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
@@ -610,31 +610,36 @@ var BEE = (function(){
                  var gdAcceptance = 'gdAcceptance.html';
                  //待接单页面
                  var gdOrders = 'gdOrders.html';
+                 //待关单页面
+                 var gdClosing = 'gdClosing.html';
                  //判断是否有查看下发或者接单的权限
-                 if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdOrders) != -1){
+                 if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdOrders) != -1 || curMenu.indexOf(gdClosing) != -1){
                      //获取当前时间
                      var st = moment().format('YYYY-MM-DD');
                      var et = moment().add('1','days').format('YYYY-MM-DD');
-
+                     //获取部门科室编号
+                     var bxKeshiNum = sessionStorage.userDepartNum;
                      var prmData = {
                          gdZht:0,
                          gdZhts: [
-                             1,2,11
+                             1,2,6,11
                          ],
                          isReturnZhtArray:1,
                          gdSt:st,
                          gdEt:et,
+                         wxKeshi:bxKeshiNum,
+                         bxKeshiNum:bxKeshiNum,
                          userID:sessionStorage.getItem('userName'),
                          userName:sessionStorage.getItem('realUserName')
                      };
                      //获取工单信息数据
                      $.ajax({
                          type:'post',
-                         url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZh2',
+                         url:sessionStorage.apiUrlPrefix + 'YWGD/ywGDGetZhtCnt',
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
-
+                            //console.log(data);
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
@@ -647,7 +652,7 @@ var BEE = (function(){
                              //获取待下发条数
                              var num1 = 0;
                              $(data.zhts).each(function(i,o){
-                                 if(o == 1){
+                                 if(o == 1 || o == 11){
                                      num1 ++;
                                  }
                              });
@@ -666,21 +671,28 @@ var BEE = (function(){
                                  //加入待接单备件信息
                                  infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');
                              }
+                             //获取待关单备件
+                             var num3 = 0;
+                             $(data.zhts).each(function(i,o){
+                                 if(o == 6){
+                                     num3 ++;
+                                 }
+                             });
+                             //console.log(num3);
+                             if(num3 > 0){
+                                 //加入待关单备件信息
+                                 infoHtml += addInfoMessage(num3,'待关单','gdClosing.html','../gongdanxitong/');
+                             }
                              //console.log(num1,num2)
                              //给悬浮窗插入指定信息
                              $dropdownMenu.html(infoHtml);
-
-                             $('.top-close .close').off('click');
-                             $('.top-close .close').on('click',function(){
-
-                                 $(this).parents('.dropdown-menu').hide();
-                             });
 
                              if(timename2){
                                  clearTimeout(timename2);
                              }
                              //判断是否需要动态弹出信息框
-                             if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1){
+                             //if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1 && $('.external').length > 1){
+                             if($('.external').length > 0){
                                  $('.dropdown-menu').hide();
                                  //给上方铃铛增加闪烁效果
                                  $('.dropdown-toggle .icon-bell').hide();
@@ -691,6 +703,19 @@ var BEE = (function(){
                                      background:'url(../resource/img/bellSmall.gif) no-repeat center center',
                                      backgroundSize:'26px 24px'
                                  });
+                                 //声音
+                                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
+
+                                 if($('#audioMain1').length > 0){
+
+                                     $('#header_notification_bar').children('audio').remove();
+
+                                     $('#header_notification_bar').append(audioStr);
+                                 }else{
+
+                                     $('#header_notification_bar').append(audioStr);
+                                 }
+
 
                                  timename2=setTimeout(function(){
                                      $('.dropdown-extended .dropdown-menu').toggle('fast');
@@ -698,13 +723,32 @@ var BEE = (function(){
 
                              }else{
 
+                                 $('.dropdown-toggle .icon-bell').show();
+
                                  $(".dropdown-extended .dropdown-toggle").removeAttr("style");
                                  if(timename2){
                                      clearTimeout(timename2);
                                  }
                                  $('.dropdown-extended .dropdown-menu').hide();
+                                 if($('#audioMain1').length > 0){
+
+                                     $('#header_notification_bar').children('audio').remove();
+
+                                 }
 
                              }
+                             $('.top-close .close').off('click');
+                             $('.top-close .close').on('click',function(){
+
+                                 $(this).parents('.dropdown-menu').hide();
+                                 //关闭声音
+                                 if($('#audioMain1').length > 0){
+
+                                     $('#header_notification_bar').children('audio').remove();
+
+                                 }
+                             });
+
                              //判断是否需要定时刷新
                              if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
                                  var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
@@ -728,6 +772,12 @@ var BEE = (function(){
                      $('.top-close .close').on('click',function(){
 
                          $(this).parents('.dropdown-menu').hide();
+                         //关闭声音
+                         if($('#audioMain1').length > 0){
+
+                             $('#header_notification_bar').children('audio').remove();
+
+                         }
                      });
                  }
              }
@@ -738,8 +788,10 @@ var BEE = (function(){
          var html = '';
          //获取当前菜单
          var curMenu = sessionStorage.curMenuStr;
+         //获取当前页面文件路径
+         var url = window.location.pathname;
          //判断是否有打开查看详细的权限
-         if(curMenu.indexOf(address) != -1){
+         if(curMenu.indexOf(address) != -1 && url.indexOf(address) == -1){
              html +='<li class="external">' +
                  '   <h3><span class="bold">'+data+' </span>'+title+'</h3>';
              html +=  '<a href="'+catalog+''+address+'" target="_blank">查看详细</a>' +
@@ -875,17 +927,19 @@ var BEE = (function(){
 
      //根据流程图判断以及Arg参数判断子菜单是否需要保留
      var retainChildMenu = function(childMenu){
+
         //首先判断是否是流程图界面
          var uri = childMenu.uri;
          if(!uri){
              return true;
          }
-
          //非流程图界面
          if(uri.indexOf('energyMonitor.html') == -1){
              //非流程图界面判断角色权限；
              return retainChildMenu1(childMenu);
          }else{
+
+             $('.page-title').show();
             // 获取全部流程图
              var allProcsArr = JSON.parse(sessionStorage.allProcs);
             //获取到当前的arg参数

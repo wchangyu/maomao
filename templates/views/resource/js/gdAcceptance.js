@@ -2075,6 +2075,10 @@ $(function(){
                 _datasTable($('#appeal-list'),zht11);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
+                //定时刷新
+                setTimeout(function(){
+                    conditionSelect();
+                },refreshTime);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
