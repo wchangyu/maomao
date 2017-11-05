@@ -1958,7 +1958,7 @@ $(function(){
             },
             success:function(result){
                 //return false;
-               console.log(result);
+
 
                 $('#depart').val(result[0].departNum);
 
@@ -2185,6 +2185,8 @@ $(function(){
                 //赋值
                 gdObj.bxtel = result.bxDianhua;
                 gdObj.bxkesh = result.bxKeshi;
+                //'bxKeshiNum':$('#bxkesh').attr('data-num'),
+                $('#bxkesh').attr('data-num',result.bxKeshiNum);
                 gdObj.bxren = result.bxRen;
                 //gdObj.pointer = '';
                 gdObj.gztime = result.gdFsShij;
@@ -2192,12 +2194,12 @@ $(function(){
                 gdObj.wxxm=result.wxXm;
                 //绑定维修项目编号
                 $('#metter').attr('wxnum',result.wxXmNum);
-                for(var i=0;i<_allXTArr.length;i++ ){
 
-                    if( result.dcName == $.trim(_allXTArr[i].dsName)){
+                for(var i=0;i<_allXTArr.length;i++ ){
+                    if( $.trim(result.dcName) == $.trim(_allXTArr[i].dsName)){
+
                         $('#sbtype').val(_allXTArr[i].dsNum);
                     }
-
                 }
                 gdObj.sbnum = result.wxShebei;
                 gdObj.sbname = result.dName;
@@ -2206,7 +2208,7 @@ $(function(){
 
                 //根据报修科室重绘故障位置表格
                 var departnum = gdObj.bxkesh;
-                //console.log(departnum);
+
                 //如果是下发
 
                 if(flag){

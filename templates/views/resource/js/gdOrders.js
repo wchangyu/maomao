@@ -1261,9 +1261,10 @@ $(function(){
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
                 gdObj.wxshx=result.wxXm;
+                console.log(_allXTArr);
                 for(var i=0;i<_allXTArr.length;i++ ){
 
-                    if( result.dcName == $.trim(_allXTArr[i].dsName)){
+                    if( $.trim(result.dcName) == $.trim(_allXTArr[i].dsName)){
                         $('#sbtype').val(_allXTArr[i].dsNum);
                     }
 
