@@ -325,7 +325,8 @@
                                     </ul>
                                     <!-- 表格 -->
                                     <div class="table-title">
-                                        <span class="spanhover">未受理</span>
+                                        <span class="spanhover">全部</span>
+                                        <span>未受理</span>
                                         <span>未接单</span>
                                         <span>执行中</span>
                                         <span>待关单</span>
@@ -333,6 +334,16 @@
                                     </div>
                                     <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
                                         <div class="content-main-contents">
+                                            <div class="main-contents-table">
+                                                <table id="allState-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
                                                 <table id="missed-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
@@ -499,6 +510,7 @@
                                             <div class="single-block">
                                                 <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block bx-choose">
                                             </div>
+                                            <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-phone'>
                                             <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
@@ -886,6 +898,42 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--选择电话弹窗-->
+<div class='modal fade' id='choose-phone' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:430px;margin:10% auto'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                <div class="add-title" style="font-size:24px;line-height:40px;padding:10px;margin-bottom:20px">选择电话</div>
+
+                <div class="showCompany search-test-inner  search-test-inner0 row">
+                    <!-- 搜索框结构 -->
+                    <div class="col-sm-12 col-xs-12">
+
+                        <div class="main-content-table" style="overflow: auto;width:100%;position: relative">
+                            <table class="table table-striped left-th-table" id="choose-phone-table">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary top-btn'>确定</button>
+                    <button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>

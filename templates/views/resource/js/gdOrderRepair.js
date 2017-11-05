@@ -111,6 +111,118 @@ $(function(){
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
 
+    //全部状态表格
+    var allStateListCol = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        {
+            title:'工单状态',
+            data:'gdZht',
+            render:function(data, type, full, meta){
+                if (data == 1) {
+                    return '待下发'
+                }
+                if (data == 2) {
+                    return '待分派'
+                }
+                if (data == 3) {
+                    return '待执行'
+                }
+                if (data == 4) {
+                    return '执行中'
+                }
+                if (data == 5) {
+                    return '等待资源'
+                }
+                if (data == 6) {
+                    return '待关单'
+                }
+                if (data == 7) {
+                    return '任务关闭'
+                }
+                if (data == 999) {
+                    return '任务取消'
+                }
+            }
+        },
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
+        {
+            title:'接单时间',
+            data:'paiGongShij'
+        },
+        {
+            title:'完工申请时间',
+            data:'wanGongShij'
+        },
+        {
+            title:'关单时间',
+            data:'guanbiShij'
+        },
+        {
+            title:'维修科室',
+            data:'wxKeshi'
+        },
+        {
+            title:'执行人',
+            data:'wxUserNames'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'验收人',
+            data:'yanShouRenName'
+        }
+        //{
+        //    title:'操作',
+        //    data:null,
+        //    defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+        //}
+    ];
+
+    _tableInit($('#allState-list'),allStateListCol,'2','','','');
+
     //未受理表格
     var missedListCol = [
         {
@@ -517,6 +629,65 @@ $(function(){
     ];
 
     tableInit($('#cl-list'),outClListCol,'2','','','');
+
+    //电话表格
+    var phoneTable = $('#choose-phone-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+            },
+            {
+                title:'id',
+                data:'id',
+                class:'theHidden'
+            },
+            {
+                title:'电话',
+                data:'phone',
+                class:'adjust-comment'
+            },
+            {
+                title:'地点名称',
+                data:'locname',
+                class:'',
+                render:function(data, type, full, meta){
+                    return '<span title="'+data+'">'+data+'</span>'
+                }
+            },
+            {
+                title:'描述',
+                data:'info'
+            }
+        ]
+    });
 
     //数据加载
     conditionSelect();
@@ -1074,7 +1245,6 @@ $(function(){
 
                 gdObj.wxshx = dom.eq(i).children().eq(3).find('span').html();
 
-                console.log(dom.eq(i).children().eq(2).html());
 
                 $('#matter').attr('data-mnum',dom.eq(i).children().eq(2).html());
 
@@ -1215,6 +1385,33 @@ $(function(){
             }
         })
     });
+
+    //选择电话弹窗打开后
+    $('#choose-phone').on('shown.bs.modal', function () {
+        getPhone();
+    });
+
+    //选择电话确定按钮
+    $('#choose-phone .btn-primary').on('click',function() {
+        var dom = $('#choose-phone-table tbody tr');
+        var length = dom.length;
+
+        for (var i = 0; i < length; i++) {
+            if (dom.eq(i).find("input[type='checkbox']").is(':checked')) {
+                //seekArr.push(dom.eq(i).children().eq(1).html())
+
+                gdObj.bxtel = dom.eq(i).find('.adjust-comment').html();
+
+                $('#choose-phone').modal('hide');
+
+                return false;
+            }
+        }
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应电话', '')
+
+    });
+
     /*------------------------------------------------其他方法--------------------------------------------*/
     //获取日志信息（备件logType始终传2）
     function logInformation(logType,gdCode){
@@ -1307,7 +1504,7 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                console.log(result);
+
                 //return false;
                var html = '<option value=" ">全部</option>'
                 $(result).each(function(i,o){
@@ -1425,6 +1622,8 @@ $(function(){
                         zht7.push(result[i]);
                     }
                 }
+                //全部
+                _datasTable($('#allState-list'),result);
                 //未受理
                 _datasTable($('#missed-list'),zht1);
                 //未接单not-entertained
@@ -1669,6 +1868,32 @@ $(function(){
         }
 
     }
+
+    //获取电话
+    function getPhone(){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/SysPhoneGetALl',
+            data:{
+                "phone": "",
+                "locnum": "",
+                "locname": "",
+                "info": "",
+                "memo": "",
+                "departnum":$('#bxkesh').val()
+            },
+            success:function(result){
+
+                datasTable($('#choose-phone-table'),result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log(jqXHR.responseText);
+
+            }
+        })
+    };
 
     //隐藏分页
     $('#choose-metter_length').hide();
