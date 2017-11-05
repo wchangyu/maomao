@@ -639,7 +639,7 @@ var BEE = (function(){
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
-                            //console.log(data);
+                            console.log(data);
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
@@ -691,8 +691,8 @@ var BEE = (function(){
                                  clearTimeout(timename2);
                              }
                              //判断是否需要动态弹出信息框
-                             //if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1 && $('.external').length > 1){
-                             if($('.external').length > 0){
+                             if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
+                                 console.log(33);
                                  $('.dropdown-menu').hide();
                                  //给上方铃铛增加闪烁效果
                                  $('.dropdown-toggle .icon-bell').hide();
@@ -791,11 +791,16 @@ var BEE = (function(){
          //获取当前页面文件路径
          var url = window.location.pathname;
          //判断是否有打开查看详细的权限
-         if(curMenu.indexOf(address) != -1 && url.indexOf(address) == -1){
+         if(curMenu.indexOf(address) != -1){
              html +='<li class="external">' +
                  '   <h3><span class="bold">'+data+' </span>'+title+'</h3>';
-             html +=  '<a href="'+catalog+''+address+'" target="_blank">查看详细</a>' +
-                 '</li>';
+             if(url.indexOf(address) != -1){
+                 html += '</li>';
+             }else{
+                 html +=  '<a href="'+catalog+''+address+'" target="_blank">查看详细</a>' +
+                     '</li>';
+             }
+
          }else{
 
          }
@@ -939,7 +944,6 @@ var BEE = (function(){
              return retainChildMenu1(childMenu);
          }else{
 
-             $('.page-title').show();
             // 获取全部流程图
              var allProcsArr = JSON.parse(sessionStorage.allProcs);
             //获取到当前的arg参数
