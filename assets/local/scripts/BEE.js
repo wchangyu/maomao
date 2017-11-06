@@ -67,7 +67,12 @@ var BEE = (function(){
                 if(curType=="0"){
                     //具体菜单操作
                     if( menu[p]["uri"]){
-                        li = '<li><a href="' + menu[p]["uri"] +'" type="'+menu[p]["arg"]+'">';
+                        //li = '<li><a href="' + menu[p]["uri"] +'" type="'+menu[p]["arg"]+'">';
+                        li = '<li><a href="' + menu[p]["uri"] + '"';
+                        if(menu[p]["target"]){
+                            li += ' target="' + menu[p]["target"] + '"';
+                        }
+                        li += '>';
                         if(window.location.href.endWith(menu[p]["uri"].replace('../','')))
                         {
                             li = '<li class="active"><a   href="' + menu[p]["uri"] +'">';
@@ -530,7 +535,6 @@ var BEE = (function(){
                      data:prmData,
                      dataType:'json',
                      success: function (data) {
-                         //console.log(data);
                          //获取新工单条数
                          var num1 = 0;
                          $(data.zhts).each(function(i,o){
@@ -639,7 +643,6 @@ var BEE = (function(){
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
-                            console.log(data);
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
@@ -678,12 +681,10 @@ var BEE = (function(){
                                      num3 ++;
                                  }
                              });
-                             //console.log(num3);
                              if(num3 > 0){
                                  //加入待关单备件信息
                                  infoHtml += addInfoMessage(num3,'待关单','gdClosing.html','../gongdanxitong/');
                              }
-                             //console.log(num1,num2)
                              //给悬浮窗插入指定信息
                              $dropdownMenu.html(infoHtml);
 
@@ -692,7 +693,6 @@ var BEE = (function(){
                              }
                              //判断是否需要动态弹出信息框
                              if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
-                                 console.log(33);
                                  $('.dropdown-menu').hide();
                                  //给上方铃铛增加闪烁效果
                                  $('.dropdown-toggle .icon-bell').hide();
@@ -789,8 +789,7 @@ var BEE = (function(){
          //获取当前菜单
          var curMenu = sessionStorage.curMenuStr;
          //获取当前页面文件路径
-         var url = window.location.pathname;
-         console.log(url);
+         var url = window.location.href;
          //判断是否有打开查看详细的权限
          if(curMenu.indexOf(address) != -1){
              html +='<li class="external">' +
@@ -811,8 +810,6 @@ var BEE = (function(){
      function insertionPointer(){
          //判断是否需要显示楼宇
          var _isShowPointer = sessionStorage.getItem('menuusepointer');
-
-         //console.log(_isShowPointer);
          //如果不需要显示，终止函数
          if(_isShowPointer != 1){
              return false;
@@ -883,10 +880,8 @@ var BEE = (function(){
              this.splice(index, 1);
          }
      };
-
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
-
          //将对象转化为数组，方便处理
          var _menuArr = transform(menu);
          //删除对象中第一个元素
@@ -901,7 +896,6 @@ var BEE = (function(){
                 _newMenu[_showMenu['content']] = _showMenu;
              }
          })
-         //console.log(_newMenu);
          return _newMenu;
      };
      //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
@@ -933,7 +927,6 @@ var BEE = (function(){
 
      //根据流程图判断以及Arg参数判断子菜单是否需要保留
      var retainChildMenu = function(childMenu){
-
         //首先判断是否是流程图界面
          var uri = childMenu.uri;
          if(!uri){
@@ -978,14 +971,12 @@ var BEE = (function(){
 
      //根据角色权限判断子菜单是否需要保留
      var retainChildMenu1 = function(childMenu){
-
          //首先判断是否存在角色权限参数
          var arg2 = childMenu.arg2;
          if(arg2){
             //获取权限参数
              var role = sessionStorage.userRole;
              if(role && arg2.indexOf(role) >= 0 ){
-
                  return true;
              }else{
                  return false;
@@ -1045,7 +1036,7 @@ var BEE = (function(){
         //获取当前菜单
         var curMenu = sessionStorage.curMenuStr;
         //获取当前页面路径
-        var curUrl = window.location.pathname;
+        var curUrl = window.location.href;
         //获取页面名称
         var curPageName = curUrl.split('/').pop();
         //判断是否有访问页面权限
@@ -1075,9 +1066,6 @@ var BEE = (function(){
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
-
-
-
             }
         }
     }

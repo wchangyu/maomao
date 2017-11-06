@@ -609,7 +609,8 @@
         "uri":"../xitongshezhi/sectorManagement.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "target":"blank"
       },
       "资源管理":{
         "type":"0",
