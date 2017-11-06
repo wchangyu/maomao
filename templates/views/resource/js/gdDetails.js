@@ -102,7 +102,6 @@ $(function(){
             "userName":_userIdName,
             'gdCircle':_gdCircle
         };
-
         $.ajax({
             'type':'post',
             'url':_urls + 'YWGD/ywGDGetDetail',
