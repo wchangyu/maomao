@@ -716,7 +716,7 @@ $(function(){
     _tableInit($('#fzr-list'),fzrListCol,'2','','','');
 
     //数据加载
-    conditionSelect();
+    conditionSelect(true);
 
     /*-------------------------------------------------按钮事件-----------------------------------------*/
 
@@ -2075,9 +2075,10 @@ $(function(){
     //        }
     //    })
     //}
-    var timeNum = 0;
+
     //条件查询
-    function conditionSelect(){
+    function conditionSelect(flag){
+
         var st = $('.min').val();
 
         var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
@@ -2097,14 +2098,19 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            //beforeSend: function () {
-            //    $('#theLoading').modal('hide');
-            //    $('#theLoading').modal('show');
-            //},
-            //complete: function () {
-            //    $('#theLoading').modal('hide');
-            //},
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+                if($('.modal-backdrop').length > 0){
+                    $('div').remove('.modal-backdrop');
+                    $('#theLoading').hide();
+                }
+            },
             success:function(result){
+
                 //根据状态值给表格赋值
                 var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[],zht11=[];
 
@@ -2139,11 +2145,11 @@ $(function(){
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
 
                 //定时刷新
-                if(timeNum == 0){
+                if(flag){
+
                     theTimeout = setTimeout(function(){
-                        conditionSelect();
+                        conditionSelect(true);
                     },refreshTime);
-                    timeNum ++;
                 }
 
             },

@@ -1830,13 +1830,17 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            //beforeSend: function () {
-            //    $('#theLoading').modal('show');
-            //},
-            //
-            //complete: function () {
-            //    $('#theLoading').modal('hide');
-            //},
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+                $('#theLoading').modal('hide');
+                if($('.modal-backdrop').length > 0){
+                    $('div').remove('.modal-backdrop');
+                    $('#theLoading').hide();
+                }
+            },
             success:function(result){
 
                 //根据状态值给表格赋值
