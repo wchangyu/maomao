@@ -1386,8 +1386,6 @@ $(function(){
 
         var allWorkNum = $('#fzr-list tbody').find('.workNum');
 
-        console.log(_fzrArr);
-
         for(var i=0;i<allPerson.length;i++){
             if(allPerson.eq(i).children('.checked').length != 0){
                 for(var j=0;j<_fzrArr.length;j++){

@@ -161,6 +161,9 @@ $(function(){
                 if (data == 7) {
                     return '任务关闭'
                 }
+                if (data == 11) {
+                    return '申诉'
+                }
                 if (data == 999) {
                     return '任务取消'
                 }
