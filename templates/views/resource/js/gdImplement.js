@@ -775,13 +775,13 @@ $(function(){
                         url:_urls + 'YWGD/ywGDReqWang',
                         data:prm,
                         timeout:_theTimes,
-                        //beforeSend: function () {
-                        //    $('#theLoading').modal('hide');
-                        //    $('#theLoading').modal('show');
-                        //},
-                        //complete: function () {
-                        //    $('#theLoading').modal('hide');
-                        //},
+                        beforeSend: function () {
+                            $('#theLoading').modal('hide');
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
                         success:function(result){
 
                             if(result==99){
@@ -1836,6 +1836,10 @@ $(function(){
 
             complete: function () {
                 $('#theLoading').modal('hide');
+                if($('.modal-backdrop').length > 0){
+                    $('div').remove('.modal-backdrop');
+                    $('#theLoading').hide();
+                }
             },
             success:function(result){
 

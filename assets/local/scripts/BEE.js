@@ -790,6 +790,7 @@ var BEE = (function(){
          var curMenu = sessionStorage.curMenuStr;
          //获取当前页面文件路径
          var url = window.location.pathname;
+         console.log(url);
          //判断是否有打开查看详细的权限
          if(curMenu.indexOf(address) != -1){
              html +='<li class="external">' +
@@ -1039,6 +1040,21 @@ var BEE = (function(){
          return arr;
      };
 
+    //判断已登陆用户是否有访问页面的权限
+    var permitJumpPage = function(){
+        //获取当前菜单
+        var curMenu = sessionStorage.curMenuStr;
+        //获取当前页面路径
+        var curUrl = window.location.pathname;
+        //获取页面名称
+        var curPageName = curUrl.split('/').pop();
+        //判断是否有访问页面权限
+        if(curMenu.indexOf(curPageName) == -1){
+            //如果没有则跳转到首页
+            window.location.href = "../login_3.html";
+        }
+    };
+
     return {
         //getMenu: getMenu
         init:function(){
@@ -1046,15 +1062,21 @@ var BEE = (function(){
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
                 window.location.href = "../login_3.html";
+
             }else{
+                //获取菜单
                 getMenu();
                 //setHeaderInfo();
+                //判断已登陆用户是否有访问页面的权限
+                permitJumpPage();
                 setTheme();
                 insertionPointer();
                 modificationImportInfo();
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
+
+
 
             }
         }
