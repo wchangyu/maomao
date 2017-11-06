@@ -232,7 +232,7 @@ $(function(){
     //负责人数组
     var _fzrArr = [];
 
-    
+
     //是不是工长
     var _isFZR = false;
 
@@ -2355,6 +2355,7 @@ $(function(){
             userName:_userIdName,
             b_UserRole:_userRole
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDReqWang',
