@@ -1326,6 +1326,7 @@ $(function(){
         })
     }
 
+    var timeNum = 0;
     //条件查询
     function conditionSelect(){
         var st = $('.min').val();
@@ -1379,9 +1380,12 @@ $(function(){
                 //已关单
                 _datasTable($('#closing-list'),zht7);
                 //定时刷新
-                setTimeout(function(){
-                    conditionSelect();
-                },refreshTime);
+                if(timeNum == 0){
+                    theTimeout = setTimeout(function(){
+                        conditionSelect();
+                    },refreshTime);
+                    timeNum ++;
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);

@@ -775,13 +775,13 @@ $(function(){
                         url:_urls + 'YWGD/ywGDReqWang',
                         data:prm,
                         timeout:_theTimes,
-                        //beforeSend: function () {
-                        //    $('#theLoading').modal('hide');
-                        //    $('#theLoading').modal('show');
-                        //},
-                        //complete: function () {
-                        //    $('#theLoading').modal('hide');
-                        //},
+                        beforeSend: function () {
+                            $('#theLoading').modal('hide');
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
                         success:function(result){
 
                             if(result==99){
@@ -1830,13 +1830,13 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
+            //beforeSend: function () {
+            //    $('#theLoading').modal('show');
+            //},
+            //
+            //complete: function () {
+            //    $('#theLoading').modal('hide');
+            //},
             success:function(result){
 
                 //根据状态值给表格赋值

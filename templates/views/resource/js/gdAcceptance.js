@@ -2075,6 +2075,7 @@ $(function(){
     //        }
     //    })
     //}
+    var timeNum = 0;
     //条件查询
     function conditionSelect(){
         var st = $('.min').val();
@@ -2136,10 +2137,15 @@ $(function(){
                 _datasTable($('#appeal-list'),zht11);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
+
                 //定时刷新
-                setTimeout(function(){
-                    conditionSelect();
-                },refreshTime);
+                if(timeNum == 0){
+                    theTimeout = setTimeout(function(){
+                        conditionSelect();
+                    },refreshTime);
+                    timeNum ++;
+                }
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
