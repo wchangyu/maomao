@@ -2146,7 +2146,6 @@ $(function(){
 
                 //定时刷新
                 if(flag){
-
                     theTimeout = setTimeout(function(){
                         conditionSelect(true);
                     },refreshTime);
