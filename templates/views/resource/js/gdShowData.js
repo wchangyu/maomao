@@ -6,6 +6,12 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    //获取所属班组
+    var _wxBan = sessionStorage.getItem("userDepartName");
+    //所属班组编码
+    var _wxBanNum = sessionStorage.getItem("userDepartNum");
+
+    $('#department').html(_wxBan);
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -17,6 +23,52 @@ $(function(){
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
+    var _lastTime = '';
+
+    //var _initStart = moment().format('YYYY/MM/DD HH:mm:ss');
+
+    //var _initEnd =
+
+    var mytime = moment().format('YYYY/MM/DD HH:mm:ss');
+
+    formatTime(mytime);
+
+    weekChange(mytime);
+
+    function formatTime(time){
+
+        var year = time.split(' ')[0].split('/')[0];
+
+        var month = time.split(' ')[0].split('/')[1];
+
+        var day = time.split(' ')[0].split('/')[2];
+
+        var hour = time.split(' ')[1].split(':')[0];
+
+        var min = time.split(' ')[1].split(':')[1];
+
+        var str = year + '年' + month + '月' + day + '日' + ' ' + hour + ':' + min;
+
+        var week = moment().day();
+
+        str += weekChange(week);
+
+        $('.header-date').html(str);
+
+    }
+
+    //30秒刷新一次页面时间
+    setInterval(function(){
+
+        //刷新页面时间
+        formatTime(moment().format('YYYY/MM/DD HH:mm:ss'));
+
+        //刷新表格数据
+
+        //刷新左边chart图
+
+    },30000)
+
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable(   {
@@ -27,7 +79,7 @@ $(function(){
         "ordering": false,
         "pagingType":"full_numbers",
         "bStateSave":true,
-        "sScrollY": '515px',
+        "sScrollY": '520px',
         "bPaginate": false,
         'language': {
             'emptyTable': '没有数据',
@@ -65,125 +117,183 @@ $(function(){
                 title:'工单号',
                 data:'gdCode',
                 render:function(data, type, row, meta){
-                    return '<span class="gongdanId" gdCode="' + row.gdCode +
-                        '"' + "gdCircle=" + row.gdCircle +
-                        '></span><a href="../gongdanxitong/gdDetails.html?gdCode=' +  row.gdCode + '&gdCircle=' + row.gdCircle +
-                        '"' +
-                        'target="_blank">' + data + '</a>'
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+                        return '<span style="color: #333333">'+ data + '</span>';
+                    }
                 }
 
             },
-            //{
-            //    title:'工单类型',
-            //    data:'gdJJ',
-            //    render:function(data, type, full, meta){
-            //        if(data == 0){
-            //            return '普通'
-            //        }if(data == 1){
-            //            return '快速'
-            //        }
-            //    }
-            //},
             {
                 title:'工单状态',
-                data:null,
+                data:'gdZht',
                 className:'gongdanZt',
-                render:function(data, type, full, meta){
-                    return '已完成'
+                render:function(data, type, row, meta){
+                    if (data == 1) {
+                        return '待下发'
+                    }
+                    else if (data == 2) {
+                        return '<span style="color: #c00000">'+ '待分派' + '</span>'
+                    }
+                    else if (data == 3) {
+                        return '待执行'
+                    }
+                    else if (data == 4) {
+                        return '<span style="color: #4472c4">'+ '执行中' + '</span>';
+                    }
+                    else if (data == 5) {
+                        return '等待资源'
+                    }
+                    else if (data == 6) {
+                        return '待关单'
+                    }
+                    else if (data == 7) {
+                        return '任务关闭'
+                    }
+                    else if (data == 11) {
+                        return '申诉'
+                    }
+                    else if (data == 999) {
+                        return '任务取消'
+                    }
                 }
             },
-            //{
-            //    title:'任务级别',
-            //    data:'gdLeixing',
-            //    render:function(data, type, full, meta){
-            //        if(data == 1){
-            //            return '一级任务'
-            //        }if(data == 2){
-            //            return '二级任务'
-            //        }if(data == 3){
-            //            return '三级任务'
-            //        }if(data == 4){
-            //            return '四级任务'
-            //        }
-            //    }
-            //},
+
             {
-                title:'工单状态值',
-                data:'gdZht',
-                className:'ztz'
-            },
-            //{
-            //    title:'系统名称',
-            //    data:'wxShiX'
-            //},
-            {
-                title:'维修班组',
-                data:'wxKeshi'
+                title:'报修科室',
+                data:'bxKeshi',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
             },
             {
                 title:'维修事项',
-                data:'wxXm'
+                data:'wxXm',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
 
+                        return '<span style="color: #c00000;cursor: pointer;" title="' + data +
+                            '">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4;cursor: pointer;" title="' + data +
+                            '">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333;cursor: pointer;" title="' + data +
+                            '">'+ data + '</span>';
+
+                    }
+                }
             },
             {
                 title:'故障位置',
-                data:'wxDidian'
+                data:'wxDidian',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
             },
             {
                 title:'故障描述',
-                data:'bxBeizhu'
+                data:'bxBeizhu',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
             },
             {
                 title:'报修人',
-                data:'bxRen'
-            },
-            //{
-            //    title:'最新处理情况',
-            //    data:'lastUpdateInfo'
-            //},
-            //{
-            //    title:'受理时间',
-            //    data:'shouLiShij'
-            //},
-            //{
-            //    title:'故障发生时长',
-            //    data:'timeSpan'
-            //},
-            {
-                title:'关单人',
-                data:'pjRenName'
+                data:'bxRen',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
             },
             {
                 title:'维修人',
                 data:'wxUserNames',
-                render:function(data, type, full, meta){
-                    return '<span class="wxUser" title="'+data+'">'+data+'</span>'
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span class="wxUser" style="color: #c00000" title="'+data+'">'+data+'</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span class="wxUser" style="color: #4472c4" title="'+data+'">'+data+'</span>';
+
+                    }else{
+
+                        return '<span class="wxUser" style="color: #333333" title="'+data+'">'+data+'</span>';
+
+                    }
                 }
             },
-            //{
-            //    title:'操作',
-            //    "targets": -1,
-            //    "data": null,
-            //    "className":'noprint',
-            //    "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
-            //}
         ]
     });
     /*--------------------------echart初始化---------------------------------------*/
     var myChart = echarts.init(document.getElementById('energy-demand'));
-    var myChart1 = echarts.init(document.getElementById('energy-demand1'));
-    var myChart2 = echarts.init(document.getElementById('energy-demand2'));
 
     var myChart4 = echarts.init(document.getElementById('energy-demand4'));
-    var myChart5 = echarts.init(document.getElementById('energy-demand5'));
-    var myChart6 = echarts.init(document.getElementById('energy-demand6'));
 
     var myChart7 = echarts.init(document.getElementById('energy-demand7'));
-    var myChart8 = echarts.init(document.getElementById('energy-demand8'));
-    var myChart9 = echarts.init(document.getElementById('energy-demand9'));
 
 // 指定图表的配置项和数据
-    option = {
+    var option = {
         title:{
             left:'center',
             top:'35%',
@@ -192,7 +302,7 @@ $(function(){
                 fontSize:'14',
                 color:'#e382a5'
             },
-            subtext:['\n好'],
+            //subtext:['\n好'],
             subtextStyle:{
                 fontSize:'14',
                 color:'#e382a5'
@@ -249,153 +359,16 @@ $(function(){
         ]
     };
 
-    option1 = {
-        title:{
-            left:'center',
-            top:'35%',
-            text:'70%',
-            textStyle:{
-                fontSize:'14',
-                color:'#3f8f9a'
-            },
-            subtext:['\n一般'],
-            subtextStyle:{
-                fontSize:'14',
-                color:'#3f8f9a'
-            }
-
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        series: [
-            {
-                name:'工单',
-                type:'pie',
-                radius: ['70%', '90%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    }
-                },
-                data:[
-                    {   value:335,
-                        name:'已解决',
-                        itemStyle : {
-                            normal : {
-                                color:'#3f8f9a',
-                                label : {
-                                    show : false
-                                },
-                                labelLine : {
-                                    show : false
-                                }
-                            }
-                        }
-                    },
-                    {   value:120,
-                        name:'未解决',
-                        itemStyle : {
-                            normal : {
-                                color:'#bdc3bf',
-                                label : {
-                                    show : false
-                                },
-                                labelLine : {
-                                    show : false
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-
-    option2 = {
-        title:{
-            left:'center',
-            top:'35%',
-            text:'70%',
-            textStyle:{
-                fontSize:'14',
-                color:'#8c8c8c'
-            },
-            subtext:['\n差'],
-            subtextStyle:{
-                fontSize:'14',
-                color:'#8c8c8c'
-            }
-
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        series: [
-            {
-                name:'工单',
-                type:'pie',
-                radius: ['70%', '90%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    }
-                },
-                data:[
-                    {   value:335,
-                        name:'已解决',
-                        itemStyle : {
-                            normal : {
-                                color:'#8c8c8c',
-                                label : {
-                                    show : false
-                                },
-                                labelLine : {
-                                    show : false
-                                }
-                            }
-                        }
-                    },
-                    {   value:120,
-                        name:'未解决',
-                        itemStyle : {
-                            normal : {
-                                color:'#bdc3bf',
-                                label : {
-                                    show : false
-                                },
-                                labelLine : {
-                                    show : false
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
-        ]
-    };
-
-    myChart.setOption(option);
-    myChart1.setOption(option1);
-    myChart2.setOption(option2);
-
     myChart4.setOption(option);
-    myChart5.setOption(option1);
-    myChart6.setOption(option2);
-
+    //
     myChart7.setOption(option);
-    myChart8.setOption(option1);
-    myChart9.setOption(option2);
     //数据加载
     conditionSelect();
 
+    gdShowData();
+
     /*----------------------------方法-----------------------------------------*/
+    //条件数据
     function conditionSelect(){
 
         var prm = {
@@ -413,7 +386,9 @@ $(function(){
             "wxRen":'',
             "wxdidian":'',
             "isCalcTimeSpan":1,
-            "userName":_userIdName
+            "userName":_userIdName,
+            "gdZhts":['1','2','4','7'],
+            //"wxKeshiNum":_wxBanNum
         }
         $.ajax({
             type:'post',
@@ -421,14 +396,19 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+
                 datasTable($("#scrap-datatables"),result);
                 //获取table高度
                 var tableHeight = $('#scrap-datatables').height();
+
+                //console.log(tableHeight);
+
                 if(result.length > 0){
                     var i=-1;
                     setInterval(function(){
                         i++;
                         var height = i * 520 * -1;
+
                         if(tableHeight + height < 0){
                             $('#scrap-datatables').css({
                                 top:0
@@ -440,6 +420,7 @@ $(function(){
                             })
                         }
                     },10000)
+                    //setInterval(scrollTable,1000);
                 }
 
             },
@@ -447,6 +428,137 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    var scrollTable = function(){
+        var i = -1;
+        var tableHeight = $('#scrap-datatables').height();
+        return function(){
+            i++;
+            var height = i * 520 * -1;
+
+            if(tableHeight + height < 0){
+                $('#scrap-datatables').css({
+                    top:0
+                })
+                i = -1;
+            }else{
+                $('#scrap-datatables').css({
+                    top:height+'px'
+                })
+            }
+        }
+    }();
+
+    //左侧数据
+    function gdShowData(){
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDRptgdtongji',
+            data:{
+
+                wxKeshiNum:_wxBanNum,
+                userID:_userIdNum,
+                userName:_userIdName
+
+            },
+            timeout:30000,
+            success:function(result){
+
+                $('#orderD').html(result.todayorder);
+
+                $('#orderDF').html(result.todayorderfinish);
+
+                $('#orderM').html(result.monthorder);
+
+                $('#orderMF').html(result.monthorderfinish);
+
+                $('#orderY').html(result.yearorder);
+
+                $('#orderYF').html(result.yearorderfinish);
+
+
+                //本日
+                option.series[0].data[0].value = Number(result.todayorderfinish);
+
+                option.series[0].data[1].value = Number(result.todayorder) - Number(result.todayorderfinish);
+
+                var values = 0;
+
+                if( Number(result.todayorder) == 0 ){
+
+                    values = 0;
+
+                }else{
+
+                    values = (Number(result.todayorderfinish)/Number(result.todayorder))*100
+                }
+
+                option.title.text = values + '%';
+
+                option.series[0].data[0].itemStyle.normal.color='#ce005b';
+
+                option.title.textStyle.color = '#ce005b'
+
+                myChart.setOption(option);
+
+                //本月
+
+                option.series[0].data[0].value = Number(result.monthorderfinish);
+
+                option.series[0].data[1].value = Number(result.monthorder) - Number(result.monthorderfinish);
+
+                var values = 0;
+
+                if( Number(result.monthorder) == 0 ){
+
+                    values = 0;
+
+                }else{
+
+                    values = (Number(result.monthorderfinish)/Number(result.monthorder))*100
+                }
+
+                option.title.text = values + '%';
+
+                option.series[0].data[0].itemStyle.normal.color='#4a6dac';
+
+                option.title.textStyle.color = '#4a6dac';
+
+                myChart4.setOption(option);
+
+
+                //本年
+                option.series[0].data[0].value = Number(result.yearorderfinish);
+
+                option.series[0].data[1].value = Number(result.yearorder) - Number(result.yearorderfinish);
+
+                var values = 0;
+
+                if( Number(result.yearorder) == 0 ){
+
+                    values = 0;
+
+                }else{
+
+                    values = (Number(result.yearorderfinish)/Number(result.yearorder)) *100
+                }
+
+                option.title.text = values + '%';
+
+                option.series[0].data[0].itemStyle.normal.color='#8e8e8e';
+
+                option.title.textStyle.color = '#8e8e8e';
+
+                myChart7.setOption(option);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
     }
 
     //dataTables表格填数据
@@ -463,5 +575,39 @@ $(function(){
         }
     }
 
+    //星期几转换
+    function weekChange(num){
+
+        if(num == 0){
+
+            return '  星期日'
+
+        }else if(num == 1){
+
+            return '  星期一'
+
+        }else if(num == 2){
+
+            return '  星期二'
+
+        }else if(num == 3){
+
+            return '  星期三'
+
+        }else if(num == 4){
+
+            return '  星期四'
+
+        }else if(num == 5){
+
+            return '  星期五'
+
+        }else if(num == 6){
+
+            return '  星期六'
+
+        }
+
+    }
 
 });

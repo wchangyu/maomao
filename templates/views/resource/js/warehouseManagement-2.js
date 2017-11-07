@@ -13,12 +13,20 @@ $(function(){
 
     $('.max').val(_initEnd);
 
+    //出库单条件搜索默认时间
+    var _chuTime = moment().subtract(3,'m').format('YYYY/MM/DD');
+
+    var _chuStartTime = moment(_chuTime).subtract(8,'d').format('YYYY/MM/DD');
+
     /*--------------------------------------------变量-----------------------------------------------------*/
     //存放当前所有入库单的数组
     var _allData = [];
 
     //入库类型方法
     rkLX(1);
+
+    //出库类型方法
+    rkLX(2);
 
     //存放所有仓库
     var _ckArr = [];
@@ -239,8 +247,6 @@ $(function(){
 
     //当前选中的入库单号
     var _ruCode = '';
-
-    //出库单条件设置
 
 
     /*--------------------------------------------表格初始化------------------------------------------------*/
@@ -520,6 +526,9 @@ $(function(){
 
     //获取所有物品列表
     wlList();
+
+    //出库单列表
+    //chukuList();
 
     /*-----------------------------------------------按钮事件-----------------------------------------------*/
     //状态选项卡（选择确定/待确定状态）
@@ -1254,8 +1263,14 @@ $(function(){
 
     $('.chukuDan').click(function(){
 
-
         _moTaiKuang($('#myModal7'), '出库单', '', '' ,'', '确定');
+
+        chuInit();
+
+    })
+
+    //查询出库单
+    $('#selected1').click(function(){
 
     })
 
@@ -2232,7 +2247,13 @@ $(function(){
     //出库单模态框初始化
     function chuInit(){
 
+        $('.chukuHao').val('');
 
+        //开始时间
+        $('.chukumin').val(_chuStartTime);
+
+        //结束时间
+        $('.chukumax').val(_chuTime);
 
     }
 
@@ -2561,27 +2582,42 @@ $(function(){
                 //添加入库单的入库类型
                 $('#rkleixing').empty().append(str);
 
-                //if(type == 1){
-                //    if(flag){
-                //        var str = '<option value="">全部</option>';
-                //        for(var i=0;i<result.length;i++){
-                //            str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
-                //        }
-                //        $('.tiaojian').empty().append(str);
-                //    }else{
-                //        var str = '<option value="">请选择</option>';
-                //        for(var i=0;i<result.length;i++){
-                //            str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
-                //        }
-                //        $('#rkleixing').empty().append(str);
-                //    }
-                //}else{
-                //    var str = '<option value="">全部</option>';
-                //    for(var i=0;i<result.length;i++){
-                //        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
-                //    }
-                //    $('#ckType').empty().append(str);
-                //}
+                if(type == 1){
+
+                    var str = '<option value="">全部</option>';
+
+                    for(var i=0;i<result.length;i++){
+
+                        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+
+                    }
+
+                    $('.tiaojian').empty().append(str);
+
+                    var str1 = '<option value="">请选择</option>';
+
+                    for(var i=0;i<result.length;i++){
+
+                        str1 += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+
+                    }
+
+                    $('#rkleixing').empty().append(str1);
+
+                }else{
+                    var str = '<option value="">全部</option>';
+
+                    for(var i=0;i<result.length;i++){
+
+                        str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+
+                    }
+
+                    $('#ckType').empty().append(str);
+
+                    chukuList();
+
+                }
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -2609,7 +2645,13 @@ $(function(){
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
                     $('#ckselect').empty().append(str);
                 }
+
+                //条件查询
                 conditionSelect();
+
+                //获取出库单
+                chukuList();
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -2745,6 +2787,48 @@ $(function(){
                 //给物品编码和物品名称的列表赋初始值
                 arrList(str,result,false);
 
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取出库列表
+    function chukuList(){
+
+        var ck = [];
+
+        for(var i=0;i<_ckArr.length;i++){
+
+            ck.push(_ckArr[i].storageNum);
+
+        }
+
+        var prm = {
+            "st": $('.chukumin').val(),
+            "et": $('.chukumax').val(),
+            "orderNum": $('.chukuHao').val(),
+            "outType": $('#ckType').val(),
+            "userID":_userIdNum,
+            "userName":_userIdName,
+            "b_UserRole":_userRole,
+            "storageNums":ck
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetOutStorage',
+            data:prm,
+            success:function(result){
+                console.log(result);
+                var arr = [];
+                for(var i=0;i<result.length;i++){
+                    if(result[i].status == 1){
+                        arr.push(result[i]);
+                    }
+                }
+                _datasTable($('#scrap-datatables3'),arr);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
