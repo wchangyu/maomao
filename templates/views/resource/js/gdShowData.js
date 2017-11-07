@@ -33,6 +33,8 @@ $(function(){
 
     formatTime(mytime);
 
+    weekChange(mytime);
+
     function formatTime(time){
 
         var year = time.split(' ')[0].split('/')[0];
@@ -45,18 +47,27 @@ $(function(){
 
         var min = time.split(' ')[1].split(':')[1];
 
-        var str = year + '年' + month + '月' + day + '日' + ' ' + hour + ':' + min ;
+        var str = year + '年' + month + '月' + day + '日' + ' ' + hour + ':' + min;
 
-        console.log(str);
+        var week = moment().day();
+
+        str += weekChange(week);
+
+        $('.header-date').html(str);
 
     }
 
     //30秒刷新一次页面时间
-    //setInterval(function(){
-    //
-    //    formatTime(moment().format('YYYY/MM/DD HH:mm:ss'))
-    //
-    //},30000)
+    setInterval(function(){
+
+        //刷新页面时间
+        formatTime(moment().format('YYYY/MM/DD HH:mm:ss'));
+
+        //刷新表格数据
+
+        //刷新左边chart图
+
+    },30000)
 
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
@@ -385,30 +396,31 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+
                 datasTable($("#scrap-datatables"),result);
                 //获取table高度
-                //var tableHeight = $('#scrap-datatables').height();
+                var tableHeight = $('#scrap-datatables').height();
 
                 //console.log(tableHeight);
 
                 if(result.length > 0){
-                    //var i=-1;
-                    //setInterval(function(){
-                    //    i++;
-                    //    var height = i * 520 * -1;
-                    //
-                    //    if(tableHeight + height < 0){
-                    //        $('#scrap-datatables').css({
-                    //            top:0
-                    //        })
-                    //        i = -1;
-                    //    }else{
-                    //        $('#scrap-datatables').css({
-                    //            top:height+'px'
-                    //        })
-                    //    }
-                    //},10000)
-                    setInterval(scrollTable,1000);
+                    var i=-1;
+                    setInterval(function(){
+                        i++;
+                        var height = i * 520 * -1;
+
+                        if(tableHeight + height < 0){
+                            $('#scrap-datatables').css({
+                                top:0
+                            })
+                            i = -1;
+                        }else{
+                            $('#scrap-datatables').css({
+                                top:height+'px'
+                            })
+                        }
+                    },10000)
+                    //setInterval(scrollTable,1000);
                 }
 
             },
@@ -563,6 +575,39 @@ $(function(){
         }
     }
 
+    //星期几转换
+    function weekChange(num){
 
+        if(num == 0){
+
+            return '  星期日'
+
+        }else if(num == 1){
+
+            return '  星期一'
+
+        }else if(num == 2){
+
+            return '  星期二'
+
+        }else if(num == 3){
+
+            return '  星期三'
+
+        }else if(num == 4){
+
+            return '  星期四'
+
+        }else if(num == 5){
+
+            return '  星期五'
+
+        }else if(num == 6){
+
+            return '  星期六'
+
+        }
+
+    }
 
 });
