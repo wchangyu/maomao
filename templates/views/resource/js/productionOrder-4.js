@@ -173,6 +173,8 @@ $(function(){
                         return '任务关闭'
                     }if(data == 999){
                         return '任务取消'
+                    }if(data == 11){
+                        return '申诉'
                     }
                 }
             },

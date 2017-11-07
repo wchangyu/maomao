@@ -611,69 +611,6 @@
                         <div class="no-edit1" style="width: 470px;float: left">
                             <validator name="validation">
                                 <form novalidate>
-                                    <!--<div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">-->
-                                        <!--<div class="tipe-block">报修人信息</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels starRed">报修电话：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input type="text" v-model="bxtel">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels starRed">报修科室：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<select v-model="bxkesh" id="bxkesh"></select>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels starRed">报修人：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input v-model="bxren">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line" style="display: none">-->
-                                                <!--<div class="single-labels">楼栋：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input v-model="pointer">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">-->
-                                        <!--<div class="tipe-block">设备信息</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels">设备类型：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<select id="sbtype" v-model="sbtype"></select>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels">设备编码：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input type="text" v-model="sbnum">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels">设备名称：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input type="text" v-model="sbname">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-lg-6 col-md-6 col-sm-6 single-line">-->
-                                                <!--<div class="single-labels">安装地点：</div>-->
-                                                <!--<div class="single-block">-->
-                                                    <!--<input type="text" v-model="azplace">-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-
                                     <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                         <div class="tipe-block">维修材料清单</div>
 
@@ -690,6 +627,12 @@
                                             </table>
                                             <div style="padding: 10px;"><label>工时费（元）&nbsp;&nbsp;&nbsp;:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
                                             <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" style="outline: none;margin-left: 20px;"></div>
+                                        </div>
+                                    </div>
+                                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
+                                        <div class="tipe-block">验收人</div>
+                                        <div class="tableHover">
+                                            <div style="padding: 10px;"><label>验收人选择:&nbsp;&nbsp;&nbsp;&nbsp;</label><select id="receiver" style="width:120px;"></select></div>
                                         </div>
                                     </div>
                                 </form>
@@ -719,18 +662,17 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="cont-col1"  data-toggle="modal" data-target="#executor-choose">
+                                            <div class="label label-sm label-warning zxr-option" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>修改执行人
+                                            </div>
+                                        </div>
                                         <table class="table table-hover" id="fzr-list">
                                             <thead>
                                             </thead>
                                             <tbody></tbody>
                                         </table>
                                     </div>
-                                </div>
-                            </div>
-                            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
-                                <div class="tipe-block">验收人</div>
-                                <div class="tableHover">
-                                    <div style="padding: 10px;"><label>验收人选择:&nbsp;&nbsp;&nbsp;&nbsp;</label><select id="receiver" style="width:120px;"></select></div>
                                 </div>
                             </div>
                         </div>
@@ -1246,7 +1188,39 @@
         </div>
     </div>
 </div>
+<!--执行人-->
+<div class="modal fade" id="executor-choose" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="margin: 10% auto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">执行人选择</h4>
+            </div>
+            <div class="modal-body">
+                <!--增加搜索框-->
+                <div class="add-searching-select" style="z-index:1000;position: absolute;left:240px;">
+                    <label for="">部门：</label>
+                    <select name="" id="department-select" style="width:120px;">
 
+                    </select>
+                    <button class="btn btn-success btn1" id="worker-choose1" style="margin-left:10px;">查询</button>
+                </div>
+                <table class="table table-striped left-th-table" id="choose-worker-table">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm addExecutor">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--loading图-->
 <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
