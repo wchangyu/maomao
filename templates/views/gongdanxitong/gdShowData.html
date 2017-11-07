@@ -16,15 +16,29 @@
     <!--MY STYLE-->
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/index.css">
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
-
-    <script src="../../../assets/local/scripts/underscore-min.js"></script>
-    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
     <script src="../resource/js/showOrHidden.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="../resource/webUploader/webuploader.css">
+    <script src="../resource/webUploader/webuploader.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -37,20 +51,101 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-    <!-- END THEME STYLES -->
-    <link rel="shortcut icon" href="../favicon.ico"/>
-    <!--非框架中的样式-->
-    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
-    <link rel="stylesheet" href="../bank-branch-resource/css/common.css"/>
-    <link rel="stylesheet" href="css/energyPendect.css"/>
+    <link rel="stylesheet" href="../resource/css/gdShowData.css"/>
 </head>
-<div class="row" id="content" style="background: white">
-    <div class="col-md-12">
-        <div style="width:100%;min-height: 500px">
+<body style="background: #404040">
+<div class="row" id="content" style="">
+    <!--头部信息-->
+    <div class="col-md-12 header-message" >
+        <h3>重庆医科大学附属儿童医院 <span class="header-date">2017年11月1日 13：40 星期三</span></h3>
+    </div>
+    <!--左侧数据-->
+    <div class="col-md-3 content">
+        <div class="content-left">
+            <div class="left-img">
+                <img src="../resource/img/today.png" alt="">
+            </div>
+            <div class="right-data">
+                <h4>订单量：<span>1400</span></h4>
+                <h4>订单量：<span>985</span></h4>
+                <!--下方chart图-->
+                <div class="show-main row">
 
-            <iframe width="100%" scrolling="no"  frameborder="0" allowtransparency="true" src="http://huaqindemo.dms365.com/index.html#/environment/1"></iframe>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand">
 
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand1">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand2">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-left">
+            <div class="left-img">
+                <img src="../resource/img/thisMonth.png" alt="">
+            </div>
+            <div class="right-data">
+                <h4>订单量：<span>1400</span></h4>
+                <h4>订单量：<span>985</span></h4>
+                <!--下方chart图-->
+                <div class="show-main row" >
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand4">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand5">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-left">
+            <div class="left-img">
+                <img src="../resource/img/thisYear.png" alt="">
+            </div>
+            <div class="right-data">
+                <h4>订单量：<span>1400</span></h4>
+                <h4>订单量：<span>985</span></h4>
+                <!--下方chart图-->
+                <div class="show-main row" >
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand7">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand8">
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 show-torus" id="energy-demand9">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧数据-->
+    <div class="col-md-9">
+        <div class="content-right">
+            <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer " id="scrap-datatables" style="table-layout:fixed">
+                <thead>
+
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -84,6 +179,7 @@
 <script src="../bank-resource/js/lib/html2canvas.js"></script>
 <script src="../bank-resource/js/lib/jspdf.debug.js"></script>
 <script src="../resource/js/echarts.min.js"></script>
+<script src="../resource/js/gdShowData.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -91,10 +187,6 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
     });
-</script>
-<script>
-    var height = $(window).height();
-    $('iframe').height(height);
 </script>
 
 <!-- END JAVASCRIPTS -->

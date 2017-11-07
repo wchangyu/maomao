@@ -1,0 +1,106 @@
+/*头部信息*/
+.header-message{
+    height:100px;
+    padding-top:20px;
+    margin-bottom:80px;
+}
+.header-message h3{
+    height:100px;
+    line-height: 100px;
+    padding-left:220px;
+    box-sizing: border-box;
+    color:white;
+    font-size:56px;
+    background: url('../img/CQDXlogo1.png') no-repeat 20px center;
+    background-size:160px 60px ;
+}
+.header-message .header-date{
+    float:right;
+    margin-right:20px;
+    font-size:30px;
+    font-weight: 500;
+}
+/*左侧展示数据*/
+.content{
+    padding-left:80px;
+    box-sizing: border-box;
+}
+.content .content-left{
+    width:100%;
+    height:180px;
+    background: #e6e6e6;
+    margin-bottom:15px;
+    position: relative;
+}
+/*左侧图片*/
+.content .content-left img{
+   position: absolute;
+    left:-24px;
+    top:28px;
+    width:120px;
+}
+.content .content-left .left-img{
+    width:35%;
+    height:100%;
+    float:left;
+}
+.content .content-left .right-data{
+    width:65%;
+    height:100%;
+    float:left;
+}
+.content .content-left .right-data h4{
+    font-size:20px;
+    color:#838383;
+    font-weight:500;
+}
+/*下方圆环*/
+.content .content-left .right-data .show-torus{
+   height:100px;
+
+}
+/*右侧表格*/
+.content-right{
+    background:white;
+    height:570px;
+    position: relative;
+}
+.content-right{
+    background:white;
+}
+.content-right #scrap-datatables{
+    position: absolute;
+    top:0px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 12px !important;
+}
+#scrap-datatables_length{
+    display: none !important;
+}
+/*维修人*/
+.wxUser{
+    width:120px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.dataTables_scrollHeadInner{
+    padding:0 !important;
+}
+.dataTables_scrollBody{
+    overflow: hidden !important;
+}
+.table-advance {
+    margin-bottom: 0px !important;
+}
+.dataTables_scrollHead {
+    border-bottom: none !important;
+}
+.dataTables_scrollBody thead{
+   display: none !important;
+}
+.dataTables_info{
+    display: none !important;
+}
