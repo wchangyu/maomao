@@ -232,7 +232,16 @@
             <div class="row" id="content" style="background: white">
                 <div class="col-md-12">
                     <div style="width:100%;min-height: 500px">
-
+                        <input type="button" value="查看全部" onclick="exec_iframe('showAll','null')">
+                        <input type="button" value="房间列表" onclick="exec_iframe('checkRoom','all')">
+                        <input type="button" value="左1" onclick="exec_iframe('checkRoom','left1')">
+                        <input type="button" value="左2" onclick="exec_iframe('checkRoom','left2')">
+                        <input type="button" value="右1" onclick="exec_iframe('checkRoom','right1')">
+                        <input type="button" value="右2" onclick="exec_iframe('checkRoom','right2')">
+                        <input type="button" value="报警总览" onclick="CheckWarn()">
+                        <input type="button" value="报警1" onclick="exec_iframe('goToWarnPlace','w1')">
+                        <input type="button" value="报警2" onclick="exec_iframe('goToWarnPlace','w2')">
+                        <input type="button" value="报警3" onclick="exec_iframe('goToWarnPlace','w3')">
                         <iframe width="100%" scrolling="no"  frameborder="0" allowtransparency="true" src="http://huaqindemo.dms365.com/index.html#/environment/1"></iframe>
 
                     </div>
@@ -363,6 +372,45 @@
 <script>
     var height = $(window).height();
     $('iframe').height(height);
+    // exec iframe function
+
+    var iframeTag = 0;
+    function exec_iframe(method,params){
+        iframeTag++;
+
+        var url = 'http://huaqindemo.dms365.com/exec.html?method='+method;
+        if(typeof(params)!='undefined'){
+            url += '&p='+params;
+        }
+
+        var exec_obj = document.createElement('iframe');
+        exec_obj.name = 'tmp_frame'+ iframeTag;
+        exec_obj.src = encodeURI(url);
+        exec_obj.style.display = 'none';
+        document.body.appendChild(exec_obj);
+        exec_obj.onload  = function(){
+            exec_obj.remove();
+        };
+
+        return true;
+    }
+
+
+    //报警数据传递
+    function warnUpload(){
+        var warnData = [
+            {"id":"w1","adddress":"空调机组01","name":"空调机组01","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意！","level":0},
+            {"id":"w2","adddress":"空调机组02","name":"空调机组02","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意！","level":1},
+            {"id":"w3","adddress":"空调机组03","name":"空调机组03","code":"AHU-01","type":"异常报警","desc":"设备故障，请注意！","level":2}
+        ];
+
+        return exec_iframe('warnupload',JSON.stringify(warnData));
+    }
+
+    function CheckWarn(){
+        warnUpload();
+        exec_iframe('warn');//查看报警总览
+    }
 </script>
 
 <!-- END JAVASCRIPTS -->
