@@ -267,7 +267,7 @@ $(function(){
                     //获取ID
                     var id = row.alaLogID;
 
-                    return '<span data-id ="'+id+'"  style="color:black" class="open-views" title="点击查看">'+data+'</span>'
+                    return '<span data-id ="'+id+'"  style="cursor: pointer;color:#72ACE3" class="open-views" title="点击查看">'+data+'</span>'
                 }
             },
             {
@@ -408,17 +408,17 @@ $(function(){
         logoToRead();
     });
 
-    ////打开某个故障位置的3d视图
-    //$('#datatables tbody').on('click','.open-views',function(){
-    //    //获取ID
-    //    var id = $(this).attr('data-id');
-    //    $('#3d-view').show();
-    //
-    //    //生成需要传递的ID
-    //    id = 'w' + ((id % 3) + 1);
-    //    exec_iframe('goToWarnPlace',id);
-    //
-    //});
+    //打开某个故障位置的3d视图
+    $('#datatables tbody').on('click','.open-views',function(){
+        //获取ID
+        var id = $(this).attr('data-id');
+        $('#3d-view').show();
+
+        //生成需要传递的ID
+        id = 'w' + ((id % 3) + 1);
+        exec_iframe('goToWarnPlace',id);
+
+    });
     /*-----------------------其他方法------------------------*/
     //月的时间初始化
     function monthDate(){
@@ -519,7 +519,7 @@ $(function(){
         var typeFlag = false;
         var localType;
         //获取本地存储的能耗种类
-        if(sessionStorage.getItem('menuArg') != ''){
+        if(sessionStorage.getItem('menuArg') != '' && sessionStorage.getItem('menuArg')){
 
             localType = sessionStorage.getItem('menuArg').split(',')[0];
         }
@@ -712,7 +712,11 @@ $(function(){
             pointer.push(_pointer_ID[i].pointerID);
         }
         //获取检测类型
-        var localType = sessionStorage.getItem('menuArg').split(',')[2];
+        var localType
+        if(sessionStorage.getItem('menuArg')){
+            localType = sessionStorage.getItem('menuArg').split(',')[2];
+        }
+
         if(!localType){
             localType = '';
         }
@@ -769,44 +773,43 @@ $(function(){
                     }
                 }
                 datasTable($("#datatables"),dataArr);
+                //绘制3dViews中展示的数据
+                var warnData = [];
+                $(dataArr).each(function(i,o){
+                    //获取ID
+                    var id = 'w' + ((o.alaLogID % 3) + 1);
 
-                ////绘制3dViews中展示的数据
-                //var warnData = [];
-                //$(dataArr).each(function(i,o){
-                //    //获取ID
-                //    var id = 'w' + ((o.alaLogID % 3) + 1);
-                //
-                //    //描述
-                //    var desc = '设备故障，请注意！';
-                //    if(o.memo != ''){
-                //        desc = o.memo;
-                //    }
-                //    //编码
-                //    var code = 'AHU-01';
-                //    if(o.alarmCode != ''){
-                //        code = o.alarmCode;
-                //    }
-                //
-                //    var obj = {
-                //        "id":id,
-                //        "address": o.cName,
-                //        "name": o.pointerName,
-                //        "code": code,
-                //        "type": o.cDtnName,
-                //        "desc":desc,
-                //        "level": o.priorityID
-                //    }
-                //    warnData.push(obj);
-                //});
-                ////关闭按钮
-                //$('.close-view').off('click');
-                //$('.close-view').on('click',function(){
-                //    $('#3d-view').hide();
-                //    exec_iframe('warnupload',JSON.stringify(warnData));
-                //    exec_iframe('warn');
-                //});
-                //
-                //$('.close-view').click();
+                    //描述
+                    var desc = '设备故障，请注意！';
+                    if(o.memo != ''){
+                        desc = o.memo;
+                    }
+                    //编码
+                    var code = 'AHU-01';
+                    if(o.alarmCode != ''){
+                        code = o.alarmCode;
+                    }
+
+                    var obj = {
+                        "id":id,
+                        "address": o.cName,
+                        "name": o.pointerName,
+                        "code": code,
+                        "type": o.cDtnName,
+                        "desc":desc,
+                        "level": o.priorityID
+                    }
+                    warnData.push(obj);
+                });
+                //关闭按钮
+                $('.close-view').off('click');
+                $('.close-view').on('click',function(){
+                    $('#3d-view').hide();
+                    exec_iframe('warnupload',JSON.stringify(warnData));
+                    exec_iframe('warn');
+                });
+
+                $('.close-view').click();
 
                 //console.log(warnData);
             },
