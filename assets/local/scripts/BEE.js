@@ -1099,7 +1099,7 @@ var BEE = (function(){
             }else{
                 //获取菜单
                 getMenu();
-                //setHeaderInfo();
+                setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
                 permitJumpPage();
                 setTheme();
