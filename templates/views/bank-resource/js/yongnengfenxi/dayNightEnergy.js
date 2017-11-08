@@ -26,8 +26,6 @@ $(document).ready(function() {
 
     })
 
-
-
 });
 //存放查询对象
 var pointArr = [];

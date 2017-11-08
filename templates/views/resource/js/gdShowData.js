@@ -10,6 +10,8 @@ $(function(){
     var _wxBan = sessionStorage.getItem("userDepartName");
     //所属班组编码
     var _wxBanNum = sessionStorage.getItem("userDepartNum");
+    //默认刷新时间
+    var _refresh = sessionStorage.getItem("gongdanInterval");
 
     $('#department').html(_wxBan);
     //开始/结束时间插件
@@ -368,6 +370,8 @@ $(function(){
     gdShowData();
 
     /*----------------------------方法-----------------------------------------*/
+    //定义定时器
+    var timer;
     //条件数据
     function conditionSelect(){
 
@@ -403,9 +407,14 @@ $(function(){
 
                 //console.log(tableHeight);
 
+                if(timer){
+                    clearInterval(timer);
+                }
+
                 if(result.length > 0){
+
                     var i=-1;
-                    setInterval(function(){
+                    timer = setInterval(function(){
                         i++;
                         var height = i * 520 * -1;
 
@@ -420,12 +429,18 @@ $(function(){
                             })
                         }
                     },10000)
-                    //setInterval(scrollTable,1000);
                 }
+
+                setTimeout(function(){
+                    conditionSelect();
+                },_refresh * 1000 * 60);
 
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
+                setTimeout(function(){
+                    conditionSelect();
+                },_refresh * 1000 * 60);
             }
         })
     }
@@ -464,6 +479,11 @@ $(function(){
 
             },
             timeout:30000,
+            beforeSend: function () {
+                //myChart.showLoading();
+                //myChart4.showLoading();
+                //myChart7.showLoading();
+            },
             success:function(result){
 
                 $('#orderD').html(result.todayorder);
@@ -553,8 +573,16 @@ $(function(){
 
                 myChart7.setOption(option);
 
+
+                setTimeout(function(){
+                    gdShowData();
+                },_refresh * 1000 * 60);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
+                setTimeout(function(){
+                    gdShowData();
+                },_refresh * 1000 * 60);
                 console.log(jqXHR.responseText);
             }
         })

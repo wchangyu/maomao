@@ -428,7 +428,7 @@ var BEE = (function(){
         if($badge.length>0){        //设置当前报警显示的内容
             if(dataLength==0){
                $badge.html("");            //当前警告的小圆点
-                $alarmDetail.html("");      //当前警告的下拉li第一项内容
+                //$alarmDetail.html("");      //当前警告的下拉li第一项内容
                 //$alarmBlock.hide();         //页面右上角警告的内容
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
@@ -439,7 +439,7 @@ var BEE = (function(){
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
-                $alarmDetail.html(dataLength);
+                //$alarmDetail.html(dataLength);
                 $alarmBlock.show();
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
@@ -486,7 +486,6 @@ var BEE = (function(){
             }
         }
     };
-
 
      var timename2;
 
@@ -660,6 +659,14 @@ var BEE = (function(){
                                  //加入待下发信息
                                  infoHtml += addInfoMessage(num1,'待下发','gdAcceptance.html','../gongdanxitong/');
                              }
+
+                             //获取二次受理备件
+                             var num11 = data.zhtecshl;
+                             if(num11 > 0){
+                                 //加入二次派单备件信息
+                                 infoHtml += addInfoMessage(num11,'二次受理','gdAcceptance.html','../gongdanxitong/');
+                             }
+
                              //获取待接单备件
                              var num2 = 0;
                              $(data.zhts).each(function(i,o){
@@ -671,6 +678,14 @@ var BEE = (function(){
                                  //加入待接单备件信息
                                  infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');
                              }
+
+                             //获取二次派单备件
+                             var num21 = data.zhtecpg;
+                             if(num21 > 0){
+                                 //加入二次派单备件信息
+                                 infoHtml += addInfoMessage(num21,'二次派单','gdOrders.html','../gongdanxitong/');
+                             }
+
                              //获取待关单备件
                              var num3 = 0;
                              $(data.zhts).each(function(i,o){
@@ -683,6 +698,7 @@ var BEE = (function(){
                                  //加入待关单备件信息
                                  infoHtml += addInfoMessage(num3,'待关单','gdClosing.html','../gongdanxitong/');
                              }
+
                              //console.log(num1,num2)
                              //给悬浮窗插入指定信息
                              $dropdownMenu.html(infoHtml);
@@ -691,8 +707,9 @@ var BEE = (function(){
                                  clearTimeout(timename2);
                              }
                              //判断是否需要动态弹出信息框
-                             if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
-                                 console.log(33);
+                             //if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
+                             if($('.dropdown-menu .external').length > 0){
+                                 //console.log(33);
                                  $('.dropdown-menu').hide();
                                  //给上方铃铛增加闪烁效果
                                  $('.dropdown-toggle .icon-bell').hide();
@@ -715,7 +732,6 @@ var BEE = (function(){
 
                                      $('#header_notification_bar').append(audioStr);
                                  }
-
 
                                  timename2=setTimeout(function(){
                                      $('.dropdown-extended .dropdown-menu').toggle('fast');
@@ -781,6 +797,21 @@ var BEE = (function(){
                      });
                  }
              }
+         }else{
+             //给悬浮窗插入指定信息
+             $dropdownMenu.html(infoHtml);
+             //关闭按钮
+             $('.top-close .close').off('click');
+             $('.top-close .close').on('click',function(){
+
+                 $(this).parents('.dropdown-menu').hide();
+                 //关闭声音
+                 if($('#audioMain1').length > 0){
+
+                     $('#header_notification_bar').children('audio').remove();
+
+                 }
+             });
          }
      };
      //加入新工单信息
@@ -790,7 +821,7 @@ var BEE = (function(){
          var curMenu = sessionStorage.curMenuStr;
          //获取当前页面文件路径
          var url = window.location.pathname;
-         console.log(url);
+
          //判断是否有打开查看详细的权限
          if(curMenu.indexOf(address) != -1){
              html +='<li class="external">' +
@@ -814,7 +845,7 @@ var BEE = (function(){
 
          //console.log(_isShowPointer);
          //如果不需要显示，终止函数
-         if(_isShowPointer != 1){
+         if(_isShowPointer != 1 ){
              return false;
          }
 
@@ -1045,7 +1076,7 @@ var BEE = (function(){
         //获取当前菜单
         var curMenu = sessionStorage.curMenuStr;
         //获取当前页面路径
-        var curUrl = window.location.pathname;
+        var curUrl = window.location.href;
         //获取页面名称
         var curPageName = curUrl.split('/').pop();
         //判断是否有访问页面权限
@@ -1068,16 +1099,13 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
-                //permitJumpPage();
+                permitJumpPage();
                 setTheme();
                 insertionPointer();
                 modificationImportInfo();
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }
-
-
-
             }
         }
     }

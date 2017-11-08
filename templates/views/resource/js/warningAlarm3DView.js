@@ -809,7 +809,27 @@ $(function(){
                     exec_iframe('warn');
                 });
 
+
                 $('.close-view').click();
+
+                $(document).unbind();
+                $(document).bind('click',function(e){
+
+                    var e = e || window.event; //浏览器兼容性
+                    var elem = e.target || e.srcElement;
+
+                    while (elem) { //循环判断至跟节点，防止点击的是div子元素
+                        if (elem.id && elem.id=='3d-view' || $(elem).attr('class') == 'open-views') {
+
+                            return;
+                        }
+                        elem = elem.parentNode;
+                    }
+
+                    $('#3d-view').hide(); //点击的不是div或其子元素
+                    exec_iframe('warnupload',JSON.stringify(warnData));
+                    exec_iframe('warn');
+                });
 
                 //console.log(warnData);
             },
