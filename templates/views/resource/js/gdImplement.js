@@ -1263,7 +1263,64 @@ $(function(){
         }
     ];
 
-    _tableInit($('#dai-waiting-list'),daiWaitingListCol,'2','','','');
+    var _tables = $('#dai-waiting-list').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': true,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': true,
+        'ordering': false,
+        "columnDefs":[
+            {
+                //设置第一列不参与搜索
+                //"targets":[0,1,2,3,4,5,6,7,8,10],
+                "targets":[3],
+                "searchable":false
+            }
+        ],
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'sSearch':'查询执行人：',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'ft<"F"lip>',
+        'buttons': [
+            {
+                text:'新增',
+                className:'saveAs addFun btn btn-success'
+            }
+        ],
+        'columns':daiWaitingListCol,
+        'aoColumnDefs':[
+            {
+                sDefaultContent: '',
+                aTargets: [ '_all' ]
+            }
+        ],
+    });
+
+    //添加搜索框
+    $('#search-zxr').bind('input propertychange', function() {
+        //获取input中的值
+        var arg = $(this).val();
+
+        _tables
+            .column(9)
+            .search( arg )
+            .draw();
+    });
+
+    //_tableInit($('#dai-waiting-list'),daiWaitingListCol,'2','','','');
 
     //历史表格
     var inExecutionCol = [
@@ -2040,6 +2097,7 @@ $(function(){
                 //执行中
                 _datasTable($('#waiting-list'),my);
                 //待执行中
+                console.log(other);
                 _datasTable($('#dai-waiting-list'),other);
                 //历史
                 _datasTable($('#in-execution'),zht);

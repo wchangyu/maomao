@@ -1616,8 +1616,11 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[];
+                var zht0=[], zht1=[],zht2=[],zht4=[],zht6=[],zht7=[];
                 for(var i=0;i<result.length;i++){
+                    if(result[i].gdZht != 7){
+                        zht0.push(result[i]);
+                    }
                     if(result[i].gdZht == 1 || result[i].gdZht == 11) {
                         zht1.push(result[i]);
                     }else if(result[i].gdZht == 2){
@@ -1631,7 +1634,7 @@ $(function(){
                     }
                 }
                 //全部
-                _datasTable($('#allState-list'),result);
+                _datasTable($('#allState-list'),zht0);
                 //未受理
                 _datasTable($('#missed-list'),zht1);
                 //未接单not-entertained

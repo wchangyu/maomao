@@ -433,7 +433,7 @@ var BEE = (function(){
         if($badge.length>0){        //设置当前报警显示的内容
             if(dataLength==0){
                $badge.html("");            //当前警告的小圆点
-                $alarmDetail.html("");      //当前警告的下拉li第一项内容
+                //$alarmDetail.html("");      //当前警告的下拉li第一项内容
                 //$alarmBlock.hide();         //页面右上角警告的内容
                 if(sessionStorage.alaDataLength){
                     sessionStorage.removeItem('alaDataLength');
@@ -444,7 +444,7 @@ var BEE = (function(){
             }else{
                 $badge.addClass("badge-danger");
                 $badge.html(dataLength);
-                $alarmDetail.html(dataLength);
+                //$alarmDetail.html(dataLength);
                 $alarmBlock.show();
                 sessionStorage.alaDataLength = dataLength;
                 var alarmAlert = sessionStorage.alarmAlert || 0;
@@ -491,7 +491,6 @@ var BEE = (function(){
             }
         }
     };
-
 
      var timename2;
 
@@ -619,8 +618,9 @@ var BEE = (function(){
                  //判断是否有查看下发或者接单的权限
                  if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdOrders) != -1 || curMenu.indexOf(gdClosing) != -1){
                      //获取当前时间
-                     var st = moment().format('YYYY-MM-DD');
-                     var et = moment().add('1','days').format('YYYY-MM-DD');
+                     var _momentNow = moment();
+                     var st = _momentNow.subtract('7','days').format('YYYY-MM-DD');
+                     var et = _momentNow.add('8','days').format('YYYY-MM-DD');
                      //获取部门科室编号
                      var bxKeshiNum = sessionStorage.userDepartNum;
                      var prmData = {
@@ -631,6 +631,7 @@ var BEE = (function(){
                          isReturnZhtArray:1,
                          gdSt:st,
                          gdEt:et,
+                         isQueryExceedTime:1,
                          wxKeshi:bxKeshiNum,
                          bxKeshiNum:bxKeshiNum,
                          userID:sessionStorage.getItem('userName'),
@@ -663,6 +664,14 @@ var BEE = (function(){
                                  //加入待下发信息
                                  infoHtml += addInfoMessage(num1,'待下发','gdAcceptance.html','../gongdanxitong/');
                              }
+
+                             //获取二次受理备件
+                             var num11 = data.zhtecshl;
+                             if(num11 > 0){
+                                 //加入二次派单备件信息
+                                 infoHtml += addInfoMessage(num11,'二次受理','gdAcceptance.html','../gongdanxitong/');
+                             }
+
                              //获取待接单备件
                              var num2 = 0;
                              $(data.zhts).each(function(i,o){
@@ -674,6 +683,14 @@ var BEE = (function(){
                                  //加入待接单备件信息
                                  infoHtml += addInfoMessage(num2,'待接单','gdOrders.html','../gongdanxitong/');
                              }
+
+                             //获取二次派单备件
+                             var num21 = data.zhtecpg;
+                             if(num21 > 0){
+                                 //加入二次派单备件信息
+                                 infoHtml += addInfoMessage(num21,'二次派单','gdOrders.html','../gongdanxitong/');
+                             }
+
                              //获取待关单备件
                              var num3 = 0;
                              $(data.zhts).each(function(i,o){
@@ -692,7 +709,9 @@ var BEE = (function(){
                                  clearTimeout(timename2);
                              }
                              //判断是否需要动态弹出信息框
-                             if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
+                             //if(num1 != 0 && curMenu.indexOf(gdAcceptance) != -1 || num2 != 0 && curMenu.indexOf(gdOrders) != -1 || num3 != 0 && curMenu.indexOf(gdClosing) != -1){
+                             if($('.dropdown-menu .external').length > 0){
+                                 //console.log(33);
                                  $('.dropdown-menu').hide();
                                  //给上方铃铛增加闪烁效果
                                  $('.dropdown-toggle .icon-bell').hide();
@@ -715,7 +734,6 @@ var BEE = (function(){
 
                                      $('#header_notification_bar').append(audioStr);
                                  }
-
 
                                  timename2=setTimeout(function(){
                                      $('.dropdown-extended .dropdown-menu').toggle('fast');
@@ -756,7 +774,7 @@ var BEE = (function(){
                              }
 
                          },
-                         error: function (XMLHttpRequest, textStatus, errorThrown) {
+                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                              //判断是否需要定时刷新
                              if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
                                  var refreshItv = (sessionStorage.gongdanInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
@@ -781,6 +799,21 @@ var BEE = (function(){
                      });
                  }
              }
+         }else{
+             //给悬浮窗插入指定信息
+             $dropdownMenu.html(infoHtml);
+             //关闭按钮
+             $('.top-close .close').off('click');
+             $('.top-close .close').on('click',function(){
+
+                 $(this).parents('.dropdown-menu').hide();
+                 //关闭声音
+                 if($('#audioMain1').length > 0){
+
+                     $('#header_notification_bar').children('audio').remove();
+
+                 }
+             });
          }
      };
      //加入新工单信息
@@ -811,7 +844,7 @@ var BEE = (function(){
          //判断是否需要显示楼宇
          var _isShowPointer = sessionStorage.getItem('menuusepointer');
          //如果不需要显示，终止函数
-         if(_isShowPointer != 1){
+         if(_isShowPointer != 1 ){
              return false;
          }
 

@@ -224,6 +224,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "3D报警":{
+        "type":"0",
+        "content":"3D报警",
+        "uri":"../baojingyujing/3DView.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

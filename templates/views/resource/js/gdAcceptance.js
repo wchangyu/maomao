@@ -128,6 +128,67 @@ $(function(){
 
     /*--------------------------------------------表格初始化---------------------------------------------*/
 
+    //超时表格
+    var moreTimeCol = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        {
+            title:'报修科室',
+            data:'bxKeshi'
+        },
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'超时',
+            data:'exceedTimePaig',
+            render:function(data, type, full, meta){
+                if(data == 0){
+
+                    return '<span style="color: black">' + data + '</span>';
+
+                }else if(data != 0){
+
+                    return '<span style="color: red">' + data + '</span>';
+
+                }
+            }
+        },
+    ];
+
+    _tableInit($('#more-time'),moreTimeCol,'2','','','');
+
     //待受理
     var  pendingListCol = [
         {
@@ -154,10 +215,6 @@ $(function(){
             title:'报修人',
             data:'bxRen'
         },
-        //{
-        //    title:'楼栋',
-        //    data:''
-        //},
         {
             title:'报修时间',
             data:'gdFsShij'
@@ -943,7 +1000,7 @@ $(function(){
         })
 
     //表格操作按钮
-    $('#pending-list')
+    $('#pending-list,#more-time')
         .on('click','.option-edit',function(){
 
             //显示放大镜图标 用户可以选择
@@ -952,8 +1009,19 @@ $(function(){
             //选择部门模块隐藏
             $('.selectBM').hide();
 
-            //信息绑定
-            bindData($(this),$('#pending-list'));
+            if( $(this).parents('.table').attr('id') == 'more-time' ){
+
+                //信息绑定
+                bindData($(this),$('#more-time'));
+
+            }else{
+
+                //信息绑定
+                bindData($(this),$('#pending-list'));
+
+            }
+
+
 
             //模态框显示
             _moTaiKuang($('#myModal'), '详情', '', '' ,'', '保存');
@@ -997,8 +1065,17 @@ $(function(){
             //选择部门模块显示
             $('.selectBM').show();
 
-            //信息绑定
-            bindData($(this),$('#pending-list'),true);
+            if( $(this).parents('.table').attr('id') == 'more-Time' ){
+
+                //信息绑定
+                bindData($(this),$('#more-Time'),true);
+
+            }else{
+
+                //信息绑定
+                bindData($(this),$('#pending-list'),true);
+
+            }
 
             //模态框显示
             _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
@@ -1620,8 +1697,21 @@ $(function(){
             //选择部门模块显示
             $('.selectBM').show();
 
-            //信息绑定
-            bindData($(this),$('#appeal-list'),true);
+            console.log($(this).parents('.table').attr('id'));
+
+            if( $(this).parents('.table').attr('id') == 'more-Time' ){
+
+                //信息绑定
+                bindData($(this),$('#more-Time'),true);
+
+            }else{
+
+                //信息绑定
+                bindData($(this),$('#appeal-list'),true);
+
+            }
+
+
 
             //模态框显示
             _moTaiKuang($('#myModal'), '下发', '', '' ,'', '下发');
@@ -1957,8 +2047,6 @@ $(function(){
                 'userID':_userIdNum
             },
             success:function(result){
-                //return false;
-
 
                 $('#depart').val(result[0].departNum);
 
@@ -2090,7 +2178,8 @@ $(function(){
             'isQueryAutoCloseTime':1,
             'userID': _userIdNum,
             'userName': _userIdName,
-            'b_UserRole':_userRole
+            'b_UserRole':_userRole,
+            'isQueryExceedTime':"1"
         }
 
         $.ajax({
@@ -2112,13 +2201,24 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[],zht11=[];
+                var zht1=[],zht2=[],zht4=[],zht6=[],zht7=[],zht11=[],moreTime=[];
 
                 for(var i=0;i<result.length;i++){
+
                     if(result[i].gdZht == 1){
+
                         zht1.push(result[i]);
+
                     }else if(result[i].gdZht == 2){
-                        zht2.push(result[i])
+
+                        if( result[i].exceedTimePaig != null && result[i].exceedTimePaig != '' ){
+
+                            moreTime.push(result[i]);
+
+                        }
+
+                        zht2.push(result[i]);
+
                     }else if(result[i].gdZht == 4){
                         zht4.push(result[i]);
                     }else if(result[i].gdZht == 6){
@@ -2141,8 +2241,32 @@ $(function(){
                 _datasTable($('#closing-list'),zht7);
                 //申诉
                 _datasTable($('#appeal-list'),zht11);
+                //超时
+                _datasTable($('#more-time'),moreTime);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
+
+                $('.table-title').children('span').removeClass('spanhover');
+
+                $('.content-main-contents1').addClass('hide-block');
+
+                if( moreTime.length > 0 ){
+
+                    $('.table-title').children('span').eq(0).show();
+
+                    $('.table-title').children('span').eq(0).addClass('spanhover');
+
+                    $('.content-main-contents1').eq(0).removeClass('hide-block');
+
+                }else{
+
+                    $('.table-title').children('span').eq(0).hide();
+
+                    $('.table-title').children('span').eq(1).addClass('spanhover');
+
+                    $('.content-main-contents1').eq(1).removeClass('hide-block');
+
+                }
 
                 //定时刷新
                 if(flag){
@@ -2218,7 +2342,7 @@ $(function(){
                 $('.gzDesc').val(result.bxBeizhu);
 
                 //根据报修科室重绘故障位置表格
-                var departnum = gdObj.bxkesh;
+                var departnum = $('#bxkesh').attr('data-num');
 
                 //如果是下发
 

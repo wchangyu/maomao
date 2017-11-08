@@ -273,7 +273,7 @@ Page Header
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external {
   display: block;
   overflow: hidden;
-  padding: 15px 15px;
+  padding: 10px 15px;
   letter-spacing: 0.5px;
   -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
