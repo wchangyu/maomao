@@ -23,12 +23,6 @@ $(function(){
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
-    var _lastTime = '';
-
-    //var _initStart = moment().format('YYYY/MM/DD HH:mm:ss');
-
-    //var _initEnd =
-
     var mytime = moment().format('YYYY/MM/DD HH:mm:ss');
 
     formatTime(mytime);
@@ -57,13 +51,23 @@ $(function(){
 
     }
 
+    var tt;
+
+    var ii = -1;
+
     //30秒刷新一次页面时间
     setInterval(function(){
+
+        console.log(ii++)
+
+        //清除定时器
+        clearInterval(tt);
 
         //刷新页面时间
         formatTime(moment().format('YYYY/MM/DD HH:mm:ss'));
 
         //刷新表格数据
+        conditionSelect();
 
         //刷新左边chart图
 
@@ -401,11 +405,12 @@ $(function(){
                 //获取table高度
                 var tableHeight = $('#scrap-datatables').height();
 
-                //console.log(tableHeight);
-
                 if(result.length > 0){
                     var i=-1;
-                    setInterval(function(){
+                    tt = setInterval(function(){
+
+                        console.log('翻页'+ i)
+
                         i++;
                         var height = i * 520 * -1;
 
@@ -419,8 +424,7 @@ $(function(){
                                 top:height+'px'
                             })
                         }
-                    },10000)
-                    //setInterval(scrollTable,1000);
+                    },10000);
                 }
 
             },

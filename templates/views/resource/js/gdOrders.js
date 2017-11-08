@@ -335,15 +335,24 @@ $(function(){
     });
 
     //接单
-    $('#waiting-list').on('click','.option-orders',function(){
+    $('#waiting-list,#more-time').on('click','.option-orders',function(){
 
         //选择部门不显示
         $('.bumen').hide();
 
         $('.fdjImg').hide();
 
-        //数据绑定
-        bindData($(this),$('#waiting-list'));
+        if( $(this).parents('.table').attr('id') == 'more-time' ){
+
+            //数据绑定
+            bindData($(this),$('#more-time'));
+
+        }else{
+
+            //数据绑定
+            bindData($(this),$('#waiting-list'));
+
+        }
 
         //添加类
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('jiedan');
@@ -435,7 +444,7 @@ $(function(){
 
     /*------------------------------------------------表格初始化------------------------------------------*/
 
-    //待受理表格
+    //待接单表格
     var waitingListCol = [
         {
             title:'工单号',
@@ -508,6 +517,95 @@ $(function(){
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');
+
+    //超时表格
+    var moreTimeCol = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '" data-circle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        //{
+        //    title:'工单类型',
+        //    data:'gdJJ',
+        //    render:function(data, type, full, meta){
+        //        if(data == 0){
+        //            return '普通'
+        //        }else{
+        //            return '快速'
+        //        }
+        //    }
+        //},
+        //{
+        //    title:'设备类型',
+        //    data:'wxShiX'
+        //},
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        //{
+        //    title:'受理时间',
+        //    data:'shouLiShij'
+        //},
+        //{
+        //    title:'接单时间',
+        //    data:'paiGongShij'
+        //},
+        {
+            title:'报修科室',
+            data:'bxKeshi'
+        },
+        {
+            title:'报修人',
+            data:'bxRen'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'超时',
+            data:'exceedTimeZhix',
+            render:function(data, type, full, meta){
+                if(data == 0){
+
+                    return '<span style="color: black">' + data + '</span>';
+
+                }else if(data != 0){
+
+                    return '<span style="color: red">' + data + '</span>';
+
+                }
+            }
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-orders btn default btn-xs green-stripe'>接单</span>"
+        }
+    ];
+
+    _tableInit($('#more-time'),moreTimeCol,'2','','','');
 
     //选择设备表格
     var equipTable = $('#choose-equip').DataTable({
@@ -1175,7 +1273,8 @@ $(function(){
             'userID': _userIdNum,
             'userName': _userIdName,
             'b_UserRole':_userRole,
-            'wxKeshiNum':_userBM
+            'wxKeshiNum':_userBM,
+            'isQueryExceedTime':"1"
         }
 
         $.ajax({
@@ -1187,7 +1286,6 @@ $(function(){
                 $('#theLoading').modal('hide');
                 $('#theLoading').modal('show');
             },
-
             complete: function () {
                 $('#theLoading').modal('hide');
                 if($('.modal-backdrop').length > 0){
@@ -1198,24 +1296,59 @@ $(function(){
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht2=[],zht=[];
+                var zht2=[],zht=[],moreTime=[];
                 for(var i=0;i<result.length;i++){
+
                     if(result[i].gdZht == 2){
+
+                        if( result[i].exceedTimeZhix != null && result[i].exceedTimeZhix != '' ){
+
+                            moreTime.push(result[i]);
+
+                        }
+
                         zht2.push(result[i]);
+
                     }else{
+
                         zht.push(result[i]);
+
                     }
                 }
+
+                $('.table-title').children('span').removeClass('spanhover');
+
+                $('.content-main-contents1').addClass('hide-block');
+
+                if( moreTime.length > 0 ){
+
+                    $('.table-title').children('span').eq(0).show();
+
+                    $('.table-title').children('span').eq(0).addClass('spanhover');
+
+                    $('.content-main-contents1').eq(0).removeClass('hide-block');
+
+                }else{
+
+                    $('.table-title').children('span').eq(0).hide();
+
+                    $('.table-title').children('span').eq(1).addClass('spanhover');
+
+                    $('.content-main-contents1').eq(1).removeClass('hide-block');
+                }
+
                 //未接单
                 _datasTable($('#waiting-list'),zht2);
                 //历史工单
                 _datasTable($('#in-execution'),zht);
+                //超时工单
+                _datasTable($('#more-time'),moreTime);
                 //定时刷新
                 if(flag){
 
                     theTimeout = setTimeout(function(){
                         conditionSelect(true);
-                    },refreshTime);
+                    },refreshTime);0
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
