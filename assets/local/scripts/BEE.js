@@ -534,6 +534,7 @@ var BEE = (function(){
                      data:prmData,
                      dataType:'json',
                      success: function (data) {
+
                          //获取新工单条数
                          var num1 = 0;
                          $(data.zhts).each(function(i,o){
@@ -644,6 +645,7 @@ var BEE = (function(){
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
+                             console.log(data);
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
