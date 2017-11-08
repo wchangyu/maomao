@@ -614,8 +614,9 @@ var BEE = (function(){
                  //判断是否有查看下发或者接单的权限
                  if(curMenu.indexOf(gdAcceptance) != -1 || curMenu.indexOf(gdOrders) != -1 || curMenu.indexOf(gdClosing) != -1){
                      //获取当前时间
-                     var st = moment().format('YYYY-MM-DD');
-                     var et = moment().add('1','days').format('YYYY-MM-DD');
+                     var _momentNow = moment();
+                     var st = _momentNow.subtract('7','days').format('YYYY-MM-DD');
+                     var et = _momentNow.add('8','days').format('YYYY-MM-DD');
                      //获取部门科室编号
                      var bxKeshiNum = sessionStorage.userDepartNum;
                      var prmData = {
@@ -626,6 +627,7 @@ var BEE = (function(){
                          isReturnZhtArray:1,
                          gdSt:st,
                          gdEt:et,
+                         isQueryExceedTime:1,
                          wxKeshi:bxKeshiNum,
                          bxKeshiNum:bxKeshiNum,
                          userID:sessionStorage.getItem('userName'),
