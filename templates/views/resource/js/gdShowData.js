@@ -375,12 +375,16 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
+        var wxKeshi = '';
+        if(!_wxBan){
+            wxKeshi = '-1'
+        }
         var prm = {
             "gdCode":'',
             "gdSt":_initStart,
             "gdEt":_initEnd,
             "bxKeshi":'',
-            "wxKeshi":'',
+            "wxKeshi":wxKeshi,
             "gdZht":'',
             "pjRen":'',
             //"shouliren": filterInput[7],
@@ -391,7 +395,7 @@ $(function(){
             "wxdidian":'',
             "isCalcTimeSpan":1,
             "userName":_userIdName,
-            "gdZhts":['1','2','4','7'],
+            "gdZhts":['2','4']
             //"wxKeshiNum":_wxBanNum
         }
         $.ajax({
@@ -418,7 +422,7 @@ $(function(){
                         i++;
                         var height = i * 520 * -1;
 
-                        if(tableHeight + height < 0){
+                        if( tableHeight + height <= 0){
                             $('#scrap-datatables').css({
                                 top:0
                             })
@@ -428,7 +432,7 @@ $(function(){
                                 top:height+'px'
                             })
                         }
-                    },10000)
+                    },5000)
                 }
 
                 setTimeout(function(){
@@ -515,11 +519,11 @@ $(function(){
                     values = (Number(result.todayorderfinish)/Number(result.todayorder))*100
                 }
 
-                option.title.text = values + '%';
+                option.title.text = values.toFixed(1) + '%';
 
                 option.series[0].data[0].itemStyle.normal.color='#ce005b';
 
-                option.title.textStyle.color = '#ce005b'
+                option.title.textStyle.color = '#ce005b';
 
                 myChart.setOption(option);
 
@@ -540,7 +544,7 @@ $(function(){
                     values = (Number(result.monthorderfinish)/Number(result.monthorder))*100
                 }
 
-                option.title.text = values + '%';
+                option.title.text = values.toFixed(1) + '%';
 
                 option.series[0].data[0].itemStyle.normal.color='#4a6dac';
 
@@ -565,7 +569,7 @@ $(function(){
                     values = (Number(result.yearorderfinish)/Number(result.yearorder)) *100
                 }
 
-                option.title.text = values + '%';
+                option.title.text = values.toFixed(1) + '%';
 
                 option.series[0].data[0].itemStyle.normal.color='#8e8e8e';
 
