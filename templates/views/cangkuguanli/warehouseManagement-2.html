@@ -62,6 +62,11 @@
         .right-justify{
             text-align: right !important;
         }
+        @media print {
+            a[href]:after {
+                content: none !important;
+            }
+        }
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }

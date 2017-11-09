@@ -299,7 +299,7 @@ $(function(){
         title:{
             left:'center',
             top:'35%',
-            text:'70%',
+            text:'',
             textStyle:{
                 fontSize:'14',
                 color:'#e382a5'
@@ -328,7 +328,7 @@ $(function(){
                     }
                 },
                 data:[
-                    {   value:335,
+                    {   value:0,
                         name:'已解决',
                         itemStyle : {
                             normal : {
@@ -342,7 +342,7 @@ $(function(){
                             }
                         }
                     },
-                    {   value:120,
+                    {   value:0,
                         name:'未解决',
                         itemStyle : {
                             normal : {
