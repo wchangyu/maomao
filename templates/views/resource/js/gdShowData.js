@@ -118,6 +118,7 @@ $(function(){
             {
                 title:'工单号',
                 data:'gdCode',
+                class:'gd-code',
                 render:function(data, type, row, meta){
                     if(row.gdZht == 2){
 
@@ -432,7 +433,7 @@ $(function(){
                                 top:height+'px'
                             })
                         }
-                    },5000)
+                    },10000)
                 }
 
                 setTimeout(function(){
