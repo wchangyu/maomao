@@ -1115,6 +1115,16 @@
         "arg":"",
         "iconclass":"",
         "arg2":"admin,dd01,hq01"
+      },
+      "大屏展示":{
+        "type":"0",
+        "content":"大屏展示",
+        "uri":"../gongdanxitong/gdShowData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"",
+        "target":"blank",
+        "arg2":"admin,WXBZ01"
       }
     }
   }
