@@ -818,6 +818,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "车间材料支出":{
+        "type":"0",
+        "content":"车间材料支出",
+        "uri":"../cangkuguanli/wbDetails.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
