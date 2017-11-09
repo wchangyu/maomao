@@ -645,7 +645,7 @@ var BEE = (function(){
                          data:prmData,
                          dataType:'json',
                          success: function (data) {
-                             console.log(data);
+
                              if(data == null){
                                  //判断是否需要定时刷新
                                  if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0'){
