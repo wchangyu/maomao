@@ -422,7 +422,7 @@ $(function(){
                         i++;
                         var height = i * 520 * -1;
 
-                        if(tableHeight + height < 0){
+                        if( tableHeight + height <= 0){
                             $('#scrap-datatables').css({
                                 top:0
                             })
@@ -432,7 +432,7 @@ $(function(){
                                 top:height+'px'
                             })
                         }
-                    },10000)
+                    },5000)
                 }
 
                 setTimeout(function(){
