@@ -1094,7 +1094,7 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
-                permitJumpPage();
+                //permitJumpPage();
                 setTheme();
                 insertionPointer();
                 modificationImportInfo();
