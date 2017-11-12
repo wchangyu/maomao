@@ -494,6 +494,7 @@ textarea{
     float: left;
     margin-right: 10px;
 }
+/*品质栏*/
 .pinzhixx{
     width: 298px;
     border: 1px solid #ebebeb;
@@ -504,6 +505,10 @@ textarea{
     line-height: 30px;
     background: #ffffff;
     cursor: pointer;
+}
+.pinzhixx li{
+    width:100%;
+    background:white;
 }
 .li-color{
     background: #ebebeb !important;

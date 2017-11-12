@@ -361,6 +361,14 @@ $(function(){
         inputs.val('');
         //类型重置
         $('.tiaojian').val('0');
+
+        var _initStart = moment().subtract(7,'day').format('YYYY/MM/DD');
+
+        var _initEnd = moment().format('YYYY/MM/DD');
+        //显示时间
+        $('.min').val(_initStart);
+
+        $('.max').val(_initEnd);
     });
 
     //查询按钮
@@ -824,13 +832,16 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
+        //获取结束时间
+        var et = $('.condition-query .max').val();
+         et = moment(et).add('1','days').format('YYYY/MM/DD');
         //获取类型
         var type = $('.condition-query .tiaojian').val();
         console.log(filterInput[0]);
         var prm = {
             'orderNum':filterInput[0],
             'st':filterInput[1],
-            'et':filterInput[2],
+            'et':et,
             'inoutType':type,
             userID:_userIdNum,
             userName:_userIdName,

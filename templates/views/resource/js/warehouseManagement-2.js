@@ -179,12 +179,13 @@ $(function(){
                     todayBtn: 1,
                     todayHighlight: 1,
                     format: 'yyyy/mm/dd',
+                    autoclose:1
                 });
             },
             //质保期失去焦点事件
             timeblur:function(){
                 setTimeout(function(){
-                    $('.datepicker').hide();
+                    $('.rknum').focus();
                 },200)
             },
             //库区输入事件
@@ -268,6 +269,9 @@ $(function(){
     //当前选中的物品编码
     var _$thisWP = '';
 
+    //暂存删除的入库物品对象
+    var _tempRKObj = [];
+
     //物品编码分类
     wpClass();
 
@@ -328,7 +332,7 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 1){
                     return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+
                         "<span class='data-option option-confirmed btn default btn-xs green-stripe'>已审核</span>" +
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
                 }if(data == 0){
@@ -659,6 +663,8 @@ $(function(){
 
         //初始化
         newButtonInit();
+
+        rudEdit();
 
         //表格重新初始化
         var col1 = [
@@ -1624,7 +1630,7 @@ $(function(){
         })
         .on('click','.option-shanchu',function(){
 
-            removeRK($(this));
+            removeRK($(this),_rukuArr);
 
             //修改类名
             $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('removeButton').addClass('xiaoShanchu');
@@ -1751,37 +1757,37 @@ $(function(){
             var snNum = $(this).parents('tr').children('.sn').html();
 
             //遍历已选中的数组，来确定当前行选中的信息
-            for(var i=0;i<_rukuArr.length;i++){
-                if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
+            for(var i=0;i<_tempRukuArr_tempRukuArr_tempRukuArr.length;i++){
+                if( _tempRukuArr[i].itemNum == wpNum && _tempRukuArr[i].localNum == kwNum && _tempRukuArr[i].sn == snNum ){
                     //赋值
                     //库位名称
-                    putInGoods.kuwei = _rukuArr[i].localName;
+                    putInGoods.kuwei = _tempRukuArr[i].localName;
                     //库位编号
-                    $('.kuwei').attr('data-num',_rukuArr[i].localNum);
+                    $('.kuwei').attr('data-num',_tempRukuArr[i].localNum);
                     //物品编号
-                    putInGoods.bianhao = _rukuArr[i].itemNum;
+                    putInGoods.bianhao = _tempRukuArr[i].itemNum;
                     //物品名称
-                    putInGoods.mingcheng = _rukuArr[i].itemName;
+                    putInGoods.mingcheng = _tempRukuArr[i].itemName;
                     //规格型号
-                    putInGoods.size = _rukuArr[i].size;
+                    putInGoods.size = _tempRukuArr[i].size;
                     //是否耐用
-                    putInGoods.picked = _rukuArr[i].isSpare;
+                    putInGoods.picked = _tempRukuArr[i].isSpare;
                     //物品序列号
-                    putInGoods.goodsId = _rukuArr[i].sn;
+                    putInGoods.goodsId = _tempRukuArr[i].sn;
                     //单位
-                    putInGoods.unit = _rukuArr[i].unitName;
+                    putInGoods.unit = _tempRukuArr[i].unitName;
                     //品质
-                    putInGoods.quality = _rukuArr[i].batchNum;
+                    putInGoods.quality = _tempRukuArr[i].batchNum;
                     //质保期
-                    putInGoods.warranty = _rukuArr[i].maintainDate;
+                    putInGoods.warranty = _tempRukuArr[i].maintainDate;
                     //数量
-                    putInGoods.num = _rukuArr[i].num;
+                    putInGoods.num = _tempRukuArr[i].num;
                     //入库单价
-                    putInGoods.inprice = _rukuArr[i].inPrice;
+                    putInGoods.inprice = _tempRukuArr[i].inPrice;
                     //总金额
-                    putInGoods.amount = _rukuArr[i].amount;
+                    putInGoods.amount = _tempRukuArr[i].amount;
                     //备注
-                    putInGoods.remark = _rukuArr[i].inMemo;
+                    putInGoods.remark = _tempRukuArr[i].inMemo;
                     //单选设置(消耗品的时候，序列号可以改变，耐用品的时候，序列号不可以改变)
                     if( putInGoods.picked == 0 ){
 
@@ -1812,7 +1818,7 @@ $(function(){
         })
         .on('click','.option-shanchu',function(){
 
-            removeRK($(this));
+            removeRK($(this),_tempRukuArr);
 
             //修改类名
             $('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
@@ -1824,7 +1830,7 @@ $(function(){
             //var snNum = $(this).parents('tr').children('.sn').html();
             //
             ////库位编码、物品编码、物品序列号一致才能删除
-            //for(var i=0;i<_rukuArr.length;i++){
+            //for(var i=0;i<_tempRukuArr.length;i++){
             //
             //    if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
             //
@@ -1845,7 +1851,7 @@ $(function(){
     $('#myModal2')
         .on('click','.removeButton',function(){
 
-            sureRemoveRK($('#wuPinListTable1'));
+            sureRemoveRK($('#wuPinListTable1'),_tempRukuArr,_tempRKObj[0]);
 
             $(this).removeClass('removeButton');
 
@@ -1853,7 +1859,9 @@ $(function(){
         //入库产品第一层
         .on('click','.xiaoShanchu',function(){
 
-            sureRemoveRK($('#personTable1'));
+
+            sureRemoveRK($('#personTable1'),_rukuArr,_tempRKObj[0]);
+
 
             $(this).removeClass('xiaoShanchu');
 
@@ -2391,13 +2399,13 @@ $(function(){
 
                         for(var i=0;i<_tempRukuArr.length;i++){
 
-                            if(_tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn){
+                            if(_tempRukuArr[i].itemNum == rukuDan.itemNum  && _tempRukuArr[i].localNum == rukuDan.localNum &&  _tempRukuArr[i].sn == rukuDan.sn){
 
                                 //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
                                 //库位编码
-                                _tempRukuArr[i].localNum = $('.kuwei').attr('data-num');
-                                //库位名称
-                                _tempRukuArr[i].localName = putInGoods.kuwei;
+                                //_tempRukuArr[i].localNum = $('.kuwei').attr('data-num');
+                                ////库位名称
+                                //_tempRukuArr[i].localName = putInGoods.kuwei;
                                 //品质
                                 _tempRukuArr[i].batchNum = putInGoods.quality;
                                 //质保期
@@ -2433,7 +2441,7 @@ $(function(){
     }
 
     //表格入库产品删除按钮
-    function removeRK($this){
+    function removeRK($this,arr){
 
         var wpNum = $this.parents('tr').children('.bianma').html();
 
@@ -2441,14 +2449,14 @@ $(function(){
 
         var snNum = $this.parents('tr').children('.sn').html();
 
-        console.log(_rukuArr);
+        _tempRKObj.length = 0;
 
         //库位编码、物品编码、物品序列号一致才能删除
-        for(var i=0;i<_rukuArr.length;i++){
+        for(var i=0;i<arr.length;i++){
 
-            if( _rukuArr[i].itemNum == wpNum && _rukuArr[i].localNum == kwNum && _rukuArr[i].sn == snNum ){
+            if( arr[i].itemNum == wpNum && arr[i].localNum == kwNum && arr[i].sn == snNum ){
 
-                _$thisRemoveRowXiao = _rukuArr[i].itemNum;
+                _tempRKObj.push(arr[i]);
 
                 _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
 
@@ -2459,16 +2467,20 @@ $(function(){
         }
     }
 
+
     //表格入库产品删除确定按钮
-    function sureRemoveRK(tableId){
+    function sureRemoveRK(tableId,arr,obj){
 
-        _rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
+        //_rukuArr.removeByValue(_$thisRemoveRowXiao,'itemNum');
 
-        _datasTable(tableId,_rukuArr);
+        arr.remove(obj)
+
+        _datasTable(tableId,arr);
 
         $('#myModal2').modal('hide');
 
     }
+
 
     //入库单赋值
     function bindData(num){
