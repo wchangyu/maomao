@@ -171,6 +171,13 @@ $(function(){
             data:'bxDianhua'
         },
         {
+            title:'维修科室',
+            data:'wxKeshi',
+            render:function(data, type, row, meta){
+               return '<span class="wx-ks" data-num="'+row.wxKeshiNum+'">'+data+'</span>'
+            }
+        },
+        {
             title:'超时',
             data:'exceedTimePaig',
             render:function(data, type, full, meta){
@@ -185,6 +192,11 @@ $(function(){
                 }
             }
         },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-issued btn default btn-xs green-stripe'>查看班长</span>"
+        }
     ];
 
     _tableInit($('#more-time'),moreTimeCol,'2','','','');
@@ -363,6 +375,55 @@ $(function(){
             {
                 title:'备注',
                 data:'memo'
+            }
+        ]
+    });
+
+    //查看班长表格
+    var monitorTable = $('#examine-depart-table').DataTable({
+        'autoWidth': false,  //用来启用或禁用自动列的宽度计算
+        'paging': false,   //是否分页
+        'destroy': true,//还原初始化了的datatable
+        'searching': false,
+        'ordering': false,
+        'language': {
+            'emptyTable': '无班长信息',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '',
+            'search':'搜索:',
+            'paginate': {
+                'first':      '第一页',
+                'last':       '最后一页',
+                'next':       '下一页',
+                'previous':   '上一页'
+            },
+            'infoEmpty': ''
+        },
+        'buttons': [
+
+        ],
+        "dom":'B<"clear">lfrtip',
+        //数据源
+        'columns':[
+            {
+                title:'工号',
+                data:'userNum',
+                className:'workNum'
+            },
+            {
+                title:'姓名',
+                data:'userName'
+            },
+            {
+                title:'职位',
+                data:'pos'
+            },
+            {
+                title:'联系电话',
+                data:'mobile'
             }
         ]
     });
@@ -999,8 +1060,48 @@ $(function(){
             //}
         })
 
+    //超时工单中 查看工长
+    $('#more-time') .on('click','.data-option',function(){
+
+        $('#examine-depart').modal('show');
+
+        //选择部门
+        var departNum = $(this).parents('tr').find('.wx-ks').attr('data-num');
+        var prm = {
+            'departNum':departNum,
+            'userID':_userIdNum,
+            'userName':_userIdName
+        }
+
+        if(!departNum){
+            _datasTable($('#examine-depart-table'),[]);
+            return false;
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGetWXLeaders',
+            data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                _datasTable($('#examine-depart-table'),result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    });
+
     //表格操作按钮
-    $('#pending-list,#more-time')
+    $('#pending-list')
         .on('click','.option-edit',function(){
 
             //显示放大镜图标 用户可以选择
@@ -2242,6 +2343,7 @@ $(function(){
                 //申诉
                 _datasTable($('#appeal-list'),zht11);
                 //超时
+                console.log(moreTime);
                 _datasTable($('#more-time'),moreTime);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);

@@ -765,7 +765,26 @@ $(function(){
         }
     ];
 
-    tableInit($('#personTable1'),col3,buttonHidden);
+    tableInit($('#personTable1'),col3,buttonHidden,'','',drawFn);
+
+    function drawFn(){
+        var amount = 0;
+        var tds = $('#personTable1').find('tbody').children('tr').length;
+        //console.log(tds);
+        for(var i=0;i<tds;i++){
+            //获取金额
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+
+            amount += count;
+        }
+        //console.log(amount);
+        if(isNaN(amount.toFixed(2))){
+            $('#personTable1 .count').html(0.00);
+        }else{
+            $('#personTable1 .count').html(amount.toFixed(2));
+        }
+
+    };
 
     //选择出库材料表格
     var col4 = [
@@ -1712,7 +1731,7 @@ $(function(){
     //第二层的添加入库产品按钮
     $('#addRK').click(function(){
         //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
-        if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' ){
+        if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.goodsId == ''){
             //提示框
             _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'请填写红色必填项!', '')
         }else{
@@ -2114,6 +2133,11 @@ $(function(){
     //库区选择
     $('.kuqu-list')
         .on('click','li',function(e){
+            //清空之前已选择内容
+            var length = $('#myModal1 input').length;
+            for(var i=2; i<length; i++){
+                $('#myModal1 input').eq(i).val('');
+            }
             //赋值
             workDone.kuwei = $(this).html();
             $('.kuwei').attr('data-num',$(this).attr('data-num'));
@@ -2783,7 +2807,7 @@ $(function(){
     }
 
     //表格初始化
-    function tableInit(tableId,col,buttons,flag){
+    function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
         var _tables = tableId.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "paging": true,   //是否分页
@@ -2808,7 +2832,9 @@ $(function(){
             },
             "dom":'B<"clear">lfrtip',
             'buttons':buttons,
-            "columns": col
+            "columns": col,
+            "fnRowCallback": fnRowCallback,
+            "drawCallback":drawCallback
         })
         if(flag){
             _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
@@ -3445,6 +3471,50 @@ $(function(){
             }
         }
     }
+
+    //获取所有工单
+    //function gdList(){
+    //    var prm = {
+    //        gdCode2:'',
+    //        gdSt:'',
+    //        gdEt:'',
+    //        gdGuanbiSt:'',
+    //        gdGuanbiEt:'',
+    //        gdZht:'4',
+    //        gdJJ:'',
+    //        dlNum:'',
+    //        gdLeixing:'',
+    //        'userID':_userIdNum,
+    //        'userName':_userIdName,
+    //        'b_UserRole':_userRole,
+    //        wxShiXNum:'',
+    //        isApplyWxCl:1
+    //    }
+    //    $.ajax({
+    //        type:'post',
+    //        url: _urls + 'YWGD/ywGDGetZh2',
+    //        data:prm,
+    //        async:false,
+    //        success:function(result){
+    //            _gdArr = [];
+    //            var str = '';
+    //            for(var i=0;i<result.length;i++){
+    //                _gdArr.push(result[i]);
+    //                str += '<div data-dds="' + _gdArr[i].bxKeshiNum +
+    //                    '"data-ddsName="' + _gdArr[i].bxKeshi +
+    //                    '" data-gd="' + _gdArr[i].gdCode +
+    //                    '">' +'<span class="dataGD">' +
+    //                    _gdArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + _gdArr[i].wxClNames +
+    //                    '</span>' + '<span>' + _gdArr[i].bxKeshi +
+    //                    '</span>' + '</div>';
+    //            }
+    //            $('.pinzhixx').eq(1).empty().append(str);
+    //        },
+    //        error:function(jqXHR, textStatus, errorThrown){
+    //            console.log(jqXHR.responseText);
+    //        }
+    //    })
+    //}
 
     //键盘选择工单和仓库(仓库不关联车站，用flag)
     function keyGDCK(value,index,flag){

@@ -617,7 +617,8 @@
         "uri":"../xitongshezhi/sectorManagement.html",
         "uid":"",
         "arg":"",
-        "iconclass":""
+        "iconclass":"",
+        "target":"blank"
       },
       "资源管理":{
         "type":"0",
@@ -814,6 +815,22 @@
         "type":"0",
         "content":"月度汇总",
         "uri":"../cangkuguanli/monthlyCollect.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "车间材料支出":{
+        "type":"0",
+        "content":"车间材料支出",
+        "uri":"../cangkuguanli/wbDetails.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "销审管理":{
+        "type":"0",
+        "content":"销审管理",
+        "uri":"../cangkuguanli/meltAuditManagement.html",
         "uid":"",
         "arg":"",
         "iconclass":""

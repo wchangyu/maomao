@@ -122,7 +122,7 @@ $(function(){
     //查询
     $('#selected').click(function(){
         if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == ''){
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项！', '');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项进行查询！', '');
         }else{
             conditionSelect();
         }
@@ -224,10 +224,12 @@ $(function(){
             data:{
                 'hasLocation':1,
                 'userID':_userIdNum,
-                'userName':_userIdName
+                'userName':_userIdName,
+                'b_UserRole':_userRole
             },
             timeout:_theTimes,
             success:function(result){
+                //console.log(result);
                 _isWarehouse = true;
                 _ckArr.length = 0;
                 var str = '<option value="">请选择</option>';

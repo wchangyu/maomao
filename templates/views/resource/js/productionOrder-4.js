@@ -243,6 +243,29 @@ $(function(){
                 title:'维修人',
                 data:'wxUserNames'
             },
+            {
+                title:'评价',
+                data:'pingJia',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '很差'
+                    }else if(data == 2){
+                        return '差'
+                    }else if(data == 3){
+                        return '一般'
+                    }else if(data == 4){
+                        return '好'
+                    }else if(data == 5){
+                        return '很好'
+                    }else{
+                        return ' '
+                    }
+                }
+            },
+            {
+                title:'完工时间',
+                data:'wanGongShij'
+            }
             //{
             //    title:'操作',
             //    "targets": -1,

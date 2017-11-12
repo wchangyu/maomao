@@ -179,12 +179,13 @@ $(function(){
                     todayBtn: 1,
                     todayHighlight: 1,
                     format: 'yyyy/mm/dd',
+                    autoclose:1
                 });
             },
             //质保期失去焦点事件
             timeblur:function(){
                 setTimeout(function(){
-                    $('.datepicker').hide();
+                    $('.rknum').focus();
                 },200)
             },
             //库区输入事件
@@ -328,7 +329,7 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 1){
                     return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+
                         "<span class='data-option option-confirmed btn default btn-xs green-stripe'>已审核</span>" +
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
                 }if(data == 0){
@@ -414,7 +415,26 @@ $(function(){
             "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
         }
     ];
-    _tableInit($('#personTable1'),col1,'1','','','');
+    _tableInit($('#personTable1'),col1,'1','','',drawFn);
+
+    function drawFn(){
+        var amount = 0;
+        var tds = $('#personTable1').find('tbody').children('tr').length;
+        //console.log(tds);
+        for(var i=0;i<tds;i++){
+            //获取金额
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(8).html());
+
+            amount += count;
+        }
+        //console.log(amount);
+        if(isNaN(amount.toFixed(2))){
+            $('#personTable1 .count').html(0.00);
+        }else{
+            $('#personTable1 .count').html(amount.toFixed(2));
+        }
+
+    };
 
     //添加入库产品的表格
     var col2 = [
@@ -660,6 +680,8 @@ $(function(){
         //初始化
         newButtonInit();
 
+        rudEdit();
+
         //表格重新初始化
         var col1 = [
             {
@@ -731,7 +753,7 @@ $(function(){
                 "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
             }
         ];
-        _tableInit($('#personTable1'),col1,'1','','','');
+        _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
         //选择物品按钮名称
         $('.zhiXingRenYuanButton').html('新增物品').show();
@@ -850,7 +872,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //入库产品详情
             function detailTable(data){
@@ -982,7 +1004,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shenhe').removeClass('shanchu').addClass('bianji');
@@ -1080,7 +1102,7 @@ $(function(){
                     }
                 ];
 
-                _tableInit($('#personTable1'),col1,'1','','','');
+                _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
                 //新增物品按钮隐藏
                 $('.zhiXingRenYuanButton').hide();
@@ -1184,7 +1206,7 @@ $(function(){
                     }
                 ];
 
-                _tableInit($('#personTable1'),col1,'1','','','');
+                _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
                 //模态框
                 _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
@@ -1312,7 +1334,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //不可操作
             rudNotEdit();
@@ -1429,7 +1451,11 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            //重绘合计数据
+
+
+
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //入库产品详情
             function detailTable(data){
@@ -1863,7 +1889,9 @@ $(function(){
         //入库产品第一层
         .on('click','.xiaoShanchu',function(){
 
+
             sureRemoveRK($('#personTable1'),_rukuArr,_tempRKObj[0]);
+
 
             $(this).removeClass('xiaoShanchu');
 
@@ -2399,7 +2427,7 @@ $(function(){
 
                     }else{
 
-                        for(var i=0;i<_tempRukuArr.length;i++){
+                    for(var i=0;i<_rukuArr.length;i++){
 
                             if(_tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn && _tempRukuArr[i].localNum == rukuDan.localNum ){
 
@@ -2432,8 +2460,8 @@ $(function(){
 
 
 
-                    //聚焦到第一个
-                    $('#workDone').find('.inputType').eq(0).focus();
+                //聚焦到第一个
+                $('#workDone').find('.inputType').eq(0).focus();
 
                 }
 
@@ -2473,6 +2501,7 @@ $(function(){
         }
     }
 
+
     //表格入库产品删除确定按钮
     function sureRemoveRK(tableId,arr,obj){
 
@@ -2485,6 +2514,7 @@ $(function(){
         $('#myModal2').modal('hide');
 
     }
+
 
     //入库单赋值
     function bindData(num){
@@ -3014,6 +3044,8 @@ $(function(){
     //库区回车事件
    var enterFQName =  function enterFQ(){
 
+
+
        //input框赋值
         putInGoods.kuwei = $('.kuqu-list').children('.li-color').html();
 
@@ -3498,6 +3530,44 @@ $(function(){
             }
         })
     }
+
+    //获取物品编码分类
+    function wpClass(){
+
+        var prm = {
+
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole
+
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItemCate',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].cateNum +
+                        '">' + result[i].cateName + '</option>'
+
+                }
+
+                $('#myModal4').find('#filterInput3').empty().append(str);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
 
     //获取物品编码分类
     function wpClass(){

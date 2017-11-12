@@ -15,9 +15,6 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-
-
-
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -64,6 +61,12 @@
         /*}*/
         .right-justify{
             text-align: right !important;
+        }
+        .table .noprint{
+            text-align:left;
+        }
+        .table .noprint .option-see{
+            margin-left:20px;
         }
     </style>
     <style type="text/css" media=print>
@@ -525,7 +528,20 @@
                         <table class="table table-hover wptable" id="personTable1">
                             <thead>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td>共计</td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                                <td></td>
+                                <td class="count"></td>
+                                <td colspan="3"></td>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -592,8 +608,8 @@
                             <li class="gdList">
                                 <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds auto-input automatic">
-                                    <input type="radio" class="inpus inputType  automatic" id="ones" value="1" v-model="picked" v-on:click="radios" style="width: 18px;"><label for="ones" style="line-height: 30px;">是</label>
-                                    <input type="radio" class="inpus automatic" id="twos" value="0" v-model="picked" style="width: 18px; v-on:click="radios"><label for="twos" style="line-height: 30px;">否</label>
+                                    <input type="radio" disabled="disabled" class="inpus inputType  automatic" id="ones" value="1" v-model="picked" v-on:click="radios" style="width: 18px;"><label for="ones" style="line-height: 30px;">是</label>
+                                    <input type="radio" disabled="disabled" class="inpus automatic" id="twos" value="0" v-model="picked" style="width: 18px; v-on:click="radios"><label for="twos" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="gdList">

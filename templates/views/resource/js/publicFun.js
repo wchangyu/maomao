@@ -32,7 +32,8 @@ function _timeYMDComponentsFun(el){
         todayBtn: 1,
         todayHighlight: 1,
         format: 'yyyy/mm/dd',
-        forceParse: 0
+        forceParse: 0,
+        autoclose: 1
     });
 }
 
