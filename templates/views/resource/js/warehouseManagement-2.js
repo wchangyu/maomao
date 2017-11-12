@@ -418,7 +418,26 @@ $(function(){
             "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
         }
     ];
-    _tableInit($('#personTable1'),col1,'1','','','');
+    _tableInit($('#personTable1'),col1,'1','','',drawFn);
+
+    function drawFn(){
+        var amount = 0;
+        var tds = $('#personTable1').find('tbody').children('tr').length;
+        //console.log(tds);
+        for(var i=0;i<tds;i++){
+            //获取金额
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(8).html());
+
+            amount += count;
+        }
+        //console.log(amount);
+        if(isNaN(amount.toFixed(2))){
+            $('#personTable1 .count').html(0.00);
+        }else{
+            $('#personTable1 .count').html(amount.toFixed(2));
+        }
+
+    };
 
     //添加入库产品的表格
     var col2 = [
@@ -737,7 +756,7 @@ $(function(){
                 "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
             }
         ];
-        _tableInit($('#personTable1'),col1,'1','','','');
+        _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
         //选择物品按钮名称
         $('.zhiXingRenYuanButton').html('新增物品').show();
@@ -856,7 +875,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //入库产品详情
             function detailTable(data){
@@ -988,7 +1007,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //添加编辑类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shenhe').removeClass('shanchu').addClass('bianji');
@@ -1086,7 +1105,7 @@ $(function(){
                     }
                 ];
 
-                _tableInit($('#personTable1'),col1,'1','','','');
+                _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
                 //新增物品按钮隐藏
                 $('.zhiXingRenYuanButton').hide();
@@ -1190,7 +1209,7 @@ $(function(){
                     }
                 ];
 
-                _tableInit($('#personTable1'),col1,'1','','','');
+                _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
                 //模态框
                 _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
@@ -1318,7 +1337,7 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //不可操作
             rudNotEdit();
@@ -1435,7 +1454,11 @@ $(function(){
                 }
             ];
 
-            _tableInit($('#personTable1'),col1,'1','','','');
+            //重绘合计数据
+
+
+
+            _tableInit($('#personTable1'),col1,'1','','',drawFn);
 
             //入库产品详情
             function detailTable(data){
@@ -1757,7 +1780,7 @@ $(function(){
             var snNum = $(this).parents('tr').children('.sn').html();
 
             //遍历已选中的数组，来确定当前行选中的信息
-            for(var i=0;i<_tempRukuArr_tempRukuArr_tempRukuArr.length;i++){
+            for(var i=0;i<_tempRukuArr.length;i++){
                 if( _tempRukuArr[i].itemNum == wpNum && _tempRukuArr[i].localNum == kwNum && _tempRukuArr[i].sn == snNum ){
                     //赋值
                     //库位名称
@@ -3009,6 +3032,8 @@ $(function(){
 
     //库区回车事件
    var enterFQName =  function enterFQ(){
+
+
 
        //input框赋值
         putInGoods.kuwei = $('.kuqu-list').children('.li-color').html();

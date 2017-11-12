@@ -33,6 +33,9 @@ $(function(){
     //存放所有物品分类的数组
     var _elArr = [];
 
+    //存放所有仓库编号
+    var _ckArr = [];
+
     //入库产品详情查看
     var rukuObject = new Vue({
         el:'#rukuObject',
@@ -349,7 +352,7 @@ $(function(){
     _tableInit($('#personTable2'),col3,'1','','','');
 
     //表格数据加载
-    conditionSelect();
+    getAllLocation();
 
     /*-------------------------------------按钮事件-------------------------------*/
 
@@ -843,6 +846,7 @@ $(function(){
             'st':filterInput[1],
             'et':et,
             'inoutType':type,
+            'storageNums':_ckArr,
             userID:_userIdNum,
             userName:_userIdName,
             b_UserRole:_userRole
@@ -852,7 +856,7 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetConfirmedOrders',
             data:prm,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 _allData = [];
                 for(var i=0;i<result.length;i++){
                     _allData.push(result[i])
@@ -1059,6 +1063,33 @@ $(function(){
                 }else if(result == 3){
                     _moTaiKuang($('#myModal3'), '提示', '', '撤销失败' ,'', '');
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //获取所有仓库
+    function getAllLocation(){
+        var prm = {
+            "userID": _userIdNum,
+            "userName": _userIdName,
+            "b_UserRole":_userRole,
+            "hasLocation":1
+        };
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+                _ckArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+                    _ckArr.push(result[i].storageNum);
+                }
+
+                conditionSelect()
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

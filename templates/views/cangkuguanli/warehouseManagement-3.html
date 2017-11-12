@@ -480,7 +480,20 @@
                         <table class="table table-hover wptable" id="personTable1">
                             <thead>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>共计</td>
+                                    <td colspan="2"></td>
+                                    <td colspan="2"></td>
+                                    <td colspan="3"></td>
+                                    <td></td>
+                                    <td class="count"></td>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -518,7 +531,7 @@
                             <li class="gdList">
                                 <div class="labels colorTip">仓库 *：<span class="kuweiReq" v-show="$validation.ck.requireds" style="display: none">请选择仓库</span></div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <input type="text" v-model="ck" class="initBJ not-editable inputType cangku children1"  @keyup="selectCK()" v-validate:ck= "['requireds']" initial='off'><div class="selectBlock"></div>
+                                    <input id="warehouse" type="text" v-model="ck" class="initBJ not-editable inputType cangku children1"  @keyup="selectCK()" v-validate:ck= "['requireds']" initial='off'><div class="selectBlock"></div>
                                     <ul class="pinzhixx hidden1" style="width: 200px;background: #ffffff;position: absolute;top: 30px;left: 0;display: none"></ul>
                                 </div>
                             </li>
@@ -547,7 +560,7 @@
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels">物品序列号：</div>
+                                <div class="labels colorTip">物品序列号：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="goodsId" class="not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
                                     <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;">
@@ -563,8 +576,8 @@
                             <li class="gdList">
                                 <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="radio" class="not-editable inpus auto-input inputType disabled-block" id="ones" value="1" v-model="picked" v-on:click="radios" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
-                                    <input type="radio" class="not-editable inpus auto-input disabled-block" id="twos" value="0" v-model="picked" v-on:click="radios" readonly="readonly"><label for="twos" class="auto-input" style="line-height: 30px;">否</label>
+                                    <input type="radio" class="not-editable inpus auto-input inputType disabled-block"  disabled="disabled" id="ones" value="1" v-model="picked" v-on:click="radios" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="not-editable inpus auto-input disabled-block" id="twos" value="0" v-model="picked" v-on:click="radios" readonly="readonly"><label for="twos" class="auto-input" disabled="disabled" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="gdList">
