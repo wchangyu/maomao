@@ -8,15 +8,20 @@ $(function(){
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
 
     var _initEnd = moment().format('YYYY/MM/DD');
+
     //显示时间
     $('.min').val(_initStart);
 
     $('.max').val(_initEnd);
 
     //出库单条件搜索默认时间
-    var _chuTime = moment().subtract(3,'m').format('YYYY/MM/DD');
+    var _chuTime =  moment().format('YYYY/MM/DD');
 
-    var _chuStartTime = moment(_chuTime).subtract(8,'d').format('YYYY/MM/DD');
+    var _chuStartTime = moment().subtract(6,'months').format('YYYY/MM/DD');
+
+    $('.chukumin').val(_chuStartTime);
+
+    $('.chukumax').val(_chuTime);
 
     /*--------------------------------------------变量-----------------------------------------------------*/
     //存放当前所有入库单的数组
@@ -238,8 +243,11 @@ $(function(){
     //存放物品数组
     var _wpListArr = [];
 
-    //存放入库物品的数组
+    //存放入库物品的数组(点击选择之后)
     var _rukuArr = [];
+
+    //暂时存放已选择的数组
+    var _tempRukuArr = [];
 
     //入库产品要删除的物品id
 
@@ -248,6 +256,20 @@ $(function(){
     //当前选中的入库单号
     var _ruCode = '';
 
+    //当前选中的出库单号
+    var _chukuD = '';
+
+    //判断制单人和审核人是不是一样
+    var _examineRen = false;
+
+    //是否可以自己审核
+    var _isShenHe = sessionStorage.getItem('ckAuditType');
+
+    //当前选中的物品编码
+    var _$thisWP = '';
+
+    //物品编码分类
+    wpClass();
 
     /*--------------------------------------------表格初始化------------------------------------------------*/
     //入库单表格初始化（所有、待审核、已审核）
@@ -302,6 +324,7 @@ $(function(){
         {
             title:'操作',
             data:'status',
+            className:'noprint',
             render:function(data, type, full, meta){
                 if(data == 1){
                     return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
@@ -521,14 +544,56 @@ $(function(){
     ];
     _tableInit($('#scrap-datatables3'),col4,'','','','');
 
+    //选择物品列表
+    var col3 = [
+        {
+            title:'物品编码',
+            className:'bianma',
+            data:'itemNum'
+        },
+        {
+            title:'物品名称',
+            className:'mingcheng',
+            data:'itemName'
+        },
+        {
+            title:'分类名称',
+            data:'cateName'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'是否耐用',
+            data:'isSpare',
+            render:function(data, type, full, meta){
+                if(data == 0){
+                    return '否'
+                }if(data == 1){
+                    return '是'
+                }
+            }
+        },
+        {
+            title:'单位',
+            data:'unitName'
+        }
+    ];
+    _tableInit($('#wuPinListTable'),col3,'','','','');
+
     //表格数据
     warehouse();
 
     //获取所有物品列表
     wlList();
 
-    //出库单列表
-    //chukuList();
+    //加载页面的时候，隐藏其他两个导出按钮
+    for( var i=1;i<$('.excelButton').children().length;i++ ){
+
+        $('.excelButton').children().eq(i).addClass('hidding');
+
+    };
 
     /*-----------------------------------------------按钮事件-----------------------------------------------*/
     //状态选项卡（选择确定/待确定状态）
@@ -551,6 +616,12 @@ $(function(){
 
         $('.excelButton').children().eq($(this).index()).removeClass('hidding');
     });
+
+    //获取供应商
+    //点击刷新
+    $('.refresh').click(function(){
+        getSupplier();
+    })
 
     //条件查询--------------------------------------------------------------------------------------------
 
@@ -575,6 +646,9 @@ $(function(){
 
         $('.max').val(_initEnd);
 
+        //入库类型重置为全部
+        $('.tiaojian').val('');
+
     });
 
     //条件查询【新增】
@@ -586,8 +660,84 @@ $(function(){
         //初始化
         newButtonInit();
 
+        //表格重新初始化
+        var col1 = [
+            {
+                title:'物品编号',
+                data:'itemNum',
+                className:'bianma'
+            },
+            {
+                title:'物品名称',
+                data:'itemName'
+            },
+            {
+                title:'库区',
+                data:'localName',
+                className:'localName',
+                render:function(data, type, full, meta){
+                    return '<span data-num="' + full.localNum +
+                        '">'+ data + '</span>'
+                }
+            },
+            {
+                title:'物品序列号',
+                data:'sn',
+                className:'sn'
+            },
+            {
+                title:'规格型号',
+                data:'size'
+            },
+            {
+                title:'单位',
+                data:'unitName'
+            },
+            {
+                title:'数量',
+                data:'num',
+                className:'right-justify'
+            },
+            {
+                title:'入库单价',
+                data:'inPrice',
+                className:'right-justify',
+                render:function(data, type, full, meta){
+                    var data = parseFloat(data).toFixed(2)
+                    return data
+                }
+            },
+            {
+                title:'总金额',
+                data:'amount',
+                className:'right-justify',
+                render:function(data, type, full, meta){
+                    var data = parseFloat(data).toFixed(2)
+                    return data
+                }
+            },
+            {
+                title:'品质',
+                data:'batchNum'
+            },
+            {
+                title:'备注',
+                data:'inMemo'
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "defaultContent": "<span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+            }
+        ];
+        _tableInit($('#personTable1'),col1,'1','','','');
+
         //选择物品按钮名称
-        $('.zhiXingRenYuanButton').html('新增物品');
+        $('.zhiXingRenYuanButton').html('新增物品').show();
+
+        //选择出库单按钮名称
+        $('.chukuDan').show();
 
         //添加登记类
         $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
@@ -714,10 +864,10 @@ $(function(){
             rudNotEdit();
 
             //审核备注消失
-            $('.shRemarks').hide();
+            $('.shRemarks').show();
 
         })
-        //入库单【编辑】
+        //入库单【编辑】(首先判断是已审核还是未审核的入库单，已审核之后，就不能编辑，未审核的情况下可以编辑)；
         .on('click','.option-edit',function(){
 
             //初始化
@@ -739,8 +889,6 @@ $(function(){
             var $thisDanhao = $(this).parents('tr').find('.orderNum').children('a').html();
 
             _ruCode = $thisDanhao;
-
-            _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
 
             //绑定数据
             bindData(_ruCode);
@@ -837,13 +985,214 @@ $(function(){
             _tableInit($('#personTable1'),col1,'1','','','');
 
             //添加编辑类
-            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shenhe').removeClass('shanchu').addClass('bianji');
 
             //所有项可编辑
             rudEdit();
 
             //审核备注消失
-            $('.shRemarks').hide();
+            $('.shRemarks').show();
+
+            //判断状态是已确认还是待确定
+            if( $(this).next().html() == '已审核' ){
+
+                //所有输入框不可操作；
+                $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
+
+                $('#myApp33').find('input').parent('.input-blockeds').addClass('disabled-block');
+
+                $('#myApp33').find('select').attr('readonly','readonly').addClass('disabled-block');
+
+                $('#myApp33').find('textarea').attr('readonly','readonly');
+
+                //入库单号、审核人、审核时间態修改
+                $('.automatic').attr('readonly','readonly').addClass('disabled-block');
+
+                //入库产品删除按钮不可操作(重新初始化表格)
+                var col1 = [
+                    {
+                        title:'物品编号',
+                        data:'itemNum',
+                        className:'bianma'
+                    },
+                    {
+                        title:'物品名称',
+                        data:'itemName'
+                    },
+                    {
+                        title:'库区',
+                        data:'localName',
+                        className:'localName',
+                        render:function(data, type, full, meta){
+                            return '<span data-num="' + full.localNum +
+                                '">'+ data + '</span>'
+                        }
+                    },
+                    {
+                        title:'物品序列号',
+                        data:'sn',
+                        className:'sn'
+                    },
+                    {
+                        title:'规格型号',
+                        data:'size'
+                    },
+                    {
+                        title:'单位',
+                        data:'unitName'
+                    },
+                    {
+                        title:'数量',
+                        data:'num',
+                        className:'right-justify'
+                    },
+                    {
+                        title:'入库单价',
+                        data:'inPrice',
+                        className:'right-justify',
+                        render:function(data, type, full, meta){
+                            var data = parseFloat(data).toFixed(2)
+                            return data
+                        }
+                    },
+                    {
+                        title:'总金额',
+                        data:'amount',
+                        className:'right-justify',
+                        render:function(data, type, full, meta){
+                            var data = parseFloat(data).toFixed(2)
+                            return data
+                        }
+                    },
+                    {
+                        title:'品质',
+                        data:'batchNum'
+                    },
+                    {
+                        title:'备注',
+                        data:'inMemo'
+                    },
+                    {
+                        title:'操作',
+                        "targets": -1,
+                        "data": null,
+                        "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span>"
+                    }
+                ];
+
+                _tableInit($('#personTable1'),col1,'1','','','');
+
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').hide();
+
+                //导入出库单按钮也要隐藏
+                $('.chukuDan').hide();
+
+                //模态框
+                _moTaiKuang($('#myModal'), '编辑', 'flag', '' ,'', '');
+
+
+            }else if( $(this).next().html() == '待审核' ){
+
+                //所有输入框不可操作；
+                $('#myApp33').find('input').removeAttr('readonly').removeClass('disabled-block');
+
+                $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
+
+                $('#myApp33').find('select').removeAttr('readonly').removeClass('disabled-block');
+
+                $('#myApp33').find('textarea').removeAttr('readonly');
+
+                //入库单号、审核人、审核时间態修改
+                $('.automatic').attr('readonly','readonly').addClass('disabled-block');
+
+                //新增物品按钮隐藏
+                $('.zhiXingRenYuanButton').html('修改物品').show();
+
+                //倒入出库单按钮显示
+                $('.chukuDan').show();
+
+                //入库产品删除按钮可操作(重新初始化表格)
+                var col1 = [
+                    {
+                        title:'物品编号',
+                        data:'itemNum',
+                        className:'bianma'
+                    },
+                    {
+                        title:'物品名称',
+                        data:'itemName'
+                    },
+                    {
+                        title:'库区',
+                        data:'localName',
+                        className:'localName',
+                        render:function(data, type, full, meta){
+                            return '<span data-num="' + full.localNum +
+                                '">'+ data + '</span>'
+                        }
+                    },
+                    {
+                        title:'物品序列号',
+                        data:'sn',
+                        className:'sn'
+                    },
+                    {
+                        title:'规格型号',
+                        data:'size'
+                    },
+                    {
+                        title:'单位',
+                        data:'unitName'
+                    },
+                    {
+                        title:'数量',
+                        data:'num',
+                        className:'right-justify'
+                    },
+                    {
+                        title:'入库单价',
+                        data:'inPrice',
+                        className:'right-justify',
+                        render:function(data, type, full, meta){
+                            var data = parseFloat(data).toFixed(2)
+                            return data
+                        }
+                    },
+                    {
+                        title:'总金额',
+                        data:'amount',
+                        className:'right-justify',
+                        render:function(data, type, full, meta){
+                            var data = parseFloat(data).toFixed(2)
+                            return data
+                        }
+                    },
+                    {
+                        title:'品质',
+                        data:'batchNum'
+                    },
+                    {
+                        title:'备注',
+                        data:'inMemo'
+                    },
+                    {
+                        title:'操作',
+                        "targets": -1,
+                        "data": null,
+                        "defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>"
+                    }
+                ];
+
+                _tableInit($('#personTable1'),col1,'1','','','');
+
+                //模态框
+                _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
+
+            }
+
+            //审核备注无法修改，只可查看
+            $('.shRemarks').find('textarea').attr('readonly','readonly').addClass('disabled-block');
 
         })
         //入库单【审核】
@@ -973,6 +1322,9 @@ $(function(){
 
             $('.shRemarks').find('textarea').removeAttr('readonly').removeClass('disabled-block');
 
+            //添加审核类
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').removeClass('bianji').addClass('shenhe');
+
         })
         //入库单【删除】
         .on('click','.option-delete',function(){
@@ -999,8 +1351,8 @@ $(function(){
 
             _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除');
 
-            //添加编辑类
-            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+            //添加删除类
+            $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shenhe').removeClass('bianji').addClass('shanchu');
 
             //绑定数据
             bindData($thisDanhao);
@@ -1109,38 +1461,30 @@ $(function(){
         })
         .on('click','.shanchu',function(){
 
-            $.ajax({
+            ShOrSc('YWCK/ywCKDelInStorage',false,'删除成功！','删除失败！');
 
-                type:'post',
-                url:_urls + 'YWCK/ywCKDelInStorage',
-                data:{
-                    orderNum:_ruCode,
-                    userID:_userIdNum,
-                    userName:_userIdName,
-                    b_UserRole:_userRole,
-                },
-                timeout:_theTimes,
-                success:function(result){
+        })
+        .on('click','.shenhe',function(){
 
-                    if(result == 99){
+            if(_isShenHe == 1){
 
-                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'删除成功！', '');
+                _examineRen = false;
 
-                        $('#myModal').modal('hide');
+            }else if(_isShenHe == 0){
 
-                        conditionSelect();
+                _examineRen = true;
 
-                    }else{
+            }
+            if(!_examineRen){
 
-                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'删除失败！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
 
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
+            }else{
 
-            })
+                ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
+
+            }
+
 
         })
 
@@ -1167,6 +1511,18 @@ $(function(){
             _addGoods = true;
 
             getKQ(putInList.ckselect);
+
+            _tempRukuArr.length = 0;
+
+            for(var i=0;i<_rukuArr.length;i++){
+
+                _tempRukuArr.push(_rukuArr[i]);
+
+            }
+
+            //将已选中的入库产品填入表格中
+            _datasTable($('#wuPinListTable1'),_tempRukuArr);
+
         }
 
 
@@ -1198,6 +1554,12 @@ $(function(){
     $('#personTable1')
         .on('click','.option-see1',function(){
 
+            var $thisBM = $(this).parents('tr').children('.bianma').html();
+
+            var $thisKQ= $(this).parents('tr').children('.localName').children().attr('data-num');
+
+            var $thisSN = $(this).parents('tr').children('.sn').html();
+
             //模态框
             _moTaiKuang($('#myModal6'), '入库产品详情', 'flag', '' ,'', '');
 
@@ -1205,40 +1567,50 @@ $(function(){
             seeDetail();
 
             //赋值
-            function secondView(data){
+            function secondView(data) {
 
-                //物品编号
-                rukuObject.bianhao =  data[0].itemNum;
-                //物品名称
-                rukuObject.mingcheng =  data[0].itemName;
-                //规格型号
-                rukuObject.size = data[0].size;
-                //是否耐用
-                rukuObject.durable = data[0].isSpare;
-                //序列号
-                rukuObject.goodsId = data[0].sn;
-                //单位
-                rukuObject.unit = data[0].unitName;
-                //品质
-                rukuObject.quality = data[0].batchNum;
-                //质保期
-                rukuObject.warranty = data[0].maintainDate;
-                //数量
-                rukuObject.num = data[0].num;
-                //入库单价
-                rukuObject.inPrice = Number(data[0].inPrice).toFixed(2);
-                //金额
-                rukuObject.amount = Number(data[0].amount).toFixed(2);
-                //备注
-                rukuObject.remark = data[0].inMemo;
+                for (var i = 0; i < data.length; i++) {
+
+                    if ($thisBM == data[i].itemNum && $thisKQ == data[i].localNum && $thisSN == data[i].sn) {
+
+                        //物品编号
+                        rukuObject.bianhao = data[i].itemNum;
+                        //物品名称
+                        rukuObject.mingcheng = data[i].itemName;
+                        //规格型号
+                        rukuObject.size = data[i].size;
+                        //是否耐用
+                        rukuObject.durable = data[i].isSpare;
+                        //序列号
+                        rukuObject.goodsId = data[i].sn;
+                        //单位
+                        rukuObject.unit = data[i].unitName;
+                        //品质
+                        rukuObject.quality = data[i].batchNum;
+                        //质保期
+                        rukuObject.warranty = data[i].maintainDate;
+                        //数量
+                        rukuObject.num = data[i].num;
+                        //入库单价
+                        rukuObject.inPrice = Number(data[i].inPrice).toFixed(2);
+                        //金额
+                        rukuObject.amount = Number(data[i].amount).toFixed(2);
+                        //备注
+                        rukuObject.remark = data[i].inMemo;
+
+
+                    }
+
+                }
+
                 //单选按钮
-                if(rukuObject.durable == 0){
+                if (rukuObject.durable == 0) {
 
                     $('.durable').parent('span').removeClass('checked');
 
                     $('#second').parent('span').addClass('checked');
 
-                }else{
+                } else {
 
                     $('.durable').parent('span').removeClass('checked');
 
@@ -1272,6 +1644,68 @@ $(function(){
     //查询出库单
     $('#selected1').click(function(){
 
+        chukuList();
+
+    })
+
+    //选中入库单，写入表格
+    $('#scrap-datatables3 tbody').on('click','tr',function(){
+
+        //样式改变
+        $('#scrap-datatables3 tbody').find('tr').css({'background':'#ffffff'});
+
+        $(this).css({'background':'#FBEC88'});
+
+        _chukuD = $(this).children('.orderNum').children('a').html();
+    })
+
+    //选中出库单确定按钮
+    $('#myModal7').on('click','.btn-primary',function(){
+
+        $('#myModal7').modal('hide');
+        //出去出库单的详情
+        var prm = {
+            orderNum:_chukuD,
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetOutStorageDetail',
+            data:prm,
+            success:function(result){
+                //_rukuArr = [];
+                for(var i=0;i<result.length;i++){
+                    var obj = {};
+                    obj.sn = result[i].sn;
+                    obj.itemNum = result[i].itemNum;
+                    obj.itemName = result[i].itemName;
+                    obj.size = result[i].size;
+                    obj.isSpare = result[i].isSpare;
+                    obj.unitName = result[i].unitName;
+                    obj.batchNum = result[i].batchNum;
+                    obj.maintainDate = result[i].maintainDate;
+                    obj.num = result[i].num;
+                    obj.inPrice = result[i].outPrice;
+                    obj.amount = result[i].amount;
+                    obj.inMemo = result[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = result[i].storageName;
+                    obj.storageNum = result[i].storageNum;
+                    obj.localName = result[i].localName;
+                    obj.localNum = result[i].localNum;
+                    _rukuArr.push(obj);
+                }
+
+                _datasTable($('#personTable1'),_rukuArr);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
     })
 
 
@@ -1428,13 +1862,140 @@ $(function(){
     //确定入库产品第二层【选择】
     $('#myModal1').on('click','.ruku',function(){
 
+        _rukuArr.length = 0;
+
+        //将暂存的数组传给_rukuArr;
+        for(var i=0;i<_tempRukuArr.length;i++){
+
+            _rukuArr.push(_tempRukuArr[i]);
+
+        }
+
+
         _datasTable($('#personTable1'),_rukuArr);
 
         $('#myModal1').modal('hide');
 
     })
 
+    //点击按钮选择入库--------------------------------------------------------------------------------------
+    //选择入库物品
+    $('.tianJiaruku').click(function(){
 
+        //初始化
+        selectWPInit()
+
+        //模态框
+        _moTaiKuang($('#myModal4'),'选择入库产品', '', '' ,'', '选择');
+
+    })
+
+    //选择入库物品条件查询
+    $('#selected2').click(function(){
+
+        var prm = {
+            'ItemNum':$('#myModal4').find('.filterInput1').val(),
+            'itemName':$('#myModal4').find('.filterInput2').val(),
+            'cateName':$('#myModal4').find('#filterInput3').children('option:checked').html(),
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItems',
+            data:prm,
+            success:function(result){
+                _datasTable($("#wuPinListTable"),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    })
+
+    //点击表格，选择物品
+    //选择物品列表
+    $('#wuPinListTable tbody').on('click','tr',function(){
+
+        $('#wuPinListTable tbody').children('tr').removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
+        _$thisWP = $(this).children('.bianma').html();
+    });
+
+    //确定选中的物品
+    $('#myModal4').on('click','.btn-primary',function(){
+
+        //确定选中的物品，并且赋值
+        for(var i=0;i<_wpListArr.length;i++){
+
+            if(_$thisWP == _wpListArr[i].itemNum){
+
+                //赋值
+                //物品编码
+                putInGoods.bianhao = _wpListArr[i].itemNum;
+                //物品名称
+                putInGoods.mingcheng = _wpListArr[i].itemName;
+                //规格型号
+                putInGoods.size = _wpListArr[i].size;
+                //是否耐用
+                putInGoods.picked = _wpListArr[i].isSpare;
+                //单位
+                putInGoods.unit = _wpListArr[i].unitName;
+                //是否耐用分情况
+                $('.inpus').parents('span').removeClass('checked');
+
+                if(putInGoods.picked == 0){
+
+                    //消耗品
+                    $('#twos').parents('span').addClass('checked');
+
+                    //序列号等于物品编号（并且不可操作）
+                    putInGoods.goodsId = putInGoods.bianhao;
+
+                    $('.goodsId').attr('readonly','readonly').addClass('disabled-block');
+
+                    $('.goodsId').parent().addClass('disabled-block');
+
+                    //数量
+                    $('.rknum').removeAttr('readonly').removeClass('disabled-block');
+
+                    $('.rknum').parent().removeClass('disabled-block');
+
+                    //数量置为空
+                    putInGoods.num = '';
+
+
+                }else{
+
+                    //耐用品
+                    $('#ones').parents('span').addClass('checked');
+
+                    //序列号需要填写、数量必须为1且不可编辑
+
+                    putInGoods.num = '1';
+
+                    $('.rknum').attr('readonly','readonly').addClass('disabled-block');
+
+                    $('.rknum').parent().addClass('disabled-block');
+
+                    //序列号可填
+                    $('.goodsId').removeAttr('readonly','readonly').removeClass('disabled-block');
+
+                    $('.goodsId').parent().removeClass('disabled-block');
+
+                }
+            }
+
+        }
+
+        //模态框消失
+        $('#myModal4').modal('hide');
+
+    })
 
     /*------------------------------------------------入库产品键盘事件--------------------------------------*/
 
@@ -1623,7 +2184,7 @@ $(function(){
     })
 
     //品质选择
-    $('.pinzhixx').on('click','div',function(){
+    $('.pinzhixx').on('click','li',function(){
 
         enterQualityName();
 
@@ -1751,100 +2312,120 @@ $(function(){
 
         }else{
 
-            //判断当前数据是否已添加过（库位和编号相同的时候，说明添加过）
-            var existFlag = false;
+            //判断数量是否输入大于0
+            if( putInGoods.num != '' && putInGoods.num > 0 ){
 
-            if(flag){
-                for(var i=0;i<_rukuArr.length;i++){
+                //判断当前数据是否已添加过（库位和编号相同的时候，说明添加过）
+                var existFlag = false;
 
-                    if(putInGoods.bianhao == _rukuArr[i].itemNum && $('.kuwei').attr('data-num') == _rukuArr[i].localNum && putInGoods.goodsId == _rukuArr[i].sn ){
+                if(flag){
+                    for(var i=0;i<_tempRukuArr.length;i++){
 
-                        existFlag = true;
+                        if(putInGoods.bianhao == _tempRukuArr[i].itemNum && $('.kuwei').attr('data-num') == _tempRukuArr[i].localNum && putInGoods.goodsId == _tempRukuArr[i].sn ){
 
-                        break
+                            existFlag = true;
+
+                            break
+
+                        }
 
                     }
+                }
+
+                //添加过的话，提示已添加过，否则添加
+                if(existFlag){
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'已添加过！', '');
+
+                }else{
+
+                    //获取入库单信息创建对象，存入_tempRukuArr数组
+                    var rukuDan = {};
+                    //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
+                    var price = putInGoods.inprice;
+
+                    if(Number(price) == ''){
+
+                        price = 0.00
+
+                    }else{
+
+                        price = Number(price).toFixed(2);
+
+                    }
+                    rukuDan.localNum = $('.kuwei').attr('data-num');
+                    rukuDan.localName = putInGoods.kuwei;
+                    rukuDan.itemNum = putInGoods.bianhao;
+                    rukuDan.itemName = putInGoods.mingcheng;
+                    rukuDan.size = putInGoods.size;
+                    rukuDan.isSpare = putInGoods.picked;
+                    rukuDan.sn = putInGoods.goodsId;
+                    rukuDan.unitName = putInGoods.unit;
+                    rukuDan.batchNum = putInGoods.quality;
+                    rukuDan.maintainDate = putInGoods.warranty;
+                    rukuDan.num = putInGoods.num;
+                    rukuDan.inPrice = price;
+                    rukuDan.amount = putInGoods.amount;
+                    rukuDan.inMemo = putInGoods.remark;
+
+                    //判断仓库、如果没有选择的话直接填''
+                    var ckName = '';
+
+                    if($('#ckselect').val() == ''){
+                        ckName = ''
+                    }else{
+                        ckName = $('#ckselect').children('option:selected').html();
+                    }
+
+                    rukuDan.storageName = ckName;
+
+                    rukuDan.storageNum = $('#ckselect').val();
+
+                    if(flag){
+
+                        _tempRukuArr.unshift(rukuDan);
+
+                        _datasTable($('#wuPinListTable1'),_tempRukuArr);
+
+                    }else{
+
+                        for(var i=0;i<_tempRukuArr.length;i++){
+
+                            if(_tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn){
+
+                                //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
+                                //库位编码
+                                _tempRukuArr[i].localNum = $('.kuwei').attr('data-num');
+                                //库位名称
+                                _tempRukuArr[i].localName = putInGoods.kuwei;
+                                //品质
+                                _tempRukuArr[i].batchNum = putInGoods.quality;
+                                //质保期
+                                _tempRukuArr[i].maintainDate = putInGoods.warranty;
+                                //数量
+                                _tempRukuArr[i].num = putInGoods.num;
+                                //单价
+                                _tempRukuArr[i].inPrice = putInGoods.inprice;
+                                //总金额
+                                _tempRukuArr[i].amount = putInGoods.amount;
+                                //备注
+                                _tempRukuArr[i].inMemo = putInGoods.remark;
+                            }
+                        }
+
+                        _datasTable($('#wuPinListTable1'),_tempRukuArr);
+                    }
+
+
+
+                    //聚焦到第一个
+                    $('#workDone').find('.inputType').eq(0).focus();
 
                 }
-            }
-
-            //添加过的话，提示已添加过，否则添加
-            if(existFlag){
-
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'已添加过！', '');
 
             }else{
 
-                //获取入库单信息创建对象，存入_rukuArr数组
-                var rukuDan = {};
-                //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
-                rukuDan.localNum = $('.kuwei').attr('data-num');
-                rukuDan.localName = putInGoods.kuwei;
-                rukuDan.itemNum = putInGoods.bianhao;
-                rukuDan.itemName = putInGoods.mingcheng;
-                rukuDan.size = putInGoods.size;
-                rukuDan.isSpare = putInGoods.picked;
-                rukuDan.sn = putInGoods.goodsId;
-                rukuDan.unitName = putInGoods.unit;
-                rukuDan.batchNum = putInGoods.quality;
-                rukuDan.maintainDate = putInGoods.warranty;
-                rukuDan.num = putInGoods.num;
-                rukuDan.inPrice = putInGoods.inprice;
-                rukuDan.amount = putInGoods.amount;
-                rukuDan.inMemo = putInGoods.remark;
-
-                //判断仓库、如果没有选择的话直接填''
-                var ckName = '';
-
-                if($('#ckselect').val() == ''){
-                    ckName = ''
-                }else{
-                    ckName = $('#ckselect').children('option:selected').html();
-                }
-
-                rukuDan.storageName = ckName;
-
-                rukuDan.storageNum = $('#ckselect').val();
-
-                if(flag){
-
-                    _rukuArr.unshift(rukuDan);
-
-                    _datasTable($('#wuPinListTable1'),_rukuArr);
-
-                }else{
-
-                    for(var i=0;i<_rukuArr.length;i++){
-
-                        if(_rukuArr[i].itemNum == rukuDan.itemNum &&  _rukuArr[i].sn == rukuDan.sn){
-
-                            //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
-                            //库位编码
-                            _rukuArr[i].localNum = $('.kuwei').attr('data-num');
-                            //库位名称
-                            _rukuArr[i].localName = putInGoods.kuwei;
-                            //品质
-                            _rukuArr[i].batchNum = putInGoods.quality;
-                            //质保期
-                            _rukuArr[i].maintainDate = putInGoods.warranty;
-                            //数量
-                            _rukuArr[i].num = putInGoods.num;
-                            //单价
-                            _rukuArr[i].inPrice = putInGoods.inprice;
-                            //总金额
-                            _rukuArr[i].amount = putInGoods.amount;
-                            //备注
-                            _rukuArr[i].inMemo = putInGoods.remark;
-                        }
-                    }
-
-                    _datasTable($('#wuPinListTable1'),_rukuArr);
-                }
-
-
-
-                //聚焦到第一个
-                $('#workDone').find('.inputType').eq(0).focus();
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
 
             }
 
@@ -1895,6 +2476,7 @@ $(function(){
         for(var i=0;i<_allData.length;i++){
             //绑定数据
             if(_allData[i].orderNum == num){
+
                 //入库单号
                 putInList.bianhao = _allData[i].orderNum;
                 //入库单类型
@@ -1915,8 +2497,16 @@ $(function(){
                 putInList.remarks = _allData[i].remark;
                 //审核备注
                 putInList.shremarks = _allData[i].auditMemo;
-                //入库产品赋值
-                //console.log(_allData[i]);
+                //判断创建入库单的人是否是本人
+                if( _allData[i].createUser == _userIdNum ){
+
+                    _examineRen = false;
+
+                }else{
+
+                    _examineRen = false;
+
+                }
             }
         }
 
@@ -2088,6 +2678,54 @@ $(function(){
 
     }
 
+    //入库单审核、删除(true,审核,false,删除)
+    function ShOrSc(url,flag,successMeg,errorMeg){
+        var prm ={
+            orderNum:_ruCode,
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        }
+
+        if( flag ){
+
+            prm.auditMemo = putInList.shremarks;
+
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                if(result==99){
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,successMeg, '');
+
+                    $('#myModal').modal('hide');
+
+                    conditionSelect();
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,errorMeg, '');
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+    }
+
     //入库单不可编辑
     function rudNotEdit(){
 
@@ -2149,9 +2787,9 @@ $(function(){
         putInList.shremarks = '';
 
         //表格数据初始化
-        var arr = [];
+        _rukuArr = [];
 
-        _datasTable($('#personTable1'),arr);
+        _datasTable($('#personTable1'),_rukuArr);
 
     }
 
@@ -2254,6 +2892,23 @@ $(function(){
 
         //结束时间
         $('.chukumax').val(_chuTime);
+
+    }
+
+    //选择物品模态框初始化
+    function selectWPInit(){
+
+        //物品编码
+        $('#myModal4').find('.filterInput1').val('');
+
+        //物品名称
+        $('#myModal4').find('.filterInput2').val('');
+
+        //分类名称
+        $('#myModal4').find('#filterInput3').val('');
+
+        //表格数据
+        _datasTable($('#wuPinListTable'),_wpListArr);
 
     }
 
@@ -2542,6 +3197,8 @@ $(function(){
     //品质输入事件
     var inputQualityName = function inputQuality(){
 
+
+
     }
 
     //品质回车事件
@@ -2568,19 +3225,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetInOutCate',
             data:prm,
             success:function(result){
-                //console.log(result);
-
-                //条件查询的单据类型
-                var str = '<option value="">请选择</option>';
-
-                for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].catNum +
-                        '">' + result[i].catName + '</option>';
-                }
-                $('.tiaojian').empty().append(str);
-
-                //添加入库单的入库类型
-                $('#rkleixing').empty().append(str);
 
                 if(type == 1){
 
@@ -2821,7 +3465,6 @@ $(function(){
             url:_urls + 'YWCK/ywCKGetOutStorage',
             data:prm,
             success:function(result){
-                console.log(result);
                 var arr = [];
                 for(var i=0;i<result.length;i++){
                     if(result[i].status == 1){
@@ -2835,5 +3478,43 @@ $(function(){
             }
         })
     }
+
+    //获取物品编码分类
+    function wpClass(){
+
+        var prm = {
+
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole
+
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItemCate',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].cateNum +
+                        '">' + result[i].cateName + '</option>'
+
+                }
+
+                $('#myModal4').find('#filterInput3').empty().append(str);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
 
 })

@@ -414,6 +414,10 @@ $(function(){
         var id = $(this).attr('data-id');
         $('#3d-view').show();
 
+        $('#3d-view').css({
+            'zIndex':'9999'
+        })
+
         //生成需要传递的ID
         id = 'w' + ((id % 3) + 1);
         exec_iframe('goToWarnPlace',id);
@@ -792,8 +796,8 @@ $(function(){
 
                     var obj = {
                         "id":id,
-                        "address": o.cName,
-                        "name": o.pointerName,
+                        "address": o.pointerName,
+                        "name": o.cName,
                         "code": code,
                         "type": o.cDtnName,
                         "desc":desc,
@@ -804,11 +808,13 @@ $(function(){
                 //关闭按钮
                 $('.close-view').off('click');
                 $('.close-view').on('click',function(){
-                    $('#3d-view').hide();
+                    //$('#3d-view').hide();
+                    $('#3d-view').css({
+                        'zIndex':'-1'
+                    })
                     exec_iframe('warnupload',JSON.stringify(warnData));
                     exec_iframe('warn');
                 });
-
 
                 $('.close-view').click();
 
@@ -895,6 +901,4 @@ $(function(){
             }
         )
     }
-
-
 })
