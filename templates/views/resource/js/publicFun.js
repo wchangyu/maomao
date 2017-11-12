@@ -490,5 +490,17 @@ Array.prototype.removeByValue = function(val,attr) {
         }
     }
 }
-
-
+//根据索引值删除
+Array.prototype.indexOf = function(val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+};
+//定义数组删除某个元素的方法
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};

@@ -500,11 +500,14 @@ textarea{
     border: 1px solid #ebebeb;
     border-top: none;
     text-indent: 10px;
+    overflow: auto;
+    max-height: 200px;
 }
-.pinzhixx div{
+.pinzhixx li{
     line-height: 30px;
     background: #ffffff;
     cursor: pointer;
+    width: 100%;
 }
 .pinzhixx li{
     width:100%;

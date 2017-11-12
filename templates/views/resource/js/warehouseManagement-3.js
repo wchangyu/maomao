@@ -477,11 +477,11 @@ $(function(){
     //所有车站数据
     ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
 
-    //暂存选中的数组（用于编辑，删除）
+    //暂存选中的数组
     var _tempRKArr = [];
 
-
-
+    //暂存选中的数组（用于编辑，删除）
+    var _tempObj = [];
     /*-------------------------------------表格初始化------------------------------*/
     var buttonVisible = [
         {
@@ -765,7 +765,26 @@ $(function(){
         }
     ];
 
-    tableInit($('#personTable1'),col3,buttonHidden);
+    tableInit($('#personTable1'),col3,buttonHidden,'','',drawFn);
+
+    function drawFn(){
+        var amount = 0;
+        var tds = $('#personTable1').find('tbody').children('tr').length;
+        //console.log(tds);
+        for(var i=0;i<tds;i++){
+            //获取金额
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+
+            amount += count;
+        }
+        //console.log(amount);
+        if(isNaN(amount.toFixed(2))){
+            $('#personTable1 .count').html(0.00);
+        }else{
+            $('#personTable1 .count').html(amount.toFixed(2));
+        }
+
+    };
 
     //选择出库材料表格
     var col4 = [
@@ -1046,7 +1065,12 @@ $(function(){
 
         //初始化登记框
         var arr = [];
+
         RKDInit(arr);
+
+        RKCPInit(arr);
+
+        _rukuArr.length = 0;
     })
 
     //新增确认按钮
@@ -1139,7 +1163,18 @@ $(function(){
         //模态框显示
         _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'', '确定');
 
+        //新增物品
+        wlList(false);
 
+        //将_rukuArr付给_tempRuKuArr
+
+        _tempRKArr.length = 0;
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            _tempRKArr.push(_rukuArr[i]);
+
+        }
 
 
         ////所有列表应该重新初始化（所有值）
@@ -1174,7 +1209,17 @@ $(function(){
 
     //增加入库单操作(仅仅是全端静态操作，没有涉及数据库)
     $('#myModal1').on('click','.ruku',function(){
+
         $('#myModal1').modal('hide');
+
+        _rukuArr.length = 0;
+
+        for(var i=0;i<_tempRKArr.length;i++){
+
+            _rukuArr.push(_tempRKArr[i]);
+
+        }
+
         datasTable($('#personTable1'),_rukuArr);
     })
 
@@ -1375,6 +1420,9 @@ $(function(){
             $('.zhiXingRenYuanButton').hide();
             //入库产品删除按钮不可操作
             $('#personTable1 tbody').find('.option-shanchu').attr('disabled',true);
+            //审核备注显示
+            $('.shRemarks').show();
+            $('.shRemarks').find('textarea').removeAttr('readonly').removeClass('disabled-block');
         })
         //入库已确认操作
         //.on('click','.option-confirmed',function(){
@@ -1522,8 +1570,28 @@ $(function(){
     //删除入库产品操作
     $('#personTable1 tbody')
         .on('click','.option-shanchu',function(){
-            _$thisRemoveRowXiao = $(this);
+            //_$thisRemoveRowXiao = $(this);
+
+            var $this = $(this).parents('tr');
+            var bm = $this.find('.bianma').html();
+            var ck = $this.find('.storageName').children('span').attr('data-num');
+            var kq = $this.find('.localName').children('span').attr('data-num');
+            var sn = $this.find('.sn').html();
+
+            _tempObj.length = 0;
+
+            for(var i=0;i<_rukuArr.length;i++){
+
+                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn){
+
+                    _tempObj.push(_rukuArr[i]);
+
+                }
+
+            }
+
             _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
+
         //新添加类名，实现入库单操作；
         $('#myModal2').find('.btn-primary').removeClass('removeButton').addClass('xiaoShanchu');
     })
@@ -1582,11 +1650,13 @@ $(function(){
 
     //入库产品删除操作按钮
     $('#myModal2').on('click','.xiaoShanchu',function(){
-        //首先获取当前删除的表格的编码
-        var $this = _$thisRemoveRowXiao.parents('tr').children('.bianma').html();
-        _rukuArr.removeByValue($this,'itemNum');
+
+        _rukuArr.remove(_tempObj[0]);
+
         datasTable($('#personTable1'),_rukuArr);
+
         $('#myModal2').modal('hide');
+
         $(this).removeClass('xiaoShanchu');
     })
 
@@ -1661,7 +1731,7 @@ $(function(){
     //第二层的添加入库产品按钮
     $('#addRK').click(function(){
         //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
-        if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' ){
+        if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.goodsId == ''){
             //提示框
             _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'请填写红色必填项!', '')
         }else{
@@ -1670,14 +1740,14 @@ $(function(){
             var a = $('.format-error2')[0].style.display;
             var t = $('.format-error3')[0].style.display;
             var b = $('.format-error4')[0].style.display;
-            if(o!='none' && s!='none' && a!= 'none' && t!='none' && b!= 'none'){
-                _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
-            }else{
+
+            if(o == 'none' && s == 'none' && a == 'none' && t =='none' && b == 'none'){
+
                 //首先判断输入过了没(根据仓库、库区、编号、序列号判断是否添加了)
                 var existFlag = false;
 
-                for(var i=0;i<_rukuArr.length;i++){
-                    if(workDone.bianhao == _rukuArr[i].itemNum && $('.cangku').attr('data-num') == _rukuArr[i].storageNum && $('.kuwei').attr('data-num') == _rukuArr[i].localNum && workDone.goodsId == _rukuArr[i].sn){
+                for(var i=0;i<_tempRKArr.length;i++){
+                    if(workDone.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && workDone.goodsId == _tempRKArr[i].sn){
 
                         existFlag = true;
 
@@ -1699,7 +1769,7 @@ $(function(){
                     rukuDan.isSpare = workDone.picked;
                     rukuDan.batchNum = workDone.quality;
                     rukuDan.maintainDate = workDone.warranty;
-                    rukuDan.storageName = $('.cangku').attr('data-name');
+                    rukuDan.storageName = workDone.ck;
                     rukuDan.storageNum = $('.cangku').attr('data-num');
                     rukuDan.unitName = workDone.unit;
                     rukuDan.outPrice = workDone.outPrice;
@@ -1715,10 +1785,18 @@ $(function(){
                     rukuDan.userName = _userIdName;
                     rukuDan.shengyu = workDone.redundant;
                     rukuDan.gdCode = $('.gdCode').attr('gdcode');
-                    _rukuArr.unshift(rukuDan);
-                    datasTable($('#wuPinListTable1'),_rukuArr);
+
+                    _tempRKArr.unshift(rukuDan);
+
+                    datasTable($('#wuPinListTable1'),_tempRKArr);
+
+                    //console.log(_tempRKArr);
 
                 }
+
+            }else{
+
+                _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
             }
         }
     });
@@ -1770,16 +1848,6 @@ $(function(){
         //所有列表应该重新初始化（所有值）
         //初始化长裤列表(仓库、库区、物品、工单号)；
         ckList(_ckArr,$('.pinzhixx').eq(0));
-        //库区列表
-        kqList(_kqArr,$('.kuqu-list').eq(0));
-        //物品编码列表
-        wpList(_wpListArr,$('.accord-with-list').eq(0));
-        //物品名称列表
-        wpList(_wpListArr,$('.accord-with-list').eq(1));
-        //序列号
-        xlhList(_wpListArr,$('.accord-with-list').eq(2));
-        //工单号
-        gdsList(_gdArr,$('.pinzhixx').eq(1));
 
         //自动聚焦
         $('.inputType').eq(2).focus();
@@ -1793,19 +1861,25 @@ $(function(){
             var ck = $this.find('.storageName').children('span').attr('data-num');
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
-            _tempRKArr.length = 0;
-            for(var i=0;i<_rukuArr.length;i++){
 
-                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn){
+            _tempObj.length = 0;
 
-                    _tempRKArr.push(_rukuArr[i]);
+            for(var i=0;i<_tempRKArr.length;i++){
+
+                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn){
+
+                    _tempObj.push(_tempRKArr[i]);
 
                 }
 
             }
+
+            console.log(_tempObj);
+
             _moTaiKuang($('#myModal2'),'提示', '', 'istap' ,'确定要删除吗？', '删除');
             //新添加类名，实现入库单操作；
             $('#myModal2').find('.btn-primary').removeClass('xiaoShanchu').addClass('removeButton');
+
             event.stopPropagation();
         })
         //点击表格中的数据，将内容赋值给onput，以便编辑
@@ -1923,29 +1997,19 @@ $(function(){
                 $('.cangku').removeAttr('data-num').removeAttr('data-name');
                 $('.gdCode').removeAttr('gdcode');
                 $('.chezhan').removeAttr('data-num').removeAttr('data-name');
-                //所有列表应该重新初始化（所有值）
-                //初始化长裤列表(仓库、库区、物品、工单号)；
-                ckList(_ckArr,$('.pinzhixx').eq(0));
-                //库区列表
-                kqList(_kqArr,$('.kuqu-list').eq(0));
-                //物品编码列表
-                wpList(_wpListArr,$('.accord-with-list').eq(0));
-                //物品名称列表
-                wpList(_wpListArr,$('.accord-with-list').eq(1));
-                //序列号
-                xlhList(_wpListArr,$('.accord-with-list').eq(2));
-                //工单号
-                gdsList(_gdArr,$('.pinzhixx').eq(1));
+                $('.radio').parent('.input-blockeds').removeClass('disabled-block');
             }
         })
 
     $('#myModal2').on('click','.removeButton',function(){
         //静态删除
 
-        _rukuArr.remove(_tempRKArr[0]);
+        _tempRKArr.remove(_tempObj[0]);
 
-        datasTable($('#wuPinListTable1'),_rukuArr);
+        datasTable($('#wuPinListTable1'),_tempRKArr);
+
         $('this').removeClass('removeButton');
+
         $('#myModal2').modal('hide');
     });
 
@@ -1966,14 +2030,17 @@ $(function(){
                     var a = $('.format-error2')[0].style.display;
                     var t = $('.format-error3')[0].style.display;
                     var b = $('.format-error4')[0].style.display;
-                    if(o!='none' && s!='none' && a!= 'none' && t!='none' && b!= 'none'){
-                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
-                    }else{
-                        //首先判断输入过了没
+
+                    if(o == 'none' && s == 'none' && a == 'none' && t =='none' && b == 'none'){
+
+                        //首先判断输入过了没(根据仓库、库区、编号、序列号判断是否添加了)
                         var existFlag = false;
-                        for(var i=0;i<_rukuArr.length;i++){
-                            if(workDone.bianhao == _rukuArr[i].itemNum && $('.cangku').attr('data-num') == _rukuArr[i].storageNum && $('.kuwei').attr('data-num') == _rukuArr[i].localNum && workDone.goodsId == _rukuArr[i].sn){
+
+                        for(var i=0;i<_tempRKArr.length;i++){
+                            if(workDone.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && workDone.goodsId == _tempRKArr[i].sn){
+
                                 existFlag = true;
+
                             }
                         }
                         if(existFlag){
@@ -2008,48 +2075,15 @@ $(function(){
                             rukuDan.userName = _userIdName;
                             rukuDan.shengyu = workDone.redundant;
                             rukuDan.gdCode = $('.gdCode').attr('gdcode');
-                            _rukuArr.unshift(rukuDan);
-                            datasTable($('#wuPinListTable1'),_rukuArr);
-                            //添加完之后，自动清空，并获得焦点
-                            //workDone.bianhao = '';
-                            //workDone.mingcheng = '';
-                            //workDone.goodsId = '';
-                            //workDone.size = '';
-                            //workDone.picked = 0;
-                            //workDone.unit = '';
-                            //workDone.quality = '';
-                            //workDone.warranty = '';
-                            //workDone.num = 0;
-                            //workDone.redundant = 0;
-                            //workDone.outPrice = '';
-                            //workDone.amount = 0;
-                            //workDone.gdCode = '';
-                            //workDone.chezhan = '';
-                            //workDone.ck = '';
-                            //workDone.remark = '';
-                            //workDone.kuwei = '';
-                            //$('.kuwei').removeAttr('data-num');
-                            //$('.cangku').removeAttr('data-num').removeAttr('data-name');
-                            //$('.gdCode').removeAttr('gdcode');
-                            //$('.chezhan').removeAttr('data-num').removeAttr('data-name');
+                            _tempRKArr.unshift(rukuDan);
 
-                            //所有列表应该重新初始化（所有值）
-                            //初始化长裤列表(仓库、库区、物品、工单号)；
-                            //ckList(_ckArr,$('.pinzhixx').eq(0));
-                            ////库区列表
-                            //kqList(_kqArr,$('.kuqu-list').eq(0));
-                            ////物品编码列表
-                            //wpList(_wpListArr,$('.accord-with-list').eq(0));
-                            ////物品名称列表
-                            //wpList(_wpListArr,$('.accord-with-list').eq(1));
-                            ////序列号
-                            //xlhList(_wpListArr,$('.accord-with-list').eq(2));
-                            ////工单号
-                            //gdsList(_gdArr,$('.pinzhixx').eq(1));
+                            datasTable($('#wuPinListTable1'),_tempRKArr);
 
-                            //自动聚焦到仓库
-                            $('.inputType').eq(2).focus();
                         }
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'请输入正确的数字', '');
                     }
                 }
             }else{
@@ -2099,6 +2133,11 @@ $(function(){
     //库区选择
     $('.kuqu-list')
         .on('click','li',function(e){
+            //清空之前已选择内容
+            var length = $('#myModal1 input').length;
+            for(var i=2; i<length; i++){
+                $('#myModal1 input').eq(i).val('');
+            }
             //赋值
             workDone.kuwei = $(this).html();
             $('.kuwei').attr('data-num',$(this).attr('data-num'));
@@ -2682,6 +2721,14 @@ $(function(){
 
     })
 
+
+    //仓库改变的情况下，其他项均清空
+    //$('.cangku').on('change',function(){
+    //
+    //    console.log('change');
+    //
+    //})
+
     /*------------------------------------表格数据--------------------------------*/
 
     warehouse();
@@ -2760,7 +2807,7 @@ $(function(){
     }
 
     //表格初始化
-    function tableInit(tableId,col,buttons,flag){
+    function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
         var _tables = tableId.DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
             "paging": true,   //是否分页
@@ -2785,7 +2832,9 @@ $(function(){
             },
             "dom":'B<"clear">lfrtip',
             'buttons':buttons,
-            "columns": col
+            "columns": col,
+            "fnRowCallback": fnRowCallback,
+            "drawCallback":drawCallback
         })
         if(flag){
             _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
