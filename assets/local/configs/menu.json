@@ -826,6 +826,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "销审管理":{
+        "type":"0",
+        "content":"销审管理",
+        "uri":"../cangkuguanli/meltAuditManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

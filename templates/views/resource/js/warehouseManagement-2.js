@@ -2097,7 +2097,7 @@ $(function(){
         $('#myApp33').find('input').parents('.input-blockeds').addClass('disabled-block');
 
         //所有select框不可操作，并且置灰
-        $('#myApp33').find('select').attr('diasbled',true).addClass('disabled-block');
+        $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
 
         $('#myApp33').find('select').parents('.input-blockeds').addClass('disabled-block');
 
@@ -2499,7 +2499,6 @@ $(function(){
             $('.goodsId').removeAttr('readonly','readonly').removeClass('disabled-block');
 
             $('.goodsId').parent().removeClass('disabled-block');
-
 
         }
 
