@@ -419,19 +419,26 @@ $(function(){
 
     function drawFn(){
         var amount = 0;
+        //数量
+        var amount1 = 0;
         var tds = $('#personTable1').find('tbody').children('tr').length;
         //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
             var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(8).html());
+            //获取数量
+            var count1 = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(6).html());
 
             amount += count;
+            amount1 += count1;
         }
         //console.log(amount);
         if(isNaN(amount.toFixed(2))){
             $('#personTable1 .count').html(0.00);
+            $('#personTable1 .amout').html(0);
         }else{
             $('#personTable1 .count').html(amount.toFixed(2));
+            $('#personTable1 .amount').html(amount1);
         }
 
     };
