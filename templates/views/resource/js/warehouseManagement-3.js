@@ -769,19 +769,26 @@ $(function(){
 
     function drawFn(){
         var amount = 0;
+        //数量
+        var amount1 = 0;
         var tds = $('#personTable1').find('tbody').children('tr').length;
         //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
             var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            //获取数量
+            var count1 = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
 
             amount += count;
+            amount1 += count1;
         }
         //console.log(amount);
         if(isNaN(amount.toFixed(2))){
             $('#personTable1 .count').html(0.00);
+            $('#personTable1 .amount').html(0);
         }else{
             $('#personTable1 .count').html(amount.toFixed(2));
+            $('#personTable1 .amount').html(amount1);
         }
 
     };
@@ -1730,6 +1737,7 @@ $(function(){
 
     //第二层的添加入库产品按钮
     $('#addRK').click(function(){
+        console.log(333);
         //验证必填项(仓库，物品编号，物品名称，数量，出库单价，总金额，工单号，车站)
         if( workDone.ck == '' || workDone.bianhao == '' || workDone.mingcheng == '' || workDone.num == '' || workDone.outPrice == '' || workDone.amount == '' || workDone.goodsId == ''){
             //提示框
