@@ -88,7 +88,6 @@ $(function(){
             render:function(data, type, full, meta){
                 if(data == 1){
                     return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
                         "<span class='data-option option-confirmed btn default btn-xs green-stripe'>已审核</span>" +
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
                 }if(data == 0){
@@ -288,7 +287,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','','');
+    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','',drawFn1);
 
     //工单表格
     var gdCol = [
@@ -463,6 +462,33 @@ $(function(){
             $('#personTable1 .totalnum').html(0);
         }else{
             $('#personTable1 .totalnum').html(total);
+        }
+
+    };
+
+
+    function drawFn1(){
+        var amount = 0;
+        //数量
+        var amount1 = 0;
+        var tds = $('#wuPinListTable1').find('tbody').children('tr').length;
+        //console.log(tds);
+        for(var i=0;i<tds;i++){
+            //获取金额
+            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            //获取数量
+            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
+
+            amount += count;
+            amount1 += count1;
+        }
+        //console.log(amount);
+        if(isNaN(formatNumber(amount))){
+            $('#wuPinListTable1 .count1').html(0.00);
+            $('#wuPinListTable1 .amout1').html(0);
+        }else{
+            $('#wuPinListTable1 .count1').html(formatNumber(amount));
+            $('#wuPinListTable1 .amount1').html(amount1);
         }
 
     };
@@ -969,27 +995,20 @@ $(function(){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
             }else{
 
-                var gdArr = [];
+                //当出库物品没有的时候，不能审核
+                if( _rukuArr.length == 0 ){
 
-                var clArr = [];
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出库物品为空，不能审核！', '');
 
-                for(var i=0;i<_rukuArr.length;i++){
+                }else{
 
-                    if(_rukuArr[i].gdCode2){
+                    //审核
+                    shenheFun();
 
-                        gdArr.push(_rukuArr[i].gdCode2);
 
-                        clArr.push(_rukuArr[i].itemName);
 
-                    }
 
                 }
-
-                //备件状态转化
-                applySparePart(gdArr,clArr);
-
-                //审核
-                shenheFun();
             }
 
         })
@@ -2874,14 +2893,17 @@ $(function(){
             })
         }else{
             _BjFlag = '';
-            if(_AddFlag){
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增成功！', '');
+
+            console.log(_shSuccess);
+
+            if(_shSuccess){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '');
 
                 $('#myModal').modal('hide');
 
                 conditionSelect();
             }else{
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'新增失败！', '');
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认失败！', '');
             }
         }
     }
@@ -3246,6 +3268,22 @@ $(function(){
     //审核出库单
     function shenheFun(){
 
+        var gdArr = [];
+
+        var clArr = [];
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            if(_rukuArr[i].gdCode2){
+
+                gdArr.push(_rukuArr[i].gdCode2);
+
+                clArr.push(_rukuArr[i].itemName);
+
+            }
+
+        }
+
         var prm = {
             'OrderNum':_$thisRKnum,
             'userID':_userIdNum,
@@ -3265,10 +3303,18 @@ $(function(){
                 if(result == 99){
 
                     _shSuccess = true;
+
                     _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
+
                     $('#myModal').modal('hide');
+
                     conditionSelect();
+
                     $(this).removeClass('shenhe');
+
+                    applySparePart(gdArr,clArr);
+
+
                 }else{
 
                     _shSuccess = false;
