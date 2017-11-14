@@ -564,45 +564,45 @@
                                 <div class="labels colorTip">物品序列号 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="goodsId" class="initBJ not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;left:-103px;">
+                                    <ul class="accord-sn-list hidden1" data-num="0" style="display: none;width: 410px;left:-103px;">
                                     </ul>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">规格型号：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" class="not-editable auto-input inputType disabled-block" v-model="size" readonly="readonly">
+                                    <input type="text" class="not-editable auto-input disabled-block" v-model="size" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="radio" class="not-editable inpus auto-input inputType disabled-block" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="disabled" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="not-editable inpus auto-input disabled-block" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="disabled" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
                                     <input type="radio" class="not-editable inpus auto-input disabled-block" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="disabled"  readonly="readonly"><label for="twos" class="auto-input" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">单位：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="unit" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="unit" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">品质：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="quality" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="quality" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">质保期：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="warranty" class="not-editable disabled-block datatimeblock auto-input warranty inputType" readonly="readonly">
+                                    <input type="text" v-model="warranty" class="not-editable disabled-block datatimeblock auto-input warranty" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">剩余数量：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="redundant" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="redundant" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -785,13 +785,13 @@
 </div>
 <!--工单号弹出框-->
 <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 670px;width: 780px !important;">
-        <div class="modal-content" style="height: 670px;width: 780px !important;">
+    <div class="modal-dialog" style="height: 670px;width: 800px !important;">
+        <div class="modal-content" style="height: 670px;width: 800px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">查看</h4>
             </div>
-            <div class="modal-body" style="height: 548px;">
+            <div class="modal-body" style="height: 548px;overflow-y: auto">
                 <ul class="condition-query">
                     <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
                         <div class="input-blocked" id="filter_global">
@@ -900,13 +900,13 @@
 </div>
 <!--物品管理选择框-->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 1198px !important;height: 610px !important;">
-        <div class="modal-content" style="width: 1198px !important;height: 610px !important;">
+    <div class="modal-dialog" style="width: 1198px !important;height: 621px !important;">
+        <div class="modal-content" style="width: 1198px !important;height: 621px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel4">选择物品列表</h4>
             </div>
-            <div class="modal-body" style="height: 500px;overflow-y: scroll">
+            <div class="modal-body" style="max-height: 500px;overflow-y: auto">
                 <ul class="condition-query noprint">
                     <li><label for="">物品编号：</label>
                         <div class="input-blocked">
@@ -957,6 +957,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 </body>
 <!-- END BODY -->
