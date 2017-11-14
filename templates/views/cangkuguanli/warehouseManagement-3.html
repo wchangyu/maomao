@@ -658,6 +658,19 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>共计</td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2" class="amount1"></td>
+                            <!--<td></td>-->
+                            <td colspan="2" class="count1"></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        </tfoot>
+
                     </table>
                 </div>
             </div>
@@ -831,8 +844,10 @@
                         </div>
                     </li>
                     <li>
-                        <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
-                        <label for="isExamine">材料申请是否已审批</label>
+                        <div style="width: 100%;height: 100%;border: 1px solid #a9a9a9;line-height: 28px;padding-left: 3px;padding-right: 7px;">
+                            <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
+                            <label for="isExamine" style="margin-bottom: 0px;">材料申请已审批</label>
+                        </div>
                     </li>
                     <br>
                     <li><button class="btn btn-success btn1" id="selectedGD">查询</button></li>
