@@ -284,7 +284,7 @@
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
@@ -387,6 +387,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -487,9 +488,8 @@
                                     <td>共计</td>
                                     <td colspan="2"></td>
                                     <td colspan="2"></td>
-                                    <td colspan="1"></td>
-                                    <td colspan="1" ></td>
-                                    <td colspan="1" class="amount"></td>
+                                    <td colspan="2"></td>
+                                    <td class="totalnum"></td>
                                     <td></td>
                                     <td class="count"></td>
                                     <td colspan="3"></td>
@@ -519,7 +519,7 @@
                     <li style="width: 133px;">
                         <div class="cont-col1" style="cursor: pointer">
                             <div class="label label-sm label-warning tianJiaruku" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                <i class="fa fa-plus" style="margin-right: 2px;"></i>选择出库库物品
+                                <i class="fa fa-plus" style="margin-right: 2px;"></i>选择出库物品
                             </div>
                         </div>
                     </li>
@@ -555,16 +555,16 @@
                             <li class="gdList">
                                 <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text"  class="not-editable inputType children1" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()"><div class="selectBlock"></div>
+                                    <input type="text"  class="initBJ not-editable inputType children1" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()"><div class="selectBlock"></div>
                                     <ul class="accord-with-list hidden1" data-num="2" style="display: none;">
                                     </ul>
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels colorTip">物品序列号：</div>
+                                <div class="labels colorTip">物品序列号 *：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="goodsId" class="not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;">
+                                    <input type="text" v-model="goodsId" class="initBJ not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
+                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;left:-103px;">
                                     </ul>
                                 </div>
                             </li>
@@ -608,7 +608,7 @@
                             <li class="gdList">
                                 <div class="labels colorTip">数量 *：<div class="multiple-condition" style="width: 150px;"><span v-show="$validation.num.requireds" style="display: none">请输入物品数量</span><span class="colorTip format-error" style="display: none;">前请输入正整数</span><span class="colorTip format-error2" style="display: none;">数量要小于库存</span><span class="colorTip format-error4" style="display: none;">耐用品数量为1</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="initBJ number1 inputType" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="addFun1()">
+                                    <input type="text" class="initBJ number1 inputType" placeholder="0" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="addFun1()">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -627,7 +627,7 @@
                                 <div class="labels">工单号 ：</div>
                                 <div class="input-blockeds" style="position: relative">
                                     <input type="text" class="initBJ inputType children1 gdCode" v-model="gdCode" @keyup="selectGD()"><div class="selectBlock"></div>
-                                    <ul class="pinzhixx hidden1" style="width:200px;background: #ffffff;max-height:200px;overflow-y:auto;position: absolute;top: 30px;left: 0;z-index: 10;display: none"></ul>
+                                    <ul class="pinzhixx hidden1" style="width:370px;background: #ffffff;max-height:200px;overflow-y:auto;position: absolute;top: 30px;left: -81px;z-index: 10;display: none"></ul>
                                 </div>
                             </li>
 
