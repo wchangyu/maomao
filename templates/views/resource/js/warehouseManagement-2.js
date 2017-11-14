@@ -2427,11 +2427,9 @@ $(function(){
 
                     }else{
 
-                    for(var i=0;i<_rukuArr.length;i++){
+                    for(var i=0;i<_tempRukuArr.length;i++){
 
-                            if(_tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn && _tempRukuArr[i].localNum == rukuDan.localNum ){
-
-                                //console.log(_tempRukuArr[i]);
+                            if( _tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn && _tempRukuArr[i].localNum == rukuDan.localNum ){
 
                                 //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
                                 //库位编码
@@ -2454,6 +2452,7 @@ $(function(){
                                 //console.log( _tempRukuArr[i] );
                             }
                         }
+
 
                         _datasTable($('#wuPinListTable1'),_tempRukuArr);
                     }
