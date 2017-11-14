@@ -472,7 +472,7 @@ textarea{
 .dataTables_scrollHead{
     background: #dddddd !important;
 }
-.accord-with-list{
+.accord-with-list,.accord-sn-list{
     position: relative;
     z-index: 10;
     background: #ffffff;
@@ -485,7 +485,7 @@ textarea{
     max-height: 208px;
     overflow-y: scroll;
 }
-.accord-with-list li{
+.accord-with-list li,.accord-sn-list li{
     cursor: pointer;
     width: 100%;
     line-height: 26px;
