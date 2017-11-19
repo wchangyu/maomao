@@ -1,4 +1,20 @@
 $(function(){
+    /*--------------------------------判断是否跳转-----------------------------*/
+
+    var local = window.location.search;
+
+    if(local){
+
+        var itemNumq = local.split('?')[1].split('&')[0].split('=')[1];
+
+        var itemNameq = decodeURI(local.split('?')[1].split('&')[1].split('=')[1]);
+
+        $('.condition-query').eq(0).find('.filterInput').eq(0).val(itemNumq);
+
+        $('.condition-query').eq(0).find('.filterInput').eq(1).val(itemNameq);
+
+    }
+
     /*--------------------------------全局变量---------------------------------*/
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -285,7 +301,7 @@ $(function(){
                 }
                 $('#ck').empty().append(str);
                 //myApp33.ckselect = result[0].storageNum;
-                console.log(_isWarehouse);
+                //console.log(_isWarehouse);
                 if(_isWarehouse){
                     conditionSelect();
                 }

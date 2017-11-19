@@ -11,6 +11,7 @@ $(document).ready(function(){
     function getGodownMessage(){
         //从路径中获取入库单号
         var godownNum = window.location.search.split('=')[1];
+
         if(!godownNum){
             return false;
         }

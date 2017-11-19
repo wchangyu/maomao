@@ -482,7 +482,7 @@ $(function(){
             var prm = {
                 'gdCode2':'',
                 "gdZht": 0,
-                'gdZhts':[1,2,3,4,5,6,7],
+                'gdZhts':[1,2,3,4,5,6],
                 'userID':_userIdNum,
                 'userName':_userIdName,
                 'bxKeshiNum':_chejian,

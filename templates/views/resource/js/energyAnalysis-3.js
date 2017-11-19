@@ -791,6 +791,7 @@ $(function(){
             url:sessionStorage.apiUrlPrefix+'ecDatas/GetECByTypeAndOffice',
             data:ecParams,
             beforeSend:function(){
+
                 //myChartTopLeft.showLoading({
                 //    text:'获取数据中',
                 //    effect:'whirling'

@@ -195,6 +195,10 @@ $(function(){
             //物品编码输入事件
             searchbm:function(e){
                 upDown(e,$('.accord-with-list').eq(0),enterBMName,inputBMName);
+            },
+            //名称输入事件
+            searchmc:function(e){
+                upDown(e,$('.accord-with-list').eq(1),enterMCName,inputMCName);
             }
 
         }
@@ -1532,25 +1536,26 @@ $(function(){
 
             if(_isShenHe == 1){
 
-                _examineRen = false;
+                if(!_examineRen){
 
-            }else if(_isShenHe == 0){
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
 
-                _examineRen = true;
+                }else{
 
-            }
-            if(!_examineRen){
+                    ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
+                }
 
-            }else{
+            }else if( _isShenHe == 0 ){
 
                 ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
 
             }
+        }
 
 
-        })
+
+        )
 
 
     //第一层弹窗-------------------------------------------------------------------------------------------
@@ -2516,6 +2521,7 @@ $(function(){
                 putInList.remarks = _allData[i].remark;
                 //审核备注
                 putInList.shremarks = _allData[i].auditMemo;
+
                 //判断创建入库单的人是否是本人
                 if( _allData[i].createUser == _userIdNum ){
 
@@ -2523,7 +2529,7 @@ $(function(){
 
                 }else{
 
-                    _examineRen = false;
+                    _examineRen = true;
 
                 }
             }
@@ -2856,7 +2862,7 @@ $(function(){
 
         putInGoods.remark = '';
 
-        $('.inpus').parent('span').addClass('checked');
+        $('.inpus').parent('span').removeClass('checked');
 
         if( putInGoods.picked == 0 ){
 
@@ -2983,11 +2989,13 @@ $(function(){
             ul.children().eq(_numIndex).addClass('li-color');
 
             //滚动条问题
-            if(_numIndex> 7){
+            if(_numIndex> 4){
 
-                var moveDis = (_numIndex - 7)*40;
+                var moveDis = (_numIndex - 4)*26;
 
-                $('ul').scrollTop(moveDis);
+                console.log(ul);
+
+                ul.scrollTop(moveDis);
             }
 
         }else if(e.keyCode == 38){
@@ -3009,11 +3017,11 @@ $(function(){
             ul.children().eq(_numIndex).addClass('li-color');
 
             //滚动条问题
-            if(lengths-7>_numIndex){
+            if(lengths-4>_numIndex){
 
-                var moveDis = (_numIndex - 7)*40;
+                var moveDis = (_numIndex - 4)*26;
 
-                $('ul').scrollTop(moveDis);
+                ul.scrollTop(moveDis);
 
             }
 
@@ -3034,8 +3042,6 @@ $(function(){
 
     //库区回车事件
    var enterFQName =  function(){
-
-
 
        //input框赋值
         putInGoods.kuwei = $('.kuqu-list').children('.li-color').html();
@@ -3234,6 +3240,155 @@ $(function(){
 
         //初始化
 
+
+
+    }
+
+    //名称输入事件
+    var inputMCName = function(){
+
+        var searchValue = putInGoods.mingcheng;
+
+        var str = '';
+
+        var arr = [];
+
+        var isWho = false;
+
+        for(var i=0;i<_wpListArr.length;i++){
+
+            if( searchValue ==  _wpListArr[i].itemNum ){
+
+                arr.push(_wpListArr[i]);
+
+                isWho = true;
+
+
+            }else{
+
+                if( _wpListArr[i].itemNum.indexOf(searchValue)>=0 ){
+
+                    arr.push(_wpListArr[i]);
+
+                }
+            }
+        }
+
+
+        if(isWho){
+
+            arrList(str,arr,true);
+
+        }else{
+
+            arrList(str,arr,false);
+
+        }
+
+        if(arr.length>0){
+
+            $('.accord-with-list').eq(1).show();
+
+        }
+
+    }
+
+    //名称回车事件
+    var enterMCName = function(){
+
+        newGoodsInit(false);
+
+        //input框赋值
+        //物品编码
+        putInGoods.bianhao = $('.accord-with-list').eq(1).children('.li-color').children('.dataNum').html();
+
+        //物品名称
+        putInGoods.mingcheng = $('.accord-with-list').eq(1).children('.li-color').children('.dataName').html();
+
+        //规格型号
+        putInGoods.size = $('.accord-with-list').eq(1).children('.li-color').children('.dataSize').html();
+
+        //是否耐用
+        var isDurable = $('.accord-with-list').eq(1).children('.li-color').attr('data-durable');
+
+        //单位
+        putInGoods.unit = $('.accord-with-list').eq(1).children('.li-color').attr('data-unit');
+
+        putInGoods.picked = isDurable;
+
+        //是否耐用单选框初始化
+        $('.inpus').parents('span').removeClass('checked');
+
+
+        //是否为耐用品，耐用品的=1，消耗品=0，耐用品的情况下，数量只能为1（并且不能编辑），物品序列号需要自填，消耗品的情况下序列号等于物品编号
+        if( isDurable == 0 ){
+
+            $('#twos').parents('span').addClass('checked');
+
+            //序列号等于物品编号（并且不可操作）
+            putInGoods.goodsId = putInGoods.bianhao;
+
+            $('.goodsId').attr('readonly','readonly').addClass('disabled-block');
+
+            $('.goodsId').parent().addClass('disabled-block');
+
+            //数量
+            $('.rknum').removeAttr('readonly').removeClass('disabled-block');
+
+            $('.rknum').parent().removeClass('disabled-block');
+
+            //数量置为空
+            putInGoods.num = '';
+
+        }else if( isDurable == 1 ){
+
+            $('#ones').parents('span').addClass('checked');
+
+            //序列号需要填写、数量必须为1且不可编辑
+
+            putInGoods.num = '1';
+
+            $('.rknum').attr('readonly','readonly').addClass('disabled-block');
+
+            $('.rknum').parent().addClass('disabled-block');
+
+            //序列号可填
+            $('.goodsId').removeAttr('readonly','readonly').removeClass('disabled-block');
+
+            $('.goodsId').parent().removeClass('disabled-block');
+
+
+        }
+
+        //物品编号、物品名称、规格型号、是否耐用、单位置为不可操作（置灰）
+
+        $('.auto-input').attr('readonly','readonly').addClass('disabled-block');
+
+        $('.auto-input').parents('.input-blockeds').addClass('disabled-block');
+
+        $('.accord-with-list').hide();
+
+        //确定聚焦位置
+        setTimeout(function(){
+
+            if( putInGoods.mingcheng == '' ){
+
+                $('.inputType').eq(3).focus();
+
+            }else{
+
+                if(putInGoods.goodsId != ''){
+
+                    $('.inputType').eq(8).focus();
+
+                }else{
+
+                    $('.inputType').eq(6).focus();
+
+                }
+
+            }
+        },300);
 
 
     }
