@@ -781,7 +781,7 @@
       },
       "台账记录":{
         "type":"0",
-        "content":"台账记录",
+        "content":"物品明细",
         "uri":"../cangkuguanli/warehouseManagement-5.html",
         "uid":"",
         "arg":"",

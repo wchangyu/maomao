@@ -1,0 +1,39 @@
+.table-block{
+
+    width: 500px;
+    float: left;
+
+}
+.table-row{
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid black;
+}
+.table-td-left{
+    line-height: 30px;
+    float: left;
+
+}
+.over-flow-left{
+    height: 26px;
+    width: 74px;
+}
+.over-flow-two{
+    height: 26px;
+    width: 187px;
+}
+.over-flow-three{
+    height: 26px;
+    width: 201px;
+}
+.img-block img{
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+
+}
+.print-block{
+    width: 851px;
+    height: 1280px;
+    margin: auto;
+}

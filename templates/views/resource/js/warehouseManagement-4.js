@@ -95,10 +95,20 @@ $(function(){
                 data:'num'
             },
             {
+                title:'单价',
+                render:function(data,type,full,meta){
+
+                    var prince = Number(full.amount) / Number(full.num);
+
+                    return formatNumber(prince);
+
+                }
+            },
+            {
                 title:'金额',
                 data:'amount',
                 render:function(data, type, full, meta){
-                    return data.toFixed(2)
+                    return formatNumber(data)
                 }
             },
             {
@@ -113,6 +123,21 @@ $(function(){
                 title:'预警上限',
                 data:'maxNum'
             },
+            {
+                title:'操作',
+                render:function(data,type,full,meta){
+
+                    var ul = 'warehouseManagement-5.html?itemNum=' + full.itemNum + '&itemName=' + full.itemName;
+
+                    //var hr = encodeURI(ul);
+
+                    return "<a href=" + ul +
+
+                        " target='_blank'><span class='data-option option-see1 btn default btn-xs green-stripe'>查看明细</span></a>";
+
+                }
+
+            }
 
         ]
     });
@@ -241,7 +266,7 @@ $(function(){
                     allResult1 += result[i].amount;
                 }
                 $('#kcs').html(allResult);
-                $('#je').html(allResult1.toFixed(2));
+                $('#je').html(formatNumber(allResult1));
 
                 var allDownState = 0;
                 var allDownState1 = 0;
@@ -250,7 +275,7 @@ $(function(){
                     allDownState1 += downState[i].amount;
                 }
                 $('#kcs1').html(allDownState);
-                $('#je1').html(allDownState1.toFixed(2));
+                $('#je1').html(formatNumber(allDownState1));
 
                 var allUpState = 0;
                 var allUpState1 = 0;
@@ -259,7 +284,7 @@ $(function(){
                     allUpState1 += upState[i].amount;
                 }
                 $('#kcs2').html(allUpState);
-                $('#je2').html(allUpState1.toFixed(2));
+                $('#je2').html(formatNumber(allUpState1));
 
                 var allNomalState = 0;
                 var allNomalState1 = 0;
@@ -268,7 +293,7 @@ $(function(){
                     allNomalState1 += nomalState[i].amount;
                 }
                 $('#kcs3').html(allNomalState);
-                $('#je3').html(allNomalState1.toFixed(2));
+                $('#je3').html(formatNumber(allNomalState1));
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -324,4 +349,15 @@ $(function(){
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+
+    //格式化数字，排除infinity NaN 其他格式
+    function formatNumber(num){
+        if(num===Infinity){
+            return 0.00;
+        }
+        if(+num===num){
+            return num.toFixed(2);
+        }
+        return 0.00;
+    }
 })

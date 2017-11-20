@@ -723,12 +723,6 @@ $(function(){
     //下拉列表(上下键记录)
     var _numIndex = -1;
 
-    //登记完成
-    var _addComplete = false;
-
-    //登记成功
-    var _AddFlag = false;
-
     //备件申请完成
     var _bjComplete = false;
 
@@ -849,6 +843,7 @@ $(function(){
             var gdArr = [];
             //材料工单
             var clArr = [];
+
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
                 obj.sn = _rukuArr[i].sn;
@@ -933,8 +928,8 @@ $(function(){
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
                 obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = _rukuArr[i].chezhan;
-                obj.bxKeshiNum = $('#chezhan').children('option:selected').html();
+                obj.bxKeshi = $('#chezhan').children('option:selected').html();
+                obj.bxKeshiNum = _rukuArr[i].chezhan;
                 obj.outMemo = _rukuArr[i].outMemo;
                 obj.userID=_userIdNum;
                 obj.userName = _userIdName;
@@ -986,14 +981,30 @@ $(function(){
         })
         .on('click','.shenhe',function(){
 
+            //如果是_examineRen == false 可以审核，_examineRen == true不可以审核
             if(_isShenHe == 1){
-                _examineRen = false;
-            }else if(_isShenHe == 0){
-                _examineRen = true;
-            }
-            if(!_examineRen){
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
-            }else{
+
+                if(!_examineRen){
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
+
+                }else{
+
+                    //当出库物品没有的时候，不能审核
+                    if( _rukuArr.length == 0 ){
+
+                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'出库物品为空，不能审核！', '');
+
+                    }else{
+
+                        //审核
+                        shenheFun();
+
+
+                    }
+                }
+
+            }else if(_isShenHe == 0 ){
 
                 //当出库物品没有的时候，不能审核
                 if( _rukuArr.length == 0 ){
@@ -1006,10 +1017,10 @@ $(function(){
                     shenheFun();
 
 
-
-
                 }
+
             }
+
 
         })
 
@@ -1250,7 +1261,7 @@ $(function(){
                 putOutList.shijian = _allData[i].createTime;
                 putOutList.remarks = _allData[i].remark;
                 putOutList.shRemarks = _allData[i].auditMemo;
-                //判断制单人和审核人是不是一样
+                //判断制单人和审核人是不是一样(相等的话是false)
                 if(_allData[i].createUser == _userIdNum){
                     _examineRen = false;
                 }else{
@@ -1711,7 +1722,7 @@ $(function(){
         //材料申请是否已审批（默认已审批）
         $('#isExamine').parent('span').addClass('checked');
 
-        GDselect();
+        GDselect($('#gdzt').val());
 
         _moTaiKuang($('#myModal7'), '工单', '', '' ,'', '确定');
 
@@ -2124,9 +2135,9 @@ $(function(){
             //滚动条问题
             if(_numIndex> 4){
 
-                var moveDis = (_numIndex - 4)*40;
+                var moveDis = (_numIndex - 4)*26;
 
-                $('ul').scrollTop(moveDis);
+                ul.scrollTop(moveDis);
             }
 
         }else if(e.keyCode == 38){
@@ -2150,9 +2161,9 @@ $(function(){
             //滚动条问题
             if(lengths-4>_numIndex){
 
-                var moveDis = (_numIndex - 4)*40;
+                var moveDis = (_numIndex - 4)*26;
 
-                $('ul').scrollTop(moveDis);
+                ul.scrollTop(moveDis);
 
             }
 

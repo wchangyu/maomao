@@ -86,11 +86,21 @@ $(function(){
         },
         {
             title:'单价',
-            data:'price'
+            data:'price',
+            render:function(data, type, full, meta){
+
+                return formatNumber(data)
+
+            }
         },
         {
             title:'金额',
-            data:'amount'
+            data:'amount',
+            render:function(data, type, full, meta){
+
+                return formatNumber(data)
+
+            }
         },
         {
             title:'仓库',
@@ -114,6 +124,7 @@ $(function(){
         }
     ];
     _tableInit($('#scrap-datatables'),col,'1','flag','','');
+
 
     //数据
     warehouse();
@@ -208,7 +219,37 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+
+                console.log(result);
+
                 _datasTable($('#scrap-datatables'),result);
+
+                var num = 0;
+
+                var amount = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    num += result[i].num;
+
+                    amount += result[i].amount;
+                }
+
+                if(isNaN(formatNumber(amount)) && isNaN(num)){
+
+                    $('#scrap-datatables .total-amount').html(0.00);
+
+                    $('#scrap-datatables .total-num').html(0);
+
+                }else{
+                    $('#scrap-datatables .total-amount').html(formatNumber(amount));
+
+                    $('#scrap-datatables .total-num').html(parseInt(num));
+                }
+
+
+
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -251,6 +292,16 @@ $(function(){
 
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
+    //格式化数字，排除infinity NaN 其他格式
+    function formatNumber(num){
+        if(num===Infinity){
+            return 0.00;
+        }
+        if(+num===num){
+            return num.toFixed(2);
+        }
+        return 0.00;
+    }
 
 })
