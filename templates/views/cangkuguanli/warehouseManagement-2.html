@@ -603,26 +603,26 @@
                             <li class="gdList">
                                 <div class="labels">规格型号：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="size" class="auto-input inputType size">
+                                    <input type="text" v-model="size" class="auto-input not-editable inputType size">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds auto-input automatic">
-                                    <input type="radio" disabled="disabled" class="inpus inputType  automatic" id="ones" value="1" v-model="picked" v-on:click="radios" style="width: 18px;"><label for="ones" style="line-height: 30px;">是</label>
-                                    <input type="radio" disabled="disabled" class="inpus automatic" id="twos" value="0" v-model="picked" style="width: 18px; v-on:click="radios"><label for="twos" style="line-height: 30px;">否</label>
+                                    <input type="radio" disabled="disabled" class="inpus not-editable inputType  automatic" id="ones" value="1" v-model="picked" v-on:click="radios" style="width: 18px;"><label for="ones" style="line-height: 30px;">是</label>
+                                    <input type="radio" disabled="disabled" class="inpus not-editable automatic" id="twos" value="0" v-model="picked" style="width: 18px; v-on:click="radios"><label for="twos" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">物品序列号：<div class="multiple-condition" style="width: 70px;"><span class="isEqual colorTip" style="display: none">不耐用时，物品id要与物品编码一致</span><span class="isEnabled colorTip" style="display: none">物品id已存在</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="goodsId" class="goodsId inputType" ><!--@blur="isequal()"-->
+                                    <input type="text" v-model="goodsId" class="not-editable goodsId inputType" ><!--@blur="isequal()"-->
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">单位：</div>
                                 <div class="input-blockeds automatic">
-                                    <input type="text" v-model="unit" class="auto-input inputType automatic">
+                                    <input type="text" v-model="unit" class="auto-input not-editable inputType automatic">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -680,6 +680,18 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>共计</td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="1" class="amount1"></td>
+                            <td></td>
+                            <td class="count1"></td>
+                            <td colspan="3"></td>
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

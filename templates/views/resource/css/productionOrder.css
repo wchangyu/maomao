@@ -66,7 +66,7 @@
 .gongdanContent{
     height: 516px;
     padding: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 #picker{
     display: inline-block;
@@ -472,7 +472,7 @@ textarea{
 .dataTables_scrollHead{
     background: #dddddd !important;
 }
-.accord-with-list{
+.accord-with-list,.accord-sn-list{
     position: relative;
     z-index: 10;
     background: #ffffff;
@@ -484,11 +484,17 @@ textarea{
     text-indent: 10px;
     max-height: 208px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
-.accord-with-list li{
+.accord-with-list li,.accord-sn-list li{
     cursor: pointer;
     width: 100%;
     line-height: 26px;
+    height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    /*display: inline-block;*/
 }
 .gdList{
     float: left;
@@ -504,10 +510,14 @@ textarea{
     max-height: 200px;
 }
 .pinzhixx li{
-    line-height: 30px;
+    line-height: 26px;
     background: #ffffff;
     cursor: pointer;
     width: 100%;
+    height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .pinzhixx li{
     width:100%;
@@ -603,7 +613,7 @@ textarea{
 }
 .kuqu-list{
     width: 100% !important;
-    line-height: 30px;
+    line-height: 26px;
     z-index: 10;
     border: 1px solid #ebebeb;
     background: #ffffff;
@@ -614,6 +624,10 @@ textarea{
 .kuqu-list li{
     cursor: pointer;
     width: 100% !important;
+    height: 26px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .power{
     padding: 10px;

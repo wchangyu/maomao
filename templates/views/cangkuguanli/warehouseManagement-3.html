@@ -284,7 +284,7 @@
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
+                                    <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
@@ -387,6 +387,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -487,9 +488,8 @@
                                     <td>共计</td>
                                     <td colspan="2"></td>
                                     <td colspan="2"></td>
-                                    <td colspan="1"></td>
-                                    <td colspan="1" ></td>
-                                    <td colspan="1" class="amount"></td>
+                                    <td colspan="2"></td>
+                                    <td class="totalnum"></td>
                                     <td></td>
                                     <td class="count"></td>
                                     <td colspan="3"></td>
@@ -519,7 +519,7 @@
                     <li style="width: 133px;">
                         <div class="cont-col1" style="cursor: pointer">
                             <div class="label label-sm label-warning tianJiaruku" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                <i class="fa fa-plus" style="margin-right: 2px;"></i>选择出库库物品
+                                <i class="fa fa-plus" style="margin-right: 2px;"></i>选择出库物品
                             </div>
                         </div>
                     </li>
@@ -555,60 +555,60 @@
                             <li class="gdList">
                                 <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds" style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text"  class="not-editable inputType children1" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()"><div class="selectBlock"></div>
+                                    <input type="text"  class="initBJ not-editable inputType children1" v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()"><div class="selectBlock"></div>
                                     <ul class="accord-with-list hidden1" data-num="2" style="display: none;">
                                     </ul>
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels colorTip">物品序列号：</div>
+                                <div class="labels colorTip">物品序列号 *：</div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="goodsId" class="not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="0" style="display: none;width: 410px;">
+                                    <input type="text" v-model="goodsId" class="initBJ not-editable goodsId inputType children1"  @keyup="keySn()"><div class="selectBlock"></div>
+                                    <ul class="accord-sn-list hidden1" data-num="0" style="display: none;width: 410px;left:-103px;">
                                     </ul>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">规格型号：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" class="not-editable auto-input inputType disabled-block" v-model="size" readonly="readonly">
+                                    <input type="text" class="not-editable auto-input disabled-block" v-model="size" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">是否耐用：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="radio" class="not-editable inpus auto-input inputType disabled-block" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="disabled" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="not-editable inpus auto-input disabled-block" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="disabled" readonly="readonly" ><label for="ones" class="auto-input" style="line-height: 30px;">是</label>
                                     <input type="radio" class="not-editable inpus auto-input disabled-block" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="disabled"  readonly="readonly"><label for="twos" class="auto-input" style="line-height: 30px;">否</label>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">单位：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="unit" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="unit" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">品质：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="quality" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="quality" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">质保期：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="warranty" class="not-editable disabled-block datatimeblock auto-input warranty inputType" readonly="readonly">
+                                    <input type="text" v-model="warranty" class="not-editable disabled-block datatimeblock auto-input warranty" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels">剩余数量：</div>
                                 <div class="input-blockeds disabled-block">
-                                    <input type="text" v-model="redundant" class="not-editable auto-input inputType disabled-block" readonly="readonly">
+                                    <input type="text" v-model="redundant" class="not-editable auto-input disabled-block" readonly="readonly">
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels colorTip">数量 *：<div class="multiple-condition" style="width: 150px;"><span v-show="$validation.num.requireds" style="display: none">请输入物品数量</span><span class="colorTip format-error" style="display: none;">前请输入正整数</span><span class="colorTip format-error2" style="display: none;">数量要小于库存</span><span class="colorTip format-error4" style="display: none;">耐用品数量为1</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="initBJ number1 inputType" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="addFun1()">
+                                    <input type="text" class="initBJ number1 inputType" placeholder="0" v-model="num" v-validate:num= "['requireds']" initial='off' @keyup="addFun1()">
                                 </div>
                             </li>
                             <li class="gdList">
@@ -627,7 +627,7 @@
                                 <div class="labels">工单号 ：</div>
                                 <div class="input-blockeds" style="position: relative">
                                     <input type="text" class="initBJ inputType children1 gdCode" v-model="gdCode" @keyup="selectGD()"><div class="selectBlock"></div>
-                                    <ul class="pinzhixx hidden1" style="width:200px;background: #ffffff;max-height:200px;overflow-y:auto;position: absolute;top: 30px;left: 0;z-index: 10;display: none"></ul>
+                                    <ul class="pinzhixx hidden1" style="width:370px;background: #ffffff;max-height:200px;overflow-y:auto;position: absolute;top: 30px;left: -81px;z-index: 10;display: none"></ul>
                                 </div>
                             </li>
 
@@ -658,6 +658,19 @@
                         </thead>
                         <tbody>
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>共计</td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2" class="amount1"></td>
+                            <!--<td></td>-->
+                            <td colspan="2" class="count1"></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        </tfoot>
+
                     </table>
                 </div>
             </div>
@@ -785,13 +798,13 @@
 </div>
 <!--工单号弹出框-->
 <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 670px;width: 780px !important;">
-        <div class="modal-content" style="height: 670px;width: 780px !important;">
+    <div class="modal-dialog" style="height: 670px;width: 800px !important;">
+        <div class="modal-content" style="height: 670px;width: 800px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">查看</h4>
             </div>
-            <div class="modal-body" style="height: 548px;">
+            <div class="modal-body" style="height: 548px;overflow-y: auto">
                 <ul class="condition-query">
                     <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
                         <div class="input-blocked" id="filter_global">
@@ -831,8 +844,10 @@
                         </div>
                     </li>
                     <li>
-                        <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
-                        <label for="isExamine">材料申请是否已审批</label>
+                        <div style="width: 100%;height: 100%;border: 1px solid #a9a9a9;line-height: 28px;padding-left: 3px;padding-right: 7px;">
+                            <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
+                            <label for="isExamine" style="margin-bottom: 0px;">材料申请已审批</label>
+                        </div>
                     </li>
                     <br>
                     <li><button class="btn btn-success btn1" id="selectedGD">查询</button></li>
@@ -900,13 +915,13 @@
 </div>
 <!--物品管理选择框-->
 <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 1198px !important;height: 610px !important;">
-        <div class="modal-content" style="width: 1198px !important;height: 610px !important;">
+    <div class="modal-dialog" style="width: 1198px !important;height: 621px !important;">
+        <div class="modal-content" style="width: 1198px !important;height: 621px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel4">选择物品列表</h4>
             </div>
-            <div class="modal-body" style="height: 500px;overflow-y: scroll">
+            <div class="modal-body" style="max-height: 500px;overflow-y: auto">
                 <ul class="condition-query noprint">
                     <li><label for="">物品编号：</label>
                         <div class="input-blocked">
@@ -957,6 +972,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 </body>
 <!-- END BODY -->

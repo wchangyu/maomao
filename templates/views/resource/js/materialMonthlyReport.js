@@ -1,14 +1,34 @@
 $(function(){
+
+    var local = window.location.search;
+
+    //默认开始时间
+    var startTime = '';
+
+    var endTime = '';
+
+    if(local){
+
+        var aa = local.split('?')[1].replace(/-/g,'/').split('/');
+
+        startTime = aa[0] + '/' + aa[1];
+
+        endTime = aa[0] + '/' + aa[1];
+
+    }else{
+
+        startTime =moment().format('YYYY/MM');
+
+        endTime = moment().add(1,'months').format('YYYY/MM');
+
+    }
+
+
     //时间插件
     _monthDate($('.datatimeblock'));
 
     //默认时间
     var nowTime = moment().format('YYYY/MM');
-
-    //默认开始时间
-    var startTime =moment().format('YYYY/MM');
-
-    var endTime = moment().add(1,'months').format('YYYY/MM');
 
     //存放页面查询次数
     var searchNum = 0;
@@ -43,7 +63,8 @@ $(function(){
             data:'unitName'
         },
         {
-            data:'startNum'
+            data:'startNum',
+            className:'intNum'
         },
         {
             data:'startAmount',
@@ -52,7 +73,8 @@ $(function(){
             }
         },
         {
-            data:'inNum'
+            data:'inNum',
+            className:'intNum'
         },
         {
             data:'inAmount',
@@ -61,7 +83,8 @@ $(function(){
             }
         },
         {
-            data:'outNum'
+            data:'outNum',
+            className:'intNum'
         },
         {
             data:'outAmount',
@@ -70,7 +93,8 @@ $(function(){
             }
         },
         {
-            data:'num'
+            data:'num',
+            className:'intNum'
         },
         {
             data:'amount',
@@ -95,7 +119,7 @@ $(function(){
         var ths = $('#scrap-datatables').find('tfoot').children('tr').eq(0).children('td');
         //tbody中的每一行
         var tds = $('#scrap-datatables').find('tbody').children('tr');
-        for(var i=3;i<ths.length - 1;i++){
+        for(var i=4;i<ths.length - 1;i++){
             var count = 0;
             if(tds.length == 1){
                 count = 0;
@@ -104,7 +128,20 @@ $(function(){
                     count += parseFloat(tds.eq(j).children('td').eq(i).html());
                 }
             }
-            var counts = count.toFixed(2);
+
+            var counts  = 0;
+
+
+            if( ths.eq(i).attr('class') == 'intNum' ){
+
+                counts = parseInt(count);
+
+            }else{
+
+                counts = count.toFixed(2);
+
+            }
+
             ths.eq(i).html(counts);
         }
 

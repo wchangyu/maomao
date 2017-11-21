@@ -141,5 +141,6 @@
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
-  "gongdanIndustryType":"1"
+  "gongdanIndustryType":"1",
+  "ckAuditType":"0"
 }

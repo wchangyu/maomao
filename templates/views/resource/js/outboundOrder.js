@@ -30,8 +30,9 @@ $(document).ready(function(){
                 var html = '';
                 //总价
                 var countNum = 0;
-                //console.log(data);
+
                 $(data).each(function(i,o){
+
                     html +=' <tr>' +
                         '     <td>'+ o.itemNum+'</td>' +
                         '     <td>'+ o.itemName+'</td>' +
@@ -41,7 +42,13 @@ $(document).ready(function(){
                         '     <td>'+ o.outPrice.toFixed(2)+'</td>' +
                         '     <td>'+ o.amount.toFixed(2)+'</td>'+
                         '     <td>'+ o.bxKeshi+'</td>'+
-                        '     <td>'+ o.gdCode2+'</td>'+
+                        '     <td><a href="materialOdd.html?gdCode=' + o.gdCode2 +
+                        '&orderNum=' + outboundOrder +
+                        '&itemNum=' + o.itemNum +
+                        '&storageNum=' + o.storageNum +
+                        '&sn=' + o.sn +
+                        '" target="_blank">' + o.gdCode2 +
+                        '</a>'+'</td>'+
                         '     <td class="small-size">'+ o.outMemo+'</td>' +
                         ' </tr>';
                     countNum += o.amount;
