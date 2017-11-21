@@ -345,23 +345,27 @@
     $(document).ready(function () {
 
         //支行。判断sessionStorage.EnterpriseID是否为空
-        var eprId="";
+        //var eprId="";
 
-        if(sessionStorage.EnterpriseID===undefined){
-            eprId="63001801";
-        }
-        else{
-            eprId=sessionStorage.EnterpriseID;
-        }
+        //if(sessionStorage.EnterpriseID===undefined){
+        //    eprId="63001801";
+        //}
+        //else{
+        //    eprId=sessionStorage.EnterpriseID;
+        //}
 
-        var eprNt="";
+        //var eprNt="";
 
-        if(sessionStorage.EnterpriseName==='undefined'){
-            eprNt="青海建筑职业技术学院";
-        }
-        else{
-            eprNt=sessionStorage.EnterpriseName;
-        }
+        //if(sessionStorage.EnterpriseName==='undefined'){
+        //    eprNt="青海建筑职业技术学院";
+        //}
+        //else{
+        //    eprNt=sessionStorage.EnterpriseName;
+        //}
+
+        var eprs = JSON.parse(sessionStorage.getItem('enterPriseList'));
+        var eprId = eprs[0].enterpriseID;//支行ID
+        var eprNt = eprs[0].eprName;//支行名称
 
         getServiceQualityDs(eprId,eprNt);
 
