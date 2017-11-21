@@ -1,0 +1,356 @@
+/*隐藏头部*/
+.page-title{
+    display: none;
+}
+/*外层div增加border*/
+.wrap{
+    border-right:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+}
+.content-main-left{
+    border-bottom: 0;
+}
+/*上方能耗类型*/
+.selectedEnergy{
+    color:white !important;
+}
+/*隐藏右上角选择风格选框*/
+/*.toggler{*/
+    /*display: none;*/
+/*}*/
+/*左侧查询条件*/
+.content-main-left{
+    padding-left: 0px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+.content-main-left .content-main{
+    background:#ededed;
+}
+/*zTree*/
+.tree-1{
+    background:#ededed;
+}
+/*zTree头部选项卡*/
+.left-middle-content {
+    margin-top: 10px !important;
+}
+.main-left-middle {
+    width: 100%;
+    height: 360px !important;
+}
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 330px !important;
+}
+.left-middle-content {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height:40px !important;
+}
+
+.left-middle-main .left-tab-contain{
+    width:90%;
+    height: 100%;
+    margin: 0 auto;
+}
+.left-middle-main .left-tab-contain .left-middle-tab{
+    width:33%;
+    float:left !important;
+    height:35px !important;
+    line-height: 35px !important;
+    border:1px solid #5b9bd5 !important;
+    color:#5b9bd5;
+}
+.left-middle-main .left-tab-contain .left-middle-tab:nth-child(1) {
+    background: #5b9bd5;
+    color: #fff;
+}
+/*zTree树*/
+.ztree li{
+    margin:0 auto;
+    width:190px;
+}
+.tree-1{
+    width:100%;
+    position: relative;
+}
+.ztree{
+    height:230px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+/*zTree自带的搜索框*/
+.left-middle-input{
+    position: absolute;
+    top:235px;
+    left:50%;
+    margin-left:-95px;
+    width:205px;
+}
+.curSelectedNode{
+    background:#5b9bd5 !important;
+    color:white !important;
+}
+
+/*时间选择*/
+#wrapper{
+    width:auto;
+    padding-bottom:10px;
+    margin-top:0 !important;
+}
+.time-options{
+    margin-bottom:10px;
+}
+
+.input-blocked {
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+    vertical-align: middle;
+    width:160px;
+    margin:0 auto;
+    background-color: white;
+}
+.input-blocked input {
+    border: none;
+    height: 28px !important;
+    outline: none;
+    margin: 0 5px;
+}
+.datatimeblock {
+    background: url(../img/clendar.png) no-repeat #ffffff !important;
+
+    background-size: 25px !important;
+    background-position: 100% center !important;
+    cursor: pointer !important;
+}
+.start-time-choose{
+    margin-bottom:6px;
+}
+.end-time-choose{
+    margin-bottom:10px;
+    display: none;
+}
+.position-center{
+    padding-top:20px;
+}
+/*查询按钮*/
+.buttons{
+    margin-bottom:0px !important;
+    margin-top:0px !important;
+}
+/*上方能耗种类样式*/
+.time-options{
+    border-radius: 0 !important;
+    margin-right: 5px;
+    background: #d9d9d9;
+}
+.time-options-1{
+    background: #5b9bd5;
+    color:white;
+}
+
+.energy-types div:nth-child(1){
+    background: url(../img/dian1.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.main-left-top1 .energy-types .blueImg0{
+    background: url(../img/dian2.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.energy-types div:nth-child(2){
+    background: url(../img/water1.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.main-left-top1 .energy-types .blueImg1{
+    background: url(../img/shui2.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.energy-types div:nth-child(3){
+    background: url(../img/qi1.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.main-left-top1 .energy-types .blueImg2{
+    background: url(../img/qi2.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.energy-types div:nth-child(4){
+    background: url(../img/nuan1.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+
+.main-left-top1 .energy-types .blueImg3{
+    background: url(../img/nuan2.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+
+.energy-types div:nth-child(5){
+    background: url(../img/leng1.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+.main-left-top1 .energy-types .blueImg4{
+    background: url(../img/leng2.png) center 10px no-repeat !important;
+
+    background-size:40px 40px !important;
+}
+/*.main-left-top1 .energy-types div{*/
+/*background-color:white !important;*/
+/*}*/
+.energy-types div {
+    border: 2px solid #ededed;
+}
+
+.main-left-top1 .energy-types .selectedEnergy{
+    background-color:#5b9bd5 !important;
+    border:none !important;
+}
+
+
+
+/*------------------------------------右侧数据展示----------------------------- */
+/*右侧上方显示信息*/
+.right-header {
+    width: 100%;
+    height: 35px !important;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+/*右侧上方单位*/
+.right-header-right{
+    margin-bottom: 0 !important;
+}
+#unit{
+    width:80px;
+}
+/*最外层包裹div*/
+.rheader-content-right {
+    height: 95%;
+    width: 250px;
+    margin: 0 auto;
+}
+/*.rheader-content{*/
+    /*overflow: auto;*/
+/*}*/
+
+/*数据展示方框框架*/
+.comparisonOfHistograms{
+    padding-top:60px ;
+}
+
+.rheader-content-rights {
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: url(../../resource/img/message.png)no-repeat #deebf7;
+    background-size: 140px;
+    background-position: 50px 20px;
+}
+
+.rheader-content-rights {
+    position: relative;
+    margin-top: 0%;
+    border-radius: 20px !important;
+}
+/*左侧上一时段数据*/
+.compared-with-last-time {
+    position: absolute;
+    top: 140px;
+    left: 42px;
+    font-size: 1.5rem;
+}
+.total-power-consumption {
+    color: #ffffff;
+    position: absolute;
+    top: 36px;
+    left: 75px;
+    font-size: 2rem;
+}
+.total-power-consumption-value {
+    color: #019cdf;
+    position: absolute;
+    top: 100px;
+    left: 60px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+/*累计用量*/
+#consumption-value-number {
+    font-size: 1.8rem !important;
+}
+/*单位*/
+.the-cumulative-power-unit {
+    font-size: 1rem;
+}
+
+/*中间指示箭头*/
+.rights-up {
+    display: inline-block;
+    width: 20px;
+    height: 40px;
+    position: absolute;
+    top: 140px;
+    left: 117px;
+    background: url(../../resource/img/up.png)no-repeat;
+    background-size: 23px;
+    margin-left: 5px;
+}
+/*右侧百分比*/
+.rights-up-value {
+    color: #019cdf;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 150px;
+    left: 157px;
+    display: inline-block;
+    margin-left: 5px;
+}
+/*右侧同比数据*/
+.rights-up-name{
+    position: absolute;
+    top: 140px;
+    left: 162px;
+    font-size: 1.5rem;
+}
+.rights-up-value {
+    color: #019cdf;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 160px;
+    left: 157px;
+    display: inline-block;
+    margin-left: 5px;
+}
+/*右侧环比数据*/
+.compared-with-last-time1{
+    top:200px;
+}
+.rights-up1{
+    top:200px;
+}
+.rights-up-name1{
+    top: 200px;
+}
+.rights-up-value1{
+    top: 220px;
+}
+
+/*中间下降箭头*/
+.decline{
+    background: url(../../resource/img/up.png) 0% 0% / 23px no-repeat !important;
+}

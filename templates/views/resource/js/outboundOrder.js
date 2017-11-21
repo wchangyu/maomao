@@ -7,6 +7,7 @@ $(document).ready(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     getGodownMessage();
+    getOutStorageBanzu();
     //获取出库单信息
     function getGodownMessage(){
 
@@ -101,8 +102,9 @@ $(document).ready(function(){
                 $('.top-message span b').eq(3).html(data[0].auditUserName);
                 //获取制单日期
                 $('.top-message span b').eq(4).html(data[0].auditTime.split(' ')[0]);
-                //获取备注
-                $('.top-message span b').eq(5).html(data[0].remark);
+                ////获取备注
+                //$('.top-message span b').eq(5).html(data[0].remark);
+
                 //获取供货单位
                 $('#entry-datatables .unit-name').html(data[0].supName);
             },
@@ -111,5 +113,34 @@ $(document).ready(function(){
 
             }
         });
+    }
+
+    //获取所属维保组
+    function getOutStorageBanzu(){
+
+        //从路径中获取出库单号
+        var outboundOrder = window.location.search.split('=')[1];
+        if(!outboundOrder){
+            return false;
+        }
+
+        $.ajax({
+            type: 'post',
+            url: _urls + "YWCK/YWCKGetOutStorageBanzu",
+            timeout: theTimes,
+            data: {
+                "orderNum": outboundOrder,
+                "igStorage": 1,
+                "userID": _userIdName,
+                "userName": _userName
+            },
+            success: function (data) {
+                $('.top-message span b').eq(5).html(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+            }
+        })
     }
 });

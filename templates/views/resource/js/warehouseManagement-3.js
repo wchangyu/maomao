@@ -1078,6 +1078,7 @@ $(function(){
         RKCPInit(arr);
 
         _rukuArr.length = 0;
+
     })
 
     //新增确认按钮
@@ -4248,6 +4249,9 @@ $(function(){
 
     //仓库回车事件
     var enterCK = function(){
+
+         //产品登记框清空；
+        RKCPInit(_rukuArr);
 
         var checkedLi = $('#workDone').find('.pinzhixx').eq(0).children('.li-color');
 

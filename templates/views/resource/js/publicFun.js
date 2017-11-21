@@ -27,6 +27,7 @@ var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 
 //datapicker时间插件初始化(日月年)
 function _timeYMDComponentsFun(el){
+
     el.datepicker({
         language:  'zh-CN',
         todayBtn: 1,

@@ -14,8 +14,6 @@ $(document).ready(function() {
     //console.log('ok');
 
     //初始化table表单
-
-
     var table = $('#dateTables').DataTable({
         "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -550,22 +548,15 @@ function getMainData(){
             });
 
 
-
-
-
             //console.log(option.legend.data[0]);
-
 
             //重绘chart图
             myChart.hideLoading();
             myChart.setOption(option);
 
-
-
             ajaxSuccess();
 
             $('.header-right-lists span').html(unit);
-
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -573,7 +564,7 @@ function getMainData(){
             //console.log(textStatus);
 
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
-                ajaxTimeoutTest.abort();
+
                 myAlter("超时");
             }
             myAlter("请求失败！");
