@@ -1,0 +1,32 @@
+/*对象选择*/
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 110px !important;
+}
+.main-left-middle {
+    width: 100%;
+    height: 140px !important;
+}
+
+.left-middle-main p,.left-middle-main1 p{
+    line-height: 30px;
+    height:30px;
+    font-size: 18px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+/*选中的对象*/
+.left-middle-main .curChoose,.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*指标类型*/
+.left-middle-main1{
+    min-height: 110px ;
+}
+/*右侧echarts图*/
+#rheader-content-16{
+    height: 500px;
+    margin-right: 0 !important;
+}
