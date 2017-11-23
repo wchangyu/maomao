@@ -231,7 +231,7 @@ $(function(){
     });
     //设备增加确定按钮
     $('#myModal .modal-dialog').find('.modal-footer').on('click','.dengji',function(){
-        console.log(33);
+
         //判断必填项是不是填写了
         if( myApp33.sblxmc == '' || myApp33.pyjm == ''){
             moTaiKuang($('#myModal2'));
@@ -642,6 +642,7 @@ $(function(){
             'destroy': true,//还原初始化了的datatable
             'searching': true,
             'ordering': true,
+            "iDisplayLength":50,//默认每页显示的条数
             'language': {
                 'emptyTable': '没有数据',
                 'loadingRecords': '加载中...',

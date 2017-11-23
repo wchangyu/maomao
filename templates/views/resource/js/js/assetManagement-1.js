@@ -201,6 +201,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -864,6 +865,8 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+                //console.log(result);
+
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }

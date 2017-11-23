@@ -64,7 +64,28 @@
             width: 248px !important;
         }
         .input-blockeds input{
-            width: 238px !important;
+            width: 248px !important;
+        }
+        .executor-li{
+            width: 200px !important;
+            display: inline-block;
+            margin-right: 1px !important;
+        }
+        .executor-li .input-blockeds{
+
+            width: 200px !important;
+        }
+        .executor-li .labels{
+
+            width: 200px !important;
+
+        }
+        .executor-li input{
+
+            width: 198px !important;
+        }
+        .executor-li select{
+            width: 198px !important;
         }
     </style>
 </head>
@@ -507,7 +528,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/MTManagement-3.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -516,6 +536,8 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/MTManagement-3.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
 <div class="modal fade modals" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -533,7 +555,7 @@
                                 <li class="floatLeft">
                                     <div class="labels">计划编码：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="jhbm" placeholder="自动生成" readonly="readonly">
+                                        <input type="text" class="jhbms" v-model="jhbm" placeholder="自动生成" readonly="readonly">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
@@ -543,7 +565,7 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels colorTip">设备名称 *：</div>
+                                    <div class="labels colorTip">设备名称 *：<div class="choiceBlock" id="choiceDev">【选择】</div></div>
                                     <div class="input-blockeds">
                                         <input type="text" class="" v-model="sbmc" placeholder="点击选择设备名称" id="sbmc">
                                     </div>
@@ -555,15 +577,15 @@
                                     </div>
                                 </li>
                                 <li class="floatLeft">
-                                    <div class="labels colorTip">保养部门 *：<span v-if="$validation.xjbm.noempty">请填写巡检部门</span></div>
+                                    <div class="labels colorTip">保养部门 *：<div class="choiceBlock" id="choiceDep">【选择】</div><span v-if="$validation.xjbm.noempty">请填写巡检部门</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="xjbm" v-validate:xjbm="['noempty']" initial='off'>
+                                        <input type="text" class="xjDep" v-model="xjbm" v-validate:xjbm="['noempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels colorTip">负责人 *：<span v-if="$validation.fzr.noempty">请填写负责人</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="fzr" v-validate:fzr="['noempty']" initial='off'>
+                                        <select id="fzr" v-model="fzr"></select>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
@@ -592,10 +614,16 @@
                                         </select>
                                     </div>
                                 </li>
+                                <li class="floatRight">
+                                    <div class="labels">有效时间：（小时）<span class="effectError colorTip">请输入格式正确的数字</span></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="sxsj" @keyup="effectFun()">
+                                    </div>
+                                </li>
                             </form>
                         </validator>
                         <li class="floatLeft">
-                            <div class="labels colorTip">生效时间 *：</div>
+                            <div class="labels colorTip">开始时间 *：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="datatimeblock" id="sxsj">
                             </div>
@@ -615,11 +643,11 @@
                         </div>
                         <div class="table-block">
                             <div class="table-title">
-                                <span class="spanhover">条目项目</span>
+                                <span class="spanhover">步骤项目</span>
                                 <span>执行人员</span>
                             </div>
                             <div>
-                                <div class="tableHover" style="z-index: 1">
+                                <div class="tableHoverL" style="z-index: 1">
                                     <ul class="condition-query">
                                         <li style="width: 30px !important;">
                                             <div class="cont-col1" style="cursor: pointer">
@@ -642,7 +670,7 @@
                                         <tbody></tbody>
                                     </table>
                                 </div>
-                                <div class="tableHover">
+                                <div class="tableHoverL hide-block">
                                     <ul class="condition-query">
                                         <li style="width: 133px;">
                                             <div class="cont-col1">
@@ -670,13 +698,13 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--增加巡检条目-->
+<!--增加巡检步骤-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 574px;width: 1000px !important;">
         <div class="modal-content" style="height: 574px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabe2">添加巡检条目</h4>
+                <h4 class="modal-title" id="myModalLabe2">添加巡检步骤</h4>
             </div>
             <div class="modal-body">
                 <ul style="margin-bottom: 0px;" class="condition-query">
@@ -686,7 +714,7 @@
                         </select>
                     </li>
                     <li>
-                        <label for=""> 设备巡检条目名称：</label>
+                        <label for=""> 设备巡检步骤名称：</label>
                         <div class="input-blocked" id="filter_global">
                             <input type="text" class="filterInput">
                         </div>
@@ -708,7 +736,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--巡检条目删除提示框-->
+<!--巡检步骤删除提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 211px;">
         <div class="modal-content" style="height: 211px;">
@@ -825,7 +853,7 @@
                     <div class="clearfix"></div>
                 </ul>
                 <div class="clearfix"></div>
-                <div class="gongdanContent" style="height: 360px;">
+                <div class="gongdanContent" style="height: 399px;">
                     <table id="sbmcxz" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                         <thead></thead>
                         <tbody></tbody>
@@ -893,60 +921,52 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--所有提示框-->
-<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel5">提示</h4>
-            </div>
-            <div class="modal-body">请填写红色必填项</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
 <!--从巡检内容添加的模态框-->
 <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 574px;width:1000px !important;">
-        <div class="modal-content" style="height: 574px;width: 1000px !important;">
+    <div class="modal-dialog" style="height: 574px;width: 1200px !important;">
+        <div class="modal-content" style="height: 574px;width: 1200px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">从巡检内容中添加条目</h4>
+                <h4 class="modal-title" id="">从巡检内容中添加步骤</h4>
             </div>
             <div class="modal-body">
-                <ul style="margin-bottom: 0px;" class="condition-query">
-                    <li>
-                        <label for="">设备类型：</label>
-                        <select name="" id="shebeileixings1" style="width: 164px;height: 34px;">
-                        </select>
-                    </li>
-                    <li>
-                        <label for=""> 巡检内容名称：</label>
-                        <div class="input-blocked" id="filter_global1">
-                            <input type="text" class="filterInput">
-                        </div>
-                    </li>
-                    <li><button class="btn btn-success" id="selecte1">查询</button></li>
-                </ul>
-                <div class="clearfix"></div>
-                <div class="gongdanContent" style="height: 360px;">
-                    <table id="zhiXingPerson1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
-                    <ul class="content-main-contents-header aaa">
-                        <li class="main-contents-header-lists0">当全选择的内容下的条目列表信息</li>
+                <div style="float: left">
+                    <ul style="margin-bottom: 0px;" class="condition-query">
+                        <li>
+                            <label for="">设备类型：</label>
+                            <select name="" id="shebeileixings1" style="width: 164px;height: 34px;">
+                            </select>
+                        </li>
+                        <li>
+                            <label for=""> 巡检内容名称：</label>
+                            <div class="input-blocked" id="filter_global1">
+                                <input type="text" class="filterInput">
+                            </div>
+                        </li>
+                        <li><button class="btn btn-success" id="selecte1">查询</button></li>
                     </ul>
-                    <table class="table table-striped table-bordered table-advance table-hover" id="personTable3">
+                    <div class="clearfix"></div>
+                    <div class="gongdanContent" style="height: 360px;">
+                        <table id="zhiXingPerson1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+                <div style="float: right;width: 549px;height:423px;overflow-y: auto" >
+                    <ul class="content-main-contents-header aaa">
+                        <li class="main-contents-header-lists0">当全选择的内容下的步骤列表信息</li>
+                    </ul>
+                    <table class="table table-hover" id="personTable3">
                         <thead>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
+                <div class="clearfix"></div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm selectTableList1">确定</button>
@@ -955,37 +975,80 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--部门选择-->
+<div class="modal fade" id="choiceDepart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">选择部门</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="content-main-contents-header">
+                    <li class="main-contents-header-lists0">条件查询</li>
+                </ul>
+                <ul class="condition-query">
+                    <li>
+                        <label for="">设备名称：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbmc1">
+                        </div>
+                    </li>
+                    <li><button class="btn btn-success" id="selectedBM">查询</button></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="clearfix"></div>
+                <div class="gongdanContent" style="height: 478px;">
+                    <table id="department-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--执行人员选择框-->
 <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 520px;width: 703px !important;">
-        <div class="modal-content" style="height: 520px;width: 703px !important;">
+    <div class="modal-dialog" style="height: 520px;">
+        <div class="modal-content" style="height: 520px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">操作维修材料</h4>
             </div>
             <div class="modal-body">
                 <div class="gongdanContent" style="height: 360px;">
-                    <ul class="gongdanList">
-                        <li class="floatLeft">
+                    <ul class="">
+                        <li class="executor-li">
                             <div class="labels">姓名：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxName">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="executor-li">
                             <div class="labels">工号：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxNum">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="executor-li">
                             <div class="labels">电话：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxPhone">
                             </div>
                         </li>
-                        <li class="floatRight">
-                            <button type="button" class="btn btn-success zhixingButton" style="margin-top: 27px;">查询</button>
+                        <li class="executor-li">
+                            <div class="labels">部门：</div>
+                            <div class="input-blockeds">
+                                <select id="bm"></select>
+                            </div>
+                        </li>
+                        <li class="executor-li">
+                            <button type="button" class="btn btn-success zhixingButton">查询</button>
                             <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
                                 <span>该人员已存在</span>
                             </div>
@@ -1004,6 +1067,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <!--删除工作人员提示框-->
 <div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -1038,6 +1107,22 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm removeWorkerButton">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel5">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
