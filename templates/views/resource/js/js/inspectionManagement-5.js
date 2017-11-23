@@ -325,6 +325,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     //找到存放所有巡检步骤的数组，比较
                     _allXJSelect = [];
@@ -381,6 +392,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     _allXJSelect = [];
                     //找到存放所有巡检步骤的数组，比较
@@ -422,6 +444,7 @@ $(function(){
             $this.addClass('tables-hover');
             var $thisBM = $(this).parents('tr').children('.bianma').html();
             moTaiKuang($('#myModal1'));
+            $('#myModal1').find('.zhixing').hide();
             //赋值
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
@@ -449,7 +472,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/ywITKGetTKInfo',
                 data:prm,
-                async:false,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     console.log(result);
                     _allXJSelect = [];

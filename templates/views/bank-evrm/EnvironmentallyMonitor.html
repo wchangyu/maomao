@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -431,6 +431,7 @@
     });
 </script>
 <script type="text/javascript">
+
     //历史数据ChartView
     var mycv;
 
@@ -453,16 +454,14 @@
     };
 
     $(document).ready(function () {
-
-        if (sessionStorage.Eprs != undefined) {
-            //如果已经存在支行数据
-            var res = sessionStorage.Eprs;
+        var eprs = JSON.parse(sessionStorage.getItem('enterPriseList'));
+        if (eprs != undefined && eprs.length > 0) {         
             $('#eprSelect').html();
             $('#eprSelect').find('option').remove();
             $('#eprSelect').empty();
-            for (var i = 0; i < res.length; i++) {
-                zh_eprIds.push(res[i].enterpriseID.toString());
-                $('#eprSelect').append($("<option value=\"" + res[i].enterpriseID + "\">" + res[i].eprName + "</option>"));
+            for (var i = 0; i < eprs.length; i++) {
+                zh_eprIds.push(eprs[i].enterpriseID.toString());
+                $('#eprSelect').append($("<option value=\"" + eprs[i].enterpriseID + "\">" + eprs[i].eprName + "</option>"));
             }
             var idxEpr = 1;//默认选择第一项(包括总行)
             $('#eprSelect option:eq(0)').attr('selected', 'selected');
@@ -498,7 +497,6 @@
         var dType = $('#datetimeInfoSelect').val();//时间类型
         var cdataIdArys = cdataIds;//监测因子数组;
         var pId = pointerId;
-
         if(serviceId==undefined || dType==undefined || cdataIdArys ==undefined || pId==undefined)
         {
            myAlter('请选择正确的参数查询数据');

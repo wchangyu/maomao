@@ -248,10 +248,10 @@
         "arg":"",
         "iconclass":""
       },
-      "设备报废":{
+      "设备二维码":{
         "type":"0",
-        "content":"设备报废",
-        "uri":"../zichanguanli/assetManagement-2.html",
+        "content":"设备二维码",
+        "uri":"../zichanguanli/assetManagement-print.html",
         "uid":"",
         "arg":"",
         "iconclass":""

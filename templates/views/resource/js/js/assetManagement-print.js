@@ -868,44 +868,37 @@ $(function(){
             async:false,
             success:function(result){
 
-
                 var str = '';
 
                 for(var i=0;i<result.length;i++){
 
-                    if(i == 0){
-                        str += '<div class="print-block"><table class="suo" cellspacing="0" cellpadding="1"> <thead> <tr><th colspan="8" style="text-align: center">设备（设施）标识牌</th></tr> </thead> <tbody> <tr> <td colspan="3">江铁实业logo</td> <td colspan="6"><div class="over-flow-two">南昌站</div></td> </tr> <tr> <td colspan="3">设备名称</td> <td colspan="6"><div class="over-flow-two">' + result[i].dName +
-                            '</div></td> </tr> <tr> <td colspan="3">使用位置</td> <td colspan="6"><div class="over-flow-two">' + result[i].installAddress +
-                            '</div></td> </tr> <tr> <td colspan="2">规格型号</td> <td colspan="2">' + result[i].spec +
-                            '</td> <td colspan="4" rowspan="5" style="text-align:center;position: relative"><div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
-                            '" alt="" ></div> </td> </tr> <tr> <td colspan="2">启用日期</td> <td colspan="2">' + result[i].installDate +
-                            '</td> </tr> <tr> <td colspan="2">管理单位</td> <td colspan="2"><div class="over-flow-three1">南昌车务段</div></td> </tr> <tr> <td colspan="2">产权单位</td> <td colspan="2"><div class="over-flow-three1">南昌铁路局</div></td> </tr> <tr> <td colspan="2">维护单位</td> <td colspan="2"><div class="over-flow-three1">江西铁路实业发展有限公司</div></td> </tr> <tr> <td colspan="3">保修电话：<span >15785847852</span></td> <td colspan="6">设备编码：<span >' + result[i].dNum +
-                            '</span></td> </tr> </tbody> </table>'
+                  var  valueStr = '<div class="print-block-cel"> <div class="table-title1">设备（设施）标识牌</div> <div class="table-img1"> <img src="../resource/img/jt-logo.png" alt=""> <span>江铁实业</span> </div> <div class="title-word1">' + result[i].ddName +
+                        '</div> <div class="content-block"> <div class="row-list"> <div class="row-two-left">设备名称</div> <div class="row-two-right">' + result[i].dName +
+                        '</div> </div> <div class="row-list"> <div class="row-two-left">使用位置</div> <div class="row-two-right">' + result[i].installAddress +
+                        '</div> </div> <div class="three-block"> <div class="three-left"> <div class="row-list"> <div class="row-three-left">规格型号</div> <div class="row-three-right">' + result[i].spec +
+                        '</div> </div> <div class="row-list"> <div class="row-three-left">启用日期</div> <div class="row-three-right">' + result[i].installDate +
+                        '</div> </div> <div class="row-list"> <div class="row-three-left">管理单位</div> <div class="row-three-right">' + result[i].daName +
+                        '</div> </div> <div class="row-list"> <div class="row-three-left">产权单位</div> <div class="row-three-right">南昌铁路局</div> </div> <div class="row-list"> <div class="row-three-left">维护单位</div> <div class="row-three-right">江西铁路实业发展有限公司</div> </div> </div> <div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
+                        '" alt="" > </div> </div> <div class="row-list" style="border-bottom: none"> <div class="row-two-left">报修电话：018-29999 </div> <div class="row-two-right">设备编码：<span>' + result[i].dNum +
+                        '</span> </div> </div> </div> </div>'
 
-                    }else if(i == 17 - 1){
-                        str += '</div><div class="print-block"><table class="suo" cellspacing="0" cellpadding="1"> <thead> <tr><th colspan="8" style="text-align: center">设备（设施）标识牌</th></tr> </thead> <tbody> <tr> <td colspan="3">江铁实业logo</td> <td colspan="6"><div class="over-flow-two">南昌站</div></td> </tr> <tr> <td colspan="3">设备名称</td> <td colspan="6"><div class="over-flow-two">' + result[i].dName +
-                            '</div></td> </tr> <tr> <td colspan="3">使用位置</td> <td colspan="6"><div class="over-flow-two">' + result[i].installAddress +
-                            '</div></td> </tr> <tr> <td colspan="2">规格型号</td> <td colspan="2">' + result[i].spec +
-                            '</td> <td colspan="4" rowspan="5" style="text-align:center;position: relative"><div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
-                            '" alt="" ></div> </td> </tr> <tr> <td colspan="2">启用日期</td> <td colspan="2">' + result[i].installDate +
-                            '</td> </tr> <tr> <td colspan="2">管理单位</td> <td colspan="2"><div class="over-flow-three1">南昌车务段</div></td> </tr> <tr> <td colspan="2">产权单位</td> <td colspan="2"><div class="over-flow-three1">南昌铁路局</div></td> </tr> <tr> <td colspan="2">维护单位</td> <td colspan="2"><div class="over-flow-three1">江西铁路实业发展有限公司</div></td> </tr> <tr> <td colspan="3">保修电话：<span >15785847852</span></td> <td colspan="6">设备编码：<span >' + result[i].dNum +
-                            '</span></td> </tr> </tbody> </table>'
-                    }else if(i % 8 == 0 ){
-                        str += '</div><div class="print-block"><table class="suo" cellspacing="0" cellpadding="1"> <thead> <tr><th colspan="8" style="text-align: center">设备（设施）标识牌</th></tr> </thead> <tbody> <tr> <td colspan="3">江铁实业logo</td> <td colspan="6"><div class="over-flow-two">南昌站</div></td> </tr> <tr> <td colspan="3">设备名称</td> <td colspan="6"><div class="over-flow-two">' + result[i].dName +
-                            '</div></td> </tr> <tr> <td colspan="3">使用位置</td> <td colspan="6"><div class="over-flow-two">' + result[i].installAddress +
-                            '</div></td> </tr> <tr> <td colspan="2">规格型号</td> <td colspan="2">' + result[i].spec +
-                            '</td> <td colspan="4" rowspan="5" style="text-align:center;position: relative"><div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
-                            '" alt="" ></div> </td> </tr> <tr> <td colspan="2">启用日期</td> <td colspan="2">' + result[i].installDate +
-                            '</td> </tr> <tr> <td colspan="2">管理单位</td> <td colspan="2"><div class="over-flow-three1">南昌车务段</div></td> </tr> <tr> <td colspan="2">产权单位</td> <td colspan="2"><div class="over-flow-three1">南昌铁路局</div></td> </tr> <tr> <td colspan="2">维护单位</td> <td colspan="2"><div class="over-flow-three1">江西铁路实业发展有限公司</div></td> </tr> <tr> <td colspan="3">保修电话：<span >15785847852</span></td> <td colspan="6">设备编码：<span >' + result[i].dNum +
-                            '</span></td> </tr> </tbody> </table>'
+                    //开始的标签
+                    if(i == 0){
+
+                        str += '<div class="print-block">' +  valueStr
+
+                    }else if(i == result.length - 1){
+
+                        str += '</div><div class="print-block">' + valueStr
+
+                    }else if(i % 6 == 0 ){
+
+                        str += '</div><div class="print-block">' + valueStr
+
                     }else{
-                        str += '<table class="suo" cellspacing="0" cellpadding="1"> <thead> <tr><th colspan="8" style="text-align: center">设备（设施）标识牌</th></tr> </thead> <tbody> <tr> <td colspan="3">江铁实业logo</td> <td colspan="6"><div class="over-flow-two">南昌站</div></td> </tr> <tr> <td colspan="3">设备名称</td> <td colspan="6"><div class="over-flow-two">' + result[i].dName +
-                            '</div></td> </tr> <tr> <td colspan="3">使用位置</td> <td colspan="6"><div class="over-flow-two">' + result[i].installAddress +
-                            '</div></td> </tr> <tr> <td colspan="2">规格型号</td> <td colspan="2">' + result[i].spec +
-                            '</td> <td colspan="4" rowspan="5" style="text-align:center;position: relative"><div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
-                            '" alt="" ></div> </td> </tr> <tr> <td colspan="2">启用日期</td> <td colspan="2">' + result[i].installDate +
-                            '</td> </tr> <tr> <td colspan="2">管理单位</td> <td colspan="2"><div class="over-flow-three1">南昌车务段</div></td> </tr> <tr> <td colspan="2">产权单位</td> <td colspan="2"><div class="over-flow-three1">南昌铁路局</div></td> </tr> <tr> <td colspan="2">维护单位</td> <td colspan="2"><div class="over-flow-three1">江西铁路实业发展有限公司</div></td> </tr> <tr> <td colspan="3">保修电话：<span >15785847852</span></td> <td colspan="6">设备编码：<span >' + result[i].dNum +
-                            '</span></td> </tr> </tbody> </table>'
+
+                        str += valueStr
+
                     }
 
                 }
@@ -940,8 +933,8 @@ $(function(){
     //IP替换
     function replaceIP(str,str1){
         var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        //var res = ip.exec(str1);  /*211.100.28.180*/
-        var res = 'http://211.100.28.180/';
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        //var res = 'http://211.100.28.180/';
         str = str.replace(ip,res);
         return str;
     }
