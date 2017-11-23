@@ -535,8 +535,9 @@ function getPointerData(url,flag){
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
             }
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
         }
     })
 }

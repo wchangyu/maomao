@@ -164,6 +164,7 @@ var BEE = (function(){
 
         //获取是否追加企业名称
         var isShowTitleEprName = sessionStorage.isShowTitleEprName;
+
         if(isShowTitleEprName == 1){
 
             //在标题追加企业名称

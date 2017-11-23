@@ -141,6 +141,7 @@ var ObjectSelection = function(){
             return;
         }
         var selectType = this.getSelectType;
+
         var selectedPointers = getPostPointerID(treeObj,selectType);
         //for(var i = 0; i < nodes.length; i++){
         //    curPointer = {};
@@ -316,7 +317,7 @@ var ObjectSelection = function(){
                 fontCss : {'line-height':'30px'}
             },
             callback: {
-                onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)}
+                onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,false)}
             }
         };
         if(multiSelectionMode){
@@ -327,7 +328,7 @@ var ObjectSelection = function(){
             var nodes = zTreeOffice.getNodes();
 
             zTreeOffice.checkNode(nodes[0],true,false,false);
-            zTreeOffice.expandNode(nodes[0],true,false,true);
+            zTreeOffice.expandNode(nodes[0],true,false,false);
         }
     }
 }
@@ -695,6 +696,8 @@ function getPostPointerID(treeObj,selectType){
 
     //获取到选中的节点
     var nodes = treeObj.getCheckedNodes(true);
+
+    console.log(nodes);
     //console.log(nodes);
     var postPointerID = [];
 

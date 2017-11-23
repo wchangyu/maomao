@@ -4,7 +4,7 @@ $(function(){
     _timeYMDComponentsFun($('.datatimeblock'));
 
     //记录页面
-     _energyTypeSel = new ETSelection();
+    _energyTypeSel = new ETSelection();
 
     //读取能耗种类
     _getEcType('initPointers');
@@ -20,10 +20,10 @@ $(function(){
     _ajaxEcTypeWord = _getEcTypeWord();
 
     //楼宇ztree树
-     _pointerZtree = _getPointerZtree($("#allPointer"),1);
+    _pointerZtree = _getPointerZtree($("#allPointer"),1);
 
     //科室ztree树
-     _officeZtree = _getOfficeZtree($("#allOffices"),1);
+    _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
     //楼宇搜索功能
     _searchPO($(".tipess"),"allPointer",$(".tipes"),"allOffices");

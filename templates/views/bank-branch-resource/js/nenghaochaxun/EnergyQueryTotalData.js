@@ -331,13 +331,13 @@ function getMainData(){
             //console.log(title2);
             tArr.push(title1);
 
+            console.log(dateSign);
+
             if(dateSign == '小时'){
-
+                console.log(33);
                 $(dataArr).each(function(i,o){
-                    var dataSplit = o.dataDate.split('T')[1].split(':');
-                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-
-                    xArr.push(dataJoin);
+                    xArr.push(o.dataDate.split('T')[1]);
+                    sArr.push(o.data.toFixed(2));
                 });
 
             }else{
@@ -357,6 +357,7 @@ function getMainData(){
             option.xAxis[0].data = xArr;
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
+            console.log()
 
             //console.log(option.legend.data[0]);
 

@@ -23,10 +23,10 @@ $(function(){
     _ajaxEcTypeWord = _getEcTypeWord();
 
     //楼宇ztree树
-    _pointerZtree = _getPointerZtree($("#allPointer"),2);
+    _pointerZtree = _getPointerZtree($("#allPointer"),1);
 
     //科室ztree树
-    _officeZtree = _getOfficeZtree($("#allOffices"),2);
+    _officeZtree = _getOfficeZtree($("#allOffices"),1);
 
     //楼宇搜索功能
     _searchPO($(".tipess"),"allPointer",$(".tipes"),"allOffices");
@@ -36,15 +36,15 @@ $(function(){
     var nodes = zTree.getNodes();
 
     zTree.checkNode(nodes[0], false, false);  //父节点不被选中
-    zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
+    //zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
 
     zTree.checkNode(nodes[0].children[0].children[0], true, true);
-    zTree.checkNode(nodes[0].children[0].children[1], true, true);
 
     //获取支路
-    GetAllBranches(2);
+    //传1为单选框 传2为复选框
+    GetAllBranches();
     //branchesType = 2 支路复选框
-    branchesType = 2;
+
     ////默认加载数据
     GetShowEnergyNormItem(100,true);
 
@@ -64,15 +64,15 @@ $(function(){
 
         if(o != 'none'){
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerHorCompareData',1);
+            getPointerData('EnergyQueryV2/GetPointerCompareData',1);
 
         }else if(a == 'block'){
             //分户数据
-            getPointerData('EnergyQueryV2/GetOfficeHorCompareData',2);
+            getPointerData('EnergyQueryV2/GetOfficeCompareData',2);
 
         }else if(s == 'block'){
             //支路数据
-            getPointerData('EnergyQueryV2/GetBranchHorCompareData',3);
+            getPointerData('EnergyQueryV2/GetBranchCompareData',3);
 
         }
     });
@@ -155,6 +155,9 @@ $(function(){
         if(myChartTopLeft){
             myChartTopLeft.resize();
         }
+        if(myChartTopLeft1){
+            myChartTopLeft1.resize();
+        }
     };
 
     var zoomSize = 6;
@@ -184,8 +187,11 @@ var allData = [];
 var allDataX = [];
 var allDataY = [];
 
-//折线图
+//同比柱状图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
+
+//环比柱状图
+var myChartTopLeft1 = echarts.init(document.getElementById('rheader-content-17'));
 
 //柱状图配置项
 var optionBar = {
@@ -193,8 +199,13 @@ var optionBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
-        top:'30',
+        data:['本期数据','比较数据'],
+        top:'20',
+    },
+    grid: {
+        left: '10%',
+        right: '8%',
+        bottom:'5%'
     },
     toolbox: {
         show : true,
@@ -225,7 +236,39 @@ var optionBar = {
     ],
     series : [
         {
-            name:'累计值',
+            name:'本期数据',
+            type:'bar',
+            data:[],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ],
+                itemStyle : {
+                    normal:{
+                        color:'#019cdf'
+                    }
+                },
+                label:{
+                    normal:{
+                        textStyle:{
+                            color:'#d02268'
+                        }
+                    }
+                }
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+
+
+                ]
+
+            },
+            barMaxWidth: '60'
+        },
+        {
+            name:'比较数据',
             type:'bar',
             data:[],
             markPoint : {
@@ -434,27 +477,21 @@ function getPointerData(url,flag){
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers();
 
-        //比较对象不能超过三个
-        if(pts.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
-
         $(pts).each(function(i,o){
 
             postPointerID.push(o.pointerID);
 
-            //页面上方展示信息
-            areaName += o.pointerName + " -- ";
+
         });
+        //页面上方展示信息
+        areaName = $('#allPointer .radio_true_full').next().html();
+
 
         //分户数据
     }else if(flag == 2){
         //确定分户id
         var ofs = _officeZtree.getSelectedOffices();
 
-        console.log(ofs);
         //比较对象不能超过三个
         if(ofs.length > 3){
             _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
@@ -467,7 +504,7 @@ function getPointerData(url,flag){
             officeID.push(o.f_OfficeID);
 
             //页面上方展示信息
-            areaName += o.f_OfficeName+ " -- ";
+            areaName += o.f_OfficeName;
         });
 
     }else if(flag == 3){
@@ -485,7 +522,7 @@ function getPointerData(url,flag){
             serviceID.push(o.id);
 
             //页面上方展示信息
-            areaName += o.name+ " -- ";
+            areaName += o.name;
         });
 
         //本地构建energyNormItemObj对象
@@ -533,9 +570,11 @@ function getPointerData(url,flag){
         timeout:_theTimes,
         beforeSend:function(){
             myChartTopLeft.showLoading();
+            myChartTopLeft1.showLoading();
         },
         success:function(result){
             myChartTopLeft.hideLoading();
+            myChartTopLeft1.hideLoading();
 
             //console.log(result);
 
@@ -555,14 +594,14 @@ function getPointerData(url,flag){
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
 
-            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            $('.right-header-title').html('同比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+
+            $('.right-header-title1').html('环比分析 &nbsp;' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
             //首先处理本期的数据
             allData.length = 0;
 
-            $(result).each(function(i,o){
-                allData.push(o.ecMetaDatas);
-            });
+            allData = result.currentCompardData.ecMetaDatas;
 
             //首先处理实时数据
             allDataX.length = 0;
@@ -571,8 +610,8 @@ function getPointerData(url,flag){
             //绘制echarts
             if(showDateType == 'Hour' ){
                 //确定x轴
-                for(var i=0;i<allData[0].length;i++){
-                    var dataSplit = allData[0][i].dataDate.split('T')[1].split(':');
+                for(var i=0;i<allData.length;i++){
+                    var dataSplit = allData[i].dataDate.split('T')[1].split(':');
                     var dataJoin = dataSplit[0] + ':' + dataSplit[1];
                     if(allDataX.indexOf(dataJoin)<0){
                         allDataX.push(dataJoin);
@@ -580,118 +619,90 @@ function getPointerData(url,flag){
                 }
             }else{
                 //确定x轴
-                for(var i=0;i<allData[0].length;i++){
-                    var dataSplit = allData[0][i].dataDate.split('T')[0];
+                for(var i=0;i<allData.length;i++){
 
-                    if(allDataX.indexOf(dataJoin)<0){
+                    var dataSplit = allData[i].dataDate.split('T')[0];
+
                         allDataX.push(dataSplit);
-                    }
+
                 }
             };
-
-            optionLine.series = [];
-
-            optionLine.legend.data = [];
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
 
-                //创建echart series中的对象
-                var obj = {};
+                allDataY.push(allData[i].data.toFixed(2));
 
-                deepCopy(echartObj,obj);
+            };
+            //同比数据
+            var yearAllDataY = [];
+            $(result.lastYearCompardData.ecMetaDatas).each(function(i,o){
 
-                //对象值初始化
-                obj.data.length = 0;
+                yearAllDataY.push(o.data.toFixed(2));
 
-                var data = [];
+            });
 
-                for(var j=0; j < allData[i].length; j++){
+            //echart柱状图
+            optionBar.xAxis[0].data = allDataX;
+            optionBar.series[0].data = allDataY;
+            optionBar.series[1].data = yearAllDataY;
 
-                   data.push(allData[i][j].data.toFixed(2));
-                }
+            myChartTopLeft.setOption(optionBar,true);
 
-                //给对象赋值
-                obj.data = data;
-                obj.name = result[i].returnOBJName;
+            //右侧数据统计
+            //本期累计
+            $('.rheader-content-rights').eq(0).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(1));
 
-                optionLine.series.push(obj);
-                //改变上方图例
-                optionLine.legend.data.push(result[i].returnOBJName);
+            //上年同期累计
+            $('.rheader-content-rights').eq(0).find('.count2 span').html(result.lastYearCompardData.sumMetaData.toFixed(1));
 
+            //上方百分比
+            $('.rheader-content-rights').eq(0).find('.top-percent').html((result.lastYearEnergyPercent*100).toFixed(1) + "%");
+            //箭头朝向
+            $('.rheader-content-rights').removeClass('rheader-content-rights-down');
+
+            if(result.lastYearEnergyPercent < 0){
+
+                $('.rheader-content-rights').eq(0).addClass('rheader-content-rights-down');
+            }
+
+
+            //环比数据
+            var chainAllDataY = [];
+            $(result.chainCompardData.ecMetaDatas).each(function(i,o){
+
+                chainAllDataY.push(o.data.toFixed(2));
+
+            });
+
+            //右侧数据统计
+            //本期累计
+            $('.rheader-content-rights').eq(1).find('.count1 span').html(result.currentCompardData.sumMetaData.toFixed(1));
+
+            //上年同期累计
+            $('.rheader-content-rights').eq(1).find('.count2 span').html(result.chainCompardData.sumMetaData.toFixed(1));
+
+            //上方百分比
+            $('.rheader-content-rights').eq(1).find('.top-percent').html((Math.abs(result.chainEnergyPercent*100)).toFixed(1) + "%");
+
+            //箭头朝向
+            if(result.chainEnergyPercent < 0){
+
+                $('.rheader-content-rights').eq(1).addClass('rheader-content-rights-down');
             }
 
             //echart柱状图
-            optionLine.xAxis[0].data = allDataX;
+            optionBar.xAxis[0].data = allDataX;
+            optionBar.series[0].data = allDataY;
+            optionBar.series[1].data = chainAllDataY;
 
-            myChartTopLeft.setOption(optionLine,true);
+            myChartTopLeft1.setOption(optionBar,true);
 
-            //下方表格
-            var tableHtml = '';
-            //获取第一项的累计值
-            var total = result[0].sumMetaData;
-            //获取第一项的峰值
-            var max = result[0].sumMetaData;
-            //获取第一项的谷值
-            var min = result[0].sumMetaData;
-            //获取第一项的平均值
-            var avg = result[0].sumMetaData;
-
-            $(result).each(function(i,o){
-
-                var index = i+1;
-                tableHtml += '<tr>' +
-                    '<td>'+ index+'</td>'+
-                    '<td>'+ o.returnOBJName+'</td>'+
-                    '<td>'+ o.sumMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.maxMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.minMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.avgMetaData.toFixed(2)+'</td>'+
-
-                    '</tr>';
-
-                if(i != 0){
-                    //计算累计值百分比
-                    var totalPercent = (((o.sumMetaData - total) / total * 100).toFixed(1)) + '%';
-
-                    if( total == 0){
-                        totalPercent = 0 + '%';
-                    }
-                    //计算峰值百分比
-                    var maxPercent = ((o.maxMetaData - max) / total * 100).toFixed(1) + '%';
-
-                    if( max == 0){
-                        maxPercent = 0 + '%';
-                    }
-                    //计算谷值百分比
-                    var minPercent = ((o.minMetaData - min) / total * 100).toFixed(1) + '%';
-
-                    if( min == 0){
-                        minPercent = 0 + '%';
-                    }
-                    //计算平均值百分比
-                    var avgPercent = ((o.avgMetaData - avg) / total * 100).toFixed(1) + '%';
-
-                    if( avg == 0){
-                        avgPercent = 0 + '%';
-                    }
-
-                    tableHtml += '<tr>' +
-                        '<td colspan="2">'+ index+'对比1</td>'+
-                        '<td>'+ totalPercent+'</td>'+
-                        '<td>'+ maxPercent+'</td>'+
-                        '<td>'+ minPercent+'</td>'+
-                        '<td>'+ avgPercent+'</td>'+
-                        '</tr>';
-
-                }
-            });
-
-            $('#dateTables tbody').html(tableHtml);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();
+            myChartTopLeft1.hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
@@ -765,7 +776,7 @@ function GetShowEnergyNormItem(energyType,flag){
             //改变单位
 
             if(flag){
-                getPointerData('EnergyQueryV2/GetPointerHorCompareData',1);
+                getPointerData('EnergyQueryV2/GetPointerCompareData',1);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -773,6 +784,6 @@ function GetShowEnergyNormItem(energyType,flag){
         }
     })
 
-}
+};
 
 

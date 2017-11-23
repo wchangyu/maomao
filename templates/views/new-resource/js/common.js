@@ -253,8 +253,7 @@ key.bind("focus",focusKey)
 //构建支路树状图
 //zTree树
 var branchTreeObj;
-function getBranchZtree(EnItdata,flag){
-
+function getBranchZtree(EnItdata,flag,fun){
 
     var setting = {
         check: {
@@ -275,16 +274,58 @@ function getBranchZtree(EnItdata,flag){
         },
         callback: {
             onClick:function (event,treeId,treeNode){
-                branchTreeObj.checkNode(treeNode,!treeNode.checked,true)
+                branchTreeObj.checkNode(treeNode,!treeNode.checked,false)
             }
         }
     };
     //判断是单选框还是复选框
-    if(flag == 2){
+    if(branchesType == 2){
         setting.check.chkStyle = 'checkbox';
     }
+    var zNodes;
+
+    if(!fun){
+         zNodes = getZNodes(EnItdata);
+    }else{
+        zNodes = fun();
+    }
+
+    //console.log(zNodes);
+
+    branchTreeObj = $.fn.zTree.init($("#allBranch"), setting, zNodes);
+};
+
+//获取不带楼宇的区域位置zTree树的数据
+function getPointerTree(){
+
+    var strPointers = sessionStorage.pointers;
+    var tempAllPointers = [];
+
+    if(strPointers){
+        tempAllPointers = JSON.parse(strPointers);
+    };
+
+    var treeArr = getCompactArr(tempAllPointers,true);
+
+    $(treeArr).each(function(i,o){
+        if(o.nodeType == 2){
+            treeArr.remove(o);
+        };
+        if(i === 0){
+            o.checked=true;
+        }
+        o.title = o.name;
+    });
+
+    return treeArr;
+};
+
+//获取分项zTree树的数据
+function getZNodes(EnItdata){
+
     var zNodes = new Array();
     var aaa = [];
+
     $(EnItdata).each(function(i,o){
         //获取楼宇ID
         var pointerID = o.pointerID;
@@ -304,11 +345,13 @@ function getBranchZtree(EnItdata,flag){
 
         })
     });
-    branchTreeObj = $.fn.zTree.init($("#allBranch"), setting, zNodes);
+    return zNodes;
+
 }
 //搜索
 var lastValue='',nodeList=[],fontCss={};
-function searchNode(e) {
+
+function searchNode(e,node) {
     var zTree = $.fn.zTree.getZTreeObj("allBranch");
     //去掉input中的空格（首尾）
     var value = $.trim($("#keyss").val().trim());
@@ -456,7 +499,7 @@ function getPostTime(){
     }
 
     return [startTime,endTime]
-}
+};
 
 //深拷贝的方法
 function deepCopy(src,obj){
@@ -472,7 +515,7 @@ function deepCopy(src,obj){
             }
         }
     }
-}
+};
 
 
 

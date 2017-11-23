@@ -354,3 +354,20 @@
 .decline{
     background: url(../../resource/img/up.png) 0% 0% / 23px no-repeat !important;
 }
+
+/*table样式*/
+#dateTables thead  tr th, #dateTables  tbody  tr td{
+    text-align: center !important;
+    font-size:15px;
+}
+
+/*button按钮*/
+.btn-success {
+    color: #fff;
+    background-color: #45B6AF !important;
+    border-color: #3ea49d;
+}
+
+.btn-success:hover {
+    background: #3b9c96 !important;
+}

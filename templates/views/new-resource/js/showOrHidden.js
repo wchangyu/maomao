@@ -19,6 +19,8 @@ $(function(){
                 'background-position':'center'
             })
         }
+
+
     });
 
     //更改时间维度日、周、月、年
@@ -103,16 +105,6 @@ $(function(){
                 $('#unit').html(html);
             }
 
-
-            //如果当前页面存在支路
-            if($('#allBranch').length > 0){
-                //获取当前楼宇下的支路
-                if(branchesType == 2){
-                    GetAllBranches(2);
-                }else{
-                    GetAllBranches();
-                }
-            }
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
         }else{
