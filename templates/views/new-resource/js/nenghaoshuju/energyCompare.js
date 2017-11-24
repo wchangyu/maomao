@@ -657,7 +657,7 @@ function getPointerData(url,flag){
             $('.rheader-content-rights').eq(0).find('.count2 span').html(result.lastYearCompardData.sumMetaData.toFixed(1));
 
             //上方百分比
-            $('.rheader-content-rights').eq(0).find('.top-percent').html((result.lastYearEnergyPercent*100).toFixed(1) + "%");
+            $('.rheader-content-rights').eq(0).find('.top-percent').html((Math.abs(result.lastYearEnergyPercent*100)).toFixed(1) + "%");
             //箭头朝向
             $('.rheader-content-rights').removeClass('rheader-content-rights-down');
 

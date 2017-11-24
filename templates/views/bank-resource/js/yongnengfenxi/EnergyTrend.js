@@ -13,7 +13,6 @@ $(document).ready(function() {
     // 基于准备好的dom，初始化echarts实例
     //console.log('ok');
 
-
     //点击查询按钮时，获取后台数据
     $('.condition-query .top-refer').on('click',function(){
         //获取查询条件

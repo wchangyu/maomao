@@ -20,6 +20,9 @@ $(function(){
             })
         }
 
+        if(typeof window.onresize == 'function'){
+            window.onresize();
+        }
 
     });
 

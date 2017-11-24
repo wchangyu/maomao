@@ -30,8 +30,8 @@ if(loginArr.length > 0){
 }
 
 //测试单位名称与ID
-EnterpriseID =  11001815;
-EnterpriseName = '眉山支行';
+//EnterpriseID =  11001815;
+//EnterpriseName = '眉山支行';
 
 //弹窗关闭时清空已输入过的信息
 

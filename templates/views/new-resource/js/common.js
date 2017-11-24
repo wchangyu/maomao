@@ -517,7 +517,12 @@ function deepCopy(src,obj){
     }
 };
 
+//关闭提示弹窗后给input获得焦点
+function getFocus1(dom){
 
-
+    $('#myModal2').one('click','.btn-default',function(){
+        dom.focus();
+    });
+}
 
 

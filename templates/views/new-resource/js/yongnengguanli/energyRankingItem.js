@@ -1,3 +1,6 @@
+/**
+ * Created by admin on 2017/11/23.
+ */
 $(function(){
 
     //时间插件
@@ -23,17 +26,9 @@ $(function(){
     _ajaxEcTypeWord = _getEcTypeWord();
 
 
-    //加载默认能耗类型单位
-    var html = '';
-    $(unitArr3).each(function(i,o){
-        html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
-    });
 
-    $('#unit').html(html);
-
-    //默认加载数据
-
-    GetShowEnergyNormItem(100,true)
+    ////默认加载数据
+    GetShowEnergyNormItem(100,true);
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -45,11 +40,11 @@ $(function(){
 
         if(o == 0){
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerEnergyNormData',1);
+            getPointerData('EnergyManageV2/GetPointerRankData',1);
 
         }else if(o == 1){
             //分户数据
-            getPointerData('EnergyQueryV2/GetOfficeEnergyNormData',2);
+            getPointerData('EnergyManageV2/GetOfficeRankData',2);
 
         }
     });
@@ -107,12 +102,6 @@ $(function(){
 
     });
 
-    //改变右上角单位时
-    $('#unit').on('change',function() {
-
-        $('.buttons').children('.btn-success').click();
-    });
-
     //改变能耗类型 改变对应的指标
     $('.energy-types').on('click','div',function(){
 
@@ -121,8 +110,6 @@ $(function(){
 
         GetShowEnergyNormItem(energyType);
 
-        //改变右上角单位名称
-        changeUnit();
     });
 
     //改变指标类型 右上角单位跟着改变
@@ -132,8 +119,39 @@ $(function(){
 
         $(this).addClass('curChoose');
 
+        var unit = $(this).attr('data-unit')
+
         //改变右上角单位名称
-        changeUnit();
+        $('.unit').val(unit);
+    });
+
+    //改变展示数据的数量
+    $('.header-right-btn span').on('click',function(){
+
+        var index = $(this).index();
+
+        $('.header-right-btn span').removeClass('cur-on-choose');
+
+        $('.header-right-btn span').eq(index).addClass('cur-on-choose');
+
+        //要展示的数据
+        var postData = [];
+        //前20项
+        if(index == 0){
+
+            postData =  allData1;
+        //后20项
+        }else if(index == 1){
+
+            postData =  allData2;
+         //全部
+        }else if(index == 2){
+
+            postData =  allData;
+        }
+
+        showDataByNum(postData);
+
     });
 
     //chart图自适应
@@ -167,6 +185,11 @@ var _ajaxEcTypeWord = '';
 /*---------------------------------echart-----------------------------------*/
 //定义存放返回数据的数组（本期 X Y）
 var allData = [];
+//前20项数据
+var allData1 = [];
+//后20项数据
+var allData2 = [];
+
 var allDataX = [];
 var allDataY = [];
 
@@ -179,8 +202,11 @@ var optionBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值'],
+        data:['累计能耗'],
         top:'30'
+    },
+    grid: {
+        bottom: '5%'
     },
     toolbox: {
         show : true,
@@ -201,7 +227,10 @@ var optionBar = {
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} '
+            }
         }
     ],
     dataZoom: [
@@ -211,7 +240,7 @@ var optionBar = {
     ],
     series : [
         {
-            name:'累计值',
+            name:'累计能耗',
             type:'bar',
             data:[],
             markPoint : {
@@ -246,139 +275,9 @@ var optionBar = {
     ]
 };
 
-//柱折图配置项
-var optionLineBar = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['累计值', '比较斜率'],
-        top:'30'
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['本期','上期']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    grid: {
-        left: '20%',
-        right: '10%'
-    },
-    series : [
-        {
-            name:'累计值',
-            type:'bar',
-            barMaxWidth: '50',
-            data:[],
-            itemStyle:{
-                normal:{
-                    color: function(params) {
-                        // build a color map as your need.
-                        var colorList = [
-                            '#d53a35','#2f4554','#FCCE10','#E87C25','#27727B',
-                            '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
-                            '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
-                        ];
-                        return colorList[params.dataIndex]
-                    },
-                }
-            }
-        },
-        {
-            name:'比较斜率',
-            type:'line',
-            data:[],
-        }
-    ]
-};
-
-//折线图配置项
-var optionLine = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['累计值'],
-        top:'30'
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['本期','上期']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    grid: {
-        left: '10%',
-        right: '8%'
-    },
-    series : [
-        {
-            name:'累计值',
-            type:'line',
-            smooth:true,
-            markPoint : {
-                data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
-                ],
-                itemStyle : {
-                    normal:{
-                        color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
-                    }
-                }
-            },
-            markLine : {
-                data : [
-                    {type : 'average', name: '平均值'}
-
-
-                ]
-
-            },
-            data:[]
-        }
-    ]
-};
-
 /*---------------------------------otherFunction------------------------------*/
+
+
 
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
@@ -401,20 +300,19 @@ function getPointerData(url,flag){
     //获取指标ID
     var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
 
-    //在指标类型中寻找对应项
-    $(energyNormItemArr).each(function(i,o){
+    if(normItemID){
+        //在指标类型中寻找对应项
+        $(energyNormItemArr).each(function(i,o){
 
-        if(o.energyItemID == normItemID){
+            if(o.normIndex == normItemID){
 
-            energyNormItemObj = o
-        }
-    });
-
-    //单位类型
-    var unitType = $('#unit').val();
+                energyNormItemObj = o
+            }
+        });
+    }
 
     //获取名称
-    var areaName = $('.left-middle-main .curChoose').html();
+    var areaName = $('.left-middle-main .curChoose').eq(0).html();
 
     //楼宇数据
     if(flag == 1){
@@ -426,7 +324,7 @@ function getPointerData(url,flag){
             postPointerID.push(o.pointerID);
         });
 
-    //分户数据
+        //分户数据
     }else if(flag == 2){
         //获取session中存放的楼宇ID
         var officeArr = JSON.parse(sessionStorage.getItem('offices'));
@@ -458,16 +356,12 @@ function getPointerData(url,flag){
     //定义获得数据的参数
     var ecParams = {
         "energyNorm":energyNormItemObj ,
-        "energyItemID": _ajaxEcType,
         "pointerIDs": postPointerID,
         "officeIDs": officeID,
-        "serviceIDs": serviceID,
-        "unityType": unitType,
-        "showDateType": showDateType,
         "selectDateType": selectDateType,
         "startTime": startTime,
         "endTime": endTime
-    }
+    };
 
     //发送请求
     $.ajax({
@@ -481,53 +375,50 @@ function getPointerData(url,flag){
         success:function(result){
             myChartTopLeft.hideLoading();
 
-            //console.log(result);
+            console.log(result);
+
 
             //判断是否返回数据
-            if(result == null){
+            if(result == null || result.length == 0){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
             //改变头部显示信息
-            var energyName = $('.left-middle-main1 .curChoose').html();
+            var energyName = '';
+
+            if($('.left-middle-main1 .curChoose').length > 0){
+                energyName = $('.left-middle-main1 .curChoose').html();
+            }
+
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
 
-            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            $('.right-header-title').eq(0).html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
             //首先处理本期的数据
             allData.length = 0;
+            allData1.length = 0;
+            allData2.length = 0;
+            //默认展示前20项的数据
+            $('.header-right-btn span').removeClass('cur-on-choose');
+
+            $('.header-right-btn span').eq(0).addClass('cur-on-choose');
 
             $(result).each(function(i,o){
                 allData.push(o);
+                //前20项
+                if(i < 20){
+                    allData1.push(o)
+                }
+                //后20项
+                var length = result.length;
+                if(i > length - 21){
+                    allData2.push(o)
+                }
             });
 
-            //首先处理实时数据
-            allDataX.length = 0;
-            allDataY.length = 0;
-
-            //绘制echarts
-
-                //确定x轴
-            for(var i=0;i<allData.length;i++){
-
-                allDataX.push(allData[i].returnOBJName);
-
-            }
-
-            //确定本期y轴
-            for(var i=0;i<allData.length;i++){
-                allDataY.push(allData[i].buildingArea.toFixed(2));
-            }
-
-            //echart柱状图
-             optionBar.xAxis[0].data = allDataX;
-             optionBar.series[0].data = allDataY;
-
-            myChartTopLeft.setOption( optionBar);
-
-
+            showDataByNum(allData1);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -538,6 +429,7 @@ function getPointerData(url,flag){
             }else{
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
             }
+
         }
     })
 }
@@ -553,13 +445,18 @@ function GetShowEnergyNormItem(energyType,flag){
     var ecParams = {
         OBJFlag : index
     };
+
     $.ajax({
         type: 'get',
-        url: sessionStorage.apiUrlPrefix + 'EnergyQueryV2/GetShowEnergyNormItem',
+        url: sessionStorage.apiUrlPrefix + 'EnergyManageV2/GetShowEnergyRankingItem',
         data: ecParams,
         success: function (result) {
-           //console.log(result);
+
+            console.log(result);
+
             var html = '';
+
+            var unitHtml = '';
             //指标类型清空
             energyNormItemArr.length = 0;
 
@@ -576,13 +473,14 @@ function GetShowEnergyNormItem(energyType,flag){
 
             $(dataArr).each(function(i,o){
 
-                    //如果是第一个默认选中
-                    if(i == 0){
-                        html += '<p data-num ="'+ o.energyItemID+'" class="curChoose">'+ o.energyItemName+'</p>'
-                    }else{
-                        html += '<p data-num ="'+ o.energyItemID+'">'+ o.energyItemName+'</p>'
-                    }
-
+                //如果是第一个默认选中
+                if(i == 0){
+                    html += '<p data-num ="'+ o.normIndex+'" class="curChoose" data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>';
+                    //右上角单位
+                    $('.unit').val(o.energyUnit);
+                }else{
+                    html += '<p data-num ="'+ o.normIndex+' " data-unit="'+ o.energyUnit+'">'+ o.energyItemName+'</p>'
+                }
 
 
             });
@@ -590,8 +488,10 @@ function GetShowEnergyNormItem(energyType,flag){
             //将指标类型嵌入页面
             $('.left-middle-main1').html(html);
 
+            //改变单位
+
             if(flag){
-                getPointerData('EnergyQueryV2/GetPointerEnergyNormData',1);
+                getPointerData('EnergyManageV2/GetPointerRankData',1);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -599,33 +499,73 @@ function GetShowEnergyNormItem(energyType,flag){
         }
     })
 
-}
+};
 
-//改变单位
-function changeUnit(){
+//根据用户选择展示项数进行展示
+function showDataByNum(data){
 
-    var dataArr = unitArr3;
-    var attr = 'unitName';
-    //获取当前能耗类型
-    var energyType = $('.selectedEnergy').attr('value');
+    //首先处理实时数据
+    var allDataX = [];
+    var allDataY = [];
 
-    if(energyType == 200){
-        dataArr = unitArr4;
-    }
-    //获取当前指标类型
-    var normType = $('.left-middle-main1 .curChoose').html();
+    $(data).each(function(i,o){
+        //X轴数据
+        allDataX.push(o.returnOBJName);
 
-    if(normType.indexOf('床位') > 0){
-        attr = 'unitName1';
-    }
+        //Y轴数据
+        allDataY.push(o.currentEnergyData);
+    });
+    //单位
+    var unit = $('.unit').val();
+    optionBar.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
-    var html = '';
-    $(dataArr).each(function(i,o){
+    //echart柱状图
+    optionBar.xAxis[0].data = allDataX;
 
-            html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
+    optionBar.series[0].data = allDataY;
+
+    myChartTopLeft.setOption(optionBar,true);
+
+    //表格中的数据
+
+    //头部数据
+    var html1 = '<th></th>';
+    $(allDataX).each(function(i,o){
+
+        html1 += '<th><span title="'+o+'">'+ o.substring(0,4)+'</span></th>'
+    });
+
+    $('.table thead tr').html(html1);
+
+    //同比数据
+    var html2 = '<td>同比</td>';
+    //环比数据
+    var html3 = '<td>环比</td>';
+
+    $(data).each(function(i,o){
+        //同比数据
+        if(o.currentLastYearRanking < 0){
+            html2 += '<td class="down">'+ Math.abs(o.currentLastYearRanking)+'位</td>'
+        }else if(o.currentLastYearRanking == 0){
+            html2 += '<td class="equal">'+ o.currentLastYearRanking+'位</td>'
+        }else{
+            html2 += '<td class="up">'+ o.currentLastYearRanking+'位</td>'
+        }
+
+        //环比数据
+        if(o.currentLastMonthRanking < 0){
+            html3 += '<td class="down">'+ Math.abs(o.currentLastMonthRanking)+'位</td>'
+        }else if(o.currentLastMonthRanking == 0){
+            html3 += '<td class="equal">'+ o.currentLastMonthRanking+'位</td>'
+        }else{
+            html3 += '<td class="up">'+ o.currentLastMonthRanking+'位</td>'
+        }
 
     });
 
-    $('#unit').html(html);
+    $('.table tbody tr').eq(0).html(html2);
+    $('.table tbody tr').eq(1).html(html3);
+
 }
+
 

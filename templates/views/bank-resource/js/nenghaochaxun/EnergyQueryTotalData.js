@@ -322,11 +322,23 @@ function getMainData(){
 
             //console.log(title2);
             tArr.push(title2);
-            $(dataArr).each(function(i,o){
 
-                xArr.push(o.dataDate.split('T')[0]);
-                sArr.push(o.data.toFixed(2));
-            });
+            if(dateSign == '小时'){
+
+                $(dataArr).each(function(i,o){
+                    xArr.push(o.dataDate.split('T')[1]);
+                    sArr.push(o.data.toFixed(2));
+                });
+
+            }else{
+
+                $(dataArr).each(function(i,o){
+
+                    xArr.push(o.dataDate.split('T')[0]);
+                    sArr.push(o.data.toFixed(2));
+                });
+            }
+
 
             option.series[0].data = sArr;
 

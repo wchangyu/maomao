@@ -696,8 +696,6 @@ function getPostPointerID(treeObj,selectType){
 
     //获取到选中的节点
     var nodes = treeObj.getCheckedNodes(true);
-
-    console.log(nodes);
     //console.log(nodes);
     var postPointerID = [];
 

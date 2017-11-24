@@ -769,6 +769,34 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "趋势预测":{
+        "type":"0",
+        "content":"趋势预测",
+        "uri":"../new-nenghaofenxi/energyTendConfig.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能管理":{
+        "type":"2",
+        "content":"用能管理"
+      },
+      "能耗排名":{
+        "type":"0",
+        "content":"能耗排名",
+        "uri":"../new-yongnengguanli/energyRankingItem.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "定额管理":{
+        "type":"0",
+        "content":"定额管理",
+        "uri":"../new-yongnengguanli/OfficeDingEData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   }

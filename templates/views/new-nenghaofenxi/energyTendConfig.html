@@ -325,10 +325,6 @@
                                         <div id='wrapper'>
 
                                             <div class="time-options time-options-1">日</div>
-                                            <div class="time-options">周</div>
-                                            <div class="time-options">月</div>
-                                            <div class="time-options">年</div>
-                                            <div class="time-options">自定义</div>
 
                                             <div style="height:80px;">
                                                 <div class="start-time-choose choose-time position-center">
@@ -367,57 +363,25 @@
                                             <span class="right-header-title"></span>
                                             <!-- 标题右边 -->
                                             <ul class="right-header-right">
+
+                                                <!--右上角注释-->
+                                                <li class="header-right-lists right-text"></li>
+                                                <li class="text-content"></li>
                                                 <!-- 单位 -->
                                                 <li class="header-right-lists">
                                                     <label for="">单位：</label>
-                                                    <select name="" id="unit"></select>
+                                                    <select name="" id="unit" disabled="disabled"></select>
+                                                </li>
+                                                <li class="header-right-btn">
+
+                                                    <span class="cur-on-choose">逐12月用<font>电</font>趋势</span>
+                                                    <span>逐52周用<font>电</font>趋势</span>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="rheader-content">
-                                            <!--右侧数据展示-->
-                                            <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
-                                                <div class="rheader-content-right">
-                                                    <div class="rheader-content-rights">
-                                                        <!-- 累计耗电标题 -->
-                                                        <span class="total-power-consumption">累计能耗</span>
-                                                        <!-- 耗电数值 -->
-													<span class="total-power-consumption-value">
-														<label id="consumption-value-number"></label>
-                                                        <!-- 单位  -->
-														<span class="the-cumulative-power-unit"></span>
-													</span>
-                                                        <!-- 与上年同期相比 -->
-													<span class="compared-with-last-time">上年同期<br>
-														<label></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-													</span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up" style="background: url('../resource/img/up2.png') 0% 0% / 23px no-repeat;"></div>
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name">同比</span><br/>
-                                                        <span class="rights-up-value"></span>
-
-                                                        <!-- 与上一时段相比 -->
-													<span class="compared-with-last-time compared-with-last-time1">上一期<br>
-														<label></label>
-                                                        <!--<span class="the-cumulative-power-unit">kWh</span>-->
-													</span>
-                                                        <!-- 上升还是下降的箭头 -->
-                                                        <div class="rights-up rights-up1" style="background: url('../resource/img/up2.png') 0% 0% / 23px no-repeat;"></div>
-                                                        <!-- 上升或下降的百分比 -->
-                                                        <span class="rights-up-name rights-up-name1">环比</span><br/>
-                                                        <span class="rights-up-value rights-up-value1"></span>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-                                        </div>
 
                                         <!--eChart图-->
-                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
+                                        <div class="rheader-content-left " id="rheader-content-16" style="">
 
                                         </div>
                                         <div class="clearfix"></div>

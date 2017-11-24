@@ -32,7 +32,7 @@ $(function(){
     GetAllBranches();
 
     //默认加载数据
-    getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
+    getPointerData('EnergyAnalyzeV2/GetPointerEnergyTendData',1);
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -50,30 +50,70 @@ $(function(){
 
         if(o != 'none'){
             //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
+            getPointerData('EnergyAnalyzeV2/GetPointerEnergyTendData',1);
 
         }else if(a == 'block'){
             //分户数据
-            getPointerData('EnergyQueryV2/GetOfficeEnergyQuery',2);
+            getPointerData('EnergyAnalyzeV2/GetOfficeEnergyTendData',2);
 
         }else if(s == 'block'){
             //支路数据
-            getPointerData('EnergyQueryV2/GetBranchEnergyQuery',3);
+            getPointerData('EnergyAnalyzeV2/GetBranchEnergyTendData',3);
 
         }
     });
 
     //能耗选择
-    $('.typee').click(function(){
-        $('.typee').removeClass('selectedEnergy')
-        $(this).addClass('selectedEnergy');
+    $('.energy-types').on('click','div',function(){
+
+        //获取能耗选择名称
+        var energyName = $(this).find('p').html();
+
+        //给右侧上方用能趋势切换按钮赋值
+        $('.header-right-btn font').html(energyName);
     });
 
-    //改变右上角单位时
-    $('#unit').on('change',function() {
+    //对象选择
+    $('.left-middle-tab').on('click',function(){
+
+        //获取能耗选择名称
+        var energyName = $('.selectedEnergy').find('p').html();
+
+        //给右侧上方用能趋势切换按钮赋值
+        $('.header-right-btn font').html(energyName);
+    });
+
+
+    //右上角注释图标
+    $('.right-text').on('click',function(){
+
+        $('.text-content').toggle('fast');
+
+        //获取用能趋势标识
+        var index = $('.header-right-btn .cur-on-choose').index();
+
+    });
+
+    //右上角用能趋势的切换
+    $('.header-right-btn span').on('click',function(){
+
+        $('.header-right-btn span').removeClass('cur-on-choose');
+
+        $(this).addClass('cur-on-choose');
+
+        //获取用能趋势标识
+        var index = $('.header-right-btn .cur-on-choose').index();
+        //动态改变右上角注释
+        if(index == 0){
+            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo12);
+        }else{
+            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo52);
+        }
 
         $('.buttons').children('.btn-success').click();
     });
+
+
 
     //chart图自适应
     window.onresize = function () {
@@ -81,6 +121,17 @@ $(function(){
             myChartTopLeft.resize();
         }
     };
+
+    var zoomSize = 6;
+    myChartTopLeft.on('click', function (params) {
+        console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+        myChartTopLeft.dispatchAction({
+            type: 'dataZoom',
+            startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
+        });
+    });
+
 });
 
 //记录能耗种类
@@ -89,22 +140,46 @@ var _ajaxEcType = '';
 //记录能耗种类名称
 var _ajaxEcTypeWord = '';
 
+//记录右上角提示信息
+var tendencyHelpInfo = {};
+
+var allData = [];
+var allDataX = [];
+var allDataY = [];
+
 /*---------------------------------echart-----------------------------------*/
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
 
-//柱状图配置项
-var optionBar = {
+//柱折图配置项
+// 指定图表的配置项和数据
+option = {
+
     tooltip : {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
     },
     legend: {
-        data:['本期用电','上期用电'],
-        top:'30',
+        show:true,
+        data:['用能趋势','折线']
     },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    dataZoom: [
+        {
+            type: 'inside'
+        }
+    ],
     toolbox: {
         show : true,
         feature : {
+            mark : {show: true},
             dataView : {show: true, readOnly: false},
             magicType : {show: true, type: ['line', 'bar']},
             restore : {show: true},
@@ -114,97 +189,53 @@ var optionBar = {
     calculable : true,
     xAxis : [
         {
-            show:'true',
             type : 'category',
-            data:[]
+            data : []
         }
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} °C'
+            }
         }
     ],
     series : [
         {
-            name:'本期用电',
+            name:'用能趋势',
             type:'bar',
             data:[],
-            barMaxWidth: '60',
-        },
-        {
-            name:'上期用电',
-            type:'bar',
-            data:[],
-            barMaxWidth: '60',
-        }
-    ]
-};
-
-//折线图配置项
-var optionLine = {
-    tooltip : {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['累计值'],
-        top:'30'
-    },
-    toolbox: {
-        show : true,
-        feature : {
-            dataView : {show: true, readOnly: false},
-            magicType : {show: true, type: ['bar', 'line']},
-            restore : {show: true},
-            saveAsImage : {show: true}
-        }
-    },
-    calculable : true,
-    xAxis : [
-        {
-            type : 'category',
-            data : ['本期','上期']
-        }
-    ],
-    yAxis : [
-        {
-            type : 'value'
-        }
-    ],
-    grid: {
-        left: '10%',
-        right: '8%'
-    },
-    series : [
-        {
-            name:'累计值',
-            type:'line',
             smooth:true,
-            markPoint : {
-                data : [
-                    {type : 'max', name: '最大值'},
-                    {type : 'min', name: '最小值'}
-                ],
-                itemStyle : {
-                    normal:{
-                        color:'#019cdf'
-                    }
-                },
-                label:{
-                    normal:{
-                        textStyle:{
-                            color:'#d02268'
-                        }
-                    }
+            stack:  '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'inside'
                 }
             },
-            markLine : {
-                data : [
-                    {type : 'average', name: '平均值'}
-
-
-                ]
-
+            itemStyle: {
+                normal: {
+                    color: '#9dc541'
+                },
+                emphasis: {
+                    barBorderColor: 'rgba(0,0,0,0.5)',
+                    color: '#9dc541'
+                }
             },
+            data: [],
+            barMaxWidth: '60'
+
+        },
+        {
+            name:'折线',
+            type:'line',
+            itemStyle : {  /*设置折线颜色*/
+                normal : {
+                    color:'#9dc541'
+                }
+            },
+            smooth:true,
             data:[]
         }
     ]
@@ -216,9 +247,7 @@ var optionLine = {
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPointerData(url,flag){
     //定义存放返回数据的数组（本期 X Y）
-    var allData = [];
-    var allDataX = [];
-    var allDataY = [];
+
     var totalAllData = 0;
 
     //存放要传的楼宇集合
@@ -229,12 +258,6 @@ function getPointerData(url,flag){
 
     //存放要传的支路ID
     var serviceID = '';
-
-    //是否标煤
-    var isBiaoMeiEnergy = 0;
-
-    //单位类型
-    var unitType = $('#unit').val();
 
     //获取名称
     var areaName = '';
@@ -276,30 +299,21 @@ function getPointerData(url,flag){
         isBiaoMeiEnergy = 1;
     }
 
-    //获取展示日期类型
-    var showDateType = getShowDateType()[0];
-
-    //获取用户选择日期类型
-    var selectDateType = getShowDateType()[1];
 
     //获取开始时间
     var startTime = getPostTime()[0];
 
-    //获取开始时间
-    var endTime = getPostTime()[1];
+    //获取用能趋势标识
+    var tendencyFlag = $('.header-right-btn .cur-on-choose').index();
 
     //定义获得数据的参数
     var ecParams = {
         "energyItemID": _ajaxEcType,
-        "isBiaoMeiEnergy": isBiaoMeiEnergy,
+        "selectDate": startTime,
         "pointerIDs": postPointerID,
         "officeID": officeID,
         "serviceID": serviceID,
-        "unityType": unitType,
-        "showDateType": showDateType,
-        "selectDateType": selectDateType,
-        "startTime": startTime,
-        "endTime": endTime
+        "tendencyFlag": tendencyFlag
     };
 
     //发送请求
@@ -314,6 +328,7 @@ function getPointerData(url,flag){
         success:function(result){
             myChartTopLeft.hideLoading();
 
+
             //判断是否返回数据
             if(result == null){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
@@ -322,42 +337,43 @@ function getPointerData(url,flag){
             //改变头部显示信息
             var energyName = $('.selectedEnergy p').html() + '耗';
 
-            //改变头部日期
-            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
+            //头部用能趋势信息
+            var energyFlag = $('.header-right-btn .cur-on-choose').html();
 
-            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            //改变头部日期
+            var date = startTime;
+
+            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + energyFlag+ ' &nbsp;'+ date);
 
             //首先处理本期的数据
             allData.length = 0;
 
-            $(result.ecMetaDatas).each(function(i,o){
-                allData.push(o);
-            });
+            if(tendencyFlag == 0){
+
+                $(result.monthMetaDataExtends).each(function(i,o){
+                    allData.push(o);
+                });
+
+            }else{
+
+                $(result.weekEcMetaDataExtends).each(function(i,o){
+                    allData.push(o);
+                });
+            }
+
 
             //首先处理实时数据
             allDataX.length = 0;
             allDataY.length = 0;
 
             //绘制echarts
-            if(showDateType == 'Hour' ){
-                //确定x轴
-                for(var i=0;i<allData.length;i++){
-                    var dataSplit = allData[i].dataDate.split('T')[1].split(':');
-                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                    if(allDataX.indexOf(dataJoin)<0){
-                        allDataX.push(dataJoin);
-                    }
-                }
-            }else{
-                //确定x轴
-                for(var i=0;i<allData.length;i++){
-                    var dataSplit = allData[i].dataDate.split('T')[0];
 
-                    if(allDataX.indexOf(dataJoin)<0){
-                        allDataX.push(dataSplit);
-                    }
-                }
-            };
+            //确定x轴
+            for(var i=0;i<allData.length;i++){
+                var dataSplit = allData[i].dataRange;
+                allDataX.push(dataSplit);
+
+            }
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
@@ -365,49 +381,16 @@ function getPointerData(url,flag){
             }
 
             //echart柱状图
-            optionLine.xAxis[0].data = allDataX;
-            optionLine.series[0].data = allDataY;
-
-            myChartTopLeft.setOption(optionLine);
-
-            //右侧展示信息
-            //获取单位
+            option.xAxis[0].data = allDataX;
+            option.series[0].data = allDataY;
+            option.series[1].data = allDataY;
+            //单位
             var unit = $('#unit').find("option:selected").text();
 
-            //累计能耗
-            $('#consumption-value-number').html((result.sumMetaData).toFixed(2));
-            //单位
-            $('.the-cumulative-power-unit').html(unit);
+            option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
-            //同比数据
-            $('.compared-with-last-time').eq(0).find('label').html((result.lastYearEnergyData).toFixed(2))
-            //同比百分比
-            var percentYear = (result.lastYearEnergyPercent *100).toFixed(1);
 
-            $('.rights-up-value').eq(0).html(Math.abs(percentYear) +'%');
-
-            //同比小于0
-            if(result.lastYearEnergyPercent  < 0){
-
-                $('.rights-up').eq(0).addClass('decline');
-            }else{
-                $('.rights-up').eq(0).removeClass('decline');
-            }
-
-            //环比数据
-            $('.compared-with-last-time').eq(1).find('label').html((result.chainEnergyData).toFixed(2))
-            //环比百分比
-            var percentChain = (result.chainEnergyPercent *100).toFixed(1);
-
-            $('.rights-up-value').eq(1).html(Math.abs(percentChain) +'%');
-
-            //环比小于0
-            if(result.chainEnergyPercent  < 0){
-
-                $('.rights-up').eq(1).addClass('decline');
-            }else{
-                $('.rights-up').eq(1).removeClass('decline');
-            }
+            myChartTopLeft.setOption(option);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -420,4 +403,30 @@ function getPointerData(url,flag){
             }
         }
     })
-}
+};
+
+//获取右上角提示信息
+getEnergyTendConfig();
+
+function getEnergyTendConfig(){
+
+    $.ajax({
+        type:'get',
+        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetEnergyTendConfig',
+        timeout:_theTimes,
+        beforeSend:function(){
+
+        },
+        success:function(result) {
+
+            tendencyHelpInfo = result;
+
+            $('.text-content').html(tendencyHelpInfo.tendencyHelpInfo12);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+
+        }
+    })
+
+};
+
