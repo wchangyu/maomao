@@ -54,6 +54,7 @@
     border: 1px solid #333333;
     margin: 10px;
     text-indent: 10px;
+    font-weight: bold;
 
 }
 .row-list{
@@ -114,7 +115,7 @@
     font-weight: bold;font-size: 16px;display: inline-block;vertical-align: bottom;overflow: hidden;
 }
 .title-word1{
-    float: right;margin-right: 50px;font-size: 16px;line-height: 40px;font-weight: bold;overflow: hidden;
+    float: right;margin-right: 35px;font-size: 16px;line-height: 40px;font-weight: bold;overflow: hidden;
 }
 .table-img1 img{
     height: 30px;overflow: hidden;

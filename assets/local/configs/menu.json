@@ -248,10 +248,26 @@
         "arg":"",
         "iconclass":""
       },
+      "设备历史":{
+        "type":"0",
+        "content":"设备历史",
+        "uri":"../zichanguanli/assetManagement-history.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "设备二维码":{
         "type":"0",
         "content":"设备二维码",
         "uri":"../zichanguanli/assetManagement-print.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "设备二维码（蓝）":{
+        "type":"0",
+        "content":"设备二维码（蓝）",
+        "uri":"../zichanguanli/assetManagement-print-blue.html",
         "uid":"",
         "arg":"",
         "iconclass":""
