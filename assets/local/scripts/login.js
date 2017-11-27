@@ -5,7 +5,7 @@ var Login = function() {
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
     var _isProceLoaded = false;
-    var _indexUrl = "shouye/index.html";
+    var _indexUrl = "EV/opts.html";
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
@@ -71,7 +71,6 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
-
                     var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,

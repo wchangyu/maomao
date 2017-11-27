@@ -101,33 +101,35 @@
     "alltypes": [
       {
         "etid": "4",
-        "ettype" : "100",
+        "ettype": "100",
         "etname": "电",
         "etunit": "kWh",
-        "img":"totalEner.png",
-        "color":"#bce3de",
-        "img2":"electricity.png"
+        "img": "totalEner.png",
+        "color": "#bce3de",
+        "img2": "electricity.png"
       },
       {
         "etid": "5",
-        "ettype" : "200",
+        "ettype": "200",
         "etname": "水",
         "etunit": "m3",
-        "img":"totalWater.png",
-        "color":"#fcbf92",
-        "img2":"water.png"
+        "img": "totalWater.png",
+        "color": "#fcbf92",
+        "img2": "water.png"
       }
     ]
   },
   "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
-  "systemTitle":"中国人民银行成都分行能源监管平台",
+  "apiUriPrefixUEditor": "http://192.168.1.104/HQUeditorImage/controller.ashx",
+  //重庆大学虚拟实验室API访问地址
+  //"apiUriPrefixVE": "http://localhost/BEEWebAPI/api/",
+  "systemTitle":"重庆大学虚拟实验室",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
-  "pageTitle":"能源管理系统",
-  "themeColor":"blue",
+  "pageTitle":"重庆大学虚拟实验室",
+  "themeColor":"darkblue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
@@ -140,7 +142,7 @@
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"shouye/index.html",
+  "indexUrl":"EV/opts.html",
   "gongdanIndustryType":"1",
   "ckAuditType":"0"
 }

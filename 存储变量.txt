@@ -43,3 +43,6 @@ sessionStorage.changeMenuByProcs 是否根据流程图动态绘制菜单
 sessionStorage.gongdanInterval  工单是否开启自动刷新，0为关闭，数字为刷新的分钟
 sessionStorage.gongdanIndustryType  工单的行业类型
 sessionStorage.ckAuditType      是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
+
+
+sessionStorage.topicsType  重庆大学虚拟实验室课题(1=空调末端;2=热水系统;3=冷热源)

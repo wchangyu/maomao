@@ -159,7 +159,7 @@ var BEE = (function(){
     var setHeaderInfo = function(){
         if(sessionStorage.pageTitle) { document.title = sessionStorage.pageTitle; }
         var username = sessionStorage.realUserName || "未登录";
-        $('.username').html(username);
+        $('.username').html(username.toUpperCase());
         var systemName = sessionStorage.systemName;
 
         //获取是否追加企业名称
@@ -218,7 +218,8 @@ var BEE = (function(){
          配置页面配置当前的theme，BEE.js初始化页面时候载入当前theme，如果localStorage中存有当前的theme，则获取
          设置theme按钮的选中，存储当前的theme到localStorage中，
          */
-        var themeColor = localStorage.themeColor || "default";
+        //var themeColor = localStorage.themeColor || "default";
+        var themeColor = "darkblue";
         //$('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
         var $colorCssLink = $("#style_color");
         if($colorCssLink.length == 0){       //如果当前没有style_color的css引用
@@ -818,7 +819,8 @@ var BEE = (function(){
              });
          }
      };
-     //加入新工单信息
+
+    //加入新工单信息
      var addInfoMessage = function(data,title,address,catalog){
          var html = '';
          //获取当前菜单
@@ -841,7 +843,8 @@ var BEE = (function(){
          }
          return html;
      };
-     //给页面动态插入显示楼宇的树状图
+
+    //给页面动态插入显示楼宇的树状图
      function insertionPointer(){
          //判断是否需要显示楼宇
          var _isShowPointer = sessionStorage.getItem('menuusepointer');
@@ -908,13 +911,15 @@ var BEE = (function(){
          }
          return -1;
      };
-     //定义数组删除某个元素的方法
+
+    //定义数组删除某个元素的方法
      Array.prototype.remove = function(val) {
          var index = this.indexOf(val);
          if (index > -1) {
              this.splice(index, 1);
          }
      };
+
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
          //将对象转化为数组，方便处理
@@ -933,7 +938,8 @@ var BEE = (function(){
          })
          return _newMenu;
      };
-     //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
+
+    //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
      var changeMenuByArg = function(menu){
          //获取父级菜单下的子菜单,并将其转化为数组
          var _childMenuArr = transform(menu.submenu);
@@ -1083,10 +1089,12 @@ var BEE = (function(){
 
     return {
         //getMenu: getMenu
-        init:function(){
+        init: function () {
+            sessionStorage.userName = "MRF";
             if(!sessionStorage.userName)
             {
-                sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
+                //记录重定向的url
+                sessionStorage.redirectFromPage = window.location.href;   
                 window.location.href = "../login_3.html";
 
             }else{
@@ -1104,4 +1112,5 @@ var BEE = (function(){
             }
         }
     }
+
 })();
