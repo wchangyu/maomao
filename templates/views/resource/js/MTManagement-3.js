@@ -155,17 +155,22 @@ $(function(){
             "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
         },
         {
-            title:'巡检计划编码',
-            data:'dipNum',
-            className:'bianma'
-        },
-        {
-            title:'巡检计划名称',
-            data:'dipName'
+            title:'设备编码',
+            data:'dNum',
+            className:'bianma',
+            render:function(data, type, full, meta){
+                return '<span data-num="' + full.dipNum +
+                    '">' + data +
+                    '</span>'
+            }
         },
         {
             title:'设备名称',
             data:'dName'
+        },
+        {
+            title:'巡检计划名称',
+            data:'dipName'
         },
         {
             title:'巡检部门',
@@ -226,6 +231,10 @@ $(function(){
         {
             title:'规格型号',
             data:'spec',
+        },
+        {
+            title:'安装地点',
+            data:'installAddress',
         },
         {
             title:'设备类型',
@@ -719,16 +728,16 @@ $(function(){
 
             $('#myModal2').find('.btn-primary').removeClass('xiaoshanchu').addClass('dashanchu');
 
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
-            var $thisMC = $(this).parents('tr').children('.bianma').next().html();
+            var $thisBM = $(this).parents('tr').children('.bianma').children().attr('data-num');
+            var $thisMC = $(this).parents('tr').children('.bianma').next().next().html();
 
             $('#xjtmbm').val($thisBM);
             $('#xjtmmc').val($thisMC);
         })
         .on('click','.option-assign',function(){
             var $this = $(this);
-            _shebeiMC = $.trim($this.find('.bianma').next().html());
-            _shebeiBM = $.trim($this.find('.bianma').html());
+            var $thisBM = $(this).parents('tr').children('.bianma').children().attr('data-num');
+            var $thisMC = $(this).parents('tr').children('.bianma').next().next().html();
             ckOrBj($(this),true);
             //确定按钮显示，并且添加分配类
             $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务巡检');
@@ -1565,7 +1574,7 @@ $(function(){
         //moTaiKuang($myModal);
         _moTaiKuang($('#myModal'), '查看', 'flag', '' ,'', '');
         //设置数据
-        var $thisBM = el.parents('tr').children('.bianma').html();
+        var $thisBM = el.parents('tr').children('.bianma').children('span').attr('data-num');
         for(var i=0;i<_allDataArr.length;i++){
             if(_allDataArr[i].dipNum == $thisBM){
                 //绑定数据
@@ -1591,7 +1600,7 @@ $(function(){
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
+            url:_urls + 'YWDevMT/YWDMPGetItemAndMembers',
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('hide');
