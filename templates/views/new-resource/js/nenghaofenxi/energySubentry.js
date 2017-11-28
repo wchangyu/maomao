@@ -22,6 +22,7 @@ $(function(){
 
     _ajaxEcTypeWord = _getEcTypeWord();
 
+    //获取区域位置二级结构
     getBranchZtree(0,0,getPointerTree);
 
     //显示隐藏左侧时

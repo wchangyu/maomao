@@ -1,0 +1,55 @@
+/*上方图片*/
+.content-main img{
+    width:100%
+}
+
+.content-main .left-top{
+    margin-bottom:0px !important;
+}
+
+/*中间医院统计*/
+.left-middle-main1 {
+    height: 200px;
+    overflow-y: auto;
+    padding-top:10px;
+}
+.left-middle-main1 p {
+
+    height: 30px;
+    font-size: 16px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding-left:15px;
+    color:#666;
+}
+.left-middle-main1 p span{
+    margin-left:10px;
+}
+
+/*下方气象参数*/
+.content-main-left .left-middle-main0{
+    height:200px !important;
+    overflow-y: auto;
+    padding-top:25px;
+}
+.content-main-left .main-left-middle {
+    width: 100%;
+    height: auto !important;
+}
+
+.left-middle-main0 p{
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding-left:20px;
+    margin-bottom:15px;
+}
+
+.left-middle-main0 p .iconfont{
+    font-size:32px;
+    color:#666
+}
+.left-middle-main0 p .icon-speedometer{
+    font-size:26px;
+    color:#666
+}

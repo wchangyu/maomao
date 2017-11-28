@@ -436,7 +436,7 @@ function getPointerData(url,flag){
 
         //比较对象不能超过三个
         if(pts.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'比较对象不能超过三个', '');
 
             return false;
         }

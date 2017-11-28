@@ -193,11 +193,19 @@ $('#datetimepicker1').on('changeDate',function(e){
 //支路是否是单选框
  branchesType = 1;
 
-//获取支路
-function GetAllBranches(flag){
+//获取支路 flag 2表示复选框 energy表示获取支路的能耗类型
+function GetAllBranches(flag,energy){
 
     //获取能耗类型
     var energyType = $('.selectedEnergy').attr('value');
+
+    if(!energyType){
+        energyType = 100;
+    }
+
+    if(energy){
+        energyType = energy
+    }
     //获取楼宇
     //确定楼宇id
     var pts = _pointerZtree.getSelectedPointers(),pointerID;
@@ -524,5 +532,113 @@ function getFocus1(dom){
         dom.focus();
     });
 }
+
+//检验是否必填项全部填写
+function checkedNull1(dom){
+
+    var checkNum = $(dom).find('.colorTip').length;
+
+    for(var i=0; i<checkNum; i++){
+
+        var val = $(dom).find('.colorTip').eq(i).next().find('input').val();
+
+        var name = $(dom).find('.colorTip').eq(i).html().split('*')[0];
+
+        if(val == ''){
+            //myAlter('请输入'+ name + '!');
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请输入'+ name + '!', '');
+            getFocus1($(dom).find('.colorTip').eq(i).next().find('input'));
+            return false;
+        }
+
+    }
+    return true;
+}
+
+//比较开始结束日期是否合理
+function checkedDate(dom){
+
+    var txt1 = $(dom).find('.startDate').val();
+    var txt2 = $(dom).find('.endDate').val();
+
+    var nowDate = getNewDate();
+
+    //if(CompareDate(txt2,nowDate) == true){
+    //        myAlter('结束日期不能大于当前日期');
+    //        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+    //
+    //        return false;
+    //};
+
+
+    if(CompareDate(txt2,txt1) == false){
+        //myAlter('结束日期必须大于开始日期');
+        _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'结束日期必须大于开始日期', '');
+        getFocus1( $(this).parents('.modal-header').find('.add-input').eq(1));
+
+        return false;
+    };
+
+    return true;
+};
+
+//判断输入内容是否为数字
+function checkedNum(dom){
+    var num = $(dom).find('.type-number').length;
+    for(var i=0; i<num; i++){
+        if($(dom).find('.type-number').eq(i).val() != ''){
+            var txt = $(dom).find('.type-number').eq(i).val() / 1;
+
+            if(isNaN(txt)){
+                var txt1 = $(dom).find('.type-number').eq(i).parent().prev().html().split('*')[0];
+                //console.log(txt1);
+
+                //myAlter(txt1 + '必须为数字');
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,txt1 + '必须为数字', '');
+                getFocus1($(dom).find('.type-number').eq(i));
+                return false;
+            }
+        }
+
+    }
+    return true;
+}
+
+//获取当前年月日
+function getNewDate(){
+
+    var mydate = new Date();
+    var str = "" + mydate.getFullYear() + "-";
+    str += (mydate.getMonth()+1) + "-";
+    str += mydate.getDate() + "";
+    return str;
+}
+
+//判断输入是否为电话号码
+
+function checkedPhone(dom){
+    var num = $(dom).find('.type-phone').length;
+
+    for(var i=0; i<num; i++){
+        var txt = $(dom).find('.type-phone').eq(i).val();
+        if(txt != ''){
+            if(!(/^1[3|4|5|8][0-9]\d{8}$/.test(txt))){
+
+                //myAlter('手机号输入错误');
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'手机号输入错误', '');
+                getFocus1($(dom).find('.type-phone').eq(i));
+                return false;
+
+            }
+        }
+    }
+
+
+    return true;
+}
+//比较日期大小
+function CompareDate(d1,d2) {
+    return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+};
 
 

@@ -2,9 +2,16 @@ $(function(){
     //点击箭头移动
     $('.showOrHidden').click(function(){
         var o1 = $(".content-main-left").css("display");
+        var url = window.location.href;
         if(o1 == 'block'){
-            $('.content-main-left').hide()
-            $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
+            $('.content-main-left').hide();
+
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html')){
+                $('.content-main-right').removeClass('col-lg-10 col-md-9').addClass('col-lg-12 col-md-12');
+            }else{
+                $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
+            }
+
             $('.showOrHidden').css({
                 'background':'url("../resource/img/show.png")no-repeat',
                 'background-size':'20px',
@@ -12,7 +19,12 @@ $(function(){
             })
         }else if(o1 == 'none'){
             $('.content-main-left').show();
-            $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-8');
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html')){
+                $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-10 col-md-9');
+            }else{
+                $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-8');
+            }
+
             $('.showOrHidden').css({
                 'background':'url("../resource/img/hidden.png")no-repeat',
                 'background-size':'20px',
@@ -265,6 +277,21 @@ function _getEcTypeValue(){
     }
 };
 
+//获取能耗单位
+function getUnit(num){
+
+    var  num1 = num;
+
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+        if(num1 == txt[i].ettype){
+            return txt[i].etunit;
+        }
+    }
+};
+
 //获取能耗种类名称方法
 function _getEcTypeWord(){
     var aaa =[];
@@ -314,6 +341,14 @@ function _getOfficeZtree(officesId,flag){
 function _searchPO(tip,pointerId,tips,officeId){
     var objSearchs = new ObjectSearch();
     objSearchs.initPointerSearch($("#keys"),tip,pointerId);
+    if(tips){
+        var objSearch = new ObjectSearch();
+        objSearch.initOfficeSearch($("#key"),tips,officeId);
+    }
+}
+
+function _searchPO1(tips,officeId){
+
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),tips,officeId);
 }

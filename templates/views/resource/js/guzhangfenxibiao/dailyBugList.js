@@ -15,9 +15,9 @@ $(function(){
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
 
-    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekStart = moment(_date).subtract(1,'d').format('YYYY-MM-DD');
 
-    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekEnd = moment(_date);
 
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
@@ -48,7 +48,7 @@ $(function(){
         //修改时间
         $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(1,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
 
         //本周客服设备故障上报及处理情况
         conditionSelect('YWGDReport/GetGDDTDepartReport',$('#failure-reporting'),'flag');

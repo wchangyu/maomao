@@ -104,6 +104,8 @@ $(document).ready(function(){
                 $('.top-message span b').eq(5).html(data[0].remark);
                 //获取供货单位
                 $('#entry-datatables .unit-name').html(data[0].supName);
+                //获取联系人
+                $('#entry-datatables .linkman-name').html(data[0].contactName);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

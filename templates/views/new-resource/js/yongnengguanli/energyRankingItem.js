@@ -275,6 +275,107 @@ var optionBar = {
     ]
 };
 
+//柱折图配置项
+var optionLineBar = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['累计值', '比较斜率'],
+        top:'30'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['bar', 'line']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['本期','上期']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    grid: {
+        left: '20%',
+        right: '10%'
+    },
+    series : [
+        {
+            name:'累计值',
+            type:'bar',
+            barMaxWidth: '50',
+            data:[],
+            itemStyle:{
+                normal:{
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                            '#d53a35','#2f4554','#FCCE10','#E87C25','#27727B',
+                            '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                            '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                }
+            }
+        },
+        {
+            name:'比较斜率',
+            type:'line',
+            data:[],
+        }
+    ]
+};
+
+//折线图配置项
+var optionLine = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['累计值'],
+        top:'30'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['bar', 'line']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['本期','上期']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    grid: {
+        left: '10%',
+        right: '8%'
+    },
+    series : [
+
+    ]
+};
+
 /*---------------------------------otherFunction------------------------------*/
 
 
@@ -417,6 +518,7 @@ function getPointerData(url,flag){
                     allData2.push(o)
                 }
             });
+
 
             showDataByNum(allData1);
 

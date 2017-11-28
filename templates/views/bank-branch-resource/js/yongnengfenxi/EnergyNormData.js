@@ -335,6 +335,10 @@ function getMainData(){
                 return false;
             }
 
+            $('.show-title1').html(title1);
+            $('.show-title2').html(title2);
+            $('.show-title3').html(showTime);
+
 
             var dataArr = data.ecMetaDatas;
 

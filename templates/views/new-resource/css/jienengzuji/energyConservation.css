@@ -1,0 +1,109 @@
+.right-header {
+
+    padding-top:12px;
+    box-sizing: content-box;
+    padding-bottom: 8px;
+}
+.input-blocked{
+    height: 32px;
+}
+
+/*头部时间*/
+.right-header .choose-time{
+
+    display: inline-block;
+    margin-right: 20px;
+}
+/*头部改造信息*/
+.top-message{
+    font-size:16px;
+    padding-top:20px;
+}
+
+/*右侧节能量统计*/
+.rheader-content-rights {
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: url(../../../resource/img/message.png)no-repeat #deebf7;
+    background-size: 140px;
+    background-position: 58px 1px;
+}
+
+/*上方节能量*/
+.total-power-consumption {
+    color: #ffffff;
+    position: absolute;
+    top: 16px;
+    left: 95px;
+    font-size: 2rem;
+}
+
+.total-power-consumption-value{
+    font-size:1.4rem;
+    top:72px;
+}
+
+/*左侧co2排放量*/
+.compared-with-last-time {
+    position: absolute;
+    top: 93px;
+    left: 27px;
+    font-size: 1.6rem;
+}
+.compared-with-last-time b{
+    color:#17d28e
+}
+
+.compared-with-last-time1{
+    position: absolute;
+    top: 93px;
+    left: 150px;
+    font-size: 1.6rem;
+
+}
+
+/*下方改造数据*/
+.quota-year{
+     position: absolute;
+     left:27px;
+     top:170px;
+     font-size:1.6rem;
+ }
+.quota-year1{
+    position: absolute;
+    left:27px;
+    top:223px;
+    font-size:1.6rem;
+}
+
+/*中间箭头*/
+.rights-up {
+    display: inline-block;
+    width: 37px;
+    height: 62px;
+    position: absolute;
+    top: 186px;
+    left: 108px;
+    background: url(../../../resource/img/up.png)no-repeat;
+    background-size: 35px;
+    margin-left: 5px;
+}
+
+/*右侧百分比*/
+.right-up-precent{
+
+    position: absolute;
+    left:156px;
+    top: 194px;
+    font-size: 2.2rem;
+    color:#019cdf;
+}
+.right-ups{
+    top: 186px;
+    left: 108px;
+    background: url(../../../resource/img/up2.png)no-repeat;
+    background-size: 35px;
+}
