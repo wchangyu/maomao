@@ -42,29 +42,47 @@
                 <label class="control-label visible-ie8 visible-ie9">学号</label>
                 <div class="input-icon">
                     <i class="fa fa-bold"></i>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="学号、工号(必填)" name="number" />
+                    <input class="form-control placeholder-no-fix" type="text"
+                           placeholder="学生学号、老师工号(必填)"
+                           name="number" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">姓名</label>
                 <div class="input-icon">
                     <i class="fa fa-user"></i>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="姓名(必填)" name="name" />
+                    <input class="form-control placeholder-no-fix" type="text"
+                           placeholder="姓名(必填)"
+                           name="name" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">密码</label>
                 <div class="input-icon">
                     <i class="fa fa-lock"></i>
-                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码(必填)" name="password" />
+                    <input class="form-control placeholder-no-fix" type="password"
+                           autocomplete="off" placeholder="密码(必填)"
+                           name="password" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">联系方式</label>
                 <div class="input-icon">
                     <i class="fa fa-phone"></i>
-                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="联系方式" name="phone" />
+                    <input class="form-control placeholder-no-fix" type="text"
+                           autocomplete="off" placeholder="联系方式"
+                           name="phone" />
                 </div>
+            </div>
+            <p>
+                请选择院系
+            </p>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">院系</label>
+                <select name="depart" id="depart" class="select2 form-control">
+                    <option value="1">空调系</option>
+                    <option value="2">计算机系</option>
+                </select>
             </div>
             <p>
                 请选择所在班级
@@ -85,12 +103,12 @@
                     <option value="1" selected>教师</option>
                     <option value="2">学生</option>
                 </select>
-            </div>           
+            </div>
             <div class="form-actions">
                 <a id="register-back-btn" class="btn btn-default" href="signin.html">
                     <i class="m-icon-swapleft"></i> 返回登录
                 </a>
-                <button type="submit" id="register-submit-btn" class="btn blue pull-right">
+                <button type="submit" id="registerBtn" class="btn blue pull-right">
                     注册 <i class="m-icon-swapright m-icon-white"></i>
                 </button>
             </div>
@@ -174,7 +192,26 @@
                     error.insertAfter(element.closest('.input-icon'));
                 },
                 submitHandler: function (form) {
-
+                    $('#registerBtn').attr('disabled', 'disabled');
+                    $('#registerBtn').html('正在注册...');
+                    var signupUrl = "User/SignupUser";
+                    $.post(signupUrl, {
+                        Number: $('#number').val(),
+                        Name: $('#name').val(),
+                        Password: $('#password').val(),
+                        ClassID: $('#class').val(),
+                        RoleID: $('#role').val(),
+                        Phone: $('#phone').val()
+                    }, function (res) {
+                        if (res === 3) {
+                            alert('抱歉。用户注册失败！请与管理员联系。');
+                            $('#registerBtn').removeAttr('disabled');
+                            $('#registerBtn').html('登录');
+                        } else {
+                            alert('恭喜。用户注册成功！请登录。');
+                            window.location.href = "signin.html";
+                        }
+                    });
                 }
             });
             $('.register-form input').keypress(function (e) {

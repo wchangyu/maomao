@@ -44,5 +44,13 @@ sessionStorage.gongdanInterval  工单是否开启自动刷新，0为关闭，�
 sessionStorage.gongdanIndustryType  工单的行业类型
 sessionStorage.ckAuditType      是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
 
-
-sessionStorage.topicsType  重庆大学虚拟实验室课题(1=空调末端;2=热水系统;3=冷热源)
+---重庆大学虚拟实验室---
+sessionStorage.VENumber      工号
+sessionStorage.VEName		 名称
+sessionStorage.VEDepartID	 院系ID
+sessionStorage.VEDepartName	 院系名称
+sessionStorage.VEClassID	 班级ID
+sessionStorage.VEClassName   班级名称
+sessionStorage.VERoleID		 角色ID
+sessionStorage.VERoleName    角色名称
+sessionStorage.VETopicsType  重庆大学虚拟实验室课题(1=空调末端;2=热水系统;3=冷热源)

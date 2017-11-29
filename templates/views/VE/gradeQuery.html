@@ -164,19 +164,19 @@
                     <div class="page-toolbar">
                     </div>
                 </div>
-                <div class="clearfix"></div>             
+                <div class="clearfix"></div>
                 <div class="row margin-top-10">
                     <div class="col-md-12 col-xs-12">
                         <div class="portlet light bg-inverse">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <span class="caption-subject">成绩单</span>
+                                    <span class="caption-subject">实验成绩单</span>
                                 </div>
                                 <div class="actions">
                                     <div class="portlet-input input-inline">
                                         <div class="input-icon right">
                                             <div style="float:left;">
-                                                <input type="text" class="form-control input-circle" placeholder="关键字搜索">
+                                                <input id="keyWord" type="text" class="form-control input-circle" placeholder="学号、姓名搜索">
                                             </div>
                                             <a class="btn btn-sm" style="margin-left:-34px;line-height:24px;">
                                                 <i class="fa fa-search"></i>
@@ -186,18 +186,16 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <table id="tableScore" class="table table-striped table-bordered table-advance table-hover">
+                                <table id="oTable" class="table table-striped table-bordered table-advance table-hover">
                                     <thead>
                                         <tr>
                                             <th>序号</th>
-                                            <th>报告类型</th>
                                             <th>报告名称</th>
-                                            <th>标题名</th>
-                                            <th>上传时间</th>
-                                            <th>状态</th>
-                                            <th>备注</th>
+                                            <th>实验人</th>
+                                            <th>实验时间</th>
                                             <th>分数</th>
                                             <th>老师评价</th>
+                                            <th>状态</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -240,10 +238,128 @@
             BEE.init();
         });
     </script>
+    <!--权限-->
     <script type="text/javascript">
         $(document).ready(function () {
-         
+            sessionStorage.VERoleID = "1";
+            if (sessionStorage.VERoleID === "1")//教师
+            {
+                $('.actions').show();
+            } else {
+                $('.actions').hide();
+            }
         });
+    </script>
+    <script type="text/javascript">
+        var oTable = null;
+        $(document).ready(function () {
+            //实验成绩单:(如果是学生,直接查询当前学生的实验成绩单。如果是老师,查询当前老师班里面所有学生的实验成绩单。)
+            var gradeUrl = "/Exper/GetGradeQueryDs";
+            $.post(gradeUrl, {
+                Number: sessionStorage.VENumber,
+                ClassID: sessionStorage.VEClassID,
+                RoleID: sessionStorage.VERoleID,
+                KeyWord: $('#keyWord').val(),
+                Toptics: sessionStorage.VETopicsType
+            }, function (res) {
+                if (res === 3) {
+                    var dataArr = [];
+                    INITDATATABLE(dataArr);
+                }
+                else {
+                    var dataArr = [];
+                    for (var i = 0; i < res.length; i++) {
+                        var arr = [];
+                        arr.push(res[i].ExperID);
+                        arr.push(res[i].ExperTitle);
+                        arr.push(res[i].UserName);
+                        arr.push(res[i].ExperTime);
+                        arr.push(res[i].Score);
+                        arr.push(res[i].Remark);
+                        arr.push(res[i].ExperState);
+                        dataArr.push(arr);
+                    }
+                    INITDATATABLE(dataArr);
+                }
+            });
+            function INITDATATABLE(dataArr) {
+                if (oTable === null) {
+                    oTable = $("#oTable").dataTable({
+                        "iDisplayLength": 25,
+                        "bFilter": false,
+                        "bLengthChange": false,
+                        "autoWidth": true,  //用来启用或禁用自动列的宽度计算
+                        "paging": false,   //是否分页
+                        "destroy": true,//还原初始化了的datatable
+                        "searching": false,
+                        "paging": true,
+                        "searching": false,
+                        "ordering": false,
+                        "bFilter": false,
+                        "bPaginate": true, //翻页功能
+                        "bSort": false,
+                        "bProcessing": false,
+                        "destroy": true,
+                        "sPaginationType": "bootstrap", //分页样式
+                        "oLanguage": {
+                            "sLengthMenu": "每页显示 _MENU_ 条记录",
+                            "sZeroRecords": "没有任何实验成绩数据",
+                            "sEmptyTable": "没有任何实验成绩数据",
+                            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+                            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+                            "sInfoEmpty": "",
+                            "sSearch": "搜索",
+                            "oPaginate": {
+                                "sFirst": "首页",
+                                "sPrevious": "上一页",
+                                "sNext": "下一页",
+                                "sLast": "末页"
+                            },
+                        },
+                        "aoColumns": [{
+                            "fnRender": function (oObj) {
+                                return oObj.aData[0];//序号
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[1];//报告名称
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[2];//实验学生
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[3];//实验时间
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[4];//分数
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[5];//老师评价
+                            }
+                        }, {
+                            "fnRender": function (oObj) {
+                                return oObj.aData[6];//状态
+                            }
+                        }]
+                    });
+                }
+                //清空一下table
+                oTable.fnClearTable();
+                //想表格中添加东西数据
+                if (dataArr.length > 0) {
+                    oTable.fnAddData(dataArr);
+                }
+                //重绘表格
+                oTable.fnDraw();
+                $('.dataTables_info').hide();
+                $('.dataTables_paginate').hide();
+            }
+        });
+        
     </script>
 </body>
 </html>

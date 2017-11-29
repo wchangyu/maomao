@@ -172,7 +172,7 @@
                         <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <h4>条件选择骤</h4>
+                                    <h4>条件选择</h4>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -181,10 +181,15 @@
                                         <h5>报告选择</h5>
                                     </div>
                                     <div class="col-xs-12">
-                                        <input type="text" class="form-control" placeholder="类型选择" />
+                                        <select id="topticsType" class="table-group-action-input form-control">
+                                            <option value="0">全部类型</option>
+                                            <option value="1">空调末端</option>
+                                            <option value="2">热水系统</option>
+                                            <option value="3">冷热源</option>
+                                        </select>
                                     </div>
                                     <div class="col-xs-12">
-                                        <h5>报告时间</h5>
+                                        <h5>报告时间(开始)</h5>
                                     </div>
                                     <div class="col-xs-12">
                                         <div class="input-group date form_date EXPERDT">
@@ -195,13 +200,18 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <h5>班级选择</h5>
+                                        <h5>报告时间(结束)</h5>
                                     </div>
                                     <div class="col-xs-12">
-                                        <input type="text" class="form-control" placeholder="选择班级" />
+                                        <div class="input-group date form_date EXPERDT">
+                                            <input id="epDt" class="form-control" size="16" type="text" value="" />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <h5>类型筛选</h5>
+                                        <h5>状态</h5>
                                     </div>
                                     <div class="col-xs-12">
                                         <select id="stateType" class="table-group-action-input form-control">
@@ -278,113 +288,28 @@
     <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
     <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
     <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="../VE/assets/scripts/VE.js" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init();
             Layout.init();
             Demo.init();
             BEE.init();
+            VE.init();
         });
-    </script>
-    <!--DT-->
-    <script type="text/javascript">
-        function convertDate(strDate) {//字符串转时间格式
-            var date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
-             function (a) {
-                 return parseInt(a, 10) - 1;
-             }).match(/\d+/g) + ')');
-            return date;
-        }
-        function Format(now, mask) {
-            var d = now;
-            var zeroize = function (value, length) {
-                if (!length) length = 2;
-                value = String(value);
-                for (var i = 0, zeros = ''; i < (length - value.length) ; i++) {
-                    zeros += '0';
-                }
-                return zeros + value;
-            };
-            return mask.replace(/"[^"]*"|'[^']*'|\b(?:d{1,4}|m{1,4}|yy(?:yy)?|([hHMstT])\1?|[lLZ])\b/g, function ($0) {
-                switch ($0) {
-                    case 'd': return d.getDate();
-                    case 'dd': return zeroize(d.getDate());
-                    case 'ddd': return ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'][d.getDay()];
-                    case 'dddd': return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d.getDay()];
-                    case 'M': return d.getMonth() + 1;
-                    case 'MM': return zeroize(d.getMonth() + 1);
-                    case 'MMM': return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()];
-                    case 'MMMM': return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()];
-                    case 'yy': return String(d.getFullYear()).substr(2);
-                    case 'yyyy': return d.getFullYear();
-                    case 'h': return d.getHours() % 12 || 12;
-                    case 'hh': return zeroize(d.getHours() % 12 || 12);
-                    case 'H': return d.getHours();
-                    case 'HH': return zeroize(d.getHours());
-                    case 'm': return d.getMinutes();
-                    case 'mm': return zeroize(d.getMinutes());
-                    case 's': return d.getSeconds();
-                    case 'ss': return zeroize(d.getSeconds());
-                    case 'l': return zeroize(d.getMilliseconds(), 3);
-                    case 'L': var m = d.getMilliseconds();
-                        if (m > 99) m = Math.round(m / 10);
-                        return zeroize(m);
-                    case 'tt': return d.getHours() < 12 ? 'am' : 'pm';
-                    case 'TT': return d.getHours() < 12 ? 'AM' : 'PM';
-                    case 'Z': return d.toUTCString().match(/[A-Z]+$/);
-                        // Return quoted strings with the surrounding quotes removed
-                    default: return $0.substr(1, $0.length - 2);
-                }
-            });
-        };
-        function addZeroToSingleNumber(num) {//判断日期或者月份是否小于10，如果小于10，补零
-            var curnum = "";
-            if (num < 10) {
-                curnum = "0" + num;
-            }
-            else {
-                curnum += num;
-            }
-            return curnum;
-        }
-        function addDay(dayNumber, date) { // 方法 增添dayNumber天（整形），date：如果没传就使用今天（日期型）
-            date = date ? date : new Date();
-            var ms = dayNumber * (1000 * 60 * 60 * 24)
-            var newDate = new Date(date.getTime() + ms);
-            return newDate;
-        }
-        function getrealdatetime() {
-            var now = new Date();
-            if (sessionStorage.SysDT != undefined) {
-                //now = convertDate(sessionStorage.SysDT);
-                return sessionStorage.SysDT;
-            }
-            else {
-                var year = now.getFullYear();
-                var month = "";
-                if (parseInt(now.getMonth()) == 0) {
-                    month = "12";
-                } else {
-                    month = addZeroToSingleNumber(now.getMonth());
-                }
-                var day = addZeroToSingleNumber(now.getDate());
-                var hour = addZeroToSingleNumber(now.getHours());
-                var min = addZeroToSingleNumber(now.getMinutes());
-                var realdatetime = year + "-" + month + "-" + day + " " + hour + ":" + min;
-                return realdatetime;
-            }
-        }
-    </script>
+    </script>  
     <script type="text/javascript">
         function INITEXPERDT() {
             var now = new Date();
             var now_year = now.getFullYear();
             var now_month = now.getMonth() + 1;
             var now_day = now.getDate();
-            var now_dstr = now_year + "-" + addZeroToSingleNumber(now_month) + "-" + addZeroToSingleNumber(now_day);
+            var now_dstr = now_year + "-" + VE.addZeroToSingleNumber(now_month) + "-" + VE.addZeroToSingleNumber(now_day);
             var mot = moment(now_dstr);
-            var nowDt = mot.format('YYYY-MM-DD')
-            $('#spDt').val(nowDt);
+            var clseoDt = mot.format('YYYY-MM-DD')
+            var startDt = mot.subtract(7, 'days').format('YYYY-MM-DD');
+            $('#spDt').val(startDt);
+            $('#epDt').val(clseoDt);
             $('.EXPERDT').datetimepicker({
                 format: 'yyyy-mm-dd',
                 language: 'zh-CN',

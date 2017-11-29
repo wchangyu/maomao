@@ -40,14 +40,18 @@
                 <label class="control-label visible-ie8 visible-ie9">工号</label>
                 <div class="input-icon">
                     <i class="fa fa-bold"></i>
-                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="工号" name="number" />
+                    <input class="form-control placeholder-no-fix" type="text"
+                           autocomplete="off" placeholder="工号"
+                           name="number" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label visible-ie8 visible-ie9">密码</label>
                 <div class="input-icon">
                     <i class="fa fa-lock"></i>
-                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" />
+                    <input class="form-control placeholder-no-fix" type="password"
+                           autocomplete="off" placeholder="密码"
+                           name="password" />
                 </div>
             </div>
             <p>
@@ -62,7 +66,7 @@
                 </select>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn blue pull-right">
+                <button id="signinBtn" type="submit" class="btn blue pull-right">
                     登录
                 </button>
             </div>
@@ -113,6 +117,9 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            if ($.cookie('ve_signinNumber') != null) {
+                $('#number').val($.cookie('ve_signinNumber'));
+            }
             $('.login-form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block',
@@ -148,7 +155,34 @@
                     error.insertAfter(element.closest('.input-icon'));
                 },
                 submitHandler: function (form) {
-
+                    $('#signinBtn').attr('disabled', 'disabled');
+                    $('#signinBtn').html('正在登录...');
+                    var signinUrl = "/User/SigninUser";
+                    $.post(signinUrl, {
+                        Number: $('#number').val(),
+                        Password: $('#password').val()
+                    }, function (res) {
+                        if (res === 3)//登录失败
+                        {
+                            alert('抱歉。用户登录失败！请输入正确的用户名、密码或者验证码。');
+                            $('#signinBtn').removeAttr('disabled');
+                            $('#signinBtn').html('登录');
+                            $('#password').select();
+                        } else {
+                            var model = res[0];
+                            sessionStorage.VENumber = model.Number;
+                            $.cookie("ve_signinNumber", model.Number);
+                            sessionStorage.VENmae = model.Name;
+                            sessionStorage.VEDepartID = model.DepartID;
+                            sessionStorage.VEDepartName = model.DepartName;
+                            sessionStorage.VEClassID = model.ClassID;
+                            sessionStorage.VEClassName = model.ClassName;
+                            sessionStorage.VERoleID = model.RoleID;
+                            sessionStorage.VERoleName = model.RoleName;
+                            sessionStorage.VETopicsType = $('#Topics').val();
+                            window.location.href = "opts.html";
+                        }
+                    });
                 }
             });
             $('.login-form input').keypress(function (e) {

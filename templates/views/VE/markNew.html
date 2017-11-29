@@ -1,4 +1,4 @@
-﻿<!-- 虚拟实验 >> 报告上传 experUpload -->
+﻿<!-- 教师评价 >> 实验查询 >> 报告批阅 markNew -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +13,11 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/moment.js"></script>
     <script src="../resource/js/showOrHidden.js"></script>
-    <link rel="stylesheet" href="../resource/css/leftBat.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/css/css/systemHomePage.css">
+    <link href="../resource/css/leftBat.css" rel="stylesheet">
+    <link href="../resource/TableTools/button/dataTables.tableTools.css" rel="stylesheet">
+    <link href="../resource/TableTools/button/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../resource/TableTools/button/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="../resource/css/css/systemHomePage.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
@@ -27,8 +27,10 @@
     <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
     <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
-    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/themes/darkblue.css" id="style_color" rel="stylesheet" type="text/css" />
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css" />
+    <link href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="../favicon.ico" />
     <style type="text/css">
         .input-icon > .form-control {
@@ -175,81 +177,81 @@
                         <div class="portlet light bg-inverse">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <h4>实验报告上传</h4>
+                                    <h4>实验报告批阅</h4>
+                                </div>
+                                <div class="actions">
+                                    <a class="btn btn-sm green margin-top-10" href="experMark.html">
+                                        <i class="fa fa-arrow-circle-o-left"></i>
+                                        <span>返回</span>
+                                    </a>
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form class="exper-form" method="post">
+                                <form class="mark-form" method="post">
                                     <table id="tableMark" class="table table-striped table-bordered table-advance table-hover">
                                         <tbody>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>学号</h4></td>
-                                                <td>10001</td>
+                                                <td id="spanNumber"></td>
                                                 <td style="font-weight:900;"><h4>姓名</h4></td>
-                                                <td>张三</td>
+                                                <td id="spaneUserNt"></td>
                                                 <td style="font-weight:900;"><h4>班级</h4></td>
-                                                <td>13班</td>
+                                                <td id="spanClassNt"></td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验项目名称</h4></td>
-                                                <td colspan="5">
-                                                    <div class="form-group" style="margin-bottom:0px !important;">
-                                                        <div class="input-icon">
-                                                            <input id="experTitle" name="experTitle" type="text"
-                                                                   style="border:1px solid #f7f7f7;"
-                                                                   class="form-control placeholder-no-fix"
-                                                                   placeholder="请输入实验项目名称" />
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <td colspan="5" id="spanExperTitle"></td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验原理</h4></td>
+                                                <td colspan="5" id="spanExperPrinciple"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>实验目标</h4></td>
+                                                <td colspan="5" id="spanExperAim"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>实验数据</h4></td>
+                                                <td colspan="5" id="spanExperData"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>实验环境</h4></td>
+                                                <td colspan="5" id="spanExperEnvironment"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>实验过程</h4></td>
+                                                <td colspan="5" id="spanExperProcess"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>是否通过</h4></td>
+                                                <td colspan="5">
+                                                    <div class="switch" data-on-label="通过" data-off-label="未通过">
+                                                        <input id="audit" type="checkbox" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>打分</h4></td>
                                                 <td colspan="5">
                                                     <div class="form-group" style="margin-bottom:0px !important;">
                                                         <div class="input-icon">
-                                                            <input id="ExperPrinciple" name="ExperPrinciple" type="text"
-                                                                   style="border:1px solid #f7f7f7;"
+                                                            <input id="score" name="score" type="text"
                                                                    class="form-control placeholder-no-fix"
-                                                                   placeholder="请输入实验原理" />
+                                                                   placeholder="请给实验打分(0~100)" />
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font-weight:900;"><h4>实验目标</h4></td>
+                                                <td style="font-weight:900;"><h4>评语</h4></td>
                                                 <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验目标" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:900;"><h4>实验数据(内容)</h4></td>
-                                                <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验内容" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:900;"><h4>实验环境</h4></td>
-                                                <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验环境" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:900;"><h4>实验过程</h4></td>
-                                                <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验过程" />
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="remark" name="remark" type="text"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验评语" />
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -298,39 +300,87 @@
     <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
     <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
     <script src="../../../assets/echarts/echarts.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/moment.min.js" type="text/javascript"></script>
+    <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
     <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="../VE/assets/scripts/VE.js" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init();
             Layout.init();
             Demo.init();
             BEE.init();
+            VE.init();
         });
     </script>
     <script type="text/javascript">
+
+        function INITEXPERDT() {
+            var now = new Date();
+            var now_year = now.getFullYear();
+            var now_month = now.getMonth() + 1;
+            var now_day = now.getDate();
+            var now_dstr = now_year + "-" + VE.addZeroToSingleNumber(now_month) + "-" + VE.addZeroToSingleNumber(now_day);
+            var mot = moment(now_dstr);
+            var nowDt = mot.format('YYYY-MM-DD')
+            $('#spDt').val(nowDt);
+            $('.EXPERDT').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language: 'zh-CN',
+                weekStart: true,
+                todayBtn: true,
+                autoclose: true,
+                todayHighlight: true,
+                startView: 2,
+                minView: 2,
+                minuteStep: 10,
+                forceParse: 0,
+                pickerPosition: "bottom-left"
+            });
+        }
+
         $(document).ready(function () {
-            $('.exper-form').validate({
+
+            INITEXPERDT();
+
+            var experId = VE.getQueryStr('experId', true);
+            getExperByID(experId);
+
+            //$('#audit').on('switch-change', function (e, data) {
+            //    var $el = $(data.el), value = data.value;
+            //    console.log(e, $el, value);
+            //});
+
+            $('.mark-form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block',
                 focusInvalid: false,
                 rules: {
-                    experTitle: {
-                        required: true
+                    score: {
+                        required: true,
+                        number: true,
+                        max: 100,
+                        min: 1
                     },
-                    ExperPrinciple: {
+                    remark: {
                         required: true
                     }
                 },
                 messages: {
-                    experTitle: {
-                        required: "实验项目名称是必填字段."
+                    score: {
+                        required: "分数是必填字段.",
+                        number: "分数必须是合法数字",
+                        max: "分数必须在0~100之间",
+                        min: "分数必须在0~100之间"
                     },
-                    ExperPrinciple: {
-                        required: "实验原理是必填字段."
+                    remark: {
+                        required: "评语是必填字段."
                     }
                 },
                 invalidHandler: function (event, validator) {
-                    $('.alert-danger', $('.exper-form')).show();
+                    $('.alert-danger', $('.mark-form')).show();
                 },
                 highlight: function (element) {
                     $(element).closest('.form-group').addClass('has-error');
@@ -343,11 +393,92 @@
                     error.insertAfter(element.closest('.input-icon'));
                 },
                 submitHandler: function (form) {
-                    alert('www');
+                    $('#saveMarkBtn').attr('disabled', 'disabled');
+                    $('#saveMarkBtn').html('正在上传...');
+                    var markUrl = "/Evaluate/PushEvaluate";
+                    var isaudit = $('#audit').val();
+                    var score = $('#score').val();
+                    var remark = $('#remark').val();
+                    $.post(markUrl, {
+                        IsAudit: isaudit,
+                        Score: score,
+                        Remark: remark,
+                        UserID: sessionStorage.VENumber,
+                        ExperID: experId
+                    }, function (res) {
+                        if (res === 3) {
+                            alert('抱歉。保存报告批阅失败。');
+                            $('#saveMarkBtn').removeAttr('disabled');
+                            $('#saveMarkBtn').html('上传');
+                        } else {
+                            window.location.href = "experMark.html";
+                        }
+                    });
                 }
             });
+
+            //$('#saveMarkBtn').on('click', function () {
+            //    var isaudit = $('#audit').val();
+            //    var score = $('#score').val();
+            //    var remark = $('#remark').val();
+            //    if (score.length === 0) {
+            //        alert('请您给学生实验分数.');
+            //    }
+            //    else if (parseFloat(score) <= 0 || parseFloat(score) > 100) {
+            //        alert('实验分数在0~100之间.');
+            //    }
+            //    else if (remark.length === 0) {
+            //        alert('请您输入学生实验评语.');
+            //    } else {
+            //        $('#saveMarkBtn').attr('disabled', 'disabled');
+            //        $('#saveMarkBtn').html('正在上传...');
+            //        var markUrl = "/Evaluate/PushEvaluate";
+            //        $.post(markUrl, {
+            //            IsAudit: isaudit,
+            //            Score: score,
+            //            Remark: remark,
+            //            UserID: sessionStorage.VENumber,
+            //            ExperID: experId
+            //        }, function (res) {
+            //            if (res === 3) {
+            //                alert('抱歉。保存报告批阅失败。');
+            //                $('#saveMarkBtn').removeAttr('disabled');
+            //                $('#saveMarkBtn').html('上传');
+            //            } else {
+            //                window.location.href = "experMark.html";
+            //            }
+            //        });
+            //    }
+            //});
+
         });
+
+        function getExperByID(experId) {
+            var experInfoUrl = "/Exper/GetExperByID?experId=" + experId + "&r=" + Math.random();
+            $.get(experInfoUrl, function (res) {
+                if (res === 3) {
+                    $('#saveMarkBtn').hide();
+                    alert('获取实验数据失败,请与管理员联系.');
+                } else {
+                    if (res.length === 0) {
+                        $('#saveMarkBtn').hide();
+                        alert('获取实验数据失败,请与管理员联系.');
+                    } else {
+                        var resMo = res[0];
+                        $('#spanNumber').html(resMo.Number);
+                        $('#spanUserNt').html(resMo.UserName);
+                        $('#spanClassNt').html(resMo.ClassName);
+                        $('#spanExperTitle').html(resMo.ExperTitle);
+                        $('#spanExperPrinciple').html(resMo.ExperPrinciple);
+                        $('#spanExperAim').html(resMo.ExperAim);
+                        $('#spanExperData').html(resMo.ExperData);
+                        $('#spanExperEnvironment').html(resMo.ExperEnvironment);
+                        $('#spanExperProcess').html(resMo.ExperProcess);
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
-
