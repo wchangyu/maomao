@@ -122,9 +122,8 @@
   "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor": "http://192.168.1.104/HQUeditorImage/controller.ashx",
-  //重庆大学虚拟实验室API访问地址
-  //"apiUriPrefixVE": "http://localhost/BEEWebAPI/api/",
+  "apiUriPrefixUEditor": "http://192.168.1.104/HQUeditorImage/controller.ashx",  
+  "apiUriPrefixVE": "http://localhost/BEEWebAPI/api/",
   "systemTitle":"重庆大学虚拟实验室",
   "isShowTitleEprName":"0",
   "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",

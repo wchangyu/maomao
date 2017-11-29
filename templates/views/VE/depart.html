@@ -77,7 +77,9 @@
         });
     </script>
     <script type="text/javascript">
+
         var oTable = null;
+
         function departs() {
             var departUrl = "/Depart/GetDepartDs?r=" + Math.random();
             $.get(departUrl, function (res) {
@@ -144,7 +146,9 @@
                 $('.dataTables_paginate').hide();
             });
         }
+
         $(document).ready(function () {
+
             $('#save-depart-btn').on('click', function () {
                 var departName = $('#departName').val();
                 if (departName.length === 0) {
@@ -162,7 +166,9 @@
                     });
                 }
             });
+
         });
+
     </script>
 </body>
 </html>
