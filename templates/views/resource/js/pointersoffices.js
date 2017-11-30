@@ -181,7 +181,15 @@ var ObjectSelection = function(){
             },
             callback: {
                 onClick: function(e,treeId,treeNode){
+
+                    //点击zTree文字时可勾选 不加只能点击前面圆圈才能勾选
                     zTreePointer.checkNode(treeNode,!treeNode.checked,true);
+
+                    //如果当前页面存在支路
+                    if($('#allBranch')){
+                        //获取当前楼宇下的支路
+                        GetAllBranches();
+                    }
                     if(getShowRadio){
                         //获取楼宇ID
 
@@ -207,8 +215,14 @@ var ObjectSelection = function(){
 
                     }
                 },
-
                 onCheck:function(e,treeId,treeNode){
+                        $(treeNode).css("background", "blue");
+                        console.log(treeNode.checked);
+                        //如果当前页面存在支路
+                        if($('#allBranch')){
+                            //获取当前楼宇下的支路
+                            GetAllBranches();
+                        }
 
                         if(getShowRadio){
                             //获取楼宇ID
@@ -233,8 +247,7 @@ var ObjectSelection = function(){
 
                             window.location.reload();
 
-                        }
-
+                        };
 
                 },
                 asyncSuccess:function(event, treeId, treeNode, msg){
@@ -251,7 +264,7 @@ var ObjectSelection = function(){
         if(this._$ulPointers){
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
-            console.log(nodes);
+            //console.log(nodes);
             if(getShowRadio){
 
             }else{

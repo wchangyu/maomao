@@ -17,7 +17,8 @@ $(function(){
                 {text:'<=',value:'<='},
                 {text:'=',value:'='},
                 {text:'>=',value:'>='},
-                {text:'>',value:'>'}
+                {text:'>',value:'>'},
+                {text:'其他',value:'其他'}
             ],
             beizhu:''
         }
@@ -35,6 +36,9 @@ $(function(){
 
     //存放所有巡检步骤的数组
     var _allData = [];
+
+    //记录当前巡检条目的编号
+    var _thisRowBM = '';
 
     /*-------------------------------------------表格初始化--------------------------------------------*/
     var col = [
@@ -107,35 +111,40 @@ $(function(){
     /*--------------------------------------------按钮事件---------------------------------------------*/
     //查询
     $('#selected').click(function(){
+
         conditionSelect();
+
     })
 
     //添加按钮
     $('.creatButton').click(function(){
+
         //确定按钮添加登记类
         $('#myModal').find('.btn-primary').show().removeClass('bianji').addClass('dengji');
         //模态框显示
         _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
         //初始化
-        myApp33.bianma = '';
-        myApp33.mingcheng = '';
-        myApp33.sbfl = '';
-        myApp33.miaoshu ='';
-        myApp33.bjgx = myApp33.options1[0].value;
-        myApp33.cankaozhi = '';
-        myApp33.beizhu = '';
+        xzInit();
+        //可操作/不可操作项
         var notOption = $('#myApp33').children().children().children('.input-blockeds').children();
+
         notOption.attr('disabled',false).removeClass('disabled-block');
+
         $('.bianma1').attr('disabled',true).addClass('disabled-block');
+
     })
 
     //登记确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
+
             djOrBj('YWDevIns/ywDIAddDIItem','新增成功！','新增失败!','');
+
         })
         .on('click','.bianji',function(){
+
             djOrBj('YWDevIns/ywDIUptDIItem','编辑成功！','编辑失败!','flag');
+
         })
 
     //删除确定按钮
@@ -148,6 +157,17 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/ywDIDelDIItem',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 if(result == 99){
                     _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除成功!', '');
@@ -225,6 +245,8 @@ $(function(){
 
     //查询、编辑赋值(flag表示是查看);
     function bjOrCk(thisEl,el,zhi,flag){
+        //初始化项
+        xzInit();
         //样式
         var $this = thisEl.parents('tr');
         $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
@@ -291,6 +313,17 @@ $(function(){
                 type:'post',
                 url:_urls + url,
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function( result ){
                     if(result == 99){
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,successMeg, '');
@@ -305,5 +338,25 @@ $(function(){
                 }
             })
         }
+    }
+
+    //弹窗初始化
+    function xzInit(){
+
+        //步骤编码
+        myApp33.bianma = '';
+        //步骤名称
+        myApp33.mingcheng = '';
+        //设备分类
+        myApp33.sbfl = '';
+        //描述步骤
+        myApp33.miaoshu = '';
+        //参考关系
+        myApp33.bjgx = '是/否';
+        //步骤参考值
+        myApp33.cankaozhi = '';
+        //描述
+        myApp33.beizhu = '';
+
     }
 })

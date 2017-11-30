@@ -1,0 +1,100 @@
+.page-title{
+    display: none;
+}
+body{
+
+}
+/*头部控制台*/
+.the-top-control{
+
+}
+.the-top-control ul{
+    margin-bottom:0px;
+    background: #ededed;
+}
+.the-top-control ul li{
+     height:50px;
+     width:100px;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 30px;
+    cursor: pointer;
+    background: #ededed;
+    float: left;
+    margin-right:5px;
+}
+.the-top-control ul li i{
+    font-size: 24px;
+    color:skyblue !important;
+    display: inline-block;
+    position: absolute;
+    left:35px;
+    top:10px;
+}
+.the-top-control ul li p{
+    margin-bottom:0 !important;
+}
+/*点击时样式*/
+.curClick{
+    background:#5b9bd5 !important;
+    color:white;
+}
+
+/*表格*/
+.ec{
+    width:100%;
+}
+.thd-content table{
+    width:100%;
+    border-collapse: collapse;
+}
+.thd-content table thead{
+    background:#5c9ad3;
+    color:white;
+}
+.thd-content table tbody tr:nth-child(even){
+    background: #84b4e5;
+}
+.thd-content table tbody tr:nth-child(odd){
+    background: #9dbfe2;
+}
+.thd-content table thead th,.thd-content table td{
+    text-align: center;
+    padding:8px 5px;
+    border:2px solid #5c9ad3;
+}
+/*.thd-content table td{*/
+    /*border:2px solid #5c9ad3;*/
+/*}*/
+.thd-content table .normal{
+    color:#1870b7;
+}
+.thd-content table .low{
+    color:#d5906f;
+}
+/*展示框*/
+.ecAll {
+    margin: 10px 0 0 10px;
+    float: left;
+    position: absolute;
+    height: auto !important;
+    width: 460px;
+    z-index: 1;
+}
+.ecTitle{
+   height:38px;
+    line-height: 38px;
+}
+.op {
+    position: absolute;
+    height: auto !important;
+    width: 460px;
+    background-color: #fff;
+    filter: alpha(Opacity=80);
+    -moz-opacity: 0.5;
+    opacity: 0.5;
+}
+.ec{
+    top:14px;
+}

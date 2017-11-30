@@ -280,7 +280,7 @@
                                         </select>
                                     </li>
                                     <li>
-                                        <label for=""> 设备保养条目名称：</label>
+                                        <label for=""> 设备保养步骤名称：</label>
                                         <div class="input-blocked" id="filter_global">
                                             <input type="text" class="filterInput">
                                         </div>
@@ -436,7 +436,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/MTManagement-1.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -445,6 +444,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/MTManagement-1.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -460,7 +460,7 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">条目名称 *：<span v-show="$validation.mingcheng.requireds">请输入项目名称</span></div>
+                                <div class="labels colorTip">步骤名称 *：<span v-show="$validation.mingcheng.requireds">请输入项目名称</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
                                 </div>
@@ -487,6 +487,7 @@
                                     <textarea style="width: 100%;height: 60px;outline: none" v-model="byfs"></textarea>
                                 </div>
                             </li>
+                            <div class="clearfix"></div>
                             <div>
                                 <div class="labels">备注：</div>
                                 <div class="input-blockeds" style="height:62px;">
@@ -532,15 +533,15 @@
             <div class="modal-body">
                 <ul>
                     <li class="floatLeft">
-                        <div class="labels">条目编码：</div>
+                        <div class="labels">步骤编码：</div>
                         <div class="input-blockeds">
-                            <input type="text"id="tmbm">
+                            <input type="text"id="tmbm" readonly="readonly" class="disabled-block">
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">条目名称 ：</div>
+                        <div class="labels">步骤名称 ：</div>
                         <div class="input-blockeds">
-                            <input type="text"id="tmmc">
+                            <input type="text"id="tmmc" readonly="readonly" class="disabled-block">
                         </div>
                     </li>
                 </ul>

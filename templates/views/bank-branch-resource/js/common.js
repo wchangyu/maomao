@@ -16,7 +16,7 @@ var theTimes = 30000;
 
 var loginArr = JSON.parse(sessionStorage.getItem('enterPriseList'));
 
-////console.log(loginArr);
+//console.log(loginArr);
 
 //支行ID
 var EnterpriseID;
@@ -64,11 +64,9 @@ function setDatas(arr){
 //调用对应接口成功后
 function ajaxSuccess(){
 
-
         _table.fnClearTable();
 
         setData();
-
 
 }
 

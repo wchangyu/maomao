@@ -137,6 +137,9 @@ $(function(){
     //负责人标识
     var _leaderFlag = false;
 
+    //记录当前工单详情有几个图
+    var _imgNum = 0;
+
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -985,8 +988,50 @@ $(function(){
         applySparePart($(this));
     });
 
+    //查看图片
+    $('#myModal')
+        .on('click','#viewImage',function(){
+
+            $('.showImage').show();
+
+            if(_imgNum){
+                var str = '';
+                for(var i=0;i<_imgNum;i++){
+                    str += '<img class="viewIMG" src="' +
+                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
+                        '">'
+                }
+                $('.showImage').html('');
+                $('.showImage').append(str);
+                $('.showImage').show();
+            }else{
+                $('.showImage').html('没有图片');
+                $('.showImage').show();
+            }
+        })
+        .on('click','.viewIMG',function(){
+
+            $('#myModal9').modal('show');
+
+            $('#myModal9').modal({
+                show:false,
+                backdrop:'static'
+            })
+
+            var imgSrc = $(this).attr('src');
+
+            $('#myModal9').find('img').attr('src',imgSrc);
+        })
 
     /*------------------------------其他方法-------------------------------------------------*/
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        var res = ip.exec(str1);  /*211.100.28.180*/
+        str = str.replace(ip,res);
+        return str;
+    }
+
     //ajaxFun（select的值）
     function ajaxFun(url, select, text, num) {
         var prm = {

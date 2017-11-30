@@ -116,6 +116,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -150,6 +151,10 @@ $(function(){
                 data:'itkName'
             },
             {
+                title:'设备类型',
+                data:'dcNum'
+            },
+            {
                 title:'设备名称',
                 data:'dName'
             },
@@ -168,6 +173,10 @@ $(function(){
             {
                 title:'执行人',
                 data:'itkRen'
+            },
+            {
+                title:'任务时间',
+                data:'tkTime'
             },
             {
                 title:'操作',
@@ -302,7 +311,7 @@ $(function(){
             var $thisBM = $(this).parents('tr').children('.bianma').html();
             moTaiKuang($('#myModal'));
             //赋值
-            console.log(_allDataArr);
+
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
                     workDone.sfqy = _allDataArr[i].isActive;
@@ -329,6 +338,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     //找到存放所有巡检步骤的数组，比较
                     _allXJSelect = [];
@@ -379,11 +399,21 @@ $(function(){
                 dipNum:workDone1.jhbm,
                 userID:_userIdName
             }
-            console.log(prm);
             $.ajax({
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     _allXJSelect = [];
                     //找到存放所有巡检步骤的数组，比较
@@ -466,12 +496,30 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/ywITKRecTask',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 if(result == 99){
                     moTaiKuang($('#myModal5'));
                     $('#myModal5').find('.modal-body').html('接单成功！');
+                    $('#myModal5').find('.btn-primary').hide();
                     $('#myModal').modal('hide');
                     conditionSelect();
+                }else{
+
+                    moTaiKuang($('#myModal5'));
+                    $('#myModal5').find('.modal-body').html('接单失败！');
+                    $('#myModal5').find('.btn-primary').hide();
+
                 }
             }
         })
@@ -500,12 +548,28 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/ywITKFinishTask',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 if(result == 99){
                     moTaiKuang($('#myModal5'));
                     $('#myModal5').find('.modal-body').html('执行成功！');
+                    $('#myModal5').find('.btn-primary').hide();
                     $('#myModal1').modal('hide');
                     conditionSelect();
+                }else{
+                    moTaiKuang($('#myModal5'));
+                    $('#myModal5').find('.modal-body').html('执行失败！');
+                    $('#myModal5').find('.btn-primary').hide();
                 }
             }
         })
@@ -542,7 +606,7 @@ $(function(){
             url:_urls + 'YWDevIns/YWDITGetTasks',
             data:prm,
             success:function(result){
-                console.log(result);
+
                 _allDataArr = [];
                 var jiedanArr = [];
                 var zhixingArr = [];

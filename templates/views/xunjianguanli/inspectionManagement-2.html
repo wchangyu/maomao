@@ -437,8 +437,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/js/inspectionManagement-2.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -447,6 +445,8 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/js/inspectionManagement-2.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
 <div class="modal fade modals" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -464,7 +464,7 @@
                                 <li class="floatLeft">
                                     <div class="labels">巡检内容编码：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="xjnrbm" readonly="readonly" placeholder="自动生成">
+                                        <input type="text" class="xjbm" v-model="xjnrbm" readonly="readonly" placeholder="自动生成">
                                     </div>
                                 </li>
                                 <li class="floatRight">
@@ -573,14 +573,14 @@
                 <ul>
                     <li class="floatLeft" style="line-height: 26px;">
                         <div class="labels">步骤编码 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmbm">
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" class="disabled-block" readonly="readonly" id="xjtmbm">
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
                         <div class="labels">步骤名称 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmmc">
+                        <div class="input-blockeds disabled-block">
+                            <input type="text" class="disabled-block" readonly="readonly" id="xjtmmc">
                         </div>
                     </li>
                 </ul>
@@ -592,6 +592,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

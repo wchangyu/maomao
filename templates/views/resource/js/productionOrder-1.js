@@ -648,9 +648,9 @@ $(function () {
         'bxBeizhu': $('.remarkDes').eq(1).val(),
         'userID': _userIdNum,
         'gdLeixing': quickWork.rwlx,
-        'dName': quickWork.sbMC,
+        'dName': quickWork.sbMC,//设备名称
         'gdSrc': 2,
-        'wxShebei': quickWork.sbSelect,
+        'wxShebei': quickWork.sbSelect, // 设备编码
         'dcName': quickWork.sbLX,
         'installAddress': quickWork.azAddress,
         'wxBeizhu': $('.weixiuBZ').val(),

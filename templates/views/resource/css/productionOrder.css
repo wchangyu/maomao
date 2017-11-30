@@ -716,4 +716,14 @@ textarea{
     top: -15px;
     left:20px;
 }
+.executor-li{
+    width: 200px !important;
+    display: inline-block;
+}
+.executor-li input{
 
+    width: 198px;
+}
+.executor-li select{
+    width: 198px;
+}

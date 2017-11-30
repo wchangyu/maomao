@@ -74,7 +74,7 @@ $(function(){
     var app33 = new Vue({
         el:'#myApp33',
         data:{
-            picked:'1',
+            picked:'0',
             telephone:'',
             person:'',
             place:'',
@@ -83,7 +83,9 @@ $(function(){
             sections:'',
             remarks:'',
             sbbm:'',
-            wxbz:''
+            sbmc:'',
+            wxbz:'',
+            system:''
         },
         methods:{
             radios:function(){
@@ -162,7 +164,14 @@ $(function(){
             {
                 title:'任务单号',
                 data:'itkNum',
-                className:'bianma'
+                className:'bianma',
+                render:function(data, type, full, meta){
+
+                    return '<span data-num="' + full.dipNum +
+                        '">' + data +
+                        '</span>'
+
+                }
             },
             {
                 title:'任务名称',
@@ -287,6 +296,9 @@ $(function(){
     //表格的按钮
     $('#scrap-datatables tbody')
         .on('click','.option-see',function(){
+
+            moTaiKuang($('#myModal1'));
+            $('#myModal1').find('.btn-primary').hide();
             var $this = $(this).parents('tr');
             $('.table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
@@ -318,7 +330,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/ywITKGetTKInfo',
                 data:prm,
-                async:false,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     _allXJSelect = [];
                     for(var i=0;i<result.length;i++){
@@ -332,7 +354,7 @@ $(function(){
                     }
                 }
             });
-            moTaiKuang($('#myModal1'));
+
         })
         .on('click','.option-gongdan',function(){
             var $this = $(this).parents('tr');
@@ -342,26 +364,88 @@ $(function(){
             _sbbm = $(this).parents('tr').children('.dNum').html();
             _gzms = $(this).parents('tr').children('.exception').html();
             //初始化
-            app33.picked = '1';
-            app33.telephone = '';
-            app33.person = '';
-            app33.place ='';
-            app33.section = '';
-            app33.matter = '';
-            app33.remarks = '';
+            gdInit();
+
             app33.sbbm = _sbbm;
-            app33.wxbz = _gzms;
+            app33.remarks = _gzms;
             moTaiKuang($('#myModal2'));
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
+            var $thisBM = $(this).parents('tr').children('.bianma').children('span').html();
             var $thisSBBM = '';
             //根据巡检任务单号，获得步骤编码
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
-                $thisSBBM = _allDataArr[i].ditNum
+                    $thisSBBM = _allDataArr[i].ditNum
                 }
             }
             _redh = $thisBM;
             _tmbm = $thisSBBM;
+
+            var dNum = $(this).parents('tr').find('.dNum').html();
+
+            //调设备接口，然后确定设备维修地点和设备分类
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWDev/ywDIGetDevs',
+                data:{
+                    dNum:dNum,
+                    userID:_userIdName
+                },
+                success:function(result){
+
+                    app33.sbmc = result[0].dName;
+
+                    app33.place = result[0].installAddress;
+
+                    app33.matter = result[0].dcName;
+
+                    app33.system = result[0].dsName;
+
+                    $('#system').attr('data-num',result[0].dsNum);
+
+                    $('#matter').attr('data-num',result[0].dcNum);
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(JSON.parse(jqXHR.responseText).message);
+                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    }
+                }
+
+            })
+
+            //调用巡检计划接口，获取报修部门
+            var dipNum = $(this).parents('tr').find('.bianma').children('span').attr('data-num');
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWDevIns/YWDIPGetPlans',
+                data:{
+
+                    dipNum:dipNum,
+                    userID:_userIdName,
+                    isActive:99
+
+                },
+                success:function(result){
+
+                    app33.section = result[0].dipKeshi;
+
+                    $('#section').attr('data-num',result[0].dipKeshiNum);
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(JSON.parse(jqXHR.responseText).message);
+                    if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                    }
+                }
+
+            })
+
+            //可操作
+            abledGD();
+
         })
         .on('click','.option-gongdans',function(){
             var $this = $(this).parents('tr');
@@ -392,25 +476,44 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWGD/ywGDGetDJ',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
-                    console.log(result);
-                    if(result[0].gdJJ == 1){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('#ones').parent('span').addClass('checked');
+                    if(result){
+                        if(result[0].gdJJ == 1){
+                            $('.inpus').parent('span').removeClass('checked');
+                            $('#ones').parent('span').addClass('checked');
+                        }else{
+                            $('.inpus').parent('span').removeClass('checked');
+                            $('#twos').parent('span').addClass('checked');
+                        }
+                        app33.telephone = result[0].bxDianhua;
+                        app33.person = result[0].bxRen;
+                        app33.place =result[0].wxDidian;
+                        app33.section = result[0].bxKeshi;
+                        app33.matter = result[0].wxShiX;
+                        app33.remarks = result[0].bxBeizhu;
+                        app33.sbbm = _sbbm;
+                        app33.wxbz = _gzms;
                     }else{
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('#twos').parent('span').addClass('checked');
+
+                        return false;
+
                     }
-                    app33.telephone = result[0].bxDianhua;
-                    app33.person = result[0].bxRen;
-                    app33.place =result[0].wxDidian;
-                    app33.section = result[0].bxKeshi;
-                    app33.matter = result[0].wxShiX;
-                    app33.remarks = result[0].wxShebei;
-                    app33.sbbm = _sbbm;
-                    app33.wxbz = _gzms;
+
                 }
             })
+
+            disabledGD();
         })
     //工单登记
     $('.dengji').click(function(){
@@ -420,30 +523,70 @@ $(function(){
             moTaiKuang(myModal);
         }else{
             var prm = {
+                //是否紧急
                 'gdJJ':app33.picked,
-                'bxRen':app33.person,
+                //设备名称
+                'dName':app33.sbmc,
+                //设备编码
+                'dNum':app33.sbbm,
+                //报修电话
                 'bxDianhua':app33.telephone,
-                'bxKeshi':app33.section,
+                //报修人信息
+                'bxRen':app33.person,
+                //维修地点
                 'wxDidian':app33.place,
-                'wxShiX':app33.matter,
-                'wxKeshi':'',
+                //报修部门
+                'bxKeshi':app33.section,
+                //报修部门编码
+                'wxKeshiNum':$('#section').attr('data-num'),
+                //设备分类
+                'dcName':app33.matter,
+                //设备分类编码
+                'dcNum':$('#matter').attr('data-num'),
+                //报修备注
                 'bxBeizhu':app33.remarks,
+                //维修备注
+                'wxBeizhu':app33.wxbz,
+                //设备系统
+                'wxShiX':app33.system,
+                'wxShiXNum':$('#system').attr('data-num'),
                 'userID':_userIdName,
                 'gdSrc':3,
                 'itkNum':_redh,
                 'ditNum':_tmbm,
-                'wxShebei':_sbbm
+                'wxShebei':app33.sbbm,
+
             }
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDCreDJDI',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     if(result != 3){
                         $('#myModal2').modal('hide');
                         var myModal = $('#myModal5');
                         myModal.find('.modal-body').html('工单创建成功!');
+                        myModal.find('.btn-primary').hide();
                         moTaiKuang(myModal)
+                        conditionSelect();
+
+                    }else{
+
+                        var myModal = $('#myModal5');
+                        myModal.find('.modal-body').html('工单创建失败!');
+                        myModal.find('.btn-primary').hide();
+
                     }
                     //刷新表格
                     conditionSelect();
@@ -544,5 +687,73 @@ $(function(){
 
             "columns": col
         })
+    }
+
+    //创建工单初始化
+    function gdInit(){
+
+        //工单类型（快速、普通）
+        app33.picked = 0;
+        //单选设置
+        $('.inpus').parent('span').removeClass('checked');
+
+        $('#twos').parent('span').addClass('checked');
+
+        //设备编码
+        app33.sbbm = '';
+
+        //设备名称
+        app33.sbmc = '';
+
+        //报修电话
+        app33.telephone = '';
+
+        //报修人
+        app33.person = '';
+
+        //维修地点
+        app33.place = '';
+
+        //报修部门
+        app33.section = '';
+
+        //维修事项
+        app33.matter = '';
+
+        //报修备注
+        app33.remarks = '';
+
+        //维修备注
+        app33.wxbz = '';
+
+        //设备系统
+        app33.system = '';
+
+    }
+
+    //工单可操作
+    function abledGD(){
+
+        $('#myModal2').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        $('#myModal2').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        $('#myModal2').find('textarea').attr('disabled',false).removeClass('disabled-block');
+
+        $('#ones').parents('.input-blockeds').removeClass('disabled-block');
+
+        $('.auto-fill').attr('disabled',true).addClass('disabled-block');
+    }
+
+    //工单不可操作
+    function disabledGD(){
+
+        $('#myModal2').find('input').attr('disabled',true).addClass('disabled-block');
+
+        $('#myModal2').find('select').attr('disabled',true).addClass('disabled-block');
+
+        $('#myModal2').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+        $('#ones').parents('.input-blockeds').addClass('disabled-block');
     }
 })

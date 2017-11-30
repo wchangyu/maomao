@@ -27,6 +27,7 @@ var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 
 //datapicker时间插件初始化(日月年)
 function _timeYMDComponentsFun(el){
+
     el.datepicker({
         language:  'zh-CN',
         todayBtn: 1,
@@ -504,3 +505,28 @@ Array.prototype.remove = function(val) {
         this.splice(index, 1);
     }
 };
+
+//数组去重
+function _unique(a,attr) {
+    var res = [];
+
+    for (var i = 0, len = a.length; i < len; i++) {
+        var item = a[i];
+        for (var j = 0, jLen = res.length; j < jLen; j++) {
+            if (res[j][attr] === item[attr])
+                break;
+        }
+
+        if (j === jLen)
+            res.push(item);
+    }
+
+    return res;
+}
+
+//数组从小到大排序
+function _sortNumber(a,b)
+{
+    return a - b
+}
+

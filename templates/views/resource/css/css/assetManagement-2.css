@@ -4,3 +4,12 @@ select{
 #scrap-datatables thead th{
     text-align: center;
 }
+.choiceBlock{
+
+    display: inline-block;
+    height: 20px;
+    cursor: pointer;
+    vertical-align: middle;
+    color: #00a0e9;
+    line-height: 20px;
+}
