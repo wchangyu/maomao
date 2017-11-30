@@ -299,7 +299,6 @@ function getBranchZtree(EnItdata,flag,fun){
     }
 
     //console.log(zNodes);
-
     branchTreeObj = $.fn.zTree.init($("#allBranch"), setting, zNodes);
 };
 
@@ -436,7 +435,7 @@ function blurKey(e) {
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
     //获取页面日期类型
-    var dateType = $('#wrapper .time-options-1').html();
+    var dateType = $('.time-options-1').html();
 
     //定义展示日期类型
     var showDateType = '';
@@ -473,10 +472,16 @@ function getShowDateType(){
 //获取开始结束时间
 function getPostTime(){
     //获取页面日期类型
-    var dateType = $('#wrapper .time-options-1').html();
+    var dateType = $('.time-options-1').html();
 
     //定义开始时间
-    var startTime = $('.min').val();
+    var startTime = '';
+
+    if($('.min').length > 0){
+
+        startTime = $('.min').val();
+    }
+
     //定义结束时间
     var endTime = '';
 

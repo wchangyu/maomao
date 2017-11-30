@@ -790,6 +790,14 @@
         "arg":"",
         "iconclass":""
       },
+      "电能质量":{
+        "type":"0",
+        "content":"电能质量",
+        "uri":"../new-nenghaofenxi/electricQuality.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "用能管理":{
         "type":"2",
         "content":"用能管理"

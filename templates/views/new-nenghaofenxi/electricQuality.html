@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>定额管理</title>
+    <title>能耗排名</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -15,7 +15,7 @@
     <meta content="" name="author"/>
     <!--MY STYLE-->
     <link rel="stylesheet" href="../resource/css/leftBat.css">
-
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
@@ -49,8 +49,7 @@
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/jienengzuji/energyConservation.css">
-
+    <link rel="stylesheet" href="../new-resource/css/nenghaofenxi/electricQuality.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -229,17 +228,12 @@
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
-                    <!--<li>-->
-                        <!--<i class="fa fa-home"></i>-->
-                        <!--<i class="fa fa-angle-right"></i>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="javascript:void(0);">节能足迹</a>-->
-                        <!--<i class="fa fa-angle-right"></i>-->
-                    <!--</li>-->
-                    <!--<li><a href="javascript:void(0);">节能量验证</a></li>-->
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
                 </ul>
-
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -270,123 +264,119 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
+                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
 
-                            <div class="right-content">
-                                <!--<div class="left-middle-header">-->
-                                <!--<div class="header-one"></div>-->
-                                <!--<div class="header-two"></div>-->
-                                <!--<div class="header-three"></div>-->
-                                <!--</div>-->
-                                <div class="right-top">
-                                    <div class="right-header">
-                                        <!-- 标题 -->
-                                        <li class="choose-time">
-                                            <label for="">改造前：</label>
-                                            <div class="input-blocked">
-                                                <input type="text" class="datatimeblock min" name="min">
-                                            </div>
-                                            <label for="">到</label>
-                                            <div class="input-blocked">
-                                                <input type="text" class="datatimeblock max" name="max">
-                                            </div>
-                                        </li>
+                                <div class="content-main">
+                                    <div class="main-left-middle">
+                                        <div class="left-middle-header">对象选择 (重点用能支路)</div>
+                                        <div class="left-middle-main">
+                                            <div class="tree-1 tree-3" style="display: block">
+                                                <div class="left-middle-input">
+                                                    <input type="text"  id="keyss" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipes"></div>
+                                                <ul class="allBranch ztree" id="allBranch" style="">
 
-                                        <li class="choose-time">
-                                            <label for="">改造后：</label>
-                                            <div class="input-blocked" style="background: #eee">
-                                                <input type="text" class="datatimeblock min1" name="min1" readonly="readonly" disabled="disabled" style="background: #eee !important;">
+                                                </ul>
                                             </div>
-                                            <label for="">到</label>
-                                            <div class="input-blocked" style="background: #eee">
-                                                <input type="text" class="datatimeblock max1" name="max1"  readonly="readonly" disabled="disabled" style="background: #eee !important;">
-                                            </div>
-                                        </li>
-
-                                        <li class="choose-time"><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                        <!-- 标题右边 -->
-                                        <ul class="right-header-right">
-                                            <!-- 单位 -->
-
-                                        </ul>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="content-main">
+                                    <div class="main-left-middle1">
+                                        <div class="left-middle-header">参数选择</div>
+                                        <div class="left-middle-main1">
 
-                                <!--上方有关信息-->
-                                <div class="top-message row">
-
-                                    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
-
-                                        <p class="improve-name">改造名称：<span></span></p>
-                                        <p class="improve-content">改造内容：<span>
-</span></p>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-2 col-sm-12 col-xs-12">
-
-                                        <p class="start-date">开始时间：<span>
-</span></p>
-                                        <p class="end-date">结束时间：<span>
-
-</span></p>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
-
-                                        <p class="belong-building">所属楼宇：<span>
-</span></p>
-                                        <p class="belong-branch">涉及之路：<span>
-</span></p>
-
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="content-main">
+                                    <div class="select-times">
+                                        <div class="left-middle-header">查询时间</div>
+                                        <div id='wrapper'>
 
-                                <!--右侧数据展示-->
-                                <div class="rheader-content-left comparisonOfHistograms" style="width:280px;float: right">
-                                    <div class="rheader-content-right">
-                                        <div class="rheader-content-rights">
-                                            <!-- 累计耗电标题 -->
-                                            <span class="total-power-consumption">节能量</span>
-                                            <!-- 耗电数值 -->
-													<span class="total-power-consumption-value">
-														<label id="consumption-value-number"></label>
-                                                        <!-- 单位  -->
-														<span class="the-cumulative-power-unit"></span>
-													</span>
+                                            <div class="time-options time-options-1">日</div>
 
-                                                    <span class="compared-with-last-time compared-with-last-time0"><br>
-														<b> <font></font> <span class="">kg</span></b> <br />
-                                                        CO2排放量
-													</span>
+                                            <div style="height:80px;">
+                                                <div class="start-time-choose choose-time position-center">
+                                                    <label for="">选择时间：</label>
+                                                    <div class="input-blocked">
+                                                        <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
+                                                    </div>
+                                                </div>
+                                                <div class="end-time-choose choose-time">
+                                                    <label for="">结束时间：</label>
+                                                    <div class="input-blocked">
+                                                        <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                               <span class="compared-with-last-time1 compared-with-last-time"><br>
-														<b><font></font> <span class="">棵</span></b> <br />
-                                                        相当于植树
-													</span>
+                                            <div class="buttons">
 
-                                            <div class="rights-up" style=""></div>
+                                                <button class="btn btn-success">查询</button>
 
-                                            <span class="right-up-precent"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                                <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <!--<select name="" id="unit"></select>-->
+                                                    <input type="text" style="width:80px;height:24px;" disabled="disabled" class="unit">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--上方有关信息-->
+                                        <div class="top-message row">
+
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                                <p class="meter-type"><font>表计种类</font><span>233</span></p>
+                                                <p class="meter-name"><font>表计型号</font><span>233</span></p>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                                <p class="meter-name"><font>安装地址</font><span>2017/11/16</span></p>
+                                                <p class="meter-scope"><font>测量范围</font><span>2017/11/25</span></p>
+                                                <p class="meter-rate"><font>互感倍数</font><span>环境楼</span></p>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
 
-                                            <span class="quota-year">改造前:<br><b></b></span>
-                                            <span class="quota-year1">改造后:<br><b></b></span>
+                                                <p class="energy-data"><font>能耗数据</font><span>建筑总用电</span></p>
+
+                                            </div>
+                                        </div>
+
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
 
                                         </div>
 
 
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
-
-                                <!--eChart图-->
-                                <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
-
-                                </div>
-
-                                <div class="clearfix"></div>
-
-
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -411,7 +401,6 @@
     </div>
 </div>
 
-
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -422,20 +411,12 @@
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm">确定</button>
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-
-<!--loading图-->
-<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
-
-    </div>
-</div>
-
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -484,7 +465,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/jienengzuji/energyConservation.js"></script>
+<script src="../new-resource/js/nenghaofenxi/electricQuality.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

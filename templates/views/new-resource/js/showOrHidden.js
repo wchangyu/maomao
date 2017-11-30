@@ -3,12 +3,14 @@ $(function(){
     $('.showOrHidden').click(function(){
         var o1 = $(".content-main-left").css("display");
         var url = window.location.href;
+
         if(o1 == 'block'){
             $('.content-main-left').hide();
 
-            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html')){
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html') > 0){
                 $('.content-main-right').removeClass('col-lg-10 col-md-9').addClass('col-lg-12 col-md-12');
             }else{
+                console.log(44);
                 $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
             }
 
@@ -19,7 +21,7 @@ $(function(){
             })
         }else if(o1 == 'none'){
             $('.content-main-left').show();
-            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html')){
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html') > 0){
                 $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-10 col-md-9');
             }else{
                 $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-8');
@@ -125,8 +127,6 @@ $(function(){
         }else{
 
         };
-
-
 
     });
 
