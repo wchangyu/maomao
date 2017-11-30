@@ -54,3 +54,4 @@ sessionStorage.VEClassName   班级名称
 sessionStorage.VERoleID		 角色ID
 sessionStorage.VERoleName    角色名称
 sessionStorage.VETopicsType  重庆大学虚拟实验室课题(1=空调末端;2=热水系统;3=冷热源)
+sessionStorage.VExperData	 实验数据(参数、结果)

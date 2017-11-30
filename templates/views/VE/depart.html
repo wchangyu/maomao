@@ -17,7 +17,13 @@
     <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
     <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../bank-resource/data-tables/DT_bootstrap.css" rel="stylesheet" />
     <link rel="shortcut icon" href="../favicon.ico" />
+    <style type="text/css">
+        .input-icon > .form-control {
+            padding-left: 12px !important;
+        }
+    </style>
 </head>
 <body class="page-quick-sidebar-over-content">
     <div class="page-container">
@@ -27,18 +33,33 @@
                     <h3 style="text-align:center;">院系管理</h3>
                     <hr />
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <div>
-                                <input class="form-control placeholder-no-fix" style="width:200px;float:left;margin-right:10px;"
-                                       type="text" placeholder="输入院系名称" id="departName" name="departName" />
-                                <a id="save-depart-btn" class="btn btn-default green"
-                                   style="border:0px solid green;margin-top:1px;">
-                                    保存
-                                </a>
+                        <form class="depart-form" method="post">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button>
+                                    <span>
+                                        保存院系信息失败.
+                                    </span>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0px !important;">
+                                    <div class="input-icon">
+                                        <input class="form-control placeholder-no-fix"
+                                               style="width:200px;float:left;margin-right:10px;"
+                                               type="text" placeholder="院系名称(必填)"
+                                               id="departName" name="departName" />
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" id="save-depart-btn"
+                                            class="btn btn-default green"
+                                            style="border:0px solid green;margin-top:1px;">
+                                        保存
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                        </form>
                     </div>
                     <div class="row margin-top-20">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
@@ -70,6 +91,8 @@
     <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
     <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
     <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <script src="../bank-resource/data-tables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="../bank-resource/data-tables/DT_bootstrap.js" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function () {
             Metronic.init();
@@ -149,23 +172,73 @@
 
         $(document).ready(function () {
 
-            $('#save-depart-btn').on('click', function () {
-                var departName = $('#departName').val();
-                if (departName.length === 0) {
-                    alert('院系名称为必填字段.');
-                } else {
+            $('.depart-form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block',
+                focusInvalid: false,
+                rules: {
+                    departName: {
+                        required: true
+                    }
+                },
+                messages: {
+                    departName: {
+                        required: "院系名称是必填字段."
+                    }
+                },
+                invalidHandler: function (event, validator) {
+                    //$('.alert-danger', $('.depart-form')).show();
+                },
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label) {
+                    label.closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    //error.insertAfter(element.closest('.input-icon'));
+                },
+                submitHandler: function (form) {
+                    $('#save-depart-btn').attr('disabled', 'disabled');
+                    $('#save-depart-btn').html('正在保存...');
                     var pushUrl = "/Depart/PushDepart";
+                    var departName = $('#departName').val();
                     $.post(pushUrl, {
                         Name: departName
                     }, function (rescode) {
                         if (rescode === 99) {
+                            $('#save-depart-btn').removeAttr('disabled');
+                            $('#save-depart-btn').html('保存');
+                            $('#departName').val('');
                             departs();
                         } else {
-                            alert('保存院系信息失败.');
+                            //alert('保存院系信息失败.');
+                            $('#save-depart-btn').removeAttr('disabled');
+                            $('#save-depart-btn').html('保存');
+                            $('.alert-danger', $('.depart-form')).show();
                         }
                     });
                 }
             });
+
+            //$('#save-depart-btn').on('click', function () {
+            //    var departName = $('#departName').val();
+            //    if (departName.length === 0) {
+            //        alert('院系名称为必填字段.');
+            //    } else {
+            //        var pushUrl = "/Depart/PushDepart";
+            //        $.post(pushUrl, {
+            //            Name: departName
+            //        }, function (rescode) {
+            //            if (rescode === 99) {
+            //                departs();
+            //            } else {
+            //                alert('保存院系信息失败.');
+            //            }
+            //        });
+            //    }
+            //});
 
         });
 

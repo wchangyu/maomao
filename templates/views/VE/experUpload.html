@@ -184,11 +184,11 @@
                                         <tbody>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>学号</h4></td>
-                                                <td>10001</td>
+                                                <td id="spanNumber"></td>
                                                 <td style="font-weight:900;"><h4>姓名</h4></td>
-                                                <td>张三</td>
+                                                <td id="spanUserNt"></td>
                                                 <td style="font-weight:900;"><h4>班级</h4></td>
-                                                <td>13班</td>
+                                                <td id="spanClassNt"></td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验项目名称</h4></td>
@@ -219,43 +219,72 @@
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验目标</h4></td>
                                                 <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验目标" />
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="ExperAim" name="ExperAim" type="text"
+                                                                   style="border:1px solid #f7f7f7;"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验目标" />
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验数据(内容)</h4></td>
                                                 <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验内容" />
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="ExperData" name="ExperData" type="text"
+                                                                   style="border:1px solid #f7f7f7;"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验内容" />
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验环境</h4></td>
                                                 <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验环境" />
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="ExperEnvironment" name="ExperEnvironment" type="text"
+                                                                   style="border:1px solid #f7f7f7;"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验环境" />
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4>实验过程</h4></td>
                                                 <td colspan="5">
-                                                    <input id="score" type="text"
-                                                           style="border:1px solid #f7f7f7;"
-                                                           class="form-control placeholder-no-fix"
-                                                           placeholder="请输入实验过程" />
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="ExperProcess" name="ExperProcess" type="text"
+                                                                   style="border:1px solid #f7f7f7;"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验过程" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:900;"><h4>实验备注</h4></td>
+                                                <td colspan="5">
+                                                    <div class="form-group" style="margin-bottom:0px !important;">
+                                                        <div class="input-icon">
+                                                            <input id="Memo" name="Memo" type="text"
+                                                                   style="border:1px solid #f7f7f7;"
+                                                                   class="form-control placeholder-no-fix"
+                                                                   placeholder="请输入实验备注" />
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight:900;"><h4></h4></td>
                                                 <td colspan="5">
-                                                    <button id="saveMarkBtn" type="submit"
+                                                    <button id="saveExperBtn" type="submit"
                                                             class="btn btn-default green"
                                                             style="border:0px solid green;">
                                                         <i class="fa fa-save" style="color:rgb(255, 255, 255);"></i>
@@ -308,7 +337,9 @@
         });
     </script>
     <script type="text/javascript">
+
         $(document).ready(function () {
+
             $('.exper-form').validate({
                 errorElement: 'span',
                 errorClass: 'help-block',
@@ -319,6 +350,18 @@
                     },
                     ExperPrinciple: {
                         required: true
+                    },
+                    ExperAim: {
+                        required: true
+                    },
+                    ExperData: {
+                        required: true
+                    },
+                    ExperEnvironment: {
+                        required: true
+                    },
+                    ExperProcess: {
+                        required: true
                     }
                 },
                 messages: {
@@ -327,6 +370,18 @@
                     },
                     ExperPrinciple: {
                         required: "实验原理是必填字段."
+                    },
+                    ExperAim: {
+                        required: "实验目标是必填字段"
+                    },
+                    ExperData: {
+                        required: "实验数据是必填字段"
+                    },
+                    ExperEnvironment: {
+                        required: "实验环境是必填字段"
+                    },
+                    ExperProcess: {
+                        required: "实验过程是必填字段"
                     }
                 },
                 invalidHandler: function (event, validator) {
@@ -343,10 +398,36 @@
                     error.insertAfter(element.closest('.input-icon'));
                 },
                 submitHandler: function (form) {
-                    alert('www');
+                    $('#saveExperBtn').attr('disabled', 'disabled');
+                    $('#saveExperBtn').html('正在上传...');
+                    var experUrl = "Exper/PushExper";
+                    var body = {
+                        ExperTitle: $('#ExperTitle').val(),
+                        ExperPrinciple: $('#ExperPrinciple').val(),
+                        ExperAim: $('#ExperAim').val(),
+                        ExperEnvironment: $('#ExperEnvironment').val(),
+                        ExperProcess: $('#ExperProcess').val(),
+                        ExperData: $('#ExperData').val(),
+                        Topics: sessionStorage.VETopicsType,
+                        Memo: $('#Memo').val(),
+                        UserID: sessionStorage.VENumber
+                    };
+                    $.post(experUrl, body, function (res) {
+                        if (res === 3) {
+                            alert('抱歉。保存实验报告失败。');
+                            $('#saveExperBtn').removeAttr('disabled');
+                            $('#saveExperBtn').html('上传');
+                        } else {
+                            $('#saveExperBtn').removeAttr('disabled');
+                            $('#saveExperBtn').html('上传');
+                            $('#saveExperBtn').hide();
+                        }
+                    });
                 }
             });
+
         });
+
     </script>
 </body>
 </html>

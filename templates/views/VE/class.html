@@ -19,6 +19,11 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
     <link href="../bank-resource/data-tables/DT_bootstrap.css" rel="stylesheet" />
     <link rel="shortcut icon" href="../favicon.ico" />
+    <style type="text/css">
+        .input-icon > .form-control {
+            padding-left: 12px !important;
+        }
+    </style>
 </head>
 <body class="page-quick-sidebar-over-content">
     <div class="page-container">
@@ -28,22 +33,40 @@
                     <h3 style="text-align:center;">班级管理</h3>
                     <hr />
                     <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <div>
-                                <select id="departType" name="departType" class="select2 form-control"
-                                        style="margin-top:10px;width:200px;float:left;margin-right:10px;">
-                                </select>
-                                <input class="form-control placeholder-no-fix" 
-                                       style="margin-top:10px;width:200px;float:left;margin-right:10px;"
-                                       type="text" placeholder="输入班级名称" id="className" name="className" />   
-                                <a id="save-class-btn" class="btn btn-default green" 
-                                   style="margin-top:11px;border:0px solid green;">
-                                    保存
-                                </a>                         
+                        <form class="class-form" method="post">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button>
+                                    <span>
+                                        保存班级信息失败.
+                                    </span>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0px !important;">
+                                    <div class="input-icon">
+                                        <select id="departType" name="departType"
+                                                class="select2 form-control"
+                                                style="margin-top:10px;width:200px;float:left;margin-right:10px;"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0px !important;">
+                                    <div class="input-icon">
+                                        <input class="form-control placeholder-no-fix"
+                                               style="margin-top:10px;width:200px;float:left;margin-right:10px;"
+                                               type="text" placeholder="输入班级名称"
+                                               id="className" name="className" />
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" id="save-class-btn"
+                                            class="btn btn-default green"
+                                            style="margin-top:11px;border:0px solid green;">
+                                        保存
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                        </form>
                     </div>
                     <div class="row margin-top-20">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
@@ -195,28 +218,79 @@
             //获取院系数据
             departs();
 
-            //保存班级信息
-            $('#save-class-btn').on('click', function () {
-                var className = $('#className').val();
-                var departId = $('#departType').val();
-                if(departId.length===0){
-                    alert('请先选择院系.');
-                } else if (className.length === 0) {
-                    alert('班级名称为必填字段.');
-                } else {
+            $('.class-form').validate({
+                errorElement: 'span',
+                errorClass: 'help-block',
+                focusInvalid: false,
+                rules: {
+                    className: {
+                        required: true
+                    }
+                },
+                messages: {
+                    className: {
+                        required: "班级名称是必填字段."
+                    }
+                },
+                invalidHandler: function (event, validator) {
+                    //$('.alert-danger', $('.class-form')).show();
+                },
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                success: function (label) {
+                    label.closest('.form-group').removeClass('has-error');
+                    label.remove();
+                },
+                errorPlacement: function (error, element) {
+                    //error.insertAfter(element.closest('.input-icon'));
+                },
+                submitHandler: function (form) {
+                    $('#save-class-btn').attr('disabled', 'disabled');
+                    $('#save-class-btn').html('正在保存...');
                     var pushUrl = "/Class/PushClass";
+                    var className = $('#className').val();
+                    var departId = $('#departType').val();
                     $.post(pushUrl, {
                         Name: className,
                         DepartID: departId
                     }, function (rescode) {
                         if (rescode === 99) {
+                            $('#save-class-btn').removeAttr('disabled');
+                            $('#save-class-btn').html('保存');
+                            $('#className').val('');
                             classDs();
                         } else {
-                            alert('保存院系信息失败.');
+                            $('#save-class-btn').removeAttr('disabled');
+                            $('#save-class-btn').html('保存');
+                            $('.alert-danger', $('.class-form')).show();
                         }
                     });
                 }
             });
+
+            //保存班级信息
+            //$('#save-class-btn').on('click', function () {
+            //    var className = $('#className').val();
+            //    var departId = $('#departType').val();
+            //    if (departId.length === 0) {
+            //        alert('请先选择院系.');
+            //    } else if (className.length === 0) {
+            //        alert('班级名称为必填字段.');
+            //    } else {
+            //        var pushUrl = "/Class/PushClass";
+            //        $.post(pushUrl, {
+            //            Name: className,
+            //            DepartID: departId
+            //        }, function (rescode) {
+            //            if (rescode === 99) {
+            //                classDs();
+            //            } else {
+            //                alert('保存院系信息失败.');
+            //            }
+            //        });
+            //    }
+            //});
 
         });
 
