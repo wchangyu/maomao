@@ -972,11 +972,16 @@ var BEE = (function(){
     //判断已登陆用户是否有访问页面的权限
     var permitJumpPage = function(){
         //获取当前菜单
-        var curMenu = sessionStorage.curMenuStr;
+        var curMenu = sessionStorage.curMenuStr.toLowerCase();
+
+        var curPageName = "";
+
         //获取当前页面路径
-        var curUrl = window.location.href;
-        //获取页面名称
-        var curPageName = curUrl.split('/').pop();
+        var curUrl = window.location.pathname.toLowerCase();
+        if(curUrl.indexOf("energymonitor.html") > 0){   //监控页面有后缀
+            curUrl = window.location.href.toLowerCase();
+        }
+        curPageName = curUrl.split("/").pop();
         //判断是否有访问页面权限
         if(curMenu.indexOf(curPageName) == -1){
             //如果没有则跳转到首页
