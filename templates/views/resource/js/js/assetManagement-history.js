@@ -15,6 +15,9 @@ $(function(){
     //设备部门
     deviceDep();
 
+    //获取的所有数据
+    var _allData = [];
+
     //存放所有设备的数组
     var _allDevice = [];
 
@@ -47,6 +50,12 @@ $(function(){
 
     //echarts图的个数，来重绘div的高度
     var _heights = 250;
+
+    //存放所有维保组的数组
+    var _InfluencingArr = [];
+
+    //存放所有维修班组的数组
+    var _bzArr = [];
 
     //选择设备
     $('#select-button').click(function(){
@@ -87,9 +96,9 @@ $(function(){
 
     })
 
-    $('#sbmc').val('H3C接入交换机');
-
-    $('#ggxh').val('DE17100900016557');
+    //$('#sbmc').val('H3C接入交换机');
+    //
+    //$('#ggxh').val('DE17100900016557');
 
     //巡检的vue对象
     var inspectionVue = new Vue({
@@ -198,7 +207,14 @@ $(function(){
             baoxiu:'',
         }
 
-    })
+    });
+
+    //二维码地址
+    var _erweimaPath = 'http://ip/ApService/showQR.aspx';
+
+    var stationsFlag = false;
+
+    var wxBanzusFlag = false;
 
     /*---------------------------------------表格初始化------------------------------------*/
     var selectDevCol = [
@@ -373,7 +389,7 @@ $(function(){
     _tableInit($('#scrap-datatables'),tableCol,1,'','','');
 
     //获取设备方法
-    //choiceDevice(true);
+    //InfluencingUnit(true);
 
     //条件查询
     conditionSelect();
@@ -601,6 +617,255 @@ $(function(){
 
     })
 
+    var color = ['rgb(228,174,135)','rgb(211,118,107)','rgb(196,80,84)'];
+
+    $('.echartChecked').on('click','.colortip',function(){
+
+        if($(this).hasClass('check-img')){
+
+            $(this).removeClass('check-img').css('background',color[$(this).index('.colortip')]);
+
+        }else{
+
+            $(this).addClass('check-img');
+
+        }
+
+    })
+
+    //查询，确定选中的色块，选中的才显示。
+    $('#select').click(function(){
+
+        //初始化echarts图
+        option.calendar = [];
+
+        option.series = [];
+
+        myChart.setOption(option);
+
+        var arr = [];
+
+        //确定选择的是哪些色块
+        for(var i=0;i<$('.echartChecked').find('.colortip').length;i++){
+
+            if( !$('.echartChecked').find('.colortip').eq(i).hasClass('check-img') ){
+
+                arr.push($('.echartChecked').find('.colortip').eq(i).attr('id'));
+
+            }
+
+        }
+
+        var checkedArr = [];
+
+        for(var i=0;i<_allData.length;i++){
+
+            for(var j=0;j<_allData[i].lcEvents.length;j++){
+
+                if( arr.indexOf('repair-color')>=0 ){
+
+                    if(_allData[i].lcEvents[j].eType == 'gdInfos'){
+
+                        checkedArr.push(_allData[i].lcEvents[j]);
+
+
+                    }
+
+                }
+                if( arr.indexOf('Inspection-color')>=0 ){
+
+                    if(_allData[i].lcEvents[j].eType == 'diInfos'){
+
+                        checkedArr.push(_allData[i].lcEvents[j]);
+
+
+                    }
+
+                }
+                if( arr.indexOf('maintain-color')>=0 ){
+
+                    if(_allData[i].lcEvents[j].eType == 'dmInfos'){
+
+                        checkedArr.push(_allData[i].lcEvents[j]);
+
+
+                    }
+
+                }
+
+            }
+
+
+        }
+
+        //重绘echarts图
+        //确定时间(年份)，
+        var yearArr = [];
+
+        var yearUnqueArr = [];
+
+        var dayArr = [];
+
+        var dayUnqueArr = [];
+
+        for(var i=0;i<checkedArr.length;i++){
+
+            dayArr.push(checkedArr[i].eDate);
+
+            yearArr.push(checkedArr[i].eDate.split(' ')[0].split('-')[0]);
+
+        }
+
+        //确定年份（去重之后）
+        for(var i=0;i<yearArr.length;i++){
+
+            if(yearUnqueArr.indexOf(yearArr[i])<0){
+
+                yearUnqueArr.push(yearArr[i])
+
+            }
+
+        }
+
+        //确定日期(去重之后)
+        for(var i=0;i<dayArr.length;i++){
+
+            if(dayUnqueArr.indexOf(dayArr[i])<0){
+
+                dayUnqueArr.push(dayArr[i]);
+
+            }
+
+        }
+
+        //重绘echarts图
+        var height = _heights * yearUnqueArr.length;
+
+        _yearArr.length = 0 ;
+
+        $('#calender').height(height);
+
+        //确定年份
+        for(var i=0;i<yearUnqueArr.length;i++){
+
+            var obj = {};
+
+            obj.range = yearUnqueArr[i];
+
+            obj.dayLabel = {};
+
+            obj.dayLabel.nameMap = 'cn';
+
+            obj.dayLabel.firstDay = 1;
+
+            obj.monthLabel = {};
+
+            obj.monthLabel.nameMap = 'cn';
+
+            var top = _distance + i*260;
+
+            obj.top = top;
+
+            obj.cellSize = [];
+
+            obj.cellSize[0] = 'auto';
+
+            obj.cellSize[1] = 20;
+
+            _yearArr.push(obj);
+
+
+        }
+
+        option.calendar = _yearArr;
+
+        //确定日期时间
+        _calendarArr.length = 0;
+
+        for(var i=0;i<yearUnqueArr.length;i++){
+
+            var obj = {};
+
+            obj.type = 'heatmap';
+
+            obj.coordinateSystem = 'calendar';
+
+            obj.calendarIndex = _calendarIndex + i*1;
+
+            obj.data = [];
+
+            _calendarArr.push(obj);
+
+        }
+
+        option.series = _calendarArr;
+
+        //显示色块
+        for(var i=0;i<yearUnqueArr.length;i++){
+
+            for(var j=0;j<checkedArr.length;j++){
+
+                if(checkedArr[j].eDate.indexOf(yearUnqueArr[i])>=0){
+
+                    var arr = [];
+
+                    var values = 0;
+
+                    arr[0] = checkedArr[j].eDate;
+
+                    if(checkedArr[j].eType == 'gdInfos'){
+
+                        values = 300;
+
+                    }else if( checkedArr[j].eType == 'diInfos' ){
+
+                        values = 600;
+
+                    }else if( checkedArr[j].eType == 'dmInfos' ){
+
+                        values = 900;
+
+                    }
+
+                    arr[1] = values;
+
+                    option.series[i].data.push(arr);
+
+
+                }
+
+            }
+
+
+        }
+
+        myChart.setOption(option);
+
+    })
+
+    //重置
+    $('#reset').click(function(){
+
+        //去掉类
+        $('.echartChecked').children('.colortip').removeClass('check-img');
+
+        //颜色恢复
+        for(var i=0;i<$('.echartChecked').children('.colortip').length;i++){
+
+            $('.echartChecked').children('.colortip').eq(i).css('background',color[i]);
+
+        }
+
+        //数据所有
+        conditionSelect();
+
+    })
+
+
+
+
+    /*-------------------------------------按钮事件-----------------------------------*/
+
     //tab选项卡
     $('.table-title span').click(function(){
 
@@ -662,11 +927,97 @@ $(function(){
         //发送请求赋值
         $.ajax({
             type:'post',
-            url:_urls + ''
+            url:_urls + 'YWDev/ywDIGetDevs',
+            data:{
+                dName:$('#sbmc').val(),
+                dNum:$('#ggxh').val(),
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            timeout:_theTimes,
+            success:function(result){
+                console.log(result)
+                //赋值
+                //设备编码
+                deviceVue.sbbm = result[0].dNum;
+                //设备名称
+                deviceVue.mingcheng = result[0].dName;
+                //拼音简码
+                deviceVue.pinyin = result[0].dPy;
+                //出厂编号
+                deviceVue.bianhao = result[0].factoryNum;
+                //车务段
+                deviceVue.ssQY = result[0].daName;
+                //设备系统
+                deviceVue.ssXT = result[0].dsName;
+                //车站
+                deviceVue.ssbumen = result[0].ddName;
+                //设备类别
+                deviceVue.zcLX = result[0].dcName;
+                //产地
+                deviceVue.chandi = result[0].devOrigin;
+                //状态
+                deviceVue.zhuangtai = result[0].status;
+                //安装位置
+                deviceVue.weizhi = result[0].installAddress;
+                //品牌
+                deviceVue.pingpai = result[0].brand;
+                //规格型号
+                deviceVue.guige = result[0].spec;
+                //供应商
+                deviceVue.gongyingshang = result[0].supName;
+                //生产商
+                deviceVue.shengchanshang = result[0].prodName;
+                //使用年限
+                deviceVue.nianxian = result[0].life;
+                //保修期
+                deviceVue.baoxiu = result[0].maintain;
+                //购置日期
+                $('#gouzhi').val(result[0].purDate);
+                //安装日期
+                $('#anzhuang').val(result[0].installDate);
+                //设备原值
+                $('#yuanzhi').val(result[0].devMoney);
+                //描述
+                $('#miaoshu').val(result[0].description);
+                //技术资料
+                $('.lujing').html(result[0].docPath)
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(JSON.parse(jqXHR.responseText).message);
+                if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                }
+            }
 
         })
 
     })
+
+    //查看二维码
+    //查看二维码
+    $('.viewImage').click(function(){
+        if( $('.QRcode').children().length == 0 ){
+            $('.QRcode').empty();
+            $('.QRcode').show();
+            var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + $('#ggxh').val() +
+                '"' + 'style="width:100px;height:100px;"' +
+                '>';
+            $('.QRcode').append(str);
+        }else{
+            $('.QRcode').empty();
+            $('.QRcode').hide();
+        }
+
+    });
+
+    //设备条件查询
+    $('#selected1').click(function(){
+
+        choiceDevice(true,stationsFlag,wxBanzusFlag);
+
+    });
+
     /*----------------------------------------其他方法-------------------------------------*/
     //设备类型
     function deviceType(){
@@ -814,21 +1165,53 @@ $(function(){
 
     //设备条件查询
     //获取设备
-    function choiceDevice(flag){
+    function choiceDevice(flag,station,bz){
 
         var prm = {
-            'st':'',
-            'et':'',
-            'dName':$('.sbmc').html(),
-            'spec':$('.ggxh').html(),
+            'dName':$('#myModal3').find('.sbmc').val(),
+            'dNum':$('#myModal3').find('.sbbm').val(),
+            'spec':$('#myModal3').find('.ggxh').val(),
             'status':1,
-            'daNum':$('#quyu').val(),
-            'ddNum':$('#bumen').val(),
-            'dsNum':$('#xitong').val(),
-            'dcNum':$('#leixing').val(),
+            'daNum':$('#myModal3').find('#quyu').val(),
+            'ddNum':$('#myModal3').find('#bumen').val(),
+            'dsNum':$('#myModal3').find('#xitong').val(),
+            'dcNum':$('#myModal3').find('#leixing').val(),
             'userID':_userIdNum,
             'userName':_userIdName
         };
+
+        var arr = [];
+
+        //如果在维修班组中，则传wxKeshi，如果是在所属维保组中，则传wxKeshis=[]
+        if(bz){
+
+            arr.length = 0;
+
+            arr.push(sessionStorage.userDepartNum);
+
+        }
+
+        if(station){
+
+            for(var i=0;i<_InfluencingArr.length;i++){
+
+                if(_InfluencingArr[i].departNum == sessionStorage.userDepartNum){
+
+                    for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+
+                        arr.push(_InfluencingArr[i].wxBanzus[j]);
+
+                    }
+
+                }
+
+            }
+
+
+
+        }
+
+        prm.departNums = arr;
 
         $.ajax({
             type:'post',
@@ -962,6 +1345,14 @@ $(function(){
             },
             timeout:_theTimes,
             success:function(result){
+
+                _allData.length = 0;
+
+                if(result){
+
+                    _allData.push(result);
+
+                }
 
                 //首先确定年份
                 _yearArr.length = 0;
@@ -1098,7 +1489,6 @@ $(function(){
                         }
 
                     }
-
 
                     myChart.setOption(option);
 
@@ -1336,4 +1726,84 @@ $(function(){
         //textarea
         $('#divDetail').find('textarea').val('');
     }
+
+    //IP替换
+    function replaceIP(str,str1){
+        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+        //var res = ip.exec(str1);  /*211.100.28.180*/
+        var res = 'http://211.100.28.180/';
+        str = str.replace(ip,res);
+        return str;
+    }
+
+    //获取所属维保组和所属班组
+    function InfluencingUnit(flag){
+        var prm = {
+            "id": 0,
+            "ddNum": "",
+            "ddName": "",
+            "ddPy": "",
+            "daNum": "",
+            "userID": _userIdNum,
+            "userName": _userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+            data:prm,
+            success:function(result){
+
+                //所属车间
+                _InfluencingArr.length = 0;
+                //所属班组
+                _bzArr.length = 0;
+
+                for(var i=0;i<result.stations.length;i++){
+
+                    _InfluencingArr.push(result.stations[i]);
+
+                }
+
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    _bzArr.push(result.wxBanzus[i]);
+
+                }
+
+                //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可);
+                var stationsFlag = false;
+
+                var wxBanzusFlag = false;
+
+                for(var i=0;i<result.stations.length;i++){
+
+                    if(sessionStorage.userDepartNum == result.stations[i].departNum){
+
+                        stationsFlag = true;
+
+                        break;
+
+                    }else{
+
+                        stationsFlag = false;
+
+                    }
+                }
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    if(sessionStorage.userDepartNum == result.wxBanzus[i].departNum){
+                        wxBanzusFlag = true;
+                        break;
+                    }else{
+                        wxBanzusFlag = false;
+                    }
+                }
+
+                choiceDevice(flag,stationsFlag,wxBanzusFlag);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
 })

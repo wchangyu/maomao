@@ -525,7 +525,6 @@ $(function(){
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             _thisRowBM = $(this).parents('tr').find('.dNum').children('span').html();
-            console.log(_thisRowID);
 
             for(var i=0;i<_allDateArr.length;i++ ){
                 if(_allDateArr[i].dNum == _thisRowBM){
@@ -863,7 +862,6 @@ $(function(){
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevs',
             data:prm,
-            async:false,
             success:function(result){
                 //console.log(result);
 

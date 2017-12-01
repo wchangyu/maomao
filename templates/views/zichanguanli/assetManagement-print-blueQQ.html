@@ -82,12 +82,18 @@
                 content: none !important;
             }
         }
+
+        @page {
+            size: A4;
+        }
+
         table{
             /*margin: 30px -25px;*/
             /*margin: -20px -25px;*/
         }
         .print-block{
             margin-top: 0;
+            background: red !important;
         }
         .print-block-cel{
 
@@ -170,17 +176,72 @@
             overflow: hidden;
 
         }
-        .suo{
+        .print-block{
 
-            transform:scale(0.8);//设置缩放比例
-            -ms-transform:scale(0.8);
-            -webkit-transform:scale(0.8);
-            -o-transform:scale(0.8);
-            -moz-transform:scale(0.8);
-            margin-top: -790px;
-            margin-left: -100px;
+            background: red;
+
+            height: 670px;
+
+            width: 1000px;
+
         }
-        .PageNext   {   PAGE-BREAK-AFTER:   always   }
+        .print-block-cel{
+
+            margin: 10px;
+
+        }
+
+        /*.suo{*/
+
+            /*transform:scale(0.7);//设置缩放比例*/
+            /*-ms-transform:scale(0.7);*/
+            /*-webkit-transform:scale(0.7);*/
+            /*-o-transform:scale(0.7);*/
+            /*-moz-transform:scale(0.7);*/
+            /*margin: 0 !important;*/
+        /*}*/
+
+        /*.print-block-cel{*/
+
+            /*width: 310px;display: inline-block;height: 300px;background: green;vertical-align: middle;margin: 17px 13px;*/
+        /*}*/
+
+        /*.table-title1{*/
+
+            /*width: 100%;*/
+
+            /*font-size:18px;*/
+
+        /*}*/
+
+        /*.table-img1{*/
+
+            /*width: 130px;*/
+
+            /*margin-left: 5px;*/
+
+            /*margin-top: 10px;*/
+
+        /*}*/
+
+        /*.table-img1 img{*/
+
+            /*width: 30px;*/
+
+            /*height:15px;*/
+
+        /*}*/
+
+        /*.table-img1 span,.title-word1{*/
+
+            /*font-size:14px;*/
+        /*}*/
+
+        /*.content-block{*/
+
+            /*font-size: 10px !important;*/
+
+        /*}*/
     </style>
 
 </head>
@@ -508,7 +569,6 @@
                                 </ul>
                                 <div class="content-main-contents  print-table">
 
-
                                 </div>
                             </div>
                             <div id="main" style="width: 100%;height: 100%;position: absolute;background: rgba(0,0,0,0.5);display: none;"></div>
@@ -572,7 +632,7 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--select插件-->
-<!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
+<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>
 
 <script>
     jQuery(document).ready(function() {

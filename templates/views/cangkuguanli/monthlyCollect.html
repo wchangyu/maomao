@@ -290,6 +290,10 @@
                                             <input type="text" class="datatimeblock max" name="max">
                                         </div>
                                     </li>
+                                    <li>
+                                        <label for="" class="colorTip" >仓库 *：</label>
+                                        <select id="ckselect" style="height: 28px;"></select>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected" disabled>结存当月</button></li>
 
                                     <li class="excelButton"></li>
@@ -407,9 +411,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/monthlyCollect.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -418,6 +419,9 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/monthlyCollect.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -430,6 +434,22 @@
             <div class="modal-body" style="text-align: center;font-size: 18px;">请填写红色必填项</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary shanchu">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--确定要结存吗-->
+<div class="modal fade" id="balance-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">警告</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm1">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

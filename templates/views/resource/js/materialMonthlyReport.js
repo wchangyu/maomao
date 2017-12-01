@@ -289,7 +289,9 @@ $(function(){
             "userName": _userIdName,
             'localNum':$('#kqSelect').val(),
             "lastDayDate":stTime,
-            "dayDate":etTime
+            "dayDate":etTime,
+            "itemNum":$('#materialNum').val(),
+            "itemName":$('#materialName').val()
 
         };
         $.ajax({

@@ -68,6 +68,30 @@
         .table .noprint .option-see{
             margin-left:20px;
         }
+        #addSn{
+
+            width: 30px;height:30px;background:green;display: inline-block;vertical-align: middle;cursor: pointer;
+            background: url("../resource/img/plus.png") no-repeat;
+            background-size: 15px;
+            background-position: center;
+
+        }
+
+        .subBatch{
+
+            width: 30px;height: 30px;background:blue;display: inline-block;vertical-align: middle;float: right;
+            background: url("../resource/img/minus.png") no-repeat;
+            background-size: 15px;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .children-body{
+
+            width: 332px;height:200px;border:1px solid #a9a9a9;display: inline-block;vertical-align: middle;overflow-y: auto;
+
+        }
+
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -571,6 +595,7 @@
                             </div>
                         </div>
                     </li>
+                    <button type="button" class="btn btn-default" id="batch-add" style="margin-top: 4px;">批量输入序列号</button>
                     <div class="clearfix"></div>
                 </ul>
                 <ul class="gongdanList" id="workDone">
@@ -667,7 +692,7 @@
                                 </div>
                             </li>
                             <li class="gdList" style="margin-top: 27px;">
-                                <button type="button" class="btn btn-success inputType" id="addRK">添加</button>v
+                                <button type="button" class="btn btn-success inputType" id="addRK">添加</button>
                                 <button type="button" class="btn btn-success" id="addReset">重置</button>
                             </li>
                             <div class="clearfix"></div>
@@ -938,6 +963,60 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--批量添加物品序列号-->
+<div class="modal fade" id="batchSn-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 352px;">
+        <div class="modal-content" style="height: 352px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="children-body">
+                    <div style="width: 200px;margin: auto;margin-top: 20px;">
+                        <div class="input-blocked">
+                            <input type="text">
+                        </div>
+                        <div id="addSn"></div>
+                    </div>
+                    <div style="height: 20px;">
+                        <span class="colorTip" style="margin-left: 100px;line-height: 30px;">序列号已存在！</span>
+                    </div>
+
+                    <!--当前已选中的表格中的序列号展示出来，避免重复-->
+                    <div style="width:200px;margin: auto;margin-top: 20px;">
+                        <span>已存在的序列号：</span>
+                        <div class="selected-sn" style="min-height: 30px;">
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="children-body" style="display: inline-block;overflow-y: auto">
+
+                    <div class="title-num" style="height: 30px;line-height: 30px;margin-left: 20px;">
+                        <div style="display: inline-block;vertical-align: middle;">当前输入：<span>8</span>个</div>
+                        <div style="display: inline-block;vertical-align: middle;">共计：<span>10</span>个</div>
+                    </div>
+
+                    <ul style="margin:10px 20px">
+                        <li style="line-height: 30px;"><span>0101-001</span><div class="subBatch"></div></li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

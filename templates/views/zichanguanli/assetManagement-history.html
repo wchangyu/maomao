@@ -336,13 +336,15 @@
                                 </div>
                                 <div>
                                     <div class="tableHoverL">
-                                        <div>
-                                            <span>其他</span><div class="colortip" style="background: rgb(245,235,164)"></div>
-                                            <span>维修</span><div class="colortip" style="background: rgb(228,174,135)"></div>
-                                            <span>巡检</span><div class="colortip" style="background: rgb(211,118,107)"></div>
-                                            <span>保养</span><div class="colortip" style="background: rgb(196,80,84)"></div>
+                                        <div class="echartChecked">
+                                            <span>其他</span><div class="" style="background: rgb(245,235,164);width: 30px;height: 20px;border: 1px solid #333333;display:inline-block;margin: 0 20px 0 5px;"></div>
+                                            <span>维修</span><div class="colortip" id="repair-color" style="background: rgb(228,174,135)"></div>
+                                            <span>巡检</span><div class="colortip" id="Inspection-color" style="background: rgb(211,118,107)"></div>
+                                            <span>保养</span><div class="colortip" id="maintain-color" style="background: rgb(196,80,84)"></div>
+                                            <button type="button" class="btn btn-default" id="select" style="padding: 1px 10px;vertical-align: top;">查询</button>
+                                            <button type="button" class="btn btn-default" id="reset" style="padding: 1px 10px;vertical-align: top;">重置</button>
                                         </div>
-                                        <div>
+                                        <div style="overflow: hidden;">
                                             <div id="calender" style="height: 20000px"></div>
                                         </div>
                                     </div>
@@ -449,6 +451,12 @@
                 </ul>
                 <ul class="condition-query">
                     <li>
+                        <label for="">设备编码：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbbm">
+                        </div>
+                    </li>
+                    <li>
                         <label for="">设备名称：</label>
                         <div class="input-blocked">
                             <input type="text" class="sbmc">
@@ -459,17 +467,6 @@
                         <div class="input-blocked">
                             <input type="text" class="ggxh">
                         </div>
-                    </li>
-                    <li>
-                    <label for="">设备状态：</label>
-                    <div class="input-blocked">
-                    <select name="" id="zhuangtai">
-                    <option value="0">全部</option>
-                    <option value="1">正常</option>
-                    <option value="2">维修</option>
-                    <option value="3">报废</option>
-                    </select>
-                    </div>
                     </li>
                     <li>
                         <label for="">设备类型：</label>
@@ -497,16 +494,6 @@
                         <div class="input-blocked">
                             <select name="" id="bumen">
                             </select>
-                        </div>
-                    </li>
-                    <li>
-                        <label for="">安装时间：</label>
-                        <div class="input-blocked">
-                            <input type="text" class="datatimeblock min" name="min">
-                        </div>
-                        <label for="">到</label>
-                        <div class="input-blocked">
-                            <input type="text" class="datatimeblock max" name="max">
                         </div>
                     </li>
                     <li><button class="btn btn-success" id="selected1">查询</button></li>
@@ -663,7 +650,7 @@
                     <li class="floatRight" style="line-height: 26px;">
                         <div class="labels">设备原值（元）：</div>
                         <div class="input-blockeds">
-                            <input type="text"  v-model="yuanzhi" readonly="readonly" class="disabled-block">
+                            <input type="text"  id="yuanzhi" readonly="readonly" class="disabled-block">
 
                         </div>
                     </li>
@@ -676,7 +663,7 @@
                     </div>
                     <div>
                         <div class="labels">技术资料：</div>
-                        <div class="lujing" style="height: 30px;border: 1px solid #ebebeb;margin-bottom: 10px;line-height: 30px;"></div>
+                        <div class="lujing disabled-block" style="height: 30px;border: 1px solid #ebebeb;margin-bottom: 10px;line-height: 30px;"></div>
                     </div>
                     <div>
                         <button type="button" class="btn btn-default viewImage">查看二维码</button>

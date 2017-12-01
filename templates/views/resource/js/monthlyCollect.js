@@ -6,6 +6,9 @@ $(function(){
     //默认时间
     var nowTime = moment().format('YYYY/MM/DD');
 
+    //获取仓库
+    warehouse();
+
     //获得初始数据
     conditionSelect();
 
@@ -13,6 +16,13 @@ $(function(){
     $('.max').val(nowTime);
 
     $('.btn1').on('click',function(){
+
+        _moTaiKuang($('#balance-modal'),'提示','','istap','确定要结存吗？','结存');
+
+    });
+
+    $('#balance-modal').on('click','.btn-primary',function(){
+
         var st = $('.min').val();
         var et = $('.max').val();
 
@@ -39,8 +49,9 @@ $(function(){
                 if(result == 99){
                     myAlter('结存成功');
                     conditionSelect();
+                    $('#balance-modal').modal('hide');
                 }else{
-                    myAlter('结存失败')
+                    myAlter('结存失败');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -49,8 +60,7 @@ $(function(){
             }
         })
 
-
-    });
+    })
 
     //删除时用到的参数
     var _meg = ''
@@ -103,31 +113,6 @@ $(function(){
     })
 
 
-    ////表格人
-    //$('.table-person').html(_userIdName);
-
-    /*--------------------------------------按钮事件-------------------------------*/
-    ////查询
-    //$('#selected').click(function(){
-    //    //改变表头的时间
-    //    $('.table-time').html(nowTime);
-    //    //条件查询
-    //    conditionSelect();
-    //});
-    //
-    ////重置
-    //$('.resites').click(function(){
-    //    //时间置为今日
-    //    $('.datatimeblock').val(nowTime);
-    //    //select置为所有
-    //    $('#storage').val('');
-    //});
-    //
-    ////导出
-    //$('.excelButton11').on('click',function(){
-    //    _FFExcel($('#scrap-datatables')[0]);
-    //});
-
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(){
 
@@ -162,7 +147,7 @@ $(function(){
 
                     }
 
-                    $('.min').val(showTime.replace(/-/g,'/'));
+                    $('.min').val(result[0].split(' ')[0].replace(/-/g,'/'));
 
                 }
 
@@ -174,30 +159,6 @@ $(function(){
 
                 }
 
-
-                //$('#selected').attr('disabled',false);
-                //var html = '';
-                //for(var i=0; i<result.length; i++){
-                //    var showTime = result[i].split(' ')[0];
-                //    if(i == 0){
-                //        if(result.length < 2){
-                //            $('.min').val(showTime.replace(/-/g,'/'));
-                //
-                //        }
-                //        html += '<tr><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a><span class="data-option option-del btn default btn-xs green-stripe" style="float: right">删除</span></td>'
-                //    }else if(i == result.length - 1){
-                //        html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td></tr>';
-                //
-                //        $('.min').val(showTime.replace(/-/g,'/'));
-                //    }else if(i % 6 != 0){
-                //        html += '<td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td>'
-                //    }else{
-                //
-                //            html += '</tr><tr><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a> </td>'
-                //
-                //    }
-                //}
-                //$('#scrap-datatables tbody').html(html);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -205,5 +166,36 @@ $(function(){
         })
     }
 
+    //获取仓库
+    function warehouse(){
 
+        var prm = {
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetStorages',
+            data:prm,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+
+                    $('#ckselect').empty().append(str);
+                }
+
+                //条件查询
+                //conditionSelect();
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    }
 })

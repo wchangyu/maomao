@@ -20,6 +20,9 @@ var _userBMName = sessionStorage.getItem("userDepartName");
 //ajax延迟时间设置
 var _theTimes = 30000;
 
+//获取登陆者信息
+var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
+
 //车间
 var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 
@@ -528,5 +531,12 @@ function _unique(a,attr) {
 function _sortNumber(a,b)
 {
     return a - b
+}
+
+//2017-12-01-->2017/12/01
+function _formatTime(str11){
+
+    return str11.replace(/\//g,'-');
+
 }
 

@@ -132,10 +132,14 @@ $(function(){
     /*----------------------------------按钮事件------------------------------*/
     //查询
     $('#selected').click(function(){
-        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == ''){
+        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == '' || $('#storage').val() == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项进行查询！', '');
+
         }else{
+
             conditionSelect();
+
         }
     })
 
@@ -220,9 +224,41 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                console.log(result);
-
                 _datasTable($('#scrap-datatables'),result);
+
+                //标题
+
+                //获取仓库
+                var storage = '';
+
+                if( $('#storage').val() == '' ){
+
+                    storage = '';
+
+                }else{
+
+                    storage = $('#storage').children('option:selected').html();
+
+                }
+
+                var yxdw = '';
+
+                if( $('#yxdw').val() == '' ){
+
+                    yxdw = '';
+
+                }else{
+
+                    yxdw = $('#yxdw').children('option:selected').html();
+
+                }
+
+                var str = '材料总支出';
+
+                //console.log(storage + yxdw + str);
+
+                $('#scrap-datatables').find('caption').html( storage + yxdw + str );
+
 
                 var num = 0;
 

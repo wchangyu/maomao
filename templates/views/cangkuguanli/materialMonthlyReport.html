@@ -290,6 +290,16 @@
                                             <input type="text" class="datatimeblock max">
                                         </div>
                                     </li>
+                                    <li><label for="">材料名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="materialName">
+                                        </div>
+                                    </li>
+                                    <li><label for="">材料编码：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="materialNum">
+                                        </div>
+                                    </li>
                                     <li><label for="">仓库：</label>
                                         <div class="input-blocked">
                                             <select id="storage"></select>
@@ -441,8 +451,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/materialMonthlyReport.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -451,6 +459,8 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/materialMonthlyReport.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框创建工单-->

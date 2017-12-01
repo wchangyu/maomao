@@ -614,7 +614,8 @@
                             <li class="gdList">
                                 <div class="labels colorTip">出库单价 *：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="initBJ inputType" v-model="outPrice" @keyup="addFun2()" @blur="addFun4()" placeholder="0.00">
+                                    <input type="text" class="initBJ inputType" v-model="outPrice" @keyup="addFun2()" @blur="addFun4()" placeholder="0.00" style="vertical-align: top;">
+                                    <div style="width:19px;height:29px;background: red;display: inline-block;cursor: pointer;background: url('../resource/img/fdj.png')no-repeat;background-position: center;background-size: 15px;" id="historical-record"></div>
                                 </div>
                             </li>
                             <li class="gdList">
@@ -854,6 +855,27 @@
                     <div class="clearfix"></div>
                 </ul>
                 <table id="gdTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" style="">
+                    <tbody></tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary rukuGD">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--单价物品明细-->
+<div class="modal fade" id="outPrince-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 670px;width: 800px !important;">
+        <div class="modal-content" style="height: 670px;width: 800px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">查看</h4>
+            </div>
+            <div class="modal-body" style="height: 548px;overflow-y: auto">
+                <table id="outPrince-table" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" style="">
                     <tbody></tbody>
                     <tfoot></tfoot>
                 </table>
