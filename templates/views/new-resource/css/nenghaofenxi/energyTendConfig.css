@@ -1,0 +1,59 @@
+/*eChart图*/
+#rheader-content-16{
+    height:500px;
+    min-width: 300px;
+}
+
+/*右上角单位*/
+#unit{
+    background: #eee;
+}
+/*右上角切换*/
+.right-header-right li{
+    float: right;
+}
+.header-right-btn{
+    margin-right:20px;
+}
+.header-right-btn span{
+    margin-right:10px;
+    cursor: pointer;
+    padding-left:5px;
+    padding-right:5px;
+    line-height: 22px;
+    display: inline-block;
+    border-radius: 5px !important;
+}
+/*目前选中的趋势*/
+.header-right-btn .cur-on-choose{
+    background: #666;
+    color:white;
+
+}
+/*右上角注释图标*/
+.right-text {
+    width: 70px;
+    height: 30px;
+    background: url(../../img/book1.png) no-repeat center center;
+    cursor: pointer;
+}
+/*右上角注释内容*/
+.right-header-right{
+    position: relative;
+}
+.text-content {
+    position: absolute;
+    border: 1px solid #999;
+    border-radius: 10px !important;
+    width: 260px;
+    height: 100px;
+    right: 8px;
+    top: 40px;
+    font-size: 14px;
+    line-height: 20px;
+    z-index: 1000;
+    color: darkorange;
+    background: #eff1f6;
+    overflow: hidden;
+    display: none;
+}

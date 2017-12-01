@@ -1,0 +1,41 @@
+/*头部信息*/
+.condition-query {
+    margin-top: 20px;
+}
+
+.condition-query li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    float: left;
+    margin-right: 10px;
+}
+.input-blocked {
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+    vertical-align: middle;
+    width:166px !important;
+}
+.input-blocked select {
+    height: 100%;
+    border: none;
+    width: 164px;
+    outline: none;
+}
+.btn{
+    padding:7px 16px;
+}
+.table thead tr th, .table tbody tr td {
+    text-align: center !important;
+}
+
+#dateTables1-container,#dateTables3-container,#dateTables2-container{
+
+    height:380px;
+    overflow-y: auto;
+}
+#dateTables,#dateTables2{
+    margin-bottom:0 !important;
+    min-height:375px;
+}

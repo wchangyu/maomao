@@ -1,0 +1,74 @@
+.left-middle-main1 p{
+    line-height: 16px;
+    height:16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*指标类型*/
+.left-middle-main1{
+    min-height: 110px ;
+    max-height: 150px;
+    overflow-y: auto;
+}
+/*右侧echarts图*/
+#rheader-content-16,#rheader-content-17{
+    height: 380px;
+}
+
+/*右侧数据统计分析*/
+.rheader-content-rights {
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 10px !important;
+    background: url('../../../resource/img/up2.png')no-repeat #deebf7;
+    background-size: 50px;
+    background-position: 60px 40px;
+}
+.rheader-content-rights-down {
+
+    width: 250px;
+    height: 280px;
+    border-radius: 30px;
+    margin: 0 auto;
+    margin-top: 10px !important;
+    background: url('../../../resource/img/up.png')no-repeat #deebf7;
+    background-size: 50px;
+    background-position: 60px 40px;
+
+
+}
+/*百分比数据*/
+.rheader-content-rights .top-percent{
+    position: absolute;
+    left:110px;
+    top:60px;
+    color:#019cdf;
+    font-size: 32px;
+}
+/*本期累计*/
+.rheader-content-rights .count{
+
+    position: absolute;
+    left:38px;
+    top:140px;
+    font-size:18px;
+}
+.rheader-content-rights .count span{
+    color:#019cdf;
+    font-size: 22px;
+}
+/*上年同期累计*/
+.rheader-content-rights .count2{
+
+    left:10px;
+    top:190px;
+    font-size:18px;
+}
