@@ -847,6 +847,20 @@
         "iconclass":""
       }
     }
+  },
+  "管理诊断":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"管理诊断",
+    "submenu": {
+      "综合诊断": {
+        "type": "0",
+        "content": "综合诊断",
+        "uri": "../new-guanlizhenduan/manageDiagnose.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
   }
-
 }

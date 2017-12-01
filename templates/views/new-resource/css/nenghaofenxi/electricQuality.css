@@ -51,7 +51,7 @@
 }
 /*右侧echarts图*/
 #rheader-content-16{
-    height: 426px;
+    height: 450px;
     margin-right: 0 !important;
 }
 
@@ -59,6 +59,7 @@
 .top-message {
     font-size: 16px;
     padding-top: 20px;
+    font-weight: 600;
 }
 .top-message  p{
     margin-bottom:10px;

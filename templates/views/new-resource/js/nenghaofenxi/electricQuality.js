@@ -260,7 +260,10 @@ var optionLine = {
     ],
     yAxis : [
         {
-            type : 'value'
+            type : 'value',
+            axisLabel : {
+                formatter: '{value} '
+            }
         }
     ],
     grid: {
@@ -268,7 +271,37 @@ var optionLine = {
         right: '8%'
     },
     series : [
+        {
+            name:'累计能耗',
+            type:'line',
+            data:[],
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ],
+                itemStyle : {
+                    normal:{
+                        color:'#019cdf'
+                    }
+                },
+                label:{
+                    normal:{
+                        textStyle:{
+                            color:'#d02268'
+                        }
+                    }
+                }
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
 
+
+                ]
+
+            }
+        }
     ]
 };
 
@@ -306,7 +339,7 @@ function getPointerData(){
     }
 
     //获取名称
-    var areaName = $('.left-middle-main .curChoose').eq(0).html();
+    var areaName = $('#allBranch .curSelectedNode').attr('title');
 
     //获取开始时间
     var startTime = getPostTime()[0];
@@ -352,34 +385,29 @@ function getPointerData(){
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
 
-            $('.right-header-title').eq(0).html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
+            $('.right-header-title').eq(0).html(areaName  + ' &nbsp;' + energyName + ' &nbsp;' + date);
 
             //上方表计数据
+            //表计种类
+            $('.meter-type span').html(result.f_MeterType);
 
-            //首先处理本期的数据
-            allData.length = 0;
-            allData1.length = 0;
-            allData2.length = 0;
-            //默认展示前20项的数据
-            $('.header-right-btn span').removeClass('cur-on-choose');
+            //表计型号
+            $('.meter-name span').html(result.f_MeterName);
 
-            $('.header-right-btn span').eq(0).addClass('cur-on-choose');
+            //安装地址
+            $('.meter-name span').html(result.f_MeterLocation);
 
-            $(result).each(function(i,o){
-                allData.push(o);
-                //前20项
-                if(i < 20){
-                    allData1.push(o)
-                }
-                //后20项
-                var length = result.length;
-                if(i > length - 21){
-                    allData2.push(o)
-                }
-            });
+            //测量范围
+            $('.meter-scope span').html(result.f_ServiceName);
 
+            //互感倍数
+            $('.meter-rate span').html(result.f_Rate );
 
-            showDataByNum(allData1);
+            //能耗数据
+            $('.energy-data span').html(result.energyData.toFixed(2));
+
+            //加载echarts中数据
+            showDataByNum(result.ecMetaDatas);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -435,32 +463,30 @@ function showDataByNum(data){
 
     $(data).each(function(i,o){
         //X轴数据
-        allDataX.push(o.returnOBJName);
+        allDataX.push(o.dataDate.split('T')[1].split(":")[0] +" : " + o.dataDate.split('T')[1].split(":")[1]);
 
         //Y轴数据
-        allDataY.push(o.currentEnergyData);
+        allDataY.push(o.data);
     });
     //单位
     var unit = $('.unit').val();
-    optionBar.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
+
+    optionLine.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
 
     //echart柱状图
-    optionBar.xAxis[0].data = allDataX;
+    optionLine.xAxis[0].data = allDataX;
 
-    optionBar.series[0].data = allDataY;
+    optionLine.series[0].data = allDataY;
 
-    myChartTopLeft.setOption(optionBar,true);
+    //获取图例名称
+    var legendName = $('.left-middle-main1 .curChoose').html();
 
-    //表格中的数据
+    optionLine.series[0].name = legendName;
 
-    //头部数据
-    var html1 = '<th></th>';
-    $(allDataX).each(function(i,o){
+    optionLine.legend.data = [legendName];
 
-        html1 += '<th><span title="'+o+'">'+ o.substring(0,4)+'</span></th>'
-    });
+    myChartTopLeft.setOption(optionLine,true);
 
-    $('.table thead tr').html(html1);
 
 };
 

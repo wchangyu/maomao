@@ -617,7 +617,7 @@ function getTopPageEnergyData(){
             setEnergyType(sessionStorage.allEnergyType, dataArr);
 
             //改变上方的title显示信息
-            $('.content-main-middle-left h3').html('本' + $('.time-options-1').html() +"信息");
+            $('.content-main-middle-left h3').html('本' + $('.time-options-1').html() +"能耗");
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -841,6 +841,8 @@ function getTopPageKPIData(){
             _myChart4.hideLoading();
             _myChart5.hideLoading();
 
+            console.log(result);
+
             //无数据
             if(result == null || result.length == 0){
 
@@ -849,13 +851,36 @@ function getTopPageKPIData(){
             //单位面积能耗
             option3.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(2);
 
-            //单位床位能耗
-            option4.series[0].data[0].value = result.bedKPIData.energyNormData.toFixed(2);
 
+            if(result.bedKPIData){
+                //单位床位能耗
+                option4.series[0].data[0].value = result.bedKPIData.energyNormData.toFixed(2);
+
+            }
             //页面重绘数据
             _myChart4.setOption(option3,true);
 
-            _myChart5.setOption(option4,true);
+            //是否显示单位床位
+            if(result.modeFlag == 1){
+
+                $('.content-main-bototm-left .energy1').removeClass('col-lg-12');
+
+                $('.content-main-bototm-left .energy1').addClass('col-lg-6');
+
+                $('.content-main-bototm-left .energy2').show();
+
+                _myChart5.setOption(option4,true);
+
+            }else{
+
+                $('.content-main-bototm-left .energy1').removeClass('col-lg-6');
+
+                $('.content-main-bototm-left .energy1').addClass('col-lg-12');
+
+                $('.content-main-bototm-left .energy2').hide();
+            }
+
+            window.onresize();
 
             //改变上方的title显示信息
             $('.content-main-bototm-left h3').html('本' + $('.time-options-1').html() +"KPI指标");
