@@ -332,6 +332,7 @@ function _searchPO(tip,pointerId,tips,officeId){
     objSearch.initOfficeSearch($("#key"),tips,officeId);
 }
 
+
 //搜索楼宇时
 $(document).on('keyup','.input-search-value',function(){
 

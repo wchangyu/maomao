@@ -85,10 +85,6 @@ $(function(){
         "dom":'t<"F"lip>',
         "columns": [
             {
-                title:'物品序列号',
-                data:'sn'
-            },
-            {
                 name: 'second',
                 title:'物品编号',
                 data:'itemNum'
@@ -102,8 +98,8 @@ $(function(){
                 data:'size'
             },
             {
-                title:'数量',
-                data:'num'
+                title:'物品序列号',
+                data:'sn'
             },
             {
                 title:'单价',
@@ -116,6 +112,10 @@ $(function(){
                     }
 
                 }
+            },
+            {
+                title:'数量',
+                data:'num'
             },
             {
                 title:'金额',
@@ -165,10 +165,45 @@ $(function(){
         "rowsGroup": [
             'second:name',
             0,
-            1,
+            1
         ],
+
+        "drawCallback":drawFn
     });
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+
+    //重绘合计数据
+    function drawFn(){
+
+        var ths = $('#scrap-datatables').find('tfoot').children('tr').eq(0).children('td');
+
+        var tds = $('#scrap-datatables').find('tbody').children('tr');
+
+        var amount = 0;
+
+        for(var i=0; i<tds.length; i++){
+
+            //获取入库还是出库
+            var flag = tds.eq(i).children('td').eq(9).html();
+            //获取当前金额
+            var count = parseFloat(tds.eq(i).children('td').eq(6).html());
+
+            if(count){
+                //入库金额累加
+                if(flag == '入库'){
+                    amount += count;
+                //出库金额累减
+                }else{
+                    amount -= count;
+                }
+            }
+
+        }
+
+        //赋值
+        $('#scrap-datatables .amount').html(amount.toFixed(2));
+
+    };
 
     //表格赋值
     warehouse();

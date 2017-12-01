@@ -50,7 +50,6 @@ $(document).ready(function() {
 
                     return "<input type='checkbox' class='tableCheck'/>"
 
-
                 }
             },
             {
