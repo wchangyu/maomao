@@ -154,6 +154,7 @@
     padding-left:20px;
     padding-right:20px;
     height:150px;
+    overflow-y: auto;
 }
 .specific-problem .bottom-problem ul{
 
@@ -161,4 +162,13 @@
 .specific-problem .bottom-problem ul li{
     font-size:16px;
     line-height:26px;
+}
+
+
+/*能效诊断*/
+.efficiency-problem h3{
+
+    background: url('../../img/efficiency-blue.png') no-repeat 30px center;
+    /*background-size:30px ;*/
+
 }
