@@ -4,7 +4,7 @@
 $(function(){
 
      //获取一键诊断包含的分类及其具体的操作项
-    getOneKeyDiagItemType();
+    //getOneKeyDiagItemType();
 
 });
 //获取一键诊断包含的分类及其具体的操作项
