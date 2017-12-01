@@ -460,7 +460,7 @@
             $('#eprSelect').find('option').remove();
             $('#eprSelect').empty();
             for (var i = 0; i < eprs.length; i++) {
-                zh_eprIds.push(eprs[i].enterpriseID.toString());
+                //zh_eprIds.push(eprs[i].enterpriseID.toString());
                 $('#eprSelect').append($("<option value=\"" + eprs[i].enterpriseID + "\">" + eprs[i].eprName + "</option>"));
             }
             var idxEpr = 1;//默认选择第一项(包括总行)
@@ -673,7 +673,7 @@
             yAxis: {
                 type: 'value',
                 axisLabel: {
-                    formatter: '{value} °C'
+                    formatter: '{value}'
                 }
             },
             series: [

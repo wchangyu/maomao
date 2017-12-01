@@ -437,7 +437,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/MTManagement-2.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -446,6 +446,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/MTManagement-2.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
 <div class="modal fade modals" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -460,19 +461,19 @@
                     <ul class="gongdanList" id="workDone">
                         <validator name="validation">
                             <form novalidate>
-                                <li class="floatLeft">
+                                <li class="floatLeft" style="margin-right: 10px;">
                                     <div class="labels">保养内容编码：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="xjnrbm" readonly="readonly" placeholder="自动生成">
+                                        <input type="text" class="MTBM" v-model="xjnrbm" placeholder="自动生成">
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="floatLeft" style="margin-right: 10px;">
                                     <div class="labels colorTip">保养内容名称 *：<span v-if="$validation.xjnrmc.noempty">请填写巡检内容名称</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" class="" v-model="xjnrmc" v-validate:xjnrmc="['noempty']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLeft" style="margin-right: 10px;">
                                     <div class="labels">设备分类</div>
                                     <div class="input-blockeds">
                                         <select name=""  v-model="sbfl" id="sblx">
@@ -495,7 +496,7 @@
                             <div class="table-title">
                                 <span class="spanhover">保养项目</span>
                             </div>
-                            <div class="tableHover" style="z-index: 1">
+                            <div class="tableHoverL" style="z-index: 1">
                                 <ul class="condition-query">
                                     <li style="width: 133px;">
                                         <div class="cont-col1" style="cursor: pointer">
@@ -573,13 +574,13 @@
                     <li class="floatLeft" style="line-height: 26px;">
                         <div class="labels">条目编码 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmbm">
+                            <input type="text" readonly="readonly" id="xjtmbm" class="disabled-block">
                         </div>
                     </li>
                     <li class="floatRight" style="line-height: 26px;">
                         <div class="labels">条目名称 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmmc">
+                            <input type="text" readonly="readonly" id="xjtmmc" class="disabled-block">
                         </div>
                     </li>
                 </ul>

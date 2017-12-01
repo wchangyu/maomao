@@ -135,6 +135,13 @@ $(function(){
         ],
         "columns": [
             {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs btn btn-success'
+            }
+        ],
+        "columns": [
+            {
                 title:'任务单号',
                 data:'itkNum',
                 className:'bianma'
@@ -142,6 +149,10 @@ $(function(){
             {
                 title:'任务名称',
                 data:'itkName'
+            },
+            {
+                title:'设备类型',
+                data:'dcNum'
             },
             {
                 title:'设备名称',
@@ -162,6 +173,10 @@ $(function(){
             {
                 title:'执行人',
                 data:'itkRen'
+            },
+            {
+                title:'任务时间',
+                data:'tkTime'
             },
             {
                 title:'操作',
@@ -288,7 +303,7 @@ $(function(){
                 url:_urls + 'YWDevMT/YWDMPGetItemAndMembers',
                 data:prm,
                 success:function(result){
-                    console.log(result);
+
                     //找到存放所有巡检条目的数组，比较
                     _allXJSelect = [];
                     for(var j=0;j<_tiaoMuArr.length;j++){

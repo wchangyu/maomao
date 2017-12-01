@@ -237,6 +237,17 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWDevIns/YWDIDelDIContent',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
                 success:function(result){
                     if(result == 99){
                         $('#myModal2').modal('hide');
@@ -263,6 +274,9 @@ $(function(){
         .on('click','.option-edite',function(){
             //信息绑定
             ckOrBj($(this),false);
+
+            //编码不可操作
+            $('.xjbm').addClass('disabled-block');
         })
         .on('click','.option-delete',function(){
             //信息绑定
@@ -284,105 +298,38 @@ $(function(){
     /*---------------------------------------按钮事件--------------------------------------*/
     //新增按钮
     $('.creatButton').click(function(){
+
         //模态框显示
         _moTaiKuang($('#myModal'), '新增巡检内容', '', '' ,'', '新增');
+
         //确定按钮添加登记类
         $('#myModal').find('.btn-primary').show().removeClass('bianji').addClass('dengji');
+
         //输入框初始化
-        workDone.xjnrbm = '';
-        workDone.xjnrmc = '';
-        workDone.beizhu = '';
-        workDone.sbfl = '';
-        _allXJSelect = [];
-        _datasTable(_tableXJ,_allXJSelect);
+        detailedInit();
+
         //所有操作框可操作
         $('#workDone').children().children().children('.input-blockeds').children().attr('disabled',false).removeClass('disabled-block');
+
+        //新增按钮显示
         $('.zhiXingRenYuanButton').show();
-        $('#personTable1').find('.option-delete').attr('disabled',false);
+
+        //巡检编码
+        $('.xjbm').addClass('disabled-block');
+
     });
 
     //新增确定按钮
     $('#myModal')
         .on('click','.dengji',function(){
-        //验证非空
-        if(workDone.xjnrmc == '' || workDone.sbfl == ''){
-            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-        }else{
-            var tableArr = [];
-            for(var i=0;i<_allXJSelect.length;i++){
-                var obj = {};
-                obj.id = _allXJSelect[i].id;
-                obj.ditNum = _allXJSelect[i].ditNum;
-                tableArr.push(obj);
-            }
-            var prm = {
-                dcNum:workDone.sbfl,
-                dcName: $.trim($('#sblx').children('option:selected').html()),
-                dicName:workDone.xjnrmc,
-                remark:workDone.beizhu,
-                dicItems:tableArr,
-                userID:_userIdName
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWDevIns/YWDIADDDIContent',
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        $('#myModal').modal('hide');
-                        //提示
-                        _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                        conditionSelect()
-                    }else{
-                        _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'添加失败！', '');
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR.responseText);
-                }
-            })
-        }
-    })
+
+            djOrBj('YWDevIns/YWDIADDDIContent',false,'添加成功！','添加失败！');
+
+        })
         .on('click','.bianji',function(){
-            //验证非空
-            if(workDone.xjnrmc == '' || workDone.sbfl == ''){
-                _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else{
-                var tableArr = [];
-                for(var i=0;i<_allXJSelect.length;i++){
-                    var obj = {};
-                    obj.id = _allXJSelect[i].id;
-                    obj.ditNum = _allXJSelect[i].ditNum;
-                    tableArr.push(obj);
-                }
-                var prm = {
-                    dcNum:workDone.sbfl,
-                    dcName: $.trim($('#sblx').children('option:selected').html()),
-                    dicName:workDone.xjnrmc,
-                    dicNum:workDone.xjnrbm,
-                    remark:workDone.beizhu,
-                    dicItems:tableArr,
-                    userID:_userIdName
-                }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWDevIns/YWDIUptDIContent',
-                    data:prm,
-                    success:function(result){
-                        if(result == 99){
-                            $('#myModal').modal('hide');
-                            //提示
-                            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'编辑成功！', '');
-                            conditionSelect()
-                        }else{
-                            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'编辑失败！', '');
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR.responseText);
-                    }
-                })
-            }
+
+            djOrBj('YWDevIns/YWDIUptDIContent',true,'编辑成功！','编辑失败！');
+
         })
     //添加巡检步骤按钮
     $('.zhiXingRenYuanButton').click(function(){
@@ -398,6 +345,17 @@ $(function(){
             url: _urls + 'YWDevIns/YWDIGetDIItems',
             data:prm,
             timeOut:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 _allXJTMArr.length = 0;
                 for(var i=0;i<result.length;i++){
@@ -442,6 +400,17 @@ $(function(){
             url: _urls + 'YWDevIns/YWDIGetDIItems',
             data:prm,
             timeOut:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 _allXJTMArr.length = 0;
                 for(var i=0;i<result.length;i++){
@@ -470,6 +439,8 @@ $(function(){
 
     //巡检内容条件查询按钮
     $('#selected').click(function(){
+
+        conditionSelect();
 
     })
 
@@ -537,10 +508,16 @@ $(function(){
 
     //查看/编辑绑定数据(flag:查看的时候传)
     function ckOrBj(el,zhi,flag){
+        //初始化
+        detailedInit();
+
         //修改样式
         var $this = el.parents('tr');
+
         $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
         $this.addClass('tables-hover');
+
         //确定按钮隐藏
         if(flag){
             _moTaiKuang($('#myModal'), '查看详情', 'flag', '' ,'', '');
@@ -567,12 +544,27 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/YWDIGetDICItems',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
+
                 _allXJSelect = [];
+
                 for(var i=0;i<result.length;i++){
                     _allXJSelect.push(result[i]);
                 }
+
                 _datasTable(_tableXJ,result);
+
                 if(flag){
                     $('#personTable1').find('.option-delete').attr('disabled',true);
                     //添加巡检步骤按钮消失
@@ -599,4 +591,112 @@ $(function(){
 
     }
 
+    //登记、编辑(flag = true;编辑，传编码)
+    function djOrBj(url,flag,successMeg,errorMeg){
+
+        //验证非空
+        if(workDone.xjnrmc == '' || workDone.sbfl == ''){
+
+            _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+
+        }else{
+
+            var tableArr = [];
+
+            for(var i=0;i<_allXJSelect.length;i++){
+                var obj = {};
+                obj.id = _allXJSelect[i].id;
+                obj.ditNum = _allXJSelect[i].ditNum;
+                tableArr.push(obj);
+            }
+
+            //select一定要判断
+            var values = '';
+
+            if(workDone.sbfl == ''){
+
+                values = '';
+
+            }else{
+
+                values = $.trim($('#sblx').children('option:selected').html());
+
+            }
+
+            var prm = {
+                dcNum:workDone.sbfl,
+                dcName:values,
+                dicName:workDone.xjnrmc,
+                remark:workDone.beizhu,
+                dicItems:tableArr,
+                userID:_userIdNum,
+                userName:_userIdName
+            }
+
+            if(flag){
+
+                prm.dicNum = workDone.xjnrbm;
+
+            }
+
+            $.ajax({
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                },
+                success:function(result){
+                    if(result == 99){
+                        $('#myModal').modal('hide');
+                        //提示
+                        _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,successMeg,errorMeg);
+                        conditionSelect()
+                    }else{
+                        _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,errorMeg,errorMeg);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.responseText);
+                }
+            })
+        }
+
+
+    }
+
+    //新增弹窗初始化
+    function detailedInit(arr){
+
+        //巡检内容编码
+        workDone.xjnrbm = '';
+        //巡检内容名称
+        workDone.xjnrmc = '';
+        //设备分类
+        workDone.sbfl = '';
+        //备注
+        workDone.beizhu = '';
+
+        //表格
+        var arrInit = [];
+
+        if(arr){
+
+            _datasTable($('#personTable1'),arr);
+
+        }else{
+
+            _datasTable($('#personTable1'),arrInit);
+
+        }
+
+    }
 })

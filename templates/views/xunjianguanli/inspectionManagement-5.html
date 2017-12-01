@@ -437,7 +437,7 @@
                                 <li class="floatLeft">
                                     <div class="labels">是否启用：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="" v-model="sfqy" disabled="disabled">
+                                        <select name="" id="" v-model="sfqy" disabled="disabled" class="disabled-block">
                                             <option value="0">未启用</option>
                                             <option value="1">启用</option>
                                             <option value="2">停用</option>
@@ -447,49 +447,49 @@
                                 <li class="floatRight">
                                     <div class="labels">任务单号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="rwdh" disabled="disabled">
+                                        <input type="text" v-model="rwdh" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">任务名称 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="rwmc" disabled="disabled">
+                                        <input type="text" v-model="rwmc" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">计划编号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="jhbm" disabled="disabled">
+                                        <input type="text" v-model="jhbm" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">设备名称：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="sbmc" disabled="disabled">
+                                        <input type="text" v-model="sbmc" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">设备编码：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="sbbm" disabled="disabled">
+                                        <input type="text" v-model="sbbm" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">责任单位部门 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="zrdwbm" disabled="disabled">
+                                        <input type="text" v-model="zrdwbm" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">责任人：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="fzr" disabled="disabled">
+                                        <input type="text" v-model="fzr" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">执行人 ：</div>
-                                    <div class="input-blockeds" v-model="zxr" disabled="disabled">
-
+                                    <div class="input-blockeds" >
+                                        <input type="text" v-model="zxr" disabled="disabled" class="disabled-block">
                                     </div>
                                 </li>
                             </form>
@@ -497,26 +497,26 @@
                                 <li class="floatRight">
                                     <div class="labels">接单时间：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="datatimeblock" id="jdsj" disabled="disabled">
+                                        <input type="text" class="datatimeblock disabled-block" id="jdsj" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">开始时间：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="datatimeblock" id="kssj" disabled="disabled">
+                                        <input type="text" class="datatimeblock disabled-block" id="kssj" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">完成时间：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="datatimeblock" id="wcsj" disabled="disabled">
+                                        <input type="text" class="datatimeblock disabled-block" id="wcsj" disabled="disabled">
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>
                                 <div>
                                     <div class="labels">备注：</div>
                                     <div class="input-blockeds" style="height:62px;">
-                                        <textarea style="width: 100%;height: 60px;outline: none" id="beizhu"></textarea>
+                                        <textarea style="width: 100%;height: 60px;outline: none" id="beizhu" class="disabled-block"></textarea>
                                     </div>
                                 </div>
                         <div class="table-block">
@@ -525,7 +525,7 @@
                                 <span>执行人员</span>
                             </div>
                             <div>
-                                <div class="tableHover" style="z-index: 1">
+                                <div class="tableHoverL" style="z-index: 1">
                                     <ul class="condition-query">
                                     </ul>
                                     <table class="table table-hover" id="personTable1">
@@ -534,7 +534,7 @@
                                         <tbody></tbody>
                                     </table>
                                 </div>
-                                <div class="tableHover">
+                                <div class="tableHoverL hide-block">
                                     <ul class="condition-query">
                                     </ul>
                                     <table class="table table-hover" id="personTable2">
@@ -571,7 +571,7 @@
                                 <li class="floatLeft">
                                     <div class="labels">是否启用：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="" v-model="sfqy" disabled="disabled">
+                                        <select name="" id="" v-model="sfqy" disabled="disabled" class="disabled-block">
                                             <option value="0">未启用</option>
                                             <option value="1">启用</option>
                                             <option value="2">停用</option>
@@ -581,49 +581,49 @@
                                 <li class="floatRight">
                                     <div class="labels">任务单号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="rwdh" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="rwdh" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">任务名称 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="rwmc" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="rwmc" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">计划编号 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="jhbm" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="jhbm" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">设备名称：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="sbmc" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="sbmc" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">设备编码：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="sbbm" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="sbbm" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">责任单位部门 ：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="zrdwbm" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="zrdwbm" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">责任人：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" class="" v-model="fzr" disabled="disabled">
+                                        <input type="text" class="disabled-block" v-model="fzr" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">执行人 ：</div>
-                                    <div class="input-blockeds" v-model="zxr" disabled="disabled">
-
+                                    <div class="input-blockeds">
+                                        <input type="text" class="input-blockeds disabled-block" v-model="zxr" disabled="disabled">
                                     </div>
                                 </li>
                             </form>
@@ -631,26 +631,26 @@
                         <li class="floatRight">
                             <div class="labels">接单时间：</div>
                             <div class="input-blockeds">
-                                <input type="text" class="datatimeblock" id="jdsjs" disabled="disabled">
+                                <input type="text" class="datatimeblock disabled-block" id="jdsjs" disabled="disabled">
                             </div>
                         </li>
                         <li class="floatLeft">
                             <div class="labels">开始时间：</div>
                             <div class="input-blockeds">
-                                <input type="text" class="datatimeblock" id="kssjs" disabled="disabled">
+                                <input type="text" class="datatimeblock disabled-block" id="kssjs" disabled="disabled">
                             </div>
                         </li>
                         <li class="floatRight">
                             <div class="labels">完成时间：</div>
                             <div class="input-blockeds">
-                                <input type="text" class="datatimeblock" id="wcsjs" disabled="disabled">
+                                <input type="text" class="datatimeblock disabled-block" id="wcsjs" disabled="disabled">
                             </div>
                         </li>
                         <div class="clearfix"></div>
                         <div>
                             <div class="labels">备注：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" id="beizhus"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" id="beizhus" class="disabled-block"></textarea>
                             </div>
                         </div>
                         <div class="table-block">
@@ -658,7 +658,7 @@
                                 <span class="spanhover">步骤项目</span>
                             </div>
                             <div>
-                                <div class="tableHover" style="z-index: 1">
+                                <div class="tableHoverL" style="z-index: 1">
                                     <ul class="condition-query">
                                     </ul>
                                     <table class="table table-hover" id="personTable1s">
@@ -679,102 +679,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--巡检步骤删除提示框-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 211px;">
-        <div class="modal-content" style="height: 211px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">确定要删除吗？</h4>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">计划编码 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmbm">
-                        </div>
-                    </li>
-                    <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">计划名称 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="xjtmmc">
-                        </div>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary xiaoshanchu">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--编辑表格中的表格-->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 390px;width: 684px !important;">
-        <div class="modal-content" style="height: 390px;width: 684px !important;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabe3">添加</h4>
-            </div>
-            <div class="modal-body" id="tmtable">
-                <ul>
-                    <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">步骤编码 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" v-model="tmbm">
-                        </div>
-                    </li>
-                    <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">步骤名称 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" v-model="tmmc">
-                        </div>
-                    </li>
-                    <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">步骤参考值 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" v-model="tmckz">
-                        </div>
-                    </li>
-                    <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">报警关系 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" readonly="readonly" v-model="bjgx">
-                        </div>
-                    </li>
-                    <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">巡检结果 ：</div>
-                        <div class="input-blockeds">
-                            <select name="" id="xjjg" v-model="xjjg">
-                                <option value="1">正常</option>
-                                <option value="2">异常</option>
-                            </select>
-                        </div>
-                    </li>
-                    <li class="floatRight" style="line-height: 26px;">
-                        <div class="labels">结果记录 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text"  v-model="jgjl">
-                        </div>
-                    </li>
-                    <li class="floatLeft" style="line-height: 26px;">
-                        <div class="labels">异常故障描述 ：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="ycms">
-                        </div>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
