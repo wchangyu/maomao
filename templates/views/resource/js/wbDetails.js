@@ -103,16 +103,8 @@ $(function(){
             }
         },
         {
-            title:'仓库',
-            data:'storageName'
-        },
-        {
             title:'库区',
             data:'localName'
-        },
-        {
-            title:'所属车间',
-            data:'departName2'
         },
         {
             title:'所属班组',
@@ -121,6 +113,22 @@ $(function(){
         {
             title:'时间',
             data:'createTime'
+        },
+        {
+            title:'工单号',
+            data:'gdCode2'
+        },
+        {
+            title:'请领人',
+            data:'qlRen'
+        },
+        {
+            title:'收料人',
+            data:'slRen'
+        },
+        {
+            title:'发料人',
+            data:'flRen'
         }
     ];
     _tableInit($('#scrap-datatables'),col,'1','flag','','');

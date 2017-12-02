@@ -70,13 +70,25 @@ $(function(){
 
         for(var i=1;i<ths.length-3;i++){
             var amount = 0;
-            var num1 = parseInt(tds.eq(i * 2).html());
-            var num2 = parseInt(tds.eq(i * 2 -1).html());
+            var num1 = parseFloat(tds.eq(i * 2).html());
+            var num2 = parseFloat(tds.eq(i * 2 -1).html());
 
+            if(isNaN(num1)){
+
+                num1 = 0
+            }
+
+            if(isNaN(num2)){
+                num2 = 0
+            }
             amount = num1 + num2;
-            console.log(amount)
-            ths.eq(i).html(amount);
+            console.log(amount);
+            if(amount != 0){
+                ths.eq(i).html(amount.toFixed(2));
+            }
+
         }
+
     };
 
     _tableInit($('#scrap-datatables'),col,2,totalFn,drawFn);
@@ -178,7 +190,8 @@ $(function(){
                         }
                     }
                 });
-                obj.hz = count;
+
+                obj.hz = count.toFixed();
                 tableArr.length = 0;
                 tableArr.push(obj);
                 _datasTable($("#scrap-datatables"), tableArr);

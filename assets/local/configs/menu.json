@@ -469,17 +469,17 @@
         "arg":"",
         "iconclass":""
       },
-      "备件管理":{
+      "备件二级库处理":{
         "type":"0",
-        "content":"备件管理",
+        "content":"备件二级库处理",
         "uri":"../gongdangunali/productionOrder-10.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "备件仓库处理":{
+      "备件主库处理":{
         "type":"0",
-        "content":"备件仓库处理",
+        "content":"备件主库处理",
         "uri":"../gongdangunali/productionOrder-11.html",
         "uid":"",
         "arg":"",

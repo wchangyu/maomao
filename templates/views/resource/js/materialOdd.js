@@ -41,9 +41,9 @@ $(function(){
             //领料部门
             $('.two').html(result.wxBz);
             //工单号
-            $('.three').html(result.gdCode2bxKeshi);
+            $('.three').html('维修费用');
             //用途
-            $('.four').html(result.bxBeizhu);
+            $('.four').html(result.gdCode2bxKeshi +'、' + result.bxBeizhu);
             //材料编号
             $('.five').html(result.itemNum);
             //材料名称及规格

@@ -394,6 +394,11 @@ $(function(){
 
         var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
 
+        if(!oXL){
+
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请开启ActiveX插件权限', '');
+        }
+
         var oWB = oXL.Workbooks.Add();//新建一个Excel工作簿
 
         var oSheet = oWB.ActiveSheet;//指定要写入内容的工作表为活动工作表

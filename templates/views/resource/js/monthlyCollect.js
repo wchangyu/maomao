@@ -6,6 +6,12 @@ $(function(){
     //默认时间
     var nowTime = moment().format('YYYY/MM/DD');
 
+    //所有仓库
+    var warehouseArr = [];
+
+    //当前仓库
+    var _currentWarehouse = '';
+
     //获取仓库
     warehouse();
 
@@ -17,7 +23,15 @@ $(function(){
 
     $('.btn1').on('click',function(){
 
-        _moTaiKuang($('#balance-modal'),'提示','','istap','确定要结存吗？','结存');
+        if( $('#ckselect').val() == '' ){
+
+            _moTaiKuang($('#deleteModal'), '提示', 'flag', 'istap' ,'请选择仓库！', '');
+
+        }else{
+
+            _moTaiKuang($('#balance-modal'),'提示','','istap','确定要结存吗？','结存');
+
+        }
 
     });
 
@@ -30,7 +44,8 @@ $(function(){
             "lastDayDate": st,
             "dayDate": et,
             "userID":  _userIdNum,
-            "userName": _userIdName
+            "userName": _userIdName,
+            "storageNum":$('#ckselect').val()
         };
         $.ajax({
             type:'post',
@@ -69,9 +84,12 @@ $(function(){
 
         //console.log('222');
 
-        _meg = $(this).parents('tr').children('td').eq(0).children().html();
+        _meg = $(this).parents('tr').children('td').eq(1).children().html();
+
+        _currentWarehouse = $(this).parents('tr').children('td').eq(0).attr('data-storagenum');
 
         _moTaiKuang($('#deleteModal'), '确定要删除吗？', '', 'istap' ,_meg, '删除');
+
 
     })
 
@@ -84,7 +102,8 @@ $(function(){
             data:{
                 "userID":  _userIdNum,
                 "userName": _userIdName,
-                "dayDate":_meg
+                "dayDate":_meg,
+                "storageNum":_currentWarehouse
             },
             timeout:_theTimes,
             success:function(result){
@@ -112,15 +131,41 @@ $(function(){
 
     })
 
+    //载入数据
+    $('#loadData').click(function(){
+
+        conditionSelect()
+
+    })
+
 
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(){
+
+        var arr = [];
+
+        for(var i=0;i<warehouseArr.length;i++){
+
+            arr.push(warehouseArr[i].storageNum);
+
+        }
 
         var prm = {
 
             "userID":  _userIdNum,
             "userName": _userIdName
+
         };
+
+        if($('#ckselect').val() == ''){
+
+            prm.storageNums = arr;
+
+        }else{
+
+            prm.storageNum = $('#ckselect').val()
+
+        }
 
         $.ajax({
             type:'post',
@@ -135,19 +180,23 @@ $(function(){
 
                 for(var i=0;i<result.length;i++){
 
-                    var showTime = result[i].split(' ')[0];
+                    var showTime = result[i].dayDate.split(' ')[0];
 
                     if(i==0){
 
-                        html += '<tr><td><a style="margin-left: 40px;" target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a><span class="data-option option-del btn default btn-xs green-stripe" style="float: right">删除</span></td></tr>'
+                        html += '<tr><td data-storageNum = ' +  result[i].storageNum +
+                            '>' + result[i].storageName +
+                            '</td><td><a style="margin-left: 40px;" target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a><span class="data-option option-del btn default btn-xs green-stripe" style="float: right">删除</span></td></tr>'
 
                     }else{
 
-                        html += '<tr><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td></tr>'
+                        html += '<tr><td data-storageNum = ' + result[i].storageNum +
+                            '>' + result[i].storageName +
+                            '</td><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td></tr>'
 
                     }
 
-                    $('.min').val(result[0].split(' ')[0].replace(/-/g,'/'));
+                    $('.min').val(result[0].dayDate.split(' ')[0].replace(/-/g,'/'));
 
                 }
 
@@ -180,8 +229,12 @@ $(function(){
             data:prm,
             success:function(result){
 
+                warehouseArr.length = 0;
+
                 var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
+
+                    warehouseArr.push(result[i]);
 
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
 

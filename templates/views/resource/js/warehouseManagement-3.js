@@ -1851,7 +1851,7 @@ $(function(){
 
         $('.chezhan').attr('data-num',gd.children('.gdCodes').children().attr('data-czcode'));
 
-        //$('#myModal7').modal('hide');
+        $('#myModal7').modal('hide');
     })
 
     //选择出库物品，第四层弹窗-----------------------------------------------------------

@@ -172,8 +172,8 @@ $(function(){
                 text: '导出',
                 className: 'saveAs',
                 header: true,
-                exportOptions: {
-                    columns: [0, 1, 2, 4, 5, 6, 7]
+                exportOptions:{
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15]
                 }
             }
         ],
@@ -185,7 +185,7 @@ $(function(){
                 render:function(data, type, row, meta){
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
-                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode +  '&userID=' + _userIdNum + '&userName=' + _userIdName + '&gdZht=' + row.gdZht + '&gdCircle=' + row.gdCircle +
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle +
                         '"' +
                         'target="_blank">' + data + '</a>'
                 }
@@ -241,6 +241,17 @@ $(function(){
                 }
             },
             {
+                title:'工单来源',
+                data:'gdCodeSrc',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '车站报修'
+                    }else{
+                        return '现场人员报修'
+                    }
+                }
+            },
+            {
                 title:'工单状态值',
                 data:'gdZht',
                 className:'ztz'
@@ -275,6 +286,10 @@ $(function(){
                         return data
                     }
                 }
+            },
+            {
+                title:'所属班组',
+                data:'wxKeshi'
             },
             {
                 title:'受理时间',
