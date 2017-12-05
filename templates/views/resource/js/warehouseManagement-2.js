@@ -1539,28 +1539,7 @@ $(function(){
 
                 ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
 
-            //if(_isShenHe == 1){
-            //
-            //    if(!_examineRen){
-            //
-            //        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
-            //
-            //    }else{
-            //
-            //        ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
-            //
-            //    }
-            //
-            //}else if( _isShenHe == 0 ){
-            //
-            //    ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
-            //
-            //}
-        }
-
-
-
-        )
+        })
 
 
     //第一层弹窗-------------------------------------------------------------------------------------------
@@ -2737,10 +2716,6 @@ $(function(){
                         }
 
                     }
-
-
-
-
 
                 //聚焦到第一个
                 $('#workDone').find('.inputType').eq(0).focus();

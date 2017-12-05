@@ -302,7 +302,8 @@ $(function(){
             var $this = $(this).parents('tr');
             $('.table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
-            var $thisBM = $(this).parents('tr').children('.bianma').html();
+            var $thisBM = $(this).parents('tr').children('.bianma').children().html();
+
             //赋值
             for(var i=0;i<_allDataArr.length;i++){
                 if(_allDataArr[i].itkNum == $thisBM){
@@ -321,6 +322,7 @@ $(function(){
                     $('#beizhus').val(_allDataArr[i].remark);
                 }
             };
+
             var prm = {
                 itkNum:workDone1.rwdh,
                 dipNum:workDone1.jhbm,

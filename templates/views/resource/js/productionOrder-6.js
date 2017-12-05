@@ -367,6 +367,10 @@ $(function(){
                 data:'wxCl'
             },
             {
+                title:'规格型号',
+                data:'size'
+            },
+            {
                 title:'备件名称',
                 data:'wxClName'
             },

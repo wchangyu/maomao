@@ -665,7 +665,7 @@ $(function(){
             },
             success:function(result){
                 $('#theLoading').modal('hide');
-                console.log(result);
+                //console.log(result);
 
                 if(flag){
 

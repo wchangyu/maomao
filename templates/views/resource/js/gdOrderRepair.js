@@ -1733,7 +1733,7 @@ $(function(){
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
-                'gdSrc': 1,
+                'gdSrc': 2,
                 'gdLeixing':4
             }
             if(flag){

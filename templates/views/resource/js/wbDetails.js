@@ -65,16 +65,16 @@ $(function(){
     /*---------------------------------表格初始化------------------------------*/
     var col = [
         {
-            title:'物品序列号',
-            data:'sn'
-        },
-        {
             title:'物品编号',
             data:'itemNum'
         },
         {
             title:'物品名称',
             data:'itemName'
+        },
+        {
+            title:'物品序列号',
+            data:'sn'
         },
         {
             title:'规格型号',
@@ -105,6 +105,10 @@ $(function(){
         {
             title:'库区',
             data:'localName'
+        },
+        {
+            title:'车站',
+            data:'bxKeshi'
         },
         {
             title:'所属班组',
@@ -251,6 +255,7 @@ $(function(){
 
                 var yxdw = '';
 
+
                 if( $('#yxdw').val() == '' ){
 
                     yxdw = '';
@@ -263,7 +268,17 @@ $(function(){
 
                 var str = '材料总支出';
 
-                //console.log(storage + yxdw + str);
+                if( typeof storage == 'undefined'){
+
+                    storage = '';
+
+                }
+
+                if(typeof yxdw == 'undefined'){
+
+                    yxdw= '';
+
+                }
 
                 $('#scrap-datatables').find('caption').html( storage + yxdw + str );
 
