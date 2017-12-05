@@ -1193,80 +1193,106 @@ var userMonitor = (function(){
             }
             $("#content-main-right").empty();
             displayAllProc();
-        }else if(procDef.cType == 3 || procDef.cType == 133 || procDef.cType == 131){       //AO操作
-            if(_hasControlAuth){
-                var ptNow = getMousePos();
-                if(procDef.cType == 133 || procDef.cType == 131){
-                    if(_.findWhere(_procCtrls,{"prDefId":procDef.prDefId})){
-                        _isOperating = true;
-                        drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+        }else{
+            if(isHaveControl(procDef.prDefId)){
+                if(_hasControlAuth) {
+                    _isOperating = true;
+                    var ptNow = getMousePos();
+                    drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+                }else{
+                    alertMessage("没有权限");
+                }
+                return;
+            }
+            if(procDef.cType == 3 || procDef.cType == 133 || procDef.cType == 131){       //AO操作
+                if(_hasControlAuth){
+                    var ptNow = getMousePos();
+                    if(procDef.cType == 133 || procDef.cType == 131){
+                        if(_.findWhere(_procCtrls,{"prDefId":procDef.prDefId})){
+                            _isOperating = true;
+                            drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+                        }else{      //输入控制
+                            drawInputPanel(procDef.prDefId,ptNow[0],ptNow[1]);
+                        }
                     }else{      //输入控制
                         drawInputPanel(procDef.prDefId,ptNow[0],ptNow[1]);
                     }
-                }else{      //输入控制
-                    drawInputPanel(procDef.prDefId,ptNow[0],ptNow[1]);
+                }else{
+                    alertMessage("没有权限");
                 }
-            }else{
-                alertMessage("没有权限");
-            }
-        }else if(procDef.cType == 122){     //全局参数设置
-            _ptForGlobalPara = getMousePos();
-            if(_hasControlAuth){
-                $.ajax({
-                    type:"post",
-                    data:{"" : procDef.ckId},
-                    url: _urlPrefix + "PR/pr_GetPRGlobalParas",
-                    success:function(data){
-                        drawGlobalParaPanel(data,_ptForGlobalPara[0],_ptForGlobalPara[1]);
-                    },
-                    error:function(xhr,res,err){ logAjaxError("pr_GetPRGlobalParas",err); }
-                });
-            }else{
-                alertMessage("没有权限");
-            }
-        }else if(procDef.cType == 100 || procDef.cType==99){     //空调温控面板设置，modbus
-            if(_hasControlAuth){
-                _airClickPos = getMousePos();       //获取当前的鼠标点，保存
-                $.ajax({
-                    type:"post",
-                    data:{
-                        "ckid":procDef.ckId,
-                        "prDefId":procDef.prDefId
-                    },
-                    url:_urlPrefix + "PR/GetAirPtProp",
-                    success:function(data){
-                        if(!data){ return; }
-                        _isOperating = true;
-                        if(data.flag==1){       //绘制空调面板
-                            drawControls(data.prDefId,_airClickPos[0],_airClickPos[1],true);
-                        }else if(data.flag==2){      //绘制控制面板
-                            var curCtrlstmp = _.findWhere(_procCtrls,{'prDefId':data.prDefId});
-                            var curCtrls = (_.sortBy(curCtrlstmp,'showOrder')).reverse();
-                            if(!curCtrls || curCtrls.length==0){
-                                //绘制modbus面板
-                                drawModbusPanel(data.prDefId,data.inputDataNum,_airClickPos[0],_airClickPos[1]);
-                            }else{
-                                drawControls(data.prDefId,_airClickPos[0],_airClickPos[1]);
-                            }
+            }else if(procDef.cType == 122){     //全局参数设置
+                _ptForGlobalPara = getMousePos();
+                if(_hasControlAuth){
+                    $.ajax({
+                        type:"post",
+                        data:{"" : procDef.ckId},
+                        url: _urlPrefix + "PR/pr_GetPRGlobalParas",
+                        success:function(data){
+                            drawGlobalParaPanel(data,_ptForGlobalPara[0],_ptForGlobalPara[1]);
+                        },
+                        error:function(xhr,res,err){ logAjaxError("pr_GetPRGlobalParas",err); }
+                    });
+                }else{
+                    alertMessage("没有权限");
+                }
+            }else if(procDef.cType == 100 || procDef.cType==99){     //空调温控面板设置，modbus
+                if(_hasControlAuth){
+                    _airClickPos = getMousePos();       //获取当前的鼠标点，保存
+                    $.ajax({
+                        type:"post",
+                        data:{
+                            "ckid":procDef.ckId,
+                            "prDefId":procDef.prDefId
+                        },
+                        url:_urlPrefix + "PR/GetAirPtProp",
+                        success:function(data){
+                            if(!data){ return; }
+                            _isOperating = true;
+                            if(data.flag==1){       //绘制空调面板
+                                drawControls(data.prDefId,_airClickPos[0],_airClickPos[1],true);
+                            }else if(data.flag==2){      //绘制控制面板
+                                var curCtrlstmp = _.findWhere(_procCtrls,{'prDefId':data.prDefId});
+                                var curCtrls = (_.sortBy(curCtrlstmp,'showOrder')).reverse();
+                                if(!curCtrls || curCtrls.length==0){
+                                    //绘制modbus面板
+                                    drawModbusPanel(data.prDefId,data.inputDataNum,_airClickPos[0],_airClickPos[1]);
+                                }else{
+                                    drawControls(data.prDefId,_airClickPos[0],_airClickPos[1]);
+                                }
 
-                        }
-                    },
-                    error:function(xhr,res,err){ logAjaxError("GetAirPtProp" , err); }
-                });
-            }else{
-                alertMessage("没有权限");
-            }
-        }else{      //绘制控件，例如 开关操作
-            if(_hasControlAuth){
-                _isOperating = true;
-                var ptNow = getMousePos();
-                drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
-            }else{
-                alertMessage("没有权限");
+                            }
+                        },
+                        error:function(xhr,res,err){ logAjaxError("GetAirPtProp" , err); }
+                    });
+                }else{
+                    alertMessage("没有权限");
+                }
+            }else{      //绘制控件，例如 开关操作
+                if(_hasControlAuth){
+                    _isOperating = true;
+                    var ptNow = getMousePos();
+                    drawControls(procDef.prDefId,ptNow[0],ptNow[1]);
+                }else{
+                    alertMessage("没有权限");
+                }
             }
         }
+
+
     };
 
+    //判断是否有控制项
+    var isHaveControl = function(prDefId){
+        var len = _procCtrls.length;
+        if(len){
+            for(var i=0;i<len;i++){
+                if(_procCtrls[i].prDefId ==prDefId ){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     //根据数据返回的结果显示所有的监控流程,显示在右边,默认只显示第一等级，可导航改变
     var displayAllProc = function(){
         var procLVs = [],tmpprocLVs = [];
