@@ -81,6 +81,8 @@ $(function(){
             myChartTopLeft.resize();
         }
     };
+
+
 });
 
 //记录能耗种类
@@ -136,6 +138,68 @@ var optionBar = {
             type:'bar',
             data:[],
             barMaxWidth: '60',
+        }
+    ]
+};
+
+//柱折图配置项
+var optionLineBar = {
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['累计值', '比较斜率'],
+        top:'30'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['bar', 'line']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : ['本期','上期']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    grid: {
+        left: '20%',
+        right: '10%'
+    },
+    series : [
+        {
+            name:'累计值',
+            type:'bar',
+            barMaxWidth: '50',
+            data:[],
+            itemStyle:{
+                normal:{
+                    color: function(params) {
+                        // build a color map as your need.
+                        var colorList = [
+                            '#d53a35','#2f4554','#FCCE10','#E87C25','#27727B',
+                            '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                            '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                        ];
+                        return colorList[params.dataIndex]
+                    },
+                }
+            }
+        },
+        {
+            name:'比较斜率',
+            type:'line',
+            data:[],
         }
     ]
 };
@@ -276,6 +340,7 @@ function getPointerData(url,flag){
         isBiaoMeiEnergy = 1;
     }
 
+
     //获取展示日期类型
     var showDateType = getShowDateType()[0];
 
@@ -415,9 +480,8 @@ function getPointerData(url,flag){
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
-            }else{
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
             }
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
         }
     })
 }

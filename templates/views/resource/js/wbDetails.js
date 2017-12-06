@@ -73,12 +73,12 @@ $(function(){
             data:'itemName'
         },
         {
-            title:'规格型号',
-            data:'size'
-        },
-        {
             title:'物品序列号',
             data:'sn'
+        },
+        {
+            title:'规格型号',
+            data:'size'
         },
         {
             title:'数量',
@@ -103,16 +103,12 @@ $(function(){
             }
         },
         {
-            title:'仓库',
-            data:'storageName'
-        },
-        {
             title:'库区',
             data:'localName'
         },
         {
-            title:'所属车间',
-            data:'departName2'
+            title:'车站',
+            data:'bxKeshi'
         },
         {
             title:'所属班组',
@@ -121,6 +117,22 @@ $(function(){
         {
             title:'时间',
             data:'createTime'
+        },
+        {
+            title:'工单号',
+            data:'gdCode2'
+        },
+        {
+            title:'请领人',
+            data:'qlRen'
+        },
+        {
+            title:'收料人',
+            data:'slRen'
+        },
+        {
+            title:'发料人',
+            data:'flRen'
         }
     ];
     _tableInit($('#scrap-datatables'),col,'1','flag','','');
@@ -132,10 +144,14 @@ $(function(){
     /*----------------------------------按钮事件------------------------------*/
     //查询
     $('#selected').click(function(){
-        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == ''){
+        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == '' || $('#storage').val() == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项进行查询！', '');
+
         }else{
+
             conditionSelect();
+
         }
     })
 
@@ -220,9 +236,52 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                console.log(result);
-
                 _datasTable($('#scrap-datatables'),result);
+
+                //标题
+
+                //获取仓库
+                var storage = '';
+
+                if( $('#storage').val() == '' ){
+
+                    storage = '';
+
+                }else{
+
+                    storage = $('#storage').children('option:selected').html();
+
+                }
+
+                var yxdw = '';
+
+
+                if( $('#yxdw').val() == '' ){
+
+                    yxdw = '';
+
+                }else{
+
+                    yxdw = $('#yxdw').children('option:selected').html();
+
+                }
+
+                var str = '材料总支出';
+
+                if( typeof storage == 'undefined'){
+
+                    storage = '';
+
+                }
+
+                if(typeof yxdw == 'undefined'){
+
+                    yxdw= '';
+
+                }
+
+                $('#scrap-datatables').find('caption').html( storage + yxdw + str );
+
 
                 var num = 0;
 

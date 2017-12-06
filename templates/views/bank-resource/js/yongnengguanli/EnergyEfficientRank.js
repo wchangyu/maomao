@@ -145,6 +145,8 @@ function getMainData(){
 
     var unitName;
 
+
+
     var title2 = $('#energy-type').find('option:selected').text();
 
     var postDate = $('#post-date').val();
@@ -484,6 +486,8 @@ function getMainData1(){
                     display:'none'
                 })
             }
+
+
 
             var html3 = '<td>环比</td>';
             $(hArr).each(function(i,o){

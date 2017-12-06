@@ -454,11 +454,9 @@ function getMainData(){
                     left:num1+ 'px'
                 });
             }
-            //返回数据不在规定范围内
+
             if(data.avgCOPData> 7 || data.avgCOPData < 0){
-
                 myAlter('本数据错误');
-
             }else{
                 var num1 =700 -(data.avgCOPData * 100)-78;
                 //var num1 =700 -(5 * 100)-78;

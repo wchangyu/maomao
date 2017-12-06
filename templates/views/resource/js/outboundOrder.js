@@ -7,7 +7,7 @@ $(document).ready(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     getGodownMessage();
-    getOutStorageBanzu();
+    //getOutStorageBanzu();
     //获取出库单信息
     function getGodownMessage(){
 
@@ -18,7 +18,7 @@ $(document).ready(function(){
         }
         $.ajax({
             type: 'post',
-            url: _urls + "YWCK/ywCKGetOutStorageDetail",
+            url: _urls + "YWCK/YWCKGetOutStorageBanzu",
             timeout: theTimes,
             data:{
                 "orderNum": outboundOrder,
@@ -41,6 +41,7 @@ $(document).ready(function(){
                         '     <td>'+ o.num+'</td>' +
                         '     <td>'+ o.outPrice.toFixed(2)+'</td>' +
                         '     <td>'+ o.amount.toFixed(2)+'</td>'+
+                        '     <td>'+ o.wbz +'</td>'+
                         '     <td>'+ o.bxKeshi+'</td>'+
                         '     <td><a href="materialOdd.html?gdCode=' + o.gdCode2 +
                         '&orderNum=' + outboundOrder +

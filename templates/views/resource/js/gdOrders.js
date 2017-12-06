@@ -1606,8 +1606,6 @@ $(function(){
 
                 _wxIsComplete = true;
 
-                $('')
-
                 if(result == 99){
                     _wxIsSuccess = true;
                 }else{

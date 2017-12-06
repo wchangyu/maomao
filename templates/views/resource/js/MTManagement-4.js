@@ -4,6 +4,10 @@ $(function(){
     var _userIdName = sessionStorage.getItem('userName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+
+    //获取登陆者信息
+    var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
+
     //时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -103,6 +107,18 @@ $(function(){
     var _allXJSelect = [];
     //记住填写的巡检结果的index值
     var _index = 0;
+
+    //存放所有维保组的数组
+    var _InfluencingArr = [];
+
+    //存放所有维修班组的数组
+    var _bzArr = [];
+
+    //读出的departNum在维保组中标识
+    var stationsFlag = false;
+
+    //读出的departNum在班组中用标识
+    var wxBanzusFlag = false;
     /*-------------------------------------------表格初始化-------------------------------------------*/
     var _tables =  $('.main-contents-table').find('.table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -260,10 +276,23 @@ $(function(){
     ];
     tableInit($('#personTable1s'),col2);
     //初始数据
-    conditionSelect();
+    //conditionSelect();
+    //设备数据(true,获取所有设备到数组中)
+
+    if(_loginUser.isWx == 0){
+
+        //数据
+        conditionSelect(stationsFlag,wxBanzusFlag);
+
+    }else if(_loginUser.isWx == 1){
+
+        InfluencingUnit();
+
+    }
+
     /*-------------------------------------------按钮事件---------------------------------------------*/
     $('#selected').click(function(){
-        conditionSelect();
+        conditionSelect(stationsFlag,wxBanzusFlag);
     })
     $('.main-contents-table').find('.table')
         .on('click','.option-see',function(){
@@ -423,7 +452,7 @@ $(function(){
                     moTaiKuang($('#myModal5'));
                     $('#myModal5').find('.modal-body').html('接单成功！');
                     $('#myModal').modal('hide');
-                    conditionSelect();
+                    conditionSelect(stationsFlag,wxBanzusFlag);
                 }
             }
         })
@@ -444,7 +473,7 @@ $(function(){
                     moTaiKuang($('#myModal5'));
                     $('#myModal5').find('.modal-body').html('执行成功！');
                     $('#myModal1').modal('hide');
-                    conditionSelect();
+                    conditionSelect(stationsFlag,wxBanzusFlag);
                 }
             }
         })
@@ -454,7 +483,37 @@ $(function(){
         $(this).parents('.modal').modal('hide');
     })
     /*--------------------------------------------其他方法--------------------------------------------*/
-    function conditionSelect(){
+    function conditionSelect(station,bz){
+
+        var arr = [];
+
+        //如果在维修班组中，则传wxKeshi，如果是在所属维保组中，则传wxKeshis=[]
+        if(bz){
+
+            arr.length = 0;
+
+            arr.push(sessionStorage.userDepartNum);
+
+        }
+
+        if(station){
+
+            for(var i=0;i<_InfluencingArr.length;i++){
+
+                if(_InfluencingArr[i].departNum == sessionStorage.userDepartNum){
+
+                    for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+
+                        arr.push(_InfluencingArr[i].wxBanzus[j]);
+
+                    }
+
+                }
+
+            }
+
+        }
+
         //获取条件
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
@@ -472,7 +531,8 @@ $(function(){
             ditST:filterInput[6],
             ditET:filterInput[7],
             isAllData:0,
-            userID:_userIdName
+            userID:_userIdName,
+            wxDepartNums:arr
         }
         $.ajax({
             type:'post',
@@ -555,6 +615,72 @@ $(function(){
             ],
 
             "columns": col
+        })
+    }
+
+    //获取所属维保组和所属班组
+    function InfluencingUnit(){
+        var prm = {
+            "id": 0,
+            "ddNum": "",
+            "ddName": "",
+            "ddPy": "",
+            "daNum": "",
+            "userID": _userIdName,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+            data:prm,
+            success:function(result){
+
+                //所属车间
+                _InfluencingArr.length = 0;
+                //所属班组
+                _bzArr.length = 0;
+
+                for(var i=0;i<result.stations.length;i++){
+
+                    _InfluencingArr.push(result.stations[i]);
+
+                }
+
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    _bzArr.push(result.wxBanzus[i]);
+
+                }
+
+                //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可);
+
+                for(var i=0;i<result.stations.length;i++){
+
+                    if(sessionStorage.userDepartNum == result.stations[i].departNum){
+
+                        stationsFlag = true;
+
+                        break;
+
+                    }else{
+
+                        stationsFlag = false;
+
+                    }
+                }
+                for(var i=0;i<result.wxBanzus.length;i++){
+                    if(sessionStorage.userDepartNum == result.wxBanzus[i].departNum){
+                        wxBanzusFlag = true;
+                        break;
+                    }else{
+                        wxBanzusFlag = false;
+                    }
+                }
+
+                conditionSelect(stationsFlag,wxBanzusFlag);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
         })
     }
 })

@@ -551,9 +551,6 @@ function getMainData(){
             myChart2.hideLoading();
             myChart2.setOption(option2);
 
-            //右上角单位
-            $('.header-right-lists').eq(1).find('span').html(unit);
-
             var d1 = (data.workNightDayCompare  * 100).toFixed(2) + '%' ;
 
             $('.proportion1').html('='+d1);

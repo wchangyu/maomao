@@ -276,6 +276,9 @@ $(function(){
     //物品编码分类
     wpClass();
 
+    //批量添加数组
+    var _batchArr = [];
+
     /*--------------------------------------------表格初始化------------------------------------------------*/
     //入库单表格初始化（所有、待审核、已审核）
     var col = [
@@ -1534,28 +1537,9 @@ $(function(){
         })
         .on('click','.shenhe',function(){
 
-            if(_isShenHe == 1){
-
-                if(!_examineRen){
-
-                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'不能审核自己创建的入库单！', '');
-
-                }else{
-
-                    ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
-
-                }
-
-            }else if( _isShenHe == 0 ){
-
                 ShOrSc('YWCK/ywCKConfirmInStorage',true,'确认成功！','确认失败！');
 
-            }
-        }
-
-
-
-        )
+        })
 
 
     //第一层弹窗-------------------------------------------------------------------------------------------
@@ -1745,8 +1729,6 @@ $(function(){
             data:prm,
             success:function(result){
 
-                console.log(result);
-
                 //_rukuArr = [];
                 for(var i=0;i<result.length;i++){
                     var obj = {};
@@ -1824,9 +1806,6 @@ $(function(){
 
             var snNum = $(this).parents('tr').children('.sn').html();
 
-            //_tempRKObj.length = 0;
-            console.log(_tempRukuArr);
-
             //遍历已选中的数组，来确定当前行选中的信息
             for(var i=0;i<_tempRukuArr.length;i++){
 
@@ -1893,7 +1872,105 @@ $(function(){
         .on('click','.option-save',function(){
 
             //将input中的内容填写到表格中
-            rukuTable(false);
+            //rukuTable(false);
+            //验证数量正则
+            var o = $('.format-error')[0].style.display;
+            //入库单价格式
+            var s = $('.format-error1')[0].style.display;
+            //不耐用时，物品id要与物品编码一致
+            var a = $('.isEqual')[0].style.display;
+            //序列号是否唯一
+            var b = $('.isEnabled')[0].style.display;
+
+            if( o!='none' && s!='none' && a!='none' && b!='none' ){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
+
+            }else{
+
+                //判断数量是否输入大于0
+                if( putInGoods.num != '' && putInGoods.num > 0 ){
+
+                    //获取入库单信息创建对象，存入_tempRukuArr数组
+                    var rukuDan = {};
+                    //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
+                    var price = putInGoods.inprice;
+
+                    if(Number(price) == ''){
+
+                        price = 0.00
+
+                    }else{
+
+                        price = formatNumber(Number(price));
+
+                    }
+                    rukuDan.localNum = $('.kuwei').attr('data-num');
+                    rukuDan.localName = putInGoods.kuwei;
+                    rukuDan.itemNum = putInGoods.bianhao;
+                    rukuDan.itemName = putInGoods.mingcheng;
+                    rukuDan.size = putInGoods.size;
+                    rukuDan.isSpare = putInGoods.picked;
+                    rukuDan.sn = putInGoods.goodsId;
+                    rukuDan.unitName = putInGoods.unit;
+                    rukuDan.batchNum = putInGoods.quality;
+                    rukuDan.maintainDate = putInGoods.warranty;
+                    rukuDan.num = putInGoods.num;
+                    rukuDan.inPrice = price;
+                    rukuDan.amount = putInGoods.amount;
+                    rukuDan.inMemo = putInGoods.remark;
+
+
+                    //判断仓库、如果没有选择的话直接填''
+                    var ckName = '';
+
+                    if($('#ckselect').val() == ''){
+                        ckName = ''
+                    }else{
+                        ckName = $('#ckselect').children('option:selected').html();
+                    }
+
+                    rukuDan.storageName = ckName;
+
+                    rukuDan.storageNum = $('#ckselect').val();
+
+
+                    for(var i=0;i<_tempRukuArr.length;i++){
+
+                        if( _tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn && _tempRukuArr[i].localNum == rukuDan.localNum ){
+
+                            //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
+                            //库位编码
+                            //_tempRukuArr[i].localNum = $('.kuwei').attr('data-num');
+                            //库位名称
+                            //_tempRukuArr[i].localName = putInGoods.kuwei;
+                            //品质
+                            _tempRukuArr[i].batchNum = putInGoods.quality;
+                            //质保期
+                            _tempRukuArr[i].maintainDate = putInGoods.warranty;
+                            //数量
+                            _tempRukuArr[i].num = putInGoods.num;
+                            //单价
+                            _tempRukuArr[i].inPrice = putInGoods.inprice;
+                            //总金额
+                            _tempRukuArr[i].amount = putInGoods.amount;
+                            //备注
+                            _tempRukuArr[i].inMemo = putInGoods.remark;
+
+                            //console.log( _tempRukuArr[i] );
+                        }
+                    }
+
+                    _datasTable($('#wuPinListTable1'),_tempRukuArr);
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
+
+                }
+
+            }
+
 
         })
         .on('click','.option-shanchu',function(){
@@ -2085,6 +2162,147 @@ $(function(){
 
         //模态框消失
         $('#myModal4').modal('hide');
+
+    });
+
+    //批量增加sn--------------------------------------------------------------------------------------------
+
+    $('#batch-add').click(function(){
+
+        //首先判断库区和物品是否选择了
+        if( $('#workDone').find('.kuwei').attr('data-num') == '' || putInGoods.bianhao == ''){
+
+            _moTaiKuang($('#myModal2'),'提示',true,'istap','请先选择仓库和物品','');
+
+        }else{
+
+            if(putInGoods.picked == 1){
+
+                //模态框
+                _moTaiKuang($('#batchSn-modal'),'批量添加序列号','','','','添加');
+
+                _batchArr.length = 0;
+
+                $('#batchSn-modal').find('ul').empty();
+
+                $('#batchSn-modal').find('input').val('');
+
+                //将已选中的序列号提示出来
+
+                var str = '';
+
+                for(var i=0;i<_tempRukuArr.length;i++){
+
+                    if(_tempRukuArr[i].localNum == $('#workDone').find('.kuwei').attr('data-num') && _tempRukuArr[i].itemNum == putInGoods.bianhao && _tempRukuArr[i].itemName == putInGoods.mingcheng){
+
+                        str += _tempRukuArr[i].sn + '、';
+
+                    }
+
+                }
+
+                $('.selected-sn').empty().append(str);
+
+                //重复提示框隐藏
+                $('#batchSn-modal').find('.colorTip').hide();
+
+                //判断是否有已选中的序列号，有显示，无隐藏
+
+                if($.trim($('.selected-sn').text()) == '' ){
+
+                    $('.selected-sn').parent().hide();
+
+                    $('.title-num').children().eq(0).children('span').html(0);
+
+                    $('.title-num').children().eq(1).children('span').html(0);
+
+                }else{
+
+                    var temp = $.trim($('.selected-sn').text()).split('、').length-1;
+
+                    $('.title-num').children().eq(1).children('span').html(temp);
+
+                    $('.title-num').children().eq(0).children('span').html(0);
+
+                    $('.selected-sn').parent().show();
+
+                }
+
+            }else if(putInGoods.picked == 0){
+
+                return false;
+
+            }
+
+
+
+        }
+
+    })
+
+    //批量添加静态添加操作（放大镜）
+    $('#batchSn-modal').on('click','#addSn',function(){
+
+        batchFun();
+
+    })
+
+    //批量添加键盘回车操作
+    $('#batchSn-modal').on('keyup','input',function(e){
+
+        if(e.keyCode == 13){
+
+            batchFun();
+
+        }
+
+    })
+
+    //批量删除操作
+    $('#batchSn-modal').on('click','.subBatch',function(){
+
+        var value = $(this).parent().children('.subSn').html();
+
+        _batchArr.remove(value);
+
+        var str = '';
+
+        for(var i=0;i<_batchArr.length;i++){
+
+            str += '<li style="line-height: 30px;"><span class="subSn">' + _batchArr[i] + '</span><span class="subBatch"></span></li>'
+
+        }
+
+        $('#batchSn-modal').find('ul').empty().append(str);
+
+    })
+
+    //批量添加（填入入库产品input中）
+    $('#batchSn-modal').on('click','.btn-primary',function(){
+
+        $('#batchSn-modal').modal('hide');
+
+        var str = '';
+
+        for(var i=0;i<_batchArr.length;i++){
+
+            if(i == _batchArr.length-1){
+
+                str += _batchArr[i];
+
+            }else{
+
+                str += _batchArr[i] + ',';
+
+            }
+
+
+
+        }
+
+        $('.goodsId').empty().append(str);
+
+        putInGoods.goodsId = str;
 
     })
 
@@ -2312,8 +2530,6 @@ $(function(){
     //添加入库产品的时候，给表格赋值,true的时候，是添加，false的时候，是保存
     function rukuTable(flag){
 
-        console.log($('.kuwei').attr('data-num'));
-
         //验证数量正则
         var o = $('.format-error')[0].style.display;
         //入库单价格式
@@ -2356,87 +2572,150 @@ $(function(){
 
                 }else{
 
-                    //获取入库单信息创建对象，存入_tempRukuArr数组
-                    var rukuDan = {};
-                    //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
-                    var price = putInGoods.inprice;
+                    //给——batch重新赋值，是因为避免选择了物品序列号之后，又点击批量增加。
+                    _batchArr.length = 0;
 
-                    if(Number(price) == ''){
+                    var temp = putInGoods.goodsId.split(',');
 
-                        price = 0.00
+                    for(var i = 0;i<temp.length;i++){
 
-                    }else{
+                        _batchArr.push(temp[i]);
 
-                        price = formatNumber(Number(price));
 
                     }
-                    rukuDan.localNum = $('.kuwei').attr('data-num');
-                    rukuDan.localName = putInGoods.kuwei;
-                    rukuDan.itemNum = putInGoods.bianhao;
-                    rukuDan.itemName = putInGoods.mingcheng;
-                    rukuDan.size = putInGoods.size;
-                    rukuDan.isSpare = putInGoods.picked;
-                    rukuDan.sn = putInGoods.goodsId;
-                    rukuDan.unitName = putInGoods.unit;
-                    rukuDan.batchNum = putInGoods.quality;
-                    rukuDan.maintainDate = putInGoods.warranty;
-                    rukuDan.num = putInGoods.num;
-                    rukuDan.inPrice = price;
-                    rukuDan.amount = putInGoods.amount;
-                    rukuDan.inMemo = putInGoods.remark;
 
 
-                    //判断仓库、如果没有选择的话直接填''
-                    var ckName = '';
+                    if(_batchArr.length == 0){
 
-                    if($('#ckselect').val() == ''){
-                        ckName = ''
-                    }else{
-                        ckName = $('#ckselect').children('option:selected').html();
-                    }
+                        //获取入库单信息创建对象，存入_tempRukuArr数组
+                        var rukuDan = {};
+                        //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
+                        var price = putInGoods.inprice;
 
-                    rukuDan.storageName = ckName;
+                        if(Number(price) == ''){
 
-                    rukuDan.storageNum = $('#ckselect').val();
+                            price = 0.00
 
-                    if(flag){
+                        }else{
 
-                        _tempRukuArr.unshift(rukuDan);
+                            price = formatNumber(Number(price));
 
-                        _datasTable($('#wuPinListTable1'),_tempRukuArr);
+                        }
+                        rukuDan.localNum = $('.kuwei').attr('data-num');
+                        rukuDan.localName = putInGoods.kuwei;
+                        rukuDan.itemNum = putInGoods.bianhao;
+                        rukuDan.itemName = putInGoods.mingcheng;
+                        rukuDan.size = putInGoods.size;
+                        rukuDan.isSpare = putInGoods.picked;
+                        rukuDan.sn = putInGoods.goodsId;
+                        rukuDan.unitName = putInGoods.unit;
+                        rukuDan.batchNum = putInGoods.quality;
+                        rukuDan.maintainDate = putInGoods.warranty;
+                        rukuDan.num = putInGoods.num;
+                        rukuDan.inPrice = price;
+                        rukuDan.amount = putInGoods.amount;
+                        rukuDan.inMemo = putInGoods.remark;
 
-                    }else{
 
-                    for(var i=0;i<_tempRukuArr.length;i++){
+                        //判断仓库、如果没有选择的话直接填''
+                        var ckName = '';
 
-                            if( _tempRukuArr[i].itemNum == rukuDan.itemNum &&  _tempRukuArr[i].sn == rukuDan.sn && _tempRukuArr[i].localNum == rukuDan.localNum ){
-
-                                //修改(可修改的有库位、品质、质保期、数量、入库单价、总金额、备注)
-                                //库位编码
-                                //_tempRukuArr[i].localNum = $('.kuwei').attr('data-num');
-                                //库位名称
-                                //_tempRukuArr[i].localName = putInGoods.kuwei;
-                                //品质
-                                _tempRukuArr[i].batchNum = putInGoods.quality;
-                                //质保期
-                                _tempRukuArr[i].maintainDate = putInGoods.warranty;
-                                //数量
-                                _tempRukuArr[i].num = putInGoods.num;
-                                //单价
-                                _tempRukuArr[i].inPrice = putInGoods.inprice;
-                                //总金额
-                                _tempRukuArr[i].amount = putInGoods.amount;
-                                //备注
-                                _tempRukuArr[i].inMemo = putInGoods.remark;
-
-                                //console.log( _tempRukuArr[i] );
-                            }
+                        if($('#ckselect').val() == ''){
+                            ckName = ''
+                        }else{
+                            ckName = $('#ckselect').children('option:selected').html();
                         }
 
-                        _datasTable($('#wuPinListTable1'),_tempRukuArr);
+                        rukuDan.storageName = ckName;
+
+                        rukuDan.storageNum = $('#ckselect').val();
+
+                        if(flag){
+
+                            _tempRukuArr.unshift(rukuDan);
+
+                            _datasTable($('#wuPinListTable1'),_tempRukuArr);
+
+                        }else{
+
+                            return false;
+
+                        }
+
+
+                    }else{
+
+                        for(var i=0;i<_batchArr.length;i++){
+
+                            //获取入库单信息创建对象，存入_tempRukuArr数组
+                            var rukuDan = {};
+                            //库区、物品编号、物品名称、规格型号、是否耐用、物品序列号、单位、品质、质保期、数量、入库单价、总金额、备注
+                            var price = putInGoods.inprice;
+
+                            if(Number(price) == ''){
+
+                                price = 0.00
+
+                            }else{
+
+                                price = formatNumber(Number(price));
+
+                            }
+                            rukuDan.localNum = $('.kuwei').attr('data-num');
+
+                            rukuDan.localName = putInGoods.kuwei;
+
+                            rukuDan.itemNum = putInGoods.bianhao;
+
+                            rukuDan.itemName = putInGoods.mingcheng;
+
+                            rukuDan.size = putInGoods.size;
+
+                            rukuDan.isSpare = putInGoods.picked;
+
+                            rukuDan.sn = _batchArr[i];
+
+                            rukuDan.unitName = putInGoods.unit;
+
+                            rukuDan.batchNum = putInGoods.quality;
+
+                            rukuDan.maintainDate = putInGoods.warranty;
+
+                            rukuDan.num = putInGoods.num;
+
+                            rukuDan.inPrice = price;
+
+                            rukuDan.amount = putInGoods.amount;
+
+                            rukuDan.inMemo = putInGoods.remark;
+
+                            //判断仓库、如果没有选择的话直接填''
+                            var ckName = '';
+
+                            if($('#ckselect').val() == ''){
+                                ckName = ''
+                            }else{
+                                ckName = $('#ckselect').children('option:selected').html();
+                            }
+
+                            rukuDan.storageName = ckName;
+
+                            rukuDan.storageNum = $('#ckselect').val();
+
+                            if(flag){
+
+                                _tempRukuArr.unshift(rukuDan);
+
+                                _datasTable($('#wuPinListTable1'),_tempRukuArr);
+
+                            }else{
+
+                                return false;
+                            }
+
+                        }
+
                     }
-
-
 
                 //聚焦到第一个
                 $('#workDone').find('.inputType').eq(0).focus();
@@ -2795,6 +3074,115 @@ $(function(){
 
         //所有textarea框不可操作，并且置灰
         $('#myApp33').find('textarea').removeAttr('readonly').removeClass('disabled-block');
+
+    }
+
+    //批量增加
+    function batchFun(){
+
+        //将表格化中存在的耐用品并且库区，编码，名称都一致的情况下，放入数组中；如果序列号相同，则不能添加。
+
+        //标识表格中的耐用品是否有这个序列号，是true，否false;
+        var isExist = false;
+
+        var addContent = $.trim($('#batchSn-modal').find('.input-blocked').children().val());
+
+        //首先判断需要添加的input的值是否为空，不为空的话，比较库区，编码，名称， 实现序列号唯一
+        if(addContent != ''){
+
+            //判断表格中是否有耐用品；
+            if(_tempRukuArr.length == 0){
+
+                if(_batchArr.indexOf(addContent)<0){
+
+                    $('#batchSn-modal').find('.colorTip').hide();
+
+                    _batchArr.push(addContent);
+
+                }else{
+
+                    $('#batchSn-modal').find('.colorTip').show();
+
+                }
+
+            }else{
+
+                for(var i=0;i<_tempRukuArr.length;i++){
+
+                    //首先判断是不是耐用品
+                    if(_tempRukuArr[i].isSpare == 1){
+
+                        //判断库区，物品编码，物品名称是否一致
+                        if(_tempRukuArr[i].localNum == $('#workDone').find('.kuwei').attr('data-num') && _tempRukuArr[i].itemNum == putInGoods.bianhao && _tempRukuArr[i].itemName == putInGoods.mingcheng){
+
+                            if(_tempRukuArr[i].sn == addContent){
+
+                                isExist = true;
+
+                            }
+
+                        }
+
+                    }
+
+                    if(isExist){
+
+                        $('#batchSn-modal').find('.colorTip').show();
+
+
+                    }else{
+
+                        $('#batchSn-modal').find('.colorTip').hide();
+
+                        //相同情况下，要添加的input值是否和数组中的重复
+                        if(_batchArr.indexOf(addContent)<0){
+
+                            _batchArr.push(addContent);
+
+                        }
+
+                    }
+
+                }
+            }
+
+
+            var str = '';
+
+            for(var i=0;i<_batchArr.length;i++){
+
+                str += '<li style="line-height: 30px;"><span class="subSn">' + _batchArr[i] + '</span><span class="subBatch"></span></li>'
+
+            }
+
+            $('#batchSn-modal').find('ul').empty().append(str);
+
+            //当前输入
+            var lengths = $('#batchSn-modal').find('ul').children().length;
+
+            $('.title-num').children('div').eq(0).children('span').html(lengths);
+
+            var temp = [];
+
+            var totalLength = 0;
+
+            if( $.trim($('.selected-sn').text()) != '' ){
+
+                temp = $.trim($('.selected-sn').text()).split('、');
+
+                totalLength = Number(temp.length) + Number(lengths) -1;
+
+            }else{
+
+                temp = [];
+
+                totalLength = Number(temp.length) + Number(lengths);
+
+            }
+
+            $('.title-num').children('div').eq(1).children('span').html(totalLength);
+
+        }
 
     }
 

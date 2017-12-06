@@ -442,6 +442,9 @@ function getMainData(){
 
                 dataArrs.push(o);
 
+
+
+
                 var obj = {value : o.energyItemValue.toFixed(2),name:o.energyItemName};
 
                 sArr1.push(obj);
@@ -451,6 +454,7 @@ function getMainData(){
                 //显示数据
 
                 option.series[0].data = sArr1;
+
 
 
             });

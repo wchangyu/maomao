@@ -396,6 +396,7 @@
 <script src="../resource/js/productionOrder-10.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
+<!--弹窗-->
 <!--查看详情-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 665px;">
@@ -564,7 +565,7 @@
                     <ul class="condition-query">
                         <li style="width: 133px;">
                             <div class="cont-col1" style="cursor: pointer">
-                                <div class="label label-sm label-warning tianJiaCaiLiao" style="display: none;line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                <div class="label label-sm label-warning tianJiaCaiLiao" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
                                     <i class="fa fa-plus" style="margin-right: 2px;"></i>添加维修备件
                                 </div>
                             </div>
@@ -592,10 +593,11 @@
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
                     </div>
-                    <div style="margin-top: 20px;">
+                    <div class="bjpicture" style="margin-top: 20px;display: block;">
                         <div class="labels">备件图片：</div>
                         <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
-                        <div class="bjImg"></div>
+                        <div class="bjImg">
+                        </div>
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
@@ -615,6 +617,142 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--模态框添加维修材料-->
+<div class="modal fade" id="addWXCL-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 356px;width: 729px !important;">
+        <div class="modal-content" style="height: 356px;width: 729px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe3">操作维修备件</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 204px;">
+                    <ul class="gongdanList" id="weiXiuCaiLiao">
+                        <button type="button" class="btn btn-info select-goods">选择物品</button>
+                        <validator name="validation">
+                            <form novalidate>
+                                <li class="gdList">
+                                    <div class="labels colorTip">物品编码 *：</div>
+                                    <div class="input-blockeds disabled-block">
+                                        <input type="text" v-model="wpbm" class="wpbm disabled-block" placeholder="请选择物料编码" readonly="readonly">
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="labels colorTip">物品名称 *：</div>
+                                    <div class="input-blockeds disabled-block">
+                                        <input type="text" v-model="wpmc" placeholder="请选择物料名称" readonly="readonly" class="disabled-block">
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="labels">物品型号：</div>
+                                    <div class="input-blockeds disabled-block">
+                                        <input type="text" v-model="wpsize"  initial='off' readonly="readonly" class="disabled-block">
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="labels">物品分类：</div>
+                                    <div class="input-blockeds disabled-block">
+                                        <input type="text" v-model="flmc"  initial='off' readonly="readonly" class="disabled-block">
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="labels colorTip">数量 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="wpsl" v-validate:wpsl="['persons']" initial='off'>
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                        <span>该物料信息已存在</span>
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </form>
+                        </validator>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary secondButtons">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--选择材料列表-->
+<div class="modal fade" id="WXCL-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 520px;">
+        <div class="modal-content" style="height: 520px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">操作维修备件</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 360px;">
+                    <ul class="gongdanList">
+                        <li class="floatLeft">
+                            <div class="labels">物品编码 ：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="wpbms">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <div class="labels">物品名称 ：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="wpmcs">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">分类名称：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="flmcs">
+                            </div>
+                        </li>
+                        <li class="floatRight">
+                            <button type="button" class="btn btn-success tianJiaSelect" style="margin-top: 27px;">查询</button>
+                            <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                <span>该物料已存在</span>
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <table id="weiXiuCaiLiaoTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm addWL">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--图片详情-->
+<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

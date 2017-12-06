@@ -457,8 +457,6 @@ function getClassEcData(){
             _myChart1.hideLoading();
             _myChart3.hideLoading();
             setEnergyType(sessionStorage.allEnergyType,result);
-            console.log(result);
-
             var dian = 0;
             for(var i=1;i<result.length && i<=option.series.length;i++){
                 if(result[i].energyItemID == "01" ){
@@ -570,6 +568,8 @@ function PointerPowerConsumption(){
         postPointerID.push(o.pointerID)
     })
 
+
+
     var ecParams={'pointerIDs':postPointerID,'startTime':newStr,'endTime':newStr1,'energyItemIDs':arr_33};
     $.ajax({
         type:'post',
@@ -595,8 +595,6 @@ function PointerPowerConsumption(){
                 obj.name = arr_3[i];
                 option1.series[0].data.push(obj);
             }
-
-            console.log(option1);
             // 使用刚指定的配置项和数据显示图表。
             _myChart.setOption(option1);
         },

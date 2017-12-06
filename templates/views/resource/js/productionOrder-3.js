@@ -871,9 +871,10 @@ $(function(){
                     assigFZR(3);
                 }else{
                     //更新负责人
+                    upData(2);
                     assigFZR(2);
                     upDateWXRemark(2);
-                    upData(2);
+
                 }
                 conditionSelect();
             }else{

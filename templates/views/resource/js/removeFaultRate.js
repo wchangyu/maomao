@@ -25,7 +25,7 @@ $(document).ready(function(){
     // 指定图表的配置项和数据
     option = {
         title: {
-            text: '消障率',
+            text: '销障率',
             x: 'center'
         },
         tooltip : {
@@ -72,7 +72,7 @@ $(document).ready(function(){
         ],
         series : [
             {
-                name:'消障率',
+                name:'销障率',
                 type:'bar',
                 data:[11, 11, 15, 13, 12, 13, 10],
                 barMaxWidth:90//最大宽度

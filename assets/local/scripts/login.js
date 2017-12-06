@@ -110,6 +110,7 @@ var Login = function() {
 
                                     }
                                 }
+                                sessionStorage.userInfo = JSON.stringify(res);
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();

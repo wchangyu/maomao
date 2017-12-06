@@ -141,7 +141,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,3,5,6,7,8,9,10,11,12,13,14,15]
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15]
                 }
             }
         ],
@@ -365,6 +365,10 @@ $(function(){
             {
                 title:'备件编码',
                 data:'wxCl'
+            },
+            {
+                title:'规格型号',
+                data:'size'
             },
             {
                 title:'备件名称',
@@ -1120,25 +1124,35 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetWxBanzuStation',
             data:prm,
             success:function(result){
+                //所属车间
                 _InfluencingArr.length = 0;
+                //所属班组
                 _bzArr.length = 0;
                 for(var i=0;i<result.stations.length;i++){
+
                     _InfluencingArr.push(result.stations[i]);
                 }
+
                 for(var i=0;i<result.wxBanzus.length;i++){
                     _bzArr.push(result.wxBanzus[i]);
                 }
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
-                    //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可)
+                    //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可);
                     var stationsFlag = false;
+
                     var wxBanzusFlag = false;
                     for(var i=0;i<result.stations.length;i++){
                         if(sessionStorage.userDepartNum == result.stations[i].departNum){
+
                             stationsFlag = true;
+
                             break;
+
                         }else{
+
                             stationsFlag = false;
+
                         }
                     }
                     for(var i=0;i<result.wxBanzus.length;i++){

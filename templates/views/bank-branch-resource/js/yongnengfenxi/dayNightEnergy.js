@@ -92,11 +92,11 @@ function getStartData(){
         },
         success: function (data) {
             $('#theLoading').modal('hide');
-            console.log(data);
+            //console.log(data);
             typeArr = data;
             var html= '';
             for(var i=0; i<data.length;i++){
-                html +=   '<option value="'+data[i].f_EnergyItemID+'" data-type="'+data[i].f_EnergyItemType+'">'+data[i].f_EnergyItemName+'</option>'
+                html +=   '<option value="'+data[i].f_EnergyItemID+'">'+data[i].f_EnergyItemName+'</option>'
             }
 
             $('#energy-type').html(html);
@@ -335,8 +335,6 @@ function getMainData(){
 
     var energyItemID = $('#energy-type').val();
 
-    var energyUnit = $('#energy-type').find("option:selected").attr('data-type');
-
     var objID = $('#obj-type').val();
 
     var postArr = pointArr;
@@ -357,10 +355,10 @@ function getMainData(){
 
 
 
-    unit = getUnit(energyUnit);
+    unit = getUnit(energyItemID);
 
 
-    unitName = getUnitName(energyUnit);
+    unitName = getUnitName(energyItemID);
 
 
 
@@ -520,7 +518,6 @@ function getMainData(){
             option.series[0].name = '昼';
             option.series[1].data = sArr2;
             option.series[1].name = '夜';
-
             option.yAxis[0].axisLabel.formatter = '{value}' + unit + '';
             //重绘chart图
             myChart.hideLoading();
@@ -537,9 +534,6 @@ function getMainData(){
             myChart2.setOption(option2);
 
             var d1 = (data.workNightDayCompare  * 100).toFixed(2) + '%' ;
-
-            //右上角单位
-            $('.header-right-lists').eq(1).find('span').html(unit);
 
             $('.proportion1').html('='+d1);
             if(data.workNightDayCompare > data.workDayReferenceValue / 100){

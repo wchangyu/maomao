@@ -292,11 +292,6 @@ $(function(){
     //工单表格
     var gdCol = [
         {
-            className:'checkeds',
-            data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
-        },
-        {
             title:'工单号',
             data:'gdCode2',
             className:'gdCodes',
@@ -492,6 +487,89 @@ $(function(){
         }
 
     };
+
+    //物品明细表格
+    var outPrinceCol = [
+        {
+            title:'物品序列号',
+            data:'sn'
+        },
+        {
+            name: 'second',
+            title:'物品编号',
+            data:'itemNum'
+        },
+        {
+            title:'物品名称',
+            data:'itemName'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'数量',
+            data:'num'
+        },
+        {
+            title:'单价',
+            data:'price',
+            render:function(data, type, full, meta){
+                if(data){
+                    return data.toFixed(2)
+                }else{
+                    return ''
+                }
+
+            }
+        },
+        {
+            title:'金额',
+            data:'amount',
+            render:function(data, type, full, meta){
+                if(data){
+                    return data.toFixed(2)
+                }else{
+                    return ''
+                }
+            }
+        },
+        {
+            title:'仓库',
+            data:'storageName'
+        },
+        {
+            title:'库区',
+            data:'localName'
+        },
+        {
+            title:'台账类型',
+            data:'ivtType'
+        },
+        {
+            title:'关联单号',
+            data:'orderNum',
+            render:function(data, type, full, meta){
+                if(full.ivtType == '入库'){
+                    return '<a href="godownEntry.html?orderNum=' + full.orderNum +
+                        '" target="_blank">' + full.orderNum + '</a>'
+                }else if(full.ivtType == '出库'){
+                    return '<a href="outboundOrder.html?orderNum=' + full.orderNum +
+                        '" target="_blank">' + full.orderNum + '</a>'
+                }
+            }
+        },
+        {
+            title:'创建时间',
+            data:'createTime'
+        },
+        {
+            title:'操作人',
+            data:'createUserName'
+        }
+    ];
+
+    _tableInit($('#outPrince-table'),outPrinceCol,2,'','','');
 
     /*-------------------------------------------------全局变量---------------------------------------------------------*/
     //存放所有仓库
@@ -1751,31 +1829,27 @@ $(function(){
     })
 
     //工单选择
-    $('#gdTable tbody').on('click','input',function(){
+    $('#gdTable tbody').on('click','tr',function(){
 
-        $('#gdTable tbody').find('input').parents('span').removeClass('checked');
+        $('#gdTable tbody').find('tr').removeClass('tables-hover');
 
-        $('#gdTable tbody').find('tr').removeClass('tables-hover')
-
-        $(this).parent('span').addClass('checked');
-
-        $(this).parents('tr').addClass('tables-hover');
+        $(this).addClass('tables-hover');
 
     })
 
     $('.rukuGD').click(function(){
 
-        var table = $('#gdTable tbody').find('.checked').parents('tr').children('.gdCodes');
+        var gd = $('#gdTable tbody').find('.tables-hover');
 
-        $('.gdCode').attr('gdCode',table.children().attr('data-gdcode'));
+        putOutGoods.gdCode = gd.children('.gdCodes').children().html();
 
-        putOutGoods.gdCode = table.children().html();
+        $('.gdCode').attr('gdCode',gd.children('.gdCodes').children().attr('data-gdcode'));
 
-        putOutGoods.chezhan = $('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html();
+        putOutGoods.chezhan = gd.children('.bxKS').html();
 
-        $('.chezhan').attr('data-num',$('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html());
+        $('.chezhan').attr('data-name',gd.children('.bxKS').html());
 
-        $('.chezhan').attr('data-name',table.children().attr('data-czcode'));
+        $('.chezhan').attr('data-num',gd.children('.gdCodes').children().attr('data-czcode'));
 
         $('#myModal7').modal('hide');
     })
@@ -1882,6 +1956,38 @@ $(function(){
         $('#myModal4').modal('hide');
     });
 
+    //单价查看历史
+    $('#historical-record').click(function(){
+
+        //模态框
+        _moTaiKuang($('#outPrince-modal'),'物品明细','flag','','','');
+
+        //调用接口
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptInventory',
+            data:{
+                itemNum:putOutGoods.bianhao,
+                storageNum:$('.cangku').attr('data-num'),
+                localNum:$('.kuwei').attr('data-num'),
+                hasNum:1,
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            success:function(result){
+
+                console.log(result);
+
+                _datasTable($('#outPrince-table'),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    })
+
     /*--------------------------------------------------其他方法---------------------------------------------------------*/
     //功能性方法-----------------------------------------------------------------------------
     //仓库下拉列表初始化(flag标识完全符合项)
@@ -1940,6 +2046,7 @@ $(function(){
 
     //物品下拉列表初始化(flag标识完全符合项)
     function wpList(arr,flag){
+
         var str = '';
         if(flag){
 
@@ -2305,6 +2412,8 @@ $(function(){
         //确定物品下拉列表
         _filterWPList.length = 0;
 
+        console.log(_wpListArr);
+
         for(var i=0;i<_wpListArr.length;i++){
             //仓库和库区都一致才可以
             if(_wpListArr[i].storageNum == $('.cangku').attr('data-num') && _wpListArr[i].localNum == $('.kuwei').attr('data-num') ){
@@ -2314,6 +2423,8 @@ $(function(){
             }
 
         }
+
+        //console.log(_filterWPList);
 
         wpList(_filterWPList,false);
 

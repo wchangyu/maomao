@@ -617,12 +617,13 @@ $(function(){
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR',2);
             }else{
+                //更新状态
+                upDate(1);
                 //更新维修备注
                 upDateWXRemark(1);
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR',1);
-                //更新状态
-                upDate(1);
+
             }
         }
     })

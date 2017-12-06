@@ -419,6 +419,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/inspectionManagement-5.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--模态框创建工单-->
@@ -437,7 +438,7 @@
                                 <li class="floatLeft">
                                     <div class="labels">是否启用：</div>
                                     <div class="input-blockeds">
-                                        <select name="" id="" v-model="sfqy" disabled="disabled" class="disabled-block">
+                                        <select name="" v-model="sfqy" disabled="disabled" class="disabled-block">
                                             <option value="0">未启用</option>
                                             <option value="1">启用</option>
                                             <option value="2">停用</option>
@@ -650,18 +651,28 @@
                         <div>
                             <div class="labels">备注：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" id="beizhus" class="disabled-block"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" id="beizhus" class="disabled-block" readonly="readonly"></textarea>
                             </div>
                         </div>
                         <div class="table-block">
                             <div class="table-title">
                                 <span class="spanhover">步骤项目</span>
+                                <span>执行人</span>
                             </div>
                             <div>
                                 <div class="tableHoverL" style="z-index: 1">
                                     <ul class="condition-query">
                                     </ul>
                                     <table class="table table-hover" id="personTable1s">
+                                        <thead>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="tableHoverL hide-block">
+                                    <ul class="condition-query">
+                                    </ul>
+                                    <table class="table table-hover" id="personTable2s">
                                         <thead>
                                         </thead>
                                         <tbody></tbody>

@@ -478,7 +478,7 @@ textarea{
     background: #ffffff;
     border: 1px solid #ebebeb;
     border-top: none;
-    width: 300px;
+    width: 400px;
     left: -1px;
     top: 1px;
     text-indent: 10px;
@@ -726,4 +726,9 @@ textarea{
 }
 .executor-li select{
     width: 198px;
+}
+.check-img{
+    
+    background: #ffffff !important;
+
 }

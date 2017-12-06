@@ -180,7 +180,7 @@ var optionBar = {
     },
     legend: {
         data:['累计值'],
-        top:'30'
+        top:'30',
     },
     toolbox: {
         show : true,
@@ -404,7 +404,7 @@ function getPointerData(url,flag){
     //在指标类型中寻找对应项
     $(energyNormItemArr).each(function(i,o){
 
-        if(o.normIndex == normItemID){
+        if(o.energyItemID == normItemID){
 
             energyNormItemObj = o
         }
@@ -518,7 +518,7 @@ function getPointerData(url,flag){
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
-                allDataY.push(allData[i].energyNormData.toFixed(2));
+                allDataY.push(allData[i].buildingArea.toFixed(2));
             }
 
             //echart柱状图
@@ -535,9 +535,8 @@ function getPointerData(url,flag){
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
-            }else{
-                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
             }
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
         }
     })
 }
@@ -578,9 +577,9 @@ function GetShowEnergyNormItem(energyType,flag){
 
                     //如果是第一个默认选中
                     if(i == 0){
-                        html += '<p data-num ="'+ o.normIndex+'" class="curChoose">'+ o.energyItemName+'</p>'
+                        html += '<p data-num ="'+ o.energyItemID+'" class="curChoose">'+ o.energyItemName+'</p>'
                     }else{
-                        html += '<p data-num ="'+ o.normIndex+'">'+ o.energyItemName+'</p>'
+                        html += '<p data-num ="'+ o.energyItemID+'">'+ o.energyItemName+'</p>'
                     }
 
 
