@@ -331,6 +331,10 @@ $(function(){
             data:'gdDisposition'
         },
         {
+            title:'配件信息',
+            data:'gdWxCl'
+        },
+        {
             title:'处理人信息',
             data:'gdJiedanName',
             render: function (data, type, row, meta){

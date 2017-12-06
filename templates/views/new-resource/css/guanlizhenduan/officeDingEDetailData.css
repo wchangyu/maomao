@@ -1,0 +1,98 @@
+/*头部信息*/
+.right-header {
+    width: 100%;
+    height: 40px !important;
+    border-bottom: 1px solid #808080;
+    line-height: 30px;
+}
+/*单位*/
+.unit{
+    width:80px !important;
+}
+
+.right-header-title{
+    font-size:20px;
+}
+
+/*eChart图*/
+#rheader-content-16{
+     height:500px;
+     min-width: 300px;
+}
+
+#rheader-content-17{
+    height:200px;
+    width:70%;
+}
+
+/*左侧柱状图旁的箭头*/
+.left-pillar{
+
+    background: url('../../img/up.png') no-repeat 75% center;
+    background-size: 45px 60px;
+    position: relative;
+}
+.up{
+
+    background: url('../../img/up2.png') no-repeat 75% center;
+    background-size: 45px 60px;
+    position: relative;
+}
+.left-pillar .percent{
+    position: absolute;
+    font-weight: 600;
+    font-size:18px;
+    left:80%;
+    top:45%;
+}
+/*右侧诊断*/
+.right-diagnose h3{
+
+    font-size:24px;
+    text-align: right;
+    color:#d02268;
+}
+
+.right-diagnose{
+    position: relative;
+    text-align: right;
+}
+
+.diagnose-content{
+    width:70%;
+    color:black;
+    display: inline-block;
+    text-align: left;
+}
+
+/*右侧统计信息*/
+.rheader-content-right1{
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.rheader-content-right1 .statistics-message{
+    margin-bottom:15px;
+}
+.rheader-content-right1 .statistics-message h3{
+    margin: 0 !important;
+}
+.rheader-content-right1 .statistics-message h3 span{
+
+    background:#5b9bd5;
+    color:white;
+    padding:3px 18px;
+    border-radius: 5px 5px 0px 0px !important;
+    display: inline-block;
+}
+.statistics-message .statistics-message-content{
+    border: 1px solid #ccc;
+}
+.statistics-message .statistics-message-content ul li{
+    font-size: 20px;
+    color:#666;
+    line-height: 30px;
+}
+.statistics-message .statistics-message-content ul li span{
+    margin-right:20px;
+    margin-left:20px;
+}

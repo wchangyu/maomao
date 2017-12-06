@@ -10,7 +10,7 @@ $(function(){
             if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html') > 0){
                 $('.content-main-right').removeClass('col-lg-10 col-md-9').addClass('col-lg-12 col-md-12');
             }else{
-                console.log(44);
+                //console.log(44);
                 $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
             }
 
@@ -287,6 +287,19 @@ function getUnit(num){
     var txt = unitObj.alltypes;
     for(var i=0; i < txt.length; i++){
         if(num1 == txt[i].ettype){
+            return txt[i].etunit;
+        }
+    }
+};
+
+//根据分项ID获取能耗单位
+function getUnitByEtid(num){
+
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+        if(num == txt[i].etid){
             return txt[i].etunit;
         }
     }

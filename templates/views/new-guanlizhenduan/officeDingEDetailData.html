@@ -7,12 +7,23 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>3D展示</title>
+    <title></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta content="" name="description"/>
     <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/echarts.min.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../new-resource/js/showOrHidden.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
@@ -26,18 +37,19 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="../resource/css/leftBat.css">
-    <link href="../resource/css/3DMap.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
-
     <link rel="shortcut icon" href="../favicon.ico"/>
-    <!-- datatables -->
+    <!--datatables-->
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
-    <!--非公共样式-->
+    <!--时间插件-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
+    <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/guanlizhenduan/manageDiagnose.css">
+    <link rel="stylesheet" href="../new-resource/css/guanlizhenduan/officeDingEDetailData.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -57,7 +69,7 @@
     <div class="page-header-inner">
         <!-- BEGIN LOGO -->
         <div class="page-logo">
-            <a href="index.html">
+            <a href="../shouye/index.html">
                 <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
             </a>
             <div class="menu-toggler sidebar-toggler hide">
@@ -79,11 +91,11 @@
                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
 					<span class="badge badge-danger">
-					0 </span>
+					 </span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="external">
-                            <h3><span class="bold">0 </span> 当日报警</h3>
+                            <h3><span class="bold"></span> 当日报警</h3>
                             <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
                         </li>
                     </ul>
@@ -100,20 +112,6 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-default">
-
-                        <li>
-                            <a href="javascript:void(0);">
-                                <i class="icon-calendar"></i> 日历 </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0);">
-                                <i class="icon-rocket"></i> 任务 <span class="badge badge-success">
-							7 </span>
-                            </a>
-                        </li>
-                        <li class="divider">
-                        </li>
 
                         <li>
                             <a class="logout-page" href="../login.html">
@@ -156,7 +154,6 @@
                     </div>
                     <!-- END SIDEBAR TOGGLER BUTTON -->
                 </li>
-
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
@@ -165,7 +162,6 @@
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <div class="page-content">
-
             <!-- BEGIN STYLE CUSTOMIZER -->
             <div class="theme-panel hidden-xs hidden-sm">
                 <div class="toggler">
@@ -234,136 +230,199 @@
                 <ul class="page-breadcrumb">
                     <li>
                         <i class="fa fa-home"></i>
-
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
+                <!--<div class="showOrHidden"></div>-->
                 <div class="page-toolbar">
+                    <!--<div class="btn-group pull-right">
+                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                        跳转 <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="#">跳转点1</a>
+                            </li>
+                            <li>
+                                <a href="#">跳转点2</a>
+                            </li>
+                            <li>
+                                <a href="#">跳转点3</a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="#">跳转点4</a>
+                            </li>
+                        </ul>
+                    </div>-->
                 </div>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
-                <div class="col-md-12 " >
-                    <!--头部信息-->
-                    <div class="content-header">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap container">
+                            <div class="content-main-right col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <label for="">单位：</label>
+                                                    <!--<input name="" class="unit" disabled="disabled" readonly="readonly" />-->
+                                                    <span class="unit"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
 
-                        <!--<div class="content-header-contain">-->
-                            <!--能耗诊断图标-->
-                            <div class="energy-diagnose" >
-                                <div class="energy-diagnose-img">
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left col-lg-7 col-md-7 col-sm-12 col-xs-12" id="" style="">
+                                            <div class="" id="rheader-content-16">
 
+                                            </div>
+
+                                            <!--下方左侧数据-->
+                                            <div class="left-pillar col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="" id="rheader-content-17">
+
+                                                </div>
+
+                                                <span class="percent"></span>
+
+                                            </div>
+
+                                            <!--右侧诊断信息-->
+                                            <div class="right-diagnose col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <h3>
+                                                    诊断：异常
+                                                </h3>
+                                                <span class="diagnose-content">
+                                                    超额值=能耗指标-定额值，判断能耗是否超过额定给定值，以便监控能耗用量。
+
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+                                        <!--右侧统计信息-->
+                                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 rheader-content-right1">
+
+                                            <!--诊断建议-->
+                                            <div class="statistics-message">
+                                                <h3>
+                                                    <span>诊断建议</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                           <span>1</span>检查检查各用能分项情况
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>查看下属支路用电情况
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>检查下辖重点耗能设备用电情况
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--分项排名-->
+                                            <div class="statistics-message">
+                                                <h3>
+                                                    <span>分项排名</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>室内照明插座
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>其他
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>暖通空调
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--下辖支路电耗排名-->
+                                            <div class="statistics-message">
+                                                <h3>
+                                                    <span>下辖支路电耗排名</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>2#照明支<span>300kWh</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>1#照明支<span>200kWh</span>
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>3#照明支<span>400kWh</span>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!--下辖重点耗能设备情况-->
+                                            <div class="statistics-message">
+                                                <h3>
+                                                    <span>下辖重点耗能设备情况</span>
+                                                </h3>
+                                                <div class="statistics-message-content">
+                                                    <ul>
+                                                        <li>
+                                                            <span>1</span>X光机<span>300kWh</span>
+                                                        </li>
+                                                        <li>
+                                                            <span>2</span>CT机<span>200kWh</span>
+
+                                                        </li>
+                                                        <li>
+                                                            <span>3</span>B超机<span>400kWh</span>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
-                                <p>能耗诊断</p>
                             </div>
-                            <!--&lt;!&ndash;白色横线&ndash;&gt;-->
-                            <!--<div class="white-line"></div>-->
-
-                            <!--能效诊断图标-->
-                            <div class="energy-diagnose efficiency" >
-                                <div class="energy-diagnose-img energy-diagnose-img1">
-
-                                </div>
-                                <p>能效诊断</p>
-                            </div>
-                            <!--&lt;!&ndash;白色横线&ndash;&gt;-->
-                            <!--<div class="white-line white-line1"></div>-->
-
-                            <!--能效诊断图标-->
-                            <div class="energy-diagnose system" >
-                                <div class="energy-diagnose-img energy-diagnose-img2">
-
-                                </div>
-                                <p>子系统检测诊断</p>
-                            </div>
-
-                            <!--能效诊断图标-->
-                            <div class="energy-diagnose environment" >
-                                <div class="energy-diagnose-img energy-diagnose-img3">
-
-                                </div>
-                                <p>环境品质诊断</p>
-                            </div>
+                        </div>
                     </div>
-
-                    <!--上方提示信息-->
-                    <p class="top-hint">请点击“一键诊断”，对建筑进行以上4大内容的数据诊断，系统会自动找出问题，并对支路进行分析，提出解决建议措施。
-                    </p>
-
-                    <!--一键诊断按钮-->
-                    <div class="diagnose-btn">
-                        <button>一键诊断</button>
-                    </div>
-
-                    <!--诊断进程-->
-                    <div class="diagnose-course" style="display: none">
-                        <p>
-                            <span class="left-title">诊断进程：</span>
-
-                            <span class="right-content">
-                                 <b>发现0条问题.....</b><br/>
-                                 <font>正在诊断能效问题</font>
-                            </span>
-
-                        </p>
-                    </div>
-
-                    <div id="content-container">
-
-                    </div>
-
-                    <!--&lt;!&ndash;具体问题&ndash;&gt;-->
-                    <!--<div class="specific-problem energy-problem">-->
-
-                        <!--<h3>能耗诊断-->
-                            <!--<span>发现五个能耗问题</span>-->
-
-                            <!--<font class="right-arrow"></font>-->
-                        <!--</h3>-->
-
-                        <!--<div class="bottom-problem">-->
-                            <!--<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">-->
-                                <!--<ul>-->
-                                    <!--<li>全院单位面积电耗高</li>-->
-                                    <!--<li>口腔科单位能耗超额</li>-->
-                                    <!--<li>信息中心单位面积能耗高</li>-->
-                                    <!--<li>自来水一级系统损耗率高</li>-->
-                                    <!--<li>8号楼夜间能耗占比大</li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-
-                            <!--<div class="clearfix"></div>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-
-                    <!--&lt;!&ndash;具体问题&ndash;&gt;-->
-                    <!--<div class="specific-problem efficiency-problem">-->
-
-                        <!--<h3>能效诊断-->
-                            <!--<span>正在诊断中......</span>-->
-                        <!--</h3>-->
-
-                        <!--<div class="bottom-problem">-->
-                            <!--<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">-->
-                                <!--<ul>-->
-                                    <!--<li>全院单位面积电耗高</li>-->
-                                    <!--<li>口腔科单位能耗超额</li>-->
-                                    <!--<li>......</li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
-
-                    <!--</div>-->
-
-
                 </div>
             </div>
-            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTENT -->
+</div>
+<!-- END CONTENT -->
+<!-- BEGIN QUICK SIDEBAR -->
+<a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+<!-- END QUICK SIDEBAR -->
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
@@ -374,6 +433,23 @@
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
     </div>
+</div>
+
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -393,7 +469,13 @@
 <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <!--datatable-->
 <script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
 <script src="../resource/TableTools/button/buttons.print.min.js"></script>
@@ -404,27 +486,21 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/moment.js"></script>
+<!--时间插件-->
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="../../../assets/local/scripts/BEE.js"></script>
-<script src="../resource/js/moment.js"></script>
 <script src="../resource/js/publicFun.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
-        QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
         BEE.init();
     });
 </script>
+<script src="../new-resource/js/common.js"></script>
 <script src="../new-resource/js/guanlizhenduan/diagnoseCommon.js"></script>
-<script src="../new-resource/js/guanlizhenduan/manageDiagnose.js"></script>
+<script src="../new-resource/js/guanlizhenduan/officeDingEDetailData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

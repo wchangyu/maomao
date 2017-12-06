@@ -46,6 +46,7 @@ function _yearDate(el){
         maxViewMode: 2,
         minViewMode:2,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
