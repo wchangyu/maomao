@@ -1159,5 +1159,21 @@
         "arg2":"admin,WXBZ01"
       }
     }
+  },
+  "运维辅助":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"运维辅助",
+    "submenu":{
+      "考勤管理":{
+        "type":"0",
+        "content":"考勤管理",
+        "uri":"../YWFZ/attendanceManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
+    }
   }
 }

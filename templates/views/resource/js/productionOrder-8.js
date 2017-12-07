@@ -10,6 +10,9 @@ $(function(){
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
+    //图片ip
+    var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
+
     //时间初始化
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
@@ -286,6 +289,10 @@ $(function(){
                         return data
                     }
                 }
+            },
+            {
+                title:'备件信息',
+                data:'wxClNames'
             },
             {
                 title:'所属班组',

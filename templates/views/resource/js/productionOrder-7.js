@@ -395,18 +395,28 @@ $(function(){
     $('#myModal')
         //操作
         .on('click','.execute',function(){
-            //先判断现在的状态是否可执行操作方法
-            var currentZTZ = $('.current-state').attr('ztz');
-            var currentOption = $('#option-select').val();
-            //判断当前状态和执行任务状态
-            if(  currentZTZ == currentOption ){
-                //只发送维修备注请求
-                wxRmark(1);
+            //判断状态值是否为空
+            if($('#option-select').val() == ''){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择操作类型！', '');
+
             }else{
-                //状态转换+维修内容
-                wxRmark(2);
-                getGongDan(2);
+
+                //先判断现在的状态是否可执行操作方法
+                var currentZTZ = $('.current-state').attr('ztz');
+                var currentOption = $('#option-select').val();
+                //判断当前状态和执行任务状态
+                if(  currentZTZ == currentOption ){
+                    //只发送维修备注请求
+                    wxRmark(1);
+                }else{
+                    //状态转换+维修内容
+                    wxRmark(2);
+                    getGongDan(2);
+                }
+
             }
+
         })
         //查看图片
         .on('click','#viewImage',function(){
@@ -787,6 +797,7 @@ $(function(){
     $('#myModal4')
         .on('click','.apply',function(){
         //首先判断原有网页中的_weiXiuCaiLiao和备注有没有改变。
+
         if(_primaryBJ.length != _weiXiuCaiLiao.length){
             //不一样
             //添加
@@ -1046,6 +1057,7 @@ $(function(){
     //材料添加删除
     function CaiLiao(url,flag){
         var cailiaoArr = [];
+
         for(var i=0;i<_weiXiuCaiLiao.length;i++){
             var obj = {};
             if(flag){
@@ -1055,6 +1067,7 @@ $(function(){
             obj.wxClName = _weiXiuCaiLiao[i].wxClName;
             obj.clShul = _weiXiuCaiLiao[i].clShul;
             obj.gdCode = gdCode;
+            obj.size = _weiXiuCaiLiao[i].size;
             cailiaoArr.push(obj);
         }
         var gdWxCl = {
