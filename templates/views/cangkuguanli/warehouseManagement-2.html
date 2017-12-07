@@ -558,8 +558,8 @@
                             <tfoot>
                             <tr>
                                 <td>共计</td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
+                                <td colspan="3"></td>
+                                <td colspan="1"></td>
                                 <td colspan="1"></td>
                                 <td colspan="1" class="amount"></td>
                                 <td></td>
@@ -856,6 +856,44 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--删除提示框-->
+<div class="modal fade" id="spare-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除入库单-->
+<div class="modal fade" id="spareRKD-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--删除成功-->
 <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -1019,6 +1057,32 @@
                 <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--耐用品查看按钮-->
+<div class="modal fade" id="spare-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 623px;width: 1020px!important;" >
+        <div class="modal-content" style="height: 623px;width: 1020px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择物品列表</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll;height: 500px;">
+                <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
+                    <table id="spare-table" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div class="clearfix"></div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
