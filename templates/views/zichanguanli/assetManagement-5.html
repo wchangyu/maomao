@@ -308,14 +308,14 @@
                                     </li>
 
                                     <li>
-                                        <label for="">车务段：</label>
+                                        <label for=""><span class="user-defined-area"></span>：</label>
                                         <div class="input-blocked">
                                             <select name="" id="quyu">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">车站：</label>
+                                        <label for=""><span class="user-defined-department"></span>：</label>
                                         <div class="input-blocked">
                                             <select name="" id="bumen">
                                             </select>
@@ -438,6 +438,8 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/js/assetManagement-5.js"></script>
 <script src="../resource/station/chooseStation.js"></script>
 <script>
@@ -491,7 +493,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">车务段 *：</div>
+                                <div class="labels colorTip"><span class="user-defined-area"></span> *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssQY" id="sbqy">
                                         <option v-for="option in options1" v-bind:value="option.value">
@@ -511,7 +513,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">车站 *：</div>
+                                <div class="labels colorTip"><span class="user-defined-department"></span> *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssbumen" id="sbbm">
                                         <option v-for="option in options3" v-bind:value="option.value">

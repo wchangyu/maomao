@@ -90,13 +90,13 @@ $(function(){
             visible: false
         },
         {
-            title:'车务段编码',
+            title:__names.area+'编码',
             data:'daNum',
             className:'dcNum'
 
         },
         {
-            title:'车务段名称',
+            title:__names.area+'名称',
             data:'daName'
         },
         {
@@ -153,16 +153,16 @@ $(function(){
             visible: false
         },
         {
-            title:'车站编码',
+            title:__names.department+'编码',
             data:'ddNum',
             className:'dcNum'
         },
         {
-            title:'车站名称',
+            title:__names.department+'名称',
             data:'ddName'
         },
         {
-            title:'车务段名称',
+            title:__names.area+'名称',
             data:'daName'
         },
         {
@@ -215,11 +215,11 @@ $(function(){
 
             $('#equipment-system').html(_selectXT);
         }else if( _$thisTable[0].id == _stringQY ){
-            arr = ['车务段编码 :','','车务段名称 *:','拼音简码 *:']
+            arr = [__names.area+'编码 :','',__names.area+'名称 *:','拼音简码 *:']
         }else if( _$thisTable[0].id == _stringXT ){
             arr = ['设备系统编码 :','','设备系统名称 *:','拼音简码 *:']
         }else if( _$thisTable[0].id == _stringBM ){
-            arr = ['车站编码 :','车务段 *:','车站名称 *:','拼音简码 *:']
+            arr = [__names.department+'编码 :',__names.area+' *:',__names.department+'名称 *:','拼音简码 *:'];
             $('.equipment-system').show();
 
             $('#equipment-system').html(_selectCWD);
@@ -286,11 +286,11 @@ $(function(){
 
                 $('#equipment-system').html(_selectXT);
             }else if( _$thisTable[0].id == _stringQY ){
-                arr = ['车务段编码 :','车务段名称 *:','拼音简码 *:']
+                arr = [__names.area+'编码 :',__names.area+'名称 *:','拼音简码 *:']
             }else if( _$thisTable[0].id == _stringXT ){
                 arr = ['设备系统编码 :','设备系统名称 *:','拼音简码 *:']
             }else if( _$thisTable[0].id == _stringBM ){
-                arr = ['车站编码 :','车务段 *:','车站名称 *:','拼音简码 *:']
+                arr = [__names.department+'编码 :',__names.area+' *:',__names.department+'名称 *:','拼音简码 *:']
                 $('.equipment-system').show();
 
                 $('#equipment-system').html(_selectCWD);
@@ -345,13 +345,13 @@ $(function(){
 
             }else if( _$thisTable[0].id == _stringQY ){
                 removeContent( _allDataQY,'daNum','daName','daPy','daNum',$thisBM);
-                arr = ['车务段编码 :','车务段名称 *:','拼音简码 *:']
+                arr = [__names.area+'编码 :',__names.area+'名称 *:','拼音简码 *:']
             }else if( _$thisTable[0].id == _stringXT ){
                 removeContent( _allDataXT,'dsNum','dsName','dsPy','dsNum',$thisBM);
                 arr = ['设备系统编码 :','设备系统名称 *:','拼音简码 *:']
             }else if( _$thisTable[0].id == _stringBM ){
                 removeContent( _allDataBM,'ddNum','ddName','ddPy','ddNum',$thisBM);
-                arr = ['车站编码 :','车务段 *:','车站名称 *:','拼音简码 *:']
+                arr = [__names.department+'编码 :',__names.area+' *:',__names.department+'名称 *:','拼音简码 *:']
             }
             for(var i=0;i<mingcheng.length;i++){
                 mingcheng.eq(i).html(arr[i]);

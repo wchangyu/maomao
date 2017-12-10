@@ -119,8 +119,10 @@
       }
     ]
   },
+
   "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
   "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
+
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -131,17 +133,17 @@
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
-  "alarmInterval":"1",
+  "alarmInterval":"0",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
   "alarmAlert":"0",
   "alarmSong":"0",
-  "changeMenuByProcs":"1",
+  "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"10",
+  "gongdanInterval":"0",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
   "gongdanIndustryType":"1",
-  "ckAuditType":"1"
+  "ckAuditType":"0"
 
 }

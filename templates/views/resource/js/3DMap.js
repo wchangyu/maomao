@@ -13,12 +13,22 @@ $(function(){
     var monthStart = mnow.startOf("month").format("YYYY-MM-DD");
     //var monthEnd = mnow.endOf("month").add(1,'d').format("YYYY-MM-DD");
     var monthEnd = mnow.add(1,'d').format("YYYY-MM-DD");
+    var pts = sessionStorage.pointers ? JSON.parse(sessionStorage.pointers) : [];
+    var len = pts.length;
+    var ptIds = [];
+    if(len){
+        for(var i=0;i<len;i++){
+            ptIds.push(pts[i].pointerID);
+        }
+    }
+
     //2.1载入全院的数据
     $.ajax({
         type:"post",
         url:urlPrefix + "/EnergyItemDatas/getClassEcData",
         data:{
             "pointerID":0,
+            "pointerIds":ptIds,
             "startTime":monthStart,
             "endTime":monthEnd,
             "dateType":"月"
@@ -32,7 +42,14 @@ $(function(){
         },
         error:function(xhr,res,err){console.log("获取总数据失败");}
     })
-
+    var offices = sessionStorage.offices ? JSON.parse(sessionStorage.offices) : [];
+    var lenOffices = offices.length;
+    var officeIds = [];
+    if(lenOffices){
+        for(var i=0;i<lenOffices;i++){
+            officeIds.push(offices[i].f_OfficeID);
+        }
+    }
     //载入各个分户的数据
     $.ajax({
         type:"post",
@@ -40,6 +57,7 @@ $(function(){
         data:{
             "startTime":monthStart,
             "endTime":monthEnd,
+            "OfficeIDs":officeIds,
             "itemCount":"5"
         },
         success:function(datas){
@@ -54,20 +72,21 @@ $(function(){
         }
     })
 
-    var pts = sessionStorage.pointers ? JSON.parse(sessionStorage.pointers) : [];
-    var len = pts.length;
+
     for(var i= 0;i<len;i++){
         $.ajax({
             type:"post",
             url: urlPrefix + "/EnergyItemDatas/getClassEcData",
             data:{
                 "pointerID":pts[i].pointerID,
+                "pointerIds":[pts[i].pointerID],
                 "startTime":monthStart,
                 "endTime":monthEnd,
                 "dateType":"月"
             },
             success:function(data){
                 if(data.length==0) { return ;}
+
                 _allPtEcDatas.push(data);
             }
         })
@@ -166,7 +185,7 @@ function setCurPtData(ptId,ptName){
 
     if(_allPtEcDatas.length>0){
         for(var i= 0,len=_allPtEcDatas.length;i<len;i++){
-            if(_allPtEcDatas[i][0].pointerId==ptId){
+            if(_allPtEcDatas[i][0].pointerIdFor3D==ptId){
                 var data = _allPtEcDatas[i];
                 for(var i= 0,len=data.length;i<len;i++){
                     setPtData($divCurEC,data[i]);

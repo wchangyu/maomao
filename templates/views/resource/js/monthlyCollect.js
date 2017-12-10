@@ -37,8 +37,101 @@ $(function(){
 
     $('#balance-modal').on('click','.btn-primary',function(){
 
-        var st = $('.min').val();
+        //首先载入数据
+        var arr = [];
+
+        for(var i=0;i<warehouseArr.length;i++){
+
+            arr.push(warehouseArr[i].storageNum);
+
+        }
+
+        var prm = {
+
+            "userID":  _userIdNum,
+            "userName": _userIdName
+
+        };
+
+        if($('#ckselect').val() == ''){
+
+            prm.storageNums = arr;
+
+        }else{
+
+            prm.storageNum = $('#ckselect').val()
+
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptGetHisMonthStock',
+            timeout: _theTimes,
+            data:prm,
+            success:function(result){
+
+                $('#selected').attr('disabled',false);
+
+                var html = '';
+
+                for(var i=0;i<result.length;i++){
+
+                    var showTime = result[i].dayDate.split(' ')[0];
+
+                    if(i==0){
+
+                        html += '<tr><td data-storageNum = ' +  result[i].storageNum +
+                            '>' + result[i].storageName +
+                            '</td><td><a style="margin-left: 40px;" target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a><span class="data-option option-del btn default btn-xs green-stripe" style="float: right">删除</span></td></tr>'
+
+                    }else{
+
+                        html += '<tr><td data-storageNum = ' + result[i].storageNum +
+                            '>' + result[i].storageName +
+                            '</td><td><a target="_blank" href="materialMonthlyReport.html?'+showTime+'">'+showTime+'</a></td></tr>'
+
+                    }
+
+
+                }
+
+                $('#scrap-datatables tbody').html(html);
+                var lastTime = '';
+                if(result.length == 0){
+
+                    $('.min').val('');
+
+                }else{
+
+                    $('.min').val(result[0].dayDate.split(' ')[0].replace(/-/g,'/'));
+                    lastTime = result[0].dayDate;
+                }
+
+                //结存方法
+                balanceFun(lastTime);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+
+
+
+    })
+
+    //结存方法
+    function balanceFun(lastTime){
+
+        var st = lastTime;
         var et = $('.max').val();
+
+        if(et == nowTime){
+
+            et = moment().format('YYYY/MM/DD HH:mm:ss');
+
+        }
 
         var prm = {
             "lastDayDate": st,
@@ -75,14 +168,14 @@ $(function(){
             }
         })
 
-    })
+    }
+
 
     //删除时用到的参数
     var _meg = ''
 
     $('#scrap-datatables tbody').on('click','.option-del',function(){
 
-        //console.log('222');
 
         _meg = $(this).parents('tr').children('td').eq(1).children().html();
 
@@ -196,7 +289,7 @@ $(function(){
 
                     }
 
-                    $('.min').val(result[0].dayDate.split(' ')[0].replace(/-/g,'/'));
+
 
                 }
 
@@ -205,6 +298,10 @@ $(function(){
                 if(result.length == 0){
 
                     $('.min').val('');
+
+                }else{
+
+                    $('.min').val(result[0].dayDate.split(' ')[0].replace(/-/g,'/'));
 
                 }
 

@@ -27,6 +27,9 @@ $(function(){
     //获取本日KPI指标
     getTopPageKPIData();
 
+    //获取所有报警数据
+    alarmHistory();
+
 //------------------------------------页面点击事件-----------------------------------//
 
     //点击实时能耗上方的按钮变换能耗种类
@@ -1130,6 +1133,81 @@ function getOfficeRankData(){
     })
 
 };
+
+//------------------------------------右上角报警数据-----------------------------------------//
+
+//实时数据（开始）；
+var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
+var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
+//获取所有楼宇
+var pointerID = [];
+getPointerID();
+
+function getPointerID(){
+    var getPointers = JSON.parse(sessionStorage.getItem('pointers'));
+    if(getPointers){
+        for(var i=0;i<getPointers.length;i++){
+            pointerID.push(getPointers[i].pointerID)
+        }
+    }
+}
+
+//获取所有报警数据
+function alarmHistory(){
+    var prm = {
+        'st' : startRealTime,
+        'et' : endRealTime,
+        'pointerIds' : pointerID,
+        'excTypeInnderId' : '',
+        'energyType' : ''
+    };
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
+        data:prm,
+        beforeSend: function () {
+            $('#theLoading').modal('show');
+        },
+
+        complete: function () {
+            $('#theLoading').modal('hide');
+        },
+        success:function(result){
+
+            console.log(result);
+
+            //新增报警条数
+            var countAlarm = result.length;
+            //页面赋值
+            $('.new-alarm').eq(0).find('span').html(countAlarm);
+
+            //已处理条数
+            var isDispose = 0;
+            //未处理条数
+            var noDispose = 0;
+
+            $(result).each(function(i,o){
+
+                //已处理
+                if(o.flag == 1){
+
+                    isDispose ++;
+
+                }else if(o.flag == 0){
+
+                    noDispose ++;
+
+                }
+            });
+
+            //页面赋值
+            //未处理
+            $('.new-alarm').eq(1).find('span').html(noDispose);
+            //已处理
+            $('.new-alarm').eq(2).find('span').html(isDispose);
+        }
+    });
+}
 
 //------------------------------------其他方法-----------------------------------------//
 //从本地存储中获取楼宇ID列表

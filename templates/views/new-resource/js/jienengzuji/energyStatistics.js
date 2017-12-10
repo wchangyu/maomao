@@ -876,12 +876,6 @@ function getOneMessage(id,dom){
     })
 };
 
-//删除数据
-function removeData(){
-
-
-}
-
 
 $('#dateTables').on('click','.data-option',function(){
 

@@ -2299,6 +2299,16 @@ $(function(){
 
         $('#spare-delTip').modal('hide');
 
+        //刷新表格数据
+        _foldArr.length = 0;
+
+        foldFun(_foldArr,_tempRukuArr);
+
+        _datasTable($('#wuPinListTable1'),_foldArr);
+
+
+
+
     })
 
     /*------------------------------------------------入库产品键盘事件--------------------------------------*/
