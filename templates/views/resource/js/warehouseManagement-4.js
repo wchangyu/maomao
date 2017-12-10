@@ -17,8 +17,11 @@ $(function(){
 
     //存放所有数据
     var _ckArr = [];
+
+    //存放所有清单数据
+    var _allData = [];
     /*-------------------------------------表格初始化------------------------------*/
-    var _tables = $('.main-contents-table .table').DataTable({
+    var _tables = $('.main-contents-table .table,#mul-table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -46,7 +49,10 @@ $(function(){
             {
                 extend: 'excelHtml5',
                 text: '导出',
-                className:'saveAs'
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,3,5,6,7,8,9,10,11,12,13]
+                }
             }
         ],
         "dom":'t<"F"lip>',
@@ -57,11 +63,13 @@ $(function(){
             },
             {
                 title:'物品编号',
-                data:'itemNum'
+                data:'itemNum',
+                className:'itemNum'
             },
             {
                 title:'物品名称',
-                data:'itemName'
+                data:'itemName',
+                className:'itemName'
             },
             {
                 title:'规格',
@@ -69,7 +77,8 @@ $(function(){
             },
             {
                 title:'物品序列号',
-                data:'sn'
+                data:'sn',
+                className:'hiddenButton'
             },
             {
                 title:'是否耐用',
@@ -129,11 +138,21 @@ $(function(){
 
                     var ul = 'warehouseManagement-5.html?itemNum=' + full.itemNum + '&itemName=' + full.itemName;
 
-                    //var hr = encodeURI(ul);
+                    if( full.spareItems ){
 
-                    return "<a href=" + ul +
+                        return "<span class='data-option option-see2 btn default btn-xs green-stripe'>查看全部</span>"
 
-                        " target='_blank'><span class='data-option option-see1 btn default btn-xs green-stripe'>查看明细</span></a>";
+                            + "<a href=" + ul +
+
+                            " target='_blank'><span class='data-option option-see1 btn default btn-xs green-stripe'>查看明细</span></a>";
+
+                    }else{
+
+                        return "<a href=" + ul +
+
+                            " target='_blank'><span class='data-option option-see1 btn default btn-xs green-stripe'>查看明细</span></a>";
+
+                    }
 
                 }
 
@@ -152,6 +171,7 @@ $(function(){
 
     //数据
     warehouse();
+
     /*------------------------------------按钮事件-------------------------------*/
     //查询
     $('#selected').click(function(){
@@ -205,7 +225,72 @@ $(function(){
             }
         })
     })
+
+    //查看全部
+    $('.main-contents-table .table tbody').on('click','.option-see2',function(){
+
+        _moTaiKuang($('#MUL-Modal'), '查看全部', 'flag', '' ,'', '');
+
+        //赋值
+
+        var $thisBM = $(this).parents('tr').children('.itemNum').html();
+
+        var $thisMC = $(this).parents('tr').children('.itemName').html();
+
+        for(var i=0;i<_allData.length;i++){
+
+            if(_allData[i].itemNum == $thisBM && _allData[i].itemName == $thisMC){
+
+                datasTable($('#mul-table'),_allData[i].spareItems);
+
+                var num = 0;
+
+                var amount = 0;
+
+                for(var j=0;j<_allData[i].spareItems.length;j++){
+
+                    num += _allData[i].spareItems[j].num;
+
+                    amount += _allData[i].spareItems[j].amount;
+
+                }
+
+                $('#mul-table').find('#kcs0').html(num);
+
+                $('#mul-table').find('#je0').html(amount);
+
+            }
+
+        }
+
+        $('#mul-table').find('')
+
+    })
     /*------------------------------------其他方法-------------------------------*/
+
+    //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
+    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
+        who.modal({
+            show: false,
+            backdrop: 'static'
+        })
+        who.find('.modal-title').html(title);
+        who.modal('show');
+        var markHeight = document.documentElement.clientHeight;
+        var markBlockHeight = who.find('.modal-dialog').height();
+        var markBlockTop = (markHeight - markBlockHeight) / 2;
+        who.find('.modal-dialog').css({'margin-top': markBlockTop});
+        if (flag) {
+            who.find('.btn-primary').hide();
+        } else {
+            who.find('.btn-primary').show();
+            who.find('.modal-footer').children('.btn-primary').html(buttonName);
+        }
+        if(istap){
+            who.find('.modal-body').html(meg);
+        }
+    }
+
     //条件查询
     function conditionSelect(){
         //获取条件
@@ -234,7 +319,8 @@ $(function(){
             'storageNum':ckNum,
             'storageNums':ckArr,
             'localNum':$('#kqSelect').val(),
-            'hasNum':$('#greaterThan').val()
+            'hasNum':$('#greaterThan').val(),
+            'isShowAllSpareItem':$('#isfold').val()
 
         }
         $.ajax({
@@ -242,6 +328,11 @@ $(function(){
             url:_urls + 'YWCK/ywCKRptItemStock',
             data:prm,
             success:function(result){
+
+                _allData.length = 0;
+
+                _allData = result;
+
                 var downState = [];
                 var upState = [];
                 var nomalState = [];

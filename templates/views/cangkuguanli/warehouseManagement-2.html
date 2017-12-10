@@ -504,7 +504,7 @@
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">仓库选择 ：</div>
+                            <div class="labels colorTip">仓库选择 *：</div>
                             <div class="input-blockeds">
                                 <select id="ckselect" v-model="ckselect"></select>
                             </div>
@@ -894,6 +894,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
 <!--删除成功-->
 <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -1083,6 +1084,25 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
             <div class="clearfix"></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除提示框-->
+<div class="modal fade" id="spare-delTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>

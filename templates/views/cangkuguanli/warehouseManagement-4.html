@@ -313,6 +313,14 @@
                                             </select>
                                         </div>
                                     </li>
+                                    <li style="display: none;"><label for="">是否折叠：</label>
+                                        <div class="input-blocked">
+                                            <select id="isfold">
+                                                <option value="0">否</option>
+                                                <option value="1" selected>是</option>
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
@@ -509,61 +517,39 @@
 </script>
 <!-- END JAVASCRIPTS -->
 <!--模态框详情-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="height:527px;">
+<div class="modal fade" id="MUL-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height:527px;width: 1000px !important;">
+        <div class="modal-content" style="height:527px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel1">工单明细</h4>
             </div>
-            <div class="modal-body">
-                <ul class="gongdanList" id="workDone">
-                    <li class="floatLeft">
-                        <div class="labels">报修电话：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudianhua">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修人信息：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiuren">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">报修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiukeshis">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">报修地点：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="baoxiudidians">
-                        </div>
-                    </li>
-                    <li class="floatLeft">
-                        <div class="labels">维修事项：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiushixiangs">
-                        </div>
-                    </li>
-                    <li class="floatRight">
-                        <div class="labels">维修部门：</div>
-                        <div class="input-blockeds">
-                            <input type="text" v-model="weixiukeshis">
-                        </div>
-                    </li>
-                    <div class="clearfix"></div>
-                    <div>
-                        <div class="labels">报修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus"></textarea>
-                    </div>
-                    <div>
-                        <div class="labels">维修备注：</div>
-                        <textarea style="width: 100%;height: 60px;outline: none" disabled="true" v-model="wxbeizhu"></textarea>
-                    </div>
-                </ul>
+            <div class="modal-body" style="height: 405px;overflow-y: auto">
+                <table id="mul-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>合计：</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="kcs0"></td>
+                        <td></td>
+                        <td id="je0"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary confirm">确定</button>

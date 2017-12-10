@@ -18,7 +18,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: 'post',
-            url: _urls + "YWCK/ywCKGetInStorageDetail",
+            url: _urls + "YWCK/ywCKGetInStorageDetailFold",
             timeout: theTimes,
             data:{
                 "orderNum": godownNum,

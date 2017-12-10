@@ -283,14 +283,6 @@
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
                                 <ul class="condition-query noprint">
-                                    <li><label>时间段名秤：</label>
-                                        <div class="input-blocked">
-                                            <input type="text" class="filterInput">
-                                        </div>
-                                    </li>
-                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
-                                    <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
@@ -402,55 +394,61 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
-                                <div class="labels">时间段名称：</div>
+                                <div class="labels colorTip">时间段名称 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="tname">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">上班时间：</div>
+                                <div class="labels colorTip">上班时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="startwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="startwork" @keyup="dateFomrat('startwork')" >
+                                    <input type="text" class="datatimeblock"v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">下班时间：</div>
+                                <div class="labels colorTip">下班时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="endwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="endwork" @keyup="dateFomrat('endwork')">
+                                    <input type="text" class="datatimeblock" v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
-                            <li class="floatRight">
-                                <div class="labels">开始签到时间：</div>
+                            <li class="floatRight colorTip">
+                                <div class="labels">开始签到时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="stsignwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="stsignwork" @keyup="dateFomrat('stsignwork')">
+                                    <input type="text" class="datatimeblock" v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels">结束签到时间：</div>
+                            <li class="floatLeft colorTip">
+                                <div class="labels">结束签到时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="etsignwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="etsignwork" @keyup="dateFomrat('etsignwork')" >
+                                    <input type="text" class="datatimeblock" v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
-                            <li class="floatRight">
-                                <div class="labels">开始签退时间：</div>
+                            <li class="floatRight colorTip">
+                                <div class="labels">开始签退时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="stsignoutwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="stsignoutwork" @keyup="dateFomrat('stsignoutwork')" >
+                                    <input type="text" class="datatimeblock" v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels">结束签退时间：</div>
+                            <li class="floatLeft colorTip">
+                                <div class="labels">结束签退时间 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">请输入格式正确的时间</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="datatimeblock" v-model="etsignoutwork" v-on:click="timeFun()">
+                                    <input type="text" class="inputblock" v-model="etsignoutwork" @keyup="dateFomrat('etsignoutwork')" >
+                                    <input type="text" class="datatimeblock"  v-on:click="timeFun()" @blur="blurFun()">
                                 </div>
                             </li>
-                            <li class="floatRight">
-                                <div class="labels">记迟到时间：<div class="multiple-condition" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
+                            <li class="floatRight colorTip">
+                                <div class="labels">记迟到时间 *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="tlate" @keyup="naturalNumber('tlate')">
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels">记早退时间：<div class="multiple-condition" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
+                            <li class="floatLeft colorTip">
+                                <div class="labels">记早退时间 *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="tearly" @keyup="naturalNumber('tearly')">
                                 </div>

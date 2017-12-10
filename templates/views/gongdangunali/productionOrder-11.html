@@ -619,28 +619,32 @@
 </div>
 <!--模态框添加维修材料-->
 <div class="modal fade" id="addWXCL-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 356px;width: 729px !important;">
-        <div class="modal-content" style="height: 356px;width: 729px !important;">
+    <div class="modal-dialog" style="height: 481px;width: 729px !important;">
+        <div class="modal-content" style="height: 481px;width: 729px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabe3">操作维修备件</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent" style="height: 204px;">
+                <div class="gongdanContent" style="height: 330px;">
                     <ul class="gongdanList" id="weiXiuCaiLiao">
                         <button type="button" class="btn btn-info select-goods">选择物品</button>
                         <validator name="validation">
                             <form novalidate>
                                 <li class="gdList">
                                     <div class="labels colorTip">物品编码 *：</div>
-                                    <div class="input-blockeds disabled-block">
-                                        <input type="text" v-model="wpbm" class="wpbm disabled-block" placeholder="请选择物料编码" readonly="readonly">
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="wpbm" class="wpbm" @keyup="searchbm()">
+                                        <div class="selectBlock"></div>
+                                        <ul class="accord-with-list hidden1"></ul>
                                     </div>
                                 </li>
                                 <li class="gdList">
                                     <div class="labels colorTip">物品名称 *：</div>
-                                    <div class="input-blockeds disabled-block">
-                                        <input type="text" v-model="wpmc" placeholder="请选择物料名称" readonly="readonly" class="disabled-block">
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="wpmc" @keyup="searchmc()">
+                                        <div class="selectBlock"></div>
+                                        <ul class="accord-with-list hidden1"></ul>
                                     </div>
                                 </li>
                                 <li class="gdList">
@@ -658,7 +662,7 @@
                                 <li class="gdList">
                                     <div class="labels colorTip">数量 *：</div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="wpsl" v-validate:wpsl="['persons']" initial='off'>
+                                        <input type="text" v-model="wpsl" class="inputNum" v-validate:wpsl="['persons']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="gdList">

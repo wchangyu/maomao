@@ -1,0 +1,29 @@
+.on-duty-worker{
+
+    overflow: hidden;
+
+}
+.on-duty-worker li{
+
+    float: none;
+
+    cursor: pointer;
+
+}
+#Worker-Modal li{
+
+    width: 200px !important;
+
+    margin-right: 10px;
+
+}
+#Worker-Modal li input{
+
+    width: 198px !important;
+
+}
+.datetimepicker .table-condensed{
+
+    width: 200px !important;
+
+}
