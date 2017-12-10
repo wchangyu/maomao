@@ -412,8 +412,8 @@ function getPointerID(){
     }
 }
 //实时数据（开始）；
-var startRealTime = moment().format('YYYY/MM/DD') + " 00:00:00";
-var endRealTime = moment().add(1,'d').format('YYYY/MM/DD') + " 00:00:00";
+var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
+var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
 var showStartRealTime = moment().format('YYYY-MM-DD');
 //获取历史数据
 var dataArr = [];
@@ -528,12 +528,27 @@ function logoToRead (){
 //显示隐藏
 function format ( d ) {
 
+
+
     var theader = '<table class="table">' +
         '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>单位房间</td><td>报警等级</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
     var tbodyers = '</tbody>';
-    var str = '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
+    var str = '';
+    if(d.length < 2){
+        str += '<tr><td>'+
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td><td>'  +
+            '</td></tr>';
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
+     str += '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
         '</td><td>' + d[1].cName +
         '</td><td>' + d[1].pointerName +
         '</td><td>' + d[1].cDtnName +

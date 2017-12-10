@@ -101,6 +101,6 @@
     width:auto !important;
 }
 
-#table th,#table td{
+#dateTables th, #dateTables td{
     min-width:100px;
 }

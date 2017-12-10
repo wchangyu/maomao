@@ -716,9 +716,11 @@ $(function(){
         if(!localType){
             localType = '';
         }
+
         //if( _pointer_ID[0].pointerID == '0'){
         //    pointer = [0];
         //}
+
         if(_alarm_ID.length !=0){
             alarm = _alarm_ID[0].id;
             if( _alarm_ID[0].id=='000' ){

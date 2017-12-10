@@ -329,6 +329,14 @@
                                             </select>
                                         </div>
                                     </li>
+                                    <li style="display: none;"><label for="">是否折叠：</label>
+                                        <div class="input-blocked">
+                                            <select id="isfold">
+                                                <option value="0">否</option>
+                                                <option value="1" selected>是</option>
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
@@ -345,8 +353,8 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td colspan="2">合计</td>
-                                                    <td colspan="4"></td>
+                                                    <td colspan="5">合计</td>
+                                                    <!--<td colspan="4"></td>-->
                                                     <td colspan="2" class="amount" style="text-align: left"></td>
                                                     <td colspan="5" ></td>
                                                 </tr>

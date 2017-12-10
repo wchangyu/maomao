@@ -611,7 +611,7 @@ function showDataByNum(data){
         allDataX.push(o.returnOBJName);
 
         //Y轴数据
-        allDataY.push(o.currentEnergyData);
+        allDataY.push(o.currentEnergyData.toFixed(1));
     });
     //单位
     var unit = $('.unit').val();

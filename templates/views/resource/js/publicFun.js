@@ -49,6 +49,7 @@ function _yearDate(el){
         maxViewMode: 2,
         minViewMode:2,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -62,6 +63,7 @@ function _monthDate(el){
         maxViewMode: 2,
         minViewMode:1,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy/mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -77,6 +79,35 @@ function _timeHMSComponentsFun(el,startView){
         todayHighlight: 1,
         startView: startView,  //1时间  2日期  3月份 4年份
         forceParse: 0,
+    });
+}
+
+//datatimepicker事件插件初始化（日月年时分秒）
+function _timeHMSComponentsFun(el,startView){
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: startView,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+    });
+}
+
+//datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
+function _timeOneComponentsFun(el,startView,maxView,minView,format){
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: startView,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        minView:minView,
+        maxView:maxView,
+        format:format
     });
 }
 
@@ -105,7 +136,7 @@ function _timeComponentsFun(el){
         format : "hh:ii",//日期格式
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
-        maxView : 'hour'
+        maxView : 'hour',
     });
 }
 

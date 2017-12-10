@@ -1,0 +1,32 @@
+.ecAll {
+    margin: 10px 0 0 10px;
+    float: left;
+    position: fixed;
+    height: 200px;
+    width: 360px;
+    z-index: 1;
+    right:0;
+}
+
+.ecOfficeTop5 {
+    float: left;
+    position: fixed;
+    height: 200px;
+    width: 355px;
+    z-index: 1;
+    margin: 10px 0px 0px 380px;
+    right: 0px;
+    top: 331px;
+}
+
+.curEC {
+    margin: 10px 0 0 650px;
+    float: left;
+    position: fixed;
+    height: 200px;
+    width: 355px;
+    display: none;
+    z-index: 1;
+    right:0px;
+    top:550px;
+}

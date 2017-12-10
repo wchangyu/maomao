@@ -3,4 +3,12 @@
  */
 var __configValues = {
 
-}
+    //区域
+    area:"车务段1",
+    //部门
+    department:"车站"
+
+};
+
+
+
