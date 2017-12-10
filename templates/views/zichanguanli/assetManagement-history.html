@@ -422,6 +422,7 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--select插件-->
 <!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../bank-resource/js/common.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -550,7 +551,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">车务段：</div>
+                                <div class="labels"><span class="user-defined-area"></span>：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="ssQY" id="sbqy" readonly="readonly" class="disabled-block">
                                 </div>
@@ -563,7 +564,7 @@
                             </li>
 
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">车站：</div>
+                                <div class="labels"><span class="user-defined-department"></span>：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="ssbumen" id="sbbm" readonly="readonly" class="disabled-block">
                                 </div>

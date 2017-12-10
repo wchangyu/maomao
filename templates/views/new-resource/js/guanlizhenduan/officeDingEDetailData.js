@@ -301,6 +301,17 @@ function getPointerData(url){
                 $('.left-pillar').removeClass('up');
             }
 
+            //下方诊断信息
+            if(prm.diagItemNum == 'OfficeDingE'){
+
+                $('.right-diagnose').show();
+
+            }else{
+
+                $('.right-diagnose').hide();
+
+            }
+
             //右侧展示信息
 
 

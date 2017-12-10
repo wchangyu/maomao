@@ -1,6 +1,8 @@
+/**
+ * Created by admin on 2017/12/8.
+ */
 $(function(){
-    var _prm = window.location.search;
-    if(_prm == ''){
+
         //表格初始化
         table = $('#datatables').DataTable({
             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -25,21 +27,10 @@ $(function(){
                 'search':'搜索'
 
             },
-            "order": [7,'desc'],
+            "order": [6,'desc'],
             "dom":'B<"clear">lfrtip',
             'buttons': [
-                {
-                    extend:'csvHtml5',
-                    text:'保存csv格式'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: '保存为excel格式'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '保存为pdf格式'
-                }
+
             ],
             "columns": [
                 {
@@ -49,7 +40,7 @@ $(function(){
                     "render":function(data,type,row,meta){
 
                         if(data){
-                            return data.split('T')[0] + ' ' + data.split('T')[1];
+                            return data.split(' ')[0] + ' ' + data.split(' ')[1];
                         }
                     }
                 },
@@ -70,21 +61,6 @@ $(function(){
                     "data":"cDtnName"
                 },
                 {
-                    "title": "报警条件",
-                    "orderable": false,
-                    "data":"expression"
-                },
-                {
-                    "title": "此时数据",
-                    "orderable": false,
-                    "data":"data"
-                },
-                {
-                    "title": "单位房间",
-                    "orderable": false,
-                    "data":"rowDetailsExcDatas"
-                },
-                {
                     "title": "报警等级",
                     "class":'hidden',
                     "data":"priorityID"
@@ -94,7 +70,14 @@ $(function(){
                     "orderable": false,
                     "data":"priority"
                 },
+                {
+                    "title": "摄像头数",
+                    "data":"cameraDatas",
+                    "render":function(data,type,row,meta){
 
+                        return data.length;
+                    }
+                },
                 {
                     "title": "阅读选择",
                     "orderable": false,
@@ -131,7 +114,7 @@ $(function(){
                     "visible":"false"
                 },
                 {
-                    "title": "查看",
+                    "title": "历史数据",
                     "orderable": false,
                     "class":'L-button',
                     "targets": -1,
@@ -139,168 +122,21 @@ $(function(){
                     "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
                 },
                 {
-                    "title": "处理备注",
-                    "orderable": false,
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
-                }
-            ]
-        });
-    }else{
-        //表格初始化
-        table = $('#datatables').DataTable({
-            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-            "destroy": true,//还原初始化了的datatable
-            "searching": false,
-            "ordering": true,
-            "paging":true,
-            'language': {
-                'emptyTable': '没有数据',
-                'loadingRecords': '加载中...',
-                'processing': '查询中...',
-                'lengthMenu': '每页 _MENU_ 条',
-                'zeroRecords': '没有数据',
-                'info': '第_PAGE_页/共_PAGES_页',
-                'infoEmpty': '没有数据',
-                'paginate':{
-                    "previous": "上一页",
-                    "next": "下一页",
-                    "first":"首页",
-                    "last":"尾页"
-                },
-                'search':'搜索'
-
-            },
-            "order": [7,'desc'],
-            "dom":'B<"clear">lfrtip',
-            'buttons': [
-                {
-                    extend:'csvHtml5',
-                    text:'保存csv格式',
-                    className:'hiddenButton'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: '保存为excel格式',
-                    className:'hiddenButton'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '保存为pdf格式',
-                    className:'hiddenButton'
-                }
-            ],
-            "columns": [
-                {
-                    "title":"时间",
-                    "orderable": false,
-                    "data":"dataDate",
-                    "render":function(data,type,row,meta){
-
-                        if(data){
-                            return data.split('T')[0] + ' ' + data.split('T')[1];
-                        }
-                    }
-                },
-                {
-                    "title": "支路",
-                    "orderable": false,
-                    "class":"cname",
-                    "data":"cName"
-                },
-                {
-                    "title": "单位",
-                    "orderable": false,
-                    "data":"pointerName"
-                },
-                {
-                    "title": "报警类型",
-                    "orderable": false,
-                    "data":"cDtnName"
-                },
-                {
-                    "title": "报警条件",
-                    "orderable": false,
-                    "data":"expression"
-                },
-                {
-                    "title": "此时数据",
-                    "orderable": false,
-                    "data":"data"
-                },
-                {
-                    "title": "单位房间",
-                    "orderable": false,
-                    "data":"rowDetailsExcDatas"
-                },
-                {
-                    "title": "报警等级",
-                    "class":'hidden',
-                    "data":"priorityID"
-                },
-                {
-                    "title": "报警等级",
-                    "orderable": false,
-                    "data":"priority"
-                },
-
-                {
-                    "title": "阅读选择",
-                    "orderable": false,
-                    "class":'L-checkbox',
-                    "targets": -1,
-                    "data": "flag",
-                    "render":function(data,type,row,meta){
-                        if(data==1){
-                            return "<div class='checker'><span class='checked'><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>已阅读</span>";
-                        }else{
-                            return "<div class='checker'><span><input data-alaLogID='" + row.alaLogID + "' class='choice' type='checkbox'></span></div><span class='yuedu'>未阅读</span>";
-                        }
-                    }
-                },
-                {
-                    "title":'id',
-                    "class":"alaLogID alaLogIDs",
-                    "orderable": false,
+                    "title": "查看录像",
                     "data":"alaLogID",
-                    "visible":false,
                     "render":function(data,type,row,meta){
 
-                        return '<span data-pointerID="' + row.pointerID +
-                            '"data-cdataID = "' + row.cdataID +
-                            '"  +>' + data +
-                            '</span>'
+                        return '<span class="data-option option-see btn default btn-xs green-stripe"><a target="_blank" href="../new-luxianghuifang/monitor.html?id='+data+'">录像回放</a></span>'
 
                     }
-                },
-                {
-                    "class":"alaLogID pointerID",
-                    "orderable": false,
-                    "data":"pointerID",
-                    "visible":"false"
-                },
-                {
-                    "title": "查看",
-                    "orderable": false,
-                    "class":'L-button',
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button class='btn btn-success details-control' data-alaLogID=''>显示/隐藏历史</button>"
-                },
-                {
-                    "title": "处理备注",
-                    "orderable": false,
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
                 }
             ]
         });
+
 
         $('.hiddenButton').hide();
         $('#datatables_length').hide();
-    }
+
 
     //显示时间；
     $('.real-time').html(showStartRealTime + '到' + showStartRealTime);
@@ -422,15 +258,14 @@ var totalArr = [];
 var _history = [];
 function alarmHistory(){
     var prm = {
-        'st' : startRealTime,
-        'et' : endRealTime,
+        'startTime' : startRealTime,
+        'endTime' : endRealTime,
         'pointerIds' : pointerID,
-        'excTypeInnderId' : excTypeInnderId,
-        'energyType' : _ajaxEcType,
+        'excTypeInnderId' : excTypeInnderId
     };
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAlarmCameraDatas',
         data:prm,
         beforeSend: function () {
             $('#theLoading').modal('show');
@@ -440,6 +275,9 @@ function alarmHistory(){
             $('#theLoading').modal('hide');
         },
         success:function(result){
+
+            console.log(result);
+
             _history.length = 0;
 
             var dataArr = [];
@@ -473,6 +311,7 @@ function alarmHistory(){
                     }
                 }
             }
+
             datasTable($("#datatables"),dataArr);
             //console.log(dataArr);
         }
@@ -531,7 +370,7 @@ function format ( d ) {
 
 
     var theader = '<table class="table">' +
-        '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>单位房间</td><td>报警等级</td></tr></thead>';
+        '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>摄像头数量</td><td>报警等级</td><td>查看录像</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
     var tbodyers = '</tbody>';
@@ -544,33 +383,31 @@ function format ( d ) {
             '</td><td>'  +
             '</td><td>'  +
             '</td><td>'  +
-            '</td><td>'  +
             '</td></tr>';
         return theader + tbodyer + str + tbodyers + theaders;
     }
-     str += '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
+    str += '<tr><td>' + d[1].dataDate.split(' ')[0] + ' ' + d[1].dataDate.split(' ')[1] +
         '</td><td>' + d[1].cName +
         '</td><td>' + d[1].pointerName +
         '</td><td>' + d[1].cDtnName +
-        '</td><td>' + d[1].expression +
-        '</td><td>' + d[1].data +
-        '</td><td>' + d[1].sysLogID +
+        '</td><td>' + d[1].cameraDatas.length +
         '</td><td>' + d[1].priority +
+        '</td><td><span class="data-option option-see btn default btn-xs green-stripe"><a target="_blank" href="../new-luxianghuifang/monitor.html?id='+d[1].alaLogID+'">录像回放</a></span>' +
         '</td></tr>';
     for(var i=2;i< d.length;i++){
-        var atime = d[i].dataDate.split('T')[0] + ' ' + d[i].dataDate.split('T')[1];
+        var atime = d[i].dataDate.split(' ')[0] + ' ' + d[i].dataDate.split(' ')[1];
         str += '<tr><td>' + atime +
             '</td><td>' + d[i].cName +
             '</td><td>' + d[i].pointerName +
             '</td><td>' + d[i].cDtnName +
-            '</td><td>' + d[i].expression +
-            '</td><td>' + d[i].data +
-            '</td><td>' + d[i].sysLogID +
+            '</td><td>' + d[i].cameraDatas.length +
             '</td><td>' + d[i].priority +
+            '</td><td><span class="data-option option-see btn default btn-xs green-stripe"><a target="_blank" href="../new-luxianghuifang/monitor.html?id='+d[i].alaLogID+'">录像回放</a></span>' +
             '</td></tr>'
     }
     return theader + tbodyer + str + tbodyers + theaders;
 }
+
 //userId msgTime alaLogId alaMessage
 //用户名  当前时间（获取） alaLogId  input.val()
 var userId,_alaLogId,_texts,_currentArr = [],_currentStr='';

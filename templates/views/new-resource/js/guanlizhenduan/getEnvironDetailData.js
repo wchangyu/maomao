@@ -8,7 +8,6 @@ $(function(){
     getPointerData('OneKeyDiag/GetEnvironDetailData');
 
     /*---------------------------------buttonEvent------------------------------*/
-
     //chart图自适应
     window.onresize = function () {
         if(myChartTopLeft){
@@ -306,6 +305,17 @@ function getPointerData(url){
             }else{
                 //向下的图标
                 $('.left-pillar').removeClass('up');
+            }
+
+            //下方诊断信息
+            if(prm.diagItemTypeFlag == '455'){
+
+                $('.right-diagnose').show();
+
+            }else{
+
+                $('.right-diagnose').hide();
+
             }
 
             //右侧展示信息

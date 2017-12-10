@@ -232,6 +232,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "摄像头报警":{
+        "type":"0",
+        "content":"摄像头报警",
+        "uri":"../new-baojingyujing/warningCamera.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
@@ -1157,6 +1165,211 @@
         "iconclass":"",
         "target":"blank",
         "arg2":"admin,WXBZ01"
+      }
+    }
+  },
+  "能源管理":{
+    "type":"1",
+    "iconclass":"icon-speedometer",
+    "content":"能源管理",
+    "submenu":{
+      "能耗总览":{
+        "type":"2",
+        "content":"能耗总览"
+      },
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../new-nengyuanzonglan/new-index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能耗数据":{
+        "type":"2",
+        "content":"能耗数据"
+      },
+      "能耗查询":{
+        "type":"0",
+        "content":"能耗查询",
+        "uri":"../new-nenghaoshuju/energyDemand-1.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能耗指标":{
+        "type":"0",
+        "content":"能耗指标",
+        "uri":"../new-nenghaoshuju/energyConsumption.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "横向对比":{
+        "type":"0",
+        "content":"横向对比",
+        "uri":"../new-nenghaoshuju/crosswiseCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "同比环比":{
+        "type":"0",
+        "content":"同比环比",
+        "uri":"../new-nenghaoshuju/energyCompare.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能耗分析":{
+        "type":"2",
+        "content":"能耗分析"
+      },
+      "能耗分项":{
+        "type":"0",
+        "content":"能耗分项",
+        "uri":"../new-nenghaofenxi/energySubentry.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "关联分析":{
+        "type":"0",
+        "content":"关联分析",
+        "uri":"../new-nenghaofenxi/relevanAnalysData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "趋势预测":{
+        "type":"0",
+        "content":"趋势预测",
+        "uri":"../new-nenghaofenxi/energyTendConfig.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "电能质量":{
+        "type":"0",
+        "content":"电能质量",
+        "uri":"../new-nenghaofenxi/electricQuality.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能效分析":{
+        "type":"2",
+        "content":"能效分析"
+      },
+      "能效日历": {
+        "type": "0",
+        "content": "能效日历",
+        "uri": "../new-nengxiaofenxi/efficiencyCalendar.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "能效查询": {
+        "type": "0",
+        "content": "能效查询",
+        "uri": "../new-nengxiaofenxi/efficiencyDemand.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "参数分析": {
+        "type": "0",
+        "content": "参数分析",
+        "uri": "../new-nengxiaofenxi/parameterAnalyze.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "能效对比": {
+        "type": "0",
+        "content": "能效对比",
+        "uri": "../new-nengxiaofenxi/efficiencyCompare.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "用能管理":{
+        "type":"2",
+        "content":"用能管理"
+      },
+      "能耗排名":{
+        "type":"0",
+        "content":"能耗排名",
+        "uri":"../new-yongnengguanli/energyRankingItem.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "定额管理":{
+        "type":"0",
+        "content":"定额管理",
+        "uri":"../new-yongnengguanli/OfficeDingEData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "用能考核":{
+        "type":"0",
+        "content":"用能考核",
+        "uri":"../new-yongnengguanli/energyAssess.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "能耗公示":{
+        "type":"0",
+        "content":"能耗公示",
+        "uri":"../new-yongnengguanli/energyPublicityData.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "节能足迹":{
+        "type":"2",
+        "content":"节能足迹"
+      },
+      "节能项目管理":{
+        "type":"0",
+        "content":"节能项目管理",
+        "uri":"../new-jienengzuji/energyStatistics.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
+  "管理诊断":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"管理诊断",
+    "submenu": {
+      "综合诊断": {
+        "type": "0",
+        "content": "综合诊断",
+        "uri": "../new-guanlizhenduan/manageDiagnose.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "报表管理":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"报表管理",
+    "submenu": {
+      "综合诊断": {
+        "type": "0",
+        "content": "综合管理",
+        "uri": "../new-baobiaoguanli/statementManagement.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   }
