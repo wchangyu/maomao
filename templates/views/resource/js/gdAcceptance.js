@@ -986,6 +986,9 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
+
+                _fzrArr.length = 0;
+
                 for(var i=0;i<result.length;i++){
                     _fzrArr.push(result[i]);
                 }
@@ -1035,7 +1038,7 @@ $(function(){
                 //工单重发
                 reSend();
                 //分配负责人
-                //assigFZR(false);
+                assigFZR(false);
 
             }else{
                 //维修内容修改
@@ -1043,7 +1046,7 @@ $(function(){
                 //工单下发
                 upData();
                 //分配负责人
-                //assigFZR(true);
+                assigFZR(true);
             }
 
             //验证是否选择了负责人
@@ -1797,8 +1800,6 @@ $(function(){
 
             //选择部门模块显示
             $('.selectBM').show();
-
-            console.log($(this).parents('.table').attr('id'));
 
             if( $(this).parents('.table').attr('id') == 'more-Time' ){
 
@@ -2640,31 +2641,32 @@ $(function(){
 
     //分配负责任人（true第一次 false第二次）
     function assigFZR(flag){
+
         //获取负责人
         //获取已选中的工号，然后确定选中人的信息
-        var arr = [];
-
-        var allPerson = $('.checker');
-
-        var allWorkNum = $('#fzr-list tbody').find('.workNum');
-
-        for(var i=0;i<allPerson.length;i++){
-            if(allPerson.eq(i).children('.checked').length != 0){
-                for(var j=0;j<_fzrArr.length;j++){
-                    if(allWorkNum.eq(i).html() == _fzrArr[j].userNum){
-                        arr.push(_fzrArr[j]);
-                    }
-                }
-            }
-        }
+        //var arr = [];
+        //
+        //var allPerson = $('.checker');
+        //
+        //var allWorkNum = $('#fzr-list tbody').find('.workNum');
+        //
+        //for(var i=0;i<allPerson.length;i++){
+        //    if(allPerson.eq(i).children('.checked').length != 0){
+        //        for(var j=0;j<_fzrArr.length;j++){
+        //            if(allWorkNum.eq(i).html() == _fzrArr[j].userNum){
+        //                arr.push(_fzrArr[j]);
+        //            }
+        //        }
+        //    }
+        //}
 
         //负责人数组
         var fzrArr = [];
-        for(var i=0;i<arr.length;i++){
+        for(var i=0;i<_fzrArr.length;i++){
             var obj = {};
-            obj.wxRen = arr[i].userNum;
-            obj.wxRName = arr[i].userName;
-            obj.wxRDh = arr[i].mobile;
+            obj.wxRen = _fzrArr[i].userNum;
+            obj.wxRName = _fzrArr[i].userName;
+            obj.wxRDh = _fzrArr[i].mobile;
             fzrArr.push(obj);
         }
         var prm = {
@@ -2675,6 +2677,7 @@ $(function(){
             gdZht:_gdZht,
             gdCircle:_gdCircle
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDAddWxLeader',
@@ -2877,6 +2880,14 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+
+                _workerArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _workerArr.push(result[i]);
+
+                }
 
                 datasTable($('#choose-people-table'),result);
 

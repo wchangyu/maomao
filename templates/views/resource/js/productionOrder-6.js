@@ -249,6 +249,10 @@ $(function(){
                 data:'lastUpdateInfo'
             },
             {
+                title:'备件信息',
+                data:'wxClNames'
+            },
+            {
                 title:'所属班组',
                 data:'wxKeshi'
             },
