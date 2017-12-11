@@ -21,6 +21,16 @@ $(function(){
         }
     });
 
+    //模态框拖动
+    $(document).on("show.bs.modal", ".modal", function(){
+
+        $(this).draggable({
+            handle: ".modal-header"   // 只能点击头部拖动
+        });
+
+        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+    });
+
     //更改时间维度日、周、月、年
     $('.types').change(function(){
         var bbaa = $('.types').find('option:selected').val();
