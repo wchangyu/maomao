@@ -97,10 +97,11 @@ $(function(){
                 title:'规格型号',
                 data:'size'
             },
-            {
-                title:'物品序列号',
-                data:'sn'
-            },
+            //{
+            //    title:'物品序列号',
+            //    data:'sn',
+            //    //className:'hiddenButton'
+            //},
             {
                 title:'单价',
                 data:'price',
@@ -184,9 +185,9 @@ $(function(){
         for(var i=0; i<tds.length; i++){
 
             //获取入库还是出库
-            var flag = tds.eq(i).children('td').eq(9).html();
+            var flag = tds.eq(i).children('td').eq(8).html();
             //获取当前金额
-            var count = parseFloat(tds.eq(i).children('td').eq(6).html());
+            var count = parseFloat(tds.eq(i).children('td').eq(5).html());
 
             if(count){
                 //入库金额累加
@@ -285,7 +286,8 @@ $(function(){
             'storageNums':ckArr,
             'storageNum':ckNum,
             'localNum':$('#kqSelect').val(),
-            'hasNum':$('#greaterThan').val()
+            'hasNum':$('#greaterThan').val(),
+            'isShowAllSpareItem':$('#isfold').val()
         }
         $.ajax({
             type:'post',

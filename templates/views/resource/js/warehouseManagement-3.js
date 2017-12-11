@@ -2061,9 +2061,9 @@ $(function(){
                     '"' + 'data-shengyu="' + arr[i].num +
                     '"' +
                     '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
-                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
-                    '<span class="dataSize" style="margin-left: 20px;">' +
-                    arr[i].size+'</span>' + '<span style="margin-left: 20px;">' + arr[i].localName +
+                    '<span class="dataName" style="margin-left: 5px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 5px;">' +
+                    arr[i].size+'</span>' + '<span style="margin-left: 5px;">' + arr[i].localName +
                     '</span>' +
                     '</li>';
             }
@@ -2081,9 +2081,9 @@ $(function(){
                     '"' + 'data-shengyu="' + arr[i].num +
                     '"' +
                     '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
-                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
-                    '<span class="dataSize" style="margin-left: 20px;">' +
-                    arr[i].size+'</span>' + '<span style="margin-left: 20px;">' + arr[i].localName +
+                    '<span class="dataName" style="margin-left: 5px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 5px;">' +
+                    arr[i].size+'</span>' + '<span style="margin-left: 5px;">' + arr[i].localName +
                     '</span>' +
                     '</li>';
             }
@@ -2411,8 +2411,6 @@ $(function(){
 
         //确定物品下拉列表
         _filterWPList.length = 0;
-
-        console.log(_wpListArr);
 
         for(var i=0;i<_wpListArr.length;i++){
             //仓库和库区都一致才可以
@@ -2805,7 +2803,7 @@ $(function(){
         //
         putOutGoods.quality = checkedLi.attr('data-quality');
         //
-        putOutGoods.warranty = checkedLi.attr('data-maintaindate');
+        putOutGoods.warranty = checkedLi.attr('data-warranty');
         //
         putOutGoods.redundant = checkedLi.children('.dataNum').html();
 

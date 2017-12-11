@@ -2171,11 +2171,13 @@ $(function(){
 
                 userID:_userIdNum,
                 userName:_userIdName,
-                departName:$('.sbmc1').val()
-
+                departName:$('.sbmc1').val(),
+                isWx:1
             },
             timeout:_theTimes,
             success:function(result){
+
+                //根据筛选部门
 
                 if(flag){
 
@@ -2190,16 +2192,18 @@ $(function(){
                 }
 
                 var str = '<option value="">请选择</option>';
+
                 for(var i=0;i<result.length;i++){
 
                     str += '<option value="' + result[i].departNum +
-                        '">' + result[i].departName + '</option>'
+                            '">' + result[i].departName + '</option>'
+
 
                 }
 
                 $('#bm').empty().append(str);
 
-                _datasTable($('#department-table'),result);
+                _datasTable($('#department-table'),_allDepart);
 
             },
             error:function(jqXHR, textStatus, errorThrown){

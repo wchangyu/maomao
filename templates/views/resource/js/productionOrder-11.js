@@ -70,6 +70,9 @@ $(function(){
         }
     });
 
+    //记录当前选中的物品的index值
+    var _numIndex = -1;
+
     //添加物料信息
     var wuLiaoInfo = new Vue({
         el:'#weiXiuCaiLiao',
@@ -79,6 +82,22 @@ $(function(){
             wpsl:'',
             wpsize:'',
             flmc:''
+        },
+        methods:{
+
+            //编码输入
+            searchbm:function(e){
+
+                upDown(e,$('.accord-with-list').eq(0),enterBMName,inputBMName);
+
+            },
+            //名称输入
+            searchmc:function(e){
+
+                upDown(e,$('.accord-with-list').eq(1),enterMCName,inputMCName);
+
+            }
+
         }
     });
 
@@ -640,6 +659,14 @@ $(function(){
 
     })
 
+    $('#addWXCL-modal').on('shown.bs.modal',function(){
+
+        //自动聚焦
+        $('#weiXiuCaiLiao').find('input').eq(0).focus();
+
+    })
+
+
     //选择物品
     $('.select-goods').click(function(){
 
@@ -761,6 +788,72 @@ $(function(){
         $(this).removeClass('shanchu');
 
     })
+
+    //点击其他地方所有下拉框都消失
+    $(document).click(function(){
+        $('.hidden1').hide();
+    });
+
+    //点击下拉三角，出现的地方
+    $('.selectBlock').click(function(e){
+
+        if($(this).parent('.input-blockeds').hasClass('disabled-block')){
+
+            return false;
+
+        }else{
+
+            //物品下拉列表
+            if($(this).next('.accord-with-list').length != 0){
+
+                var str = '';
+
+                arrList(str,_allWLArr,false);
+            }
+
+            var e = event || window.event;
+
+            var this1 = $(this);
+
+            if(this1.next()[0].style.display == 'none'){
+
+                this1.next().show();
+
+            }else if(this1.next()[0].style.display != 'none'){
+
+                this1.next().hide();
+
+            }
+
+            e.stopPropagation();
+        }
+    });
+
+    //所有下拉框的mouseover事件
+    $('.hidden1').on('mouseover','li,div',function(){
+
+        $(this).parents('.hidden1').children().removeClass('li-color');
+
+        $(this).addClass('li-color');
+
+        _numIndex = $(this).index();
+
+    })
+
+    //物品编号选择
+    $('.accord-with-list').eq(0).on('click','li',function(){
+
+        enterBMName();
+
+    })
+
+    //物品编号选择
+    $('.accord-with-list').eq(1).on('click','li',function(){
+
+        enterMCName();
+
+    })
+    /*---------------------------------------------------其他方法------------------------------------------*/
 
     //获取所有物品
     function getWP(){
@@ -1181,5 +1274,288 @@ $(function(){
                 break;
             }
         }
+    }
+
+    //输入事件--------------------------------------------------------------------------
+
+    //键盘事件方法
+    function upDown(e,ul,enterFun,inputFun){
+
+        var e = e||window.event;
+
+        var chils = ul.children();
+
+        var lengths = 0;
+
+        lengths = chils.length;
+
+        //ul.show();
+
+        if(e.keyCode == 40){
+
+            //console.log('向下');
+
+            if(_numIndex < lengths -1){
+
+                _numIndex ++ ;
+
+            }else{
+
+                _numIndex = lengths -1;
+
+            }
+
+            ul.children().removeClass('li-color');
+
+            ul.children().eq(_numIndex).addClass('li-color');
+
+            //滚动条问题
+            if(_numIndex> 4){
+
+                var moveDis = (_numIndex - 4)*26;
+
+                ul.scrollTop(moveDis);
+            }
+
+        }else if(e.keyCode == 38){
+
+            //console.log('向上');
+
+            if(_numIndex < 1){
+
+                _numIndex =0;
+
+            }else{
+
+                _numIndex--;
+
+            }
+
+            ul.children().removeClass('li-color');
+
+            ul.children().eq(_numIndex).addClass('li-color');
+
+            //滚动条问题
+            if(lengths-4>_numIndex){
+
+                var moveDis = (_numIndex - 4)*26;
+
+                ul.scrollTop(moveDis);
+
+            }
+
+        }else if(e.keyCode == 13){
+
+            //console.log('回车');
+
+            enterFun();
+
+        }else if(e != 9){
+
+            _numIndex = -1;
+
+            inputFun();
+
+        }
+    }
+
+    //编码输入事件
+    var inputBMName = function(){
+
+        var searchValue = wuLiaoInfo.wpbm;
+
+        var str = '';
+
+        var arr = [];
+
+        var isWho = false;
+
+        for(var i=0;i<_allWLArr.length;i++){
+
+            if( searchValue ==  _allWLArr[i].itemNum ){
+
+                arr.push(_allWLArr[i]);
+
+                isWho = true;
+
+
+            }else{
+
+                if( _allWLArr[i].itemNum.indexOf(searchValue)>=0 ){
+
+                    arr.push(_allWLArr[i]);
+
+                }
+            }
+        }
+
+
+        if(isWho){
+
+            arrList(str,arr,true);
+
+        }else{
+
+            arrList(str,arr,false);
+
+        }
+
+        if(arr.length>0){
+
+            $('.accord-with-list').eq(0).show();
+
+        }
+
+    }
+
+    //编码回车事件
+    var enterBMName = function(){
+
+        //编码
+        wuLiaoInfo.wpbm = $('.accord-with-list').eq(0).children('.li-color').children('.dataNum').html();
+
+        //名称
+        wuLiaoInfo.wpmc = $('.accord-with-list').eq(0).children('.li-color').children('.dataName').html();
+
+        //规格型号
+        wuLiaoInfo.wpsize = $('.accord-with-list').eq(0).children('.li-color').children('.dataSize').html();
+
+        //分类名称
+        wuLiaoInfo.flmc = $('.accord-with-list').eq(0).children('.li-color').children('.dataCate').html();
+
+        //下拉列表消失
+        $('.accord-with-list').hide();
+
+        //自动聚焦数量
+        setTimeout(function(){
+
+            $('.inputNum').focus();
+
+        },300);
+
+
+    }
+
+    //名称输入事件
+    var inputMCName = function(){
+
+        var searchValue = wuLiaoInfo.wpmc;
+
+        var str = '';
+
+        var arr = [];
+
+        var isWho = false;
+
+        for(var i=0;i<_allWLArr.length;i++){
+
+            if( searchValue ==  _allWLArr[i].itemName ){
+
+                arr.push(_allWLArr[i]);
+
+                isWho = true;
+
+
+            }else{
+
+                if( _allWLArr[i].itemName.indexOf(searchValue)>=0 ){
+
+                    arr.push(_allWLArr[i]);
+
+                }
+            }
+        }
+
+
+        if(isWho){
+
+            arrList(str,arr,true);
+
+        }else{
+
+            arrList(str,arr,false);
+
+        }
+
+        if(arr.length>0){
+
+            $('.accord-with-list').eq(1).show();
+
+        }
+
+    }
+
+    //名称回车事件
+    var enterMCName = function(){
+
+        //编码
+        wuLiaoInfo.wpbm = $('.accord-with-list').eq(1).children('.li-color').children('.dataNum').html();
+
+        //名称
+        wuLiaoInfo.wpmc = $('.accord-with-list').eq(1).children('.li-color').children('.dataName').html();
+
+        //规格型号
+        wuLiaoInfo.wpsize = $('.accord-with-list').eq(1).children('.li-color').children('.dataSize').html();
+
+        //分类名称
+        wuLiaoInfo.flmc = $('.accord-with-list').eq(1).children('.li-color').children('.dataCate').html();
+
+        //下拉列表消失
+        $('.accord-with-list').hide();
+
+        //自动聚焦数量
+        setTimeout(function(){
+
+            $('.inputNum').focus();
+
+        },300);
+
+
+    }
+
+    //根据数组，生成物品下拉框(用flag来区分输入值是否和列表值完全相同，true相同 false不同)；
+    function arrList(str,arr,flag){
+
+        for(var i=0;i<arr.length;i++){
+            if(flag){
+
+                str += '<li class="li-color" data-durable="' + arr[i].isSpare +
+                    '"'+ 'data-unit="' + arr[i].unitName +
+                    '"data-quality="' + arr[i].batchNum +
+                    '"data-maintainDate="' +  arr[i].maintainDate +
+                    '"' + 'data-sn="' + arr[i].sn +
+                    '"' +
+                    'data-shengyu="' + arr[i].num +
+                    '"' +
+                    '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
+                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 20px;">' +
+                    arr[i].size+'</span>' + '<span class="dataCate">' +
+                    arr[i].cateName +
+                    '</span>'
+                    '</li>'
+
+            }else{
+
+                str += '<li data-durable="' + arr[i].isSpare +
+                    '"'+ 'data-unit="' + arr[i].unitName +
+                    '"data-quality="' + arr[i].batchNum +
+                    '"data-maintainDate="' +  arr[i].maintainDate +
+                    '"' + 'data-sn="' + arr[i].sn +
+                    '"' +
+                    'data-shengyu="' + arr[i].num +
+                    '"' +
+                    '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
+                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 20px;">' +
+                    arr[i].size+'</span>' + '<span class="dataCate" style="margin-left: 20px;">' +
+                    arr[i].cateName +
+                    '</span>'
+                '</li>'
+            }
+
+        }
+
+        $('.accord-with-list').empty().append(str);
     }
 })

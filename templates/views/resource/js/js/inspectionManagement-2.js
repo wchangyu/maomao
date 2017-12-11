@@ -317,6 +317,11 @@ $(function(){
         //巡检编码
         $('.xjbm').addClass('disabled-block');
 
+        //添加巡检内容表格初始化
+        $('#zhiXingPerson tbody').children('tr').css('background','#ffffff');
+
+        $('#zhiXingPerson tbody').children('tr').find('.checkeds').find('input').parent('span').removeClass('checked');
+
     });
 
     //新增确定按钮
@@ -362,6 +367,7 @@ $(function(){
                     _allXJTMArr.push(result[i]);
                 }
                 _datasTable(_tableAdd,result);
+
                 //将数组中原有的数组标识出来
                 var bianmaArr = [];
                 for(var i=0;i<$('#zhiXingPerson tbody').children('tr').length;i++){
@@ -390,8 +396,8 @@ $(function(){
     //添加巡检步骤条件搜索
     $('#selecte').click(function(){
         var prm = {
-            ditName:$('#shebeileixings').val(),
-            dcNum:$('#filter_global').val(),
+            ditName:$('#myModal1').find('#filter_global').children().val(),
+            dcNum:$('#shebeileixings').val(),
             userID:_userIdNum,
             userName:_userIdName
         };

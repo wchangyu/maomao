@@ -835,9 +835,9 @@
         "arg":"",
         "iconclass":""
       },
-      "月度汇总":{
+      "月末结转":{
         "type":"0",
-        "content":"月度汇总",
+        "content":"月末结转",
         "uri":"../cangkuguanli/monthlyCollect.html",
         "uid":"",
         "arg":"",
@@ -1340,7 +1340,24 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "班次管理":{
+        "type":"0",
+        "content":"班次管理",
+        "uri":"../YWFZ/classManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "值班管理":{
+        "type":"0",
+        "content":"值班管理",
+        "uri":"../YWFZ/onDutyManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
+
     }
   },
   "管理诊断":{

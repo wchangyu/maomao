@@ -478,13 +478,13 @@ textarea{
     background: #ffffff;
     border: 1px solid #ebebeb;
     border-top: none;
-    width: 400px;
+    width: 476px;
     left: -1px;
     top: 1px;
-    text-indent: 10px;
     max-height: 208px;
     overflow-y: scroll;
     overflow-x: hidden;
+    font-size: 12px;
 }
 .accord-with-list li,.accord-sn-list li{
     cursor: pointer;
@@ -495,6 +495,11 @@ textarea{
     text-overflow:ellipsis;
     white-space: nowrap;
     /*display: inline-block;*/
+}
+.accord-with-list li span{
+
+    margin-left: 5px !important;
+
 }
 .gdList{
     float: left;
@@ -580,7 +585,7 @@ textarea{
     width: 200px !important;
 }
 .gdList .input-blockeds input{
-    width: 175px;
+    width: 174px;
 }
 .gdList .input-blockeds select{
     width: 198px;
