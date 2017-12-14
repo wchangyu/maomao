@@ -104,6 +104,8 @@ $(function(){
     //记录当前工单号
     var _gdCode = '';
 
+    var _gdCode2 = '';
+
     //存放常量
     var _stateArr = [];
 
@@ -321,15 +323,23 @@ $(function(){
             title:'数量',
             data:'clShul'
         },
-        //{
-        //    title:'库存',
-        //    data:'kucun'
-        //},
         {
             title:'操作',
             "targets": -1,
             "data": null,
-            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
+            render:function(data, type, full, meta){
+
+                var html = "<span class='data-option tableDeleted btn default btn-xs green-stripe'>删除</span>";
+                if(full.gdCode != ''){
+                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOddGD.html?a1=" + _gdCode2 +
+                        "&a2=" + '' +
+                        "&a3=" + full.wxCl +
+                        "&a4=" + '' +
+                        "&a5=" + '' +
+                        "' target=_blank>用料单</a></span>"
+                }
+                return html;
+            }
         }
     ];
 
@@ -482,6 +492,7 @@ $(function(){
             var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             //根据工单状态，确定按钮的名称
             _gdCode = gongDanCode;
+            _gdCode2 = $(this).parents('tr').find('.gongdanId').children('a').html();
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,

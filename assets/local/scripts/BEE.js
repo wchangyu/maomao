@@ -833,7 +833,7 @@ var BEE = (function(){
              if(_showMenu){
                 _newMenu[_showMenu['content']] = _showMenu;
              }
-         })
+         });
          return _newMenu;
      };
      //对父级菜单下的子菜单根据流程图以及Arg参数进行处理

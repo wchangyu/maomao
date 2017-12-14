@@ -27,13 +27,12 @@ $(function(){
 
     $.ajax({
         type:'post',
-        url:_urls + 'YWCK/ywCKGetOutStorageItem',
+        url:_urls + 'YWCK/ywCKGetOutStorageItem2',
         data:JSON.stringify(prm),
         contentType:'application/json',
         timeout:_theTimes,
         success:function(result){
 
-            console.log(result);
             //左上
             $('.left-titles').children('.bottom-line').html(result.compName);
             //右上

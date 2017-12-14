@@ -71,6 +71,16 @@ $(function(){
 
     },30000)
 
+    //echart图自适应
+    //浏览器echarts自适应
+    window.onresize = function () {
+        if(myChart && myChart4 && myChart7){
+            myChart.resize();
+            myChart4.resize();
+            myChart7.resize();
+        }
+    }
+
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable(   {
