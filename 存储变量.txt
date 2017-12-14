@@ -41,6 +41,6 @@ sessionStorage.allProcs        记录全部的流程图
 sessionStorage.changeMenuByProcs 是否根据流程图动态绘制菜单
 
 sessionStorage.gongdanInterval  工单是否开启自动刷新，0为关闭，数字为刷新的分钟
-sessionStorage.gongdanIndustryType  工单的行业类型
+sessionStorage.gongdanIndustryType  工单的行业类型,0为铁路行业，1为医院类型
 sessionStorage.ckAuditType      是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
 sessionStorage.userInfo 登录后返回的用户信息，使用时候先JSON.Parse
