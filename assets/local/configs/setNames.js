@@ -5,13 +5,13 @@
 var __names = {
 
     //区域
-    area:"车务段1",
+    area:"车务段",
     //部门
-    department:"车站1",
+    department:"车站",
     //车间
-    workshop: "车间1",
+    workshop: "车间",
     //班组
-    group:"维修班组1"
+    group:"维修班组"
 
 };
 
