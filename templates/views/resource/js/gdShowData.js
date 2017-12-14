@@ -12,6 +12,9 @@ $(function(){
     var _wxBanNum = sessionStorage.getItem("userDepartNum");
     //默认刷新时间
     var _refresh = sessionStorage.getItem("gongdanInterval");
+    if(_refresh==0){
+        _refresh = 1;
+    }
 
     $('#department').html(_wxBan);
     //开始/结束时间插件
@@ -23,7 +26,7 @@ $(function(){
     });
     //设置初始时间
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
+    var _initEnd = moment().add(1,'d').format('YYYY/MM/DD');
 
     var _lastTime = '';
 
@@ -73,12 +76,18 @@ $(function(){
 
     //echart图自适应
     //浏览器echarts自适应
+
+    //表格自适应
+
+
     window.onresize = function () {
         if(myChart && myChart4 && myChart7){
             myChart.resize();
             myChart4.resize();
             myChart7.resize();
         }
+        //固定表头的时候
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
     }
 
     /*--------------------------表格初始化---------------------------------------*/
