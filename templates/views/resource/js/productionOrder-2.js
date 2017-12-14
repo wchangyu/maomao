@@ -823,7 +823,6 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetWxBanzuStation',
             data:prm,
             success:function(result){
-                _maintenanceTeam = 'JT04';
                 _InfluencingArr.length = 0;
                 _bzArr.length = 0;
                 //判断session中的变量是在维保组还是在维修班组中，

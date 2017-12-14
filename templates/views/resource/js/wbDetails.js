@@ -73,12 +73,12 @@ $(function(){
             data:'itemName'
         },
         {
-            title:'物品序列号',
-            data:'sn'
-        },
-        {
             title:'规格型号',
             data:'size'
+        },
+        {
+            title:'物品序列号',
+            data:'sn'
         },
         {
             title:'数量',
