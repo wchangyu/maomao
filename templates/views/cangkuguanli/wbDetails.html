@@ -55,6 +55,12 @@
         #scrap-datatables thead td{
             vertical-align: middle !important;
         }
+        .tablefoot{
+
+            display: inline-block;
+            vertical-align: middle;
+            width: 17%;
+        }
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -295,7 +301,7 @@
                                             <select id="storage"></select>
                                         </div>
                                     </li>
-                                    <li><label for="">库区：</label>
+                                    <li style="display: none;"><label for="">库区：</label>
                                         <div class="input-blocked">
                                             <select id="kqSelect">
                                                 <option value="">请选择</option>
@@ -306,6 +312,12 @@
                                         <label for="" style="display: inline-block;width: 81px;text-align: right" class="colorTip">所属车间 *：</label>
                                         <div class="input-blocked">
                                             <select id="yxdw"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 81px;text-align: right">单据类型：</label>
+                                        <div class="input-blocked">
+                                            <select id="tiaojian"></select>
                                         </div>
                                     </li>
                                     <li>
@@ -336,9 +348,17 @@
                                                     <td class="total-num"></td>
                                                     <td></td>
                                                     <td class="total-amount"></td>
-                                                    <td colspan="7"></td>
+                                                    <td colspan="8"></td>
                                                 </tr>
-
+                                                <tr colspan="15">
+                                                    <td colspan="15">
+                                                        <div class="tablefoot">维保组负责人签字：</div>
+                                                        <div class="tablefoot">综合维修中心签字：</div>
+                                                        <div class="tablefoot">维保组负责人签字：</div>
+                                                        <div class="tablefoot"> 主管签字：</div>
+                                                        <div class="tablefoot"> 仓管员签字：</div>
+                                                    </td>
+                                                </tr>
                                             </tfoot>
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->

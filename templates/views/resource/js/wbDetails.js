@@ -16,8 +16,8 @@ $(function(){
 
     var _InfluencingArr = [];
 
-    //所有仓库
-    //warehouse();
+    //出库类型
+    rkLX();
 
     //所属车间、所属维保组
     wbz();
@@ -178,21 +178,34 @@ $(function(){
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
                 if(flag){
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
+                    if(result.wxBanzus){
+
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                '">' + result.wxBanzus[i].departName + '</option>';
+                        }
+                        $('#userClass').append(str1);
+
                     }
-                    $('#userClass').append(str1);
+
                 }else{
                     _InfluencingArr = [];
-                    for(var i=0;i<result.stations.length;i++){
-                        _InfluencingArr.push(result.stations[i]);
-                        str += '<option value="' + result.stations[i].departNum +
-                            '">' + result.stations[i].departName + '</option>';
+
+                    if(result.stations){
+
+                        for(var i=0;i<result.stations.length;i++){
+                            _InfluencingArr.push(result.stations[i]);
+                            str += '<option value="' + result.stations[i].departNum +
+                                '">' + result.stations[i].departName + '</option>';
+                        }
+
                     }
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
+                    if(result.wxBanzus){
+
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                '">' + result.wxBanzus[i].departName + '</option>';
+                        }
                     }
                     $('#yxdw').append(str);
                     $('#userClass').append(str1);
@@ -227,8 +240,10 @@ $(function(){
             storageNum:ckNum,
             localNum:$('#kqSelect').val(),
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            outType:$('#tiaojian').val()
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptGetDepOutDetail',
@@ -266,7 +281,19 @@ $(function(){
 
                 }
 
-                var str = '材料总支出';
+                var djStr = '';
+
+                if($('#tiaojian').val() == ''){
+
+                    djStr = '出库'
+
+                }else{
+
+                    djStr = $('#tiaojian').children('option:selected').html();
+
+                }
+
+                var str = '材料' + djStr + '单';
 
                 if( typeof storage == 'undefined'){
 
@@ -280,7 +307,7 @@ $(function(){
 
                 }
 
-                $('#scrap-datatables').find('caption').html( storage + yxdw + str );
+                $('#scrap-datatables').find('caption').html( yxdw + str );
 
 
                 var num = 0;
@@ -344,6 +371,40 @@ $(function(){
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //出库类型
+    function rkLX(){
+        var prm = {
+            "catType": 2,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetInOutCate',
+            data:prm,
+            success:function(result){
+
+                //条件查询的出库类型选择
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+
+                }
+
+                $('#tiaojian').empty().append(str);
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
