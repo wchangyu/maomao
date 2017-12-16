@@ -12,7 +12,7 @@ $(function(){
     var mnow = moment(now);
     var monthStart = mnow.startOf("month").format("YYYY-MM-DD");
     //var monthEnd = mnow.endOf("month").add(1,'d').format("YYYY-MM-DD");
-    var monthEnd = mnow.add(1,'d').format("YYYY-MM-DD");
+    var monthEnd = mnow.add(1,'month').format("YYYY-MM-DD");
     var pts = sessionStorage.pointers ? JSON.parse(sessionStorage.pointers) : [];
     var len = pts.length;
     var ptIds = [];

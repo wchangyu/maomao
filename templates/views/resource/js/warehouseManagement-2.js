@@ -539,7 +539,7 @@ $(function(){
         {
             title:'物品序列号',
             data:'sn',
-            className:'sn hiddenButton'
+            className:'sn'
         },
         {
             title:'库区',
