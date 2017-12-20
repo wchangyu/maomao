@@ -2,6 +2,8 @@
 
     overflow: hidden;
 
+    min-height: 30px;
+
 }
 .on-duty-worker li{
 
@@ -25,5 +27,15 @@
 .datetimepicker .table-condensed{
 
     width: 200px !important;
+
+}
+#radioblock{
+
+    margin-top: 10px;
+
+}
+#radioblock input{
+
+    margin-left: -9px;
 
 }

@@ -105,26 +105,7 @@ $(function(){
 
     //第一层弹窗表格初始化
     var rkwpCol = [
-        {
-            title:'仓库',
-            data:'storageName',
-            className:'storageName',
-            render:function(data, type, row, meta){
 
-                return '<span data-num="' + row.storageNum +
-                    '">' + data + '</span>'
-
-            }
-        },
-        {
-            title:'库区',
-            data:'localName',
-            className:'localName',
-            render:function(data, type, row, meta){
-                return '<span data-num="' + row.localNum +
-                    '">'+ data + '</span>'
-            }
-        },
         {
             title:'物品编号',
             data:'itemNum',
@@ -135,13 +116,13 @@ $(function(){
             data:'itemName'
         },
         {
+            title:'规格型号',
+            data:'size'
+        },
+        {
             title:'物品序列号',
             data:'sn',
             className:'sn'
-        },
-        {
-            title:'规格型号',
-            data:'size'
         },
         {
             title:'单位',
@@ -171,6 +152,26 @@ $(function(){
             }
         },
         {
+            title:'仓库',
+            data:'storageName',
+            className:'storageName',
+            render:function(data, type, row, meta){
+
+                return '<span data-num="' + row.storageNum +
+                    '">' + data + '</span>'
+
+            }
+        },
+        {
+            title:'库区',
+            data:'localName',
+            className:'localName',
+            render:function(data, type, row, meta){
+                return '<span data-num="' + row.localNum +
+                    '">'+ data + '</span>'
+            }
+        },
+        {
             title:'品质',
             data:'batchNum'
         },
@@ -185,11 +186,11 @@ $(function(){
             render:function(data, type, full, meta){
                 var html = "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>";
                 if(full.gdCode2 != ''){
-                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?gdCode=" + full.gdCode2 +
-                        "&orderNum=" + full.orderNum +
-                        "&itemNum=" + full.itemNum +
-                        "&storageNum=" + full.storageNum +
-                        "&sn=" + full.sn +
+                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
+                        "&a2=" + full.orderNum +
+                        "&a3=" + full.itemNum +
+                        "&a4=" + full.storageNum +
+                        "&a5=" + full.sn +
                         "' target=_blank>用料单</a></span>"
                 }
                 return html;
@@ -213,35 +214,13 @@ $(function(){
             data:'itemName'
         },
         {
-            title:'物品序列号',
-            data:'sn',
-            className:'sn'
-        },
-        {
             title:'规格型号',
             data:'size'
         },
         {
-            title:'仓库',
-            data:'storageName',
-            className:'storageName',
-            render:function(data, type, full, meta){
-
-                return '<span data-num="' + full.storageNum +
-                    '">' + data + '</span>'
-
-            }
-        },
-        {
-            title:'库区',
-            data:'localName',
-            className:'localName',
-            render:function(data, type, full, meta){
-
-                return '<span data-num="' + full.localNum +
-                    '">' + data + '</span>'
-
-            }
+            title:'物品序列号',
+            data:'sn',
+            className:'sn'
         },
         {
             title:'单位',
@@ -268,6 +247,28 @@ $(function(){
             render:function(data, type, full, meta){
                 var data = formatNumber(parseFloat(data));
                 return data
+            }
+        },
+        {
+            title:'仓库',
+            data:'storageName',
+            className:'storageName',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.storageNum +
+                    '">' + data + '</span>'
+
+            }
+        },
+        {
+            title:'库区',
+            data:'localName',
+            className:'localName',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.localNum +
+                    '">' + data + '</span>'
+
             }
         },
         {
@@ -438,9 +439,9 @@ $(function(){
 
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
 
-            var num = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
+            var num = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
 
             amount += count;
 
@@ -470,9 +471,9 @@ $(function(){
         //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
             //获取数量
-            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
+            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
 
             amount += count;
             amount1 += count1;
@@ -932,6 +933,7 @@ $(function(){
                 obj.num = _rukuArr[i].num;
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
+                obj.gdCode = _rukuArr[i].gdCode;
                 obj.gdCode2 = _rukuArr[i].gdCode2;
                 obj.bxKeshi = _rukuArr[i].bxKeshi;
                 obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
@@ -2745,13 +2747,13 @@ $(function(){
             inconformityArr.push(_gdArr[i]);
         }
         for(var i=0;i<eligibleArr.length;i++){
-            str1 += '<div data-dds="' + eligibleArr[i].bxKeshiNum +
+            str1 += '<li data-dds="' + eligibleArr[i].bxKeshiNum +
                 '"data-ddsName="' + eligibleArr[i].bxKeshi +
                 '" data-gd="' + eligibleArr[i].gdCode +
                 '" style="background: #f5d38c;">' +'<span class="dataGD">' +
                 eligibleArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + eligibleArr[i].wxClNames +
                 '</span>' + '<span>' + eligibleArr[i].bxKeshi +
-                '</span>' + '</div>';
+                '</span>' + '</li>';
         }
         for(var i=0;i<eligibleArr.length;i++){
 
@@ -2760,13 +2762,13 @@ $(function(){
         }
         for(var i=0;i<inconformityArr.length;i++){
 
-            str1 += '<div data-dds="' + inconformityArr[i].bxKeshiNum +
+            str1 += '<li data-dds="' + inconformityArr[i].bxKeshiNum +
                 '"data-ddsName="' + inconformityArr[i].bxKeshi +
                 '" data-gd="' + inconformityArr[i].gdCode +
                 '">' +'<span class="dataGD">' +
                 inconformityArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + inconformityArr[i].wxClNames +
                 '</span>' + '<span>' + inconformityArr[i].bxKeshi +
-                '</span>' + '</div>';
+                '</span>' + '</li>';
 
         }
 
@@ -2883,7 +2885,7 @@ $(function(){
         //赋值
         putOutGoods.gdCode = checkedLi.children('.dataGD').html();
 
-        $('#workDone').find('.gdCode').attr('gdcode');
+        $('#workDone').find('.gdCode').attr('gdcode',checkedLi.attr('data-gd'));
 
         //车站联动
         putOutGoods.chezhan = checkedLi.attr('data-ddsname');
@@ -3013,8 +3015,6 @@ $(function(){
             })
         }else{
             _BjFlag = '';
-
-            console.log(_shSuccess);
 
             if(_shSuccess){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '');

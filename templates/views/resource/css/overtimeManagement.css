@@ -1,0 +1,15 @@
+.select-CZ{
+
+    margin-top: 26px;
+
+    margin-left: 50px;
+
+}
+.datatimeblock{
+    display: inline-block;
+    width: 28px !important;
+    height: 25px !important;
+    font-size: 0;
+    vertical-align: middle;
+    margin-left: -4px;
+}

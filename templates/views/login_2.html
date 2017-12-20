@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>2</title>
+<title>请登录</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -17,7 +16,8 @@
 <link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link href="../../assets/admin/pages/css/login2.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/global/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
+<link href="../../assets/admin/pages/css/login3.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
 <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -27,66 +27,161 @@
 <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
+	<script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="./resource/js/browserVersion.js"></script>
+	<style>
+		.login{
+
+			background: url("resource/img/houtaidengluyebeijing.jpg")no-repeat;
+			background-size: auto;
+
+
+		}
+		.input-word{
+
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 25px;
+			color: #a8e0ff;
+			margin-right: 8px;
+
+		}
+		.input-icon{
+
+			display: inline-block;
+			vertical-align: middle;
+			width: 241px !important;
+		}
+
+		.input-icon input{
+
+			background: #d2d7dd;
+
+		}
+		.content{
+
+			background-color: inherit !important;
+			width: 445px !important;
+			background: url("resource/img/shurukuangbeijing.png");
+			/*height: 273px !important;*/
+
+		}
+		.login .content .form-actions{
+
+			background-color:inherit !important;
+
+			border-bottom: none;
+
+		}
+		.green-haze.btn{
+
+			background: #e88625;
+			margin-right: 27px;
+			margin-left: 149px;
+		}
+		.reflection{
+
+			width:436px;height:300px!important;position:absolute;top:282px;
+			left: 278px;
+
+			background: url("resource/img/shurukuangbeijing.png") 0 -290px no-repeat;
+
+		}
+		.green-haze:hover{
+			background: #e88625 !important;
+
+		}
+		.copyright{
+			display: none;
+		}
+		.checkbox{
+
+			color: #d2d7dd;
+		}
+		.erweima{
+			width: 100px;
+			height: 100px;
+			background: 200px;
+			position: fixed;
+			right: 80px;
+			bottom: 80px;
+		}
+	</style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="login">
-<div class="particles" id="particles-js">
-</div>
+
 <div class="login-main">
+
 	<div class="login-main1">
 <!-- BEGIN LOGO -->
-<div class="logo">
-	<h1 style="color:white;">能耗监测系统</h1>
+	<div class="logo">
+		<div style="display: inline-block">
+			<img src="resource/img/ddangeabiaoti.png" style="width: 1000px;" alt="">
+		</div>
+		<h1 style="color:white;">重庆医科大学附属儿童医院</h1>
 
-</div>
+	</div>
 <!-- END LOGO -->
+
 <!-- BEGIN LOGIN -->
-<div class="content">
-	<!-- BEGIN LOGIN FORM -->
-	<form class="login-form" action="" method="post">
-		<div class="form-title">
-			<span class="form-title">欢迎.</span>
-			<span class="form-subtitle">请登录.</span>
-		</div>
-		<div class="alert alert-danger display-hide">
-			<button class="close" data-close="alert"></button>
+		<div style="position: relative">
+			<div class="content" >
+
+				<!-- BEGIN LOGIN FORM -->
+				<form class="login-form" action="" method="post" >
+					<h3 class="form-title" style="color: #e6f4ff;font-size: 28px;">登录</h3>
+					<div class="alert alert-danger display-hide">
+						<button class="close" data-close="alert"></button>
 			<span>
-			请输入用户名和密码. </span>
-		</div>
-		<div class="form-group">
-			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-			<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
-			<input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username"/>
-		</div>
-		<div class="form-group">
-			<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
-			<input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password"/>
-		</div>
-		<div class="form-actions">
-			<button type="submit" class="btn btn-primary btn-block">登录</button>
-		</div>
-		<div class="form-actions">
-			<div class="pull-left">
-				<label class="rememberme check">
-				<input type="checkbox" name="remember" value="1"/>记住我 </label>
+			请输入用户名和密码 </span>
+					</div>
+					<div class="form-group">
+						<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+						<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
+						<div class="input-word">用户名</div>
+						<div class="input-icon">
+							<i class="fa fa-user"></i>
+							<input class="form-control placeholder-no-fix" type="text" autocomplete="off" name="username"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
+						<div class="input-word">密&nbsp;&nbsp;&nbsp;&nbsp;码</div>
+						<div class="input-icon">
+							<i class="fa fa-lock"></i>
+							<input class="form-control placeholder-no-fix" type="password" autocomplete="off"  name="password"/>
+						</div>
+					</div>
+					<div class="form-actions">
+						<label class="checkbox">
+							<input type="checkbox" name="remember" value="1"/> 记住密码 </label>
+						<button type="submit" class="btn green-haze pull-right">
+							登录 <i class="m-icon-swapright m-icon-white"></i>
+						</button>
+					</div>
+				</form>
+				<!-- END LOGIN FORM -->
 			</div>
-
+			<div class="reflection"></div>
 		</div>
 
-	</form>
-	<!-- END LOGIN FORM -->
-
-</div>
+<!-- END LOGIN -->
 	</div>
 </div>
-<div class="copyright hide">
+
+<!-- BEGIN COPYRIGHT -->
+<div class="copyright">
 	2016 &copy; Huaqin.
 </div>
-<!-- END LOGIN -->
+<!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
-
+<!--[if lt IE 9]>
+<script src="../../assets/global/plugins/respond.min.js"></script>
+<script src="../../assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
 <script src="../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -96,6 +191,7 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../assets/global/plugins/select2/select2.min.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../../assets/local/scripts/Went.utility.js"></script>
@@ -103,17 +199,21 @@
 <script src="../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="../../assets/local/scripts/particles.min.js" type="text/javascript"></script>
-<script src="../../assets/admin/pages/scripts/login.js" type="text/javascript"></script>
+<script src="../../assets/local/scripts/login.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
-jQuery(document).ready(function() {     
-Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-Login.init();
-Demo.init();
+jQuery(document).ready(function() {
+  Metronic.init(); // init metronic core components
+  Layout.init(); // init current layout
+  Login.init();
+  Demo.init();
 });
 </script>
 <!-- END JAVASCRIPTS -->
+
+<div class="erweima">
+	<img src="resource/img/erweima1.png" style="width: 100px;height: 100px;">
+</div>
 </body>
 <!-- END BODY -->
 </html>

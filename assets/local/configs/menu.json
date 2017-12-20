@@ -824,6 +824,53 @@
       }
     }
   },
+  "运维辅助":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"运维辅助",
+    "submenu":{
+      "考勤管理":{
+        "type":"0",
+        "content":"考勤管理",
+        "uri":"../YWFZ/attendanceManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "班次管理":{
+        "type":"0",
+        "content":"班次管理",
+        "uri":"../YWFZ/classManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "值班管理":{
+        "type":"0",
+        "content":"值班管理",
+        "uri":"../YWFZ/onDutyManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "人员类型管理":{
+        "type":"0",
+        "content":"人员类型管理",
+        "uri":"../YWFZ/overtimeType.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "加班管理":{
+        "type":"0",
+        "content":"加班管理",
+        "uri":"../YWFZ/overtimeManagement.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
   "地图预览":{
     "type":"1",
     "iconclass":"icon-settings",

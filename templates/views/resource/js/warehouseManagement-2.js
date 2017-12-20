@@ -370,34 +370,10 @@ $(function(){
             data:'itemName'
         },
         {
-            title:'库区',
-            data:'localName',
-            className:'localName',
-            render:function(data, type, full, meta){
-                return '<span data-num="' + full.localNum +
-                    '">'+ data + '</span>'
-            }
-        },
-        {
-            title:'是否耐用',
-            data:'isSpare',
-            render:function(data, type, full, meta){
-                if(data == 0){
-
-                    return '否'
-
-                }else if(data == 1){
-
-                    return '是'
-
-                }
-            }
-        },
-
-        {
             title:'规格型号',
             data:'size'
         },
+
         {
             title:'单位',
             data:'unitName'
@@ -423,6 +399,30 @@ $(function(){
             render:function(data, type, full, meta){
                 var data = formatNumber(parseFloat(data));
                 return data
+            }
+        },
+        {
+            title:'是否耐用',
+            data:'isSpare',
+            render:function(data, type, full, meta){
+                if(data == 0){
+
+                    return '否'
+
+                }else if(data == 1){
+
+                    return '是'
+
+                }
+            }
+        },
+        {
+            title:'库区',
+            data:'localName',
+            className:'localName',
+            render:function(data, type, full, meta){
+                return '<span data-num="' + full.localNum +
+                    '">'+ data + '</span>'
             }
         },
         {
@@ -475,9 +475,9 @@ $(function(){
         //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(8).html());
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(6).html());
             //获取数量
-            var count1 = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(6).html());
+            var count1 = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(4).html());
 
             amount += count;
             amount1 += count1;
@@ -505,23 +505,10 @@ $(function(){
             data:'itemName'
         },
         {
-            title:'物品序列号',
-            data:'sn',
-            className:'sn'
-        },
-        {
-            title:'库区',
-            data:'localName',
-            className:'localName',
-            render:function(data, type, full, meta){
-                return '<span data-num="' + full.localNum +
-                    '">'+ data + '</span>'
-            }
-        },
-        {
             title:'规格型号',
             data:'size'
         },
+
         {
             title:'单位',
             data:'unitName'
@@ -547,6 +534,20 @@ $(function(){
             render:function(data, type, full, meta){
                 var data = formatNumber(parseFloat(data));
                 return data
+            }
+        },
+        {
+            title:'物品序列号',
+            data:'sn',
+            className:'sn hiddenButton'
+        },
+        {
+            title:'库区',
+            data:'localName',
+            className:'localName',
+            render:function(data, type, full, meta){
+                return '<span data-num="' + full.localNum +
+                    '">'+ data + '</span>'
             }
         },
         {
@@ -590,9 +591,9 @@ $(function(){
         //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(8).html());
+            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(6).html());
             //获取数量
-            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(6).html());
+            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(4).html());
 
             amount += count;
             amount1 += count1;

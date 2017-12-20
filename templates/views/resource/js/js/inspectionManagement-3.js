@@ -531,6 +531,9 @@ $(function(){
     //添加
     $('.creatButton').click(function(){
 
+        //启用状态消失
+        $('.QY').hide();
+
         //模态框
         _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
 
@@ -716,6 +719,9 @@ $(function(){
 
             //不可编辑
             disabledBlock();
+
+            //启用状态显示
+            $('.QY').show();
         })
         .on('click','.option-edite',function(){
             //样式
@@ -735,6 +741,9 @@ $(function(){
             $('.addButton').show();
 
             abledBlock();
+
+            //启用状态显示
+            $('.QY').show();
         })
         .on('click','.option-delete',function(){
             //样式
@@ -755,6 +764,8 @@ $(function(){
 
             $('#xjtmbm').val($thisBM);
             $('#xjtmmc').val($thisMC);
+            //启用状态显示
+            $('.QY').show();
         })
         .on('click','.option-assign',function(){
             var $this = $(this);
@@ -765,6 +776,9 @@ $(function(){
             $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务巡检');
 
             disabledBlock();
+
+            //启用状态显示
+            $('.QY').show();
         })
 
     //主表格选择
@@ -1742,7 +1756,7 @@ $(function(){
         }else{
             var selectQiyongArr = [];
             for(var i=0;i<_selectData.length;i++){
-                selectQiyongArr.push(_selectData.eq(i).parents('tr').children('.bianma').html());
+                selectQiyongArr.push(_selectData.eq(i).parents('tr').children('.bianma').children().attr('data-num'));
             }
 
             for(var i=0;i<_allDataArr.length;i++){

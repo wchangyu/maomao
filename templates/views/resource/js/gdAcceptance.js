@@ -2344,7 +2344,7 @@ $(function(){
                 //申诉
                 _datasTable($('#appeal-list'),zht11);
                 //超时
-                console.log(moreTime);
+
                 _datasTable($('#more-time'),moreTime);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
@@ -2353,21 +2353,21 @@ $(function(){
 
                 $('.content-main-contents1').addClass('hide-block');
 
+                $('.content-main-contents1').eq(0).removeClass('hide-block');
+
                 if( moreTime.length > 0 ){
 
                     $('.table-title').children('span').eq(0).show();
 
                     $('.table-title').children('span').eq(0).addClass('spanhover');
 
-                    $('.content-main-contents1').eq(0).removeClass('hide-block');
 
                 }else{
 
-                    $('.table-title').children('span').eq(0).hide();
+                    $('.table-title').children('span').eq(6).hide();
 
-                    $('.table-title').children('span').eq(1).addClass('spanhover');
+                    $('.table-title').children('span').eq(0).addClass('spanhover');
 
-                    $('.content-main-contents1').eq(1).removeClass('hide-block');
 
                 }
 
