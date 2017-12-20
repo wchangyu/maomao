@@ -889,11 +889,11 @@ $(function(){
 
                     }else if(i == result.length - 1){
 
-                        str += '</div><div class="print-block">' + valueStr
+                        str += valueStr;
 
                     }else if(i % 6 == 0 ){
 
-                        str += '</div><div class="print-block">' + valueStr
+                        str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block">' + valueStr
 
                     }else{
 
@@ -903,13 +903,8 @@ $(function(){
 
                 }
 
-
                 $('.print-table').empty().append(str);
 
-                //for(var i=0;i<result.length;i++){
-                //    _allDateArr.push(result[i]);
-                //}
-                //jumpNow($('#browse-datatables'),result);
             }
         })
     }

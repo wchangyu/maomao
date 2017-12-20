@@ -388,14 +388,14 @@
 <!--弹窗-->
 <!--新增模态框-->
 <div class="modal fade" id="ADD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 462px;width: 332px !important;">
-        <div class="modal-content" style="height: 462px;width: 332px !important;">
+    <div class="modal-dialog" style="height: 582px;width: 332px !important;">
+        <div class="modal-content" style="height: 582px;width: 332px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" >提示</h4>
             </div>
             <div class="modal-body">
-                <ul class="gongdanList" id="myApp33" style="height: 300px;overflow-y: auto">
+                <ul class="gongdanList" id="myApp33" style="height: 421px;overflow-y: auto">
                     <validator name="validation">
                         <form novalidate>
 
@@ -412,15 +412,27 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">第一阶段补贴金额 ：</div>
+                                <div class="labels">第一阶段补贴金额（4小时内，七米以下） ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="firstCost">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">第二阶段补贴金额：</div>
+                                <div class="labels">第二阶段补贴金额（4小时内，七米以上）：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="secondCost">
+                                </div>
+                            </li>
+                            <li class="floatLeft">
+                                <div class="labels">第三阶段补贴金额（4小时外，七米以下） ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="thirdCost">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">第四阶段补贴金额（4小时外，七米以上）：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="fourthCost">
                                 </div>
                             </li>
                             <li class="floatRight">

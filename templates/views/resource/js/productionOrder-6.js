@@ -25,6 +25,10 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd',     forceParse: 0
     });
+
+    //等待原因
+    ddyy();
+
     //实际传输时间初始化
     var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';
     var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
@@ -803,8 +807,15 @@ $(function(){
             userName:_userIdName,
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
-            gdCodeSrc:$('#gdly').val()
+            gdCodeSrc:$('#gdly').val(),
         };
+
+        if($('#gdzt').val() == 5){
+
+            prm2.dengyy = $('#dengyy').val();
+
+        }
+
         var userArr = [];
         var cheArr = [];
         if($('#yxdw').val() != '' && $('#userClass').val() == ''){
@@ -1132,41 +1143,59 @@ $(function(){
                 _InfluencingArr.length = 0;
                 //所属班组
                 _bzArr.length = 0;
-                for(var i=0;i<result.stations.length;i++){
 
-                    _InfluencingArr.push(result.stations[i]);
+                if(result.stations){
+
+                    for(var i=0;i<result.stations.length;i++){
+
+                        _InfluencingArr.push(result.stations[i]);
+                    }
+
+                }
+                if(result.wxBanzus){
+
+                    for(var i=0;i<result.wxBanzus.length;i++){
+                        _bzArr.push(result.wxBanzus[i]);
+                    }
+
                 }
 
-                for(var i=0;i<result.wxBanzus.length;i++){
-                    _bzArr.push(result.wxBanzus[i]);
-                }
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
                     //首先判断是在车间还是维保组里(如果是在维保组里，加载该维保组的维修班组，如果是在维修班组里，直接发送维修班组即可);
                     var stationsFlag = false;
 
                     var wxBanzusFlag = false;
-                    for(var i=0;i<result.stations.length;i++){
-                        if(sessionStorage.userDepartNum == result.stations[i].departNum){
+                    if(result.stations){
 
-                            stationsFlag = true;
+                        for(var i=0;i<result.stations.length;i++){
+                            if(sessionStorage.userDepartNum == result.stations[i].departNum){
 
-                            break;
+                                stationsFlag = true;
 
-                        }else{
+                                break;
 
-                            stationsFlag = false;
+                            }else{
 
+                                stationsFlag = false;
+
+                            }
                         }
+
                     }
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        if(sessionStorage.userDepartNum == result.wxBanzus[i].departNum){
-                            wxBanzusFlag = true;
-                            break;
-                        }else{
-                            wxBanzusFlag = false;
+                    if(result.wxBanzus){
+
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            if(sessionStorage.userDepartNum == result.wxBanzus[i].departNum){
+                                wxBanzusFlag = true;
+                                break;
+                            }else{
+                                wxBanzusFlag = false;
+                            }
                         }
+
                     }
+
                     if(stationsFlag) {
                         for (var i = 0; i < result.stations.length; i++) {
                             if(sessionStorage.userDepartNum == result.stations[i].departNum){
@@ -1193,15 +1222,26 @@ $(function(){
                         }
                     } else{
                         //所属车间
-                        for(var i=0;i<result.stations.length;i++){
-                            str += '<option value="' + result.stations[i].departNum +
-                                '">' + result.stations[i].departName + '</option>';
+                        if(result.stations){
+
+                            for(var i=0;i<result.stations.length;i++){
+                                str += '<option value="' + result.stations[i].departNum +
+                                    '">' + result.stations[i].departName + '</option>';
+                            }
+
                         }
+
                         //所属班组
-                        for(var i=0;i<result.wxBanzus.length;i++){
-                            str1 += '<option value="' + result.wxBanzus[i].departNum +
-                                '">' + result.wxBanzus[i].departName + '</option>';
+
+                        if(result.wxBanzus){
+
+                            for(var i=0;i<result.wxBanzus.length;i++){
+                                str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                    '">' + result.wxBanzus[i].departName + '</option>';
+                            }
+
                         }
+
                     }
                     $('#yxdw').empty().append(str);
                     $('#userClass').empty().append(str1);
@@ -1294,4 +1334,54 @@ $(function(){
             }
         }
     }
+
+    //等待原因
+    function ddyy(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDengdyy',
+            data:{
+
+                userID:_userIdNum,
+                userName:_userIdName
+
+            },
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].reasonNum +
+                        '">' + result[i].reasonDesc + '</option>';
+
+                }
+
+                $('#dengyy').empty().append(str);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //工单状态change
+    $('#gdzt').on('change',function(){
+
+        if($('#gdzt').val() == 5){
+
+            $('.ddyy').show();
+
+        }else{
+
+            $('.ddyy').hide();
+
+        }
+
+    })
 })
