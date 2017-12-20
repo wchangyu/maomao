@@ -159,15 +159,15 @@ $(function(){
         }
     };
 
-    var zoomSize = 6;
-    myChartTopLeft.on('click', function (params) {
-        console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-        myChartTopLeft.dispatchAction({
-            type: 'dataZoom',
-            startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
-        });
-    });
+    //var zoomSize = 6;
+    //myChartTopLeft.on('click', function (params) {
+    //    console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+    //    myChartTopLeft.dispatchAction({
+    //        type: 'dataZoom',
+    //        startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
+    //        endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
+    //    });
+    //});
 
 });
 
@@ -191,8 +191,17 @@ var allData2 = [];
 var allDataX = [];
 var allDataY = [];
 
+//定义最高值名称
+var maxName = '';
+var maxData = 0;
+//定义最低值名称
+var minName = '';
+var minData = 0;
+
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
+
+var theNum = 0;
 
 //柱状图配置项
 var optionBar = {
@@ -231,11 +240,11 @@ var optionBar = {
             }
         }
     ],
-    dataZoom: [
-        {
-            type: 'inside'
-        }
-    ],
+    //dataZoom: [
+    //    {
+    //        type: 'inside'
+    //    }
+    //],
     series : [
         {
             name:'累计能耗',
@@ -255,14 +264,22 @@ var optionBar = {
                     normal:{
                         textStyle:{
                             color:'#d02268'
+                        },
+                        formatter: function(params) {
+
+                            var arr = [maxName,minName];
+
+                            var index = params.dataIndex;
+
+                            return arr[index] + '\n'+params.value;
                         }
                     }
                 }
             },
             markLine : {
                 data : [
-                    {type : 'average', name: '平均值'}
 
+                    {type : 'average', name: '平均值'}
 
                 ]
 
@@ -460,6 +477,20 @@ function getPointerData(url,flag){
         "endTime": endTime
     };
 
+    //楼宇数据
+    if(flag == 1){
+
+        var obj = {
+            "energyNorm":energyNormItemObj ,
+            "selectDateType": selectDateType,
+            "startTime": startTime,
+            "endTime": endTime
+        };
+
+        //给session中存放楼宇信息 用于跳转
+        sessionStorage.pointerMessage = JSON.stringify(obj);
+    }
+
     //发送请求
     $.ajax({
         type:'post',
@@ -516,7 +547,7 @@ function getPointerData(url,flag){
             });
 
 
-            showDataByNum(allData1);
+            showDataByNum(allData1,flag);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -600,18 +631,41 @@ function GetShowEnergyNormItem(energyType,flag){
 };
 
 //根据用户选择展示项数进行展示
-function showDataByNum(data){
+function showDataByNum(data,flag){
 
     //首先处理实时数据
     var allDataX = [];
     var allDataY = [];
 
     $(data).each(function(i,o){
+
         //X轴数据
         allDataX.push(o.returnOBJName);
 
         //Y轴数据
         allDataY.push(o.currentEnergyData.toFixed(1));
+
+        if(i==0){
+
+            maxName = o.returnOBJName;
+
+            maxData = o.currentEnergyData;
+
+            minName = o.returnOBJName;
+
+            minData = o.currentEnergyData;
+        }else{
+
+            if(o.currentEnergyData > maxData){
+
+                maxName = o.returnOBJName;
+
+            }else if(o.currentEnergyData < minData){
+
+                minName = o.returnOBJName;
+            }
+
+        }
     });
     //单位
     var unit = $('.unit').val();
@@ -625,13 +679,25 @@ function showDataByNum(data){
     myChartTopLeft.setOption(optionBar,true);
 
     //表格中的数据
+    var html1 = '<th></th>';
 
     //头部数据
-    var html1 = '<th></th>';
-    $(allDataX).each(function(i,o){
+    if(flag == 1){
+        $(data).each(function(i,o){
 
-        html1 += '<th><span title="'+o+'">'+ o.substring(0,4)+'</span></th>'
-    });
+            html1 += '<th><span title="'+o.returnOBJName+'"><a target="_blank" href="energyOfficePanking.html?id='+ o.returnOBJID+'" >'+ o.returnOBJName.substring(0,4)+'</a></span></th>'
+
+        });
+
+    }else{
+
+        $(allDataX).each(function(i,o){
+
+            html1 += '<th><span title="'+o+'">'+ o.substring(0,4)+'</span></th>'
+        });
+    }
+
+
 
     $('.table thead tr').html(html1);
 

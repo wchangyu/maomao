@@ -46,7 +46,14 @@
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
-
+    <style>
+        .theHidden{
+            display: none;
+        }
+        .main-contents-header-lists0{
+            display: none;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -371,6 +378,22 @@
     </div>
     <div class="scroll-to-top">
         <i class="icon-arrow-up"></i>
+    </div>
+</div>
+
+<div class="modal fade ui-draggable in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px">
+        <div class="modal-content">
+            <div class="modal-header ui-draggable-handle checked">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel" style="margin-bottom: 10px;">报警处理备注</h4>
+                <input type="text" class="modal-body" style="width:100%;">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary submitNote">提交更改</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

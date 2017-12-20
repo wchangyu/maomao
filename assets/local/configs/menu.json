@@ -28,70 +28,33 @@
     "iconclass":"icon-screen-desktop",
     "content":"用能监测",
     "submenu": {
-      "变配电系统":{
-        "type":"0",
-        "content":"变配电系统",
-        "uri":"../yongnengjiance/energyMonitor.html",
-        "uid":"",
-        "arg":"0,0",
-        "iconclass":"",
-        "usepointer":"1"
+      "监控总览": {
+        "type": "0",
+        "content": "监控总览",
+        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uid": "",
+        "arg": "2,4",
+        "iconclass": ""
       },
-      "变配电系统2":{
-        "type":"0",
-        "content":"变配电系统-空调",
-        "uri":"../yongnengjiance/energyMonitor.html?a=1",
-        "uid":"",
-        "arg":"2,7",
-        "iconclass":""
+      "变配电系统": {
+        "type": "2",
+        "content": "变配电系统"
       },
-      "变配电系统3":{
-        "type":"0",
-        "content":"变配电系统-高铁",
-        "uri":"../yongnengjiance/energyMonitor.html?a=2",
-        "uid":"",
-        "arg":"2,4",
-        "iconclass":""
+      "配电支路": {
+        "type": "0",
+        "content": "配电支路",
+        "uri": "../yongnengjiance/energyMonitor.html?a=2",
+        "uid": "",
+        "arg": "2,10",
+        "iconclass": ""
       },
-      "变配电系统4":{
-        "type":"0",
-        "content":"变配电系统-高铁",
-        "uri":"../yongnengjiance/energyMonitor.html?a=3",
-        "uid":"",
-        "arg":"1,2101007039|2101007040|2101007041|2101007042",
-        "iconclass":""
-      },
-      "暖通空调系统":{
-        "type":"0",
-        "content":"暖通空调系统",
-        "uri":"../yongnengjiance/energyMonitor.html?a=4",
-        "uid":"",
-        "arg":"2,8",
-        "iconclass":""
-      },
-      "给排水系统":{
-        "type":"0",
-        "content":"给排水系统",
-        "uri":"../yongnengjiance/energyMonitor.html",
-        "uid":"",
-        "arg":"0,0",
-        "iconclass":""
-      },
-      "送排风系统":{
-        "type":"0",
-        "content":"送排风系统",
-        "uri":"../yongnengjiance/energyMonitor-4.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "电扶梯系统":{
-        "type":"0",
-        "content":"电扶梯系统",
-        "uri":"../yongnengjiance/energyMonitor-5.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
+      "变配电室综合监控": {
+        "type": "0",
+        "content": "变配电室综合监控",
+        "uri": "../yongnengjiance/energyMonitor.html?a=19",
+        "uid": "",
+        "arg": "2,19",
+        "iconclass": ""
       }
     }
   },
@@ -1047,6 +1010,14 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "历史录像":{
+        "type":"0",
+        "content":"历史录像",
+        "uri":"../new-luxiangfenxi/historyMonitor.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },
@@ -1180,7 +1151,7 @@
       "首页":{
         "type":"0",
         "content":"首页",
-        "uri":"../new-nengyuanzonglan/new-index.html",
+        "uri":"../new-nengyuanzonglan/new-index2.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -1341,30 +1312,30 @@
         "arg":"",
         "iconclass":""
       },
-      "班次管理":{
+      "后台配置":{
+        "type":"2",
+        "content":"后台配置"
+      },
+      "万元GDP":{
         "type":"0",
-        "content":"班次管理",
-        "uri":"../YWFZ/classManagement.html",
+        "content":"万元GDP",
+        "uri":"../new-shurucanshu/enterpriseGDPData.html",
         "uid":"",
         "arg":"",
         "iconclass":""
       },
-      "值班管理":{
+      "就诊人数":{
         "type":"0",
-        "content":"值班管理",
-        "uri":"../YWFZ/onDutyManagement.html",
+        "content":"就诊人数",
+        "uri":"../new-shurucanshu/outpatientNumber.html",
         "uid":"",
         "arg":"",
         "iconclass":""
-      }
-
-    }
-  },
-  "管理诊断":{
-    "type":"1",
-    "iconclass":"icon-note",
-    "content":"管理诊断",
-    "submenu": {
+      },
+      "管理诊断":{
+        "type":"2",
+        "content":"管理诊断"
+      },
       "综合诊断": {
         "type": "0",
         "content": "综合诊断",
@@ -1372,15 +1343,12 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
-      }
-    }
-  },
-  "报表管理":{
-    "type":"1",
-    "iconclass":"icon-note",
-    "content":"报表管理",
-    "submenu": {
-      "综合诊断": {
+      },
+      "报表管理":{
+        "type":"2",
+        "content":"管理诊断"
+      },
+      "综合管理": {
         "type": "0",
         "content": "综合管理",
         "uri": "../new-baobiaoguanli/statementManagement.html",

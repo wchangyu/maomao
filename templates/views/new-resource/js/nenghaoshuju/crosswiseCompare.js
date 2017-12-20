@@ -45,8 +45,6 @@ $(function(){
     GetAllBranches(2);
     //branchesType = 2 支路复选框
     branchesType = 2;
-
-
     ////默认加载数据
     GetShowEnergyNormItem(100,true);
 
@@ -417,15 +415,16 @@ function getPointerData(url,flag){
     //获取指标ID
     var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
 
-    //在指标类型中寻找对应项
-    $(energyNormItemArr).each(function(i,o){
+    if(normItemID){
+        //在指标类型中寻找对应项
+        $(energyNormItemArr).each(function(i,o){
 
-        if(o.normIndex == normItemID){
+            if(o.normIndex == normItemID){
 
-            energyNormItemObj = o
-        }
-    });
-
+                energyNormItemObj = o
+            }
+        });
+    }
 
     //获取名称
     var areaName = '';
@@ -468,7 +467,7 @@ function getPointerData(url,flag){
             officeID.push(o.f_OfficeID);
 
             //页面上方展示信息
-            areaName += o.f_OfficeName;
+            areaName += o.f_OfficeName+ " -- ";
         });
 
     }else if(flag == 3){
@@ -481,11 +480,18 @@ function getPointerData(url,flag){
 
             return false;
         }
-
         $( nodes).each(function(i,o){
 
             serviceID.push(o.id);
+
+            //页面上方展示信息
+            areaName += o.name+ " -- ";
         });
+
+        //本地构建energyNormItemObj对象
+        energyNormItemObj.energyItemID = _ajaxEcType;
+
+        energyNormItemObj.energyNormFlag = 1;
     }
 
     //判断是否标煤
@@ -539,7 +545,12 @@ function getPointerData(url,flag){
                 return false;
             }
             //改变头部显示信息
-            var energyName = $('.left-middle-main1 .curChoose').html();
+            var energyName = '';
+
+            if($('.left-middle-main1 .curChoose').length > 0){
+                energyName = $('.left-middle-main1 .curChoose').html();
+            }
+
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
@@ -578,7 +589,7 @@ function getPointerData(url,flag){
                 }
             };
 
-            optionLine.series.length = 0;
+            optionLine.series = [];
 
             optionLine.legend.data = [];
 
@@ -597,30 +608,86 @@ function getPointerData(url,flag){
 
                 for(var j=0; j < allData[i].length; j++){
 
-                   data.push(allData[i][j].data.toFixed(2));
+                    data.push(allData[i][j].data.toFixed(2));
                 }
 
+                //给对象赋值
                 obj.data = data;
                 obj.name = result[i].returnOBJName;
 
-                console.log(obj);
-
-                optionLine.series[i] =  obj;
-
-                optionLine.legend.data[i] = result[i].returnOBJName;
+                optionLine.series.push(obj);
+                //改变上方图例
+                optionLine.legend.data.push(result[i].returnOBJName);
 
             }
-
-            console.log(optionLine.series);
-            console.log(optionLine.legend)
-
-            console.log(optionLine);
-
 
             //echart柱状图
             optionLine.xAxis[0].data = allDataX;
 
-            myChartTopLeft.setOption(optionLine);
+            myChartTopLeft.setOption(optionLine,true);
+
+            //下方表格
+            var tableHtml = '';
+            //获取第一项的累计值
+            var total = result[0].sumMetaData;
+            //获取第一项的峰值
+            var max = result[0].sumMetaData;
+            //获取第一项的谷值
+            var min = result[0].sumMetaData;
+            //获取第一项的平均值
+            var avg = result[0].sumMetaData;
+
+            $(result).each(function(i,o){
+
+                var index = i+1;
+                tableHtml += '<tr>' +
+                    '<td>'+ index+'</td>'+
+                    '<td>'+ o.returnOBJName+'</td>'+
+                    '<td>'+ o.sumMetaData.toFixed(2)+'</td>'+
+                    '<td>'+ o.maxMetaData.toFixed(2)+'</td>'+
+                    '<td>'+ o.minMetaData.toFixed(2)+'</td>'+
+                    '<td>'+ o.avgMetaData.toFixed(2)+'</td>'+
+
+                    '</tr>';
+
+                if(i != 0){
+                    //计算累计值百分比
+                    var totalPercent = (((o.sumMetaData - total) / total * 100).toFixed(1)) + '%';
+
+                    if( total == 0){
+                        totalPercent = 0 + '%';
+                    }
+                    //计算峰值百分比
+                    var maxPercent = ((o.maxMetaData - max) / total * 100).toFixed(1) + '%';
+
+                    if( max == 0){
+                        maxPercent = 0 + '%';
+                    }
+                    //计算谷值百分比
+                    var minPercent = ((o.minMetaData - min) / total * 100).toFixed(1) + '%';
+
+                    if( min == 0){
+                        minPercent = 0 + '%';
+                    }
+                    //计算平均值百分比
+                    var avgPercent = ((o.avgMetaData - avg) / total * 100).toFixed(1) + '%';
+
+                    if( avg == 0){
+                        avgPercent = 0 + '%';
+                    }
+
+                    tableHtml += '<tr>' +
+                        '<td colspan="2">'+ index+'对比1</td>'+
+                        '<td>'+ totalPercent+'</td>'+
+                        '<td>'+ maxPercent+'</td>'+
+                        '<td>'+ minPercent+'</td>'+
+                        '<td>'+ avgPercent+'</td>'+
+                        '</tr>';
+
+                }
+            });
+
+            $('#dateTables tbody').html(tableHtml);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -628,8 +695,10 @@ function getPointerData(url,flag){
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
             }
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+
         }
     })
 }
@@ -705,5 +774,3 @@ function GetShowEnergyNormItem(energyType,flag){
     })
 
 }
-
-

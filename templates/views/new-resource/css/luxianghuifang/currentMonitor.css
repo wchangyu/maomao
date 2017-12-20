@@ -1,0 +1,92 @@
+/*头部信息*/
+.page-title{
+    display: none;
+}
+
+/*左侧菜单隐藏*/
+.page-sidebar-menu{
+    display: none;
+}
+
+.contant-main-left{
+    padding: 0 !important;
+}
+
+/*!*调试时打开*!*/
+/*.debug{*/
+    /*display: block !important;*/
+/*}*/
+
+
+/*右侧统计信息*/
+.rheader-content-right1{
+    padding-top: 20px;
+    box-sizing: border-box;
+    display: none;
+}
+.rheader-content-right1 .statistics-message{
+    margin-bottom:15px;
+}
+.rheader-content-right1 .statistics-message h3{
+    margin: 0 !important;
+}
+.rheader-content-right1 .statistics-message h3 span{
+
+    background:#5b9bd5;
+    color:white;
+    padding:3px 18px;
+    border-radius: 5px 5px 0px 0px !important;
+    display: inline-block;
+}
+.statistics-message .statistics-message-content{
+    border: 1px solid #ccc;
+}
+.statistics-message .statistics-message-content ul li{
+    font-size: 14px;
+    color:#666;
+    line-height: 30px;
+    margin-bottom:10px !important;
+}
+.statistics-message .statistics-message-content ul li span{
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.page-quick-sidebar-over-content{
+    z-index: 3000;
+}
+
+.div-plugin-contain{
+    z-index: 10;
+}
+.parent-wnd{
+    z-index: 10;
+}
+.parent-wnd div{
+    z-index: 10 !important;
+}
+.parent-wnd div canvas{
+    z-index: 10 !important;
+}
+.plugin object{
+    z-index: 10 !important;
+}
+.divPlugin{
+    z-index: 10;
+}
+/*摄像头信息*/
+.monitor-message li{
+    cursor: pointer;
+
+}
+
+.curClick{
+    color:#5b9bd5 !important;
+}
+
+.statistics-message-content ul{
+    padding-top:15px;
+    box-sizing: border-box;
+    height: 540px;
+    overflow: auto;
+}

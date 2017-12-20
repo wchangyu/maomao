@@ -132,7 +132,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     var diagTypeNum = diagnoseArr[indexItem].diagTypeNum;
 
     //定义要跳转的页面
-    var postHtml= '';
+    var postHtml= 'javascript:;';
 
     //如果是能耗诊断
     if(diagTypeNum == 'EnergyDiag'){
@@ -142,7 +142,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
     //如果是环境品质诊断
     }else  if(diagTypeNum == 'EnvironDiag'){
 
-        postHtml= "officeDingEDetailData.html?id=";
+        postHtml= "getEnvironDetailData.html?id=";
     }
 
     //如果是第一项，需添加头部信息
@@ -169,7 +169,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
         data:diagObj,
         success: function (result) {
             count ++ ;
-            //console.log(result);
+            console.log(result);
             //console.log(count);
 
             //是否继续获取能耗诊断信息
@@ -182,6 +182,45 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
 
             //页面添加诊断问题信息
             $(result).each(function(i,o){
+                //console.log(o);
+
+                if(o.returnOBJID == ''){
+                    //如果当前还没有诊断信息
+                    if(curDiagProblemCount == 0){
+
+                        diagHtml +=   '<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 ">' +
+                            '<ul>'+
+                            '<li>'+ o.oneKeyDiagDesc+'</li>';
+
+                        //当前是5的倍数需要把上面的div闭合 并开始新的div
+                    }else if(curDiagProblemCount % 5 == 0){
+
+                        diagHtml +=   '</ul></div><div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 ">' +
+                            '<ul>'+
+                            '<li>' +
+                            ''+ o.oneKeyDiagDesc+'' +
+                            '</li>';
+
+                    }else{
+
+                        diagHtml +=  '<li>' +
+                            ''+ o.oneKeyDiagDesc+'' +
+                            '</li>';
+                    }
+
+                    //记录当前分类下已出现问题个数
+                    curDiagProblemCount ++;
+                    //记录所有问题总个数
+                    curDiagProblemAccount++;
+                    //给存放所有诊断结果的数组中添加数据
+                    var obj = o;
+                    //给诊断结果添加唯一标识
+                    obj.indexId = curDiagProblemAccount;
+                    //加入数组
+                    diagSpecificArr.push(obj);
+
+                    return true;
+                }
 
                 //如果当前还没有诊断信息
                 if(curDiagProblemCount == 0){
@@ -189,6 +228,7 @@ function getExecuteOneKeyDiagItem(indexItem,indexDiag){
                     diagHtml +=   '<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 ">' +
                                     '<ul>'+
                                         '<li><a target="_blank" href="'+ postHtml+ curDiagProblemAccount+'">'+ o.oneKeyDiagDesc+'</a></li>';
+
                     //当前是5的倍数需要把上面的div闭合 并开始新的div
                 }else if(curDiagProblemCount % 5 == 0){
 

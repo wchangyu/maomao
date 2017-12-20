@@ -413,6 +413,7 @@ $(function(){
     $('.excelButton11').eq(2).on('click',function(){
         FFExcel($('#failure-info')[0])
     });
+
     //IE浏览器中导出复杂表头为excel文件
     function AutoExcel(tableId){
 

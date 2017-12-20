@@ -2,6 +2,9 @@
  * Created by went on 2016/8/2.
  * 2017/7/6 添加modbus支持
  */
+//全局设置缩放比例
+_scaleX = 1;
+
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
@@ -32,11 +35,13 @@ var userMonitor = (function(){
     const _leftWidth = 250;
     const _headHeight = 62;
     const _scaleStep = 0.05;    //每次点击的变形变化量
-    var _scaleX = 1;        //变形比例
+    //var _scaleX = 1;        //变形比例
     var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
     var _refreshAction;
     var _imgProcSrc;            //存放背景图地址
     var _imgProcWidth;            //存放背景图宽度
+
+    $('.content-main-left').width(0);
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -150,6 +155,7 @@ var userMonitor = (function(){
             _refreshAction = setTimeout(getInstDatasByIds,_refreshInterval * 1000);
         }
     };
+
     //设置缩小和放大的按钮图标
     var setScaleSign = function(scale,scaleStep){
         var $badge3 = $("#badge-3");
@@ -523,7 +529,9 @@ var userMonitor = (function(){
                     /*----------------页面自适应 王常宇修改-----------------*/
                     var norWidth = $('.page-title').width();
                     //实际宽度
-                    var realWidth = norWidth - _leftWidth;
+                    var realWidth = norWidth - _leftWidth - 20;
+
+                    //console.log(realWidth);
 
                     //缩放比例计算
                     var ratioZoom = realWidth / imgWidth;
@@ -531,7 +539,32 @@ var userMonitor = (function(){
                     _scaleX = ratioZoom;
                     setScaleSign(_scaleX,_scaleStep);
                     //右侧容器宽度
-                    $('#right-container').width(realWidth);
+                    $('#right-container').width(realWidth + 20);
+
+
+                    //判断左侧操作栏是否存在
+                    var o1 = $(".content-main-left").css("display");
+
+                    //如果存在隐藏左侧操作栏
+                    if(o1 == 'block'){
+
+                        setTimeout(function(){
+
+                            $('.showOrHidden').click();
+
+                        },100);
+
+                    }else{
+                        //不存在 让右侧流程图自适应
+                        setTimeout(function(){
+
+                            $(window).resize();
+
+                        },100);
+                    }
+
+
+
 
                     $(window).resize(function () {          //当浏览器大小变化时
                         var _leftRealwidth = _leftWidth;
@@ -540,9 +573,10 @@ var userMonitor = (function(){
                             _leftRealwidth = 0;
 
                         }
+                        console.log(55);
                         var norWidth1 = $('.page-title').width();
                         //实际宽度
-                        var realWidth1 = norWidth1 - _leftRealwidth;
+                        var realWidth1 = norWidth1 - _leftRealwidth - 20;
                         //缩放比例计算
                         var ratioZoom1 = realWidth1 / imgWidth;
                         //对左上角放大缩小按钮重绘
@@ -559,7 +593,7 @@ var userMonitor = (function(){
                         })
 
                         //右侧容器宽度
-                        $('#right-container').width(realWidth1);
+                        $('#right-container').width(realWidth1 + 20);
 
 
                         $('#container').hide();
@@ -1961,6 +1995,8 @@ var userMonitor = (function(){
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
+            console.log(_scaleX);
+
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
                 "left" : ((left - 1) / _scaleX) + "px",
                 "top"  : ((top - 1) / _scaleX) + "px"
@@ -1998,8 +2034,10 @@ var userMonitor = (function(){
 
 _theImgProcWidth = 0;
 
-$(function(){
-    $('.showOrHidden').click(function(){
+
+
+
+$('.showOrHidden').click(function(){
 
         $('#container').hide();
         $('#eyeOnOff').html('切换鹰眼模式');
@@ -2052,7 +2090,7 @@ $(function(){
 
         }
     })
-});
+
 
 function changeTransform(o1){
     var _leftRealwidth = 250;
@@ -2063,7 +2101,7 @@ function changeTransform(o1){
     }
     var norWidth1 = $('.page-title').width();
     //实际宽度
-    var realWidth1 = norWidth1 - _leftRealwidth;
+    var realWidth1 = norWidth1 - _leftRealwidth-20;
     //缩放比例计算
     var ratioZoom1 = realWidth1 / _theImgProcWidth;
     //对左上角放大缩小按钮重绘
@@ -2080,6 +2118,6 @@ function changeTransform(o1){
     })
 
     //右侧容器宽度
-    $('#right-container').width(realWidth1);
+    $('#right-container').width(realWidth1+20);
 }
 

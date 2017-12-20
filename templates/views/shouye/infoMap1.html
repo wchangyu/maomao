@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index1.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -243,38 +245,95 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12" style="position: relative">
-                    <div class="ecAll">
-                        <div class="op"></div>
-                        <div class="ecTitle">本月能耗总览</div>
-                        <div class="ec">
+                    <div style="position: absolute;left:680px;z-index: 1000">
+
+                        <div class="ecAll quota-data-bottom">
+                            <h3 style="">
+                                             <span class="left-patch" style="background: #F2285C">
+
+                                            </span>
+                                本月能耗总览
+                            </h3>
+
+                            <div class="">
+
+                                <div class="fenleinenghao">
+                                    <p class="title" style="color:#F2285C">总能耗 <span style="color:black">（kgce）</span></p>
+                                    <p class="data"></p>
+                                    <!--同比-->
+                                    <div class="child child1">
+                                        <p>同比 <br/><span></span></p>
+                                    </div>
+                                    <!--环比-->
+                                    <div class="child child2">
+                                        <p>环比 <br/><span></span></p>
+                                    </div>
+                                </div>
+
+                                <div class="fenleinenghao fenleinenghao1">
+                                    <p class="title">总电耗（kWh）</p>
+                                    <p class="data"></p>
+                                    <!--同比-->
+                                    <div class="child child1">
+                                        <p>同比 <br/><span></span></p>
+                                    </div>
+                                    <!--环比-->
+                                    <div class="child child2">
+                                        <p>环比 <br/><span></span></p>
+                                    </div>
+                                </div>
+
+                                <div class="fenleinenghao fenleinenghao1">
+                                    <p class="title">总水耗（t）</p>
+                                    <p class="data"></p>
+                                    <!--同比-->
+                                    <div class="child child1">
+                                        <p>同比 <br/><span></span></p>
+                                    </div>
+                                    <!--环比-->
+                                    <div class="child child2">
+                                        <p>环比 <br/><span></span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="ecOfficeTop5 quota-data-bottom" >
+
+                            <h3 style="">
+                                             <span class="left-patch" style="background: #35DAAF">
+
+                                            </span>
+                                本月楼宇能耗排名
+                            </h3>
 
                         </div>
-                    </div>
-                    <div class="ecOfficeTop5" >
-                        <div class="op2"></div>
-                        <div class="ecTitle">本月科室能耗排行</div>
-                        <div class="ecTop">
 
+                        <div class="curEC quota-data-bottom" id="curEC">
+                            <h3 style="">
+                                             <span class="left-patch" style="background: #F2285C">
+
+                                            </span>
+                                本月能耗总览
+                            </h3>
                         </div>
+
+
                     </div>
-                    <div class="curEC" id="curEC">
-                        <div class="op"></div>
-                        <div class="ecTitle"></div>
-                        <div class="ec"></div>
-                    </div>
+
 
                     <div class="thd-content">
-
-
-                        <img id="img2"  class="mapper" src="../../../assets/local/img/3dmap/吉大一院.jpg" style="width:1289px;height:771px;" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
+                        <img id="img2"  class="mapper" src="../../../assets/local/img/3dmap/chcmuMap.jpg" style="width:1289px;height:771px;" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
                         <map name="mapInfos" id="mapInfos">           <!--具体的形状，从配置文件读取-->
-                            <area coords="138,402,138,495,313,578,434,576,597,520,643,510,641,413,589,398,452,445,449,407,395,378,347,403,326,436,236,401,207,384,236,401,236,396,207,384" data-ptid="8909180103" data-ptname="儿童住院部（1）" id="map_0">
-                            <area coords="565,400,540,410,537,388,671,354,685,356,796,328,800,322,908,287,968,295,1083,323,1082,399,966,443,898,427,888,455,781,492,743,480,665,505,648,497,648,416,592,392" data-ptid="8909180104" data-ptname="门诊和急诊（2）" id="map_1" >
-                            <area coords="960,290,962,153,1134,107,1181,113,1188,130,1228,117,1274,128,1279,319,1112,388,1091,385,1087,323,1014,304,988,298" data-ptid="8909180102" data-ptname="外科楼（3）" id="map_2" >
-                            <area coords="13,337,14,449,122,505,138,499,137,404,206,382,208,372,208,336,238,328,226,308,60,338,41,331" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_3" >
-                            <area coords="821,261,818,316,691,355,632,362,632,290,791,254" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_4">
-                            <area coords="427,302,428,395,474,427,537,405,631,361,634,278,605,267" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_5">
-                            <area coords="407,278,438,289,428,392,326,434,208,384,211,318" data-ptid="8909180101" data-ptname="内科楼（5,6,7,8）" id="map_6" >
+                            <area coords="97,622,170,594,183,625,111,654" data-ptid="5190180101" data-ptname="1号楼[门诊部]" id="map_1">
+						  <area coords="208,609,305,586,314,614,216,639" data-ptid="5190180102" data-ptname="2号楼[培训楼]" id="map_2">
+						  <area coords="183,581,178,542,210,539,207,525,234,525,235,514,162,515,160,481,247,479,293,461,306,492,257,513,246,512,248,521,293,519,298,571" data-ptid="5190180103" data-ptname="3号楼[急诊楼]" id="map_3">
+						  <area coords="493,232,510,230,509,219,564,213,573,251,517,257,517,263,500,266,498,266" data-ptid="5190180104" data-ptname="4号楼" id="map_4">
+						  <area coords="260,343,255,309,266,296,276,293,277,287,303,281,307,265,314,258,325,254,324,230,329,224,363,219,368,247,447,239,460,242,465,271,461,280,442,288,439,297,376,305,379,326" data-ptid="5190180105" data-ptname="5号楼[外科楼]" id="map_5">
+						  <area coords="108,348,133,346,126,284,191,280,202,341,206,346,220,348,227,358,231,411,138,424,135,395,119,396,120,380,110,379" data-ptid="5190180106" data-ptname="6号楼[内科楼]" id="map_6">
+						  <area coords="142,277,137,236,158,233,151,198,201,192,195,152,229,146,233,187,247,186,251,195,250,205,247,226,240,227,245,265" data-ptid="5190180107" data-ptname="7号楼[科教楼]" id="map_7">
+						  <area coords="153,76,192,60,195,64,222,54,226,64,224,67,229,78,162,101" data-ptid="5190180108" data-ptname="8号楼[康复楼]" id="map_8">
                         </map>
                     </div>
                 </div>
@@ -342,38 +401,40 @@
     });
 
 </script>
-
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/3DMap.js"></script>
 <script src="../resource/js/mapper.js"></script>
 
 <script>
-    //获取图片的宽度
-    var imgWidth = $('#img2').width();
+//    //获取图片的宽度
+//    var imgWidth = $('#img2').width();
+//
+//        //定义当前容器的宽度
+//        var curWidth = imgWidth + 50;
+//
+//
+//    setTimeout(function(){
+//
+//        $('.page-content').css({
+//
+//            'width':curWidth
+//        });
+//
+//    },200);
 
-        //定义当前容器的宽度
-        var curWidth = imgWidth + 50;
+
+//    window.onresize=function(){
+//        setTimeout(function(){
+//
+//            $('.page-content').css({
+//
+//                'width':curWidth
+//            });
+//
+//        },200);
+//    };
 
 
-    setTimeout(function(){
-
-        $('.page-content').css({
-
-            'width':curWidth
-        });
-
-    },200);
-
-
-    window.onresize=function(){
-        setTimeout(function(){
-
-            $('.page-content').css({
-
-                'width':curWidth
-            });
-
-        },200);
-    };
 
 
 </script>

@@ -5,7 +5,7 @@ $(function(){
     var _ajaxStartTime = moment().subtract(1,'d').format("YYYY/MM/DD");
 
     //日期插件
-    $('.datetimeStart').html(_ajaxStartTime);
+    $('.datetimeStart').html(_ajaxEndTime);
     $('.datetimeEnd').html(_ajaxEndTime);
     $('.datetimepickereType').html(_ajaxStartTime +'-'+_ajaxStartTime);
 
@@ -203,6 +203,58 @@ $(function(){
         $('.datetimepickereType').empty();
     })
 
+    //改变时段选择下拉框
+    $('.types').on('change',function(){
+
+        if($(this).val() == '日'){
+
+            _ajaxStartTime_1 = moment().format('YYYY/MM/DD');
+
+            _ajaxEndTime_1 = moment().add('1','days').format('YYYY/MM/DD');
+
+            $('.datetimeStart').html( _ajaxStartTime_1);
+            $('.datetimeEnd').html( _ajaxStartTime_1);
+
+        }else if($(this).val() == '月'){
+
+            _ajaxStartTime_1 = moment().startOf('month').format('YYYY/MM/DD');
+
+            var endTime = moment().endOf('month').format('YYYY/MM/DD');
+
+            _ajaxEndTime_1 = moment().add('1','months').startOf('month').format('YYYY/MM/DD');
+
+            $('.datetimeStart').html( _ajaxStartTime_1);
+            $('.datetimeEnd').html( endTime);
+
+        }else if($(this).val() == '周'){
+
+            startTime = moment().format('YYYY/MM/DD');
+
+            endTime = moment().subtract('7','days').format('YYYY/MM/DD');
+
+            _ajaxStartTime_1 = endTime;
+
+
+            _ajaxEndTime_1 = moment(startTime).add('1','day').format('YYYY/MM/DD');
+
+            $('.datetimeStart').html( _ajaxStartTime_1);
+            $('.datetimeEnd').html( startTime);
+
+        }else if($(this).val() == '年'){
+
+            _ajaxStartTime_1 = moment().startOf('year').format('YYYY/MM/DD');
+
+            var endTime = moment().endOf('year').format('YYYY/MM/DD');
+
+            _ajaxEndTime_1 = moment().add('1','years').startOf('year').format('YYYY/MM/DD');
+
+            $('.datetimeStart').html( _ajaxStartTime_1);
+            $('.datetimeEnd').html( endTime);
+        }
+
+
+    });
+
     /*--------------------------表格-------------------------*/
 
 
@@ -261,7 +313,7 @@ $(function(){
                 "data":"cName"
             },
             {
-                "title": "名称",
+                "title": "楼宇名称",
                 "data":"pointerName",
                 "render":function(data,type,row,meta){
                     //获取ID
@@ -280,12 +332,16 @@ $(function(){
             },
             {
                 "title": "此时数据",
-                "data":"data"
+                "data":"data",
+                "render":function(data,type,row,meta){
+
+                    return data.toFixed(2);
+                }
             },
-            {
-                "title": "单位房间",
-                "data":"rowDetailsExcDatas"
-            },
+            //{
+            //    "title": "单位房间",
+            //    "data":"rowDetailsExcDatas"
+            //},
             {
                 "title": "报警等级",
                 "data":"priority"
@@ -304,9 +360,9 @@ $(function(){
                 }
             },
             {
-                "class":"alaLogID alaLogIDs",
-                "data":"alaLogID",
-                "visible":"false"
+                "class":"alaLogID alaLogIDs theHidden",
+                "data":"alaLogID"
+                //"visible":"false"
             },
             {
                 "class":"alaLogID pointerID",
@@ -324,14 +380,7 @@ $(function(){
                 "title": "处理备注",
                 "targets": -1,
                 "data": null,
-                "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>" +
-                "<div class='modal fade' id='myModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
-                "<div class='modal-dialog' style='position: absolute;left: 50%;top:50%;margin-top: -87px;margin-left: -300px'>" +
-                "<div class='modal-content'>" +
-                "<div class='modal-header'><button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button><h4 class='modal-title' id='myModalLabel'>报警处理备注</h4><input type='text' class='modal-body'><div class='modal-footer'><button type='button' class='btn btn-default' data-dismiss='modal'>关闭</button><button type='button' class='btn btn-primary submitNote'>提交更改</button></div></div>" +
-                "</div>" +
-                "</div>" +
-                "</div>"
+                "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
             }
         ]
     });
@@ -393,16 +442,24 @@ $(function(){
         }
     } );
 
-    $('.clickButtons').click(function(){
+
+    $('#datatables tbody').on('click', '.clickButtons', function (){
         var $this = $(this);
         userId = $this.parents('tr').children('.pointerID').html();
         _alaLogId = $this.parents('tr').children('.alaLogIDs').html();
-    })
+
+        console.log(userId,_alaLogId);
+
+        $('.modal-body').val('');
+
+    });
+
     //获得备注内容
     $('.submitNote').click(function(){
+
         _texts = $(this).parents('.modal-header').children('.modal-body').val();
         processingNote();
-    })
+    });
 
     $('.logoToRead').click(function(){
         logoToRead();
@@ -467,7 +524,7 @@ $(function(){
     //显示隐藏
     function format ( d ) {
         var theader = '<table class="table">' +
-            '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>单位房间</td><td>报警等级</td></tr></thead>';
+            '<thead><tr><td>时间</td><td>支路</td><td>楼宇名称</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>报警等级</td></tr></thead>';
         var theaders = '</table>';
         var tbodyer = '<tbody>'
         var tbodyers = '</tbody>';
@@ -477,7 +534,6 @@ $(function(){
             '</td><td>' + d[1].cDtnName +
             '</td><td>' + d[1].expression +
             '</td><td>' + d[1].data +
-            '</td><td>' + d[1].sysLogID +
             '</td><td>' + d[1].priority +
             '</td></tr>';
         for(var i=2;i< d.length;i++){
@@ -488,7 +544,6 @@ $(function(){
                 '</td><td>' + d[i].cDtnName +
                 '</td><td>' + d[i].expression +
                 '</td><td>' + d[i].data +
-                '</td><td>' + d[i].sysLogID +
                 '</td><td>' + d[i].priority +
                 '</td></tr>'
         }
@@ -819,18 +874,21 @@ $(function(){
     }
 
     //标识阅读功能
-    function logoToRead(){
+    var logoToReadID = [];
+    function logoToRead (){
         logoToReadID = [];
         var pitchOn = $('.choice').parent('.checked'); //包含结果的数组的object
         for(var i=0;i<$('.choice').length;i++){
             //if($('.choice').eq(i).parent('.checked'))
             if($('.choice').eq(i).parent('.checked').length != 0){
-                logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
+                logoToReadID.push($('.choice').eq(i).attr('data-alalogid'));
             }
         }
+        console.log(logoToReadID);
         var alaLogIDs = {
             '':logoToReadID
-        }
+        };
+
         $.ajax(
             {
                 'type':'post',
@@ -838,10 +896,8 @@ $(function(){
                 'async':false,
                 'data':alaLogIDs,
                 'success':function(result){
-
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+                    //重新获取页面数据
+                    alarmHistory();
                 }
             }
         )
@@ -849,6 +905,8 @@ $(function(){
 
     //用户名  当前时间（获取） alaLogId  input.val()
     function processingNote(){
+
+
         //获取当前用户名
         var prm = {
             'userId':userId,
@@ -856,16 +914,22 @@ $(function(){
             'alaLogId':_alaLogId,
             'alaMessage':_texts
         };
+
+        console.log(prm);
+
         $.ajax(
             {
                 'type':'post',
                 'url':sessionStorage.apiUrlPrefix + 'Alarm/SetAlarmMessage',
-                'async':false,
                 'data':prm,
                 success:function(result){
                     if(result){
                         $("#myModal").modal('hide');
                         $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
+
+                        //重新获取页面数据
+                        alarmHistory();
+
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){

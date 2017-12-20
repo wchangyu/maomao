@@ -60,7 +60,7 @@ var ETSelection = function(){
             var $p = $("<p>");
             $p.css("margin-top","50px");
             $p.css("text-align","center");
-            $p.html(allTypes[i].etname)
+            $p.html('<span>'+allTypes[i].etname+'</span>')
             $div.append($p);
 
             $div.on("click",function(){     //设置能耗分类的点击事件

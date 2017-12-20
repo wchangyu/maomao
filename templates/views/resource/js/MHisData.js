@@ -1,9 +1,9 @@
 $(function(){
 	//开始&结束时间；
-	_startTimes = moment().subtract(1,'d').format("YYYY-MM-DD");
-	_startTime = moment().subtract(1,'d').format("YYYY/MM/DD");
-	_endTimes = moment().subtract(1,'d').format("YYYY-MM-DD");
-	_endTime = moment().format("YYYY/MM/DD");
+	_startTimes = moment().format("YYYY-MM-DD");
+	_startTime = moment().format("YYYY/MM/DD");
+	_endTimes = moment().format("YYYY-MM-DD");
+	_endTime = moment().add(1,'d').format("YYYY/MM/DD");
 	_curDef = JSON.parse(sessionStorage.historyData_ProcDef);
 	$('.L-content-header').html(_curDef.prDefNM + "(" + _startTimes + ")");
 	//时间插件

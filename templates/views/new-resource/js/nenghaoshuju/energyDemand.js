@@ -34,6 +34,17 @@ $(function(){
     //默认加载数据
     getPointerData('EnergyQueryV2/GetPointerEnergyQuery',1);
 
+    //屏蔽右上角的元的数据
+    var html = '';
+    $(unitArr1).each(function(i,o){
+        if(o.unitNum != 3){
+            html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
+        }
+
+    });
+
+    $('#unit').html(html);
+
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
@@ -46,7 +57,6 @@ $(function(){
         var a = $('.tree-2')[0].style.display;
         //分户状态
         var s = $('.tree-3')[0].style.display;
-
 
         if(o != 'none'){
             //楼宇数据
@@ -65,7 +75,9 @@ $(function(){
 
     //能耗选择
     $('.typee').click(function(){
-        $('.typee').removeClass('selectedEnergy')
+
+        $('.typee').removeClass('selectedEnergy');
+
         $(this).addClass('selectedEnergy');
     });
 
@@ -73,6 +85,23 @@ $(function(){
     $('#unit').on('change',function() {
 
         $('.buttons').children('.btn-success').click();
+    });
+
+    //点击切换楼宇或单位时，改变页面右上角单位
+    $('.left-middle-tab').on('click',function(){
+
+        //屏蔽右上角的元的数据
+        var html = '';
+        setTimeout(function(){
+            $(unitArr1).each(function(i,o){
+                if(o.unitNum != 3){
+                    html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
+                }
+
+            });
+            $('#unit').html(html);
+        },10)
+
     });
 
     //chart图自适应

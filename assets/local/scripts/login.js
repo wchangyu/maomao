@@ -5,7 +5,8 @@ var Login = function() {
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
     var _isProceLoaded = false;
-    var _indexUrl = "shouye/index.html";
+    //var _indexUrl = "shouye/index.html";
+    var _indexUrl = "new-nengyuanzonglan/";
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
@@ -371,7 +372,7 @@ var Login = function() {
         //保存当前的登录页面，提供给退出登录时候使用
         var curLoginPage = window.location.href;
         curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
-        console.log(curLoginPage);
+        //console.log(curLoginPage);
         sessionStorage.curLoginPage = curLoginPage;
         configSrc = src || configSrc;
         if(!sessionStorage.apiUrlPrefix) {

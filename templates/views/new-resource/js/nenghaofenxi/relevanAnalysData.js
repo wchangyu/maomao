@@ -89,7 +89,7 @@ var optionLineBar = {
         trigger: 'axis'
     },
     legend: {
-        data:['累计值', '比较斜率'],
+        data:['累计值', '平均气温','就诊人数'],
         top:'30'
     },
     toolbox: {
@@ -115,24 +115,41 @@ var optionLineBar = {
         },
         {
             type: 'value',
-            name:'最高温度',
+            name:'平均温度',
             position: 'right'
+        },
+        {
+            type: 'value',
+            name:'就诊人数',
+            position: 'right',
+            offset:50
         }
     ],
     grid: {
-        left: '10%',
-        right: '8%'
+        left: '6%',
+        right: '18%'
     },
     series : [
         {
             name:'累计值',
             type:'bar',
+            yAxisIndex:0,
             barMaxWidth: '50',
             data:[]
         },
         {
-            name:'最高气温',
+            name:'平均气温',
+            axisLabel: {
+                formatter: '{value} C'
+            },
             type:'line',
+            yAxisIndex:1,
+            data:[]
+        },
+        {
+            name:'就诊人数',
+            type:'line',
+            yAxisIndex:2,
             data:[]
         }
     ]
@@ -209,6 +226,7 @@ function getPointerData(url,flag){
             myChartTopLeft.showLoading();
         },
         success:function(result){
+
             myChartTopLeft.hideLoading();
 
             //console.log(result);
@@ -228,12 +246,10 @@ function getPointerData(url,flag){
 
             $('.right-header-title').html('' + energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
-
             //绘制echarts
 
-
             //图例
-            var legendArr = [energyName,'最高气温'];
+            var legendArr = [energyName,'平均气温','就诊人数'];
 
             //首先处理本期的数据
             allData.length = 0;
@@ -264,19 +280,73 @@ function getPointerData(url,flag){
                     }
                 }
             };
-            console.log(allData);
+            //console.log(allData);
+
+            //温度数据
+            var allDataY1 = [];
+
+            $(result[1].metaDatas).each(function(i,o){
+
+                allDataY1.push(o.data.toFixed(2));
+            });
+
+            //就诊人数
+            var allDataY2 = [];
+
+            $(result[2].metaDatas).each(function(i,o){
+
+                //获取当前天数
+                var length = allDataX.length;
+
+                if( i < length){
+                    allDataY2.push(o.data);
+                }
+
+            });
+
 
             $(allData).each(function(i,o){
 
                 allDataY.push(o.data.toFixed(2));
             });
 
-            console.log(allDataY);
+            //console.log(allDataY);
 
             //echart柱状图
             optionLineBar.xAxis[0].data = allDataX;
             optionLineBar.series[0].data = allDataY;
             optionLineBar.series[0].name = energyName;
+
+            //温度
+            optionLineBar.series[1].data = allDataY1;
+
+            //就诊人数 月和年的时候显示
+            if(showDateType != 'Hour'){
+
+                optionLineBar.yAxis[3] = {
+
+                    type: 'value',
+                    name:'就诊人数',
+                    position: 'right',
+                    offset:50,
+                    show:true
+
+                };
+
+                optionLineBar.series[2].data = allDataY2;
+            }else{
+
+                optionLineBar.yAxis[3]=  {
+
+                    type: 'value',
+                    name:'就诊人数',
+                    position: 'right',
+                    offset:50,
+                    show:false
+                };
+
+                optionLineBar.series[2].data = [];
+            }
 
             optionLineBar.legend.data = legendArr;
 

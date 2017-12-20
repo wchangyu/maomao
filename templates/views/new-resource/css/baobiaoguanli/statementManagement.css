@@ -26,8 +26,8 @@
     margin-bottom:110px;
 }
 .statement-contain{
-    width:120px;
-    height:120px;
+    width:130px;
+    height:130px;
     color: white;
     background: url('../../img/energy-statement1.png') no-repeat center 30px;
     background-size: 40% 40%;
@@ -50,10 +50,11 @@
 }
 .statement-contain p {
 
-    padding-left:15px;
+    padding-left:10px;
     box-sizing: border-box;
     margin:0
 }
+
 .statement-contain p a{
     color:white;
 }

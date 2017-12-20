@@ -9,6 +9,13 @@ $(function(){
         $(".statement-contain").removeClass('curClick');
 
         $(this).addClass('curClick');
+
+        //获取路径
+        var url = $(this).find('a').attr('href');
+
+        //打开对应的报表导出页面
+        window.open(url);
+
     });
 
 });

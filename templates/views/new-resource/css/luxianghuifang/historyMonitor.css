@@ -1,0 +1,120 @@
+/*头部信息*/
+.page-title{
+    display: none;
+}
+
+/*调试时打开*/
+/*.debug{*/
+    /*display: block !important;*/
+/*}*/
+
+/*屏幕大小*/
+.page-content{
+   min-width: 1250px !important;
+}
+
+
+/*右侧统计信息*/
+.rheader-content-right1{
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.rheader-content-right1 .statistics-message{
+    margin-bottom:15px;
+}
+.rheader-content-right1 .statistics-message h3{
+    margin: 0 !important;
+}
+.rheader-content-right1 .statistics-message h3 span{
+
+    background:#5b9bd5;
+    color:white;
+    padding:3px 18px;
+    border-radius: 5px 5px 0px 0px !important;
+    display: inline-block;
+}
+.statistics-message .statistics-message-content{
+    border: 1px solid #ccc;
+}
+.statistics-message .statistics-message-content ul li{
+    font-size: 14px;
+    color:#666;
+    line-height: 30px;
+    margin-bottom:5px !important;
+}
+.statistics-message .statistics-message-content ul li span{
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.page-quick-sidebar-over-content{
+    z-index: 3000;
+}
+
+.div-plugin-contain{
+    z-index: 10;
+}
+.parent-wnd{
+    z-index: 10;
+}
+.parent-wnd div{
+    z-index: 10 !important;
+}
+.parent-wnd div canvas{
+    z-index: 10 !important;
+}
+.plugin object{
+    z-index: 10 !important;
+}
+.divPlugin{
+    z-index: 10;
+}
+/*摄像头信息*/
+.monitor-message li{
+    cursor: pointer;
+
+}
+
+.curClick{
+    color:#5b9bd5 !important;
+}
+
+.statistics-message-content ul{
+    padding-top:15px;
+    box-sizing: border-box;
+    height: 540px;
+    overflow: auto;
+}
+
+/*下方回访操作控制台修改*/
+.playback{
+    background: #4C4B4B;
+    width:100% !important;
+    margin-left:0 !important;
+    border:none !important;
+    color:#A8A8A8;
+}
+
+/*删除标题*/
+.playback legend{
+    display: none;
+}
+
+#canvas0{
+    border:none !important;
+}
+
+/*input框*/
+.playback input{
+    background: none;
+    outline: none;
+    border: 1px solid #707070;
+}
+
+/*搜索按钮*/
+.btns-seek{
+    color:#FFFFFF;
+    background: #408ADD !important;
+    border:none !important;
+    padding:2px;
+}
