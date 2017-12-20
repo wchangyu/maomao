@@ -82,19 +82,6 @@ function _timeHMSComponentsFun(el,startView){
     });
 }
 
-//datatimepicker事件插件初始化（日月年时分秒）
-function _timeHMSComponentsFun(el,startView){
-    el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: startView,  //1时间  2日期  3月份 4年份
-        forceParse: 0,
-    });
-}
-
 //datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
 function _timeOneComponentsFun(el,startView,maxView,minView,format){
     el.datetimepicker({
@@ -202,6 +189,68 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
 
 }
 
+//
+function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallback){
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs'
+        }
+    ];
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+    if(buttons == 1){
+        buttons = buttonVisible;
+    }else{
+        buttons =  buttonHidden;
+    }
+    //是否可搜索
+    var search = false;
+
+    if(searching){
+        search = true;
+    }
+    var _tables = tableId.DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": search,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'sSearch':'查询',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'ft<"F"lip>',
+        'buttons':buttons,
+        "columns": col,
+        "fnRowCallback": fnRowCallback,
+        "drawCallback":drawCallback
+    });
+    if(flag){
+        _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
+}
 //表格赋值
 function _datasTable(tableId,arr){
     var table = tableId.dataTable();

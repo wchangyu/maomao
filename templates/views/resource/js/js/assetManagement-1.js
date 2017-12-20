@@ -316,7 +316,7 @@ $(function(){
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //表格查询加载数据
-    conditionSelect();
+    //conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
         //上传文件出现

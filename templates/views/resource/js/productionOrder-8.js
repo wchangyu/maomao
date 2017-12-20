@@ -432,6 +432,10 @@ $(function(){
                 data:'wxClName'
             },
             {
+                title:'规格型号',
+                data:'size'
+            },
+            {
                 title:'数量',
                 data:'clShul'
             }
@@ -1441,7 +1445,7 @@ $(function(){
     //当前状态
     //获取配件状态常量 flag的时候，1获取操作类型下拉框。否则，2是条件查询获取的下拉框  3判断状态，
     //1的时候，获取条件查询下面的下拉框
-    function stateConstant(flag)    {
+    function stateConstant(flag){
         var prm ={
             "userID": _userIdNum,
             "userName": _userIdName,

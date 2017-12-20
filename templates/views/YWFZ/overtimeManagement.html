@@ -63,6 +63,7 @@
         }
 
     </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -415,7 +416,7 @@
                                         <input type="text" v-model="station" class="station">
                                     </div>
                                 </li>
-                                <button class="btn btn-success btn1 select-CZ">选择</button>
+                                <div class="btn btn-success select-CZ" id="select-DEV">选择</div>
                             </div>
                             <div>
                                 <li class="floatLeft" style="width: 537px;">
@@ -442,7 +443,7 @@
                                         <input type="text" v-model="aboutGD">
                                     </div>
                                 </li>
-                                <button class="btn btn-success btn1 select-CZ">选择</button>
+                                <div class="btn btn-success btn1 select-CZ" id="select-GD">选择</div>
                             </div>
                             <div style="width: 537px;">
                                 <li class="floatLeft" style="width: 249px !important;">
@@ -485,7 +486,7 @@
                                         <input type="text" v-model="overtimeP">
                                     </div>
                                 </li>
-                                <button class="btn btn-success btn1 select-CZ">选择</button>
+                                <div class="btn btn-success btn1 select-CZ" id="select-WK">选择</div>
                             </div>
                             <div class="clearfix"></div>
                         </form>
@@ -535,7 +536,7 @@
                                 <input type="text" id="zxNum">
                             </div>
                         </li>
-                        <li class="floatLeft" style="width: 100px !important;">
+                        <li class="floatLeft" style="width: 100px !important;float:right;">
                             <button type="button" class="btn btn-success zhixingButton" style="margin-top: 27px;">查询</button>
                             <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
                                 <span>该人员已存在</span>
@@ -543,7 +544,7 @@
                         </li>
                         <div class="clearfix"></div>
                     </ul>
-                    <table id="zhixingRenTable" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0" width="100%">
+                    <table id="zhixingRenTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                         <thead></thead>
                         <tbody></tbody>
                     </table>
@@ -573,6 +574,100 @@
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--设备部门（车站）选择-->
+<div class="modal fade" id="CZ-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe3">选择车站</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 580px;">
+                    <table id="sbmcxz" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--工单选择-->
+<div class="modal fade" id="GD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择工单</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="condition-query">
+                    <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
+                        <div class="input-blocked" id="filter_global">
+                            <input type="text" class="global_filter" id="gdcode">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
+                        <div class="input-blocked">
+                            <select  id="gdzt" class="returnZero">
+                                <option value="0" selected>全部</option>
+                                <option value="1">待下发</option>
+                                <option value="2">待分派</option>
+                                <option value="3">待执行</option>
+                                <option value="4">执行中</option>
+                                <option value="5">等待资源</option>
+                                <option value="6">待关单</option>
+                                <option value="7">任务关闭</option>
+                                <option value="999">任务取消</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
+                        <div class="input-blocked">
+                            <select id="station"class="returnEmpty"></select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单时间：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock gdTime">
+                        </div>
+                        <label for="">到</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock gdTime">
+                        </div>
+                    </li>
+                    <li>
+                        <div style="width: 100%;height: 100%;border: 1px solid #a9a9a9;line-height: 28px;padding-left: 3px;padding-right: 7px;">
+                            <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
+                            <label for="isExamine" style="margin-bottom: 0px;">材料申请已审批</label>
+                        </div>
+                    </li>
+                    <br>
+                    <li><button class="btn btn-success btn1" id="selectedGD">查询</button></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="gongdanContent" style="height: 469px;">
+                    <table id="GD-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

@@ -437,7 +437,7 @@ $(function(){
     ];
     initTable1($('#personTables10'),col5);
     //添加表头复选框
-    var creatCheckBox = '<input type="checkbox">';
+    var creatCheckBox = "<div class='checker'><span><input type='checkbox'></span></div>";
     $('thead').find('.checkeds').prepend(creatCheckBox);
     var _personTable1 = $('#personTable1');
     _personTable1.find('tbody').on( 'click', 'input', function () {
@@ -524,6 +524,7 @@ $(function(){
         _moTaiKuang($('#myModal7'), '添加责任人', '', '' ,'', '添加负责人');
         //获得所有ztree节点数据；
         getDpartment();
+
         if(_autoOrHand == 1){
             //点击的时候获得选择的车间的bm的值
             var bm = $('.cjz').children('option:selected').attr('bm');
@@ -534,6 +535,7 @@ $(function(){
                     mc = _departmentArr[i].name;
                 }
             }
+
             //加载负责人数据
             $('#xzmc').val(mc);
             $('#zxbm').val(bm);
@@ -557,13 +559,15 @@ $(function(){
             for(var i=0;i<_zhixingRens.length;i++){
                 if(data.userNum == _zhixingRens[i].userNum){
                     $('td:eq(0)', row).parents('tr').addClass('tables-hover');
-                    $('td:eq(0)', row).addClass(' checkeds');
+                    $('td:eq(0)', row).addClass('checkeds');
                     $('td:eq(0)', row).html( '<div class="checker"><span class="checked"><input type="checkbox"></span></div> ' );
                 }
             }
 
         }
         tableInit(_zhixingRenTable,col3,fn1);
+
+        $('#zhixingRenTable thead').find('input').parent('span').removeClass('checked');
     });
     var _zhixingRenTable = $('#zhixingRenTable');
     //复选框点击事件
@@ -587,13 +591,18 @@ $(function(){
     });
     //点击thead复选框tbody的复选框全选中
     _zhixingRenTable.find('thead').find('input').click(function(){
+
         if($(this).parents('.checker').children('.checked').length == 0){
             //点击选中状态
             _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
             _zhixingRenTable.find('tbody').find('tr').addClass('tables-hover');
+
+            $(this).parent('span').addClass('checked');
         }else{
             _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            _zhixingRenTable.find('tbody').find('tr').removeClass('tables-hover')
+            _zhixingRenTable.find('tbody').find('tr').removeClass('tables-hover');
+
+            $(this).parent('span').removeClass('checked');
         }
     });
     //增加负责人确定按钮（静态）
@@ -927,8 +936,17 @@ $(function(){
     })
     //选择部门确定按钮
     $('.determineDepartment').click(function(){
+
+        $('#xzmc').val(_determineDeObj.name);
+        $('#zxbm').val(_determineDeObj.id);
+
         _autoOrHand = 2;
         $('#tree-block').hide();
+
+        var arr = [];
+
+        datasTable($('#zhixingRenTable'),arr);
+
     })
     //选择部门取消按钮
     $('.close-tree').click(function(){
@@ -1218,7 +1236,7 @@ $(function(){
             url:_urls + 'YWGD/ywGetWXLeaders',
             data:prm,
             success:function(result){
-                console.log(result);
+
                 _allZXRArr =[];
                 for(var i=0;i<result.length;i++){
                     _allZXRArr.push(result[i]);
@@ -1512,6 +1530,9 @@ $(function(){
                         _determineDeObj.name = selectedNode[i].name;
                         _determineDeObj.id = selectedNode[i].id;
                     }
+
+                    return false;
+
                     $('#xzmc').val(_determineDeObj.name);
                     $('#zxbm').val(_determineDeObj.id);
                 },
