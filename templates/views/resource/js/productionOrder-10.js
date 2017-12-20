@@ -153,7 +153,7 @@ $(function(){
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable({
+    var table = $('.main-contents-table').children('table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -195,8 +195,6 @@ $(function(){
                 data: 'gdCode2',
                 className: 'gongdanId',
                 render:function(data, type, row, meta){
-
-                    console.log(row);
 
                     return '<span class="gongdanId" gdCode="' + row.gdCode +
                         '"' + "gdCircle=" + row.gdCircle +
@@ -877,6 +875,33 @@ $(function(){
 
     })
 
+    //tab切换
+    //tab选项卡
+    $('.table-title span').click(function(){
+        var $this = $(this);
+
+        $this.parent('.table-title').children('span').removeClass('spanhover');
+
+        $this.addClass('spanhover');
+
+        var tabDiv = $(this).parents('.table-title').next().children().children('div');
+
+        tabDiv.addClass('hide-block');
+
+        tabDiv.eq($(this).index()).removeClass('hide-block');
+
+        //隐藏导出按钮
+        $('.excelButton').children().addClass('hiddenButton');
+
+        $('.excelButton').children().eq($(this).index()).removeClass('hiddenButton');
+
+    });
+
+    //隐藏导出按钮
+    $('.excelButton').children().addClass('hiddenButton');
+
+    $('.excelButton').children().eq(0).removeClass('hiddenButton');
+
     /*------------------------------------------------------其他方法----------------------------------------------*/
 
 
@@ -976,7 +1001,48 @@ $(function(){
             url: _urls + 'YWGD/ywGDGetPeijGD',
             data:prm,
             success:function(result){
+
+                var zht7 = [];
+
+                //等待资源
+                var zht5 = [];
+
+                var zht999 = [];
+
+                for(var i=0;i<result.length;i++){
+
+                    if(result[i].gdZht == 7){
+
+                        zht7.push(result[i]);
+
+                    }else{
+
+                        if(result[i].clStatusID == 999){
+
+                            zht999.push(result[i]);
+
+                        }else{
+
+                            zht5.push(result[i]);
+
+                        }
+
+                    }
+
+                }
+
+
+                //全部
                 datasTable($("#scrap-datatables"),result);
+
+                //处理中5
+                datasTable($("#scrap-datatables1"),zht5);
+
+                //已发货999
+                datasTable($("#scrap-datatables3"),zht999);
+
+                //已完成
+                datasTable($("#scrap-datatables2"),zht7);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
