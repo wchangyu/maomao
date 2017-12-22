@@ -1,4 +1,4 @@
-$(function()    {
+$(function(){
 
     /*--------------------------------------------------变量---------------------------------------------------*/
 
@@ -19,6 +19,9 @@ $(function()    {
 
     //当前添加的所有已排班的静态数组
     var _allData = [];
+
+    //所有已排班列表
+    var  _allList = [];
 
     //数据绑定的时候，读出的人
     var _readRens = [];
@@ -169,15 +172,18 @@ $(function()    {
         //可操作
         abledOption();
 
+        //清空数组
+        _allData.length = 0;
+
     })
 
     //选择人员
     $('#select-work').click(function(){
 
         //将时间置为不可操作
-        $('.datatimeblock').attr('disabled',true).addClass('disabled-block');
-
-        $('.datatimeblock').parent().addClass('disabled-block');
+        //$('.datatimeblock').attr('disabled',true).addClass('disabled-block');
+        //
+        //$('.datatimeblock').parent().addClass('disabled-block');
 
         if($('.datatimeblock').val() == ''){
 
@@ -359,6 +365,7 @@ $(function()    {
                 if(_currentRens.length == 0){
 
                     _moTaiKuang($('#myModal2'),'提示','flag','istap','每个人员只能本月只能安排一次班！','');
+
                 }else{
 
                     drawTable();
@@ -484,6 +491,8 @@ $(function()    {
     //编辑(只能修改月份时间);
     $('#table-list').on('click','.option-edit',function(){
 
+        _isDeng = false;
+
         //初始化
         detailedInit();
 
@@ -516,222 +525,244 @@ $(function()    {
     //时间插件修改
     $('.datatimeblock').change(function(){
 
-        if( _isDeng ){
+        //对比时间,看当前选中的时间，是否已选中
 
-            return false;
+        var strTime = moment().format('YYYY') + '-' + chineseNum($('.datatimeblock').val()) + '-' + '01'
+
+        var now = moment(strTime).format('YYYY-MM-DD');
+
+        if(_allList.indexOf(now)>=0){
+
+            _moTaiKuang($('#myModal2'),'提示','flag','istap','值班表中已存在当前日期的排班，请选择其他时间！','');
+
+            //按钮置灰，不可操作
+            $('#select-work,.addWorker').attr('disabled',true)
+
+
 
         }else{
 
-            //表格清除
-            $('#worker-table thead').empty();
+            //按钮可操作
+            $('#select-work,.addWorker').attr('disabled',false);
 
-            $('#worker-table tbody').empty();
+            if( _isDeng ){
 
-            //重绘表格
-            //获取今年
+                return false;
 
-            var year = moment().format('YYYY');
+            }else{
 
-            var Monthnum = chineseNum($('#ADD-Modal').find('.datatimeblock').val());
+                //表格清除
+                $('#worker-table thead').empty();
+
+                $('#worker-table tbody').empty();
+
+                //重绘表格
+                //获取今年
+
+                var year = moment().format('YYYY');
+
+                var Monthnum = chineseNum($('#ADD-Modal').find('.datatimeblock').val());
 
 
-            //首先确定当月有几天，
-            var day = new Date(year,Monthnum,0);
+                //首先确定当月有几天，
+                var day = new Date(year,Monthnum,0);
 
-            var daycount = day.getDate();
+                var daycount = day.getDate();
 
-            //表格头部------------------------------------------------------------------
+                //表格头部------------------------------------------------------------------
 
-            var arr = ['操作','姓名','工号'];
+                var arr = ['操作','姓名','工号'];
 
-            var lengths = daycount +1;
+                var lengths = daycount +1;
 
-            for(var i=1;i<lengths;i++ ){
+                for(var i=1;i<lengths;i++ ){
 
-                var str = '';
+                    var str = '';
 
-                str = moment(String(Monthnum) + '/' + String(i)).format('MM/DD');
+                    str = moment(String(Monthnum) + '/' + String(i)).format('MM/DD');
 
-                var aa = moment().format('YYYY') + '-' + Monthnum + '-' + i;
+                    var aa = moment().format('YYYY') + '-' + Monthnum + '-' + i;
 
-                str += '<br><span data-num="' + moment(aa).format('d') +
-                    '">' + numWeek(moment(aa).format('d')) + '</span>';
+                    str += '<br><span data-num="' + moment(aa).format('d') +
+                        '">' + numWeek(moment(aa).format('d')) + '</span>';
 
-                arr.push( str );
-
-            }
-
-            //遍历arr生成表格头部
-            var headStr = '<tr>';
-
-            drawThead(arr,headStr);
-
-            //表格身体-------------------------------------------------------------------
-            var bodyStr = '';
-
-            //首先确定周期
-            var period = '';
-
-            for(var i=0;i<_readRens.length;i++){
-
-                var BC = [];
-
-                var BC0 = [];
-
-                //首先根据班次code确定显示的具体值
-                for(var j=0;j<_BCData.length;j++){
-
-                    if(_BCData[j].bccode == _readRens[i].bcNum){
-
-                        period = _BCData[j].period;
-
-                        BC = _BCData[j].banCiDetailList;
-
-                    }
+                    arr.push( str );
 
                 }
 
-                //确定arr所对应body的值
-                var dataArr = [];
+                //遍历arr生成表格头部
+                var headStr = '<tr>';
 
-                if( period == 1 ){
+                drawThead(arr,headStr);
 
-                    //首先根据arr的值来确定
-                    for(var z = 0;z<arr.length;z++){
+                //表格身体-------------------------------------------------------------------
+                var bodyStr = '';
 
-                        var dataAttr = '';
+                //首先确定周期
+                var period = '';
 
-                        if(arr[z].indexOf('data-num')>0){
+                for(var i=0;i<_readRens.length;i++){
 
-                            dataAttr = arr[z].split('=')[1].split('"')[1];
+                    var BC = [];
 
-                            if(dataAttr == 0){
+                    var BC0 = [];
 
-                                dataAttr = "7";
+                    //首先根据班次code确定显示的具体值
+                    for(var j=0;j<_BCData.length;j++){
 
-                            }
+                        if(_BCData[j].bccode == _readRens[i].bcNum){
 
-                        }else{
+                            period = _BCData[j].period;
 
-                            dataAttr = '';
+                            BC = _BCData[j].banCiDetailList;
 
                         }
 
-                        dataArr.push(dataAttr);
-
-
                     }
 
-                }else if(period == 2){
+                    //确定arr所对应body的值
+                    var dataArr = [];
 
-                    for(var z = 0;z<arr.length;z++){
+                    if( period == 1 ){
 
-                        var dataAttr = '';
+                        //首先根据arr的值来确定
+                        for(var z = 0;z<arr.length;z++){
 
-                        dataAttr = arr[z].split('<br>')[0].split('/')[1];
+                            var dataAttr = '';
 
-                        if( typeof dataAttr == 'string'){
+                            if(arr[z].indexOf('data-num')>0){
 
-                            if(dataAttr.slice(0,1) == 0){
+                                dataAttr = arr[z].split('=')[1].split('"')[1];
 
-                                dataAttr = dataAttr.slice(1,2);
+                                if(dataAttr == 0){
+
+                                    dataAttr = "7";
+
+                                }
 
                             }else{
 
-                                dataAttr = arr[z].split('<br>')[0].split('/')[1];
+                                dataAttr = '';
 
                             }
 
-                        }else{
+                            dataArr.push(dataAttr);
 
-                            dataAttr = '';
 
                         }
 
-                        dataArr.push(dataAttr);
+                    }else if(period == 2){
 
-                    }
+                        for(var z = 0;z<arr.length;z++){
 
-                }
+                            var dataAttr = '';
 
-                //初始值首先确认为全'';
-                for(var z=0;z<dataArr.length;z++){
+                            dataAttr = arr[z].split('<br>')[0].split('/')[1];
 
-                    BC0.push('');
+                            if( typeof dataAttr == 'string'){
 
-                }
+                                if(dataAttr.slice(0,1) == 0){
 
-                //确定BC0的值，有值不为''，无值为'';
-                for(var z=0;z<dataArr.length;z++){
+                                    dataAttr = dataAttr.slice(1,2);
 
-                    for(var k=0;k<BC.length;k++){
+                                }else{
 
-                        if(dataArr[z] == BC[k].selectedday){
+                                    dataAttr = arr[z].split('<br>')[0].split('/')[1];
 
-                            BC0[z] = BC[k].selectedday;
+                                }
 
-                            break;
+                            }else{
 
-                        }else{
+                                dataAttr = '';
 
-                            BC0[z] = ''
+                            }
 
-                        }
+                            dataArr.push(dataAttr);
 
-                    }
-
-                }
-
-                bodyStr += '<tr>';
-
-                for(var z=0;z<BC0.length;z++){
-
-                    var values = ''
-
-                    if(BC0[z] == ''){
-
-                        if(z == 0){
-
-                            values = '<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>'
-
-                        }else if(z == 1){
-
-                            values = _readRens[i].name;
-
-                        }else if(z == 2){
-
-                            values = _readRens[i].num;
-
-                        }else{
-
-                            values = ''
-
-                        }
-
-
-
-                    }else{
-                        {
-
-                            values = _readRens[i].bcName;
                         }
 
                     }
 
-                    bodyStr += '<td>' + values +
-                        '</td>'
+                    //初始值首先确认为全'';
+                    for(var z=0;z<dataArr.length;z++){
+
+                        BC0.push('');
+
+                    }
+
+                    //确定BC0的值，有值不为''，无值为'';
+                    for(var z=0;z<dataArr.length;z++){
+
+                        for(var k=0;k<BC.length;k++){
+
+                            if(dataArr[z] == BC[k].selectedday){
+
+                                BC0[z] = BC[k].selectedday;
+
+                                break;
+
+                            }else{
+
+                                BC0[z] = ''
+
+                            }
+
+                        }
+
+                    }
+
+                    bodyStr += '<tr>';
+
+                    for(var z=0;z<BC0.length;z++){
+
+                        var values = ''
+
+                        if(BC0[z] == ''){
+
+                            if(z == 0){
+
+                                values = '<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>'
+
+                            }else if(z == 1){
+
+                                values = _readRens[i].name;
+
+                            }else if(z == 2){
+
+                                values = _readRens[i].num;
+
+                            }else{
+
+                                values = ''
+
+                            }
+
+
+
+                        }else{
+                            {
+
+                                values = _readRens[i].bcName;
+                            }
+
+                        }
+
+                        bodyStr += '<td>' + values +
+                            '</td>'
+
+                    }
+
+                    bodyStr += '</tr>';
 
                 }
 
-                bodyStr += '</tr>';
+                $('#worker-table tbody').append(bodyStr);
 
             }
 
-            $('#worker-table tbody').append(bodyStr);
+            _isDeng = false;
 
         }
-
-        _isDeng = false;
 
     })
 
@@ -1204,23 +1235,6 @@ $(function()    {
 
     })
 
-    //删除确定按钮
-    //$('#ADD-Modal').on('click','.shanchu',function(){
-    //
-    //    $.ajax({
-    //
-    //        type:'post',
-    //        url:_urls + ''
-    //         beforeSend: function () {
-    //                $('#theLoading').modal('show');
-    //            },
-    //            complete: function () {
-    //                $('#theLoading').modal('hide');
-    //            },
-    //    })
-    //
-    //})
-
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -1242,7 +1256,19 @@ $(function()    {
             },
             success:function(result){
 
+                //console.log(result);
+
+                _allList.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _allList.push(result[i].watchtime);
+
+                }
+
                 _datasTable($('#table-list'),result);
+
+
 
             },
             error:function(jqXHR, textStatus, errorThrown){

@@ -18,6 +18,10 @@ $(function(){
             firstCost:'',
             //第二阶段补贴金额
             secondCost:'',
+            //第三阶段金额
+            thirdCost:'',
+            //第四阶段金额
+            fourthCost:'',
             //排序
             sort:''
         }
@@ -209,6 +213,10 @@ $(function(){
         typeVue.firstCost = '';
         //第二阶段补贴金额
         typeVue.secondCost = '';
+        //第三阶段金额
+        typeVue.thirdCost = '';
+        //第四阶段金额
+        typeVue.fourthCost = '';
         //排序
         typeVue.sort = '';
 
@@ -227,6 +235,10 @@ $(function(){
             money1:typeVue.firstCost,
             //第二阶段补贴金额
             money2:typeVue.secondCost,
+            //第三阶段金额
+            money3:typeVue.thirdCost,
+            //第四阶段金额
+            money4:typeVue.fourthCost,
             //排序
             sort:typeVue.sort
 
@@ -243,9 +255,13 @@ $(function(){
             url:_urls + url,
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
-
-                console.log(result);
 
                 if(result == 99){
 
@@ -294,6 +310,10 @@ $(function(){
                 typeVue.firstCost = _allData[i].money1;
                 //第二阶段补贴金额
                 typeVue.secondCost = _allData[i].money2;
+                //第三阶段金额
+                typeVue.thirdCost = _allData[i].money3;
+                //第四阶段金额
+                typeVue.fourthCost = _allData[i].money4;
                 //排序
                 typeVue.sort = _allData[i].sort;
 

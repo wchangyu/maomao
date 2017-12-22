@@ -82,19 +82,6 @@ function _timeHMSComponentsFun(el,startView){
     });
 }
 
-//datatimepicker事件插件初始化（日月年时分秒）
-function _timeHMSComponentsFun(el,startView){
-    el.datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: startView,  //1时间  2日期  3月份 4年份
-        forceParse: 0,
-    });
-}
-
 //datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
 function _timeOneComponentsFun(el,startView,maxView,minView,format){
     el.datetimepicker({
@@ -202,6 +189,68 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
 
 }
 
+//
+function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallback){
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs'
+        }
+    ];
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+    if(buttons == 1){
+        buttons = buttonVisible;
+    }else{
+        buttons =  buttonHidden;
+    }
+    //是否可搜索
+    var search = false;
+
+    if(searching){
+        search = true;
+    }
+    var _tables = tableId.DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": search,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'sSearch':'查询',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'ft<"F"lip>',
+        'buttons':buttons,
+        "columns": col,
+        "fnRowCallback": fnRowCallback,
+        "drawCallback":drawCallback
+    });
+    if(flag){
+        _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
+}
 //表格赋值
 function _datasTable(tableId,arr){
     var table = tableId.dataTable();
@@ -438,7 +487,7 @@ function _FFExcel(tableId){
     var explorer = navigator.userAgent ;
     //判断是否是IE浏览器
     if(explorer.indexOf("Trident") >= 0){
-        AutoExcel(tableId);
+        _AutoExcel(tableId);
     }else{
         //获得id为mytable的table的html元素
         var table=tableId;
@@ -459,189 +508,20 @@ function _FFExcel(tableId){
     }
 }
 
-//IE浏览器中导出复杂表头为excel文件
-function AutoExcel(tableId){
-
-    var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
-
-    var oWB = oXL.Workbooks.Add();//新建一个Excel工作簿
-
-    var oSheet = oWB.ActiveSheet;//指定要写入内容的工作表为活动工作表
-
-    //var table = document.getElementById("failure-reporting");//指定要写入的数据源的id
-    var table = tableId;//指定要写入的数据源的id
-
-    var hang = table.rows.length;//取数据源行数
-
-    var lie = table.rows(0).cells.length;//取数据源列数
-
-    var totleLie= 0 ;
-
-//初始化表头
-
-    for(i = 0 ;i <lie ;i++ ){
-
-        totleLie=totleLie+ table.rows(0).cells(i).colSpan;
-
-    }
-
-// Add table headers going cell by cell.
-
-    for (i=0;i<hang;i++){//在Excel中写行
-
-        var offset = 0 ;
-
-        for (j=0;j<totleLie;j++){//在Excel中写列
-
-//定义格式
-
-            var obj = table.rows(i).cells(j) ;
-
-            if(obj == null) continue ;
-
-            if( obj.nodeName=="TH"){
-
-                if(obj.colSpan==1 && obj.rowSpan==1){
-
-                    do{
-
-                        oSheet.Cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
-
-                        offset++ ;
-
-                    }while(oSheet.Cells(i+1,offset).value==null)
-
-                    oSheet.Cells(i+1,offset).HorizontalAlignment = 3;
-
-                    oSheet.Cells(i+1,offset).NumberFormatLocal = "@";//将单元格的格式定义为文本
-
-                    oSheet.Cells(i+1,offset).Font.Bold = true;//加粗
-
-                    oSheet.Cells(i+1,offset).Font.Size = 10;//字体大小
-
-                }else{
-
-                    do{
-
-                        oSheet.cells(i+1,offset+1).value = table.rows(i).cells(j).innerText;
-
-//offset = offset + obj.colSpan;
-
-                        offset++;
-
-                    }while(oSheet.Cells(i+1,offset).value==null)
-
-                    oSheet.Range(oSheet.cells(i+1,offset),oSheet.cells(i+ obj.rowSpan,offset+obj.colSpan -1)).Select();
-
-                    oXL.Selection.HorizontalAlignment = 3;
-
-                    oXL.Selection.MergeCells = true;
-
-                    oXL.Selection.Font.Bold = true;//加粗
-
-                    oXL.Selection.Font.Size = 10;//字体大小
-
-                }
-
-            }else{
-
-                oSheet.Cells(i+1,j+1).NumberFormatLocal = "@";//将单元格的格式定义为文本
-
-//oSheet.Cells(i+1,j+1).Font.Bold = true;//加粗
-
-                oSheet.Cells(i+1,j+1).Font.Size = 10;//字体大小
-
-                oSheet.Cells(i+1,j+1).value = table.rows(i).cells(j).innerText;//向单元格写入值
-
-            }
-
-        }
-
-    }
-
-    var xlDiagonalDown = 5 ;
-
-    var xlDiagonalUp = 6 ;
-
-    var xlEdgeBottom = 9 ;
-
-    var xlEdgeLeft = 7 ;
-
-    var xlEdgeRight = 10 ;
-
-    var xlEdgeTop = 8 ;
-
-    var xlInsideHorizontal = 12 ;
-
-    var xlInsideVertical = 11 ;
-
-    var xlNone = -4142 ;
-
-    var xlContinuous = 1	;
-
-    var xlThin = 2 ;
-
-    oSheet.Range(oSheet.cells(1,1),oSheet.cells(hang,totleLie)).Select();
-
-    oXL.Selection.Borders(xlDiagonalDown).LineStyle = xlNone;
-
-    oXL.Selection.Borders(xlDiagonalUp).LineStyle = xlNone;
-
-    oXL.Selection.Borders(xlEdgeLeft).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlEdgeLeft).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlEdgeLeft).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlEdgeLeft).Weight = xlThin;
-
-    oXL.Selection.Borders(xlEdgeTop).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlEdgeTop).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlEdgeTop).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlEdgeTop).Weight = xlThin;
-
-    oXL.Selection.Borders(xlEdgeBottom).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlEdgeBottom).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlEdgeBottom).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlEdgeBottom).Weight = xlThin;
-
-    oXL.Selection.Borders(xlEdgeRight).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlEdgeRight).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlEdgeRight).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlEdgeRight).Weight = xlThin;
-
-    oXL.Selection.Borders(xlInsideVertical).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlInsideVertical).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlInsideVertical).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlInsideVertical).Weight = xlThin;
-
-    oXL.Selection.Borders(xlInsideHorizontal).LineStyle = xlContinuous;
-
-    oXL.Selection.Borders(xlInsideHorizontal).ColorIndex = 0;
-
-    oXL.Selection.Borders(xlInsideHorizontal).TintAndShade = 0;
-
-    oXL.Selection.Borders(xlInsideHorizontal).Weight = xlThin;
-
-    oXL.Visible = true;
-
-    oXL.UserControl = true;
-
-    oXL=null;
-
-}
+//导出为excel(需要导出样式的)
+function _exportExecl(dom){
+
+    dom.table2excel({
+        exclude: ".noExl",
+        name: "Excel Document Name",
+        filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+        fileext: ".xls",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true,
+        copy_table:true
+    });
+};
 
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。

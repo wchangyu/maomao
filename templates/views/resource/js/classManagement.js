@@ -108,6 +108,9 @@ $(function(){
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
 
+        //是否可操作
+        abledOption();
+
     })
 
     //月的复选框
@@ -308,6 +311,11 @@ $(function(){
             checkMonth.find('span').addClass('checked');
 
         }
+
+        //默认不显示
+        $('#ADD-Modal').find('.cycle-block').hide();
+
+        $('#ADD-Modal').find('.cycle-block').eq(0).show();
     }
 
     //数据绑定

@@ -432,6 +432,10 @@ $(function(){
                 data:'wxClName'
             },
             {
+                title:'规格型号',
+                data:'size'
+            },
+            {
                 title:'数量',
                 data:'clShul'
             }
@@ -745,7 +749,6 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 success:function(result){
                     var bmArr = [];
@@ -765,6 +768,7 @@ $(function(){
                     }else{
                         $('.bjpicture').hide();
                     }
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,
@@ -783,6 +787,7 @@ $(function(){
                                     }
                                 }
                             }
+
                             //维修材料
                             datasTable($("#personTables11"),wlArr);
                         },
@@ -1441,7 +1446,7 @@ $(function(){
     //当前状态
     //获取配件状态常量 flag的时候，1获取操作类型下拉框。否则，2是条件查询获取的下拉框  3判断状态，
     //1的时候，获取条件查询下面的下拉框
-    function stateConstant(flag)    {
+    function stateConstant(flag){
         var prm ={
             "userID": _userIdNum,
             "userName": _userIdName,

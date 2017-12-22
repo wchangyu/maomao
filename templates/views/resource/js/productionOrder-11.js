@@ -138,9 +138,21 @@ $(function(){
     //备件申请是否成功
     var _applyIsSuccess = false;
 
+    //存放线点数组
+    var _lineArr = [];
+
+    //线路
+    lineRouteData($('#linePoint'));
+
+    //存放车站
+    var _stationArr = [];
+
+    //车站
+    ajaxFun('YWDev/ywDMGetDDs', $('#station'),_stationArr, 'ddName', 'ddNum');
+
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable({
+    var table = $('.main-contents-table').children('table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -862,6 +874,33 @@ $(function(){
         enterMCName();
 
     })
+
+    //tab切换
+    //tab选项卡
+    $('.table-title span').click(function(){
+        var $this = $(this);
+
+        $this.parent('.table-title').children('span').removeClass('spanhover');
+
+        $this.addClass('spanhover');
+
+        var tabDiv = $(this).parents('.table-title').next().children().children('div');
+
+        tabDiv.addClass('hide-block');
+
+        tabDiv.eq($(this).index()).removeClass('hide-block');
+
+        //隐藏导出按钮
+        $('.excelButton').children().addClass('hiddenButton');
+
+        $('.excelButton').children().eq($(this).index()).removeClass('hiddenButton');
+
+    });
+
+    //隐藏导出按钮
+    $('.excelButton').children().addClass('hiddenButton');
+
+    $('.excelButton').children().eq(0).removeClass('hiddenButton');
     /*---------------------------------------------------其他方法------------------------------------------*/
 
     //获取所有物品
@@ -909,15 +948,101 @@ $(function(){
             clStatusId:$('#line-point').val(),
             userID:_userIdNum,
             userName:_userIdName,
-            clType:4
+            clType:4,
+            //bxKeshiNum:$('#station').val()
         };
+
+        if($('#station').val() == ''){
+
+            if($('#linePoint').val() == ''){
+
+                var arr = [];
+
+                for(var i=0;i<_stateArr.length;i++){
+
+                    arr.push(_stateArr[i].ddNum);
+
+                }
+
+                prm.bxKeshiNums = arr;
+
+            }else{
+
+                for(var i=0;i<_lineArr.length;i++){
+
+                    if($('#linePoint').val() == _lineArr[i].dlNum ){
+
+                        var arr = [];
+
+                        for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                            arr.push(_lineArr[i].deps[j].ddNum);
+
+                        }
+
+                        prm.bxKeshiNums = arr;
+
+                    }
+
+                }
+
+            }
+
+
+        }else{
+
+            prm.bxKeshiNum = $('#station').val();
+
+        }
+
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetPeijGD',
             data:prm,
-            async:false,
             success:function(result){
+
+                var zht7 = [];
+
+                //等待资源
+                var zht5 = [];
+
+                var zht999 = [];
+
+                for(var i=0;i<result.length;i++){
+
+                    if(result[i].gdZht == 7){
+
+                        zht7.push(result[i]);
+
+                    }else{
+
+                        if(result[i].clStatusID == 999){
+
+                            zht999.push(result[i]);
+
+                        }else{
+
+                            zht5.push(result[i]);
+
+                        }
+
+                    }
+
+                }
+
+
+                //全部
                 datasTable($("#scrap-datatables"),result);
+
+                //处理中5
+                datasTable($("#scrap-datatables1"),zht5);
+
+                //已发货999
+                datasTable($("#scrap-datatables3"),zht999);
+
+                //已完成
+                datasTable($("#scrap-datatables2"),zht7);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1567,4 +1692,85 @@ $(function(){
 
         $('.accord-with-list').empty().append(str);
     }
+
+    //线路数据
+    function lineRouteData(el) {
+        var prm = {
+            'userID':_userIdNum
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGetDLines',
+            data:prm,
+            success:function(result){
+                _lineArr = [];
+                var str = '<option value="">请选择</option>';
+                for(var i=0;i<result.length;i++){
+                    _lineArr.push(result[i]);
+                    str += '<option value="' + result[i].dlNum +
+                        '">' + result[i].dlName +'</option>'
+                }
+                el.empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //车站
+    function ajaxFun(url, select,arr,text, num) {
+        var prm = {
+            'userID': _userIdNum
+        }
+        prm[text] = '';
+
+        $.ajax({
+            type: 'post',
+            url: _urls + url,
+            data: prm,
+            success: function (result) {
+                //给select赋值
+                var str = '<option value="">请选择</option>';
+
+                arr.length = 0;
+
+                for (var i = 0; i < result.length; i++) {
+
+                    str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+
+                    arr.push(result[i]);
+
+                }
+
+                select.empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //线路、车站联动
+    $('#linePoint').on('change',function(){
+
+        for(var i=0;i<_lineArr.length;i++){
+
+            if($('#linePoint').val() == _lineArr[i].dlNum ){
+
+                var str = '<option value="">请选择</option>';
+
+                for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                    str += '<option value="' + _lineArr[i].deps[j].ddNum +
+                        '">' + _lineArr[i].deps[j].ddName + '</option>'
+
+                }
+
+                $('#station').empty().append(str);
+            }
+
+        }
+
+    })
 })

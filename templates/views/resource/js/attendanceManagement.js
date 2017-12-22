@@ -420,18 +420,19 @@ $(function(){
 
         var f = $('#ADD-Modal').find('.dateType').eq(5).css('display');
 
-        var o = $('#ADD-Modal').find('.numberType').eq(0).css('display');
+        var g = $('#ADD-Modal').find('.numberType').eq(0).css('display');
 
-        var e = $('#ADD-Modal').find('.numberType').eq(1).css('display');
+        var h = $('#ADD-Modal').find('.numberType').eq(1).css('display');
+
 
         //格式验证
-        if( checkWork.tname == '' || checkWork.startwork == '' || checkWork.endwork == '' || checkWork.stsignwork == '' || checkWork.etsignwork == '' || checkWork.stsignoutwork == '' || checkWork.etsignoutwork == '' || checkWork.tlate == '' || checkWork.tearly == '' ){
+        if( checkWork.tname === '' || checkWork.startwork === '' || checkWork.endwork === '' || checkWork.stsignwork === '' || checkWork.etsignwork === '' || checkWork.stsignoutwork === '' || checkWork.etsignoutwork === '' || checkWork.tlate === '' || checkWork.tearly === '' ){
 
             _moTaiKuang($('#myModal2'),'提示','flag','istap','请输入红色必填项！','');
 
         }else{
 
-            if( a == 'none' && b == 'none' && c == 'none' && d == 'none' && e == 'none' && f == 'none' && o == 'none' && e == 'none' ){
+            if( a == 'none' && b == 'none' && c == 'none' && d == 'none' && e == 'none' && f == 'none' && g == 'none' && h == 'none' ){
 
                 var prm = {
                     //时间段名称

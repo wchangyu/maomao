@@ -663,16 +663,37 @@ $(function(){
     })
     //选择部门确定按钮
     $('.determineDepartment').click(function(){
+
+        $('#xzmc').val(_determineDeObj.name);
+
+        $('#zxbm').val(_determineDeObj.id);
+
         $('#tree-block').hide();
+
+        var arr = [];
+
+        datasTable($('#zhixingRenTable'),arr);
     })
     //选择部门取消按钮
     $('.close-tree').click(function(){
+
+        var bm = $('#cjz').children('option:selected').attr('bm');
+        var mc = '';
+        //通过部门编码找部门名称
+        for(var i=0;i<_departmentArr.length;i++){
+            if(_departmentArr[i].id == bm){
+                mc = _departmentArr[i].name;
+            }
+        }
+        //加载负责人数据
+        $('#xzmc').val(mc);
+        $('#zxbm').val(bm);
+
         $('#tree-block').hide();
         _determineDeObj.pId = '';
         _determineDeObj.name = '';
         _determineDeObj.id = '';
-        $('#xzmc').val('');
-        $('#zxbm').val('');
+
     })
     //条件查询人员
     $('.zhixingButton').click(function(){
@@ -1108,8 +1129,7 @@ $(function(){
                         _determineDeObj.name = selectedNode[i].name;
                         _determineDeObj.id = selectedNode[i].id;
                     }
-                    $('#xzmc').val(_determineDeObj.name);
-                    $('#zxbm').val(_determineDeObj.id);
+
                 },
             }
         };

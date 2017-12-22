@@ -349,7 +349,8 @@ $(function(){
             'gdCode':_gdCode,
             'gdZht':7,
             'userID':_userIdNum,
-            'userName':_userIdName
+            'userName':_userIdName,
+            'hasFX':1
         }
         $.ajax({
             type:'post',
@@ -632,6 +633,7 @@ $(function(){
     }
     //获取日志信息（备件logType始终传2）
     function logInformation(){
+
         var gdLogQPrm = {
             "gdCode": _gdCode,
             "logType": 2,
@@ -645,9 +647,12 @@ $(function(){
             success:function(result){
                 $('.deal-with-list').empty();
                 var str = '';
+
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+
                 }
+
                 $('.deal-with-list').append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){

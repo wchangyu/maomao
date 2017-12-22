@@ -302,6 +302,18 @@
                                                 <input type="text" class="datatimeblock max" name="max">
                                             </div>
                                         </li>
+                                        <li>
+                                            <label for="">线点：</label>
+                                            <div class="input-blocked">
+                                                <select id="linePoint"></select>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <label for="">车站：</label>
+                                            <div class="input-blocked">
+                                                <select id="station"></select>
+                                            </div>
+                                        </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
                                         <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
@@ -309,15 +321,46 @@
                                         <div class="clearfix"></div>
                                     </ul>
                                     <!-- 表格 -->
-                                    <div class="content-main-contents">
-                                        <div class="main-contents-table">
-                                            <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                <thead>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                            <!--<img src="../resource/img/loading.gif" alt="">-->
+                                    <div class="table-title">
+                                        <span class="spanhover">全部</span>
+                                        <span>等待资源</span>
+                                        <span>已发货</span>
+                                        <span>已闭环</span>
+                                    </div>
+                                    <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
+                                        <div class="content-main-contents">
+                                            <div class="main-contents-table">
+                                                <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="main-contents-table hide-block">
+                                                <table id="scrap-datatables1" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="main-contents-table hide-block">
+                                                <table id="scrap-datatables3" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="main-contents-table hide-block">
+                                                <table id="scrap-datatables2" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
