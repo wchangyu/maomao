@@ -5,13 +5,13 @@
 var __names = {
 
     //区域
-    area:"车务段",
+    area:"车务段1",
     //部门
-    department:"车站",
+    department:"车站1",
     //车间
-    workshop: "车间",
+    workshop: "车间1",
     //班组
-    group:"维修班组"
+    group:"维修班组1"
 
 };
 
@@ -47,7 +47,11 @@ function __setNames(){
 
     //给页面赋值
     //区域
+    console.log( $('.user-defined-area').length);
+
     $('.user-defined-area').html(__names.area);
+
+    $('.user-defined-area').eq(1).html(__names.area);
 
     //部门
     $('.user-defined-department').html(__names.department);
@@ -57,6 +61,8 @@ function __setNames(){
 
     //班组
     $('.user-defined-group').html(__names.group);
+
+    console.log(33);
 
 }
 

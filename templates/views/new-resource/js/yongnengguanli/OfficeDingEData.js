@@ -181,8 +181,6 @@ $(function(){
 
     });
 
-
-
 });
 
 //存放返回的所有数据
@@ -611,7 +609,7 @@ function postDingEData(flag){
         success:function(result){
 
 
-            console.log(result);
+            //console.log(result);
 
             if(result == 3){
 

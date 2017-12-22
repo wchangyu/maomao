@@ -316,9 +316,12 @@ $(function(){
     //指定楼宇为全部；
     getPointerID();
 
+    //获取报警类型
+    typeOfAlarm();
 
     //获取历史警报
     alarmHistory();
+
     //setData();
     $('#datatables tbody').on( 'click', 'input', function () {
         var $this = $(this);
@@ -404,6 +407,17 @@ $(function(){
         processingNote();
 
     });
+
+    //按报警类型查询
+    $('.btn-success').on('click',function(){
+
+        //改变报警类型
+        excTypeInnderId = $('#alarm-type').val();
+
+        //重新获取数据
+        alarmHistory();
+
+    });
 });
 //指定能耗种类的类型为全部；
 var _ajaxEcType = " ";
@@ -472,6 +486,7 @@ function alarmHistory(){
                     pcids.push({"pointerID":showArr[i].pointerID,"cdataID":showArr[i].cdataID});
                 }
             }
+
             for(var i= 0,len=pcids.length,lenD=showArr.length;i<len;i++){ //推荐写法
                 for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
                     if(pcids[i].pointerID==showArr[j].pointerID && pcids[i].cdataID== showArr[j].cdataID){
@@ -535,6 +550,34 @@ function logoToRead (){
         }
     )
 }
+
+//报警类型
+function typeOfAlarm(){
+
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        success:function(result){
+
+            console.log(result);
+
+            var html = '<option value="-1">全部</option>';
+
+            $(result).each(function(i,o){
+
+                html += '<option value="'+ o.innerID+'">'+ o.cDtnName+'</option>'
+            });
+
+            $('#alarm-type').html(html);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
 //显示隐藏
 function format ( d ) {
 

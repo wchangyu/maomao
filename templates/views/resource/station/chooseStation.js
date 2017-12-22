@@ -170,6 +170,5 @@ function classifyArrByInitial(arr,num){
         $('.add-select-block').hide();
 
     })
-
 }
 

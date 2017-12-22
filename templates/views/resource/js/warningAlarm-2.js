@@ -255,9 +255,41 @@ $(function(){
 
     });
 
+
+    //获取备注信息
+    $('#datatables').on('click','.examine',function(){
+
+        var $this = $(this);
+
+        var _alaLogId = $this.parents('tr').children('.alaLogIDs').html();
+
+
+        $(totalArr).each(function(i,o){
+
+            if(o.alaLogID == _alaLogId){
+
+                console.log(o);
+
+                var html = '<p>支路信息：'+o.cName+'</p>';
+
+                html += '<p>处理事件：'+o.sysLogEvent+'</p>';
+
+                html += '<p>处理时间：'+o.sysLogDate+'</p>';
+
+                html += '<p>处理人：'+o.sysLogUser+'</p>';
+
+                html += '<p>处理备注：'+o.sysLogEventMemo+'</p>';
+
+                $('#myModal0 .message').html(html);
+
+                $('#myModal0').modal('show');
+
+            }
+        })
+
+    });
+
     /*--------------------------表格-------------------------*/
-
-
 
     //初始化表格
     table = $('#datatables').DataTable({
@@ -378,9 +410,17 @@ $(function(){
             },
             {
                 "title": "处理备注",
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+                "data": 'sysLogID',
+                "render":function(data,type,row,meta){
+
+                    if(data == 0){
+                        return "<button class='btn btn-success clickButtons' data-toggle='modal' data-target='#myModal'>点击处理</button>"
+                    }
+                    else {
+
+                        return '<a href="javascript:;" class="examine">查看备注</a>'
+                    }
+                }
             }
         ]
     });
@@ -408,7 +448,8 @@ $(function(){
 
         //获取报警数据
         alarmHistory();
-    })
+    });
+
     $('#datatables tbody').on( 'click', 'input', function () {
         var $this = $(this);
         if($this.parents('.checker').children('.checked').length == 0){
@@ -533,7 +574,7 @@ $(function(){
             '</td><td>' + d[1].pointerName +
             '</td><td>' + d[1].cDtnName +
             '</td><td>' + d[1].expression +
-            '</td><td>' + d[1].data +
+            '</td><td>' + d[1].data.toFixed(2) +
             '</td><td>' + d[1].priority +
             '</td></tr>';
         for(var i=2;i< d.length;i++){
@@ -543,7 +584,7 @@ $(function(){
                 '</td><td>' + d[i].pointerName +
                 '</td><td>' + d[i].cDtnName +
                 '</td><td>' + d[i].expression +
-                '</td><td>' + d[i].data +
+                '</td><td>' + d[i].data.toFixed(2) +
                 '</td><td>' + d[i].priority +
                 '</td></tr>'
         }
@@ -801,7 +842,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_url + 'Alarm/GetAllExcData',
-            async:false,
             data:prm,
             beforeSend:function(){
                 $('.main-contents-table').children('img').show();

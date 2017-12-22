@@ -76,7 +76,32 @@ $(function(){
 			{
 				name:'温度',
 				type:'line',
-				data:[]
+				data:[],
+				markPoint : {
+					data : [
+						{type : 'max', name: '最大值'},
+						{type : 'min', name: '最小值'}
+					],
+					itemStyle : {
+						normal:{
+							color:'#019cdf'
+						}
+					},
+					label:{
+						normal:{
+							textStyle:{
+								color:'#d02268'
+							}
+						}
+					}
+				},
+				markLine : {
+					data : [
+						{type : 'average', name: '平均值'}
+
+
+					]
+				}
 			}
 		]
 	};
@@ -197,7 +222,7 @@ function getDatas(){
 					var cc = allDatas[i].date.split('T')[1].split(':');
 					var Xdatas = bb + ' ' + cc[0] + ':' + cc[1];
 					dataX.push(Xdatas);
-					dataY.push(allDatas[i].cdData)
+					dataY.push(allDatas[i].cdData.toFixed(2))
 				}
 				option.xAxis.data = dataX;
 				option.series[0].data = dataY;

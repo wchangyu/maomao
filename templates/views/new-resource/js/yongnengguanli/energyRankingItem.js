@@ -148,7 +148,22 @@ $(function(){
             postData =  allData;
         }
 
-        showDataByNum(postData);
+        //判断是否是楼宇数据
+        var index = $('.left-middle-main .curChoose').index();
+
+        //楼宇数据
+        if(index == 0){
+
+            //传1为需要给头部添加链接
+            showDataByNum(postData,1);
+
+        }else{
+
+            showDataByNum(postData);
+
+        }
+
+
 
     });
 

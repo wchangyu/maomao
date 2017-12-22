@@ -232,14 +232,14 @@ function getPointerData(url,flag){
             //console.log(result);
 
             //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result == null || result.length < 2){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
             //改变头部显示信息
             var energyName = '';
 
-            energyName = $('.selectedEnergy p').html();
+            energyName = $('.selectedEnergy p span').html();
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
@@ -282,6 +282,8 @@ function getPointerData(url,flag){
             };
             //console.log(allData);
 
+
+
             //温度数据
             var allDataY1 = [];
 
@@ -293,16 +295,52 @@ function getPointerData(url,flag){
             //就诊人数
             var allDataY2 = [];
 
-            $(result[2].metaDatas).each(function(i,o){
+            if(result.length > 2){
 
-                //获取当前天数
-                var length = allDataX.length;
 
-                if( i < length){
-                    allDataY2.push(o.data);
+                $(result[2].metaDatas).each(function(i,o){
+
+                    //获取当前天数
+                    var length = allDataX.length;
+
+                    if( i < length){
+                        allDataY2.push(o.data);
+                    }
+
+                });
+
+                //就诊人数 月和年的时候显示
+                if(showDateType != 'Hour'){
+
+                    optionLineBar.yAxis[3] = {
+
+                        type: 'value',
+                        name:'就诊人数',
+                        position: 'right',
+                        offset:50,
+                        show:true
+
+                    };
+
+                    optionLineBar.series[2].data = allDataY2;
+
+                }else{
+
+                    optionLineBar.yAxis[3]=  {
+
+                        type: 'value',
+                        name:'就诊人数',
+                        position: 'right',
+                        offset:50,
+                        show:false
+                    };
+
+                    optionLineBar.series[2].data = [];
                 }
 
-            });
+            }
+
+
 
 
             $(allData).each(function(i,o){
@@ -320,33 +358,7 @@ function getPointerData(url,flag){
             //温度
             optionLineBar.series[1].data = allDataY1;
 
-            //就诊人数 月和年的时候显示
-            if(showDateType != 'Hour'){
 
-                optionLineBar.yAxis[3] = {
-
-                    type: 'value',
-                    name:'就诊人数',
-                    position: 'right',
-                    offset:50,
-                    show:true
-
-                };
-
-                optionLineBar.series[2].data = allDataY2;
-            }else{
-
-                optionLineBar.yAxis[3]=  {
-
-                    type: 'value',
-                    name:'就诊人数',
-                    position: 'right',
-                    offset:50,
-                    show:false
-                };
-
-                optionLineBar.series[2].data = [];
-            }
 
             optionLineBar.legend.data = legendArr;
 

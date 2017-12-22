@@ -23,10 +23,10 @@
       }
     }
   },
-  "用能监测":{
-    "type":"1",
-    "iconclass":"icon-screen-desktop",
-    "content":"用能监测",
+  "设备监控": {
+    "type": "1",
+    "content": "设备监控",
+    "iconclass": "icon-camcorder",
     "submenu": {
       "监控总览": {
         "type": "0",
@@ -55,6 +55,199 @@
         "uid": "",
         "arg": "2,19",
         "iconclass": ""
+      },
+      "综合保护": {
+        "type": "0",
+        "content": "综合保护",
+        "uri": "../yongnengjiance/energyMonitor.html?a=3",
+        "uid": "",
+        "arg": "2,9",
+        "iconclass": ""
+      },
+      "变压器温控器": {
+        "type": "0",
+        "content": "变压器温控器",
+        "uri": "../yongnengjiance/energyMonitor.html?a=4",
+        "uid": "",
+        "arg": "2,6",
+        "iconclass": ""
+      },
+      "发电系统": {
+        "type": "0",
+        "content": "发电系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=5",
+        "uid": "",
+        "arg": "2,5",
+        "iconclass": ""
+      },
+      "电源隔离监测系统": {
+        "type": "0",
+        "content": "电源隔离监测系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=25",
+        "uid": "",
+        "arg": "2,25",
+        "iconclass": ""
+      },
+      "暖通空调系统": {
+        "type": "2",
+        "content": "暖通空调系统"
+      },
+      "暖通空调": {
+        "type": "0",
+        "content": "暖通空调",
+        "uri": "../yongnengjiance/energyMonitor.html?a=18",
+        "uid": "",
+        "arg": "2,18",
+        "iconclass": ""
+      }, "直燃机": {
+        "type": "0",
+        "content": "直燃机",
+        "uri": "../yongnengjiance/energyMonitor.html?a=20",
+        "uid": "",
+        "arg": "2,20",
+        "iconclass": ""
+      },
+      "远大空调": {
+        "type": "0",
+        "content": "远大空调",
+        "uri": "http://61.187.123.138/",
+        "uid": "",
+        "arg": "2,18",
+        "iconclass": "",
+        "target" : "yuanda"
+      },
+      "洁净空调系统": {
+        "type": "2",
+        "content": "洁净空调系统"
+      },
+      "洁净空调": {
+        "type": "0",
+        "content": "洁净空调",
+        "uri": "../yongnengjiance/energyMonitor.html?a=8",
+        "uid": "",
+        "arg": "2,8",
+        "iconclass": ""
+      },
+
+      "医用气体": {
+        "type": "2",
+        "content": "医用气体"
+      },
+      "空压系统": {
+        "type": "0",
+        "content": "空压系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=6",
+        "uid": "",
+        "arg": "2,14",
+        "iconclass": ""
+      },
+      "液氧系统": {
+        "type": "0",
+        "content": "液氧系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=9",
+        "uid": "",
+        "arg": "2,15",
+        "iconclass": ""
+      },
+      "负压系统": {
+        "type": "0",
+        "content": "负压系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=13",
+        "uid": "",
+        "arg": "2,16",
+        "iconclass": ""
+      },
+      "汇流排系统": {
+        "type": "0",
+        "content": "汇流排系统",
+        "uri": "../yongnengjiance/energyMonitor.html?a=14",
+        "uid": "",
+        "arg": "2,17",
+        "iconclass": ""
+      },
+      "给排水系统": {
+        "type": "2",
+        "content": "给排水系统"
+      },
+      "给排水": {
+        "type": "0",
+        "content": "给排水",
+        "uri": "../yongnengjiance/energyMonitor.html?a=11",
+        "uid": "",
+        "arg": "2,12",
+        "iconclass": ""
+      },
+      "UPS系统": {
+        "type": "2",
+        "content": "UPS系统"
+      },
+      "UPS": {
+        "type": "0",
+        "content": "UPS",
+        "uri": "../yongnengjiance/energyMonitor.html?a=7",
+        "uid": "",
+        "arg": "2,7",
+        "iconclass": ""
+      },
+
+      "摄像头": {
+        "type": "2",
+        "content": "摄像头"
+      },
+      "实时监控": {
+        "type": "0",
+        "content": "实时监控",
+        "uri": "../new-luxianghuifang/currentMonitor.html",
+        "uid": "",
+        "arg": "",
+        "target":"blank",
+        "iconclass": ""
+      },
+      "监控回放": {
+        "type": "0",
+        "content": "监控回放",
+        "uri": "../new-luxianghuifang/historyMonitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+
+      "用电监控": {
+        "type": "2",
+        "content": "用电监控"
+      },
+      "电能质量": {
+        "type": "0",
+        "content": "电能质量",
+        "uri": "../new-nenghaofenxi/electricQuality.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+  "设备监控1":{
+    "type":"1",
+    "content":"设备监控1",
+    "iconclass":"icon-camcorder",
+    "submenu":{
+      "配电系统":{
+        "type":"0",
+        "content":"配电系统",
+        "uri":"../yongnengjiance/energyMonitor.html?arg=11",
+        "uid":"",
+        "arg":"1,1100007001",
+        "usepointer":"1",
+        "iconclass":""
+      },
+      "能源站系统":{
+        "type":"0",
+        "content":"能源站系统",
+        "uri":"../yongnengjiance/energyMonitor.html?arg=4",
+        "uid":"",
+        "arg":"0,5",
+        "usepointer":"1",
+        "iconclass":""
       }
     }
   },

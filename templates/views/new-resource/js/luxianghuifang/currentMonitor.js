@@ -39,9 +39,6 @@ $(function(){
                 //登录当前设备
                 clickLogin1(account,address,password,port);
 
-                console.log(account,address,password,port);
-
-
                 setTimeout(function(){
                     //进入当前通道号
                     $('#channels').val(aisleNum);
@@ -77,7 +74,7 @@ function getAlarmCameraData(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllCameraData',
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             alarmCameraDataArr = result;
 
@@ -135,7 +132,7 @@ function getAlarmCameraData(){
                     //窗口号
                     g_iWndIndex = i;
 
-                    console.log(g_iWndIndex);
+                    //console.log(g_iWndIndex);
 
                     //进入当前通道号
                     $('#channels').val(aisleNum);

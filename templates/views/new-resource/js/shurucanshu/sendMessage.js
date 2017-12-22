@@ -7,10 +7,64 @@ $(function(){
     getPersonMessage();
 
 
+    //点击发送按钮
+    $('#selected').on('click',function(){
+
+
+        //判断用户是否有发送短信权限
+        if(sessionStorage.userAuth){
+            var userAuth = sessionStorage.userAuth;
+            if(userAuth.charAt(30)!="1"){
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'当前用户无发送短信权限', '');
+
+                return false;
+            }
+
+        }
+
+        //清空要传递的人员信息数组
+        postPersonMessageArr.length = 0;
+
+        var length = $('#personal-table .tableCheck').length;
+
+
+        //获取ID
+        for(var i=0; i<length; i++){
+
+            if( $('#personal-table .tableCheck').eq(i).is(':checked')){
+                //获取勾选的ID
+               var  alterID = $('#personal-table .tableCheck').eq(i).parents('tr').find('.theHidden').html();
+                $(personMessageArr).each(function(i,o){
+
+                    if(alterID == o.lmid){
+
+                        postPersonMessageArr.push(o);
+                    }
+                });
+
+            }
+        }
+
+        //无要发送的人员时
+        if(postPersonMessageArr.length == 0){
+
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请选择发送的人员', '');
+
+            return false;
+        }
+        //发送短信
+        getOneMessage()
+    });
+
+
 });
 
-//存放返回的所有数据
-var removeID = [];
+//存放所有人员信息
+var personMessageArr = [];
+
+//存放要传递的人员信息
+ var postPersonMessageArr = [];
 
 
 var table = $('#personal-table').DataTable({
@@ -22,14 +76,15 @@ var table = $('#personal-table').DataTable({
     "bPaginate": false,
     "ordering": false,
     'searching':true,
+    "info":false,
     'language': {
         'emptyTable': '没有数据',
         'loadingRecords': '加载中...',
+        'search':'搜索:',
         'processing': '查询中...',
         'lengthMenu': '每页 _MENU_ 件',
         'zeroRecords': '没有数据',
-        //'info': '第 _PAGE_ 页 / 总 _PAGES_ 页 总记录数为 _TOTAL_ 条',
-        'info': ' 总记录数为 _TOTAL_ 条',
+        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
         'paginate': {
             'first':      '第一页',
             'last':       '最后一页',
@@ -41,7 +96,7 @@ var table = $('#personal-table').DataTable({
     'buttons': [
 
     ],
-    "dom":'ft<"F"lip>',
+    "dom":'B<"clear">lfrtip',
     //数据源
     'columns':[
         {
@@ -69,7 +124,7 @@ var table = $('#personal-table').DataTable({
             class:'theHidden'
         },
         {
-            title:'员工姓名',
+            title:'姓名',
             data:"lmName"
         },
         {
@@ -122,7 +177,7 @@ function getPersonMessage(){
             //console.log(result);
 
             //判断是否返回数据
-            if(result == null){
+            if(result == null ||　result.length == 0){
 
                 _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'无数据', '');
 
@@ -130,7 +185,9 @@ function getPersonMessage(){
 
             }
 
-            console.log(result.length);
+            personMessageArr = result;
+            //
+
 
             //表格赋值
             _datasTable($('#personal-table'),result);
@@ -156,82 +213,37 @@ function getPersonMessage(){
     })
 };
 
-//获取传递给后台的数据 用于新增 修改
-function getPostData(dom){
-
-    //获取楼宇ID
-    var pointerID = dom.find('.belong-building').attr('data-num');
-
-    //获取支路ID
-    var branchID = dom.find('.belong-brach').attr('data-num');
-
-    //获取能耗类型
-    var energyType  = dom.find('.belong-brach').attr('energy-type');
-
-    var postPrm = {
-
-        "index": 0,
-
-        "pK_EnergyProj": 0,
-        //合同名称
-        "f_ProjectName": dom.find('.pact-name').val(),
-        //合同编号
-        "f_ProjectNum": dom.find('.pact-num').val(),
-        //改造方式
-        "f_RemouldWay": dom.find('.change-way').val(),
-        //合同金额
-        "f_ProjectPrice": dom.find('.pact-money').val(),
-        //实施内容
-        "f_ProjectContent": dom.find('.improve-content').val(),
-        //开始时间
-        "f_StartDate": dom.find('.startDate').val(),
-        //结束时间
-        "f_EndDate": dom.find('.endDate').val(),
-        //验收时间
-        "f_CheckAcceptDate": dom.find('.check-date').val(),
-        //责任部门
-        "f_Department": dom.find('.duty-department').val(),
-        //责任人
-        "f_DirectorName": dom.find('.duty-people').val(),
-        //责任人电话
-        "f_DepartmentPhone": dom.find('.department-phone').val(),
-        //实施主体
-        "f_Executor": dom.find('.implement-subject').val(),
-        //联系人
-        "f_ExecutorName": dom.find('.link-man').val(),
-        //联系电话
-        "f_ExecutorPhone": dom.find('.link-phone').val(),
-        //能耗类型
-        "f_EnergyType": energyType,
-        //楼宇和支路
-        "energyProjPointers": [
-            {
-                "f_PointerID": pointerID,
-                "energyProjBranchs": [
-                    {
-                        "f_BranchID": branchID
-                    }
-                ]
-            }
-        ],
-        "userID": _userIdNum
-    };
-
-    return postPrm;
-};
-
 //根据ID获取一条数据 用于编辑
-function getOneMessage(id,dom){
+function getOneMessage(){
+
+    //获取短信内容
+    var messageContent = $('.condition-query textarea').val();
+
+    //短信内容不能为空
+    if(messageContent == ''){
+
+        _moTaiKuang($('#myModal2'),'提示', true, 'istap','请填写发送内容' , '');
+
+        return false;
+
+    }
+
 
     var ecParams = {
 
-        'PK_EnergyProj' : id
+        "noteLinkMans":postPersonMessageArr,
+        "noteMessage":  messageContent,
+        "userID": _userIdNum
     };
+
+    console.log(ecParams);
+
+    //return false;
 
     //发送请求
     $.ajax({
-        type:'get',
-        url:sessionStorage.apiUrlPrefix+'EnergySavTrackV2/GetProjManageByID',
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'Alarm/PostManToNote',
         data:ecParams,
         timeout:_theTimes,
         success:function(result){
@@ -240,50 +252,33 @@ function getOneMessage(id,dom){
             console.log(result);
 
             //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result == 99){
 
-                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'数据库中无本行数据，无法编辑', '');
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'发送成功', '');
 
                 return false;
             }
 
-            //赋值
-            //合同名称
-            dom.find('.pact-name').val( result.f_ProjectName);
-            //合同编号
-            dom.find('.pact-num').val(result.f_ProjectNum);
-            //改造方式
-            dom.find('.change-way').val(result.f_RemouldWay);
-            //合同金额
-            dom.find('.pact-money').val(result.f_ProjectPrice);
-            //实施内容
-            dom.find('.improve-content').val(result.f_ProjectContent);
-            //开始时间
-            dom.find('.startDate').val( result.f_StartDate) ;
-            //结束时间
-            dom.find('.endDate').val(result.f_EndDate);
-            //验收时间
-            dom.find('.check-date').val(result.f_CheckAcceptDate);
-            //责任部门
-            dom.find('.duty-department').val( result.f_Department);
-            //责任人
-            dom.find('.duty-people').val(result.f_DirectorName);
-            //责任人电话
-            dom.find('.department-phone').val(result.f_DepartmentPhone);
-            //实施主体
-            dom.find('.implement-subject').val( result.f_Executor);
-            //联系人
-            dom.find('.link-man').val( result.f_ExecutorName);
-            //联系电话
-            dom.find('.link-phone').val(result.f_ExecutorPhone);
-            //所属楼宇
-            dom.find('.belong-building').val(result.energyProjPointers[0].f_PointerName);
-            dom.find('.belong-building').attr('data-num',result.energyProjPointers[0].f_PointerID);
-            //涉及支路
-            dom.find('.belong-brach').val(result.energyProjPointers[0].energyProjBranchs[0].f_BranchName);
-            dom.find('.belong-brach').attr('data-num',result.energyProjPointers[0].energyProjBranchs[0].f_BranchID);
-            //能耗类型
-            dom.find('.belong-brach').attr('energy-type',result.f_EnergyType);
+            //判断是否返回数据
+            if(result == 3){
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'发送失败', '');
+
+                return false;
+            }
+
+            //判断是否返回数据
+            if(result == 19){
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'短信内容超出上限', '');
+
+                return false;
+            }
+
+            //判断是否返回数据
+
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,result, '');
+
 
         },
         error:function(jqXHR, textStatus, errorThrown){
