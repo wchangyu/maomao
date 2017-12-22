@@ -113,7 +113,7 @@
                 var tempRows = "";
                  $(o).find("tr").each(function (i,p) {
                     tempRows += "<tr>" + $(p).html() + "</tr>";
-                    console.log(tempRows);
+
                     
                  });
                  e.tableRows.push(tempRows);

@@ -517,7 +517,9 @@ $(function(){
         stateConstant();
         //获取处理过程
         logInformation();
+
         $('.deal-with-list').empty();
+
         //获取detail
         var prm = {
             'gdCode':gdCode,
@@ -641,9 +643,9 @@ $(function(){
                 }else{
                     $('.exists').hide();
                     _weiXiuCaiLiao.push(obj);
-                    $('#myModal5').modal('hide');
                     //传回给第一个弹框的表格
                     datasTable($("#personTables1"),_weiXiuCaiLiao);
+                    $('#addWXCL-modal').modal('hide');
                 }
             }
         }
@@ -1249,6 +1251,7 @@ $(function(){
                         bjState.push(result.statuses[i].clStatusID);
                     }
                 }
+
                 if(_sparePart == bjState[0] || _sparePart == bjState[1]){
                     //确认收货
                     _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '确认收货');

@@ -304,6 +304,11 @@ var _userIdNum = sessionStorage.getItem('userName');
 //获得用户名
 var _userIdName = sessionStorage.getItem('realUserName');
 
+var _gdCode = window.location.search.split('=')[1].split('&')[0];
+
+//图片ip
+var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
+
 //获取评价信息
 function getAppraise(num){
     if(num == 1){
@@ -373,6 +378,14 @@ function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
         _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     }
 
+}
+
+//IP替换
+function replaceIP(str,str1){
+    var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
+    var res = ip.exec(str1);  /*211.100.28.180*/
+    str = str.replace(ip,res);
+    return str;
 }
 
 

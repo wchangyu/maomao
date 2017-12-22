@@ -749,7 +749,6 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 success:function(result){
                     var bmArr = [];
@@ -769,6 +768,7 @@ $(function(){
                     }else{
                         $('.bjpicture').hide();
                     }
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,
@@ -787,6 +787,7 @@ $(function(){
                                     }
                                 }
                             }
+
                             //维修材料
                             datasTable($("#personTables11"),wlArr);
                         },

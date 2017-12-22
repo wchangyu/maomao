@@ -466,6 +466,10 @@ $(function(){
             data:'wxDidian'
         },
         {
+            title:'维修科室',
+            data:'wxKeshi'
+        },
+        {
             title:'维修事项',
             data:'wxXm'
         },
@@ -1029,25 +1033,37 @@ $(function(){
         })
         .on('click','.xiafa',function(){
 
-            $('#theLoading').modal('show');
 
-            //先判断是第一次下发还是重发
-            if(_gdZht == 5){
-                //维修内容修改
-                upDateWXRemark(false);
-                //工单重发
-                reSend();
-                //分配负责人
-                assigFZR(false);
+            //首先判断部门是否选择了
+            if($('#depart').val() == ''){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择维修部门！', '');
 
             }else{
-                //维修内容修改
-                upDateWXRemark(true);
-                //工单下发
-                upData();
-                //分配负责人
-                assigFZR(true);
+
+                $('#theLoading').modal('show');
+
+                //先判断是第一次下发还是重发
+                if(_gdZht == 5){
+                    //维修内容修改
+                    upDateWXRemark(false);
+                    //工单重发
+                    reSend();
+                    //分配负责人
+                    assigFZR(false);
+
+                }else{
+                    //维修内容修改
+                    upDateWXRemark(true);
+                    //工单下发
+                    upData();
+                    //分配负责人
+                    assigFZR(true);
+                }
+
             }
+
+
 
             //验证是否选择了负责人
 

@@ -255,9 +255,13 @@ $(function(){
             url:_urls + url,
             data:prm,
             timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
-
-                console.log(result);
 
                 if(result == 99){
 

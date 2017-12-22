@@ -92,6 +92,9 @@ $(function(){
     //当前删除的执行人员的编码
     var _$thisWorkerBM = '';
 
+    //当前删除的人员的id
+    var _$thisWorkerID = '';
+
     //所有工单
     var _gdArr = [];
 
@@ -101,14 +104,27 @@ $(function(){
     //已选择的工单数组
     var _gdSelected = [];
 
+    //当前选中的加班编号
+    var _thisJBBM = '';
 
+    //当前选中的加班的id
+    var _thisJBID = '';
+
+    //标记当前进行的是登记操作
+    var _signFlag = false;
+
+    //当前操作的$(this)对象
+    var _$this = '';
 
     /*-------------------------------------------------表格初始化----------------------------------------*/
     var tableListCol = [
-
+        {
+            title:'加班id',
+            data:'id',
+        },
         {
             title:'加班编号',
-            data:'gdCode'
+            data:'gdCode',
         },
         {
             title:'上报人姓名',
@@ -123,9 +139,24 @@ $(function(){
             "targets": -1,
             "data": null,
             "className": 'noprint',
-            "defaultContent":"<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+            render:function(data, type, full, meta){
+
+                if(full.isexamine == 1){
+
+                    return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                        "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
+                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                }else if(full.isexamine == 0){
+
+                    return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                }
+
+            }
         }
 
     ];
@@ -147,14 +178,37 @@ $(function(){
         },
         {
             title:'人员类型',
+            data:'type',
             render:function(data, type, full, meta){
 
                 var str = '<select class="workerSelect"><option value="">请选择</option>';
 
-                for(var i=0;i<_JBType.length;i++){
+                if(data){
 
-                    str += '<option value="' + _JBType[i].type +
-                        '">' + _JBType[i].name + '</option>'
+                    for(var i=0;i<_JBType.length;i++){
+
+                        if( _JBType[i].type == data ){
+
+                            str += '<option value="' + _JBType[i].type +
+                                '" selected>' + _JBType[i].name + '</option>'
+
+                        }else{
+
+                            str += '<option value="' + _JBType[i].type +
+                                '">' + _JBType[i].name + '</option>'
+
+                        }
+
+                    }
+
+                }else{
+
+                    for(var i=0;i<_JBType.length;i++){
+
+                        str += '<option value="' + _JBType[i].type +
+                            '">' + _JBType[i].name + '</option>'
+
+                    }
 
                 }
 
@@ -167,8 +221,27 @@ $(function(){
         {
             title:'操作',
             targets: -1,
-            data: null,
-            defaultContent: '<span class="data-option option-delete btn default btn-xs green-stripe">删除</span>'
+            data: 'id',
+            render:function(data, type, full, meta){
+
+                if(_signFlag){
+
+                    return '<span data-id="' + data +
+                        '" class="data-option option-delete btn default btn-xs green-stripe">删除</span>'
+
+                }else{
+
+                    return '<span data-id="' + data +
+                        '" class="data-option option-edit btn default btn-xs green-stripe">编辑</span>'
+                        +
+                        '<span data-id="' + data +
+                        '" class="data-option option-delete btn default btn-xs green-stripe">删除</span>'
+
+                }
+
+
+
+            }
         },
 
     ];
@@ -225,6 +298,26 @@ $(function(){
             title:'联系电话',
             data:'mobile',
             className:'zxrphone'
+        },
+        {
+            title:'人员类型',
+            data:null,
+            render:function(data, type, full, meta){
+
+                var str = '<select class="workerSelect"><option value="">请选择</option>';
+
+                for(var i=0;i<_JBType.length;i++){
+
+                    str += '<option value="' + _JBType[i].type +
+                        '">' + _JBType[i].name + '</option>'
+
+                }
+
+                str += '</select>';
+
+                return str
+
+            }
         }
     ];
     _tableInit($('#zhixingRenTable'),col3,2,true,'','');
@@ -301,15 +394,25 @@ $(function(){
 
     /*----------------------------------------------------按钮事件------------------------------------------*/
 
-    //查询
+    //加班表格的操作----------------------------------------------------------------------------
+
+    //【查询】
     $('#selected').click(function(){
 
         conditionSelect();
 
     })
 
-    //新增
+    //【新增】
     $('.creatButton').click(function(){
+
+        //表示当前是登记操作
+        _signFlag = true;
+
+        //清除数组
+        _selectedWorkerArr.length = 0;
+
+        _tempWorkerArr.length = 0;
 
         $('#ADD-Modal').find('.datatimeblock').click();
 
@@ -320,26 +423,174 @@ $(function(){
         _moTaiKuang($('#ADD-Modal'),'新增','','','','新增');
 
         //是否可操作
-
+        abledOption();
 
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+
     })
 
-    //新增确定按钮
+    //【新增确定】按钮
     $('#ADD-Modal').on('click','.dengji',function(){
 
-        optionButton('YWFZ/JiaBanAdd',true,'新增成功！','新增失败！');
+        optionButton('YWFZ/JiaBanAdd',false,'新增成功！','新增失败！');
 
     })
 
-    //表格查看按钮
+    //表格【查看】按钮
     $('#table-list').on('click','.option-see',function(){
 
-        bindData($(this));
+        //表示当前不是登记操作
+        _signFlag = false;
+
+        //初始化
+        datilInit();
+
+        //数据绑定
+        bindData($(this),false);
 
         //模态框
         _moTaiKuang($('#ADD-Modal'),'查看','flag','','','');
+
+    })
+
+    //表格【编辑】按钮
+    $('#table-list').on('click','.option-edit',function(){
+
+        //表示当前不是登记操作
+        _signFlag = false;
+
+        //初始化
+        datilInit();
+
+        //数据绑定
+        bindData($(this),true);
+
+        //模态框
+        _moTaiKuang($('#ADD-Modal'),'编辑','','','','保存');
+
+        //添加类
+        $('#ADD-Modal').find('.modal-footer').children('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+
+    })
+
+    //表格【编辑确定】按钮
+    $('#ADD-Modal').on('click','.bianji',function(){
+
+        optionButton('YWFZ/JiaBanUpdate',true,'编辑成功！','编辑失败！');
+
+    })
+
+    //表格【删除】按钮
+    $('#table-list').on('click','.option-delete',function(){
+
+        //表示当前不是登记操作
+        _signFlag = false;
+
+        //初始化
+        datilInit();
+
+        //数据绑定
+        bindData($(this),false);
+
+        //模态框
+        _moTaiKuang($('#ADD-Modal'),'确定要删除吗？','','','','删除');
+
+        //添加类
+        $('#ADD-Modal').find('.modal-footer').children('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+
+    })
+
+    //表格【删除确定】按钮
+    $('#ADD-Modal').on('click','.shanchu',function(){
+
+        optionButton('YWFZ/JiaBanDelete',true,'删除成功！','删除失败！');
+
+    })
+
+    //表格【审核】按钮
+    $('#table-list').on('click','.option-shenhe',function(){
+
+        //样式
+        $('#table-list tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        _thisJBBM = $(this).parents('tr').children('td').eq(1).html();
+
+        //初始化
+        $('#examine-Modal').find('#examineBlock').find('input').val('');
+
+        $('#examine-Modal').find('#examineBlock').find('textarea').val('');
+
+        $('#radioblock').find('input').parent('span').removeClass('checked');
+
+        $('#radioblock').find('input').eq(0).parent('span').addClass('checked');
+
+
+        //赋值
+        $('#examineBlock').children('li').find('input').val(_thisJBBM);
+
+        //模态框
+        _moTaiKuang($('#examine-Modal'),'审核','','','','审核');
+
+    })
+
+    //表格【审核确定】按钮
+    $('#examine-Modal').on('click','.shenhe',function(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFZ/JiaBanShenpi',
+            data:{
+                //加班编码
+                gdCode:_thisJBBM,
+                //当前用户编号
+                userNum:_userIdNum,
+                //当前用户名
+                username:_userIdName,
+                //当前用户部门编号
+                userdepartNum:_loginUser.departNum,
+                //当前用户角色
+                userRole:_loginUser.role,
+                //审批意见
+                shenpopinion:$('#examineBlock').find('textarea').val(),
+                //审批结果
+                isexamine:$('#radioblock').find('.checked').children().attr('attr-value')
+            },
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','审核成功！','');
+
+                    conditionSelect();
+
+                    $('#examine-Modal').modal('hide');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','审核失败！','');
+
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    })
+
+    //审核单选按钮事件
+    $('#radioblock').on('click','input',function(){
+
+        $('#radioblock').find('input').parent('span').removeClass('checked');
+
+        $(this).parent('span').addClass('checked');
 
     })
 
@@ -418,6 +669,12 @@ $(function(){
         //模态框
         _moTaiKuang($('#Worker-Modal'),'加班人列表','','','','选择');
 
+        if( !_signFlag ){
+
+            _tempWorkerArr.length = 0;
+
+        }
+
     });
 
     //加班人模态框显示回调
@@ -438,7 +695,13 @@ $(function(){
     })
 
     //执行人表格选择事件
-    $('#zhixingRenTable tbody').on('click','tr',function(){
+    $('#zhixingRenTable tbody').on('click','tr',function(e){
+
+        if(e.target.className === 'workerSelect'){
+
+            return
+
+        }
 
         //样式
         var flag = $(this).find('input').parent().hasClass('checked')
@@ -456,68 +719,187 @@ $(function(){
             $(this).addClass('tables-hover');
         }
 
+
     })
 
     //执行人表格确定事件
     $('#Worker-Modal').on('click','.addZXR',function(){
 
+        //首先要判断是登记还是编辑情况
         //首先确定选中的执行人（第二层）
 
         var arr = $('#zhixingRenTable tbody').find('.checked');
 
-        for(var i=0;i<arr.length;i++){
+        if(_signFlag){
 
-            var bm = arr.eq(i).parents('tr').children('td').eq(1).html();
+            for(var i=0;i<arr.length;i++){
 
-            for(var j=0;j<_JBPerson.length;j++){
+                var bm = arr.eq(i).parents('tr').children('td').eq(1).html();
 
-                if(_JBPerson[j].userNum == bm){
+                var type = arr.eq(i).parents('tr').children('td').eq(1).attr('data-type');
 
-                    _tempWorkerArr.push(_JBPerson[j]);
+                for(var j=0;j<_JBPerson.length;j++){
+
+                    if(_JBPerson[j].userNum == bm){
+
+                        _JBPerson[j].type = type;
+
+                        _tempWorkerArr.push(_JBPerson[j]);
+
+                    }
 
                 }
 
             }
 
-        }
+            $('#Worker-Modal').modal('hide');
 
-        //console.log(_tempWorkerArr);
+            //首先判断第一层的数组中有没有第二层的数组中的（去重）;
 
-        //_datasTable($('#worker-list'),_tempWorkerArr);
+            if(_selectedWorkerArr.length == 0){
 
-        $('#Worker-Modal').modal('hide');
-
-        //首先判断第一层的数组中有没有第二层的数组中的（去重）;
-
-        if(_selectedWorkerArr.length == 0){
-
-            for(var i=0;i<_tempWorkerArr.length;i++){
-
-                _selectedWorkerArr.push(_tempWorkerArr[i]);
-
-            }
-
-        }else{
-
-            for(var i=0;i<_tempWorkerArr.length;i++){
-
-                if(_selectedWorkerArr.indexOf(_tempWorkerArr[i])>=0){
-
-
-
-                }else{
+                for(var i=0;i<_tempWorkerArr.length;i++){
 
                     _selectedWorkerArr.push(_tempWorkerArr[i]);
 
                 }
 
+            }else{
+
+                for(var i=0;i<_tempWorkerArr.length;i++){
+
+                    if(_selectedWorkerArr.indexOf(_tempWorkerArr[i])>=0){
+
+
+
+                    }else{
+
+                        _selectedWorkerArr.push(_tempWorkerArr[i]);
+
+                    }
+
+                }
+
             }
+
+            _datasTable($('#worker-list'),_selectedWorkerArr);
+
+        }else{
+
+            _tempWorkerArr.length = 0;
+
+            for(var i=0;i<arr.length;i++){
+
+                var bm = arr.eq(i).parents('tr').children('td').eq(1).html();
+
+                var type = arr.eq(i).parents('tr').children('td').eq(1).attr('data-type');
+
+                for(var j=0;j<_JBPerson.length;j++){
+
+                    if(_JBPerson[j].userNum == bm){
+
+                        if(_selectedWorkerArr.length == 0){
+
+                            _JBPerson[j].type = type;
+
+                            _tempWorkerArr.push(_JBPerson[j]);
+
+                        }else{
+
+                            for(var k=0;k<_selectedWorkerArr.length;k++){
+
+                                if(_selectedWorkerArr[k].userNum == _JBPerson[j].userNum ){
+
+                                    break;
+
+                                }else if(k == _selectedWorkerArr.length-1){
+
+                                    _JBPerson[j].type = type;
+
+                                    _tempWorkerArr.push(_JBPerson[j]);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            if(_tempWorkerArr.length == 0){
+
+                _moTaiKuang($('#myModal2'),'提示','flag','istap','人员已存在!','');
+
+                $('#Worker-Modal').modal('hide');
+
+            }else{
+
+
+                if(_tempWorkerArr.length == 1){
+
+                    //调接口
+                    $.ajax({
+
+                        type:'post',
+                        url:_urls + 'YWFZ/JBRenAdd',
+                        data:{
+
+                            //加班编号
+                            gdCode:_thisJBBM,
+                            //人员编号
+                            userNum:_tempWorkerArr[0].userNum,
+                            //人员姓名
+                            userName:_tempWorkerArr[0].userName,
+                            //人员类型
+                            type:_tempWorkerArr[0].type,
+
+                        },
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
+                        timeout:_theTimes,
+                        success:function(result){
+
+                            if(result == 99){
+
+                                _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员成功!','');
+
+                                $('#Worker-Modal').modal('hide');
+
+                                refreshWorker();
+
+                            }else{
+
+                                _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员失败!','');
+
+                            }
+
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            console.log(jqXHR.responseText);
+                        }
+
+                    })
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','一次只能添加一个值班人!','');
+
+                }
+
+            }
+
 
         }
 
-        //console.log(_selectedWorkerArr);
 
-        _datasTable($('#worker-list'),_selectedWorkerArr);
 
     })
 
@@ -532,25 +914,151 @@ $(function(){
 
         _$thisWorkerBM = $(this).parents('tr').children().eq(0).html();
 
+        _$thisWorkerID = $(this).attr('data-id');
+
+        _$this = $(this);
+
     })
 
-    //执行人静态删除确定按钮
+    //执行人静态删除确定按钮(同时调用接口);
     $('#DEL-Modal').on('click','.removeWorker',function(){
 
-        for(var i=0;i<_selectedWorkerArr.length;i++ ){
+        //如果_signFlag = true,只执行静态删除操作，如果是false执行静态同时发送请求
 
-            if(_$thisWorkerBM == _selectedWorkerArr[i].userNum){
+        if(_signFlag){
 
-                _selectedWorkerArr.remove(_selectedWorkerArr[i]);
+            for(var i=0;i<_selectedWorkerArr.length;i++ ){
+
+                if(_$thisWorkerBM == _selectedWorkerArr[i].userNum){
+
+                    _selectedWorkerArr.remove(_selectedWorkerArr[i]);
+
+                }
 
             }
 
+            _datasTable($('#worker-list'),_selectedWorkerArr);
+
+            //模态框消失
+            $('#DEL-Modal').modal('hide');
+
+        }else{
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWFZ/JBRenDelete',
+                data:{
+
+                    id:_$thisWorkerID
+
+                },
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                timeout:_theTimes,
+                success:function(result){
+
+                    if(result == 99){
+
+                        $('#DEL-Modal').modal('hide');
+
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap','加班人删除成功!','');
+
+                        refreshWorker();
+
+                    }else{
+
+                        //提示删除失败
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap','加班人删除失败!','');
+
+                    }
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+
+            })
+
         }
 
-        _datasTable($('#worker-list'),_selectedWorkerArr);
+    })
 
-        //模态框消失
-        $('#DEL-Modal').modal('hide');
+    //执行人人员类型
+    $('#zhixingRenTable').on('change','.workerSelect',function(){
+
+        $(this).parents('tr').children('td').eq(1).attr('data-type',$(this).val());
+
+    })
+
+    //执行人表格【编辑】
+    $('#worker-list').on('click','.option-edit',function(){
+
+        $(this).removeClass('option-edit').addClass('option-save').html('保存');
+
+        $(this).parents('tr').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        _$this = $(this);
+
+    })
+
+    //执行人表格【保存】
+    $('#worker-list').on('click','.option-save',function(){
+
+        _$this = $(this);
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFZ/JBRenUpdate',
+            data:{
+                //id
+                id:$(this).attr('data-id'),
+
+                //人员编号
+                userNum:$(this).parents('tr').children('td').eq(0).html(),
+
+                //人员名称
+                userName:$(this).parents('tr').children('td').eq(1).html(),
+
+                //type
+                type:$(this).parents('tr').find('select').val(),
+
+                //加班编号
+                gdCode:_thisJBBM
+            },
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','加班人员修改成功！','');
+
+                    _$this.removeClass('option-save').addClass('option-delete ').html('编辑');
+
+                    _$this.parents('tr').find('select').attr('disabled',true).addClass('disabled-block');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','加班人员修改失败！','');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
 
     })
 
@@ -574,7 +1082,11 @@ $(function(){
 
         $('#GD-Modal').find('.condition-query').find('select').val('');
 
+        //状态值select初始化
         $('#gdzt').val(0);
+
+        //材料申请已审批的checked
+        $('#isExamine').parents('span').addClass('checked');
 
         //表格初始化
         _datasTable($('#GD-table'),_gdArr);
@@ -720,9 +1232,13 @@ $(function(){
         //时长类型
         datailVue.moneyType = '';
 
+        var arr = [];
+
+        _datasTable($('#worker-list'),arr);
+
     }
 
-    //登记、编辑、删除
+    //登记、编辑、删除（登记的时候是false，编辑，删除的时候是true）;
     function optionButton(url,flag,successMeg,errorMeg){
 
         //获取加班人的人员类型
@@ -792,26 +1308,38 @@ $(function(){
             departNum:_loginUser.departNum,
             //所属部门名称
             departName:_loginUser.departName,
-            //加班人员集合
-            jbRenList:arr
 
 
         };
 
-        //if(flag){
-        //
-        //    prm.id = typeVue.id;
-        //}
+        if(flag){
+
+            //工单code
+            prm.gdCode = _thisJBBM;
+
+            //id
+            prm.id = _thisJBID;
+
+        }else{
+
+            //加班人员集合
+            prm.jbRenList = arr;
+
+        }
 
         $.ajax({
 
             type:'post',
             url:_urls + url,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             timeout:_theTimes,
             success:function(result){
-
-                console.log(result);
 
                 if(result == 99){
 
@@ -1013,25 +1541,179 @@ $(function(){
         })
     }
 
-    //数据绑定
-    function bindData($this){
+    //数据绑定（查看、删除false 编辑 true）;
+    function bindData($this,flag){
 
         //样式
         $('#table-list tbody').children('tr').removeClass('tables-hover');
 
         $this.parents('tr').addClass('tables-hover');
 
+        _thisJBBM = $this.parents('tr').children('td').eq(1).html();
+
+        _thisJBID = $this.parents('tr').children('td').eq(0).html();
+
         //发送请求
         $.ajax({
 
             type:'post',
-            url:_urls + 'YWFZ/JiaBanGetAll',
+            url:_urls + 'YWFZ/JiaBanReturnOne',
+            data:{
+                //当前加班编号
+                gdCode:_thisJBBM
+            },
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                //数据绑定
+                //车站名称
+                datailVue.station = result.ddName;
+
+                $('#ADD-Modal').find('.station').attr('data-num',result.ddNum);
+
+                //事由说明
+                datailVue.reason = result.reason;
+
+                //故障描述
+                datailVue.faultDes = result.descs;
+
+                //相关工单
+                datailVue.aboutGD = result.gdCodeRef;
+
+                //计划开始时间
+                datailVue.stTime = result.planBeginTime.split('T')[0];
+
+                //计划结束时间
+                datailVue.etTime = result.planStopTime.split('T')[0];
+
+                //施工高度
+                datailVue.buildHeight = result.height;
+
+                //加班人
+                datailVue.overtimeP = '';
+                //时长类型
+                datailVue.moneyType = result.moneyType;
+
+                //将加班人push到_selectedWorkerArr中
+
+                _selectedWorkerArr.length = 0;
+
+                //加班人
+                if(result.jbRenList){
+
+                    _datasTable($('#worker-list'),result.jbRenList);
+
+                    _selectedWorkerArr = result.jbRenList;
+
+                }else{
+
+                    var arr = [];
+
+                    _datasTable($('#worker-list'),arr);
+
+                }
+
+
+                //操作性
+                if(flag){
+
+                    //可操作
+                    abledOption();
+
+                    //表格中的select不可操作
+                    $('#ADD-Modal').find('select').attr('disabled',true).addClass('disabled-block');
+
+                }else{
+
+                    //不可操作
+                    disabledOption();
+
+                }
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //不可操作
+    function disabledOption(){
+
+        //input框不能操作
+        $('#ADD-Modal').find('input').attr('disabled',true).addClass('disabled-block');
+
+        //select框不能操作
+        $('#ADD-Modal').find('select').attr('disabled',true).addClass('disabled-block');
+
+        //选择按钮不可操作
+        $('.select-CZ').attr('disabled',true);
+
+        //表格中的按钮是否能操作
+        $('#worker-list').find('.option-delete,.option-edit').attr('disabled',true);
+    }
+
+    //可操作
+    function abledOption(){
+
+        //input框能操作
+        $('#ADD-Modal').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        //select框能操作
+        $('#ADD-Modal').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        //选择按钮可操作
+        $('.select-CZ').attr('disabled',false);
+
+        //表格中的按钮是否能操作
+        $('#worker-list').find('.option-delete').attr('disabled',false);
+
+    }
+
+    //局部刷新人员列表
+    function refreshWorker(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFZ/JiaBanReturnOne',
             data:{
 
+                gdCode:_thisJBBM
             },
             success:function(result){
 
-                console.log(result);
+
+                if(result){
+
+                    if(result.jbRenList){
+
+                        _datasTable($('#worker-list'),result.jbRenList);
+
+                        _selectedWorkerArr.length = 0;
+
+                        _selectedWorkerArr = result.jbRenList;
+
+                        $('#worker-list').find('select').attr('disabled',true).addClass('disabled-block');
+
+                    }else{
+
+                        _selectedWorkerArr.length = 0;
+
+                        _datasTable($('#worker-list'),_selectedWorkerArr);
+                    }
+
+                }
+
 
             },
             error:function(jqXHR, textStatus, errorThrown){

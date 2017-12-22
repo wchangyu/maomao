@@ -905,6 +905,22 @@
         "uid":"",
         "arg":"",
         "iconclass":""
+      },
+      "加班统计":{
+        "type":"0",
+        "content":"加班统计",
+        "uri":"../YWFZ/overtimeStatistics.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "考勤统计":{
+        "type":"0",
+        "content":"考勤统计",
+        "uri":"../YWFZ/attendanceStatistics.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   },

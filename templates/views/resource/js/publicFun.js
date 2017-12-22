@@ -487,7 +487,7 @@ function _FFExcel(tableId){
     var explorer = navigator.userAgent ;
     //判断是否是IE浏览器
     if(explorer.indexOf("Trident") >= 0){
-        AutoExcel(tableId);
+        _AutoExcel(tableId);
     }else{
         //获得id为mytable的table的html元素
         var table=tableId;
@@ -507,6 +507,21 @@ function _FFExcel(tableId){
         window.location.href = uri + base64(format(template, ctx));
     }
 }
+
+//导出为excel(需要导出样式的)
+function _exportExecl(dom){
+
+    dom.table2excel({
+        exclude: ".noExl",
+        name: "Excel Document Name",
+        filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+        fileext: ".xls",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true,
+        copy_table:true
+    });
+};
 
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
