@@ -6,17 +6,20 @@ var __names = {
 
     //区域
     area:"车务段1",
+
     //部门
     department:"车站1",
+
     //车间
     workshop: "车间1",
+
     //班组
     group:"维修班组1"
 
 };
 
 //定义需给页面中区域，部门等动态赋值的页面名称
-var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html'];
+var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','productionOrder-1.html','wbDetails.html'];
 
 
 function __setNames(){
@@ -47,11 +50,7 @@ function __setNames(){
 
     //给页面赋值
     //区域
-    console.log( $('.user-defined-area').length);
-
     $('.user-defined-area').html(__names.area);
-
-    $('.user-defined-area').eq(1).html(__names.area);
 
     //部门
     $('.user-defined-department').html(__names.department);
@@ -61,8 +60,6 @@ function __setNames(){
 
     //班组
     $('.user-defined-group').html(__names.group);
-
-    console.log(33);
 
 }
 

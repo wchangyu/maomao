@@ -93,7 +93,6 @@ $(function(){
     //当前工单状态值
     var _gdZht = '';
 
-
     //标记当前打开的是不是报修按钮
     var _isDeng = false;
 

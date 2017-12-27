@@ -1035,7 +1035,7 @@ var BEE = (function(){
              async:false,
              success:function(result){
 
-                 console.log(result);
+                 //console.log(result);
 
                  if(result == null){
 

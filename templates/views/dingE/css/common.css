@@ -7,6 +7,16 @@ body,html,div,dl,dt,dd,ul,li,ol,h1,h2,h3,h4,h5,h6,form,fieldset,input,textarea,p
 li{
     list-style-type: none;
 }
+
+/*不能输入的背景色*/
+.can-not-import{
+    background-color: rgb(235, 235, 228) !important;
+}
+
+/*隐藏头部*/
+.page-title{
+    display: none;
+}
 /*外层包裹div*/
 .out-content{
     width: 100%;
@@ -191,7 +201,7 @@ label {
 }
 .add-input-block {
     width: 202px;
-    border-radius: 5px;
+    border-radius: 5px !important;
     border: 1px solid #ccc;
     display: inline-block;
     padding: 0 5px 0 5px;

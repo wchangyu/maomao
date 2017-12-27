@@ -206,7 +206,7 @@
       "监控回放": {
         "type": "0",
         "content": "监控回放",
-        "uri": "../new-luxianghuifang/historyMonitor.html",
+        "uri": "../new-luxianghuifang/historyMonitor1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
@@ -1126,9 +1126,9 @@
         "arg":"",
         "iconclass":""
       },
-      "单位专业":{
+      "单位用能系数":{
         "type":"0",
-        "content":"单位专业",
+        "content":"单位用能系数",
         "uri":"../dingE/UnitProfessional.html",
         "uid":"",
         "arg":"",
