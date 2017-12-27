@@ -39,6 +39,7 @@ sessionStorage.allPointName    记录楼宇树状图是否需要显示全院
 sessionStorage.curPointerId    记录当前选中的楼宇ID
 sessionStorage.allProcs        记录全部的流程图
 sessionStorage.changeMenuByProcs 是否根据流程图动态绘制菜单
+sessionStorage.imgPath   查看当前工单图片的路径
 
 sessionStorage.gongdanInterval  工单是否开启自动刷新，0为关闭，数字为刷新的分钟
 sessionStorage.gongdanIndustryType  工单的行业类型,0为铁路行业，1为医院类型

@@ -95,7 +95,12 @@ $(function(){
         },
         {
             title:'平均故障处理时间',
-            data:'gdDealAVGTime'
+            data:'gdDealAVGTime',
+            render: function (data, type, row, meta){
+
+                return data.toFixed(1)
+
+            }
         },
         {
             title:'故障率',

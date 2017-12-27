@@ -27,7 +27,6 @@
     <script src="../resource/TableTools/js/pdfmake.min.js"></script>
     <script src="../resource/TableTools/js/vfs_fonts.js"></script>
     <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-    <script src="../resource/js/productionOrder_see.js"></script>
 </head>
 <body>
 <div class="gd-wrap" style="width:1058px">
@@ -36,14 +35,14 @@
     </div>
     <div class="gongdanContent" style="width: 668px;float: left;height:auto!important;overflow: auto!important;">
         <ul class="gongdanList" id="myApp33">
-            <li class="floatLeft" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels">工单类型：</div>
                 <div class="input-blockeds">
                     <input type="radio" class="inpus" id="ones" value="1" v-model="picked"><label for="ones">快速</label>
                     <input type="radio" class="inpus" id="twos" value="0" v-model="picked"><label for="twos">普通</label>
                 </div>
             </li>
-            <li class="floatRight" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels colorTip">任务级别 *：</div>
                 <div class="input-blockeds">
                     <select v-model="rwlx">
@@ -54,64 +53,67 @@
                     </select>
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">报修电话：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="telephone" class="shishi">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLi">
                 <div class="labels">报修人信息：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="person">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">故障位置：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="place">
                 </div>
             </li>
-            <li class="floatRight">
-                <div class="labels">车站：</div>
+            <li class="floatLi">
+                <div class="labels">
+                    <span class="user-defined-department"></span>
+                    ：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="section">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">系统类型：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="matter">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLi">
                 <div class="labels">设备编码：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbSelect">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">设备名称：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbMC">
                 </div>
             </li>
-            <li class="floatRight">
-                <div class="labels">维修班组：</div>
+            <li class="floatLi">
+                <div class="labels">
+                    <span class="user-defined-group"></span>
+                    ：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sections">
                 </div>
             </li>
-            <li class="floatLeft" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels colorTip">工单来源 *：</div>
                 <div class="input-blockeds">
                     <select v-model="gdly" class="gdly">
-                        <option value="1">车站报修</option>
-                        <option value="2">现场人员报修</option>
+
                     </select>
                 </div>
             </li>
-            <li class="floatRight" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels">发生时间：</div>
                 <div class="input-blockeds">
                     <input type="text" class="datatimeblock otime">
@@ -313,7 +315,7 @@
     <div class="clearfix"></div>
 </div>
 <!--图片详情显示-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="height: auto;">
             <div class="modal-header">
@@ -330,5 +332,9 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/productionOrder_see.js"></script>
+<script src="../resource/js/publicGD.js"></script>
 </body>
 </html>

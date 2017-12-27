@@ -1,3 +1,6 @@
+//记录当前工单号
+var _gdCode = '';
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -20,7 +23,7 @@ $(function(){
     });
 
     //设置初始时间(主表格时间)
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+    var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
     //选择设备时间
@@ -100,9 +103,6 @@ $(function(){
 
         }
     });
-
-    //记录当前工单号
-    var _gdCode = '';
 
     var _gdCode2 = '';
 
@@ -429,10 +429,12 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 beforeSend:function(){
-                    $('#loading').show();
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
                 },
                 success:function(result){
                     if(result.gdJJ == 1){

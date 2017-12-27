@@ -430,6 +430,10 @@ var Login = function() {
                     //是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
                     sessionStorage.ckAuditType = data["ckAuditType"] || '';
 
+                    //工单图片路径
+                    var imgPath = data["imgPath"] || '';
+                    sessionStorage.imgPath = imgPath;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

@@ -1,3 +1,5 @@
+//当前那工单号
+var _gdCode = '';
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -88,14 +90,13 @@ $(function(){
     //定位当前页索引值
     var currentPages = 0;
     var currentRow = '';
-    //当前那工单号
-    var gdCode = '';
+
     //当前工单状态
     var _gdState = '';
     //当前维修班组
     var _wxOffice = '';
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+    ////记录当前工单详情有几个图
+    //var _imgNum = 0;
     //执行人员的数组
     var _zhixingRens = [];
     //记录维修内容的标识
@@ -439,29 +440,6 @@ $(function(){
             }
 
         })
-        //查看图片
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        //图片详情
-        .on('click','.viewIMG',function(){
-            _moTaiKuang($('#myModal3'),'图片详情','flag', '' ,'', '');
-            var imgSrc = $(this).attr('src')
-            $('#myModal3').find('img').attr('src',imgSrc);
-        })
 
    $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
@@ -522,7 +500,7 @@ $(function(){
 
         //获取detail
         var prm = {
-            'gdCode':gdCode,
+            'gdCode':_gdCode,
             'gdZht':_gdState,
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -680,8 +658,7 @@ $(function(){
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             _moTaiKuang($('#myModal'),'工单详情', '', '' ,'', '保存');
@@ -697,7 +674,7 @@ $(function(){
             var gongDanState = parseInt($this.children('.ztz').html());
             var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
             _gdState = gongDanState;
-            gdCode = gongDanCode;
+            _gdCode = gongDanCode;
             var prm = {
                 'gdCode':gongDanCode,
                 'gdZht':gongDanState,
@@ -741,6 +718,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+
                     $('.otime').val(result.gdFsShij);
                     //查看执行人员
                     _zhixingRens = [];
@@ -844,7 +822,7 @@ $(function(){
         .on('click','.receipt',function(){
             //确认收货
             var prm = {
-                "gdCode": gdCode,
+                "gdCode": _gdCode,
                 "clStatusId": 999,
                 "clStatus": '备件到达',
                 "clLastUptInfo": $('#bjremark').val(),
@@ -937,7 +915,7 @@ $(function(){
             dengyyStr = $('#watting').children('option:selected').html();
         }
         var gdInfo = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "gdZht": $('#option-select').val(),
             "wxKeshi": _wxOffice,
             "wxBeizhu": $('#wxbeizhu').val(),
@@ -984,7 +962,7 @@ $(function(){
         if($('#option-select').val() == 5){
 
             gdInfo = {
-                'gdCode':gdCode,
+                'gdCode':_gdCode,
                 'gdZht':$('#option-select').val(),
                 'userID':_userIdNum,
                 'userName':_userIdName,
@@ -995,7 +973,7 @@ $(function(){
             }
         }else{
             gdInfo = {
-                'gdCode':gdCode,
+                'gdCode':_gdCode,
                 'gdZht':$('#option-select').val(),
                 'userID':_userIdNum,
                 'userName':_userIdName
@@ -1093,12 +1071,12 @@ $(function(){
             obj.wxCl = _weiXiuCaiLiao[i].wxCl;
             obj.wxClName = _weiXiuCaiLiao[i].wxClName;
             obj.clShul = _weiXiuCaiLiao[i].clShul;
-            obj.gdCode = gdCode;
+            obj.gdCode = _gdCode;
             obj.size = _weiXiuCaiLiao[i].size;
             cailiaoArr.push(obj);
         }
         var gdWxCl = {
-            gdCode:gdCode,
+            gdCode:_gdCode,
             gdWxCls:cailiaoArr,
             userID:_userIdNum,
             userName:_userIdName,
@@ -1127,7 +1105,7 @@ $(function(){
     //获取日志信息（备件logType始终传2）
     function logInformation(){
         var gdLogQPrm = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "logType": 2,
             "userID": _userIdNum,
             "userName": _userIdName
@@ -1159,7 +1137,7 @@ $(function(){
             sarr.push(_weiXiuCaiLiao[i].clShul);
         }
         var prm = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "clStatusId": _bjStateWillNum,
             "clStatus": _bjStateWillName,
             "clLastUptInfo": $('#bjremark').val(),
@@ -1230,7 +1208,7 @@ $(function(){
     //获取备件状态
     function stateConstant(){
         var prm = {
-            "gdCode":gdCode,
+            "gdCode":_gdCode,
             "userID": _userIdNum,
             "userName": _userIdName,
         }

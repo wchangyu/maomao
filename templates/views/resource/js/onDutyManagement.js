@@ -150,6 +150,9 @@ $(function(){
 
     $('.creatButton').click(function(){
 
+        //loadding显示
+        $('#theLoading').modal('show');
+
         _isDeng = true;
 
         //初始化
@@ -174,6 +177,9 @@ $(function(){
 
         //清空数组
         _allData.length = 0;
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     })
 
@@ -1547,6 +1553,12 @@ $(function(){
 
                 id:$thisCode
 
+            },
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
             },
             timeout:_theTimes,
             success:function(result){

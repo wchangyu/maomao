@@ -1,3 +1,6 @@
+//工单号
+var _gdCode = '';
+
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名id
@@ -7,9 +10,6 @@ $(function(){
 
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-    //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
 
     //存放执行人信息的数组
     var _zhixingRens = [];
@@ -30,8 +30,7 @@ $(function(){
     //实际发送时间
     var realityStart;
     var realityEnd;
-    //工单号
-    var gdCode = '';
+
     //记录当前工单的状态
     var _gdState = 0;
     //通过vue对象实现双向绑定
@@ -92,8 +91,8 @@ $(function(){
     getWP();
     //获取执行人员列表
     getRY();
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+    ////记录当前工单详情有几个图
+    //var _imgNum = 0;
     //保存所有部门的数组
     var _departmentArr = [];
     //当前选中的部门的对象
@@ -363,7 +362,7 @@ $(function(){
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
             var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
-            gdCode = gongDanCode;
+            _gdCode = gongDanCode;
             _gdState = gongDanState;
             if( gongDanState == '待接单' ){
                 $('.workDone .gongdanClose').find('.btn-success').html('接单');
@@ -427,6 +426,7 @@ $(function(){
                     workDones.weixiukeshis = result.wxKeshi;
                     workDones.remarks = result.bxBeizhu;
                     _imgNum = result.hasImage;
+
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
                     workDones.gdCode = result.gdCode2;
@@ -630,29 +630,6 @@ $(function(){
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
-    //查看图片
-    $('#myModal')
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal9'),'图片详情','flag');
-            var imgSrc = $(this).attr('src')
-            $('#myModal9').find('img').attr('src',imgSrc);
-        })
     //部门选择
     $('#myModal7').on('click','.xzDepartment',function(){
         _autoOrHand = 2;
@@ -996,7 +973,7 @@ $(function(){
             obj.wxRen = _zhixingRens[i].userNum;
             obj.wxRName = _zhixingRens[i].userName;
             obj.wxRDh = _zhixingRens[i].mobile;
-            obj.gdCode = gdCode;
+            obj.gdCode = _gdCode;
             if(_zhixingRens[i].userNum == best){
                 obj.wxRQZ = 1;
             }else{
@@ -1005,7 +982,7 @@ $(function(){
             workerArr.push(obj);
         }
         var gdWR = {
-            gdCode :gdCode,
+            gdCode :_gdCode,
             gdWxRs:workerArr,
             userID:_userIdNum,
             userName:_userIdName,
@@ -1045,11 +1022,11 @@ $(function(){
             obj.wxCl = _weiXiuCaiLiao[i].wxCl;
             obj.wxClName = _weiXiuCaiLiao[i].wxClName;
             obj.clShul = _weiXiuCaiLiao[i].clShul;
-            obj.gdCode = gdCode;
+            obj.gdCode = _gdCode;
             cailiaoArr.push(obj);
         }
         var gdWxCl = {
-            gdCode:gdCode,
+            gdCode:_gdCode,
             gdWxCls:cailiaoArr,
             userID:_userIdNum,
             userName:_userIdName,
@@ -1139,7 +1116,7 @@ $(function(){
     //更新维修备注
     function upDateWXRemark(flag){
         var prm = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "gdZht": _gdState,
             "wxKeshi": '',
             "wxBeizhu": workDones.wxremark,
@@ -1172,7 +1149,7 @@ $(function(){
     //跟新状态
     function upDate(flag){
         var gdInfo = {
-            'gdCode':gdCode,
+            'gdCode':_gdCode,
             'gdZht':3,
             'wxKeshi':$('.weixiukeshis').val(),
             'wxKeshiNum':$('.weixiukeshis').attr('data-bm'),
@@ -1241,7 +1218,7 @@ $(function(){
     //重发
     function reSend(flag){
         var gi = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "gdZht": 3,
             "gdCircle": _gdCircle,
             "userID": _userIdNum,
@@ -1267,13 +1244,6 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
-    }
-    //IP替换
-    function replaceIP(str,str1){
-        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        var res = ip.exec(str1);  /*211.100.28.180*/
-        str = str.replace(ip,res);
-        return str;
     }
     //状态值转换
     function stateTransform(ztz){
