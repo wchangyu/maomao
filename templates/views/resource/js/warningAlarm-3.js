@@ -60,9 +60,14 @@ $(function(){
                     "data":"cName"
                 },
                 {
-                    "title": "单位",
+                    "title": "楼宇名称",
                     "orderable": false,
                     "data":"pointerName"
+                },
+                {
+                    "title": "报警事件",
+                    "orderable": false,
+                    "data":"alarmSetName"
                 },
                 {
                     "title": "报警类型",
@@ -77,13 +82,17 @@ $(function(){
                 {
                     "title": "此时数据",
                     "orderable": false,
-                    "data":"data"
+                    "data":"data",
+                    "render":function(data,type,row,meta){
+
+                      return data.toFixed(2);
+                    }
                 },
-                {
-                    "title": "单位房间",
-                    "orderable": false,
-                    "data":"rowDetailsExcDatas"
-                },
+                //{
+                //    "title": "楼宇名称房间",
+                //    "orderable": false,
+                //    "data":"rowDetailsExcDatas"
+                //},
                 {
                     "title": "报警等级",
                     "class":'hidden',
@@ -111,10 +120,10 @@ $(function(){
                 },
                 {
                     "title":'id',
-                    "class":"alaLogID alaLogIDs",
+                    "class":"alaLogID alaLogIDs theHidden",
                     "orderable": false,
                     "data":"alaLogID",
-                    "visible":false,
+                    //"visible":false,
                     "render":function(data,type,row,meta){
 
                         return '<span data-pointerID="' + row.pointerID +
@@ -210,7 +219,7 @@ $(function(){
                     "data":"cName"
                 },
                 {
-                    "title": "单位",
+                    "title": "楼宇名称",
                     "orderable": false,
                     "data":"pointerName"
                 },
@@ -229,11 +238,11 @@ $(function(){
                     "orderable": false,
                     "data":"data"
                 },
-                {
-                    "title": "单位房间",
-                    "orderable": false,
-                    "data":"rowDetailsExcDatas"
-                },
+                //{
+                //    "title": "楼宇名称房间",
+                //    "orderable": false,
+                //    "data":"rowDetailsExcDatas"
+                //},
                 {
                     "title": "报警等级",
                     "class":'hidden',
@@ -261,10 +270,10 @@ $(function(){
                 },
                 {
                     "title":'id',
-                    "class":"alaLogID alaLogIDs",
+                    "class":"alaLogID alaLogIDs theHidden",
                     "orderable": false,
                     "data":"alaLogID",
-                    "visible":false,
+                    //"visible":false,
                     "render":function(data,type,row,meta){
 
                         return '<span data-pointerID="' + row.pointerID +
@@ -307,9 +316,12 @@ $(function(){
     //指定楼宇为全部；
     getPointerID();
 
+    //获取报警类型
+    typeOfAlarm();
 
     //获取历史警报
     alarmHistory();
+
     //setData();
     $('#datatables tbody').on( 'click', 'input', function () {
         var $this = $(this);
@@ -381,13 +393,11 @@ $(function(){
             }else{
 
                 _currentStr += _currentArr[i] + ',';
-
             }
 
         }
 
-    })
-
+    });
 
     //获得备注内容
     $('#myModal').on('click','.submitNote',function(){
@@ -395,6 +405,17 @@ $(function(){
         _texts = $(this).parents('.modal-content').children('.modal-body').children().val();
 
         processingNote();
+
+    });
+
+    //按报警类型查询
+    $('.btn-success').on('click',function(){
+
+        //改变报警类型
+        excTypeInnderId = $('#alarm-type').val();
+
+        //重新获取数据
+        alarmHistory();
 
     });
 });
@@ -426,7 +447,7 @@ function alarmHistory(){
         'et' : endRealTime,
         'pointerIds' : pointerID,
         'excTypeInnderId' : excTypeInnderId,
-        'energyType' : _ajaxEcType,
+        'energyType' : _ajaxEcType
     };
     $.ajax({
         type:'post',
@@ -465,6 +486,7 @@ function alarmHistory(){
                     pcids.push({"pointerID":showArr[i].pointerID,"cdataID":showArr[i].cdataID});
                 }
             }
+
             for(var i= 0,len=pcids.length,lenD=showArr.length;i<len;i++){ //推荐写法
                 for(var j= 0;j<lenD;j++){ //遍历pcids里的pointerID和cdataID属性
                     if(pcids[i].pointerID==showArr[j].pointerID && pcids[i].cdataID== showArr[j].cdataID){
@@ -507,12 +529,14 @@ function logoToRead (){
     for(var i=0;i<$('.choice').length;i++){
         //if($('.choice').eq(i).parent('.checked'))
         if($('.choice').eq(i).parent('.checked').length != 0){
-            logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
+            logoToReadID.push($('.choice').eq(i).attr('data-alalogid'));
         }
     }
+    console.log(logoToReadID);
     var alaLogIDs = {
         '':logoToReadID
-    }
+    };
+
     $.ajax(
         {
             'type':'post',
@@ -520,18 +544,47 @@ function logoToRead (){
             'async':false,
             'data':alaLogIDs,
             'success':function(result){
-
+                //重新获取页面数据
+                alarmHistory();
             }
         }
     )
 }
+
+//报警类型
+function typeOfAlarm(){
+
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcType',
+        success:function(result){
+
+            console.log(result);
+
+            var html = '<option value="-1">全部</option>';
+
+            $(result).each(function(i,o){
+
+                html += '<option value="'+ o.innerID+'">'+ o.cDtnName+'</option>'
+            });
+
+            $('#alarm-type').html(html);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    });
+}
+
+
 //显示隐藏
 function format ( d ) {
 
 
 
     var theader = '<table class="table">' +
-        '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>单位房间</td><td>报警等级</td></tr></thead>';
+        '<thead><tr><td>时间</td><td>支路</td><td>楼宇名称</td><td>报警事件</td><td>报警类型</td><td>报警条件</td><td>此时数据</td><td>报警等级</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
     var tbodyers = '</tbody>';
@@ -551,10 +604,10 @@ function format ( d ) {
      str += '<tr><td>' + d[1].dataDate.split('T')[0] + ' ' + d[1].dataDate.split('T')[1] +
         '</td><td>' + d[1].cName +
         '</td><td>' + d[1].pointerName +
+         '</td><td>' + d[1].alarmSetName +
         '</td><td>' + d[1].cDtnName +
         '</td><td>' + d[1].expression +
         '</td><td>' + d[1].data +
-        '</td><td>' + d[1].sysLogID +
         '</td><td>' + d[1].priority +
         '</td></tr>';
     for(var i=2;i< d.length;i++){
@@ -562,10 +615,10 @@ function format ( d ) {
         str += '<tr><td>' + atime +
             '</td><td>' + d[i].cName +
             '</td><td>' + d[i].pointerName +
+            '</td><td>' + d[i].alarmSetName+
             '</td><td>' + d[i].cDtnName +
             '</td><td>' + d[i].expression +
             '</td><td>' + d[i].data +
-            '</td><td>' + d[i].sysLogID +
             '</td><td>' + d[i].priority +
             '</td></tr>'
     }
@@ -576,6 +629,7 @@ function format ( d ) {
 var userId,_alaLogId,_texts,_currentArr = [],_currentStr='';
 var nowDays = moment().format('YYYY/MM/DD') + ' 00:00:00';
 function processingNote (){
+
     //获取当前用户名
     var prm = {
         'userId':_userIdNum,
@@ -600,6 +654,9 @@ function processingNote (){
                     $('.choice[data-alaLogID="' + _alaLogId  + '"]').parent().addClass('checked');
 
                     $('.choice[data-alaLogID="' + _alaLogId  + '"]').parents('.L-checkbox').children('.yuedu').html('已阅读');
+
+                    //重新获取页面数据
+                    alarmHistory();
 
 
                 }else{

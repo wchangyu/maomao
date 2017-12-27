@@ -6,7 +6,7 @@
 }
 .L-wrap{
 	width: 700px;
-	height: 500px;
+	height: 600px;
 	background: #ffffff;
 	border: 1px solid #666666;
 	margin: 0 auto;
@@ -46,7 +46,7 @@
 	cursor: pointer;
 }
 .L-content{
-	height: 389px;
+	height: 450px;
 	background:#f5f6f8;
 }
 .L-content-header{
@@ -61,7 +61,7 @@
 .L-content-contents{
 	width: 660px;
 	margin: 0 auto;
-	height: 360px;
+	height: 400px;
 	background: #f5f6f8;
 }
 .L-content-tip{
@@ -84,7 +84,7 @@
 	border-bottom: 1px solid #a7adad;
 }
 .L-content-block{
-	height: 330px;
+	height: 370px;
 	border: 1px solid #a7adad;
 	border-top-radius: 0px;
 	background: #ffffff;
@@ -98,7 +98,7 @@
 	height: 29px;
 }
 .L-content-block-main{
-	height: 310px;
+	height: 340px;
 	position: absolute;
 	width: 100%;
 	top: 0px;
@@ -132,9 +132,11 @@
 th,td{
 	text-align: center !important;
 }
+
 #datatables_wrapper{
 	margin-top: 20px;
 }
+
 .L-arrowBlock{
 	height:30px;
 	width: 658px;

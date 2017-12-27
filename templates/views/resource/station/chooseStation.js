@@ -38,6 +38,7 @@ var stationHtml = '<div class="add-input-father" style="margin-left:10px">' +
     '</div>';
 
 function addStationDom(dom){
+
     dom.after(stationHtml);
     dom.hide();
 
@@ -49,7 +50,7 @@ function addStationDom(dom){
         $(this).addClass('action');
         var index = $(this).index();
         classifyArrByInitial(stationArr,index);
-    })
+    });
 
     $('.ac_close').on('click',function(){
 
@@ -170,6 +171,5 @@ function classifyArrByInitial(arr,num){
         $('.add-select-block').hide();
 
     })
-
 }
 

@@ -454,8 +454,47 @@ function getShowDateType(){
 
     }else if(dateType == '月'){
 
-        showDateType = "Week";
+        showDateType = "Day";
         selectDateType = "Month"
+
+    }else if(dateType == '年'){
+
+        showDateType = "Month";
+        selectDateType = "Year"
+    }else if(dateType == '自定义'){
+
+        showDateType = "Custom";
+        selectDateType = "Custom"
+    }
+
+    return [showDateType,selectDateType]
+};
+
+//展示日期类型 用户选择日期类型
+function getShowDateType1(){
+    //获取页面日期类型
+    var dateType = $('.top-cut1 .onClicks').html();
+
+    //定义展示日期类型
+    var showDateType = '';
+    //定义用于选择日期类型
+    var selectDateType = '';
+
+    if(dateType == '日'){
+
+        showDateType = "Hour";
+        selectDateType = "Day"
+
+    }else if(dateType == '周'){
+
+        showDateType = "Day";
+        selectDateType = "Week"
+
+    }else if(dateType == '月'){
+
+        showDateType = "Day";
+        selectDateType = "Month"
+
     }else if(dateType == '年'){
 
         showDateType = "Month";
@@ -509,6 +548,65 @@ function getPostTime(){
 
         startTime = startTime;
         endTime = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
+    }
+
+    return [startTime,endTime]
+};
+
+//获取开始结束时间(本日，本月，本年)
+function getPostTime1(){
+    //获取页面日期类型
+    var dateType = $('.time-options-1').html();
+
+    //定义开始时间
+    var startTime = '';
+
+    //定义结束时间
+    var endTime = '';
+
+    if(dateType == '日'){
+
+        startTime = moment().format('YYYY-MM-DD');
+        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '月'){
+
+        startTime = moment().startOf('month').format('YYYY-MM-DD');
+        endTime = moment().endOf('month').format('YYYY-MM-DD');
+    }else if(dateType == '年'){
+
+        startTime = moment().startOf('year').format('YYYY-MM-DD');
+        endTime = moment().endOf('year').format('YYYY-MM-DD');
+
+    }
+
+    return [startTime,endTime]
+};
+
+function getPostTime11(){
+    //获取页面日期类型
+    var dateType = $('.top-cut1 .onClicks').html();
+
+    //定义开始时间
+    var startTime = '';
+
+    //定义结束时间
+    var endTime = '';
+
+    if(dateType == '日'){
+
+        startTime = moment().format('YYYY-MM-DD');
+        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '月'){
+
+        startTime = moment().startOf('month').format('YYYY-MM-DD');
+        endTime = moment().endOf('month').format('YYYY-MM-DD');
+    }else if(dateType == '年'){
+
+        startTime = moment().startOf('year').format('YYYY-MM-DD');
+        endTime = moment().endOf('year').format('YYYY-MM-DD');
+
     }
 
     return [startTime,endTime]
@@ -644,6 +742,22 @@ function checkedPhone(dom){
 //比较日期大小
 function CompareDate(d1,d2) {
     return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+};
+
+//根据能耗分项ID获取能耗名称
+function _getEcName(etid){
+
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    if(jsonText){
+        for(var i=0;i<jsonText.alltypes.length;i++){
+           if(etid == jsonText.alltypes[i].etid){
+
+               return jsonText.alltypes[i].etname;
+           }
+        }
+
+    }
 };
 
 

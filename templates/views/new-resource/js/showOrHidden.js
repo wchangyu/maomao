@@ -170,16 +170,16 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取昨天
-        var date = moment().subtract('1','days').format('YYYY-MM-DD');
+        var date = moment().format('YYYY-MM-DD');
         $('.min').val(date);
     }else if(dataType == '周'){
         _initDate1();
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
         //获取上周
-        var date1 = moment().subtract('7','days').format('YYYY-MM-DD');
+        var date1 = moment().subtract('6','days').format('YYYY-MM-DD');
         //获取昨天2
-        var date2 = moment().subtract('1','days').format('YYYY-MM-DD');
+        var date2 = moment().format('YYYY-MM-DD');
         $('.min').val(date1);
         $('.max').val(date2);
         //取消开始时间选框居中
@@ -190,14 +190,14 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取上月
-        var date = moment().subtract('1','months').format('YYYY-MM');
+        var date = moment().format('YYYY-MM');
         $('.min').val(date);
     }else if(dataType == '年'){
         _yearDate1();
 
         $('.end-time-choose').hide();
         //获取上年
-        var date = moment().subtract('1','years').format('YYYY');
+        var date = moment().format('YYYY');
         $('.min').val(date);
     }else{
         _initDate1();
@@ -276,7 +276,22 @@ function _setEnergyInfo(){
 //获取能耗种类参数方法
 function _getEcTypeValue(){
     var aaa =[];
-    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    //获取是楼宇还是分户
+    var index = $('.left-tab-contain .isChoose').index();
+
+    var jsonText;
+
+    //楼宇
+    if(index < 1){
+
+        jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+      //分户
+    }else if(index == 1){
+
+        jsonText=JSON.parse(sessionStorage.getItem('officeEnergyType'));
+    }
+
     if(jsonText){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etid)

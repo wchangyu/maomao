@@ -3,7 +3,7 @@
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    background-image: url('../img/login-picture.jpg') !important;
+    /*background-image: url('../img/blueLogin.jpg') !important;*/
     background-repeat: no-repeat;
     background-size: 100% 100% !important;
     background-position: 100% 100% !important;
@@ -167,5 +167,8 @@ div.checker.hover.active  span.checked, div.checker.focus.active  span.checked{
     background-color: #ae4d46;
     border-color: #307f7a;
 }
+
+/*头部标题*/
+.form
 
 

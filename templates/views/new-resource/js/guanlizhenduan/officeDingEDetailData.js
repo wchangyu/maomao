@@ -302,7 +302,7 @@ function getPointerData(url){
             }
 
             //下方诊断信息
-            if(prm.diagItemNum == 'OfficeDingE'){
+            if(ecParams.diagItemNum == 'OfficeDingE'){
 
                 $('.right-diagnose').show();
 
@@ -312,8 +312,18 @@ function getPointerData(url){
 
             }
 
+            var rightHtml = '';
             //右侧展示信息
+            $(result.diagDetailBranchs).each(function(i,o){
 
+                rightHtml += ' <li>'+
+                                    '<span>'+(i+1)+'</span>'+ o.serviceName+'<span>'+ o.energyData.toFixed(2)+'kWh</span>'+
+                                '</li>'
+
+
+            });
+
+            $('.access-road').html(rightHtml);
 
         },
         error:function(jqXHR, textStatus, errorThrown){

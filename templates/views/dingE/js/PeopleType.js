@@ -88,6 +88,7 @@ $(document).ready(function(){
         }
 
     });
+
     $('.add-input-select').click(function(e){
         $('.add-select-block').not($(this).parents('.add-input-father').children('.add-select-block')).css({
             display:'none'
@@ -105,6 +106,7 @@ $(document).ready(function(){
         e.stopPropagation();
 
     });
+
     $('.add-select-block li').on('click',function(){
         var text = $(this).html();
 

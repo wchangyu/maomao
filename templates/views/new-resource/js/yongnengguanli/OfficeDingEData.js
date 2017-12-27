@@ -101,6 +101,7 @@ $(function(){
             $('.selectedEnergy').addClass('blueImg0');
         }else{
 
+
         };
 
 
@@ -156,6 +157,9 @@ $(function(){
 
         //table重新赋值
         _datasTable($('#dateTables'),getArr);
+
+        $('.prompt').html(' 当前不可编辑，可点击右侧编辑按钮进行编辑');
+
     });
 
     //点击确定按钮时，提交表格中的数据，并使其不可编辑。
@@ -176,8 +180,6 @@ $(function(){
         $('.prompt').html('当前不可编辑，可点击右侧编辑按钮进行编辑。');
 
     });
-
-
 
 });
 
@@ -235,7 +237,7 @@ var table = $('#dateTables').DataTable({
             class:'theHidden'
         },
         {
-            title:'名称',
+            title:'用能单位',
             data:"returnOBJName",
             render:function(data, type, full, meta){
 
@@ -607,7 +609,7 @@ function postDingEData(flag){
         success:function(result){
 
 
-            console.log(result);
+            //console.log(result);
 
             if(result == 3){
 

@@ -3,6 +3,12 @@
  */
 $(function(){
 
+    //获取页面左上角新闻轮播图
+    getNewsCarousel();
+
+    //获取实时数据中上方的能耗种类
+    getEcTypeByDeploy();
+
     //获取左侧医院统计数据
     getTopPageData();
 
@@ -102,6 +108,7 @@ $(function(){
 
         }
     };
+
 });
 //------------------------------------定义变量-----------------------------------//
 
@@ -136,11 +143,8 @@ option = {
     calculable : true,
     xAxis : [
         {
+            show:'true',
             type : 'category',
-            boundaryGap : false,
-            axisLabel :{
-                interval:0
-            },
             data : ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
         }
     ],
@@ -152,30 +156,48 @@ option = {
             }
         }
     ],
-    grid:{
-       top:'5%'
+    grid: {
+        left: '8%',
+        right: '8%',
+        bottom:'10%',
+        top:'5%'
     },
     series : [
         {
             name:'当前能耗',
-            type:'line',
+            type:'bar',
             data:[11, 11, 15, 13, 12, 13, 10],
-            //itemStyle : {
-            //    normal : {
-            //        color:'#53f4db',
-            //        lineStyle:{
-            //            color:'#53f4db',
-            //            width:3
+            //itemStyle:{
+            //    normal:{
+            //        color:'#4ad2ff'
+            //    }
+            //},
+            //markPoint : {
+            //    data : [
+            //        {type : 'max', name: '最大值'},
+            //        {type : 'min', name: '最小值'}
+            //    ],
+            //    itemStyle : {
+            //        normal:{
+            //            color:'#019cdf'
+            //        }
+            //    },
+            //    label:{
+            //        normal:{
+            //            textStyle:{
+            //                color:'#d02268'
+            //            }
             //        }
             //    }
             //},
-            smooth:true
-            //markLine : {
-            //    data : [
-            //        {type : 'average', name: '平均值'}
-            //
-            //    ]
-            //}
+            markLine : {
+                data : [
+
+                    {type : 'average', name: '平均值'}
+
+                ]
+            },
+            barMaxWidth: '60'
         }
     ]
 };
@@ -330,8 +352,78 @@ var pointerIdArr = getPointersId();
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
-
 //------------------------------------页面主体方法-----------------------------------//
+
+//获取页面左上角新闻轮播图
+function getNewsCarousel(){
+
+    //获取推荐轮播图块
+    $.ajax({
+        type:'get',
+        url:sessionStorage.apiUrlPrefix + 'News/GetRecommendNews',
+        success:function(result){
+
+            //console.log(result);
+
+            //创建轮播图
+            var heightArr = [];
+            var showArr = result.splice(0,4);
+
+            var html = '';
+            var html1 = '';
+            //console.log(showArr.length);
+            for(var i=0;i<showArr.length;i++){
+                if(i == 0){
+                    html += '<a class="item active" style="height: 100%">' +
+                        ' <div class="img"></div>' +
+                        ' <div class="carousel-caption"></div>' +
+                        '</a>';
+                    html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
+                }else{
+                    html += '<a class="item" style="height: 100%">' +
+                        ' <div class="img"></div>' +
+                        ' <div class="carousel-caption"></div>' +
+                        '</a>';
+
+                    html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class=""></li>'
+                }
+
+
+
+            }
+
+            $('.carousel-inner').html(html);
+
+            $('.carousel-indicators').html(html1);
+
+
+            for(var i=0;i<showArr.length;i++){
+
+                if( showArr[i].f_RecommImgName){
+
+                    var imgurl = showArr[i].f_RecommImgName.split('\\');
+                    $('.carousel-inner').find('.item').eq(i).children('.img').css({'background':'url(' + imgurl[0] + '/' + imgurl[1] + '/' + imgurl[2] + ') no-repeat','background-position':'center','background-size':'100% 100%'});
+                    $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+                    $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                }else{
+
+                    $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+
+                    $('.carousel-inner').find('.item').eq(i).attr('href','../news/news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
+                }
+            }
+
+            $('#myCarousel').carousel({
+                interval: 2000
+            })
+
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+
+        }
+    })
+};
 
 //获取左侧医院统计数据
 function getTopPageData(){
@@ -413,6 +505,35 @@ function getWeatherParam(){
 
 //------------------------------------右侧上方实时能耗数据-----------------------------------//
 
+//根据配置获取对应能耗种类
+function getEcTypeByDeploy(){
+
+    //本地能耗对象
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    //实时能耗旁边的能耗种类
+    var html = '';
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+
+        if(i == 0){
+
+            html += '<li><a href="javascript:;" type="'+txt[i].ettype+'" class="onClicks">'+txt[i].etname+'</a></li>';
+
+        }else{
+
+            html += '<li><a href="javascript:;" type="'+txt[i].ettype+'">'+txt[i].etname+'</a></li>';
+        }
+
+
+    }
+    html +='<div class="clearfix"></div>';
+
+    //页面赋值
+    $('.top-cut').html(html);
+};
+
 //获取后台实时能耗数据
 function getRealTimeData(){
 
@@ -460,7 +581,7 @@ function getRealTimeData(){
             $(data.hourMetaDatas).each(function(i,o){
 
 
-                sArr.push(o.data);
+                sArr.push(o.data.toFixed(2));
             });
 
             for(var i=0; i< 24; i++){
@@ -479,10 +600,10 @@ function getRealTimeData(){
 
             //日数据
             //左侧总能耗
-            $('.real-time-energy .right-total-data .single-data').eq(0).find('.left-data p').html(data.dayEnergyData.energyData.toFixed(1));
+            $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio  .total').html(data.dayEnergyData.energyData.toFixed(1));
 
             //右侧同比
-            $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio p').eq(0).html((Math.abs(data.dayEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
+            $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.dayEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.dayEnergyData.lastYearEnergyPercent < 0){
 
@@ -492,7 +613,7 @@ function getRealTimeData(){
             }
 
             //右侧环比
-            $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio p').eq(2).html((Math.abs(data.dayEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
+            $('.real-time-energy .right-total-data .single-data').eq(0).find('.right-ratio .percent-number').eq(1).html((Math.abs(data.dayEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.dayEnergyData.chainEnergyPercent < 0) {
 
@@ -503,10 +624,10 @@ function getRealTimeData(){
 
             //月数据
             //左侧总能耗
-            $('.real-time-energy .right-total-data .single-data').eq(1).find('.left-data p').html(data.monthEnergyData.energyData.toFixed(1));
+            $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio  .total').html(data.monthEnergyData.energyData.toFixed(1));
 
             //右侧同比
-            $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio p').eq(0).html((Math.abs(data.monthEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
+            $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.monthEnergyData.lastYearEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.monthEnergyData.lastYearEnergyPercent < 0){
 
@@ -516,7 +637,7 @@ function getRealTimeData(){
             }
 
             //右侧环比
-            $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio p').eq(2).html((Math.abs(data.monthEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
+            $('.real-time-energy .right-total-data .single-data').eq(1).find('.right-ratio .percent-number').eq(1).html((Math.abs(data.monthEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.monthEnergyData.chainEnergyPercent < 0) {
 
@@ -527,10 +648,10 @@ function getRealTimeData(){
 
             //年数据
             //左侧总能耗
-            $('.real-time-energy .right-total-data .single-data').eq(2).find('.left-data p').html(data.yearEnergyData.energyData.toFixed(1));
+            $('.real-time-energy .right-total-data .single-data').eq(2).find('.right-ratio  .total').html(data.yearEnergyData.energyData.toFixed(1));
 
             //右侧环比
-            $('.real-time-energy .right-total-data .single-data').eq(2).find('.right-ratio p').eq(0).html((Math.abs(data.yearEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
+            $('.real-time-energy .right-total-data .single-data').eq(2).find('.right-ratio .percent-number').eq(0).html((Math.abs(data.yearEnergyData.chainEnergyPercent) * 100).toFixed(1) + '%');
 
             if(data.yearEnergyData.chainEnergyPercent < 0){
 
@@ -564,9 +685,9 @@ function getTopPageEnergyData(){
     var selectDateType = getShowDateType()[1];
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
 
     //传递给后台的数据
     var ecParams = {
@@ -644,9 +765,11 @@ function getTopPageEnergyData(){
 function getAllEnergyItemData(){
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
+
+    console.log(startDate);
 
     //传递给后台的数据
     var ecParams = {
@@ -729,9 +852,9 @@ function getAllEnergyItemData(){
 function getFirstEnergyItemData(){
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
 
     //传递给后台的数据
     var ecParams = {
@@ -817,9 +940,9 @@ function getFirstEnergyItemData(){
 function getTopPageKPIData(){
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
 
     //传递给后台的数据
     var ecParams = {
@@ -844,7 +967,7 @@ function getTopPageKPIData(){
             _myChart4.hideLoading();
             _myChart5.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -913,13 +1036,14 @@ function getPointerRankData(){
     var selectDateType = getShowDateType()[1];
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
 
     //获取配置好的能耗类型数据
      var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
      var txt = unitObj.alltypes;
+
     //获取能耗分项ID集合
     var energyItemIDArr = [];
 
@@ -1027,9 +1151,9 @@ function getOfficeRankData(){
     var selectDateType = getShowDateType()[1];
 
     //获取开始结束时间
-    var startDate = getPostTime()[0];
+    var startDate = getPostTime1()[0];
 
-    var endDate = getPostTime()[1];
+    var endDate = getPostTime1()[1];
 
     //获取配置好的能耗类型数据
     var unitObj = $.parseJSON(sessionStorage.getItem('officeEnergyType'));
@@ -1150,7 +1274,7 @@ function getPointerID(){
             pointerID.push(getPointers[i].pointerID)
         }
     }
-}
+};
 
 //获取所有报警数据
 function alarmHistory(){
@@ -1174,12 +1298,12 @@ function alarmHistory(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             //新增报警条数
             var countAlarm = result.length;
             //页面赋值
-            $('.new-alarm').eq(0).find('span').html(countAlarm);
+            $('.new-alarm1').eq(0).find('span').html(countAlarm);
 
             //已处理条数
             var isDispose = 0;
@@ -1196,18 +1320,17 @@ function alarmHistory(){
                 }else if(o.flag == 0){
 
                     noDispose ++;
-
                 }
             });
 
             //页面赋值
             //未处理
-            $('.new-alarm').eq(1).find('span').html(noDispose);
+            $('.new-alarm1').eq(1).find('span').html(noDispose);
             //已处理
-            $('.new-alarm').eq(2).find('span').html(isDispose);
+            $('.new-alarm1').eq(2).find('span').html(isDispose);
         }
     });
-}
+};
 
 //------------------------------------其他方法-----------------------------------------//
 //从本地存储中获取楼宇ID列表

@@ -325,8 +325,8 @@ function alarmHistory(){
 
         },
         error:function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(textStatus);
-            console.log(XMLHttpRequest);
+            //console.log(textStatus);
+            //console.log(XMLHttpRequest);
             if(textStatus=='timeout'){//超时,status还有success,error等值的情况
                 ajaxTimeoutTest.abort();
                 myAlter("超时");

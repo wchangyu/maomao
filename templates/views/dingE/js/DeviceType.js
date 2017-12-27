@@ -144,6 +144,32 @@ $(document).ready(function() {
         transform: 'rotate(0deg)'
     });
 
+    //改变表计类型时
+    $('.meter-type .add-select-block').on('click','li',function(){
+
+        console.log(33);
+
+        //判断当前是在线表还是手抄表
+        if($(this).attr('ids') == '1'){
+
+            //在线表默认上限值不可填写
+            $(this).parents('.meter-type').next().find('label').removeClass('input-label');
+
+            $(this).parents('.meter-type').next().find('.add-input').attr('disabled','disabled');
+
+            $(this).parents('.meter-type').next().find('.add-input-block').addClass('can-not-import');
+
+        }else{
+            //手抄表默认上限值必须填写
+            $(this).parents('.meter-type').next().find('label').addClass('input-label');
+
+            $(this).parents('.meter-type').next().find('.add-input').removeAttr('disabled');
+
+            $(this).parents('.meter-type').next().find('.add-input-block').removeClass('can-not-import');
+        }
+
+    });
+
     //添加操作
 
     $('#add-measure .btn-primary').on('click',function(){
@@ -276,6 +302,25 @@ $(document).ready(function() {
         $('#alter-measure .add-input').eq(3).val(thisData.f_WarnUp);
         $('#alter-measure .add-input').eq(4).val(thisData.f_MeterStandard);
         $('#alter-measure .add-input').eq(5).val(thisData.f_Range);
+
+        //判断当前是在线表还是手抄表
+        if(thisData.f_mtOnline == '1'){
+
+            //在线表默认上限值不可填写
+            $('#alter-measure .meter-type').next().find('label').removeClass('input-label');
+
+              $('#alter-measure .meter-type').next().find('.add-input').attr('disabled','disabled');
+
+              $('#alter-measure .meter-type').next().find('.add-input-block').addClass('can-not-import');
+
+        }else{
+            //手抄表默认上限值必须填写
+              $('#alter-measure .meter-type').next().find('label').addClass('input-label');
+
+              $('#alter-measure .meter-type').next().find('.add-input').removeAttr('disabled');
+
+              $('#alter-measure .meter-type').next().find('.add-input-block').removeClass('can-not-import');
+        }
 
 
         //点击提交按钮

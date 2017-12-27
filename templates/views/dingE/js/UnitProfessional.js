@@ -43,7 +43,7 @@ $(document).ready(function(){
         'columns':[
             {
                 title:'单位专业',
-                data:"f_SpecialtyName"
+                data:"f_SpecialtyName",
             },
             {
                 title:'单位ID',
@@ -356,7 +356,7 @@ function alarmHistory(){
         async:false,
         timeout:theTimes,
         beforeSend:function(){
-            $('#theLoading').modal('show');
+
         },
         complete:function(){
             $('#theLoading').modal('hide');

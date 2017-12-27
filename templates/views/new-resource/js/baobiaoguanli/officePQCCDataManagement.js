@@ -136,9 +136,9 @@ function getTableHtml(obj){
 
             html +=
                 //实际用电
-                '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(1)+'</td>'+
+                '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
                     //实际费用
-                '<td style="text-align:center;border:1px solid black">'+ o.moneyData.toFixed(1)+'</td>';
+                '<td style="text-align:center;border:1px solid black">'+ o.moneyData.toFixed(2)+'</td>';
         }
 
     });
@@ -149,7 +149,7 @@ function getTableHtml(obj){
             //实际费用
         '<td style="text-align:center;border:1px solid black">0</td>'+
             //支出合计
-        '<td style="text-align:center;border:1px solid black">'+obj.sumMoneyData.toFixed(1)+'</td></tr>';
+        '<td style="text-align:center;border:1px solid black">'+obj.sumMoneyData.toFixed(2)+'</td></tr>';
 
     //console.log(html);
 

@@ -117,6 +117,9 @@
 }
 
 /*新增弹窗样式*/
+.modal-body1{
+    padding-right:40px;
+}
 .gongdanList li {
     width: 300px;
 }
@@ -130,6 +133,8 @@
     height: 30px;
     border: 1px solid #ccc;
     background: #ffffff;
+    display: inline-block;
+    position: relative;
 }
 .input-blockeds input {
     line-height: 28px;
@@ -151,6 +156,9 @@
 
 .fdjImg {
     cursor: pointer;
+    position: absolute;
+    right: -34px;
+    top: 0px;
 }
 
 /*选择楼宇*/

@@ -7,7 +7,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>能耗排名</title>
+    <title>驾驶舱</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="../new-resource/iconfont/iconfont.css">
     <link rel="stylesheet" href="../new-resource/css/common.css">
     <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index.css">
+    <!--<link rel="stylesheet" href="../news/css/news.css">-->
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -266,19 +267,54 @@
                     <div class="total-warp">
                         <div class="wrap container">
                             <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                <!--<div class="content-main">-->
+                                    <!--<img src="../new-resource/img/CQDX.png" alt="">-->
+                                    <!--<p class="left-top"  style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;line-height: 20px;-->
+<!--overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院。医院现有员工3010名，博士生导师26名、硕士生导师180名，高级职称专家259名、享受政府特殊津贴专家14名。是中华医学会儿科学分会、小儿外科学分会、中华预防医学会儿童保健分会、中国医院协会儿童医院管理分会副主任委员单位。-->
+<!--">-->
+                                        <!--&nbsp;&nbsp;重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院...-->
+                                    <!--</p>-->
+                                <!--</div>-->
+
                                 <div class="content-main">
-                                    <img src="../new-resource/img/CQDX.png" alt="">
-                                    <p class="left-top"  style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 4;line-height: 20px;
-overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院。医院现有员工3010名，博士生导师26名、硕士生导师180名，高级职称专家259名、享受政府特殊津贴专家14名。是中华医学会儿科学分会、小儿外科学分会、中华预防医学会儿童保健分会、中国医院协会儿童医院管理分会副主任委员单位。
-">
-                                        &nbsp;&nbsp;重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院...
-                                    </p>
+
+                                    <div id="myCarousel" class="carousel slide" style="width: 100%;height: 300px">
+                                        <!-- 轮播（Carousel）指标 -->
+                                        <ol class="carousel-indicators">
+
+                                        </ol>
+                                        <!-- 轮播（Carousel）项目 -->
+                                        <div class="carousel-inner" style="height: 100%">
+
+                                        </div>
+                                        <!-- 轮播（Carousel）导航 -->
+                                        <a class="carousel-control left" style="display: inline-block;width: 45px;height: 45px;font-size: 50px;line-height: 35px;background: #3d3d3d;top: 118px;" href="#myCarousel"
+                                           data-slide="prev">&lsaquo;</a>
+                                        <a class="carousel-control right" style="display: inline-block;width: 45px;height: 45px;font-size: 50px;line-height: 35px;background: #3d3d3d;top: 118px;" href="#myCarousel"
+                                           data-slide="next">&rsaquo;</a>
+                                    </div>
+
                                 </div>
+
                                 <div class="content-main">
                                     <div class="main-left-middle1">
                                         <div class="left-middle-header">医院统计</div>
                                         <div class="left-middle-main1">
 
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-main">
+                                    <div class="main-left-middle2">
+                                        <div class="left-middle-header">实时报警</div>
+                                        <div class="left-middle-main2">
+                                            <p class="new-alarm1">新增的报警:<span></span></p>
+                                            <p class="new-alarm1">未处理报警:<span></span></p>
+                                            <p class="new-alarm1">已处理报警:<span class="normal"></span></p>
+                                            <div class="bottom-link">
+                                                <a target="_blank" href="../baojingyujing/warningAlarm-3.html" style="margin-right:10px;">点击查看详情</a>
+                                            </div>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -327,7 +363,7 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                 <div class="right-content">
 
                                     <!--左侧实时能耗-->
-                                    <div class="real-time-energy content-main-bottom col-lg-9 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
+                                    <div class="real-time-energy content-main-bottom col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom">
                                         <!--头部数据信息-->
                                         <h3 style="">实时能耗
                                     <span style="float:right;font-weight: 500;font-size: 16px;">单位：
@@ -336,11 +372,8 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                         </h3>
 
                                         <ul class="top-cut">
-                                            <li><a href="javascript:;" type="100">电</a></li>
-                                            <li><a href="javascript:;"  class="onClicks" type="200">水</a></li>
-                                            <li><a href="javascript:;" type="500">冷</a></li>
-                                            <li><a href="javascript:;" type="400">热</a></li>
-                                            <div class="clearfix"></div>
+
+
                                         </ul>
 
                                        <div class="row" style="margin-left:0px;margin-right:0px;">
@@ -360,14 +393,18 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                                    <div class="left-data">
                                                        <p></p>
                                                    </div>
-                                                   <div class="right-ratio">
+                                                   <div class="right-ratio ">
                                                        <div class="top-percent">
-                                                           <p> </p>
+                                                           <p class="percent-number"> </p>
                                                            <p> 同比</p>
                                                        </div>
 
+                                                       <div class="top-percent0">
+                                                           <p class="total">1000</p>
+                                                       </div>
+
                                                        <div class="top-percent">
-                                                           <p> </p>
+                                                           <p class="percent-number"> </p>
                                                            <p> 环比</p>
                                                        </div>
                                                    </div>
@@ -384,12 +421,16 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                                    </div>
                                                    <div class="right-ratio">
                                                        <div class="top-percent">
-                                                           <p> </p>
+                                                           <p class="percent-number"> </p>
                                                            <p> 同比</p>
                                                        </div>
 
+                                                       <div class="top-percent0">
+                                                           <p class="total">1000</p>
+                                                       </div>
+
                                                        <div class="top-percent">
-                                                           <p> </p>
+                                                           <p class="percent-number"> </p>
                                                            <p> 环比</p>
                                                        </div>
                                                    </div>
@@ -401,13 +442,19 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                                    <h4 style="padding-left:10px"> 本年累计
                                                        <span></span>
                                                    </h4>
+
                                                    <div class="left-data">
                                                        <p></p>
                                                    </div>
+
                                                    <div class="right-ratio">
-                                                       <div class="top-percent top-percent1" style="padding-top:20px;">
-                                                           <p> </p>
+                                                       <div class="top-percent top-percent1" style="padding-top:5px;">
+                                                           <p class="percent-number"> </p>
                                                            <p> 环比</p>
+                                                       </div>
+
+                                                       <div class="top-percent0">
+                                                           <p class="total">1000</p>
                                                        </div>
 
                                                    </div>
@@ -428,7 +475,7 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                     </div>
 
                                     <!--右侧实时报警-->
-                                    <div class="content-main-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="padding-left: 0px;">
+                                    <div class="content-main-top-right col-lg-3 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" style="padding-left: 0px;display: none">
                                         <!--头部数据信息-->
                                         <h3 style="">
                                             实时报警
@@ -514,6 +561,10 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                     <!--本月能耗排名-->
                                     <div class="content-main-bottom-center col-lg-6 col-md-12 col-sm-12 col-xs-12 main-right-oness main-right-oness-2 quota-data-bottom" style="padding-left: 0px;">
 
+                                         <span style="float:right;font-weight: 500;font-size: 16px;">单位：
+                                        <b>kgce</b>
+                                    </span>
+
                                         <h3 style="">
                                             本日能耗排名
 
@@ -522,7 +573,8 @@ overflow: hidden;" title="吉重庆医科大学附属儿童医院于1956年由�
                                         <div class="header-right-btn" style="margin-right:28px;">
 
                                             <span class="cur-on-choose">楼宇</span>
-                                            <span class="">科室</span>
+                                            <span class="">单位</span>
+
                                         </div>
 
                                         <div class="row">

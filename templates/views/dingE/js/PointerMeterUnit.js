@@ -3,12 +3,10 @@
  */
 $(document).ready(function(){
 
-    //调用获取后台数据方法，进行数据获取
-    alarmHistory();
 
-    console.log(dataArr);
+    //console.log(dataArr);
     //初始化页面table表单
-    console.log(dataArr1);
+    //console.log(dataArr1);
 
     var table = $('#dateTables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -304,7 +302,6 @@ $(document).ready(function(){
         hiddrenId();
 
 
-
     });
 
     //更改公摊比例
@@ -545,6 +542,10 @@ var tableArr = [];
 
 var isShow = 0;
 
+dataArr = [];
+
+dataArr1 = [];
+
 //改变公摊比例时
 function tableChanges(){
 
@@ -626,6 +627,13 @@ function getBuildTree(){
         success: function (data) {
             console.log(data);
 
+            if(data.length == 0){
+
+                myAlter('无计量设备');
+
+                return false;
+            }
+
             buildArr = data;
 
 
@@ -703,6 +711,9 @@ function getBuildTree(){
                     display:'none'
                 })
             }
+
+            //调用获取后台数据方法，进行数据获取
+            alarmHistory();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -10,7 +10,8 @@
         "img":"totalEner.png",
         "color":"#bce3de",
         "img2":"electricity.png",
-        "isShowItem":1
+        "isShowItem":1,
+        "etunitZH":"度"
       },
       {
         "etid": "211",
@@ -20,7 +21,8 @@
         "img":"totalWater.png",
         "color":"#fcbf92",
         "img2":"water.png",
-        "isShowItem":1
+        "isShowItem":1,
+        "etunitZH":"吨"
       },
       {
         "etid": "311",
@@ -30,7 +32,8 @@
         "img":"totalQi.png",
         "color":"#b1cade",
         "img2":"gas.png",
-        "isShowItem":1
+        "isShowItem":1,
+        "etunitZH":"立方米"
       },
       {
         "etid": "412",
@@ -40,7 +43,8 @@
         "img":"",
         "color":"#b1cade",
         "img2":"hot.png",
-        "isShowItem":1
+        "isShowItem":1,
+        "etunitZH":"兆焦"
       },
       {
         "etid": "511",
@@ -50,7 +54,8 @@
         "img":"",
         "color":"#b1cade",
         "img2":"cold.png",
-        "isShowItem":1
+        "isShowItem":1,
+        "etunitZH":"兆焦"
       },
       {
         "etid": "1011",
@@ -92,8 +97,6 @@
         "img2":"cold.png",
         "isShowItem":0
       }
-
-
     ]
   },
   "officeEnergyType": {
@@ -116,12 +119,20 @@
         "img":"totalWater.png",
         "color":"#fcbf92",
         "img2":"water.png"
+      },
+      {
+        "etid": "311",
+        "etname": "气",
+        "ettype" : "300",
+        "etunit": "m3",
+        "img":"totalQi.png",
+        "color":"#b1cade",
+        "img2":"gas.png"
       }
     ]
   },
-
-  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix":"http://218.70.30.134:32537/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://218.70.30.134:32537/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -132,18 +143,22 @@
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
   "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
-  "alarmInterval":"0",
+  "alarmInterval":"10",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
   "alarmAlert":"0",
-  "alarmSong":"0",
+  "alarmSong":"1",
   "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"0",
+  "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
   "gongdanIndustryType":"1",
+<<<<<<< HEAD
   "ckAuditType":"0",
   "imgPath":"http://1.1.1.1/ApService/dimg.aspx",
   "imgPathComment":"查看图片的路径"
+=======
+  "ckAuditType":"0"
+>>>>>>> origin/master
 }

@@ -97,7 +97,7 @@ function getEnergyPublicityData(){
                                 '<td>总占地面积</td><td>'+result.landArea+'</td><td>平米</td>' +
                             '</tr>'+
                             '<tr>' +
-                                '<td>总建筑面积</td><td>'+result.buildArea +'</td><td>平米</td>';
+                                '<td>总建筑面积</td><td>'+result.buildArea.toFixed(2) +'</td><td>平米</td>';
             //判断是否需要展示床位
 
             if(result.beeWebMode == 0){
@@ -160,61 +160,61 @@ function getEnergyPublicityData(){
                 //总用电数据
                 if(o.energyItemId == '01' && o.energyFlag == 1){
 
-                    electricity1 = o.energyData.toFixed(1);
+                    electricity1 = o.energyData.toFixed(2);
                 }
 
                 //单位面积用电数据
                 if(o.energyItemId == '01' && o.energyFlag == 3){
 
-                    electricity2 = o.energyData.toFixed(1);
+                    electricity2 = o.energyData.toFixed(2);
                 }
 
                 //单位床位用电数据
                 if(o.energyItemId == '01' && o.energyFlag == 9){
 
-                    electricity3 = o.energyData.toFixed(1);
+                    electricity3 = o.energyData.toFixed(2);
                 }
 
                 //总用水数据
                 if(o.energyItemId == '211' && o.energyFlag == 1){
 
-                    water1 = o.energyData.toFixed(1);
+                    water1 = o.energyData.toFixed(2);
                 }
 
                 //单位面积用水数据
                 if(o.energyItemId == '211' && o.energyFlag == 3){
 
-                    water2 = o.energyData.toFixed(1);
+                    water2 = o.energyData.toFixed(2);
                 }
 
                 //单位床位用水数据
                 if(o.energyItemId == '211' && o.energyFlag == 9){
 
-                    water3 = o.energyData.toFixed(1);
+                    water3 = o.energyData.toFixed(2);
                 }
 
                 //总用气数据
                 if(o.energyItemId == '311' && o.energyFlag == 1){
 
-                    air1 = o.energyData.toFixed(1);
+                    air1 = o.energyData.toFixed(2);
                 }
 
                 //总用能数据
                 if(o.energyItemId == '-2' && o.energyFlag == 1){
 
-                    energy1 = o.energyData.toFixed(1);
+                    energy1 = o.energyData.toFixed(2);
                 }
 
                 //单位面积用能数据
                 if(o.energyItemId == '-2' && o.energyFlag == 3){
 
-                    energy2 = o.energyData.toFixed(1);
+                    energy2 = o.energyData.toFixed(2);
                 }
 
                 //单位床位用能数据
                 if(o.energyItemId == '-2' && o.energyFlag == 9){
 
-                    energy3 = o.energyData.toFixed(1);
+                    energy3 = o.energyData.toFixed(2);
                 }
 
             });
@@ -420,7 +420,11 @@ var table = $('#dateTables1').DataTable({
         },
         {
             title:'建筑面积<br />(平米)',
-            data:"buildArea"
+            data:"buildArea",
+            render:function(data, type, full, meta){
+
+                return data.toFixed(2);
+            }
         },
         {
             title:'床位数<br />(个)',
@@ -436,7 +440,7 @@ var table = $('#dateTables1').DataTable({
                     $(data).each(function(i,o){
 
                         if(o.energyItemId == '01' && o.energyFlag == 1){
-                            thisData = o.energyData.toFixed(1);
+                            thisData = o.energyData.toFixed(2);
                             return false;
                         }
                     })
@@ -454,7 +458,7 @@ var table = $('#dateTables1').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '01' && o.energyFlag == 3){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -472,7 +476,7 @@ var table = $('#dateTables1').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '01' && o.energyFlag == 9){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -490,7 +494,7 @@ var table = $('#dateTables1').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 1){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -508,7 +512,7 @@ var table = $('#dateTables1').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 3){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -526,7 +530,7 @@ var table = $('#dateTables1').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 9){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -602,7 +606,11 @@ var table1 = $('#dateTables3').DataTable({
         },
         {
             title:'建筑面积<br />(平米)',
-            data:"buildArea"
+            data:"buildArea",
+            render:function(data, type, full, meta){
+
+                return data.toFixed(2);
+            }
         },
         {
             title:'床位数<br />(个)',
@@ -618,7 +626,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '01' && o.energyFlag == 1){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -636,7 +644,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '01' && o.energyFlag == 3){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -654,7 +662,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '01' && o.energyFlag == 9){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -672,7 +680,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 1){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -690,7 +698,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 3){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })
@@ -708,7 +716,7 @@ var table1 = $('#dateTables3').DataTable({
                 $(data).each(function(i,o){
 
                     if(o.energyItemId == '211' && o.energyFlag == 9){
-                        thisData = o.energyData.toFixed(1);
+                        thisData = o.energyData.toFixed(2);
                         return false;
                     }
                 })

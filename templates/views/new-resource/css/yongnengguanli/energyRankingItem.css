@@ -103,4 +103,5 @@
 
 #dateTables th, #dateTables td{
     min-width:100px;
+    text-align: center !important;
 }

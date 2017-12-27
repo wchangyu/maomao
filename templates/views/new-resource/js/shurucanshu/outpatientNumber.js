@@ -13,7 +13,7 @@ $(function(){
     _monthDate($('.datatimeblock'));
 
     //给页面赋初始年份
-    var month1 = moment().subtract('1','months').format('YYYY-MM');
+    var month1 = moment().format('YYYY-MM');
 
     $('.min').val(month1);
 
@@ -208,6 +208,8 @@ $(function(){
                 if(result == null || result.enterpriseDatas.length == 0){
 
                     tipInfo($('#myModal1'),'提示','无数据！','flag');
+
+                    return false;
                 }
 
                 _allPersonalArr.length = 0;
@@ -279,7 +281,7 @@ $(function(){
         var month = $('#myModal .months').val();
 
         //判断必填项是否为空
-        if( enterpriseName == ''||year == ''){
+        if( enterpriseName == ''||month == ''){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
 

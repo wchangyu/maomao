@@ -22,26 +22,153 @@ $(function(){
         }
     }
 
+
     //2.1载入全院的数据
-    $.ajax({
-        type:"post",
-        url:urlPrefix + "/EnergyItemDatas/getClassEcData",
-        data:{
-            "pointerID":0,
-            "pointerIds":ptIds,
-            "startTime":monthStart,
-            "endTime":monthEnd,
-            "dateType":"月"
-        },
-        success:function(data){
-            if(data.length==0){ return; }
-            var $divEC = $(".ecAll>.ec");       //获取总能耗版块
-            for(var i= 0,len=data.length;i<len;i++){
-                setPtData($divEC,data[i]);
+    //获取本日能耗数据
+    getTopPageEnergyData();
+
+    function getTopPageEnergyData(){
+
+        //获取用户选择的日期类型
+        var selectDateType = 'Month';
+
+        //获取开始结束时间
+        var startDate = moment().startOf('month').format('YYYY-MM-DD');
+
+        var endDate = moment().endOf('month').format('YYYY-MM-DD');
+
+        //传递给后台的数据
+        var ecParams = {
+            "startTime": startDate,
+            "endTime": endDate,
+            "selectDateType": selectDateType,
+            "pointerIDs":  ptIds
+        };
+
+        //发送请求
+        $.ajax({
+            type:'post',
+            url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetTopPageEnergyData',
+            data:ecParams,
+            timeout:_theTimes,
+            beforeSend:function(){
+
+            },
+            success:function(result){
+
+                //console.log(result);
+
+                $('.fenleinenghao').children().removeClass('equal');
+                $('.fenleinenghao').children().removeClass('down');
+
+                //总能耗
+                $('.fenleinenghao').eq(0).find('.data').html(result[0].currentEnergyData.toFixed(1));
+
+                //同比
+                $('.fenleinenghao').eq(0).find('.child1 span').html(Math.abs(result[0].chainEnergyPercent*100).toFixed(1) + '%');
+
+                //环比
+                $('.fenleinenghao').eq(0).find('.child2 span').html(Math.abs(result[0].lastYearEnergyPercent*100).toFixed(1) + '%');
+
+                //判断箭头方向
+                if(result[0].chainEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(0).find('.child1').addClass('down');
+
+                }else if(result[0].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(0).find('.child1').addClass('equal');
+
+                }
+
+                if(result[0].lastYearEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(0).find('.child2').addClass('down');
+
+                }else if(result[0].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(0).find('.child2').addClass('equal');
+
+                }
+
+                //电耗
+                $('.fenleinenghao').eq(1).find('.data').html(result[1].currentEnergyData.toFixed(1));
+
+                //同比
+                $('.fenleinenghao').eq(1).find('.child1 span').html(Math.abs(result[1].chainEnergyPercent*100).toFixed(1) + '%');
+
+                //环比
+                $('.fenleinenghao').eq(1).find('.child2 span').html(Math.abs(result[1].lastYearEnergyPercent*100).toFixed(1) + '%');
+
+                //判断箭头方向
+                if(result[1].chainEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(1).find('.child1').addClass('down');
+
+                }else if(result[1].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(1).find('.child1').addClass('equal');
+
+                }
+
+                if(result[1].lastYearEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(1).find('.child2').addClass('down');
+
+                }else if(result[1].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(1).find('.child2').addClass('equal');
+
+                }
+
+                //总水耗
+                $('.fenleinenghao').eq(2).find('.data').html(result[2].currentEnergyData.toFixed(1));
+
+                //同比
+                $('.fenleinenghao').eq(2).find('.child1 span').html(Math.abs(result[2].chainEnergyPercent*100).toFixed(1) + '%');
+
+                //环比
+                $('.fenleinenghao').eq(2).find('.child2 span').html(Math.abs(result[2].lastYearEnergyPercent*100).toFixed(1) + '%');
+
+                //判断箭头方向
+                if(result[2].chainEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(2).find('.child1').addClass('down');
+
+                }else if(result[2].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(2).find('.child1').addClass('equal');
+
+                }
+
+                if(result[2].lastYearEnergyPercent < 0){
+
+                    $('.fenleinenghao').eq(2).find('.child2').addClass('down');
+
+                }else if(result[2].chainEnergyPercent == 0){
+
+                    $('.fenleinenghao').eq(2).find('.child2').addClass('equal');
+
+                }
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+
+                //错误提示信息
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                    _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+                }else{
+                    _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+                }
+
             }
-        },
-        error:function(xhr,res,err){console.log("获取总数据失败");}
-    })
+        })
+
+    };
+
+
     var offices = sessionStorage.offices ? JSON.parse(sessionStorage.offices) : [];
     var lenOffices = offices.length;
     var officeIds = [];
@@ -50,47 +177,47 @@ $(function(){
             officeIds.push(offices[i].f_OfficeID);
         }
     }
-    //载入各个分户的数据
-    $.ajax({
-        type:"post",
-        url:urlPrefix + "/EnergyItemDatas/GetTopOfficeEcs",
-        data:{
-            "startTime":monthStart,
-            "endTime":monthEnd,
-            "OfficeIDs":officeIds,
-            "itemCount":"5"
-        },
-        success:function(datas){
-            if(datas.length>0){
-                var dataIndex = 1;
-                var $divTopEc = $(".ecOfficeTop5>.ecTop");
-                $.each(datas[0],function(index,item){
-                    $("<li>",{text:dataIndex+"." + item.itemName + ":" + item.ecData.toFixed(0) + " kWh"}).appendTo($divTopEc);
-                    dataIndex+=1;
-                })
-            }
-        }
-    })
+    ////载入各个分户的数据
+    //$.ajax({
+    //    type:"post",
+    //    url:urlPrefix + "/EnergyItemDatas/GetTopOfficeEcs",
+    //    data:{
+    //        "startTime":monthStart,
+    //        "endTime":monthEnd,
+    //        "OfficeIDs":officeIds,
+    //        "itemCount":"5"
+    //    },
+    //    success:function(datas){
+    //        if(datas.length>0){
+    //            var dataIndex = 1;
+    //            var $divTopEc = $(".ecOfficeTop5>.ecTop");
+    //            $.each(datas[0],function(index,item){
+    //                $("<li>",{text:dataIndex+"." + item.itemName + ":" + item.ecData.toFixed(0) + " kWh"}).appendTo($divTopEc);
+    //                dataIndex+=1;
+    //            })
+    //        }
+    //    }
+    //})
 
 
-    for(var i= 0;i<len;i++){
-        $.ajax({
-            type:"post",
-            url: urlPrefix + "/EnergyItemDatas/getClassEcData",
-            data:{
-                "pointerID":pts[i].pointerID,
-                "pointerIds":[pts[i].pointerID],
-                "startTime":monthStart,
-                "endTime":monthEnd,
-                "dateType":"月"
-            },
-            success:function(data){
-                if(data.length==0) { return ;}
-
-                _allPtEcDatas.push(data);
-            }
-        })
-    }
+    //for(var i= 0;i<len;i++){
+    //    $.ajax({
+    //        type:"post",
+    //        url: urlPrefix + "/EnergyItemDatas/getClassEcData",
+    //        data:{
+    //            "pointerID":pts[i].pointerID,
+    //            "pointerIds":[pts[i].pointerID],
+    //            "startTime":monthStart,
+    //            "endTime":monthEnd,
+    //            "dateType":"月"
+    //        },
+    //        success:function(data){
+    //            if(data.length==0) { return ;}
+    //
+    //            _allPtEcDatas.push(data);
+    //        }
+    //    })
+    //}
 })
 
 var _allPtEcDatas = [];      //存储所有楼宇的能耗数据，点击到某栋楼时候显示
@@ -155,8 +282,8 @@ function setMapAreas(color){
         $area.attr("nohref","nohref");
         var pointerid = $area.attr("data-ptid");
         var pointername = $area.attr("data-ptname");
-        $area.attr("onmouseover","showCurPtData('" + pointerid +"','" + pointername +"');");
-        $area.attr("onmouseout","hideDiv();");
+        //$area.attr("onmouseover","showCurPtData('" + pointerid +"','" + pointername +"');");
+        //$area.attr("onmouseout","hideDiv();");
     }
 }
 
