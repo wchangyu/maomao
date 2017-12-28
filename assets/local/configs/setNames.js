@@ -18,8 +18,17 @@ var __names = {
 
 };
 
+var __routeShow = true;
+
 //定义需给页面中区域，部门等动态赋值的页面名称
+<<<<<<< HEAD
+var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','gdMaintenanceParts.html',
+    'productionOrder-1.html','productionOrder-3.html','productionOrder-2.html','productionOrder-7.html','productionOrder-5.html','productionOrder-4.html','productionOrder-8.html','productionOrder-9.html',
+    'productionOrder-10.html','productionOrder-11.html','option.html','productionOrder_see.html','reworkTwoStore.html'
+];
+=======
 var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','productionOrder-1.html','wbDetails.html'];
+>>>>>>> origin/master
 
 
 function __setNames(){

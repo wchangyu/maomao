@@ -1,3 +1,5 @@
+//记录工单号
+var _gdCode = 0;
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -6,8 +8,6 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //图片ip
-    var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
     var _isLineLoaded = false;      //线路数据是否载入
     var _isStationLoaded = false;   //车站数据是否载入
@@ -75,10 +75,7 @@ $(function(){
     var _weiXiuCaiLiao = [];
     //负责人数组
     var _fuZeRen = [];
-    //记录工单号
-    var _gdCode = 0;
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+
     //执行人员的标识
     var _workerFlag = false;
     //物料的标识
@@ -645,30 +642,30 @@ $(function(){
         $('#myModal1').modal('hide');
     })
     //修改
-    $('#myModal')
-    //查看图片
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        //图片详情
-        .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal4'),'图片详情','flag');
-            var imgSrc = $(this).attr('src')
-            $('#myModal4').find('img').attr('src',imgSrc);
-        })
+    //$('#myModal')
+    ////查看图片
+    //    .on('click','#viewImage',function(){
+    //        if(_imgNum){
+    //            var str = '';
+    //            for(var i=0;i<_imgNum;i++){
+    //                str += '<img class="viewIMG" src="' +
+    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
+    //                    '">'
+    //            }
+    //            $('.showImage').html('');
+    //            $('.showImage').append(str);
+    //            $('.showImage').show();
+    //        }else{
+    //            $('.showImage').html('没有图片');
+    //            $('.showImage').show();
+    //        }
+    //    })
+    //    //图片详情
+    //    .on('click','.viewIMG',function(){
+    //        moTaiKuang($('#myModal4'),'图片详情','flag');
+    //        var imgSrc = $(this).attr('src')
+    //        $('#myModal4').find('img').attr('src',imgSrc);
+    //    })
 
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮

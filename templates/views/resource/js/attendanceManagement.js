@@ -232,6 +232,9 @@ $(function(){
     //新增
     $('.creatButton').click(function(){
 
+        //模态框loadding
+        $('#theLoading').modal('show');
+
         $('#ADD-Modal').find('.datatimeblock').click();
 
         //是新增按钮
@@ -252,6 +255,9 @@ $(function(){
         //模态框可操作
         abledOption();
 
+        //模态框消失
+        $('#theLoading').modal('hide');
+
     })
 
     //新增确定按钮
@@ -264,6 +270,9 @@ $(function(){
 
     //编辑
     $('#table-list').on('click','.option-edit',function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
 
         //首先让日历插件失去焦点一次
         $('#ADD-Modal').find('.datatimeblock').click();
@@ -283,6 +292,9 @@ $(function(){
         //验证消息隐藏
         $('#ADD-Modal').find('.multiple-condition').hide();
 
+        //loadding消失
+        $('#theLoading').modal('hide');
+
     })
 
     //编辑确定按钮
@@ -295,6 +307,9 @@ $(function(){
 
     //删除
     $('#table-list').on('click','.option-delete',function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
 
         //数据绑定
         bindData($(this));
@@ -310,6 +325,9 @@ $(function(){
 
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('bianji').removeClass('dengji').addClass('shanchu');
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     })
 

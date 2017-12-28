@@ -276,7 +276,7 @@
 }
 /*模态框*/
 .modal-dialog,.modal-content{
-    width: 700px !important;
+    width: 710px !important;
     /*height: 500px;*/
     background: #ffffff;
 }
@@ -610,11 +610,13 @@ textarea{
 }
 .bjImg{
     padding: 10px;
-    display: none;
+    border:1px solid #ebebeb;
 }
 .bjImgList{
     width: 100px;
     height: 100px;
+    border:1px solid #ebebeb;
+    cursor: pointer;
 }
 .kuqu-list{
     width: 100% !important;
@@ -736,4 +738,32 @@ textarea{
     
     background: #ffffff !important;
 
+}
+.gongdanList .floatLi{
+
+    width: 300px !important;
+
+    float: left;
+
+    margin-right: 10px;
+
+}
+.gongdanList>.divBlock{
+
+    width: 611px !important;
+
+}
+
+#img-Modal .modal-body{
+
+    text-align: center;
+
+}
+.factoryRepair .tableHover label{
+
+    width: 90px;
+}
+.factoryRepair .tableHover input{
+
+    outline: none;margin-left: 20px;
 }

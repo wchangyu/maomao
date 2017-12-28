@@ -139,7 +139,7 @@
 <div class="clearfix">
 </div>
 <!-- BEGIN CONTAINER -->
-<div class="loading">
+<div>
     <div class="page-container">
         <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">
@@ -241,7 +241,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                         <!--<div class="btn-group pull-right">
                             <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -284,7 +283,14 @@
                                             </div>
                                         </li>
                                         <li>
+<<<<<<< HEAD
+                                            <label for="">
+                                                <span class="user-defined-department"></span>
+                                                <!--车站：-->：
+                                            </label>
+=======
                                             <label for=""><span class="user-defined-department"></span>：</label>
+>>>>>>> origin/master
                                             <div class="input-blocked">
                                                 <input type="text">
                                             </div>
@@ -328,7 +334,6 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
-                                            <!--<img src="../resource/img/loading.gif" alt="">-->
                                         </div>
                                     </div>
                                 </div>
@@ -372,25 +377,47 @@
                 <ul class="gongdanList" id="myApp33" style="height: 512px;overflow-y: scroll">
                     <validator name="validation">
                         <form novalidate>
+<<<<<<< HEAD
+                            <li class="floatLi seeBlock" style="line-height: 26px;">
+=======
                             <li class="floatLeft seeBlock" style="line-height: 26px;">
+>>>>>>> origin/master
                                 <div class="labels">工单号：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="gdCode" disabled>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi seeBlock" style="line-height: 26px;">
+=======
                             <li class="floatRight seeBlock" style="line-height: 26px;">
+>>>>>>> origin/master
                                 <div class="labels">工单状态：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="state">
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi" style="line-height: 26px;">
+=======
                             <li class="floatLeft" style="line-height: 26px;">
+>>>>>>> origin/master
                                 <div class="labels">工单类型：</div>
                                 <div class="input-blockeds">
                                     <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" ><label for="ones">快速</label>
                                     <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" ><label for="twos">普通</label>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi" style="line-height: 26px;">
+                                <div class="labels">工单来源：</div>
+                                <div class="input-blockeds">
+                                    <select v-model="gdly" class="gdly">
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="floatLi" style="line-height: 26px;">
+=======
                             <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">工单来源：</div>
                                 <div class="input-blockeds">
@@ -401,6 +428,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
+>>>>>>> origin/master
                                 <div class="labels">任务级别：</div>
                                 <div class="input-blockeds">
                                     <select v-model="rwlx">
@@ -411,56 +439,100 @@
                                     </select>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatRight">
+>>>>>>> origin/master
                                 <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatLeft">
+>>>>>>> origin/master
                                 <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatRight">
+>>>>>>> origin/master
                                 <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi routeShow">
+                                <div class="labels">线路 ：</div>
+                                <div class="input-blockeds">
+                                    <select id="line-route" class="line-route" v-model="lineRoute" @change="selectLine">
+=======
                             <li class="floatLeft">
                                 <div class="labels">线路 ：</div>
                                 <div class="input-blockeds">
                                     <select id="line-route" v-model="lineRoute" @change="selectLine">
+>>>>>>> origin/master
 
                                     </select>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+                                <div class="labels colorTip">
+                                    <span class="user-defined-department"></span>
+                                    <!--车站--> *：
+                                </div>
+=======
                             <li class="floatRight">
                                 <div class="labels colorTip"><span class="user-defined-department"></span> *：</div>
+>>>>>>> origin/master
                                 <div class="input-blockeds">
                                     <select class="cjz" v-model="section"></select>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatLeft">
+>>>>>>> origin/master
                                 <div class="labels colorTip">系统类型 *：</div>
                                 <div class="input-blockeds">
                                     <select class="xitong" v-model="matter"></select>
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatRight">
+>>>>>>> origin/master
                                 <div class="labels">设备编码：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbSelect">
                                 </div>
                             </li>
+<<<<<<< HEAD
+                            <li class="floatLi">
+=======
                             <li class="floatLeft">
+>>>>>>> origin/master
                                 <div class="labels">设备名称：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbMC">
                                 </div>
                             </li>
+<<<<<<< HEAD
+                        </form>
+                    </validator>
+                    <li class="floatLi" style="line-height: 26px;">
+=======
                             <!--<li class="floatRight">-->
                             <!--<div class="labels">安装地点：</div>-->
                             <!--<div class="input-blockeds">-->
@@ -470,25 +542,38 @@
                         </form>
                     </validator>
                     <li class="floatRight" style="line-height: 26px;">
+>>>>>>> origin/master
                         <div class="labels">故障发生时间：</div>
                         <div class="input-blockeds">
                             <input type="text" class="otime">
                         </div>
                     </li>
+<<<<<<< HEAD
+                    <li class="floatLi seeBlock" style="line-height: 26px;">
+=======
                     <li class="floatLeft seeBlock" style="line-height: 26px;">
+>>>>>>> origin/master
                         <div class="labels">工单登记时间：</div>
                         <div class="input-blockeds">
                             <input type="text" class="dtime">
                         </div>
                     </li>
                     <div class="clearfix"></div>
+<<<<<<< HEAD
+                    <div class="divBlock">
+=======
                     <div>
+>>>>>>> origin/master
                         <div class="labels">故障描述：</div>
                         <div class="input-blockeds" style="height:62px;">
                             <textarea style="width: 100%;height: 60px;outline: none" class="remarkDes"></textarea>
                         </div>
                     </div>
+<<<<<<< HEAD
+                    <div class="divBlock" style="margin-top: 10px;">
+=======
                     <div style="margin-top: 10px;">
+>>>>>>> origin/master
                         <button type="button" class="btn btn-info viewImage" id="viewImage">查看图片</button>
                         <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                     </div>
@@ -510,27 +595,25 @@
                 <h4 class="modal-title">快速创建</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent">
-                    <ul class="gongdanList" id="quickWork">
+                    <ul class="gongdanList" id="quickWork" style="height: 512px;overflow-y: auto">
                         <validator name="validation">
                             <form novalidate>
-                                <li class="floatLeft" style="line-height: 26px;">
+                                <li class="floatLi" style="line-height: 26px;">
                                     <div class="labels">工单类型：</div>
                                     <div class="input-blockeds">
                                         <input type="radio" class="inpus" id="one1" value="1" v-model="picked" v-on:click="radios" disabled="disabled"><label for="one1">快速</label>
                                         <input type="radio" class="inpus" id="two1" value="0" v-model="picked" v-on:click="radios" disabled="disabled"><label for="two1">普通</label>
                                     </div>
                                 </li>
-                                <li class="floatRight" style="line-height: 26px;">
+                                <li class="floatLi" style="line-height: 26px;">
                                     <div class="labels">工单来源：</div>
                                     <div class="input-blockeds">
                                         <select v-model="gdly" class="gdly">
-                                            <option value="1">车站报修</option>
-                                            <option value="2">现场人员报修</option>
+
                                         </select>
                                     </div>
                                 </li>
-                                <li class="floatLeft" style="line-height: 26px;">
+                                <li class="floatLi" style="line-height: 26px;">
                                     <div class="labels">任务级别：</div>
                                     <div class="input-blockeds">
                                         <select v-model="rwlx">
@@ -541,63 +624,78 @@
                                         </select>
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="floatLi">
                                     <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLi">
                                     <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
                                     <div class="input-blockeds">
                                         <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="floatLi">
                                     <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLi routeShow">
                                     <div class="labels">线路：</div>
                                     <div class="input-blockeds">
-                                        <select id="line-route1" v-model="lineRoute" @change="selectLine">
+                                        <select id="line-route1" class="line-route" v-model="lineRoute" @change="selectLine">
 
                                         </select>
                                     </div>
                                 </li>
+<<<<<<< HEAD
+                                <li class="floatLi">
+                                    <div class="labels colorTip">
+                                        <span class="user-defined-department"></span>
+                                        <!--车站--> *：
+                                    </div>
+=======
                                 <li class="floatRight">
                                     <div class="labels colorTip"><span class="user-defined-department"></span> *：</div>
+>>>>>>> origin/master
                                     <div class="input-blockeds">
                                         <select class="cjz1" v-model="section"></select>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLi">
                                     <div class="labels colorTip">系统类型 *：</div>
                                     <div class="input-blockeds">
                                         <select class="xitong" v-model="matter"></select>
                                     </div>
                                 </li>
+<<<<<<< HEAD
+                                <li class="floatLi">
+                                    <div class="labels colorTip">
+                                        <span class="user-defined-group"></span>
+                                        *：<span v-if="$validation.weixiukeshis.persons"><span class="user-defined-group">维修班组</span>不能为空</span></div>
+=======
                                 <li class="floatRight">
                                     <div class="labels colorTip"><span class="user-defined-group"></span> *：<span v-if="$validation.weixiukeshis.persons">维修班组不能为空</span></div>
+>>>>>>> origin/master
                                     <div class="input-blockeds">
                                         <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm">
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLi">
                                     <div class="labels">维修设备：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="sbSelect">
                                     </div>
                                 </li>
-                                <li class="floatRight">
+                                <li class="floatLi">
                                     <div class="labels">设备编码：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="sbLX">
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLi">
                                     <div class="labels">设备名称：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="sbMC">
@@ -605,36 +703,37 @@
                                 </li>
                             </form>
                         </validator>
-                        <li class="floatRight" style="line-height: 26px;">
+                        <li class="floatLi" style="line-height: 26px;">
                             <div class="labels">发生时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="otimes">
                             </div>
                         </li>
                         <div class="clearfix"></div>
-                        <div>
+                        <div style="width: 611px;">
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus" class="remarkDes"></textarea>
                             </div>
                         </div>
-                        <div>
+                        <div style="width: 611px;">
                             <div class="labels colorTip">维修内容 *：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none" v-model="weixiuBZ" class="weixiuBZ"></textarea>
                             </div>
                         </div>
-                        <div style="margin-top: 10px;">
+                        <div style="margin-top: 10px;style="width: 611px;"">
                             <button type="button" class="btn btn-info viewImage">查看图片</button>
                             <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                         </div>
-                        <div class="table-block">
+                        <div class="table-block" style="width: 611px;">
                             <div class="table-title">
                                 <span class="spanhover">执行人员</span>
                                 <!--<span>维修材料</span>-->
                             </div>
+                            <span class="draw-border"></span>
                             <div>
-                                <div class="tableHover" style="z-index: 1">
+                                <div class="tableHoverL" style="z-index: 1">
                                     <table class="table table-hover" id="personTable1">
                                         <thead>
                                         </thead>
@@ -644,7 +743,6 @@
                             </div>
                         </div>
                     </ul>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary quickDengji">快速报障</button>
@@ -670,7 +768,7 @@
     </div><!-- /.modal -->
 </div>
 <!--图片详情显示-->
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="height: auto">
             <div class="modal-header">
@@ -687,7 +785,16 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<<<<<<< HEAD
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
 
+    </div>
+</div>
+=======
+
+>>>>>>> origin/master
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -727,7 +834,10 @@
 <script type="text/javascript" charset="utf-8" src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<<<<<<< HEAD
+=======
 <script src="../resource/js/publicFun.js"></script>
+>>>>>>> origin/master
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -736,10 +846,19 @@
         BEE.init();
     });
 </script>
+<<<<<<< HEAD
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/publicQX.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/productionOrder-1.js"></script>
+<script src="../resource/js/publicGD.js"></script>
+<!-- END JAVASCRIPTS -->
+=======
 <script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-1.js"></script>
 <!-- END JAVASCRIPTS -->
 
+>>>>>>> origin/master
 </body>
 <!-- END BODY -->
 </html>

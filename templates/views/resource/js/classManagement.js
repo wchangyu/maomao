@@ -99,6 +99,9 @@ $(function(){
     //新增
     $('.creatButton').click(function(){
 
+        //loadding显示
+        $('#theLoading').modal('show');
+
         //初始化
         detailedInit();
 
@@ -110,6 +113,9 @@ $(function(){
 
         //是否可操作
         abledOption();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     })
 

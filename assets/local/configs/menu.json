@@ -617,6 +617,14 @@
         "arg":"",
         "iconclass":""
       },
+      "工单维修件":{
+        "type":"0",
+        "content":"工单维修件",
+        "uri":"../gongdangunali/gdMaintenanceParts.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "未完成工单管理":{
         "type":"0",
         "content":"处理中工单",
@@ -705,6 +713,31 @@
         "arg":"",
         "iconclass":""
       }
+    }
+  },
+  "返修件管理":{
+    "type":"1",
+    "iconclass":"icon-settings",
+    "content":"返修件管理",
+    "submenu":{
+
+      "返修件二级库处理":{
+        "type":"0",
+        "content":"返修件二级库处理",
+        "uri":"../FXJ/reworkTwoStore.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "返修件主库处理":{
+        "type":"0",
+        "content":"返修件主库处理",
+        "uri":"../FXJ/reworkMajorStore.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+
     }
   },
   "故障明细表":{

@@ -89,6 +89,9 @@ $(function(){
     //新增
     $('.creatButton').click(function(){
 
+        //loadding显示
+        $('#theLoading').modal('show');
+
         //初始化
         datailInit();
 
@@ -100,6 +103,9 @@ $(function(){
 
         //是否可操作
         abledOption();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     })
 
@@ -288,6 +294,9 @@ $(function(){
     //数据绑定
     function bindData($this){
 
+        //loadding显示
+        $('#theLoading').modal('show');
+
         //样式
         $('#table-list tbody').children('tr').removeClass('tables-hover');
 
@@ -320,6 +329,9 @@ $(function(){
             }
 
         }
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     }
 

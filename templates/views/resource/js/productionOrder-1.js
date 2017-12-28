@@ -1,42 +1,27 @@
+//记录当前工单号
+var _gdCode = '';
 $(function () {
   /*--------------------------全局变量初始化设置----------------------------------*/
-  //页面列表加载
-  $('.loading').showLoading();
 
-  //图片ip
-  var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
+  _timeYMDComponentsFun($('.condition-query').find('.datatimeblock'));
 
-  //开始/结束时间插件
-  $('.datatimeblock').datepicker({
-    language: 'zh-CN',
-    todayBtn: 1,
-    todayHighlight: 1,
-    format: 'yyyy/mm/dd',     forceParse: 0,
-    forceParse: 0
-  });
+  //datatimepicker故障发生时间；
 
-  //datatimepicker
-  $('.otime').datetimepicker({
-    language:  'zh-CN',//此处修改
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 1,
-    forceParse: 0,
-  });
+  _timeHMSComponentsFun($('.otime'),1);
 
   //设置初始时间(主表格时间)
-  var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
-  var _initEnd = moment().format('YYYY/MM/DD');
+  var now = moment().format('YYYY/MM/DD');
 
+  var st = moment(now).subtract(6,'months').format('YYYY/MM/DD');
 
   //显示时间
-  $('.min').val(_initStart);
-  $('.max').val(_initEnd);
+  $('.min').val(st);
+
+  $('.max').val(now);
 
   //实际发送时间
   var realityStart;
+
   var realityEnd;
 
   //自定义验证器
@@ -55,22 +40,39 @@ $(function () {
   var app33 = new Vue({
     el: '#myApp33',
     data: {
+      //工单类型（快速、普通）;
       picked: '1',
-      whether:'0',
-      rwlx: 4,
-      telephone: '',
-      person: '',
-      place: '',
-      section: '',
-      matter: '',
-      sbSelect: '',
-      sbLX: '',
-      sbMC: '',
-      azAddress: '',
+      //工单来源
       gdly: 1,
+      //任务级别
+      rwlx: 4,
+      //报修电话
+      telephone: '',
+      //报修人信息
+      person: '',
+      //故障位置
+      place: '',
+      //线路
       lineRoute: '',
+      //车站
+      section: '',
+      //系统类型
+      matter: '',
+      //维修设备（设备编码）
+      sbSelect: '',
+      //设备名称
+      sbMC: '',
+      //工单号
       gdCode:'',
-      state:''
+      //工单状态
+      state:'',
+
+      //是否维保（废弃）;
+      whether:'0',
+      //安装地点（废弃）
+      azAddress: '',
+
+
     },
     methods: {
       radios: function () {
@@ -81,26 +83,26 @@ $(function () {
       },
       selectLine:function(){
         //首先将select子元
-         var values = $('#line-route').val();
-         if(values == ''){
+        var values = $('#line-route').val();
+        if(values == ''){
           //所有车站
-            var str = '<option value="">请选择</option>';
-           for(var i=0;i<_allDataBM.length;i++){
-              str += '<option value="' + _allDataBM[i].ddNum +
-                  '">' + _allDataBM[i].ddName + '</option>'
-           }
-           $('.cjz').empty().append(str);
-         }else{
-           var str = '<option value="">请选择</option>';
-           for(var i=0;i<_lineArr.length;i++){
-             if(app33.lineRoute == _lineArr[i].dlNum){
-               for(var j=0;j<_lineArr[i].deps.length;j++){
-                 str += '<option value="' + _lineArr[i].deps[j].ddNum + '">' + _lineArr[i].deps[j].ddName + '</option>'
-               }
-             }
-           }
-           $('.cjz').empty().append(str);
-         }
+          var str = '<option value="">请选择</option>';
+          for(var i=0;i<_allDataBM.length;i++){
+            str += '<option value="' + _allDataBM[i].ddNum +
+                '">' + _allDataBM[i].ddName + '</option>'
+          }
+          $('.cjz').empty().append(str);
+        }else{
+          var str = '<option value="">请选择</option>';
+          for(var i=0;i<_lineArr.length;i++){
+            if(app33.lineRoute == _lineArr[i].dlNum){
+              for(var j=0;j<_lineArr[i].deps.length;j++){
+                str += '<option value="' + _lineArr[i].deps[j].ddNum + '">' + _lineArr[i].deps[j].ddName + '</option>'
+              }
+            }
+          }
+          $('.cjz').empty().append(str);
+        }
       }
     }
   })
@@ -183,12 +185,6 @@ $(function () {
 
   //存放快速登记的对象
   var _quickObj = {};
-
-  //记录当前工单号
-  var _gdCode = '';
-
-  //记录当前工单详情有几个图
-  var _imgNum = 0;
 
   //重发值
   var _gdCircle = 0;
@@ -401,26 +397,41 @@ $(function () {
   $('.resites').click(function () {
     //清空input框内容
     var parents = $(this).parents('.condition-query');
+
     var inputs = parents.find('input');
+
     inputs.val('');
+
     //时间置为今天
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
+    $('.min').val(st);
+
+    $('.max').val(now);
   })
 
   //登记按钮
   $('.creatButton').click(function () {
+
+    //loadding显示
+    $('#theLoading').modal('show');
+
+    //查看图片初始化
+    $('.showImage').html('没有图片');
+
     //工单号、状态、工单登记时间不显示seeBlock
     $('.seeBlock').hide();
+
     //添加登记类
     $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji').html('登记');
+
     //所有input可操作
     $('#myApp33').find('input').attr('disabled', false).removeClass('disabled-block');
     $('#myApp33').find('select').attr('disabled', false).removeClass('disabled-block');
     $('#myApp33').find('textarea').attr('disabled', false).removeClass('disabled-block');
     $('.inpus').attr('disabled', true);
+
     //工单来源显示
     $('.gdly').parents('li').show();
+
     //所有登记页面的输入框清空(radio的按钮默认为否)；
     app33.picked = 0;
     $('.inpus').parent('span').removeClass('checked');
@@ -441,13 +452,27 @@ $(function () {
     app33.lineRoute = '';
     app33.section = '';
     app33.matter = '';
+
     _moTaiKuang($('#myModal'),'登记','','','','登记');
-    var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
+
+    //故障发生时间
+    var _inittime = moment().format('YYYY-MM-DD HH:mm:ss');
+
     $('.otime').val(_inittime);
+
+    //loadding消失
+    $('#theLoading').modal('hide');
   });
 
   //快速登记按钮
   $('.quickCreat').click(function () {
+
+    //loadding图显示
+    $('#theLoading').modal('show');
+
+    //查看图片按钮初始化
+    $('.showImage').html('没有图片');
+
     //工单来源显示
     $('.gdly').parents('li').show();
     quickWork.picked = 1;
@@ -483,6 +508,9 @@ $(function () {
     quickWork.whether = 0;
     var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
     $('.otimes').val(_inittime);
+
+    //loadding图消失
+    $('#theLoading').modal('hide');
   })
 
   //确定按钮
@@ -492,7 +520,7 @@ $(function () {
         if (app33.telephone == '' || app33.person == '' || app33.place == ''  || app33.section == '' || app33.matter == '') {
           _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
         } else {
-          $('.loading').showLoading();
+
           var gdInfo = {
             'gdJJ': app33.picked,
             'bxRen': app33.person,
@@ -557,7 +585,7 @@ $(function () {
         if (app33.telephone == '' || app33.person == '' || app33.place == '' || app33.section == '' || app33.matter == '') {
           _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项！', '');
         } else {
-          $('.loading').showLoading();
+
           var gdInfo = {
             'gdCode': _gdCode,
             'gdJJ': app33.picked,
@@ -588,55 +616,29 @@ $(function () {
             data: gdInfo,
             success: function (result) {
               if (result == 99) {
-                $('.loading').hideLoading();
+
                 _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '编辑成功！', '');
                 $('#myModal').modal('hide');
                 //刷新数据
                 conditionSelect();
               } else {
-                $('.loading').hideLoading();
+
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','编辑失败！', '');
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-              $('.loading').hideLoading();
+
               console.log(jqXHR.responseText);
             }
           })
         }
-      })
-      //查看图片
-      .on('click', '.viewImage', function () {
-        $('.loading').showLoading();
-        if (_imgNum) {
-          $('.loading').hideLoading();
-          var str = '';
-          for(var i=0;i<_imgNum;i++){
-            str += '<img class="viewIMG" src="' +
-                replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                '">'
-          }
-          $('.showImage').html('');
-          $('.showImage').append(str);
-          $('.showImage').show();
-        } else {
-          $('.loading').hideLoading();
-          $('.showImage').html('没有图片');
-          $('.showImage').show();
-        }
-      })
-      //图片详情
-      .on('click', '.viewIMG', function () {
-        _moTaiKuang($('#myModal3'), '图片详情', 'flag','','');
-        var imgSrc = $(this).attr('src')
-        $('#myModal3').find('img').attr('src', imgSrc);
       })
 
   $('.quickDengji').click(function () {
     if (quickWork.telephone == '' || quickWork.person == '' || quickWork.place == ''  || quickWork.section == '' || quickWork.matter == '' || quickWork.weixiukeshis == '' || $('.weixiuBZ').val() == '') {
       _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','请填写红色必填项!', '')
     } else {
-      $('.loading').showLoading();
+
       var gdInfo1 = {
         'gdJJ': quickWork.picked,
         'bxRen': quickWork.person,
@@ -705,18 +707,22 @@ $(function () {
   $('#scrap-datatables tbody')
   //查看功能
       .on('click', '.option-see', function () {
+
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-        $('.loading').showLoading();
+
         //绑定数据
         ViewOrEdit($(this), 'flag');
+
         $('.seeBlock').show();
+
         //图片区域隐藏
         $('.showImage').hide();
+
       })
       //编辑功能
       .on('click', '.option-edit', function () {
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-        $('.loading').showLoading();
+
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('bianji').html('保存');
         //绑定数据
         ViewOrEdit($(this));
@@ -758,7 +764,7 @@ $(function () {
         conditionSelect();
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -797,11 +803,11 @@ $(function () {
       timeout:30000,
       data: prm,
       success: function (result) {
-        $('.loading').hideLoading();
+
         datasTable($("#scrap-datatables"), result);
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -842,7 +848,7 @@ $(function () {
         select.empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -927,18 +933,24 @@ $(function () {
       data: gdInfo,
       success: function (result) {
         if (result == 99) {
-          $('.loading').hideLoading();
+
           _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功', '');
           $('#myModal').modal('hide');
           //刷新表格
           conditionSelect();
         } else {
-          $('.loading').hideLoading();
+
           _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败', '');
         }
       },
+      beforeSend:function(){
+        $('#theLoading').modal('show');
+      },
+      complete: function () {
+        $('#theLoading').modal('hide');
+      },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -982,21 +994,27 @@ $(function () {
       type: 'post',
       url: _urls + 'YWGD/ywGDCreQuickDJ',
       data: gdInfo,
+      beforeSend:function(){
+        $('#theLoading').modal('show');
+      },
+      complete: function () {
+        $('#theLoading').modal('hide');
+      },
       success: function (result) {
         if (result == 99) {
-          $('.loading').hideLoading();
+
           _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功!', '');
           $('#myModal4').modal('hide');
           //刷新表格
           conditionSelect();
         } else {
-          $('.loading').hideLoading();
+
           _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败!', '');
 
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -1006,8 +1024,7 @@ $(function () {
   function ViewOrEdit(el, flag) {
     //确定按钮消失；
     var $this = el.parents('tr');
-    currentTr = $this;
-    currentFlat = true;
+
     $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
     $this.addClass('tables-hover');
     if (flag) {
@@ -1032,8 +1049,14 @@ $(function () {
       url: _urls + 'YWGD/ywGDGetDetail',
       timeout:30000,
       data: prm,
+      beforeSend:function(){
+        $('#theLoading').modal('show');
+      },
+      complete: function () {
+        $('#theLoading').modal('hide');
+      },
       success: function (result) {
-        $('.loading').hideLoading();
+
         //设置单选按钮
         if (result.gdJJ == 1) {
           $('#myApp33').find('.inpus').parent('span').removeClass('checked');
@@ -1058,7 +1081,7 @@ $(function () {
         app33.person = result.bxRen;
         app33.place = result.wxDidian;
         $('.remarkDes').eq(0).val(result.bxBeizhu),
-        app33.sbSelect = result.wxShebei;
+            app33.sbSelect = result.wxShebei;
         app33.sbLX = result.dcName;
         app33.sbMC = result.dName;
         app33.azAddress = result.installAddress;
@@ -1069,6 +1092,7 @@ $(function () {
         app33.state = stateTransform(result.gdZht);
         $('.otime').val(result.gdFsShij);
         $('.dtime').val(result.gdShij);
+
         //所有input不可操作
         if (flag) {
           $('#myApp33').find('input').attr('disabled', true).addClass('disabled-block');
@@ -1083,7 +1107,7 @@ $(function () {
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     });
@@ -1118,7 +1142,7 @@ $(function () {
         $('#line-route1').empty().append(str);
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        $('.loading').hideLoading();
+
         console.log(jqXHR.responseText);
       }
     })
@@ -1130,14 +1154,6 @@ $(function () {
       el.find(classname).parent('span').removeClass('checked');
       $this.parent('span').addClass('checked');
     })
-  }
-
-  //IP替换
-  function replaceIP(str,str1){
-    var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-    var res = ip.exec(str1);  /*211.100.28.180*/
-    str = str.replace(ip,res);
-    return str;
   }
 
   //状态值转换
@@ -1167,4 +1183,45 @@ $(function () {
       return '任务取消'
     }
   }
+
+  //登记框初始化
+  function signInit(){
+
+    //工单类型（快速、普通）;
+    app33.picked =  1;
+    //工单来源
+    app33.gdly = 1;
+    //任务级别
+    app33.rwlx = 4;
+    //报修电话
+    app33.telephone = '';
+    //报修人信息
+    app33.person = '';
+    //故障位置
+    app33.place = '';
+    //线路
+    app33.lineRoute = '';
+    //车站
+    app33.section = '';
+    //系统类型
+    app33.matter = '';
+    //维修设备（设备编码）
+    app33.sbSelect = '';
+    //设备名称
+    app33.sbMC = '';
+    //工单号
+    app33.gdCode = '';
+    //工单状态
+    app33.state = '';
+
+    //单选按钮初始化
+    $('.inpus').parent('span').removeClass('checked');
+
+    $('#twos').parent('span').addClass('checked');
+
+    //查看按钮初始化
+    $('.showImage').html('没有图片');
+
+  }
+
 })

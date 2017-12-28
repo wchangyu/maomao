@@ -154,5 +154,11 @@
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
   "gongdanIndustryType":"1",
+<<<<<<< HEAD
+  "ckAuditType":"0",
+  "imgPath":"http://1.1.1.1/ApService/dimg.aspx",
+  "imgPathComment":"查看图片的路径"
+=======
   "ckAuditType":"0"
+>>>>>>> origin/master
 }
