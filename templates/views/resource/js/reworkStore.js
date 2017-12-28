@@ -1,5 +1,3 @@
-
-
 $(function(){
 
     /*-----------------------------------------------------全局变量-------------------------------------------*/
@@ -101,6 +99,9 @@ $(function(){
 
     //总费用
     var _totalFree = 0;
+
+    //当前返修编码
+    var _fxCode = 0;
 
     /*------------------------------------------------------表格初始化----------------------------------------*/
 
@@ -315,6 +316,7 @@ $(function(){
         //绑定返修件信息部分不可操作
         $('#fxGoods').children('div').eq(0).find('input').attr('disabled',true).addClass('disabled-block');
 
+        //初始化合计
         _totalFree = 0;
 
     })
@@ -438,8 +440,7 @@ $(function(){
     })
 
     //添加材料编辑按钮
-    $('#cl-selecting')
-        .on('click','.option-bianji',function(){
+    $('#cl-selecting').on('click','.option-bianji',function(){
 
             //样式
             $('#cl-selecting tbody').children('tr').removeClass('tables-hover');
@@ -469,7 +470,9 @@ $(function(){
             //名称和编码不能修改
             $('.no-edit').attr('disabled',true);
         })
-        .on('click','.option-save',function(){
+
+    //添加材料保存按钮
+    $('#cl-selecting').on('click','.option-save',function(){
 
             //样式
             $('#cl-selecting tbody').children('tr').removeClass('tables-hover');
@@ -496,7 +499,9 @@ $(function(){
             clInit();
 
         })
-        .on('click','.option-shanchu',function(){
+
+    //添加材料删除按钮
+    $('#cl-selecting').on('click','.option-shanchu',function(){
 
             var value = $(this).parents('tr').children('.bjbm').html();
 
@@ -505,6 +510,7 @@ $(function(){
             _datasTable($('#cl-selecting'),_selectedBJ);
 
         })
+
     //选中的材料
     $('#appendTo').click(function(){
 
@@ -527,6 +533,29 @@ $(function(){
 
         $('#hourFee').val(total.toFixed(2));
     })
+
+    //返修件【确定按钮】
+    $('#myModal').on('click','.btn-primary',function(){
+
+        //首先判断情况
+
+        var values = $('#optioning').val();
+
+        if( values == 'zixiu' ){
+
+            //调用添加材料接口
+
+            //自修接口
+            ownRepairFun();
+
+        }else if( values == 'fanchang' ){
+
+            //调用厂家资料接口
+
+        }
+
+    })
+
     /*-------------------------------------------------------其他方法-----------------------------------------*/
     //返修件状态
     function BJStatus(){
@@ -718,10 +747,12 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
+        _fxCode = $this.parents('tr').children('.fxCode').html();
+
         var prm = {
 
             //工单号
-            'fxCode':$this.parents('tr').children('.fxCode').html(),
+            'fxCode':_fxCode,
             //用户ID
             'userID':_userIdNum,
             //用户姓名
@@ -833,6 +864,41 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //自修操作
+    function ownRepairFun(){
+
+        var prm = {
+            //返修编号
+            "fxCode": _fxCode,
+            //返修状态
+            "fxStatus": $('#nowStatus').attr('data-num'),
+            //返修单价
+            "zxPrice": $('#hourFee').val(),
+            //用户ID
+            "userID": _userIdNum,
+            //用户名
+            "userName": _userIdName,
+            //用户角色
+            "b_UserRole": _userRole,
+            //用户部门
+            "b_DepartNum": _loginUser.departNum
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFxZixiu',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+            },
+
+
+        })
+
     }
 
 })

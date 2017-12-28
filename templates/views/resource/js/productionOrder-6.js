@@ -214,7 +214,7 @@ $(function(){
                 data:'gdCodeSrc',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '车站报修'
+                        return __names.department + '报修'
                     }else{
                         return '现场人员报修'
                     }
@@ -234,7 +234,7 @@ $(function(){
                 data:'dName'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -254,7 +254,7 @@ $(function(){
                 data:'wxClNames'
             },
             {
-                title:'所属班组',
+                title:__names.group,
                 data:'wxKeshi'
             },
             {

@@ -239,7 +239,7 @@ $(function(){
                 className:"ztz"
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
