@@ -1022,6 +1022,8 @@ var userMonitor = (function(){
                 $(this).html('切换鹰眼模式');
 
                 var norWidth1 = $('.page-title').width();
+                console.log(norWidth1);
+
                 //实际宽度
                 var realWidth1 = norWidth1 - _leftWidth;
                 //缩放比例计算
@@ -1057,6 +1059,25 @@ var userMonitor = (function(){
         $('.functions-6').off('click')
         $('.functions-6').on('click',function(){
 
+            if($("#container").length < 1 || $("#container").is(":hidden")){
+
+                //如果鹰眼模式 隐藏左侧菜单栏
+                $(".page-sidebar-menu").addClass('page-sidebar-menu-closed');
+
+                $(".page-header-fixed").addClass('page-sidebar-closed');
+
+                $('.open .sub-menu').hide();
+
+            }else{
+
+                //如果非鹰眼模式 显示左侧菜单栏
+                $(".page-sidebar-menu").removeClass('page-sidebar-menu-closed');
+
+                $(".page-header-fixed").removeClass('page-sidebar-closed');
+
+                $('.open .sub-menu').show();
+            }
+
             $('#eyeOnOff').click();
 
         });
@@ -1071,10 +1092,12 @@ var userMonitor = (function(){
         if(!$ifcontainer){
             //插入缩略图容器
             var $container = $("<div id='container'></div>").css({
-                position:"absolute",
-                left:$('.content-main-left').width(),
-                bottom:'40%',
-                border:'1px solid #ccc'
+                position:"fixed",
+                //left:$('.content-main-left').width(),
+                left:0,
+                bottom:'20%',
+                border:'1px solid #ccc',
+                zIndex:9999
             });
 
             $('.total-wrap').append($container);
@@ -1089,9 +1112,10 @@ var userMonitor = (function(){
         //获取显示区宽度
         var showWidth = $('#right-container').width();
 
+
         var $img1 = $("<img src='"+_imgProcSrc+"'>");
-        var imgWH = 420;
-        var imgHH = 225;
+        var imgWH = 312;
+        var imgHH = imgWH / _imgProcWidth * _theImgProcHeight ;
         var scale = 3;
 
         //给显示区添加高度
@@ -1175,8 +1199,8 @@ var userMonitor = (function(){
     var changeProimg = function(){
         //获取显示区宽度
         var showWidth = $('#right-container').width();
-        var imgWH = 420;
-        var imgHH = 225;
+        var imgWH = 312;
+        var imgHH = imgWH / _imgProcWidth * _theImgProcHeight ;
 
         var showScale = showWidth / imgWH;
         var scale = ((Math.abs(((_scaleX - 1) / _scaleStep)).toFixed()) / 20) + 1;
@@ -2128,7 +2152,7 @@ $('.showOrHidden').click(function(){
                 left:'250px'
             })
             $('#container').css({
-                left:'250px'
+                left:'0px'
             })
 
             changeTransform('block');
@@ -2153,6 +2177,7 @@ function changeTransform(o1){
 
     //获取底图高度
     var imgHeight =  _theImgProcHeight;
+
 
     //高度缩放比例
     var ratioZoom1 = containHeight / imgHeight;

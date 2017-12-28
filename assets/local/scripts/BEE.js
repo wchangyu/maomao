@@ -743,6 +743,7 @@ var BEE = (function(){
              });
          }
      };
+
      //加入新工单信息
      var addInfoMessage = function(data,title,address,catalog){
          var html = '';
@@ -766,6 +767,7 @@ var BEE = (function(){
          }
          return html;
      };
+
      //给页面动态插入显示楼宇的树状图
      function insertionPointer(){
          //判断是否需要显示楼宇
@@ -840,6 +842,7 @@ var BEE = (function(){
              this.splice(index, 1);
          }
      };
+
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
          //将对象转化为数组，方便处理
@@ -858,6 +861,7 @@ var BEE = (function(){
          });
          return _newMenu;
      };
+
      //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
      var changeMenuByArg = function(menu){
          //获取父级菜单下的子菜单,并将其转化为数组

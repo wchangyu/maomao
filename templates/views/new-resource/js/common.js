@@ -5,9 +5,12 @@
 $('.time-options').click(function(){
     $('.time-options').removeClass('time-options-1');
     $(this).addClass('time-options-1');
+
     var sss = $('.time-options-1').index('.time-options');
+
     //获取到时间类型
     var dataType = $('.time-options-1').html();
+
     //调用时间变化函数
     changeShowTimes(dataType);
 
@@ -248,7 +251,7 @@ function GetAllBranches(flag,energy){
 
 
 
-}
+};
 
 //搜索框
 var key;
@@ -705,7 +708,7 @@ function checkedNum(dom){
 
     }
     return true;
-}
+};
 
 //获取当前年月日
 function getNewDate(){
@@ -715,7 +718,7 @@ function getNewDate(){
     str += (mydate.getMonth()+1) + "-";
     str += mydate.getDate() + "";
     return str;
-}
+};
 
 //判断输入是否为电话号码
 
@@ -738,7 +741,8 @@ function checkedPhone(dom){
 
 
     return true;
-}
+};
+
 //比较日期大小
 function CompareDate(d1,d2) {
     return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
