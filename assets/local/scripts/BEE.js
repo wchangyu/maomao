@@ -441,7 +441,7 @@ var BEE = (function(){
 
          //是否显示工单信息
          if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0') {
-             //根据配置判断走哪条支路
+             //根据配置判断走哪条支路 0为铁路  1为医院
              if(!sessionStorage.gongdanIndustryType || sessionStorage.gongdanIndustryType == 0){
                  var prmData = {
                      gdZht:0,
@@ -478,6 +478,17 @@ var BEE = (function(){
                          });
                          //加入待审核备件信息
                          infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html','../gongdangunali/');
+
+                         //获取待审核备件
+                         var num3 = 0;
+                         $(data.clstatus).each(function(i,o){
+                             if(o == 6){
+                                 num3 ++;
+                             }
+                         });
+                         //加入待闭环备件信息
+                         infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+
                          //给悬浮窗插入指定信息
                          $dropdownMenu.html(infoHtml);
 
@@ -491,7 +502,7 @@ var BEE = (function(){
                              clearTimeout(timename2);
                          }
                          //判断是否需要动态弹出信息框
-                         if(num1 != 0 || num2 != 0 || _cameraAlarmCount > 0 || _alarmCount > 0){
+                         if(num1 != 0 || num2 != 0 || num3 != 0 || _cameraAlarmCount > 0 || _alarmCount > 0){
                              $('.dropdown-menu').hide();
                              //给上方铃铛增加闪烁效果
                              $('.dropdown-toggle .icon-bell').hide();
@@ -513,6 +524,7 @@ var BEE = (function(){
                              if(timename2){
                                  clearTimeout(timename2);
                              }
+
                              $('.dropdown-extended .dropdown-menu').hide();
 
                          }
@@ -531,6 +543,8 @@ var BEE = (function(){
                          }
                      }
                  });
+
+                 //医院模式
              }else{
 
                  //获取当前菜单
@@ -744,7 +758,7 @@ var BEE = (function(){
          }
      };
 
-     //加入新工单信息
+     //加入新工单信息 data 数据量 title 提示信息  address 跳转地址 catalog 根路径
      var addInfoMessage = function(data,title,address,catalog){
          var html = '';
          //获取当前菜单
@@ -1003,9 +1017,15 @@ var BEE = (function(){
         var curUrl = window.location.href;
         //获取页面名称
         var curPageName = curUrl.split('/').pop();
+
         //判断是否有访问页面权限
         if(curMenu.indexOf(curPageName) == -1){
-            //如果没有则跳转到首页
+            //本地浏览时不需要跳转
+            if(curUrl.indexOf('localhost:') >= 0){
+
+                return false;
+            }
+            //如果没有则跳转到登陆页
             window.location.href = "../login_3.html";
         }
     };
@@ -1076,7 +1096,7 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
-                //permitJumpPage();
+                permitJumpPage();
                 setTheme();
                 insertionPointer();
 

@@ -262,7 +262,7 @@ $(function(){
                 data:'dName'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -289,7 +289,7 @@ $(function(){
                 data:'wxClNames'
             },
             {
-                title:'所属班组',
+                title:__names.group,
                 data:'wxKeshi'
             },
             {
