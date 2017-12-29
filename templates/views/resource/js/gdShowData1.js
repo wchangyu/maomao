@@ -1,3 +1,6 @@
+/**
+ * Created by admin on 2017/12/29.
+ */
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -159,16 +162,16 @@ $(function(){
                 className:'gongdanZt',
                 render:function(data, type, row, meta){
                     if (data == 1) {
-                        return '待下发'
+                        return '<span style="color: #c00000">'+ '待下发' + '</span>';
                     }
                     else if (data == 2) {
-                        return '<span style="color: #c00000">'+ '待分派' + '</span>'
+                        return '<span style="color: #4472c4">'+ '待分派' + '</span>'
                     }
                     else if (data == 3) {
                         return '待执行'
                     }
                     else if (data == 4) {
-                        return '<span style="color: #4472c4">'+ '执行中' + '</span>';
+                        return  '执行中';
                     }
                     else if (data == 5) {
                         return '等待资源'
@@ -287,8 +290,8 @@ $(function(){
                 }
             },
             {
-                title:'维修人',
-                data:'wxUserNames',
+                title:'维修科室',
+                data:'wxkeshiName',
                 render:function(data, type, row, meta){
                     if(row.gdZht == 2){
 
@@ -395,7 +398,7 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
-        var wxKeshi =  _wxBanNum;
+        var wxKeshi =  '';
 
         if(!_wxBan){
             wxKeshi = '-1'
@@ -417,9 +420,10 @@ $(function(){
             "wxdidian":'',
             "isCalcTimeSpan":1,
             "userName":_userIdName,
-            "gdZhts":['2','4']
+            "gdZhts":['1','2']
             //"wxKeshiNum":_wxBanNum
-        }
+        };
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetDJ',
@@ -532,13 +536,12 @@ $(function(){
 
         $.ajax({
             type:'post',
-            url:_urls + 'YWGD/ywGDRptgdtongji',
+            url:_urls + 'YWGD/ywGDRptgdtongjiAll',
             data:{
 
                 wxKeshiNum:_wxBanNum,
                 userID:_userIdNum,
                 userName:_userIdName
-
             },
             timeout:30000,
             beforeSend: function () {
@@ -610,7 +613,6 @@ $(function(){
 
                 myChart4.setOption(option);
 
-
                 //本年
                 option.series[0].data[0].value = Number(result.yearorderfinish);
 
@@ -645,6 +647,7 @@ $(function(){
                 setTimeout(function(){
                     gdShowData();
                 },_refresh * 1000 * 60);
+
                 console.log(jqXHR.responseText);
             }
         })

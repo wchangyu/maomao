@@ -27,11 +27,13 @@ $(function(){
             if(o.pK_Camera == curID){
 
                 //账号
-                var account = 'admin';
+                var account = o.mappVideoRecorder.f_User;
                 //地址
                 var address = o.mappVideoRecorder.f_RecIP;
                 //密码
                 var password = o.mappVideoRecorder.f_Password;
+                //给密码解密
+                password = Went.utility.wCoder.wDecode(password,"");
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
                 //通道号

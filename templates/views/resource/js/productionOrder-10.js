@@ -223,7 +223,7 @@ $(function(){
                 data:'lastUpdateInfo'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {

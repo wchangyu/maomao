@@ -107,11 +107,11 @@ $(function(){
             data:'localName'
         },
         {
-            title:'车站',
+            title:__names.department,
             data:'bxKeshi'
         },
         {
-            title:'所属班组',
+            title:__names.group,
             data:'departName'
         },
         {

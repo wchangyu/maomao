@@ -28,6 +28,12 @@ $(function(){
                 var address = o.mappVideoRecorder.f_RecIP;
                 //密码
                 var password = o.mappVideoRecorder.f_Password;
+
+                //给密码解密
+                password = Went.utility.wCoder.wDecode(password,"");
+
+                console.log(password);
+
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
                 //通道号
@@ -100,11 +106,13 @@ function getAlarmCameraData(){
             //登陆当前硬盘录像机
 
             //账号
-            var account = 'admin';
+            var account = result[0].mappVideoRecorder.f_User;
             //地址
             var address = result[0].mappVideoRecorder.f_RecIP;
             //密码
             var password = result[0].mappVideoRecorder.f_Password;
+            //给密码解密
+            password = Went.utility.wCoder.wDecode(password,"");
             //端口
             var port = result[0].mappVideoRecorder.f_PortNum;
 
