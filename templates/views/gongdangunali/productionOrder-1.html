@@ -567,7 +567,7 @@
                                         <!--车站--> *：
                                     </div>
                                     <div class="input-blockeds">
-                                        <select class="cjz1" v-model="section"></select>
+                                        <select class="cjz1 cjz" v-model="section"></select>
                                     </div>
                                 </li>
                                 <li class="floatLi">
@@ -577,11 +577,12 @@
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels colorTip">
+                                    <div class="labels">
                                         <span class="user-defined-group"></span>
-                                        *：<span v-if="$validation.weixiukeshis.persons"><span class="user-defined-group">维修班组</span>不能为空</span></div>
+                                        ：
+                                    </div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm">
+                                        <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLi">
@@ -614,16 +615,16 @@
                         <div style="width: 611px;">
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus" class="remarkDes"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" class="remarkDes"></textarea>
                             </div>
                         </div>
                         <div style="width: 611px;">
                             <div class="labels colorTip">维修内容 *：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="weixiuBZ" class="weixiuBZ"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none"  class="weixiuBZ"></textarea>
                             </div>
                         </div>
-                        <div style="margin-top: 10px;style="width: 611px;"">
+                        <div style="margin-top: 10px;width: 611px;">
                             <button type="button" class="btn btn-info viewImage">查看图片</button>
                             <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                         </div>

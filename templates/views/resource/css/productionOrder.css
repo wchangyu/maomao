@@ -767,3 +767,10 @@ textarea{
 
     outline: none;margin-left: 20px;
 }
+.factoryRepair .datatimeblock{
+
+    background-size: 17px !important;
+
+    border: 1px solid #a9a9a9;
+
+}

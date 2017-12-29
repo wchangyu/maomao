@@ -15,9 +15,6 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-
-
-
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -63,6 +60,15 @@
     <style>
         #myModal .single-labels{
             width: auto !important;
+        }
+        #fxGoods1 input,select{
+
+            height: 30px;
+
+            line-height: 30px;
+
+            width: 200px !important;
+
         }
     </style>
 </head>
@@ -493,7 +499,7 @@
 
 
                     </div>
-                    <div style="width:470px !important;float: right">
+                    <div id="fxGoods1" style="width:470px !important;float: right">
                         <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                             <div class="tipe-block">操作部分</div>
                             <div style="padding: 10px;">
@@ -505,7 +511,7 @@
                                 <select id="optioning" style="width: 160px;outline: none;margin-left: 20px;">
                                 </select>
                             </div>
-                            <div class="ownRepair">
+                            <div class="ownRepair" style="display: none;">
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                     <div class="tipe-block" style="border:none">【维修材料清单】</div>
 
@@ -526,17 +532,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="factoryRepair">
+                            <div class="factoryRepair" style="display: none;">
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                     <div class="tipe-block" style="border:none">【返厂修信息填写】</div>
 
                                     <div class="tableHover">
-                                        <div style="padding: 10px;"><label>返厂修日期</label>:<input type="text"></div>
-                                        <div style="padding: 10px;"><label>厂家名称</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>返厂修日期</label>:<input type="text" class="datatimeblock"></div>
+                                        <div style="padding: 10px;"><label>厂家名称</label>:<select id="factory" style="width: 157px;margin-left: 20px;"></select></div>
                                         <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
                                         <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
-                                        <div style="padding: 10px;"><label>收货地址</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>预计到达时间</label>:<input type="text" class="datatimeblock"></div>
                                     </div>
+                                    <hr>
                                     <div class="tableHover">
                                         <div style="padding: 10px;"><label>厂家发货日期</label>:<input type="text"></div>
                                         <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>

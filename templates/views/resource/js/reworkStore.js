@@ -88,6 +88,9 @@ $(function(){
     //物品分类
     _getProfession('YWCK/ywCKGetItemCate',$('#flmcs'),false,'cateNum','cateName');
 
+    //厂家列表
+    factoryFun();
+
     //所有物品
     var _allWLArr = [];
 
@@ -103,13 +106,36 @@ $(function(){
     //当前返修编码
     var _fxCode = 0;
 
+    //自修是否完成
+    var _zxIsComplete = false;
+
+    //添加材料是否完成
+    var _clIsComplete = false;
+
+    //自修执行成功
+    var _zxIsSuccess = false;
+
+    //添加材料是否成功
+    var _clIsSuccess = false;
+
+    //状态数组
+    var _statusArr = [];
+
     /*------------------------------------------------------表格初始化----------------------------------------*/
 
     var col = [
         {
             title:'返修件code',
             data:'fxCode',
-            className:'fxCode'
+            className:'fxCode',
+            render:function(data, type, full, meta){
+
+                return '<a href="fxDetails.html?a1=' + full.fxCode +
+                    '&a2=' + _status +
+                    '" target="_blank">' +data +
+                    '</a>'
+
+            }
         },
         {
             title:__names.department,
@@ -268,7 +294,13 @@ $(function(){
         {
             title:'物料编码',
             data:'itemNum',
-            className:'wlbm'
+            className:'wlbm',
+            render:function(data, type, full, meta){
+
+                return '<span data-id="' + full.id +
+                    '">' + data +
+                    '</span>'
+            }
         },
         {
             title:'物料名称',
@@ -304,7 +336,7 @@ $(function(){
     $('#scrap-datatables').on('click','.option-beijian',function(){
 
         //初始化
-
+        fxInit();
 
         //模态框
         _moTaiKuang($('#myModal'),'返修件管理','','','','确定');
@@ -319,6 +351,9 @@ $(function(){
         //初始化合计
         _totalFree = 0;
 
+        //获取日志
+        logFile($(this));
+
     })
 
     //【添加材料】按钮
@@ -326,8 +361,6 @@ $(function(){
 
         //初始化
         clInit();
-
-        console.log(_selectedBJ);
 
         //表格数据
         _datasTable($('#cl-selecting'),_selectedBJ);
@@ -372,10 +405,11 @@ $(function(){
         tableTr.css('background','#ffffff');
         $this.css('background','#FBEC88');
         _bjObject.flmc = $this.children('.flmc').html();
-        _bjObject.wpbm = $this.children('.wlbm').html();
+        _bjObject.wpbm = $this.children('.wlbm').children().html();
         _bjObject.wpmc = $this.children('.wlmc').html();
         _bjObject.size = $this.children('.size').html();
         _bjObject.unit = $this.children('.unit').html();
+        _bjObject.id = $this.children('.wlbm').children().attr('data-id');
     });
 
     //选择材料点击事件的确定按钮
@@ -386,6 +420,8 @@ $(function(){
         clObj.bm = _bjObject.wpbm;
         clObj.dw = _bjObject.unit;
         clObj.size = _bjObject.size;
+        clObj.cateName = _bjObject.flmc;
+        clObj.id = _bjObject.id;
         clObj.sl = '';
         clObj.dj = '';
         clObj.je = '';
@@ -408,6 +444,8 @@ $(function(){
             obj.dw = clObj.dw;
             obj.sl = clObj.sl;
             obj.size = clObj.size;
+            obj.cateName = clObj.cateName;
+            obj.id = clObj.id;
             var dj = 0;
             if(clObj.dj == ''){
                 dj = 0.00;
@@ -523,15 +561,13 @@ $(function(){
         //计算共计费用
         for(var i=0;i<_selectedBJ.length;i++){
 
-            _totalFree += parseFloat(_selectedBJ[i].je);
+            _totalFree += parseFloat(Number(_selectedBJ[i].je));
 
         }
 
-        var total = Number($('#hourFee').val()) + Number(_totalFree);
+        $('#total').val(_totalFree.toFixed(2));
 
-        $('#total').val(total.toFixed(2));
-
-        $('#hourFee').val(total.toFixed(2));
+        $('#hourFee').val(_totalFree.toFixed(2));
     })
 
     //返修件【确定按钮】
@@ -543,7 +579,10 @@ $(function(){
 
         if( values == 'zixiu' ){
 
+            $('#theLoading').modal('show');
+
             //调用添加材料接口
+            clOption();
 
             //自修接口
             ownRepairFun();
@@ -551,6 +590,26 @@ $(function(){
         }else if( values == 'fanchang' ){
 
             //调用厂家资料接口
+            factoryRepairFun();
+
+        }
+
+    })
+
+    //操作change
+    $('#optioning').change(function(){
+
+        $('.ownRepair').hide();
+
+        $('.factoryRepair').hide();
+
+        if($(this).val() == 'zixiu'){
+
+            $('.ownRepair').show();
+
+        }else if($(this).val() == 'fanchang'){
+
+            $('.factoryRepair').show();
 
         }
 
@@ -586,6 +645,8 @@ $(function(){
             },
             success:function(result){
 
+                _statusArr.length = 0;
+
                 var str = '<option value="">请选择</option>';
 
                 var str1 = '<option value="">请选择</option>';
@@ -599,6 +660,8 @@ $(function(){
 
                         str1 += '<option value="' + result.statuses[i].optType +
                             '">' + result.statuses[i].fxOpt + '</option>>'
+
+                        _statusArr.push(result.statuses[i]);
                     }
 
                 }
@@ -747,7 +810,7 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
-        _fxCode = $this.parents('tr').children('.fxCode').html();
+        _fxCode = $this.parents('tr').children('.fxCode').children().html();
 
         var prm = {
 
@@ -771,6 +834,12 @@ $(function(){
             url:_urls + 'YWFX/ywFXGetDetail',
             timeout:_theTimes,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 //赋值
                 var el = $('#fxGoods').find('input')
@@ -799,6 +868,120 @@ $(function(){
                 $('#nowStatus').val(result.fxStatusName);
 
                 $('#nowStatus').attr('data-num',result.fxStatus);
+
+                //已存在的材料
+                _selectedBJ.length = 0;
+
+                if(result.fxCls){
+
+                    for(var i=0;i<result.fxCls.length;i++){
+
+                        //_selectedBJ.push(result.fxCls[i]);
+
+                        var obj = {};
+                        //名称
+                        obj.mc = result.fxCls[i].fxClName;
+                        //编码
+                        obj.bm = result.fxCls[i].fxCl;
+                        //规格型号
+                        obj.size = result.fxCls[i].size;
+                        //单位
+                        obj.dw = result.fxCls[i].unitName;
+                        //数量
+                        obj.sl = result.fxCls[i].clShul;
+                        //分类
+                        obj.cateName = result.fxCls[i].cateName;
+                        //单价
+                        obj.dj = result.fxCls[i].fxClPrice;
+                        //id
+                        obj.id = result.fxCls[i].fxClID;
+                        //金额
+                        obj.je = result.fxCls[i].fxClAmount;
+
+                        _selectedBJ.push(obj);
+
+                    }
+
+                    //赋值
+                    _datasTable($('#cl-list'),_selectedBJ);
+
+                    //合计金额
+
+                    var totalNum = 0;
+
+                    for(var i=0;i<_selectedBJ.length;i++){
+
+                        totalNum += Number(_selectedBJ[i].je);
+
+                    }
+
+                    $('#total').val(totalNum.toFixed(2));
+
+                }else{
+
+                    var arr = [];
+
+                    _datasTable($('#cl-list'),arr);
+
+
+                }
+
+                //操作
+
+                for(var i=0;i<_statusArr.length;i++){
+
+                    if(_statusArr[i].fxStatus == result.fxStatus ){
+
+                        $('#optioning').val(_statusArr[i].optType);
+
+                        if(_statusArr[i].optType == 'zixiu'){
+
+                            $('.ownRepair').show();
+
+                        }else if(_statusArr[i].optType == 'fanchang'){
+
+                            $('.factoryRepair').show();
+
+                        }
+
+                    }
+
+                }
+
+                //自修单价
+                $('#hourFee').val(result.zxPrice);
+
+                //返厂修数据绑定
+
+                var inputValues = $('.factoryRepair').find('input');
+
+                //返厂修日期
+                inputValues.eq(0).val(result.fcShij.split(' ')[0]);
+
+                //厂家名称
+                $('#factory').val(result.cusNum);
+
+                //快递公司
+                inputValues.eq(1).val(result.fcKdComp);
+
+                //快递单号
+                inputValues.eq(2).val(result.fcKdinfo);
+
+                //预计到达时间
+                inputValues.eq(3).val(result.estbackDate.split(' ')[0]);
+
+                //厂家发货日期
+                inputValues.eq(4).val(result.backDate);
+
+                //快递公司
+                inputValues.eq(5).val(result.fckdComp2);
+
+                //快递单号
+                inputValues.eq(6).val(result.fckdInfo2);
+
+                //收货地点
+                inputValues.eq(7).val(result.receiveAddr);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -869,11 +1052,24 @@ $(function(){
     //自修操作
     function ownRepairFun(){
 
+        //确定状态
+        var status = '';
+
+        for(var i=0;i<_statusArr.length;i++){
+
+            if(_statusArr[i].optType == $('#optioning').val()){
+
+                status = _statusArr[i].fxStatus
+
+            }
+
+        }
+
         var prm = {
             //返修编号
             "fxCode": _fxCode,
             //返修状态
-            "fxStatus": $('#nowStatus').attr('data-num'),
+            "fxStatus": status,
             //返修单价
             "zxPrice": $('#hourFee').val(),
             //用户ID
@@ -894,11 +1090,343 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-            },
+                _zxIsComplete = true;
 
+                if(result == 99){
+
+                    _zxIsSuccess = true;
+
+                }else{
+
+                    _zxIsSuccess = false;
+
+                }
+
+                ZXFun();
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _zxIsComplete = true;
+
+                _zxIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
 
         })
 
     }
+
+    //维修材料
+    function clOption(){
+
+        var arr = [];
+
+        for(var i=0;i<_selectedBJ.length;i++){
+
+            var obj = {};
+
+            //维修材料关联表ID，自增ID ,
+            obj.fxClID = _selectedBJ[i].id;
+            //维修材料ID
+            obj.fxCl = _selectedBJ[i].bm;
+            //材料名
+            obj.fxClName = _selectedBJ[i].mc;
+            //数量
+            obj.clShul = _selectedBJ[i].sl;
+            //对应返修件Id
+            obj.fxCode = _fxCode;
+            //分类
+            obj.cateName = _selectedBJ[i].cateName;
+            //规格型号
+            obj.size = _selectedBJ[i].size;
+            //单位
+            obj.unitName = _selectedBJ[i].dw;
+            //维修材料单价
+            obj.fxClPrice = _selectedBJ[i].dj;
+            //维修材料金额
+            obj.fxClAmount = Number(Number(obj.clShul) * Number(obj.fxClPrice)).toFixed(2);
+
+            arr.push(obj);
+
+        }
+
+        var prm = {
+            //返修编号
+            "fxCode": _fxCode,
+            //用户ID
+            "userID": _userIdNum,
+            //用户名
+            "userName": _userIdName,
+            //用户角色
+            "b_UserRole": _userRole,
+            //用户部门
+            "b_DepartNum": _loginUser.departNum,
+            //材料数组
+            "fxWxCls": arr
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXAddFxCl',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                _clIsComplete = true;
+
+                if(result == 99){
+
+                    _clIsSuccess = true;
+
+                }else{
+
+                    _clIsSuccess = false;
+
+                }
+
+                ZXFun();
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _clIsComplete = true;
+
+                _clIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+    }
+
+    //自修和维修材料执行完毕的回调函数
+    function ZXFun(){
+
+        //全都完成
+        if( _clIsComplete && _zxIsComplete ){
+
+            var str = '';
+
+            //是否成功
+            if( _clIsSuccess ){
+
+                str += '材料添加成功!'
+
+            }else{
+
+                str += '材料添加失败!'
+
+            }
+            if( _zxIsSuccess){
+
+                str += '操作成功!'
+
+            }else{
+
+                str += '操作失败!'
+
+            }
+
+            _moTaiKuang($('#myModal2'),'提示',true,'istap',str,'');
+
+            $('#theLoading').modal('hide');
+
+            if( _clIsSuccess && _zxIsSuccess ){
+
+                $('#myModal').modal('hide');
+
+                conditionSelect();
+
+            }
+
+        }
+
+    }
+
+    //返修管理模态框初始化
+    function fxInit(){
+
+        $('#fxGoods').children('div').eq(1).find('input').val('');
+
+        $('#nowStatus').val('').removeAttr('data-num');
+
+        $('#optioning').val('');
+
+        $('.ownRepair').hide();
+
+        $('.factoryRepair').hide();
+
+    }
+
+    //返厂修
+    function factoryRepairFun(){
+
+        //确定状态
+        var status = '';
+
+        for(var i=0;i<_statusArr.length;i++){
+
+            if(_statusArr[i].optType == $('#optioning').val()){
+
+                status = _statusArr[i].fxStatus
+
+            }
+
+        }
+
+        var inputValues = $('.factoryRepair').find('input');
+
+        var name = '';
+
+        if($('#factory').val() == ''){
+
+            name = '';
+
+        }else{
+
+            name = $('#factory').children('option:selected').html();
+
+        }
+
+        var prm = {
+
+            //返修编码
+            fxCode: _fxCode,
+            //返修件状态
+            fxStatus: status,
+            //返厂时间
+            fcShij: inputValues.eq(0).val(),
+            //厂家名称
+            cusName:name,
+            //厂家编码
+            cusNum:$('#factory').val(),
+            //厂家返回的快递公司
+            fckdComp:inputValues.eq(1).val(),
+            //快递信息（单号）
+            fckdinfo: inputValues.eq(2).val(),
+            //预计到达时间
+            estbackDate:inputValues.eq(3).val(),
+            //厂家返回的发货日期
+            backDate:inputValues.eq(4).val(),
+            //厂家返回的快递公司
+            fckdComp2:inputValues.eq(5).val(),
+            //厂家返回的快递单号
+            fckdInfo2:inputValues.eq(6).val(),
+            //厂家返回的收货地址
+            receiveAddr:inputValues.eq(7).val(),
+            //用户ID
+            'userID':_userIdNum,
+            //用户姓名
+            'userName':_userIdName,
+            //用户角色
+            'b_UserRole':_userRole,
+            //当前部门
+            'b_DepartNum':_loginUser.departNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXFC',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作成功！','');
+
+                    $('#myModal').modal('hide');
+
+                    conditionSelect();
+
+                }else {
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作失败！','');
+
+                }
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //厂家下拉列表
+    function factoryFun(){
+
+        $.ajax({
+            type:'get',
+            url:_urls + 'YWCK/GetAllYWCKSupplier',
+            data:{
+                supName:''
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].supNum +'"' + 'data-Content="' + result[i].linkPerson + '"' + 'data-phone="' + result[i].phone + '">'
+                        + result[i].supName + '</option>';
+
+                }
+
+                $('#factory').empty().append(str);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    }
+
+    //获取日志
+    function logFile(){
+
+        var prm = {
+            fxCode: _fxCode,
+            logType: 2,
+            userID: _userIdNum,
+            userName: _userIdName,
+            b_UserRole: _userRole,
+            b_DepartNum: _loginUser.departNum
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXGetLog',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                //console.log(result);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
 
 })

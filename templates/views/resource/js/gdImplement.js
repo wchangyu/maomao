@@ -759,25 +759,38 @@ $(function(){
     //申请关单
     $('#myModal').on('click','.closeGD',function(){
 
+        //提示是否执行申请关单操作
+        _moTaiKuang($('#confirm-Modal'), '提示', '', 'istap' ,'执行申请关单操作？', '确定');
 
-            if( $('#receiver').val() == '' ){
+        //添加类
+        $('#confirm-Modal').find('.modal-footer').children('.btn-primary').addClass('closeGD1');
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
+    })
 
-            }else{
 
-                $('#theLoading').modal('show');
+    //确认关单
+    $('#confirm-Modal').on('click','.closeGD1',function(){
 
-                //维修材料
-                addCL();
+        if( $('#receiver').val() == '' ){
 
-                //执行人
-                addWorks();
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
 
-                //关闭申请
-                closingApplication();
+            $('#confirm-Modal').modal('hide');
 
-            }
+        }else{
+
+            $('#theLoading').modal('show');
+
+            //维修材料
+            addCL();
+
+            //执行人
+            addWorks();
+
+            //关闭申请
+            closingApplication();
+
+        }
 
     })
 
@@ -2488,13 +2501,15 @@ $(function(){
                     str += '申请关单失败！'
                 }
 
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
-
                 $('#theLoading').modal('hide');
 
                 conditionSelect();
 
                 $('#myModal').modal('hide');
+
+                $('#confirm-Modal').modal('hide');
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
             }
     }
 

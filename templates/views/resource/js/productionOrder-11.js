@@ -944,7 +944,7 @@ $(function(){
             slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
         var prm = {
-            gdCode:$('#gdcode').val(),
+            gdCode2:$('#gdcode').val(),
             st:slrealityStart,
             et:slrealityEnd,
             clStatusId:$('#line-point').val(),
@@ -1149,7 +1149,7 @@ $(function(){
     function logInformation(){
         var gdLogQPrm = {
             "gdCode": _gdCode,
-            "logType": 2,
+            "logType": 0,
             "userID": _userIdNum,
             "userName": _userIdName
         };
