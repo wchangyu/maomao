@@ -10,6 +10,8 @@ var BEE = (function(){
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
     var _alarmCount = 0;
+    //摄像头报警
+    var _cameraAlarmCount = 0;
 
     String.prototype.endWith = function(s){
         var d = this.length - s.length;
@@ -275,7 +277,7 @@ var BEE = (function(){
             "et" : et,
             "excTypeInnerId":"",
             "energyType":"",
-            "pointerIds":ptIds,
+            "pointerIds":ptIds
         };
         $.ajax({
             type:'post',
@@ -283,12 +285,18 @@ var BEE = (function(){
             data:prmData,
             dataType:'json',
             success:function(data){
+                //console.log(data);
                 if(data){       //设置右上角的报警数据显示情况
                     setPageTopRightAlarmData(data.length,data);
                     _alarmCount = data.length;
                 }else{
                     setPageTopRightAlarmData(0);
                 }
+
+                //获取摄像头报警数量
+                cameraAlarmHistory();
+
+                modificationImportInfo();
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
@@ -353,7 +361,7 @@ var BEE = (function(){
                 var alarmAlert = sessionStorage.alarmAlert || 0;
                 var alarmSong = sessionStorage.alarmSong || 0;
                 //声音
-                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
+                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
 
                 //$('#myModal00').off('shown.bs.modal');
 
@@ -410,16 +418,30 @@ var BEE = (function(){
         //根据配置信息动态改变悬浮窗中的值
 
          //是否需要显示报警信息
+         //console.log(_alarmCount);
+         //console.log(sessionStorage.alarmInterval);
          if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0' && _alarmCount > 0) {
             infoHtml += '<li class="external">' +
                 '   <h3><span class="bold">'+_alarmCount+' </span> 当日报警</h3>' +
                 '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
                 '</li>';
+
+
+         }
+
+         //console.log(_cameraAlarmCount);
+
+         if(_cameraAlarmCount > 0){
+
+             infoHtml += '<li class="external">' +
+                 '   <h3><span class="bold">'+_cameraAlarmCount+' </span> 摄像头报警</h3>' +
+                 '   <a href="../new-baojingyujing/warningCamera.html" target="_blank">查看详细</a>' +
+                 '</li>';
          }
 
          //是否显示工单信息
          if(sessionStorage.gongdanInterval && sessionStorage.gongdanInterval!='0') {
-             //根据配置判断走哪条支路
+             //根据配置判断走哪条支路 0为铁路  1为医院
              if(!sessionStorage.gongdanIndustryType || sessionStorage.gongdanIndustryType == 0){
                  var prmData = {
                      gdZht:0,
@@ -456,6 +478,17 @@ var BEE = (function(){
                          });
                          //加入待审核备件信息
                          infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html','../gongdangunali/');
+
+                         //获取待审核备件
+                         var num3 = 0;
+                         $(data.clstatus).each(function(i,o){
+                             if(o == 6){
+                                 num3 ++;
+                             }
+                         });
+                         //加入待闭环备件信息
+                         infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+
                          //给悬浮窗插入指定信息
                          $dropdownMenu.html(infoHtml);
 
@@ -469,7 +502,7 @@ var BEE = (function(){
                              clearTimeout(timename2);
                          }
                          //判断是否需要动态弹出信息框
-                         if(num1 != 0 || num2 != 0){
+                         if(num1 != 0 || num2 != 0 || num3 != 0 || _cameraAlarmCount > 0 || _alarmCount > 0){
                              $('.dropdown-menu').hide();
                              //给上方铃铛增加闪烁效果
                              $('.dropdown-toggle .icon-bell').hide();
@@ -491,6 +524,7 @@ var BEE = (function(){
                              if(timename2){
                                  clearTimeout(timename2);
                              }
+
                              $('.dropdown-extended .dropdown-menu').hide();
 
                          }
@@ -509,6 +543,8 @@ var BEE = (function(){
                          }
                      }
                  });
+
+                 //医院模式
              }else{
 
                  //获取当前菜单
@@ -628,7 +664,7 @@ var BEE = (function(){
                                      backgroundSize:'26px 24px'
                                  });
                                  //声音
-                                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay" loop="loop" style="display: none"></audio>';
+                                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain1" controls="controls" autoplay="autoplay"  style="display: none"></audio>';
 
                                  if($('#audioMain1').length > 0){
 
@@ -721,7 +757,8 @@ var BEE = (function(){
              });
          }
      };
-     //加入新工单信息
+
+     //加入新工单信息 data 数据量 title 提示信息  address 跳转地址 catalog 根路径
      var addInfoMessage = function(data,title,address,catalog){
          var html = '';
          //获取当前菜单
@@ -744,6 +781,7 @@ var BEE = (function(){
          }
          return html;
      };
+
      //给页面动态插入显示楼宇的树状图
      function insertionPointer(){
          //判断是否需要显示楼宇
@@ -818,6 +856,7 @@ var BEE = (function(){
              this.splice(index, 1);
          }
      };
+
     //根据流程图动态绘制菜单
      var changeMenuByProcs = function(menu){
          //将对象转化为数组，方便处理
@@ -836,6 +875,7 @@ var BEE = (function(){
          });
          return _newMenu;
      };
+
      //对父级菜单下的子菜单根据流程图以及Arg参数进行处理
      var changeMenuByArg = function(menu){
          //获取父级菜单下的子菜单,并将其转化为数组
@@ -977,12 +1017,71 @@ var BEE = (function(){
         var curUrl = window.location.href;
         //获取页面名称
         var curPageName = curUrl.split('/').pop();
+
         //判断是否有访问页面权限
         if(curMenu.indexOf(curPageName) == -1){
-            //如果没有则跳转到首页
+            //本地浏览时不需要跳转
+            if(curUrl.indexOf('localhost:') >= 0){
+
+                return false;
+            }
+            //如果没有则跳转到登陆页
             window.location.href = "../login_3.html";
         }
     };
+
+     //获取摄像头报警数据
+     function cameraAlarmHistory(){
+
+         var pointerID = [];
+
+         var startRealTime = moment().subtract('24','hours').format('YYYY-MM-DD HH:mm:ss');
+         var endRealTime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+         var getPointers = JSON.parse(sessionStorage.getItem('pointers'));
+         if(getPointers){
+             for(var i=0;i<getPointers.length;i++){
+                 pointerID.push(getPointers[i].pointerID)
+             }
+         }
+
+         var prm = {
+             'startTime' : startRealTime,
+             'endTime' : endRealTime,
+             'pointerIds' : pointerID,
+             'excTypeInnderId' : ''
+         };
+
+         $.ajax({
+             type:'post',
+             url:sessionStorage.apiUrlPrefix + 'Alarm/GetAlarmCameraDatas',
+             data:prm,
+             async:false,
+             success:function(result){
+
+                 //console.log(result);
+
+                 if(result == null){
+
+                    return false;
+                 }
+
+                 var camearArr = [];
+
+                 $(result).each(function(i,o){
+
+                     if(o.flag == 0){
+                         camearArr.push(o)
+                     }
+                 });
+
+                 if(camearArr != null){
+                     //摄像头报警数量
+                     _cameraAlarmCount = camearArr.length;
+                 }
+             }
+         });
+     }
 
     return {
         //getMenu: getMenu
@@ -997,10 +1096,13 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
-                //permitJumpPage();
+                permitJumpPage();
                 setTheme();
                 insertionPointer();
-                modificationImportInfo();
+
+                //重绘页面右上角信息
+                //modificationImportInfo();
+
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
                 }

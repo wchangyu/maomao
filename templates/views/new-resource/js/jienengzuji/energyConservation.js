@@ -326,11 +326,8 @@ function getEchartsData(){
             //相当于植树
             $('.compared-with-last-time1 b font').html(result.treePlanting.toFixed(1));
 
-            //改造前数据
-            $('.quota-year b').html((result.beforeEnergyVerify.avgMetaData).toFixed(1) + unit);
-
             //改造后数据
-            if(result.laterEnergyVerify){
+            if(result.laterEnergyVerify && result.laterEnergyVerify != null){
                 $('.quota-year1 b').html((result.laterEnergyVerify.avgMetaData).toFixed(1) + unit);
             }else{
                 $('.quota-year1 b').html('');
@@ -353,7 +350,7 @@ function getEchartsData(){
             //横坐标
             var xArr = [];
             //改造前数据赋值
-            if(result.beforeEnergyVerify){
+            if(result.beforeEnergyVerify && result.beforeEnergyVerify != null){
 
                 $(result.beforeEnergyVerify.ecMetaDatas).each(function(i,o){
                     //横坐标赋值
@@ -362,6 +359,9 @@ function getEchartsData(){
                     dataArr1.push(o.data.toFixed(1));
 
                 });
+
+                //改造前数据
+                $('.quota-year b').html((result.beforeEnergyVerify.avgMetaData).toFixed(1) + unit);
             }
 
             //改造后数据赋值

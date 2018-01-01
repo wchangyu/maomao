@@ -2,6 +2,12 @@
  * Created by went on 2016/8/2.
  * 2017/7/6 添加modbus支持
  */
+//全局设置缩放比例
+_scaleX = 1;
+
+//全局设置容器高度
+var containHeight = 800;
+
 var userMonitor = (function(){
 
     var _urlPrefix = sessionStorage.apiUrlPrefix;
@@ -32,11 +38,13 @@ var userMonitor = (function(){
     const _leftWidth = 250;
     const _headHeight = 62;
     const _scaleStep = 0.05;    //每次点击的变形变化量
-    var _scaleX = 1;        //变形比例
+    //var _scaleX = 1;        //变形比例
     var _refreshInterval = 0;       //数据刷新时间，如果时间为0，则不刷新
     var _refreshAction;
     var _imgProcSrc;            //存放背景图地址
     var _imgProcWidth;            //存放背景图宽度
+
+    $('.content-main-left').width(0);
 
     var init = function(){
         //获取到存储区的监控配置信息
@@ -58,6 +66,7 @@ var userMonitor = (function(){
                 _isViewAllProcs = true;
             }
         }
+
         if(sessionStorage.refreshInterval){
             _refreshInterval = parseInt(sessionStorage.refreshInterval);
         }
@@ -124,15 +133,25 @@ var userMonitor = (function(){
             _scaleX = 1;
             setScaleSign(1);
 
-            console.log(33);
+
             $('#container').hide();
+
             $('#eyeOnOff').html('切换鹰眼模式');
             $('.content-main-right').css({
                 marginLeft:0,
                 marginTop:0
-            })
+            });
 
             $('#right-container').height(800);
+
+            //还原初始状态
+            if($('.content-main-left').css('display') == 'none'){
+
+                changeTransform('none');
+            }else{
+
+                changeTransform('block');
+            }
 
             ////动态改变鹰眼显示比例
             //changeProimg();
@@ -143,6 +162,7 @@ var userMonitor = (function(){
         _originPageHeight = $pageContext.height();
         this.getUserProcs();
     };
+
     //刷新数据
     var refreshData = function(){
         if(!_isInstDataLoading && _refreshInterval>0){
@@ -150,6 +170,7 @@ var userMonitor = (function(){
             _refreshAction = setTimeout(getInstDatasByIds,_refreshInterval * 1000);
         }
     };
+
     //设置缩小和放大的按钮图标
     var setScaleSign = function(scale,scaleStep){
         var $badge3 = $("#badge-3");
@@ -180,7 +201,7 @@ var userMonitor = (function(){
     //根据用户名获取当前的监控方案，对应左侧列表
     var getUserProcs = function(){
         var userName = sessionStorage.userName;     //获取当前用户名
-        console.log(_isViewAllProcs);
+        //console.log(_isViewAllProcs);
 
         if(_isViewAllProcs){    //访问全部的监控方案
             getProcs();
@@ -228,6 +249,7 @@ var userMonitor = (function(){
             }
         }
     };
+
     //根据绑定类型和绑定值获取到监控方案列表
     var getAllProcsByBind = function(bindType,bindKeyId){
         var prm = {"bindType":bindType,"bindKeyId":bindKeyId};
@@ -251,6 +273,7 @@ var userMonitor = (function(){
         }
         return -1;
     };
+
     //定义数组删除某个元素的方法
     Array.prototype.remove = function(val) {
         var index = this.indexOf(val);
@@ -258,13 +281,14 @@ var userMonitor = (function(){
             this.splice(index, 1);
         }
     };
+
     //定义查询数组中是否包含某个元素的方法
     Array.prototype.contains = function ( needle ) {
         for (i in this) {
             if (this[i] == needle) return true;
         }
         return false;
-    }
+    };
 
     var getProcsByPointerId = function(notSetProcList){
         var pointerId = sessionStorage["curPointerId"];
@@ -300,7 +324,7 @@ var userMonitor = (function(){
             setProcList(_allProcs);
         }
 
-    }
+    };
 
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
@@ -394,8 +418,6 @@ var userMonitor = (function(){
             });
         }
     };
-
-
 
     //获取到全部的方案，根据混合模式加载
     var getAllProcs = function(){
@@ -520,59 +542,116 @@ var userMonitor = (function(){
                     imgWidth = proc.procStyle.imageSizeWidth;
                     _imgProcWidth = imgWidth;
                     _theImgProcWidth = imgWidth;
+
+                    //流程图高度
+                    _theImgProcHeight = proc.procStyle.imageSizeHeight;
+
                     /*----------------页面自适应 王常宇修改-----------------*/
+
                     var norWidth = $('.page-title').width();
                     //实际宽度
-                    var realWidth = norWidth - _leftWidth;
+                    var realWidth = norWidth - _leftWidth - 20;
+
+                    //console.log(realWidth);
 
                     //缩放比例计算
                     var ratioZoom = realWidth / imgWidth;
 
+                    //获取底图高度
+                    var imgHeight = proc.procStyle.imageSizeHeight;
+
+                    //高度缩放比例
+                    var ratioZoom1 = containHeight / imgHeight;
+
+                    //真实缩放比例
+                    ratioZoom = ratioZoom < ratioZoom1 ? ratioZoom : ratioZoom1;
+
+
                     _scaleX = ratioZoom;
                     setScaleSign(_scaleX,_scaleStep);
-                    //右侧容器宽度
-                    $('#right-container').width(realWidth);
 
-                    $(window).resize(function () {          //当浏览器大小变化时
+                    //右侧容器宽度
+                    $('#right-container').width(realWidth + 20);
+
+                    //判断左侧操作栏是否存在
+                    var o1 = $(".content-main-left").css("display");
+
+                    //如果存在隐藏左侧操作栏
+                    if(o1 == 'block'){
+
+                        setTimeout(function(){
+
+                            $('.showOrHidden').click();
+
+                            $(window).resize();
+
+                        },100);
+
+                    }else{
+                        //不存在 让右侧流程图自适应
+                        setTimeout(function(){
+
+                            $(window).resize();
+
+                        },100);
+                    }
+
+                    $(window).resize(function () {
+
+                        //当浏览器大小变化时
                         var _leftRealwidth = _leftWidth;
 
                         if($('.content-main-left').css('display') == 'none'){
+
                             _leftRealwidth = 0;
 
                         }
+
                         var norWidth1 = $('.page-title').width();
                         //实际宽度
-                        var realWidth1 = norWidth1 - _leftRealwidth;
+                        var realWidth1 = norWidth1 - _leftRealwidth - 20;
+
                         //缩放比例计算
-                        var ratioZoom1 = realWidth1 / imgWidth;
+                        var ratioZoom = realWidth1 / imgWidth;
+
+                        //获取底图高度
+                        var imgHeight = proc.procStyle.imageSizeHeight;
+
+                        //高度缩放比例
+                        var ratioZoom1 = containHeight / imgHeight;
+
+                        //真实缩放比例
+                        ratioZoom = ratioZoom < ratioZoom1 ? ratioZoom : ratioZoom1;
+
                         //对左上角放大缩小按钮重绘
-                        _scaleX = ratioZoom1;
+                        _scaleX = ratioZoom;
 
                         setScaleSign(_scaleX,_scaleStep);
 
                         $('.content-main-right').css({
                             'transform-origin': 'left top 0px',
-                            'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
-                        })
+                            'transform': 'scale('+ratioZoom+', '+ratioZoom+')'
+                        });
+
                         $('.page-content').css({
                             'overflow':'hidden !important'
-                        })
+                        });
 
                         //右侧容器宽度
-                        $('#right-container').width(realWidth1);
+                        $('#right-container').width(realWidth1 + 20);
 
 
                         $('#container').hide();
                         $('#eyeOnOff').html('切换鹰眼模式');
+
                         $('.content-main-right').css({
                             marginLeft:0,
                             marginTop:0
-                        })
+                        });
 
                         $('#right-container').height(800);
 
                     });
-
 
                     $('.content-main-right').css({
                         'transform-origin': 'left top 0px',
@@ -610,6 +689,7 @@ var userMonitor = (function(){
                         })
                     }
                 }
+
                 if(proc.procStyle.imageSizeHeight && proc.procStyle.imageSizeHeight>0){
 
                     $divMain.height(proc.procStyle.imageSizeHeight);
@@ -934,25 +1014,43 @@ var userMonitor = (function(){
             //$eyeOnOff.css("cssText","border-radius:0 10px 10px 0 !important");
 
             $('.total-wrap').append($eyeOnOff);
+
         }else{
+
             if($('#eyeOnOff').html() == '切换正常模式'){
                 $('#eyeOnOff').click();
             }
+
         };
 
         $('#eyeOnOff').off('click');
         $('#eyeOnOff').on('click',function(){
+
             $('#container').toggle();
+
             if($(this).html() =='切换鹰眼模式'){
+
+                var norWidth1 = $('.page-title').width();
+
+                //实际宽度
+                var realWidth1 = norWidth1 - _leftWidth - 20;
+
+                //右侧容器宽度
+                $('#right-container').width(realWidth1);
+
+                //鹰眼模式不允许拖动流程图
+                ifProcMove = false;
 
                 eagleEye();
                 $(this).html('切换正常模式');
+
             }else{
                 $(this).html('切换鹰眼模式');
 
                 var norWidth1 = $('.page-title').width();
+
                 //实际宽度
-                var realWidth1 = norWidth1 - _leftWidth;
+                var realWidth1 = norWidth1 - _leftWidth - 20;
                 //缩放比例计算
                 var ratioZoom1 = realWidth1 / _imgProcWidth;
                 //对左上角放大缩小按钮重绘
@@ -962,10 +1060,11 @@ var userMonitor = (function(){
                 $('.content-main-right').css({
                     'transform-origin': 'left top 0px',
                     'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
-                })
+                });
+
                 $('.page-content').css({
                     'overflow':'hidden !important'
-                })
+                });
 
                 //右侧容器宽度
                 $('#right-container').width(realWidth1);
@@ -979,13 +1078,42 @@ var userMonitor = (function(){
 
                 $('#right-container').height(800);
 
+                //普通模式可以拖动流程图
+                ifProcMove = true;
+
             }
 
         });
 
-        $('.functions-6').off('click')
+        $('.functions-6').off('click');
         $('.functions-6').on('click',function(){
-            $('#eyeOnOff').click();
+
+            if($("#container").length < 1 || $("#container").is(":hidden")){
+
+                //如果鹰眼模式 隐藏左侧菜单栏
+                $(".page-sidebar-menu").addClass('page-sidebar-menu-closed');
+
+                $(".page-header-fixed").addClass('page-sidebar-closed');
+
+                $('.open .sub-menu').hide();
+
+            }else{
+
+                //如果非鹰眼模式 显示左侧菜单栏
+                $(".page-sidebar-menu").removeClass('page-sidebar-menu-closed');
+
+                $(".page-header-fixed").removeClass('page-sidebar-closed');
+
+                $('.open .sub-menu').show();
+            }
+
+            setTimeout(function(){
+
+                $('#eyeOnOff').click();
+
+            },100)
+
+
         });
     };
 
@@ -998,24 +1126,29 @@ var userMonitor = (function(){
         if(!$ifcontainer){
             //插入缩略图容器
             var $container = $("<div id='container'></div>").css({
-                position:"absolute",
-                left:$('.content-main-left').width(),
-                bottom:'40%',
-                border:'1px solid #ccc'
+                position:"fixed",
+                //left:$('.content-main-left').width(),
+                left:0,
+                bottom:'20%',
+                border:'1px solid #ccc',
+                zIndex:9999
             });
 
             $('.total-wrap').append($container);
         }
+
         //清空缩略图容器
         $('#container').empty();
+
+        //获取当前缩放比例
 
         //插入缩略图
         //获取显示区宽度
         var showWidth = $('#right-container').width();
 
         var $img1 = $("<img src='"+_imgProcSrc+"'>");
-        var imgWH = 420;
-        var imgHH = 225;
+        var imgWH = 312;
+        var imgHH = imgWH / _imgProcWidth * _theImgProcHeight ;
         var scale = 3;
 
         //给显示区添加高度
@@ -1054,11 +1187,12 @@ var userMonitor = (function(){
                     var maxHeight = $("#container").height() - $lay.height();
                     var nowX = Math.max(Math.min(i,maxWidth),0);
                     var nowY = Math.max(Math.min(y,maxHeight),0);
-                    $lay.css({
 
+                    $lay.css({
                         left:nowX - 2,
                         top:nowY - 2
                     });
+
                     $(".content-main-right").css({
                         marginLeft:(nowX) * scale * showScale * -1,
                         marginTop:(nowY) * scale * showScale *　-1
@@ -1075,6 +1209,8 @@ var userMonitor = (function(){
             })
 
         });
+
+
         //计算真实缩放比例
         var realScale = (showWidth / _imgProcWidth) * scale;
 
@@ -1084,6 +1220,9 @@ var userMonitor = (function(){
             'transform-origin': 'left top 0px',
             'transform': 'scale('+realScale+', '+realScale+')'
         });
+
+        //给全局变量 缩放比例赋值
+        _scaleX = realScale;
 
         $('.content-main-left').css({
             zIndex:1000
@@ -1098,8 +1237,8 @@ var userMonitor = (function(){
     var changeProimg = function(){
         //获取显示区宽度
         var showWidth = $('#right-container').width();
-        var imgWH = 420;
-        var imgHH = 225;
+        var imgWH = 312;
+        var imgHH = imgWH / _imgProcWidth * _theImgProcHeight ;
 
         var showScale = showWidth / imgWH;
         var scale = ((Math.abs(((_scaleX - 1) / _scaleStep)).toFixed()) / 20) + 1;
@@ -1292,7 +1431,8 @@ var userMonitor = (function(){
             }
         }
         return false;
-    }
+    };
+
     //根据数据返回的结果显示所有的监控流程,显示在右边,默认只显示第一等级，可导航改变
     var displayAllProc = function(){
         var procLVs = [],tmpprocLVs = [];
@@ -1753,7 +1893,7 @@ var userMonitor = (function(){
         $trButtons.appendTo($table);
         $divCtrls.append($table);
         setDivControlsVisible(true);
-    }
+    };
 
     //设置主面板的点击事件，隐藏面板
     function setMainClick($contentmain,panelId){//鼠标移除隐藏事件
@@ -1785,8 +1925,7 @@ var userMonitor = (function(){
                 }
             });
         }
-    }
-
+    };
 
     //初始设置控制面板
     function setCtrlPanel($contentmain,left,top){
@@ -1802,7 +1941,7 @@ var userMonitor = (function(){
             "top"  : ((top - 1) / _scaleX) + "px"
         });
         return $divCtrls;
-    }
+    };
 
     //设置空调面板温度按钮
     var setAirTempButton = function(prDefId,temp,baseWidth,baseHeight){
@@ -1961,10 +2100,13 @@ var userMonitor = (function(){
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
+
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
                 "left" : ((left - 1) / _scaleX) + "px",
                 "top"  : ((top - 1) / _scaleX) + "px"
             });
+
+
             setDivControlsVisible(false);       //隐藏掉可能的控制面板
             $contextMenu.removeClass("content-menu-hide");
             $contextMenu.addClass("content-menu-show");
@@ -1975,9 +2117,7 @@ var userMonitor = (function(){
             $contextMenu.addClass("content-menu-hide");
             $("#content-main-right").unbind("click");
         }
-    }
-
-
+    };
 
     function alertMessage(msg){
         alert(msg);
@@ -1996,10 +2136,14 @@ var userMonitor = (function(){
     };
 })();
 
+//流程图宽度
 _theImgProcWidth = 0;
 
-$(function(){
-    $('.showOrHidden').click(function(){
+//流程图高度
+_theImgProcHeight = 0;
+
+
+$('.showOrHidden').click(function(){
 
         $('#container').hide();
         $('#eyeOnOff').html('切换鹰眼模式');
@@ -2045,14 +2189,14 @@ $(function(){
                 left:'250px'
             })
             $('#container').css({
-                left:'250px'
+                left:'0px'
             })
 
             changeTransform('block');
 
         }
-    })
-});
+    });
+
 
 function changeTransform(o1){
     var _leftRealwidth = 250;
@@ -2063,23 +2207,96 @@ function changeTransform(o1){
     }
     var norWidth1 = $('.page-title').width();
     //实际宽度
-    var realWidth1 = norWidth1 - _leftRealwidth;
+    var realWidth = norWidth1 - _leftRealwidth-20;
+
     //缩放比例计算
-    var ratioZoom1 = realWidth1 / _theImgProcWidth;
+    var ratioZoom = realWidth / _theImgProcWidth;
+
+    //获取底图高度
+    var imgHeight =  _theImgProcHeight;
+
+
+    //高度缩放比例
+    var ratioZoom1 = containHeight / imgHeight;
+
+    //真实缩放比例
+    ratioZoom = ratioZoom < ratioZoom1 ? ratioZoom : ratioZoom1;
+
     //对左上角放大缩小按钮重绘
-    _scaleX = ratioZoom1;
+    _scaleX = ratioZoom;
     //console.log(ratioZoom1);
     userMonitor.setScaleSign(_scaleX,0.05);
 
     $('.content-main-right').css({
         'transform-origin': 'left top 0px',
-        'transform': 'scale('+ratioZoom1+', '+ratioZoom1+')'
+        'transform': 'scale('+ratioZoom+', '+ratioZoom+')'
     })
     $('.page-content').css({
         'overflow':'hidden !important'
     })
 
     //右侧容器宽度
-    $('#right-container').width(realWidth1);
-}
+    $('#right-container').width(realWidth+20);
+
+    //右侧容器高度
+    $('#right-container').height(containHeight);
+
+
+};
+
+//给流程图增加拖动开关
+var ifProcMove = true;
+
+//流程图随鼠标拖动
+$("#content-main-right").hover(function(){
+
+    //拖动效果
+    $(document).mousedown(function(e){
+
+        var btnNum = event.button;
+
+        //点击鼠标左键
+        if(btnNum == 0 && ifProcMove){
+
+            //禁用浏览器自带的图片拖动事件
+            var dom = document.getElementById('imgProc');
+            dom.ondragstart=function (){return false;};
+
+            //获取鼠标初始位置
+            var pagex = e.pageX;
+            var pagey = e.pageY;
+
+            //获取最初的偏移值
+            var marginX = parseInt($('#content-main-right').css('marginLeft'));
+
+            var marginY = parseInt($('#content-main-right').css('marginTop'));
+
+            $("#right-container").mousemove(function(e){
+
+                var i = e.pageX - pagex;
+                var y = e.pageY - pagey;
+
+                var maxWidth = $("#right-container").width();
+                var maxHeight = $("#right-container").height();
+                var nowX = Math.max(Math.min(i,maxWidth),0);
+                var nowY = Math.max(Math.min(y,maxHeight),0);
+
+                //随鼠标改变元素的位置
+                $("#content-main-right").css({
+                    marginLeft:marginX + i,
+                    marginTop:marginY + y
+                });
+
+            });
+
+            $(document).mouseup(function(){
+
+                $("#right-container").unbind('mousemove');
+
+            });
+        }
+
+    });
+});
+
 

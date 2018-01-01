@@ -401,9 +401,9 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">物品编码 ：</div>
+                                <div class="labels">物品编码 ：<span class="error1 colorTip" style="display: none">编码已存在</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
+                                    <input type="text" v-model="bianhao" class="shishi" @keyUp="keyword()">
                                 </div>
                             </li>
                             <li class="floatRight">

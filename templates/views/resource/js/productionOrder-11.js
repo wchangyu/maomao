@@ -1,3 +1,6 @@
+//记录当前工单号
+var _gdCode = '';
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -20,7 +23,7 @@ $(function(){
     });
 
     //设置初始时间(主表格时间)
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+    var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
     //选择设备时间
@@ -101,9 +104,6 @@ $(function(){
         }
     });
 
-    //记录当前工单号
-    var _gdCode = '';
-
     var _gdCode2 = '';
 
     //存放常量
@@ -152,7 +152,7 @@ $(function(){
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
-    var table = $('#scrap-datatables').DataTable({
+    var table = $('.main-contents-table').children('table').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
@@ -201,6 +201,15 @@ $(function(){
                         'target="_blank">' + data + '</a>'
                 }
             },
+
+            {
+                title:'工单执行状态',
+                data:'lastUpdateInfo'
+            },
+            {
+                title: '最新状态',
+                data: 'clLastUptInfo'
+            },
             {
                 title: '备件进度',
                 data: 'clStatusID',
@@ -213,15 +222,7 @@ $(function(){
                 }
             },
             {
-                title: '备注',
-                data: 'clLastUptInfo'
-            },
-            {
-                title:'最新状态',
-                data:'lastUpdateInfo'
-            },
-            {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -429,10 +430,12 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 beforeSend:function(){
-                    $('#loading').show();
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
                 },
                 success:function(result){
                     if(result.gdJJ == 1){
@@ -874,6 +877,33 @@ $(function(){
         enterMCName();
 
     })
+
+    //tab切换
+    //tab选项卡
+    $('.table-title span').click(function(){
+        var $this = $(this);
+
+        $this.parent('.table-title').children('span').removeClass('spanhover');
+
+        $this.addClass('spanhover');
+
+        var tabDiv = $(this).parents('.table-title').next().children().children('div');
+
+        tabDiv.addClass('hide-block');
+
+        tabDiv.eq($(this).index()).removeClass('hide-block');
+
+        //隐藏导出按钮
+        $('.excelButton').children().addClass('hiddenButton');
+
+        $('.excelButton').children().eq($(this).index()).removeClass('hiddenButton');
+
+    });
+
+    //隐藏导出按钮
+    $('.excelButton').children().addClass('hiddenButton');
+
+    $('.excelButton').children().eq(0).removeClass('hiddenButton');
     /*---------------------------------------------------其他方法------------------------------------------*/
 
     //获取所有物品
@@ -915,7 +945,7 @@ $(function(){
             slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
         var prm = {
-            gdCode:$('#gdcode').val(),
+            gdCode2:$('#gdcode').val(),
             st:slrealityStart,
             et:slrealityEnd,
             clStatusId:$('#line-point').val(),
@@ -974,7 +1004,48 @@ $(function(){
             url: _urls + 'YWGD/ywGDGetPeijGD',
             data:prm,
             success:function(result){
+
+                var zht7 = [];
+
+                //等待资源
+                var zht5 = [];
+
+                var zht999 = [];
+
+                for(var i=0;i<result.length;i++){
+
+                    if(result[i].gdZht == 7){
+
+                        zht7.push(result[i]);
+
+                    }else{
+
+                        if(result[i].clStatusID == 999){
+
+                            zht999.push(result[i]);
+
+                        }else{
+
+                            zht5.push(result[i]);
+
+                        }
+
+                    }
+
+                }
+
+
+                //全部
                 datasTable($("#scrap-datatables"),result);
+
+                //处理中5
+                datasTable($("#scrap-datatables1"),zht5);
+
+                //已发货999
+                datasTable($("#scrap-datatables3"),zht999);
+
+                //已完成
+                datasTable($("#scrap-datatables2"),zht7);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1079,7 +1150,7 @@ $(function(){
     function logInformation(){
         var gdLogQPrm = {
             "gdCode": _gdCode,
-            "logType": 2,
+            "logType": 0,
             "userID": _userIdNum,
             "userName": _userIdName
         };

@@ -1,0 +1,392 @@
+/*页面初始样式*/
+html {font-size: 62.5%}
+
+p{
+    margin-bottom: 0 !important;
+}
+.toggler{
+    display: none;
+}
+
+/*日月年*/
+.page-bar{
+    position: relative;
+}
+
+.left-middle-header {
+    background: none !important;
+}
+
+/*头部时间信息 温度湿度信息*/
+.top-system-message{
+    position: fixed;
+    right:15%;
+    top:10px;
+    overflow: hidden;
+    color:#91aece;
+}
+
+@media (max-width: 768px){
+    .top-system-message {
+        position: absolute;
+        left:10%;
+        top:50px;
+        color:white;
+        overflow: hidden;
+    }
+
+    .top-system-message .temperature {
+
+        margin-left: -52px;
+    }
+    .top-system-message .humidity {
+
+       display: none !important;
+    }
+
+}
+
+
+/*温度*/
+.top-system-message .temperature{
+    width:130px;
+    height:40px;
+    display: inline-block;
+    background: url(../../img/wendu.png) no-repeat 60% 5px;
+    background-size: 12% 54%;
+    text-align: right;
+    line-height: 31px
+}
+/*湿度*/
+.top-system-message .humidity{
+    width:130px;
+    height:40px;
+    display: inline-block;
+    background: url(../../img/shidu.png) no-repeat 17% 6px;
+    background-size: 12% 52%;
+    text-align: center;
+    line-height: 31px;
+}
+
+.carousel-inner .img {
+    width: 100%;
+    height: auto !important;
+    max-height: 240px !important;
+    min-height:180px;
+}
+
+.top-cut1{
+
+    padding-bottom: 2px;
+    margin-bottom: 1px;
+    position: absolute;
+    right: 45px;
+    top: 6px;
+}
+.top-cut1 li {
+    float: left;
+    margin-left: 15px;
+    font-size: 16px;
+
+}
+
+/*轮播图*/
+.carousel-control{
+    display: none !important;
+}
+
+/*全部背景色*/
+.total-warp .container{
+    /*background: #FBFBFB;*/
+}
+
+.wrap {
+    border: none !important;
+}
+
+/*无边框*/
+.content-main-left {
+    border: none;
+    position: relative;
+}
+
+.content-main-left .content-main {
+    background: none;
+}
+
+/*医院统计*/
+.left-middle-header{
+
+    background: none;
+    color:#000;
+    font-size:20px;
+    font-weight: 600;
+    text-indent: 0px;
+}
+
+/*总面积*/
+.inside-data{
+    width:30%;
+    height:100px;
+    color:white !important;
+    float:left;
+    background: url('../../img/fangzi.png') no-repeat 89% 89%;
+    background-color: #62A8DB;
+    background-size: 30% 30% !important;
+    overflow: hidden;
+}
+.inside-data1{
+    margin-left:5%;
+    margin-right:5%;
+    background: url('../../img/men.png') no-repeat 89% 89%;
+    background-color: #33E3B6;
+    background-size: 30% 30% !important;
+    overflow: hidden;
+
+}
+.inside-data2{
+
+    background: url('../../img/chuang.png') no-repeat 89% 89%;
+    background-color: #F08348;
+    background-size: 30% 30% !important;
+    overflow: hidden;
+}
+
+.inside-data p{
+    color:white !important;
+    padding-left:5px !important;
+    font-size:14px;
+}
+
+/*能耗统计*/
+.left-energy-statistics .energy-data{
+    width:100%;
+    height:250px;
+    background: #62A8DB;
+    color:white;
+    padding:8px;
+    box-sizing: border-box;
+}
+
+.left-energy-statistics .energy-data .title{
+    font-size: 14px;
+}
+
+.left-energy-statistics .energy-data .specific-data{
+    width:50%;
+    height:60px;
+    text-align: center;
+    float: left;
+    overflow: hidden;
+}
+.left-energy-statistics .energy-data .specific-data .the-data{
+    /*font-size:24px;*/
+    font-size: 2.4rem;
+}
+.left-energy-statistics .energy-data .specific-data .unit{
+    font-size:12px;
+}
+
+/*底部时间*/
+.left-bottom-time .bottom-div{
+
+    height:75px;
+    background: #EEEEEE;
+    color:#252525;
+    text-align: center;
+    float: left;
+}
+.left-bottom-time .left-time{
+    width:40%;
+    padding-top:15px;
+    box-sizing: border-box;
+    margin-right:6%;
+}
+.left-bottom-time .left-time .times{
+    font-size:24px;
+    font-weight: 500;
+
+}
+
+.left-bottom-time .right-data{
+    width:54%;
+    box-sizing: border-box;
+    height:100%
+}
+
+.left-bottom-time .right-data div{
+     height:75px;
+     width:50%;
+    float:left;
+    padding-top:50px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.left-bottom-time .right-data .left1{
+     background: url('../../img/wendu.png') no-repeat center 10px;
+     background-size: 25% 52%;
+}
+
+.left-bottom-time .right-data .right1{
+    background: url('../../img/shidu.png') no-repeat center 10px;
+    background-size: 25% 52%;
+}
+
+/*-----------------------------------右侧数据--------------------------------*/
+
+/*实时能耗*/
+.quota-data-bottom h3 {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: none;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 20px;
+    position: relative;
+    padding-left:15px;
+    box-sizing: border-box;
+}
+
+#energy-demand {
+    height: 255px;
+    border: none;
+    float: left;
+    padding: 0;
+    background: #FBFBFB;
+}
+
+h3 .left-patch{
+    display: inline-block;
+    width:9px;
+    height:22px;
+    background: #1d3b61;
+    position: absolute;
+    left:0;
+    top:5px;
+}
+
+.onClicks {
+    color: #F2285C !important;
+}
+
+/*工单统计*/
+.real-time-order .top-data{
+    width:100%;
+    height:54px;
+    text-align: center;
+
+}
+.real-time-order .top-data .top-data-child{
+    width:33%;
+    float:left;
+}
+.real-time-order .top-data .top-data-child .data{
+    font-size:20px;
+    font-weight: 600;
+    margin-bottom:6px !important;
+}
+
+
+.quota-data-bottom{
+
+}
+
+#order-demand{
+    height: 200px;
+    padding: 0 !important;
+}
+
+/*报警数据*/
+.content-main-top-right {
+    height: 303px !important;
+}
+.content-main-top-right .new-alarm{
+    text-align: left !important;
+    background: #FBFBFB;
+    margin-bottom:30px !important;
+}
+
+.new-alarm span{
+    margin-left:20px;
+}
+
+/*分类能耗*/
+.fenleinenghao{
+    width:33%;
+    padding:10px;
+    background: #DEEFFE !important;
+    box-sizing: border-box;
+    float: left;
+    height: 180px;
+    border: none;
+}
+.fenleinenghao1{
+
+    background: #FBFBFB !important;
+}
+
+.fenleinenghao .title{
+    font-size:14px;
+    margin-bottom:10px !important;
+}
+
+.fenleinenghao .data{
+    font-size:20px;
+    font-weight: 600;
+    text-align: center;
+
+}
+.fenleinenghao .child{
+    float:left;
+    width:50%;
+    padding-top:64px;
+    font-size:14px;
+    font-weight: 600;
+    text-align: center !important;
+}
+
+.fenleinenghao .child1{
+
+    background: url(../../img/zengzhang.png) no-repeat 38% 33%;
+    background-size: 26% 36%;
+}
+
+.fenleinenghao .child2{
+
+    background: url(../../img/zengzhang.png) no-repeat 38% 33%;
+    background-size: 26% 36%;
+}
+
+.equal{
+    background: url(../../img/tongbi0%25.png) no-repeat 38% 49% !important;
+    background-size: 43% 6% !important;
+}
+
+.down{
+
+    background: url(../../img/xiajiang.png) no-repeat 38% 33% !important;
+    background-size: 26% 36% !important;
+}
+
+/*能耗费用*/
+#main-right-two {
+    height: 180px;
+}
+#main-right-three {
+    height: 180px;
+}
+
+/*能耗排名*/
+.header-right-btn{
+    position: absolute;
+    left: 30% !important;
+    top: 10px !important;
+}
+
+.header-right-btn .cur-on-choose {
+    background: none !important;
+    color: #F2285C;
+}
+

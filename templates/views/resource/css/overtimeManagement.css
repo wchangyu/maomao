@@ -7,10 +7,10 @@
 }
 .datatimeblock{
     display: inline-block;
-    width: 28px !important;
-    height: 25px !important;
+    width: 32px !important;
+    height: 28px !important;
     font-size: 0;
-    vertical-align: middle;
+    vertical-align: top;
     margin-left: -4px;
 }
 .dataTables_filter label{
@@ -37,4 +37,9 @@
     height: auto !important;
 
     font-size: inherit;
+}
+.gongdanList input{
+
+    width: 100%;
+
 }

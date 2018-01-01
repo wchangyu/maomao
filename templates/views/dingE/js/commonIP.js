@@ -14,50 +14,12 @@ var IP1 = _url.substring(0,_urlLength-1);
 
 var IP = IP1;
 
+//配置显示中文单位还是英文单位
+//unitShowType = 0 显示英文单位 =1 显示中文单位
+var unitShowType = 1;
+
 var theTimes = 30000;
-var energyType = {
-    "alltypes":[
-        {"etid":"01",
-            "ettype":"100",
-            "etname":"电",
-            "etunit":"kWh",
-            "img":"totalEner.png",
-            "color":"#bce3de",
-            "img2":"electricity.png"
-        },
-        {"etid":"211",
-            "ettype":"200",
-            "etname":"水",
-            "etunit":"t",
-            "img":"totalWater.png",
-            "color":"#fcbf92",
-            "img2":"water.png"
-        },
-        {"etid":"311",
-            "etname":"气",
-            "ettype":"300",
-            "etunit":"m3",
-            "img":"totalQi.png",
-            "color":"#b1cade",
-            "img2":"gas.png"
-        },
-        {"etid":"412",
-            "ettype":"400",
-            "etname":"暖",
-            "etunit":"MJ",
-            "img":"",
-            "color":"#b1cade",
-            "img2":"hot.png"
-        },
-        {"etid":"511",
-            "ettype":"500",
-            "etname":"冷",
-            "etunit":"MJ",
-            "img":"",
-            "color":"#b1cade",
-            "img2":"cold.png"
-        }
-    ]};
+var energyType = JSON.parse(sessionStorage.getItem('allEnergyType'));
 
 //弹窗关闭时清空已输入过的信息
 
@@ -113,12 +75,10 @@ function hiddrenId(){
 //调用对应接口成功后
 function ajaxSuccess(){
 
-
     _table.fnClearTable();
     alarmHistory();
     setData();
     hiddrenId();
-
 }
 
 //深拷贝的方法
@@ -153,10 +113,15 @@ function getEnergyUnit(num){
     var txt = energyType.alltypes;
     for(var i=0; i < txt.length; i++){
         if(num == txt[i].ettype){
+
+            if(unitShowType == 1){
+                return txt[i].etunitZH;
+            }
             return txt[i].etunit;
         }
     }
 }
+
 
 //获取人员类别单位
 function getPersonUnit(num){

@@ -399,9 +399,9 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
-                                <div class="labels">类别信息 ：</div>
+                                <div class="labels">类别信息 ：<span class="error1 colorTip" style="display:none;">类别已存在</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" placeholder="自动生成" v-model="num" readonly="readonly" class="lbbm">
+                                    <input type="text" v-model="num" class="lbbm" @keyup="keyword()">
                                 </div>
                             </li>
                             <li class="floatRight">

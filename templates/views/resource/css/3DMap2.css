@@ -1,0 +1,127 @@
+html {
+    font-size: 62.5%;
+}
+
+.page-title{
+    display: none;
+}
+.page-content{
+    min-width:980px!important;
+}
+
+/*标题*/
+.left-main-content h2{
+    font-weight:500;
+    font-size:3rem;
+    text-align: center;
+    max-width: 640px;
+}
+
+.left-main-content h2 span{
+    font-size:1.7rem;
+}
+.left-main-content .synopsis{
+   margin-bottom:20px !important;
+    max-width: 620px !important;
+    min-height:485px;
+    font-size:14px;
+}
+
+/*下方三个按钮*/
+.bottom-icon-contain{
+    height:90px;
+    border-radius: 4px !important;
+    background: url('../../new-resource/img/01.png') no-repeat 15% center;
+    background-color: #62A8DB;
+    background-size: 26%;
+    cursor: pointer;
+    text-align: right;
+    padding-top:10%;
+    box-sizing: border-box;
+    color:white;
+}
+
+.bottom-icon-contain1{
+
+    background: url('../../new-resource/img/02.png') no-repeat 15% center;
+    background-color: #35DAAF;
+    background-size: 26%;
+
+}
+
+.bottom-icon-contain2{
+    background: url('../../new-resource/img/$R8V16JB.png') no-repeat 15% center;
+    background-color: #F08348;
+    background-size: 24%;
+}
+
+.bottom-icon-contain .title{
+   padding-left:46%;
+    box-sizing: border-box;
+    font-size:20px;
+    margin-bottom:5px !important;
+    text-align: left;
+
+}
+.bottom-icon-contain .small-title{
+    padding-left:46%;
+    box-sizing: border-box;
+    font-size:14px;
+    text-align: left;
+}
+.bottom-jump-icon{
+    max-width: 680px !important;
+}
+
+@media (max-width: 1366px){
+
+    .left-main-content .synopsis{
+
+        font-size:12px;
+    }
+
+
+    /*下方三个按钮*/
+    .bottom-icon-contain{
+        height:78px;
+        border-radius: 4px !important;
+        background: url('../../new-resource/img/01.png') no-repeat 15% center;
+        background-color: #62A8DB;
+        background-size: 26%;
+        cursor: pointer;
+        text-align: right;
+        padding-top:14%;
+        box-sizing: border-box;
+        color:white;
+    }
+
+    .bottom-icon-contain1{
+
+        background: url('../../new-resource/img/02.png') no-repeat 15% center;
+        background-color: #35DAAF;
+        background-size: 26%;
+
+    }
+
+    .bottom-icon-contain2{
+        background: url('../../new-resource/img/$R8V16JB.png') no-repeat 15% center;
+        background-color: #F08348;
+        background-size: 24%;
+    }
+
+    .bottom-icon-contain .title{
+        padding-left:44%;
+        box-sizing: border-box;
+        font-size:18px;
+        margin-bottom:5px !important;
+        text-align: left;
+
+    }
+    .bottom-icon-contain .small-title{
+        padding-left:44%;
+        box-sizing: border-box;
+        font-size:12px;
+        text-align: left;
+    }
+
+}

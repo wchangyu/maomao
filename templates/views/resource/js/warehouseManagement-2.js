@@ -118,7 +118,8 @@ $(function(){
             },
             //入库单价格式是否正确
             addFun2:function(){
-                var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                //var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                var mny = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
                 if(putInGoods.inprice != ''){
                     if(mny.test(putInGoods.inprice)){
                         $('.format-error1').hide();
@@ -2545,14 +2546,14 @@ $(function(){
         //序列号是否唯一
         var b = $('.isEnabled')[0].style.display;
 
-        if( o!='none' && s!='none' && a!='none' && b!='none' ){
+        if( o!='none' || s!='none' || a!='none' || b!='none' ){
 
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'输入有误！', '');
 
         }else{
 
             //判断数量是否输入大于0
-            if( putInGoods.num != '' && putInGoods.num > 0 ){
+            if( putInGoods.num != '' && putInGoods.num > 0 && putInGoods.inprice > 0 ){
 
                 //判断当前数据是否已添加过（库位和编号相同的时候，说明添加过）
                 var existFlag = false;

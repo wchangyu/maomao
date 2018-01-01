@@ -1,3 +1,6 @@
+//记录工单号
+var _gdCode = 0;
+var _wxClNames = '';
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -6,8 +9,6 @@ $(function(){
     var _userIdName = sessionStorage.getItem('realUserName');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //图片ip
-    var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
     var _isLineLoaded = false;      //线路数据是否载入
     var _isStationLoaded = false;   //车站数据是否载入
@@ -75,10 +76,7 @@ $(function(){
     var _weiXiuCaiLiao = [];
     //负责人数组
     var _fuZeRen = [];
-    //记录工单号
-    var _gdCode = 0;
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+
     //执行人员的标识
     var _workerFlag = false;
     //物料的标识
@@ -217,7 +215,7 @@ $(function(){
                 data:'gdCodeSrc',
                 render:function(data, type, full, meta){
                     if(data == 1){
-                        return '车站报修'
+                        return __names.department + '报修'
                     }else{
                         return '现场人员报修'
                     }
@@ -237,7 +235,7 @@ $(function(){
                 data:'dName'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -257,7 +255,7 @@ $(function(){
                 data:'wxClNames'
             },
             {
-                title:'所属班组',
+                title:__names.group,
                 data:'wxKeshi'
             },
             {
@@ -265,7 +263,7 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'督察督办责任人',
+                title:'责任人',
                 data:'wxUserNames'
             },
             {
@@ -501,12 +499,6 @@ $(function(){
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
-            //获得当前的页数，
-            //for( var i=0;i<$('.paginate_button').length;i++){
-            //    if($('.paginate_button').eq(i).hasClass('current')){
-            //        currentPages = $('.paginate_button').eq(i).html();
-            //    }
-            //}
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
@@ -530,6 +522,17 @@ $(function(){
                         _zhixingRens = result.wxRens;
                         _weiXiuCaiLiao = result.wxCls;
                         _fuZeRen = result.gdWxLeaders;
+
+                        if(result.wxClNames == ''){
+
+                            _wxClNames = false;
+
+                        }else{
+
+                            _wxClNames = true;
+
+                        }
+
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -541,19 +544,39 @@ $(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
             if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5 || zhuangtai == 6 || zhuangtai == 7){
+
                 moTaiKuang($('#myModal1'));
+
+                var str = '';
+
+                if(_wxClNames){
+
+                    str += '该工单存在备件信息,';
+
+                }
+
+                str += '您确定要进行回退操作吗？';
+
+                $('#myModal1').find('.modal-body').html(str);
             }else{
+
                 $('#myModal3').find('.modal-body').html('无法操作');
+
                 moTaiKuang($('#myModal3'),'flag');
             }
         }else{
+
             $('#myModal3').find('.modal-body').html('请选择要回退的工单!');
+
             moTaiKuang($('#myModal3'),'flag');
         }
     });
     $('.zuofei').click(function(){
+
         if(_currentClick){
+
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+
             if(zhuangtai == 7){
                 $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
                 moTaiKuang($('#myModal2'),'提示','flag');
@@ -562,6 +585,18 @@ $(function(){
                 moTaiKuang($('#myModal2'),'提示','flag');
             }else{
                 moTaiKuang($('#myModal2'));
+                //您确定要进行取消操作吗？
+                var str = '';
+
+                if(_wxClNames){
+
+                    str += '该工单存在备件信息,';
+
+                }
+
+                str += '您确定要进行取消操作吗？';
+
+                $('#myModal2').find('.modal-body').html(str);
             }
         }else{
             $('#myModal2').find('.modal-body').html('请选择要报废的工单!');
@@ -645,30 +680,30 @@ $(function(){
         $('#myModal1').modal('hide');
     })
     //修改
-    $('#myModal')
-    //查看图片
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        //图片详情
-        .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal4'),'图片详情','flag');
-            var imgSrc = $(this).attr('src')
-            $('#myModal4').find('img').attr('src',imgSrc);
-        })
+    //$('#myModal')
+    ////查看图片
+    //    .on('click','#viewImage',function(){
+    //        if(_imgNum){
+    //            var str = '';
+    //            for(var i=0;i<_imgNum;i++){
+    //                str += '<img class="viewIMG" src="' +
+    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
+    //                    '">'
+    //            }
+    //            $('.showImage').html('');
+    //            $('.showImage').append(str);
+    //            $('.showImage').show();
+    //        }else{
+    //            $('.showImage').html('没有图片');
+    //            $('.showImage').show();
+    //        }
+    //    })
+    //    //图片详情
+    //    .on('click','.viewIMG',function(){
+    //        moTaiKuang($('#myModal4'),'图片详情','flag');
+    //        var imgSrc = $(this).attr('src')
+    //        $('#myModal4').find('img').attr('src',imgSrc);
+    //    })
 
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
@@ -1384,4 +1419,17 @@ $(function(){
         }
 
     })
+
+    //
+    gdSource();
+
+    function gdSource(){
+
+        var str = '<option value="">请选择</option>';
+
+        str += '<option value="1">'+ __names.department +'报修</option><option value="2">现场人员报修</option>';
+
+        $('#gdly').empty().append(str);
+
+    }
 })

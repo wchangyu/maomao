@@ -93,6 +93,18 @@ label {
     margin-right: 25px;
     color:#333 !important;
 }
+
+.inner-input2 {
+    text-align: left;
+    margin-top: 15px;
+    /* margin-bottom: 20px; */
+}
+.inner-input2 label {
+    width: 118px;
+    text-align: left;
+    padding-left: 20px;
+}
+
 /*上方按钮样式*/
 .top-btn {
     border-width: 0;
@@ -192,7 +204,7 @@ label {
 
 }
 .inner-input label{
-    width:115px;
+    width:118px;
     text-align:left;
     padding-left:20px;
 
@@ -419,6 +431,10 @@ label {
 }
 
 /*查看定额弹窗*/
+
+#remarks .inner-input{
+    margin-left: 0 !important;
+}
 
 .row-left  p{
     font-size:20px;

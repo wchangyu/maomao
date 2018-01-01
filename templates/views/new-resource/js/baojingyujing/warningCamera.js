@@ -51,9 +51,14 @@ $(function(){
                     "data":"cName"
                 },
                 {
-                    "title": "单位",
+                    "title": "楼宇名称",
                     "orderable": false,
                     "data":"pointerName"
+                },
+                {
+                    "title": "报警事件",
+                    "orderable": false,
+                    "data":"alarmSetName"
                 },
                 {
                     "title": "报警类型",
@@ -94,10 +99,10 @@ $(function(){
                 },
                 {
                     "title":'id',
-                    "class":"alaLogID alaLogIDs",
+                    "class":"alaLogID alaLogIDs theHidden",
                     "orderable": false,
                     "data":"alaLogID",
-                    "visible":false,
+                    //"visible":false,
                     "render":function(data,type,row,meta){
 
                         return '<span data-pointerID="' + row.pointerID +
@@ -346,12 +351,14 @@ function logoToRead (){
     for(var i=0;i<$('.choice').length;i++){
         //if($('.choice').eq(i).parent('.checked'))
         if($('.choice').eq(i).parent('.checked').length != 0){
-            logoToReadID.push($('.choice').eq(i).parent('.checked').parents('tr').children('.alaLogID').html())
+            logoToReadID.push($('.choice').eq(i).attr('data-alalogid'));
         }
     }
+    console.log(logoToReadID);
     var alaLogIDs = {
         '':logoToReadID
-    }
+    };
+
     $.ajax(
         {
             'type':'post',
@@ -359,7 +366,8 @@ function logoToRead (){
             'async':false,
             'data':alaLogIDs,
             'success':function(result){
-
+                //重新获取页面数据
+                alarmHistory();
             }
         }
     )
@@ -367,10 +375,8 @@ function logoToRead (){
 //显示隐藏
 function format ( d ) {
 
-
-
     var theader = '<table class="table">' +
-        '<thead><tr><td>时间</td><td>支路</td><td>单位</td><td>报警类型</td><td>摄像头数量</td><td>报警等级</td><td>查看录像</td></tr></thead>';
+        '<thead><tr><td>时间</td><td>支路</td><td>楼宇名称</td><td>报警类型</td><td>摄像头数量</td><td>报警等级</td><td>查看录像</td></tr></thead>';
     var theaders = '</table>';
     var tbodyer = '<tbody>'
     var tbodyers = '</tbody>';
@@ -438,7 +444,7 @@ function processingNote (){
 
                     $('.choice[data-alaLogID="' + _alaLogId  + '"]').parents('.L-checkbox').children('.yuedu').html('已阅读');
 
-
+                    alarmHistory();
                 }else{
 
                     _moTaiKuang($('#myModal2'),'提示','false','istap','操作失败!','');

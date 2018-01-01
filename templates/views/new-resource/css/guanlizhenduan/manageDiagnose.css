@@ -1,10 +1,15 @@
 /*头部信息*/
 .content-header{
-    height: 140px;
-    background:url('../../img/blueBack.png') no-repeat 100% 100%;
-    text-align: center;
-    position: relative;
+    width:100%;
     margin-bottom:10px;
+}
+.content-header img{
+   width:100%
+}
+
+/*诊断提示*/
+.diagnose-course .right-content font{
+    color:#2B2B2B;
 }
 
 /*能耗诊断图标*/
@@ -16,7 +21,11 @@
     left:10%;
     top:50%;
     transform: translateY(-50%);
+    display: none;
 }
+
+
+
 .content-header .energy-diagnose .energy-diagnose-img{
     width:80px;
     height: 80px;
@@ -87,24 +96,26 @@
 /*上方提示信息*/
 .top-hint{
 
-    color:#666;
+    color:#2B2B2B;
     font-size:18px;
-
+    text-align: center;
 }
 /*诊断按钮*/
 .diagnose-btn{
     margin-bottom:15px;
 }
 .diagnose-btn button{
-    width:150px;
-    height:30px;
-    padding:10px 20px;
-    background: #5db85b;
+    width:180px;
+    height:60px;
+    background: #F2285C;
     box-sizing: content-box;
     color:white;
-    font-size:24px;
+    font-size:28px;
     border-radius: 10px !important;
     outline: none;
+    margin:0 auto;
+    display: block;
+    border:none;
 }
 /*诊断进程*/
 .diagnose-course p{
@@ -123,6 +134,8 @@
     height: 40px;
     font-size:28px;
     line-height: 40px;
+    color:#2B2B2B;
+    font-weight: 600;
 }
 .diagnose-course .right-content{
     position: absolute;
@@ -131,13 +144,13 @@
 }
 .diagnose-course .right-content b{
 
-    color:#ffc000;
+    color:#F2285C;
     font-size:18px;
     font-weight:500;
 }
 /*具体问题*/
 .specific-problem h3{
-    color:#2e75b6;
+    color:#66AADC;
     font-size:20px;
     font-weight: 600;
     padding-left:80px;
@@ -184,8 +197,35 @@
 #content-container .specific-problem:nth-child(2) h3{
 
     background: url('../../img/environment-blue.png') no-repeat 30px center !important;
-    background-size:auto 100% !important;
+    color:#35DAAF
+}
 
+#content-container .specific-problem:nth-child(3) h3{
+
+    background: url('../../img/child-system.png') no-repeat 30px center !important;
+    color:#F08348
+}
+
+#content-container .specific-problem:nth-child(4) h3{
+
+    background: url('../../img/environment-blue1.png') no-repeat 30px center !important;
+    color:#62CC22
+}
+
+
+
+#content-container .specific-problem:nth-child(2) a:hover{
+   text-decoration: none !important;
+}
+
+#content-container .specific-problem:nth-child(2) a:active{
+    text-decoration: none !important;
+}
+#content-container .specific-problem:nth-child(2) a:visited{
+    text-decoration: none !important;
+}
+#content-container .specific-problem:nth-child(2) a:focus{
+    text-decoration: none !important;
 }
 /*字体颜色*/
 .bottom-problem li a{

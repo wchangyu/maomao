@@ -616,7 +616,7 @@
                 <div class="modal-body">
                     <!--主体部分-->
                     <div class="gongdanList" id="myApp33" style="height: 513px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
-                        <div class="no-edit1" style="width: 470px;float: left">
+                        <div class="no-edit1" style="width: 470px !important;float: left">
                             <validator name="validation">
                                 <form novalidate>
                                     <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
@@ -646,7 +646,7 @@
                                 </form>
                             </validator>
                         </div>
-                        <div style="width: 470px;float: right;">
+                        <div style="width: 470px !important;float: right;">
                             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
                                 <div class="tipe-block">故障信息</div>
                                 <div class="row">
@@ -1235,6 +1235,22 @@
 
     </div>
 </div>
+<!--确认提示框-->
+<div class="modal fade" id="confirm-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -1245,7 +1261,7 @@
             </div>
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

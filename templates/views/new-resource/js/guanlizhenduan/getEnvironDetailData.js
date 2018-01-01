@@ -63,7 +63,7 @@ var optionLine = {
         trigger: 'axis'
     },
     legend: {
-        data:['指标数据','定额数据'],
+        data:['判定值','当前数据'],
         top:'30'
     },
     toolbox: {
@@ -93,7 +93,7 @@ var optionLine = {
     },
     series : [
         {
-            name:'指标数据',
+            name:'判定值',
             type:'line',
             smooth:true,
             data:[]
@@ -285,15 +285,19 @@ function getPointerData(url){
             optionLine.series[0].data = allDataY;
             optionLine.series[1].data = allDataY1;
 
-            //echart柱状图
-            allDataY2.push(result.sumDingEData.toFixed(2));
-            allDataY2.push(result.sumEnergyData.toFixed(2));
+            //echart环形
+            data:[
+                {name:'正常',value:600},
+                {name:'异常',value:400}
+            ],
+            allDataY2.push({name:'正常',value:result.normalDataCount});
+            allDataY2.push({name:'异常',value:result.exceptDataCount});
 
-            optionBar.series[0].data = allDataY2;
+            option1.series[0].data = allDataY2;
             //上方echarts
             myChartTopLeft.setOption(optionLine,true);
             //下方柱状图
-            myChartTopLeft1.setOption(optionBar,true);
+            myChartTopLeft1.setOption(option1,true);
 
             //比例
             var percent = (Math.abs(result.energyDingeScale * 100)).toFixed(1) + '%';
@@ -308,7 +312,7 @@ function getPointerData(url){
             }
 
             //下方诊断信息
-            if(prm.diagItemTypeFlag == '455'){
+            if(ecParams.diagItemTypeFlag == '455'){
 
                 $('.right-diagnose').show();
 

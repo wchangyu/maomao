@@ -100,7 +100,7 @@ $(function(){
         "ordering": false,
         "pagingType":"full_numbers",
         "bStateSave":true,
-        "sScrollY": '520px',
+        "sScrollY": '548px',
         "bPaginate": false,
         'language': {
             'emptyTable': '没有数据',
@@ -208,6 +208,25 @@ $(function(){
                 }
             },
             {
+                title:'故障位置',
+                data:'wxDidian',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
+            },
+            {
                 title:'维修事项',
                 data:'wxXm',
                 render:function(data, type, row, meta){
@@ -225,25 +244,6 @@ $(function(){
 
                         return '<span style="color: #333333;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
-
-                    }
-                }
-            },
-            {
-                title:'故障位置',
-                data:'wxDidian',
-                render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
-
-                        return '<span style="color: #c00000">'+ data + '</span>';
-
-                    }else if( row.gdZht == 4 ){
-
-                        return '<span style="color: #4472c4">'+ data + '</span>';
-
-                    }else{
-
-                        return '<span style="color: #333333">'+ data + '</span>';
 
                     }
                 }
@@ -395,10 +395,12 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
-        var wxKeshi = '';
+        var wxKeshi =  _wxBanNum;
+
         if(!_wxBan){
             wxKeshi = '-1'
         }
+
         var prm = {
             "gdCode":'',
             "gdSt":_initStart,
@@ -425,7 +427,43 @@ $(function(){
             async:false,
             success:function(result){
 
-                datasTable($("#scrap-datatables"),result);
+                var dataArr = [];
+
+                $(result).each(function(i,o){
+
+                    //待分派的放在前面
+                    if(o.gdZht == 2){
+
+                        dataArr.unshift(o);
+                    }else {
+
+                        dataArr.push(o);
+                    }
+                });
+
+                //声音
+                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
+
+                var alarmSong = sessionStorage.alarmSong || 0;
+
+                if( alarmSong > 0){
+
+                    if($('#audioMain')){
+                        $('#content').children('audio').remove();
+                    }
+
+                    var childNode= document.getElementsByTagName('audio')[0];
+
+
+
+                    if(!childNode){
+
+                        $('#content').append(audioStr);
+                    }
+                }
+
+
+                datasTable($("#scrap-datatables"),dataArr);
                 //获取table高度
                 var tableHeight = $('#scrap-datatables').height();
 
@@ -440,7 +478,7 @@ $(function(){
                     var i=-1;
                     timer = setInterval(function(){
                         i++;
-                        var height = i * 520 * -1;
+                        var height = i * 548 * -1;
 
                         if( tableHeight + height <= 0){
                             $('#scrap-datatables').css({
@@ -474,7 +512,7 @@ $(function(){
         var tableHeight = $('#scrap-datatables').height();
         return function(){
             i++;
-            var height = i * 520 * -1;
+            var height = i * 548 * -1;
 
             if(tableHeight + height < 0){
                 $('#scrap-datatables').css({

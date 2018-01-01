@@ -101,6 +101,27 @@ $(function(){
                     $('.inpus').parent('span').removeClass('checked');
                     $(this).parent('span').addClass('checked');
                 })
+            },
+            'keyword':function(){
+
+                var arr = [];
+
+                for(var i=0;i<allData.length;i++){
+
+                    arr.push(allData[i].itemNum);
+
+                }
+
+                if(arr.indexOf(myApp33.bianhao)>=0){
+
+                    $('.error1').show();
+
+                }else{
+
+                    $('.error1').hide();
+
+                }
+
             }
         }
     });
@@ -210,46 +231,61 @@ $(function(){
 
     //登记按钮；
     $('#myModal').on('click','.dengji',function(){
+
+        var o = $('.error1').css('display');
+
         if(myApp33.mingcheng == '' || myApp33.flbianma == '' || myApp33.flmingcheng == ''){
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
         }else{
-            //获取填写数据
-            var prm ={
-                'ItemName':myApp33.mingcheng,
-                'MinNum':myApp33.xiaxian,
-                'MaxNum':myApp33.shangxian,
-                'UnitName':myApp33.danwei,
-                'CateNum':myApp33.flbianma,
-                'CateName':myApp33.flmingcheng,
-                'Size':myApp33.guige,
-                'Color':myApp33.yanse,
-                'Description':myApp33.miaoshu,
-                'CusName':myApp33.gonghuoshang,
-                'remark':myApp33.beizhu,
-                userID:_userIdNum,
-                userName:_userIdName,
-                b_UserRole:_userRole,
-                'isSpare':myApp33.picked,
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKAddItem',
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        //成功后刷新列表，并且提示添加成功；
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功!', '');
-                        conditionSelect();
-                        $('#myModal').modal('hide');
-                    }else{
-                        //成功后刷新列表，并且提示添加成功；
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败!', '');
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+
+            if(o == 'none'){
+
+                //获取填写数据
+                var prm ={
+                    'ItemNum':myApp33.bianhao,
+                    'ItemName':myApp33.mingcheng,
+                    'MinNum':myApp33.xiaxian,
+                    'MaxNum':myApp33.shangxian,
+                    'UnitName':myApp33.danwei,
+                    'CateNum':myApp33.flbianma,
+                    'CateName':myApp33.flmingcheng,
+                    'Size':myApp33.guige,
+                    'Color':myApp33.yanse,
+                    'Description':myApp33.miaoshu,
+                    'CusName':myApp33.gonghuoshang,
+                    'remark':myApp33.beizhu,
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    b_UserRole:_userRole,
+                    'isSpare':myApp33.picked,
                 }
-            })
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKAddItem',
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            //成功后刷新列表，并且提示添加成功；
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功!', '');
+                            conditionSelect();
+                            $('#myModal').modal('hide');
+                        }else{
+                            //成功后刷新列表，并且提示添加成功；
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败!', '');
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'物品编码已存在!', '');
+
+            }
+
+
         }
 
     })
@@ -446,7 +482,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetItems',
-            async:false,
             data:prm,
             success:function(result){
                 allData = [];
@@ -460,6 +495,7 @@ $(function(){
             }
         })
     }
+
     /*----------------------------打印部分去掉的东西-----------------------------*/
 
     //导出按钮,每页显示数据条数,表格页码打印隐藏

@@ -45,16 +45,13 @@ $(function(){
 
                     var html = '';
                     var html1 = '';
-                    console.log(showArr.length)
+                    console.log(showArr.length);
                     for(var i=0;i<showArr.length;i++){
                         if(i == 0){
                             html += '<a class="item active" style="height: 100%">' +
                                 ' <div class="img"></div>' +
                                 ' <div class="carousel-caption"></div>' +
                                 '</a>';
-
-
-
                             html1 += '<li data-target="#myCarousel" data-slide-to="'+i+'" class="active"></li>'
                         }else{
                             html += '<a class="item" style="height: 100%">' +
@@ -85,6 +82,7 @@ $(function(){
                         }else{
 
                             $('.carousel-inner').find('.item').children('.carousel-caption').eq(i).html(showArr[i].f_NewsTitle);
+
                             $('.carousel-inner').find('.item').eq(i).attr('href','./news-4.html?id=' + showArr[i].pK_NewsID + '&come=1');
                         }
                     }

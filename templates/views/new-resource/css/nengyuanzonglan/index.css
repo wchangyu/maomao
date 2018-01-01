@@ -3,6 +3,19 @@
     margin-bottom: 1px;
 }
 
+/*新闻轮播*/
+.carousel-inner .img{
+    width:100%;
+    height: 240px;
+}
+.carousel-indicators {
+    bottom: 68px !important;
+}
+.carousel-caption{
+    bottom:-10px;
+    color:#666;
+}
+
 /*上方图片*/
 .content-main img{
     width:100%
@@ -14,26 +27,52 @@
 
 /*中间医院统计*/
 .left-middle-main1 {
-    height: 235px;
+    height: 115px;
     overflow-y: auto;
     padding-top:10px;
 }
 .left-middle-main1 p {
 
-    height: 30px;
+    height: 25px;
     font-size: 16px;
-    line-height: 30px;
+    line-height: 25px;
     box-sizing: border-box;
     padding-left:15px;
     color:#666;
+    margin-bottom:5px;
 }
 .left-middle-main1 p span{
     margin-left:10px;
 }
 
+/*实时报警*/
+.left-middle-main2 {
+    height: 125px;
+    overflow-y: auto;
+    padding-top:10px;
+}
+.left-middle-main2 p {
+
+    height: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    box-sizing: border-box;
+    padding-left:15px;
+    color:#666;
+    margin-bottom:5px;
+}
+.left-middle-main2 p span{
+    margin-left:10px;
+    color:darkred;
+}
+.left-middle-main2 p .normal{
+    margin-left:10px;
+    color:black;
+}
+
 /*下方气象参数*/
 .content-main-left .left-middle-main0{
-    height:220px !important;
+    height:190px !important;
     overflow-y: auto;
     padding-top:25px;
 }
@@ -149,7 +188,7 @@
 }
 .right-total-data .single-data .left-data{
     float:left;
-    width:70%;
+    width:10%;
 
 }
 .right-total-data .single-data .left-data p{
@@ -161,32 +200,40 @@
     margin-bottom:0px;
 }
 
+.percent-number{
+    width:60px;
+    text-align: left !important;
+    margin-right:15px;
+}
+
 .right-total-data .single-data .right-ratio{
     float:right;
-    width:30%;
+    width:90%;
     height:80px;
 }
 .right-total-data .single-data .right-ratio .top-percent{
     width:100%;
-    height:50%;
-    background: url(../../img/up2.png) no-repeat 1px center;
-    background-size: 19% 38%;
+    height:33%;
+    background: url(../../img/up2.png) no-repeat right top;
+    background-size: 8% 74%;
 }
-
-.right-total-data .single-data .right-ratio .top-percent1{
+.right-total-data .single-data .right-ratio .top-percent0{
     width:100%;
-    height:100%;
-    background: url(../../img/up2.png) no-repeat 1px 30px;
-    background-size: 20% 18%;
-
+    height:33%;
 }
+.top-percent0 p{
+    margin:0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
 .fall-down{
-    background: url(../../img/up.png) no-repeat 1px center !important;
-    background-size: 20% 33% !important;
+    background: url(../../img/up.png) no-repeat right top !important;
+    background-size: 8% 81% !important;
 }
 .fall-down1{
-    background: url(../../img/up.png) no-repeat 1px 30px !important;
-    background-size: 20% 18% !important;
+    background: url(../../img/up.png) no-repeat right 2px !important;
+    background-size: 8% 106% !important;
 }
 /*右侧年的数据*/
 .single-data-year{
@@ -204,8 +251,9 @@
 }
 .right-total-data .single-data-year .right-ratio .top-percent1 {
     width: 100%;
-    height: 100%;
-    background: url(../../img/up2.png) 1px 30px / 20% 28% no-repeat;
+    height: 33%;
+    background: url(../../img/up2.png) right 2px no-repeat;
+    background-size: 8% 107%;
 }
 
 /*下方定额数据*/
@@ -227,6 +275,7 @@
     text-align: right;
     padding-right:5px;
     color:#999;
+    float: right;
 }
 
 /*---------------------------右侧报警-------------------------------*/
@@ -260,7 +309,7 @@
 /*下方链接*/
 .bottom-link{
     text-align: right;
-    padding-top:15px;
+    padding-top:3px;
 }
 
 .onClicks {

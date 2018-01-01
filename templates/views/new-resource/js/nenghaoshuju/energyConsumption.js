@@ -33,7 +33,7 @@ $(function(){
 
     //默认加载数据
 
-    GetShowEnergyNormItem(100,true)
+    GetShowEnergyNormItem(100,true);
 
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
@@ -404,7 +404,7 @@ function getPointerData(url,flag){
     //在指标类型中寻找对应项
     $(energyNormItemArr).each(function(i,o){
 
-        if(o.energyItemID == normItemID){
+        if(o.normIndex == normItemID){
 
             energyNormItemObj = o
         }
@@ -518,7 +518,7 @@ function getPointerData(url,flag){
 
             //确定本期y轴
             for(var i=0;i<allData.length;i++){
-                allDataY.push(allData[i].buildingArea.toFixed(2));
+                allDataY.push(allData[i].energyNormData.toFixed(2));
             }
 
             //echart柱状图
@@ -577,9 +577,9 @@ function GetShowEnergyNormItem(energyType,flag){
 
                     //如果是第一个默认选中
                     if(i == 0){
-                        html += '<p data-num ="'+ o.energyItemID+'" class="curChoose">'+ o.energyItemName+'</p>'
+                        html += '<p data-num ="'+ o.normIndex+'" class="curChoose">'+ o.energyItemName+'</p>'
                     }else{
-                        html += '<p data-num ="'+ o.energyItemID+'">'+ o.energyItemName+'</p>'
+                        html += '<p data-num ="'+ o.normIndex+'">'+ o.energyItemName+'</p>'
                     }
 
 

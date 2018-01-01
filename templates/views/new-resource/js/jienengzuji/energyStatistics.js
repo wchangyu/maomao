@@ -8,9 +8,11 @@ $(function(){
 
     _timeYMDComponentsFun($('.chooseDate'));
 
+    //获取能耗类型
+    getEcTypeByDeploy();
+
     //时间初始化
     $('.time-options-1').click();
-
 
     //初始时间为今年
     $('.min').val(moment().format('YYYY'));
@@ -342,7 +344,6 @@ var table = $('#dateTables').DataTable({
         {
             title:'名称',
             data:"f_ProjectName",
-            class:'theHidden',
             render:function(data, type, full, meta){
                 if(data.length > 5){
                     return '<span title="'+data+'">'+data.substring(0,5)+'...</span>'
@@ -392,15 +393,11 @@ var table = $('#dateTables').DataTable({
                     }else{
                         return '<span title="'+data+'">'+data+'</span>'
                     }
-
-
-
-
             }
         },
         {
             title:'实施内容',
-            data:"f_ProjectContent ",
+            data:"f_ProjectContent",
             render:function(data, type, full, meta){
                 if(!data){
                     return '';
@@ -573,7 +570,7 @@ var table = $('#dateTables').DataTable({
             data:"pK_EnergyProj",
             render:function(data, type, full, meta){
 
-                return '<a href="./energyConservation.html?id='+data+'" />节能量查询'
+                return '<a target="_blank" href="./energyConservation.html?id='+data+'" />节能量查询'
             }
         }
 
@@ -583,6 +580,28 @@ var table = $('#dateTables').DataTable({
 //_table = $('#dateTables').dataTable();
 
 /*---------------------------------otherFunction------------------------------*/
+//根据配置获取对应能耗种类
+function getEcTypeByDeploy(){
+
+    //本地能耗对象
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    //实时能耗旁边的能耗种类
+    var html = '';
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+
+        html += "<option value='"+txt[i].ettype+"'>"+txt[i].etname+"</option>"
+
+    }
+    //页面赋值
+    $('#energy-type').html(html);
+
+    //console.log(html);
+
+};
+
 
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
@@ -623,7 +642,7 @@ function getDingEData(){
             //console.log(result);
 
             //判断是否返回数据
-            if(result == null || result.length == 0){
+            if(result == null){
 
                 _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'无数据', '');
 

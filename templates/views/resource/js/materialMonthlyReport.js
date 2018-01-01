@@ -180,8 +180,27 @@ $(function(){
 
     //导出
     $('.excelButton11').on('click',function(){
-        _FFExcel($('#scrap-datatables')[0]);
+        //_FFExcel($('#scrap-datatables')[0]);
+
+        exportExecl($('#scrap-datatables'));
     });
+
+    //导出为excel
+    function exportExecl(dom){
+
+        dom.table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            copy_table:true
+        });
+    };
+
+
 
     //仓库选择
     $('#storage').on('change',function(){

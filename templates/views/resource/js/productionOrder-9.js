@@ -1,3 +1,6 @@
+//记录当前工单号
+var _gdCode = '';
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -72,9 +75,6 @@ $(function(){
             }
         }
     });
-
-    //记录当前工单号
-    var _gdCode = '';
 
     //存放常量
     var _stateArr = [];
@@ -415,6 +415,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+
                     app33.gdly = result.gdCodeSrc;
                     $('.otime').val(result.gdFsShij);
                     //查看执行人员

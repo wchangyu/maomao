@@ -104,6 +104,8 @@ function getEnergyCollectData(){
         url: sessionStorage.apiUrlPrefix + 'EnergyReportV2/GetEnergyCollectData',
         success: function (result) {
 
+            $('#theLoading').modal('hide');
+
             //console.log(result);
             //判断是高校模式还是医院模式
             //医院模式
@@ -173,16 +175,16 @@ function getEnergyCollectData(){
             $('#entry-datatables thead').find('.land-area').html(result.landArea);
 
             //建筑面积
-            $('#entry-datatables thead').find('.build-area').html(result.buildArea);
+            $('#entry-datatables thead').find('.build-area').html(parseFloat(result.buildArea).toFixed(2));
 
             //总床位
             $('#entry-datatables thead').find('.bed-num').html(result.bedNum);
 
             //年收入
-            $('#entry-datatables thead').find('.year-revenue').html(result.yearRevenue);
+            $('#entry-datatables thead').find('.year-revenue').html(result.yearRevenue.toFixed(2));
 
             //年就诊人次
-            $('#entry-datatables thead').find('.person-num').html(result.patientsNum);
+            $('#entry-datatables thead').find('.person-num').html(result.peopleNum);
 
             //定义水单价
             var waterPrice = 0;
@@ -212,6 +214,7 @@ function getEnergyCollectData(){
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
+            $('#theLoading').modal('hide');
         }
     })
 }

@@ -1,3 +1,6 @@
+//记录当前工单号码
+var _gdCode = '';
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -9,9 +12,6 @@ $(function(){
 
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-    //图片ip
-    var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
     //时间初始化
     //开始/结束时间插件
@@ -59,9 +59,6 @@ $(function(){
 
     //重发值
     var _gdCircle = 0;
-
-    //记录当前工单号码
-    var _gdCode = '';
 
     //记录当前的状态
     var _gdState = '';
@@ -139,9 +136,6 @@ $(function(){
     var _stateFlag = false;
     //负责人标识
     var _leaderFlag = false;
-
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -268,7 +262,7 @@ $(function(){
                 data:'dName'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -295,7 +289,7 @@ $(function(){
                 data:'wxClNames'
             },
             {
-                title:'所属班组',
+                title:__names.group,
                 data:'wxKeshi'
             },
             {
@@ -624,6 +618,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+
                     app33.gdly = result.gdCodeSrc;
                     $('.otime').val(result.gdFsShij);
                     //查看执行人员
@@ -749,7 +744,6 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 success:function(result){
                     var bmArr = [];
@@ -769,6 +763,7 @@ $(function(){
                     }else{
                         $('.bjpicture').hide();
                     }
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,
@@ -787,6 +782,7 @@ $(function(){
                                     }
                                 }
                             }
+
                             //维修材料
                             datasTable($("#personTables11"),wlArr);
                         },
@@ -1015,39 +1011,39 @@ $(function(){
     });
 
     //查看图片
-    $('#myModal')
-        .on('click','#viewImage',function(){
-
-            $('.showImage').show();
-
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        .on('click','.viewIMG',function(){
-
-            $('#myModal9').modal('show');
-
-            $('#myModal9').modal({
-                show:false,
-                backdrop:'static'
-            })
-
-            var imgSrc = $(this).attr('src');
-
-            $('#myModal9').find('img').attr('src',imgSrc);
-        })
+    //$('#myModal')
+    //    .on('click','#viewImage',function(){
+    //
+    //        $('.showImage').show();
+    //
+    //        if(_imgNum){
+    //            var str = '';
+    //            for(var i=0;i<_imgNum;i++){
+    //                str += '<img class="viewIMG" src="' +
+    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
+    //                    '">'
+    //            }
+    //            $('.showImage').html('');
+    //            $('.showImage').append(str);
+    //            $('.showImage').show();
+    //        }else{
+    //            $('.showImage').html('没有图片');
+    //            $('.showImage').show();
+    //        }
+    //    })
+    //    .on('click','.viewIMG',function(){
+    //
+    //        $('#myModal9').modal('show');
+    //
+    //        $('#myModal9').modal({
+    //            show:false,
+    //            backdrop:'static'
+    //        })
+    //
+    //        var imgSrc = $(this).attr('src');
+    //
+    //        $('#myModal9').find('img').attr('src',imgSrc);
+    //    })
 
     /*------------------------------其他方法-------------------------------------------------*/
     //IP替换

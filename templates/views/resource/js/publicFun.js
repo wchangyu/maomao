@@ -26,6 +26,27 @@ var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
 //车间
 var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 
+//图片的路径
+var _urlImg = sessionStorage.getItem("imgPath");
+
+
+/*-----------------------------全局变量------------------------*/
+
+//页面加载的时候，首先要判断用户所属的班组，是属于车间还是维保组。（权限）
+
+//标识在维保组中
+var _AisWBZ = false;
+
+//标识在维修班组中
+var _AisBZ = false;
+
+//维保组数组
+var _AWBZArr = [];
+
+//维修班组
+var _ABZArr = [];
+
+
 /*---------------------------时间初始化------------------------*/
 
 //datapicker时间插件初始化(日月年)
@@ -129,13 +150,16 @@ function _timeComponentsFun(el){
 
 /*-----------------------dataTable---------------------------*/
 
-//基本表格初始换(buttons=1按钮显示，其他按钮隐藏)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页)
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
             text: '导出',
-            className:'saveAs'
+            className:'saveAs',
+            exportOptions:{
+                columns:arr
+            }
         }
     ];
     var buttonHidden = [
@@ -155,6 +179,19 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     //if(searching){
     //    search = true;
     //}
+
+    var dom;
+
+    if(domFlag){
+
+        dom = 't<"F">'
+
+    }else{
+
+        dom = 't<"F"lip>';
+
+    }
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -177,7 +214,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
                 "last":"尾页"
             }
         },
-        "dom":'t<"F"lip>',
+        "dom":dom,
         'buttons':buttons,
         "columns": col,
         "fnRowCallback": fnRowCallback,
@@ -289,9 +326,40 @@ function _getProfession(url,el,attr,attrNum,attrName){
                         '">' + result[i][attrName] + '</option>'
                 }
             }
+
             el.empty().append(str);
         },
         error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+//需要保存数组的
+function _ajaxFun(url, allArr, select, text, num) {
+    var prm = {
+
+        'userID': _userIdNum
+
+    }
+    prm[text] = '';
+
+    $.ajax({
+        type: 'post',
+        url: _urls + url,
+        timeout:30000,
+        data: prm,
+        success: function (result) {
+            //给select赋值
+            var str = '<option value="">请选择</option>';
+            for (var i = 0; i < result.length; i++) {
+                str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+                allArr.push(result[i]);
+            }
+            select.empty().append(str);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
             console.log(jqXHR.responseText);
         }
     })
@@ -487,7 +555,7 @@ function _FFExcel(tableId){
     var explorer = navigator.userAgent ;
     //判断是否是IE浏览器
     if(explorer.indexOf("Trident") >= 0){
-        AutoExcel(tableId);
+        _AutoExcel(tableId);
     }else{
         //获得id为mytable的table的html元素
         var table=tableId;
@@ -507,6 +575,21 @@ function _FFExcel(tableId){
         window.location.href = uri + base64(format(template, ctx));
     }
 }
+
+//导出为excel(需要导出样式的)
+function _exportExecl(dom){
+
+    dom.table2excel({
+        exclude: ".noExl",
+        name: "Excel Document Name",
+        filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+        fileext: ".xls",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true,
+        copy_table:true
+    });
+};
 
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
@@ -617,6 +700,79 @@ function _sortNumber(a,b)
 function _formatTime(str11){
 
     return str11.replace(/\//g,'-');
+
+}
+
+//维修班组
+//车间、维修班组数据
+function _WxBanzuStationData(fun){
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'YWGD/ywGDGetWxBanzuStation',
+        data:{
+
+            //用户id
+            userID:_userIdNum,
+            //用户姓名
+            userName:_userIdName
+        },
+        timeout:_theTimes,
+        success:function(result){
+
+            _AWBZArr.length = 0;
+
+            _ABZArr.length = 0;
+
+            if(result){
+
+                if(result.stations){
+
+                    for(var i=0;i<result.stations.length;i++){
+
+                        if( _maintenanceTeam == result.stations[i].departNum ){
+
+                            //在车间中
+                            _AisWBZ = true;
+
+                            _AWBZArr.push(result.stations[i]);
+
+                        }
+
+                    }
+
+                }
+                if( result.wxBanzus ){
+
+                    for(var i=0;i<result.wxBanzus.length;i++){
+
+                        if(_maintenanceTeam == result.wxBanzus[i].departNum){
+
+                            _AisBZ = true;
+
+                            _ABZArr.push(result.wxBanzus[i]);
+
+                        }
+                    }
+
+                }
+
+            }
+
+            if(fun){
+
+                fun();
+
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            console.log(jqXHR.responseText);
+        }
+
+    })
 
 }
 

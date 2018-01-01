@@ -94,8 +94,13 @@ $(function(){
 
         },
         {
-            title:'平均故障处理时间',
-            data:'gdDealAVGTime'
+            title:'平均故障处理时间（时）',
+            data:'gdDealAVGTime',
+            render: function (data, type, row, meta){
+
+                return data.toFixed(1)
+
+            }
         },
         {
             title:'故障率',
@@ -166,7 +171,7 @@ $(function(){
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',8).html('其中：累计故障类别');
+        $('.third').attr('colspan',9).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
@@ -413,6 +418,7 @@ $(function(){
     $('.excelButton11').eq(2).on('click',function(){
         FFExcel($('#failure-info')[0])
     });
+
     //IE浏览器中导出复杂表头为excel文件
     function AutoExcel(tableId){
 

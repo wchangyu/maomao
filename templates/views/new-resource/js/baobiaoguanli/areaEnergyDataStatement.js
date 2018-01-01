@@ -59,6 +59,8 @@ function getEnergyCollectData(){
 
             //console.log(result);
 
+            $('#theLoading').modal('hide');
+
             //拼接table中字符串
             var tableHtml = '';
 
@@ -102,7 +104,7 @@ function getTableHtml(obj){
                 //区域位置
                 '<td style="text-align:center;border:1px solid black">'+obj.areaName+'</td>'+
                     //面积
-                '<td style="text-align:center;border:1px solid black">'+obj.buildArea+'</td>'+
+                '<td style="text-align:center;border:1px solid black">'+obj.buildArea.toFixed(2)+'</td>'+
                     //床位
                 '<td style="text-align:center;border:1px solid black">'+obj.bedNum+'</td>';
 
@@ -111,18 +113,18 @@ function getTableHtml(obj){
         if(o.energyItemId == '01' ||o.energyItemId == '211' ){
 
             html += //实际用电
-                '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(1)+'</td>'+
+                '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
                     //单位面积电耗
-                '<td style="text-align:center;border:1px solid black">'+o.areaEnergyData.toFixed(1)+'</td>'+
+                '<td style="text-align:center;border:1px solid black">'+o.areaEnergyData.toFixed(2)+'</td>'+
                     //单位床位电耗
-                '<td style="text-align:center;border:1px solid black">'+o.bedEnergyData.toFixed(1)+'</td>'+
+                '<td style="text-align:center;border:1px solid black">'+o.bedEnergyData.toFixed(2)+'</td>'+
                     //电费
-                '<td style="text-align:center;border:1px solid black">'+o.energyMoney.toFixed(1)+'</td>';
+                '<td style="text-align:center;border:1px solid black">'+o.energyMoney.toFixed(2)+'</td>';
             //逐12月用电
             $(o.energyMoneyDatas).each(function(i,o){
 
                 html += //本月用电
-                    '<td style="text-align:center;border:1px solid black">'+ o.moneyData.toFixed(1)+'</td>';
+                    '<td style="text-align:center;border:1px solid black">'+ o.moneyData.toFixed(2)+'</td>';
             });
         }
 
@@ -130,9 +132,9 @@ function getTableHtml(obj){
 
     html +=
             //折合标煤
-        '<td style="text-align:center;border:1px solid black">'+obj.biaoMeiData.toFixed(1)+'</td>'+
+        '<td style="text-align:center;border:1px solid black">'+obj.biaoMeiData.toFixed(2)+'</td>'+
             //支出合计
-        '<td style="text-align:center;border:1px solid black">'+obj.expendMoney.toFixed(1)+'</td></tr>';
+        '<td style="text-align:center;border:1px solid black">'+obj.expendMoney.toFixed(2)+'</td></tr>';
 
     console.log(html);
 

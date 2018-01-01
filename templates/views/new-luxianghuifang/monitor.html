@@ -306,7 +306,7 @@
                         <fieldset class="playback">
                             <legend>回放操作</legend>
                             <table width="100%" cellpadding="0" cellspacing="3" border="0">
-                                <tr>
+                                <tr style="display: none">
                                     <td class="tt">码流类型</td>
                                     <td>
                                         <select id="record_streamtype" class="sel">
@@ -316,53 +316,64 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="tt">开始时间</td>
                                     <td>
-                                        <input id="starttime" type="text" class="txt" value="2013-12-10 00:00:00" />（时间格式：2013-11-11 12:34:56）
+                                        开始时间
+                                        <input id="starttime" type="text" class="txt" value="2013-12-10 00:00:00" />
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td class="tt">结束时间</td>
-                                    <td>
+
+                                    <td colspan="2">
+                                        结束时间
                                         <input id="endtime" type="text" class="txt" value="2013-12-11 23:59:59" />
-                                        <input type="button" class="btns" value="搜索" onclick="clickRecordSearch(0);" />
+                                        <input type="button" class="btns btns-seek" value="搜索" onclick="clickRecordSearch(0);" />（时间格式：2013-11-11 12:34:56）
                                     </td>
+
+
                                 </tr>
-                                <tr>
+
+                                <tr style="display: none">
                                     <td colspan="2">
                                         <div id="searchdiv" class="searchdiv">
                                             <table id="searchlist" class="searchlist" cellpadding="0" cellspacing="0" border="0"></table>
                                         </div>
                                     </td>
                                 </tr>
+
+
                                 <tr>
+
+                                    <td >
+                                        <input type="button" class="btn2 start-btn" value="开始回放" onclick="clickStartPlayback();" />
+                                        <input type="button" class="btn2 end-btn" value="停止回放" onclick="clickStopPlayback();" />
+                                        <input type="button" class="btns upend-btn" value="倒放" onclick="clickReversePlayback();" />
+                                        <input id="transstream" type="checkbox" class="vtop" style="display: none"/>
+
+
+                                    </td>
+
                                     <td colspan="2">
-                                        <input type="button" class="btn2" value="开始回放" onclick="clickStartPlayback();" />
-                                        <input type="button" class="btn2" value="停止回放" onclick="clickStopPlayback();" />
-                                        <input type="button" class="btns" value="倒放" onclick="clickReversePlayback();" />
-                                        <input type="button" class="btns" value="单帧" onclick="clickFrame();" />
-                                        <input type="button" class="btn2" value="实时画面" onclick="clickStartRealPlay();" />
-                                        <input id="transstream" type="checkbox" class="vtop" />&nbsp;启用转码码流
+                                        <input type="button" class="btns single-frame" value="单帧" onclick="clickFrame();" />
+                                        <input type="button" class="btn2 current-btn" value="实时画面" onclick="clickStartRealPlay();" />
                                     </td>
                                 </tr>
+
                                 <tr>
-                                    <td colspan="2">
-                                        <input type="button" class="btns" value="暂停" onclick="clickPause();" />
-                                        <input type="button" class="btns" value="恢复" onclick="clickResume();" />
-                                        <input type="button" class="btns" value="慢放" onclick="clickPlaySlow();" />
-                                        <input type="button" class="btns" value="快放" onclick="clickPlayFast();" />
+                                    <td >
+                                        <input type="button" class="btns capture-btn" value="抓图" onclick="clickCapturePic();" />
+                                        <input type="button" class="btn2 start-editing" value="开始剪辑" onclick="clickStartRecord('playback');" />
+                                        <input type="button" class="btn2 end-editing" value="停止剪辑" onclick="clickStopRecord('playback');" />
+
+
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="button" class="btns" value="抓图" onclick="clickCapturePic();" />
-                                        <input type="button" class="btn2" value="开始剪辑" onclick="clickStartRecord('playback');" />
-                                        <input type="button" class="btn2" value="停止剪辑" onclick="clickStopRecord('playback');" />
-                                        <input type="button" class="btn2" value="OSD时间" onclick="clickGetOSDTime();" />&nbsp;<input id="osdtime" type="text" class="txt" readonly />
+                                    <td >
+                                        <input type="button" class="btns suspend-btn" value="暂停" onclick="clickPause();" />
+                                        <input type="button" class="btns recover-btn" value="恢复" onclick="clickResume();" />
+                                        <input type="button" class="btns slow-btn" value="慢放" onclick="clickPlaySlow();" />
+                                        <input type="button" class="btns fast-btn" value="快放" onclick="clickPlayFast();" />
                                     </td>
                                 </tr>
                             </table>
                         </fieldset>
+
                         <fieldset class="login" style="display: none">
                             <legend>登录</legend>
                             <table cellpadding="0" cellspacing="3" border="0">
@@ -829,6 +840,7 @@
     //                }
     //            }
 </script>
+<script src="../../../assets/local/scripts/Went.utility.js"></script>
 <script src="../new-resource/js/luxianghuifang/monitor.js"></script>
 <!--<script src="../../../assets/local/scripts/BEECommon.js"></script>-->
 

@@ -5,19 +5,26 @@
 var __names = {
 
     //区域
-    area:"车务段",
+    area:"车务段1",
+
     //部门
-    department:"车站",
+    department:"车站1",
+
     //车间
-    workshop: "车间",
+    workshop: "车间1",
+
     //班组
-    group:"维修班组"
+    group:"维修班组1"
 
 };
 
-//定义需给页面中区域，部门等动态赋值的页面名称
-var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html'];
+var __routeShow = true;
 
+//定义需给页面中区域，部门等动态赋值的页面名称
+var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','gdMaintenanceParts.html',
+    'productionOrder-1.html','productionOrder-3.html','productionOrder-2.html','productionOrder-7.html','productionOrder-5.html','productionOrder-4.html','productionOrder-8.html','productionOrder-9.html',
+    'productionOrder-10.html','productionOrder-11.html','option.html','productionOrder_see.html','reworkTwoStore.html','wbDetails.html','fxDetails.html'
+];
 
 function __setNames(){
 
@@ -37,6 +44,7 @@ function __setNames(){
             //终止循环
             return false;
         }
+
     });
 
     //当前页面不需重新赋值 终止函数

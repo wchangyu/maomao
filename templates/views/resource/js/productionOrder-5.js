@@ -1,3 +1,4 @@
+var _gdCode = '';
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名id
@@ -76,9 +77,9 @@ $(function(){
             }
         }
     })
-    var _gdCode;
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+
+    ////记录当前工单详情有几个图
+    //var _imgNum = 0;
     //重发值
     var _gdCircle = 0;
     /*--------------------------表格初始化---------------------------------------*/
@@ -170,7 +171,7 @@ $(function(){
                 className:'ztz'
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -349,7 +350,8 @@ $(function(){
             'gdCode':_gdCode,
             'gdZht':7,
             'userID':_userIdNum,
-            'userName':_userIdName
+            'userName':_userIdName,
+            'hasFX':1
         }
         $.ajax({
             type:'post',
@@ -596,30 +598,30 @@ $(function(){
             }
         })
     })
-    $('#myModal')
-    //查看图片
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        //图片详情
-        .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal3'),'图片详情','flag');
-            var imgSrc = $(this).attr('src')
-            $('#myModal3').find('img').attr('src',imgSrc);
-        })
+    //$('#myModal')
+    ////查看图片
+    //    .on('click','#viewImage',function(){
+    //        if(_imgNum){
+    //            var str = '';
+    //            for(var i=0;i<_imgNum;i++){
+    //                str += '<img class="viewIMG" src="' +
+    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
+    //                    '">'
+    //            }
+    //            $('.showImage').html('');
+    //            $('.showImage').append(str);
+    //            $('.showImage').show();
+    //        }else{
+    //            $('.showImage').html('没有图片');
+    //            $('.showImage').show();
+    //        }
+    //    })
+    //    //图片详情
+    //    .on('click','.viewIMG',function(){
+    //        moTaiKuang($('#myModal3'),'图片详情','flag');
+    //        var imgSrc = $(this).attr('src')
+    //        $('#myModal3').find('img').attr('src',imgSrc);
+    //    })
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
@@ -632,6 +634,7 @@ $(function(){
     }
     //获取日志信息（备件logType始终传2）
     function logInformation(){
+
         var gdLogQPrm = {
             "gdCode": _gdCode,
             "logType": 2,
@@ -645,9 +648,12 @@ $(function(){
             success:function(result){
                 $('.deal-with-list').empty();
                 var str = '';
+
                 for(var i =0;i<result.length;i++){
                     str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
+
                 }
+
                 $('.deal-with-list').append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){

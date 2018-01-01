@@ -99,6 +99,9 @@ $(function(){
     //新增
     $('.creatButton').click(function(){
 
+        //loadding显示
+        $('#theLoading').modal('show');
+
         //初始化
         detailedInit();
 
@@ -107,6 +110,12 @@ $(function(){
 
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+
+        //是否可操作
+        abledOption();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
 
     })
 
@@ -308,6 +317,11 @@ $(function(){
             checkMonth.find('span').addClass('checked');
 
         }
+
+        //默认不显示
+        $('#ADD-Modal').find('.cycle-block').hide();
+
+        $('#ADD-Modal').find('.cycle-block').eq(0).show();
     }
 
     //数据绑定
