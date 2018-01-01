@@ -658,6 +658,11 @@ $(function(){
 
     $('#uniform-twos').children().addClass('checked');
 
+    //查看图片初始化
+    _imgNum = 0;
+
+    $('.showImage').html('没有图片');
+
   }
 
   //可操作
