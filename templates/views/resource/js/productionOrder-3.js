@@ -32,7 +32,7 @@ $(function(){
     $('.table-caption').html('同一'+ __names.department +'未闭环的工单');
 
     //设置初始时间
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+    var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
     //显示时间
     $('.min').val(_initStart);
@@ -698,53 +698,27 @@ $(function(){
         $('.zhiXingRenYuanButton').show();
     });
     $('#myModal')
-        //登记
+    //登记
         .on('click','.dengji',function(){
-        //判断必填项是否都填了
-        if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
-            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-        }else{
-            var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
-            var fzrArr = [];
-            for(var i=0;i<_zhixingRens.length;i++){
-                var obj = {};
-                obj.wxRen = _zhixingRens[i].userNum;
-                obj.wxRName = _zhixingRens[i].userName;
-                obj.wxRDh = _zhixingRens[i].mobile;
-                if(_zhixingRens[i].userNum == best){
-                    obj.wxRQZ = 1;
-                }else{
-                    obj.wxRQZ = 0;
+            //判断必填项是否都填了
+            if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+            }else{
+                var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
+                var fzrArr = [];
+                for(var i=0;i<_zhixingRens.length;i++){
+                    var obj = {};
+                    obj.wxRen = _zhixingRens[i].userNum;
+                    obj.wxRName = _zhixingRens[i].userName;
+                    obj.wxRDh = _zhixingRens[i].mobile;
+                    if(_zhixingRens[i].userNum == best){
+                        obj.wxRQZ = 1;
+                    }else{
+                        obj.wxRQZ = 0;
+                    }
+                    fzrArr.push(obj);
                 }
-                fzrArr.push(obj);
-            }
-            var gdInfo = {
-                gdJJ:workDones.picked,
-                gdLeixing:workDones.rwlx,
-                bxDianhua:workDones.telephone,
-                bxRen:workDones.person,
-                wxDidian:workDones.place,
-                bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                wxShebei:workDones.sbSelect,
-                dcName:workDones.sbLX,
-                dName:workDones.sbMC,
-                installAddress:workDones.azAddress,
-                wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:$('.remarkDes').val(),
-                //gdWxLeaders:fzrArr,
-                gdSrc:1,
-                bxKeshiNum:workDones.section,
-                wxShiXNum:workDones.matter,
-                userId:_userIdNum,
-                userName:_userIdName,
-                gdRange:workDones.whether,
-                gdFsShij:$('.otime').val()
-            }
-            //判断_obj和_fzrObjext是否为空
-            if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
-                //为空，添加
-                _obj = {
+                var gdInfo = {
                     gdJJ:workDones.picked,
                     gdLeixing:workDones.rwlx,
                     bxDianhua:workDones.telephone,
@@ -760,63 +734,42 @@ $(function(){
                     bxBeizhu:$('.remarkDes').val(),
                     //gdWxLeaders:fzrArr,
                     gdSrc:1,
+                    bxKeshiNum:workDones.section,
+                    wxShiXNum:workDones.matter,
                     userId:_userIdNum,
                     userName:_userIdName,
-                    gdCodeSrc:workDones.gdly,
-                    bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter,
-                    gdRange:workDones.whether,
-                    gdFsShij:$('.otime').val()
-                };
-                _fzrObj = fzrArr;
-                var gdInfo1 = {
-                    gdJJ:workDones.picked,
-                    gdLeixing:workDones.rwlx,
-                    bxDianhua:workDones.telephone,
-                    bxRen:workDones.person,
-                    wxDidian:workDones.place,
-                    bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                    wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                    wxShebei:workDones.sbSelect,
-                    dcName:workDones.sbLX,
-                    dName:workDones.sbMC,
-                    installAddress:workDones.azAddress,
-                    wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:$('.remarkDes').val(),
-                    gdWxLeaders:fzrArr,
-                    gdSrc:1,
-                    userID:_userIdNum,
-                    userName:_userIdName,
-                    gdCodeSrc:workDones.gdly,
-                    bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter,
                     gdRange:workDones.whether,
                     gdFsShij:$('.otime').val()
                 }
-                $.ajax({
-                    type:'post',
-                    url:_urls + 'YWGD/ywGDCreDJ',
-                    data:gdInfo1,
-                    success:function(result){
-                        if(result == 99){
-                            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                            $('#myModal').modal('hide');
-                            //更新状态
-                            conditionSelect()
-                        }else{
-                            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
-                        }
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                         console.log(jqXHR.responseText);
-                    }
-                })
-            }else{
-                //不为空，判断是否相等
-                if( isEqual(_obj,gdInfo) && objectInArr(_fzrObj,fzrArr)){
-                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'不能重复添加！', '');
-                }else{
-                    var gdInfo1= {
+                //判断_obj和_fzrObjext是否为空
+                if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
+                    //为空，添加
+                    _obj = {
+                        gdJJ:workDones.picked,
+                        gdLeixing:workDones.rwlx,
+                        bxDianhua:workDones.telephone,
+                        bxRen:workDones.person,
+                        wxDidian:workDones.place,
+                        bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                        wxShiX:$('.xitong').eq(0).children('option:selected').html(),
+                        wxShebei:workDones.sbSelect,
+                        dcName:workDones.sbLX,
+                        dName:workDones.sbMC,
+                        installAddress:workDones.azAddress,
+                        wxKeshi:workDones.weixiukeshis,
+                        bxBeizhu:$('.remarkDes').val(),
+                        //gdWxLeaders:fzrArr,
+                        gdSrc:1,
+                        userId:_userIdNum,
+                        userName:_userIdName,
+                        gdCodeSrc:workDones.gdly,
+                        bxKeshiNum:workDones.section,
+                        wxShiXNum:workDones.matter,
+                        gdRange:workDones.whether,
+                        gdFsShij:$('.otime').val()
+                    };
+                    _fzrObj = fzrArr;
+                    var gdInfo1 = {
                         gdJJ:workDones.picked,
                         gdLeixing:workDones.rwlx,
                         bxDianhua:workDones.telephone,
@@ -834,6 +787,7 @@ $(function(){
                         gdSrc:1,
                         userID:_userIdNum,
                         userName:_userIdName,
+                        gdCodeSrc:workDones.gdly,
                         bxKeshiNum:workDones.section,
                         wxShiXNum:workDones.matter,
                         gdRange:workDones.whether,
@@ -845,12 +799,8 @@ $(function(){
                         data:gdInfo1,
                         success:function(result){
                             if(result == 99){
-                                //更新状态
-                                upData();
-                                if(_upDateStateFlag == true){
-                                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                                    $('#myModal').modal('hide');
-                                }
+                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
+                                $('#myModal').modal('hide');
                                 //更新状态
                                 conditionSelect()
                             }else{
@@ -861,10 +811,60 @@ $(function(){
                             console.log(jqXHR.responseText);
                         }
                     })
+                }else{
+                    //不为空，判断是否相等
+                    if( isEqual(_obj,gdInfo) && objectInArr(_fzrObj,fzrArr)){
+                        _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'不能重复添加！', '');
+                    }else{
+                        var gdInfo1= {
+                            gdJJ:workDones.picked,
+                            gdLeixing:workDones.rwlx,
+                            bxDianhua:workDones.telephone,
+                            bxRen:workDones.person,
+                            wxDidian:workDones.place,
+                            bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
+                            wxShiX:$('.xitong').eq(0).children('option:selected').html(),
+                            wxShebei:workDones.sbSelect,
+                            dcName:workDones.sbLX,
+                            dName:workDones.sbMC,
+                            installAddress:workDones.azAddress,
+                            wxKeshi:workDones.weixiukeshis,
+                            bxBeizhu:$('.remarkDes').val(),
+                            gdWxLeaders:fzrArr,
+                            gdSrc:1,
+                            userID:_userIdNum,
+                            userName:_userIdName,
+                            bxKeshiNum:workDones.section,
+                            wxShiXNum:workDones.matter,
+                            gdRange:workDones.whether,
+                            gdFsShij:$('.otime').val()
+                        }
+                        $.ajax({
+                            type:'post',
+                            url:_urls + 'YWGD/ywGDCreDJ',
+                            data:gdInfo1,
+                            success:function(result){
+                                if(result == 99){
+                                    //更新状态
+                                    upData();
+                                    if(_upDateStateFlag == true){
+                                        _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
+                                        $('#myModal').modal('hide');
+                                    }
+                                    //更新状态
+                                    conditionSelect()
+                                }else{
+                                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
+                                }
+                            },
+                            error:function(jqXHR, textStatus, errorThrown){
+                                console.log(jqXHR.responseText);
+                            }
+                        })
+                    }
                 }
             }
-        }
-    })
+        })
         //编辑
         .on('click','.bianji',function(){
             if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
@@ -997,7 +997,7 @@ $(function(){
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
-             }
+            }
         })
     });
     //同一车站未闭环工单的查看按钮
@@ -1591,7 +1591,7 @@ $(function(){
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
-             }
+            }
         })
     }
     //编辑的确定按钮(flag,标明要做什么操作 1、编辑功能)
@@ -1642,7 +1642,7 @@ $(function(){
                 },
                 error:function(jqXHR, textStatus, errorThrown){
                     console.log(jqXHR.responseText);
-                 }
+                }
             })
         }
     }

@@ -736,7 +736,8 @@ $(function(){
             },
             //出库单价
             addFun2:function(){
-                var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                //var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                var mny = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
                 if(putOutGoods.outPrice != ''){
 
                     if(mny.test(putOutGoods.outPrice)){

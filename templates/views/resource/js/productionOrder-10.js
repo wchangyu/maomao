@@ -204,6 +204,15 @@ $(function(){
                 }
             },
             {
+                title:'工单执行状态',
+                data:'lastUpdateInfo'
+            },
+
+            {
+                title: '最新状态',
+                data: 'clLastUptInfo'
+            },
+            {
                 title: '备件进度',
                 data: 'clStatusID',
                 render:function(data, type, full, meta){
@@ -213,14 +222,6 @@ $(function(){
                         }
                     }
                 }
-            },
-            {
-                title: '备注',
-                data: 'clLastUptInfo'
-            },
-            {
-                title:'最新状态',
-                data:'lastUpdateInfo'
             },
             {
                 title:__names.department,

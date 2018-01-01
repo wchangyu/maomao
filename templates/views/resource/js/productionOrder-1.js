@@ -5,11 +5,13 @@ $(function(){
 
   /*-----------------------------------------------------变量-----------------------------------------*/
 
-  _timeYMDComponentsFun($('.condition-query').find('.datatimeblock'));
+  _timeYMDComponentsFun($('.condition-query').eq(0).find('.datatimeblock'));
 
   //datatimepicker故障发生时间；
 
   _timeHMSComponentsFun($('.otime'),1);
+
+  _timeHMSComponentsFun($('.otimes'),1);
 
   //设置初始时间(主表格时间)
   var now = moment().format('YYYY/MM/DD');
@@ -213,7 +215,10 @@ $(function(){
 
   ]
 
-  _tableInit($('#scrap-datatables'),col,1,true,'','','');
+  //导出列
+  var _exportCol = [0,1,2,3,4,5,6];
+
+  _tableInit($('#scrap-datatables'),col,1,true,'','','',_exportCol);
 
   _WxBanzuStationData(conditionSelect);
 
@@ -320,7 +325,7 @@ $(function(){
   $('#myModal4').on('click','.quickDengji',function(){
 
     //验证
-    if( quickVue.telephone == '' || quickVue.person == '' || quickVue.place == '' || quickVue.section == '' || quickVue.matter == '' || $('#quickWork').find('.weixiuBZ').val()){
+    if( quickVue.telephone == '' || quickVue.person == '' || quickVue.place == '' || quickVue.section == '' || quickVue.matter == '' || $('#quickWork').find('.weixiuBZ').val() == ''){
 
       _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
 
@@ -565,9 +570,9 @@ $(function(){
       //工单号
       'gdCode2': filterInput[0],
       //开始时间
-      'gdSt': st,
+      'gdSt': $('.min').val(),
       //结束时间
-      'gdEt': moment(now).add(1,'d').format('YYYY/MM/DD'),
+      'gdEt': moment($('.max').val()).add(1,'d').format('YYYY/MM/DD'),
       //车站
       'bxKeshi': filterInput[1],
       //工单状态
@@ -580,7 +585,7 @@ $(function(){
 
     var wbzArr = [];
 
-    if(_AisBZ){
+    if(_AisWBZ){
 
       for(var i=0;i<_ABZArr.length;i++){
 
@@ -732,6 +737,8 @@ $(function(){
         dcNum:detaileVue.matter,
         //设备编码
         dNum: detaileVue.sbSelect,
+        //维修设备（设备编码）
+        wxShebei: detaileVue.sbSelect,
         //设备名称
         dName: detaileVue.sbMC,
         //故障发生时间
@@ -744,8 +751,6 @@ $(function(){
         wxKeshi: '',
         //工单来源
         'gdSrc': 2,
-        //维修设备（设备编码）
-        wxShebei: detaileVue.sbSelect,
         //维修事项
         wxShiX:1,
         //维修事项编码

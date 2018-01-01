@@ -263,7 +263,7 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'督察督办责任人',
+                title:'责任人',
                 data:'wxUserNames'
             },
             {
@@ -1419,4 +1419,17 @@ $(function(){
         }
 
     })
+
+    //
+    gdSource();
+
+    function gdSource(){
+
+        var str = '<option value="">请选择</option>';
+
+        str += '<option value="1">'+ __names.department +'报修</option><option value="2">现场人员报修</option>';
+
+        $('#gdly').empty().append(str);
+
+    }
 })

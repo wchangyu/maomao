@@ -182,7 +182,7 @@ $(function(){
                 text: '导出',
                 className:'saveAs',
                 exportOptions:{
-                    columns:[0,1,2,4,5,6]
+                    columns:[0,1,2,3,5,6,7]
                 }
             },
         ],
@@ -232,6 +232,10 @@ $(function(){
                         return '任务取消'
                     }
                 }
+            },
+            {
+                title:'最新情况',
+                data:'lastUpdateInfo'
             },
             {
                 title:'工单状态值',

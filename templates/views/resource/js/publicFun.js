@@ -151,12 +151,15 @@ function _timeComponentsFun(el){
 /*-----------------------dataTable---------------------------*/
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag){
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
             text: '导出',
-            className:'saveAs'
+            className:'saveAs',
+            exportOptions:{
+                columns:arr
+            }
         }
     ];
     var buttonHidden = [
@@ -757,7 +760,11 @@ function _WxBanzuStationData(fun){
 
             }
 
-            fun();
+            if(fun){
+
+                fun();
+
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
