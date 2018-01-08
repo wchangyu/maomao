@@ -296,7 +296,7 @@ var BEE = (function(){
                 //获取摄像头报警数量
                 cameraAlarmHistory();
 
-                modificationImportInfo();
+                //modificationImportInfo();
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
@@ -1101,7 +1101,7 @@ var BEE = (function(){
                 insertionPointer();
 
                 //重绘页面右上角信息
-                //modificationImportInfo();
+                modificationImportInfo();
 
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
                     getAlarmInfo();
