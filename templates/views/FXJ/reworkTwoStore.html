@@ -61,7 +61,7 @@
         #myModal .single-labels{
             width: auto !important;
         }
-        #fxGoods1 input,select{
+        #fxGoods1 input,#fxGoods1 select{
 
             height: 30px;
 
@@ -69,6 +69,9 @@
 
             width: 200px !important;
 
+        }
+        .gd-wrap{
+            border: none;
         }
     </style>
 </head>
@@ -255,7 +258,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                         <!--<div class="btn-group pull-right">
                             <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -411,17 +413,17 @@
 <!--弹窗-->
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
-        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+    <div class="modal-dialog" style="height: 716px;width: 1000px !important;">
+        <div class="modal-content" style="height: 716px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">创建工单</h4>
             </div>
             <div class="modal-body">
                 <!--主体部分-->
-                <div class="gongdanList" id="fxGoods" style="height: 513px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
+                <div class="gongdanList" id="fxGoods" style="height: 563px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
                     <div style="width: 470px !important;float: left">
-                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 14px;">
                             <div class="tipe-block">返修件基本信息</div>
 
                             <div class="row">
@@ -496,11 +498,18 @@
                             </div>
 
                         </div>
+                        <div class="finishRemark" style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                            <div class="tipe-block">完成操作备注</div>
 
+                            <div class="tableHover" style="margin-top: 10px">
+                                <textarea style="height: 100px;outline: none;width: 100%;border: 1px solid #cccccc"></textarea>
+                            </div>
+
+                        </div>
 
                     </div>
                     <div id="fxGoods1" style="width:470px !important;float: right">
-                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 14px;">
                             <div class="tipe-block">操作部分</div>
                             <div style="padding: 10px;">
                                 <label>当前状态&nbsp;&nbsp;&nbsp;:</label>
@@ -511,7 +520,7 @@
                                 <select id="optioning" style="width: 160px;outline: none;margin-left: 20px;">
                                 </select>
                             </div>
-                            <div class="ownRepair" style="display: none;">
+                            <div class="ownRepair repairType" style="display: none;">
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                     <div class="tipe-block" style="border:none">【维修材料清单】</div>
 
@@ -532,7 +541,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="factoryRepair" style="display: none;">
+                            <div class="factoryRepair repairType" style="display: none;">
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
                                     <div class="tipe-block" style="border:none">【返厂修信息填写】</div>
 
@@ -552,14 +561,52 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="scrapBlock repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【报废备注】</div>
+
+                                    <div class="tableHover">
+                                        <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="majorBlock repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【返回主库信息】</div>
+
+                                    <div class="tableHover">
+                                        <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer"><!--finishButton    determine-->
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--查看-->
+<div class="modal fade" id="see-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 716px;width: 1063px !important;">
+        <div class="modal-content" style="height: 716px;width: 1063px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="height: 594px;">
+                <!--主体部分-->
+                <div id="see-detail">  <!--src="fxDetails.html?"-->
 
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">确定</button>
+            <div class="modal-footer"><!--finishButton    determine-->
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

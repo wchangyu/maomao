@@ -15,14 +15,12 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-
-
-
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -58,6 +56,23 @@
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
+    </style>
+    <style>
+        #myModal .single-labels{
+            width: auto !important;
+        }
+        #fxGoods1 input,#fxGoods1 select{
+
+            height: 30px;
+
+            line-height: 30px;
+
+            width: 200px !important;
+
+        }
+        .gd-wrap{
+            border: none;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -243,7 +258,6 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                     </ul>
-                    <div class="showOrHidden"></div>
                     <div class="page-toolbar">
                         <!--<div class="btn-group pull-right">
                             <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -280,17 +294,6 @@
                                         <li class="main-contents-header-lists0 noprint">工单操作</li>
                                     </ul>
                                     <ul class="condition-query noprint">
-                                        <li><label for="">工单号：</label>
-                                            <div class="input-blocked" id="filter_global">
-                                                <input type="text" class="filterInput" id="gdcode">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">备件进度：</label>
-                                            <div class="input-blocked">
-                                                <select id="line-point"></select>
-                                            </div>
-                                        </li>
                                         <li>
                                             <label for="">时间：</label>
                                             <div class="input-blocked">
@@ -301,20 +304,6 @@
                                                 <input type="text" class="datatimeblock max" name="max">
                                             </div>
                                         </li>
-                                        <li class="routeShow">
-                                            <label for="">线点：</label>
-                                            <div class="input-blocked">
-                                                <select id="linePoint"></select>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <label for="">
-                                                <span class="user-defined-department"></span>
-                                                ：</label>
-                                            <div class="input-blocked">
-                                                <select id="station"></select>
-                                            </div>
-                                        </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                         <li><button class="btn btn-success btn1 resites">重置</button></li>
                                         <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
@@ -322,48 +311,17 @@
                                         <div class="clearfix"></div>
                                     </ul>
                                     <!-- 表格 -->
-                                    <div class="table-title">
-                                        <span class="spanhover">全部</span>
-                                        <span>等待资源</span>
-                                        <span>已发货</span>
-                                        <span>已闭环</span>
-                                    </div>
-                                    <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
-                                        <div class="content-main-contents">
-                                            <div class="main-contents-table">
-                                                <table id="scrap-datatables" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables1" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables3" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables2" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
-                                                    <thead>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                    <div class="content-main-contents">
+                                        <div class="main-contents-table">
+                                            <table id="report-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -391,291 +349,303 @@
     </div>
 </div>
 <!--弹窗-->
-<!--查看详情-->
+<!--弹窗-->
+<!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 665px;">
-        <div class="modal-content" style="height: 665px;">
+    <div class="modal-dialog" style="height: 716px;width: 1000px !important;">
+        <div class="modal-content" style="height: 716px;width: 1000px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">工单详情</h4>
+                <h4 class="modal-title">创建工单</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent">
-                    <ul class="gongdanList" id="myApp33">
-                        <li class="floatLi" style="line-height: 26px;">
-                            <div class="labels">工单类型：</div>
-                            <div class="input-blockeds">
-                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
-                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
-                            </div>
-                        </li>
-                        <li class="floatLi" style="line-height: 26px;">
-                            <div class="labels colorTip">工单来源 *：</div>
-                            <div class="input-blockeds">
-                                <select v-model="gdly" class="gdly">
+                <!--主体部分-->
+                <div class="gongdanList" id="fxGoods" style="height: 563px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
+                    <div style="width: 470px !important;float: left">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 14px;">
+                            <div class="tipe-block">返修件基本信息</div>
 
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">返修件id：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">相关工单号：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">返修件编码：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">返修件名称：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">返修件序列号：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">规格型号：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">故障原因：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels">快递信息：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels"><span class="user-defined-department"></span>：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels"><span class="user-defined-workshop"></span>：</div>
+                                    <div class="single-block">
+                                        <input >
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="finishRemark" style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                            <div class="tipe-block">完成操作备注</div>
+
+                            <div class="tableHover" style="margin-top: 10px">
+                                <textarea style="height: 100px;outline: none;width: 100%;border: 1px solid #cccccc"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="fxGoods1" style="width:470px !important;float: right">
+                        <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 14px;">
+                            <div class="tipe-block">操作部分</div>
+                            <div style="padding: 10px;">
+                                <label>当前状态&nbsp;&nbsp;&nbsp;:</label>
+                                <input type="text" id="nowStatus" class="disabled-block" disabled="disabled" style="outline: none;margin-left: 20px;">
+                            </div>
+                            <div style="padding: 10px;">
+                                <label>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                                <select id="optioning" style="width: 160px;outline: none;margin-left: 20px;">
                                 </select>
                             </div>
-                        </li>
-                        <li class="floatLi" style="line-height: 26px;">
-                            <div class="labels colorTip">任务级别 *：</div>
-                            <div class="input-blockeds">
-                                <select v-model="rwlx">
-                                    <option value="1">一级任务</option>
-                                    <option value="2">二级任务</option>
-                                    <option value="3">三级任务</option>
-                                    <option value="4">四级任务</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">报修电话：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="telephone" class="shishi">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">报修人信息：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="person">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">故障位置：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="place">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">
-                                <span class="user-defined-department"></span>
-                                ：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="section">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">系统类型：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="matter">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">设备编码：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="sbSelect">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">设备名称：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="sbMC">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">
-                                <span class="user-defined-group"></span>
-                                ：</div>
-                            <div class="input-blockeds">
-                                <input type="text" v-model="sections">
-                            </div>
-                        </li>
-                        <li class="floatLi">
-                            <div class="labels">发生时间：</div>
-                            <div class="input-blockeds disabled-block">
-                                <input type="text" class="disabled-block otime" disabled="true">
-                            </div>
-                        </li>
-                        <div class="clearfix"></div>
-                        <div>
-                            <div class="labels">故障描述：</div>
-                            <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px;">
-                            <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
-                            <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
-                        </div>
-                        <div class="table-block">
-                            <div class="table-title">
-                                <span class="spanhover">执行人员</span>
-                            </div>
-                            <span class="draw-border"></span>
-                            <div class="tableHoverL">
-                                <div class="tableHover">
-                                    <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTable1">
-                                        <thead>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                        <div class="table-block">
-                            <div class="table-title">
-                                <span class="spanhover">维修备件</span>
-                            </div>
-                            <span class="draw-border"></span>
-                            <div class="tableHoverL">
-                                <div class="tableHover">
-                                    <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTables1">
-                                        <thead></thead>
-                                        <tbody></tbody>
-                                    </table>
+                            <div class="ownRepair repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【维修材料清单】</div>
+
+                                    <div class="tableHover">
+                                        <div class="" style="padding-top:10px;">
+                                            <div class="label label-sm label-warning addCL" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>添加材料
+                                            </div>
+                                        </div>
+                                        <table class="table table-hover cl-table" id="cl-list">
+                                            <thead>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                        <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" class="disabled-block" disabled="disabled" style="outline: none;margin-left: 20px;"></div>
+                                        <div style="padding: 10px;"><label>自修单价（元）:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-                            <div class="deal-with" style="display: inline-block">处理记录</div>
-                            <div>
-                                <ul class="deal-with-list">
-                                </ul>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-<!--维修材料弹出框-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 935px !important;height: 494px;">
-        <div class="modal-content" style="width: 935px !important;height: 494px;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">维修备件申请</h4>
-            </div>
-            <div class="modal-body" style="height: 375px;overflow-y: scroll">
-                <div style="width: 645px;background:#ffffff;float: left">
-                    <ul class="condition-query">
-                        <li style="width: 133px;">
-                            <div class="cont-col1" style="cursor: pointer">
-                                <div class="label label-sm label-warning tianJiaCaiLiao" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
-                                    <i class="fa fa-plus" style="margin-right: 2px;"></i>添加维修备件
+                            <div class="factoryRepair repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【返厂修信息填写】</div>
+
+                                    <div class="tableHover">
+                                        <div style="padding: 10px;"><label>返厂修日期</label>:<input type="text" class="datatimeblock"></div>
+                                        <div style="padding: 10px;"><label>厂家名称</label>:<select id="factory" style="width: 157px;margin-left: 20px;"></select></div>
+                                        <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>预计到达时间</label>:<input type="text" class="datatimeblock"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="tableHover">
+                                        <div style="padding: 10px;"><label>厂家发货日期</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
+                                        <div style="padding: 10px;"><label>收货地点</label>:<input type="text"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                    <table class="table table-striped table-bordered table-advance table-hover dataTable no-footer" id="personTables11">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
-                    <div style="display: inline-block;vertical-align: middle">
-                        <div class="labels">当前状态：</div>
-                        <div class="input-blockeds" style="height: auto;width: 240px;">
-                            <input type="text" class="nowState" style="width: 238px;">
+                            <div class="scrapBlock repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【报废备注】</div>
+
+                                    <div class="tableHover">
+                                        <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="majorBlock repairType" style="display: none;">
+                                <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                                    <div class="tipe-block" style="border:none">【返回主库信息】</div>
+
+                                    <div class="tableHover">
+                                        <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div style="display: inline-block;vertical-align: middle">
-                        <div class="labels colorTip">操作类型 *：</div>
-                        <div class="input-blockeds" style="height: auto;width: 240px;">
-                            <select id="stateConstant" style="outline: none;width: 238px;"></select>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="labels">备注：</div>
-                        <div class="input-blockeds" style="height: auto;width: 372px;">
-                            <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
-                        </div>
-                    </div>
-                    <div class="bjpicture" style="margin-top: 20px;display: block;">
-                        <div class="labels">备件图片：</div>
-                        <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
-                        <div class="bjImg">
-                        </div>
+
                     </div>
                 </div>
-                <div style="width: 235px;background: #ffffff;float: right">
-                    <div class="deal-with">处理记录</div>
-                    <div>
-                        <ul class="deal-with-list">
-                            <!--<li><span class="list-dot"></span>2017-08-15 某某某处理</li>-->
-                        </ul>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
-            <div class="modal-footer">
+            <div class="modal-footer"><!--finishButton    determine-->
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--模态框添加维修材料-->
-<div class="modal fade" id="addWXCL-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 481px;width: 729px !important;">
-        <div class="modal-content" style="height: 481px;width: 729px !important;">
+<!--查看-->
+<div class="modal fade" id="see-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 716px;width: 1063px !important;">
+        <div class="modal-content" style="height: 716px;width: 1063px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabe3">操作维修备件</h4>
+                <h4 class="modal-title"></h4>
             </div>
-            <div class="modal-body">
-                <div class="gongdanContent" style="height: 330px;">
-                    <ul class="gongdanList" id="weiXiuCaiLiao">
-                        <button type="button" class="btn btn-info select-goods">选择物品</button>
-                        <validator name="validation">
-                            <form novalidate>
-                                <li class="gdList">
-                                    <div class="labels colorTip">物品编码 *：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="wpbm" class="wpbm" @keyup="searchbm()">
-                                        <div class="selectBlock"></div>
-                                        <ul class="accord-with-list hidden1"></ul>
-                                    </div>
-                                </li>
-                                <li class="gdList">
-                                    <div class="labels colorTip">物品名称 *：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="wpmc" @keyup="searchmc()">
-                                        <div class="selectBlock"></div>
-                                        <ul class="accord-with-list hidden1"></ul>
-                                    </div>
-                                </li>
-                                <li class="gdList">
-                                    <div class="labels">物品型号：</div>
-                                    <div class="input-blockeds disabled-block">
-                                        <input type="text" v-model="wpsize"  initial='off' readonly="readonly" class="disabled-block">
-                                    </div>
-                                </li>
-                                <li class="gdList">
-                                    <div class="labels">物品分类：</div>
-                                    <div class="input-blockeds disabled-block">
-                                        <input type="text" v-model="flmc"  initial='off' readonly="readonly" class="disabled-block">
-                                    </div>
-                                </li>
-                                <li class="gdList">
-                                    <div class="labels colorTip">数量 *：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="wpsl" class="inputNum" v-validate:wpsl="['persons']" initial='off'>
-                                    </div>
-                                </li>
-                                <li class="gdList">
-                                    <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
-                                        <span>该物料信息已存在</span>
-                                    </div>
-                                </li>
-                                <div class="clearfix"></div>
-                            </form>
-                        </validator>
-                    </ul>
+            <div class="modal-body" style="height: 594px;">
+                <!--主体部分-->
+                <div id="see-detail">  <!--src="fxDetails.html?"-->
+
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary secondButtons">确定</button>
+            <div class="modal-footer"><!--finishButton    determine-->
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<!--选择材料列表-->
-<div class="modal fade" id="WXCL-list-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--添加材料-->
+<div class="modal fade" id="AddCL-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
+        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">添加材料</h4>
+            </div>
+            <div class="modal-body">
+                <!--主体部分-->
+                <div class="gongdanList" id="goods" style="height: 513px;overflow-y: auto;font-size: 14px;overflow-x: hidden">
+                    <div class="label label-sm label-warning selectCL" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;cursor: pointer;">
+                        <i class="fa fa-plus" style="margin-right: 2px;"></i>材料选择
+                    </div>
+                    <validator name="validation">
+                        <form novalidate>
+                            <!--填写材料-->
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line" >
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">名称</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="mc" class="no-edit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">备件编码</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="bm" class="no-edit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">单位</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="dw" class="no-edit">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">规格型号</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="size">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels starRed" style="font-size: 14px;width: 90px;">数量</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="sl" @keyup="addFun1()">
+                                    </div>
+                                    <div style="height: 32px">
+                                        <span class="colorTip errorSL" style="display: block;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">单价（元）</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="dj" @keyup="addFun2()" placeholder="0.00">
+                                    </div>
+                                    <div style="height: 32px;">
+                                        <span class="colorTip errorDJ" style="display: block;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数(保留两位)</span>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6 single-line one-line" style="margin-top: -25px;">
+                                    <div class="single-labels" style="font-size: 14px;width: 90px;">金额（元）</div>
+                                    <div class="single-block" style="width: 192px;">
+                                        <input type="text" v-model="je" @keyup="addFun3()" placeholder="0.00">
+                                    </div>
+                                    <div style="height: 32px">
+                                        <span class="colorTip errorJE" style="display: block;text-indent: 93px;line-height: 30px;height: 30px;">请输入大于0的整数(保留两位)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;margin-right: 20px;">
+                                <button type="button" class="btn btn-success" id="addRK">添加</button>
+                                <button type="button" class="btn btn-success" id="addReset">重置</button>
+                            </div>
+                        </form>
+                    </validator>
+                    <table class="table table-hover cl-table" id="cl-selecting">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="appendTo">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--选择材料-->
+<div class="modal fade" id="SelectCL-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 520px;">
         <div class="modal-content" style="height: 520px;">
             <div class="modal-header">
@@ -700,7 +670,7 @@
                         <li class="floatLeft">
                             <div class="labels">分类名称：</div>
                             <div class="input-blockeds">
-                                <input type="text" id="flmcs">
+                                <select id="flmcs"></select>
                             </div>
                         </li>
                         <li class="floatRight">
@@ -811,10 +781,14 @@
         BEE.init();
     });
 </script>
+<script>
+    var _status = 2;
+</script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/js/productionOrder-11.js"></script>
+<script src="../resource/js/returnReport.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/js/publicYW.js"></script>
 <!-- END JAVASCRIPTS -->
 
 </body>

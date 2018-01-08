@@ -691,7 +691,9 @@ $(function(){
     //申请备件(同意【flag】，拒绝)
     function applySparePart(el,flag){
         var stateTrend = el.attr('data-value');
+
         var stateHtml = el.html();
+
         if(flag){
             var arr = stateTrend.split(',');
             if(_trend == ''){

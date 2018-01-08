@@ -1,186 +1,193 @@
 //工单号
 var _gdCode = '';
+
 $(function(){
-    /*--------------------------全局变量初始化设置----------------------------------*/
-    //获得用户名id
-    var _userIdNum = sessionStorage.getItem('userName');
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('realUserName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
-    //开始/结束时间插件
-    $('.datatimeblock').datepicker({
-        language:  'zh-CN',
-        todayBtn: 1,
-        todayHighlight: 1,
-        format: 'yyyy/mm/dd',     forceParse: 0
-    });
-    //datatimepicker
-    $('.otime').datetimepicker({
-        language:  'zh-CN',//此处修改
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 1,
-        forceParse: 0,
-    });
+
+    /*--------------------------------------时间插件---------------------------------*/
+    _timeYMDComponentsFun($('.condition-query').eq(0).find('.datatimeblock'));
+
+    var now = moment().format('YYYY/MM/DD');
+
+    var st = moment(now).subtract(6,'months').format('YYYY/MM/DD');
+
+    //显示时间
+    $('.min').val(st);
+
+    $('.max').val(now);
+
+    //datatimepicker故障发生时间；
+
+    _timeHMSComponentsFun($('.otime'),1);
+
+    /*-------------------------------------变量---------------------------------------*/
 
     //同一车站未闭环
     $('.table-caption').html('同一'+ __names.department +'未闭环的工单');
 
-    //设置初始时间
-    var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
-    //显示时间
-    $('.min').val(_initStart);
-    $('.max').val(_initEnd);
-    //实际发送时间
-    var realityStart;
-    var realityEnd;
+    //基本信息模态框
+    var detaileVue = new Vue({
 
-    //查看详细信息的Vue形式
-    var workDones = new Vue({
         el:'#workDones',
         data:{
-            rwlx:'',
-            telephone:'',
-            person:'',
-            place:'',
-            section:'',
-            matter:'',
-            sbSelect:'',
-            sbLX:'',
-            sbMC:'',
-            azAddress:'',
-            weixiukeshis:'',
-            gdly:1,
-            whether:0,
-            picked:0,
-            gdCode:'',
-            state:'',
 
-        },
-        methods: {
-            selectLine:function(){
-                //首先将select子元素清空；
-                $('.cjz').empty();
-                //获得选中的线路的value
-                var values = $('#lineRoute').val();
-                if(values == ''){
-                    //所有车站
-                    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','ddNum','flag');
-                }else{
-                    console.log()
-                    for(var i=0;i<_lineArr.length;i++){
-                        if(values == _lineArr[i].dlNum){
-                            //创建对应的车站
-                            var str = '<option value="">请选择</option>';
-                            for(var j=0;j<_lineArr[i].deps.length;j++){
-                                str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                                    '">'+ _lineArr[i].deps[j].ddName + '</option>';
-                            }
-                            $('.cjz').append(str);
-                        }
-                    }
-                }
-            },
-            selects: function () {
-                $('#workDones').find('.whether').click(function (a) {
-                    $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $(this).parent('span').addClass('checked');
-                })
-            },
+            //工单号
+            gdCode:'',
+            //工单状态
+            state:'',
+            //工单类型
+            picked:0,
+            //任务来源
+            gdly:1,
+            //任务级别
+            rwlx:4,
+            //报修电话
+            telephone:'',
+            //报修人信息
+            person:'',
+            //故障位置
+            place:'',
+            //线路
+            lineRoute:'',
+            //车站
+            section:'',
+            //系统类型
+            matter:'',
+            //设备编码
+            sbSelect:'',
+            //设备名称
+            sbMC:''
+
         }
+
     });
-    var app33 = new Vue({
+
+    //未闭环工单模态框
+    var unclosedLoop = new Vue({
+
         el:'#myApp33',
         data:{
-            picked:'0',
+
+            //工单类型
+            picked:'',
+            //工单来源
+            gdly:'',
+            //任务级别
+            rwlx:'',
+            //报修电话
             telephone:'',
+            //报修人信息
             person:'',
+            //故障位置
             place:'',
+            //车站
             section:'',
+            //系统类型
             matter:'',
-            sections:'',
-            remarks:'',
-            wxbeizhu:'',
-            rwlx:4,
+            //设备编码
             sbSelect:'',
-            sbLX:'',
+            //设备名称
             sbMC:'',
-            sbBM:'',
-            azAddress:'',
-            whether:'',
-            gdly:''
+            //维修班组
+            sections:''
+
         }
-    });
-    //所有负责人列表
+
+    })
+
+    //验证必填项（非空）
+    Vue.validator('persons', function (val) {
+        //获取内容的时候先将首尾空格删除掉；
+        val = val.replace(/^\s+|\s+$/g, '');
+
+        return /[^.\s]{1,500}$/.test(val);
+
+    })
+
+    //系统类型
+    _getProfession('YWDev/ywDMGetDSs', $('.xitong'),false, 'dsNum' ,'dsName');
+
+    //线路数组
+    var _lineArr = [];
+
+    //线路
+    _ajaxFun('YWGD/ywGetDLines', _lineArr, $('.line-route'), 'dlName', 'dlNum' );
+
+    var _stationArr = [];
+
+    //车站
+    stationData();
+    //_ajaxFun('YWDev/ywDMGetDDs', _stationArr, $('.cjz'), 'ddName', 'ddNum' );
+
+    //所有负责人数组
     var _allZXRArr = [];
-    //已选择的执行人数组
-    var _zhixingRens = [];
-    //存放设备系统的所有数据
-    var _allDataXT = [];
-    //存放设备部门的所有数据
-    var _allDataBM = [];
-    //设备系统
-    ajaxFun('YWDev/ywDMGetDSs',_allDataXT,$('.xitong'),'dsName','dsNum');
-    //设备部门
-    ajaxFun('YWDev/ywDMGetDDsII',_allDataBM,$('.cjz'),'ddName','ddNum','flag');
-    //保存上一条登记信息的对象
-    var _obj = {};
-    //保存上一条信息中责任人的对象
-    var _fzrObj = {};
-    ////保存图片数量
-    //var _imgNum = 0;
+
     //保存所有部门的数组
     var _departmentArr = [];
-    //当前选中的部门的对象
-    var _determineDeObj = {};
-    //记录当前工单的状态
-    var _gdState = 0;
-    //分配工长执行成功标识，
-    var _leaderFlag = false;
-    //更新维修备注成功标识
-    var _wxBZFlag = false;
-    //更新状态成功标识
-    var _upDateStateFlag = false;
-    //编辑成功标识
-    var _editFlag = false;
+
     //标记部门是默认的还是手动选择的，如果是默认的话1，手动选择为2
     var _autoOrHand = 1;
-    //重发值
-    var _gdCircle = 0;
-    //重发成功标识
-    var _reSendFlag = false;
 
-    //存放所有线路的数据
-    var _lineArr = [];
-    //记录当前车间
-    var _chejian = '';
+    //当前选中的部门的对象
+    var _determineDeObj = {};
+
+    //已选择的执行人数组
+    var _zhixingRens = [];
+
+    //当前工单状态
+    var _gdStatus = '';
+
+    //当前工单
+    var _gdCircle = '';
+
     //记录维修内容修改是否执行完成
     var _wxIsComplete = false;
-    //工单编辑是否完成
-    var _gdEditeComplete = false;
+
+    //记录维修内容修改是否执行成功
+    var _wxIsSuccess = false;
+
+    //负责人是否执行完成
+    var _fzrIsComplete = false;
+
+    //负责人是否执行成功
+    var _fzrIsSuccess = false;
+
     //状态转换是否完成
-    var _ztChangeComplete = false;
-    //分配负责人是否完成
-    var _fzrComplete = false;
+    var _ztChangeIsComplete = false;
+
+    //状态转换是否成功
+    var _ztChangeIsSuccess = false;
+
     //重发是否完成
-    var _reSendComplete = false;
-    /*---------------------------------表格初始化---------------------------------*/
-    //页面表格
+    var _reSendIsComplete = false;
+
+    //重发是否完成
+    var _reSendIsSuccess = false;
+
+    //编辑是否完成
+    var _editIsComplete = false;
+
+    //编辑是否成功
+    var _editIsSuccess = false;
+
+    //维修科室
+    var _wxObj = {};
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
+    /*-------------------------------------表格初始化----------------------------------*/
+
+    //受理表格
     var col1 = [
         {
             title:'工单号',
             data:'gdCode2',
             className:'gongdanId',
-            render:function(data, type, row, meta){
-                return '<span gdCode="' +  row.gdCode +
-                    '"' + "gdCircle=" + row.gdCircle +
-                    '>' +  data +
+            render: function (data, type, row, meta) {
+                return '<span gdCode="' + row.gdCode +
+                    '" gdCircle="' + row.gdCircle +
+                    '" gdZtz="' + row.gdZht +
+                    '">' + data +
                     '</span>'
             }
         },
@@ -250,16 +257,92 @@ $(function(){
 
         }
     ];
-    initTable1($('#scrap-datatables'),col1,'flag');
+
+    var _exportCol = [0,1,2,4,5,6,7];
+
+    _tableInit($('#scrap-datatables'),col1,1,true,'','','',_exportCol);
+
+    //权限
+    _WxBanzuStationData(conditionSelect);
+
+    //负责人表格初始化
+    //已选择的执行人表格
+    var fzrCol = [
+        {
+            class:'checkeds',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+        },
+        {
+            title:'工号',
+            data:'userNum',
+            className:'wxRen'
+        },
+        {
+            title:'执行人员',
+            data:'userName',
+            className:'wxRName'
+        },
+        {
+            title:'联系电话',
+            data:'mobile',
+            className:'wxRDh'
+        },
+        {
+            class:'deleted',
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
+        }
+    ];
+    _tableInit($('#personTable1'),fzrCol,2,false,'','',true,_exportCol);
+
+    //选择执行人表格初始化
+    var col3 = [
+        {
+            class:'checkeds',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+        },
+        {
+            title:'工号',
+            data:'userNum',
+            className:'zxrnum'
+        },
+        {
+            title:'执行人员',
+            data:'userName',
+            className:'zxrname'
+        },
+        {
+            title:'职位',
+            data:'pos'
+        },
+        {
+            title:'联系电话',
+            data:'mobile',
+            className:'zxrphone'
+        }
+    ];
+    _tableInit($('#zhixingRenTable'),col3,2,false,'','','','');
+
+    //负责人
+    fzr(true);
+
+    //同一车站未闭环工单
     var col2 = [
         {
             title:'工单号',
             data:'gdCode2',
             className:'gongdanId',
-            render:function(data, type, row, meta){
-                return '<span gdCode="' +  row.gdCode +
-                    '"' + "gdCircle=" + row.gdCircle +
-                    '>' +  data +
+            render: function (data, type, row, meta) {
+                return '<span gdCode="' + row.gdCode +
+                    '" gdCircle="' + row.gdCircle +
+                    '" gdZtz="' + row.gdZht +
+                    '">' + data +
                     '</span>'
             }
         },
@@ -328,76 +411,9 @@ $(function(){
 
         }
     ];
-    initTable1($('#table-other'),col2);
-    //报错时不弹出弹框
-    $.fn.dataTable.ext.errMode = function(s,h,m){
-        console.log('')
-    };
-    conditionSelect();
+    _tableInit($('#table-other'),col2,2,false,'','','','');
 
-    lineRouteData($('#lineRoute'));
-    //已选择的执行人表格
-    var col = [
-        {
-            class:'checkeds',
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
-        },
-        {
-            title:'工号',
-            data:'userNum',
-            className:'wxRen'
-        },
-        {
-            title:'执行人员',
-            data:'userName',
-            className:'wxRName'
-        },
-        {
-            title:'联系电话',
-            data:'mobile',
-            className:'wxRDh'
-        },
-        {
-            class:'deleted',
-            title:'操作',
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<span class='tableDeleted data-option btn default btn-xs green-stripe'>删除</span>"
-        }
-    ];
-    initTable1($('#personTable1'),col);
-    //待选择执行人表格
-    var col3 = [
-        {
-            class:'checkeds',
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
-        },
-        {
-            title:'工号',
-            data:'userNum',
-            className:'zxrnum'
-        },
-        {
-            title:'执行人员',
-            data:'userName',
-            className:'zxrname'
-        },
-        {
-            title:'职位',
-            data:'pos'
-        },
-        {
-            title:'联系电话',
-            data:'mobile',
-            className:'zxrphone'
-        }
-    ];
-    initTable1($('#zhixingRenTable'),col3);
-    //查看的执行人表格
+    //未闭环执行人员
     var col4 = [
         {
             class:'checkeds',
@@ -424,7 +440,9 @@ $(function(){
             data:'wxRDh'
         }
     ];
-    initTable1($('#personTable10'),col4);
+    _tableInit($('#personTable10'),col4,2,false,'','',true,'');
+
+    //未闭环维修材料
     //查看备件表格
     var col5 = [
         {
@@ -440,526 +458,109 @@ $(function(){
             data:'clShul'
         }
     ];
-    initTable1($('#personTables10'),col5);
-    //添加表头复选框
-    var creatCheckBox = "<div class='checker'><span><input type='checkbox'></span></div>";
-    $('thead').find('.checkeds').prepend(creatCheckBox);
-    var _personTable1 = $('#personTable1');
-    _personTable1.find('tbody').on( 'click', 'input', function () {
-        if($(this).parents('.checker').children('.checked').length == 0){
-            $(this).parent($('span')).addClass('checked');
-        }else{
-            $(this).parent($('span')).removeClass('checked');
-        }
-    });
-    /*------------------------------------表格绑定事件---------------------------*/
-    $('#scrap-datatables tbody')
-        .on('click','.option-option',function(e){
-            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //数据绑定
-            editOrOption($(this),'1');
+    _tableInit($('#personTables10'),col5,2,false,'','',true,'');
+    /*-------------------------------------按钮事件------------------------------------*/
 
-            $('.seeBlock').show();
-            //改变确定按钮类名
-            $('#myModal').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji');
-
-            //e.stopPropagation();
-        })
-        .on('click','.option-edit',function(){
-            _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-            //数据绑定
-            editOrOption($(this));
-            $('.seeBlock').show();
-            $('.seeBlock').children('.input-blockeds').children('input').attr('disabled',true).addClass('disabled-block');
-            //改变确定按钮类名
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton');
-
-            //e.stopPropagation();
-        })
-        .on('click','tr',function(e){
-            _gdCircle = $(this).children('.gongdanId').children('span').attr('gdcircle');
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
-            $(this).addClass('tables-hover');
-            _gdCode = $(this).children('.gongdanId').children('span').attr('gdcode');
-            //同一车站未闭环的工单
-            editOrOption($(this),'2');
-            var prm = {
-                'gdCode2':'',
-                "gdZht": 0,
-                'gdZhts':[1,2,3,4,5,6],
-                'userID':_userIdNum,
-                'userName':_userIdName,
-                'bxKeshiNum':_chejian,
-                'gdCircle':_gdCircle,
-                'wxShiXNum':'',
-                gdSt:'',
-                gdEt:'',
-                gdGuanbiSt:'',
-                gdGuanbiEt:'',
-                gdJJ:'',
-                dlNum:'',
-                gdLeixing:''
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWGD/ywGDGetZh2',
-                data:prm,
-                success:function(result){
-                    var arr = [];
-                    for(var i=0;i<result.length;i++){
-                        if(_gdCode != result[i].gdCode ){
-                            arr.push(result[i]);
-                        }
-                    }
-                    if(arr.length>0){
-                        $(".associated-station").show();
-                        datasTable($("#table-other"),arr);
-                    }else{
-                        $(".associated-station").hide();
-                    }
-                }
-            })
-            e.stopPropagation();
-        });/*----------------------------------按钮事件---------------------------------*/
-    //选择执行人按钮；
-    $('.zhiXingRenYuanButton').click(function (){
-        //模态框显示
-        _moTaiKuang($('#myModal7'), '添加责任人', '', '' ,'', '添加负责人');
-        //获得所有ztree节点数据；
-        getDpartment();
-
-        if(_autoOrHand == 1){
-            //点击的时候获得选择的车间的bm的值
-            var bm = $('.cjz').children('option:selected').attr('bm');
-            var mc = '';
-            //通过部门编码找部门名称
-            for(var i=0;i<_departmentArr.length;i++){
-                if(_departmentArr[i].id == bm){
-                    mc = _departmentArr[i].name;
-                }
-            }
-
-            //加载负责人数据
-            $('#xzmc').val(mc);
-            $('#zxbm').val(bm);
-            $('#zxName').val('');
-            $('#zxNum').val('');
-        }else {
-            if($.isEmptyObject(_determineDeObj)){
-                $('#xzmc').val('');
-                $('#zxbm').val('');
-                $('#zxName').val('');
-                $('#zxNum').val('');
-            }else{
-                $('#xzmc').val(_determineDeObj.name);
-                $('#zxbm').val(_determineDeObj.id);
-                $('#zxName').val(_determineDeObj.userName);
-                $('#zxNum').val(_determineDeObj.userNum);
-            }
-        }
-        fzr();
-        var fn1 = function( row, data, index ) {
-            for(var i=0;i<_zhixingRens.length;i++){
-                if(data.userNum == _zhixingRens[i].userNum){
-                    $('td:eq(0)', row).parents('tr').addClass('tables-hover');
-                    $('td:eq(0)', row).addClass('checkeds');
-                    $('td:eq(0)', row).html( '<div class="checker"><span class="checked"><input type="checkbox"></span></div> ' );
-                }
-            }
-
-        }
-        tableInit(_zhixingRenTable,col3,fn1);
-
-        $('#zhixingRenTable thead').find('input').parent('span').removeClass('checked');
-    });
-    var _zhixingRenTable = $('#zhixingRenTable');
-    //复选框点击事件
-    _zhixingRenTable.find('tbody').on( 'click', 'input', function () {
-        if($(this).parents('.checker').children('.checked').length == 0){
-            $(this).parent($('span')).addClass('checked');
-            $(this).parents('tr').addClass('tables-hover');
-            //如果所有复选框打钩，那么表头的复选框自动打钩；
-            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
-            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
-            if( rowNum == selectNum){
-                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
-            }
-        }else{
-            $(this).parent($('span')).removeClass('checked');
-            //$(this).parents('tr').css({'background':'#ffffff'});
-            $(this).parents('tr').removeClass('tables-hover');
-            //只要有一个复选框没选中，全选框不打勾，
-            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
-        }
-    });
-    //点击thead复选框tbody的复选框全选中
-    _zhixingRenTable.find('thead').find('input').click(function(){
-
-        if($(this).parents('.checker').children('.checked').length == 0){
-            //点击选中状态
-            _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
-            _zhixingRenTable.find('tbody').find('tr').addClass('tables-hover');
-
-            $(this).parent('span').addClass('checked');
-        }else{
-            _zhixingRenTable.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            _zhixingRenTable.find('tbody').find('tr').removeClass('tables-hover');
-
-            $(this).parent('span').removeClass('checked');
-        }
-    });
-    //增加负责人确定按钮（静态）
-    $('.addZXR').click(function (){
-        var zxrList = _zhixingRenTable.children('tbody').find('.checked');
-        for(var i=0;i<_allZXRArr.length;i++){
-            for(var j=0;j<zxrList.length;j++){
-                var bianma = zxrList.eq(j).parents('tr').children('.zxrnum').html();
-                if( _allZXRArr[i].userNum == bianma ){
-                    if(_zhixingRens.length == 0){
-                        _zhixingRens.push(_allZXRArr[i]);
-                    }else{
-                        var isExist = false;
-                        for(var z=0;z<_zhixingRens.length;z++){
-                            if(_zhixingRens[z].userNum == _allZXRArr[i].userNum){
-                                isExist = true;
-                                break;
-                            }
-                        }
-                        if(isExist){
-
-                        }else{
-                            _zhixingRens.push(_allZXRArr[i]);
-                        }
-                    }
-                }
-            }
-        }
-        datasTable($('#personTable1'),_zhixingRens);
-    })
-    //删除负责任人按钮
-    $('#personTable1 tbody').on('click','.tableDeleted',function(){
-        var $thisBM = $(this).parents('tr').children('.wxRen').html();
-        for(var i=0;i<_zhixingRens.length;i++){
-            if(_zhixingRens[i].userNum == $thisBM){
-                $('.zxrGH').val(_zhixingRens[i].userNum);
-                $('.zxrXM').val(_zhixingRens[i].userName);
-                $('.zxrDH').val(_zhixingRens[i].mobile);
-            }
-        }
-        _moTaiKuang($('#myModal8'), '确认要删除吗？', '', '' ,'', '删除');
-    });
-    //删除负责人确定按钮
-    $('.removeWorkerButton').click(function(){
-        var $thisBM = $('.zxrGH').val();
-        _zhixingRens.removeByValue($thisBM,'userNum');
-        datasTable($('#personTable1'),_zhixingRens);
-    });
-    $('.confirm').click(function(){
-        $(this).parents('.modal').modal('hide');
-    });
-    // 登记按钮
-    $('.creatButton').click(function(){
-
-        //查看图片初始化
-        _imgNum = 0;
-
-        $('.seeBlock').hide();
-        $('.gdly').parents('li').show();
-        //修改确定按钮
-        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记')
-        $('#myModal').find('.btn-primary').addClass('dengji').removeClass('paigongButton').removeClass('bianji').html('登记');
-        //初始化弹窗
-        //样式初始化
-        $('#workDones').find('input').attr('disabled',false).removeClass('disabled-block');
-        $('#workDones').find('select').attr('disabled',false).removeClass('disabled-block');
-        $('#workDones').find('textarea').attr('disabled',false).removeClass('disabled-block');
-        //数据初始化
-        workDones.picked = 0;
-        $('#workDones').find('.inpus').parent('span').removeClass('checked');
-        $('#workDones').find('#twos1').parent('span').addClass('checked');
-        workDones.rwlx = 4;
-        workDones.telephone = '';
-        workDones.person = '';
-        workDones.place = '';
-        workDones.sbSelect = '';
-        workDones.sbLX = '';
-        workDones.sbMC = '';
-        workDones.azAddress = '';
-        workDones.weixiukeshis = '';
-        $('.remarkDes').val('');
-        _zhixingRens = [];
-        datasTable($('#personTable1'),_zhixingRens);
-        workDones.whether = 0;
-        workDones.lineRoute = '';
-        workDones.section = '';
-        workDones.matter = '';
-        var _inittime = moment().format('YYYY/MM/DD HH:mm:ss');
-        $('.otime').val(_inittime);
-        $('.zhiXingRenYuanButton').show();
-    });
-    $('#myModal')
-    //登记
-        .on('click','.dengji',function(){
-            //判断必填项是否都填了
-            if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else{
-                var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
-                var fzrArr = [];
-                for(var i=0;i<_zhixingRens.length;i++){
-                    var obj = {};
-                    obj.wxRen = _zhixingRens[i].userNum;
-                    obj.wxRName = _zhixingRens[i].userName;
-                    obj.wxRDh = _zhixingRens[i].mobile;
-                    if(_zhixingRens[i].userNum == best){
-                        obj.wxRQZ = 1;
-                    }else{
-                        obj.wxRQZ = 0;
-                    }
-                    fzrArr.push(obj);
-                }
-                var gdInfo = {
-                    gdJJ:workDones.picked,
-                    gdLeixing:workDones.rwlx,
-                    bxDianhua:workDones.telephone,
-                    bxRen:workDones.person,
-                    wxDidian:workDones.place,
-                    bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                    wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                    wxShebei:workDones.sbSelect,
-                    dcName:workDones.sbLX,
-                    dName:workDones.sbMC,
-                    installAddress:workDones.azAddress,
-                    wxKeshi:workDones.weixiukeshis,
-                    bxBeizhu:$('.remarkDes').val(),
-                    //gdWxLeaders:fzrArr,
-                    gdSrc:1,
-                    bxKeshiNum:workDones.section,
-                    wxShiXNum:workDones.matter,
-                    userId:_userIdNum,
-                    userName:_userIdName,
-                    gdRange:workDones.whether,
-                    gdFsShij:$('.otime').val()
-                }
-                //判断_obj和_fzrObjext是否为空
-                if( $.isEmptyObject(_obj) && $.isEmptyObject(_fzrObj) ){
-                    //为空，添加
-                    _obj = {
-                        gdJJ:workDones.picked,
-                        gdLeixing:workDones.rwlx,
-                        bxDianhua:workDones.telephone,
-                        bxRen:workDones.person,
-                        wxDidian:workDones.place,
-                        bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                        wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                        wxShebei:workDones.sbSelect,
-                        dcName:workDones.sbLX,
-                        dName:workDones.sbMC,
-                        installAddress:workDones.azAddress,
-                        wxKeshi:workDones.weixiukeshis,
-                        bxBeizhu:$('.remarkDes').val(),
-                        //gdWxLeaders:fzrArr,
-                        gdSrc:1,
-                        userId:_userIdNum,
-                        userName:_userIdName,
-                        gdCodeSrc:workDones.gdly,
-                        bxKeshiNum:workDones.section,
-                        wxShiXNum:workDones.matter,
-                        gdRange:workDones.whether,
-                        gdFsShij:$('.otime').val()
-                    };
-                    _fzrObj = fzrArr;
-                    var gdInfo1 = {
-                        gdJJ:workDones.picked,
-                        gdLeixing:workDones.rwlx,
-                        bxDianhua:workDones.telephone,
-                        bxRen:workDones.person,
-                        wxDidian:workDones.place,
-                        bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                        wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                        wxShebei:workDones.sbSelect,
-                        dcName:workDones.sbLX,
-                        dName:workDones.sbMC,
-                        installAddress:workDones.azAddress,
-                        wxKeshi:workDones.weixiukeshis,
-                        bxBeizhu:$('.remarkDes').val(),
-                        gdWxLeaders:fzrArr,
-                        gdSrc:1,
-                        userID:_userIdNum,
-                        userName:_userIdName,
-                        gdCodeSrc:workDones.gdly,
-                        bxKeshiNum:workDones.section,
-                        wxShiXNum:workDones.matter,
-                        gdRange:workDones.whether,
-                        gdFsShij:$('.otime').val()
-                    }
-                    $.ajax({
-                        type:'post',
-                        url:_urls + 'YWGD/ywGDCreDJ',
-                        data:gdInfo1,
-                        success:function(result){
-                            if(result == 99){
-                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                                $('#myModal').modal('hide');
-                                //更新状态
-                                conditionSelect()
-                            }else{
-                                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
-                            }
-                        },
-                        error:function(jqXHR, textStatus, errorThrown){
-                            console.log(jqXHR.responseText);
-                        }
-                    })
-                }else{
-                    //不为空，判断是否相等
-                    if( isEqual(_obj,gdInfo) && objectInArr(_fzrObj,fzrArr)){
-                        _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'不能重复添加！', '');
-                    }else{
-                        var gdInfo1= {
-                            gdJJ:workDones.picked,
-                            gdLeixing:workDones.rwlx,
-                            bxDianhua:workDones.telephone,
-                            bxRen:workDones.person,
-                            wxDidian:workDones.place,
-                            bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                            wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                            wxShebei:workDones.sbSelect,
-                            dcName:workDones.sbLX,
-                            dName:workDones.sbMC,
-                            installAddress:workDones.azAddress,
-                            wxKeshi:workDones.weixiukeshis,
-                            bxBeizhu:$('.remarkDes').val(),
-                            gdWxLeaders:fzrArr,
-                            gdSrc:1,
-                            userID:_userIdNum,
-                            userName:_userIdName,
-                            bxKeshiNum:workDones.section,
-                            wxShiXNum:workDones.matter,
-                            gdRange:workDones.whether,
-                            gdFsShij:$('.otime').val()
-                        }
-                        $.ajax({
-                            type:'post',
-                            url:_urls + 'YWGD/ywGDCreDJ',
-                            data:gdInfo1,
-                            success:function(result){
-                                if(result == 99){
-                                    //更新状态
-                                    upData();
-                                    if(_upDateStateFlag == true){
-                                        _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                                        $('#myModal').modal('hide');
-                                    }
-                                    //更新状态
-                                    conditionSelect()
-                                }else{
-                                    _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'添加失败！', '');
-                                }
-                            },
-                            error:function(jqXHR, textStatus, errorThrown){
-                                console.log(jqXHR.responseText);
-                            }
-                        })
-                    }
-                }
-            }
-        })
-        //编辑
-        .on('click','.bianji',function(){
-            if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.section  == '' ){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-            }else{
-                upDateWXRemark(1);
-                editGD(1);
-            }
-        })
-        //下发
-        .on('click','.paigongButton',function(){
-            //首先判断是否选择了负责人
-            if(_zhixingRens.length){
-                //先判断是第一次下发还是重发
-                if(_gdState == 5){
-                    //调用重发接口
-                    upDateWXRemark(3);
-                    _gdCircle = parseInt(_gdCircle) + 1;
-                    reSend(3);
-                    assigFZR(3);
-                }else{
-                    //更新负责人
-                    upData(2);
-                    assigFZR(2);
-                    upDateWXRemark(2);
-
-                }
-                conditionSelect();
-            }else{
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择工长', '');
-            }
-        })
-
+    //主表格操作-------------------------------------------------------------------------
     //查询
-    $('#selected').on('click',function(){
+    $('#selected').click(function(){
+
         conditionSelect();
-        //同一车站不闭环隐藏
-        $('.associated-station').hide();
-    });
+
+    })
 
     //重置
     $('.resites').click(function(){
-        $('.filterInput').val('');
-        //时间置为今天
-        $('.min').val(_initStart);
-        $('.max').val(_initEnd);
-    })
 
-    $('#myModal7').on('click','.xzDepartment',function(){
-        _departmentArr = [];
-        $('#tree-block').show();
-        //加载部门
-        getDpartment()
-    })
-    //选择部门确定按钮
-    $('.determineDepartment').click(function(){
+        //input，select，textarea清空
+        $('.condition-query').eq(0).find('input').val('');
 
-        $('#xzmc').val(_determineDeObj.name);
-        $('#zxbm').val(_determineDeObj.id);
+        //时间初始化
+        $('.condition-query').eq(0).find('.datatimeblock').eq(0).val(st);
 
-        _autoOrHand = 2;
-        $('#tree-block').hide();
+        $('.condition-query').eq(0).find('.datatimeblock').eq(1).val(now);
 
-        var arr = [];
-
-        datasTable($('#zhixingRenTable'),arr);
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
 
     })
-    //选择部门取消按钮
-    $('.close-tree').click(function(){
-        $('#tree-block').hide();
+
+    //登记
+    $('.creatButton').click(function(){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        //初始化
+        detailedInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '登记', '', '' ,'', '登记')
+
+        //是否可操作
+        abledOption();
+
+        //类名
+        $('#myModal').find('.modal-footer').children('.btn-primary').addClass('dengji');
+
+        //隐藏不需要的部分
+        $('#myModal').find('.seeBlock').hide();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
+
+        //线路显示隐藏
+        //线路显示
+        if( __routeShow){
+
+            $('.routeShow').show();
+
+        }else{
+
+            $('.routeShow').hide();
+
+        }
+
+        //执行人按钮隐藏
+        $('.zhiXingRenYuanButton').parents('.divBlock').show();
+
     })
-    //条件查询人员
-    $('.zhixingButton').click(function(){
-        _determineDeObj.userName = $('#zxName').val();
-        _determineDeObj.userNum = $('#zxNum').val();
-        fzr();
+
+    //登记确定按钮
+    $('#myModal').on('click','.dengji',function(){
+
+        editRegister('YWGD/ywGDCreDJ',false,'登记成功！','登记失败！')
+
     })
-    //取消按钮
+
+    //取消
     $('.zuofei').click(function(){
         //判断是否选了工单
         if(_gdCode == ''){
+
             _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择要取消的工单！', '');
+
         }else{
+
             //弹出取消弹窗
             _moTaiKuang($('#myModal9'), '取消', '', '' ,'', '取消');
+
         }
     })
+
+    //取消确定按钮
     //取消确定按钮
     $('#myModal9').on('click','.btn-primary',function(){
+
         //先保存了取消理由，再取消工单
         var prm = {
+            //工单号
             'gdCode':_gdCode,
+            //取消理由
             'wxBeizhu':$('#myModal9').find('textarea').val(),
+            //用户id
             'userID':_userIdNum,
+            //用户名
             'userName':_userIdName,
             'gdZht':'0'
         }
@@ -978,6 +579,12 @@ $(function(){
                         type:'post',
                         url:_urls + 'YWGD/ywGDDel',
                         data:prm,
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
                         success:function(result){
                             if(result == 99){
                                 _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单取消成功！', '');
@@ -1000,201 +607,860 @@ $(function(){
             }
         })
     });
-    //同一车站未闭环工单的查看按钮
-    $('#table-other').on('click','.option-see',function(){
 
-        //查看图片初始化
-        _imgNum = 0;
+    //表格按钮【下发】
+    $('#scrap-datatables tbody').on('click','.option-option',function(e){
 
-        $('.showImage').html('没有图片').hide();
+        //初始化
+        detailedInit();
 
-        _moTaiKuang($('#myModal0'), '工单详情', 'flag', '' ,'', '');
-        //工单详情，赋值
-        var gongDanCode = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcode');
-        var gongDanState = $(this).parents('tr').children('.ztz').html();
-        var gongDanCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
-        _gdCode = gongDanCode;
+        //绑定数据
+        bindData($(this));
+
+        //模态框
+        _moTaiKuang($('#myModal'),'下发','','','','下发');
+
+        //是否可操作
+        disabledOption();
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').addClass('paigongButton').removeClass('dengji').removeClass('bianji');
+
+        //显示需要的部分
+        $('#myModal').find('.seeBlock').show();
+
+        $('.routeShow').hide();
+
+        //执行人按钮显示
+        $('.zhiXingRenYuanButton').parents('.divBlock').show();
+
+        //阻止事件冒泡
+        e.stopPropagation();
+
+        $('.associated-station').hide();
+
+    })
+
+    //表格按钮【编辑】
+    $('#scrap-datatables tbody').on('click','.option-edit',function(e){
+
+        //初始化
+        detailedInit();
+
+        //模态框
+        bindData($(this));
+
+        //绑定数据
+        _moTaiKuang($('#myModal'),'编辑','','','','保存');
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('paigongButton');
+
+        //是否可操作
+        abledOption();
+
+        //显示需要的部分
+        $('#myModal').find('.seeBlock').hide();
+
+        if( __routeShow){
+
+            $('.routeShow').show();
+
+        }else{
+
+            $('.routeShow').hide();
+
+        }
+
+        //执行人按钮隐藏
+        $('.zhiXingRenYuanButton').parents('.divBlock').hide();
+
+        //阻止事件冒泡
+        e.stopPropagation();
+
+        $('.associated-station').hide();
+
+    })
+
+    //【下发确定按钮】
+    $('#myModal').on('click','.paigongButton',function(){
+
+        //首先判断是否选择了负责人
+        if(_zhixingRens.length){
+
+            $('#theLoading').modal('show');
+
+            //先判断是第一次下发还是重发
+            if(_gdStatus == 5){
+
+                //调用重发接口
+                upDateWXRemark(3);
+
+                _gdCircle = parseInt(_gdCircle) + 1;
+
+                reSend(3);
+
+                assigFZR(3);
+
+            }else{
+                //更新负责人
+
+                upData(2);
+
+                assigFZR(2);
+
+                upDateWXRemark(2);
+
+            }
+
+        }else{
+
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择工长', '');
+
+        }
+
+    })
+
+    //【编辑确定按钮】
+    $('#myModal').on('click','.bianji',function(){
+
+        if( detaileVue.telephone == '' || detaileVue.person == '' || detaileVue.place == '' || detaileVue.matter == '' || detaileVue.section  == '' ){
+
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+
+        }else{
+
+            $('#theLoading').modal('show');
+
+            //维修备注
+            upDateWXRemark(1);
+            //编辑
+            editRegister('YWGD/ywGDUpt',true,'','');
+        }
+
+    })
+
+    //当点击表格的时候，将所有的未闭环表格显示出来
+    $('#scrap-datatables tbody').on('click','tr',function(){
+
+        //样式
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
+        var gdCode = $(this).children('.gongdanId').children().attr('gdcode');
+
+        var gdStatus = $(this).children('.gongdanId').children().attr('gdztz');
+
+        var gdCircle = $(this).children('.gongdanId').children().attr('gdcircle');
+
+        var cheStr = '';
+
+        _gdCode = gdCode;
+
+        //获取车间
         var prm = {
-            'gdCode':gongDanCode,
-            'gdZht':gongDanState,
+
+            //工单号
+            'gdCode':gdCode,
+            //工单状态
+            'gdZht':gdStatus,
+            //当前用户id
             'userID':_userIdNum,
+            //当前用户名
             'userName':_userIdName,
-            'gdCircle':gongDanCircle
+            //重派值
+            'gdCircle':gdCircle
+
         }
         $.ajax({
+
             type:'post',
             url:_urls + 'YWGD/ywGDGetDetail',
             data:prm,
+            timeout:_theTimes,
             success:function(result){
-                $.ajax({
-                    type:'post',
-                    url: _urls + 'YWGD/ywGDGetDetail',
-                    data:prm,
-                    success:function(result){
-                        var progressBarList = $('.progressBarList');
-                        //绑定弹窗数据
-                        if(result.gdJJ == 1){
-                            $('.inpus').parent('span').removeClass('checked');
-                            $('#ones').parent('span').addClass('checked');
-                        }else{
-                            $('.inpus').parent('span').removeClass('checked');
-                            $('#twos').parent('span').addClass('checked');
-                        }
-                        if (result.gdRange == 1) {
-                            $('#myApp33').find('.whether').parent('span').removeClass('checked');
-                            $('#myApp33').find('#four').parent('span').addClass('checked');
-                        } else {
-                            $('#myApp33').find('.whether').parent('span').removeClass('checked');
-                            $('#myApp33').find('#three').parent('span').addClass('checked');
-                        }
-                        $('.otime').val(result.gdFsShij);
-                        //app33.picked = result.gdJJ;
-                        app33.telephone = result.bxDianhua;
-                        app33.person = result.bxRen;
-                        app33.place = result.wxDidian;
-                        app33.section = result.bxKeshi;
-                        app33.matter = result.wxShiX;
-                        app33.sections = result.wxKeshi;
-                        app33.remarks = result.bxBeizhu;
-                        app33.wxbeizhu = result.wxBeizhu;
-                        app33.sbSelect = result.wxShebei;
-                        app33.sbLX = result.dcName;
-                        app33.sbMC = result.dName;
-                        app33.sbBM = result.ddName;
-                        app33.azAddress = result.installAddress;
-                        app33.rwlx = result.gdLeixing;
-                        _imgNum = result.hasImage;
-                        app33.gdly = result.gdCodeSrc;
-                        datasTable($('#personTable10'),result.wxRens);
-                        datasTable($('#personTables10'),result.wxCls);
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                        console.log(jqXHR.responseText);
+
+                if(result){
+
+                    cheStr = result.bxKeshiNum;
+
+                    //获取同一车站的段未闭环工单
+                    var prm = {
+                        "gdZht": 0,
+                        'gdZhts':[1,2,3,4,5,6],
+                        'userID':_userIdNum,
+                        'userName':_userIdName,
+                        'bxKeshiNum':cheStr,
+                        'gdCircle':gdCircle
                     }
-                });
-                //综合
-                logInformation(0);
+                    $.ajax({
+                        type:'post',
+                        url:_urls + 'YWGD/ywGDGetZh2',
+                        data:prm,
+                        beforeSend: function () {
+                            $('#theLoading').modal('show');
+                        },
+                        complete: function () {
+                            $('#theLoading').modal('hide');
+                        },
+                        success:function(result){
+                            var arr = [];
+
+                            for(var i=0;i<result.length;i++){
+
+                                if(_gdCode != result[i].gdCode ){
+
+                                    arr.push(result[i]);
+
+                                }
+                            }
+
+                            if(arr.length>0){
+
+                                $(".associated-station").show();
+
+                                _datasTable($("#table-other"),arr);
+
+                            }else{
+
+                                $(".associated-station").hide();
+
+                            }
+                        }
+                    })
+
+                }
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
+
         })
+
+    })
+
+    //未闭环工单【查看】
+    $('#table-other tbody').on('click','.option-see',function(){
+
+        //初始化
+        unLoopInit();
+
+        //模态框
+        _moTaiKuang($('#myModal0'),'查看','flag','','','');
+
+        //绑定数据
+        unLoopBindData($(this));
+
+        //不可操作
+        unLoopDisAbled();
+
+    })
+
+    //第一层模态框-------------------------------------------------------------------------
+
+    //线路、车站联动
+    $('.line-route').on('change',function(){
+
+        var values = $(this).val();
+
+        var about = $(this).parents('.floatLi').next().find('select');
+
+        var str = '<option value="">请选择</option>';
+
+        if(values == ''){
+
+            //所有车站
+            for(var i=0;i<_stationArr.length;i++){
+
+                str += '<option value="' + _stationArr[i].ddNum +
+                    '">' + _stationArr[i].ddName + '</option>'
+
+            }
+
+
+        }else{
+
+            for(var i=0;i<_lineArr.length;i++){
+
+                if(values == _lineArr[i].dlNum){
+
+                    for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                        str += '<option value="' + _lineArr[i].deps[j].ddNum + '">' + _lineArr[i].deps[j].ddName + '</option>'
+
+                    }
+                }
+            }
+        }
+
+        $(about).empty().append(str);
+
+    })
+
+    //选择执行人
+    $('#myModal').on('click','.zhiXingRenYuanButton',function(){
+
+        //初始化
+        //输入框
+        $('#myModal7').find('.gongdanList').find('input').val('');
+
+        //表格数据初始化
+        _datasTable($('#zhixingRenTable'),_allZXRArr);
+
+        //模态框
+        _moTaiKuang($('#myModal7'), '添加责任人', '', '' ,'', '添加负责人');
+
+        //根据已选择的车站，确定部门
+        //点击的时候获得选择的车间的bm的值
+        var bm = $('.cjz').children('option:selected').attr('bm');
+
+        var mc = '';
+
+        //通过部门编码找部门名称
+        for(var i=0;i<_departmentArr.length;i++){
+
+            if(_departmentArr[i].id == bm){
+
+                mc = _departmentArr[i].name;
+
+            }
+        }
+
+        //加载负责人数据
+        $('#xzmc').val(mc);
+        $('#zxbm').val(bm);
+        $('#zxName').val('');
+        $('#zxNum').val('');
+
+        //数据加载
+        fzr();
+    })
+
+    //已选择的执行人的删除按钮
+    $('#personTable1 tbody').on('click','.tableDeleted',function(){
+
+        //样式
+        $('#personTable1 tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        var $thisBM = $(this).parents('tr').children('.wxRen').html();
+
+        for(var i=0;i<_zhixingRens.length;i++){
+
+            if(_zhixingRens[i].userNum == $thisBM){
+
+                $('.zxrGH').val(_zhixingRens[i].userNum);
+
+                $('.zxrXM').val(_zhixingRens[i].userName);
+
+                $('.zxrDH').val(_zhixingRens[i].mobile);
+            }
+        }
+
+        _moTaiKuang($('#myModal8'), '确认要删除吗？', '', '' ,'', '删除');
+
+    })
+
+    //删除负责人静态按钮
+    $('.removeWorkerButton').click(function(){
+
+        var $thisBM = $('.zxrGH').val();
+
+        _zhixingRens.removeByValue($thisBM,'userNum');
+
+        _datasTable($('#personTable1'),_zhixingRens);
+
+        //模态框消失
+        $('#myModal8').modal('hide');
+
     });
 
-    //不打印部分
-    noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
-    /*------------------------------------其他方法-------------------------------*/
-    //条件查询
+    //表格中的input事件
+    $('#personTable1').find('tbody').on( 'click', 'input', function () {
+
+        if($(this).parents('.checker').children('.checked').length == 0){
+
+            $(this).parent($('span')).addClass('checked');
+
+        }else{
+
+            $(this).parent($('span')).removeClass('checked');
+
+        }
+    });
+
+    //第二层模态框------------------------------------------------------------------------
+
+    //条件选择负责人
+    $('#myModal7').on('click','.zhixingButton',function(){
+
+        fzr();
+
+    })
+
+    //选择部门
+    $('#myModal7').on('click','.xzDepartment',function(){
+
+        _departmentArr = [];
+
+        $('#tree-block').show();
+
+        //加载部门
+        getDpartment()
+    })
+
+    //选择部门确定按钮
+    $('.determineDepartment').click(function(){
+
+        $('#xzmc').val(_determineDeObj.name);
+
+        $('#zxbm').val(_determineDeObj.id);
+
+        $('#tree-block').hide();
+
+        //初始化执行人表格
+        var arr = [];
+
+        _datasTable($('#zhixingRenTable'),arr);
+
+    })
+
+    //选择部门取消按钮
+    $('.close-tree').click(function(){
+
+        $('#tree-block').hide();
+
+    })
+
+    //表格选择执行人事件(点击表格就选中)
+    $('#zhixingRenTable tbody').on('click','tr',function(){
+
+        var lengths = $(this).find('input').parent('.checked').length
+
+        if(lengths == 0){
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent('span').addClass('checked');
+
+        }else{
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent('span').removeClass('checked');
+
+        }
+
+    })
+
+    //确定执行人
+    $('#myModal7').on('click','.addZXR',function(){
+
+        //维修班组不可为空
+        if( $('#xzmc').val() == '' || $('#zxbm').val() == '' ){
+
+            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请选择维修班组！', '');
+
+        }else{
+
+            var zxrList = $('#zhixingRenTable').children('tbody').find('.checked');
+
+            for(var i=0;i<_allZXRArr.length;i++){
+
+                for(var j=0;j<zxrList.length;j++){
+
+                    var bianma = zxrList.eq(j).parents('tr').children('.zxrnum').html();
+
+                    if( _allZXRArr[i].userNum == bianma ){
+
+                        if(_zhixingRens.length == 0){
+
+                            _zhixingRens.push(_allZXRArr[i]);
+
+                        }else{
+                            var isExist = false;
+
+                            for(var z=0;z<_zhixingRens.length;z++){
+
+                                if(_zhixingRens[z].userNum == _allZXRArr[i].userNum){
+
+                                    isExist = true;
+
+                                    break;
+                                }
+                            }
+                            if(isExist){
+
+                            }else{
+
+                                _zhixingRens.push(_allZXRArr[i]);
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            _datasTable($('#personTable1'),_zhixingRens);
+
+            //模态框消失
+            $('#myModal7').modal('hide');
+
+            //维修班组信息
+            _wxObj.wxName = $('#xzmc').val();
+
+            _wxObj.wxNum = $('#zxbm').val();
+
+        }
+
+
+    })
+
+    /*-------------------------------------其他方法------------------------------------*/
+
     function conditionSelect(){
+
         //获取条件
         var filterInput = [];
-        var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
+
+        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
+
+        for (var i = 0; i < filterInputValue.length; i++) {
+
             filterInput.push(filterInputValue.eq(i).val());
+
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        var values = '';
+
+        var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+        if( typeof flag == 'undefined' ){
+
+            values = '';
+
+        }else{
+
+            values = flag;
+
+        }
+
         var prm = {
-            'gdCode2':filterInput[0],
-            'gdSt':realityStart,
-            'gdEt':realityEnd,
-            'bxKeshi':filterInput[1],
-            'wxKeshi':'',
+            //工单号
+            'gdCode2': filterInput[0],
+            //开始时间
+            'gdSt': $('.min').val(),
+            //结束时间
+            'gdEt': moment($('.max').val()).add(1,'d').format('YYYY/MM/DD'),
+            //车站
+            'bxKeshiNum': values,
+            //工单状态
             "gdZht": 1,
-            'userID':_userIdNum,
-            'userName':_userIdName
+            //当前用户id
+            'userID': _userIdNum,
+            //当前用户姓名
+            'userName': _userIdName,
+        };
+
+        var wbzArr = [];
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_ABZArr.length;i++){
+
+                wbzArr.push(_ABZArr[i].departNum);
+
+            }
+
+            prm.wxKeshis = _ABZArr;
+
+        }else if(_AisBZ){
+
+            prm.wxKeshi = _maintenanceTeam;
+
         }
+
         $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetDJ',
-            async:false,
-            data:prm,
-            success:function(result){
-                datasTable($("#scrap-datatables"),result);
+            type: 'post',
+            url: _urls + 'YWGD/ywGDGetDJ',
+            timeout:30000,
+            data: prm,
+            success: function (result) {
+
+                _datasTable($("#scrap-datatables"), result);
             },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //清除loadding
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+                }
+
             }
         })
+
     }
-    //dataTables表格填数据
-    function datasTable(tableId,arr){
-        if(arr.length == 0){
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnDraw();
+
+    //模态框初始化
+    function detailedInit(){
+
+        //工单号
+        detaileVue.gdCode = '';
+        //工单状态
+        detaileVue.state = '';
+        //工单类型
+        detaileVue.picked = 0;
+        //任务来源
+        detaileVue.gdly = 1;
+        //任务级别
+        detaileVue.rwlx = 4;
+        //报修电话
+        detaileVue.telephone = '';
+        //报修人信息
+        detaileVue.person = '';
+        //故障位置
+        detaileVue.place = '';
+        //线路
+        detaileVue.lineRoute = '';
+        //车站
+        detaileVue.section = '';
+        //系统类型
+        detaileVue.matter = '';
+        //设备编码
+        detaileVue.sbSelect = '';
+        //设备名称
+        detaileVue.sbMC = '';
+        //发生时间
+        $('#workDones').find('.otime').val('');
+        //工单登记时间
+        $('#workDones').find('.dtime').val('');
+        //故障描述
+        $('#workDones').find('.remarkDes').val('');
+        //维修内容
+        $('#workDones').find('#wxremark').val('');
+        //单选按钮
+        $('#uniform-twos1').parents('.input-blockeds').find('input').parent('span').removeClass('checked');
+
+        $('#uniform-twos1').children('span').addClass('checked');
+        //查看图片初始化
+        _imgNum = 0;
+
+        $('.showImage').html('没有图片');
+        //表格初始化
+        var arr = [];
+        _datasTable($('#personTable1'),arr);
+
+    }
+
+    //编辑、登记
+    //登记方法
+    function editRegister(url,flag,successMeg,errorMeg){
+
+        //验证非空
+        if(detaileVue.phone == '' || detaileVue.person == '' || detaileVue.place == '' || detaileVue.section == '' || detaileVue.matter == ''){
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
+
         }else{
-            var table = tableId.dataTable();
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
-        }
-    }
-    //模态框自适应
-    function _moTaiKuang(who, title, flag, istap ,meg, buttonName) {
-        who.modal({
-            show: false,
-            backdrop: 'static'
-        })
-        who.find('.modal-title').html(title);
-        who.modal('show');
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight) / 2;
-        who.find('.modal-dialog').css({'margin-top': markBlockTop});
-        if (flag) {
-            who.find('.btn-primary').hide();
-        } else {
-            who.find('.btn-primary').show();
-            who.find('.modal-footer').children('.btn-primary').html(buttonName);
-        }
-        if(istap){
-            who.find('.modal-body').html(meg);
-        }
-    }
-    //表格初始化方法
-    function tableInit(tableID,col,fun){
-        tableID.DataTable({
-            'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-            'paging': true,   //是否分页
-            'destroy': true,//还原初始化了的datatable
-            'searching': true,
-            'ordering': false,
-            "iDisplayLength":50,//默认每页显示的条数
-            'language': {
-                'emptyTable': '没有数据',
-                'loadingRecords': '加载中...',
-                'processing': '查询中...',
-                'lengthMenu': '每页 _MENU_ 条',
-                'zeroRecords': '没有数据',
-                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-                'infoEmpty': '没有数据',
-                'sSearch':'查询',
-                'paginate':{
-                    "previous": "上一页",
-                    "next": "下一页",
-                    "first":"首页",
-                    "last":"尾页"
+
+            //车站名称
+            var cheStr = '';
+
+            if($('#workDones').find('.cjz').val() == ''){
+
+                cheStr = '';
+
+            }else{
+
+                cheStr = $('#workDones').find('.cjz').children('option:selected').html();
+
+            }
+
+            var xtStr = '';
+
+            if($('#workDones').find('.xitong').val() == ''){
+
+                xtStr = ''
+
+            }else{
+
+                xtStr = $('#workDones').find('.xitong').children('option:selected').html();
+
+            }
+
+            //执行人数组
+            var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
+
+            var fzrArr = [];
+
+            for(var i=0;i<_zhixingRens.length;i++){
+                var obj = {};
+                obj.wxRen = _zhixingRens[i].userNum;
+                obj.wxRName = _zhixingRens[i].userName;
+                obj.wxRDh = _zhixingRens[i].mobile;
+                if(_zhixingRens[i].userNum == best){
+                    obj.wxRQZ = 1;
+                }else{
+                    obj.wxRQZ = 0;
                 }
-            },
-            "dom":'t<"F"lip>',
-            'buttons': [
-                {
-                    extend: 'excelHtml5',
-                    text: '保存为excel格式',
-                },
-            ],
-            'columns':col,
-            'rowCallback': fun
-        })
+                fzrArr.push(obj);
+            }
+
+            var prm = {
+                //工单类型
+                gdJJ: detaileVue.picked,
+                //工单编号来源
+                gdCodeSrc: detaileVue.gdly,
+                //任务级别
+                gdLeixing: detaileVue.rwlx,
+                //报修电话
+                bxDianhua: detaileVue.telephone,
+                //报修人
+                bxRen: detaileVue.person,
+                //故障位置
+                wxDidian: detaileVue.place,
+                //线路（不传）
+                //车站名称
+                bxKeshi:cheStr,
+                //车站编码
+                bxKeshiNum: detaileVue.section,
+                //系统类型名称
+                dcName:xtStr,
+                //系统类型编码
+                dcNum:detaileVue.matter,
+                //设备编码
+                dNum: detaileVue.sbSelect,
+                //维修设备（设备编码）
+                wxShebei: detaileVue.sbSelect,
+                //设备名称
+                dName: detaileVue.sbMC,
+                //故障发生时间
+                gdFsShij:$('.otime').val(),
+                //故障描述
+                bxBeizhu: $('#workDones').find('.remarkDes').eq(0).val(),
+                //用户id
+                userID: _userIdNum,
+                //维修事项
+                wxKeshi: '',
+                //工单来源
+                'gdSrc': 1,
+                //维修事项
+                wxShiX:xtStr,
+                //维修事项编码
+                wxShiXNum:detaileVue.matter,
+                //安装地点
+                installAddress:'',
+                //执行人
+                gdWxLeaders:fzrArr
+
+            };
+
+            if(flag){
+
+                prm.gdCode = _gdCode;
+
+            }
+
+            if(flag){
+
+                //编辑方法
+                $.ajax({
+
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    timeout:_theTimes,
+                    success:function(result){
+
+                        _editIsComplete = true;
+
+                        if(result == 99){
+
+                            _editIsSuccess = true;
+
+                        }else{
+
+                            _editIsSuccess = false;
+
+                        }
+
+                        editeWXbz();
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                        _editIsComplete = true;
+
+                        _editIsSuccess = false;
+
+                        console.log(jqXHR.responseText);
+                    }
+
+                })
+
+            }else{
+
+                //登记方法
+                $.ajax({
+
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+
+                        if(result == 99){
+
+                            _moTaiKuang($('#myModal4'),'提示',true,'istap',successMeg,'');
+
+                            $('#myModal').modal('hide');
+
+                            conditionSelect();
+
+                        }else{
+
+                            _moTaiKuang($('#myModal4'),'提示',true,'istap',errorMeg,'');
+
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                        console.log(jqXHR.responseText);
+                    }
+
+                })
+
+            }
+
+
+        }
+
     }
+
     //获得负责人列表数据
-    function fzr(){
+    function fzr(flag){
         var prm = {
             "userName2": $('#zxName').val(),
             "userNum": $('#zxNum').val(),
             "departNum": $('#zxbm').val(),
-            "roleNum": "",
             "userID": _userIdNum,
             "userName":_userIdName
         }
@@ -1204,17 +1470,63 @@ $(function(){
             data:prm,
             success:function(result){
 
-                _allZXRArr =[];
-                for(var i=0;i<result.length;i++){
-                    _allZXRArr.push(result[i]);
+                if(flag){
+
+                    _allZXRArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _allZXRArr.push(result[i]);
+
+                    }
+
                 }
-                datasTable($('#zhixingRenTable'),result)
+
+                _datasTable($('#zhixingRenTable'),result)
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })
     }
+
+    //车站列表
+    function stationData(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWDev/ywDMGetDDsII',
+            data:{
+                //当前用户id
+                'userID': _userIdNum,
+                //当前用户姓名
+                'userName': _userIdName
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option' + ' value="' + result[i].ddNum +'"' + 'bm="' + result[i].departNum +
+                        '">' + result[i].ddName + '</option>';
+                }
+
+                $('#myModal').find('.cjz').empty().append(str);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    getDpartment();
+
     //获取部门数据
     function getDpartment(){
         var prm = {
@@ -1228,6 +1540,7 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
+
                 for(var i=0;i<result.length;i++){
                     var obj = {};
                     obj.id = result[i].departNum;
@@ -1238,6 +1551,7 @@ $(function(){
                     }
                     _departmentArr.push(obj);
                 }
+
                 departmentTree();
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1245,234 +1559,7 @@ $(function(){
             }
         })
     }
-    //数组删除指定元素的值
-    Array.prototype.removeByValue = function(val,attr) {
-        for(var i=0; i<this.length; i++) {
-            if(this[i][attr] == val) {
-                this.splice(i, 1);
-                break;
-            }
-        }
-    }
-    //数组删除指定索引
-    Array.prototype.remove=function(obj){
-        for(var i =0;i <this.length;i++){
-            var temp = this[i];
-            if(!isNaN(obj)){
-                temp=i;
-            }
-            if(temp == obj){
-                for(var j = i;j <this.length;j++){
-                    this[j]=this[j+1];
-                }
-                this.length = this.length-1;
-            }
-        }
-    }
-    //更新状态
-    function upData(flag){
-        var gdInfo = {
-            gdCode :_gdCode,
-            gdZht : 2,
-            wxKeshi:'',
-            userID:_userIdNum,
-            userName:_userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDUptZht',
-            data:gdInfo,
-            async:false,
-            success:function(result){
-                _ztChangeComplete = true;
-                if(result == 99){
-                    _upDateStateFlag = true;
-                }else{
-                    _upDateStateFlag = false;
-                }
-                if(flag == 2){
-                    firstXF();
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-    //ajaxFun（select的值）
-    function ajaxFun(url,allArr,select,text,num,flag){
-        var prm = {
-            'userID':_userIdNum
-        }
-        prm[text] = '';
-        $.ajax({
-            type:'post',
-            url:_urls + url,
-            async:false,
-            data:prm,
-            success:function(result){
-                //给select赋值
-                var str = '<option value="">请选择</option>';
-                if(flag){
-                    for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][num] +'"' + 'bm="' + result[i].departNum +
-                            '">' + result[i][text] + '</option>'
-                        allArr.push(result[i]);
-                    }
-                }else{
-                    for(var i=0;i<result.length;i++){
-                        str += '<option' + ' value="' + result[i][num] +'">' + result[i][text] + '</option>'
-                        allArr.push(result[i]);
-                    }
-                }
-                select.append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-    //判断两个对象是否相同
-    function isEqual(obj1,obj2){
-        for(var name in obj1){
-            if(obj1[name]!==obj2[name]) return false;
-        }
-        for(var name in obj2){
-            if(obj1[name]!==obj2[name]) return false;
-        }
-        return true;
-    }
-    //数组中的对象比较
-    function objectInArr(arr1,arr2){
-        for(var i=0;i<arr1.length;i++){
-            for(var j=0;j<arr2.length;j++){
-                if( isEqual(arr1[i],arr2[j]) ){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
-    }
-    //编辑、下发的数据绑定
-    function editOrOption(el,flag){
 
-        //查看图片数据初始化
-        _imgNum = 0;
-
-        $('.showImage').html('没有图片').hide();
-
-        //清空一下执行人数组
-        _zhixingRens = [];
-        //当前行变色
-        if(flag == 2){
-            $this = el;
-        }else{
-            var $this = el.parents('tr');
-        }
-        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
-        $this.addClass('tables-hover');
-        //获取数据
-        var gongDanState = $this.children('.ztz').html();
-        var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
-        _gdCode = gongDanCode;
-        _gdState = gongDanState;
-        var prm = {
-            'gdCode':gongDanCode,
-            'gdZht':gongDanState,
-            'userID':_userIdNum,
-            'userName':_userIdName,
-            'gdCircle':_gdCircle
-        }
-        //每次获取弹出框中执行人员的数量
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetDetail',
-            async:false,
-            data:prm,
-            success:function(result){
-                if(result.gdJJ == 1){
-                    $('#workDones').find('.inpus').parent('span').removeClass('checked');
-                    $('#workDones').find('#ones1').parent('span').addClass('checked');
-                }else{
-                    $('#workDones').find('.inpus').parent('span').removeClass('checked');
-                    $('#workDones').find('#twos1').parent('span').addClass('checked');
-                }
-                if (result.gdRange == 1) {
-                    $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#four1').parent('span').addClass('checked');
-                } else {
-                    $('#workDones').find('.whether').parent('span').removeClass('checked');
-                    $('#workDones').find('#three1').parent('span').addClass('checked');
-                }
-                _chejian = result.bxKeshiNum;
-                //selecrt绑定值
-                if(result.bxKeshiNum == ''){
-                    workDones.section = 0;
-                }else{
-                    workDones.section = result.bxKeshiNum;
-                }
-                if(result.wxShiXNum == ''){
-                    workDones.matter = 0;
-                }else{
-                    workDones.matter = result.wxShiXNum;
-                }
-                //绑定弹窗数据
-                workDones.rwlx = result.gdLeixing;
-                workDones.telephone = result.bxDianhua;
-                workDones.person = result.bxRen;
-                workDones.place = result.wxDidian;
-                workDones.sbSelect = result.wxShebei;
-                workDones.sbLX = result.dcName;
-                workDones.sbMC = result.dName;
-                workDones.azAddress = result.installAddress;
-                workDones.weixiukeshis = result.wxKeshi;
-                workDones.gdCode = result.gdCode2;
-                workDones.state = stateTransform(result.gdZht);
-                $('.otime').val(result.gdFsShij);
-                $('.dtime').val(result.gdShij);
-                $('.remarkDes').val(result.bxBeizhu);
-                _imgNum = result.hasImage;
-                $('#wxremark').val(result.wxBeizhu);
-                _gdCircle = result.gdCircle;
-                //负责人(初始化);
-                //fzr = result.gdWxLeaders;
-                for(var i=0;i<result.gdWxLeaders.length;i++){
-                    var obj = {};
-                    obj.userName = result.gdWxLeaders[i].wxRName;
-                    obj.userNum = result.gdWxLeaders[i].wxRen;
-                    obj.mobile = result.gdWxLeaders[i].wxRDh;
-                    _zhixingRens.push(obj);
-                }
-                datasTable($('#personTable1'),_zhixingRens);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        });
-        //查看的时候，均不可操作。
-        if(flag == 1){
-            $('#workDones').find('input').attr('disabled',true).addClass('disabled-block');
-            $('#workDones').find('select').attr('disabled',true).addClass('disabled-block');
-            $('#workDones').find('textarea').attr('disabled',true).addClass('disabled-block');
-            _moTaiKuang($('#myModal'),'下发','','','','下发');
-            //显示选择负责人按钮
-            $('.zhiXingRenYuanButton').show();
-            $('#wxremark').attr('disabled',false).removeClass('disabled-block');
-        }else if(flag == 2){
-            return false
-        }else{
-            $('#workDones').find('input').attr('disabled',false).removeClass('disabled-block');
-            $('#workDones').find('select').attr('disabled',false).removeClass('disabled-block');
-            $('#workDones').find('textarea').attr('disabled',false).removeClass('disabled-block');
-            $('#workDones').find('.inpus').attr('disabled',true);
-            _moTaiKuang($('#myModal'),'编辑','','','','保存');
-            //隐藏选择负责人按钮
-            $('.zhiXingRenYuanButton').hide();
-            $('#wxremark').attr('disabled',false).removeClass('disabled-block');
-        }
-
-    }
     //ztree树
     function departmentTree(){
         var setting = {
@@ -1511,253 +1598,717 @@ $(function(){
         };
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);
     }
-    //更新维修备注（flag判断进行什么操作。1、编辑）；
+
+    //数据绑定
+    function bindData($this){
+
+        //样式
+        $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
+        $this.parents('tr').addClass('tables-hover');
+
+        _gdCode = $this.parents('tr').children('.gongdanId').children().attr('gdcode');
+
+        _gdStatus = $this.parents('tr').children('.gongdanId').children().attr('gdztz');
+
+        _gdCircle = $this.parents('tr').children('.gongdanId').children().attr('gdcircle');
+
+        var prm = {
+
+            //工单号
+            'gdCode':_gdCode,
+            //工单状态
+            'gdZht':_gdStatus,
+            //当前用户id
+            'userID':_userIdNum,
+            //当前用户名
+            'userName':_userIdName,
+            //重派值
+            'gdCircle':_gdCircle
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                //数据绑定
+                //工单号
+                detaileVue.gdCode = result.gdCode2;
+                //工单状态
+                detaileVue.state = stateTransform(result.gdZht);
+                //工单类型
+                detaileVue.picked = result.gdJJ;
+                //任务来源
+                detaileVue.gdly = result.gdCodeSrc;
+                //任务级别
+                detaileVue.rwlx = result.gdLeixing;
+                //报修电话
+                detaileVue.telephone = result.bxDianhua;
+                //报修人信息
+                detaileVue.person = result.bxRen;
+                //故障位置
+                detaileVue.place = result.wxDidian;
+                //线路(没有)
+                //车站
+                detaileVue.section = result.bxKeshiNum;
+                //系统类型
+                detaileVue.matter = result.wxShiXNum;
+                //设备编码
+                detaileVue.sbSelect = result.wxShebei;
+                //设备名称
+                detaileVue.sbMC = result.dName;
+                //发生时间
+                $('#workDones').find('.otime').val(result.gdFsShij);
+                //工单登记时间
+                $('#workDones').find('.dtime').val(result.gdShij);
+                //故障描述
+                $('#workDones').find('.remarkDes').val(result.bxBeizhu);
+                //维修内容
+                $('#workDones').find('#wxremark').val(result.wxBeizhu);
+                //单选按钮
+                $('#uniform-twos1').parents('.input-blockeds').find('input').parent('span').removeClass('checked');
+
+                $('#uniform-twos1').children('span').addClass('checked');
+                //查看图片初始化
+                _imgNum = result.hasImage;
+                //执行人
+                _zhixingRens.length = 0;
+
+                for(var i=0;i<result.gdWxLeaders.length;i++){
+
+                    var obj = {};
+
+                    obj.userName = result.gdWxLeaders[i].wxRName;
+
+                    obj.userNum = result.gdWxLeaders[i].wxRen;
+
+                    obj.mobile = result.gdWxLeaders[i].wxRDh;
+
+                    _zhixingRens.push(obj);
+                }
+                //表格初始化
+                _datasTable($('#personTable1'),_zhixingRens);
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    function stateTransform(ztz){
+        if (ztz == 1) {
+            return '待下发'
+        }
+        if (ztz == 2) {
+            return '待分派'
+        }
+        if (ztz == 3) {
+            return '待执行'
+        }
+        if (ztz == 4) {
+            return '执行中'
+        }
+        if (ztz == 5) {
+            return '等待资源'
+        }
+        if (ztz == 6) {
+            return '待关单'
+        }
+        if (ztz == 7) {
+            return '任务关闭'
+        }
+        if (ztz == 999) {
+            return '任务取消'
+        }
+    }
+
+    //可操作
+    function abledOption(){
+
+        $('#workDones').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        $('#workDones').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        $('#workDones').find('textarea').attr('disabled',false).removeClass('disabled-block');
+
+        //单选框
+        $('#uniform-ones1').parent().removeClass('disabled-block');
+
+    }
+
+    //不可操作
+    function disabledOption(){
+
+        $('#workDones').find('input').attr('disabled',true).addClass('disabled-block');
+
+        $('#workDones').find('select').attr('disabled',true).addClass('disabled-block');
+
+        $('#workDones').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+        //单选框
+        $('#uniform-ones1').parent().addClass('disabled-block');
+
+        //维修内容可以编辑
+        $('#wxremark').attr('disabled',false).removeClass('disabled-block');
+
+    }
+
+    //更新维修备注（flag判断进行什么操作。1、编辑，2、下发，3、重发）；
     function upDateWXRemark(flag){
         var prm = {
+            //工单
             "gdCode": _gdCode,
-            "gdZht": _gdState,
+            //工单状态值
+            "gdZht": _gdStatus,
+            //维修科室
             "wxKeshi": '',
+            //维修备注
             "wxBeizhu": $('#wxremark').val(),
+            //用户名id
             "userID": _userIdNum,
+            //用户名
             "userName":_userIdName
         };
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptWxBeizhu',
             data:prm,
-            async:false,
             success:function(result){
+
                 _wxIsComplete = true;
+
                 if(result == 99){
-                    _wxBZFlag = true;
+
+                    _wxIsSuccess = true;
+
                 }else{
-                    _wxBZFlag = false;
+
+                    _wxIsSuccess = false;
+
                 }
                 //判断编辑工单和维修备注是否成功
                 if(flag == 1){
+
                     editeWXbz();
+
                 }else if(flag == 2){
+
                     firstXF();
+
                 }else if(flag == 3){
+
                     secondXF();
+
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
+
+                _wxIsComplete = true;
+
+                _wxIsSuccess = false;
+
                 console.log(jqXHR.responseText);
             }
         })
     }
+
     //分配负责人
     function assigFZR(flag){
+
         var best = $('#personTable1 tbody').find('.checked').parents('tr').children('.wxRen').html();
+
         var fzrArr = [];
+
         for(var i=0;i<_zhixingRens.length;i++){
+
             var obj = {};
+
             obj.wxRen = _zhixingRens[i].userNum;
+
             obj.wxRName = _zhixingRens[i].userName;
+
             obj.wxRDh = _zhixingRens[i].mobile;
+
             obj.gdCode = _gdCode;
+
             if(_zhixingRens[i].userNum == best){
+
                 obj.wxRQZ = 1;
+
             }else{
+
                 obj.wxRQZ = 0;
+
             }
+
             fzrArr.push(obj);
         }
         //分配负责人
         var gdWR = {
+            //工单号
             gdCode : _gdCode,
+            //负责人
             gdWxRs : fzrArr,
+            //用户id
             userID : _userIdNum,
+            //用户名
             userName : _userIdName,
-            gdZht:_gdState,
+            //状态值
+            gdZht:_gdStatus,
+            //重发值
             gdCircle:_gdCircle
         }
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDAddWxLeader',
             data:gdWR,
-            async:false,
             success:function(result){
-                _fzrComplete = true;
+
+                _fzrIsComplete = true;
+
                 if(result == 99){
-                    _leaderFlag = true;
+
+                    _fzrIsSuccess = true;
+
                 }else{
-                    _leaderFlag = false;
+
+                    _fzrIsSuccess = false;
+
                 }
                 if(flag == 2){
+
                     firstXF();
+
+                }else if(flag == 3){
+
+                    secondXF();
+
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
+
+                _fzrIsComplete = true;
+
+                _fzrIsSuccess = false;
+
                 console.log(jqXHR.responseText);
             }
         })
     }
-    //编辑的确定按钮(flag,标明要做什么操作 1、编辑功能)
-    function editGD(flag){
-        if( workDones.telephone == '' || workDones.person == '' || workDones.place == '' || workDones.matter == '' || workDones.wxKeshi  == '' ){
-            _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
-        }else{
-            var gdInfo= {
-                gdCode:_gdCode,
-                gdJJ:workDones.picked,
-                bxDianhua:workDones.telephone,
-                bxRen:workDones.person,
-                wxDidian:workDones.place,
-                bxKeshi:$('.cjz').eq(0).children('option:selected').html(),
-                wxShiX:$('.xitong').eq(0).children('option:selected').html(),
-                wxShebei:workDones.sbSelect,
-                dcName:workDones.sbLX,
-                dName:workDones.sbMC,
-                installAddress:workDones.azAddress,
-                wxKeshi:workDones.weixiukeshis,
-                bxBeizhu:$('.remarkDes').val(),
-                gdSrc:1,
-                userID:_userIdNum,
-                gdLeixing:workDones.rwlx,
-                userName:_userIdName,
-                bxKeshiNum:workDones.section,
-                wxShiXNum:workDones.matter,
-                gdRange:workDones.whether,
-                gdFsShij:$('.otime').val()
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWGD/ywGDUpt',
-                data:gdInfo,
-                async:false,
-                success:function(result){
-                    _gdEditeComplete = true;
-                    if(result == 99){
-                        _editFlag = true;
-                    }else{
-                        _editFlag = false;
-                    }
-                    //判断编辑工单和维修备注是否成功
-                    if(flag == 1){
-                        editeWXbz();
-                    }
 
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            })
+    //第一次下发
+    function upData(flag){
+        var gdInfo = {
+            //工单号
+            gdCode :_gdCode,
+            //状态值
+            gdZht : 2,
+            //维修科室
+            wxKeshi:_wxObj.wxName,
+            //维修科室编码
+            wxKeshiNum:_wxObj.wxNum,
+            //当前用户id
+            userID:_userIdNum,
+            //当前用户名
+            userName:_userIdName
         }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZht',
+            data:gdInfo,
+            success:function(result){
+
+                _ztChangeIsComplete = true;
+
+                if(result == 99){
+
+                    _ztChangeIsSuccess = true;
+
+                }else{
+
+                    _ztChangeIsSuccess = false;
+
+                }
+                if(flag == 2){
+
+                    firstXF();
+
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _ztChangeIsComplete = true;
+
+                _ztChangeIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
+        })
     }
-    //不打印部分
-    function noPrint(el){
-        el.addClass('noprint')
-    }
+
     //重发接口
     function reSend(flag){
         var gi = {
+            //工单号
             "gdCode": _gdCode,
+            //工单状态
             "gdZht": 2,
+            //重发值
             "gdCircle": _gdCircle,
+            //用户id
             "userID": _userIdNum,
+            //用户名
             "userName": _userIdName
         }
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptZhtChP',
             data:gi,
-            async:false,
             success:function(result){
-                _reSendComplete = true;
+
+                _reSendIsComplete = true;
+
                 if(result == 99){
-                    _reSendFlag = true;
+
+                    _reSendIsSuccess = true;
+
                 }else{
-                    _reSendFlag = false;
+
+                    _reSendIsSuccess = false;
+
                 }
                 if(flag == 3){
+
                     secondXF();
+
                 }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _reSendIsComplete = true;
+
+                _reSendIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //第一次下发(2)
+    function firstXF(){
+
+        if( _ztChangeIsComplete && _fzrIsComplete && _wxIsComplete ){
+
+            //根据三个状态值提示
+            if(_fzrIsSuccess && _wxIsSuccess && _ztChangeIsSuccess){
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
+
+                $('#myModal').modal('hide');
+
+                conditionSelect();
+
+            }else{
+
+                var str = '';
+
+                if( _fzrIsSuccess == false ){
+
+                    str += '工长增加失败，'
+
+                }else{
+
+                    str += '工长增加成功，'
+
+                }
+
+                if( _wxIsSuccess == false ){
+
+                    str += '维修备注修改失败，'
+
+                }else{
+
+                    str += '维修备注修改成功，'
+
+                }
+
+                if( _ztChangeIsSuccess == false ){
+
+                    str += '工单下发失败！'
+
+                }else{
+
+                    str += '工单下发成功！'
+
+                }
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+            }
+
+            $('#theLoading').modal('hide');
+
+        }
+    }
+
+    //重发（3）
+    function secondXF(){
+
+        if( _wxIsComplete && _reSendIsComplete && _fzrIsComplete){
+
+            if(_fzrIsSuccess && _wxIsSuccess && _reSendIsSuccess){
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
+
+                $('#myModal').modal('hide');
+
+                conditionSelect()
+
+            }else{
+                var str = '';
+
+                if( _fzrIsSuccess == false ){
+
+                    str += '工长增加失败，'
+
+                }else{
+
+                    str += '工长增加成功，'
+
+                }
+                if( _wxIsSuccess == false ){
+
+                    str += '维修备注修改失败，'
+
+                }else{
+
+                    str += '维修备注修改成功，'
+
+                }
+                if( _reSendIsSuccess == false ){
+
+                    str += '工单重发失败！'
+
+                }else{
+
+                    str += '工单重发成功！'
+
+                }
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+            }
+
+            $('#theLoading').modal('hide');
+
+        }
+    }
+
+    //编辑、维修备注回调函数
+    function editeWXbz(){
+
+        if(_editIsComplete && _wxIsComplete){
+
+            //根据三个状态值提示
+            if( _wxIsSuccess && _editIsSuccess ){
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单编辑成功！', '');
+
+                $('#myModal').modal('hide');
+
+                conditionSelect();
+
+            }else{
+
+                var str = '';
+
+                if( _wxIsSuccess == false ){
+
+                    str += '维修内容修改失败，'
+
+                }else{
+
+                    str += '维修内容修改成功，'
+
+                }
+                if( _editIsSuccess == false ){
+
+                    str += '工单编辑失败！'
+
+                }else{
+
+                    str += '工单编辑成功！'
+
+                }
+
+                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
+
+            }
+
+            $('#theLoading').modal('hide');
+
+        }
+
+    }
+
+    //初始化
+    function unLoopInit(){
+
+        //工单类型
+        unclosedLoop.picked = '';
+        //工单来源
+        unclosedLoop.gdly = '';
+        //任务级别
+        unclosedLoop.rwlx = '';
+        //报修电话
+        unclosedLoop.telephone = '';
+        //报修人信息
+        unclosedLoop.person = '';
+        //故障位置
+        unclosedLoop.place = '';
+        //车站
+        unclosedLoop.section = '';
+        //系统类型
+        unclosedLoop.matter = '';
+        //设备编码
+        unclosedLoop.sbSelect = '';
+        //设备名称
+        unclosedLoop.sbMC = '';
+        //维修班组
+        unclosedLoop.sections = '';
+        //发生时间
+        $('#myApp33').find('.otime').val('');
+        //工单登记时间
+        $('#myApp33').find('.dtime').val('');
+        //故障描述
+        $('#myApp33').find('.remarks').val('');
+        //维修内容
+        $('#myApp33').find('.wxbeizhu').val('');
+        //表格
+        var arr = [];
+        //执行人员表格
+        _datasTable($('#personTable10'),arr);
+        //维修材料表格
+        _datasTable($('#personTables10'),arr);
+    }
+
+    //绑定数据
+    function unLoopBindData($this){
+
+        //样式修改
+        $('#table-other tbody').children('tr').removeClass('tables-hover');
+
+        $this.parents('tr').addClass('tables-hover');
+
+        var gdCode = $this.parents('tr').children('.gongdanId').children('').attr('gdcode');
+
+        var gdCircle = $this.parents('tr').children('.gongdanId').children('').attr('gdcircle');
+
+        var gdStatus = $this.parents('tr').children('.gongdanId').children('').attr('gdztz');
+
+        var prm = {
+            //工单号
+            'gdCode':gdCode,
+            //状态
+            'gdZht':gdStatus,
+            //用户id
+            'userID':_userIdNum,
+            //用户名
+            'userName':_userIdName,
+            //重发值
+            'gdCircle':gdCircle
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                //工单类型
+                unclosedLoop.picked = result.gdJJ;
+                //工单来源
+                unclosedLoop.gdly = result.gdCodeSrc;
+                //任务级别
+                unclosedLoop.rwlx = result.gdLeixing;
+                //报修电话
+                unclosedLoop.telephone = result.bxDianhua;
+                //报修人信息
+                unclosedLoop.person = result.bxRen;
+                //故障位置
+                unclosedLoop.place = result.wxDidian;
+                //车站
+                unclosedLoop.section = result.bxKeshi;
+                //系统类型
+                unclosedLoop.matter = result.wxShiX;
+                //设备编码
+                unclosedLoop.sbSelect = result.wxShebei;
+                //设备名称
+                unclosedLoop.sbMC = result.dName;
+                //维修班组
+                unclosedLoop.sections = result.wxKeshi;
+                //发生时间
+                $('#myApp33').find('.otime').val(result.gdFsShij);
+                //工单登记时间
+                $('#myApp33').find('.dtime').val(result.gdShij);
+                //故障描述
+                $('#myApp33').find('.remarks').val(result.bxBeizhu);
+                //维修内容
+                $('#myApp33').find('.wxbeizhu').val(result.wxBeizhu);
+                //执行人员表格
+                _datasTable($('#personTable10'),result.wxRens);
+                //维修材料表格
+                _datasTable($('#personTables10'),result.wxCls);
+
+                //单选按钮
+                if(result.gdJJ == 1){
+
+                    $('.inpus').parent('span').removeClass('checked');
+
+                    $('#ones').parent('span').addClass('checked');
+
+                }else{
+
+                    $('.inpus').parent('span').removeClass('checked');
+
+                    $('#twos').parent('span').addClass('checked');
+
+                }
+                //备件图片
+                _imgNum = result.hasImage;
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
+
         })
+
+        //处理过程
+        logInformation(0,gdCode);
     }
-    //线路
-    function lineRouteData(el) {
-        var prm = {
-            'userID':_userIdNum
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGetDLines',
-            data:prm,
-            success:function(result){
-                _lineArr = [];
-                var str = '<option value="">请选择</option>';
-                for(var i=0;i<result.length;i++){
-                    _lineArr.push(result[i]);
-                    str += '<option value="' + result[i].dlNum +
-                        '">' + result[i].dlName +'</option>'
-                }
-                el.append(str);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-    //IP替换
-    function replaceIP(str,str1){
-        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        var res = ip.exec(str1);  /*211.100.28.180*/
-        str = str.replace(ip,res);
-        return str;
-    }
-    //表格初始化(如果有flag，不显示导出按钮)
-    function initTable1(table,col,flag){
-        var table =  table.DataTable({
-            'autoWidth': false,  //用来启用或禁用自动列的宽度计算
-            'paging': true,   //是否分页
-            'destroy': true,//还原初始化了的datatable
-            'searching': true,
-            'ordering': false,
-            "iDisplayLength":50,//默认每页显示的条数
-            'language': {
-                'emptyTable': '没有数据',
-                'loadingRecords': '加载中...',
-                'processing': '查询中...',
-                'lengthMenu': '每页 _MENU_ 条',
-                'zeroRecords': '没有数据',
-                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-                'infoEmpty': '没有数据',
-                'sSearch':'查询',
-                'paginate':{
-                    "previous": "上一页",
-                    "next": "下一页",
-                    "first":"首页",
-                    "last":"尾页"
-                }
-            },
-            "dom":'t<"F"lip>',
-            'buttons': [
-                {
-                    extend: 'excelHtml5',
-                    text: '导出',
-                    className:'saveAs',
-                    exportOptions:{
-                        columns:[0,1,2,4,5,6,7]
-                    }
-                },
-            ],
-            'columns':col
-        });
-        if(flag){
-            table.buttons().container().appendTo($('.excelButton'),table.table().container());
-        }
-    }
-    //处理记录
-    //获取日志信息（备件logType始终传2）
-    function logInformation(logType){
+
+    //处理过程（日志）
+    function logInformation(logType,code){
+
+
         var gdLogQPrm = {
-            "gdCode": _gdCode,
+            "gdCode": code,
             "logType": logType,
             "userID": _userIdNum,
             "userName": _userIdName
@@ -1796,112 +2347,17 @@ $(function(){
             }
         })
     }
-    //状态值转换
-    function stateTransform(ztz){
-        if (ztz == 1) {
-            return '待下发'
-        }
-        if (ztz == 2) {
-            return '待分派'
-        }
-        if (ztz == 3) {
-            return '待执行'
-        }
-        if (ztz == 4) {
-            return '执行中'
-        }
-        if (ztz == 5) {
-            return '等待资源'
-        }
-        if (ztz == 6) {
-            return '待关单'
-        }
-        if (ztz == 7) {
-            return '任务关闭'
-        }
-        if (ztz == 999) {
-            return '任务取消'
-        }
-    }
-    //工单内容修改执行完毕并且维修备注修改执行完毕（1）
-    function editeWXbz(){
-        if( _wxIsComplete && _gdEditeComplete ){
-            //根据三个状态值提示
-            if( _wxBZFlag && _editFlag ){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单编辑成功！', '');
-                $('#myModal').modal('hide');
-            }else{
-                var str = '';
-                if( _wxBZFlag == false ){
-                    str += '维修内容修改失败，'
-                }else{
-                    str += '维修内容修改成功，'
-                }
-                if( _editFlag == false ){
-                    str += '工单编辑失败！'
-                }else{
-                    str += '工单编辑成功！'
-                }
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
-            }
-            conditionSelect();
-        }
-    }
-    //第一次下发(2)
-    function firstXF(){
-        if(_ztChangeComplete && _fzrComplete && _wxIsComplete){
-            //根据三个状态值提示
-            if(_leaderFlag && _wxBZFlag && _upDateStateFlag){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
-                $('#myModal').modal('hide');
-                conditionSelect();
-            }else{
-                var str = '';
-                if( _leaderFlag == false ){
-                    str += '工长增加失败，'
-                }else{
-                    str += '工长增加成功，'
-                }
-                if( _wxBZFlag == false ){
-                    str += '维修备注修改失败，'
-                }else{
-                    str += '维修备注修改成功，'
-                }
-                if( _upDateStateFlag == false ){
-                    str += '工单下发失败！'
-                }else{
-                    str += '工单下发成功！'
-                }
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
-            }
-        }
-    }
-    //重发（3）
-    function secondXF(){
-        if( _wxIsComplete && _reSendComplete && _fzrComplete){
-            if(_leaderFlag && _wxBZFlag && _reSendFlag){
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,'工单下发成功！', '');
-                $('#myModal').modal('hide');
-                conditionSelect()
-            }else{
-                var str = '';
-                if( _leaderFlag == false ){
-                    str += '工长增加失败，'
-                }else{
-                    str += '工长增加成功，'
-                }
-                if( _wxBZFlag == false ){
-                    str += '维修备注修改失败，'
-                }else{
-                    str += '维修备注修改成功，'
-                }
-                if( _reSendFlag == false ){
-                    str += '工单重发失败！'
-                }else{
-                    str += '工单重发成功！'
-                }
-                _moTaiKuang($('#myModal4'), '提示', 'flag', 'istap' ,str, '');
-            }
-        }
+
+    //不可操作
+    function unLoopDisAbled(){
+
+        $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+
+        $('#myApp33').find('select').attr('disabled',true).addClass('disabled-block');
+
+        $('#myApp33').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+        $('#uniform-ones').parent('div').attr('disabled',true).addClass('disabled-block');
+
     }
 })

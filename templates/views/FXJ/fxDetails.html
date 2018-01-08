@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>工单详情</title>
+    <title>返修件详情</title>
     <!--MyCss-->
     <link rel="stylesheet" href="../resource/css/bootstrap.css">
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
@@ -51,9 +51,9 @@
 </head>
 <body>
 <div class="gd-wrap">
-    <div style="border-bottom: 1px solid #ebebeb;margin-bottom: 20px;padding: 10px 0">
-        <h1>工单详情</h1>
-    </div>
+    <!--<div style="border-bottom: 1px solid #ebebeb;margin-bottom: 20px;padding: 10px 0">-->
+        <!--<h1>返修件详情</h1>-->
+    <!--</div>-->
     <div class="gongdanList" id="fxGoods">
         <div style="width: 600px !important;float: left">
             <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
@@ -118,12 +118,14 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                         <div class="single-labels"><span class="user-defined-department"></span>：</div>
+                        <br>
                         <div class="single-block">
                             <input >
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                         <div class="single-labels"><span class="user-defined-workshop"></span>：</div>
+                        <br>
                         <div class="single-block">
                             <input >
                         </div>
@@ -137,7 +139,7 @@
                     <label>当前状态&nbsp;&nbsp;&nbsp;:</label>
                     <input type="text" id="nowStatus" class="disabled-block" disabled="disabled" style="outline: none;margin-left: 20px;">
                 </div>
-                <div style="padding: 10px;">
+                <div style="padding: 10px;display: none;">
                     <label>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
                     <select id="optioning" style="width: 160px;outline: none;margin-left: 20px;" disabled="disabled" class="disabled-block">
                     </select>
@@ -175,6 +177,23 @@
                             <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
                             <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
                             <div style="padding: 10px;"><label>收货地点</label>:<input type="text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="remarkRepair">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【备注】</div>
+                        <div class="tableHover">
+                            <textarea style="height: 70px;outline: none;border: 1px solid #cccccc;width: 100%;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="majorBlock">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【返回主库信息】</div>
+
+                        <div class="tableHover">
+                            <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
                         </div>
                     </div>
                 </div>

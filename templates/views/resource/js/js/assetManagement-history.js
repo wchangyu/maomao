@@ -60,6 +60,16 @@ $(function(){
     //选择设备
     $('#select-button').click(function(){
 
+        //初始化
+        $('#choiceDiv').find('.condition-query').find('input').val('');
+
+        $('#choiceDiv').find('.condition-query').find('select').val('');
+
+        var arr = [];
+
+        _datasTable($('#browse-datatables'),arr);
+
+        //模态框
         _moTaiKuang($('#choiceDiv'), '选择设备', '', '' ,'', '选择');
 
     })
@@ -861,9 +871,6 @@ $(function(){
 
     })
 
-
-
-
     /*-------------------------------------按钮事件-----------------------------------*/
 
     //tab选项卡
@@ -994,7 +1001,6 @@ $(function(){
 
     })
 
-    //查看二维码
     //查看二维码
     $('.viewImage').click(function(){
         if( $('.QRcode').children().length == 0 ){

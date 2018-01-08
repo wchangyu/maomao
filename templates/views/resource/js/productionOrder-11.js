@@ -402,7 +402,7 @@ $(function(){
     });
 
     //表格中的操作
-    $('#scrap-datatables')
+    $('.tablel')
         .on('click','.option-see',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
@@ -410,7 +410,7 @@ $(function(){
             //当前行变色
             var $this = $(this).parents('tr');
 
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('.tablel tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             _moTaiKuang($('#myModal'),'查看详情','flag','','','');
 
@@ -497,7 +497,7 @@ $(function(){
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('.tablel tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
@@ -626,6 +626,8 @@ $(function(){
                 }
 
                 if(isEqual){
+
+                    _bjIsComplete = true;
 
                     //只调用申请备件接口
                     applySparePart();

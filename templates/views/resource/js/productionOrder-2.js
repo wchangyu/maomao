@@ -136,6 +136,10 @@ $(function(){
 
     //标识在维修班组中
     var _isBZ = false;
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -508,13 +512,29 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        realityStart = filterInput[1] + ' 00:00:00';
+        realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        var values = '';
+
+        var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+        if( typeof flag == 'undefined' ){
+
+            values = '';
+
+        }else{
+
+            values = flag;
+
+        }
+
         var prm = {
             'gdCode2':filterInput[0],
             'gdSt':realityStart,
             'gdEt':realityEnd,
-            'bxKeshi':filterInput[1],
+            'bxKeshiNum':values,
             "gdZht": 0,
             "gdZhts": [
                 2,5
@@ -594,6 +614,10 @@ $(function(){
         //时间置为今天
         $('.datatimeblock').eq(0).val(_initStart);
         $('.datatimeblock').eq(1).val(_initEnd);
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
+
     })
     //点击派工，切换状态
     $('.paigongButton').click(function(){

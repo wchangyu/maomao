@@ -150,6 +150,10 @@ $(function(){
     var _isBZ = false;
 
     getWP(true);
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*--------------------------表格初始化-----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -353,29 +357,60 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        realityStart = filterInput[1] + ' 00:00:00';
+        realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        var values = '';
+
+        var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+        if( typeof flag == 'undefined' ){
+
+            values = '';
+
+        }else{
+
+            values = flag;
+
+        }
+
         var prm = {
             "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
-            "bxKeshi":filterInput[1],
+            "bxKeshiNum":values,
             "gdZht":3,
             "gdZhts":[0],
             "userID":_userIdNum,
             "userName":_userIdName
         };
+
         var wbzArr = [];
-        if($('#wxbz').val()){
+
+        if( $('#wxbz').val() != ''){
+
             prm.wxKeshi = $('#wxbz').val();
+
         }else{
+
+            //在维保组中
+
             if(_isWBZ){
+
                 for(var i=0;i<_bzArr.length;i++){
+
                     wbzArr.push(_bzArr[i].departNum);
+
                 }
+
                 prm.wxKeshis = wbzArr;
+
+                //下维修班组中
+
             }else if(_isBZ){
+
                 prm.wxKeshi = _bzArr[0].departNum;
+
             }
         }
 
@@ -416,6 +451,12 @@ $(function(){
         //时间置为今天
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
+
+        //维修班组
+        $('#wxbz').val('');
     });
 
     $('#myModal')
@@ -1371,7 +1412,6 @@ $(function(){
             }
         })
     }
-
 
     /*-----------------------------------------------------------键盘输入事件----------------------------------------------*/
     //键盘事件方法

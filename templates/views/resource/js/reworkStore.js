@@ -194,16 +194,28 @@ $(function(){
         {
             title: '操作',
             "targets": -1,
-            "data": null,
+            "data": 'fxStatus',
             "className": 'noprint',
-            "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-            "<span class='data-option option-beijian btn default btn-xs green-stripe'>维修备件管理</span>"
+            render:function(data, type, full, meta){
+                if( data == 999 ){
+
+                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+
+                }else{
+
+                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                        "<span class='data-option option-beijian btn default btn-xs green-stripe'>维修备件管理</span>" +
+                        "<span class='data-option option-finish btn default btn-xs green-stripe'>完成</span>"
+
+                }
+
+            }
         }
     ];
 
     _tableInit($('#scrap-datatables'),col,1,true,'','','');
 
-    conditionSelect();
+    _warehouseLise(conditionSelect);
 
     //第一层材料列表
     var outClListCol = [
@@ -332,6 +344,30 @@ $(function(){
 
     })
 
+    //查看
+    $('#scrap-datatables').on('click','.option-see',function(){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        _fxCode = $(this).parents('tr').children('.fxCode').children('a').html();
+
+        var src = 'fxDetails.html?a1=' + _fxCode +
+            '&a2='+ _status ;
+
+        var str = '<iframe style="width: 100%;height:562px;border:none;" src="' + src +
+            '"></iframe>'
+
+        //给iframe赋值
+        $('#see-detail').empty().append(str);
+
+        //模态框
+        _moTaiKuang($('#see-Modal'),'查看详情','flag','','','');
+
+        $('#theLoading').modal('hide');
+
+    })
+
     //维修备件管理
     $('#scrap-datatables').on('click','.option-beijian',function(){
 
@@ -353,6 +389,112 @@ $(function(){
 
         //获取日志
         logFile($(this));
+
+        //隐藏完成备注块
+        $('.finishRemark').hide();
+
+        //添加材料按钮消失
+        $('.addCL').show();
+
+        //操作可操作
+        $('#optioning,#hourFee').attr('disabled',false).removeClass('disabled-block');
+
+        //类
+        $('#myModal').find('.modal-footer').children('.btn-primary').removeClass('finishButton').addClass('determine');
+    })
+
+    //完成
+    $('#scrap-datatables').on('click','.option-finish',function(){
+
+        //初始化
+        fxInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'),'返修件管理','','','','完成');
+
+        //数据绑定
+        bindData($(this));
+
+        //是否可操作
+        //绑定返修件信息部分不可操作
+        $('#fxGoods').children('div').eq(0).find('input').attr('disabled',true).addClass('disabled-block');
+
+        //初始化合计
+        _totalFree = 0;
+
+        //获取日志
+        logFile($(this));
+
+        //隐藏完成备注块
+        $('.finishRemark').show();
+
+        //添加材料按钮消失
+        $('.addCL').hide();
+
+        //操作不可操作
+        $('#optioning,#hourFee').attr('disabled',true).addClass('disabled-block');
+
+        //类
+        $('#myModal').find('.modal-footer').children('.btn-primary').removeClass('determine').addClass('finishButton');
+
+    })
+
+    //【完成操作按钮】
+    $('#myModal').on('click','.finishButton',function(){
+
+        var prm = {
+
+            //返修编码
+            "fxCode": _fxCode,
+            //新的返修状态
+            "fxStatus": 999,
+            //新的返修状态名
+            "fxStatusName": "完成",
+            //上一次的返修状态
+            "lastFxStatus": 0,
+            //返修备注
+            "fxBeizhu": $('.finishRemark').find('textarea').val(),
+            //当前用户id
+            "userID": _userIdNum,
+            //当前用户名
+            "userName": _userIdName,
+            //当前用户角色
+            "b_UserRole": _userRole,
+            //当前班组
+            "b_DepartNum": _loginUser.departNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXUptStatus',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','操作成功！','');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'),'提示','flag','istap','操作失败！','');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
 
     })
 
@@ -507,6 +649,7 @@ $(function(){
 
             //名称和编码不能修改
             $('.no-edit').attr('disabled',true);
+
         })
 
     //添加材料保存按钮
@@ -571,7 +714,7 @@ $(function(){
     })
 
     //返修件【确定按钮】
-    $('#myModal').on('click','.btn-primary',function(){
+    $('#myModal').on('click','.determine',function(){
 
         //首先判断情况
 
@@ -592,6 +735,14 @@ $(function(){
             //调用厂家资料接口
             factoryRepairFun();
 
+        }else if( values == 'baofei' ){
+
+            //调用报废接口
+            scrapFun();
+        }else if( values == 'zhuku' ){
+
+            returnMajorFun();
+
         }
 
     })
@@ -599,9 +750,7 @@ $(function(){
     //操作change
     $('#optioning').change(function(){
 
-        $('.ownRepair').hide();
-
-        $('.factoryRepair').hide();
+        $('.repairType').hide();
 
         if($(this).val() == 'zixiu'){
 
@@ -610,6 +759,14 @@ $(function(){
         }else if($(this).val() == 'fanchang'){
 
             $('.factoryRepair').show();
+
+        }else if($(this).val() == 'baofei'){
+
+            $('.scrapBlock').show();
+
+        }else if($(this).val() == 'zhuku'){
+
+            $('.majorBlock').show();
 
         }
 
@@ -653,15 +810,20 @@ $(function(){
 
                 for(var i=0;i<result.statuses.length;i++){
 
-                    if(result.statuses[i].fxType == _status){
+                    if(result.statuses[i].fxType == _status ){
 
-                        str += '<option value="' + result.statuses[i].fxStatus +
-                            '">' + result.statuses[i].fxStatusName + '</option>>'
+                        if( result.statuses[i].optType != '' ){
 
-                        str1 += '<option value="' + result.statuses[i].optType +
-                            '">' + result.statuses[i].fxOpt + '</option>>'
+                            str += '<option value="' + result.statuses[i].fxStatus +
+                                '">' + result.statuses[i].fxStatusName + '</option>>'
 
-                        _statusArr.push(result.statuses[i]);
+                            str1 += '<option value="' + result.statuses[i].optType +
+                                '">' + result.statuses[i].fxOpt + '</option>>'
+
+                            _statusArr.push(result.statuses[i]);
+
+
+                        }
                     }
 
                 }
@@ -684,14 +846,22 @@ $(function(){
     //条件查询
     function conditionSelect(){
 
+        var ckArr = [];
+
+        for(var i=0;i<_AWarehouseArr.length;i++){
+
+            ckArr.push(_AWarehouseArr[i].storageNum);
+
+        }
+
         var prm = {
 
             //工单号
             'gdCode2':'',
             //开始时间
-            'st':st,
+            'st':$('.min').val(),
             //结束时间
-            'et':moment(now).add(1,'d').format('YYYY/MM/DD'),
+            'et':moment($('.max').val()).add(1,'d').format('YYYY/MM/DD'),
             //物品编号
             'itemNum':$('#itemNum').val(),
             //物品名称
@@ -713,75 +883,79 @@ $(function(){
             //用户角色
             'b_UserRole':_userRole,
             //当前部门
-            'b_DepartNum':_loginUser.departNum
+            'b_DepartNum':_loginUser.departNum,
+            //条件参数
+            'clType':_status,
+            //仓库
+            'storageNums':ckArr
         };
 
-        ////车站的数组
-        //var cheArr = [];
-        //
-        ////维修班组的数组
-        //var banArr = [];
-        //
-        ////判断线路和车站
-        //if($('#station').val() == ''){
-        //
-        //    //分析线点是否为空
-        //    if( $('#linePoint').val() == '' ){
-        //
-        //
-        //
-        //    }else{
-        //
-        //        cheArr.length = 0;
-        //
-        //        var optionNum = $('#station').children();
-        //
-        //        for(var i=1;i<optionNum.length;i++){
-        //
-        //            cheArr.push(optionNum.eq(i).attr('value'));
-        //
-        //        }
-        //
-        //        prm.wxKeshis = cheArr;
-        //
-        //    }
-        //
-        //}else{
-        //
-        //    prm.wxKeshi = $('#station').val();
-        //
-        //}
-        //
-        //
-        ////判断车间和班组
-        //if( $('#group').val() == '' ){
-        //
-        //    if( $('#workshop').val() =='' ){
-        //
-        //
-        //
-        //    }else{
-        //
-        //        banArr.length = 0;
-        //
-        //        var optionNum = $('#group').children();
-        //
-        //        for(var i=1;i<optionNum.length;i++){
-        //
-        //            banArr.push(optionNum.eq(i).attr('value'));
-        //
-        //        }
-        //
-        //        prm.bxKeshiNums = banArr;
-        //
-        //
-        //    }
-        //
-        //}else{
-        //
-        //    prm.bxKeshiNum = $('#group').val();
-        //
-        //}
+        //车站的数组
+        var cheArr = [];
+
+        //维修班组的数组
+        var banArr = [];
+
+        //判断线路和车站
+        if($('#station').val() == ''){
+
+            //分析线点是否为空
+            if( $('#linePoint').val() == '' ){
+
+
+
+            }else{
+
+                cheArr.length = 0;
+
+                var optionNum = $('#station').children();
+
+                for(var i=1;i<optionNum.length;i++){
+
+                    cheArr.push(optionNum.eq(i).attr('value'));
+
+                }
+
+                prm.wxKeshis = cheArr;
+
+            }
+
+        }else{
+
+            prm.wxKeshi = $('#station').val();
+
+        }
+
+
+        //判断车间和班组
+        if( $('#group').val() == '' ){
+
+            if( $('#workshop').val() =='' ){
+
+
+
+            }else{
+
+                banArr.length = 0;
+
+                var optionNum = $('#group').children();
+
+                for(var i=1;i<optionNum.length;i++){
+
+                    banArr.push(optionNum.eq(i).attr('value'));
+
+                }
+
+                prm.bxKeshiNums = banArr;
+
+
+            }
+
+        }else{
+
+            prm.bxKeshiNum = $('#group').val();
+
+        }
 
         $.ajax({
 
@@ -928,9 +1102,11 @@ $(function(){
 
                 //操作
 
+                $('.repairType').hide();
+
                 for(var i=0;i<_statusArr.length;i++){
 
-                    if(_statusArr[i].fxStatus == result.fxStatus ){
+                    if( _statusArr[i].fxStatus == result.fxStatus ){
 
                         $('#optioning').val(_statusArr[i].optType);
 
@@ -942,6 +1118,14 @@ $(function(){
 
                             $('.factoryRepair').show();
 
+                        }else if(_statusArr[i].optType == 'baofei'){
+
+                            $('.scrapBlock').show();
+
+                        }else if(_statusArr[i].optType == 'zhuku'){
+
+                            $('.majorBlock').show();
+
                         }
 
                     }
@@ -949,7 +1133,7 @@ $(function(){
                 }
 
                 //自修单价
-                $('#hourFee').val(result.zxPrice);
+                $('#hourFee').val(result.zxPrice.toFixed(2));
 
                 //返厂修数据绑定
 
@@ -981,6 +1165,15 @@ $(function(){
 
                 //收货地点
                 inputValues.eq(7).val(result.receiveAddr);
+
+                //报废备注
+                $('.scrapBlock').find('textarea').val(result.remark);
+
+                //完成备注
+                $('.finishRemark').find('textarea').val(result.remark);
+
+                //返回主库信息
+                $('.majorBlock').find('textarea').val(result.fzInfo);
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -1251,6 +1444,10 @@ $(function(){
 
         $('#fxGoods').children('div').eq(1).find('input').val('');
 
+        $('#fxGoods').children('div').eq(1).find('select').val('');
+
+        $('#fxGoods').children('div').eq(1).find('textarea').val('');
+
         $('#nowStatus').val('').removeAttr('data-num');
 
         $('#optioning').val('');
@@ -1258,6 +1455,8 @@ $(function(){
         $('.ownRepair').hide();
 
         $('.factoryRepair').hide();
+
+        $('.scrapBlock').hide();
 
     }
 
@@ -1391,6 +1590,162 @@ $(function(){
                 $('#factory').empty().append(str);
             },
             error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    }
+
+    //报废
+    function scrapFun(){
+
+        var status = {};
+
+        for(var i=0;i<_statusArr.length;i++){
+
+            if(_statusArr[i].optType == $('#optioning').val()){
+
+                status.statusNum = _statusArr[i].fxStatus;
+
+                status.statusName = _statusArr[i].fxStatusName;
+
+                status.colTo = _statusArr[i].clTo;
+            }
+
+        }
+
+        var prm = {
+            //返修编码
+            "fxCode": _fxCode,
+            //返修状态
+            "fxStatus": status.statusNum,
+            //返修状态名称
+            "fxStatusName": status.statusName,
+            //跳转
+            "clTo": status.colTo,
+            //报废备注
+            "fxBeizhu": $('.scrapBlock').find('textarea').val(),
+            //用户id
+            "userID": _userIdNum,
+            //用户名
+            "userName": _userIdName,
+            //用户角色
+            "b_UserRole": _userRole,
+            //部门
+            "b_DepartNum": _loginUser.departNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXClTo',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作成功！','');
+
+                    $('#myModal').modal('hide');
+
+                    conditionSelect();
+
+                }else {
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作失败！','');
+
+                }
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //返回主库
+    function returnMajorFun(){
+
+        var status = {};
+
+        for(var i=0;i<_statusArr.length;i++){
+
+            if(_statusArr[i].optType == $('#optioning').val()){
+
+                status.statusNum = _statusArr[i].fxStatus;
+
+                status.statusName = _statusArr[i].fxStatusName;
+
+                status.colTo = _statusArr[i].clTo;
+            }
+
+        }
+
+        var prm = {
+            //返修code
+            "fxCode": _fxCode,
+            //返修状态 ,
+            "fxStatus": status.statusNum,
+            //返修状态名 ,
+            "fxStatusName": status.statusName,
+            //转后后返修状态 ,
+            "clTo": status.colTo,
+            //备注
+            "fzInfo": $('.majorBlock').find('textarea').val(),
+            //用户ID
+            "userID": _userIdNum,
+            //用户姓名 ,
+            "userName": _userIdName,
+            //用户角色 ,
+            "b_UserRole": _userRole,
+            //当前用户的部门
+            "b_DepartNum": _loginUser.departNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXFZ',
+            data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                if(result == 99){
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作成功！','');
+
+                    $('#myModal').modal('hide');
+
+                    conditionSelect();
+
+                }else {
+
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','操作失败！','');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
                 console.log(jqXHR.responseText);
             }
         })

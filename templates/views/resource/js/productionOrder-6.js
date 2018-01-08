@@ -30,6 +30,9 @@ $(function(){
     //等待原因
     ddyy();
 
+    //页面插入station选择框
+    addStationDom($('#bumen').parent());
+
     //实际传输时间初始化
     var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';
     var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
@@ -102,7 +105,7 @@ $(function(){
     //设备系统
     ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#xtlx'), 'dsName', 'dsNum');
     //所有车站数据
-    ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
+    //ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
     //线路数据
     lineRouteData($('#line'));
     //影响单位
