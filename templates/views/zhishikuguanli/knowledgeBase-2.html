@@ -286,6 +286,10 @@
                                             <!--<option value=""> </option>-->
                                         <!--</select>-->
                                     <!--</li>-->
+                                    <li>
+                                        <label for="">分类：</label>
+                                        <select class="classify" style="height: 25px;width: 161px" id="classSelect"></select>
+                                    </li>
                                     <li><label for="">关键词：</label><input type="text" maxlength="50" class="top-key-word" placeholder="可用空格分隔多关键字进行搜索" style="width:225px;"></li>
                                     <li>
                                         <input id="orgNameInput" style="width:19px;height:20px;margin-top:0" value="0" class="rct-form-control" type="checkbox" checked="checked">
@@ -365,6 +369,12 @@
                                 <td width="90" align="center" valign="middle" class="">关键词：</td>
                                 <td>
                                     <textarea  class="textarea2" disabled="disabled" readonly="readonly"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="90" align="center" valign="middle" class="">分类：</td>
+                                <td>
+                                    <select id="classify" class="classify" style="background: rgb(235, 235, 228)"></select>
                                 </td>
                             </tr>
                             <tr>
@@ -468,6 +478,7 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/knowledgeSeek.js"></script>
 <script>
     jQuery(document).ready(function() {

@@ -193,8 +193,7 @@ $(function(){
             }
 
             //自修单价
-            $('#hourFee').val(result.zxPrice);
-
+            $('#hourFee').val(result.zxPrice.toFixed(2));
 
 
             //返厂修数据绑定
@@ -228,8 +227,18 @@ $(function(){
             //收货地点
             inputValues.eq(8).val(result.receiveAddr);
 
+            //备注
+            $('.remarkRepair').find('textarea').val(result.remark);
+
+            //返回主库信息
+            $('.majorBlock').find('textarea').val(result.fzInfo);
+
             //所有input不可操作
             $('#fxGoods').find('input').attr('disabled',true).addClass('disabled-block');
+
+            $('#fxGoods').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+
 
 
         },
@@ -283,8 +292,6 @@ $(function(){
 
                 }
 
-                console.log(str1);
-
                 //操作选择
                 $('#optioning').empty().append(str1);
 
@@ -316,8 +323,6 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
-
-                console.log(result);
 
                 var str = '';
                 for(var i =0;i<result.length;i++){

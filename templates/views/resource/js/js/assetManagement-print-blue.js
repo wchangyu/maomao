@@ -17,6 +17,9 @@ $(function(){
     //页面插入station选择框
     addStationDom($('#bumen').parent());
 
+    //标识当前是否是登记框
+    var _deng = false;
+
     //设置延迟时间
     var theTimes = 300000;
     //获取设备系统与设备类型对应的父子关系
@@ -318,6 +321,9 @@ $(function(){
     //conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
+
+        _deng = true;
+
         //上传文件出现
         $('#uploader').show();
         $('#thelist').empty();
@@ -371,6 +377,13 @@ $(function(){
         }
 
     })
+
+    $('#myModal').on('click','.closeDeng',function(){
+
+        _deng = false;
+
+    })
+
     //查询
     $('#selected').click(function (){
         conditionSelect();
@@ -757,17 +770,28 @@ $(function(){
     //查看二维码
     $('.viewImage').click(function(){
 
-        if( $('.QRcode').children().length == 0 ){
-            $('.QRcode').empty();
-            $('.QRcode').show();
-            var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
-                '"' + 'style="width:100px;height:100px;"' +
-                '>';
-            $('.QRcode').append(str);
-        }else{
+        if(_deng){
+
             $('.QRcode').empty();
             $('.QRcode').hide();
+
+        }else{
+
+            if( $('.QRcode').children().length == 0 ){
+                $('.QRcode').empty();
+                $('.QRcode').show();
+                var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
+                    '"' + 'style="width:100px;height:100px;"' +
+                    '>';
+                $('.QRcode').append(str);
+            }else{
+                $('.QRcode').empty();
+                $('.QRcode').hide();
+            }
+
         }
+
+
 
     });
     /*-----------------------------------------其他方法-------------------------------*/

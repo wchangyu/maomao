@@ -54,6 +54,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -289,7 +290,9 @@
                                             <span class="user-defined-department"></span>
                                             ：</label>
                                         <div class="input-blocked">
-                                            <input type="text"class="filterInput">
+
+                                            <select  id="bumen" class="filterInput"></select>
+
                                         </div>
                                     </li>
                                     <li>
@@ -444,7 +447,7 @@
                             <li class="floatLi routeShow">
                                 <div class="labels">线路：</div>
                                 <div class="input-blockeds">
-                                    <select v-model="lineRoute" id="lineRoute" @change="selectLine">
+                                    <select v-model="lineRoute" id="lineRoute" class="line-route">
 
                                     </select>
                                 </div>
@@ -532,8 +535,8 @@
                     </div>
                 </ul>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary paigongButton">确定</button>
+            <div class="modal-footer"><!--paigongButton-->
+                <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -671,19 +674,19 @@
                     <li class="floatLeft">
                         <div class="labels">工号：</div>
                         <div class="input-blockeds">
-                            <input type="text" class="zxrGH">
+                            <input type="text" class="zxrGH disabled-block" readonly="readonly">
                         </div>
                     </li>
                     <li class="floatRight">
                         <div class="labels">姓名：</div>
                         <div class="input-blockeds">
-                            <input type="text" class="zxrXM">
+                            <input type="text" class="zxrXM disabled-block" readonly="readonly">
                         </div>
                     </li>
                     <li class="floatLeft">
                         <div class="labels">电话：</div>
                         <div class="input-blockeds">
-                            <input type="text" class="zxrDH">
+                            <input type="text" class="zxrDH disabled-block" readonly="readonly">
                         </div>
                     </li>
                     <div class="clearfix"></div>
@@ -822,7 +825,7 @@
                         <div>
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks" class="remarks"></textarea>
                             </div>
                         </div>
                         <div>
@@ -864,12 +867,6 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="deal-with">处理记录</div>
-                            <div>
-                                <ul class="deal-with-list">
-
-                                </ul>
-                            </div>
                         </div>
                     </ul>
                 </div>
@@ -974,6 +971,7 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/productionOrder-3.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 </body>
 <!-- END BODY -->
 </html>

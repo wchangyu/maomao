@@ -102,3 +102,10 @@ input,textarea{
 .hasChecked{
     background:#999;
 }
+.classify{
+
+    height: 38px;
+    margin-bottom: 5px;
+    width: 370px;
+
+}

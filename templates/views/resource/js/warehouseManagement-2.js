@@ -49,7 +49,8 @@ $(function(){
             zhidanren:'',
             shijian:'',
             remarks:'',
-            shremarks:''
+            shremarks:'',
+            documentNumber:''
         },
         methods:{
             selectSupplier:function(){
@@ -740,7 +741,7 @@ $(function(){
 
     //获取供应商
     //点击刷新
-    $('.refresh').click(function(){
+    $('#reSupplier').click(function(){
 
         getSupplier();
 
@@ -1127,7 +1128,7 @@ $(function(){
 
         }else{
             //模态框显示
-            _moTaiKuang($('#myModal1'), '新增入库产品', '', '' ,'', '选择');
+            _moTaiKuang($('#myModal1'), '新增入库产品', '', '' ,'', '保存');
 
             _addGoods = true;
 
@@ -1335,6 +1336,58 @@ $(function(){
         _datasTable($('#spare-table'),_spareArr);
 
         $('#spare-table').find('.table-option').addClass('hiddenButton');
+
+    })
+
+    //刷新物品列表
+    $('#reGoods').on('click',function(){
+
+        var prm = {
+            'ItemNum':'',
+            'itemName':'',
+            'cateName':'',
+            userID:_userIdNum,
+            userName:_userIdName,
+            b_UserRole:_userRole,
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItems',
+            data:prm,
+            beforeSend:function(){
+                //刷新按钮旋转
+                var i=0;
+                _rotate = setInterval(function(){
+                    i++;
+                    var deg = i;
+                    $('.refresh').eq(1).css({
+                        'transform':'rotate(' + deg + 'deg)'
+                    },1000)
+                })
+            },
+            success:function(result){
+
+                clearInterval(_rotate);
+
+                _wpListArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _wpListArr.push(result[i]);
+
+                }
+
+                var str = '';
+
+                //给物品编码和物品名称的列表赋初始值
+                arrList(str,result,false);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
 
     })
 
@@ -2460,7 +2513,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetInStorage',
-            async:false,
             data:prm,
             success:function(result){
                 //状态为待确认的数组
@@ -2942,6 +2994,8 @@ $(function(){
                 putInList.remarks = _allData[i].remark;
                 //审核备注
                 putInList.shremarks = _allData[i].auditMemo;
+                //单据号
+                putInList.documentNumber = _allData[i].orderNum2;
 
                 //判断创建入库单的人是否是本人
                 if( _allData[i].createUser == _userIdNum ){
@@ -3088,6 +3142,8 @@ $(function(){
                 userName:_userIdName,
                 //角色
                 b_UserRole:_userRole,
+                //单据号
+                orderNum2:putInList.documentNumber
 
             };
 
@@ -3351,6 +3407,8 @@ $(function(){
         putInList.remarks = '';
 
         putInList.shremarks = '';
+
+        putInList.documentNumber = '';
 
         //表格数据初始化
         _rukuArr = [];
@@ -4049,14 +4107,14 @@ $(function(){
                 _rotate = setInterval(function(){
                     i++;
                     var deg = i;
-                    $('.refresh').css({
+                    $('.refresh').eq(0).css({
                         'transform':'rotate(' + deg + 'deg)'
                     },1000)
                 })
             },
             timeout:_theTimes,
             success:function(result){
-                //console.log(result);
+
                 clearInterval(_rotate);
                 var str = '<option>请选择</option>';
                 for(var i=0;i<result.length;i++){
@@ -4145,7 +4203,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetItems',
-            async:false,
             data:prm,
             success:function(result){
 

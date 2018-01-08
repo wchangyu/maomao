@@ -55,11 +55,6 @@ $(function(){
       sbSelect:'',
       //设备名称
       sbMC:''
-    },
-    methods:{
-
-
-
     }
 
   })
@@ -108,7 +103,7 @@ $(function(){
   })
 
   //验证必填项（非空）
-  Vue.validator('persons', function (val) {
+  Vue.validator('required', function (val) {
     //获取内容的时候先将首尾空格删除掉；
     val = val.replace(/^\s+|\s+$/g, '');
 
@@ -129,6 +124,9 @@ $(function(){
 
   //车站
   _ajaxFun('YWDev/ywDMGetDDs', _stationArr, $('.cjz'), 'ddName', 'ddNum' )
+
+  //条件查询车站
+  addStationDom($('#bumen').parent());
 
   /*-----------------------------------------------------表格初始化------------------------------------------*/
   var col = [
@@ -261,6 +259,9 @@ $(function(){
     $('.condition-query').eq(0).find('.datatimeblock').eq(0).val(st);
 
     $('.condition-query').eq(0).find('.datatimeblock').eq(1).val(now);
+
+    //车站初始化
+    $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
 
   })
 
@@ -399,7 +400,7 @@ $(function(){
         //发生时间
         gdFsShij:$('#quickWork').find('.otimes').val(),
         //故障描述
-        bxBeizhu: $('#quickWork').find('.remarkDes').eq(1).val(),
+        bxBeizhu: $('#quickWork').find('.remarkDes').eq(0).val(),
         //维修内容
         wxBeizhu:$('#quickWork').find('.weixiuBZ').val(),
         //执行人
@@ -444,9 +445,21 @@ $(function(){
 
           }
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-          console.log(jqXHR.responseText);
+          //清除loadding
+          $('#theLoading').modal('hide');
+
+          if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+          }else{
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+          }
+
         }
       })
     }
@@ -483,7 +496,7 @@ $(function(){
   })
 
   //线路、车站联动
-  $('.line-route').on('click',function(){
+  $('.line-route').on('change',function(){
 
     var values = $(this).val();
 
@@ -566,6 +579,20 @@ $(function(){
 
     }
 
+    var values = '';
+
+    var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+    if( typeof flag == 'undefined' ){
+
+      values = '';
+
+    }else{
+
+      values = flag;
+
+    }
+
     var prm = {
       //工单号
       'gdCode2': filterInput[0],
@@ -574,7 +601,7 @@ $(function(){
       //结束时间
       'gdEt': moment($('.max').val()).add(1,'d').format('YYYY/MM/DD'),
       //车站
-      'bxKeshi': filterInput[1],
+      'bxKeshiNum': values,
       //工单状态
       "gdZht": 1,
       //当前用户id
@@ -610,9 +637,21 @@ $(function(){
 
         _datasTable($("#scrap-datatables"), result);
       },
-      error: function (jqXHR, textStatus, errorThrown) {
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-        console.log(jqXHR.responseText);
+        //清除loadding
+        $('#theLoading').modal('hide');
+
+        if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+        }else{
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+        }
+
       }
     })
   }
@@ -757,9 +796,9 @@ $(function(){
         //工单来源
         'gdSrc': 2,
         //维修事项
-        wxShiX:1,
+        wxShiX:xtStr,
         //维修事项编码
-        wxShiXNum:1,
+        wxShiXNum:detaileVue.matter,
         //安装地点
         installAddress:''
 
@@ -800,9 +839,21 @@ $(function(){
           }
 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-          console.log(jqXHR.responseText);
+          //清除loadding
+          $('#theLoading').modal('hide');
+
+          if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+          }else{
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+          }
+
         }
 
       })
@@ -909,9 +960,21 @@ $(function(){
         }
 
       },
-      error: function (jqXHR, textStatus, errorThrown) {
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-        console.log(jqXHR.responseText);
+        //清除loadding
+        $('#theLoading').modal('hide');
+
+        if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+        }else{
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+        }
+
       }
 
     })

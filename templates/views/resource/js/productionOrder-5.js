@@ -17,7 +17,7 @@ $(function(){
         format: 'yyyy/mm/dd',     forceParse: 0
     });
     //设置初始时间
-     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+    var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
     //显示时间
     $('.min').val(_initStart);
@@ -82,6 +82,10 @@ $(function(){
     //var _imgNum = 0;
     //重发值
     var _gdCircle = 0;
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -298,15 +302,30 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+        realityStart = filterInput[1] + ' 00:00:00';
+        realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         var ztz = $('#gdzt').val();
+
+        var values = '';
+
+        var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+        if( typeof flag == 'undefined' ){
+
+            values = '';
+
+        }else{
+
+            values = flag;
+
+        }
+
         var prm = {
             "gdCode2":filterInput[0],
             "gdSt":realityStart,
             "gdEt":realityEnd,
-            "bxKeshi":filterInput[1],
-            "wxKeshi":filterInput[4],
+            "bxKeshi":values,
+            "wxKeshi":filterInput[3],
             "gdZht":6,
             "userID":_userIdNum,
             "userName":_userIdName
@@ -317,8 +336,8 @@ $(function(){
                 "gdCode2":filterInput[0],
                 "gdSt":realityStart,
                 "gdEt":realityEnd,
-                "bxKeshi":filterInput[1],
-                "wxKeshi":filterInput[4],
+                "bxKeshi":values,
+                "wxKeshi":filterInput[3],
                 "gdZht":0,
                 "gdZhts": [
                     1,2,3,4,5,6
@@ -359,9 +378,9 @@ $(function(){
             data:gdInfo,
             success:function(result){
                 if(result == 99){
-                     //初始化单选框和评价意见
-                     $('#myModal2').find('.modal-body').html('已完成关单');
-                     moTaiKuang($('#myModal2'),'提示','flag');
+                    //初始化单选框和评价意见
+                    $('#myModal2').find('.modal-body').html('已完成关单');
+                    moTaiKuang($('#myModal2'),'提示','flag');
                     conditionSelect();
                 }else {
                     $('#myModal2').find('.modal-body').html('关单失败');
@@ -406,7 +425,7 @@ $(function(){
     }
     /*----------------------------表格绑定事件-----------------------------------*/
     $('#scrap-datatables tbody')
-        //双击背景色改变，查看详情
+    //双击背景色改变，查看详情
         .on('click','.option-edit',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
@@ -529,7 +548,7 @@ $(function(){
                     console.log(jqXHR.responseText);
                 }
             })
-    });
+        });
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
     $('#selected').click(function(){
@@ -631,34 +650,5 @@ $(function(){
         var res = ip.exec(str1);  /*211.100.28.180*/
         str = str.replace(ip,res);
         return str;
-    }
-    //获取日志信息（备件logType始终传2）
-    function logInformation(){
-
-        var gdLogQPrm = {
-            "gdCode": _gdCode,
-            "logType": 2,
-            "userID": _userIdNum,
-            "userName": _userIdName
-        };
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywDGGetLog',
-            data:gdLogQPrm,
-            success:function(result){
-                $('.deal-with-list').empty();
-                var str = '';
-
-                for(var i =0;i<result.length;i++){
-                    str += '<li><span class="list-dot" ></span>' + result[i].logDate + '&nbsp;&nbsp;' + result[i].userName + '&nbsp;&nbsp;'+ result[i].logTitle + '</li>'
-
-                }
-
-                $('.deal-with-list').append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
     }
 })

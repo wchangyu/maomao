@@ -70,6 +70,27 @@ $(function(){
 
     BJStatus();
 
+    //确定按钮走向
+    var _trend;
+
+    //当前备件状态
+    var _status = '';
+
+    //走向状态
+    var _clTo = '';
+
+    //记录获取详情操作是否完成
+    var _getDetailIsComplete = false;
+
+    //记录获取详情操作是否成功
+    var _getDetailIsSuccess = false;
+
+    //记录获取走向是否完成
+    var _trendIsComplete = false;
+
+    //记录获取走向是否成功
+    var _trendIsSuccess = false;
+
     /*-----------------------------------------------表格初始化------------------------------------------*/
 
     //主表格
@@ -120,7 +141,7 @@ $(function(){
 
     _tableInit($('#table-list'),tableListCol,1,true,'','');
 
-    conditionSelect();
+    _WxBanzuStationData(conditionSelect);
 
     //执行人员表格
     var personTable1Col = [
@@ -150,7 +171,7 @@ $(function(){
         }
     ]
 
-    _tableInit($('#personTable1'),personTable1Col,2,'','','');
+    _tableInit($('#personTable1'),personTable1Col,2,'','','',true,'');
 
     //备件表格
     var personTables1Col = [
@@ -176,7 +197,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTables1'),personTables1Col,2,'','','');
+    _tableInit($('#personTables1'),personTables1Col,2,'','','',true,'');
 
     //备件表格
     var personTables11Col = [
@@ -294,6 +315,9 @@ $(function(){
         //是否可操作
         disabledOption();
 
+        //处理记录
+        logInformation();
+
     })
 
     //表格【返修件管理】
@@ -315,74 +339,18 @@ $(function(){
         _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
 
         //赋值
-        var prm = {
-            'gdCode2':_gdCode2,
-            'userID':_userIdNum,
-            'userName':_userIdName,
-            'gdCircle':_gdCircle
-        };
-
-        $.ajax({
-
-            type:'post',
-            url:_urls + 'YWFX/ywFXGetGDItem',
-            data:prm,
-            beforeSend:function(){
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            success:function(result){
-
-                //赋值
-                _BJArr.length = 0;
-
-                for(var i=0;i<result.length;i++){
-
-                    _BJArr.push(result[i]);
-
-                }
-
-                //执行人员表格
-                _datasTable($('#personTables11'),result);
-
-                //备件图片有几个
-                _imgBJNum = result.hasBjImage;
-
-                //直接将备件图片展示出来
-
-                if(_imgBJNum>0){
-
-                    var imgStr = '';
-
-                    for(var i=0;i<_imgBJNum;i++){
-
-                        imgStr += '<img class="bjImgList" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-
-                    }
-
-                    $('.bjImg').empty().append(imgStr).show();
-
-                }else{
-
-                    $('.bjImg').html('没有备件图片');
-
-                }
-
-                //处理记录
-                logInformation();
-
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
+        detailFun();
         //模态框
         _moTaiKuang($('#CL-Modal'),'备件信息','','','','确定');
 
+        //调接口(决定clTo)
+        colToFun();
+
+
     });
+
+    //备件确定按钮不可操作
+    $('#CL-Modal').find('.btn-primary').attr('disabled',true);
 
     //返修件管理【确定】按钮
     $('#CL-Modal').on('click','.btn-primary', function () {
@@ -402,7 +370,7 @@ $(function(){
                     _BJArr[i].fxReason = trs.eq(j).children('td').eq(4).children().val();
 
                     //返修快递信息
-                    _BJArr[i].fxKdinfo = trs.eq(j).children('td').eq(3).children().attr('data-num');
+                    _BJArr[i].fxKdinfo = trs.eq(j).children('td').eq(3).children().val();
 
                     //返修状态
                     var status = trs.eq(j).children('td').eq(5).html();
@@ -441,7 +409,7 @@ $(function(){
             //返修快递信息
             obj.fxKdinfo = _BJArr[i].fxKdinfo;
             //返修状态
-            obj.fxStatus = _BJArr[i].fxStatus;
+            obj.fxStatus = _clTo;
 
             arr.push(obj);
 
@@ -512,6 +480,24 @@ $(function(){
             "userName":_userIdName
 
         };
+
+        var wbzArr = [];
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_ABZArr.length;i++){
+
+                wbzArr.push(_ABZArr[i].departNum);
+
+            }
+
+            prm.wxKeshis = _ABZArr;
+
+        }else if(_AisBZ){
+
+            prm.wxKeshi = _maintenanceTeam;
+
+        }
 
         $.ajax({
 
@@ -700,7 +686,7 @@ $(function(){
         var gdLogQPrm = {
 
             "gdCode": _gdCode,
-            "logType": 2,
+            "logType": 0,
             "userID": _userIdNum,
             "userName": _userIdName
 
@@ -710,6 +696,7 @@ $(function(){
             url:_urls + 'YWGD/ywDGGetLog',
             data:gdLogQPrm,
             success:function(result){
+
                 var str = '';
 
                 for(var i =0;i<result.length;i++){
@@ -767,6 +754,166 @@ $(function(){
             }
 
         })
+
+    }
+
+    //决定colTo走向的接口
+    function colToFun(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWGD/ywDGGetCK2',
+            data:{
+
+                //工单号
+                gdCode:_gdCode,
+                //用户id
+                userID:_userIdNum,
+                //用户名
+                userName:_userIdNum
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                _trendIsComplete = true;
+
+                _trendIsSuccess = true;
+
+                _trend = result;
+
+                DTcallBackFun();
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _trendIsComplete = true;
+
+                _trendIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //获取详情
+    function detailFun(){
+
+        var prm = {
+            'gdCode2':_gdCode2,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'gdCircle':_gdCircle
+        };
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFX/ywFXGetGDItem',
+            data:prm,
+            beforeSend:function(){
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
+            success:function(result){
+
+                _getDetailIsComplete = true;
+
+                _getDetailIsSuccess = true;
+
+                //赋值
+                _BJArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _BJArr.push(result[i]);
+
+                }
+
+                //执行人员表格
+                _datasTable($('#personTables11'),result);
+
+                //备件图片有几个
+                _imgBJNum = result.hasBjImage;
+
+                //直接将备件图片展示出来
+
+                if(_imgBJNum>0){
+
+                    var imgStr = '';
+
+                    for(var i=0;i<_imgBJNum;i++){
+
+                        imgStr += '<img class="bjImgList" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
+                            '">';
+
+                    }
+
+                    $('.bjImg').empty().append(imgStr).show();
+
+                }else{
+
+                    $('.bjImg').html('没有备件图片');
+
+                }
+
+                //获取备件状态
+                _status = result[0].fxStatus;
+
+
+
+                DTcallBackFun();
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                _getDetailIsComplete = true;
+
+                _getDetailIsSuccess = false;
+
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    }
+
+    //详情，走向都完成的回调函数
+    function DTcallBackFun(){
+
+        if( _trendIsComplete && _getDetailIsComplete ){
+
+            if( _trendIsSuccess && _getDetailIsSuccess ){
+
+                $('#CL-Modal').find('.btn-primary').attr('disabled',false);
+
+                //确定clTo数组
+
+                for(var i=0;i<_statusArr.length;i++){
+
+                    if(_status == _statusArr[i].fxStatus){
+
+                        if(_trend == ''){
+
+                            _clTo = _statusArr[i].clTo.split(',')[0];
+
+                        }else{
+
+                            _clTo = _statusArr[i].clTo.split(',')[1];
+
+                        }
+
+
+                    }
+
+                }
+
+
+            }
+
+        }
 
     }
 })

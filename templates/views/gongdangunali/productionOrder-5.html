@@ -49,6 +49,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -283,7 +284,7 @@
                                             <span class="user-defined-department"></span>
                                             ：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <select id="bumen"></select>
                                         </div>
                                     </li>
                                     <li>
@@ -301,7 +302,7 @@
                                             <span class="user-defined-group"></span>
                                             ：</label>
                                         <div class="input-blocked">
-                                            <input type="text">
+                                            <select id="wxbz"></select>
                                         </div>
                                     </li>
                                     <li>
@@ -314,7 +315,7 @@
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <li><button class="btn btn-success btn1">重置</button></li>
+                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
                                     <li class="excelButton"></li>
                                     <li ><button id="maomao"></button></li>
@@ -677,6 +678,7 @@
 <script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-5.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 </div>

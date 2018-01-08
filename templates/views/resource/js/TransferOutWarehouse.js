@@ -49,6 +49,10 @@ $(function(){
                     return '其他'
                 }if(data == 1){
                     return '领用出库'
+                }if(data == 2){
+                    return '调拨出库'
+                }if(data == 3){
+                    return '借用还出'
                 }
             },
             className:'outType'
@@ -172,11 +176,6 @@ $(function(){
             data:'batchNum'
         },
         {
-            title:'工单号',
-            data:'gdCode2',
-            className:'gdCode2'
-        },
-        {
             title:'备注',
             data:'outMemo'
         },
@@ -186,7 +185,8 @@ $(function(){
             "data": null,
             render:function(data, type, full, meta){
                 var html = "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>";
-                if(full.gdCode2 != ''){
+
+                if(full.gdCode2){
                     html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
                         "&a2=" + full.orderNum +
                         "&a3=" + full.itemNum +
@@ -275,11 +275,6 @@ $(function(){
         {
             title:'品质',
             data:'batchNum'
-        },
-        {
-            title:'工单号',
-            data:'gdCode2',
-            className:'gdCode2'
         },
         {
             title:'备注',
@@ -474,7 +469,7 @@ $(function(){
         //数量
         var amount1 = 0;
         var tds = $('#wuPinListTable1').find('tbody').children('tr').length;
-
+        //console.log(tds);
         for(var i=0;i<tds;i++){
             //获取金额
             var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
@@ -484,7 +479,7 @@ $(function(){
             amount += count;
             amount1 += count1;
         }
-
+        //console.log(amount);
         if(isNaN(formatNumber(amount))){
             $('#wuPinListTable1 .count1').html(0.00);
             $('#wuPinListTable1 .amout1').html(0);
@@ -600,14 +595,8 @@ $(function(){
     //工单列表
     var _gdArr = [];
 
-    //所有车站列表
-    var _cheArr = [];
-
-    //所有工单列表
-    GDselect(5);
-
     //获取所有车站
-    chezhan(true);
+    chezhan();
 
     //第二层暂存选中的入库产品的数组
     var _tempRKArr = [];
@@ -624,6 +613,9 @@ $(function(){
     //获取仓库（出库单的查询前提）
     warehouse();
 
+    //获取调拨仓库
+    warehouse(true);
+
     //控制出库单的到处按钮显示隐藏
 
     $('.excelButton').children('.dt-buttons').hide();
@@ -637,7 +629,7 @@ $(function(){
         data:{
             bianhao:'',
 
-            rkleixing:'',
+            rkleixing:2,
 
             clymc:'',
 
@@ -648,6 +640,8 @@ $(function(){
             shijian:'',
 
             remarks:'',
+
+            transferOut:'',
 
             shRemarks:''
 
@@ -707,12 +701,6 @@ $(function(){
             keySn:function(){
 
                 upDown($('#workDone').find('.accord-sn-list'),enterSN,inputSN);
-
-            },
-            //工单键盘事件
-            selectGD:function(){
-
-                upDown($('#workDone').find('.pinzhixx').eq(1),enterGD,inputGD);
 
             },
             //数量验证
@@ -836,9 +824,6 @@ $(function(){
     //当前选中的一条物品列表
     var _wpObject = {};
 
-    //存放发送备件申请的物品名称数组
-    var _clArr = [];
-
     /*--------------------------------------------------按钮事件---------------------------------------------------------*/
     //tab选项卡
     $('.table-title').children('span').click(function(){
@@ -893,7 +878,7 @@ $(function(){
 
         $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
 
-        //$('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+        $('#myApp33').find('#transferOut').attr('disabled',false).removeClass('disabled-block');
 
         $('#myApp33').find('textarea').removeAttr('readonly').removeClass('disabled-block');
 
@@ -924,8 +909,10 @@ $(function(){
     $('#myModal')
         .on('click','.dengji',function(){
         //先判断 必填项
-        if(putOutList.rkleixing == ''){
+        if(putOutList.rkleixing == '' || putOutList.transferOut == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
         }else{
             var outStoreDetails1 = [];
             //工单的信息
@@ -944,9 +931,9 @@ $(function(){
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
                 obj.gdCode = _rukuArr[i].gdCode;
-                obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = _rukuArr[i].bxKeshi;
-                obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
+                //obj.gdCode2 = _rukuArr[i].gdCode2;
+                //obj.bxKeshi = _rukuArr[i].bxKeshi;
+                //obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
                 obj.outMemo = _rukuArr[i].outMemo;
                 obj.userID=_userIdNum;
                 obj.userName = _userIdName;
@@ -955,6 +942,7 @@ $(function(){
                 obj.batchNum = _rukuArr[i].batchNum;
                 obj.localNum = _rukuArr[i].localNum;
                 obj.localName = _rukuArr[i].localName;
+                obj.maintainDate = _rukuArr[i].maintainDate;
                 outStoreDetails1.push(obj);
                 //备件转换
                 if(_rukuArr[i].gdCode){
@@ -981,7 +969,8 @@ $(function(){
                 'storageNum':$('#ckselect').val(),
                 'contractOrder':putOutList.gdCode,
                 'cusName':putOutList.clymc,
-                'phone':putOutList.clydh
+                'phone':putOutList.clydh,
+                'toStorageNum':putOutList.transferOut
             }
             $.ajax({
                 type:'post',
@@ -1007,7 +996,6 @@ $(function(){
         .on('click','.bianji',function(){
 
             var outStoreDetails1 = [];
-
             //入库单的信息
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
@@ -1018,9 +1006,7 @@ $(function(){
                 obj.num = _rukuArr[i].num;
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
-                obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = _rukuArr[i].bxKeshi;
-                obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
+                //obj.gdCode2 = _rukuArr[i].gdCode2;
                 //obj.bxKeshi = $('#chezhan').children('option:selected').html();
                 //obj.bxKeshiNum = _rukuArr[i].chezhan;
                 obj.outMemo = _rukuArr[i].outMemo;
@@ -1033,7 +1019,6 @@ $(function(){
                 obj.localName = _rukuArr[i].localName;
                 outStoreDetails1.push(obj);
             }
-
             var ckName = '';
             if($('#ckselect').val() == ''){
                 ckName = ''
@@ -1191,6 +1176,7 @@ $(function(){
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
                 putOutList.shRemarks = _allData[i].auditMemo;
+                putOutList.transferOut = _allData[i].toStorageNum;
             }
         }
 
@@ -1211,6 +1197,9 @@ $(function(){
     //编辑
     $('.main-contents-table .table tbody').on('click','.option-edit',function(){
 
+
+        //自动生成的不可操作
+        $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
 
         //样式
         var $this = $(this).parents('tr');
@@ -1236,6 +1225,7 @@ $(function(){
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
                 putOutList.shRemarks = _allData[i].auditMemo;
+                putOutList.transferOut = _allData[i].toStorageNum;
             }
         }
 
@@ -1243,22 +1233,10 @@ $(function(){
 
         //获取入库信息的详细物品信息
         function sucFun2(result){
+
             _rukuArr.length = 0;
 
             for(var i=0;i<result.length;i++){
-
-                for(var j=0;j<_gdArr.length;j++){
-
-                    if(result[i].gdCode2 == _gdArr[j].gdCode2){
-
-                        result[i].bxKeshi = _gdArr[j].bxKeshi;
-
-                        result[i].bxKeshiNum = _gdArr[j].bxKeshiNum;
-
-                        result[i].gdCode = _gdArr[j].gdCode;
-                    }
-
-                }
 
                 _rukuArr.push(result[i]);
             }
@@ -1300,7 +1278,7 @@ $(function(){
 
             $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
 
-            //$('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+            $('#myApp33').find('#transferOut').attr('disabled',true).removeClass('disabled-block');
 
             $('#myApp33').find('textarea').removeAttr('readonly').removeClass('disabled-block');
 
@@ -1357,7 +1335,6 @@ $(function(){
         for(var i=0;i<_allData.length;i++){
 
             if(_allData[i].orderNum == $thisDanhao){
-
                 //绑定数据
                 putOutList.rkleixing = _allData[i].outType;
                 putOutList.gdCode = _allData[i].contractOrder;
@@ -1368,6 +1345,7 @@ $(function(){
                 putOutList.shijian = _allData[i].createTime;
                 putOutList.remarks = _allData[i].remark;
                 putOutList.shRemarks = _allData[i].auditMemo;
+                putOutList.transferOut = _allData[i].toStorageNum;
                 //判断制单人和审核人是不是一样(相等的话是false)
                 if(_allData[i].createUser == _userIdNum){
                     _examineRen = false;
@@ -1466,14 +1444,6 @@ $(function(){
         //自动刷新一下库存数据
         goodsList();
 
-        //确定车站、工单号、剩余数量
-        //console.log(_gdArr);
-
-        //console.log(_wpListArr);
-
-        //console.log(_cheArr);
-
-
     });
 
     //删除按钮
@@ -1486,13 +1456,12 @@ $(function(){
             var ck = $this.find('.storageName').children('span').attr('data-num');
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
-            var gd = $this.find('.gdCode2').html();
 
             _tempObj.length = 0;
 
             for(var i=0;i<_rukuArr.length;i++){
 
-                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn && _rukuArr[i].gdCode2 == gd){
+                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn){
 
                     _tempObj.push(_rukuArr[i]);
 
@@ -1518,14 +1487,12 @@ $(function(){
 
             var $thisSN = $(this).parents('tr').children('.sn').html();
 
-            var $thisGD = $(this).parents('tr').children('.gdCode2').html();
-
             //获取详情赋值
             function sucFun3(result){
 
                 for(var i=0;i<result.length;i++){
 
-                    if( $thisCK == result[i].storageNum && $thisKQ == result[i].localNum && $thisBM == result[i].itemNum && $thisSN == result[i].sn && $thisGD == result[i].gdCode2 ){
+                    if( $thisCK == result[i].storageNum && $thisKQ == result[i].localNum && $thisBM == result[i].itemNum && $thisSN == result[i].sn  ){
 
                         chukuObject.ck = result[i].storageName;
                         chukuObject.bianhao = result[i].itemNum;
@@ -1711,11 +1678,6 @@ $(function(){
 
             $('.not-editable').parents('.input-blockeds').addClass('disabled-block');
 
-            //编辑的时候，工单号也不能修改
-            $('#workDone').find('.gdCode').parents('.input-blockeds').attr('readonly','readonly').addClass('disabled-block');
-
-            $('#workDone').find('.gdCode').attr('readonly','readonly').addClass('disabled-block');
-
             //样式修改
             $('#wuPinListTable1 tbody').children('tr').css({'background':'#ffffff'});
 
@@ -1727,11 +1689,9 @@ $(function(){
             var ck = $this.find('.storageName').children('span').attr('data-num');
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
-            var gd = $this.find('.gdCode2').html();
 
             for(var i=0;i<_tempRKArr.length;i++){
-                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
-
+                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn){
                     //赋值
                     putOutGoods.bianhao = _tempRKArr[i].itemNum;
                     putOutGoods.mingcheng = _tempRKArr[i].itemName;
@@ -1755,7 +1715,7 @@ $(function(){
                     putOutGoods.remark = _tempRKArr[i].outMemo;
                     putOutGoods.gdCode = _tempRKArr[i].gdCode2;
                     putOutGoods.chezhan = _tempRKArr[i].bxKeshi;
-
+                    //剩余数量
                     if(_tempRKArr[i].shengyu){
 
                         putOutGoods.redundant = _tempRKArr[i].shengyu;
@@ -1774,42 +1734,13 @@ $(function(){
 
                     }
 
-
                     putOutGoods.ck = _tempRKArr[i].storageName;
                     $('.cangku').attr('data-num',_tempRKArr[i].storageNum);
                     $('.cangku').attr('data-name',_tempRKArr[i].storageName);
                     $('.kuwei').attr('data-num',_tempRKArr[i].localNum);
-
-                    if(_tempRKArr[i].gdCode != null){
-
-                        $('.gdCode').attr('gdcode',_tempRKArr[i].gdCode);
-
-                        $('.chezhan').attr('data-name',_tempRKArr[i].bxKeshi);
-
-                        $('.chezhan').attr('data-num',_tempRKArr[i].bxKeshiNum);
-
-                        putOutGoods.chezhan = _tempRKArr[i].bxKeshi;
-
-                    }else{
-
-                        for(var j=0;j<_gdArr.length;j++){
-
-                            if(_gdArr[j].gdCode2 == _tempRKArr[i].gdCode2){
-
-                                $('.gdCode').attr('gdcode',_gdArr[j].gdCode);
-
-                                $('.chezhan').attr('data-num',_gdArr[j].bxKeshiNum);
-
-                                $('.chezhan').attr('data-name',_gdArr[j].bxKeshi);
-
-                                putOutGoods.chezhan = _gdArr[j].bxKeshi;
-
-                            }
-
-                        }
-
-                    }
-
+                    //$('.gdCode').attr('gdcode',_tempRKArr[i].gdCode);
+                    //$('.chezhan').attr('data-num',_tempRKArr[i].bxKeshiNum);
+                    //$('.chezhan').attr('data-name',_tempRKArr[i].bxKeshi);
                 }
             }
         })
@@ -1825,9 +1756,8 @@ $(function(){
                 var ck = $this.find('.storageName').children('span').attr('data-num');
                 var kq = $this.find('.localName').children('span').attr('data-num');
                 var sn = $this.find('.sn').html();
-                var gd = $this.find('.gdCode2').html();
                 for(var i=0;i<_tempRKArr.length;i++){
-                    if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
+                    if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn){
                         _tempRKArr[i].num = putOutGoods.num;
                         _tempRKArr[i].outPrice = putOutGoods.outPrice;
                         _tempRKArr[i].amount = putOutGoods.amount;
@@ -1839,7 +1769,6 @@ $(function(){
                         _tempRKArr[i].outMemo = putOutGoods.remark;
                     }
                 }
-
                 _datasTable($('#wuPinListTable1'),_tempRKArr);
                 //编辑之后清空
                 RKCPInit(false,_tempRKArr);
@@ -1872,8 +1801,6 @@ $(function(){
 
         }
 
-        console.log(_rukuArr);
-
         _datasTable($('#personTable1'),_rukuArr);
 
         $('#personTable1 tbody').children('tr').find('.option-see1').addClass('hiddenButton');
@@ -1881,34 +1808,6 @@ $(function(){
 
     //第三层工单--------------------------------------------------------------
     //点击放大镜，获取工单弹出框
-    $('.fdjImg').click(function(){
-
-        //初始化
-        $('#gdzt').val(5);
-
-        $('#gdcode').val('');
-
-        $('.gdTime').eq(0).val(gdTimeST);
-
-        $('.gdTime').eq(1).val(gdTimeET);
-
-        $('.returnEmpty').val('');
-
-        //材料申请是否已审批（默认已审批）
-        $('#isExamine').parent('span').addClass('checked');
-
-        GDselect($('#gdzt').val());
-
-        _moTaiKuang($('#myModal7'), '工单', '', '' ,'', '确定');
-
-    })
-
-    //工单条件查询
-    $('#selectedGD').click(function(){
-
-        GDselect($('#gdzt').val());
-
-    })
 
     //工单条件选择
     $('#isExamine').click(function(){
@@ -2073,6 +1972,8 @@ $(function(){
                 userName:_userIdName
             },
             success:function(result){
+
+                console.log(result);
 
                 _datasTable($('#outPrince-table'),result);
             },
@@ -2245,22 +2146,6 @@ $(function(){
 
     }
 
-    //工单下拉列表初始化（arr，flag）
-    function gdsList(arr){
-        var str = '';
-        for(var i=0;i<arr.length;i++){
-            str += '<li data-dds="' + arr[i].bxKeshiNum +
-                '"data-ddsName="' + arr[i].bxKeshi +
-                '" data-gd="' + arr[i].gdCode +
-                '">' +'<span class="dataGD">' +
-                arr[i].gdCode2 +'</span><span style="margin:0 10px;">' + arr[i].wxClNames +
-                '</span>' + '<span>' + arr[i].bxKeshi +
-                '</span>' + '</li>';
-        }
-
-        $('#workDone').find('.pinzhixx').eq(1).empty().append(str);
-    }
-
     //格式化数字，排除infinity NaN 其他格式
     function formatNumber(num){
         if(num===Infinity){
@@ -2284,6 +2169,7 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetOutStorageDetail',
             data:prm,
+            async:false,
             success:function(result){
                 seccessFun(result);
             },
@@ -2317,6 +2203,8 @@ $(function(){
 
         if(e.keyCode == 40){
 
+            //console.log('向下');
+
             if(_numIndex < lengths -1){
 
                 _numIndex ++ ;
@@ -2340,6 +2228,8 @@ $(function(){
             }
 
         }else if(e.keyCode == 38){
+
+            //console.log('向上');
 
             if(_numIndex < 1){
 
@@ -2366,9 +2256,13 @@ $(function(){
 
         }else if(e.keyCode == 13){
 
+            //console.log('回车');
+
             enterFun();
 
         }else if(e != 9){
+
+            //console.log('其他');
 
             inputFun();
 
@@ -2507,6 +2401,8 @@ $(function(){
             }
 
         }
+
+        //console.log(_filterWPList);
 
         wpList(_filterWPList,false);
 
@@ -2781,7 +2677,7 @@ $(function(){
                 //聚焦到工单选择
                 setTimeout(function(){
 
-                    $('#workDone').find('.gdCode').focus();
+                    $('#workDone').find('#outprince').focus();
 
                 },600)
 
@@ -2942,43 +2838,14 @@ $(function(){
             putOutGoods.amount = putOutGoods.outPrice;
 
             setTimeout(function(){
-                $('#workDone').find('.gdCode').focus();
+
+                $('#workDone').find('#outprince').focus();
+
             },600)
 
         }
 
 
-    }
-
-    //工单输入事件
-    var inputGD = function(){
-
-        inputFun(putOutGoods.gdCode2,_gdArr,'gdCode',$('#workDone').find('.pinzhixx').eq(1),gdsList);
-
-    }
-
-    //工单回车事件
-    var enterGD = function(){
-
-        var color = $('#workDone').find('.pinzhixx').eq(1);
-
-        var checkedLi = color.children('.li-color');
-
-        //赋值
-        putOutGoods.gdCode = checkedLi.children('.dataGD').html();
-
-        $('#workDone').find('.gdCode').attr('gdcode',checkedLi.attr('data-gd'));
-
-        //车站联动
-        putOutGoods.chezhan = checkedLi.attr('data-ddsname');
-
-        $('#workDone').find('.chezhan').attr('data-num',checkedLi.attr('data-dds'));
-
-        $('#workDone').find('.chezhan').attr('data-name',checkedLi.attr('data-ddsname'));
-
-        color.hide();
-
-        _numIndex = -1;
     }
 
     //将物品添加到表格暂存区（第二层弹窗）
@@ -2995,30 +2862,13 @@ $(function(){
             var t = $('.format-error3')[0].style.display;
             var b = $('.format-error4')[0].style.display;
 
-            //首先获取datatables的总量，
-            //当前数量
-            //遍历当前出库单的编码，序列号，仓库，库区，相同的物品的总数
-
-            var arrNum = Number(putOutGoods.num);
-
-            for(var i=0;i<_tempRKArr.length;i++){
-
-                if( _tempRKArr[i].itemNum == putOutGoods.bianhao && _tempRKArr[i].sn == putOutGoods.goodsId && _tempRKArr[i].storageNum == $('.cangku').attr('data-num') && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum ){
-
-                    arrNum += Number(_tempRKArr[i].num);
-
-                }
-
-            }
-
             if(o == 'none' && s == 'none' && a == 'none' && t =='none' && b == 'none'){
 
-                //首先判断输入过了没(根据仓库、库区、编号、序列号、工单号判断是否添加了)
+                //首先判断输入过了没(根据仓库、库区、编号、序列号判断是否添加了)
                 var existFlag = false;
 
                 for(var i=0;i<_tempRKArr.length;i++){
-
-                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn && putOutGoods.gdCode == _tempRKArr[i].gdCode2){
+                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn){
 
                         existFlag = true;
 
@@ -3028,49 +2878,37 @@ $(function(){
                     //有
                     _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'已添加过!', '');
                 }else{
+                    //无
+                    //获取入库单信息创建对象，存入_rukuArr数组
+                    //首先获取仓库的值
+                    var rukuDan = {};
+                    rukuDan.sn = putOutGoods.goodsId;
+                    rukuDan.itemNum = putOutGoods.bianhao;
+                    rukuDan.itemName = putOutGoods.mingcheng;
+                    rukuDan.size = putOutGoods.size;
+                    rukuDan.num = putOutGoods.num;
+                    rukuDan.isSpare = putOutGoods.picked;
+                    rukuDan.batchNum = putOutGoods.quality;
+                    rukuDan.maintainDate = putOutGoods.warranty;
+                    rukuDan.storageName = putOutGoods.ck;
+                    rukuDan.storageNum = $('.cangku').attr('data-num');
+                    rukuDan.unitName = putOutGoods.unit;
+                    rukuDan.outPrice = putOutGoods.outPrice;
+                    rukuDan.amount = putOutGoods.amount;
+                    //rukuDan.gdCode2 = putOutGoods.gdCode;
+                    rukuDan.localNum = $('.kuwei').attr('data-num');
+                    rukuDan.localName = putOutGoods.kuwei;
+                    //车间
+                    //rukuDan.bxKeshi = $('.chezhan').attr('data-name');
+                    //rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
+                    rukuDan.outMemo = putOutGoods.remark;
+                    rukuDan.userID = _userIdNum;
+                    rukuDan.userName = _userIdName;
+                    rukuDan.shengyu = putOutGoods.redundant;
+                    //rukuDan.gdCode = $('.gdCode').attr('gdcode');
+                    _tempRKArr.unshift(rukuDan);
 
-                    if( putOutGoods.redundant >= arrNum ){
-
-                        //数量满足，可添加
-                        //无
-                        //获取入库单信息创建对象，存入_rukuArr数组
-                        //首先获取仓库的值
-                        var rukuDan = {};
-                        rukuDan.sn = putOutGoods.goodsId;
-                        rukuDan.itemNum = putOutGoods.bianhao;
-                        rukuDan.itemName = putOutGoods.mingcheng;
-                        rukuDan.size = putOutGoods.size;
-                        rukuDan.num = putOutGoods.num;
-                        rukuDan.isSpare = putOutGoods.picked;
-                        rukuDan.batchNum = putOutGoods.quality;
-                        rukuDan.maintainDate = putOutGoods.warranty;
-                        rukuDan.storageName = putOutGoods.ck;
-                        rukuDan.storageNum = $('.cangku').attr('data-num');
-                        rukuDan.unitName = putOutGoods.unit;
-                        rukuDan.outPrice = putOutGoods.outPrice;
-                        rukuDan.amount = putOutGoods.amount;
-                        rukuDan.gdCode2 = putOutGoods.gdCode;
-                        rukuDan.localNum = $('.kuwei').attr('data-num');
-                        rukuDan.localName = putOutGoods.kuwei;
-                        //车间
-                        rukuDan.bxKeshi = $('.chezhan').attr('data-name');
-                        rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
-                        rukuDan.outMemo = putOutGoods.remark;
-                        rukuDan.userID = _userIdNum;
-                        rukuDan.userName = _userIdName;
-                        rukuDan.shengyu = putOutGoods.redundant;
-                        rukuDan.gdCode = $('.gdCode').attr('gdcode');
-                        _tempRKArr.unshift(rukuDan);
-
-                        _datasTable($('#wuPinListTable1'),_tempRKArr);
-
-                    }else{
-
-                        //超出数量，不可添加
-                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'剩余数量不足，请修改出库物品的数量', '');
-
-                    }
-
+                    _datasTable($('#wuPinListTable1'),_tempRKArr);
 
                 }
 
@@ -3092,53 +2930,6 @@ $(function(){
 
         _numIndex = $this.parent('ul').find('.li-color').index();
 
-    }
-
-    //更改工单备件状(点击了登记之后循环访问，确定工单号)
-    function applySparePart(arr,cl){
-        if(arr.length){
-            var prm = {
-                "gdCodes": arr,
-                "clStatusId": 100,
-                "clStatus": '备件发货',
-                "clLastUptInfo": '',
-                'userID':_userIdNum,
-                'userName':_userIdName,
-                'b_UserRole':_userRole,
-                'wxClNames':cl
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWGD/ywGDUptMultiPeijStatus',
-                data:prm,
-                success:function(result){
-                    _bjComplete = true;
-
-                    if( result == 99 ){
-                        _BjFlag = true;
-                    }else{
-                        _BjFlag = false;
-                    }
-                    addBJ();
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    _bjComplete = true;
-                    console.log(jqXHR.responseText);
-                }
-            })
-        }else{
-            _BjFlag = '';
-
-            if(_shSuccess){
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '');
-
-                $('#myModal').modal('hide');
-
-                conditionSelect();
-            }else{
-                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认失败！', '');
-            }
-        }
     }
 
     //登记、备件发货成功执行
@@ -3178,7 +2969,7 @@ $(function(){
             'st':realityStart,
             'et':realityEnd,
             'orderNum':filterInput[0],
-            'outType':1,
+            'outType':2,
             'storageNums':ckArr,
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -3247,7 +3038,8 @@ $(function(){
 
                 $('#rkleixing').empty().append(str);
 
-                $('#rkleixing').val(1);
+                $('#rkleixing').val(2);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3256,35 +3048,59 @@ $(function(){
     }
 
     //仓库
-    function warehouse(){
+    function warehouse(flag){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
-            'b_UserRole':_userRole,
             "hasLocation":1
         }
+
+        if(!flag){
+
+            prm.b_UserRole = _userRole;
+
+        }else{
+
+            prm.b_UserRole = 'admin';
+        }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
             success:function(result){
 
-                _ckArr.length = 0;
-
                 var str = '<option value="">请选择</option>';
 
-                for(var i=0;i<result.length;i++){
+                if(!flag){
 
-                    _ckArr.push(result[i]);
+                    for(var i=0;i<result.length;i++){
 
-                    str += '<option value="' + result[i].storageNum +
-                        '">' + result[i].storageName + '</option>'
+                        str += '<option value="' + result[i].storageNum +
+                            '">' + result[i].storageName + '</option>'
 
+                    }
+
+                    $('#transferOut').empty().append(str);
+
+                }else{
+
+                    _ckArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _ckArr.push(result[i]);
+
+                        str += '<option value="' + result[i].storageNum +
+                            '">' + result[i].storageName + '</option>'
+
+                    }
+
+                    $('#ckSelect1').empty().append(str);
+
+                    //加载数据
+                    conditionSelect();
                 }
-                $('#ckSelect1').empty().append(str);
-
-                //加载数据
-                conditionSelect();
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -3341,8 +3157,10 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
+            async:false,
             data:prm,
             success:function(result){
+
                 _wpListArr.length = 0;
 
                 for(var i=0;i<result.length;i++){
@@ -3350,6 +3168,8 @@ $(function(){
                     _wpListArr.push(result[i]);
 
                 }
+
+                console.log(_wpListArr);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3387,11 +3207,11 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
+            async:false,
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('show');
             },
-
             complete: function () {
                 $('#theLoading').modal('hide');
             },
@@ -3410,68 +3230,9 @@ $(function(){
 
     //获取所有工单
     //工单条件查询
-    function GDselect(num){
-
-        if($('.gdTime').eq(0).val() == ''){
-            gdrealityStart = ''
-        }else{
-            gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + ' 00:00:00'
-        }
-        if($('.gdTime').eq(1).val() == ''){
-            gdrealityEnd = ''
-        }else{
-            gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        }
-
-        var prm = {
-            gdCode2:$('#gdcode').val(),
-            gdSt:gdrealityStart,
-            gdEt:gdrealityEnd,
-            gdZht:num,
-            userID:_userIdNum,
-            userName:_userIdName,
-            wxShiXNum:$('#xtlx').val(),
-            gdCodeSrc:$('#gdly').val(),
-            bxKeshiNum:$('#station').val()
-        }
-        if($('#isExamine').parent('.checked').length != 0){
-
-            prm.isApplyWxCl = 1
-
-        }
-
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetZh2',
-            data:prm,
-            timeout:30000,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            success:function(result){
-
-                _gdArr.length = 0;
-
-                for(var i=0;i<result.length;i++){
-
-                    _gdArr.push(result[i]);
-
-                }
-                _datasTable($('#gdTable'),result);
-
-                gdsList(result);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
 
     //获取车站
-    function chezhan(flag){
+    function chezhan(){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -3488,18 +3249,6 @@ $(function(){
                     str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
                 }
                 $('#station').empty().append(str);
-
-                if(flag){
-
-                    _cheArr.length = 0;
-
-                    for(var i=0;i<result.length;i++){
-
-                        _cheArr.push(result[i]);
-
-                    }
-
-                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3546,15 +3295,18 @@ $(function(){
 
                     _shSuccess = true;
 
-                    _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
+                    //_moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'确认成功!', '');
+                    //
+                    //$('#myModal').modal('hide');
 
-                    $('#myModal').modal('hide');
-
-                    conditionSelect();
+                    //conditionSelect();
 
                     $(this).removeClass('shenhe');
 
-                    applySparePart(gdArr,clArr);
+                    //applySparePart(gdArr,clArr);
+
+                    //审核成功之后，自动添加一个入库单
+                    rukuFun(_rukuArr);
 
 
                 }else{
@@ -3583,7 +3335,7 @@ $(function(){
         //出库单编号
         putOutList.bianhao = '';
         //出库类型
-        putOutList.rkleixing = 1;
+        putOutList.rkleixing = 2;
         //发货员名称
         putOutList.clymc = '';
         //发货员电话
@@ -3594,6 +3346,8 @@ $(function(){
         putOutList.shijian = '';
         //备注
         putOutList.remarks = '';
+        //调拨仓库
+        putOutList.transferOut = '';
         //审核备注
         putOutList.shRemarks = '';
 
@@ -3610,7 +3364,6 @@ $(function(){
             _datasTable($('#personTable1'),emptyArr);
 
         }
-
 
     }
 
@@ -3724,6 +3477,126 @@ $(function(){
 
     }
 
+    //入库操作
+    function rukuFun(arr){
 
+        //入库产品数组
+        var inStoreDetails = [];
+
+        for(var i=0;i<arr.length;i++){
+
+            var obj = {};
+            //序列号
+            obj.sn = _rukuArr[i].sn;
+            //是否耐用
+            obj.isSpare = _rukuArr[i].isSpare;
+            //入库产品编号
+            obj.itemNum = _rukuArr[i].itemNum;
+            //入库产品名称
+            obj.itemName = _rukuArr[i].itemName;
+            //品质
+            obj.batchNum = _rukuArr[i].batchNum;
+            //数量
+            obj.num = _rukuArr[i].num;
+            //入库价格
+            obj.inPrice = _rukuArr[i].outPrice;
+            //总金额
+            obj.amount = _rukuArr[i].amount;
+            //仓库编号
+            obj.storageNum = putOutList.transferOut;
+            //仓库名称
+            obj.storageName = $('#transferOut').children('option:selected').html();
+            //规格型号
+            obj.size = _rukuArr[i].size;
+            //单位
+            obj.unitName = _rukuArr[i].unitName;
+            //备注
+            obj.inMemo = _rukuArr[i].outMemo;
+            //质保期
+            obj.maintainDate = _rukuArr[i].maintainDate;
+            //库区编号
+            obj.localNum = _rukuArr[i].localNum;
+            //库区名称
+            obj.localName = _rukuArr[i].localName;
+            //用户id
+            obj.userID=_userIdNum;
+            //用户名
+            obj.userName = _userIdName;
+
+            inStoreDetails.push(obj);
+
+        }
+
+        var prm = {
+
+            //入库类型
+            inType:3,
+            //供应方联系人
+            contactName:putOutList.clymc,
+            //供应方联系电话
+            phone:putOutList.clydh,
+            //仓库名称
+            storageName:$('#transferOut').children('option:selected').html(),
+            //仓库编码
+            storageNum:putOutList.transferOut,
+            //入库物品
+            inStoreDetails:inStoreDetails,
+            //备注
+            remark:putOutList.remarks,
+            //用户id
+            userID:_userIdNum,
+            //用户名称
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole,
+            //出库单号
+            ContractOrder:_$thisRKnum
+
+        };
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWCK/ywCKAddInStorage',
+            timeout:_theTimes,
+            data:prm,
+            success:function(result){
+
+                var str = '';
+
+                if( _shSuccess ){
+
+                    str += '审核成功！'
+
+                }else{
+
+                    str += '审核失败！'
+
+                }
+
+                if( result == 99 ){
+
+                    str += '生成入库单成功！'
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
+
+                    $('#myModal').modal('hide');
+
+                    conditionSelect();
+
+                }else{
+
+                    str += '生成入库单失败！'
+
+                    _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
 
 })

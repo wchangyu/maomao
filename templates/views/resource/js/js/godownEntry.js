@@ -73,7 +73,7 @@ $(document).ready(function(){
                     "userID": _userIdName,
                     "userName": _userName
                 };
-                console.log(data);
+
                 $.ajax({
                     type:'post',
                     url:_urls + 'YWCK/ywCKGetInOutCate',
@@ -92,6 +92,8 @@ $(document).ready(function(){
                         console.log(jqXHR.responseText);
                     }
                 })
+                //单据号
+                $('.document-num b').html(data[0].orderNum2);
                 //获取自编号
                 $('.self-num b').html(data[0].orderNum);
                 //获取制单人
