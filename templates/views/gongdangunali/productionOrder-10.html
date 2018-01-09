@@ -55,6 +55,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -301,18 +302,12 @@
                                                 <input type="text" class="datatimeblock max" name="max">
                                             </div>
                                         </li>
-                                        <li class="routeShow">
-                                            <label for="">线点：</label>
-                                            <div class="input-blocked">
-                                                <select id="linePoint"></select>
-                                            </div>
-                                        </li>
                                         <li>
                                             <label for="">
                                                 <span class="user-defined-department"></span>
                                                 ：</label>
                                             <div class="input-blocked">
-                                                <select id="station"></select>
+                                                <select id="bumen"></select>
                                             </div>
                                         </li>
                                         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
@@ -390,7 +385,6 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<!--弹窗-->
 <!--弹窗-->
 <!--查看详情-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -583,11 +577,9 @@
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
                     </div>
-                    <div class="bjpicture" style="margin-top: 20px;display: block;">
-                        <div class="labels">备件图片：</div>
-                        <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
-                        <div class="bjImg">
-                        </div>
+                    <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                        <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                        <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
@@ -815,6 +807,7 @@
 <script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-10.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->
 
 </body>

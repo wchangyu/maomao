@@ -1,7 +1,10 @@
 //记录工单号
 var _gdCode = 0;
 var _wxClNames = '';
-
+//车站数组
+var _allDataBM = [];
+//线路数组
+var _lineArr = [];
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -92,33 +95,21 @@ $(function(){
     var _gdCircle = 0;
     //设备类型数组
     var _allDataXT = [];
-    //车站数组
-    var _allDataBM = [];
-    //线路数组
-    var _lineArr = [];
+
     //所属维保组
     var _InfluencingArr = [];
     //所属班组
     var _bzArr = [];
-
-    //存放传递给后台的参数，用于后台返回时进行判断
-    var _postData = {};
-
     //设备系统
     ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#xtlx'), 'dsName', 'dsNum');
     //所有车站数据
     ajaxFun('YWDev/ywDMGetDDs', _allDataBM,$('#station'), 'ddName', 'ddNum');
     //线路数据
     lineRouteData($('#line'));
-    //影响单位
-    InfluencingUnit();
     //执行人方法执行
     var _zxrComplete = false;
     //物料方法执行
     var _wlComplete = false;
-
-    //条件查询车站
-    addStationDom($('#station').parent());
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -295,6 +286,10 @@ $(function(){
         ]
     });
     table.buttons().container().appendTo($('.excelButton'),table.table().container());
+
+    //影响单位
+    InfluencingUnit();
+
     //报错时不弹出弹框
     $.fn.dataTable.ext.errMode = function(s,h,m){
         console.log('')
@@ -650,31 +645,7 @@ $(function(){
         }
         $('#myModal1').modal('hide');
     })
-    //修改
-    //$('#myModal')
-    ////查看图片
-    //    .on('click','#viewImage',function(){
-    //        if(_imgNum){
-    //            var str = '';
-    //            for(var i=0;i<_imgNum;i++){
-    //                str += '<img class="viewIMG" src="' +
-    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-    //                    '">'
-    //            }
-    //            $('.showImage').html('');
-    //            $('.showImage').append(str);
-    //            $('.showImage').show();
-    //        }else{
-    //            $('.showImage').html('没有图片');
-    //            $('.showImage').show();
-    //        }
-    //    })
-    //    //图片详情
-    //    .on('click','.viewIMG',function(){
-    //        moTaiKuang($('#myModal4'),'图片详情','flag');
-    //        var imgSrc = $(this).attr('src')
-    //        $('#myModal4').find('img').attr('src',imgSrc);
-    //    })
+
 
     /*------------------------按钮功能-----------------------------------------*/
     //查询按钮
@@ -687,7 +658,7 @@ $(function(){
         }else{
             conditionSelect()
         }
-    });
+    })
     //重置按钮功能
     $('.resites').click(function(){
         //清空input框内容
@@ -712,31 +683,7 @@ $(function(){
     $('.modal').find('.btn-primary').click(function(){
         $(this).parents('.modal').modal('hide')
     })
-    //线路车站联动
-    $('#line').change(function(){
-        //获得选中的线路的value
-        var values = $('#line').val();
-        if(values == ''){
-            var str = '<option value="">请选择</option>';
-            //所有车站数据
-            for(var i=0;i<_allDataBM.length;i++){
-                str += '<option value="' + _allDataBM[i].ddNum + '">' + _allDataBM[i].ddName + '</option>';
-            }
-            $('#station').empty().append(str);
-        }else{
-            var str = '<option value="">请选择</option>';
-            for(var i=0;i<_lineArr.length;i++){
-                if(values == _lineArr[i].dlNum){
-                    //创建对应的车站
-                    for(var j=0;j<_lineArr[i].deps.length;j++){
-                        str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                            '">'+ _lineArr[i].deps[j].ddName + '</option>';
-                    }
-                }
-            }
-            $('#station').empty().append(str);
-        }
-    });
+
     //印象单位联动
     $('#yxdw').change(function(){
         var values = $('#yxdw').val();
@@ -763,9 +710,10 @@ $(function(){
     });
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
+
         if($('.gdTime').eq(0).val() == ''){
             gdrealityStart = ''
         }else{
@@ -813,7 +761,7 @@ $(function(){
             userName:_userIdName,
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
-            gdCodeSrc:$('#gdly').val()
+            gdCodeSrc:$('#gdly').val(),
         };
 
         if($('#gdzt').val() == 5){
@@ -822,69 +770,90 @@ $(function(){
 
         }
 
-        var userArr = [];
+        var bzArr = [];
         var cheArr = [];
-        if($('#yxdw').val() != '' && $('#userClass').val() == ''){
-            for(var i=0;i<_InfluencingArr.length;i++){
-                if( $('#yxdw').val() == _InfluencingArr[i].departNum ){
-                    for(var j = 0;j<_InfluencingArr[i].wxBanzus.length;j++){
-                        userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
-                    }
-                }
-            }
-            prm2.wxKeshis = userArr;
-        }else if($('#yxdw').val() == '' && $('#userClass').val() == ''){
-            for(var i=0;i<_InfluencingArr.length;i++){
-                for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
-                    userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
-                }
-            }
-            //prm2.wxKeshis = userArr;
+        //如果车站为空，就判断线路，线路为空的话，wxKeshis和wxKeshi不传，线路不为空的话，传wxKeshis，车站不为空，wxKeshi
+        var station = $('#bumen').parent().next().find('span').attr('values');
+
+        var stationValues = ''
+
+        if(typeof station == 'undefined'){
+
+            stationValues = '';
+
         }else{
-            prm2.wxKeshi = $('#userClass').val();
+
+            stationValues = station;
 
         }
-        if( $('#line').val() != '' && $('#station').val() == ''){
-            var values = $('#line').val();
-            for(var i=0;i<_lineArr.length;i++){
-                if( values == _lineArr[i].dlNum ){
-                    for(var j=0;j<_lineArr[i].deps.length;j++){
-                        cheArr.push(_lineArr[i].deps[j].ddNum);
+
+        if(stationValues == ''){
+
+            if($('#line').val() == ''){
+
+
+
+            }else{
+
+                for(var i=0;i<_lineArr.length;i++){
+
+                    if($('#line').val() == _lineArr[i].dlNum){
+
+                        for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                            cheArr.push(_lineArr[i].deps[j].ddNum);
+
+                        }
+
                     }
-                }
-            }
-            prm2.bxKeshiNums = cheArr;
-        }else if($('#line').val() == '' && $('#station').val() == ''){
-            for(var i=0;i<_lineArr.length;i++){
-                for(var j=0;j<_lineArr[i].deps.length;j++){
-                    cheArr.push(_lineArr[i].deps[j].ddNum);
+
                 }
 
+                prm2.bxKeshiNums = cheArr;
+
             }
-            prm2.bxKeshiNums = cheArr;
+
         }else{
-            prm2.bxKeshiNum = $('#station').val();
+
+            prm2.bxKeshiNum = stationValues;
+
         }
-        //替换最新的查询条件
-        postData = prm2;
+
+        //如果维修班组为空，就判断车间，如果车间为空，bxKeshiNums和bxKeshiNum不传，维修班组不为空bxKeshiNum
+        var wxbz = $('#userClass').val();
+
+        if(wxbz == ''){
+
+            if($('#yxdw').val() == ''){
+
+
+            }else{
+
+                var wxbzArr = $('#userClass').children();
+
+                for(var i=1;i<wxbzArr.length;i++){
+
+                    bzArr.push(wxbzArr.eq(i).attr('value'));
+
+                }
+
+                prm2.wxKeshis = bzArr;
+
+            }
+
+        }else{
+
+            prm2.wxKeshi = wxbz;
+
+        }
 
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetZh2',
             data:prm2,
-            async:false,
             success:function(result){
-                //判断查询条件是否符合用户最后一次点击的查询条件
-                //if(postData == prm2){
-                    //符合条件 则插入到页面中
-                    datasTable($("#scrap-datatables"),result);
-                //}
-                //var aaa = currentPages;
-                //for(var i=0 ;i<$('.paginate_button').length; i++){
-                //    if($('.paginate_button').eq(i).html() == aaa){
-                //        $('.paginate_button').eq(i).click();
-                //    }
-                //}
+                datasTable($("#scrap-datatables"),result);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1259,6 +1228,8 @@ $(function(){
                     $('#yxdw').empty().append(str);
                     $('#userClass').empty().append(str1);
                     _isDepartLoaded = true;
+
+
                     firstLoadData();
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1312,7 +1283,9 @@ $(function(){
 
     //页面收入默认载入数据
     function firstLoadData(){
+
         if(_isDepartLoaded && _isLineLoaded && _isStationLoaded && _isSystemLoaded){
+
             conditionSelect();
         }
     }
@@ -1397,4 +1370,4 @@ $(function(){
         }
 
     })
-});
+})
