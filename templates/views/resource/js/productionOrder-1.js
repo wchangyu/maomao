@@ -614,20 +614,23 @@ $(function(){
 
     if(_AisWBZ){
 
-      for(var i=0;i<_ABZArr.length;i++){
+      for(var i=0;i<_AWBZArr.length;i++){
 
-        wbzArr.push(_ABZArr[i].departNum);
+        for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+          wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+        }
 
       }
 
-      prm.wxKeshis = _ABZArr;
+      prm.wxKeshis = wbzArr;
 
     }else if(_AisBZ){
 
       prm.wxKeshi = _maintenanceTeam;
 
     }
-
     $.ajax({
       type: 'post',
       url: _urls + 'YWGD/ywGDGetDJ',

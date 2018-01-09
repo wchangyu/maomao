@@ -54,6 +54,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -313,7 +314,7 @@
                                         <li class="routeShow">
                                             <label for="">线点：</label>
                                             <div class="input-blocked">
-                                                <select id="line-point"></select>
+                                                <select id="line"></select>
                                             </div>
                                         </li>
                                         <li>
@@ -321,7 +322,7 @@
                                                 <span class="user-defined-department"></span>
                                                 ：</label>
                                             <div class="input-blocked">
-                                                <select id="station"></select>
+                                                <select id="bumen"></select>
                                             </div>
                                         </li>
                                         <li>
@@ -676,7 +677,7 @@
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h4 class="modal-title" id="">提示</h4>
             </div>
             <div class="modal-body">您确定要进行取消操作吗？</div>
             <div class="modal-footer">
@@ -721,10 +722,9 @@
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
                     </div>
-                    <div class="bjpicture" style="margin-top: 20px;display: none;">
-                        <div class="labels">备件图片：</div>
-                        <!--<button type="button" class="btn btn-info viewBjIMG">查看备件图片</button>-->
-                        <div class="bjImg"></div>
+                    <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                        <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                        <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                     </div>
                 </div>
                 <div style="width: 235px;background: #ffffff;float: right">
@@ -764,6 +764,12 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -780,6 +786,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -831,6 +838,7 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/productionOrder-8.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->
 
 </body>

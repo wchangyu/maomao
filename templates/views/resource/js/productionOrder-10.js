@@ -142,14 +142,15 @@ $(function(){
     var _lineArr = [];
 
     //线路
-    lineRouteData($('#linePoint'));
+    //lineRouteData($('#linePoint'));
 
     //存放车站
     var _stationArr = [];
 
     //车站
-    ajaxFun('YWDev/ywDMGetDDs', $('#station'),_stationArr, 'ddName', 'ddNum');
-
+    //ajaxFun('YWDev/ywDMGetDDs', $('#station'),_stationArr, 'ddName', 'ddNum');
+    //条件查询车站
+    addStationDom($('#bumen').parent());
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -255,7 +256,7 @@ $(function(){
     };
 
     //条件查询
-    conditionSelect();
+    _WxBanzuStationData(conditionSelect);
 
     //执行人员表格初始化
     var personTable1Col = [
@@ -401,6 +402,11 @@ $(function(){
         //时间置为今天
         $('.min').val(_initStart);
         $('.max').val(_initEnd);
+
+        $('#line-point').val('');
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
     });
 
     //表格中的操作
@@ -541,14 +547,7 @@ $(function(){
                         bmArr.push(result.wxCls[i].wxCl);
                     }
                     //备件图片
-                    if(result.hasBjImage>0){
-                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-                        $('.bjImg').empty().append(str).show();
-                        $('.bjpicture').show();
-                    }else{
-                        $('.bjpicture').hide();
-                    }
+                    _imgBJNum = result.hasBjImage;
 
                     //根据itemNums获取多个物品的库存
                     var prm = {
@@ -946,6 +945,7 @@ $(function(){
         }else{
             slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
+
         var prm = {
             gdCode2:$('#gdcode').val(),
             st:slrealityStart,
@@ -956,46 +956,25 @@ $(function(){
             clType:3
         };
 
-        if($('#station').val() == ''){
+        var wbzArr = [];
 
-            if($('#linePoint').val() == ''){
+        if(_AisWBZ){
 
-                var arr = [];
+            for(var i=0;i<_AWBZArr.length;i++){
 
-                for(var i=0;i<_stateArr.length;i++){
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
 
-                    arr.push(_stateArr[i].ddNum);
-
-                }
-
-                prm.bxKeshiNums = arr;
-
-            }else{
-
-                for(var i=0;i<_lineArr.length;i++){
-
-                    if($('#linePoint').val() == _lineArr[i].dlNum ){
-
-                        var arr = [];
-
-                        for(var j=0;j<_lineArr[i].deps.length;j++){
-
-                            arr.push(_lineArr[i].deps[j].ddNum);
-
-                        }
-
-                        prm.bxKeshiNums = arr;
-
-                    }
+                    wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
 
                 }
 
             }
 
+            prm.wxKeshiNums = wbzArr;
 
-        }else{
+        }else if(_AisBZ){
 
-            prm.bxKeshiNum = $('#station').val();
+            prm.wxKeshiNum = _maintenanceTeam;
 
         }
 
@@ -1754,27 +1733,5 @@ $(function(){
         })
     }
 
-    //线路、车站联动
-    $('#linePoint').on('change',function(){
-
-        for(var i=0;i<_lineArr.length;i++){
-
-            if($('#linePoint').val() == _lineArr[i].dlNum ){
-
-                var str = '<option value="">请选择</option>';
-
-                for(var j=0;j<_lineArr[i].deps.length;j++){
-
-                    str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                        '">' + _lineArr[i].deps[j].ddName + '</option>'
-
-                }
-
-                $('#station').empty().append(str);
-            }
-
-        }
-
-    })
 
 })

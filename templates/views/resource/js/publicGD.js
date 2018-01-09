@@ -6,7 +6,7 @@ var _imgNum = 0;
 //备件图片数量
 var _imgBJNum = 0;
 
-//详情【查看图片】
+//工单详情【查看图片】
 $('#viewImage,.viewImage').click(function(){
 
     var o = $('.showImage').css('display');
@@ -20,7 +20,7 @@ $('#viewImage,.viewImage').click(function(){
             var str = '';
             for(var i=0;i<_imgNum;i++){
                 str += '<img class="viewIMG" src="' +
-                    _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
+                    _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + '2' + i +
                     '">'
             }
             $('.showImage').html('');
@@ -55,8 +55,44 @@ $('.showImage').on('click','.viewIMG',function(){
 
 })
 
+//备件详情【查看图片】
+$('#viewBJImage').click(function(){
+
+    var o = $('.bjImg').css('display');
+
+    if(o == 'none'){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        if(_imgBJNum){
+            var str = '';
+            for(var i=0;i<_imgBJNum;i++){
+
+                str += '<img class="viewIMG" src="' +
+                    _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + (i + 1) +
+                    '">'
+            }
+            $('.bjImg').html('');
+            $('.bjImg').append(str);
+            $('.bjImg').show();
+        }else{
+            $('.bjImg').html('没有图片');
+            $('.bjImg').show();
+        }
+
+        $('#theLoading').modal('hide');
+
+    }else{
+
+        $('.bjImg').hide();
+
+    }
+
+})
+
 //备件图片放大
-$('.bjImg').on('click','.bjImgList',function(){
+$('.bjImg').on('click','.viewIMG',function(){
 
     _moTaiKuang($('#img-Modal'),'备件图片详情',true,'','','');
 

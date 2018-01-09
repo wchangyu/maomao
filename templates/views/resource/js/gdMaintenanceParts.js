@@ -91,6 +91,9 @@ $(function(){
     //记录获取走向是否成功
     var _trendIsSuccess = false;
 
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*-----------------------------------------------表格初始化------------------------------------------*/
 
     //主表格
@@ -286,6 +289,9 @@ $(function(){
 
         //select
         $('.condition-query').eq(0).find('select').val('');
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
 
     })
 
@@ -505,12 +511,6 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetFX',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
             success:function(result){
 
                 _datasTable($('#table-list'),result);
@@ -737,8 +737,6 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
-
-                console.log(result);
 
                 _statusArr.length = 0;
 

@@ -542,14 +542,8 @@ $(function(){
                         bmArr.push(result.wxCls[i].wxCl);
                     }
                     //备件图片
-                    if(result.hasBjImage>0){
-                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-                        $('.bjImg').empty().append(str).show();
-                        $('.bjpicture').show();
-                    }else{
-                        $('.bjpicture').hide();
-                    }
+                    _imgBJNum = result.hasBjImage;
+
 
                     //根据itemNums获取多个物品的库存
                     var prm = {

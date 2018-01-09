@@ -88,8 +88,6 @@ function ajaxFun(){
         data:prm,
         success:function(result){
             //给select赋值
-            //console.log(result);
-
             $(result).each(function(i,o){
 
                 stationArr.push(o);
@@ -172,4 +170,49 @@ function classifyArrByInitial(arr,num){
 
     })
 }
+
+//当线路联动时，车站改变内容
+$('#line').change(function(){
+
+    stationArr.length = 0;
+
+    ////获得选中的线路的value
+    var values = $('#line').val();
+
+    if(values == ''){
+
+        for(var i=0;i<_allDataBM.length;i++){
+
+            stationArr.push(_allDataBM[i]) ;
+
+        }
+
+
+    }else{
+
+        for(var i=0;i<_lineArr.length;i++){
+
+            if(_lineArr[i].dlNum == $('#line').val()){
+
+                for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                    stationArr.push(_lineArr[i].deps[j]);
+
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    $('.add-input-father').remove();
+
+    addStationDom($('#bumen').parent());
+
+    classifyArrByInitial(stationArr,0);
+
+});
 
