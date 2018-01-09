@@ -46,7 +46,6 @@ $(function(){
     //单位床位KPI指标
     getTopPageKPIData1();
 
-    //
     //获取所有报警数据
     alarmHistory();
 
@@ -72,9 +71,10 @@ $(function(){
         //切换显示楼宇或者科室
         if($(this).index() == 0){
             //楼宇能耗排名
-
             getPointerRankData();
+
         }else{
+
             //科室能耗排名
             getOfficeRankData();
         }
@@ -537,7 +537,6 @@ function getTopPageData(){
 
             //console.log(result);
 
-
             //给页面中赋值
 
             //总面积
@@ -584,7 +583,7 @@ function getLeftEnergyData(){
             //console.log(result);
 
             //如果为空直接返回
-            if(data == null && data.length == 0){
+            if(result == null && result.length == 0){
                 return false;
             }
 
@@ -640,10 +639,20 @@ function getWeatherParam(){
         success:function(result){
 
             //console.log(result);
+            //无数据
+            if(result == null || result.length == 0){
+                //隐藏温度 和湿度
+                $('.top-system-message .temperature').html(88 + "℃");
+
+                //湿度
+                $('.top-system-message .humidity').html(66 + "%");
+
+                return false;
+            }
             //给页面中赋值
             //温度
-
             $('.top-system-message .temperature').html(result.temperatureData + "℃");
+
             //湿度
             $('.top-system-message .humidity').html(result.humidityData + "%");
 
@@ -1097,7 +1106,6 @@ function getAllEnergyItemData(){
                 return false;
             }
 
-
             _myChart.hideLoading();
 
             //存放能耗数据
@@ -1175,13 +1183,13 @@ function getFirstEnergyItemData(){
 
             //console.log(result);
 
+            _myChart1.hideLoading();
+
             //无数据
             if(result == null || result.length == 0){
 
                 return false;
             }
-
-            _myChart1.hideLoading();
 
             //存放能耗数据
             var dataArr = [];
@@ -1261,8 +1269,6 @@ function getTopPageKPIData(){
         success:function(result){
 
             _myChart4.hideLoading();
-
-
 
             //console.log(result);
 

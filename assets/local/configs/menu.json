@@ -33,7 +33,15 @@
         "content": "监控总览",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "2,4",
+        "arg": "1,8816008016",
+        "iconclass": ""
+      },
+      "测试一下": {
+        "type": "0",
+        "content": "测试一下",
+        "uri": "../yongnengjiance/energyMonitor.html?a=1",
+        "uid": "",
+        "arg": "1,8816008016",
         "iconclass": ""
       },
       "变配电系统": {
@@ -1556,6 +1564,14 @@
       "用能管理":{
         "type":"2",
         "content":"用能管理"
+      },
+      "能耗费用":{
+        "type":"0",
+        "content":"能耗费用",
+        "uri":"../new-yongnengguanli/energyMoney.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       },
       "能耗排名":{
         "type":"0",

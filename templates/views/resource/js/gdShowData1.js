@@ -15,7 +15,11 @@ $(function(){
     var _wxBanNum = sessionStorage.getItem("userDepartNum");
     //默认刷新时间
     var _refresh = sessionStorage.getItem("gongdanInterval");
+    //是否有提示声音
+    var _ifAutio = false;
+
     if(_refresh==0){
+
         _refresh = 1;
     }
 
@@ -75,7 +79,7 @@ $(function(){
 
         //刷新左边chart图
 
-    },30000)
+    },30000);
 
     //echart图自适应
     //浏览器echarts自适应
@@ -142,16 +146,16 @@ $(function(){
                 data:'gdCode',
                 class:'gd-code',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4">'+ data + '</span>';
+                        return '<span style="color: #0da570">'+ data + '</span>';
 
                     }else{
-                        return '<span style="color: #333333">'+ data + '</span>';
+                        return '<span style="color: #4472c4">'+ data + '</span>';
                     }
                 }
 
@@ -165,13 +169,13 @@ $(function(){
                         return '<span style="color: #c00000">'+ '待下发' + '</span>';
                     }
                     else if (data == 2) {
-                        return '<span style="color: #4472c4">'+ '待分派' + '</span>'
+                        return '<span style="color: #4472c4">'+ '待分派' + '</span>';
                     }
                     else if (data == 3) {
                         return '待执行'
                     }
                     else if (data == 4) {
-                        return  '执行中';
+                        return  '<span style="color: #0da570">'+ '执行中' + '</span>';
                     }
                     else if (data == 5) {
                         return '等待资源'
@@ -195,17 +199,17 @@ $(function(){
                 title:'报修科室',
                 data:'bxKeshi',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4">'+ data + '</span>';
+                        return '<span style="color: #0da570">'+ data + '</span>';
 
                     }else{
 
-                        return '<span style="color: #333333">'+ data + '</span>';
+                        return '<span style="color: #4472c4">'+ data + '</span>';
 
                     }
                 }
@@ -214,17 +218,17 @@ $(function(){
                 title:'故障位置',
                 data:'wxDidian',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4">'+ data + '</span>';
+                        return '<span style="color: #0da570">'+ data + '</span>';
 
                     }else{
 
-                        return '<span style="color: #333333">'+ data + '</span>';
+                        return '<span style="color: #4472c4">'+ data + '</span>';
 
                     }
                 }
@@ -233,19 +237,19 @@ $(function(){
                 title:'维修事项',
                 data:'wxXm',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4;cursor: pointer;" title="' + data +
+                        return '<span style="color: #0da570;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
 
                     }else{
 
-                        return '<span style="color: #333333;cursor: pointer;" title="' + data +
+                        return '<span style="color: #4472c4;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
 
                     }
@@ -255,17 +259,17 @@ $(function(){
                 title:'故障描述',
                 data:'bxBeizhu',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4">'+ data + '</span>';
+                        return '<span style="color: #0da570">'+ data + '</span>';
 
                     }else{
 
-                        return '<span style="color: #333333">'+ data + '</span>';
+                        return '<span style="color: #4472c4">'+ data + '</span>';
 
                     }
                 }
@@ -274,36 +278,36 @@ $(function(){
                 title:'报修人',
                 data:'bxRen',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span style="color: #c00000">'+ data + '</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span style="color: #4472c4">'+ data + '</span>';
+                        return '<span style="color: #0da570">'+ data + '</span>';
 
                     }else{
 
-                        return '<span style="color: #333333">'+ data + '</span>';
+                        return '<span style="color: #4472c4">'+ data + '</span>';
 
                     }
                 }
             },
             {
                 title:'维修科室',
-                data:'wxkeshiName',
+                data:'wxKeshi',
                 render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
+                    if(row.gdZht == 1){
 
                         return '<span class="wxUser" style="color: #c00000" title="'+data+'">'+data+'</span>';
 
                     }else if( row.gdZht == 4 ){
 
-                        return '<span class="wxUser" style="color: #4472c4" title="'+data+'">'+data+'</span>';
+                        return '<span class="wxUser" style="color: #0da570" title="'+data+'">'+data+'</span>';
 
                     }else{
 
-                        return '<span class="wxUser" style="color: #333333" title="'+data+'">'+data+'</span>';
+                        return '<span class="wxUser" style="color: #4472c4" title="'+data+'">'+data+'</span>';
 
                     }
                 }
@@ -398,18 +402,17 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
-        var wxKeshi =  '';
+        var wxKeshiNum =  _wxBanNum;
 
-        if(!_wxBan){
-            wxKeshi = '-1'
+        if( !_wxBanNum){
+            return false;
         }
-
         var prm = {
             "gdCode":'',
             "gdSt":_initStart,
             "gdEt":_initEnd,
             "bxKeshi":'',
-            "wxKeshi":wxKeshi,
+            //"wxKeshiNum":wxKeshiNum,
             "gdZht":'',
             "pjRen":'',
             //"shouliren": filterInput[7],
@@ -420,7 +423,7 @@ $(function(){
             "wxdidian":'',
             "isCalcTimeSpan":1,
             "userName":_userIdName,
-            "gdZhts":['1','2']
+            "gdZhts":['1','2','4']
             //"wxKeshiNum":_wxBanNum
         };
 
@@ -432,18 +435,35 @@ $(function(){
             success:function(result){
 
                 var dataArr = [];
+                //待下发
+                var dataArr1 = [];
+                //待分派
+                var dataArr2 = [];
+                //执行中
+                var dataArr3 = [];
 
                 $(result).each(function(i,o){
 
-                    //待分派的放在前面
-                    if(o.gdZht == 2){
+                    //根据不同类型进行分类
+                    if(o.gdZht == 1){
 
-                        dataArr.unshift(o);
+                        dataArr1.push(o);
+                        //存在待下发，可提示声音
+                        _ifAutio = true;
+
+                    }else if(o.gdZht == 2){
+
+                        dataArr2.push(o);
                     }else {
 
-                        dataArr.push(o);
+                        dataArr3.push(o);
                     }
                 });
+
+                //待下发的放在前面  //待分派放在中间
+                dataArr =  dataArr1.concat(dataArr2);
+                //执行中放在最后
+                dataArr =  dataArr.concat(dataArr3);
 
                 //声音
                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
@@ -458,14 +478,13 @@ $(function(){
 
                     var childNode= document.getElementsByTagName('audio')[0];
 
-
-
-                    if(!childNode){
+                    if(!childNode &&  _ifAutio){
 
                         $('#content').append(audioStr);
+
+                        _ifAutio = false;
                     }
                 }
-
 
                 datasTable($("#scrap-datatables"),dataArr);
                 //获取table高度
@@ -509,7 +528,7 @@ $(function(){
                 },_refresh * 1000 * 60);
             }
         })
-    }
+    };
 
     var scrollTable = function(){
         var i = -1;
@@ -652,7 +671,7 @@ $(function(){
             }
         })
 
-    }
+    };
 
     //dataTables表格填数据
     function datasTable(tableId,arr){
@@ -666,7 +685,7 @@ $(function(){
             table.fnAddData(arr);
             table.fnDraw();
         }
-    }
+    };
 
     //星期几转换
     function weekChange(num){
@@ -701,6 +720,5 @@ $(function(){
 
         }
 
-    }
-
+    };
 });

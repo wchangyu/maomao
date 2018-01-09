@@ -484,7 +484,12 @@ function getWeatherParam(){
         },
         success:function(result){
 
-            //console.log(result);
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
             //给页面中赋值
             //温度
             $('.left-middle-main0 p span').eq(0).html(result.temperatureData + "℃");
@@ -791,14 +796,13 @@ function getAllEnergyItemData(){
         success:function(result){
 
             //console.log(result);
+            _myChart.hideLoading();
 
             //无数据
             if(result == null || result.length == 0){
 
                 return false;
             }
-
-            _myChart.hideLoading();
 
             //存放能耗数据
             var dataArr = [];
@@ -876,15 +880,15 @@ function getFirstEnergyItemData(){
         },
         success:function(result){
 
-            //console.log(result);
+            console.log(result);
+
+            _myChart1.hideLoading();
 
             //无数据
             if(result == null || result.length == 0){
 
                 return false;
             }
-
-            _myChart1.hideLoading();
 
             //存放能耗数据
             var dataArr = [];
@@ -1077,15 +1081,13 @@ function getPointerRankData(){
         success:function(result){
 
             //console.log(result);
+            _myChart2.hideLoading();
 
             //无数据
             if(result == null || result.length == 0){
 
                 return false;
             }
-
-            _myChart2.hideLoading();
-
 
             //存放图例中数据
             var legendArr = [];
@@ -1192,14 +1194,13 @@ function getOfficeRankData(){
 
             //console.log(result);
 
+            _myChart2.hideLoading();
+
             //无数据
             if(result == null || result.length == 0){
 
                 return false;
             }
-
-            _myChart2.hideLoading();
-
 
             //存放图例中数据
             var legendArr = [];

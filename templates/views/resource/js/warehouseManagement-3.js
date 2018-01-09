@@ -2185,7 +2185,7 @@ $(function(){
             'orderNum':num,
             'userID':_userIdNum,
             'userName':_userIdName,
-            'b_UserRole':_userRole,
+            'b_UserRole':_userRole
         };
         $.ajax({
             type:'post',

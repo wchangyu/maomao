@@ -10,19 +10,17 @@ $(function(){
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
     //日期插件初始化
-    _monthDate($('.datatimeblock'));
+    _monthDate11($('.datatimeblock'));
 
     //给页面赋初始年份
     var month1 = moment().format('YYYY-MM');
 
     $('.min').val(month1);
 
-
     //获取企业
     getDepartment($('#company'));
 
     getDepartment($('#djbm'));
-
 
     //平均到天按钮
     $('.average').on('click',function(){
@@ -60,6 +58,8 @@ $(function(){
 
         //获取当前选中月份
         var curMonth = $('#user .months').val();
+
+        console.log(curMonth);
 
         //计算当月天数
         var dayNumber = parseInt(moment(curMonth).endOf('month').format('DD'));
