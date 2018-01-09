@@ -1,6 +1,7 @@
 //记录工单号
 var _gdCode = 0;
 var _wxClNames = '';
+
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -99,6 +100,10 @@ $(function(){
     var _InfluencingArr = [];
     //所属班组
     var _bzArr = [];
+
+    //存放传递给后台的参数，用于后台返回时进行判断
+    var _postData = {};
+
     //设备系统
     ajaxFun('YWDev/ywDMGetDSs',_allDataXT, $('#xtlx'), 'dsName', 'dsNum');
     //所有车站数据
@@ -111,6 +116,9 @@ $(function(){
     var _zxrComplete = false;
     //物料方法执行
     var _wlComplete = false;
+
+    //条件查询车站
+    addStationDom($('#station').parent());
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -679,7 +687,7 @@ $(function(){
         }else{
             conditionSelect()
         }
-    })
+    });
     //重置按钮功能
     $('.resites').click(function(){
         //清空input框内容
@@ -755,7 +763,7 @@ $(function(){
     });
     /*----------------------------打印部分去掉的东西-----------------------------*/
     //导出按钮,每页显示数据条数,表格页码打印隐藏
-    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
+    $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint');
     /*----------------------------方法-----------------------------------------*/
     function conditionSelect(){
         if($('.gdTime').eq(0).val() == ''){
@@ -805,7 +813,7 @@ $(function(){
             userName:_userIdName,
             isCalcTimeSpan:1,
             wxShiXNum:$('#xtlx').val(),
-            gdCodeSrc:$('#gdly').val(),
+            gdCodeSrc:$('#gdly').val()
         };
 
         if($('#gdzt').val() == 5){
@@ -857,13 +865,20 @@ $(function(){
         }else{
             prm2.bxKeshiNum = $('#station').val();
         }
+        //替换最新的查询条件
+        postData = prm2;
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetZh2',
             data:prm2,
             async:false,
             success:function(result){
-                datasTable($("#scrap-datatables"),result);
+                //判断查询条件是否符合用户最后一次点击的查询条件
+                //if(postData == prm2){
+                    //符合条件 则插入到页面中
+                    datasTable($("#scrap-datatables"),result);
+                //}
                 //var aaa = currentPages;
                 //for(var i=0 ;i<$('.paginate_button').length; i++){
                 //    if($('.paginate_button').eq(i).html() == aaa){
@@ -1382,4 +1397,4 @@ $(function(){
         }
 
     })
-})
+});
