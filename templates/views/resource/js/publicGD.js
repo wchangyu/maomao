@@ -13,6 +13,9 @@ $('#viewImage,.viewImage').click(function(){
 
     if(o == 'none'){
 
+        //loadding
+        $('#theLoading').modal('show');
+
         if(_imgNum){
             var str = '';
             for(var i=0;i<_imgNum;i++){
@@ -27,6 +30,8 @@ $('#viewImage,.viewImage').click(function(){
             $('.showImage').html('没有图片');
             $('.showImage').show();
         }
+
+        $('#theLoading').modal('hide');
 
     }else{
 

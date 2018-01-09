@@ -5,25 +5,25 @@
 var __names = {
 
     //区域
-    area:"车务段1",
+    area:"车务段",
 
     //部门
-    department:"车站1",
+    department:"车站",
 
     //车间
-    workshop: "车间1",
+    workshop: "车间",
 
     //班组
-    group:"维修班组1"
+    group:"维修班组"
 
 };
 
 var __routeShow = true;
 
 //定义需给页面中区域，部门等动态赋值的页面名称
-var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','gdMaintenanceParts.html',
+var __pageArr = ['assetManagement-1.html','assetManagement-3.html','assetManagement-5.html','assetManagement-4.html','assetManagement-print.html','assetManagement-print-blue.html','assetManagement-history.html','gdMaintenanceParts.html',
     'productionOrder-1.html','productionOrder-3.html','productionOrder-2.html','productionOrder-7.html','productionOrder-5.html','productionOrder-4.html','productionOrder-8.html','productionOrder-9.html',
-    'productionOrder-10.html','productionOrder-11.html','option.html','productionOrder_see.html','reworkTwoStore.html','wbDetails.html'
+    'productionOrder-10.html','productionOrder-11.html','option.html','productionOrder_see.html','reworkTwoStore.html','wbDetails.html','fxDetails.html','reworkMajorStore.html','returnReport.html','reworkReport.html'
 ];
 
 function __setNames(){

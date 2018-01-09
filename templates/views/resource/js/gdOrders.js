@@ -292,7 +292,6 @@ $(function(){
         .on('click','.jiedan',function(){
 
             //验证是否选择了负责人
-            //assigFZR(true);
             var lengths = $('#fzr-list tbody').find('.checked').length;
 
             if(lengths == 0){
@@ -414,15 +413,22 @@ $(function(){
     //表格复选框点击事件
     $('#fzr-list').on('click','input',function(){
 
-        if($(this).parent('.checked').length == 0){
-            //console.log('没有选中');
-            $(this).parent('span').addClass('checked');
+        //多选
+
+        if( $(this).parent('.checked').length == 0 ){
+
+            $(this).parent().addClass('checked');
+
             $(this).parents('tr').addClass('tables-hover');
+
         }else{
-            //console.log('选中');
-            $(this).parent('span').removeClass('checked');
+
+            $(this).parent().removeClass('checked');
+
             $(this).parents('tr').removeClass('tables-hover');
+
         }
+
     })
 
     //查询
@@ -1067,15 +1073,15 @@ $(function(){
     });
 
     //接单人只能单选
-    $('#fzr-list').on('click','.checker',function(){
-        $(".checker span").removeClass("checked");
-
-        $(this).find('span').addClass("checked");
-
-        $('#fzr-list tr').removeClass("tables-hover");
-
-        $(this).parents('tr').addClass("tables-hover");
-    });
+    //$('#fzr-list').on('click','.checker',function(){
+    //    $(".checker span").removeClass("checked");
+    //
+    //    $(this).find('span').addClass("checked");
+    //
+    //    $('#fzr-list tr').removeClass("tables-hover");
+    //
+    //    $(this).parents('tr').addClass("tables-hover");
+    //});
 
     /*------------------------------------------------其他方法--------------------------------------------*/
     equipmentArr = [];
@@ -1403,7 +1409,6 @@ $(function(){
                 gdObj.gztime = result.gdFsShij;
                 gdObj.gzplace = result.wxDidian;
                 gdObj.wxshx=result.wxXm;
-                console.log(_allXTArr);
                 for(var i=0;i<_allXTArr.length;i++ ){
 
                     if( $.trim(result.dcName) == $.trim(_allXTArr[i].dsName)){

@@ -52,6 +52,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -286,7 +287,8 @@
 
                                             <label for=""><span class="user-defined-department"></span>：</label>
                                             <div class="input-blocked">
-                                                <input type="text">
+                                                <!--<input type="text">-->
+                                                <select id="bumen"></select>
                                             </div>
                                         </li>
                                         <li>
@@ -386,8 +388,8 @@
                             <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">工单类型：</div>
                                 <div class="input-blockeds">
-                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" ><label for="ones">快速</label>
-                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" ><label for="twos">普通</label>
+                                    <input type="radio" class="inpus" id="ones" value="1" v-model="picked" ><label for="ones">快速</label>
+                                    <input type="radio" class="inpus" id="twos" value="0" v-model="picked" ><label for="twos">普通</label>
                                 </div>
                             </li>
                             <li class="floatLi" style="line-height: 26px;">
@@ -409,27 +411,27 @@
                                 </div>
                             </li>
                             <li class="floatLi">
-                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
+                                <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.required" style="display: none">请输入电话号码</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
+                                    <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['required']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatLi">
-                                <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
+                                <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.required">报修人信息不能为空</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
+                                    <input type="text"  v-model="person" v-validate:person= "['required']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatLi">
-                                <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
+                                <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.required">故障位置不能为空</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
+                                    <input type="text" v-model="place"  v-validate:place="['required']" initial='off'>
                                 </div>
                             </li>
                             <li class="floatLi routeShow">
                                 <div class="labels">线路 ：</div>
                                 <div class="input-blockeds">
-                                    <select id="line-route" class="line-route" v-model="lineRoute" @change="selectLine">
+                                    <select id="line-route" class="line-route" v-model="lineRoute">
 
                                     </select>
                                 </div>
@@ -510,8 +512,8 @@
                                 <li class="floatLi" style="line-height: 26px;">
                                     <div class="labels">工单类型：</div>
                                     <div class="input-blockeds">
-                                        <input type="radio" class="inpus" id="one1" value="1" v-model="picked" v-on:click="radios" disabled="disabled"><label for="one1">快速</label>
-                                        <input type="radio" class="inpus" id="two1" value="0" v-model="picked" v-on:click="radios" disabled="disabled"><label for="two1">普通</label>
+                                        <input type="radio" class="inpus" id="one1" value="1" v-model="picked" disabled="disabled"><label for="one1">快速</label>
+                                        <input type="radio" class="inpus" id="two1" value="0" v-model="picked" disabled="disabled"><label for="two1">普通</label>
                                     </div>
                                 </li>
                                 <li class="floatLi" style="line-height: 26px;">
@@ -534,27 +536,27 @@
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.persons" style="display: none">请输入电话号码</span></div>
+                                    <div class="labels colorTip">报修电话 *：<span v-show="$validation.telephone.required" style="display: none">请输入电话号码</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['persons']" initial='off'>
+                                        <input type="text" v-model="telephone" class="shishi" v-validate:telephone= "['required']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.persons">报修人信息不能为空</span></div>
+                                    <div class="labels colorTip">报修人信息 *：<span v-show="$validation.person.required">报修人信息不能为空</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text"  v-model="person" v-validate:person= "['persons']" initial='off'>
+                                        <input type="text"  v-model="person" v-validate:person= "['required']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.persons">故障位置不能为空</span></div>
+                                    <div class="labels colorTip">故障位置 *：<span v-show="$validation.place.required">故障位置不能为空</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="place"  v-validate:place="['persons']" initial='off'>
+                                        <input type="text" v-model="place"  v-validate:place="['required']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLi routeShow">
                                     <div class="labels">线路：</div>
                                     <div class="input-blockeds">
-                                        <select id="line-route1" class="line-route" v-model="lineRoute" @change="selectLine">
+                                        <select id="line-route1" class="line-route" v-model="lineRoute">
 
                                         </select>
                                     </div>
@@ -565,7 +567,7 @@
                                         <!--车站--> *：
                                     </div>
                                     <div class="input-blockeds">
-                                        <select class="cjz1" v-model="section"></select>
+                                        <select class="cjz1 cjz" v-model="section"></select>
                                     </div>
                                 </li>
                                 <li class="floatLi">
@@ -575,11 +577,12 @@
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels colorTip">
+                                    <div class="labels">
                                         <span class="user-defined-group"></span>
-                                        *：<span v-if="$validation.weixiukeshis.persons"><span class="user-defined-group">维修班组</span>不能为空</span></div>
+                                        ：
+                                    </div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['persons']" initial='off' id="wxbm">
+                                        <input type="text" v-model="weixiukeshis" v-validate:weixiukeshis="['required']" initial='off' id="wxbm" disabled="disabled">
                                     </div>
                                 </li>
                                 <li class="floatLi">
@@ -612,16 +615,16 @@
                         <div style="width: 611px;">
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhus" class="remarkDes"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none" class="remarkDes"></textarea>
                             </div>
                         </div>
                         <div style="width: 611px;">
                             <div class="labels colorTip">维修内容 *：</div>
                             <div class="input-blockeds" style="height:62px;">
-                                <textarea style="width: 100%;height: 60px;outline: none" v-model="weixiuBZ" class="weixiuBZ"></textarea>
+                                <textarea style="width: 100%;height: 60px;outline: none"  class="weixiuBZ"></textarea>
                             </div>
                         </div>
-                        <div style="margin-top: 10px;style="width: 611px;"">
+                        <div style="margin-top: 10px;width: 611px;">
                             <button type="button" class="btn btn-info viewImage">查看图片</button>
                             <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                         </div>
@@ -742,6 +745,7 @@
 <script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-1.js"></script>
 <script src="../resource/js/publicGD.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

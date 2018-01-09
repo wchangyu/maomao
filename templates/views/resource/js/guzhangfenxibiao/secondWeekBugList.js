@@ -171,7 +171,7 @@ $(function(){
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',8).html('其中：累计故障类别');
+        $('.third').attr('colspan',9).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }

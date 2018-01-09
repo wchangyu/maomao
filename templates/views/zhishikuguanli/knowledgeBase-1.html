@@ -289,7 +289,10 @@
                                         <label for="">知识标题：</label>
                                         <input type="text" class="file-title">
                                     </li>
-
+                                    <li>
+                                        <label for="">分类：</label>
+                                        <select class="classify" style="height: 25px;width: 161px" id="classSelect"></select>
+                                    </li>
                                     <li><button class="btn btn-success btn1">查询</button></li>
                                     <li style="padding-top:2px;">
                                         <div class="cont-col1">
@@ -357,6 +360,12 @@
                                     <td width="90" align="center" valign="middle" class="">关键词：</td>
                                     <td>
                                         <textarea  class="textarea2" maxlength="100"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="90" align="center" valign="middle" class="">分类：</td>
+                                    <td>
+                                        <select id="classify" class="classify"></select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -431,11 +440,18 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td width="90" align="center" valign="middle" class="">分类：</td>
+                                    <td>
+                                        <select id="classify1" class="classify" disabled="disabled" readonly="readonly" style="background: rgb(235, 235, 228)"></select>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td width="90" align="center" valign="middle" class="">知识内容：</td>
                                     <td>
                                         <textarea  class="textarea3" rows="8" style="width: 100%;" disabled="disabled" readonly="readonly"></textarea>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td valign="middle" align="center">附件：</td>
                                     <td>
@@ -553,6 +569,7 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/webUploader/webuploader.js"></script>
 <script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script src="../resource/js/js/knowledgeBase-1.js"></script>
 <script>
     jQuery(document).ready(function() {

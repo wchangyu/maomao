@@ -962,9 +962,16 @@ $(function(){
     //选择部门之后加载人员列表
     $('#depart').change(function(){
 
+        //初始化表格
+
+        var arr = [];
+
+        _datasTable($('#fzr-list'),arr);
+
         //选择部门
         gdObj.wxbz = $('#depart').children('option:selected').html();
-        $('#wxbz').attr('data-bm',$('#depart').val())
+
+        $('#wxbz').attr('data-bm',$('#depart').val());
 
         var prm = {
             'departNum':$('#depart').val(),
@@ -1031,7 +1038,6 @@ $(function(){
 
         })
         .on('click','.xiafa',function(){
-
 
             //首先判断部门是否选择了
             if($('#depart').val() == ''){

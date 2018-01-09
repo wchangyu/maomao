@@ -46,6 +46,9 @@ var _AWBZArr = [];
 //维修班组
 var _ABZArr = [];
 
+//仓库数组
+var _AWarehouseArr = [];
+
 
 /*---------------------------时间初始化------------------------*/
 
@@ -151,12 +154,15 @@ function _timeComponentsFun(el){
 /*-----------------------dataTable---------------------------*/
 
 //基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag){
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
             text: '导出',
-            className:'saveAs'
+            className:'saveAs',
+            exportOptions:{
+                columns:arr
+            }
         }
     ];
     var buttonHidden = [
@@ -188,7 +194,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag)
         dom = 't<"F"lip>';
 
     }
-
+    //B<"clear">lfrtip
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -312,6 +318,7 @@ function _getProfession(url,el,attr,attrNum,attrName){
         timeout:_theTimes,
         success:function(result){
             var str = '<option value="">请选择</option>';
+
             if(attr){
                 for(var i=0;i<result[attr].length;i++){
                     str += '<option value="' + result[attr][i][attrNum] +
@@ -740,6 +747,7 @@ function _WxBanzuStationData(fun){
                     }
 
                 }
+
                 if( result.wxBanzus ){
 
                     for(var i=0;i<result.wxBanzus.length;i++){
@@ -754,6 +762,50 @@ function _WxBanzuStationData(fun){
                     }
 
                 }
+
+            }
+
+            if(fun){
+
+                fun();
+
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            console.log(jqXHR.responseText);
+        }
+
+    })
+
+}
+
+//获取仓库列表
+function _warehouseLise(fun){
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'YWCK/ywCKGetStorages',
+        timeout:_theTimes,
+        data:{
+
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //角色
+            b_UserRole:_userRole
+
+        },
+        success:function(result){
+
+            _AWarehouseArr.length = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                _AWarehouseArr.push(result[i]);
 
             }
 

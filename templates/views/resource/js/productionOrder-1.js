@@ -5,11 +5,13 @@ $(function(){
 
   /*-----------------------------------------------------变量-----------------------------------------*/
 
-  _timeYMDComponentsFun($('.condition-query').find('.datatimeblock'));
+  _timeYMDComponentsFun($('.condition-query').eq(0).find('.datatimeblock'));
 
   //datatimepicker故障发生时间；
 
   _timeHMSComponentsFun($('.otime'),1);
+
+  _timeHMSComponentsFun($('.otimes'),1);
 
   //设置初始时间(主表格时间)
   var now = moment().format('YYYY/MM/DD');
@@ -53,24 +55,60 @@ $(function(){
       sbSelect:'',
       //设备名称
       sbMC:''
-    },
-    methods:{
+    }
 
+  })
 
+  //快速Vue对象
+  var quickVue = new Vue({
 
+    el:'#quickWork',
+    data:{
+
+      //工单类型
+      picked:1,
+      //工单来源
+      gdly:1,
+      //任务级别
+      rwlx:4,
+      //报修电话
+      telephone:'',
+      //报修人信息
+      person:'',
+      //故障位置
+      place:'',
+      //线路
+      lineRoute:'',
+      //车站
+      section:'',
+      //系统类型
+      matter:'',
+      //维修班组
+      weixiukeshis:'',
+      //维修设备
+      sbSelect:'',
+      //设备编码
+      sbLX:'',
+      //设备名称
+      sbMC:''
     }
 
   })
 
   //vue验证
   Vue.validator('telephones', function (val) {
+
     return /^[0-9]*$/.test(val)
+
   })
+
   //验证必填项（非空）
-  Vue.validator('persons', function (val) {
+  Vue.validator('required', function (val) {
     //获取内容的时候先将首尾空格删除掉；
     val = val.replace(/^\s+|\s+$/g, '');
-    return /[^.\s]{1,500}$/.test(val)
+
+    return /[^.\s]{1,500}$/.test(val);
+
   })
 
   //系统类型
@@ -86,6 +124,9 @@ $(function(){
 
   //车站
   _ajaxFun('YWDev/ywDMGetDDs', _stationArr, $('.cjz'), 'ddName', 'ddNum' )
+
+  //条件查询车站
+  addStationDom($('#bumen').parent());
 
   /*-----------------------------------------------------表格初始化------------------------------------------*/
   var col = [
@@ -172,9 +213,32 @@ $(function(){
 
   ]
 
-  _tableInit($('#scrap-datatables'),col,1,true,'','','');
+  //导出列
+  var _exportCol = [0,1,2,3,4,5,6];
+
+  _tableInit($('#scrap-datatables'),col,1,true,'','','',_exportCol);
 
   _WxBanzuStationData(conditionSelect);
+
+  //执行人员表格
+  var col2 = [
+    {
+      title: '工号',
+      data: 'wxrID',
+      className: 'wxrID'
+    },
+    {
+      title: '执行人员',
+      data: 'wxRName',
+      className: 'wxRName'
+    },
+    {
+      title: '联系电话',
+      data: 'wxRDh',
+      className: 'wxRDh'
+    }
+  ];
+  _tableInit($('#personTable1'), col2,2,false,'','',true);
 
   /*-------------------------------------------------------按钮事件------------------------------------------*/
 
@@ -196,10 +260,15 @@ $(function(){
 
     $('.condition-query').eq(0).find('.datatimeblock').eq(1).val(now);
 
+    //车站初始化
+    $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
+
   })
 
   //【登记】
   $('.creatButton').click(function(){
+
+    $('#theLoading').modal('show');
 
     //初始化
     detailedInit();
@@ -225,6 +294,174 @@ $(function(){
 
       $('.routeShow').hide();
 
+    }
+
+    $('#theLoading').modal('hide');
+
+  })
+
+  //【快速登记】
+  $('.quickCreat').click(function(){
+
+    $('#theLoading').modal('show');
+
+    //初始化
+    quickInit();
+
+    //模态框
+    _moTaiKuang($('#myModal4'),'快速报障','','','','快速报障');
+
+    $('#theLoading').modal('hide');
+
+    //获取用户所在的部门
+
+    quickVue.weixiukeshis = _loginUser.departName;
+
+    $('#wxbm').attr('data-num',_loginUser.departNum);
+
+
+  })
+
+  //快速登记确定按钮
+  $('#myModal4').on('click','.quickDengji',function(){
+
+    //验证
+    if( quickVue.telephone == '' || quickVue.person == '' || quickVue.place == '' || quickVue.section == '' || quickVue.matter == '' || $('#quickWork').find('.weixiuBZ').val() == ''){
+
+      _moTaiKuang($('#myModal2'), '提示', 'flag','istap', '请填写红色必填项!', '');
+
+    }else{
+
+      var cheName = '';
+
+      if( quickVue.section == ' ' ){
+
+        cheName = '';
+
+      }else{
+
+        cheName = $('#quickWork').find('.cjz').children('option:selected').html();
+
+      }
+
+      var xiName = '';
+
+      if( quickVue.matter == '' ){
+
+        xiName = '';
+
+      }else{
+
+        xiName = $('#quickWork').find('.xitong').children('option:selected').html();
+
+      }
+
+      var weixiuRen = [
+        {
+          wxRen: _userIdNum,
+          wxRName: _userIdName,
+          wxRDh: ''
+        }
+      ];
+
+      var prm = {
+
+        //工单类型
+        gdJJ:quickVue.picked,
+        //工单来源
+        gdCodeSrc:quickVue.gdly,
+        //任务级别
+        gdLeixing:quickVue.rwlx,
+        //报修电话
+        bxDianhua:quickVue.telephone,
+        //报修人
+        bxRen:quickVue.person,
+        //故障位置
+        wxDidian:quickVue.place,
+        //线路（不传）
+        //车站编码
+        bxKeshiNum:quickVue.section,
+        //车站名称
+        bxKeshi:cheName,
+        //系统类型名称
+        dcName:xiName,
+        //系统类型编码
+        dcNum:quickVue.matter,
+        //维修班组名称
+        wxKeshi:quickVue.weixiukeshis,
+        //维修班组编码
+        wxKeshiNum:$('#wxbm').attr('data-num'),
+        //维修设备(设备编码)
+        wxShebei:quickVue.sbSelect,
+        //设备编码
+        dNum:quickVue.sbLX,
+        //设备名称
+        dName:quickVue.sbMC,
+        //发生时间
+        gdFsShij:$('#quickWork').find('.otimes').val(),
+        //故障描述
+        bxBeizhu: $('#quickWork').find('.remarkDes').eq(0).val(),
+        //维修内容
+        wxBeizhu:$('#quickWork').find('.weixiuBZ').val(),
+        //执行人
+        gdWxRs: weixiuRen,
+        //工单来源
+        gdSrc: 2,
+        //用户ID
+        userID: _userIdNum,
+        //用户名
+        userName: _userIdName,
+        //维修事项名称（不能为空,这里没用到）
+        wxShiX: 1,
+        //维修事项编码
+        wxShiXNum: 1,
+        //安装地点
+        installAddress:''
+
+      }
+
+      $.ajax({
+        type: 'post',
+        url: _urls + 'YWGD/ywGDCreQuickDJ',
+        data: prm,
+        beforeSend:function(){
+          $('#theLoading').modal('show');
+        },
+        complete: function () {
+          $('#theLoading').modal('hide');
+        },
+        success: function (result) {
+          if (result == 99) {
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加成功!', '');
+
+            $('#myModal4').modal('hide');
+
+            //刷新表格
+            conditionSelect();
+          } else {
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap','添加失败!', '');
+
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+          //清除loadding
+          $('#theLoading').modal('hide');
+
+          if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+          }else{
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+          }
+
+        }
+      })
     }
 
   })
@@ -259,7 +496,7 @@ $(function(){
   })
 
   //线路、车站联动
-  $('.line-route').on('click',function(){
+  $('.line-route').on('change',function(){
 
     var values = $(this).val();
 
@@ -342,15 +579,29 @@ $(function(){
 
     }
 
+    var values = '';
+
+    var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+    if( typeof flag == 'undefined' ){
+
+      values = '';
+
+    }else{
+
+      values = flag;
+
+    }
+
     var prm = {
       //工单号
       'gdCode2': filterInput[0],
       //开始时间
-      'gdSt': st,
+      'gdSt': $('.min').val(),
       //结束时间
-      'gdEt': moment(now).add(1,'d').format('YYYY/MM/DD'),
+      'gdEt': moment($('.max').val()).add(1,'d').format('YYYY/MM/DD'),
       //车站
-      'bxKeshi': filterInput[1],
+      'bxKeshiNum': values,
       //工单状态
       "gdZht": 1,
       //当前用户id
@@ -361,7 +612,7 @@ $(function(){
 
     var wbzArr = [];
 
-    if(_AisBZ){
+    if(_AisWBZ){
 
       for(var i=0;i<_ABZArr.length;i++){
 
@@ -386,9 +637,21 @@ $(function(){
 
         _datasTable($("#scrap-datatables"), result);
       },
-      error: function (jqXHR, textStatus, errorThrown) {
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-        console.log(jqXHR.responseText);
+        //清除loadding
+        $('#theLoading').modal('hide');
+
+        if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+        }else{
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+        }
+
       }
     })
   }
@@ -433,6 +696,11 @@ $(function(){
     $('#uniform-ones,#uniform-twos').children().removeClass('checked');
 
     $('#uniform-twos').children().addClass('checked');
+
+    //查看图片初始化
+    _imgNum = 0;
+
+    $('.showImage').html('没有图片');
 
   }
 
@@ -513,6 +781,8 @@ $(function(){
         dcNum:detaileVue.matter,
         //设备编码
         dNum: detaileVue.sbSelect,
+        //维修设备（设备编码）
+        wxShebei: detaileVue.sbSelect,
         //设备名称
         dName: detaileVue.sbMC,
         //故障发生时间
@@ -525,8 +795,6 @@ $(function(){
         wxKeshi: '',
         //工单来源
         'gdSrc': 2,
-        //维修设备（设备编码）
-        wxShebei: detaileVue.sbSelect,
         //维修事项
         wxShiX:xtStr,
         //维修事项编码
@@ -571,9 +839,21 @@ $(function(){
           }
 
         },
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-          console.log(jqXHR.responseText);
+          //清除loadding
+          $('#theLoading').modal('hide');
+
+          if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+          }else{
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+          }
+
         }
 
       })
@@ -680,9 +960,21 @@ $(function(){
         }
 
       },
-      error: function (jqXHR, textStatus, errorThrown) {
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-        console.log(jqXHR.responseText);
+        //清除loadding
+        $('#theLoading').modal('hide');
+
+        if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+        }else{
+
+          _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+        }
+
       }
 
     })
@@ -717,4 +1009,62 @@ $(function(){
     }
   }
 
+  //快速登记初始化
+  function quickInit(){
+
+    //工单类型
+    quickVue.picked = 1;
+    //工单来源
+    quickVue.gdly = 1;
+    //任务级别
+    quickVue.rwlx = 4;
+    //报修电话
+    quickVue.telephone = '';
+    //报修人信息
+    quickVue.person = '';
+    //故障位置
+    quickVue.place = '';
+    //线路
+    quickVue.lineRoute = '';
+    //车站
+    quickVue.section = '';
+    //系统类型
+    quickVue.matter = '';
+    //维修班组
+    quickVue.weixiukeshis = '';
+    //维修班组编码
+    $('#wxbm').removeAttr('data-num');
+    //维修设备
+    quickVue.sbSelect = '';
+    //设备编码
+    quickVue.sbLX = '';
+    //设备名称
+    quickVue.sbMC = '';
+    //发生时间
+    $('#quickWork').find('.otimes').val('');
+    //故障描述
+    $('#quickWork').find('.remarkDes').val('');
+    //维修内容
+    $('#quickWork').find('.weixiuBZ').val('');
+    //执行人表格
+    var personObject = {};
+
+    personObject.wxRName = _userIdName;
+
+    personObject.wxrID = _userIdNum;
+
+    personObject.wxRDh = '';
+
+    var _zhixingRens = [];
+
+    _zhixingRens.push(personObject);
+
+    _datasTable($('#personTable1'), _zhixingRens);
+
+    //单选按钮
+    $('#uniform-one1').parents('div').find('span').removeClass('checked');
+
+    $('#uniform-one1').children('span').addClass('checked');
+
+  }
 })

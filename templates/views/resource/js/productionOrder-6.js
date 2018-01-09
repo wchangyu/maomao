@@ -1,5 +1,6 @@
 //记录工单号
 var _gdCode = 0;
+var _wxClNames = '';
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -28,9 +29,6 @@ $(function(){
 
     //等待原因
     ddyy();
-
-    //页面插入station选择框
-    addStationDom($('#station').parent());
 
     //实际传输时间初始化
     var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';

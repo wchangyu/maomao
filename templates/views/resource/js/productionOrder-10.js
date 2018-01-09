@@ -204,6 +204,15 @@ $(function(){
                 }
             },
             {
+                title:'工单执行状态',
+                data:'lastUpdateInfo'
+            },
+
+            {
+                title: '最新状态',
+                data: 'clLastUptInfo'
+            },
+            {
                 title: '备件进度',
                 data: 'clStatusID',
                 render:function(data, type, full, meta){
@@ -213,14 +222,6 @@ $(function(){
                         }
                     }
                 }
-            },
-            {
-                title: '备注',
-                data: 'clLastUptInfo'
-            },
-            {
-                title:'最新状态',
-                data:'lastUpdateInfo'
             },
             {
                 title:__names.department,
@@ -403,7 +404,7 @@ $(function(){
     });
 
     //表格中的操作
-    $('#scrap-datatables')
+    $('.tablel')
         .on('click','.option-see',function(){
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
@@ -411,7 +412,7 @@ $(function(){
             //当前行变色
             var $this = $(this).parents('tr');
 
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('.tablel tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             _moTaiKuang($('#myModal'),'查看详情','flag','','','');
 
@@ -496,7 +497,7 @@ $(function(){
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+            $('.tablel tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获取详情
             var gongDanState = parseInt($this.children('.ztz').html());
@@ -624,6 +625,8 @@ $(function(){
                 }
 
                 if(isEqual){
+
+                    _bjIsComplete = true;
 
                     //只调用申请备件接口
                     applySparePart();
@@ -944,7 +947,7 @@ $(function(){
             slrealityEnd = moment($('.datatimeblock').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
         }
         var prm = {
-            gdCode:$('#gdcode').val(),
+            gdCode2:$('#gdcode').val(),
             st:slrealityStart,
             et:slrealityEnd,
             clStatusId:$('#line-point').val(),
@@ -1147,7 +1150,7 @@ $(function(){
     function logInformation(){
         var gdLogQPrm = {
             "gdCode": _gdCode,
-            "logType": 2,
+            "logType": 0,
             "userID": _userIdNum,
             "userName": _userIdName
         };

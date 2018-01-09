@@ -23,6 +23,7 @@
     line-height: 26px !important;
     margin-top: 4px;
     margin-bottom: 4px;
+    height: 32px;
 }
 .gongdanList li{
     width: 300px;
@@ -766,4 +767,11 @@ textarea{
 .factoryRepair .tableHover input{
 
     outline: none;margin-left: 20px;
+}
+.factoryRepair .datatimeblock{
+
+    background-size: 17px !important;
+
+    border: 1px solid #a9a9a9;
+
 }

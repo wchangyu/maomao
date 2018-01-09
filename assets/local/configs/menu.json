@@ -625,7 +625,7 @@
         "arg":"",
         "iconclass":""
       },
-      "工单维修件":{
+      "工单返修件":{
         "type":"0",
         "content":"工单维修件",
         "uri":"../gongdangunali/gdMaintenanceParts.html",
@@ -741,6 +741,22 @@
         "type":"0",
         "content":"返修件主库处理",
         "uri":"../FXJ/reworkMajorStore.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "现场返修报表":{
+        "type":"0",
+        "content":"现场返修报表",
+        "uri":"../FXJ/reworkReport.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "返厂报表":{
+        "type":"0",
+        "content":"返厂报表",
+        "uri":"../FXJ/returnReport.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -940,6 +956,14 @@
         "type":"0",
         "content":"出库管理",
         "uri":"../cangkuguanli/warehouseManagement-3.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "调拨出库":{
+        "type":"0",
+        "content":"调拨出库",
+        "uri":"../cangkuguanli/TransferOutWarehouse.html",
         "uid":"",
         "arg":"",
         "iconclass":""
