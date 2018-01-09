@@ -53,8 +53,9 @@ $(function(){
 
             return false;
         }
+
         //发送短信
-        getOneMessage()
+        getOneMessage();
     });
 
 
@@ -100,7 +101,7 @@ var table = $('#personal-table').DataTable({
     //数据源
     'columns':[
         {
-            title:'选择',
+            title:"<input type='checkbox' class='check-all'/>选择",
             "data": null,
             render:function(data, type, row, meta){
 
@@ -300,6 +301,23 @@ function getOneMessage(){
         }
     })
 };
+
+//点击表格头部选择框 则勾选全部
+$('#personal-table').on('click','.check-all',function(){
+
+    if($(this).is(':checked')) {
+
+        for(var i=0; i<$('.tableCheck').length; i++){
+
+            $('.tableCheck').eq(i).prop('checked','checked');
+        }
+    }else{
+        for(var i=0; i<$('.tableCheck').length; i++){
+
+            $('.tableCheck').eq(i).prop('checked',false);
+        }
+    }
+});
 
 
 

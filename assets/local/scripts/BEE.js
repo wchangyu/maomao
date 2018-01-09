@@ -16,11 +16,11 @@ var BEE = (function(){
     String.prototype.endWith = function(s){
         var d = this.length - s.length;
         return (d>=0 && this.lastIndexOf(s) == d);
-    }
+    };
 
     String.prototype.startWith = function(s){
         return this.indexOf(s) == 0;
-    }
+    };
 
     //从json配置中获取menu,并且配置menu
     var getMenu = function(srcUri){
@@ -279,6 +279,7 @@ var BEE = (function(){
             "energyType":"",
             "pointerIds":ptIds
         };
+
         $.ajax({
             type:'post',
             url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllExcData',
@@ -296,12 +297,15 @@ var BEE = (function(){
                 //获取摄像头报警数量
                 cameraAlarmHistory();
 
+                //对页面右上角当前重要信息进行重绘
                 modificationImportInfo();
+
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
                     var refreshItv = (sessionStorage.alarmInterval) * 60 * 1000;        //获取到数据刷新间隔的毫秒数
                     setTimeout(getAlarmInfo,refreshItv);            //下一次获取数据
+
                 }
             },
             error:function(xhr,res,err){
@@ -544,7 +548,7 @@ var BEE = (function(){
                      }
                  });
 
-                 //医院模式
+                 //<--------------------------------医院模式----------------------------------->
              }else{
 
                  //获取当前菜单
@@ -895,7 +899,8 @@ var BEE = (function(){
          }else{
              var obj = {};
              $(_childMenuArr).each(function(i,o){
-                 obj[o.content] = o;
+
+                 obj[o.content+''+i] = o;
              });
          }
          menu.submenu = obj;
@@ -1009,8 +1014,8 @@ var BEE = (function(){
          return arr;
      };
 
-    //判断已登陆用户是否有访问页面的权限
-    var permitJumpPage = function(){
+     //判断已登陆用户是否有访问页面的权限
+     var permitJumpPage = function(){
         //获取当前菜单
         var curMenu = sessionStorage.curMenuStr;
         //获取当前页面路径
@@ -1020,11 +1025,13 @@ var BEE = (function(){
 
         //判断是否有访问页面权限
         if(curMenu.indexOf(curPageName) == -1){
+
             //本地浏览时不需要跳转
             if(curUrl.indexOf('localhost:') >= 0){
 
                 return false;
             }
+
             //如果没有则跳转到登陆页
             window.location.href = "../login_3.html";
         }
@@ -1081,11 +1088,12 @@ var BEE = (function(){
                  }
              }
          });
-     }
+     };
 
     return {
         //getMenu: getMenu
-        init:function(){
+        //flag =true 则不需要判断用户的访问页面权限
+        init:function(flag){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
@@ -1096,7 +1104,9 @@ var BEE = (function(){
                 getMenu();
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
-                permitJumpPage();
+                if(!flag){
+                    permitJumpPage();
+                }
                 setTheme();
                 insertionPointer();
 

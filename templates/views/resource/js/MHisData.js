@@ -210,16 +210,20 @@ function getDatas(){
 				//需求：button禁止操作，设置超时。
         	},
 			success:function(data){
-				console.log(data);
+
 				for(var i=0;i<data.length;i++){
 					allDatas.push(data[i]);
 				}
 				$('.L-loadding').hide();
 
 				for(var i=0;i<allDatas.length;i++){
-					var aa = allDatas[i].date.split('T')[0].split('-');
+
+					if(allDatas[i].date == ''){
+						continue;
+					}
+					var aa = allDatas[i].date.split(' ')[0].split('/');
 					var bb = aa[1] + '-' + aa[2];
-					var cc = allDatas[i].date.split('T')[1].split(':');
+					var cc = allDatas[i].date.split(' ')[1].split(':');
 					var Xdatas = bb + ' ' + cc[0] + ':' + cc[1];
 					dataX.push(Xdatas);
 					dataY.push(allDatas[i].cdData.toFixed(2))
@@ -252,16 +256,19 @@ function tableImg(){
 		type:'post',
 		url:url + 'pr/pr_GetPRInstHistoryData',
 		data:prm,
-
 		success:function(result){
 			console.log(result);
 			for(var i=0;i<result.length;i++){
 				allDatas.push(result[i].cdData);
-				var aa = result[i].date.split('T')[0].split('-');
-				var bb = aa[1] + '-' + aa[2];//11-06
-				var cc = result[i].date.split('T')[1].split(':');
-				var dd = cc[0] + ':' + cc[1];
-				var dateSplit = bb + ' ' + dd;
+				var dateSplit = '';
+				if(result[i].date != ''){
+					var aa = result[i].date.split(' ')[0].split('/');
+					var bb = aa[1] + '-' + aa[2];//11-06
+					var cc = result[i].date.split(' ')[1].split(':');
+					var dd = cc[0] + ':' + cc[1];
+					dateSplit = bb + ' ' + dd;
+				}
+
 				allDates.push(dateSplit);
 			}
 			for(var i=0;i<allDatas.length;i++){

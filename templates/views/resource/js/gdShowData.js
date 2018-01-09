@@ -12,6 +12,9 @@ $(function(){
     var _wxBanNum = sessionStorage.getItem("userDepartNum");
     //默认刷新时间
     var _refresh = sessionStorage.getItem("gongdanInterval");
+    //是否有提示声音
+    var _ifAutio = false;
+
     if(_refresh==0){
         _refresh = 1;
     }
@@ -68,17 +71,12 @@ $(function(){
         //刷新页面时间
         formatTime(moment().format('YYYY/MM/DD HH:mm:ss'));
 
-        //刷新表格数据
-
-        //刷新左边chart图
-
-    },30000)
+    },30000);
 
     //echart图自适应
     //浏览器echarts自适应
 
     //表格自适应
-
 
     window.onresize = function () {
         if(myChart && myChart4 && myChart7){
@@ -88,7 +86,7 @@ $(function(){
         }
         //固定表头的时候
         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-    }
+    };
 
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
@@ -395,10 +393,10 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
-        var wxKeshi =  _wxBanNum;
+        var wxKeshiNum =  _wxBanNum;
 
-        if(!_wxBan){
-            wxKeshi = '-1'
+        if( !_wxBanNum){
+            return false;
         }
 
         var prm = {
@@ -406,7 +404,7 @@ $(function(){
             "gdSt":_initStart,
             "gdEt":_initEnd,
             "bxKeshi":'',
-            "wxKeshi":wxKeshi,
+            "wxKeshiNum":wxKeshiNum,
             "gdZht":'',
             "pjRen":'',
             //"shouliren": filterInput[7],
@@ -419,13 +417,14 @@ $(function(){
             "userName":_userIdName,
             "gdZhts":['2','4']
             //"wxKeshiNum":_wxBanNum
-        }
+        };
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetDJ',
             data:prm,
             async:false,
             success:function(result){
+
 
                 var dataArr = [];
 
@@ -435,6 +434,9 @@ $(function(){
                     if(o.gdZht == 2){
 
                         dataArr.unshift(o);
+                        //存在待分派，可提示声音
+                        _ifAutio = true;
+
                     }else {
 
                         dataArr.push(o);
@@ -455,10 +457,11 @@ $(function(){
                     var childNode= document.getElementsByTagName('audio')[0];
 
 
-
-                    if(!childNode){
+                    if(!childNode &&  _ifAutio){
 
                         $('#content').append(audioStr);
+
+                        _ifAutio = false;
                     }
                 }
 

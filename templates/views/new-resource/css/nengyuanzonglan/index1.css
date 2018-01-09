@@ -17,6 +17,16 @@ p{
     background: none !important;
 }
 
+.top-system-message ul .date{
+    margin-right:10px;
+}
+
+.top-system-message ul li{
+    float: left;
+    height: 40px;
+    line-height: 32px;
+}
+
 /*头部时间信息 温度湿度信息*/
 .top-system-message{
     position: fixed;
@@ -37,34 +47,32 @@ p{
 
     .top-system-message .temperature {
 
-        margin-left: -52px;
     }
     .top-system-message .humidity {
 
        display: none !important;
     }
-
 }
 
 
 /*温度*/
 .top-system-message .temperature{
-    width:130px;
+    width:87px;
     height:40px;
     display: inline-block;
-    background: url(../../img/wendu.png) no-repeat 60% 5px;
-    background-size: 12% 54%;
+    background: url(../../img/wendu.png) no-repeat 42% 5px;
+    background-size: 18% 58%;
     text-align: right;
     line-height: 31px
 }
 /*湿度*/
 .top-system-message .humidity{
-    width:130px;
+    width:87px;
     height:40px;
     display: inline-block;
-    background: url(../../img/shidu.png) no-repeat 17% 6px;
-    background-size: 12% 52%;
-    text-align: center;
+    background: url(../../img/shidu.png) no-repeat 43% 5px;
+    background-size: 17% 58%;
+    text-align: right;
     line-height: 31px;
 }
 

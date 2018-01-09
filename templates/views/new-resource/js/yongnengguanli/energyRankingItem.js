@@ -518,6 +518,7 @@ function getPointerData(url,flag){
 
             //console.log(result);
 
+            console.log(ecParams);
 
             //判断是否返回数据
             if(result == null || result.length == 0){

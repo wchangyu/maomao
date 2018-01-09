@@ -20,16 +20,31 @@ $('.time-options').click(function(){
 $('.energy-types').on('click','div',function(){
     //获取当前的能耗类型
     var index = $(this).index();
+
+    //如果存在全部类型
+    if($('.energy-types .all-energy-type').length > 0){
+
+        index = index - 1;
+
+        $('.energy-types .all-energy-type').removeClass('blueImg00');
+
+        $('.energy-types div').removeClass('selectedEnergy');
+    }
     //定义单位数组
     var unitArr = unitArr1;
 
-    for(var i=0; i<$('.energy-types div').length; i++){
+    for(var i=0; i<$('.energy-types .specific-energy').length; i++){
+
         var className = 'blueImg' + i;
         //清除之前选中的类
-        $('.energy-types div').eq(i).removeClass(className);
+        $('.energy-types .specific-energy').eq(i).removeClass(className);
     }
+    //全部
+    if(index == -1) {
+        $(this).addClass('blueImg00');
+
     //电
-    if(index == 0){
+    }else if(index == 0){
         $(this).addClass('blueImg0');
     //水
     }else if(index == 1){
@@ -46,6 +61,8 @@ $('.energy-types').on('click','div',function(){
     }else if(index == 4){
         $(this).addClass('blueImg4');
     };
+
+    $(this).addClass('selectedEnergy');
 
     //判断是否在支路霞选择能耗种类
     if($('.onChecked').length > 0){
@@ -87,12 +104,12 @@ changeShowTimes('日');
         "unitComment":"转kg碳",
         "unitName":"Kg碳",
         "unitNum":"2"
-    },
-    {
-        "unitComment":"转人民币",
-        "unitName":"元",
-        "unitNum":"3"
     }
+    //{
+    //    "unitComment":"转人民币",
+    //    "unitName":"元",
+    //    "unitNum":"3"
+    //}
 ];
 //水的单位
  unitArr2 = [
@@ -100,12 +117,12 @@ changeShowTimes('日');
         "unitComment":"基础单位",
         "unitName":"t",
         "unitNum":"0"
-    },
-    {
-        "unitComment":"转人民币",
-        "unitName":"元",
-        "unitNum":"3"
     }
+    //{
+    //    "unitComment":"转人民币",
+    //    "unitName":"元",
+    //    "unitNum":"3"
+    //}
 ];
 
 //能耗指标页面单位
