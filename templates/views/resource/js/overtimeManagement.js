@@ -34,16 +34,18 @@ $(function(){
 
                 var el = $(e.srcElement);
 
-                _dataComponentsFun(el);
+                _timeHMSComponentsFun(el,1);
 
             },
-            blurFun:function(){
+            blurFun:function(attr){
 
                 var e = e||window.event;
 
                 var el = $(e.srcElement);
 
                 var view = el.parent().children().eq(0);
+
+                var error = el.parents('li').find('.multiple-condition');
 
                 el.off('changeDate');
 
@@ -53,8 +55,70 @@ $(function(){
 
                 })
 
-            }
+                //验证消息消失
 
+                if($(this)[0][attr] != ''){
+
+                    error.hide();
+
+                }
+
+            },
+            timeFormat:function(attr){
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                //var mny = /(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29) (d{2}):(d{2})$/;
+
+                var mny = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d$/;
+
+                var $this = $(this)[0][attr];
+
+                var error = el.parents('li').find('.multiple-condition');
+
+                if( mny.test($this) ){
+
+                    error.hide();
+
+                }else{
+
+                    error.show();
+
+                }
+
+            },
+            naturalNumber:function(attr){
+
+                var mny = /^[1-9]\d*(\.\d+)?$/;
+
+                var $this = $(this)[0][attr];
+
+                var e = e||window.event;
+
+                var error = $(e.srcElement).parents('li').find('.multiple-condition')
+
+                if( $this == '' ){
+
+                    error.show();
+
+                }else{
+
+                    if(mny.test($this)){
+
+                        error.hide();
+
+                    }else{
+
+                        error.show();
+
+                    }
+
+                }
+
+
+            }
         }
 
     })
@@ -75,7 +139,7 @@ $(function(){
     var _JBPerson = [];
 
     //加班人员数据
-    getRY(true);
+    //getRY(true);
 
     //选中加班人的数组（第三层）
     var _tempWorkerArr = [];
@@ -116,15 +180,30 @@ $(function(){
     //当前操作的$(this)对象
     var _$this = '';
 
+    //部们列表
+    _WxBanzuStationData(_BZ);
+
+    function _BZ(){
+
+        _BZList($('#depart'),getRY(true));
+
+    }
+
     /*-------------------------------------------------表格初始化----------------------------------------*/
     var tableListCol = [
-        {
-            title:'加班id',
-            data:'id',
-        },
+        //{
+        //    title:'加班id',
+        //    data:'id',
+        //},
         {
             title:'加班编号',
             data:'gdCode',
+            className:'Tcode',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.id + '">' + data + '</span>'
+
+            }
         },
         {
             title:'上报人姓名',
@@ -246,7 +325,7 @@ $(function(){
 
     ];
 
-    _tableInit($('#worker-list'),workerListCol,2,true,'','');
+    _tableInit($('#worker-list'),workerListCol,2,true,'','',true,'');
 
     //车站表格
     var CZCol = [
@@ -293,6 +372,12 @@ $(function(){
         {
             title:'职位',
             data:'pos'
+        },
+        {
+
+            title:'部门',
+            data:'departName'
+
         },
         {
             title:'联系电话',
@@ -1241,125 +1326,152 @@ $(function(){
     //登记、编辑、删除（登记的时候是false，编辑，删除的时候是true）;
     function optionButton(url,flag,successMeg,errorMeg){
 
-        //获取加班人的人员类型
-        var worker = $('#worker-list tbody').find('.workerSelect');
+        //非空验证
+        if( datailVue.station == '' || datailVue.reason == '' || datailVue.faultDes == '' || datailVue.aboutGD == '' || datailVue.stTime == '' || datailVue.etTime == '' || datailVue.buildHeight == '' ||  datailVue.moneyType == '' || _selectedWorkerArr.length == 0 ){
 
-        for(var i=0;i<worker.length;i++){
-
-           var word =  worker.eq(i).parents('tr');
-
-           for(var j=0;j<_selectedWorkerArr.length;j++){
-
-               if(word.children('td').eq(0).html() == _selectedWorkerArr[j].userNum){
-
-                   _selectedWorkerArr[j].type = word.children('td').eq(2).children('.workerSelect').val();
-
-               }
-
-           }
-
-        }
-
-        var arr = [];
-
-        for(var i=0;i<_selectedWorkerArr.length;i++){
-
-            var obj = {};
-
-            obj.userNum = _selectedWorkerArr[i].userNum;
-
-            obj.userName = _selectedWorkerArr[i].userName;
-
-            obj.type = _selectedWorkerArr[i].type;
-
-            arr.push(obj);
-
-        }
-
-        var prm = {
-
-            //车站名称
-            ddName:datailVue.station,
-            //车站编号
-            ddNum:$('.station').attr('data-num'),
-            //所属系统编号
-            dcNum:'',
-            //所属系统名称
-            dcName:'',
-            //事由说明
-            reason:datailVue.reason,
-            //故障描述
-            descs:datailVue.faultDes,
-            //报修工单编号
-            gdCodeRef:datailVue.aboutGD,
-            //计划开始时间
-            planBeginTime:datailVue.stTime,
-            //计划结束时间
-            planStopTime:datailVue.etTime,
-            //上报人编号
-            createUser:_userIdNum,
-            //上报人姓名
-            createUserName:_userIdName,
-            //时长类型
-            moneyType:datailVue.moneyType,
-            //高度
-            height:datailVue.buildHeight,
-            //所属部门编号
-            departNum:_loginUser.departNum,
-            //所属部门名称
-            departName:_loginUser.departName,
-
-
-        };
-
-        if(flag){
-
-            //工单code
-            prm.gdCode = _thisJBBM;
-
-            //id
-            prm.id = _thisJBID;
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请输入红色必填项', '');
 
         }else{
 
-            //加班人员集合
-            prm.jbRenList = arr;
+            //验证格式
 
-        }
+            var o = $('#ADD-Modal').find('.multiple-condition');
 
-        $.ajax({
+            var isShow = false;
 
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            timeout:_theTimes,
-            success:function(result){
+            for(var i=0;i< o.length;i++){
 
-                if(result == 99){
+                if(o.eq(i).css('display') != 'none'){
 
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
+                    isShow = true;
 
-                    conditionSelect();
-
-                    $('#ADD-Modal').modal('hide');
-
-                }else{
-
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+                    break;
 
                 }
 
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
             }
-        })
+
+            //获取加班人的人员类型
+            var worker = $('#worker-list tbody').find('.workerSelect');
+
+            for(var i=0;i<worker.length;i++){
+
+                var word =  worker.eq(i).parents('tr');
+
+                for(var j=0;j<_selectedWorkerArr.length;j++){
+
+                    if(word.children('td').eq(0).html() == _selectedWorkerArr[j].userNum){
+
+                        _selectedWorkerArr[j].type = word.children('td').eq(2).children('.workerSelect').val();
+
+                    }
+
+                }
+
+            }
+
+            var arr = [];
+
+            for(var i=0;i<_selectedWorkerArr.length;i++){
+
+                var obj = {};
+
+                obj.userNum = _selectedWorkerArr[i].userNum;
+
+                obj.userName = _selectedWorkerArr[i].userName;
+
+                obj.type = _selectedWorkerArr[i].type;
+
+                arr.push(obj);
+
+            }
+
+            var prm = {
+
+                //车站名称
+                ddName:datailVue.station,
+                //车站编号
+                ddNum:$('.station').attr('data-num'),
+                //所属系统编号
+                dcNum:'',
+                //所属系统名称
+                dcName:'',
+                //事由说明
+                reason:datailVue.reason,
+                //故障描述
+                descs:datailVue.faultDes,
+                //报修工单编号
+                gdCodeRef:datailVue.aboutGD,
+                //计划开始时间
+                planBeginTime:datailVue.stTime,
+                //计划结束时间
+                planStopTime:datailVue.etTime,
+                //上报人编号
+                createUser:_userIdNum,
+                //上报人姓名
+                createUserName:_userIdName,
+                //时长类型
+                moneyType:datailVue.moneyType,
+                //高度
+                height:datailVue.buildHeight,
+                //所属部门编号
+                departNum:_loginUser.departNum,
+                //所属部门名称
+                departName:_loginUser.departName,
+
+
+            };
+
+            if(flag){
+
+                //工单code
+                prm.gdCode = _thisJBBM;
+
+                //id
+                prm.id = _thisJBID;
+
+            }else{
+
+                //加班人员集合
+                prm.jbRenList = arr;
+
+            }
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                timeout:_theTimes,
+                success:function(result){
+
+                    if(result == 99){
+
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
+
+                        conditionSelect();
+
+                        $('#ADD-Modal').modal('hide');
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+
+                    }
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+            })
+
+        }
 
     }
 
@@ -1401,6 +1513,8 @@ $(function(){
 
                 $('.returnEmpty').empty().append(str);
 
+                //选择车站按钮可操作
+                $('#select-DEV').attr('disabled',false);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -1410,17 +1524,28 @@ $(function(){
 
     //本部门人员数据
     function getRY(flag){
+
         var prm = {
-            "userName2": $('#zxName').val(),
-            "userNum": $('#zxNum').val(),
-            "departNum": _loginUser.userDepartNum,
-            "roleNum": "",
+            "username": $('#zxName').val(),
+            "usernum": $('#zxNum').val(),
             "userID": _userIdNum,
-            "userName":_userIdName
+            "userName":_userIdName,
+
         }
+
+        if(flag){
+
+            prm.departnum = _maintenanceTeam;
+
+        }else{
+
+            prm.departnum = $('#depart').val();
+
+        }
+
         $.ajax({
             type:'post',
-            url:_urls + 'YWGD/ywGetWXRens',
+            url:_urls + 'YWFZ/ReturnUserList',
             data:prm,
             success:function(result){
 
@@ -1437,6 +1562,8 @@ $(function(){
                 }
 
                 _datasTable($('#zhixingRenTable'),result);
+
+                $('#select-WK').attr('disabled',false);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1512,12 +1639,6 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetZh2',
             data:prm,
             timeout:30000,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
             success:function(result){
 
                 if(flag){
@@ -1534,6 +1655,7 @@ $(function(){
 
                 _datasTable($('#GD-table'),result);
 
+                $('#select-GD').attr('disabled',false);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1549,9 +1671,9 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
-        _thisJBBM = $this.parents('tr').children('td').eq(1).html();
+        _thisJBBM = $this.parents('tr').children('td').eq(0).children().html();
 
-        _thisJBID = $this.parents('tr').children('td').eq(0).html();
+        _thisJBID = $this.parents('tr').children('td').eq(0).children().attr('data-num');
 
         //发送请求
         $.ajax({
@@ -1672,7 +1794,7 @@ $(function(){
         $('#ADD-Modal').find('select').attr('disabled',false).removeClass('disabled-block');
 
         //选择按钮可操作
-        $('.select-CZ').attr('disabled',false);
+        //$('.select-CZ').attr('disabled',false);
 
         //表格中的按钮是否能操作
         $('#worker-list').find('.option-delete').attr('disabled',false);

@@ -68,23 +68,17 @@ function addStationDom(dom){
 
 var ABCArr = [ABC,ABC1,ABC2,ABC3,ABC4,ABC5];
 
-//获得用户名
-var _userIdName = sessionStorage.getItem('userName');
-//获取本地url
-var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-
 ajaxFun();
  stationArr = [];
 
 function ajaxFun(){
     var prm = {
-        'userID':_userIdName,
+        'userID':sessionStorage.getItem('userName'),
         'ddName':''
     }
     $.ajax({
         type:'post',
-        url:_urls + 'YWDev/ywDMGetDDs',
+        url:sessionStorage.getItem("apiUrlPrefixYW") + 'YWDev/ywDMGetDDs',
         data:prm,
         success:function(result){
             //给select赋值

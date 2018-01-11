@@ -704,6 +704,9 @@ $(function(){
         })
     })
         .on('click','.option-beijian',function(e){
+
+            $('.bjImg').hide();
+
             moTaiKuang($('#myModal5'),'维修备件申请');
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏

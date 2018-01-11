@@ -3207,7 +3207,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
-            async:false,
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('show');

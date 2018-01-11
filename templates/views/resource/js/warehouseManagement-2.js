@@ -3106,6 +3106,9 @@ $(function(){
             }
 
             var name = '';
+
+            console.log($('#supplier').val());
+
             if( $('#supplier').val() == '' ){
 
                 name = '';
@@ -4081,7 +4084,6 @@ $(function(){
                 //条件查询
                 conditionSelect();
 
-
                 //获取出库单
                 chukuList();
 
@@ -4116,7 +4118,7 @@ $(function(){
             success:function(result){
 
                 clearInterval(_rotate);
-                var str = '<option>请选择</option>';
+                var str = '<option value="">请选择</option>';
                 for(var i=0;i<result.length;i++){
                     str += '<option value="' + result[i].supNum +'"' + 'data-Content="' + result[i].linkPerson + '"' + 'data-phone="' + result[i].phone + '">'
                         + result[i].supName + '</option>';

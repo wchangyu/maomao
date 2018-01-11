@@ -349,7 +349,55 @@ $(function(){
     tableInit($('#personTables1'),col3);
     /*-----------------------------方法----------------------------------------*/
     //条件查询
-    InfluencingUnit();
+    _WxBanzuStationData(firstLoad);
+
+    //生成维修班组列表
+    function firstLoad(){
+
+        //生成维修班组
+        var arr = [];
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_AWBZArr.length;i++){
+
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                    arr.push(_AWBZArr[i].wxBanzus[j]);
+
+                }
+
+            }
+
+        }else if(_AisBZ){
+
+            for(var i=0;i<_ABZArr.length;i++){
+
+                if(_maintenanceTeam == _ABZArr[i].departNum ){
+
+                    arr.push(_ABZArr[i]);
+
+                }
+
+            }
+
+        }
+
+        var str = '<option value="">请选择</option>';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<option value="' + arr[i].departNum +
+                '">' + arr[i].departName + '</option>'
+
+        }
+
+        $('#wxbz').empty().append(str);
+
+        //条件查询
+        conditionSelect();
+    }
+
     //查询方法
     function conditionSelect(){  //3.4.5状态
         var filterInput = [];
@@ -387,31 +435,24 @@ $(function(){
 
         var wbzArr = [];
 
-        if( $('#wxbz').val() != ''){
+        if(_AisWBZ){
 
-            prm.wxKeshi = $('#wxbz').val();
+            for(var i=0;i<_AWBZArr.length;i++){
 
-        }else{
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
 
-            //在维保组中
-
-            if(_isWBZ){
-
-                for(var i=0;i<_bzArr.length;i++){
-
-                    wbzArr.push(_bzArr[i].departNum);
+                    wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
 
                 }
 
-                prm.wxKeshis = wbzArr;
-
-                //下维修班组中
-
-            }else if(_isBZ){
-
-                prm.wxKeshi = _bzArr[0].departNum;
-
             }
+
+            prm.wxKeshis = wbzArr;
+
+        }else if(_AisBZ){
+
+            prm.wxKeshi = _maintenanceTeam;
+
         }
 
         $.ajax({
@@ -1363,55 +1404,6 @@ $(function(){
         }
     }
     //获取到影响单位、用户分类
-    function InfluencingUnit(){
-        var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
-            data:prm,
-            success:function(result){
-                _InfluencingArr.length = 0;
-                _bzArr.length = 0;
-                var str  = '<option value="">请选择</option>';
-                //判断session中的变量是在维保组还是在维修班组中，
-                for(var i=0;i<result.stations.length;i++){
-                    if(_maintenanceTeam == result.stations[i].departNum){
-                        _isWBZ = true;
-                        _InfluencingArr.push(result.stations[i]);
-                        for(var j=0;j<result.stations[i].wxBanzus.length;j++){
-                            _bzArr.push(result.stations[i].wxBanzus[j]);
-                            str += '<option value="' + result.stations[i].wxBanzus[j].departNum +
-                                '">' + result.stations[i].wxBanzus[j].departName + '</option>'
-                        }
-                        $('#wxbz').empty().append(str);
-                    }
-                }
-                for(var i=0;i<result.wxBanzus.length;i++){
-                    if(_maintenanceTeam == result.wxBanzus[i].departNum){
-                        _isBZ = true;
-                        _bzArr.push(result.wxBanzus[i]);
-                        for(var j=0;j<result.wxBanzus[i].length;j++){
-                            str += '<option value="' + result.stations[i].wxBanzus[j].departNum +
-                                '">' + result.stations[i].wxBanzus[j].departName + '</option>'
-                        }
-                        $('#wxbz').empty().append(str);
-                    }else{
-                        str += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>'
-                        $('#wxbz').empty().append(str);
-                    }
-                }
-                //按条件加载
-                conditionSelect();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
 
     /*-----------------------------------------------------------键盘输入事件----------------------------------------------*/
     //键盘事件方法

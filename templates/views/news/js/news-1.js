@@ -49,7 +49,7 @@ $(function(){
             url:_url + 'News/GetNewsContentByID?'+ 'PK_NewsID=' + _id,
             async:false,
             success: function (result) {
-                console.log(result);
+
                 _publishDate = result.f_PublishDate;
                 _publishUser = result.f_PublishUser;
                 _uploadImg = result.f_RecommImgName.split('\\')[1] + '\\' + result.f_RecommImgName.split('\\')[2];
@@ -74,7 +74,7 @@ $(function(){
                 ue.ready(function() {
                     ue.setContent(str, true);
                 });
-                console.log(result.f_NewsContent);
+
                 //作者
                 $('#author').val(result.f_Author);
                 //是否推荐(上传图片)
@@ -210,7 +210,7 @@ $(function(){
         var fileNamePath = {
             '':_uploaderPath
         }
-        console.log(_uploaderPath);
+
         $('#thelist').find('.file-item').remove();
         $.ajax({
             type:'post',
@@ -225,12 +225,18 @@ $(function(){
                     //队列文件清空
                     $('#thelist').find('.file-item').remove();
                     $('.mark-float').css({'height':0});
+
+
+
                 }else if( result == 3 ){
                     moTaiKuang($('#myModal'),'删除失败！','flag');
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 var info = JSON.parse(jqXHR.responseText).message;
+
+                $('.big-mark').hide();
+
                 moTaiKuang($('#myModal'),info,'flag');
             }
         })
@@ -319,7 +325,9 @@ $(function(){
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
+
                         var info = JSON.parse(jqXHR.responseText).message;
+
                         moTaiKuang($('#myModal'),info,'flag')
                     }
                 })

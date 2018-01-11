@@ -138,6 +138,10 @@
                     <img class="viewIMG" src="../resource/img/all1.png">
                 </div>
             </div>
+            <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+            </div>
             <div class="table-block">
                 <div class="table-title">
                     <span class="spanhover">执行人员</span>
@@ -179,136 +183,8 @@
     </div>
     <div class="right-content" style="float: right;width: 345px;">
         <p style="margin-bottom: 0">处理记录</p>
-        <!--<ul class="progressBar">
-            &lt;!&ndash;<li>
-                <div class="progressNum" style="color:#db3d32">01</div>
-                <div class="progressName" style="color:#db3d32">登记</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">02</div>
-                <div class="progressName">受理</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">03</div>
-                <div class="progressName">分派</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">04</div>
-                <div class="progressName">执行</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">05</div>
-                <div class="progressName">等待</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">06</div>
-                <div class="progressName">完成</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">07</div>
-                <div class="progressName">关闭</div>
-            </li>&ndash;&gt;
-        </ul>-->
         <div class="processing-record">
             <ul style="font-size: 13px; ">
-                <!--<li>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">工单登记</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">受理工单：</div>
-                        <p class="record-content">调度下发</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">组长分派</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">开始执行</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">等待资源</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">执行结束</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">关闭工单</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content">李雷，韩梅梅</p>
-                    </div>
-                </li>-->
             </ul>
         </div>
     </div>
@@ -331,6 +207,11 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>

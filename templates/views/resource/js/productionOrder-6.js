@@ -34,6 +34,9 @@ $(function(){
     //等待原因
     ddyy();
 
+    //页面插入station选择框
+    addStationDom($('#bumen').parent());
+
     //实际传输时间初始化
     var gdrealityEnd = moment($('.gdTime').eq(1).val()).add(1,'d').format('YYYY/MM/DD') + '00:00:00';
     var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
@@ -262,7 +265,7 @@ $(function(){
                 data:'shouLiShij'
             },
             {
-                title:'督察督办责任人',
+                title:'责任人',
                 data:'wxUserNames'
             },
             {
@@ -400,6 +403,8 @@ $(function(){
             _gdCircle = $(this).parents('tr').children('td').children('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
+            //备件区域隐藏
+            $('.bjImg').hide();
             //获得当前的页数，
             //for( var i=0;i<$('.paginate_button').length;i++){
             //    if($('.paginate_button').eq(i).hasClass('current')){
@@ -477,6 +482,9 @@ $(function(){
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
+
+                    _imgBJNum = result.hasBjImage;
+
                     app33.gdly = result.gdCodeSrc;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -502,12 +510,6 @@ $(function(){
             var $this = $(this);
             _currentChexiao = true;
             _currentClick = $this;
-            //获得当前的页数，
-            //for( var i=0;i<$('.paginate_button').length;i++){
-            //    if($('.paginate_button').eq(i).hasClass('current')){
-            //        currentPages = $('.paginate_button').eq(i).html();
-            //    }
-            //}
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获得详情
@@ -531,6 +533,17 @@ $(function(){
                         _zhixingRens = result.wxRens;
                         _weiXiuCaiLiao = result.wxCls;
                         _fuZeRen = result.gdWxLeaders;
+
+                        if(result.wxClNames == ''){
+
+                            _wxClNames = false;
+
+                        }else{
+
+                            _wxClNames = true;
+
+                        }
+
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -542,19 +555,39 @@ $(function(){
         if(_currentClick){
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
             if(zhuangtai == 2 || zhuangtai == 3 || zhuangtai == 4 || zhuangtai == 5 || zhuangtai == 6 || zhuangtai == 7){
+
                 moTaiKuang($('#myModal1'));
+
+                var str = '';
+
+                if(_wxClNames){
+
+                    str += '该工单存在备件信息,';
+
+                }
+
+                str += '您确定要进行回退操作吗？';
+
+                $('#myModal1').find('.modal-body').html(str);
             }else{
+
                 $('#myModal3').find('.modal-body').html('无法操作');
+
                 moTaiKuang($('#myModal3'),'flag');
             }
         }else{
+
             $('#myModal3').find('.modal-body').html('请选择要回退的工单!');
+
             moTaiKuang($('#myModal3'),'flag');
         }
     });
     $('.zuofei').click(function(){
+
         if(_currentClick){
+
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
+
             if(zhuangtai == 7){
                 $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
                 moTaiKuang($('#myModal2'),'提示','flag');
@@ -563,6 +596,18 @@ $(function(){
                 moTaiKuang($('#myModal2'),'提示','flag');
             }else{
                 moTaiKuang($('#myModal2'));
+                //您确定要进行取消操作吗？
+                var str = '';
+
+                if(_wxClNames){
+
+                    str += '该工单存在备件信息,';
+
+                }
+
+                str += '您确定要进行取消操作吗？';
+
+                $('#myModal2').find('.modal-body').html(str);
             }
         }else{
             $('#myModal2').find('.modal-body').html('请选择要报废的工单!');
@@ -666,9 +711,18 @@ $(function(){
         var inputs = parents.find('input');
         inputs.val('');
         //时间置为今天
-        //$('.datatimeblock').val(_initStart);
+        //$('.datatimeblock').val(_initStart)
+
+        //工单时间
+        parents.find('.gdTime').eq(0).val(gdSTime);
+
+        parents.find('.gdTime').eq(1).val(gdETime);
+
+        parents.find('select').val('');
+        //任务级别
         $('.returnZero').val(0);
         $('.returnEmpty').val('');
+
     })
     //弹窗切换表格效果
     $('.table-title span').click(function(){
@@ -1370,4 +1424,17 @@ $(function(){
         }
 
     })
+
+    //
+    gdSource();
+
+    function gdSource(){
+
+        var str = '<option value="">请选择</option>';
+
+        str += '<option value="1">'+ __names.department +'报修</option><option value="2">现场人员报修</option>';
+
+        $('#gdly').empty().append(str);
+
+    }
 })

@@ -128,6 +128,9 @@ $(function(){
   //条件查询车站
   addStationDom($('#bumen').parent());
 
+  //当前部门下的车站
+  _stationData();
+
   /*-----------------------------------------------------表格初始化------------------------------------------*/
   var col = [
 
@@ -631,6 +634,7 @@ $(function(){
       prm.wxKeshi = _maintenanceTeam;
 
     }
+
     $.ajax({
       type: 'post',
       url: _urls + 'YWGD/ywGDGetDJ',
@@ -914,7 +918,6 @@ $(function(){
       success:function(result){
 
         if(result){
-
           //赋值
           //工单号
           detaileVue.gdCode = result.gdCode2;

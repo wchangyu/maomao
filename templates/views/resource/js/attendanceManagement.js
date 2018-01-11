@@ -129,13 +129,14 @@ $(function(){
     var tableListCol = [
 
         {
-            title:'id',
-            data:'id',
-            className:'id'
-        },
-        {
             title:'时间段名称',
-            data:'name'
+            data:'name',
+            className:'Tname',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.id + '">' + data + '</span>'
+
+            }
         },
         {
             title:'上班时间',
@@ -538,7 +539,9 @@ $(function(){
         $this.parents('tr').addClass('tables-hover');
 
         //绑定数据
-        _$thisID = $this.parents('tr').children('.id').html();
+        //_$thisID = $this.parents('tr').children('.id').html();
+
+        _$thisID = $this.parents('tr').children('.Tname').children().attr('data-num');
 
         for(var i=0;i<_allData.length;i++){
 
