@@ -159,8 +159,6 @@ var _departStationArr = [];
 //维修班组
 //车间、维修班组数据
 
-_maintenanceTeam = 'JT03';
-
 function _WxBanzuStationData(fun){
 
     $.ajax({
@@ -394,8 +392,6 @@ function _BZList(el,fun){
             '">' + arr[i].departName + '</option>'
 
     }
-
-    console.log(arr);
 
     el.empty().append(str);
 

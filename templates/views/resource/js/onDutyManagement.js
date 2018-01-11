@@ -1409,7 +1409,19 @@ $(function(){
 
         }else{
 
-            prm.departnum = $('#depart').val();
+            var depart = '';
+
+            if( $('#depart').val() == '' ){
+
+                depart = _maintenanceTeam;
+
+            }else{
+
+                depart = $('#depart').val();
+
+            }
+
+            prm.departnum = depart;
 
         }
         $.ajax({
