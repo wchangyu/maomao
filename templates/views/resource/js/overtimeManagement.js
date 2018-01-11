@@ -601,7 +601,7 @@ $(function(){
 
         $(this).parents('tr').addClass('tables-hover');
 
-        _thisJBBM = $(this).parents('tr').children('td').eq(1).html();
+        _thisJBBM = $(this).parents('tr').children('td').eq(0).children().html();
 
         //初始化
         $('#examine-Modal').find('#examineBlock').find('input').val('');

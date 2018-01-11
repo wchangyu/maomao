@@ -1206,7 +1206,7 @@ $(function(){
         _thisID = $(this).parents('tr').children('.zbCode').children().attr('data-num');
 
         //值班code
-        _thisCode = $(this).parents('tr').children('.zbCode').html();
+        _thisCode = $(this).parents('tr').children('.zbCode').children().html();
 
         $('#examine-Modal').find('#myApp33').find('input').eq(0).val(_thisID);
 
