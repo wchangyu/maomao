@@ -24,9 +24,6 @@ $(function(){
         }
     });
 
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
-
     //所有的选框均不可输入，只做展示
     $('input').attr('disabled','disabled');
     $('textarea').attr('disabled','disabled');
@@ -166,6 +163,8 @@ $(function(){
 
                 _imgNum = result.hasImage;
 
+                _imgBJNum = result.hasBjImage;
+
                 //维修材料清单
                 var clListArr = result.wxCls;
 
@@ -257,36 +256,6 @@ $(function(){
         })
     }
 
-    //查看图片
-    $('#viewImage').click(function(){
-
-        if (_imgNum) {
-            var str = '';
-            for(var i=0;i<_imgNum;i++){
-                str += '<img class="viewIMG" src="' +
-                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                    '">'
-            }
-            $('.showImage').html('').append(str).show();
-        } else {
-
-            $('.showImage').html('没有图片').show();
-        }
-
-    })
-
-    //查看图片
-    $('.showImage').on('click','.viewIMG',function(){
-
-        //模态框显示
-        _moTaiKuang($('#myModal4'), '图片详情', 'flag','','','');
-
-        var imgSrc = $(this).attr('src');
-
-        $('#myModal4').find('img').attr('src', imgSrc);
-
-    })
-
     //查看进程
     $('#viewProgress').click(function(){
 
@@ -295,19 +264,7 @@ $(function(){
     })
 })
 
-//获取本地url
-var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-//获得用户名
-var _userIdNum = sessionStorage.getItem('userName');
-
-//获得用户名
-var _userIdName = sessionStorage.getItem('realUserName');
-
 var _gdCode = window.location.search.split('=')[1].split('&')[0];
-
-//图片ip
-var _urlImg = 'http://1.1.1.1/ApService/dimg.aspx';
 
 //获取评价信息
 function getAppraise(num){
@@ -378,14 +335,6 @@ function tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
         _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     }
 
-}
-
-//IP替换
-function replaceIP(str,str1){
-    var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-    var res = ip.exec(str1);  /*211.100.28.180*/
-    str = str.replace(ip,res);
-    return str;
 }
 
 

@@ -9,7 +9,7 @@ $(function(){
             url:_url + 'News/GetAllNewsType',
             async:false,
             success:function(result){
-                //console.log(result);
+
                 if(result.length == 0){
                     moTaiKuang($('#myModal'),'请先添加栏目！');
                 }
@@ -257,83 +257,121 @@ $(function(){
     })
     //点击保存，发送数据
     $('#saveNews').click(function(){
+
         getContent();
-        //先判断内容是否写了
-        if(_newsContent){
-            //首先判断是编辑还是新增
-            if(_id){
-                var newsContent = {
-                    pK_NewsID:_id,
-                    fK_Type_Content:$('#column').val(),
-                    f_NewsTypeName:$.trim($('#column').children('option:selected').html()),
-                    f_NewsTitle:$('#newsTitle').val(),
-                    f_NewsDesc:$('#newsDesc').val(),
-                    f_NewsContent:_newsContent,
-                    f_PublishDate:_publishDate,
-                    f_Author:$('#author').val(),
-                    f_IsRecommend:$('.radio').children('.checked').children('input').val(),
-                    f_RecommImgName:_uploaderPath,
-                    f_PublishUser:_publishUser,
-                    userID:_userID
-                }
-                $.ajax({
-                    type:'post',
-                    url:_url + 'News/EditNewsContent',
-                    data:newsContent,
-                    success:function(result){
-                        if(result == 99){
-                            //添加成功
-                            moTaiKuang($('#myModal1'),'新闻编辑成功！','flag')
-                        }else if(result == 2){
-                            moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
-                        }else if(result == 3){
-                            moTaiKuang($('#myModal'),'执行失败！','flag')
-                        }
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                        //console.log(JSON.parse(jqXHR.responseText).message);
-                        if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
-                        }
-                    }
-                })
+
+        //格式验证
+
+        //首先判断选中的是否推荐
+
+        var isRecommend = true;
+
+        if( $('.checked').children().attr('value') == 1 ){
+
+            if(_uploaderPath == ''){
+
+                //提示消息
+
+                isRecommend = false;
+
             }else{
-                var newsContent = {
-                    fK_Type_Content:$('#column').val(),
-                    f_NewsTypeName: $.trim($('#column').children('option:selected').html()),
-                    f_NewsTitle:$('#newsTitle').val(),
-                    f_NewsDesc:$('#newsDesc').val(),
-                    f_NewsContent:_newsContent,
-                    f_Author:$('#author').val(),
-                    f_IsRecommend:$('.radio').children('.checked').children('input').val(),
-                    f_RecommImgName:_uploaderPath,
-                    userID:_userID
-                }
-                $.ajax({
-                    type:'post',
-                    url: _url + 'News/AddNewsContent',
-                    data:newsContent,
-                    success:function(result){
-                        if(result == 99){
-                            //添加成功
-                            moTaiKuang($('#myModal1'),'新闻添加成功！','flag');
-                            //跳转
-                            window.location.href="./news-3.html";
-                        }else if(result == 2){
-                            moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
-                        }else if(result == 3){
-                            moTaiKuang($('#myModal'),'执行失败！','flag')
-                        }
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
 
-                        var info = JSON.parse(jqXHR.responseText).message;
+                isRecommend = true;
 
-                        moTaiKuang($('#myModal'),info,'flag')
-                    }
-                })
             }
+
         }else{
-            moTaiKuang($('#myModal'),'请填写新闻内容');
+
+            //可以上传
+            isRecommend = true;
+
+        }
+
+        if(isRecommend){
+
+            //先判断内容是否写了
+            if(_newsContent){
+                //首先判断是编辑还是新增
+                if(_id){
+                    var newsContent = {
+                        pK_NewsID:_id,
+                        fK_Type_Content:$('#column').val(),
+                        f_NewsTypeName:$.trim($('#column').children('option:selected').html()),
+                        f_NewsTitle:$('#newsTitle').val(),
+                        f_NewsDesc:$('#newsDesc').val(),
+                        f_NewsContent:_newsContent,
+                        f_PublishDate:_publishDate,
+                        f_Author:$('#author').val(),
+                        f_IsRecommend:$('.radio').children('.checked').children('input').val(),
+                        f_RecommImgName:_uploaderPath,
+                        f_PublishUser:_publishUser,
+                        userID:_userID
+                    }
+                    $.ajax({
+                        type:'post',
+                        url:_url + 'News/EditNewsContent',
+                        data:newsContent,
+                        success:function(result){
+                            if(result == 99){
+                                //添加成功
+                                moTaiKuang($('#myModal1'),'新闻编辑成功！','flag')
+                            }else if(result == 2){
+                                moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
+                            }else if(result == 3){
+                                moTaiKuang($('#myModal'),'执行失败！','flag')
+                            }
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+                            //console.log(JSON.parse(jqXHR.responseText).message);
+                            if( JSON.parse(jqXHR.responseText).message == '没有数据' ){
+                            }
+                        }
+                    })
+                }else{
+                    var newsContent = {
+                        fK_Type_Content:$('#column').val(),
+                        f_NewsTypeName: $.trim($('#column').children('option:selected').html()),
+                        f_NewsTitle:$('#newsTitle').val(),
+                        f_NewsDesc:$('#newsDesc').val(),
+                        f_NewsContent:_newsContent,
+                        f_Author:$('#author').val(),
+                        f_IsRecommend:$('.radio').children('.checked').children('input').val(),
+                        f_RecommImgName:_uploaderPath,
+                        userID:_userID
+                    }
+                    $.ajax({
+                        type:'post',
+                        url: _url + 'News/AddNewsContent',
+                        data:newsContent,
+                        success:function(result){
+                            if(result == 99){
+                                //添加成功
+                                moTaiKuang($('#myModal1'),'新闻添加成功！','flag');
+                                //跳转
+                                window.location.href="./news-3.html";
+                            }else if(result == 2){
+                                moTaiKuang($('#myModal'),'新闻标题不能重复！','flag')
+                            }else if(result == 3){
+                                moTaiKuang($('#myModal'),'执行失败！','flag')
+                            }
+                        },
+                        error:function(jqXHR, textStatus, errorThrown){
+
+                            var info = JSON.parse(jqXHR.responseText).message;
+
+                            moTaiKuang($('#myModal'),info,'flag')
+                        }
+                    })
+                }
+            }else{
+                moTaiKuang($('#myModal'),'请填写新闻内容');
+            }
+
+        }else{
+
+            //提示上传图片
+            moTaiKuang($('#myModal'),'推荐选项下，必须上传图片！',true );
+
         }
 
     })

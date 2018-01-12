@@ -97,7 +97,7 @@ $(function(){
             //值班人姓名
             "watchUserName": $('#overTime').val(),
             "begintime": $('.min').val(),
-            "endtime": moment(now).add(1,'d').format('YYYY-MM-DD'),
+            "endtime": moment($('.max').val()).add(1,'d').format('YYYY-MM-DD'),
             "status": $('#state').val(),
 
 
