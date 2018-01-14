@@ -342,7 +342,7 @@ $(function(){
     /*-----------------------------页面加载时调用的方法------------------------------*/
     //条件查询
     //conditionSelect();
-    InfluencingUnit();
+    _WxBanzuStationData(conditionSelect);
     //不打印部分
     noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
     /*---------------------------------表格绑定事件-------------------------------------*/
@@ -543,14 +543,27 @@ $(function(){
             'userName':_userIdName
         }
         var wbzArr = [];
-        if(_isWBZ){
-            for(var i=0;i<_bzArr.length;i++){
-                wbzArr.push(_bzArr[i].departNum);
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_AWBZArr.length;i++){
+
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                    wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+                }
+
             }
+
             prm.wxKeshis = wbzArr;
-        }else if(_isBZ){
+
+        }else if(_AisBZ){
+
             prm.wxKeshi = _maintenanceTeam;
+
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDGetZh2',
@@ -834,44 +847,6 @@ $(function(){
     });
 
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
-    //获取到影响单位、用户分类
-    function InfluencingUnit(){
-        var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdNum
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
-            data:prm,
-            success:function(result){
-
-                _InfluencingArr.length = 0;
-                _bzArr.length = 0;
-                //判断session中的变量是在维保组还是在维修班组中，
-                for(var i=0;i<result.stations.length;i++){
-                    if(_maintenanceTeam == result.stations[i].departNum){
-                        _isWBZ = true;
-                        _InfluencingArr.push(result.stations[i]);
-                        for(var j=0;j<result.stations[i].wxBanzus.length;j++){
-                            _bzArr.push(result.stations[i].wxBanzus[j]);
-                        }
-                    }
-                }
-                for(var i=0;i<result.wxBanzus.length;i++){
-                    if(_maintenanceTeam == result.wxBanzus[i].departNum){
-                        _isBZ = true;
-                        _bzArr.push(result.wxBanzus[i]);
-                    }
-                }
-                //按条件加载
-                conditionSelect();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
     //模态框自适应
     function moTaiKuang(who,flag){
         who.modal({

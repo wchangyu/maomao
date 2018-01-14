@@ -50,6 +50,8 @@ $(function(){
 
     })
 
+    var _tables = null;
+
 
     /*--------------------------------------------------其他方法--------------------------------------------*/
     //获得数据
@@ -64,7 +66,7 @@ $(function(){
             //结束时间
             endtime:moment(now).add(1,'d').format('YYYY-MM-DD')
 
-        }
+        };
 
         $.ajax({
 
@@ -95,16 +97,27 @@ $(function(){
 
                     if(result.riqi){
 
+
+                        //if(_tables){
+                        //    var datatable = $("#reporting").dataTable();
+                        //    //
+                        //    if (datatable) {
+                        //        datatable.fnClearTable();    //清空数据
+                        //        datatable.fnDestroy();         //销毁datatable
+                        //    }
+                        //}
+
+
                         var arr = ['序号','姓名'];
 
                         //首先初始化表格
                         for(var i=0;i<result.riqi.length;i++){
 
-                            var obj = result.riqi[i]
+                            var obj = result.riqi[i];
 
                             arr.push(obj.date);
 
-                        }
+                        };
 
                         arr.push('合计');
 
@@ -127,19 +140,40 @@ $(function(){
                                 data.push('summation');
                             }
 
+                        };
+                        if(_tables){
+                            for(var i=0;i<arr.length;i++){
+
+                                var obj = {};
+
+                                obj.title = arr[i];
+
+                                obj.data = data[i];
+
+                                obj.mData = data[i];
+
+                                obj.sTitle = arr[i];
+
+                                col.push(obj);
+
+                            };
+                        }else {
+
+                            for(var i=0;i<arr.length;i++){
+
+                                var obj = {};
+
+                                obj.title = arr[i];
+
+                                obj.data = data[i];
+
+                                col.push(obj);
+
+                            };
+
                         }
 
-                        for(var i=0;i<arr.length;i++){
-
-                            var obj = {};
-
-                            obj.title = arr[i];
-
-                            obj.data = data[i];
-
-                            col.push(obj);
-
-                        }
+                        console.log(col);
 
                         //footer标签
                         //插入foot
@@ -158,11 +192,47 @@ $(function(){
                             }
 
 
-                        }
+                        };
 
                         $('#reporting tfoot').children().empty().append(tfootStr);
 
-                        _tableInit($('#reporting'),col,1,true,'',totalNum);
+                        //_tables =  _tableInit($('#reporting'),col,1,true,'',totalNum,'','');
+
+                        //表格初始化
+
+                        _tables = $('#reporting').DataTable({
+                            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                            "paging": true,   //是否分页
+                            "destroy": true,//还原初始化了的datatable
+                            "searching": false,
+                            "ordering": false,
+                            "iDisplayLength":50,//默认每页显示的条数
+                            'language': {
+                                'emptyTable': '没有数据',
+                                'loadingRecords': '加载中...',
+                                'processing': '查询中...',
+                                'lengthMenu': '每页 _MENU_ 条',
+                                'zeroRecords': '没有数据',
+                                'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+                                'infoEmpty': '没有数据',
+                                'paginate':{
+                                    "previous": "上一页",
+                                    "next": "下一页",
+                                    "first":"首页",
+                                    "last":"尾页"
+                                }
+                            },
+                            "dom":'t<"F">',
+                            'buttons':{
+                                extend: 'excelHtml5',
+                                text: '导出',
+                                className:'saveAs hiddenButton'
+                            },
+                            "columns": col,
+                            "fnRowCallback": '',
+                            "drawCallback":totalNum
+                        });
+
 
                         //表格数据赋值
                         var dataNum = [];
@@ -208,8 +278,9 @@ $(function(){
 
                         }
 
-                        _datasTable($('#reporting'),dataNum);
+                        console.log(dataNum);
 
+                        _datasTable($('#reporting'),dataNum);
 
                     }
 

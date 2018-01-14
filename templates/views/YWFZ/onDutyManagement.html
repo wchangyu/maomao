@@ -246,7 +246,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -279,9 +278,7 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
+
                                 <ul class="condition-query noprint">
                                     <li><label for="">值班编号：</label>
                                         <div class="input-blocked">
@@ -388,6 +385,8 @@
     });
 </script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/publicGD.js"></script>
 <script src="../resource/js/onDutyManagement.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
@@ -470,6 +469,12 @@
                             <div class="labels">工号：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxNum">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">部门：</div>
+                            <div class="input-blockeds">
+                                <select id="depart" style="width: 198px;"></select>
                             </div>
                         </li>
                         <li class="floatLeft" style="width: 100px !important;">

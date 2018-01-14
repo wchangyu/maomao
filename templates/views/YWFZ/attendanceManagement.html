@@ -246,7 +246,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -279,9 +278,6 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
                                 <ul class="condition-query noprint">
                                     <li>
                                         <div class="cont-col1">
@@ -442,13 +438,13 @@
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels colorTip">记迟到时间 *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
+                                <div class="labels colorTip">记迟到时间（分钟） *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="tlate" @keyup="naturalNumber('tlate')">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels colorTip">记早退时间 *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
+                                <div class="labels colorTip">记早退时间（分钟） *：<div class="multiple-condition numberType" style="width: 122px;"><span class="colorTip">请输入正整数</span></div></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="tearly" @keyup="naturalNumber('tearly')">
                                 </div>

@@ -407,6 +407,8 @@ $(function(){
             _gdCircle = $(this).parents('tr').children('td').children('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
+            //备件区域隐藏
+            $('.bjImg').hide();
             //获得当前的页数，
             //for( var i=0;i<$('.paginate_button').length;i++){
             //    if($('.paginate_button').eq(i).hasClass('current')){
@@ -484,6 +486,9 @@ $(function(){
                     _zhixingRens = result.wxRens;
                     _fuZeRen = result.gdWxLeaders;
                     _imgNum = result.hasImage;
+
+                    _imgBJNum = result.hasBjImage;
+
                     app33.gdly = result.gdCodeSrc;
                 },
                 error:function(jqXHR, textStatus, errorThrown){
@@ -586,7 +591,6 @@ $(function(){
         if(_currentClick){
 
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
-
             if(zhuangtai == 7){
                 $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
                 moTaiKuang($('#myModal2'),'提示','flag');
@@ -710,9 +714,18 @@ $(function(){
         var inputs = parents.find('input');
         inputs.val('');
         //时间置为今天
-        //$('.datatimeblock').val(_initStart);
+        //$('.datatimeblock').val(_initStart)
+
+        //工单时间
+        parents.find('.gdTime').eq(0).val(gdSTime);
+
+        parents.find('.gdTime').eq(1).val(gdETime);
+
+        parents.find('select').val('');
+        //任务级别
         $('.returnZero').val(0);
         $('.returnEmpty').val('');
+
     })
     //弹窗切换表格效果
     $('.table-title span').click(function(){
@@ -1423,5 +1436,18 @@ $(function(){
         }
 
     })
+
+    //
+    gdSource();
+
+    function gdSource(){
+
+        var str = '<option value="">请选择</option>';
+
+        str += '<option value="1">'+ __names.department +'报修</option><option value="2">现场人员报修</option>';
+
+        $('#gdly').empty().append(str);
+
+    }
 
 })

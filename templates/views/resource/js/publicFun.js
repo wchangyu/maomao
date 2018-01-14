@@ -23,32 +23,11 @@ var _theTimes = 30000;
 //获取登陆者信息
 var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
 
-//车间
+//部门
 var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
 
 //图片的路径
 var _urlImg = sessionStorage.getItem("imgPath");
-
-
-/*-----------------------------全局变量------------------------*/
-
-//页面加载的时候，首先要判断用户所属的班组，是属于车间还是维保组。（权限）
-
-//标识在维保组中
-var _AisWBZ = false;
-
-//标识在维修班组中
-var _AisBZ = false;
-
-//维保组数组
-var _AWBZArr = [];
-
-//维修班组
-var _ABZArr = [];
-
-//仓库数组
-var _AWarehouseArr = [];
-
 
 /*---------------------------时间初始化------------------------*/
 
@@ -707,117 +686,4 @@ function _formatTime(str11){
 
 }
 
-//维修班组
-//车间、维修班组数据
-function _WxBanzuStationData(fun){
-
-    $.ajax({
-
-        type:'post',
-        url:_urls + 'YWGD/ywGDGetWxBanzuStation',
-        data:{
-
-            //用户id
-            userID:_userIdNum,
-            //用户姓名
-            userName:_userIdName
-        },
-        timeout:_theTimes,
-        success:function(result){
-
-            _AWBZArr.length = 0;
-
-            _ABZArr.length = 0;
-
-            if(result){
-
-                if(result.stations){
-
-                    for(var i=0;i<result.stations.length;i++){
-
-                        if( _maintenanceTeam == result.stations[i].departNum ){
-
-                            //在车间中
-                            _AisWBZ = true;
-
-                            _AWBZArr.push(result.stations[i]);
-
-                        }
-
-                    }
-
-                }
-
-                if( result.wxBanzus ){
-
-                    for(var i=0;i<result.wxBanzus.length;i++){
-
-                        if(_maintenanceTeam == result.wxBanzus[i].departNum){
-
-                            _AisBZ = true;
-
-                            _ABZArr.push(result.wxBanzus[i]);
-
-                        }
-                    }
-
-                }
-
-            }
-
-            if(fun){
-
-                fun();
-
-            }
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-
-            console.log(jqXHR.responseText);
-        }
-
-    })
-
-}
-
-//获取仓库列表
-function _warehouseLise(fun){
-
-    $.ajax({
-
-        type:'post',
-        url:_urls + 'YWCK/ywCKGetStorages',
-        timeout:_theTimes,
-        data:{
-
-            //用户id
-            userID:_userIdNum,
-            //用户名
-            userName:_userIdName,
-            //角色
-            b_UserRole:_userRole
-
-        },
-        success:function(result){
-
-            _AWarehouseArr.length = 0;
-
-            for(var i=0;i<result.length;i++){
-
-                _AWarehouseArr.push(result[i]);
-
-            }
-
-            fun();
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-
-            console.log(jqXHR.responseText);
-        }
-
-    })
-
-}
 

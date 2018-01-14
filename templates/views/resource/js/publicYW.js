@@ -8,7 +8,12 @@ var _LlineArr = [];
 _LlineData();
 
 //获取车站
-_getProfession('YWGD/ywGDGetWxBanzuStation',$('#station'),'wxBanzus','departNum','departName');
+
+if($('#station').length != 0){
+
+    _getProfession('YWGD/ywGDGetWxBanzuStation',$('#station'),'wxBanzus','departNum','departName');
+
+}
 
 var _LworkshopObj = {};
 

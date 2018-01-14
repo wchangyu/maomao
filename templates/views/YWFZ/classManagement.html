@@ -246,7 +246,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -279,9 +278,7 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
+
                                 <ul class="condition-query noprint">
                                     <li>
                                         <div class="cont-col1">
@@ -394,13 +391,13 @@
                     <validator name="validation">
                         <form novalidate>
                             <li class="floatLeft">
-                                <div class="labels">名称：</div>
+                                <div class="labels colorTip">名称 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="cname">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">周期单位：</div>
+                                <div class="labels colorTip">周期单位 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="periodicunit" @change="cycleFun()">
                                         <option value="">请选择</option>
@@ -411,7 +408,7 @@
                             </li>
                             <li class="floatLeft">
 
-                                <div class="labels">时间段：</div>
+                                <div class="labels colorTip">时间段 *：</div>
                                 <div class="input-blockeds">
                                     <select v-model="timeslot" id="time-slot">
 

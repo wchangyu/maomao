@@ -28,7 +28,9 @@
     <script src="../resource/TableTools/js/vfs_fonts.js"></script>
     <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
     <script src="../resource/js/publicFun.js"></script>
+    <script src="../../../assets/local/configs/setNames.js"></script>
     <script src="../resource/js/gdDetails.js"></script>
+
     <style>
         .dataTables_info{
             display: none;
@@ -170,13 +172,17 @@
                     </form>
                 </validator>
                 <div style="margin-top: 10px;">
-                    <button type="button" class="btn btn-info viewImage" id="viewImage">查看图片</button>
-                    <!--<button type="button" class="btn btn-info viewImage" id="viewProgress">处理记录</button>-->
+                    <button type="button" class="btn btn-info viewImage">查看图片</button>
                     <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;margin-top: 10px;">
                         <img src="../resource/img/all1.png" alt="" class="viewIMG">
                     </div>
                 </div>
+                <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                    <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                    <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                </div>
             </div>
+
         </div>
 
         <div style="float: right;width: 460px">
@@ -283,5 +289,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script src="../resource/js/publicGD.js"></script>
 </body>
 </html>

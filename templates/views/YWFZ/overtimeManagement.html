@@ -247,7 +247,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -280,9 +279,7 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
+
                                 <ul class="condition-query noprint">
                                     <li><label for="">加班编号：</label>
                                         <div class="input-blocked">
@@ -394,6 +391,8 @@
     });
 </script>
 <script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/publicGD.js"></script>
 <script src="../resource/js/overtimeManagement.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
@@ -411,16 +410,16 @@
                         <form novalidate>
                             <div>
                                 <li class="floatLeft" style="width: 428px">
-                                    <div class="labels">车站名称 ：</div>
+                                    <div class="labels colorTip">车站名称 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="station" class="station">
                                     </div>
                                 </li>
-                                <div class="btn btn-success select-CZ" id="select-DEV">选择</div>
+                                <div class="btn btn-success select-CZ" id="select-DEV" disabled="disabled">选择</div>
                             </div>
                             <div>
                                 <li class="floatLeft" style="width: 537px;">
-                                    <div class="labels">事由说明：</div>
+                                    <div class="labels colorTip">事由说明 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="reason">
                                     </div>
@@ -429,7 +428,7 @@
                             </div>
                             <div>
                                 <li class="floatLeft" style="width: 537px;">
-                                    <div class="labels">故障描述：</div>
+                                    <div class="labels colorTip">故障描述 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="faultDes">
                                     </div>
@@ -438,55 +437,52 @@
                             </div>
                             <div>
                                 <li class="floatLeft" style="width: 428px">
-                                    <div class="labels">相关工单 ：</div>
+                                    <div class="labels colorTip">相关工单 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="aboutGD">
                                     </div>
                                 </li>
-                                <div class="btn btn-success btn1 select-CZ" id="select-GD">选择</div>
+                                <div class="btn btn-success btn1 select-CZ" id="select-GD" disabled="disabled">选择</div>
                             </div>
                             <div style="width: 537px;">
                                 <li class="floatLeft" style="width: 249px !important;">
-                                    <div class="labels">计划开始时间：</div>
+                                    <div class="labels colorTip">计划开始时间 *：<div class="multiple-condition dateType" style="width: 122px;display: none"><span class="colorTip">请输入正确格式</span></div></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="stTime" style="width: 215px">
-                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun()">
+                                        <input type="text" v-model="stTime" style="width: 215px" @keyup="timeFormat('stTime')">
+                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun('stTime')">
                                     </div>
                                 </li>
                                 <li class="floatRight" style="width: 249px !important;">
-                                    <div class="labels">计划结束时间：</div>
+                                    <div class="labels colorTip">计划结束时间 *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="etTime" style="width: 215px">
-                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun()">
+                                        <input type="text" v-model="etTime" style="width: 215px" @keyup="timeFormat('etTime')">
+                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun('etTime')">
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>
                             </div>
                             <div style="width: 537px;">
                                 <li class="floatLeft" style="width: 249px !important;">
-                                    <div class="labels">施工高度：</div>
+                                    <div class="labels colorTip">施工高度 *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="buildHeight" style="width: 247px">
+                                        <input type="text" v-model="buildHeight" style="width: 247px" @keyup="naturalNumber('buildHeight')">
 
                                     </div>
                                 </li>
                                 <li class="floatRight" style="width: 249px !important;">
-                                    <div class="labels">时长类型：</div>
+                                    <div class="labels colorTip">加班时长（小时） *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="moneyType" style="width: 247px">
+                                        <input type="text" v-model="moneyType" @keyup="naturalNumber('moneyType')" style="width: 247px">
 
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>
                             </div>
                             <div>
-                                <li class="floatLeft" style="width: 428px">
-                                    <div class="labels">加班人 ：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="overtimeP">
-                                    </div>
+                                <li class="floatLeft" style="width: 428px;margin: 5px 0">
+                                    <div class="labels colorTip" style="height: auto">加班人 *：<div class="btn btn-success btn1 select-CZ" id="select-WK" disabled="disabled" style="display: inline-block;vertical-align: middle;margin-top: 0">选择</div></div>
+
                                 </li>
-                                <div class="btn btn-success btn1 select-CZ" id="select-WK">选择</div>
                             </div>
                             <div class="clearfix"></div>
                         </form>
@@ -534,6 +530,12 @@
                             <div class="labels">工号：</div>
                             <div class="input-blockeds">
                                 <input type="text" id="zxNum">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">部门：</div>
+                            <div class="input-blockeds">
+                                <select id="depart"></select>
                             </div>
                         </li>
                         <li class="floatLeft" style="width: 100px !important;float:right;">

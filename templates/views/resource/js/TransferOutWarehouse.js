@@ -37,7 +37,7 @@ $(function(){
             data:'orderNum',
             className:'orderNum',
             render:function(data, type, row, meta){
-                return '<a href="outboundOrder.html?orderNum=' + row.orderNum +
+                return '<a href="TransferOutOrder.html?orderNum=' + row.orderNum +
                     '" target="_blank">' + row.orderNum + '</a>'
             }
         },
@@ -3207,7 +3207,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
-            async:false,
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('show');

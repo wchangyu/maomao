@@ -371,8 +371,8 @@
                         <li class="floatLi" style="line-height: 26px;">
                             <div class="labels">工单类型：</div>
                             <div class="input-blockeds">
-                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
-                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
+                                <input type="radio" class="inpus" id="ones" value="1" v-model="picked" disabled="true"><label for="ones">快速</label>
+                                <input type="radio" class="inpus" id="twos" value="0" v-model="picked" disabled="true"><label for="twos">普通</label>
                             </div>
                         </li>
                         <li class="floatLi" style="line-height: 26px;">
@@ -531,7 +531,7 @@
                             </div>
                         </li>
                         <div class="clearfix"></div>
-                        <div>
+                        <div style="margin-bottom: 10px;">
                             <div class="labels">评价意见：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none" v-model="beizhu"></textarea>
@@ -629,6 +629,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

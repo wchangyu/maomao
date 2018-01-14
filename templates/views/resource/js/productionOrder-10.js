@@ -496,6 +496,8 @@ $(function(){
         })
         .on('click','.option-beijian',function(){
 
+            $('.bjImg').hide();
+
             _moTaiKuang($('#myModal4'),'维修备件申请','','','','确定');
 
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
@@ -957,6 +959,7 @@ $(function(){
         };
 
         var wbzArr = [];
+
 
         if(_AisWBZ){
 

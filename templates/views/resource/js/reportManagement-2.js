@@ -95,6 +95,14 @@ $(function (){
     //给表格的标题赋时间
     $('#scrap-datatables').find('caption').children('p').children('span').html(' ' + _initStart + '——' + _initEnd);
     /*-------------------------获取表格数据-----------------------*/
+    _WxBanzuStationData(_BZ);
+
+    function _BZ(){
+
+        _BZList($('#depart'));
+
+    }
+
     conditionSelect();
     function conditionSelect(){
         //获取所有input框的值

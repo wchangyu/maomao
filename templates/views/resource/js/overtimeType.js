@@ -24,6 +24,84 @@ $(function(){
             fourthCost:'',
             //排序
             sort:''
+        },
+        methods:{
+
+            naturalNumber:function(attr){
+
+                var mny = /^[1-9]\d*(\.\d+)?$/;
+
+                var $this = $(this)[0][attr];
+
+                var e = e||window.event;
+
+                var error = $(e.srcElement).parents('li').find('.multiple-condition');
+
+                if( $this == '' ){
+
+                    error.show();
+
+                }else{
+
+                    if(mny.test($this)){
+
+                        error.hide();
+
+                    }else{
+
+                        error.show();
+
+                    }
+
+                }
+
+
+            },
+
+            keepTwo:function(attr){
+
+                var $this = $(this)[0][attr];
+
+                if($this == ''){
+
+                    $this = 0;
+
+                }
+
+                typeVue[attr] = Number($this).toFixed(2);
+
+            },
+
+            intNumber:function(attr){
+
+                var mny = /^\d+$/;
+
+                var $this = $(this)[0][attr];
+
+                var e = e||window.event;
+
+                var error = $(e.srcElement).parents('li').find('.multiple-condition');
+
+                if( $this == '' ){
+
+                    error.show();
+
+                }else{
+
+                    if(mny.test($this)){
+
+                        error.hide();
+
+                    }else{
+
+                        error.show();
+
+                    }
+
+                }
+
+            }
+
         }
 
     });
@@ -40,14 +118,20 @@ $(function(){
             title:'排序',
             data:'sort'
         },
-        {
-            title:'id',
-            data:'id',
-            className:'typeId'
-        },
+        //{
+        //    title:'id',
+        //    data:'id',
+        //    className:'typeId'
+        //},
         {
             title:'类型编号',
-            data:'type'
+            data:'type',
+            className:'Ttype',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.id + '">' + data + '</span>'
+
+            }
         },
         {
             title:'类型名称',
@@ -77,6 +161,7 @@ $(function(){
     _tableInit($('#table-list'),tableListCol,1,true,'','');
 
     conditionSelect();
+
     /*--------------------------------------------按钮事件----------------------------------------*/
 
     //查询
@@ -231,63 +316,98 @@ $(function(){
     //登记、编辑方法、删除方法flag = true的时候
     function optionButton(url,flag,successMeg,errorMeg){
 
-        var  prm = {
+        //非空验证
+        if(typeVue.typeNum == '' || typeVue.typeName == '' || typeVue.firstCost == '' || typeVue.secondCost == '' || typeVue.thirdCost == '' || typeVue.fourthCost == '' || typeVue.sort == '' ){
 
-            //编号类型
-            type:typeVue.typeNum,
-            //类型名称
-            name:typeVue.typeName,
-            //第一阶段补贴金额
-            money1:typeVue.firstCost,
-            //第二阶段补贴金额
-            money2:typeVue.secondCost,
-            //第三阶段金额
-            money3:typeVue.thirdCost,
-            //第四阶段金额
-            money4:typeVue.fourthCost,
-            //排序
-            sort:typeVue.sort
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
-        };
+        }else{
 
-        if(flag){
+            //格式验证
+            var o = $('#ADD-Modal').find('.multiple-condition');
 
-            prm.id = typeVue.id;
-        }
+            var isShow = false;
 
-        $.ajax({
+            for(var i=0;i< o.length;i++){
 
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            success:function(result){
+                if(o.eq(i).css('display') != 'none'){
 
-                if(result == 99){
+                    isShow = true;
 
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
-
-                    conditionSelect();
-
-                    $('#ADD-Modal').modal('hide');
-
-                }else{
-
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+                    break;
 
                 }
 
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
             }
-        })
+
+            if(isShow){
+
+                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'格式错误！', '');
+
+            }else{
+
+                var  prm = {
+
+                    //编号类型
+                    type:typeVue.typeNum,
+                    //类型名称
+                    name:typeVue.typeName,
+                    //第一阶段补贴金额
+                    money1:typeVue.firstCost,
+                    //第二阶段补贴金额
+                    money2:typeVue.secondCost,
+                    //第三阶段金额
+                    money3:typeVue.thirdCost,
+                    //第四阶段金额
+                    money4:typeVue.fourthCost,
+                    //排序
+                    sort:typeVue.sort
+
+                };
+
+                if(flag){
+
+                    prm.id = typeVue.id;
+                }
+
+                $.ajax({
+
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+
+                        if(result == 99){
+
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
+
+                            conditionSelect();
+
+                            $('#ADD-Modal').modal('hide');
+
+                        }else{
+
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }
+
+
+        }
 
     }
 
@@ -302,7 +422,7 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
-        _thisID = $this.parents('tr').children('.typeId').html();
+        _thisID = $this.parents('tr').children('.Ttype').children().attr('data-num');
 
         //遍历_allData,比较
         for(var i=0;i<_allData.length;i++){

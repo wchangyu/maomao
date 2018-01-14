@@ -437,6 +437,9 @@ $(function(){
             logInformation();
         })
         .on('click','.option-beijian',function(){
+
+            $('.bjImg').hide();
+
             moTaiKuang($('#myModal4'),'维修备件申请');
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏

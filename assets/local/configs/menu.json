@@ -753,24 +753,7 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      },
-      "现场返修报表":{
-        "type":"0",
-        "content":"现场返修报表",
-        "uri":"../FXJ/reworkReport.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "返厂报表":{
-        "type":"0",
-        "content":"返厂报表",
-        "uri":"../FXJ/returnReport.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
       }
-
     }
   },
   "故障明细表":{
@@ -830,6 +813,22 @@
         "type":"0",
         "content":"故障未修复明细表",
         "uri":"../guzhangfenxibiao/failureRepairList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "返厂报表":{
+        "type":"0",
+        "content":"返厂报表",
+        "uri":"../FXJ/returnReport.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "调度中心报表":{
+        "type":"0",
+        "content":"调度中心报表",
+        "uri":"../FXJ/dispatchCenterReport.html",
         "uid":"",
         "arg":"",
         "iconclass":""
@@ -1096,9 +1095,9 @@
     "iconclass":"icon-settings",
     "content":"运维辅助",
     "submenu":{
-      "考勤管理":{
+      "时间段管理":{
         "type":"0",
-        "content":"考勤管理",
+        "content":"时间段管理",
         "uri":"../YWFZ/attendanceManagement.html",
         "uid":"",
         "arg":"",
@@ -1144,10 +1143,18 @@
         "arg":"",
         "iconclass":""
       },
+      "考勤管理":{
+        "type":"0",
+        "content":"考勤管理",
+        "uri":"../YWFZ/attendanceStatistics.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
       "考勤统计":{
         "type":"0",
         "content":"考勤统计",
-        "uri":"../YWFZ/attendanceStatistics.html",
+        "uri":"../YWFZ/checkWorkStatistics.html",
         "uid":"",
         "arg":"",
         "iconclass":""

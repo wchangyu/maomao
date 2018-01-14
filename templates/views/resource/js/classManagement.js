@@ -51,13 +51,14 @@ $(function(){
 
     var tableListCol = [
         {
-            title:'id',
-            data:'id',
-            className:'rowId'
-        },
-        {
             title:'名称',
-            data:'name'
+            data:'name',
+            className:'Tname',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.id + '">'+ data +'</span>'
+
+            }
         },
         {
             title:'编码',
@@ -70,7 +71,7 @@ $(function(){
         },
         {
             title:'时间段',
-            data:'sjDid'
+            data:'sjDname'
         },
         {
             title: '操作',
@@ -106,7 +107,7 @@ $(function(){
         detailedInit();
 
         //模态框
-        _moTaiKuang($('#ADD-Modal'),'提示','','','','新增');
+        _moTaiKuang($('#ADD-Modal'),'新增','','','','新增');
 
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
@@ -332,7 +333,7 @@ $(function(){
 
         $this.parents('tr').addClass('tables-hover');
 
-        _$thisID = $this.parents('tr').children('.rowId').html();
+        _$thisID = $this.parents('tr').children('.Tname').children().attr('data-num');
 
         _$thisCode = $this.parents('tr').children('.bccode').html();
 
@@ -442,120 +443,131 @@ $(function(){
     //optionSureButton true 编辑、删除 false 添加
     function optionSureButton(url,flag,successMeg,errorMeg){
 
-        //确定班组名称
-        var time = '';
+        //验证非空
+        if( classVue.cname == '' || classVue.periodicunit == '' || classVue.timeslot == '' ){
 
-        if( classVue.timeslot == '' ){
-
-            time = '';
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项！', '');
 
         }else{
 
-            time = $('#time-slot').children('option:selected').html();
+            //确定班组名称
+            var time = '';
 
-        }
+            if( classVue.timeslot == '' ){
 
-        //确定周期天数
-        var arr = [];
+                time = '';
 
-        if( classVue.periodicunit == 1 ){
+            }else{
 
-            var j = $('.cycle-block-week').children();
-
-            for(var i=0;i< j.length;i++){
-
-                if(j.eq(i).find('span').hasClass('checked')){
-
-                    var obj = {};
-
-                    obj.selectedday = parseInt(j.eq(i).attr('data-num'));
-
-                    arr.push(obj)
-                }
+                time = $('#time-slot').children('option:selected').html();
 
             }
 
+            //确定周期天数
+            var arr = [];
 
-        }else if( classVue.periodicunit == 2 ){
+            if( classVue.periodicunit == 1 ){
 
-            var j = $('.cycle-block-month').children();
+                var j = $('.cycle-block-week').children();
 
-            for(var i=0;i< j.length;i++){
+                for(var i=0;i< j.length;i++){
 
-                if(j.eq(i).find('span').hasClass('checked')){
+                    if(j.eq(i).find('span').hasClass('checked')){
 
-                    var obj = {};
+                        var obj = {};
 
-                    obj.selectedday = parseInt(j.eq(i).attr('data-num'));
+                        obj.selectedday = parseInt(j.eq(i).attr('data-num'));
 
-                    arr.push(obj)
-
-                }
-
-            }
-
-        }else{
-
-            arr = [];
-
-        }
-
-        var prm = {
-
-            //班次名称
-            name:classVue.cname,
-            //周期
-            period:classVue.periodicunit,
-            //时间段id
-            sjDid:classVue.timeslot,
-            //时间段名称
-            sjDname:time,
-            //具体天周:
-            BanCiDetailList:arr
-        }
-
-        if(flag){
-
-            prm.id = _$thisID;
-
-            prm.bccode = _$thisCode;
-
-        }
-
-        $.ajax({
-
-            type:'post',
-            url:_urls + url,
-            data:prm,
-            timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
-            success:function(result){
-
-                if(result == 99){
-
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
-
-                    $('#ADD-Modal').modal('hide');
-
-                    conditionSelect();
-
-                }else{
-
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+                        arr.push(obj)
+                    }
 
                 }
 
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+
+            }else if( classVue.periodicunit == 2 ){
+
+                var j = $('.cycle-block-month').children();
+
+                for(var i=0;i< j.length;i++){
+
+                    if(j.eq(i).find('span').hasClass('checked')){
+
+                        var obj = {};
+
+                        obj.selectedday = parseInt(j.eq(i).attr('data-num'));
+
+                        arr.push(obj)
+
+                    }
+
+                }
+
+            }else{
+
+                arr = [];
+
             }
 
-        })
+            var prm = {
+
+                //班次名称
+                name:classVue.cname,
+                //周期
+                period:classVue.periodicunit,
+                //时间段id
+                sjDid:classVue.timeslot,
+                //时间段名称
+                sjDname:time,
+                //具体天周:
+                BanCiDetailList:arr
+            }
+
+            if(flag){
+
+                prm.id = _$thisID;
+
+                prm.bccode = _$thisCode;
+
+            }
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                timeout:_theTimes,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                success:function(result){
+
+                    if(result == 99){
+
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap',successMeg,'');
+
+                        $('#ADD-Modal').modal('hide');
+
+                        conditionSelect();
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'),'提示','flag','istap',errorMeg,'');
+
+                    }
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+                    console.log(jqXHR.responseText);
+                }
+
+            })
+
+        }
+
+
 
     }
 

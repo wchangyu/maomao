@@ -1,6 +1,9 @@
 //记录当前工单号
 var _gdCode = '';
 
+//存放线点数组
+var _lineArr = [];
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -138,17 +141,17 @@ $(function(){
     //备件申请是否成功
     var _applyIsSuccess = false;
 
-    //存放线点数组
-    var _lineArr = [];
-
     //线路
-    lineRouteData($('#linePoint'));
+    lineRouteData($('#line'));
 
     //存放车站
-    var _stationArr = [];
+    //var _stationArr = [];
 
     //车站
-    ajaxFun('YWDev/ywDMGetDDs', $('#station'),_stationArr, 'ddName', 'ddNum');
+    //ajaxFun('YWDev/ywDMGetDDs', $('#station'),_stationArr, 'ddName', 'ddNum');
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -951,46 +954,51 @@ $(function(){
             //bxKeshiNum:$('#station').val()
         };
 
-        if($('#station').val() == ''){
+        var cheArr = [];
+        //如果车站为空，就判断线路，线路为空的话，wxKeshis和wxKeshi不传，线路不为空的话，传wxKeshis，车站不为空，wxKeshi
+        var station = $('#bumen').parent().next().find('span').attr('values');
 
-            if($('#linePoint').val() == ''){
+        var stationValues = ''
 
-                var arr = [];
+        if(typeof station == 'undefined'){
 
-                for(var i=0;i<_stateArr.length;i++){
+            stationValues = '';
 
-                    arr.push(_stateArr[i].ddNum);
+        }else{
 
-                }
+            stationValues = station;
 
-                prm.bxKeshiNums = arr;
+        }
+
+        if(stationValues == ''){
+
+            if($('#line').val() == ''){
+
+
 
             }else{
 
                 for(var i=0;i<_lineArr.length;i++){
 
-                    if($('#linePoint').val() == _lineArr[i].dlNum ){
-
-                        var arr = [];
+                    if($('#line').val() == _lineArr[i].dlNum){
 
                         for(var j=0;j<_lineArr[i].deps.length;j++){
 
-                            arr.push(_lineArr[i].deps[j].ddNum);
+                            cheArr.push(_lineArr[i].deps[j].ddNum);
 
                         }
-
-                        prm.bxKeshiNums = arr;
 
                     }
 
                 }
 
-            }
+                prm.bxKeshiNums = cheArr;
 
+            }
 
         }else{
 
-            prm.bxKeshiNum = $('#station').val();
+            prm.bxKeshiNum = stationValues;
 
         }
 
