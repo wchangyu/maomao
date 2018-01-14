@@ -280,6 +280,7 @@ function _getEcTypeValue(){
     //获取是楼宇还是分户
     var index = $('.left-tab-contain .isChoose').index();
 
+
     var jsonText;
 
     //楼宇
@@ -296,7 +297,20 @@ function _getEcTypeValue(){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etid)
         }
-        var el = aaa[$('.selectedEnergy').index()];
+        var thisIndex = $('.selectedEnergy').index();
+
+        //存在全部选项的时候
+        if($('.energy-types .all-energy-type').length > 0){
+
+            thisIndex = thisIndex - 1;
+        }
+        //选择‘全部’时默认给后台传0
+        if(thisIndex == -1){
+
+            return 0;
+        }
+
+        var el = aaa[thisIndex];
         return el;
     }
 };
@@ -337,7 +351,20 @@ function _getEcTypeWord(){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etname);
         }
-        var el = aaa[$('.selectedEnergy').index()];
+        var thisIndex = $('.selectedEnergy').index();
+
+        //存在全部选项的时候
+        if($('.energy-types .all-energy-type').length > 0){
+
+            thisIndex = thisIndex - 1;
+        }
+        //选择‘全部’时默认给后台传0
+        if(thisIndex == -1){
+
+            return '全部';
+        }
+
+        var el = aaa[thisIndex];
         return el;
     }
 }

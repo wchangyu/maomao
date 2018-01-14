@@ -246,7 +246,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -279,11 +278,9 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header noprint">
-                                    <li class="main-contents-header-lists0">物品管理</li>
-                                </ul>
+
                                 <ul class="condition-query noprint">
-                                    <li><label for="">加班类型名称：</label>
+                                    <li><label for="">人员类型名称：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="filterInput JBLX">
                                         </div>
@@ -387,9 +384,20 @@
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--新增模态框-->
+<style>
+    #myApp33 li{
+
+        width: 320px !important;
+    }
+    #myApp33 .multiple-condition{
+
+        width: 56px !important;
+
+    }
+</style>
 <div class="modal fade" id="ADD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 582px;width: 332px !important;">
-        <div class="modal-content" style="height: 582px;width: 332px !important;">
+    <div class="modal-dialog" style="height: 582px;width: 352px !important;">
+        <div class="modal-content" style="height: 582px;width: 352px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" >提示</h4>
@@ -400,45 +408,45 @@
                         <form novalidate>
 
                             <li class="floatLeft">
-                                <div class="labels">类型编号 ：</div>
+                                <div class="labels colorTip">类型编号 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="typeNum">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">人员类型名称：</div>
+                                <div class="labels colorTip">人员类型名称 *：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="typeName">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">第一阶段补贴金额（4小时内，七米以下） ：</div>
+                                <div class="labels colorTip">第一阶段补贴金额（4小时内，七米以下）*：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">格式错误</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="firstCost">
+                                    <input type="text" v-model="firstCost" @keyup="naturalNumber('firstCost')" @blur="keepTwo('firstCost')">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">第二阶段补贴金额（4小时内，七米以上）：</div>
+                                <div class="labels colorTip">第二阶段补贴金额（4小时内，七米以上）*：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">格式错误</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="secondCost">
+                                    <input type="text" v-model="secondCost" @keyup="naturalNumber('secondCost')" @blur="keepTwo('secondCost')">
                                 </div>
                             </li>
                             <li class="floatLeft">
-                                <div class="labels">第三阶段补贴金额（4小时外，七米以下） ：</div>
+                                <div class="labels colorTip">第三阶段补贴金额（4小时外，七米以下）*：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">格式错误</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="thirdCost">
+                                    <input type="text" v-model="thirdCost" @keyup="naturalNumber('thirdCost')" @blur="keepTwo('thirdCost')">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">第四阶段补贴金额（4小时外，七米以上）：</div>
+                                <div class="labels colorTip">第四阶段补贴金额（4小时外，七米以上）*：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">格式错误</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="fourthCost">
+                                    <input type="text" v-model="fourthCost" @keyup="naturalNumber('fourthCost')" @blur="keepTwo('fourthCost')">
                                 </div>
                             </li>
                             <li class="floatRight">
-                                <div class="labels">排序：</div>
+                                <div class="labels colorTip">排序 *：<div class="multiple-condition dateType" style="width: 122px;"><span class="colorTip">格式错误</span></div></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="sort">
+                                    <input type="text" v-model="sort" @keyup="intNumber('sort')">
                                 </div>
                             </li>
 

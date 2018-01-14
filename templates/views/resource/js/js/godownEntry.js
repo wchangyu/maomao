@@ -15,7 +15,7 @@ $(document).ready(function(){
         if(!godownNum){
             return false;
         }
-
+        console.log(_urls);
         $.ajax({
             type: 'post',
             url: _urls + "YWCK/ywCKGetInStorageDetailFold",

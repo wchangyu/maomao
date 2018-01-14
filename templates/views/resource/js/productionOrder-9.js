@@ -437,6 +437,9 @@ $(function(){
             logInformation();
         })
         .on('click','.option-beijian',function(){
+
+            $('.bjImg').hide();
+
             moTaiKuang($('#myModal4'),'维修备件申请');
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
@@ -474,14 +477,8 @@ $(function(){
                         bmArr.push(result.wxCls[i].wxCl);
                     }
                     //备件图片
-                    if(result.hasBjImage>0){
-                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-                        $('.bjImg').empty().append(str).show();
-                        $('.bjpicture').show();
-                    }else{
-                        $('.bjpicture').hide();
-                    }
+                    _imgBJNum = result.hasBjImage;
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,

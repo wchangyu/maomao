@@ -166,7 +166,18 @@
     color:white;
 }
 
-.energy-types div:nth-child(1){
+.energy-types .all-energy-type{
+    background: url(../img/money00.png) center 6px no-repeat !important;
+
+    background-size:22px 28px !important;
+}
+.main-left-top1 .energy-types .blueImg00{
+    background: url(../img/money0.png) center 6px no-repeat !important;
+
+    background-size:22px 28px !important;
+}
+
+.energy-types .dian{
     background: url(../img/dian11.png) center 6px no-repeat !important;
 
     background-size:22px 28px !important;
@@ -176,7 +187,7 @@
 
     background-size:22px 28px !important;
 }
-.energy-types div:nth-child(2){
+.energy-types .shui{
     background: url(../img/shui22.png) center 6px no-repeat !important;
 
     background-size:22px 28px !important;
@@ -186,7 +197,7 @@
 
     background-size:22px 28px !important;
 }
-.energy-types div:nth-child(3){
+.energy-types .qi{
     background: url(../img/qi33.png) center 6px no-repeat !important;
 
     background-size:22px 28px !important;
@@ -196,7 +207,7 @@
 
     background-size:22px 28px !important;
 }
-.energy-types div:nth-child(4){
+.energy-types .nuan{
     background: url(../img/nuan33.png) center 6px no-repeat !important;
 
     background-size:22px 28px !important;
@@ -208,7 +219,7 @@
     background-size:22px 28px !important;
 }
 
-.energy-types div:nth-child(5){
+.energy-types .leng{
     background: url(../img/leng33.png) center 6px no-repeat !important;
 
     background-size:22px 28px !important;
@@ -222,8 +233,7 @@
 /*background-color:white !important;*/
 /*}*/
 .energy-types div {
-    /*border: 2px solid #ededed;*/
-    border: none;
+    border: none !important;
 }
 
 .main-left-top1 .energy-types .selectedEnergy{

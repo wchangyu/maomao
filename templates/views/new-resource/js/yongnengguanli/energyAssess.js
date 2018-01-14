@@ -120,6 +120,7 @@ $(function(){
 
 
     });
+
     //加载默认能耗种类
     $('.left-middle-main .curChoose').click();
 
@@ -130,7 +131,7 @@ $(function(){
 
         $(this).addClass('curChoose');
 
-        var unit = $(this).attr('data-unit')
+        var unit = $(this).attr('data-unit');
 
         //改变右上角单位名称
         $('.unit').val(unit);
@@ -282,7 +283,6 @@ function getPointerData(url,flag){
     //存放要传递的指标类型
     var energyNormItemObj = {};
 
-
     //定义获得数据的参数
     var ecParams = {};
 
@@ -415,6 +415,7 @@ function getPointerData(url,flag){
 
             //预计年使用量
             $('.quota-year1 b').html(result.yearEnergyData.toFixed(1) + unit);
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             myChartTopLeft.hideLoading();

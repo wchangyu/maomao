@@ -7,6 +7,7 @@ var Login = function() {
     var _isProceLoaded = false;
     //var _indexUrl = "shouye/index.html";
     var _indexUrl = "new-nengyuanzonglan/";
+
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);

@@ -897,6 +897,7 @@ $(function(){
             url:_urls + 'YWDev/ywDIGetDevs',
             data:prm,
             success:function(result){
+                //console.log(prm);
                 //console.log(result);
 
                 for(var i=0;i<result.length;i++){

@@ -12,7 +12,6 @@ $(function(){
     $('.datatimeblock').eq(0).val(st);
 
     $('.datatimeblock').eq(1).val(et);
-
     /*---------------------------------------------变量--------------------------------------------------*/
     //vue变量
     var gdObj = new Vue({
@@ -2304,6 +2303,14 @@ $(function(){
             'userName': _userIdName,
             'b_UserRole':_userRole,
             'isQueryExceedTime':"1"
+        };
+
+        if($('.modal-backdrop').length > 0){
+            theTimeout = setTimeout(function(){
+                conditionSelect(true);
+            },refreshTime);
+
+            return false;
         }
 
         $.ajax({

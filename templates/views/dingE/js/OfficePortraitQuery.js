@@ -36,9 +36,11 @@ $(document).ready(function(){
         //数据源
         'columns':[
             {
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<input type='checkbox' class='tableCheck'/>"
+                title: '',
+                data:null,
+                render:function(data, type, row, meta){
+                   return "<input type='checkbox' class='tableCheck'/>"
+                }
             },
             {
                 title:'id',

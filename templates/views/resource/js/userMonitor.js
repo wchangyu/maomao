@@ -43,6 +43,7 @@ var userMonitor = (function(){
     var _refreshAction;
     var _imgProcSrc;            //存放背景图地址
     var _imgProcWidth;            //存放背景图宽度
+    var _oldSpanDefArr = [];         //存放页面中构成流程图的元素
 
     $('.content-main-left').width(0);
 
@@ -129,6 +130,7 @@ var userMonitor = (function(){
         });
 
         $(".functions-5").click(function(){
+
             $("#content-main-right").css({"transform":"","transform-orgin":""});
             _scaleX = 1;
             setScaleSign(1);
@@ -152,6 +154,9 @@ var userMonitor = (function(){
 
                 changeTransform('block');
             }
+            //普通模式可以拖动流程图
+            ifProcMove = true;
+
 
             ////动态改变鹰眼显示比例
             //changeProimg();
@@ -746,6 +751,7 @@ var userMonitor = (function(){
 
         }
     };
+
     //获取实时数据
     var getInstDatasByIds = function(){
         if(_isProcDefLoaded && _isProcCrtlLoaded && _isProcRenderLoaded && !_isInstDataLoading){
@@ -806,6 +812,7 @@ var userMonitor = (function(){
 
     //在界面上绘制数据
     var initializeContentOnDiv = function(defInstDatas){
+
         if(!_isProcCrtlLoaded || !_isProcDefLoaded || !_isProcRenderLoaded) return;     //没有载入数据完成则退出
         if(!_procDefs || _procDefs.length==0) return;           //没有绘制对象则退出
         /*
@@ -813,16 +820,83 @@ var userMonitor = (function(){
          * */
         var $divContent = $("#content-main-right");
         var $img = $("#imgProc");
-        $divContent.empty();
-        $divContent.append($img);
 
+        //定义是否对页面中元素进行比较的标识
+        var _ifCompareSpan = true;
+
+        //根据procID判断流程图缓存_oldSpanDefArr是否需要更新
+        if(_oldSpanDefArr.length != 0 && _oldSpanDefArr[0].procID != _defInsDataResults[0].procID){
+
+            _oldSpanDefArr.length = 0;
+        }
+
+        //如果没有缓存 则是第一次加载 需给页面添加缓存
+        if(_oldSpanDefArr.length == 0){
+
+            //不需要对元素进行比较
+            _ifCompareSpan = false;
+
+            //清空容器 直接进行赋值
+            $divContent.empty();
+            $divContent.append($img);
+        }
+
+        //定义是否对页面中元素进行重绘的标识
+        var ifRedrawSpan = true;
 
         //根据def绘制对象
         var defLength = _procDefs.length;
         for(var i = 0;i < defLength;i++){
+
+
+            //如果是第一次加载
+            if(!_ifCompareSpan){
+
+                _oldSpanDefArr.push(_defInsDataResults[i]);
+
+            }else{
+
+                $(_oldSpanDefArr).each(function(k,o){
+                    //如果defID相同 则是页面上同一个元素 开始进行比较
+                    if(o.procDefID == _defInsDataResults[i].procDefID){
+
+
+                            //判断是否需要进行重绘
+                          if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
+
+                              //当前元素不需要进行重绘
+                              ifRedrawSpan = false;
+
+                          }else{
+
+                              //给当前缓存重新赋值
+                              o.procRenderID = _defInsDataResults[i].procRenderID;
+
+                              o.enableScriptResult = _defInsDataResults[i].enableScriptResult;
+
+                              o.renderExprResult = _defInsDataResults[i].renderExprResult;
+
+                              o.visibleScriptResult = _defInsDataResults[i].visibleScriptResult;
+                          }
+                    }
+
+                });
+
+            }
+
+            //如果不需要重绘，跳出本次循环 进入下一个循环
+            if(ifRedrawSpan == false){
+
+                ifRedrawSpan = true;
+
+                continue;
+            }
+
+            //需要进行重绘,获取当前页面元素ID
+            var spanID = _defInsDataResults[i].procDefID;
+
             //显示文本或者图像
             //1.获取当先对象(def)的宽和高
-
             var defWidth,defHeight;
             var divContentWidth = $divContent.width(),divContentHeight = $divContent.height();
             if(_procDefs[i].sizeFlag==0){     //绝对宽高
@@ -875,6 +949,8 @@ var userMonitor = (function(){
 
                 var $Img = $("<img>");      //当前def的图片
                 var $Txt = $("<span>");     //当前def的文本
+                var $Video = $("<video>");      //当前def的视频
+                $Video.attr('controls','controls');
                 if(curProcDef.cType == 166){   //判断是不是链接，是链接使用a元素
                     $Txt.css("text-decoration","underline");
                 }
@@ -886,24 +962,75 @@ var userMonitor = (function(){
                 setFlexInner($spanTxt,{"height":defHeight,"width":"50%"});
                 $spanDef.append($spanImg);
                 $spanDef.append($spanTxt);
-                if(curPRR){
-                    if(curPRR.showFlag == 1){       //判断前台展示的类型，1为文本，2为图片，3为图片文本
+
+                //如果是嵌入式视频
+                if(curProcDef.dType == 141){
+                    //console.log(curProcDef);
+                        $Video.css({"width":defWidth,"height":defHeight});
+                        //是否自动播放
+                        $Video.attr('autoplay','autoplay');
+                        $spanImg.append($Video);
+                        $spanImg.width("100%");
+                        $spanTxt.width(0);
+
+                    //如果有视频加载视频
+                    if( curProcDef.dkId) {
+
+                        loadDefVideo(curProcDef.dkId, $Video);
+                    }
+
+                //如果是弹出式视频
+                }else if( curProcDef.cType == 141){
+
+                    $Img.css({"width":defWidth,"height":defHeight,"cursor":"pointer"});
+                    $Img.addClass('showVideo');
+                    $spanImg.append($Img);
+                    $spanImg.width("100%");
+                    $spanTxt.width(0);
+
+                    //如果有视频加载视频
+                    if( curProcDef.prProcLnk != null) {
+                        //获取图片ID
+                        var id = curProcDef.prProcLnk.imgid;
+
+                        //给图片绑定视频路径
+                        $Img.attr('videoUrl',curProcDef.prProcLnk.url);
+
+                        var videoMessage = curProcDef.prProcLnk;
+
+                        //console.log(curProcDef.prProcLnk);
+
+                        //给图片添加点击事件
+                        $Img.on('click',function (){
+
+                            showVideoByID(videoMessage);
+                        });
+
+                        //获取展示图片
+                        loadDefImg1(id, $Img);
+                    }
+
+                }else if(curPRR){
+
+                    //判断前台展示的类型，1为文本，2为图片，3为图片文本 ，4为视频
+                    if(curPRR.showFlag == 1){
                         $spanTxt.append($Txt);
                         $spanImg.width(0);
                         $spanTxt.width("100%");
                     }else if(curPRR.showFlag == 2){
-                        $Img.css({"width":defWidth,"height":defHeight})
+                        $Img.css({"width":defWidth,"height":defHeight});
                         $spanImg.append($Img);
                         $spanImg.width("100%");
                         $spanTxt.width(0);
                     }else if(curPRR.showFlag == 3){
-                        $Img.css({"width":defWidth / 2,"height":defHeight})
+                        $Img.css({"width":defWidth / 2,"height":defHeight});
                         $spanImg.append($Img);
                         $spanTxt.append($Txt);
                         $spanImg.width("50%");
                         $spanTxt.width("50%");
                     }
                     $Img.attr("id",curPRR.id + "img");
+                    $Video.attr("id",curPRR.id + "video");
 
                     if(curPRR.backColorRGB && curPRR.backColorRGB.length == 8){         //背景色设置
                         if(curPRR.backColorRGB.indexOf("00") == 0){
@@ -932,6 +1059,7 @@ var userMonitor = (function(){
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
                     if((curPRR.showFlag == 2 || curPRR.showFlag == 3) && curPRR.imgID) { loadDefImg(curPRR, $Img); }        //如果有图片，载入图片
+
 
                     //设置外层span(spanImg,spanTxt)的内部元素的对齐
                     function setTextAlignment($ele,align){
@@ -982,6 +1110,7 @@ var userMonitor = (function(){
                     $spanDef.removeAttr("disabled");
                 }
                 var curProcCtrl = _.findWhere(_procCtrls,{"prDefId":_procDefs[i].prDefId});
+
                 //如果当前def存在控件或者标签的类型为166（即导航标签），则绘制
                 if((curProcCtrl && curProcDef.cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122
                     || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131
@@ -989,6 +1118,13 @@ var userMonitor = (function(){
                     $spanDef.css("cursor","pointer");
                     $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
                 }
+            }
+
+            //如果不是第一次加载
+            if(_oldSpanDefArr.length != 0){
+
+                //获取要替换的元素
+                $(spanID).replaceWith($spanDef);
             }
             $divContent.append($spanDef);
         }
@@ -1314,6 +1450,55 @@ var userMonitor = (function(){
             error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
         });
     };
+
+    function loadDefImg1(id,$Img){
+
+        $Img.addClass(id + "img");
+        $.ajax({
+            type:"post",
+            data:{"" : id},
+            url:_urlPrefix + "PR/GetHbProcImage",
+            success:function(data){
+
+                $Img.attr("src",data["imgUrl"]);
+            },
+            error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
+        });
+    };
+
+    //获取视频地址
+    function loadDefVideo(id,$Video){
+        $Video.addClass(id + "img");
+        $.ajax({
+            type:"get",
+            data:{"lnkID" : id},
+            url:_urlPrefix + "PR/GetPRProcLnk",
+            success:function(data){
+                console.log(data);
+                $Video.attr("src",data["url"]);
+            },
+            error:function(xhr,res,err){ logAjaxError("GetHbProcVideo" , res) }
+        });
+    };
+
+    //模态框显示视频
+    function showVideoByID(videoMessage){
+
+        $('#my-video').modal('show');
+
+        $('#my-video video').attr('src',videoMessage.url);
+
+        //视频名称
+        $('#my-video .modal-header h4').html(videoMessage.name);
+
+        //模态框宽度
+        $('#my-video .modal-dialog').width(videoMessage.width + 50);
+
+        //video的宽高
+        $('#my-video video').width(videoMessage.width);
+
+        $('#my-video video').height(videoMessage.height);
+    }
 
     //根据当前的def跳转到下一级的procs
     var setActionByDef = function(procDef){
@@ -2134,6 +2319,7 @@ var userMonitor = (function(){
         getUserProcs:getUserProcs,
         setScaleSign:setScaleSign
     };
+
 })();
 
 //流程图宽度
@@ -2260,7 +2446,10 @@ $("#content-main-right").hover(function(){
 
             //禁用浏览器自带的图片拖动事件
             var dom = document.getElementById('imgProc');
-            dom.ondragstart=function (){return false;};
+            if(dom){
+                dom.ondragstart=function (){return false;};
+            }
+
 
             //获取鼠标初始位置
             var pagex = e.pageX;
@@ -2297,6 +2486,15 @@ $("#content-main-right").hover(function(){
         }
 
     });
+
 });
 
+//数组转化为对象
+function transform(obj){
+    var arr = [];
+    for(var item in obj){
+        arr.push(obj[item]);
+    }
+    return arr;
+};
 

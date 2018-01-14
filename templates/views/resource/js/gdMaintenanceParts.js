@@ -91,6 +91,9 @@ $(function(){
     //记录获取走向是否成功
     var _trendIsSuccess = false;
 
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*-----------------------------------------------表格初始化------------------------------------------*/
 
     //主表格
@@ -141,7 +144,7 @@ $(function(){
 
     _tableInit($('#table-list'),tableListCol,1,true,'','');
 
-    _WxBanzuStationData(conditionSelect);
+    _WxBanzuStationData(firstLoad);
 
     //执行人员表格
     var personTable1Col = [
@@ -286,6 +289,9 @@ $(function(){
 
         //select
         $('.condition-query').eq(0).find('select').val('');
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
 
     })
 
@@ -468,6 +474,53 @@ $(function(){
 
     /*-----------------------------------------------其他方法-------------------------------------------*/
 
+    //生成维修班组列表
+    function firstLoad(){
+
+        //生成维修班组
+        var arr = [];
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_AWBZArr.length;i++){
+
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                    arr.push(_AWBZArr[i].wxBanzus[j]);
+
+                }
+
+            }
+
+        }else if(_AisBZ){
+
+            for(var i=0;i<_ABZArr.length;i++){
+
+                if(_maintenanceTeam == _ABZArr[i].departNum ){
+
+                    arr.push(_ABZArr[i]);
+
+                }
+
+            }
+
+        }
+
+        var str = '<option value="">请选择</option>';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<option value="' + arr[i].departNum +
+                '">' + arr[i].departName + '</option>'
+
+        }
+
+        $('#wxbz').empty().append(str);
+
+        //条件查询
+        conditionSelect();
+    }
+
     //条件查询
     function conditionSelect(){
 
@@ -485,13 +538,17 @@ $(function(){
 
         if(_AisWBZ){
 
-            for(var i=0;i<_ABZArr.length;i++){
+            for(var i=0;i<_AWBZArr.length;i++){
 
-                wbzArr.push(_ABZArr[i].departNum);
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                    wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+                }
 
             }
 
-            prm.wxKeshis = _ABZArr;
+            prm.wxKeshis = wbzArr;
 
         }else if(_AisBZ){
 
@@ -505,12 +562,6 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetFX',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
             success:function(result){
 
                 _datasTable($('#table-list'),result);
@@ -730,15 +781,13 @@ $(function(){
             type:'post',
             url:_urls + 'YWFX/ywFXGetFxStatus',
             data:prm,
-            beforeSend:function(){
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-            },
+            //beforeSend:function(){
+            //    $('#theLoading').modal('show');
+            //},
+            //complete: function () {
+            //    $('#theLoading').modal('hide');
+            //},
             success:function(result){
-
-                console.log(result);
 
                 _statusArr.length = 0;
 

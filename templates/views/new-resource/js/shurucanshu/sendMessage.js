@@ -6,7 +6,6 @@ $(function(){
     //获取员工信息
     getPersonMessage();
 
-
     //点击发送按钮
     $('#selected').on('click',function(){
 
@@ -53,8 +52,9 @@ $(function(){
 
             return false;
         }
+
         //发送短信
-        getOneMessage()
+        getOneMessage();
     });
 
 
@@ -100,7 +100,7 @@ var table = $('#personal-table').DataTable({
     //数据源
     'columns':[
         {
-            title:'选择',
+            title:"<input type='checkbox' class='check-all'/>选择",
             "data": null,
             render:function(data, type, row, meta){
 
@@ -155,10 +155,23 @@ var table = $('#personal-table').DataTable({
 
 /*---------------------------------otherFunction------------------------------*/
 
-
 //获取数据
 //flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
 function getPersonMessage(){
+
+    //判断用户是否有发送短信权限
+    if(sessionStorage.userAuth){
+        var userAuth = sessionStorage.userAuth;
+        if(userAuth.charAt(30)!="1"){
+
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'当前用户无发送短信权限', '');
+
+            $('#selected').attr('disabled','disabled');
+
+            return false;
+        }
+
+    }
 
     //发送请求
     $.ajax({
@@ -187,8 +200,6 @@ function getPersonMessage(){
 
             personMessageArr = result;
             //
-
-
             //表格赋值
             _datasTable($('#personal-table'),result);
 
@@ -300,6 +311,23 @@ function getOneMessage(){
         }
     })
 };
+
+//点击表格头部选择框 则勾选全部
+$('#personal-table').on('click','.check-all',function(){
+
+    if($(this).is(':checked')) {
+
+        for(var i=0; i<$('.tableCheck').length; i++){
+
+            $('.tableCheck').eq(i).prop('checked','checked');
+        }
+    }else{
+        for(var i=0; i<$('.tableCheck').length; i++){
+
+            $('.tableCheck').eq(i).prop('checked',false);
+        }
+    }
+});
 
 
 

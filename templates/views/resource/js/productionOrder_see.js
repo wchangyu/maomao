@@ -171,7 +171,7 @@ $(function(){
             app33.azAddress = result.installAddress;
             app33.rwlx = result.gdLeixing;
             _imgNum = result.hasImage;
-
+            _imgBJNum = result.hasBjImage;
             app33.gdly = result.gdCodeSrc;
             datasTable($('#personTable1'),result.wxRens);
             datasTable($('#personTables1'),result.wxCls);
@@ -195,29 +195,6 @@ $(function(){
         $('.tableHover').eq($(this).index()).show();
 
     });
-    //$('#viewImage').on('click',function(){
-    //    $('.showImage').show();
-    //    if(_imgNum){
-    //        var str = '';
-    //        for(var i=0;i<_imgNum;i++){
-    //            str += '<img class="viewIMG" src="' +
-    //                replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-    //                '">'
-    //        }
-    //        $('.showImage').html('');
-    //        $('.showImage').append(str);
-    //        $('.showImage').show();
-    //    }else{
-    //        $('.showImage').html('没有图片');
-    //        $('.showImage').show();
-    //    }
-    //})
-    //$('.showImage').on('click','.viewIMG',function(){
-    //    //moTaiKuang($('#myModal4'),'图片详情','flag');
-    //    _moTaiKuang($('#myModal4'), '图片详情', 'flag', '' ,'', '');
-    //    var imgSrc = $(this).attr('src')
-    //    $('#myModal4').find('img').attr('src',imgSrc);
-    //})
     //dataTables表格填数据
     function datasTable(tableId,arr){
         if(arr.length == 0){

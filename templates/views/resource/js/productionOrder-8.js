@@ -1,6 +1,11 @@
 //记录当前工单号码
 var _gdCode = '';
 
+//存放线路数组
+var _lineArr = [];
+
+var _allDataBM = [];
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -39,9 +44,6 @@ $(function(){
 
     var slrealityEnd = '';
 
-    //存放线路数组
-    var _lineArr = [];
-
     //影响单位
     var  _InfluencingArr = [];
 
@@ -49,10 +51,10 @@ $(function(){
     InfluencingUnit();
 
     //车间
-    ajaxFun('YWDev/ywDMGetDDs', $('#station'), 'ddName', 'ddNum');
+    _ajaxFun('YWDev/ywDMGetDDs', _allDataBM, $('#station'), 'ddName', 'ddNum');
 
     //线路
-    lineRouteData($('#line-point'));
+    lineRouteData($('#line'));
 
     //获取分类原因
     classificationReasons();
@@ -136,6 +138,9 @@ $(function(){
     var _stateFlag = false;
     //负责人标识
     var _leaderFlag = false;
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -489,29 +494,7 @@ $(function(){
         ]
     });
     /*------------------------------按钮点击功能----------------------------------------------*/
-    //线点、车站联动
-    $('#line-point').change(function(){
-        //首先将select子元素清空；
-        $('#station').empty();
-        //获得选中的线路的value
-        var values = $('#line-point').val();
-        if(values == ''){
-            //所有车站
-            ajaxFun('YWDev/ywDMGetDDs', $('#station'), 'ddName', 'ddNum');
-        }else{
-            for(var i=0;i<_lineArr.length;i++){
-                if(values == _lineArr[i].dlNum){
-                    //创建对应的车站
-                    var str = '<option value="">请选择</option>';
-                    for(var j=0;j<_lineArr[i].deps.length;j++){
-                        str += '<option value="' + _lineArr[i].deps[j].ddNum +
-                            '">'+ _lineArr[i].deps[j].ddName + '</option>';
-                    }
-                    $('#station').empty().append(str);
-                }
-            }
-        }
-    });
+
 
     //影响单位、用户分类联动
     $('#influence-unite').change(function(){
@@ -559,6 +542,7 @@ $(function(){
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
+
             //当前行变色
             var $this = $(this).parents('tr');
             currentTr = $this;
@@ -617,6 +601,7 @@ $(function(){
                     app33.sbMC = result.dName;
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
+
                     _imgNum = result.hasImage;
 
                     app33.gdly = result.gdCodeSrc;
@@ -648,6 +633,7 @@ $(function(){
             $('#pingjia').find('.inpus').parent('span').removeClass('checked');
             $('#pingjia').find('.inpus').eq(0).parent('span').addClass('checked');
             var $this = $(this).parents('tr');
+
             //当前颜色改变
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
@@ -718,6 +704,9 @@ $(function(){
         })
     })
         .on('click','.option-beijian',function(e){
+
+            $('.bjImg').hide();
+
             moTaiKuang($('#myModal5'),'维修备件申请');
             _gdCircle = $(this).parents('tr').find('.gongdanId').attr('gdcircle');
             //图片区域隐藏
@@ -755,14 +744,8 @@ $(function(){
                         bmArr.push(result.wxCls[i].wxCl);
                     }
                     //备件图片
-                    if(result.hasBjImage>0){
-                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-                        $('.bjImg').empty().append(str).show();
-                        $('.bjpicture').show();
-                    }else{
-                        $('.bjpicture').hide();
-                    }
+
+                    _imgBJNum = result.hasBjImage;
 
                     //根据itemNums获取多个物品的库存
                     var prm = {
@@ -1010,74 +993,7 @@ $(function(){
         applySparePart($(this));
     });
 
-    //查看图片
-    //$('#myModal')
-    //    .on('click','#viewImage',function(){
-    //
-    //        $('.showImage').show();
-    //
-    //        if(_imgNum){
-    //            var str = '';
-    //            for(var i=0;i<_imgNum;i++){
-    //                str += '<img class="viewIMG" src="' +
-    //                    replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
-    //                    '">'
-    //            }
-    //            $('.showImage').html('');
-    //            $('.showImage').append(str);
-    //            $('.showImage').show();
-    //        }else{
-    //            $('.showImage').html('没有图片');
-    //            $('.showImage').show();
-    //        }
-    //    })
-    //    .on('click','.viewIMG',function(){
-    //
-    //        $('#myModal9').modal('show');
-    //
-    //        $('#myModal9').modal({
-    //            show:false,
-    //            backdrop:'static'
-    //        })
-    //
-    //        var imgSrc = $(this).attr('src');
-    //
-    //        $('#myModal9').find('img').attr('src',imgSrc);
-    //    })
-
     /*------------------------------其他方法-------------------------------------------------*/
-    //IP替换
-    function replaceIP(str,str1){
-        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        var res = ip.exec(str1);  /*211.100.28.180*/
-        str = str.replace(ip,res);
-        return str;
-    }
-
-    //ajaxFun（select的值）
-    function ajaxFun(url, select, text, num) {
-        var prm = {
-            'userID': _userIdNum
-        }
-        prm[text] = '';
-        $.ajax({
-            type: 'post',
-            url: _urls + url,
-            async: false,
-            data: prm,
-            success: function (result) {
-                //给select赋值
-                var str = '<option value="">请选择</option>';
-                for (var i = 0; i < result.length; i++) {
-                    str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
-                }
-                select.empty().append(str);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
 
     //线路数据
     function lineRouteData(el) {
@@ -1105,7 +1021,7 @@ $(function(){
     }
 
     //条件查询
-    function conditionSelect(flag){
+    function conditionSelect(){
         if($('.datatimeblock').eq(0).val() == ''){
             slrealityStart = ''
         }else{
@@ -1130,38 +1046,88 @@ $(function(){
             gdZht:$('#gdzt').val(),
             //isReturnZhtArray:1
         };
-        var userArr = [];
+        var bzArr = [];
         var cheArr = [];
-        if($('#line-point').val() != '' && $('#userClass').val() == ''){
-            for(var i=0;i<_InfluencingArr.length;i++){
-                if( $('#line-point').val() == _InfluencingArr[i].departNum ){
-                    for(var j = 0;j<_InfluencingArr[i].wxBanzus.length;j++){
-                        userArr.push(_InfluencingArr[i].wxBanzus[j].departNum);
-                    }
-                }
-            }
-            prm.wxKeshis = userArr;
+        //如果车站为空，就判断线路，线路为空的话，wxKeshis和wxKeshi不传，线路不为空的话，传wxKeshis，车站不为空，wxKeshi
+        var station = $('#bumen').parent().next().find('span').attr('values');
+
+        var stationValues = ''
+
+        if(typeof station == 'undefined'){
+
+            stationValues = '';
+
         }else{
-            prm.wxKeshi = $('#userClass').val();
+
+            stationValues = station;
+
         }
-        if( $('#line').val() != '' && $('#station').val() == ''){
-            var values = $('#line').val();
-            for(var i=0;i<_lineArr.length;i++){
-                if( values == _lineArr[i].dlNum ){
-                    for(var j=0;j<_lineArr[i].deps.length;j++){
-                        cheArr.push(_lineArr[i].deps[j].ddNum);
+
+        if(stationValues == ''){
+
+            if($('#line').val() == ''){
+
+
+
+            }else{
+
+                for(var i=0;i<_lineArr.length;i++){
+
+                    if($('#line').val() == _lineArr[i].dlNum){
+
+                        for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                            cheArr.push(_lineArr[i].deps[j].ddNum);
+
+                        }
+
                     }
+
                 }
+
+                prm.bxKeshiNums = cheArr;
+
             }
-            prm.bxKeshiNums = cheArr;
+
         }else{
-            prm.bxKeshiNum = $('#station').val()
+
+            prm.bxKeshiNum = stationValues;
+
         }
+
+        //如果维修班组为空，就判断车间，如果车间为空，bxKeshiNums和bxKeshiNum不传，维修班组不为空bxKeshiNum
+        var wxbz = $('#userClass').val();
+
+        if(wxbz == ''){
+
+            if($('#influence-unite').val() == ''){
+
+
+            }else{
+
+                var wxbzArr = $('#userClass').children();
+
+                for(var i=1;i<wxbzArr.length;i++){
+
+                    bzArr.push(wxbzArr.eq(i).attr('value'));
+
+                }
+
+                prm.wxKeshis = bzArr;
+
+            }
+
+        }else{
+
+            prm.wxKeshi = wxbz;
+
+        }
+
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetZh2',
             data:prm,
-            async:false,
             success:function(result){
                 datasTable($("#scrap-datatables"),result);
             },

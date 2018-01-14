@@ -62,7 +62,7 @@ $(function(){
             data:'departName'
         },
         {
-            title:'加班编码',
+            title:'值班编码',
             data:'zbCode'
         },
         {
@@ -112,7 +112,7 @@ $(function(){
             //开始时间
             begintime:$('.min').val(),
             //结束时间
-            endtime:moment(now).add(1,'d').format('YYYY-MM-DD'),
+            endtime:moment($('.max').val()).add(1,'d').format('YYYY-MM-DD'),
             //状态
             status:$('#state').val()
 

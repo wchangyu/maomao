@@ -211,7 +211,6 @@ $(document).ready(function(){
         });
     });
 
-
     //修改费用
     $('#dateTables').on('click','.create-data',function(){
 
@@ -227,7 +226,7 @@ $(document).ready(function(){
                 getData = dataArr[i];
             }
         }
-        console.log(getData);
+        //console.log(getData);
 
         $('#alter-cost .add-input').eq(0).val(getData.f_ShouldPay);
         $('#alter-cost .add-input').eq(1).val(getData.f_SpecialRebatePay);
@@ -268,8 +267,6 @@ $(document).ready(function(){
         });
 
     });
-
-
 
     //查看详情按钮
     var table1 = $('#dateTables1').DataTable({
@@ -340,9 +337,12 @@ $(document).ready(function(){
             } ,
             {
                 title:'用量',
-                data:'f_EnergyValue'
-            }
+                data:'f_EnergyValue',
+                render:function(data, type, full, meta){
 
+                    return data.toFixed(2);
+                }
+            }
         ]
     });
 
@@ -403,7 +403,7 @@ $(document).ready(function(){
         $('.ament-data').eq(0).find('span').html(showData[0].f_EnergyPrice);
 
         //定额量
-        $('.ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota);
+        $('.ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota.toFixed(2));
 
         //用能量
         $('.ament-data').eq(2).find('span').html(showData[0].f_EnergyValue.toFixed(2));
@@ -471,7 +471,7 @@ $(document).ready(function(){
                 $('.ament-data').eq(3).find('span').html(showData[num].f_AboveEnergyValue.toFixed(2));
 
                 //应缴费用
-                $('.ament-data').eq(4).find('span').html(showData[num].f_EnergyShouldPay);
+                $('.ament-data').eq(4).find('span').html(showData[num].f_EnergyShouldPay.toFixed(2));
 
                 //重构表格
                 var tableArr = showData[num].mtReturnReads;

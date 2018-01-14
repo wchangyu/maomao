@@ -136,8 +136,6 @@ function getTableHtml(obj){
             //支出合计
         '<td style="text-align:center;border:1px solid black">'+obj.expendMoney.toFixed(2)+'</td></tr>';
 
-    console.log(html);
-
     return html;
 };
 

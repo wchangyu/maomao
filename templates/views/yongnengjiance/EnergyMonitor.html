@@ -283,6 +283,31 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
+
+<!--视频模态框-->
+<div class='modal fade' id='my-video' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4></h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <video controls = "controls" autoplay = "autoplay" id="play-video" style='margin:0 auto;display: block'>
+
+                </video>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -336,6 +361,15 @@
         BEE.init();
         userMonitor.init();
     });
+
+    //关闭video模态框时 停止播放
+    $('#my-video .close').on('click',function(){
+
+        var myVideo = document.getElementById('play-video');   //获取视频video
+
+        myVideo.pause();
+    });
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

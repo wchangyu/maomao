@@ -15,6 +15,9 @@ $(function(){
 
 });
 
+//存放全部企业ID
+var enterpriseIDArr = [];
+
 //是否展示床位
 var ifShowBed = false;
 
@@ -23,6 +26,18 @@ function getEnergyPublicityData(){
 
     //获取企业ID
     var enterpriseID = $('#refer-type').val();
+
+    var postEnterPriseIDArr = [];
+
+    //如果是全部的话 传其所属的所有企业ID
+    if(enterpriseID == 0){
+
+        postEnterPriseIDArr = enterpriseIDArr;
+    //否则传当前企业ID
+    }else{
+
+        postEnterPriseIDArr = [enterpriseID];
+    }
 
     //定义开始结束时间
     var startTime = '';
@@ -61,7 +76,7 @@ function getEnergyPublicityData(){
 
     var ecParams = {
 
-        "enterpriseID": enterpriseID,
+        "enterpriseIDs": postEnterPriseIDArr,
         "startTime": startTime,
         "endTime": endTime
     };
@@ -332,8 +347,6 @@ function getEnergyPublicityData(){
                 '</tr>';
             }
 
-
-
             //给左下角表格赋值
             $('#dateTables2 tbody').html(tableHtml2);
         },
@@ -357,11 +370,18 @@ function getEnterprise(){
 
     //给页面select框赋值
     var html = '';
+
     $(enterArr).each(function(i,o){
-        if(i == 0){
-            html += '<option value="0">'+ o.name+'</option>'
+        //nodeType 表示当前类型：0 区域 1 企业 2 楼宇
+        if(o.nodeType == 0){
+
+            html += '<option value="0">'+ o.name+'</option>';
+
         }else{
-            html += '<option value="'+ o.id+'">'+ o.name+'</option>'
+
+            html += '<option value="'+ o.id+'">'+ o.name+'</option>';
+            //存储全部企业ID
+            enterpriseIDArr.push(o.id);
         }
 
     });

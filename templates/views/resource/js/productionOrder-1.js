@@ -128,6 +128,9 @@ $(function(){
   //条件查询车站
   addStationDom($('#bumen').parent());
 
+  //当前部门下的车站
+  _stationData();
+
   /*-----------------------------------------------------表格初始化------------------------------------------*/
   var col = [
 
@@ -614,13 +617,17 @@ $(function(){
 
     if(_AisWBZ){
 
-      for(var i=0;i<_ABZArr.length;i++){
+      for(var i=0;i<_AWBZArr.length;i++){
 
-        wbzArr.push(_ABZArr[i].departNum);
+        for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+          wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+        }
 
       }
 
-      prm.wxKeshis = _ABZArr;
+      prm.wxKeshis = wbzArr;
 
     }else if(_AisBZ){
 
@@ -911,7 +918,6 @@ $(function(){
       success:function(result){
 
         if(result){
-
           //赋值
           //工单号
           detaileVue.gdCode = result.gdCode2;
