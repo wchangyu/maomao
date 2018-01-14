@@ -97,17 +97,6 @@ $(function(){
 
                     if(result.riqi){
 
-
-                        //if(_tables){
-                        //    var datatable = $("#reporting").dataTable();
-                        //    //
-                        //    if (datatable) {
-                        //        datatable.fnClearTable();    //清空数据
-                        //        datatable.fnDestroy();         //销毁datatable
-                        //    }
-                        //}
-
-
                         var arr = ['序号','姓名'];
 
                         //首先初始化表格
@@ -199,6 +188,8 @@ $(function(){
                         //_tables =  _tableInit($('#reporting'),col,1,true,'',totalNum,'','');
 
                         //表格初始化
+
+                        console.log(_tables);
 
                         _tables = $('#reporting').DataTable({
                             "autoWidth": false,  //用来启用或禁用自动列的宽度计算

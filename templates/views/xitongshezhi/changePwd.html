@@ -291,9 +291,9 @@
                                                 </div>
                                             </li>
                                             <li class="floatRight">
-                                                <div class="labels">原密码：</div>
+                                                <div class="labels colorTip">原密码：</div>
                                                 <div class="input-blockeds">
-                                                    <input type="text" v-model="oldPwd" disabled="disabled" class="disabled-block">
+                                                    <input type="password" v-model="oldPwd">
                                                 </div>
                                             </li>
                                             <li class="floatLeft">
@@ -373,7 +373,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/changePwd.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -382,6 +381,7 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/changePwd.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--所有提示框-->

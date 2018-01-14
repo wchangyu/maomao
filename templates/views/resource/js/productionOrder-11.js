@@ -1309,13 +1309,13 @@ $(function(){
 
             if( _applyIsSuccess == 'true' && _bjIsSuccess == 'true' ){
 
-                conditionSelect();
+                //conditionSelect();
 
                 $('#myModal4').modal('hide');
 
             }else if( _applyIsSuccess == 'true' && _bjIsSuccess == '' ){
 
-                conditionSelect();
+                //conditionSelect();
 
                 $('#myModal4').modal('hide');
 

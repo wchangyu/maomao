@@ -53,11 +53,11 @@ $(function(){
         }
     });
 
-    //获取所有数据
-    conditionSelect();
-
     //绑定数据
-    bindingData();
+    user.username = sessionStorage.getItem('realUserName');
+
+    user.jobnumber = _userIdNum = sessionStorage.getItem('userName');
+
     /*-------------------------------按钮事件-------------------------------*/
     //修改密码确定按钮
     $('.btn-info').click(function(){
@@ -65,36 +65,7 @@ $(function(){
     })
 
     /*--------------------------------其他方法------------------------------*/
-    //获取条件查询
-    function conditionSelect(){
-        //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
-        var prm = {
-            "userName":'',
-            "userNum":'',
-            "departNum":'',
-            "roleNum":'',
-            "userID": _userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'RBAC/rbacGetUsers',
-            data:prm,
-            success:function(result){
-                _allPersonalArr = [];
-                for(var i=0;i<result.length;i++){
-                    _allPersonalArr.push(result[i]);
-                }
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
+
     //模态框自适应
     function moTaiKuang(who,title,flag){
         who.modal({
@@ -120,46 +91,52 @@ $(function(){
         who.find('.modal-body').html(meg);
     };
 
-    //绑定数据
-    function bindingData(){
-        //根据工号绑定数据
-        for(var i=0;i<_allPersonalArr.length;i++) {
-            if (_allPersonalArr[i].userNum == _userIdName) {
-                console.log(_allPersonalArr[i]);
-                //绑定数据
-                user.username = _allPersonalArr[i].userName;
-                user.jobnumber = _allPersonalArr[i].userNum;
-                user.oldPwd = _allPersonalArr[i].password;
-            }
-        }
-    }
-
     //修改密码
     function changePwd(){
         //判断密码和确认密码是否为空
         if( user.password == '' ){
+
             tipInfo($('#myModal1'),'提示','请填写红色必填项','flag');
+
         }else{
+
             if($('.confirmpassword')[0].style.display == 'none'){
+
                 var prm = {
-                    userNum:user.num,
+                    //用户工号
+                    userNum:user.jobnumber,
+                    //原密码
                     password:user.oldPwd,
+                    //新密码
                     newpassword:user.password,
+                    //修改新密码
                     newpassword2:user.confirmpassword
                 }
+
                 $.ajax({
                     type:'post',
                     url:_urls + 'RBAC/rbacChangePwd',
                     data:prm,
                     success:function(result){
+
                         if(result == 99){
+
                             tipInfo($('#myModal1'),'提示','修改密码成功','flag');
+
                         }else{
+
                             tipInfo($('#myModal1'),'提示','修改密码失败','flag');
+
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
+
+                        var str = JSON.parse(jqXHR.responseText).message;
+
+                        tipInfo($('#myModal1'),'提示',str,'flag');
+
                         console.log(jqXHR.responseText);
+
                     }
                 })
             }else{
