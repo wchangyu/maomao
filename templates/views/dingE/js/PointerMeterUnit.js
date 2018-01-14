@@ -129,7 +129,11 @@ $(document).ready(function(){
             },
             {
                 title: '用能量',
-                data: 'f_EnergyValue'
+                data: 'f_EnergyValue',
+                render: function (data, type, full, meta) {
+
+                    return data.toFixed(2);
+                }
 
             },
             {

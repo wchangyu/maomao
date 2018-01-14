@@ -28,7 +28,7 @@ $(function(){
 			'background-size':'20px',
 			'background-position':'center'
 		});
-	})
+	});
 
 	$('.L-content-tip').click(function(){
 		$('.L-content-tip').css({
@@ -39,7 +39,8 @@ $(function(){
 		})
 		$('.L-content-block-main').removeClass('shows').addClass('hiddens');
 		$('.L-content-block-main').eq($(this).index()).removeClass('hiddens').addClass('shows');
-	})
+	});
+
 	//echarts
 	myChart = echarts.init(document.getElementById('echartImg'));
 	option = {
@@ -72,6 +73,11 @@ $(function(){
 				formatter: '{value}'
 			}
 		},
+		dataZoom: [
+		    {
+		        type: 'inside'
+		    }
+		],
 		series: [
 			{
 				name:'温度',
@@ -122,12 +128,12 @@ $(function(){
 		_endTime = endTimes;
 		getDatas();
 		tableImg();
-	})
+	});
 	$('body').mouseover(function(){
 		if(myChart){
 			myChart.resize();
 		}
-	})
+	});
 	//表格
 	$('#datatables').DataTable({
 		"autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -174,18 +180,31 @@ $(function(){
 	//左箭头点击效果
 	$('.L-leftArrow').click(function(){
 		LeftEchartsFun();
-	})
+	});
+
 	//右箭头点击效果
 	$('.L-rightArrow').click(function(){
 		RightEchartsFun();
-	})
-})
+	});
+
+	var zoomSize = 6;
+	myChart.on('click', function (params) {
+	    //console.log(allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+	    myChart.dispatchAction({
+	        type: 'dataZoom',
+	        startValue: allDataX[Math.max(params.dataIndex - zoomSize / 2, 0)],
+	        endValue: allDataX[Math.min(params.dataIndex + zoomSize / 2, allDataY.length - 1)]
+	    });
+	});
+
+});
 var myChart;
 window.onresize = function () {
 	if(myChart){
 		myChart.resize();
 	}
-}
+};
+
 //获取数据；
 function getDatas(){
 	//存放原始数据的数组
@@ -240,7 +259,8 @@ function getDatas(){
 			}
 	})
 
-}
+};
+
 function tableImg(){
 	var dataId = _curDef.dType + "+" + _curDef.dkId;
 	var prm = {
@@ -292,7 +312,8 @@ function tableImg(){
 	})
 
 
-}
+};
+
 //左箭头功能图表
 function LeftEchartsFun(){
 	//获取当前时间的开始时间

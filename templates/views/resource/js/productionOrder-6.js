@@ -5,6 +5,10 @@ var _wxClNames = '';
 var _allDataBM = [];
 //线路数组
 var _lineArr = [];
+
+//存放当前选择的查询条件，用于判断是否展示当前后台返回的数据
+var _postData = {};
+
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名
@@ -587,7 +591,6 @@ $(function(){
         if(_currentClick){
 
             var zhuangtai = parseInt(_currentClick.children('.ztz').html());
-
             if(zhuangtai == 7){
                 $('#myModal2').find('.modal-body').html('已完成状态工单无法进行取消操作');
                 moTaiKuang($('#myModal2'),'提示','flag');
@@ -846,7 +849,6 @@ $(function(){
             if($('#line').val() == ''){
 
 
-
             }else{
 
                 for(var i=0;i<_lineArr.length;i++){
@@ -901,13 +903,23 @@ $(function(){
 
         }
 
+        //更新页面中最新的获取数据的条件
+        _postData = prm2;
+
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetZh2',
             data:prm2,
             success:function(result){
-                datasTable($("#scrap-datatables"),result);
 
+                //如果与最后一次发送的获取数据的条件相同 则在页面中展示
+                if(_postData != prm2){
+
+                    return false;
+                }
+
+                //更新页面表格
+                datasTable($("#scrap-datatables"),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1437,4 +1449,5 @@ $(function(){
         $('#gdly').empty().append(str);
 
     }
+
 })

@@ -518,7 +518,7 @@ function getPointerData(url,flag){
 
             //console.log(result);
 
-            console.log(ecParams);
+            //console.log(ecParams);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -531,7 +531,6 @@ function getPointerData(url,flag){
             if($('.left-middle-main1 .curChoose').length > 0){
                 energyName = $('.left-middle-main1 .curChoose').html();
             }
-
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');

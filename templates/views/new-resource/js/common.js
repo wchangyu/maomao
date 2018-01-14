@@ -340,7 +340,7 @@ function getPointerTree(){
         };
         if(i === 0){
             o.checked=true;
-        }
+        };
         o.title = o.name;
     });
 

@@ -913,7 +913,7 @@ $(document).ready(function(){
                         var energyType = getEnergyType(totalArr[i].f_EnergyType);
                         var unit = getEnergyUnit(totalArr[i].f_EnergyType);
                         html1+= '<td>'+energyType+'月定额</td><td>'+energyType+'年定额</td>';
-                        html2+= '<td>'+totalArr[i].f_EnergyMonthQuota+' ' + unit +'</td><td>'+totalArr[i].f_EnergyYearQuota+' '+ unit +'</td>'
+                        html2+= '<td>'+totalArr[i].f_EnergyMonthQuota+' ' + unit +'</td><td>'+totalArr[i].f_EnergyYearQuota.toFixed(2)+' '+ unit +'</td>'
                     };
 
                     $('#dateTables3 .data-top').html(html1);

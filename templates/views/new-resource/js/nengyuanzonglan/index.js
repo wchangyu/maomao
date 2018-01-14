@@ -467,7 +467,7 @@ function getTopPageData(){
     })
 };
 
-//获取当年气象参数
+//获取当前气象参数
 function getWeatherParam(){
     //传递给后台的数据
     var ecParams = {
@@ -484,17 +484,24 @@ function getWeatherParam(){
         },
         success:function(result){
 
-
             //无数据
             if(result == null || result.length == 0){
 
+                //从百度接口中获取天气数据
+                locationInit();
+
                 return false;
-            }
+            };
             //给页面中赋值
+
             //温度
             $('.left-middle-main0 p span').eq(0).html(result.temperatureData + "℃");
+
             //湿度
             $('.left-middle-main0 p span').eq(1).html(result.humidityData + '%');
+
+            $('.left-middle-main0 p').eq(1).find('i').attr('title','湿度');
+
         },
         error:function(jqXHR, textStatus, errorThrown){
             //错误提示信息
@@ -934,8 +941,7 @@ function getFirstEnergyItemData(){
             }
 
         }
-    })
-
+    });
 };
 
 //------------------------------------左下角KPI指标-----------------------------------------//
@@ -1032,7 +1038,6 @@ function getTopPageKPIData(){
 };
 
 //------------------------------------右下角能耗排名-----------------------------------------//
-
 //获取本日楼宇能耗排名
 function getPointerRankData(){
 
@@ -1482,3 +1487,53 @@ function setEnergyBlock(et,ec){
     $div.append($divComp);
     return $div;
 };
+
+/**
+ * 定位当前城市
+ */
+var cityName;
+
+function locationInit(){
+    $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function(_result) {
+        if (remote_ip_info.ret == '1') {
+            cityName = remote_ip_info.city;
+            cityWeatherInit();
+            //      console.log(cityName)
+
+        }
+    });
+};
+
+/**
+ * 根据城市获得天气
+ */
+function cityWeatherInit(){
+    //跨域是浏览器的安全策略.
+    //jQuery 解决的方式.
+    var todayimg = '';
+    var tomorrowimg = '';
+    $.ajax({
+        url:"http://api.map.baidu.com/telematics/v3/weather",
+        type:"get",
+        data:{
+            location:cityName,
+            output:'json',
+            ak:'6tYzTvGZSOpYB5Oc2YGGOKt8'
+        },
+        /*预期服务器端返回的数据类型，假设现在跨域了，就改成jsonp 就可以了 */
+        dataType:"jsonp",
+        success:function(data){
+            var weatherData=data.results[0].weather_data[0];
+
+            //温度
+            $('.left-middle-main0 p span').eq(0).html(weatherData.temperature);
+
+            //湿度
+            $('.left-middle-main0 p span').eq(1).html(weatherData.wind);
+
+            $('.left-middle-main0 p').eq(1).find('i').attr('title','风力');
+
+        }
+    })
+};
+

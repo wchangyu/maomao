@@ -624,25 +624,25 @@ $(document).ready(function(){
             $('.ament-data').eq(0).find('span').html(showData[0].f_EnergyPrice);
 
             //定额量
-            $('.ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota);
+            $('.ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota.toFixed(2));
 
             //用能量
-            $('.ament-data').eq(2).find('span').html(showData[0].f_EnergyValue);
+            $('.ament-data').eq(2).find('span').html(showData[0].f_EnergyValue.toFixed(2));
 
             //实际用能量
-            $('#show-details').find('.add-input').eq(1).val(showData[0].f_EndResultEnergyValue);
+            $('#show-details').find('.add-input').eq(1).val(showData[0].f_EndResultEnergyValue.toFixed(2));
 
             //超额用能量
-            $('.ament-data').eq(3).find('span').html(showData[0].f_AboveEnergyValue);
+            $('.ament-data').eq(3).find('span').html(showData[0].f_AboveEnergyValue.toFixed(2));
 
             //应缴费用
-            $('.ament-data').eq(4).find('span').html(showData[0].f_EnergyShouldPay);
+            $('.ament-data').eq(4).find('span').html(showData[0].f_EnergyShouldPay.toFixed(2));
 
             //备注
             $('#show-details').find('.remarks').val(showData[0].f_SpecialEnergyComment);
 
             //特殊加减用能量
-            $('#show-details').find('.add-input').eq(0).val(showData[0].f_SpecialRebateEnergy);
+            $('#show-details').find('.add-input').eq(0).val(showData[0].f_SpecialRebateEnergy.toFixed(2));
 
             //重构表格
             var tableArr = showData[0].mtReturnReads;
@@ -1645,8 +1645,6 @@ $(document).ready(function(){
 
                 deepCopy(arr0,rightArr);
 
-
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $('#theLoading').modal('hide');
@@ -2031,9 +2029,6 @@ $(document).ready(function(){
 
                 var date = show();
 
-
-
-
                 if(pay == '' || isNaN(pay) || pay < 0 || pay == 0){
                     myAlter('收费金额必须为大于0的数字');
                     getFocus1( $('#change-transfer').find('.add-input').eq(0));
@@ -2171,25 +2166,25 @@ $(document).ready(function(){
         $('#show-details1 .ament-data').eq(0).find('span').html(showData[0].f_EnergyPrice);
 
         //定额量
-        $('#show-details1 .ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota);
+        $('#show-details1 .ament-data').eq(1).find('span').html(showData[0].f_EnergyQuota.toFixed(2));
 
         //用能量
-        $('#show-details1 .ament-data').eq(2).find('span').html(showData[0].f_EnergyValue);
+        $('#show-details1 .ament-data').eq(2).find('span').html(showData[0].f_EnergyValue.toFixed(2));
 
         //实际用能量
-        $('#show-details1').find('.add-input').eq(1).val(showData[0].f_EndResultEnergyValue);
+        $('#show-details1').find('.add-input').eq(1).val(showData[0].f_EndResultEnergyValue.toFixed(2));
 
         //超额用能量
-        $('#show-details1 .ament-data').eq(3).find('span').html(showData[0].f_AboveEnergyValue);
+        $('#show-details1 .ament-data').eq(3).find('span').html(showData[0].f_AboveEnergyValue.toFixed(2));
 
         //应缴费用
-        $('#show-details1 .ament-data').eq(4).find('span').html(showData[0].f_EnergyShouldPay);
+        $('#show-details1 .ament-data').eq(4).find('span').html(showData[0].f_EnergyShouldPay.toFixed(2));
 
         //备注
         $('#show-details1').find('.remarks').val(showData[0].f_SpecialEnergyComment);
 
         //特殊加减用能量
-        $('#show-details1').find('.add-input').eq(0).val(showData[0].f_SpecialRebateEnergy);
+        $('#show-details1').find('.add-input').eq(0).val(showData[0].f_SpecialRebateEnergy.toFixed(2));
 
         //重构表格
         var tableArr = showData[0].mtReturnReads;
