@@ -296,8 +296,22 @@ $(function(){
             data:'orderNum',
             className:'orderNum',
             render:function(data, type, row, meta){
-                return '<a href="godownEntry.html?orderNum=' + row.orderNum +
-                    '" target="_blank">' + row.orderNum + '</a>'
+
+                console.log(row.inType);
+
+                if(row.inType == 1){
+
+                    return '<a href="godownEntry.html?orderNum=' + row.orderNum +
+                        '" target="_blank">' + row.orderNum + '</a>'
+
+                }else if(row.inType == 3){
+
+                    return '<a href="godownEntry1.html?orderNum=' + row.orderNum +
+                        '" target="_blank">' + row.orderNum + '</a>'
+
+                }
+
+
             }
         },
         {

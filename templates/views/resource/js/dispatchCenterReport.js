@@ -1,12 +1,11 @@
 $(function(){
-
     /*------------------------------------时间--------------------------------------------------*/
 
-    var now = moment().subtract(1,'months').format('YYYY/MM/DD');
+    var now = moment().format('YYYY/MM/DD');
 
     var st = moment(now).startOf('month').format('YYYY/MM/DD');
 
-    var et = moment(now).endOf('month').format('YYYY/MM/DD');
+    var et = now;
 
     $('.min').val(st);
 
@@ -20,43 +19,45 @@ $(function(){
 
         {
             title:'物资编码',
-            data:''
+            data:'itemNum'
         },
         {
             title:'物资名称',
-            data:''
+            data:'itemName'
         },
         {
             title:'型号',
-            data:''
+            data:'size'
         },
         {
             title:'单位',
-            data:''
+            data:'unitName'
         },
         {
             title:'数量',
-            data:''
+            data:'num'
         },
         {
             title:'关联工单号',
-            data:''
+            data:'gdCode2'
         },
         {
             title:'所属车站',
-            data:''
+            data:'staName'
         },
         {
             title:'车间',
-            data:''
+            data:'departName'
         },
         {
             title:'配件申请耗时',
-            data:''
+            data:'timeConsume'
         },
     ]
 
     _tableInit($('#report-datatables'),reportCol,1,'flag','','','','');
+
+    conditionSelect();
 
     /*------------------------------------按钮事件----------------------------------------------*/
 
@@ -70,26 +71,27 @@ $(function(){
     //重置
     $('.resites').click(function(){
 
+        $('.condition-query').eq(0).find('input').val('');
+
         $('.min').val(st);
 
         $('.max').val(et);
+
+        $('.condition-query').eq(0).find('select').val('');
 
     })
 
     /*-----------------------------------其他方法-----------------------------------------------*/
 
+    //条件查询
     function conditionSelect(){
-
-        var ckArr = [];
-
-        for(var i=0;i<_AWarehouseArr.length;i++){
-
-            ckArr.push(_AWarehouseArr[i].storageNum);
-
-        }
 
         var prm = {
 
+            //配件编码
+            itemNum:$('.condition-query').find('input').eq(1).val() ,
+            //配件名称
+            itemName:$('.condition-query').find('input').eq(0).val(),
             //开始时间
             'st':$('.min').val(),
             //结束时间
@@ -101,16 +103,59 @@ $(function(){
             //用户角色
             'b_UserRole':_userRole,
             //当前部门
-            'b_DepartNum':_loginUser.departNum,
-            //车间
-            //配件名称
-            //配件编码
+            'b_DepartNum':_loginUser.departNum
         };
+
+        var name = '';
+
+        if($('#workshop').val() == ''){
+
+            name = '';
+
+        }else{
+
+            name = $('#workshop').children('option:selected').html();
+        }
+
+        //首先判断班组是否为空
+        if($('#group').val() == ''){
+
+            //判断车间是否为空
+            if($('#workshop').val() == ''){
+
+
+
+            }else{
+
+                //传数组
+                var bzArr = $('#group').children();
+
+                var arr = [];
+
+                for(var i=1;i<bzArr.length;i++){
+
+                    arr.push(bzArr.eq(i).attr('value'));
+
+                }
+
+                prm.wxKeshiNums = arr;
+
+                prm.wxKeshiName = name;
+
+            }
+
+        }else{
+
+            prm.wxKeshiNum = $('#group').val();
+
+            prm.wxKeshiName = $('#group').children('option:selected').html();
+
+        }
 
         $.ajax({
 
             type:'post',
-            url:_urls + '',
+            url:_urls + 'ywGD/ywGDRptShortItem',
             data:prm,
             timeout:_theTimes,
             beforeSend: function () {
@@ -147,6 +192,5 @@ $(function(){
 
 
     }
-
 
 })

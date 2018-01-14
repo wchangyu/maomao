@@ -1105,6 +1105,7 @@ var BEE = (function(){
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
                 if(!flag){
+                    console.log(99);
                     permitJumpPage();
                 }
                 setTheme();

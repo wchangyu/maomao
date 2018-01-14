@@ -744,32 +744,7 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      },
-      "现场返修报表":{
-        "type":"0",
-        "content":"现场返修报表",
-        "uri":"../FXJ/reworkReport.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "返厂报表":{
-        "type":"0",
-        "content":"返厂报表",
-        "uri":"../FXJ/returnReport.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
-      },
-      "调度中心报表":{
-        "type":"0",
-        "content":"调度中心报表",
-        "uri":"../FXJ/dispatchCenterReport.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
       }
-
     }
   },
   "故障明细表":{
@@ -829,6 +804,22 @@
         "type":"0",
         "content":"故障未修复明细表",
         "uri":"../guzhangfenxibiao/failureRepairList.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "返厂报表":{
+        "type":"0",
+        "content":"返厂报表",
+        "uri":"../FXJ/returnReport.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "调度中心报表":{
+        "type":"0",
+        "content":"调度中心报表",
+        "uri":"../FXJ/dispatchCenterReport.html",
         "uid":"",
         "arg":"",
         "iconclass":""
