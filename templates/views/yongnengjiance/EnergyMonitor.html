@@ -285,11 +285,15 @@
 </div>
 
 <!--视频模态框-->
-<div class='modal fade' id='my-video' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+<div class='modal fade' id='my-video' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
     <div class='modal-dialog' style='margin:15% auto;'>
         <div class='modal-content'>
             <div class='modal-header'>
+
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4></h4>
+
             </div>
 
             <div class="modal-body">
@@ -365,6 +369,7 @@
 
         myVideo.pause();
     });
+
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

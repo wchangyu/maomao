@@ -1,12 +1,11 @@
 /**
- * Created by went on 2016/8/2.
- * 2017/7/6 添加modbus支持
+ * Created by admin on 2018/1/14.
  */
 //全局设置缩放比例
 _scaleX = 1;
 
 //全局设置容器高度
-var containHeight = 800;
+var containHeight = 698;
 
 var userMonitor = (function(){
 
@@ -35,7 +34,7 @@ var userMonitor = (function(){
     var _isOperating = false;   //标识是否正在操作，操作期间暂停刷新数据
 
     var _originPageWidth = 0,_originPageHeight = 0;
-    const _leftWidth = 250;
+    const _leftWidth = 0;
     const _headHeight = 62;
     const _scaleStep = 0.05;    //每次点击的变形变化量
     //var _scaleX = 1;        //变形比例
@@ -57,6 +56,7 @@ var userMonitor = (function(){
                 _configArg3 = args[2] || undefined;
             }
         }
+
         //获取当前用户的操控权限和访问控制方案的权限
         if(sessionStorage.userAuth){
             var userAuth = sessionStorage.userAuth;
@@ -126,7 +126,6 @@ var userMonitor = (function(){
             setScaleSign(_scaleX,_scaleStep);
             ////动态改变鹰眼显示比例
             //changeProimg();
-
         });
 
         $(".functions-5").click(function(){
@@ -156,7 +155,6 @@ var userMonitor = (function(){
             }
             //普通模式可以拖动流程图
             ifProcMove = true;
-
 
             ////动态改变鹰眼显示比例
             //changeProimg();
@@ -383,7 +381,7 @@ var userMonitor = (function(){
     function selectLi($li){
         $(".list-group-item").removeClass("selected");
         $li.addClass("selected");
-    }
+    };
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
     var getAllProcsByParameter = function(procType,proLv){
@@ -534,6 +532,7 @@ var userMonitor = (function(){
 
     //获取底图
     var initImg = function(procId){
+
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
 
         if(proc){
@@ -553,9 +552,8 @@ var userMonitor = (function(){
 
                     /*----------------页面自适应 王常宇修改-----------------*/
 
-                    var norWidth = $('.page-title').width();
                     //实际宽度
-                    var realWidth = norWidth - _leftWidth - 20;
+                    var realWidth = 1228;
 
                     //console.log(realWidth);
 
@@ -576,7 +574,7 @@ var userMonitor = (function(){
                     setScaleSign(_scaleX,_scaleStep);
 
                     //右侧容器宽度
-                    $('#right-container').width(realWidth + 20);
+                    $('#right-container').width(realWidth);
 
                     //判断左侧操作栏是否存在
                     var o1 = $(".content-main-left").css("display");
@@ -612,9 +610,9 @@ var userMonitor = (function(){
 
                         }
 
-                        var norWidth1 = $('.page-title').width();
+                        var norWidth1 = 1228;
                         //实际宽度
-                        var realWidth1 = norWidth1 - _leftRealwidth - 20;
+                        var realWidth1 = norWidth1 - _leftRealwidth;
 
                         //缩放比例计算
                         var ratioZoom = realWidth1 / imgWidth;
@@ -643,7 +641,7 @@ var userMonitor = (function(){
                         });
 
                         //右侧容器宽度
-                        $('#right-container').width(realWidth1 + 20);
+                        $('#right-container').width(realWidth1);
 
 
                         $('#container').hide();
@@ -654,7 +652,7 @@ var userMonitor = (function(){
                             marginTop:0
                         });
 
-                        $('#right-container').height(800);
+                        $('#right-container').height(containHeight);
 
                     });
 
@@ -861,23 +859,23 @@ var userMonitor = (function(){
                     if(o.procDefID == _defInsDataResults[i].procDefID){
 
 
-                            //判断是否需要进行重绘
-                          if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
+                        //判断是否需要进行重绘
+                        if(o.procRenderID == _defInsDataResults[i].procRenderID && o.enableScriptResult == _defInsDataResults[i].enableScriptResult && o.renderExprResult == _defInsDataResults[i].renderExprResult && o.visibleScriptResult == _defInsDataResults[i].visibleScriptResult){
 
-                              //当前元素不需要进行重绘
-                              ifRedrawSpan = false;
+                            //当前元素不需要进行重绘
+                            ifRedrawSpan = false;
 
-                          }else{
+                        }else{
 
-                              //给当前缓存重新赋值
-                              o.procRenderID = _defInsDataResults[i].procRenderID;
+                            //给当前缓存重新赋值
+                            o.procRenderID = _defInsDataResults[i].procRenderID;
 
-                              o.enableScriptResult = _defInsDataResults[i].enableScriptResult;
+                            o.enableScriptResult = _defInsDataResults[i].enableScriptResult;
 
-                              o.renderExprResult = _defInsDataResults[i].renderExprResult;
+                            o.renderExprResult = _defInsDataResults[i].renderExprResult;
 
-                              o.visibleScriptResult = _defInsDataResults[i].visibleScriptResult;
-                          }
+                            o.visibleScriptResult = _defInsDataResults[i].visibleScriptResult;
+                        }
                     }
 
                 });
@@ -966,12 +964,12 @@ var userMonitor = (function(){
                 //如果是嵌入式视频
                 if(curProcDef.dType == 141){
                     //console.log(curProcDef);
-                        $Video.css({"width":defWidth,"height":defHeight});
-                        //是否自动播放
-                        $Video.attr('autoplay','autoplay');
-                        $spanImg.append($Video);
-                        $spanImg.width("100%");
-                        $spanTxt.width(0);
+                    $Video.css({"width":defWidth,"height":defHeight});
+                    //是否自动播放
+                    $Video.attr('autoplay','autoplay');
+                    $spanImg.append($Video);
+                    $spanImg.width("100%");
+                    $spanTxt.width(0);
 
                     //如果有视频加载视频
                     if( curProcDef.dkId) {
@@ -979,7 +977,7 @@ var userMonitor = (function(){
                         loadDefVideo(curProcDef.dkId, $Video);
                     }
 
-                //如果是弹出式视频
+                    //如果是弹出式视频
                 }else if( curProcDef.cType == 141){
 
                     $Img.css({"width":defWidth,"height":defHeight,"cursor":"pointer"});
@@ -1373,6 +1371,7 @@ var userMonitor = (function(){
     var changeProimg = function(){
         //获取显示区宽度
         var showWidth = $('#right-container').width();
+
         var imgWH = 312;
         var imgHH = imgWH / _imgProcWidth * _theImgProcHeight ;
 
@@ -1498,7 +1497,7 @@ var userMonitor = (function(){
         $('#my-video video').width(videoMessage.width);
 
         $('#my-video video').height(videoMessage.height);
-    }
+    };
 
     //根据当前的def跳转到下一级的procs
     var setActionByDef = function(procDef){
@@ -1647,7 +1646,7 @@ var userMonitor = (function(){
 
     //获取鼠标坐标，left,top
     var getMousePos = function(){
-         var e= window.event || arguments.callee.caller.arguments[0] ;
+        var e= window.event || arguments.callee.caller.arguments[0] ;
         var pt = [];
         pt.push(e.clientX);
         pt.push(e.clientY);
@@ -2270,7 +2269,9 @@ var userMonitor = (function(){
     };
     //显示右键菜单
     function setContextMenuVisible(flag,left,top){
+
         var $contextMenu = $("#content-menu");
+
         if(flag){       //打开菜单
             if($contextMenu.length === 0){
                 $contextMenu = $("<div id='content-menu'><button class='btn btn-default' id='monitor-hisdata'>历史数据</button></div>")
@@ -2281,7 +2282,7 @@ var userMonitor = (function(){
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
-                    window.open("MHisData.html?mflag=" + curDef.prDefId,"",
+                    window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
@@ -2331,57 +2332,57 @@ _theImgProcHeight = 0;
 
 $('.showOrHidden').click(function(){
 
-        $('#container').hide();
-        $('#eyeOnOff').html('切换鹰眼模式');
-        $('.content-main-right').css({
-            marginLeft:0,
-            marginTop:0
-        });
+    $('#container').hide();
+    $('#eyeOnOff').html('切换鹰眼模式');
+    $('.content-main-right').css({
+        marginLeft:0,
+        marginTop:0
+    });
 
-        var o1 = $(".content-main-left").css("display");
-        if(o1 == 'block'){
+    var o1 = $(".content-main-left").css("display");
+    if(o1 == 'block'){
+        $('.content-main-left').css({
+            display:'none'
+        });
+        $('.content-main-right').animate({
+            'margin-left':'0px'
+        },100);
+        $('.showOrHidden').css({
+            'background':'url("../resource/img/show.png")no-repeat',
+            'background-size':'20px',
+            'background-position':'center'
+        });
+        $('#right-container').css({
+            left:'0'
+        })
+        $('#container').css({
+            left:'0'
+        });
+        changeTransform('none');
+    }else if(o1 == 'none'){
+        $('.content-main-left').animate({
+            'width':'250px'
+        },100,function(){
             $('.content-main-left').css({
-                display:'none'
+                display:'block'
             });
-            $('.content-main-right').animate({
-                'margin-left':'0px'
-            },100);
             $('.showOrHidden').css({
-                'background':'url("../resource/img/show.png")no-repeat',
+                'background':'url("../resource/img/hidden.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
-            });
-            $('#right-container').css({
-                left:'0'
             })
-            $('#container').css({
-                left:'0'
-            });
-            changeTransform('none');
-        }else if(o1 == 'none'){
-            $('.content-main-left').animate({
-                'width':'250px'
-            },100,function(){
-                $('.content-main-left').css({
-                    display:'block'
-                });
-                $('.showOrHidden').css({
-                    'background':'url("../resource/img/hidden.png")no-repeat',
-                    'background-size':'20px',
-                    'background-position':'center'
-                })
-            })
-            $('#right-container').css({
-                left:'250px'
-            })
-            $('#container').css({
-                left:'0px'
-            })
+        })
+        $('#right-container').css({
+            left:'250px'
+        })
+        $('#container').css({
+            left:'0px'
+        })
 
-            changeTransform('block');
+        changeTransform('block');
 
-        }
-    });
+    }
+});
 
 
 function changeTransform(o1){

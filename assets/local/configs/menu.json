@@ -41,7 +41,15 @@
         "content": "测试一下",
         "uri": "../yongnengjiance/energyMonitor.html?a=1",
         "uid": "",
-        "arg": "1,8816008016",
+        "arg": "2,23",
+        "iconclass": ""
+      },
+      "测试一下1": {
+        "type": "0",
+        "content": "测试一下1",
+        "uri": "../njn-dapingzhanshi/exhaustAir.html?a=1",
+        "uid": "",
+        "arg": "2,23",
         "iconclass": ""
       },
       "变配电系统": {
@@ -107,7 +115,8 @@
         "uid": "",
         "arg": "2,18",
         "iconclass": ""
-      }, "直燃机": {
+      },
+      "直燃机": {
         "type": "0",
         "content": "直燃机",
         "uri": "../yongnengjiance/energyMonitor.html?a=20",
@@ -1684,6 +1693,21 @@
         "uid": "",
         "arg": "",
         "iconclass": ""
+      }
+    }
+  },
+  "大屏展示":{
+    "type":"1",
+    "iconclass":"icon-note",
+    "content":"大屏展示",
+    "submenu":{
+      "三列":{
+        "type":"0",
+        "content":"三列",
+        "uri":"../cols/three.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
       }
     }
   }

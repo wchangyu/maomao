@@ -10,6 +10,8 @@ var BEE = (function(){
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
     var _alarmCount = 0;
+     //登陆页面地址
+     var _loginHtml = "../login_3.html";
     //摄像头报警
     var _cameraAlarmCount = 0;
 
@@ -414,16 +416,16 @@ var BEE = (function(){
 
          //定义给悬浮窗中插入的信息
          var infoHtml = '<li class="top-close" style="height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
+
          var $badge = $("#header_notification_bar .badge");
          var $dropdownMenu = $("#header_notification_bar .dropdown-menu");
+
          //对右上角显示报警数据的红圈进行隐藏
          $badge.hide();
 
         //根据配置信息动态改变悬浮窗中的值
 
          //是否需要显示报警信息
-         //console.log(_alarmCount);
-         //console.log(sessionStorage.alarmInterval);
          if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0' && _alarmCount > 0) {
             infoHtml += '<li class="external">' +
                 '   <h3><span class="bold">'+_alarmCount+' </span> 当日报警</h3>' +
@@ -505,6 +507,7 @@ var BEE = (function(){
                          if(timename2){
                              clearTimeout(timename2);
                          }
+
                          //判断是否需要动态弹出信息框
                          if(num1 != 0 || num2 != 0 || num3 != 0 || _cameraAlarmCount > 0 || _alarmCount > 0){
                              $('.dropdown-menu').hide();
@@ -752,12 +755,14 @@ var BEE = (function(){
              $('.top-close .close').on('click',function(){
 
                  $(this).parents('.dropdown-menu').hide();
+
                  //关闭声音
                  if($('#audioMain1').length > 0){
 
                      $('#header_notification_bar').children('audio').remove();
 
                  }
+
              });
          }
      };
@@ -900,6 +905,14 @@ var BEE = (function(){
              var obj = {};
              $(_childMenuArr).each(function(i,o){
 
+                 //当二级分项下没有子项时，将其隐藏
+                 if(o.type == 2){
+                     if(!_childMenuArr[i+1] || _childMenuArr[i+1].type == 2){
+
+                         return true;
+                     }
+                 }
+
                  obj[o.content+''+i] = o;
              });
          }
@@ -1018,10 +1031,19 @@ var BEE = (function(){
      var permitJumpPage = function(){
         //获取当前菜单
         var curMenu = sessionStorage.curMenuStr;
+
         //获取当前页面路径
         var curUrl = window.location.href;
+
         //获取页面名称
         var curPageName = curUrl.split('/').pop();
+
+         //如果是非流程图页面且传递参数，则把后面的参数去掉
+         if(curPageName.indexOf('energyMonitor.html') == -1 && curPageName.indexOf('?') > -1){
+
+             curPageName = curPageName.split('?')[0];
+
+         }
 
         //判断是否有访问页面权限
         if(curMenu.indexOf(curPageName) == -1){
@@ -1033,7 +1055,7 @@ var BEE = (function(){
             }
 
             //如果没有则跳转到登陆页
-            window.location.href = "../login_3.html";
+            window.location.href = _loginHtml;
         }
     };
 
@@ -1097,7 +1119,7 @@ var BEE = (function(){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
-                window.location.href = "../login_3.html";
+                window.location.href = _loginHtml;
 
             }else{
                 //获取菜单
@@ -1105,7 +1127,9 @@ var BEE = (function(){
                 //setHeaderInfo();
                 //判断已登陆用户是否有访问页面的权限
                 if(!flag){
+
                     permitJumpPage();
+
                 }
                 setTheme();
                 insertionPointer();
@@ -1114,7 +1138,9 @@ var BEE = (function(){
                 //modificationImportInfo();
 
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+
                     getAlarmInfo();
+
                 }
             }
         }
