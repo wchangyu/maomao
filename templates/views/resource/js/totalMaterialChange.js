@@ -211,7 +211,7 @@ $(function(){
                     }
                 });
 
-                obj.hz = count.toFixed();
+                obj.hz = count.toFixed(2);
                 tableArr.length = 0;
                 tableArr.push(obj);
                 _datasTable($("#scrap-datatables"), tableArr);
