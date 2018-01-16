@@ -186,7 +186,7 @@ var ObjectSelection = function(){
                     zTreePointer.checkNode(treeNode,!treeNode.checked,true);
 
                     //如果当前页面存在支路
-                    if($('#allBranch')){
+                    if($('#allBranch').length>0){
                         //获取当前楼宇下的支路
                         GetAllBranches();
                     }
@@ -219,7 +219,7 @@ var ObjectSelection = function(){
                         $(treeNode).css("background", "blue");
                         console.log(treeNode.checked);
                         //如果当前页面存在支路
-                        if($('#allBranch')){
+                        if($('#allBranch').length>0){
                             //获取当前楼宇下的支路
                             GetAllBranches();
                         }

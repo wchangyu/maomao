@@ -22,85 +22,107 @@ $(function(){
             'picked':0
         },
         methods:{
-            'flbianmaFun':function(){
-                setTimeout(function(){
-                    $('#wuPinListTable').DataTable({
-                        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-                        "paging": false,   //是否分页
-                        "destroy": true,//还原初始化了的datatable
-                        "searching": true,
-                        "ordering": false,
-                        "scrollY": 200,
-                        "scrollX": true,
-                        "pagingType":"full_numbers",
-                        "iDisplayLength":50,//默认每页显示的条数
-                        'language': {
-                            'emptyTable': '没有数据',
-                            'loadingRecords': '加载中...',
-                            'processing': '查询中...',
-                            'lengthMenu': '每页 _MENU_ 条',
-                            'zeroRecords': '没有数据',
-                            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-                            'sSearch':'搜索',
-                            //"sInfoFiltered": "（数据库中共为 _MAX_ 条记录）",
-                            'infoEmpty': '没有数据',
-                            'paginate':{
-                                "previous": "上一页",
-                                "next": "下一页",
-                                "first":"首页",
-                                "last":"尾页"
-                            }
-                        },
-                        'buttons': [
-                            {
-                                extend: 'excelHtml5',
-                                text: '保存为excel格式',
-                                className:'saveAs hidding'
-                            }
-                        ],
-                        "dom":'B<"clear">lfrtip',
-                        "columns": [
-                            {
-                                title:'分类编码',
-                                data:'cateNum',
-                                className:'cateNum'
-                            },
-                            {
-                                title:'分类名称',
-                                data:'cateName'
-                            }
-                        ],
-                    });
-                },200)
-                setTimeout(function(){
-                    var prm = {
-                        "cateNum":'',
-                        "cateName":'',
-                        userID:_userIdNum,
-                        userName:_userIdName,
-                        b_UserRole:_userRole,
-                    }
-                    $.ajax({
-                        type:'post',
-                        url: _urls + 'YWCK/ywCKGetItemCate',
-                        data:prm,
-                        async:false,
-                        success:function(result){
-                            _elArr = result;
-                            _datasTable($('#wuPinListTable'),result);
-                        },
-                        error:function(jqXHR, textStatus, errorThrown){
-                            console.log(jqXHR.responseText);
-                        }
-                    })
-                },300);
-                _moTaiKuang($('#myModal4'), '分类编码选择', '', '' ,'', '选择');
-            },
             'radios':function(){
                 $('.inpus').click(function(){
                     $('.inpus').parent('span').removeClass('checked');
                     $(this).parent('span').addClass('checked');
                 })
+            },
+            'keyword':function(){
+
+                var arr = [];
+
+                //显示提示消息
+
+                for(var i=0;i<_wpBMArr.length;i++){
+
+                    arr.push(_wpBMArr[i].itemNum);
+
+                }
+
+                if(arr.indexOf(myApp33.bianhao)>=0){
+
+                    $('.error1').show();
+
+                }else{
+
+                    $('.error1').hide();
+
+                }
+
+                //显示列表
+                var seacherValue = myApp33.bianhao;
+
+                var aboutArr = [];
+
+                var isonly = false;
+
+                //完全相同的情况下，红色加粗提示，否则就是普通列出
+                for(var i=0;i<_wpBMArr.length;i++){
+
+                    if(_wpBMArr[i].itemNum == seacherValue){
+
+                        isonly = true;
+
+                        aboutArr.push(_wpBMArr[i]);
+
+                    }else{
+
+                        if(_wpBMArr[i].itemNum.indexOf(seacherValue)>=0){
+
+                            aboutArr.push(_wpBMArr[i]);
+
+                        }
+
+                    }
+
+                }
+
+
+                //将数组放入列表中
+                if(isonly){
+
+                    wpList(aboutArr,true);
+
+                }else{
+
+                    wpList(aboutArr,false);
+
+                }
+
+                if(aboutArr.length != 0){
+
+                    $('.accord-with-list').show();
+
+                }else{
+
+                    $('.accord-with-list').hide();
+
+                }
+
+            },
+            'clickword':function(e){
+
+                var e = event || window.event;
+
+                e.stopPropagation();
+
+                var lengths = $('.accord-with-list').children().length;
+
+                if(lengths != 0){
+
+                    $('.accord-with-list').show();
+
+                }else{
+
+                    $('.accord-with-list').hide();
+                }
+
+            },
+            'focusword':function(){
+
+                $('.accord-with-list').show();
+
             }
         }
     });
@@ -120,6 +142,11 @@ $(function(){
 
     //存放所有物品分类的数组
     var _elArr = [];
+
+    //编码去重数组
+    var _wpBMArr = [];
+
+    wpBM();
 
     /*-------------------------------------表格初始化------------------------------*/
     var col = [
@@ -184,6 +211,23 @@ $(function(){
     //表格数据加载
     conditionSelect();
 
+    //分类编码表格
+    var col1 = [
+        {
+            title:'分类编码',
+            data:'cateNum',
+            className:'cateNum'
+        },
+        {
+            title:'分类名称',
+            data:'cateName'
+        }
+    ];
+
+    _tableInit($('#wuPinListTable'),col1,2,false,'','');
+
+    wpClass(true);
+
     /*-------------------------------------按钮事件-------------------------------*/
     //新增按钮
     $('.creatButton').on('click',function(){
@@ -203,6 +247,7 @@ $(function(){
         myApp33.gonghuoshang = '';
         myApp33.beizhu = '';
         myApp33.picked = 0;
+        $('#twos').parent().addClass('checked');
         _moTaiKuang($('#myModal'), '添加', '', '' ,'', '添加');
         //编码不能修改
         $('.shishi').attr('disabled',false).removeClass('disabled-block');
@@ -210,46 +255,75 @@ $(function(){
 
     //登记按钮；
     $('#myModal').on('click','.dengji',function(){
-        if(myApp33.mingcheng == '' || myApp33.flbianma == '' || myApp33.flmingcheng == ''){
+
+        var o = $('.error1').css('display');
+
+        if(myApp33.bianhao == ''|| myApp33.mingcheng == '' || myApp33.flbianma == '' || myApp33.flmingcheng == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
         }else{
-            //获取填写数据
-            var prm ={
-                'ItemName':myApp33.mingcheng,
-                'MinNum':myApp33.xiaxian,
-                'MaxNum':myApp33.shangxian,
-                'UnitName':myApp33.danwei,
-                'CateNum':myApp33.flbianma,
-                'CateName':myApp33.flmingcheng,
-                'Size':myApp33.guige,
-                'Color':myApp33.yanse,
-                'Description':myApp33.miaoshu,
-                'CusName':myApp33.gonghuoshang,
-                'remark':myApp33.beizhu,
-                userID:_userIdNum,
-                userName:_userIdName,
-                b_UserRole:_userRole,
-                'isSpare':myApp33.picked,
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKAddItem',
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        //成功后刷新列表，并且提示添加成功；
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功!', '');
-                        conditionSelect();
-                        $('#myModal').modal('hide');
-                    }else{
-                        //成功后刷新列表，并且提示添加成功；
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败!', '');
-                    }
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+
+            if(o == 'none'){
+
+                //获取填写数据
+                var prm ={
+                    'ItemNum':myApp33.bianhao,
+                    'ItemName':myApp33.mingcheng,
+                    'MinNum':myApp33.xiaxian,
+                    'MaxNum':myApp33.shangxian,
+                    'UnitName':myApp33.danwei,
+                    'CateNum':myApp33.flbianma,
+                    'CateName':myApp33.flmingcheng,
+                    'Size':myApp33.guige,
+                    'Color':myApp33.yanse,
+                    'Description':myApp33.miaoshu,
+                    'CusName':myApp33.gonghuoshang,
+                    'remark':myApp33.beizhu,
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    b_UserRole:_userRole,
+                    'isSpare':myApp33.picked,
                 }
-            })
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKAddItem',
+                    data:prm,
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
+                        if(result == 99){
+
+                            //成功后刷新列表，并且提示添加成功；
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功!', '');
+
+                            conditionSelect();
+
+                            $('#myModal').modal('hide');
+
+                        }else{
+
+                            //成功后刷新列表，并且提示添加成功；
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败!', '');
+
+                        }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'物品编码已存在!', '');
+
+            }
+
+
         }
 
     })
@@ -296,18 +370,34 @@ $(function(){
                 type:'post',
                 url:_urls + 'YWCK/ywCKEditItem',
                 data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
                 success:function(result){
+
                     if(result == 99){
+
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'修改成功！', '');
+
                         //刷新列表
                         conditionSelect();
+
                         $('#myModal').modal('hide');
+
                     }else{
+
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'修改失败！', '');
+
                     }
                 },
                 error:function(jqXHR, textStatus, errorThrown){
+
                     console.log(jqXHR.responseText);
+
                 }
             })
         }
@@ -316,6 +406,10 @@ $(function(){
     //修改td操作按钮
     $('#scrap-datatables tbody')
         .on('click','.option-edit',function(){
+
+            //loadding
+            $('#theLoading').modal('show');
+
             $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
             var $this = $(this).parents('tr');
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
@@ -351,12 +445,17 @@ $(function(){
             }
             //编码不能修改
             $('.shishi').attr('disabled',true).addClass('disabled-block');
+
+            $('#theLoading').modal('hide');
         });
 
     //删除弹窗确认按钮
     $('#scrap-datatables tbody')
         //删除td操作按钮
         .on('click','.option-delete',function(){
+
+            $('#theLoading').modal('show');
+
             var $this = $(this).parents('tr');
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
@@ -375,6 +474,9 @@ $(function(){
                 }
             }
             //删除按钮
+
+            $('#theLoading').modal('hide');
+
         })
 
     $('#myModal3').on('click','.shanchu',function(){
@@ -389,6 +491,12 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKDelItem',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 if(result == 99){
                     _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'删除成功！', '');
@@ -417,12 +525,50 @@ $(function(){
 
     //选择物品编码确定按钮
     $('#myModal4').find('.btn-primary').click(function(){
+
         for(var i=0;i<_elArr.length;i++){
+
             if(_elArr[i].cateNum == _$thisFL){
+
                 myApp33.flbianma = _elArr[i].cateNum;
+
                 myApp33.flmingcheng = _elArr[i].cateName;
+
             }
         }
+
+        //将分类编码格式化后自动填入物品编码
+
+        myApp33.bianhao = myApp33.flbianma;
+
+    })
+
+    //点击其他地方，下拉列表消失
+    $(document).click(function(){
+
+        $('.accord-with-list').hide();
+
+
+    })
+
+    //物品编码条件选择
+    $('#myModal4').find('.condition-query').on('click','button',function(){
+
+        wpClass();
+
+    })
+
+    //选择物品分类
+    $('#selectClass').click(function(){
+
+        //初始化
+        $('#myModal4').find('.condition-query').find('input').val('');
+
+        _datasTable($('#wuPinListTable'),_elArr);
+
+        //模态框
+        _moTaiKuang($('#myModal4'), '分类编码选择', '', '' ,'', '选择');
+
     })
 
     /*------------------------------------其他方法-------------------------------*/
@@ -446,8 +592,13 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetItems',
-            async:false,
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+                $('#theLoading').modal('hide');
+            },
             success:function(result){
                 allData = [];
                 for(var i=0;i<result.length;i++){
@@ -459,6 +610,128 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //物品列表生成
+    function wpList(arr,flag){
+
+        var str = ''
+
+        if(flag){
+
+            for(var i=0;i<arr.length;i++){
+
+                str += '<li class="colorTip"><span style="margin-right: 20px;">' + arr[i].itemNum +
+                    '</span><span>' + arr[i].itemName +
+                    '</span></li>'
+
+            }
+
+        }else{
+
+            for(var i=0;i<arr.length;i++){
+
+                if(arr[i].isDelete == 1){
+
+                    str += '<li style="color: #CCCCCC"><span style="margin-right: 20px;">' + arr[i].itemNum +
+                        '</span><span>' + arr[i].itemName +
+                        '</span></li>'
+
+                }else{
+
+                    str += '<li><span style="margin-right: 20px;">' + arr[i].itemNum +
+                        '</span><span>' + arr[i].itemName +
+                        '</span></li>'
+
+                }
+
+
+            }
+
+        }
+
+        $('.accord-with-list').empty().append(str);
+
+    }
+
+    //物品类别
+    function wpClass(flag){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetItemCate',
+            timeout:_theTimes,
+            data:{
+
+                //分类编码
+                cateNum:$('#myModal4').find('.condition-query').find('input').eq(0).val(),
+                //分类名称
+                cateName:$('#myModal4').find('.condition-query').find('input').eq(1).val(),
+                //用户id
+                userID:_userIdNum,
+                //用户名
+                userName:_userIdName,
+                //角色
+                b_UserRole:_userRole
+
+            },
+            success:function(result){
+
+                if(flag){
+
+                    _elArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _elArr.push(result[i]);
+
+                    }
+                }
+
+                _datasTable($('#wuPinListTable'),result);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //物品编码
+    function wpBM(){
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetAllItemNums',
+            data:{
+                //用户id
+                "userID": _userIdNum,
+                "userName": _userIdName,
+                "b_UserRole": _userRole,
+                "b_DepartNum": _loginUser.departNum
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                _wpBMArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _wpBMArr.push(result[i]);
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
     }
     /*----------------------------打印部分去掉的东西-----------------------------*/
 

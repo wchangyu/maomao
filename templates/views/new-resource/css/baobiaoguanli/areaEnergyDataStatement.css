@@ -1,0 +1,68 @@
+
+body{
+    background:white;
+}
+.main-content-entry{
+    width: 98%;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    padding: 10px 20px;
+    min-width: 1200px;
+    overflow: auto;
+}
+.condition-query{
+
+}
+.condition-query li {
+    line-height: 26px !important;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.condition-query li {
+    float: left;
+    margin-right: 10px;
+    line-height: 34px;
+}
+
+.input-blocked {
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    height: 30px;
+    vertical-align: middle;
+    width:140px !important;
+}
+
+.input-blocked input {
+    border: none;
+    height: 28px !important;
+    outline: none;
+    margin: 0 5px;
+    padding:0 !important;
+}
+.min, .max {
+    width: 130px;
+}
+
+
+.table{
+    font-size:16px;
+
+}
+/*下方table表单*/
+.bottom-sign span{
+    margin-right:110px;
+}
+.bottom-sign span:last-child{
+    margin-right: 0;
+}
+.table .small-size{
+    font-size:14px;
+}
+.table>thead>tr>th,.table>tbody>tr>td {
+    border-bottom: 1px solid black !important;
+}
+
+#entry-datatables{
+    width: 4000px;
+}

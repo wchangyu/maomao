@@ -311,6 +311,10 @@ $(function(){
             data:'gdDisposition'
         },
         {
+            title:'配件信息',
+            data:'gdWxCl'
+        },
+        {
             title:'处理人信息',
             data:'gdJiedanName',
             render: function (data, type, row, meta){
@@ -393,6 +397,11 @@ $(function(){
     function AutoExcel(tableId){
 
         var oXL = new ActiveXObject("Excel.Application"); //创建应该对象
+
+        if(!oXL){
+
+            _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请开启ActiveX插件权限', '');
+        }
 
         var oWB = oXL.Workbooks.Add();//新建一个Excel工作簿
 
@@ -641,7 +650,7 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 $('#theLoading').modal('hide');
                 if(title){
                     $('#failure-to-repair .title-info b').eq(0).html(result.lastWeekCount);

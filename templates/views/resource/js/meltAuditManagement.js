@@ -1056,12 +1056,19 @@ $(function(){
             url:_urls + url,
             data:prm,
             success:function(result){
-                console.log(result);
+
                 dom.modal('hide');
                 if(result == 99){
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag','istap', '撤销成功！' ,'', '');
+
                     conditionSelect()
                 }else if(result == 3){
-                    _moTaiKuang($('#myModal3'), '提示', '', '撤销失败' ,'', '');
+                    _moTaiKuang($('#myModal3'), '提示', 'flag','istap', '撤销失败！' ,'', '');
+                }else if(result == 1004){
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag','istap', '已经结转，不能撤销！' ,'', '');
+
                 }
             },
             error:function(jqXHR, textStatus, errorThrown){

@@ -11,15 +11,16 @@ $(function () {
     }
 
     //获取宽度
-    var curWidth = $('.page-bar').width();
+    var  curWidth = $('.contant-main-left').width();
+
 
     //初始话容器宽高
     $('.plugin').css({
-        width:curWidth,
+        width: curWidth,
         height:600
-    })
+    });
     // 初始化插件参数及插入插件
-    WebVideoCtrl.I_InitPlugin(1000, 600, {
+    WebVideoCtrl.I_InitPlugin( curWidth, 600, {
         bWndFull: true,     //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
         iPackageType: 2,    //2:PS 11:MP4
         iWndowType: 2,

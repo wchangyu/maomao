@@ -41,9 +41,9 @@ $(function(){
             //领料部门
             $('.two').html(result.wxBz);
             //工单号
-            $('.three').html(result.gdCode2bxKeshi);
+            $('.three').html('维修费用');
             //用途
-            $('.four').html(result.bxBeizhu);
+            $('.four').html(result.gdCode2bxKeshi +'、' + result.bxBeizhu);
             //材料编号
             $('.five').html(result.itemNum);
             //材料名称及规格
@@ -55,9 +55,9 @@ $(function(){
             //实领
             $('.table-three').html(result.sendNum);
             //单价
-            $('.table-four').html(result.price.toFixed(2));
+            $('.table-four').html(result.price);
             //金额
-            $('.table-five').html(result.amount.toFixed(2));
+            $('.table-five').html(result.amount);
             //时间
             if(result.createTime){
                 var showTime = result.createTime.split(' ')[0];

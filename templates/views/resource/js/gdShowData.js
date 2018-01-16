@@ -12,6 +12,12 @@ $(function(){
     var _wxBanNum = sessionStorage.getItem("userDepartNum");
     //默认刷新时间
     var _refresh = sessionStorage.getItem("gongdanInterval");
+    //是否有提示声音
+    var _ifAutio = false;
+
+    if(_refresh==0){
+        _refresh = 1;
+    }
 
     $('#department').html(_wxBan);
     //开始/结束时间插件
@@ -23,7 +29,7 @@ $(function(){
     });
     //设置初始时间
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
-    var _initEnd = moment().format('YYYY/MM/DD');
+    var _initEnd = moment().add(1,'d').format('YYYY/MM/DD');
 
     var _lastTime = '';
 
@@ -65,11 +71,22 @@ $(function(){
         //刷新页面时间
         formatTime(moment().format('YYYY/MM/DD HH:mm:ss'));
 
-        //刷新表格数据
+    },30000);
 
-        //刷新左边chart图
+    //echart图自适应
+    //浏览器echarts自适应
 
-    },30000)
+    //表格自适应
+
+    window.onresize = function () {
+        if(myChart && myChart4 && myChart7){
+            myChart.resize();
+            myChart4.resize();
+            myChart7.resize();
+        }
+        //固定表头的时候
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+    };
 
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
@@ -81,7 +98,7 @@ $(function(){
         "ordering": false,
         "pagingType":"full_numbers",
         "bStateSave":true,
-        "sScrollY": '520px',
+        "sScrollY": '548px',
         "bPaginate": false,
         'language': {
             'emptyTable': '没有数据',
@@ -189,6 +206,25 @@ $(function(){
                 }
             },
             {
+                title:'故障位置',
+                data:'wxDidian',
+                render:function(data, type, row, meta){
+                    if(row.gdZht == 2){
+
+                        return '<span style="color: #c00000">'+ data + '</span>';
+
+                    }else if( row.gdZht == 4 ){
+
+                        return '<span style="color: #4472c4">'+ data + '</span>';
+
+                    }else{
+
+                        return '<span style="color: #333333">'+ data + '</span>';
+
+                    }
+                }
+            },
+            {
                 title:'维修事项',
                 data:'wxXm',
                 render:function(data, type, row, meta){
@@ -206,25 +242,6 @@ $(function(){
 
                         return '<span style="color: #333333;cursor: pointer;" title="' + data +
                             '">'+ data + '</span>';
-
-                    }
-                }
-            },
-            {
-                title:'故障位置',
-                data:'wxDidian',
-                render:function(data, type, row, meta){
-                    if(row.gdZht == 2){
-
-                        return '<span style="color: #c00000">'+ data + '</span>';
-
-                    }else if( row.gdZht == 4 ){
-
-                        return '<span style="color: #4472c4">'+ data + '</span>';
-
-                    }else{
-
-                        return '<span style="color: #333333">'+ data + '</span>';
 
                     }
                 }
@@ -376,16 +393,18 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
-        var wxKeshi = '';
-        if(!_wxBan){
-            wxKeshi = '-1'
+        var wxKeshiNum =  _wxBanNum;
+
+        if( !_wxBanNum){
+            return false;
         }
+
         var prm = {
             "gdCode":'',
             "gdSt":_initStart,
             "gdEt":_initEnd,
             "bxKeshi":'',
-            "wxKeshi":wxKeshi,
+            "wxKeshiNum":wxKeshiNum,
             "gdZht":'',
             "pjRen":'',
             //"shouliren": filterInput[7],
@@ -398,7 +417,7 @@ $(function(){
             "userName":_userIdName,
             "gdZhts":['2','4']
             //"wxKeshiNum":_wxBanNum
-        }
+        };
         $.ajax({
             type:'post',
             url: _urls + 'YWGD/ywGDGetDJ',
@@ -406,7 +425,48 @@ $(function(){
             async:false,
             success:function(result){
 
-                datasTable($("#scrap-datatables"),result);
+
+                var dataArr = [];
+
+                $(result).each(function(i,o){
+
+                    //待分派的放在前面
+                    if(o.gdZht == 2){
+
+                        dataArr.unshift(o);
+                        //存在待分派，可提示声音
+                        _ifAutio = true;
+
+                    }else {
+
+                        dataArr.push(o);
+                    }
+                });
+
+                //声音
+                var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';
+
+                var alarmSong = sessionStorage.alarmSong || 0;
+
+                if( alarmSong > 0){
+
+                    if($('#audioMain')){
+                        $('#content').children('audio').remove();
+                    }
+
+                    var childNode= document.getElementsByTagName('audio')[0];
+
+
+                    if(!childNode &&  _ifAutio){
+
+                        $('#content').append(audioStr);
+
+                        _ifAutio = false;
+                    }
+                }
+
+
+                datasTable($("#scrap-datatables"),dataArr);
                 //获取table高度
                 var tableHeight = $('#scrap-datatables').height();
 
@@ -421,7 +481,7 @@ $(function(){
                     var i=-1;
                     timer = setInterval(function(){
                         i++;
-                        var height = i * 520 * -1;
+                        var height = i * 548 * -1;
 
                         if( tableHeight + height <= 0){
                             $('#scrap-datatables').css({
@@ -455,7 +515,7 @@ $(function(){
         var tableHeight = $('#scrap-datatables').height();
         return function(){
             i++;
-            var height = i * 520 * -1;
+            var height = i * 548 * -1;
 
             if(tableHeight + height < 0){
                 $('#scrap-datatables').css({

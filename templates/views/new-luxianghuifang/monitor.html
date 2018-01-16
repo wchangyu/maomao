@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/index.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <!--非框架中的样式-->
+    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../bank-branch-resource/css/lib/date/bootstrap-datepicker.standalone.css"/>
+    <link rel="stylesheet" href="../showExcel/css/monitor.css">
+    <link rel="stylesheet" href="../new-resource/css/luxianghuifang/monitor.css">
+    <script>
+        document.write("<link type='text/css' href='../showExcel/monitorSrc/demo.css?version=" + new Date().getTime() + "' rel='stylesheet' />");
+    </script>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="./index.html">
+                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="totalTitle"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+					<span class="badge badge-danger">
+					0 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold">0 </span> 当日报警</h3>
+                            <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<span class="username username-hide-on-mobile">
+					</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        <li>
+                            <a class="logout-page" href="../login.html">
+                                <i class="icon-key"></i> 退出 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN STYLE CUSTOMIZER -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+						<span>
+						配色 </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						布局 </span>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">平铺</option>
+                            <option value="boxed">盒式</option>
+                        </select>
+                    </div>
+
+                    <div class="theme-option">
+						<span>
+						侧边菜单 </span>
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">手风琴式</option>
+                            <option value="hover">鼠标悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边位置 </span>
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						底部 </span>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">位置固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title"></h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+                <!--<div class="showOrHidden"></div>-->
+
+                <div class="page-toolbar">
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row" id="content" style="background: white">
+                <div  class="contant-main-left col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div class="left div-plugin-contain">
+                        <div id="divPlugin" class="plugin"></div>
+                        <!--云台控制-->
+                        <fieldset class="ptz" style="display: none">
+                            <legend>云台控制</legend>
+                            <table cellpadding="0" cellspacing="3" border="0" class="left">
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btns" value="左上" onmousedown="mouseDownPTZControl(5);" onmouseup="mouseUpPTZControl();" />
+                                        <input type="button" class="btns" value="上" onmousedown="mouseDownPTZControl(1);" onmouseup="mouseUpPTZControl();" />
+                                        <input type="button" class="btns" value="右上" onmousedown="mouseDownPTZControl(7);" onmouseup="mouseUpPTZControl();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btns" value="左" onmousedown="mouseDownPTZControl(3);" onmouseup="mouseUpPTZControl();" />
+                                        <input type="button" class="btns" value="自动" onclick="mouseDownPTZControl(9);" />
+                                        <input type="button" class="btns" value="右" onmousedown="mouseDownPTZControl(4);" onmouseup="mouseUpPTZControl();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btns" value="左下" onmousedown="mouseDownPTZControl(6);" onmouseup="mouseUpPTZControl();" />
+                                        <input type="button" class="btns" value="下" onmousedown="mouseDownPTZControl(2);" onmouseup="mouseUpPTZControl();" />
+                                        <input type="button" class="btns" value="右下" onmousedown="mouseDownPTZControl(8);" onmouseup="mouseUpPTZControl();" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <table cellpadding="0" cellspacing="3" border="0" class="left ytsd">
+                                <tr>
+                                    <td class="tt">云台速度</td>
+                                    <td>
+                                        <select id="ptzspeed" class="sel">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4" selected>4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">预置点号</td>
+                                    <td><input id="preset" type="text" class="txt" value="1" /></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input type="button" class="btns" value="设置" onclick="clickSetPreset();" />
+                                        <input type="button" class="btns" value="调用" onclick="clickGoPreset();" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <table cellpadding="0" cellspacing="3" border="0" class="left">
+                                <tr>
+                                    <td class="tt"><input type="button" class="btn2" value="变倍+" onmousedown="PTZZoomIn()" onmouseup="PTZZoomStop()"></td>
+                                    <td><input type="button" class="btn2" value="变倍-" onmousedown="PTZZoomout()" onmouseup="PTZZoomStop()"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt"><input type="button" class="btn2" value="变焦+" onmousedown="PTZFocusIn()" onmouseup="PTZFoucusStop()"></td>
+                                    <td><input type="button" class="btn2" value="变焦-" onmousedown="PTZFoucusOut()" onmouseup="PTZFoucusStop()"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt"><input type="button" class="btn2" value="光圈+" onmousedown="PTZIrisIn()" onmouseup="PTZIrisStop()"></td>
+                                    <td><input type="button" class="btn2" value="光圈-" onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()"></td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <!--回放-->
+                        <fieldset class="playback">
+                            <legend>回放操作</legend>
+                            <table width="100%" cellpadding="0" cellspacing="3" border="0">
+                                <tr style="display: none">
+                                    <td class="tt">码流类型</td>
+                                    <td>
+                                        <select id="record_streamtype" class="sel">
+                                            <option value="1">主码流</option>
+                                            <option value="2">子码流</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        开始时间
+                                        <input id="starttime" type="text" class="txt" value="2013-12-10 00:00:00" />
+                                    </td>
+
+                                    <td colspan="2">
+                                        结束时间
+                                        <input id="endtime" type="text" class="txt" value="2013-12-11 23:59:59" />
+                                        <input type="button" class="btns btns-seek" value="搜索" onclick="clickRecordSearch(0);" />（时间格式：2013-11-11 12:34:56）
+                                    </td>
+
+
+                                </tr>
+
+                                <tr style="display: none">
+                                    <td colspan="2">
+                                        <div id="searchdiv" class="searchdiv">
+                                            <table id="searchlist" class="searchlist" cellpadding="0" cellspacing="0" border="0"></table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+
+                                    <td >
+                                        <input type="button" class="btn2 start-btn" value="开始回放" onclick="clickStartPlayback();" />
+                                        <input type="button" class="btn2 end-btn" value="停止回放" onclick="clickStopPlayback();" />
+                                        <input type="button" class="btns upend-btn" value="倒放" onclick="clickReversePlayback();" />
+                                        <input id="transstream" type="checkbox" class="vtop" style="display: none"/>
+
+
+                                    </td>
+
+                                    <td colspan="2">
+                                        <input type="button" class="btns single-frame" value="单帧" onclick="clickFrame();" />
+                                        <input type="button" class="btn2 current-btn" value="实时画面" onclick="clickStartRealPlay();" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td >
+                                        <input type="button" class="btns capture-btn" value="抓图" onclick="clickCapturePic();" />
+                                        <input type="button" class="btn2 start-editing" value="开始剪辑" onclick="clickStartRecord('playback');" />
+                                        <input type="button" class="btn2 end-editing" value="停止剪辑" onclick="clickStopRecord('playback');" />
+
+
+                                    </td>
+                                    <td >
+                                        <input type="button" class="btns suspend-btn" value="暂停" onclick="clickPause();" />
+                                        <input type="button" class="btns recover-btn" value="恢复" onclick="clickResume();" />
+                                        <input type="button" class="btns slow-btn" value="慢放" onclick="clickPlaySlow();" />
+                                        <input type="button" class="btns fast-btn" value="快放" onclick="clickPlayFast();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+
+                        <fieldset class="login" style="display: none">
+                            <legend>登录</legend>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td class="tt">IP地址</td>
+                                    <td><input id="loginip" type="text" class="txt" value="172.10.18.59" /></td>
+                                    <td class="tt">端口号</td>
+                                    <td><input id="port" type="text" class="txt" value="80" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">用户名</td>
+                                    <td><input id="username" type="text" class="txt" value="admin" /></td>
+                                    <td class="tt">密码</td>
+                                    <td><input id="password" type="password" class="txt" value="12345678q" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">设备端口</td>
+                                    <td colspan="2"><input id="deviceport" type="text" class="txt" />（可选参数）</td>
+                                    <td>
+                                        窗口分割数&nbsp;
+                                        <select class="sel2" onchange="changeWndNum(this.value);">
+                                            <option value="1">1x1</option>
+                                            <option value="2" selected>2x2</option>
+                                            <option value="3">3x3</option>
+                                            <option value="4">4x4</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">RTSP端口</td>
+                                    <td colspan="3"><input id="rtspport" type="text" class="txt" />（可选参数）</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <input type="button" class="btn" value="登录" onclick="clickLogin();" />
+                                        <input type="button" class="btn" value="退出" onclick="clickLogout();" />
+                                        <input type="button" class="btn2" value="获取基本信息" onclick="clickGetDeviceInfo();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">已登录设备</td>
+                                    <td>
+                                        <select id="ip" class="sel" onchange="getChannelInfo();getDevicePort();"></select>
+                                    </td>
+                                    <td class="tt">通道列表</td>
+                                    <td>
+                                        <select id="channels" class="sel"></select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset class="ipchannel" style="display: none">
+                            <legend>数字通道</legend>
+                            <table width="100%" cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td><input type="button" class="btn" value="获取数字通道列表" onclick="clickGetDigitalChannelInfo();" /></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="digitaltdiv">
+                                            <table id="digitalchannellist" class="digitalchannellist" cellpadding="0" cellspacing="0" border="0"></table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset class="localconfig" style="display: none">
+                            <legend>本地配置</legend>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td class="tt">播放性能</td>
+                                    <td>
+                                        <select id="netsPreach" name="netsPreach" class="sel">
+                                            <option value="0">最短延时</option>
+                                            <option value="1">实时性好</option>
+                                            <option value="2">均衡</option>
+                                            <option value="3">流畅性好</option>
+                                        </select>
+                                    </td>
+                                    <td class="tt">图像尺寸</td>
+                                    <td>
+                                        <select id="wndSize" name="wndSize" class="sel">
+                                            <option value="0">充满</option>
+                                            <option value="1">4:3</option>
+                                            <option value="2">16:9</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">规则信息</td>
+                                    <td>
+                                        <select id="rulesInfo" name="rulesInfo" class="sel">
+                                            <option value="1">启用</option>
+                                            <option value="0">禁用</option>
+                                        </select>
+                                    </td>
+                                    <td class="tt">抓图文件格式</td>
+                                    <td>
+                                        <select id="captureFileFormat" name="captureFileFormat" class="sel">
+                                            <option value="0">JPEG</option>
+                                            <option value="1">BMP</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">录像文件打包大小</td>
+                                    <td>
+                                        <select id="packSize" name="packSize" class="sel">
+                                            <option value="0">256M</option>
+                                            <option value="1">512M</option>
+                                            <option value="2">1G</option>
+                                        </select>
+                                    </td>
+                                    <td class="tt">协议类型</td>
+                                    <td>
+                                        <select id="protocolType" name="protocolType" class="sel">
+                                            <option value="0">TCP</option>
+                                            <option value="2">UDP</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">录像文件保存路径</td>
+                                    <td colspan="3"><input id="recordPath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('recordPath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">回放下载保存路径</td>
+                                    <td colspan="3"><input id="downloadPath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('downloadPath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">预览抓图保存路径</td>
+                                    <td colspan="3"><input id="previewPicPath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('previewPicPath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">回放抓图保存路径</td>
+                                    <td colspan="3"><input id="playbackPicPath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('playbackPicPath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">回放剪辑保存路径</td>
+                                    <td colspan="3"><input id="playbackFilePath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('playbackFilePath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">设备抓图保存路径</td>
+                                    <td colspan="3"><input id="devicePicPath" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('devicePicPath', 0);" /></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><input type="button" class="btn" value="获取" onclick="clickGetLocalCfg();" />&nbsp;<input type="button" class="btn" value="设置" onclick="clickSetLocalCfg();" /></td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </div>
+                    <div class="left" style="display: none">
+                        <fieldset class="preview" style="display: block">
+                            <legend>预览</legend>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td class="tt">码流类型</td>
+                                    <td>
+                                        <select id="streamtype" class="sel">
+                                            <option value="1">主码流</option>
+                                            <option value="2">子码流</option>
+                                            <option value="3">第三码流</option>
+                                            <option value="4">转码码流</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="button" class="btn" value="开始预览" onclick="clickStartRealPlay();" />
+                                        <input type="button" class="btn" value="停止预览" onclick="clickStopRealPlay();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">音量</td>
+                                    <td>
+                                        <input type="text" id="volume" class="txt" value="50" maxlength="3" />&nbsp;<input type="button" class="btn" value="设置" onclick="clickSetVolume();" />（范围：0~100）
+                                    </td>
+                                    <td>
+                                        <input type="button" class="btn" value="打开声音" onclick="clickOpenSound();" />
+                                        <input type="button" class="btn" value="关闭声音" onclick="clickCloseSound();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">对讲通道</td>
+                                    <td>
+                                        <select id="audiochannels" class="sel">
+
+                                        </select>
+                                        <input type="button" class="btn" value="获取通道" onclick="clickGetAudioInfo();" />
+                                    </td>
+                                    <td>
+                                        <input type="button" class="btn" value="开始对讲" onclick="clickStartVoiceTalk();" />
+                                        <input type="button" class="btn" value="停止对讲" onclick="clickStopVoiceTalk();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <input type="button" class="btn" value="抓图" onclick="clickCapturePic();" />
+                                        <input type="button" class="btn" value="开始录像" onclick="clickStartRecord('realplay');" />
+                                        <input type="button" class="btn" value="停止录像" onclick="clickStopRecord('realplay');" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <input type="button" class="btn2" value="启用电子放大" onclick="clickEnableEZoom();" />
+                                        <input type="button" class="btn2" value="禁用电子放大" onclick="clickDisableEZoom();" />
+                                        <input type="button" class="btn2" value="启用3D放大" onclick="clickEnable3DZoom();" />
+                                        <input type="button" class="btn2" value="禁用3D放大" onclick="clickDisable3DZoom();" />
+                                        <input type="button" class="btn" value="全屏" onclick="clickFullScreen();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        分辨率：<input id="resolutionWidth" type="text" class="txt" /> x <input id="resolutionHeight" type="text" class="txt" />
+                                        <input type="button" class="btn" value="设备抓图" onclick="clickDeviceCapturePic();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset class="draw" style="display: none">
+                            <legend>绘图</legend>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btn" value="启用绘制" onclick="clickEnableDraw();" />
+                                        <input type="button" class="btn" value="禁用绘制" onclick="clickDisableDraw();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        图形ID：<input id="snapId" type="text" class="txt" />
+                                        名称：<input id="snapName" type="text" class="txt" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btn" value="添加图形" onclick="clickAddSnapPolygon()" />
+                                        <input type="button" class="btn" value="删除图形" onclick="clickDelSnapPolygon()" />
+                                        <input type="button" class="btn" value="编辑图形" onclick="clickEditSnapPolygon()" />
+                                        <input type="button" class="btn" value="停止编辑" onclick="clickStopSnapPolygon()" />
+                                        <input type="button" class="btn" value="获取图形" onclick="clickGetSnapPolygon()" />
+                                        <input type="button" class="btn" value="设置图形" onclick="clickSetSnapPolygon()" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btn" value="清空图形" onclick="clickDelAllSnapPolygon()" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+
+                        <fieldset class="maintain" style="display: none">
+                            <legend>系统维护</legend>
+                            <table width="100%" cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td>
+                                        <input type="button" class="btn2" value="导出配置文件" onclick="clickExportDeviceConfig();" />
+                                        <input type="button" class="btn2" value="检查插件版本" onclick="clickCheckPluginVersion();" />
+                                        <input type="button" class="btn2" value="远程配置库" onclick="clickRemoteConfig();" />
+                                        <input type="button" class="btn2" value="恢复默认参数" onclick="clickRestoreDefault();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id="configFile" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('configFile', 1);" />&nbsp;<input type="button" class="btn2" value="导入配置文件" onclick="clickImportDeviceConfig();" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input id="upgradeFile" type="text" class="txt" />&nbsp;<input type="button" class="btn" value="浏览" onclick="clickOpenFileDlg('upgradeFile', 1);" />&nbsp;<input type="button" class="btn2" value="升级" onclick="clickStartUpgrade();" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset class="ipparse" style="display: none">
+                            <legend>设备IP解析</legend>
+                            <table cellpadding="0" cellspacing="3" border="0">
+                                <tr>
+                                    <td class="tt">模式</td>
+                                    <td colspan="3">
+                                        <select id="devicemode" class="sel" onchange="changeIPMode(this.value);">
+                                            <option value="1">IPServer</option>
+                                            <option value="2">HiDDNS</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">服务器地址</td>
+                                    <td><input id="serveraddress" type="text" class="txt" value="" /></td>
+                                    <td class="tt">端口号</td>
+                                    <td><input id="serverport" type="text" class="txt" value="7071" /></td>
+                                </tr>
+                                <tr>
+                                    <td class="tt">设备标识</td>
+                                    <td><input id="deviceid" type="text" class="txt" value="" /></td>
+                                    <td class="tt">&nbsp;</td>
+                                    <td><input type="button" class="btn" value="获取设备IP" onclick="clickGetDeviceIP();" /></td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </div>
+                    <div class="left" style="display: none">
+                        <fieldset class="operate">
+                            <legend>操作信息</legend>
+                            <div id="opinfo" class="opinfo"></div>
+                        </fieldset>
+                        <fieldset class="callback">
+                            <legend>事件回调信息</legend>
+                            <div id="cbinfo" class="cbinfo"></div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 rheader-content-right1">
+                    <!--选择摄像头-->
+                    <div class="statistics-message">
+                        <h3>
+                            <span>摄像头选择</span>
+                        </h3>
+                        <div class="statistics-message-content">
+                            <ul class="monitor-message">
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--报警信息-->
+                    <div class="statistics-message">
+                        <h3>
+                            <span>报警信息</span>
+                        </h3>
+
+                        <div class="statistics-message-content">
+                            <ul class="alarm-message">
+                                <li>
+                                    <span>报警单位：</span>
+                                    <span class="alarm-unit alarm"></span>
+                                </li>
+                                <li>
+                                    <span>支路名称：</span>
+                                    <span class="alarm-cname alarm"></span>
+                                </li>
+                                <li>
+                                    <span>报警类型：</span>
+                                    <span class="alarm-type alarm"></span>
+                                </li>
+                                <li>
+                                    <span>报警等级：</span>
+                                    <span class="alarm-grade alarm"></span>
+                                </li>
+                                <li>
+                                    <span>报警时间：</span>
+                                    <span class="alarm-time alarm"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+
+
+
+    <!--自定义弹窗-->
+    <div class='modal fade' id='my-alert' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:600px;margin:15% auto'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h3 style="margin-bottom:18px">提示</h3>
+                    <p style="font-size:20px"> <b style="color:red"></b> </p>
+
+                    <div class='modal-footer' style="border:none">
+
+                        <button type='button' class='btn btn-primary top-btn' data-dismiss='modal'>确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--loading图-->
+    <div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+        </div>
+    </div>
+
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2016 &copy; Huaqin.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+
+
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<!-- END CORE PLUGINS -->
+<script rel="stylesheet" src="../bank-resource/js/lib/jquery.dataTables.min.js"></script>
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--非框架中的js-->
+<script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
+<script src="../bank-branch-resource/js/lib/moment.min.js"></script>
+<script src="../bank-resource/js/lib/html2canvas.js"></script>
+<script src="../bank-resource/js/lib/jspdf.debug.js"></script>
+<script src="../resource/js/echarts.min.js"></script>
+<!--<script src="monitorSrc/jquery-1.7.1.min.js"></script>-->
+<script id="videonode" src="../showExcel/monitorSrc/webVideoCtrl.js"></script>
+<script src="../showExcel/monitorSrc/demos.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        BEE.init(true);
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+    });
+    //改变窗口数
+
+    //            if (ce02m.length > 9) {
+    //                changeWndNum(4);
+    //            } else {
+    //                if (ce02m.length > 4) {
+    //                    changeWndNum(3);
+    //                } else if (ce02m.length > 1){
+    //                    changeWndNum(2);
+    //                }else{
+    //                    changeWndNum(1);
+    //                }
+    //            }
+</script>
+<script src="../../../assets/local/scripts/Went.utility.js"></script>
+<script src="../new-resource/js/luxianghuifang/monitor.js"></script>
+<!--<script src="../../../assets/local/scripts/BEECommon.js"></script>-->
+
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

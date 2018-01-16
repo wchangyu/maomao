@@ -1,0 +1,45 @@
+.select-CZ{
+
+    margin-top: 26px;
+
+    margin-left: 50px;
+
+}
+.datatimeblock{
+    display: inline-block;
+    width: 32px !important;
+    height: 28px !important;
+    font-size: 0;
+    vertical-align: top;
+    margin-left: -4px;
+}
+.dataTables_filter label{
+    display: block !important;
+}
+.dataTables_filter input{
+
+    border:1px solid #ebebeb;
+
+    outline: none;
+
+    text-indent: 10px;
+
+}
+#Worker-Modal .floatLeft{
+
+    margin: 0 5px;
+
+}
+#GD-Modal .datatimeblock{
+
+    width: 164px !important;
+
+    height: auto !important;
+
+    font-size: inherit;
+}
+.gongdanList input{
+
+    width: 100%;
+
+}

@@ -16,8 +16,8 @@ $(function(){
 
     var _InfluencingArr = [];
 
-    //所有仓库
-    //warehouse();
+    //出库类型
+    rkLX();
 
     //所属车间、所属维保组
     wbz();
@@ -65,10 +65,6 @@ $(function(){
     /*---------------------------------表格初始化------------------------------*/
     var col = [
         {
-            title:'物品序列号',
-            data:'sn'
-        },
-        {
             title:'物品编号',
             data:'itemNum'
         },
@@ -79,6 +75,10 @@ $(function(){
         {
             title:'规格型号',
             data:'size'
+        },
+        {
+            title:'物品序列号',
+            data:'sn'
         },
         {
             title:'数量',
@@ -103,24 +103,36 @@ $(function(){
             }
         },
         {
-            title:'仓库',
-            data:'storageName'
-        },
-        {
             title:'库区',
             data:'localName'
         },
         {
-            title:'所属车间',
-            data:'departName2'
+            title:__names.department,
+            data:'bxKeshi'
         },
         {
-            title:'所属班组',
+            title:__names.group,
             data:'departName'
         },
         {
             title:'时间',
             data:'createTime'
+        },
+        {
+            title:'工单号',
+            data:'gdCode2'
+        },
+        {
+            title:'请领人',
+            data:'qlRen'
+        },
+        {
+            title:'收料人',
+            data:'slRen'
+        },
+        {
+            title:'发料人',
+            data:'flRen'
         }
     ];
     _tableInit($('#scrap-datatables'),col,'1','flag','','');
@@ -132,10 +144,14 @@ $(function(){
     /*----------------------------------按钮事件------------------------------*/
     //查询
     $('#selected').click(function(){
-        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == ''){
+        if($('.min').val() == '' || $('.max').val() == '' || $('#yxdw').val() == '' || $('#storage').val() == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必选项进行查询！', '');
+
         }else{
+
             conditionSelect();
+
         }
     })
 
@@ -162,21 +178,34 @@ $(function(){
                 var str = '<option value="">请选择</option>';
                 var str1 = '<option value="">请选择</option>';
                 if(flag){
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
+                    if(result.wxBanzus){
+
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                '">' + result.wxBanzus[i].departName + '</option>';
+                        }
+                        $('#userClass').append(str1);
+
                     }
-                    $('#userClass').append(str1);
+
                 }else{
                     _InfluencingArr = [];
-                    for(var i=0;i<result.stations.length;i++){
-                        _InfluencingArr.push(result.stations[i]);
-                        str += '<option value="' + result.stations[i].departNum +
-                            '">' + result.stations[i].departName + '</option>';
+
+                    if(result.stations){
+
+                        for(var i=0;i<result.stations.length;i++){
+                            _InfluencingArr.push(result.stations[i]);
+                            str += '<option value="' + result.stations[i].departNum +
+                                '">' + result.stations[i].departName + '</option>';
+                        }
+
                     }
-                    for(var i=0;i<result.wxBanzus.length;i++){
-                        str1 += '<option value="' + result.wxBanzus[i].departNum +
-                            '">' + result.wxBanzus[i].departName + '</option>';
+                    if(result.wxBanzus){
+
+                        for(var i=0;i<result.wxBanzus.length;i++){
+                            str1 += '<option value="' + result.wxBanzus[i].departNum +
+                                '">' + result.wxBanzus[i].departName + '</option>';
+                        }
                     }
                     $('#yxdw').append(str);
                     $('#userClass').append(str1);
@@ -211,8 +240,10 @@ $(function(){
             storageNum:ckNum,
             localNum:$('#kqSelect').val(),
             userID:_userIdNum,
-            userName:_userIdName
+            userName:_userIdName,
+            outType:$('#tiaojian').val()
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptGetDepOutDetail',
@@ -220,9 +251,64 @@ $(function(){
             timeout:_theTimes,
             success:function(result){
 
-                console.log(result);
-
                 _datasTable($('#scrap-datatables'),result);
+
+                //标题
+
+                //获取仓库
+                var storage = '';
+
+                if( $('#storage').val() == '' ){
+
+                    storage = '';
+
+                }else{
+
+                    storage = $('#storage').children('option:selected').html();
+
+                }
+
+                var yxdw = '';
+
+
+                if( $('#yxdw').val() == '' ){
+
+                    yxdw = '';
+
+                }else{
+
+                    yxdw = $('#yxdw').children('option:selected').html();
+
+                }
+
+                var djStr = '';
+
+                if($('#tiaojian').val() == ''){
+
+                    djStr = '出库'
+
+                }else{
+
+                    djStr = $('#tiaojian').children('option:selected').html();
+
+                }
+
+                var str = '材料' + djStr + '单';
+
+                if( typeof storage == 'undefined'){
+
+                    storage = '';
+
+                }
+
+                if(typeof yxdw == 'undefined'){
+
+                    yxdw= '';
+
+                }
+
+                $('#scrap-datatables').find('caption').html( yxdw + str );
+
 
                 var num = 0;
 
@@ -285,6 +371,40 @@ $(function(){
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //出库类型
+    function rkLX(){
+        var prm = {
+            "catType": 2,
+            'userID':_userIdNum,
+            'userName':_userIdName,
+            'b_UserRole':_userRole,
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWCK/ywCKGetInOutCate',
+            data:prm,
+            success:function(result){
+
+                //条件查询的出库类型选择
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].catNum  + '">' + result[i].catName + '</option>';
+
+                }
+
+                $('#tiaojian').empty().append(str);
+
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
             }
         })

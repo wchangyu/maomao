@@ -14,9 +14,6 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!--MY STYLE-->
-
-
-
     <link rel="stylesheet" href="../resource/css/leftBat.css">
     <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
     <script src="../resource/js/jquery-1.11.2.js"></script>
@@ -290,6 +287,16 @@
                                             <input type="text" class="datatimeblock max">
                                         </div>
                                     </li>
+                                    <li><label for="">材料名称：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="materialName">
+                                        </div>
+                                    </li>
+                                    <li><label for="">材料编码：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="materialNum">
+                                        </div>
+                                    </li>
                                     <li><label for="">仓库：</label>
                                         <div class="input-blocked">
                                             <select id="storage"></select>
@@ -329,14 +336,14 @@
                                             </caption>
                                             <thead>
                                                 <tr>
-                                                    <td rowspan="2">卡片号</td>
-                                                    <td rowspan="2">材料名称</td>
+                                                    <td rowspan="2">物品编号</td>
+                                                    <td rowspan="2">物品名称</td>
                                                     <td rowspan="2">规格</td>
                                                     <td rowspan="2">计量单位</td>
                                                     <td colspan="2">期初库存</td>
-                                                    <td colspan="2">本期输入</td>
+                                                    <td colspan="2">本期收入</td>
                                                     <td colspan="2">本期发出</td>
-                                                    <td colspan="2">月末存结</td>
+                                                    <td colspan="2">月末结存</td>
                                                     <!--<td colspan="2">仓库</td>-->
                                                     <td colspan="2"></td>
 
@@ -358,6 +365,23 @@
                                             <tbody>
                                             </tbody>
                                             <tfoot>
+                                                <tr>
+                                                    <td>小计</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <!--<td></td>-->
+                                                    <!--<td></td>-->
+                                                    <td></td>
+                                                </tr>
                                                 <tr>
                                                     <td>共计</td>
                                                     <td></td>
@@ -441,8 +465,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/materialMonthlyReport.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -451,6 +473,9 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../new-resource/src/jquery.table2excel.js"></script>
+<script src="../resource/js/materialMonthlyReport.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框创建工单-->

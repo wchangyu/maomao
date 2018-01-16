@@ -1,3 +1,6 @@
+//记录当前工单号
+var _gdCode = '';
+
 $(function(){
     /*-------------------------------全局变量-------------------------------------------------*/
     //获得用户ID
@@ -73,15 +76,16 @@ $(function(){
         }
     });
 
-    //记录当前工单号
-    var _gdCode = '';
-
     //存放常量
     var _stateArr = [];
 
     stateConstant(1);
 
     var _trend = '';
+
+    //标识维修备件申请窗口是否是打开状态
+    var _shenheModal = false;
+
 
     /*------------------------------表格初始化-----------------------------------------------*/
     //页面表格
@@ -358,8 +362,7 @@ $(function(){
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'),'查看详情','flag');
@@ -415,6 +418,7 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+
                     app33.gdly = result.gdCodeSrc;
                     $('.otime').val(result.gdFsShij);
                     //查看执行人员
@@ -436,14 +440,18 @@ $(function(){
             logInformation();
         })
         .on('click','.option-beijian',function(){
+
+            _shenheModal = true;
+
+            $('.bjImg').hide();
+
             moTaiKuang($('#myModal4'),'维修备件申请');
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获取详情
@@ -473,14 +481,8 @@ $(function(){
                         bmArr.push(result.wxCls[i].wxCl);
                     }
                     //备件图片
-                    if(result.hasBjImage>0){
-                        var str = '<img class="bjImgList" src="' + replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=1&imageFlag=1' +
-                            '">';
-                        $('.bjImg').empty().append(str).show();
-                        $('.bjpicture').show();
-                    }else{
-                        $('.bjpicture').hide();
-                    }
+                    _imgBJNum = result.hasBjImage;
+
                     //根据itemNums获取多个物品的库存
                     var prm = {
                         userID : _userIdNum,
@@ -530,6 +532,31 @@ $(function(){
     $('#myModal4').on('click','.btn-primary:nth-child(2)',function(){
         applySparePart($(this));
     });
+
+    //关闭审核窗口，标识置为false
+    $('#myModal4').on('hidden.bs.modal',function(){
+
+        _shenheModal = false;
+
+    })
+
+    $(document).on('keyup',function(e){
+
+        if(_shenheModal){
+
+            if(e.keyCode == '13'){
+
+                applySparePart($(this),'flag',true);
+
+            }
+
+        }else{
+
+            return false;
+
+        }
+
+    })
 
     /*------------------------------其他方法-------------------------------------------------*/
     //条件查询
@@ -635,18 +662,15 @@ $(function(){
                     var str ='';
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.statuses[i].clType == 2){
-                        //    str += '<option value="' + result.statuses[i].clTo +
-                        //        '">' + result.statuses[i].clOpt + '</option>';
-                            str += '<button type="button" class="btn btn-primary"' + 'data-value='+ result.statuses[i].clTo +
+
+                            str += '<button type="button" class="btn btn-primary classSH"' + 'data-value='+ result.statuses[i].clTo +
                                 '>' + result.statuses[i].clOpt + '</button>'
                         }
-                        //<button type="button" class="btn btn-primary">确定</button>
                     }
-                    str += '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
-                    //$('#stateConstant').empty();
-                    //$('#stateConstant').append(str);
-                    $('#myModal4').find('.modal-footer').empty();
-                    $('#myModal4').find('.modal-footer').append(str);
+                    str += '<button type="button" class="btn btn-default classSH" data-dismiss="modal">关闭</button>';
+
+                    $('#myModal4').find('.modal-footer').empty().append(str);
+
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.clStatus == result.statuses[i].clStatusID){
                             $('.nowState').val(result.statuses[i].clStatus);
@@ -688,9 +712,18 @@ $(function(){
     }
 
     //申请备件(同意【flag】，拒绝)
-    function applySparePart(el,flag){
+    function applySparePart(el,flag,keyup){
+
+        if(keyup){
+
+            el = $('#myModal4').find('.modal-footer').children();
+
+        }
+
         var stateTrend = el.attr('data-value');
+
         var stateHtml = el.html();
+
         if(flag){
             var arr = stateTrend.split(',');
             if(_trend == ''){
@@ -707,6 +740,11 @@ $(function(){
             "userID": _userIdNum,
             "userName": _userIdName
         }
+
+        console.log(prm);
+
+        return false;
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptPeijStatus',

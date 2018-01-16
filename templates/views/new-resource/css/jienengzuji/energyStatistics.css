@@ -1,0 +1,181 @@
+.left-middle-main1 p{
+    line-height: 16px;
+    height:16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*对象选择*/
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 350px !important;
+}
+.main-left-middle {
+    width: 100%;
+    height: 380px !important;
+}
+
+/*时间选择*/
+#wrapper {
+    width: auto;
+    padding-bottom: 120px;
+    margin-top: 0 !important;
+}
+
+.left-middle-main p,.left-middle-main1 p{
+    line-height: 30px;
+    height:30px;
+    font-size: 18px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+/*选中的对象*/
+.left-middle-main .curChoose,.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*单位不可选择*/
+#unit{
+    background: #eee;
+}
+/*右侧按钮*/
+.top-btn:hover {
+    color: #fff;
+    background-color: #3b9c96;
+    border-color: #307f7a;
+    outline: none;
+}
+
+.top-btn {
+    border-width: 0;
+    font-size: 14px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #45B6AF;
+    border-color: #3ea49d;
+    width: 80px;
+}
+.prompt {
+    color: red;
+    font-size: 14px;
+}
+
+/*下方表格*/
+
+#dateTables thead tr th, #dateTables tbody tr td {
+    text-align: center !important;
+    font-size: 12px;
+    padding-left:2px !important;
+    padding-right:2px !important;
+}
+
+#dateTables{
+    overflow: auto;
+    width:100%;
+}
+/*搜索框*/
+#dateTables_filter{
+    float: left;
+
+}
+#dateTables_filter input{
+    height:30px;
+    width:160px;
+}
+
+.average{
+    width:40px !important;
+}
+
+.month-data {
+
+    width: 60px;
+    border: none;
+    background: none !important;
+    text-align: center;
+}
+
+/*新增弹窗样式*/
+.modal-body1{
+    padding-right:40px;
+}
+.gongdanList li {
+    width: 300px;
+}
+.floatLeft {
+    float: left;
+}
+.labels {
+    line-height: 30px;
+}
+.input-blockeds {
+    height: 30px;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    display: inline-block;
+    position: relative;
+}
+.input-blockeds input {
+    line-height: 28px;
+    margin-left: 5px;
+    margin-right:5px;
+    border: none;
+    outline: none;
+    display: block;
+    width: 288px;
+    background: #ffffff;
+    height: 28px;
+}
+.floatRight {
+    float: right;
+}
+.colorTip {
+    color: #db3d32;
+}
+
+.fdjImg {
+    cursor: pointer;
+    position: absolute;
+    right: -34px;
+    top: 0px;
+}
+
+/*选择楼宇*/
+.ztree {
+    height: 280px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.modal-body2{
+    padding-bottom:48px;
+    background: #ededed;
+}
+/*搜索框*/
+.left-middle-input {
+    position: absolute;
+    top: 288px;
+    left: 50%;
+    margin-left: -95px;
+    width: 205px;
+}

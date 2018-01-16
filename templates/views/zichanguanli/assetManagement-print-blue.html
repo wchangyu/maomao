@@ -89,6 +89,98 @@
         .print-block{
             margin-top: 0;
         }
+        .print-block-cel{
+
+            background:#004179 !important;
+
+        }
+        .row-list,.img-block{
+            background: #26c1d7 !important;
+        }
+        .img-block{
+
+            float: left !important;
+            width: 134px !important;
+            height: 135px !important;
+            border-bottom: 1px solid #333333 !important;
+
+        }
+
+        .table-title1{
+            color: #ffffff !important;
+        }
+
+        .table-img1 span,.title-word1{
+            color: #b4ddff !important;
+        }
+        .table-row{
+            height: 30px !important;
+            line-height: 30px !important;
+            border: 1px solid #333333 !important;
+        }
+        .table-row{
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #333333 !important;
+        }
+        .content-block{
+
+            width:381px;
+            font-size: 12px;
+            line-height: 26px;
+            border: 1px solid #333333 !important;
+            margin: 10px;
+            text-indent: 10px;
+            font-weight: bold;
+
+        }
+        .row-list{
+
+            width: 100% !important;
+            height: 27px !important;
+            border-bottom: 1px solid #333333 !important;
+            overflow: hidden !important;
+
+        }
+        .row-two-left{
+            float: left;
+            width: 153px;
+            height: 100%;
+            border-right: 1px solid #333333 !important;
+            overflow: hidden;
+        }
+        .row-three-left{
+            float: left;
+            width: 70px;
+            border-right: 1px solid #333333 !important;
+            overflow: hidden;
+        }
+        .row-three-right{
+            float: left;
+            width: 174px;
+            height: 100%;
+            overflow: hidden;
+        }
+        .print-block-cel{
+
+            display: inline-block;
+            border:1px solid #333333 !important;
+            float: left;
+            margin: 40px 10px;
+            overflow: hidden;
+
+        }
+        .suo{
+
+            transform:scale(0.8);//设置缩放比例
+            -ms-transform:scale(0.8);
+            -webkit-transform:scale(0.8);
+            -o-transform:scale(0.8);
+            -moz-transform:scale(0.8);
+            margin-top: -790px;
+            margin-left: -100px;
+        }
+        .PageNext   {   PAGE-BREAK-AFTER:   always   }
     </style>
 
 </head>
@@ -274,7 +366,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -331,14 +422,14 @@
                                     </li>
 
                                     <li>
-                                        <label for="">车务段：</label>
+                                        <label for=""><span class="user-defined-area"></span>：</label>
                                         <div class="input-blocked">
                                             <select name="" id="quyu">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">车站：</label>
+                                        <label for=""><span class="user-defined-department"></span>：</label>
                                         <div class="input-blocked" style="display: none">
                                             <select name="" id="bumen">
                                             </select>
@@ -373,14 +464,14 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">车间:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                        <label for=""><span class="user-defined-workshop"></span>:&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                         <div class="input-blocked">
                                             <select name="" id="chejian">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">维修班组：</label>
+                                        <label for=""><span class="user-defined-group"></span>：</label>
                                         <div class="input-blocked">
                                             <select name="" id="banzu">
                                             </select>
@@ -443,64 +534,13 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-<script src="../../../assets/global/plugins/respond.min.js"></script>
-<script src="../../../assets/global/plugins/excanvas.min.js"></script>
-<![endif]-->
-<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="../../../assets/local/scripts/BEE.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
-<!--tabletool-->
-<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
-<script src="../resource/TableTools/button/buttons.print.min.js"></script>
-<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
-<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
-<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
-<script src="../resource/TableTools/js/jszip.min.js"></script>
-<script src="../resource/TableTools/js/pdfmake.min.js"></script>
-<script src="../resource/TableTools/js/vfs_fonts.js"></script>
-<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<!--select插件-->
-<!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
-
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-</script>
-<script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/js/assetManagement-print-blue.js"></script>
-<script src="../resource/station/chooseStation.js"></script>
-<!-- END JAVASCRIPTS -->
 
 <!--模态框创建工单-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 648px;">
         <div class="modal-content" style="height: 648px;">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close closeDeng" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">添加设备</h4>
             </div>
             <div class="modal-body" style="height: 525px;overflow-y: scroll">
@@ -539,7 +579,7 @@
                                 </div>
                             </li>
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">车务段 *：</div>
+                                <div class="labels colorTip"><span class="user-defined-area"></span> *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssQY" id="sbqy" @change = 'change1()'>
                                         <option v-for="option in options1" v-bind:value="option.value">
@@ -560,7 +600,7 @@
                             </li>
 
                             <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels colorTip">车站 *：</div>
+                                <div class="labels colorTip"><span class="user-defined-department"></span> *：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="ssbumen" id="sbbm">
                                         <option v-for="option in options3" v-bind:value="option.value">
@@ -610,10 +650,10 @@
                                 </div>
                             </li>
                             <!--<li class="floatRight" style="line-height: 26px;">-->
-                                <!--<div class="labels">原值类型：</div>-->
-                                <!--<div class="input-blockeds">-->
-                                   <!---->
-                                <!--</div>-->
+                            <!--<div class="labels">原值类型：</div>-->
+                            <!--<div class="input-blockeds">-->
+                            <!---->
+                            <!--</div>-->
                             <!--</li>-->
 
                             <li class="floatRight" style="line-height: 26px;">
@@ -705,8 +745,8 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary closeDeng">确定</button>
+                <button type="button" class="btn btn-default closeDeng" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
@@ -759,6 +799,61 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--tabletool-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<!--select插件-->
+<!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
+
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/js/assetManagement-print-blue.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
+<!-- END JAVASCRIPTS -->
+
+
 </body>
 <!-- END BODY -->
 </html>

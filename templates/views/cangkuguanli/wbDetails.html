@@ -55,6 +55,12 @@
         #scrap-datatables thead td{
             vertical-align: middle !important;
         }
+        .tablefoot{
+
+            display: inline-block;
+            vertical-align: middle;
+            width: 17%;
+        }
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -290,12 +296,12 @@
                                             <input type="text" class="datatimeblock max">
                                         </div>
                                     </li>
-                                    <li><label for="">仓库：</label>
+                                    <li><label for="" class="colorTip">仓库 *：</label>
                                         <div class="input-blocked">
                                             <select id="storage"></select>
                                         </div>
                                     </li>
-                                    <li><label for="">库区：</label>
+                                    <li style="display: none;"><label for="">库区：</label>
                                         <div class="input-blocked">
                                             <select id="kqSelect">
                                                 <option value="">请选择</option>
@@ -303,13 +309,19 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 81px;text-align: right" class="colorTip">所属车间 *：</label>
+                                        <label for="" style="display: inline-block;width: 101px;text-align: right" class="colorTip"><span class="user-defined-workshop"></span> *：</label>
                                         <div class="input-blocked">
                                             <select id="yxdw"></select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;text-align: right">所属班组：</label>
+                                        <label for="" style="display: inline-block;width: 101px;text-align: right">单据类型：</label>
+                                        <div class="input-blocked">
+                                            <select id="tiaojian"></select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;text-align: right"><span class="user-defined-group"></span>：</label>
                                         <div class="input-blocked">
                                             <select id="userClass"></select>
                                         </div>
@@ -324,6 +336,7 @@
                                 <div class="content-main-contents">
                                     <div class="main-contents-table" style="margin-top: 0;">
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                            <caption style="text-align: center;font-size: 22px;"></caption>
                                             <thead>
                                             </thead>
                                             <tbody>
@@ -335,9 +348,17 @@
                                                     <td class="total-num"></td>
                                                     <td></td>
                                                     <td class="total-amount"></td>
-                                                    <td colspan="5"></td>
+                                                    <td colspan="8"></td>
                                                 </tr>
-
+                                                <tr colspan="15">
+                                                    <td colspan="15">
+                                                        <div class="tablefoot"><span class="user-defined-workshop"></span>负责人签字：</div>
+                                                        <div class="tablefoot">综合维修中心签字：</div>
+                                                        <div class="tablefoot"><span class="user-defined-workshop"></span>负责人签字：</div>
+                                                        <div class="tablefoot"> 主管签字：</div>
+                                                        <div class="tablefoot"> 仓管员签字：</div>
+                                                    </td>
+                                                </tr>
                                             </tfoot>
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->
@@ -404,8 +425,7 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/wbDetails.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -414,6 +434,9 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/wbDetails.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框创建工单-->

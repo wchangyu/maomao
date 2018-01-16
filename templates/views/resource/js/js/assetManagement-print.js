@@ -17,6 +17,9 @@ $(function(){
     //页面插入station选择框
     addStationDom($('#bumen').parent());
 
+    //标识当前是否为登记操作
+    var _deng = false;
+
     //设置延迟时间
     var theTimes = 300000;
     //获取设备系统与设备类型对应的父子关系
@@ -318,6 +321,9 @@ $(function(){
     //conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
+
+        _deng = true;
+
         //上传文件出现
         $('#uploader').show();
         $('#thelist').empty();
@@ -371,6 +377,13 @@ $(function(){
         }
 
     })
+
+    $('#myModal').on('click','.closeDeng',function(){
+
+        _deng = false;
+
+    })
+
     //查询
     $('#selected').click(function (){
         conditionSelect();
@@ -757,16 +770,26 @@ $(function(){
     //查看二维码
     $('.viewImage').click(function(){
 
-        if( $('.QRcode').children().length == 0 ){
-            $('.QRcode').empty();
-            $('.QRcode').show();
-            var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
-                '"' + 'style="width:100px;height:100px;"' +
-                '>';
-            $('.QRcode').append(str);
-        }else{
+        if(_deng){
+
             $('.QRcode').empty();
             $('.QRcode').hide();
+
+        }else{
+
+            if( $('.QRcode').children().length == 0 ){
+                $('.QRcode').empty();
+                $('.QRcode').show();
+                var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
+                    '"' + 'style="width:100px;height:100px;"' +
+                    '>';
+                $('.QRcode').append(str);
+            }else{
+                $('.QRcode').empty();
+                $('.QRcode').hide();
+            }
+
+
         }
 
     });
@@ -876,7 +899,7 @@ $(function(){
                         '</div> <div class="content-block"> <div class="row-list"> <div class="row-two-left">设备名称</div> <div class="row-two-right">' + result[i].dName +
                         '</div> </div> <div class="row-list"> <div class="row-two-left">使用位置</div> <div class="row-two-right">' + result[i].installAddress +
                         '</div> </div> <div class="three-block"> <div class="three-left"> <div class="row-list"> <div class="row-three-left">规格型号</div> <div class="row-three-right">' + result[i].spec +
-                        '</div> </div> <div class="row-list"> <div class="row-three-left">启用日期</div> <div class="row-three-right">' + result[i].installDate +
+                        '</div> </div> <div class="row-list"> <div class="row-three-left">启用日期</div> <div class="row-three-right">' + installTime(result[i].installDate) +
                         '</div> </div> <div class="row-list"> <div class="row-three-left">管理单位</div> <div class="row-three-right">' + result[i].daName +
                         '</div> </div> <div class="row-list"> <div class="row-three-left">产权单位</div> <div class="row-three-right">南昌铁路局</div> </div> <div class="row-list"> <div class="row-three-left">维护单位</div> <div class="row-three-right">江西铁路实业发展有限公司</div> </div> </div> <div class="img-block"> <img  src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + result[i].dNum +
                         '" alt="" > </div> </div> <div class="row-list" style="border-bottom: none"> <div class="row-two-left">报修电话：018-29999 </div> <div class="row-two-right">设备编码：<span>' + result[i].dNum +
@@ -889,11 +912,11 @@ $(function(){
 
                     }else if(i == result.length - 1){
 
-                        str += '</div><div class="print-block">' + valueStr
+                        str += valueStr;
 
                     }else if(i % 6 == 0 ){
 
-                        str += '</div><div class="print-block">' + valueStr
+                        str += '<div class="clearfix noprint"></div></div><div class="PageNext"></div><div class="print-block">' + valueStr
 
                     }else{
 
@@ -903,13 +926,8 @@ $(function(){
 
                 }
 
-
                 $('.print-table').empty().append(str);
 
-                //for(var i=0;i<result.length;i++){
-                //    _allDateArr.push(result[i]);
-                //}
-                //jumpNow($('#browse-datatables'),result);
             }
         })
     }
@@ -1136,6 +1154,14 @@ $(function(){
         }
 
         return postArr
+    }
+
+    //安装时间处理
+
+    function installTime(str){
+
+       return str.split(' ')[0]
+
     }
 
 });

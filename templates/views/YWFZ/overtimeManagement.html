@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns:v-validate="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/warningAlarm-2.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/echarts.min.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/vue.js"></script>
+    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <link rel="stylesheet" href="../resource/css/overtimeManagement.css">
+
+    <!--time-->
+    <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+    <style type="text/css" media=print>
+        .noprint{display : none }
+        @media print {
+            a[href]:after {
+                content: none !important;
+            }
+        }
+
+    </style>
+
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="../shouye/index.html">
+                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="totalTitle"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+					<span class="badge badge-danger">
+					 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold"></span> 当日报警</h3>
+                            <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<span class="username username-hide-on-mobile">
+					</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+
+                        <li>
+                            <a class="logout-page" href="../login.html">
+                                <i class="icon-key"></i> 退出 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN STYLE CUSTOMIZER -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+						<span>
+						配色 </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                            </li>
+                            <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
+                            <!--</li>-->
+                            <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						布局 </span>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">平铺</option>
+                            <option value="boxed">盒式</option>
+                        </select>
+                    </div>
+
+                    <div class="theme-option">
+						<span>
+						侧边菜单 </span>
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">手风琴式</option>
+                            <option value="hover">鼠标悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边位置 </span>
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						底部 </span>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">位置固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title noprint">
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                    <!--<div class="btn-group pull-right">
+                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                        跳转 <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li>
+                                <a href="#">跳转点1</a>
+                            </li>
+                            <li>
+                                <a href="#">跳转点2</a>
+                            </li>
+                            <li>
+                                <a href="#">跳转点3</a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="#">跳转点4</a>
+                            </li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="total-warp">
+                        <div class="wrap">
+                            <!-- 标题 -->
+                            <div class="content-main-contents content-main-right">
+
+                                <ul class="condition-query noprint">
+                                    <li><label for="">加班编号：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInput overtimeBM">
+                                        </div>
+                                    </li>
+                                    <li><label for="">上报人姓名：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInput shangName">
+                                        </div>
+                                    </li>
+                                    <li><label for="">上报人编号：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="filterInput shangNum">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cont-col1">
+                                            <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                                <i class="fa fa-plus" style="margin-right: 2px;"></i>新增
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><button class="btn btn-success btn1" id="selected">查询</button></li>
+                                    <li class="excelButton"></li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                                <!-- 表格 -->
+                                <div class="content-main-contents" style="position: relative;height: auto">
+                                    <div class="main-contents-table">
+                                        <table id="table-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" style="width:100%!important;">
+                                            <thead>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+    <!-- END CONTENT -->
+    <!-- BEGIN QUICK SIDEBAR -->
+    <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+    <!-- END QUICK SIDEBAR -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2016 &copy; Huaqin.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--tabletool-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<!--time-->
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/publicGD.js"></script>
+<script src="../resource/js/overtimeManagement.js"></script>
+<!-- END JAVASCRIPTS -->
+<!--弹窗-->
+<!--新增模态框-->
+<div class="modal fade" id="ADD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 750px;width: 600px !important;">
+        <div class="modal-content" style="height: 750px;width: 600px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" >提示</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="gongdanList" id="myApp33" style="height: 587px;overflow-y: scroll">
+                    <validator name="validation">
+                        <form novalidate>
+                            <div>
+                                <li class="floatLeft" style="width: 428px">
+                                    <div class="labels colorTip">车站名称 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="station" class="station">
+                                    </div>
+                                </li>
+                                <div class="btn btn-success select-CZ" id="select-DEV" disabled="disabled">选择</div>
+                            </div>
+                            <div>
+                                <li class="floatLeft" style="width: 537px;">
+                                    <div class="labels colorTip">事由说明 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="reason">
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div>
+                                <li class="floatLeft" style="width: 537px;">
+                                    <div class="labels colorTip">故障描述 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="faultDes">
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div>
+                                <li class="floatLeft" style="width: 428px">
+                                    <div class="labels colorTip">相关工单 *：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="aboutGD">
+                                    </div>
+                                </li>
+                                <div class="btn btn-success btn1 select-CZ" id="select-GD" disabled="disabled">选择</div>
+                            </div>
+                            <div style="width: 537px;">
+                                <li class="floatLeft" style="width: 249px !important;">
+                                    <div class="labels colorTip">计划开始时间 *：<div class="multiple-condition dateType" style="width: 122px;display: none"><span class="colorTip">请输入正确格式</span></div></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="stTime" style="width: 215px" @keyup="timeFormat('stTime')">
+                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun('stTime')">
+                                    </div>
+                                </li>
+                                <li class="floatRight" style="width: 249px !important;">
+                                    <div class="labels colorTip">计划结束时间 *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="etTime" style="width: 215px" @keyup="timeFormat('etTime')">
+                                        <input type="text" class="datatimeblock" v-on:click="timeFun()"@blur="blurFun('etTime')">
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div style="width: 537px;">
+                                <li class="floatLeft" style="width: 249px !important;">
+                                    <div class="labels colorTip">施工高度 *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="buildHeight" style="width: 247px" @keyup="naturalNumber('buildHeight')">
+
+                                    </div>
+                                </li>
+                                <li class="floatRight" style="width: 249px !important;">
+                                    <div class="labels colorTip">加班时长（小时） *：<div class="multiple-condition dateType" style="width: 122px;display: none;"><span class="colorTip">请输入正确格式</span></div></div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="moneyType" @keyup="naturalNumber('moneyType')" style="width: 247px">
+
+                                    </div>
+                                </li>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div>
+                                <li class="floatLeft" style="width: 428px;margin: 5px 0">
+                                    <div class="labels colorTip" style="height: auto">加班人 *：<div class="btn btn-success btn1 select-CZ" id="select-WK" disabled="disabled" style="display: inline-block;vertical-align: middle;margin-top: 0">选择</div></div>
+
+                                </li>
+                            </div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </validator>
+
+                    <div class="clearfix"></div>
+                    <div style="width: 537px">
+                        <table id="worker-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" style="width:100%!important;">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </ul>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">审核</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--选择执行人员-->
+<div class="modal fade" id="Worker-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 520px;">
+        <div class="modal-content" style="height: 520px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">操作执行人员</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 360px;">
+                    <ul class="gongdanList">
+                        <li class="floatLeft">
+                            <div class="labels">姓名：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="zxName">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">工号：</div>
+                            <div class="input-blockeds">
+                                <input type="text" id="zxNum">
+                            </div>
+                        </li>
+                        <li class="floatLeft">
+                            <div class="labels">部门：</div>
+                            <div class="input-blockeds">
+                                <select id="depart"></select>
+                            </div>
+                        </li>
+                        <li class="floatLeft" style="width: 100px !important;float:right;">
+                            <button type="button" class="btn btn-success zhixingButton" style="margin-top: 27px;">查询</button>
+                            <div class="alert alert-danger exists" style="text-align: center;width: 200px;float:right;"> <button class="close" data-close="alert"></button>
+                                <span>该人员已存在</span>
+                            </div>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                    <table id="zhixingRenTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm addZXR">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--审核-->
+<div class="modal fade" id="examine-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 462px;">
+        <div class="modal-content" style="height: 462px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" >提示</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="gongdanList" id="examineBlock" style="height: 300px;overflow-y: auto">
+                    <li class="floatLeft">
+                        <div class="labels">加班编号 ：</div>
+                        <div class="input-blockeds">
+                            <input type="text" readonly="readonly" class="disabled-block">
+                        </div>
+                    </li>
+                    <div class="clearfix"></div>
+                    <div>
+                        <div class="labels">一级审批意见：</div>
+                        <div class="input-blockeds" style="height: 80px;">
+                            <textarea  style="height: 100%;width: 100%;outline: none"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="labels">二级审批意见：</div>
+                        <div class="input-blockeds" style="height: 80px;">
+                            <textarea  style="height: 100%;width: 100%;outline: none"></textarea>
+                        </div>
+                    </div>
+                    <div id="radioblock">
+                        <input type="radio" attr-value="1" id="adopt" checked style="margin-left: -10px;"><label for="adopt">通过</label>
+                        <input type="radio" attr-value="0" id="notAdopt" style="margin-left: -10px;"><label for="notAdopt">不通过</label>
+                    </div>
+                </ul>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary shenhe">审核</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<!--删除提示-->
+<div class="modal fade" id="DEL-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--设备部门（车站）选择-->
+<div class="modal fade" id="CZ-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabe3">选择车站</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gongdanContent" style="height: 580px;">
+                    <table id="sbmcxz" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--工单选择-->
+<div class="modal fade" id="GD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 732px;width: 890px !important;">
+        <div class="modal-content" style="height: 732px;width: 890px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择工单</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="condition-query">
+                    <li><label for="" style="display: inline-block;width: 70px;text-align: right">工单号：</label>
+                        <div class="input-blocked" id="filter_global">
+                            <input type="text" class="global_filter" id="gdcode">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
+                        <div class="input-blocked">
+                            <select  id="gdzt" class="returnZero">
+                                <option value="0" selected>全部</option>
+                                <option value="1">待下发</option>
+                                <option value="2">待分派</option>
+                                <option value="3">待执行</option>
+                                <option value="4">执行中</option>
+                                <option value="5">等待资源</option>
+                                <option value="6">待关单</option>
+                                <option value="7">任务关闭</option>
+                                <option value="999">任务取消</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
+                        <div class="input-blocked">
+                            <select id="station"class="returnEmpty"></select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="" style="display: inline-block;width: 70px;text-align: right">工单时间：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock gdTime">
+                        </div>
+                        <label for="">到</label>
+                        <div class="input-blocked">
+                            <input type="text" class="datatimeblock gdTime">
+                        </div>
+                    </li>
+                    <li>
+                        <div style="width: 100%;height: 100%;border: 1px solid #a9a9a9;line-height: 28px;padding-left: 3px;padding-right: 7px;">
+                            <div class="checker"><span class="checked"><input type="checkbox" id="isExamine"></span></div>
+                            <label for="isExamine" style="margin-bottom: 0px;">材料申请已审批</label>
+                        </div>
+                    </li>
+                    <br>
+                    <li><button class="btn btn-success btn1" id="selectedGD">查询</button></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <div class="gongdanContent" style="height: 469px;">
+                    <table id="GD-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm selectSBMC">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+<!-- END BODY -->
+</html>

@@ -9,7 +9,7 @@ $(document).ready(function(){
         "paging": true,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
-        "ordering": false,
+        "ordering": true,
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -47,6 +47,10 @@ $(document).ready(function(){
             {
                 title:'知识标题',
                 data:'f_KnowleTitle'
+            },
+            {
+                title:'分类',
+                data:'dsName'
             },
             {
                 title:'摘要',
@@ -87,6 +91,9 @@ $(document).ready(function(){
         getShowKnowledgeData();
     });
 
+    //分类
+    classFun();
+
     //查看知识库
     $('#browse-datatables_wrapper tbody').on('click','.option-see',function(){
 
@@ -113,7 +120,7 @@ $(document).ready(function(){
                 $('#theLoading').modal('hide');
                 $('#see-myModal').modal('show');
                 $('#see-myModal .btn-primary').removeClass('hidden');
-                console.log(data);
+
                 //标题
                 $('#see-myModal .knowledge-title').val(data.f_KnowleTitle);
                 //摘要
@@ -122,6 +129,9 @@ $(document).ready(function(){
                 $('#see-myModal .textarea2').val(data.f_KnowleKeyword);
                 //内容
                 $('#see-myModal .textarea3').val(data.f_KnowleContent);
+                //分类
+                $('#classify').val(data.dsNum);
+
                 //附件
                 var fileHtml = '';
                 if(data.knowLedgeFiles.length == 0){
@@ -202,8 +212,6 @@ function getShowKnowledgeData(){
         }
     };
 
-    console.log(searchItemArr);
-
 
     $.ajax({
         type: 'get',
@@ -211,7 +219,8 @@ function getShowKnowledgeData(){
         timeout: theTimes,
         data:{
             "searchModel.searchContent" : searchContent,
-            "searchModel.searchItems": searchItemArr
+            "searchModel.searchItems": searchItemArr,
+            "searchModel.dsNum":$('#classSelect').val()
         //
         },
         beforeSend: function () {
@@ -262,3 +271,51 @@ $('#browse-datatables tbody').on('click','tr',function(){
 
     $(this).addClass('tables-hover');
 });
+
+
+//分类接口
+function classFun(){
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'YWDev/ywDMGetDSs',
+        data:{
+
+            "userID": _userIdNum,
+            "userName": _userIdName,
+
+        },
+        timeout:_theTimes,
+        success:function(result){
+
+            if(result){
+
+                var str = '<option value="">全部</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].dsNum +
+                        '">' + result[i].dsName +
+                        '</option>'
+
+                }
+
+                $('.classify').empty().append(str);
+
+            }
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            var info = JSON.parse(jqXHR.responseText).message;
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                myAlter("超时");
+            }else{
+                myAlter(info);
+            }
+
+        }
+
+    })
+
+}

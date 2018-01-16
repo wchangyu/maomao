@@ -77,12 +77,11 @@
   <div class="main-content-entry">
         <h1 class="top-title">材料<span></span>单</h1>
         <div class="top-message">
-            <span style="margin-right:40px;">单据号：<b></b></span>
-            <span class="self-num">自编号：<b></b></span>
+            <span style="margin-right:40px;" class="document-num">单据号：<b></b></span>
+            <span class="self-num">入库单号：<b></b></span>
             <span class="creat-name" style="display: inline-block;width:160px;">制单人：<b></b></span>
             <span style="display: inline-block;width:160px;">审核人：<b></b></span>
             <span style="display: inline-block;width:160px;">审核日期：<b></b></span><br/>
-            <span >备注：<b style=""></b></span>
         </div>
         <!--下方主体表格-->
         <div class="bottom-main-table">
@@ -92,11 +91,11 @@
                         <td>供货单位</td>
                         <td colspan="2" class="unit-name"></td>
                         <td colspan="2">联系人</td>
-                        <td colspan="3"></td>
+                        <td colspan="3" class="linkman-name"></td>
                     </tr>
                     <tr>
                         <td>项目名称</td>
-                        <td colspan="7"></td>
+                        <td colspan="7">高铁(普铁)维保配件</td>
                     </tr>
                     <tr class="goods-message">
                         <td>物品编号</td>
@@ -110,8 +109,9 @@
                     </tr>
 
                     <tr>
+                        <td>合计金额</td>
                         <td>大写</td>
-                        <td colspan="4" class="big-count"></td>
+                        <td colspan="3" class="big-count"></td>
                         <td>小写</td>
                         <td class="small-count"></td>
                         <td></td>
@@ -169,7 +169,11 @@
 <script src="../resource/js/js/godownEntry.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
-
+    <script>
+        jQuery(document).ready(function() {
+            BEE.init(true);
+        });
+    </script>
 
 </body>
 <!-- END BODY -->

@@ -1,3 +1,5 @@
+var _gdCode = '';
+
 $(function(){
     var _prm = window.location.search;
     //获取本地url
@@ -8,10 +10,9 @@ $(function(){
 
     //获得用户名
     var _userIdName = sessionStorage.getItem('realUserName');
-    //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+
     var splitPrm = _prm.split('&');
-    var _gdCode = splitPrm[0].split('=')[1];
+    _gdCode = splitPrm[0].split('=')[1];
     //var _gdState = splitPrm[1].split('=')[1];
     var _gdCircle = splitPrm[1].split('=')[1];
     //弹出框信息绑定vue对象
@@ -37,7 +38,7 @@ $(function(){
             gdly:''
         }
     });
-    var _imgNum = 0;
+
     //表格初始换
     $('#personTable1').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -122,6 +123,10 @@ $(function(){
                 data:'wxClName'
             },
             {
+                title:'规格型号',
+                data:'size'
+            },
+            {
                 title:'数量',
                 data:'clShul'
             }
@@ -166,6 +171,7 @@ $(function(){
             app33.azAddress = result.installAddress;
             app33.rwlx = result.gdLeixing;
             _imgNum = result.hasImage;
+            _imgBJNum = result.hasBjImage;
             app33.gdly = result.gdCodeSrc;
             datasTable($('#personTable1'),result.wxRens);
             datasTable($('#personTables1'),result.wxCls);
@@ -189,29 +195,6 @@ $(function(){
         $('.tableHover').eq($(this).index()).show();
 
     });
-    $('#viewImage').on('click',function(){
-        $('.showImage').show();
-        if(_imgNum){
-            var str = '';
-            for(var i=0;i<_imgNum;i++){
-                str += '<img class="viewIMG" src="' +
-                    replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + i +
-                    '">'
-            }
-            $('.showImage').html('');
-            $('.showImage').append(str);
-            $('.showImage').show();
-        }else{
-            $('.showImage').html('没有图片');
-            $('.showImage').show();
-        }
-    })
-    $('.showImage').on('click','.viewIMG',function(){
-        //moTaiKuang($('#myModal4'),'图片详情','flag');
-        _moTaiKuang($('#myModal4'), '图片详情', 'flag', '' ,'', '');
-        var imgSrc = $(this).attr('src')
-        $('#myModal4').find('img').attr('src',imgSrc);
-    })
     //dataTables表格填数据
     function datasTable(tableId,arr){
         if(arr.length == 0){

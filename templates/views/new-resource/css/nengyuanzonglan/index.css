@@ -1,0 +1,471 @@
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+/*新闻轮播*/
+.carousel-inner .img{
+    width:100%;
+    height: 240px;
+}
+.carousel-indicators {
+    bottom: 68px !important;
+}
+.carousel-caption{
+    bottom:-10px;
+    color:#666;
+}
+
+/*上方图片*/
+.content-main img{
+    width:100%
+}
+
+.content-main .left-top{
+    margin-bottom:0px !important;
+}
+
+/*中间医院统计*/
+.left-middle-main1 {
+    height: 115px;
+    overflow-y: auto;
+    padding-top:10px;
+}
+.left-middle-main1 p {
+
+    height: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    box-sizing: border-box;
+    padding-left:15px;
+    color:#666;
+    margin-bottom:5px;
+}
+.left-middle-main1 p span{
+    margin-left:10px;
+}
+
+/*实时报警*/
+.left-middle-main2 {
+    height: 125px;
+    overflow-y: auto;
+    padding-top:10px;
+}
+.left-middle-main2 p {
+
+    height: 25px;
+    font-size: 16px;
+    line-height: 25px;
+    box-sizing: border-box;
+    padding-left:15px;
+    color:#666;
+    margin-bottom:5px;
+}
+.left-middle-main2 p span{
+    margin-left:10px;
+    color:darkred;
+}
+.left-middle-main2 p .normal{
+    margin-left:10px;
+    color:black;
+}
+
+/*下方气象参数*/
+.content-main-left .left-middle-main0{
+    height:190px !important;
+    overflow-y: auto;
+    padding-top:25px;
+}
+.content-main-left .main-left-middle {
+    width: 100%;
+    height: auto !important;
+}
+
+.left-middle-main0 p{
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    padding-left:20px;
+    margin-bottom:15px;
+}
+
+.left-middle-main0 p .iconfont{
+    font-size:32px;
+    color:#666
+}
+.left-middle-main0 p .icon-speedometer{
+    font-size:26px;
+    color:#666
+}
+
+/*温度湿度*/
+.left-middle-main0 p span{
+    margin-left:30px;
+    font-size:16px;
+    color:mediumseagreen;
+}
+
+/*右侧外层div*/
+.content-main-right{
+    padding-left:0px;
+    padding-right:0px;
+}
+/*---------------------------------实时能耗--------------------------------------*/
+
+
+/*实时能耗*/
+.real-time-energy{
+    position:relative;
+}
+/*头部信息*/
+.real-time-energy h3{
+
+    margin-top:1px;
+}
+.quota-data-bottom h3 {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #999;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#energy-demand {
+    /*height: 335px;*/
+    height:285px;
+    /*width:80%;*/
+    border: 1px solid #ddd;
+    /*border-bottom: none;*/
+    float:left;
+    padding: 0;
+}
+/*实时能耗右侧数据*/
+.right-total-data{
+    /*height:335px;*/
+    height:285px;
+    /*width:20%;*/
+    float:right;
+    background:#eee;
+   overflow-y: auto;
+    padding: 0;
+}
+/*右侧头部信息*/
+.single-data h4{
+    font-size:16px;
+    margin-bottom: 1px;
+    margin-top:2px;
+}
+/*右侧同比环比数据*/
+.right-ratio .top-percent p{
+    margin-bottom:1px;
+}
+
+.top-cut {
+    padding-bottom: 2px;
+    margin-bottom:1px;
+    position: absolute;
+    left: 105px;
+    top: 6px;
+}
+.top-cut li {
+    float: left;
+    margin-left: 15px;
+    font-size: 16px;
+}
+.top-cut li a {
+    color: #666;
+}
+.top-cut li a:hover {
+    color: orangered;
+}
+
+.right-total-data .single-data{
+    padding-top:1px;
+    height:100px;
+    width:100%;
+
+}
+.right-total-data .single-data .left-data{
+    float:left;
+    width:10%;
+
+}
+.right-total-data .single-data .left-data p{
+    height:80px;
+    line-height: 80px;
+    font-weight: 600;
+    font-size:16px;
+    text-align: center;
+    margin-bottom:0px;
+}
+
+.percent-number{
+    width:60px;
+    text-align: left !important;
+    margin-right:15px;
+}
+
+.right-total-data .single-data .right-ratio{
+    float:right;
+    width:90%;
+    height:80px;
+}
+.right-total-data .single-data .right-ratio .top-percent{
+    width:100%;
+    height:33%;
+    background: url(../../img/up2.png) no-repeat right top;
+    background-size: 8% 74%;
+}
+.right-total-data .single-data .right-ratio .top-percent0{
+    width:100%;
+    height:33%;
+}
+.top-percent0 p{
+    margin:0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.fall-down{
+    background: url(../../img/up.png) no-repeat right top !important;
+    background-size: 8% 81% !important;
+}
+.fall-down1{
+    background: url(../../img/up.png) no-repeat right 2px !important;
+    background-size: 8% 106% !important;
+}
+/*右侧年的数据*/
+.single-data-year{
+    height:80px !important;
+}
+.single-data-year .left-data{
+     height:60px;
+}
+.single-data-year .left-data p{
+    height:60px !important;
+    line-height: 60px !important;
+}
+.single-data-year .right-ratio{
+    height:60px !important;
+}
+.right-total-data .single-data-year .right-ratio .top-percent1 {
+    width: 100%;
+    height: 33%;
+    background: url(../../img/up2.png) right 2px no-repeat;
+    background-size: 8% 107%;
+}
+
+/*下方定额数据*/
+.dingE-data{
+    padding-left:10px;
+    box-sizing: border-box;
+    font-size:16px;
+    font-family: '微软雅黑';
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+.dingE-data b{
+    font-size:18px;
+}
+
+
+.right-total-data .single-data .right-ratio .top-percent p{
+    text-align: right;
+    padding-right:5px;
+    color:#999;
+    float: right;
+}
+
+/*---------------------------右侧报警-------------------------------*/
+
+.content-main-top-right  p{
+    font-size:16px;
+    height:50px;
+    line-height: 50px;
+    padding-left:30px;
+    box-sizing: border-box;
+}
+
+.content-main-top-right{
+    height:325px;
+}
+
+.content-main-top-right  p span{
+    width:50px;
+    text-align:left;
+    display: inline-block;
+    color:darkred;
+    font-size:28px;
+}
+
+.content-main-top-right  p .normal{
+
+    color:black;
+    font-size:18px;
+}
+
+/*下方链接*/
+.bottom-link{
+    text-align: right;
+    padding-top:3px;
+}
+
+.onClicks {
+    color: darkorange !important;
+}
+
+#energy-demand1 {
+    height: 440px;
+}
+#energy-demand2 {
+    height: 380px;
+}
+#energy-demand3 {
+    height: 380px;
+}
+#energy-demand4 {
+    height: 352px;
+}
+
+/*------------------------------本日能耗--------------------*/
+.energy-typess {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+}
+
+.fenleinenghao {
+    margin: 0 auto !important;
+    background: #fff !important;
+    height: 195px;
+    border:1px solid #ddd;
+}
+
+.main-one-1 {
+    /*margin-top: 40px;*/
+    height: 190px;
+    background: #fee8af;
+    padding-top: 20px;
+    position: relative;
+    border: 3px solid #fff;
+    /*margin-bottom: 50px;*/
+    background-size: 50px;
+    background-position: center;
+    flex: 1;
+}
+.main-one-title {
+    margin-left: 10px;
+    font-size: 1.3rem;
+    display: block;
+}
+.main-one-total {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.main-mark {
+    width: 100%;
+    background: rgba(0,0,0,0.1);
+    position: absolute;
+    bottom: 0;
+}
+.tongbi1 {
+    text-indent: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+.huanbi {
+    width: 100%;
+    text-indent: 10px;
+    font-size: 10px;
+}
+/*本月能耗Loading图*/
+#loaddings {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    top: 31px;
+    left: 0;
+    background: rgba(0,0,0,0);
+}
+
+/*----------------------本日用能分项----------------------*/
+#main-right-two{
+    height:200px;
+}
+
+#main-right-three{
+    height:200px;
+}
+
+.content-main-middle-center h3{
+    margin-bottom:5px !important;
+}
+
+/*-------------------------------本月能耗排名--------------------------*/
+
+#bottom-right-two{
+    height:225px;
+}
+
+#bottom-right-three{
+    height:225px;
+}
+
+.content-main-middle-center h3{
+    margin-bottom:5px !important;
+}
+.content-main-bottom-center{
+    position: relative;
+}
+
+.header-right-btn{
+    position: absolute;
+    left:200px;
+    top:10px;
+}
+
+.header-right-btn .cur-on-choose {
+    background: #666;
+    color: white;
+}
+.header-right-btn span {
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 22px;
+    display: inline-block;
+    border-radius: 5px !important;
+}
+
+.start-small{
+    position: absolute;
+    left:0;
+    top:50px;
+    z-index:-1;
+}
+
+.content-main-bottom-center h3{
+    margin-bottom:0px !important;
+}
+
+/*-------------------------------/*左侧下方KPI指标--------------------------*/
+
+#bottom-left-one{
+    height:225px;
+}
+
+#bottom-left-two{
+    height:225px;
+}
+.content-main-bototm-left h3{
+    margin-bottom:0px !important;
+}

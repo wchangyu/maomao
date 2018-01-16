@@ -49,10 +49,6 @@ $(function(){
                     return '其他'
                 }if(data == 1){
                     return '领用出库'
-                }if(data == 2){
-                    return '借货出库'
-                }if(data == 3){
-                    return '借用还出'
                 }
             },
             className:'outType'
@@ -105,26 +101,7 @@ $(function(){
 
     //第一层弹窗表格初始化
     var rkwpCol = [
-        {
-            title:'仓库',
-            data:'storageName',
-            className:'storageName',
-            render:function(data, type, row, meta){
 
-                return '<span data-num="' + row.storageNum +
-                    '">' + data + '</span>'
-
-            }
-        },
-        {
-            title:'库区',
-            data:'localName',
-            className:'localName',
-            render:function(data, type, row, meta){
-                return '<span data-num="' + row.localNum +
-                    '">'+ data + '</span>'
-            }
-        },
         {
             title:'物品编号',
             data:'itemNum',
@@ -135,13 +112,13 @@ $(function(){
             data:'itemName'
         },
         {
+            title:'规格型号',
+            data:'size'
+        },
+        {
             title:'物品序列号',
             data:'sn',
             className:'sn'
-        },
-        {
-            title:'规格型号',
-            data:'size'
         },
         {
             title:'单位',
@@ -171,8 +148,33 @@ $(function(){
             }
         },
         {
+            title:'仓库',
+            data:'storageName',
+            className:'storageName',
+            render:function(data, type, row, meta){
+
+                return '<span data-num="' + row.storageNum +
+                    '">' + data + '</span>'
+
+            }
+        },
+        {
+            title:'库区',
+            data:'localName',
+            className:'localName',
+            render:function(data, type, row, meta){
+                return '<span data-num="' + row.localNum +
+                    '">'+ data + '</span>'
+            }
+        },
+        {
             title:'品质',
             data:'batchNum'
+        },
+        {
+            title:'工单号',
+            data:'gdCode2',
+            className:'gdCode2'
         },
         {
             title:'备注',
@@ -185,11 +187,11 @@ $(function(){
             render:function(data, type, full, meta){
                 var html = "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>";
                 if(full.gdCode2 != ''){
-                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?gdCode=" + full.gdCode2 +
-                        "&orderNum=" + full.orderNum +
-                        "&itemNum=" + full.itemNum +
-                        "&storageNum=" + full.storageNum +
-                        "&sn=" + full.sn +
+                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
+                        "&a2=" + full.orderNum +
+                        "&a3=" + full.itemNum +
+                        "&a4=" + full.storageNum +
+                        "&a5=" + full.sn +
                         "' target=_blank>用料单</a></span>"
                 }
                 return html;
@@ -213,13 +215,40 @@ $(function(){
             data:'itemName'
         },
         {
+            title:'规格型号',
+            data:'size'
+        },
+        {
             title:'物品序列号',
             data:'sn',
             className:'sn'
         },
         {
-            title:'规格型号',
-            data:'size'
+            title:'单位',
+            data:'unitName'
+        },
+        {
+            title:'数量',
+            data:'num',
+            className:'right-justify'
+        },
+        {
+            title:'出库单价',
+            data:'outPrice',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = formatNumber(parseFloat(data));
+                return data
+            }
+        },
+        {
+            title:'总金额',
+            data:'amount',
+            className:'right-justify',
+            render:function(data, type, full, meta){
+                var data = formatNumber(parseFloat(data));
+                return data
+            }
         },
         {
             title:'仓库',
@@ -244,35 +273,13 @@ $(function(){
             }
         },
         {
-            title:'单位',
-            data:'unitName'
-        },
-        {
-            title:'数量',
-            data:'num',
-            className:'right-justify'
-        },
-        {
-            title:'出库单价',
-            data:'outPrice',
-            className:'right-justify',
-            render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
-                return data
-            }
-        },
-        {
-            title:'总金额',
-            data:'amount',
-            className:'right-justify',
-            render:function(data, type, full, meta){
-                var data = formatNumber(parseFloat(data));
-                return data
-            }
-        },
-        {
             title:'品质',
             data:'batchNum'
+        },
+        {
+            title:'工单号',
+            data:'gdCode2',
+            className:'gdCode2'
         },
         {
             title:'备注',
@@ -291,11 +298,6 @@ $(function(){
 
     //工单表格
     var gdCol = [
-        {
-            className:'checkeds',
-            data:null,
-            defaultContent:"<div class='checker'><span class=''><input type='checkbox'></span></div>"
-        },
         {
             title:'工单号',
             data:'gdCode2',
@@ -443,9 +445,9 @@ $(function(){
 
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
 
-            var num = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
+            var num = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
 
             amount += count;
 
@@ -472,17 +474,17 @@ $(function(){
         //数量
         var amount1 = 0;
         var tds = $('#wuPinListTable1').find('tbody').children('tr').length;
-        //console.log(tds);
+
         for(var i=0;i<tds;i++){
             //获取金额
-            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(9).html());
+            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
             //获取数量
-            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
+            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
 
             amount += count;
             amount1 += count1;
         }
-        //console.log(amount);
+
         if(isNaN(formatNumber(amount))){
             $('#wuPinListTable1 .count1').html(0.00);
             $('#wuPinListTable1 .amout1').html(0);
@@ -492,6 +494,89 @@ $(function(){
         }
 
     };
+
+    //物品明细表格
+    var outPrinceCol = [
+        {
+            title:'物品序列号',
+            data:'sn'
+        },
+        {
+            name: 'second',
+            title:'物品编号',
+            data:'itemNum'
+        },
+        {
+            title:'物品名称',
+            data:'itemName'
+        },
+        {
+            title:'规格型号',
+            data:'size'
+        },
+        {
+            title:'数量',
+            data:'num'
+        },
+        {
+            title:'单价',
+            data:'price',
+            render:function(data, type, full, meta){
+                if(data){
+                    return data.toFixed(2)
+                }else{
+                    return ''
+                }
+
+            }
+        },
+        {
+            title:'金额',
+            data:'amount',
+            render:function(data, type, full, meta){
+                if(data){
+                    return data.toFixed(2)
+                }else{
+                    return ''
+                }
+            }
+        },
+        {
+            title:'仓库',
+            data:'storageName'
+        },
+        {
+            title:'库区',
+            data:'localName'
+        },
+        {
+            title:'台账类型',
+            data:'ivtType'
+        },
+        {
+            title:'关联单号',
+            data:'orderNum',
+            render:function(data, type, full, meta){
+                if(full.ivtType == '入库'){
+                    return '<a href="godownEntry.html?orderNum=' + full.orderNum +
+                        '" target="_blank">' + full.orderNum + '</a>'
+                }else if(full.ivtType == '出库'){
+                    return '<a href="outboundOrder.html?orderNum=' + full.orderNum +
+                        '" target="_blank">' + full.orderNum + '</a>'
+                }
+            }
+        },
+        {
+            title:'创建时间',
+            data:'createTime'
+        },
+        {
+            title:'操作人',
+            data:'createUserName'
+        }
+    ];
+
+    _tableInit($('#outPrince-table'),outPrinceCol,2,'','','');
 
     /*-------------------------------------------------全局变量---------------------------------------------------------*/
     //存放所有仓库
@@ -515,11 +600,14 @@ $(function(){
     //工单列表
     var _gdArr = [];
 
+    //所有车站列表
+    var _cheArr = [];
+
     //所有工单列表
     GDselect(5);
 
     //获取所有车站
-    chezhan();
+    chezhan(true);
 
     //第二层暂存选中的入库产品的数组
     var _tempRKArr = [];
@@ -657,7 +745,8 @@ $(function(){
             },
             //出库单价
             addFun2:function(){
-                var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                //var mny = /^((?:-?0)|(?:-?[1-9]\d*))(?:\.\d{1,2})?$/;
+                var mny = /^(?!0+(?:\.0+)?$)(?:[1-9]\d*|0)(?:\.\d{1,2})?$/;
                 if(putOutGoods.outPrice != ''){
 
                     if(mny.test(putOutGoods.outPrice)){
@@ -804,7 +893,7 @@ $(function(){
 
         $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
 
-        $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+        //$('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
 
         $('#myApp33').find('textarea').removeAttr('readonly').removeClass('disabled-block');
 
@@ -854,6 +943,7 @@ $(function(){
                 obj.num = _rukuArr[i].num;
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
+                obj.gdCode = _rukuArr[i].gdCode;
                 obj.gdCode2 = _rukuArr[i].gdCode2;
                 obj.bxKeshi = _rukuArr[i].bxKeshi;
                 obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
@@ -917,6 +1007,7 @@ $(function(){
         .on('click','.bianji',function(){
 
             var outStoreDetails1 = [];
+
             //入库单的信息
             for(var i=0;i<_rukuArr.length;i++){
                 var obj = {};
@@ -928,8 +1019,10 @@ $(function(){
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
                 obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = $('#chezhan').children('option:selected').html();
-                obj.bxKeshiNum = _rukuArr[i].chezhan;
+                obj.bxKeshi = _rukuArr[i].bxKeshi;
+                obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
+                //obj.bxKeshi = $('#chezhan').children('option:selected').html();
+                //obj.bxKeshiNum = _rukuArr[i].chezhan;
                 obj.outMemo = _rukuArr[i].outMemo;
                 obj.userID=_userIdNum;
                 obj.userName = _userIdName;
@@ -940,6 +1033,7 @@ $(function(){
                 obj.localName = _rukuArr[i].localName;
                 outStoreDetails1.push(obj);
             }
+
             var ckName = '';
             if($('#ckselect').val() == ''){
                 ckName = ''
@@ -1118,9 +1212,6 @@ $(function(){
     $('.main-contents-table .table tbody').on('click','.option-edit',function(){
 
 
-        //自动生成的不可操作
-        $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
-
         //样式
         var $this = $(this).parents('tr');
 
@@ -1155,6 +1246,19 @@ $(function(){
             _rukuArr.length = 0;
 
             for(var i=0;i<result.length;i++){
+
+                for(var j=0;j<_gdArr.length;j++){
+
+                    if(result[i].gdCode2 == _gdArr[j].gdCode2){
+
+                        result[i].bxKeshi = _gdArr[j].bxKeshi;
+
+                        result[i].bxKeshiNum = _gdArr[j].bxKeshiNum;
+
+                        result[i].gdCode = _gdArr[j].gdCode;
+                    }
+
+                }
 
                 _rukuArr.push(result[i]);
             }
@@ -1196,7 +1300,7 @@ $(function(){
 
             $('#myApp33').find('input').parent('.input-blockeds').removeClass('disabled-block');
 
-            $('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
+            //$('#myApp33').find('select').attr('disabled',false).removeClass('disabled-block');
 
             $('#myApp33').find('textarea').removeAttr('readonly').removeClass('disabled-block');
 
@@ -1212,6 +1316,9 @@ $(function(){
             //$('#personTable1 tbody').children('tr').find('.option-shanchu').removeClass('hiddenButton');
 
         }
+
+        //自动生成的不可操作
+        $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
 
     })
 
@@ -1359,6 +1466,14 @@ $(function(){
         //自动刷新一下库存数据
         goodsList();
 
+        //确定车站、工单号、剩余数量
+        //console.log(_gdArr);
+
+        //console.log(_wpListArr);
+
+        //console.log(_cheArr);
+
+
     });
 
     //删除按钮
@@ -1371,12 +1486,13 @@ $(function(){
             var ck = $this.find('.storageName').children('span').attr('data-num');
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
+            var gd = $this.find('.gdCode2').html();
 
             _tempObj.length = 0;
 
             for(var i=0;i<_rukuArr.length;i++){
 
-                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn){
+                if(_rukuArr[i].itemNum == bm && _rukuArr[i].storageNum == ck && _rukuArr[i].localNum == kq && _rukuArr[i].sn == sn && _rukuArr[i].gdCode2 == gd){
 
                     _tempObj.push(_rukuArr[i]);
 
@@ -1402,12 +1518,14 @@ $(function(){
 
             var $thisSN = $(this).parents('tr').children('.sn').html();
 
+            var $thisGD = $(this).parents('tr').children('.gdCode2').html();
+
             //获取详情赋值
             function sucFun3(result){
 
                 for(var i=0;i<result.length;i++){
 
-                    if( $thisCK == result[i].storageNum && $thisKQ == result[i].localNum && $thisBM == result[i].itemNum && $thisSN == result[i].sn  ){
+                    if( $thisCK == result[i].storageNum && $thisKQ == result[i].localNum && $thisBM == result[i].itemNum && $thisSN == result[i].sn && $thisGD == result[i].gdCode2 ){
 
                         chukuObject.ck = result[i].storageName;
                         chukuObject.bianhao = result[i].itemNum;
@@ -1593,6 +1711,11 @@ $(function(){
 
             $('.not-editable').parents('.input-blockeds').addClass('disabled-block');
 
+            //编辑的时候，工单号也不能修改
+            $('#workDone').find('.gdCode').parents('.input-blockeds').attr('readonly','readonly').addClass('disabled-block');
+
+            $('#workDone').find('.gdCode').attr('readonly','readonly').addClass('disabled-block');
+
             //样式修改
             $('#wuPinListTable1 tbody').children('tr').css({'background':'#ffffff'});
 
@@ -1604,9 +1727,10 @@ $(function(){
             var ck = $this.find('.storageName').children('span').attr('data-num');
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
+            var gd = $this.find('.gdCode2').html();
 
             for(var i=0;i<_tempRKArr.length;i++){
-                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn){
+                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
 
                     //赋值
                     putOutGoods.bianhao = _tempRKArr[i].itemNum;
@@ -1631,14 +1755,61 @@ $(function(){
                     putOutGoods.remark = _tempRKArr[i].outMemo;
                     putOutGoods.gdCode = _tempRKArr[i].gdCode2;
                     putOutGoods.chezhan = _tempRKArr[i].bxKeshi;
-                    putOutGoods.redundant = _tempRKArr[i].shengyu;
+
+                    if(_tempRKArr[i].shengyu){
+
+                        putOutGoods.redundant = _tempRKArr[i].shengyu;
+
+                    }else{
+
+                        for(var j=0;j<_wpListArr.length;j++){
+
+                            if(_wpListArr[j].itemNum == bm && _wpListArr[j].storageNum == ck && _wpListArr[j].localNum == kq && _wpListArr[j].sn == sn){
+
+                                putOutGoods.redundant = _wpListArr[j].num;
+
+                            }
+
+                        }
+
+                    }
+
+
                     putOutGoods.ck = _tempRKArr[i].storageName;
                     $('.cangku').attr('data-num',_tempRKArr[i].storageNum);
                     $('.cangku').attr('data-name',_tempRKArr[i].storageName);
                     $('.kuwei').attr('data-num',_tempRKArr[i].localNum);
-                    $('.gdCode').attr('gdcode',_tempRKArr[i].gdCode);
-                    $('.chezhan').attr('data-num',_tempRKArr[i].bxKeshiNum);
-                    $('.chezhan').attr('data-name',_tempRKArr[i].bxKeshi);
+
+                    if(_tempRKArr[i].gdCode != null){
+
+                        $('.gdCode').attr('gdcode',_tempRKArr[i].gdCode);
+
+                        $('.chezhan').attr('data-name',_tempRKArr[i].bxKeshi);
+
+                        $('.chezhan').attr('data-num',_tempRKArr[i].bxKeshiNum);
+
+                        putOutGoods.chezhan = _tempRKArr[i].bxKeshi;
+
+                    }else{
+
+                        for(var j=0;j<_gdArr.length;j++){
+
+                            if(_gdArr[j].gdCode2 == _tempRKArr[i].gdCode2){
+
+                                $('.gdCode').attr('gdcode',_gdArr[j].gdCode);
+
+                                $('.chezhan').attr('data-num',_gdArr[j].bxKeshiNum);
+
+                                $('.chezhan').attr('data-name',_gdArr[j].bxKeshi);
+
+                                putOutGoods.chezhan = _gdArr[j].bxKeshi;
+
+                            }
+
+                        }
+
+                    }
+
                 }
             }
         })
@@ -1654,19 +1825,21 @@ $(function(){
                 var ck = $this.find('.storageName').children('span').attr('data-num');
                 var kq = $this.find('.localName').children('span').attr('data-num');
                 var sn = $this.find('.sn').html();
+                var gd = $this.find('.gdCode2').html();
                 for(var i=0;i<_tempRKArr.length;i++){
-                    if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn){
+                    if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
                         _tempRKArr[i].num = putOutGoods.num;
                         _tempRKArr[i].outPrice = putOutGoods.outPrice;
                         _tempRKArr[i].amount = putOutGoods.amount;
-                        _tempRKArr[i].gdCode2 = putOutGoods.gdCode;
-                        _tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
-                        _tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
+                        //_tempRKArr[i].gdCode2 = putOutGoods.gdCode;
+                        //_tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
+                        //_tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
                         _tempRKArr[i].storageName = $('.cangku').attr('data-name');
                         _tempRKArr[i].storageNum = $('.cangku').attr('data-num');
                         _tempRKArr[i].outMemo = putOutGoods.remark;
                     }
                 }
+
                 _datasTable($('#wuPinListTable1'),_tempRKArr);
                 //编辑之后清空
                 RKCPInit(false,_tempRKArr);
@@ -1698,6 +1871,8 @@ $(function(){
             _rukuArr.push(_tempRKArr[i]);
 
         }
+
+        console.log(_rukuArr);
 
         _datasTable($('#personTable1'),_rukuArr);
 
@@ -1751,31 +1926,27 @@ $(function(){
     })
 
     //工单选择
-    $('#gdTable tbody').on('click','input',function(){
+    $('#gdTable tbody').on('click','tr',function(){
 
-        $('#gdTable tbody').find('input').parents('span').removeClass('checked');
+        $('#gdTable tbody').find('tr').removeClass('tables-hover');
 
-        $('#gdTable tbody').find('tr').removeClass('tables-hover')
-
-        $(this).parent('span').addClass('checked');
-
-        $(this).parents('tr').addClass('tables-hover');
+        $(this).addClass('tables-hover');
 
     })
 
     $('.rukuGD').click(function(){
 
-        var table = $('#gdTable tbody').find('.checked').parents('tr').children('.gdCodes');
+        var gd = $('#gdTable tbody').find('.tables-hover');
 
-        $('.gdCode').attr('gdCode',table.children().attr('data-gdcode'));
+        putOutGoods.gdCode = gd.children('.gdCodes').children().html();
 
-        putOutGoods.gdCode = table.children().html();
+        $('.gdCode').attr('gdCode',gd.children('.gdCodes').children().attr('data-gdcode'));
 
-        putOutGoods.chezhan = $('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html();
+        putOutGoods.chezhan = gd.children('.bxKS').html();
 
-        $('.chezhan').attr('data-num',$('#gdTable tbody').find('.checked').parents('tr').children('.bxKS').html());
+        $('.chezhan').attr('data-name',gd.children('.bxKS').html());
 
-        $('.chezhan').attr('data-name',table.children().attr('data-czcode'));
+        $('.chezhan').attr('data-num',gd.children('.gdCodes').children().attr('data-czcode'));
 
         $('#myModal7').modal('hide');
     })
@@ -1882,6 +2053,36 @@ $(function(){
         $('#myModal4').modal('hide');
     });
 
+    //单价查看历史
+    $('#historical-record').click(function(){
+
+        //模态框
+        _moTaiKuang($('#outPrince-modal'),'物品明细','flag','','','');
+
+        //调用接口
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWCK/ywCKRptInventory',
+            data:{
+                itemNum:putOutGoods.bianhao,
+                storageNum:$('.cangku').attr('data-num'),
+                localNum:$('.kuwei').attr('data-num'),
+                hasNum:1,
+                userID:_userIdNum,
+                userName:_userIdName
+            },
+            success:function(result){
+
+                _datasTable($('#outPrince-table'),result);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    })
+
     /*--------------------------------------------------其他方法---------------------------------------------------------*/
     //功能性方法-----------------------------------------------------------------------------
     //仓库下拉列表初始化(flag标识完全符合项)
@@ -1940,6 +2141,7 @@ $(function(){
 
     //物品下拉列表初始化(flag标识完全符合项)
     function wpList(arr,flag){
+
         var str = '';
         if(flag){
 
@@ -1954,9 +2156,9 @@ $(function(){
                     '"' + 'data-shengyu="' + arr[i].num +
                     '"' +
                     '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
-                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
-                    '<span class="dataSize" style="margin-left: 20px;">' +
-                    arr[i].size+'</span>' + '<span style="margin-left: 20px;">' + arr[i].localName +
+                    '<span class="dataName" style="margin-left: 5px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 5px;">' +
+                    arr[i].size+'</span>' + '<span style="margin-left: 5px;">' + arr[i].localName +
                     '</span>' +
                     '</li>';
             }
@@ -1974,9 +2176,9 @@ $(function(){
                     '"' + 'data-shengyu="' + arr[i].num +
                     '"' +
                     '>' + '<span class="dataNum">' + arr[i].itemNum +'</span>' +
-                    '<span class="dataName" style="margin-left: 20px;">' +  arr[i].itemName +'</span>' +
-                    '<span class="dataSize" style="margin-left: 20px;">' +
-                    arr[i].size+'</span>' + '<span style="margin-left: 20px;">' + arr[i].localName +
+                    '<span class="dataName" style="margin-left: 5px;">' +  arr[i].itemName +'</span>' +
+                    '<span class="dataSize" style="margin-left: 5px;">' +
+                    arr[i].size+'</span>' + '<span style="margin-left: 5px;">' + arr[i].localName +
                     '</span>' +
                     '</li>';
             }
@@ -2076,13 +2278,12 @@ $(function(){
             'orderNum':num,
             'userID':_userIdNum,
             'userName':_userIdName,
-            'b_UserRole':_userRole,
+            'b_UserRole':_userRole
         };
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKGetOutStorageDetail',
             data:prm,
-            async:false,
             success:function(result){
                 seccessFun(result);
             },
@@ -2116,8 +2317,6 @@ $(function(){
 
         if(e.keyCode == 40){
 
-            //console.log('向下');
-
             if(_numIndex < lengths -1){
 
                 _numIndex ++ ;
@@ -2141,8 +2340,6 @@ $(function(){
             }
 
         }else if(e.keyCode == 38){
-
-            //console.log('向上');
 
             if(_numIndex < 1){
 
@@ -2169,13 +2366,9 @@ $(function(){
 
         }else if(e.keyCode == 13){
 
-            //console.log('回车');
-
             enterFun();
 
         }else if(e != 9){
-
-            //console.log('其他');
 
             inputFun();
 
@@ -2636,13 +2829,13 @@ $(function(){
             inconformityArr.push(_gdArr[i]);
         }
         for(var i=0;i<eligibleArr.length;i++){
-            str1 += '<div data-dds="' + eligibleArr[i].bxKeshiNum +
+            str1 += '<li data-dds="' + eligibleArr[i].bxKeshiNum +
                 '"data-ddsName="' + eligibleArr[i].bxKeshi +
                 '" data-gd="' + eligibleArr[i].gdCode +
                 '" style="background: #f5d38c;">' +'<span class="dataGD">' +
                 eligibleArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + eligibleArr[i].wxClNames +
                 '</span>' + '<span>' + eligibleArr[i].bxKeshi +
-                '</span>' + '</div>';
+                '</span>' + '</li>';
         }
         for(var i=0;i<eligibleArr.length;i++){
 
@@ -2651,13 +2844,13 @@ $(function(){
         }
         for(var i=0;i<inconformityArr.length;i++){
 
-            str1 += '<div data-dds="' + inconformityArr[i].bxKeshiNum +
+            str1 += '<li data-dds="' + inconformityArr[i].bxKeshiNum +
                 '"data-ddsName="' + inconformityArr[i].bxKeshi +
                 '" data-gd="' + inconformityArr[i].gdCode +
                 '">' +'<span class="dataGD">' +
                 inconformityArr[i].gdCode2 +'</span><span style="margin:0 10px;">' + inconformityArr[i].wxClNames +
                 '</span>' + '<span>' + inconformityArr[i].bxKeshi +
-                '</span>' + '</div>';
+                '</span>' + '</li>';
 
         }
 
@@ -2694,7 +2887,7 @@ $(function(){
         //
         putOutGoods.quality = checkedLi.attr('data-quality');
         //
-        putOutGoods.warranty = checkedLi.attr('data-maintaindate');
+        putOutGoods.warranty = checkedLi.attr('data-warranty');
         //
         putOutGoods.redundant = checkedLi.children('.dataNum').html();
 
@@ -2774,12 +2967,14 @@ $(function(){
         //赋值
         putOutGoods.gdCode = checkedLi.children('.dataGD').html();
 
-        $('#workDone').find('.gdCode').attr('gdcode');
+        $('#workDone').find('.gdCode').attr('gdcode',checkedLi.attr('data-gd'));
 
         //车站联动
         putOutGoods.chezhan = checkedLi.attr('data-ddsname');
 
         $('#workDone').find('.chezhan').attr('data-num',checkedLi.attr('data-dds'));
+
+        $('#workDone').find('.chezhan').attr('data-name',checkedLi.attr('data-ddsname'));
 
         color.hide();
 
@@ -2800,13 +2995,30 @@ $(function(){
             var t = $('.format-error3')[0].style.display;
             var b = $('.format-error4')[0].style.display;
 
+            //首先获取datatables的总量，
+            //当前数量
+            //遍历当前出库单的编码，序列号，仓库，库区，相同的物品的总数
+
+            var arrNum = Number(putOutGoods.num);
+
+            for(var i=0;i<_tempRKArr.length;i++){
+
+                if( _tempRKArr[i].itemNum == putOutGoods.bianhao && _tempRKArr[i].sn == putOutGoods.goodsId && _tempRKArr[i].storageNum == $('.cangku').attr('data-num') && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum ){
+
+                    arrNum += Number(_tempRKArr[i].num);
+
+                }
+
+            }
+
             if(o == 'none' && s == 'none' && a == 'none' && t =='none' && b == 'none'){
 
-                //首先判断输入过了没(根据仓库、库区、编号、序列号判断是否添加了)
+                //首先判断输入过了没(根据仓库、库区、编号、序列号、工单号判断是否添加了)
                 var existFlag = false;
 
                 for(var i=0;i<_tempRKArr.length;i++){
-                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn){
+
+                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn && putOutGoods.gdCode == _tempRKArr[i].gdCode2){
 
                         existFlag = true;
 
@@ -2816,37 +3028,49 @@ $(function(){
                     //有
                     _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'已添加过!', '');
                 }else{
-                    //无
-                    //获取入库单信息创建对象，存入_rukuArr数组
-                    //首先获取仓库的值
-                    var rukuDan = {};
-                    rukuDan.sn = putOutGoods.goodsId;
-                    rukuDan.itemNum = putOutGoods.bianhao;
-                    rukuDan.itemName = putOutGoods.mingcheng;
-                    rukuDan.size = putOutGoods.size;
-                    rukuDan.num = putOutGoods.num;
-                    rukuDan.isSpare = putOutGoods.picked;
-                    rukuDan.batchNum = putOutGoods.quality;
-                    rukuDan.maintainDate = putOutGoods.warranty;
-                    rukuDan.storageName = putOutGoods.ck;
-                    rukuDan.storageNum = $('.cangku').attr('data-num');
-                    rukuDan.unitName = putOutGoods.unit;
-                    rukuDan.outPrice = putOutGoods.outPrice;
-                    rukuDan.amount = putOutGoods.amount;
-                    rukuDan.gdCode2 = putOutGoods.gdCode;
-                    rukuDan.localNum = $('.kuwei').attr('data-num');
-                    rukuDan.localName = putOutGoods.kuwei;
-                    //车间
-                    rukuDan.bxKeshi = $('.chezhan').attr('data-name');
-                    rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
-                    rukuDan.outMemo = putOutGoods.remark;
-                    rukuDan.userID = _userIdNum;
-                    rukuDan.userName = _userIdName;
-                    rukuDan.shengyu = putOutGoods.redundant;
-                    rukuDan.gdCode = $('.gdCode').attr('gdcode');
-                    _tempRKArr.unshift(rukuDan);
 
-                    _datasTable($('#wuPinListTable1'),_tempRKArr);
+                    if( putOutGoods.redundant >= arrNum ){
+
+                        //数量满足，可添加
+                        //无
+                        //获取入库单信息创建对象，存入_rukuArr数组
+                        //首先获取仓库的值
+                        var rukuDan = {};
+                        rukuDan.sn = putOutGoods.goodsId;
+                        rukuDan.itemNum = putOutGoods.bianhao;
+                        rukuDan.itemName = putOutGoods.mingcheng;
+                        rukuDan.size = putOutGoods.size;
+                        rukuDan.num = putOutGoods.num;
+                        rukuDan.isSpare = putOutGoods.picked;
+                        rukuDan.batchNum = putOutGoods.quality;
+                        rukuDan.maintainDate = putOutGoods.warranty;
+                        rukuDan.storageName = putOutGoods.ck;
+                        rukuDan.storageNum = $('.cangku').attr('data-num');
+                        rukuDan.unitName = putOutGoods.unit;
+                        rukuDan.outPrice = putOutGoods.outPrice;
+                        rukuDan.amount = putOutGoods.amount;
+                        rukuDan.gdCode2 = putOutGoods.gdCode;
+                        rukuDan.localNum = $('.kuwei').attr('data-num');
+                        rukuDan.localName = putOutGoods.kuwei;
+                        //车间
+                        rukuDan.bxKeshi = $('.chezhan').attr('data-name');
+                        rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
+                        rukuDan.outMemo = putOutGoods.remark;
+                        rukuDan.userID = _userIdNum;
+                        rukuDan.userName = _userIdName;
+                        rukuDan.shengyu = putOutGoods.redundant;
+                        rukuDan.gdCode = $('.gdCode').attr('gdcode');
+                        _tempRKArr.unshift(rukuDan);
+
+                        _datasTable($('#wuPinListTable1'),_tempRKArr);
+
+                    }else{
+
+                        //超出数量，不可添加
+                        _moTaiKuang($('#myModal2'),'提示','flag', 'istap' ,'剩余数量不足，请修改出库物品的数量', '');
+
+                    }
+
 
                 }
 
@@ -2905,8 +3129,6 @@ $(function(){
         }else{
             _BjFlag = '';
 
-            console.log(_shSuccess);
-
             if(_shSuccess){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'确认成功！', '');
 
@@ -2956,7 +3178,7 @@ $(function(){
             'st':realityStart,
             'et':realityEnd,
             'orderNum':filterInput[0],
-            'outType':$('.tiaojian').val(),
+            'outType':1,
             'storageNums':ckArr,
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -3025,7 +3247,7 @@ $(function(){
 
                 $('#rkleixing').empty().append(str);
 
-
+                $('#rkleixing').val(1);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3045,7 +3267,6 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetStorages',
             data:prm,
-            async:false,
             success:function(result){
 
                 _ckArr.length = 0;
@@ -3120,7 +3341,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
-            async:false,
             data:prm,
             success:function(result){
                 _wpListArr.length = 0;
@@ -3167,7 +3387,6 @@ $(function(){
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptItemStock',
-            async:false,
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('show');
@@ -3252,7 +3471,7 @@ $(function(){
     }
 
     //获取车站
-    function chezhan(){
+    function chezhan(flag){
         var prm = {
             'userID':_userIdNum,
             'userName':_userIdName,
@@ -3269,6 +3488,18 @@ $(function(){
                     str += '<option value="' + result[i].ddNum + '">' + result[i].ddName + '</option>';
                 }
                 $('#station').empty().append(str);
+
+                if(flag){
+
+                    _cheArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _cheArr.push(result[i]);
+
+                    }
+
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3352,7 +3583,7 @@ $(function(){
         //出库单编号
         putOutList.bianhao = '';
         //出库类型
-        putOutList.rkleixing = '';
+        putOutList.rkleixing = 1;
         //发货员名称
         putOutList.clymc = '';
         //发货员电话

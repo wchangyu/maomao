@@ -49,6 +49,7 @@
     <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
     <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
     <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/station/chooseStation.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
@@ -245,7 +246,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -334,6 +334,14 @@
                                             </select>
                                         </div>
                                     </li>
+                                    <li class="ddyy" style="display: none">
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">等待原因：</label>
+                                        <div class="input-blocked">
+                                            <select  id="dengyy">
+
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单类型：</label>
                                         <div class="input-blocked">
@@ -348,22 +356,23 @@
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单来源：</label>
                                         <div class="input-blocked">
                                             <select id="gdly">
-                                                <option value="0">全部</option>
-                                                <option value="1">车站报修</option>
-                                                <option value="2">现场人员报修</option>
+
                                             </select>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="routeShow">
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">线路：</label>
                                         <div class="input-blocked">
                                             <select id="line" class="returnEmpty"></select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">
+                                            <span class="user-defined-department"></span>
+                                            ：</label>
                                         <div class="input-blocked">
-                                            <select id="station"class="returnEmpty"></select>
+                                            <!--<select id="station"class="returnEmpty"></select>-->
+                                            <select id="bumen" ></select>
                                         </div>
                                     </li>
                                     <li>
@@ -373,13 +382,17 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">所属车间：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">
+                                            <span class="user-defined-workshop"></span>
+                                            ：</label>
                                         <div class="input-blocked">
                                             <select id="yxdw"></select>
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;text-align: right">所属班组：</label>
+                                        <label for="" style="display: inline-block;text-align: right">
+                                            <span class="user-defined-group"></span>
+                                            ：</label>
                                         <div class="input-blocked">
                                             <select id="userClass"></select>
                                         </div>
@@ -459,52 +472,6 @@
         <i class="icon-arrow-up"></i>
     </div>
 </div>
-<!-- END FOOTER -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-<script src="../../../assets/global/plugins/respond.min.js"></script>
-<script src="../../../assets/global/plugins/excanvas.min.js"></script>
-<![endif]-->
-<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-<!-- END CORE PLUGINS -->
-<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
-<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
-<script src="../../../assets/local/scripts/BEE.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
-<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
-<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
-<!--tabletool-->
-<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
-<script src="../resource/TableTools/button/buttons.print.min.js"></script>
-<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
-<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
-<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
-<script src="../resource/TableTools/js/jszip.min.js"></script>
-<script src="../resource/TableTools/js/pdfmake.min.js"></script>
-<script src="../resource/TableTools/js/vfs_fonts.js"></script>
-<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/productionOrder-6.js"></script>
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-</script>
-<!-- END JAVASCRIPTS -->
 <!--模态框详情-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 711px;width:1047px !important;">
@@ -514,32 +481,24 @@
                 <h4 class="modal-title" id="myModalLabel">工单详情</h4>
             </div>
             <div class="modal-body">
-                <div class="gongdanContent" style="width: 668px;float: left;height:563px!important;">
+                <div class="gongdanContent" style="width: 680px;float: left;height:563px!important;">
                     <ul class="gongdanList" id="myApp33">
-                        <li class="floatLeft" style="line-height: 26px;">
+                        <li class="floatLi" style="line-height: 26px;">
                             <div class="labels">工单类型：</div>
                             <div class="input-blockeds">
                                 <input type="radio" class="inpus" id="ones" value="1" v-model="picked" v-on:click="radios" disabled="true"><label for="ones">快速</label>
                                 <input type="radio" class="inpus" id="twos" value="0" v-model="picked" v-on:click="radios" disabled="true"><label for="twos">普通</label>
                             </div>
                         </li>
-                        <li class="floatRight" style="line-height: 26px;">
+                        <li class="floatLi" style="line-height: 26px;">
                             <div class="labels colorTip">工单来源 *：</div>
                             <div class="input-blockeds">
                                 <select v-model="gdly" class="gdly">
-                                    <option value="1">车站报修</option>
-                                    <option value="2">现场人员报修</option>
+
                                 </select>
                             </div>
                         </li>
-                        <!--<li class="floatRight" style="line-height: 26px;">
-                            <div class="labels colorTip">是否维保 *：</div>
-                            <div class="input-blockeds">
-                                <input type="radio" class="whether" id="three" value="1" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="three" >是</label>
-                                <input type="radio" class="whether" id="four" value="0" v-model="whether" v-on:click="selects"style="margin-left: -10px;cursor:pointer;"><label for="four" >否</label>
-                            </div>
-                        </li>-->
-                        <li class="floatLeft" style="line-height: 26px;">
+                        <li class="floatLi" style="line-height: 26px;">
                             <div class="labels colorTip">任务级别 *：</div>
                             <div class="input-blockeds">
                                 <select v-model="rwlx">
@@ -550,78 +509,86 @@
                                 </select>
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLi">
                             <div class="labels">报修电话：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="telephone" class="shishi">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatLi">
                             <div class="labels">报修人信息：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="person">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLi">
                             <div class="labels">故障位置：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="place">
                             </div>
                         </li>
-                        <li class="floatLeft">
-                            <div class="labels">车站：</div>
+                        <li class="floatLi">
+                            <div class="labels">
+                                <span class="user-defined-department"></span>
+                                ：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="section">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLi">
                             <div class="labels">系统类型：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="matter">
                             </div>
                         </li>
-                        <li class="floatLeft">
+                        <li class="floatLi">
                             <div class="labels">设备编码：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbSelect">
                             </div>
                         </li>
-                        <li class="floatRight">
+                        <li class="floatLi">
                             <div class="labels">设备名称：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sbMC">
                             </div>
                         </li>
-                        <li class="floatLeft">
-                            <div class="labels">维修班组：</div>
+                        <li class="floatLi">
+                            <div class="labels">
+                                <span class="user-defined-group"></span>
+                                ：</div>
                             <div class="input-blockeds">
                                 <input type="text" v-model="sections">
                             </div>
                         </li>
-                        <li class="floatRight" style="line-height: 26px;">
+                        <li class="floatLi" style="line-height: 26px;">
                             <div class="labels">发生时间：</div>
                             <div class="input-blockeds">
                                 <input type="text" class="datatimeblock otime">
                             </div>
                         </li>
                         <div class="clearfix"></div>
-                        <div>
+                        <div class="divBlock">
                             <div class="labels">故障描述：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none" v-model="remarks"></textarea>
                             </div>
                         </div>
-                        <div>
+                        <div class="divBlock">
                             <div class="labels">维修内容：</div>
                             <div class="input-blockeds" style="height:62px;">
                                 <textarea style="width: 100%;height: 60px;outline: none"  class="wxbeizhu" v-model="wxbeizhu"></textarea>
                             </div>
                         </div>
-                        <div style="margin-top: 10px;">
+                        <div class="divBlock" style="margin-top: 10px;">
                             <button type="button" class="btn btn-info" id="viewImage">查看图片</button>
                             <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
                         </div>
-                        <div class="table-block">
+                        <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                            <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                            <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
+                        </div>
+                        <div class="table-block divBlock">
                             <div class="table-title">
                                 <span class="spanhover">执行人员</span>
                             </div>
@@ -637,7 +604,7 @@
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="table-block">
+                        <div class="table-block divBlock">
                             <div class="table-title">
                                 <span class="spanhover">维修备件</span>
                             </div>
@@ -659,7 +626,7 @@
                         </div>
                     </ul>
                 </div>
-                <div class="right-content" style="float: right;">
+                <div class="right-content" style="float: right;width: 300px;">
                     <p style="margin-bottom: 0">处理记录</p>
                     <div class="processing-record">
                         <ul>
@@ -723,8 +690,13 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
 <!--图片详情显示-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="height: auto;">
             <div class="modal-header">
@@ -741,6 +713,58 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--tabletool-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
+<script src="../resource/js/productionOrder-6.js"></script>
+<script src="../resource/js/publicGD.js"></script>
+<!-- END JAVASCRIPTS -->
+
 </body>
 <!-- END BODY -->
 </html>

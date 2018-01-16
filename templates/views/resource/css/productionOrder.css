@@ -23,6 +23,7 @@
     line-height: 26px !important;
     margin-top: 4px;
     margin-bottom: 4px;
+    height: 32px;
 }
 .gongdanList li{
     width: 300px;
@@ -115,7 +116,7 @@
 .table-title span{
     padding: 10px;
     cursor: pointer;
-    background: #f5f5f5;
+    background: #eee;
     border-right: 1px solid #cccccc;
     border-top: 1px solid #cccccc;
     line-height: 19px;
@@ -276,7 +277,7 @@
 }
 /*模态框*/
 .modal-dialog,.modal-content{
-    width: 700px !important;
+    width: 710px !important;
     /*height: 500px;*/
     background: #ffffff;
 }
@@ -478,13 +479,13 @@ textarea{
     background: #ffffff;
     border: 1px solid #ebebeb;
     border-top: none;
-    width: 300px;
+    width: 476px;
     left: -1px;
     top: 1px;
-    text-indent: 10px;
     max-height: 208px;
     overflow-y: scroll;
     overflow-x: hidden;
+    font-size: 12px;
 }
 .accord-with-list li,.accord-sn-list li{
     cursor: pointer;
@@ -495,6 +496,11 @@ textarea{
     text-overflow:ellipsis;
     white-space: nowrap;
     /*display: inline-block;*/
+}
+.accord-with-list li span{
+
+    margin-left: 5px !important;
+
 }
 .gdList{
     float: left;
@@ -580,7 +586,7 @@ textarea{
     width: 200px !important;
 }
 .gdList .input-blockeds input{
-    width: 175px;
+    width: 174px;
 }
 .gdList .input-blockeds select{
     width: 198px;
@@ -605,11 +611,13 @@ textarea{
 }
 .bjImg{
     padding: 10px;
-    display: none;
+    border:1px solid #ebebeb;
 }
 .bjImgList{
     width: 100px;
     height: 100px;
+    border:1px solid #ebebeb;
+    cursor: pointer;
 }
 .kuqu-list{
     width: 100% !important;
@@ -726,4 +734,44 @@ textarea{
 }
 .executor-li select{
     width: 198px;
+}
+.check-img{
+    
+    background: #ffffff !important;
+
+}
+.gongdanList .floatLi{
+
+    width: 300px !important;
+
+    float: left;
+
+    margin-right: 10px;
+
+}
+.gongdanList>.divBlock{
+
+    width: 611px !important;
+
+}
+
+#img-Modal .modal-body{
+
+    text-align: center;
+
+}
+.factoryRepair .tableHover label{
+
+    width: 90px;
+}
+.factoryRepair .tableHover input{
+
+    outline: none;margin-left: 20px;
+}
+.factoryRepair .datatimeblock{
+
+    background-size: 17px !important;
+
+    border: 1px solid #a9a9a9;
+
 }

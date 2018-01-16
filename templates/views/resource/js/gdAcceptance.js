@@ -12,7 +12,6 @@ $(function(){
     $('.datatimeblock').eq(0).val(st);
 
     $('.datatimeblock').eq(1).val(et);
-
     /*---------------------------------------------变量--------------------------------------------------*/
     //vue变量
     var gdObj = new Vue({
@@ -464,6 +463,10 @@ $(function(){
         {
             title:'故障位置',
             data:'wxDidian'
+        },
+        {
+            title:'维修科室',
+            data:'wxKeshi'
         },
         {
             title:'维修事项',
@@ -959,9 +962,16 @@ $(function(){
     //选择部门之后加载人员列表
     $('#depart').change(function(){
 
+        //初始化表格
+
+        var arr = [];
+
+        _datasTable($('#fzr-list'),arr);
+
         //选择部门
         gdObj.wxbz = $('#depart').children('option:selected').html();
-        $('#wxbz').attr('data-bm',$('#depart').val())
+
+        $('#wxbz').attr('data-bm',$('#depart').val());
 
         var prm = {
             'departNum':$('#depart').val(),
@@ -986,6 +996,9 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
+
+                _fzrArr.length = 0;
+
                 for(var i=0;i<result.length;i++){
                     _fzrArr.push(result[i]);
                 }
@@ -1026,25 +1039,36 @@ $(function(){
         })
         .on('click','.xiafa',function(){
 
-            $('#theLoading').modal('show');
+            //首先判断部门是否选择了
+            if($('#depart').val() == ''){
 
-            //先判断是第一次下发还是重发
-            if(_gdZht == 5){
-                //维修内容修改
-                upDateWXRemark(false);
-                //工单重发
-                reSend();
-                //分配负责人
-                //assigFZR(false);
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择维修部门！', '');
 
             }else{
-                //维修内容修改
-                upDateWXRemark(true);
-                //工单下发
-                upData();
-                //分配负责人
-                //assigFZR(true);
+
+                $('#theLoading').modal('show');
+
+                //先判断是第一次下发还是重发
+                if(_gdZht == 5){
+                    //维修内容修改
+                    upDateWXRemark(false);
+                    //工单重发
+                    reSend();
+                    //分配负责人
+                    assigFZR(false);
+
+                }else{
+                    //维修内容修改
+                    upDateWXRemark(true);
+                    //工单下发
+                    upData();
+                    //分配负责人
+                    assigFZR(true);
+                }
+
             }
+
+
 
             //验证是否选择了负责人
 
@@ -1798,8 +1822,6 @@ $(function(){
             //选择部门模块显示
             $('.selectBM').show();
 
-            console.log($(this).parents('.table').attr('id'));
-
             if( $(this).parents('.table').attr('id') == 'more-Time' ){
 
                 //信息绑定
@@ -2281,6 +2303,14 @@ $(function(){
             'userName': _userIdName,
             'b_UserRole':_userRole,
             'isQueryExceedTime':"1"
+        };
+
+        if($('.modal-backdrop').length > 0){
+            theTimeout = setTimeout(function(){
+                conditionSelect(true);
+            },refreshTime);
+
+            return false;
         }
 
         $.ajax({
@@ -2343,7 +2373,7 @@ $(function(){
                 //申诉
                 _datasTable($('#appeal-list'),zht11);
                 //超时
-                console.log(moreTime);
+
                 _datasTable($('#more-time'),moreTime);
                 //负责人
                 //_datasTable($('#fzr-list'),result.gdWxLeaders);
@@ -2352,21 +2382,21 @@ $(function(){
 
                 $('.content-main-contents1').addClass('hide-block');
 
+                $('.content-main-contents1').eq(0).removeClass('hide-block');
+
                 if( moreTime.length > 0 ){
 
                     $('.table-title').children('span').eq(0).show();
 
                     $('.table-title').children('span').eq(0).addClass('spanhover');
 
-                    $('.content-main-contents1').eq(0).removeClass('hide-block');
 
                 }else{
 
-                    $('.table-title').children('span').eq(0).hide();
+                    $('.table-title').children('span').eq(6).hide();
 
-                    $('.table-title').children('span').eq(1).addClass('spanhover');
+                    $('.table-title').children('span').eq(0).addClass('spanhover');
 
-                    $('.content-main-contents1').eq(1).removeClass('hide-block');
 
                 }
 
@@ -2640,31 +2670,32 @@ $(function(){
 
     //分配负责任人（true第一次 false第二次）
     function assigFZR(flag){
+
         //获取负责人
         //获取已选中的工号，然后确定选中人的信息
-        var arr = [];
-
-        var allPerson = $('.checker');
-
-        var allWorkNum = $('#fzr-list tbody').find('.workNum');
-
-        for(var i=0;i<allPerson.length;i++){
-            if(allPerson.eq(i).children('.checked').length != 0){
-                for(var j=0;j<_fzrArr.length;j++){
-                    if(allWorkNum.eq(i).html() == _fzrArr[j].userNum){
-                        arr.push(_fzrArr[j]);
-                    }
-                }
-            }
-        }
+        //var arr = [];
+        //
+        //var allPerson = $('.checker');
+        //
+        //var allWorkNum = $('#fzr-list tbody').find('.workNum');
+        //
+        //for(var i=0;i<allPerson.length;i++){
+        //    if(allPerson.eq(i).children('.checked').length != 0){
+        //        for(var j=0;j<_fzrArr.length;j++){
+        //            if(allWorkNum.eq(i).html() == _fzrArr[j].userNum){
+        //                arr.push(_fzrArr[j]);
+        //            }
+        //        }
+        //    }
+        //}
 
         //负责人数组
         var fzrArr = [];
-        for(var i=0;i<arr.length;i++){
+        for(var i=0;i<_fzrArr.length;i++){
             var obj = {};
-            obj.wxRen = arr[i].userNum;
-            obj.wxRName = arr[i].userName;
-            obj.wxRDh = arr[i].mobile;
+            obj.wxRen = _fzrArr[i].userNum;
+            obj.wxRName = _fzrArr[i].userName;
+            obj.wxRDh = _fzrArr[i].mobile;
             fzrArr.push(obj);
         }
         var prm = {
@@ -2675,6 +2706,7 @@ $(function(){
             gdZht:_gdZht,
             gdCircle:_gdCircle
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDAddWxLeader',
@@ -2877,6 +2909,14 @@ $(function(){
             data:prm,
             timeout:_theTimes,
             success:function(result){
+
+                _workerArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _workerArr.push(result[i]);
+
+                }
 
                 datasTable($('#choose-people-table'),result);
 

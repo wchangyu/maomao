@@ -67,6 +67,13 @@ $(function(){
     //获取楼宇
     getBuild($('#building'));
 
+    $(document).on("show.bs.modal", ".modal", function(){
+        $(this).draggable({
+            handle: ".modal-header"   // 只能点击头部拖动
+        });
+        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+    });
+
     //存放所有地点列表的数组
     var _allPersonalArr = [];
     /*----------------------------------------表格初始化-----------------------------------------*/

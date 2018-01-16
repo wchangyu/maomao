@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link href="../resource/css/3DMap2.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <!-- datatables -->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index1.css">
+
+    <style>
+        /*.thd-content{*/
+            /*width:650px !important;*/
+        /*}*/
+    </style>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="totalTitle"></div>
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="icon-bell"></i>
+					<span class="badge badge-danger">
+					0 </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="external">
+                            <h3><span class="bold">0 </span> 当日报警</h3>
+                            <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
+                        </li>
+                    </ul>
+                    <audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" preload="auto" style="display: none"></audio>
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <li class="dropdown dropdown-user">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+					<span class="username username-hide-on-mobile">
+					</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default">
+
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="icon-calendar"></i> 日历 </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="icon-rocket"></i> 任务 <span class="badge badge-success">
+							7 </span>
+                            </a>
+                        </li>
+                        <li class="divider">
+                        </li>
+
+                        <li>
+                            <a class="logout-page" href="../login.html">
+                                <i class="icon-key"></i> 退出 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content" style=" ">
+
+            <!-- BEGIN STYLE CUSTOMIZER -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+						<span>
+						配色 </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                            </li>
+                            <!--<li class="color-light tooltips" data-style="light" data-container="body" data-original-title="亮色">-->
+                            <!--</li>-->
+                            <!--<li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="亮灰">-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						布局 </span>
+                        <select class="layout-option form-control input-sm">
+                            <option value="fluid" selected="selected">平铺</option>
+                            <option value="boxed">盒式</option>
+                        </select>
+                    </div>
+
+                    <div class="theme-option">
+						<span>
+						侧边菜单 </span>
+                        <select class="sidebar-menu-option form-control input-sm">
+                            <option value="accordion" selected="selected">手风琴式</option>
+                            <option value="hover">鼠标悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边位置 </span>
+                        <select class="sidebar-pos-option form-control input-sm">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						底部 </span>
+                        <select class="page-footer-option form-control input-sm">
+                            <option value="fixed">位置固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                </ul>
+                <div class="page-toolbar">
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="left-main-content">
+                        <h2>重庆医科大学附属儿童医院简介
+                        </h2>
+                        <p class="synopsis">
+                            &nbsp;&nbsp;&nbsp;&nbsp;（一）建设背景<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院。本着“重管理、保安全、抓服务、讲效率、求发展”的后勤管理理念，以及“安全、优质、 高效；规范化、专业化、标准化、精细化、科学化” 的后勤管理目标，构建后勤信息管理平台，实现后勤机电设备的集中管理、院区能耗的精细化管理以及设备维保和物资供应的信息化管理。<br />
+                            <span style="height:10px;display: block"></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;（二）建设目标<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;本次建设的医院后勤信息管理平台，以大平台为基础，提供能源管理、设备运行管理、后勤管理三大类应用，将能源管理流程中“能耗数据采集-数据挖掘分析对比-现场检验诊断-节能规划设计-节能改造实施-节能效果评估-节能持续优化-节能运营监控”八部分统一融合，将机电设备运行管理流程中“电信级故障管理-快速定位-移动配合-事故追忆及总结”建立安全管理闭环，将后勤管理流程中“维修管理、设备管理、移动巡检、工程仓库管理”四部分统一融合为一站式服务中心，同时将能源管理、设备运行管理、后勤管理各应用板块实现数据打通，各类信息进行数据关联，实现整个大后勤闭环式管理，最终成为一个后勤高效运维管控的抓手。<br />
+                       <span style="height:10px;display: block"></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;（三）全面梳理医院的后勤流程体系<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;构建后勤一站式服务中心，将分散的、孤立的后勤信息汇总处理形成封闭式的信息管理链，从而建立完善的科学化、信息化、标准化、专业化、规范化的“服务-管理-保障”一体化的后勤管理体系，构建快捷、高效的数字化后勤管理平台，进而规范医院后勤服务流程、提高工作效率、控制运营成本、保证服务质量、辅助管理决策、提升医院后勤整体管理水平。<br />
+                       <span style="height:10px;display: block"></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;（四）统一平台<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;能源管理、后勤管理和设备运行管理系统融为一体，即一个统一的平台。
+                        </p>
+
+                        <div class="bottom-jump-icon row">
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <div class="bottom-icon-contain">
+
+                                    <p class="title">能源管理</p>
+
+                                    <p class="small-title">驾驶舱</p>
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                                <div class="bottom-icon-contain bottom-icon-contain1">
+
+                                   <p class="title">设备监控</p>
+                                    <p class="small-title">监控总览</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="bottom-icon-contain bottom-icon-contain2">
+                                    <p class="title">后勤管理</p>
+                                    <p class="small-title">工单综合</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="position: relative">
+
+                    <div class="thd-content">
+                        <img id="img2"  class="mapper" src="../new-resource/img/pingmiantu.jpg" style="width:100%;" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
+
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2016 &copy; Huaqin.
+    </div>
+    <div class="scroll-to-top">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<!--datatable-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../resource/js/moment.js"></script>
+<script src="../resource/js/alarm.js"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/js/moment.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+
+</script>
+<script src="../resource/js/publicFun.js"></script>
+<!--<script src="../resource/js/3DMap.js"></script>-->
+<!--<script src="../resource/js/mapper.js"></script>-->
+
+<script>
+    //    //获取图片的宽度
+    //    var imgWidth = $('#img2').width();
+    //
+    //        //定义当前容器的宽度
+    //        var curWidth = imgWidth + 50;
+    //
+    //
+    //    setTimeout(function(){
+    //
+    //        $('.page-content').css({
+    //
+    //            'width':curWidth
+    //        });
+    //
+    //    },200);
+
+
+    //    window.onresize=function(){
+    //        setTimeout(function(){
+    //
+    //            $('.page-content').css({
+    //
+    //                'width':curWidth
+    //            });
+    //
+    //        },200);
+    //    };
+
+    //跳转到对应页面
+    $('.bottom-icon-contain').on('click',function(){
+
+        var index= $(this).parent().index();
+
+        //驾驶舱
+        if(index == 0){
+
+            window.location.href="../new-nengyuanzonglan/new-index2.html";
+
+        }
+
+        //监控总览
+        if(index == 1){
+
+            window.location.href="../yongnengjiance/energyMonitor.html?a=1";
+
+        }
+
+        //工单系统
+        if(index == 2){
+
+            window.location.href="../gongdangunali/productionOrder-6.html";
+
+        }
+
+
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,60 @@
+.page-content{
+    background: #ededed;
+}
+.wrap{
+    border: none;
+}
+/*左侧报表*/
+.content-main-left{
+    background: white;
+    padding:10px 20px;
+    box-sizing: border-box;
+    min-height: 500px;
+}
+
+.content-main-left h3{
+    border-bottom:1px solid #ccc;
+    margin-top:0px;
+    line-height: 40px;
+    font-size: 21px;
+    font-weight: 600;
+
+}
+
+/*方形报表*/
+.statement{
+    margin-bottom:110px;
+}
+.statement-contain{
+    width:130px;
+    height:130px;
+    color: white;
+    background: url('../../img/energy-statement1.png') no-repeat center 30px;
+    background-size: 40% 40%;
+    background-color: #5b9bd5;
+    cursor: pointer;
+}
+
+.statement-contain1{
+
+    background: url('../../img/energy-statement.png') no-repeat center 30px;
+    background-size: 40% 40%;
+    background-color: #5b9bd5;
+}
+.statement .curClick{
+    border:4px solid #999;
+    box-shadow: 10px 10px 5px #888888;
+}
+.top-img{
+    height:90px;
+}
+.statement-contain p {
+
+    padding-left:10px;
+    box-sizing: border-box;
+    margin:0
+}
+
+.statement-contain p a{
+    color:white;
+}

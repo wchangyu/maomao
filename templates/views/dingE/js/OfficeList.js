@@ -1,5 +1,7 @@
 
 
+
+
 $(document).ready(function(){
     //限定input框长度
 
@@ -22,7 +24,13 @@ $(document).ready(function(){
         });
     //新增二级单位弹窗中的单选按钮操作
     $(".choose-radio label").on('mousedown',function(e){
-        e.preventDefault()
+        e.preventDefault();
+
+        if($(this).parent().hasClass('inner-input')){
+
+            return false;
+        }
+
         if($(this).index() == 1){
 
         }
@@ -421,7 +429,7 @@ $(document).ready(function(){
                     class:'theHidden'
                 },
                 {
-                    title:'单位专业',
+                    title:'单位用能系数',
                     data:'f_SpecialtyName'
                 },
                 {
@@ -530,24 +538,33 @@ $(document).ready(function(){
         var personNum = $('#add-unit .person-type .add-input-select').find('span').attr('unit');
         var personUnits = getPersonUnit(personNum);
         $('#add-unit .person-type').next().children('label').html(personUnits +":");
+
+        //初始化下方选项卡
+        $('#add-unit .choose-radio label').find('span').removeClass('checked');
+
+        $('#add-unit .choose-radio label').eq(0).find('span').addClass('checked');
+
+        $('#add-unit .choose-radio label').eq(0).mousedown();
+
+
     });
 
     $('#add-unit .btn-primary').on('click',function(){
-        //
-        //checkedText1();
-        //if(!checkedText1()){
-        //    return false;
-        //};
-        //checkedText2('#add-unit .first-row');
-        //if(!checkedText2('#add-unit .first-row')){
-        //    return false;
-        //};
-        //if($('#add-unit .first-row .inner-input').eq(4).find('.add-input').val() != ''){
-        //    checkedPhone('#add-unit');
-        //    if(!checkedPhone('#add-unit')){
-        //        return false;
-        //    };
-        //}
+
+        checkedText1();
+        if(!checkedText1()){
+            return false;
+        };
+        checkedText2('#add-unit .first-row');
+        if(!checkedText2('#add-unit .first-row')){
+            return false;
+        };
+        if($('#add-unit .first-row .inner-input').eq(4).find('.add-input').val() != ''){
+            checkedPhone('#add-unit');
+            if(!checkedPhone('#add-unit')){
+                return false;
+            };
+        }
 
 
         //生成对应参数
@@ -564,8 +581,14 @@ $(document).ready(function(){
         var remark2 = $('#add-unit .first-row .inner-input').eq(9).find('.add-input').val();
         var remark3 = $('#add-unit .first-row .inner-input').eq(10).find('.add-input').val();
         var remark4 = $('#add-unit .first-row .inner-input').eq(11).find('.add-input').val();
-        var remark5 = $('#add-unit .first-row .inner-input').eq(12).find('.add-input').val();
+
         var unitArea = $('#add-unit .first-row .inner-input1').find('.add-input').val();
+        //开户时间
+        var openTime = $('#add-unit .open-time .add-input').val();
+
+        //成立时间
+        var estaTime = $('#add-unit .establish-time .add-input').val();
+
         var data1;
         var data2;
         var data3;
@@ -614,7 +637,13 @@ $(document).ready(function(){
 
             ]
         };
-        console.log(data4);
+
+        //如果启用了手工调整配置，则传递给后台的配置内容不能为空
+        if(postBig.length == 0 && editState != 0){
+
+            myAlter('请填写配置列表信息后进行提交');
+            return false;
+        }
 
 
         $.ajax({
@@ -633,11 +662,12 @@ $(document).ready(function(){
                 "f_DirectorPhone": telNum,
                 "f_UnitRoom": unitRoom,
                 "f_UnitArea":unitArea,
+                "f_OpenAccountDT": openTime,
+                "f_EstablishDT":estaTime,
                 "f_Comment1": remark1,
                 "f_Comment2": remark2,
                 "f_Comment3": remark3,
                 "f_Comment4": remark4,
-                "f_Comment5": remark5,
                 "f_PercentageReduction":  reduction,
                 "f_QuotaEditState": editState,
                 "unitQuotaEdits":data2,
@@ -754,164 +784,93 @@ $(document).ready(function(){
     //查看定额
     table4Arr = [];
 
-
-    var table4 = $('#dateTables4').DataTable({
-            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-            //是否分页
-            "destroy": false,//还原初始化了的datatable
-            "paging":false,
-            "ordering": false,
-            'searching':false,
-            "sScrollY": '240px',
-            "bPaginate": false,
-            "scrollCollapse": true,
-            'language': {
-                'emptyTable': '没有数据',
-                'loadingRecords': '加载中...',
-                'processing': '查询中...',
-                'lengthMenu': '每页 _MENU_ 条',
-                'zeroRecords': '没有数据',
-                'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
-                'paginate': {
-                    'first':      '第一页',
-                    'last':       '最后一页',
-                    'next':       '下一页',
-                    'previous':   '上一页'
+    $('#dateTables').one('click','.examine-quota',function(){
+        setTimeout(function(){
+            var table4 = $('#dateTables4').DataTable({
+                "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+                //是否分页
+                "destroy": false,//还原初始化了的datatable
+                "paging":false,
+                "ordering": false,
+                'searching':false,
+                "sScrollY": '240px',
+                "bPaginate": false,
+                "scrollCollapse": true,
+                'language': {
+                    'emptyTable': '没有数据',
+                    'loadingRecords': '加载中...',
+                    'processing': '查询中...',
+                    'lengthMenu': '每页 _MENU_ 条',
+                    'zeroRecords': '没有数据',
+                    'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+                    'paginate': {
+                        'first':      '第一页',
+                        'last':       '最后一页',
+                        'next':       '下一页',
+                        'previous':   '上一页'
+                    },
+                    'infoEmpty': ''
                 },
-                'infoEmpty': ''
-            },
-            'buttons': [
+                'buttons': [
 
-            ],
-            "dom":'B<"clear">lfrtip',
-            //数据源,
-            'columns':[
-                {
-                    title:'能耗类型',
-                    data:'f_EnergyTypeName'
+                ],
+                "dom":'B<"clear">lfrtip',
+                //数据源,
+                'columns':[
+                    {
+                        title:'能耗类型',
+                        data:'f_EnergyTypeName'
 
-                },
-                {
-                    title:'单位',
-                    data:'f_EnergyTypeUnit'
+                    },
+                    {
+                        title:'单位',
+                        data:'f_EnergyTypeUnit'
 
-                },
-                {
-                    title: '月指标',
-                    data: 'f_EnergyMonthIndex',
-                    render: function (data, type, row, meta) {
-                        return data.toFixed(2)
-                    }
-                },
-                {
-                    title:'月定额',
-                    data:'f_EnergyMonthQuota',
-                    render: function (data, type, row, meta) {
-                        return data.toFixed(2)
-                    }
-                } ,
-                {
-                    title:'年指标',
-                    data:'f_EnergyYearIndex',
-                    render: function (data, type, row, meta) {
-                        return data.toFixed(2)
-                    }
-                } ,
-                {
-                    title:'年定额',
-                    data:'f_EnergyYearQuota',
-                    render: function (data, type, row, meta) {
-                        return data.toFixed(2)
-                    }
-                }
+                    },
+                    {
+                        title:'月指标',
+                        data:'f_EnergyMonthIndex',
+                        render:function(data, type, row, meta){
 
-            ]
-        });
+                            return data.toFixed(2);
+                        }
+                    } ,
+                    {
+                        title:'月定额',
+                        data:'f_EnergyMonthQuota',
+                        render:function(data, type, row, meta){
 
+                            return data.toFixed(2);
+                        }
+                    } ,
+                    {
+                        title:'年指标',
+                        data:'f_EnergyYearIndex',
+                        render:function(data, type, row, meta){
 
-    //$('#dateTables').one('click','.examine-quota',function(){
-    //        var table4 = $('#dateTables4').DataTable({
-    //            "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-    //            //是否分页
-    //            "destroy": false,//还原初始化了的datatable
-    //            "paging":false,
-    //            "ordering": false,
-    //            'searching':false,
-    //            "sScrollY": '240px',
-    //            "bPaginate": false,
-    //            "scrollCollapse": true,
-    //            'language': {
-    //                'emptyTable': '没有数据',
-    //                'loadingRecords': '加载中...',
-    //                'processing': '查询中...',
-    //                'lengthMenu': '每页 _MENU_ 条',
-    //                'zeroRecords': '没有数据',
-    //                'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
-    //                'paginate': {
-    //                    'first':      '第一页',
-    //                    'last':       '最后一页',
-    //                    'next':       '下一页',
-    //                    'previous':   '上一页'
-    //                },
-    //                'infoEmpty': ''
-    //            },
-    //            'buttons': [
-    //
-    //            ],
-    //            "dom":'B<"clear">lfrtip',
-    //            //数据源,
-    //            'columns':[
-    //                {
-    //                    title:'能耗类型',
-    //                    data:'f_EnergyTypeName'
-    //
-    //                },
-    //                {
-    //                    title:'单位',
-    //                    data:'f_EnergyTypeUnit'
-    //
-    //                },
-    //                {
-    //                    title: '月指标',
-    //                    data: 'f_EnergyMonthIndex',
-    //                    render: function (data, type, row, meta) {
-    //                        return data.toFixed(2)
-    //                    }
-    //                },
-    //                {
-    //                    title:'月定额',
-    //                    data:'f_EnergyMonthQuota',
-    //                    render: function (data, type, row, meta) {
-    //                        return data.toFixed(2)
-    //                    }
-    //                } ,
-    //                {
-    //                    title:'年指标',
-    //                    data:'f_EnergyYearIndex',
-    //                    render: function (data, type, row, meta) {
-    //                        return data.toFixed(2)
-    //                    }
-    //                } ,
-    //                {
-    //                    title:'年定额',
-    //                    data:'f_EnergyYearQuota',
-    //                    render: function (data, type, row, meta) {
-    //                        return data.toFixed(2)
-    //                    }
-    //                }
-    //
-    //            ]
-    //        });
-    //
-    //});
+                            return data.toFixed(2);
+                        }
+                    } ,
+                    {
+                        title:'年定额',
+                        data:'f_EnergyYearQuota',
+                        render:function(data, type, row, meta){
+
+                            return data.toFixed(2);
+                        }
+                    } ,
+
+                ]
+            });
+        },200)
+
+    });
 
     $('#dateTables').on('click','.examine-quota',function(){
         var that = $(this);
-        $('#quota').off('shown.bs.modal');
-
-        $('#quota').on('shown.bs.modal', function () {
+        setTimeout(function(){
             var id = that.parent().parent().children().eq(1).html();
-            var txt = that.parent().parent().children().eq(0).html();
+            var txt = that.parent().parent().children().eq(2).html();
             $('#quota .add-title span').html(txt + ' ');
 
             //    获取数据
@@ -954,7 +913,7 @@ $(document).ready(function(){
                         var energyType = getEnergyType(totalArr[i].f_EnergyType);
                         var unit = getEnergyUnit(totalArr[i].f_EnergyType);
                         html1+= '<td>'+energyType+'月定额</td><td>'+energyType+'年定额</td>';
-                        html2+= '<td>'+totalArr[i].f_EnergyMonthQuota.toFixed(2)+' ' + unit +'</td><td>'+totalArr[i].f_EnergyYearQuota.toFixed(2)+' '+ unit +'</td>'
+                        html2+= '<td>'+totalArr[i].f_EnergyMonthQuota+' ' + unit +'</td><td>'+totalArr[i].f_EnergyYearQuota.toFixed(2)+' '+ unit +'</td>'
                     };
 
                     $('#dateTables3 .data-top').html(html1);
@@ -995,8 +954,6 @@ $(document).ready(function(){
                         }
 
                     }
-
-                    console.log(bottomData);
 
                     _table = $('#dateTables4').dataTable();
 
@@ -1052,7 +1009,8 @@ $(document).ready(function(){
 
                 }
             });
-        });
+        },300)
+
 
     });
 
@@ -1124,13 +1082,18 @@ $(document).ready(function(){
                 };
                 $('#alter-unit .inner-input .add-input').eq(6).val(data.f_UnitRoom);
                 $('#alter-unit .inner-input .add-input').eq(7).val(data.f_PercentageReduction * 100);
+
                 $('#alter-unit .inner-input .add-input').eq(8).val(data.f_Comment1);
                 $('#alter-unit .inner-input .add-input').eq(9).val(data.f_Comment2);
                 $('#alter-unit .inner-input .add-input').eq(10).val(data.f_Comment3);
                 $('#alter-unit .inner-input .add-input').eq(11).val(data.f_Comment4);
-                $('#alter-unit .inner-input .add-input').eq(12).val(data.f_Comment5);
                 $('#alter-unit .inner-input1 .add-input').val(data.f_UnitArea);
 
+                //开户时间
+                $('#alter-unit .open-time .add-input').val(data.f_OpenAccountDT);
+
+                //成立时间
+                $('#alter-unit .establish-time .add-input').val(data.f_EstablishDT);
             },
             error:function (data, textStatus, errorThrown) {
                 console.log(textStatus);
@@ -1180,6 +1143,13 @@ $(document).ready(function(){
             var remark4 = $('#alter-unit  .inner-input').eq(11).find('.add-input').val();
             var remark5 = $('#alter-unit  .inner-input').eq(12).find('.add-input').val();
             var unitArea = $('#alter-unit .inner-input1').find('.add-input').val();
+
+            //开户时间
+            var openTime = $('#alter-unit .open-time .add-input').val();
+
+            //成立时间
+            var estaTime = $('#alter-unit .establish-time .add-input').val();
+
             postData.f_Code = code;
             postData.f_UnitName = unitName;
             postData.fK_Nature_Unit = natureID;
@@ -1195,6 +1165,13 @@ $(document).ready(function(){
             postData.f_Comment1 = remark4;
             postData.f_Comment1 = remark5;
             postData.f_UnitArea = unitArea;
+
+            //开户时间
+            postData.f_OpenAccountDT = openTime;
+
+            //成立时间
+            postData.f_EstablishDT = estaTime;
+
             postData.userID = userName;
 
             console.log(postData);
@@ -1460,11 +1437,18 @@ $(document).ready(function(){
                     datas = data;
                     console.log(datas);
                     $('#theLoading').modal('hide');
+
                     var num = data.f_QuotaEditState;
+
                     $('#adjust-deploy .choose-radio1 label').eq(num).children().prop('checked','checked');
+
+                    $('#adjust-deploy .choose-radio1 label').find('span').removeClass('checked');
+                    $('#adjust-deploy .choose-radio1 label').eq(num).find('span').addClass('checked');
+
                     $('#adjust-deploy .choose-radio1 ').children('.row').css({
                         display:'none'
                     });
+
                     $('#adjust-deploy .choose-radio1 ').children('.row').eq(num).css({
                         display:'block'
                     });
@@ -1518,7 +1502,7 @@ $(document).ready(function(){
 
                         var dom = $(this).parent().prev().find('.add-input');
                         if(isNaN(txt3 / 1) ||　txt3 == ''){
-                            myAlter('月定额量 必须为数字');
+                            myAlter('年定额量 必须为数字');
                             getFocus1(dom);
                             return false;
                         };
@@ -1534,8 +1518,8 @@ $(document).ready(function(){
                         var obj2 = {
                             "f_EnergyType": id,
                             "f_EnergyName" : txt2,
-                            "f_ReviseMonthQuota":txt3,
-                            "f_ReviseYearQuota":txt3 * 12,
+                            "f_ReviseMonthQuota":(txt3 / 12).toFixed(2),
+                            "f_ReviseYearQuota":txt3,
                             "f_Comment":txt1
                         };
 
@@ -1558,7 +1542,7 @@ $(document).ready(function(){
 
                         var dom = $(this).parent().prev().find('.add-input');
                         if(isNaN(txt3 / 1) ||　txt3 == ''){
-                            myAlter('月加减微调值 必须为数字');
+                            myAlter('年加减微调值 必须为数字');
                             getFocus1(dom);
                             return false;
                         };
@@ -1574,8 +1558,8 @@ $(document).ready(function(){
                         var obj1 = {
                             "f_EnergyType": id,
                             "f_EnergyName" : txt2,
-                            "f_MonthEditValue":txt3,
-                            "f_YearEditValue":txt3 * 12,
+                            "f_MonthEditValue":(txt3 / 12).toFixed(2),
+                            "f_YearEditValue":txt3,
                             "f_Comment":txt1
                         };
 
@@ -1657,7 +1641,7 @@ $(document).ready(function(){
 
                             var dom = $('#small-adjust .add-input').eq(1);
                             if(isNaN(txt2 / 1) ||　txt2 == ''){
-                                myAlter('月加减微调值 必须为数字');
+                                myAlter('年加减微调值 必须为数字');
                                 getFocus1(dom);
                                 return false;
                             };
@@ -1670,8 +1654,8 @@ $(document).ready(function(){
                             var obj1 = {
                                 "f_EnergyType": id,
                                 "f_EnergyName" : txt1,
-                                "f_MonthEditValue":txt2,
-                                "f_YearEditValue":txt2 * 12,
+                                "f_MonthEditValue":(txt2 / 12).toFixed(2),
+                                "f_YearEditValue":txt2,
                                 "f_Comment":txt3
                             };
 
@@ -1716,7 +1700,7 @@ $(document).ready(function(){
                             }
                             var dom = $('#big-adjust .add-input').eq(1);
                             if(isNaN(txt2 / 1) ||　txt2 == ''){
-                                myAlter('月定额量 必须为数字');
+                                myAlter('年定额量 必须为数字');
                                 getFocus1(dom);
                                 return false;
                             };
@@ -1730,8 +1714,8 @@ $(document).ready(function(){
                             var obj1 = {
                                 "f_EnergyType": id,
                                 "f_EnergyName" : txt1,
-                                "f_ReviseMonthQuota":txt2,
-                                "f_ReviseYearQuota":txt2 * 12,
+                                "f_ReviseMonthQuota":(txt2 / 12).toFixed(2),
+                                "f_ReviseYearQuota":txt2,
                                 "f_Comment":txt3
                             };
 
@@ -2312,12 +2296,12 @@ $(document).ready(function(){
                         var id1 = $(this).prev().find('.add-input-select').children('span').attr('ids');
                         var txt2 = $(this).parent().prev().find('.add-input-select').children('span').html();
                         var id2 = $(this).parent().prev().find('.add-input-select').children('span').attr('ids');
-                        for(var i=0 ; i<datas.length; i++){
-                            if(datas[i].f_EnergyType == id2){
-                                myAlter('能耗类型已存在');
-                                return false;
-                            }
-                        };
+                        //for(var i=0 ; i<datas.length; i++){
+                        //    if(datas[i].f_EnergyType == id2){
+                        //        myAlter('能耗类型已存在');
+                        //        return false;
+                        //    }
+                        //};
                         _table = $('#dateTables10').dataTable();
                         _table.dataTable().fnClearTable();
                         var obj = {
@@ -2379,6 +2363,21 @@ $(document).ready(function(){
                         };
                         $("#adjust-count .add-select-block").eq(1).html(html2);
 
+                        $('.count-type1 .add-select-block').off('click');
+
+                        $('.count-type1 .add-select-block').on('click','li',function(){
+
+                            //获取计费方案名称
+                            var priceName = $(this).html();
+
+                            //获取计费方案id
+                            var priceID = $(this).attr('ids');
+
+                            $(this).parents('.add-input-father').find('.add-input-block span').html(priceName);
+
+                            $(this).parents('.add-input-father').find('.add-input-block span').attr('ids',priceID);
+                        });
+
                         $('#adjust-count .btn-primary').off('click');
                         $('#adjust-count .btn-primary').on('click',function(){
                             var txt1 =  $('#adjust-count').find('.add-input-select').eq(0).children('span').html();
@@ -2386,12 +2385,12 @@ $(document).ready(function(){
 
                             var txt2 =  $('#adjust-count').find('.add-input-select').eq(1).children('span').html();
                             var id2 = $('#adjust-count').find('.add-input-select').eq(1).children('span').attr('ids');
-                            for(var i=0 ; i<datas.length; i++){
-                                if(i != num && datas[i].f_EnergyType == id1){
-                                    myAlter('能耗类型已存在');
-                                    return false;
-                                }
-                            };
+                            //for(var i=0 ; i<datas.length; i++){
+                            //    if(i != num && datas[i].f_EnergyType == id1){
+                            //        myAlter('能耗类型已存在');
+                            //        return false;
+                            //    }
+                            //};
                             var obj = {
                                 "f_EnergyName": txt1,
                                 "fK_PricePRJ_UnitPrice": id2,
@@ -2692,8 +2691,6 @@ $(document).ready(function(){
         // Event listener to the two range filtering inputs to redraw on input
 
     //二级单位注销
-
-
 
     var tableLog0 = $('#dateTables-log0').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -3296,7 +3293,7 @@ $(document).ready(function(){
         //获取计量设备列表
         readArr = logoutObj.unitEquallyShareds;
 
-        console.log(readArr);
+        //console.log(readArr);
 
         var date = logoutObj.unitCancelTime;
 
@@ -3332,10 +3329,10 @@ $(document).ready(function(){
                 }
             }
 
-            console.log(index);
+            //console.log(index);
             allData = readArr[index].unitEquallyShareds;
 
-            console.log(allData);
+            //console.log(allData);
             // ["","",index"","",""];
             var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
             var row =   tableLog1.row( tr );
@@ -3354,7 +3351,7 @@ $(document).ready(function(){
             //}
         } );
 
-        console.log(readArr.length);
+        //console.log(readArr.length);
 
         for(var i=0; i<readArr.length; i++){
             $('#dateTables-log1 tbody .details-control').eq(i).click();
@@ -3371,7 +3368,7 @@ $(document).ready(function(){
                 return false;
             };
 
-            console.log(readArr);
+            //console.log(readArr);
 
             $('#present-logout').modal('show');
             var postData = {};
@@ -3571,7 +3568,7 @@ function alarmHistory(){
 //存放单位性质
 var unitNature = [];
 
-//存放单位专业
+//存放单位用能系数
 var unitSpecialty = [];
 
 //用于存放人员类型的数组
@@ -3613,7 +3610,7 @@ function getUnitNature(){
 }
 getUnitNature();
 
-//获取单位专业
+//获取单位用能系数
 function getUnitSpecialty(){
     $.ajax({
         type:'get',
@@ -3739,7 +3736,7 @@ function getAllNature(){
 };
 getAllNature();
 
-//将单位专业显示到页面中
+//将单位用能系数显示到页面中
 function getAllSpecialty(){
     var personArr = [];
     var personArr1 = [];
@@ -3836,11 +3833,14 @@ function getCount(num){
     var html2 = '';
 
     for(var i=0;i<countType.length;i++){
+
       if(countType[i].f_EnergyType == id){
           personArr.push(countType[i].f_PriceGroupName);
           personArr1.push(countType[i].f_PriceGroupID);
       }
+
     }
+
     for(var i = 0 ; i < personArr.length; i++){
         html2 += '<li ids='+personArr1[i]+'>'+ personArr[i]+'</li>'
     };
@@ -3848,6 +3848,7 @@ function getCount(num){
     $('.count-type .add-input-select').find('span').html(personArr[0]);
     $('.count-type .add-input-select').find('span').attr('ids',personArr1[0]);
     $('.count-type .add-select-block').eq(0).html(html2);
+
     if(personArr1.length == 0){
         $('.count-type .add-input-select').find('span').html('');
         $('.count-type .add-input-select').find('span').attr('ids','');
@@ -3860,6 +3861,21 @@ function getCount(num){
         $('.count-types .add-input-select').find('span').html('');
         $('.count-types .add-input-select').find('span').attr('ids','');
     };
+
+    $('.count-types .add-select-block').off('click');
+
+    $('.count-types .add-select-block').on('click','li',function(){
+
+        //获取计费方案名称
+        var priceName = $(this).html();
+
+        //获取计费方案id
+        var priceID = $(this).attr('ids');
+
+        $(this).parents('.add-input-father').find('.add-input-block span').html(priceName);
+
+        $(this).parents('.add-input-father').find('.add-input-block span').attr('ids',priceID);
+    });
 };
 
 function getCount1(num){
@@ -3884,6 +3900,21 @@ function getCount1(num){
         $('.count-type1 .add-input-select').find('span').html('');
         $('.count-type1 .add-input-select').find('span').attr('ids','');
     };
+
+    $('.count-type1 .add-select-block').off('click');
+
+    $('.count-type1 .add-select-block').on('click','li',function(){
+
+        //获取计费方案名称
+        var priceName = $(this).html();
+
+        //获取计费方案id
+        var priceID = $(this).attr('ids');
+
+        $(this).parents('.add-input-father').find('.add-input-block span').html(priceName);
+
+        $(this).parents('.add-input-father').find('.add-input-block span').attr('ids',priceID);
+    });
 };
 $('.change-count').on('click',function(){
 
@@ -4069,15 +4100,13 @@ theSmallAd = [];
 var postSmall = [];
 $('.small-adjust').on('click',function(){
 
-
-
     var txt1 = $(this).prev().children('.add-input').val();
     var txt2 = $(this).parent().prev().prev().find('.add-input-select').children('span').html();
     var id = $(this).parent().prev().prev().find('.add-input-select').children('span').attr('ids');
     var txt3 = $(this).parent().prev().find('.add-input').val();
     var dom = $(this).parent().prev().find('.add-input');
     if(isNaN(txt3 / 1) ||　txt3 == ''){
-        myAlter('月加减微调值 必须为数字');
+        myAlter('年加减微调值 必须为数字');
         getFocus1(dom);
         return false;
     };
@@ -4091,8 +4120,8 @@ $('.small-adjust').on('click',function(){
     var obj = {
         "energyType": txt2,
         "energyID": id,
-        "mouthNum":txt3,
-        "yearNum":txt3 * 12,
+        "mouthNum":(txt3 / 12).toFixed(2),
+        "yearNum":txt3,
         "remark":txt1
     };
     theSmallAd.push(obj);
@@ -4102,8 +4131,8 @@ $('.small-adjust').on('click',function(){
 
     var obj1 = {
         "f_EnergyType": id,
-        "f_MonthEditValue":txt3,
-        "f_YearEditValue":txt3 * 12,
+        "f_MonthEditValue":(txt3 / 12).toFixed(2),
+        "f_YearEditValue":txt3,
         "f_Comment":txt1
     };
 
@@ -4159,7 +4188,7 @@ $('#dateTables1').on('click','.alter',function(){
         var unit;
         var dom = $('#small-adjust .add-input').eq(1);
         if(isNaN(txt2 / 1) ||　txt2 == ''){
-            myAlter('月加减微调值 必须为数字');
+            myAlter('年加减微调值 必须为数字');
             getFocus1(dom);
             return false;
         };
@@ -4172,14 +4201,15 @@ $('#dateTables1').on('click','.alter',function(){
         var obj = {
             "energyType": txt1,
             "energyID": id,
-            "mouthNum":txt2,
-            "yearNum":txt2 * 12,
+            "mouthNum":(txt2 / 12).toFixed(2),
+            "yearNum":txt2,
             "remark":txt3
         };
+
         var obj1 = {
             "f_EnergyType": id,
-            "f_MonthEditValue":txt2,
-            "f_YearEditValue":txt2 * 12,
+            "f_MonthEditValue":(txt2 / 12).toFixed(2),
+            "f_YearEditValue":txt2,
             "f_Comment":txt3
         };
 
@@ -4210,7 +4240,7 @@ $('.quota-adjust').on('click',function(){
 
     var dom = $(this).parent().prev().find('.add-input');
     if(isNaN(txt3 / 1) || txt3 == ''){
-        myAlter('月定额量 必须为数字');
+        myAlter('年定额量 必须为数字');
         getFocus1(dom);
         return false;
     };
@@ -4226,16 +4256,16 @@ $('.quota-adjust').on('click',function(){
     var obj = {
         "energyType": txt2,
         "energyID": id,
-        "mouthNum":txt3,
-        "yearNum":txt3 * 12,
+        "mouthNum":(txt3 / 12).toFixed(2),
+        "yearNum":txt3,
         "remark":txt1
     };
     theQuotaAd.push(obj);
 
     var obj1 = {
         "f_EnergyType": id,
-        "f_ReviseMonthQuota":txt3,
-        "f_ReviseYearQuota":txt3 * 12,
+        "f_ReviseMonthQuota":(txt3 / 12).toFixed(2),
+        "f_ReviseYearQuota":txt3,
         "f_Comment":txt1
     };
     postBig.push(obj1);
@@ -4293,7 +4323,7 @@ $('#dateTables11').on('click','.alter',function(){
 
         var dom = $('#big-adjust .add-input').eq(1);
         if(isNaN(txt2 / 1) ||　txt2 == ''){
-            myAlter('月定额量 必须为数字');
+            myAlter('年定额量 必须为数字');
             getFocus1(dom);
             return false;
         };
@@ -4307,14 +4337,14 @@ $('#dateTables11').on('click','.alter',function(){
         var obj = {
             "energyType": txt1,
             "energyID": id,
-            "mouthNum":txt2,
-            "yearNum":txt2 * 12,
+            "mouthNum":(txt2 / 12).toFixed(2),
+            "yearNum":txt2,
             "remark":txt3
         };
         var obj1 = {
             "f_EnergyType": id,
-            "f_ReviseMonthQuota":txt2,
-            "f_ReviseYearQuota":txt2 * 12,
+            "f_ReviseMonthQuota":(txt2 / 12).toFixed(2),
+            "f_ReviseYearQuota":txt2,
             "f_Comment":txt3
         };
 
@@ -4341,12 +4371,12 @@ $('.price-group').on('click',function(){
     var id2 = $(this).parent().prev().find('.add-input-select').children('span').attr('ids');
 
 
-    for(var i=0 ; i<thePriceAd.length; i++){
-        if(thePriceAd[i].energyID == id2){
-            myAlter('能耗类型已存在');
-            return false;
-        }
-    };
+    //for(var i=0 ; i<thePriceAd.length; i++){
+    //    if(thePriceAd[i].energyID == id2){
+    //        myAlter('能耗类型已存在');
+    //        return false;
+    //    }
+    //};
 
     _table = $('#dateTables9').dataTable();
     _table.dataTable().fnClearTable();
@@ -4409,12 +4439,13 @@ $('#dateTables9').on('click','.alter',function(){
         var txt2 =  $('#adjust-count').find('.add-input-select').eq(1).children('span').html();
         var id2 = $('#adjust-count').find('.add-input-select').eq(1).children('span').attr('ids');
 
-        for(var i=0 ; i<postPrice.length; i++){
-            if(i != num && postPrice[i].f_EnergyType == id1){
-                myAlter('能耗类型已存在');
-                return false;
-            }
-        };
+        //for(var i=0 ; i<postPrice.length; i++){
+        //    if(i != num && postPrice[i].f_EnergyType == id1){
+        //        myAlter('能耗类型已存在');
+        //        return false;
+        //    }
+        //};
+
         var obj = {
             "energyType": txt1,
             "energyID": id1,

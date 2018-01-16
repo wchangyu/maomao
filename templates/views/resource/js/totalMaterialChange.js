@@ -65,18 +65,50 @@ $(function(){
 
     //重绘合计数据
     function drawFn(){
+        //最后一行的总计的td个数
         var ths = $('#scrap-datatables').find('tfoot').children('tr').eq(0).children('td');
+        //每一行的个数
         var tds = $('#scrap-datatables').find('tbody').children('tr').eq(0).children('td');
 
+        //console.log($(ths).css({'background':'red'}));
+        //
+        //console.log($(tds).css({'background':'green'}));
+
         for(var i=1;i<ths.length-3;i++){
+
             var amount = 0;
-            var num1 = parseInt(tds.eq(i * 2).html());
-            var num2 = parseInt(tds.eq(i * 2 -1).html());
+            //所有普速的值的和
+            var num1 = parseFloat(tds.eq(i * 2).html());
+
+            //所有高铁值的和
+            var num2 = parseFloat(tds.eq(i * 2 -1).html());
+
+            if(isNaN(num1)){
+
+                num1 = 0
+            }
+
+            if(isNaN(num2)){
+                num2 = 0
+            }
 
             amount = num1 + num2;
-            console.log(amount)
-            ths.eq(i).html(amount);
+
+
+            if(amount != 0){
+
+                ths.eq(i).html(amount.toFixed(2));
+
+            }else{
+
+                amount = 0;
+
+                ths.eq(i).html(amount.toFixed(2));
+
+            }
+
         }
+
     };
 
     _tableInit($('#scrap-datatables'),col,2,totalFn,drawFn);
@@ -178,7 +210,8 @@ $(function(){
                         }
                     }
                 });
-                obj.hz = count;
+
+                obj.hz = count.toFixed(2);
                 tableArr.length = 0;
                 tableArr.push(obj);
                 _datasTable($("#scrap-datatables"), tableArr);

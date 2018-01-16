@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
+    <!--<link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">-->
     <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
     <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
     <link rel="stylesheet" href="../resource/css/productionOrder.css">
@@ -56,6 +56,11 @@
         #scrap-datatables thead td{
             vertical-align: middle !important;
         }
+
+        .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+             border-top: 2px solid #ddd !important;
+        }
+
     </style>
 </head>
 <!-- END HEAD -->
@@ -312,11 +317,11 @@
                                                     <td rowspan="3">库存结余</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2">南昌维保组</td>
-                                                    <td colspan="2">上饶维保组</td>
-                                                    <td colspan="2">赣州维保组</td>
-                                                    <td colspan="2">福州维保组</td>
-                                                    <td colspan="2">厦门维保组</td>
+                                                    <td colspan="2">南昌<span class="user-defined-workshop"></span></td>
+                                                    <td colspan="2">上饶<span class="user-defined-workshop"></span></td>
+                                                    <td colspan="2">赣州<span class="user-defined-workshop"></span></td>
+                                                    <td colspan="2">福州<span class="user-defined-workshop"></span></td>
+                                                    <td colspan="2">厦门<span class="user-defined-workshop"></span></td>
                                                     <td rowspan="2">综合维修中心</td>
                                                     <td rowspan="2">合计</td>
                                                 </tr>
@@ -413,8 +418,6 @@
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <script src="../resource/TableTools/js/dataTables.rowsGroup.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/totalMaterialChange.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -576,5 +579,8 @@
     </div><!-- /.modal -->
 </div>
 </body>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/totalMaterialChange.js"></script>
 <!-- END BODY -->
 </html>

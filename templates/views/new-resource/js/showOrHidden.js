@@ -2,9 +2,18 @@ $(function(){
     //点击箭头移动
     $('.showOrHidden').click(function(){
         var o1 = $(".content-main-left").css("display");
+        var url = window.location.href;
+
         if(o1 == 'block'){
-            $('.content-main-left').hide()
-            $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
+            $('.content-main-left').hide();
+
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html') > 0){
+                $('.content-main-right').removeClass('col-lg-10 col-md-9').addClass('col-lg-12 col-md-12');
+            }else{
+                //console.log(44);
+                $('.content-main-right').removeClass('col-lg-9 col-md-8').addClass('col-lg-12 col-md-12');
+            }
+
             $('.showOrHidden').css({
                 'background':'url("../resource/img/show.png")no-repeat',
                 'background-size':'20px',
@@ -12,13 +21,32 @@ $(function(){
             })
         }else if(o1 == 'none'){
             $('.content-main-left').show();
-            $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-8');
+            if(url.indexOf('OfficeDingEData.html') > 0 || url.indexOf('energyStatistics.html') > 0){
+                $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-10 col-md-9');
+            }else{
+                $('.content-main-right').removeClass('col-lg-12 col-md-12').addClass('col-lg-9 col-md-8');
+            }
+
             $('.showOrHidden').css({
                 'background':'url("../resource/img/hidden.png")no-repeat',
                 'background-size':'20px',
                 'background-position':'center'
             })
         }
+
+        if(typeof window.onresize == 'function'){
+            window.onresize();
+        }
+
+    });
+
+
+    //模态框拖动
+    $(document).on("show.bs.modal", ".modal", function(){
+        $(this).draggable({
+            handle: ".modal-header"   // 只能点击头部拖动
+        });
+        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
     });
 
     //更改时间维度日、周、月、年
@@ -103,23 +131,11 @@ $(function(){
                 $('#unit').html(html);
             }
 
-
-            //如果当前页面存在支路
-            if($('#allBranch').length > 0){
-                //获取当前楼宇下的支路
-                if(branchesType == 2){
-                    GetAllBranches(2);
-                }else{
-                    GetAllBranches();
-                }
-            }
             //默认选中第一个能耗
             $('.selectedEnergy').addClass('blueImg0');
         }else{
 
         };
-
-
 
     });
 
@@ -154,16 +170,16 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取昨天
-        var date = moment().subtract('1','days').format('YYYY-MM-DD');
+        var date = moment().format('YYYY-MM-DD');
         $('.min').val(date);
     }else if(dataType == '周'){
         _initDate1();
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
         //获取上周
-        var date1 = moment().subtract('7','days').format('YYYY-MM-DD');
+        var date1 = moment().subtract('6','days').format('YYYY-MM-DD');
         //获取昨天2
-        var date2 = moment().subtract('1','days').format('YYYY-MM-DD');
+        var date2 = moment().format('YYYY-MM-DD');
         $('.min').val(date1);
         $('.max').val(date2);
         //取消开始时间选框居中
@@ -174,14 +190,14 @@ function _selectTime(dataType){
 
         $('.end-time-choose').hide();
         //获取上月
-        var date = moment().subtract('1','months').format('YYYY-MM');
+        var date = moment().format('YYYY-MM');
         $('.min').val(date);
     }else if(dataType == '年'){
         _yearDate1();
 
         $('.end-time-choose').hide();
         //获取上年
-        var date = moment().subtract('1','years').format('YYYY');
+        var date = moment().format('YYYY');
         $('.min').val(date);
     }else{
         _initDate1();
@@ -260,13 +276,70 @@ function _setEnergyInfo(){
 //获取能耗种类参数方法
 function _getEcTypeValue(){
     var aaa =[];
-    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    //获取是楼宇还是分户
+    var index = $('.left-tab-contain .isChoose').index();
+
+
+    var jsonText;
+
+    //楼宇
+    if(index < 1){
+
+        jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+      //分户
+    }else if(index == 1){
+
+        jsonText=JSON.parse(sessionStorage.getItem('officeEnergyType'));
+    }
+
     if(jsonText){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etid)
         }
-        var el = aaa[$('.selectedEnergy').index()];
+        var thisIndex = $('.selectedEnergy').index();
+
+        //存在全部选项的时候
+        if($('.energy-types .all-energy-type').length > 0){
+
+            thisIndex = thisIndex - 1;
+        }
+        //选择‘全部’时默认给后台传0
+        if(thisIndex == -1){
+
+            return 0;
+        }
+
+        var el = aaa[thisIndex];
         return el;
+    }
+};
+
+//获取能耗单位
+function getUnit(num){
+
+    var  num1 = num;
+
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+        if(num1 == txt[i].ettype){
+            return txt[i].etunit;
+        }
+    }
+};
+
+//根据分项ID获取能耗单位
+function getUnitByEtid(num){
+
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+
+    var txt = unitObj.alltypes;
+    for(var i=0; i < txt.length; i++){
+        if(num == txt[i].etid){
+            return txt[i].etunit;
+        }
     }
 };
 
@@ -278,7 +351,20 @@ function _getEcTypeWord(){
         for(var i=0;i<jsonText.alltypes.length;i++){
             aaa.push(jsonText.alltypes[i].etname);
         }
-        var el = aaa[$('.selectedEnergy').index()];
+        var thisIndex = $('.selectedEnergy').index();
+
+        //存在全部选项的时候
+        if($('.energy-types .all-energy-type').length > 0){
+
+            thisIndex = thisIndex - 1;
+        }
+        //选择‘全部’时默认给后台传0
+        if(thisIndex == -1){
+
+            return '全部';
+        }
+
+        var el = aaa[thisIndex];
         return el;
     }
 }
@@ -319,6 +405,14 @@ function _getOfficeZtree(officesId,flag){
 function _searchPO(tip,pointerId,tips,officeId){
     var objSearchs = new ObjectSearch();
     objSearchs.initPointerSearch($("#keys"),tip,pointerId);
+    if(tips){
+        var objSearch = new ObjectSearch();
+        objSearch.initOfficeSearch($("#key"),tips,officeId);
+    }
+}
+
+function _searchPO1(tips,officeId){
+
     var objSearch = new ObjectSearch();
     objSearch.initOfficeSearch($("#key"),tips,officeId);
 }

@@ -577,11 +577,16 @@ function alarmHistory(){
             personTypeID: txt1,
             energyType: txt2
         },
-        beforeSend:function(){
+        beforeSend: function () {
+            $('#theLoading').modal('hide');
             $('#theLoading').modal('show');
         },
-        complete:function(){
+        complete: function () {
             $('#theLoading').modal('hide');
+            if($('.modal-backdrop').length > 0){
+                $('div').remove('.modal-backdrop');
+                $('#theLoading').hide();
+            }
         },
         success:function(result){
             for(var i=0;i<result.length;i++){

@@ -15,9 +15,9 @@ $(function(){
     //开始时间
     var _date = moment().format('YYYY/MM/DD');
 
-    var _dataWeekStart = moment(_date).startOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekStart = moment(_date).subtract(1,'d').format('YYYY-MM-DD');
 
-    var _dataWeekEnd = moment(_date).endOf('week').add(1,'d').format('YYYY-MM-DD');
+    var _dataWeekEnd = moment(_date);
 
     //设置初始日期
     $('.datatimeblock').eq(0).val(_dataWeekStart);
@@ -48,7 +48,7 @@ $(function(){
         //修改时间
         $('.endTime').html($('.datatimeblock').eq(0).val() +" "+ $('.timeblock').eq(0).val());
 
-        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(7,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
+        $('.startTime').html(moment($('.datatimeblock').eq(0).val()).subtract(1,'d').format('YYYY-MM-DD') +' ' + $('.timeblock').eq(0).val());
 
         //本周客服设备故障上报及处理情况
         conditionSelect('YWGDReport/GetGDDTDepartReport',$('#failure-reporting'),'flag');
@@ -94,8 +94,13 @@ $(function(){
 
         },
         {
-            title:'平均故障处理时间',
-            data:'gdDealAVGTime'
+            title:'平均故障处理时间（时）',
+            data:'gdDealAVGTime',
+            render: function (data, type, row, meta){
+
+                return data.toFixed(1)
+
+            }
         },
         {
             title:'故障率',
@@ -166,7 +171,7 @@ $(function(){
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',8).html('其中：累计故障类别');
+        $('.third').attr('colspan',9).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
@@ -331,6 +336,10 @@ $(function(){
             data:'gdDisposition'
         },
         {
+            title:'配件信息',
+            data:'gdWxCl'
+        },
+        {
             title:'处理人信息',
             data:'gdJiedanName',
             render: function (data, type, row, meta){
@@ -409,6 +418,7 @@ $(function(){
     $('.excelButton11').eq(2).on('click',function(){
         FFExcel($('#failure-info')[0])
     });
+
     //IE浏览器中导出复杂表头为excel文件
     function AutoExcel(tableId){
 
@@ -665,7 +675,7 @@ $(function(){
             },
             success:function(result){
                 $('#theLoading').modal('hide');
-                console.log(result);
+                //console.log(result);
 
                 if(flag){
 

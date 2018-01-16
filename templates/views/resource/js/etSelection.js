@@ -57,10 +57,14 @@ var ETSelection = function(){
 
             $div.attr("value",allTypes[i].ettype);
 
+            //给每一个小块添加Class名称
+            $div.addClass(this.initETUnit(allTypes[i].ettype));
+            $div.addClass('specific-energy');
+
             var $p = $("<p>");
             $p.css("margin-top","50px");
             $p.css("text-align","center");
-            $p.html(allTypes[i].etname)
+            $p.html('<span>'+allTypes[i].etname+'</span>');
             $div.append($p);
 
             $div.on("click",function(){     //设置能耗分类的点击事件
@@ -80,5 +84,31 @@ var ETSelection = function(){
             $divETs.append($div);
         }
     }
+
+    //给每一个能耗项添加不同的ID
+    this.initETUnit = function(energyType){
+
+        if(energyType == 100){
+
+            return 'dian'
+
+        }else  if(energyType == 200){
+
+            return 'shui'
+
+        }else if(energyType == 300){
+
+            return 'qi'
+
+        }else if(energyType == 400){
+
+            return 'nuan'
+
+        }else if(energyType == 500){
+
+            return 'leng'
+
+        }
+    };
 }
 

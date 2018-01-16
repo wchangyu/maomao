@@ -2,23 +2,35 @@
  * Created by admin on 2017/9/7.
  */
 $(document).ready(function(){
+
     //获得用户名
     var _userName = sessionStorage.getItem('userAuth');
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
     getGodownMessage();
-    getOutStorageBanzu();
+    //getOutStorageBanzu();
+
+    var _wlIsComplete = false;
+
+    var _ckIsComolete = false;
+
     //获取出库单信息
     function getGodownMessage(){
+
+        //loadding
+        $('#theLoading').modal('show');
 
         //从路径中获取出库单号
         var outboundOrder = window.location.search.split('=')[1];
         if(!outboundOrder){
+
+            $('#theLoading').modal('hide');
+
             return false;
         }
         $.ajax({
             type: 'post',
-            url: _urls + "YWCK/ywCKGetOutStorageDetail",
+            url: _urls + "YWCK/YWCKGetOutStorageBanzu",
             timeout: theTimes,
             data:{
                 "orderNum": outboundOrder,
@@ -26,6 +38,9 @@ $(document).ready(function(){
                 "userName": _userName
             },
             success: function (data) {
+
+                _wlIsComplete = true;
+
                 //要插入的html
                 var html = '';
                 //总价
@@ -41,6 +56,7 @@ $(document).ready(function(){
                         '     <td>'+ o.num+'</td>' +
                         '     <td>'+ o.outPrice.toFixed(2)+'</td>' +
                         '     <td>'+ o.amount.toFixed(2)+'</td>'+
+                        '     <td>'+ o.wbz +'</td>'+
                         '     <td>'+ o.bxKeshi+'</td>'+
                         '     <td><a href="materialOdd.html?gdCode=' + o.gdCode2 +
                         '&orderNum=' + outboundOrder +
@@ -56,9 +72,17 @@ $(document).ready(function(){
 
                 $('.goods-message').after(html);
                 $('#entry-datatables .small-count').html(countNum.toFixed(2));
+
+                callBack();
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
+                _wlIsComplete = true;
+
+                $('#theLoading').modal('hide');
+
+                console.log(jqXHR.responseText);
 
             }
         });
@@ -75,6 +99,8 @@ $(document).ready(function(){
             },
             success: function (data) {
 
+                _ckIsComolete = true;
+
                 var inType = data[0].outType;
                 var inTypeName = '';
                 //获取入库类型
@@ -89,6 +115,9 @@ $(document).ready(function(){
                     data:prm,
                     timeout:theTimes,
                     success:function(result){
+
+                        _ckIsComolete = true;
+
                         for(var i=0;i<result.length;i++){
                             if(inType == result[i].catNum){
                                 inTypeName = result[i].catName;
@@ -98,6 +127,11 @@ $(document).ready(function(){
                         $('.top-title').children('span').html(inTypeName);
                     },
                     error:function(jqXHR, textStatus, errorThrown){
+
+                        $('#theLoading').modal('hide');
+
+                        _ckIsComolete = true;
+
                         console.log(jqXHR.responseText);
                     }
                 })
@@ -114,9 +148,15 @@ $(document).ready(function(){
 
                 //获取供货单位
                 $('#entry-datatables .unit-name').html(data[0].supName);
+
+                callBack();
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
+                $('#theLoading').modal('hide');
+
+                console.log(jqXHR.responseText);
 
             }
         });
@@ -149,5 +189,16 @@ $(document).ready(function(){
 
             }
         })
+    }
+
+    //回调函数
+    function callBack(){
+
+        if( _wlIsComplete && _ckIsComolete ){
+
+            $('#theLoading').modal('hide');
+
+        }
+
     }
 });

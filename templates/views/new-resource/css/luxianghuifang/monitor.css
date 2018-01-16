@@ -1,0 +1,265 @@
+/*头部信息*/
+.page-title{
+    display: none;
+}
+
+
+/*右侧统计信息*/
+.rheader-content-right1{
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+.rheader-content-right1 .statistics-message{
+    margin-bottom:15px;
+}
+.rheader-content-right1 .statistics-message h3{
+    margin: 0 !important;
+}
+.rheader-content-right1 .statistics-message h3 span{
+
+    background:#5b9bd5;
+    color:white;
+    padding:3px 18px;
+    border-radius: 5px 5px 0px 0px !important;
+    display: inline-block;
+}
+.statistics-message .statistics-message-content{
+    border: 1px solid #ccc;
+}
+.statistics-message .statistics-message-content ul li{
+    font-size: 20px;
+    color:#666;
+    line-height: 30px;
+    margin-bottom:10px !important;
+}
+.statistics-message .statistics-message-content ul li span{
+    margin-right:20px;
+    margin-left:20px;
+}
+
+.page-quick-sidebar-over-content{
+    z-index: 3000;
+}
+
+.div-plugin-contain{
+    z-index: 10;
+}
+.parent-wnd{
+    z-index: 10;
+}
+.parent-wnd div{
+    z-index: 10 !important;
+}
+.parent-wnd div canvas{
+    z-index: 10 !important;
+}
+.plugin object{
+    z-index: 10 !important;
+}
+.divPlugin{
+    z-index: 10;
+}
+/*摄像头信息*/
+.monitor-message li{
+    cursor: pointer;
+
+}
+
+.curClick{
+    color:#5b9bd5 !important;
+}
+
+.statistics-message-content ul{
+    padding-top:15px;
+    box-sizing: border-box;
+    height: 240px;
+    overflow: auto;
+}
+
+
+.alarm-message li span{
+    font-size: 16px !important;
+    margin-right:3px !important;
+}
+
+.alarm-message li .alarm{
+    margin:0px !important;
+}
+
+/*摄像头选择*/
+.monitor-message li{
+    font-size: 15px !important;
+    line-height: 20px !important;
+    padding-left:20px;
+    box-sizing: border-box;
+}
+.monitor-message li span{
+    display: none;
+}
+
+/*下方回访操作控制台修改*/
+.playback{
+    background: #4C4B4B;
+    width:100% !important;
+    margin-left:0 !important;
+    border:none !important;
+    color:#A8A8A8;
+}
+
+/*删除标题*/
+.playback legend{
+    display: none;
+}
+
+#canvas0{
+    border:none !important;
+}
+
+/*input框*/
+.playback input{
+    background: none;
+    outline: none;
+    border: 1px solid #707070;
+}
+
+
+/*开始结束按钮*/
+.playback .btn2 {
+    width: 95px !important;
+    height: 22px;
+    line-height: 18px;
+    padding-left:25px !important;
+    color:white;
+    background-color: #7A7A7A;
+    border-radius: 2px !important;
+    outline: none !important;
+    border: none !important;
+    margin-right:10px;
+}
+
+.playback .btns{
+    width:60px !important;
+    padding-left:20px !important;
+    color:white;
+    height: 22px;
+    background-color: #7A7A7A;
+    border-radius: 2px !important;
+    outline: none !important;
+    border: none !important;
+    margin-right:10px;
+}
+
+/*搜索按钮*/
+.playback .btns-seek{
+    color:#FFFFFF;
+    background: #408ADD !important;
+    border:none !important;
+    padding:2px 3px !important;
+    width:auto !important;
+
+}
+
+/*开始回放按钮背景图*/
+.start-btn{
+    background: url('../../img/kaishihuifang.png') no-repeat 10px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+    outline: none !important;
+    border: none !important;
+}
+
+/*停止回放按钮背景图*/
+.end-btn{
+    background: url('../../img/tingzhihuifang.png') no-repeat 10px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/*倒放按钮背景图*/
+.upend-btn{
+    background: url('../../img/daofang.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+    outline: none !important;
+}
+
+/*单帧背景图*/
+.single-frame{
+    background: url('../../img/danzhen.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+    border: none !important;
+}
+
+/*实时回放背景图*/
+.current-btn{
+    background: url('../../img/shishihuamian.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*抓图背景图*/
+.capture-btn{
+    background: url('../../img/zhuatu.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 70% !important;
+
+}
+
+/*开始剪辑，结束剪辑背景图*/
+.start-editing, .end-editing{
+    background: url('../../img/kasihijianji.png') no-repeat 10px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*暂停背景图*/
+.suspend-btn{
+    background: url('../../img/zantin.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*恢复背景图*/
+.recover-btn{
+    background: url('../../img/huifu.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*慢放背景图*/
+.slow-btn{
+    background: url('../../img/manfang.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*恢复背景图*/
+.fast-btn{
+    background: url('../../img/kuaifang.png') no-repeat 6px center !important;
+    background-color: #7A7A7A !important;
+    background-size:auto 80% !important;
+
+}
+
+/*选中的按钮添加样式*/
+.choose-btn{
+    background-color: #408ADD !important;
+}
+
+/*td高度*/
+.playback table td{
+    height:38px;
+}
+
+/*复选框页面不显示*/
+#uniform-transstream{
+    display: none;
+}

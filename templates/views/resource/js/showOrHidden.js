@@ -21,6 +21,16 @@ $(function(){
         }
     });
 
+    //模态框拖动
+    $(document).on("show.bs.modal", ".modal", function(){
+
+        $(this).draggable({
+            handle: ".modal-header"   // 只能点击头部拖动
+        });
+
+        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+    });
+
     //更改时间维度日、周、月、年
     $('.types').change(function(){
         var bbaa = $('.types').find('option:selected').val();
@@ -218,6 +228,21 @@ function _monthDate(){
         format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
         language: "zh-CN",//汉化
         forceParse: 0,
+        autoclose:1
+    })
+}
+
+//datapicker时间插件初始化（月）
+function _monthDate11(el){
+    el.datepicker('destroy');
+    el.datepicker({
+        startView: 1,
+        maxViewMode: 2,
+        minViewMode:1,
+        forceParse: 0,
+        autoclose:1,
+        format: "yyyy-mm",//选择日期后，文本框显示的日期格式
+        language: "zh-CN" //汉化
     })
 }
 
@@ -229,6 +254,7 @@ function _yearDate(){
         maxViewMode: 2,
         minViewMode:2,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy-mm-dd",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })

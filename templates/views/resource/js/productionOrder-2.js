@@ -1,3 +1,6 @@
+//工单号
+var _gdCode = '';
+
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
     //获得用户名id
@@ -7,9 +10,6 @@ $(function(){
 
     //获取本地url
     var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-    //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
 
     //存放执行人信息的数组
     var _zhixingRens = [];
@@ -30,8 +30,7 @@ $(function(){
     //实际发送时间
     var realityStart;
     var realityEnd;
-    //工单号
-    var gdCode = '';
+
     //记录当前工单的状态
     var _gdState = 0;
     //通过vue对象实现双向绑定
@@ -92,8 +91,8 @@ $(function(){
     getWP();
     //获取执行人员列表
     getRY();
-    //记录当前工单详情有几个图
-    var _imgNum = 0;
+    ////记录当前工单详情有几个图
+    //var _imgNum = 0;
     //保存所有部门的数组
     var _departmentArr = [];
     //当前选中的部门的对象
@@ -137,6 +136,10 @@ $(function(){
 
     //标识在维修班组中
     var _isBZ = false;
+
+    //条件查询车站
+    addStationDom($('#bumen').parent());
+
     /*-----------------------------表格初始化----------------------------------------*/
     //页面表格
     var table = $('#scrap-datatables').DataTable({
@@ -221,7 +224,7 @@ $(function(){
                 }
             },
             {
-                title:'车站',
+                title:__names.department,
                 data:'bxKeshi'
             },
             {
@@ -339,7 +342,7 @@ $(function(){
     /*-----------------------------页面加载时调用的方法------------------------------*/
     //条件查询
     //conditionSelect();
-    InfluencingUnit();
+    _WxBanzuStationData(conditionSelect);
     //不打印部分
     noPrint($('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate'));
     /*---------------------------------表格绑定事件-------------------------------------*/
@@ -363,7 +366,7 @@ $(function(){
             //获取详情
             var gongDanState = $this.children('.gongdanZt').html();
             var gongDanCode = $this.children('.gongdanId').children('span').attr('gdCode');
-            gdCode = gongDanCode;
+            _gdCode = gongDanCode;
             _gdState = gongDanState;
             if( gongDanState == '待接单' ){
                 $('.workDone .gongdanClose').find('.btn-success').html('接单');
@@ -427,6 +430,7 @@ $(function(){
                     workDones.weixiukeshis = result.wxKeshi;
                     workDones.remarks = result.bxBeizhu;
                     _imgNum = result.hasImage;
+
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
                     workDones.gdCode = result.gdCode2;
@@ -508,13 +512,29 @@ $(function(){
         for(var i=0;i<filterInputValue.length;i++){
             filterInput.push(filterInputValue.eq(i).val());
         }
-        realityStart = filterInput[2] + ' 00:00:00';
-        realityEnd = moment(filterInput[3]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        realityStart = filterInput[1] + ' 00:00:00';
+        realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
+
+        var values = '';
+
+        var flag = $('#bumen').parent('div').next().find('span').attr('values');
+
+        if( typeof flag == 'undefined' ){
+
+            values = '';
+
+        }else{
+
+            values = flag;
+
+        }
+
         var prm = {
             'gdCode2':filterInput[0],
             'gdSt':realityStart,
             'gdEt':realityEnd,
-            'bxKeshi':filterInput[1],
+            'bxKeshiNum':values,
             "gdZht": 0,
             "gdZhts": [
                 2,5
@@ -523,17 +543,30 @@ $(function(){
             'userName':_userIdName
         }
         var wbzArr = [];
-        if(_isWBZ){
-            for(var i=0;i<_bzArr.length;i++){
-                wbzArr.push(_bzArr[i].departNum);
+
+        if(_AisWBZ){
+
+            for(var i=0;i<_AWBZArr.length;i++){
+
+                for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                    wbzArr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+                }
+
             }
+
             prm.wxKeshis = wbzArr;
-        }else if(_isBZ){
+
+        }else if(_AisBZ){
+
             prm.wxKeshi = _maintenanceTeam;
+
         }
+
         $.ajax({
             type:'post',
-            url:_urls + 'YWGD/ywGDGetDJ',
+            url:_urls + 'YWGD/ywGDGetZh2',
             async:false,
             data:prm,
             success:function(result){
@@ -594,6 +627,10 @@ $(function(){
         //时间置为今天
         $('.datatimeblock').eq(0).val(_initStart);
         $('.datatimeblock').eq(1).val(_initEnd);
+
+        //车站初始化
+        $('#bumen').parent().next().find('span').removeAttr('values').html('全部');
+
     })
     //点击派工，切换状态
     $('.paigongButton').click(function(){
@@ -617,41 +654,19 @@ $(function(){
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR',2);
             }else{
+                //更新状态
+                upDate(1);
                 //更新维修备注
                 upDateWXRemark(1);
                 //执行人添加
                 Worker('YWGD/ywGDAddWxR',1);
-                //更新状态
-                upDate(1);
+
             }
         }
     })
     $('.confirm').click(function(){
         $(this).parents('.modal').modal('hide');
     })
-    //查看图片
-    $('#myModal')
-        .on('click','#viewImage',function(){
-            if(_imgNum){
-                var str = '';
-                for(var i=0;i<_imgNum;i++){
-                    str += '<img class="viewIMG" src="' +
-                        replaceIP(_urlImg,_urls) + '?gdcode=' + gdCode + '&no=' + i +
-                        '">'
-                }
-                $('.showImage').html('');
-                $('.showImage').append(str);
-                $('.showImage').show();
-            }else{
-                $('.showImage').html('没有图片');
-                $('.showImage').show();
-            }
-        })
-        .on('click','.viewIMG',function(){
-            moTaiKuang($('#myModal9'),'图片详情','flag');
-            var imgSrc = $(this).attr('src')
-            $('#myModal9').find('img').attr('src',imgSrc);
-        })
     //部门选择
     $('#myModal7').on('click','.xzDepartment',function(){
         _autoOrHand = 2;
@@ -662,16 +677,37 @@ $(function(){
     })
     //选择部门确定按钮
     $('.determineDepartment').click(function(){
+
+        $('#xzmc').val(_determineDeObj.name);
+
+        $('#zxbm').val(_determineDeObj.id);
+
         $('#tree-block').hide();
+
+        var arr = [];
+
+        datasTable($('#zhixingRenTable'),arr);
     })
     //选择部门取消按钮
     $('.close-tree').click(function(){
+
+        var bm = $('#cjz').children('option:selected').attr('bm');
+        var mc = '';
+        //通过部门编码找部门名称
+        for(var i=0;i<_departmentArr.length;i++){
+            if(_departmentArr[i].id == bm){
+                mc = _departmentArr[i].name;
+            }
+        }
+        //加载负责人数据
+        $('#xzmc').val(mc);
+        $('#zxbm').val(bm);
+
         $('#tree-block').hide();
         _determineDeObj.pId = '';
         _determineDeObj.name = '';
         _determineDeObj.id = '';
-        $('#xzmc').val('');
-        $('#zxbm').val('');
+
     })
     //条件查询人员
     $('.zhixingButton').click(function(){
@@ -811,44 +847,6 @@ $(function(){
     });
 
     /*-----------------------------------------模态框位置自适应------------------------------------------*/
-    //获取到影响单位、用户分类
-    function InfluencingUnit(){
-        var prm = {
-            "userID": _userIdNum,
-            "userName": _userIdNum
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWGD/ywGDGetWxBanzuStation',
-            data:prm,
-            success:function(result){
-                _maintenanceTeam = 'JT04';
-                _InfluencingArr.length = 0;
-                _bzArr.length = 0;
-                //判断session中的变量是在维保组还是在维修班组中，
-                for(var i=0;i<result.stations.length;i++){
-                    if(_maintenanceTeam == result.stations[i].departNum){
-                        _isWBZ = true;
-                        _InfluencingArr.push(result.stations[i]);
-                        for(var j=0;j<result.stations[i].wxBanzus.length;j++){
-                            _bzArr.push(result.stations[i].wxBanzus[j]);
-                        }
-                    }
-                }
-                for(var i=0;i<result.wxBanzus.length;i++){
-                    if(_maintenanceTeam == result.wxBanzus[i].departNum){
-                        _isBZ = true;
-                        _bzArr.push(result.wxBanzus[i]);
-                    }
-                }
-                //按条件加载
-                conditionSelect();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
     //模态框自适应
     function moTaiKuang(who,flag){
         who.modal({
@@ -974,7 +972,7 @@ $(function(){
             obj.wxRen = _zhixingRens[i].userNum;
             obj.wxRName = _zhixingRens[i].userName;
             obj.wxRDh = _zhixingRens[i].mobile;
-            obj.gdCode = gdCode;
+            obj.gdCode = _gdCode;
             if(_zhixingRens[i].userNum == best){
                 obj.wxRQZ = 1;
             }else{
@@ -983,7 +981,7 @@ $(function(){
             workerArr.push(obj);
         }
         var gdWR = {
-            gdCode :gdCode,
+            gdCode :_gdCode,
             gdWxRs:workerArr,
             userID:_userIdNum,
             userName:_userIdName,
@@ -1023,11 +1021,11 @@ $(function(){
             obj.wxCl = _weiXiuCaiLiao[i].wxCl;
             obj.wxClName = _weiXiuCaiLiao[i].wxClName;
             obj.clShul = _weiXiuCaiLiao[i].clShul;
-            obj.gdCode = gdCode;
+            obj.gdCode = _gdCode;
             cailiaoArr.push(obj);
         }
         var gdWxCl = {
-            gdCode:gdCode,
+            gdCode:_gdCode,
             gdWxCls:cailiaoArr,
             userID:_userIdNum,
             userName:_userIdName,
@@ -1107,8 +1105,7 @@ $(function(){
                         _determineDeObj.name = selectedNode[i].name;
                         _determineDeObj.id = selectedNode[i].id;
                     }
-                    $('#xzmc').val(_determineDeObj.name);
-                    $('#zxbm').val(_determineDeObj.id);
+
                 },
             }
         };
@@ -1118,7 +1115,7 @@ $(function(){
     //更新维修备注
     function upDateWXRemark(flag){
         var prm = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "gdZht": _gdState,
             "wxKeshi": '',
             "wxBeizhu": workDones.wxremark,
@@ -1151,7 +1148,7 @@ $(function(){
     //跟新状态
     function upDate(flag){
         var gdInfo = {
-            'gdCode':gdCode,
+            'gdCode':_gdCode,
             'gdZht':3,
             'wxKeshi':$('.weixiukeshis').val(),
             'wxKeshiNum':$('.weixiukeshis').attr('data-bm'),
@@ -1220,7 +1217,7 @@ $(function(){
     //重发
     function reSend(flag){
         var gi = {
-            "gdCode": gdCode,
+            "gdCode": _gdCode,
             "gdZht": 3,
             "gdCircle": _gdCircle,
             "userID": _userIdNum,
@@ -1246,13 +1243,6 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
-    }
-    //IP替换
-    function replaceIP(str,str1){
-        var ip = /http:\/\/\S+?\//;  /*http:\/\/\S+?\/转义*/
-        var res = ip.exec(str1);  /*211.100.28.180*/
-        str = str.replace(ip,res);
-        return str;
     }
     //状态值转换
     function stateTransform(ztz){

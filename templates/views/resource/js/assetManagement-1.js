@@ -699,8 +699,8 @@ $(function(){
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevs',
             data:prm,
-            async:false,
             success:function(result){
+                console.log(prm);
                 for(var i=0;i<result.length;i++){
                     _allDateArr.push(result[i]);
                 }

@@ -10,6 +10,7 @@
     width: 182px;
     position: relative;
     display: inline-block;
+    height: 32px;
 }
 .add-input-block {
     width: 172px;

@@ -1,0 +1,137 @@
+.left-middle-main1 p{
+    line-height: 16px;
+    height:16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*对象选择*/
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 110px !important;
+}
+.main-left-middle {
+    width: 100%;
+    height: 140px !important;
+}
+.main-left-middle1{
+    height:310px;
+    overflow-y: auto;
+}
+
+.left-middle-main p,.left-middle-main1 p{
+    line-height: 30px;
+    height:30px;
+    font-size: 18px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+/*选中的对象*/
+.left-middle-main .curChoose,.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+
+/*排名内容*/
+.left-middle-main1{
+
+    height: 280px;
+    overflow-y: auto;
+
+}
+.left-middle-main1 p {
+    line-height: 16px;
+    height: 16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+/*右侧echarts图*/
+#rheader-content-16{
+    height: 500px;
+    /*margin-right: 0 !important;*/
+}
+
+/*上方展示项数切换按钮*/
+.right-header-right li{
+    float: right;
+}
+
+.header-right-btn .cur-on-choose {
+    background: #666;
+    color: white;
+}
+
+.header-right-btn span {
+    margin-right: 10px;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 22px;
+    display: inline-block;
+    border-radius: 5px !important;
+}
+
+
+/*右侧统计数据*/
+.rheader-content-rights{
+    height:320px !important;
+}
+.compared-with-last-time {
+    position: absolute;
+    top: 140px;
+    left: 32px;
+    font-size: 1.5rem;
+}
+/*上方能耗累计*/
+#consumption-value-number {
+    font-size: 2rem !important;
+    font-weight: 700;
+}
+
+.compared-with-last-time label{
+    font-weight: 700 !important;
+    font-size:1.5rem !important;
+}
+
+/*中间箭头*/
+.rights-up1 {
+    display: inline-block;
+    width: 20px;
+    height: 40px;
+    position: absolute;
+    top: 140px;
+    left: 117px;
+    background: url(../../img/up2.png)no-repeat;
+    background-size: 23px;
+    margin-left: 5px;
+}
+
+/*右侧比例*/
+.right-up-precent{
+    position: absolute;
+    top: 144px;
+    left: 155px;
+    font-size: 1.8rem;
+    color:#019cdf;
+}
+
+.quota-year {
+    position: absolute;
+    top: 198px;
+    left: 32px;
+    font-size: 1.5rem;
+}
+.quota-year1 {
+    position: absolute;
+    top: 252px;
+    left: 32px;
+    font-size: 1.5rem;
+}

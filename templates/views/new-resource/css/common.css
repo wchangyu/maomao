@@ -1,11 +1,21 @@
+
 /*隐藏头部*/
 .page-title{
     display: none;
 }
 /*外层div增加border*/
 .wrap{
-    border-right:1px solid #ccc;
-    border-bottom:1px solid #ccc;
+    /*border-right:1px solid #ccc;*/
+    /*border-bottom:1px solid #ccc;*/
+}
+
+/*每项标题的小横框*/
+.left-middle-header {
+    background: #343959 !important;
+}
+
+.unit{
+    line-height: 24px;
 }
 .content-main-left{
     border-bottom: 0;
@@ -23,13 +33,16 @@
     padding-left: 0px;
     padding-right: 10px;
     box-sizing: border-box;
+    background: #FBFBFB;
+    border:none
 }
 .content-main-left .content-main{
-    background:#ededed;
+    /*background:#ededed;*/
+    background: none;
 }
 /*zTree*/
 .tree-1{
-    background:#ededed;
+    background:#FBFBFB;
 }
 /*zTree头部选项卡*/
 .left-middle-content {
@@ -52,12 +65,12 @@
 }
 
 .left-middle-main .left-tab-contain{
-    width:90%;
+    width:100%;
     height: 100%;
     margin: 0 auto;
 }
 .left-middle-main .left-tab-contain .left-middle-tab{
-    width:33%;
+    width:33.3%;
     float:left !important;
     height:35px !important;
     line-height: 35px !important;
@@ -70,7 +83,7 @@
 }
 /*zTree树*/
 .ztree li{
-    margin:0 auto;
+    margin:0 10px;
     width:190px;
 }
 .tree-1{
@@ -153,73 +166,106 @@
     color:white;
 }
 
-.energy-types div:nth-child(1){
-    background: url(../img/dian1.png) center 10px no-repeat !important;
+.energy-types .all-energy-type{
+    background: url(../img/money00.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
+}
+.main-left-top1 .energy-types .blueImg00{
+    background: url(../img/money0.png) center 6px no-repeat !important;
+
+    background-size:22px 28px !important;
+}
+
+.energy-types .dian{
+    background: url(../img/dian11.png) center 6px no-repeat !important;
+
+    background-size:22px 28px !important;
 }
 .main-left-top1 .energy-types .blueImg0{
-    background: url(../img/dian2.png) center 10px no-repeat !important;
+    background: url(../img/dian1.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
-.energy-types div:nth-child(2){
-    background: url(../img/water1.png) center 10px no-repeat !important;
+.energy-types .shui{
+    background: url(../img/shui22.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 .main-left-top1 .energy-types .blueImg1{
-    background: url(../img/shui2.png) center 10px no-repeat !important;
+    background: url(../img/shui2.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
-.energy-types div:nth-child(3){
-    background: url(../img/qi1.png) center 10px no-repeat !important;
+.energy-types .qi{
+    background: url(../img/qi33.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 .main-left-top1 .energy-types .blueImg2{
-    background: url(../img/qi2.png) center 10px no-repeat !important;
+    background: url(../img/qi3.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
-.energy-types div:nth-child(4){
-    background: url(../img/nuan1.png) center 10px no-repeat !important;
+.energy-types .nuan{
+    background: url(../img/nuan33.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 
 .main-left-top1 .energy-types .blueImg3{
-    background: url(../img/nuan2.png) center 10px no-repeat !important;
+    background: url(../img/nuan3.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 
-.energy-types div:nth-child(5){
-    background: url(../img/leng1.png) center 10px no-repeat !important;
+.energy-types .leng{
+    background: url(../img/leng33.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 .main-left-top1 .energy-types .blueImg4{
-    background: url(../img/leng2.png) center 10px no-repeat !important;
+    background: url(../img/leng3.png) center 6px no-repeat !important;
 
-    background-size:40px 40px !important;
+    background-size:22px 28px !important;
 }
 /*.main-left-top1 .energy-types div{*/
 /*background-color:white !important;*/
 /*}*/
 .energy-types div {
-    border: 2px solid #ededed;
+    border: none !important;
 }
 
 .main-left-top1 .energy-types .selectedEnergy{
-    background-color:#5b9bd5 !important;
+    /*background-color:#5b9bd5 !important;*/
+    background-color: none !important;
     border:none !important;
+    color:#62A8DB !important;
 }
 
+.energy-types p{
+    margin-top: 40px !important;
+    text-align: center;
+    font-size: 14px;
+}
 
+.selectedEnergy p{
+    margin-top: 40px !important;
+    text-align: center;
+}
 
-/*------------------------------------右侧数据展示----------------------------- */
+.selectedEnergy p span{
+    line-height: 20px;
+    border-bottom: 2px solid #62A8DB;
+}
+
+/*查询按钮*/
+.content-main .btn-success{
+    background: #35DAAF !important;
+    padding: 6px 20px;
+}
+
+    /*------------------------------------右侧数据展示----------------------------- */
 /*右侧上方显示信息*/
 .right-header {
     width: 100%;
@@ -353,4 +399,9 @@
 /*中间下降箭头*/
 .decline{
     background: url(../../resource/img/up.png) 0% 0% / 23px no-repeat !important;
+}
+
+/*table中隐藏*/
+.theHidden{
+    display: none !important;
 }

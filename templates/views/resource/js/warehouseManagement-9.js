@@ -7,6 +7,30 @@ $(function(){
             'num':'',
             'name':'',
             'beizhu':''
+        },
+        methods:{
+
+            'keyword':function(){
+
+                var arr = [];
+
+                for(var i=0;i<allData.length;i++){
+
+                    arr.push(allData[i].cateNum);
+
+                }
+
+                if(arr.indexOf(myApp33.num)>=0){
+
+                    $('.error1').show();
+
+                }else{
+
+                    $('.error1').hide();
+
+                }
+
+            }
         }
     });
 
@@ -73,6 +97,8 @@ $(function(){
 
     //新增
     $('.creatButton').click(function(){
+        $('.error1').hide();
+
         //清空所有内容
         myApp33.name = '';
         myApp33.num = '';
@@ -85,34 +111,50 @@ $(function(){
     //登记按钮
     $('#myModal').on('click','.dengji',function(){
         if(myApp33.name == ''){
+
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '')
+
         }else{
-            var prm = {
-                'cateName':myApp33.name,
-                'cateRemark':myApp33.beizhu,
-                userID:_userIdNum,
-                userName:_userIdName,
-                b_UserRole:_userRole,
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWCK/ywCKAddItemCate',
-                data:prm,
-                success:function(result){
-                    if(result == '执行成功'){
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功！', '');
-                        //刷新列表
-                        conditionSelect();
-                        $(this).parents('.modal').modal('hide');
-                    }else{
-                        _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败！', '');
-                    }
-                    $('#myModal').modal('hide');
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
+
+            var o = $('.error1').css('display');
+
+            if(o == 'none'){
+
+                var prm = {
+                    'cateNum':myApp33.num,
+                    'cateName':myApp33.name,
+                    'cateRemark':myApp33.beizhu,
+                    userID:_userIdNum,
+                    userName:_userIdName,
+                    b_UserRole:_userRole,
                 }
-            })
+                $.ajax({
+                    type:'post',
+                    url:_urls + 'YWCK/ywCKAddItemCate',
+                    data:prm,
+                    success:function(result){
+                        if(result == '执行成功'){
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加成功！', '');
+                            //刷新列表
+                            conditionSelect();
+                            $(this).parents('.modal').modal('hide');
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'添加失败！', '');
+                        }
+                        $('#myModal').modal('hide');
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }else{
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'类别已存在!', '');
+
+            }
+
+
         }
     })
 
@@ -186,6 +228,9 @@ $(function(){
     //编辑
     $('#scrap-datatables tbody')
         .on('click','.option-edit',function(){
+
+            $('.error1').hide();
+
         //添加编辑确定按钮类
         $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
         //修改背景颜色标识

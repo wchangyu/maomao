@@ -55,6 +55,13 @@
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
+    <style>
+
+        #selectClass{
+            cursor: pointer;
+            color: #428bca;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -238,7 +245,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -375,8 +381,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/warehouseManagement-1.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -385,6 +389,8 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/warehouseManagement-1.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框创建工单-->
@@ -400,10 +406,23 @@
                 <ul class="gongdanList" id="myApp33">
                     <validator name="validation">
                         <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;">
-                                <div class="labels">物品编码 ：</div>
+                            <li class="floatLeft">
+                                <div class="labels colorTip">分类编码*：<span id="selectClass">【选择】</span><span v-show="$validation.flbianma.requireds" style="display: none">请选择物品编码</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" v-model="bianhao" class="shishi" placeholder="自动生成" readonly="readonly">
+                                    <input type="text" v-model="flbianma" class="disabled-block"  v-validate:flbianma= "['requireds']" initial='off' readonly="readonlyshowOrHidden" style="cursor: pointer">
+                                </div>
+                            </li>
+                            <li class="floatRight">
+                                <div class="labels">分类名称 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="flmingcheng" class="disabled-block" readonly="readonly">
+                                </div>
+                            </li>
+                            <li class="floatLeft" style="line-height: 26px;">
+                                <div class="labels colorTip">物品编码 *：<span class="error1 colorTip" style="display: none">编码已存在</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text" v-model="bianhao" class="shishi" @focus="focusword()" v-on:click="clickword()" @keyUp="keyword()">
+                                    <ul class="accord-with-list" style="width: 300px;"></ul>
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -428,18 +447,6 @@
                                 <div class="labels">单位 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="danwei">
-                                </div>
-                            </li>
-                            <li class="floatRight">
-                                <div class="labels colorTip">分类编码*：<span v-show="$validation.flbianma.requireds" style="display: none">请选择物品编码</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="flbianma" v-on:click="flbianmaFun" placeholder="点击获取分类编码" v-validate:flbianma= "['requireds']" initial='off' style="cursor: pointer">
-                                </div>
-                            </li>
-                            <li class="floatLeft">
-                                <div class="labels">分类名称 ：</div>
-                                <div class="input-blockeds">
-                                    <input type="text" v-model="flmingcheng" placeholder="点击分类编码自动获取分类名称" readonly="readonly">
                                 </div>
                             </li>
                             <li class="floatRight">
@@ -520,25 +527,25 @@
                     <li class="floatLeft" style="line-height: 26px;">
                         <div class="labels">物品编码 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="wpbm">
+                            <input type="text" readonly="readonly" id="wpbm" class="disabled-block">
                         </div>
                     </li>
                     <li class="floatRight">
                         <div class="labels">物品名称 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="wpmc">
+                            <input type="text" readonly="readonly" id="wpmc" class="disabled-block">
                         </div>
                     </li>
                     <li class="floatRight">
                         <div class="labels">分类编码 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="flbm">
+                            <input type="text" readonly="readonly" id="flbm" class="disabled-block">
                         </div>
                     </li>
                     <li class="floatLeft">
                         <div class="labels">分类名称 ：</div>
                         <div class="input-blockeds">
-                            <input type="text" readonly="readonly" id="flmc">
+                            <input type="text" readonly="readonly" id="flmc" class="disabled-block">
                         </div>
                     </li>
                 </ul>
@@ -559,8 +566,22 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel4">选择分类列表</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="height: 412px;overflow-y: auto">
                 <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
+                    <ul class="condition-query noprint">
+                        <li><label for="">类别编号：</label>
+                            <div class="input-blocked">
+                                <input type="text" class="filterInput">
+                            </div>
+                        </li>
+                        <li><label for="">类别名称：</label>
+                            <div class="input-blocked">
+                                <input type="text" class="filterInput">
+                            </div>
+                        </li>
+                        <li><button class="btn btn-success btn1">查询</button></li>
+                        <div class="clearfix"></div>
+                    </ul>
                     <table id="wuPinListTable" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" style="width: 626px !important;">
                         <thead>
                         </thead>
@@ -575,6 +596,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 </body>
 <!-- END BODY -->

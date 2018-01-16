@@ -1,0 +1,73 @@
+.left-middle-main1 p{
+    line-height: 16px;
+    height:16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+/*对象选择*/
+.main-left-middle .left-middle-main {
+    overflow-y: auto;
+    height: 280px !important;
+}
+.main-left-middle {
+    width: 100%;
+    height: auto !important;
+}
+
+.left-middle-main p,.left-middle-main1 p{
+    line-height: 30px;
+    height:30px;
+    font-size: 18px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+}
+/*选中的对象*/
+.left-middle-main .curChoose,.left-middle-main1 .curChoose{
+    color:#5b9bd5
+}
+
+/*排名内容*/
+.left-middle-main1{
+
+    height: 180px;
+    overflow-y: auto;
+
+}
+.left-middle-main1 p {
+    line-height: 16px;
+    height: 16px;
+    font-size: 14px;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+/*右侧echarts图*/
+#rheader-content-16{
+    height: 450px;
+    margin-right: 0 !important;
+}
+
+/*上方数据*/
+.top-message {
+    font-size: 16px;
+    padding-top: 20px;
+    font-weight: 600;
+}
+.top-message  p{
+    margin-bottom:10px;
+}
+
+.top-message  p font{
+    display: inline-block;
+    padding: 5px 15px;
+    background: #daf2f2;
+    margin-right:20px;
+}

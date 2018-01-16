@@ -140,7 +140,11 @@ table thead tr th{
     width:180px !important;
 }
 
+.condition-query select{
 
+    width: 130px !important;
+
+}
 /*.checker{*/
     /*float:right !important;*/
     /*height:26px !important;*/

@@ -180,8 +180,25 @@ $(function(){
 
     //导出
     $('.excelButton11').on('click',function(){
-        _FFExcel($('#scrap-datatables')[0]);
+        //_FFExcel($('#scrap-datatables')[0]);
+
+        exportExecl($('#scrap-datatables'));
     });
+
+    //导出为excel
+    function exportExecl(dom){
+
+        dom.table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true,
+            copy_table:true
+        });
+    };
 
     //仓库选择
     $('#storage').on('change',function(){
@@ -289,7 +306,9 @@ $(function(){
             "userName": _userIdName,
             'localNum':$('#kqSelect').val(),
             "lastDayDate":stTime,
-            "dayDate":etTime
+            "dayDate":etTime,
+            "itemNum":$('#materialNum').val(),
+            "itemName":$('#materialName').val()
 
         };
         $.ajax({
@@ -299,6 +318,62 @@ $(function(){
             data:prm,
             success:function(result){
                 _datasTable($("#scrap-datatables"), result);
+
+                //共计
+
+                var father = $('#scrap-datatables').find('tfoot').children('tr').eq(1);
+
+                var td1 = 0;
+
+                var td2 = 0;
+
+                var td3 = 0;
+
+                var td4 = 0;
+
+                var td5 = 0;
+
+                var td6 = 0;
+
+                var td7 = 0;
+
+                var td8 = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    td1 += Number(result[i].startNum);
+
+                    td2 += Number(result[i].startAmount);
+
+                    td3 += Number(result[i].inNum);
+
+                    td4 += Number(result[i].inAmount);
+
+                    td5 += Number(result[i].outNum);
+
+                    td6 += Number(result[i].outAmount);
+
+                    td7 += Number(result[i].num);
+
+                    td8 += Number(result[i].amount);
+                }
+
+                father.find('td').eq(4).html(td1);
+
+                father.find('td').eq(5).html(td2.toFixed(2));
+
+                father.find('td').eq(6).html(td3);
+
+                father.find('td').eq(7).html(td4.toFixed(2));
+
+                father.find('td').eq(8).html(td5);
+
+                father.find('td').eq(9).html(td6.toFixed(2));
+
+                father.find('td').eq(10).html(td7);
+
+                father.find('td').eq(11).html(td8.toFixed(2));
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

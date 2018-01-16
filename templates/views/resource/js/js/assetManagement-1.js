@@ -32,7 +32,7 @@ $(function(){
             url: _urls + url,
             timeout: theTimes,
             success: function (data) {
-                console.log(data);
+
                 $(data).each(function(i,o){
                    arr.push(o);
                 })
@@ -170,6 +170,10 @@ $(function(){
     var _currentPath = '';
     //当前上传文件名
     var _fileName = '';
+
+    //标识当前是登记操作
+    var _deng = false;
+
     //表格
     var _table = $('#browse-datatables');
     //获取设备类型
@@ -255,7 +259,7 @@ $(function(){
                 data:'spec'
             },
             {
-                title:'所属车站',
+                title:'所属'+ __names.department,
                 data:'ddName'
             },
             {
@@ -316,9 +320,12 @@ $(function(){
     //自定义按钮位置
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
     //表格查询加载数据
-    conditionSelect();
+    //conditionSelect();
     /*----------------------------按钮方法-------------------------------*/
     $('.creatButton').click(function(){
+
+        _deng = true;
+
         //上传文件出现
         $('#uploader').show();
         $('#thelist').empty();
@@ -344,6 +351,9 @@ $(function(){
         myApp33.chandi = '';
         myApp33.yuanzhi = '';
         myApp33.xsbbm = '';
+
+        //查看二维码初始化
+        $('.QRcode').empty().hide();
 
         $('#gouzhi').val('');
         $('#anzhuang').val('');
@@ -372,6 +382,12 @@ $(function(){
         }
 
     })
+
+    $('#myModal').on('click','.closeDeng',function(){
+
+        _deng = false;
+
+    })
     //查询
     $('#selected').click(function (){
         conditionSelect();
@@ -379,7 +395,9 @@ $(function(){
     //表格操作查看按钮
     _table.find('tbody')
         .on('click','.option-see',function(){
+
             $('.QRcode').empty();
+
             $('.QRcode').hide();
             //样式
             var $this = $(this).parents('tr');
@@ -525,7 +543,6 @@ $(function(){
             $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             _thisRowBM = $(this).parents('tr').find('.dNum').children('span').html();
-            console.log(_thisRowID);
 
             for(var i=0;i<_allDateArr.length;i++ ){
                 if(_allDateArr[i].dNum == _thisRowBM){
@@ -757,16 +774,32 @@ $(function(){
     })
     //查看二维码
     $('.viewImage').click(function(){
-        if( $('.QRcode').children().length == 0 ){
+
+        if(_deng){
+
             $('.QRcode').empty();
-            $('.QRcode').show();
-            var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
-                '"' + 'style="width:100px;height:100px;"' +
-                '>';
-            $('.QRcode').append(str);
+
         }else{
-            $('.QRcode').empty();
-            $('.QRcode').hide();
+
+            if( $('.QRcode').children().length == 0 ){
+
+                $('.QRcode').empty();
+
+                $('.QRcode').show();
+
+                var str = '<img src="' + replaceIP(_erweimaPath,_urls) + '?asc=' + _thisRowBM +
+                    '"' + 'style="width:100px;height:100px;"' +
+                    '>';
+
+                $('.QRcode').append(str);
+
+            }else{
+
+                $('.QRcode').empty();
+
+                $('.QRcode').hide();
+            }
+
         }
 
     });
@@ -863,8 +896,8 @@ $(function(){
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevs',
             data:prm,
-            async:false,
             success:function(result){
+                //console.log(prm);
                 //console.log(result);
 
                 for(var i=0;i<result.length;i++){

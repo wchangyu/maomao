@@ -27,7 +27,6 @@
     <script src="../resource/TableTools/js/pdfmake.min.js"></script>
     <script src="../resource/TableTools/js/vfs_fonts.js"></script>
     <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-    <script src="../resource/js/productionOrder_see.js"></script>
 </head>
 <body>
 <div class="gd-wrap" style="width:1058px">
@@ -36,14 +35,14 @@
     </div>
     <div class="gongdanContent" style="width: 668px;float: left;height:auto!important;overflow: auto!important;">
         <ul class="gongdanList" id="myApp33">
-            <li class="floatLeft" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels">工单类型：</div>
                 <div class="input-blockeds">
                     <input type="radio" class="inpus" id="ones" value="1" v-model="picked"><label for="ones">快速</label>
                     <input type="radio" class="inpus" id="twos" value="0" v-model="picked"><label for="twos">普通</label>
                 </div>
             </li>
-            <li class="floatRight" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels colorTip">任务级别 *：</div>
                 <div class="input-blockeds">
                     <select v-model="rwlx">
@@ -54,64 +53,67 @@
                     </select>
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">报修电话：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="telephone" class="shishi">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLi">
                 <div class="labels">报修人信息：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="person">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">故障位置：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="place">
                 </div>
             </li>
-            <li class="floatRight">
-                <div class="labels">车站：</div>
+            <li class="floatLi">
+                <div class="labels">
+                    <span class="user-defined-department"></span>
+                    ：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="section">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">系统类型：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="matter">
                 </div>
             </li>
-            <li class="floatRight">
+            <li class="floatLi">
                 <div class="labels">设备编码：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbSelect">
                 </div>
             </li>
-            <li class="floatLeft">
+            <li class="floatLi">
                 <div class="labels">设备名称：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sbMC">
                 </div>
             </li>
-            <li class="floatRight">
-                <div class="labels">维修班组：</div>
+            <li class="floatLi">
+                <div class="labels">
+                    <span class="user-defined-group"></span>
+                    ：</div>
                 <div class="input-blockeds">
                     <input type="text" v-model="sections">
                 </div>
             </li>
-            <li class="floatLeft" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels colorTip">工单来源 *：</div>
                 <div class="input-blockeds">
                     <select v-model="gdly" class="gdly">
-                        <option value="1">车站报修</option>
-                        <option value="2">现场人员报修</option>
+
                     </select>
                 </div>
             </li>
-            <li class="floatRight" style="line-height: 26px;">
+            <li class="floatLi" style="line-height: 26px;">
                 <div class="labels">发生时间：</div>
                 <div class="input-blockeds">
                     <input type="text" class="datatimeblock otime">
@@ -135,6 +137,10 @@
                 <div class="showImage" style="display: none;border: 1px solid #cccccc;padding: 10px;">
                     <img class="viewIMG" src="../resource/img/all1.png">
                 </div>
+            </div>
+            <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
+                <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
+                <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
             </div>
             <div class="table-block">
                 <div class="table-title">
@@ -175,145 +181,17 @@
             </div>
         </ul>
     </div>
-    <div class="right-content" style="float: right">
+    <div class="right-content" style="float: right;width: 345px;">
         <p style="margin-bottom: 0">处理记录</p>
-        <!--<ul class="progressBar">
-            &lt;!&ndash;<li>
-                <div class="progressNum" style="color:#db3d32">01</div>
-                <div class="progressName" style="color:#db3d32">登记</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">02</div>
-                <div class="progressName">受理</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">03</div>
-                <div class="progressName">分派</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">04</div>
-                <div class="progressName">执行</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">05</div>
-                <div class="progressName">等待</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">06</div>
-                <div class="progressName">完成</div>
-            </li>
-            <li class="progressBarList">
-                <div class="progressNum">07</div>
-                <div class="progressName">关闭</div>
-            </li>&ndash;&gt;
-        </ul>-->
         <div class="processing-record">
             <ul style="font-size: 13px; ">
-                <!--<li>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">工单登记</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">受理工单：</div>
-                        <p class="record-content">调度下发</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">组长分派</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">开始执行</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">等待资源</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">执行结束</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content"></p>
-                    </div>
-                </li>
-                <li class="record-list">
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录时间：</div>
-                        <p class="record-content"></p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">记录事项：</div>
-                        <p class="record-content">关闭工单</p>
-                    </div>
-                    <div style="overflow: hidden">
-                        <div class="record-title">相关人员：</div>
-                        <p class="record-content">李雷，韩梅梅</p>
-                    </div>
-                </li>-->
             </ul>
         </div>
     </div>
     <div class="clearfix"></div>
 </div>
 <!--图片详情显示-->
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="img-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="height: auto;">
             <div class="modal-header">
@@ -330,5 +208,14 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/productionOrder_see.js"></script>
+<script src="../resource/js/publicGD.js"></script>
 </body>
 </html>

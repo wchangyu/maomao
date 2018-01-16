@@ -1,0 +1,353 @@
+
+/*最外层包裹容器*/
+.outer-container{
+    width:2560px;
+    height:1024px;
+
+}
+
+/*---------------------左侧平台总览------------------*/
+.inner-left-container{
+    width:741px;
+    height:100%;
+    background: #1F2833;
+    float: left;
+}
+/*上方标题以及地图*/
+.inner-left-top{
+    width:100%;
+    height:683px;
+    background: url('../img/01ditu.png') no-repeat center center;
+}
+
+/*上方左侧整体数据*/
+.left-data-container{
+
+    margin-left:35px;
+}
+.left-specific-data-title{
+    color:#F6F6F6;
+    font-size:18px;
+    margin-right:10px;
+    display: inline-block;
+    height:54px;
+    line-height:54px;
+    vertical-align: top;
+}
+.left-specific-data{
+    font-size:38px;
+    display: inline-block;
+}
+
+.left-specific-data1{
+   color:#2170F4;
+}
+
+.left-specific-data2{
+    color:#F8276C;
+}
+
+.left-specific-data3{
+    color:#EAD01E;
+}
+
+.left-specific-data4{
+    color:#14E398;
+}
+
+/*下方柱状图*/
+.inner-left-bottom{
+    width:741px;
+    height:342px;
+    padding-left:32px;
+    box-sizing: border-box;
+    padding-right:25px;
+}
+/*选项卡*/
+.left-tab-container{
+    width:100%;
+    height:60px;
+}
+.left-tab-container .left-tab{
+    display: inline-block;
+    height:36px;
+    text-align: left;
+    line-height: 36px;
+    font-size:18px;
+    color:white;
+    cursor: pointer;
+}
+.left-tab-container .left-tab1{
+    width:124px;
+    background: url('../img/weidianji1.png') no-repeat center center;
+    padding-left:16px;
+    box-sizing: border-box;
+}
+.left-tab-container .left-tab2{
+    width:132px;
+    background: url('../img/weidianji2.png') no-repeat center center;
+    padding-left:28px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+.left-tab-container .left-tab3{
+    width:119px;
+    background: url('../img/weidianji3.png') no-repeat center center;
+    padding-left:28px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+
+.left-tab-container .left-tab-choose0{
+
+    background: url('../img/dianji1.png') no-repeat center center;
+    padding-left:16px;
+    box-sizing: border-box;
+}
+.left-tab-container .left-tab-choose1{
+
+    background: url('../img/dianji2.png') no-repeat center center;
+    padding-left:28px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+.left-tab-container .left-tab-choose2{
+
+    background: url('../img/dianji3.png') no-repeat center center;
+    padding-left:28px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+
+/*右侧年月日*/
+.left-tab-container .right-tab{
+    font-size:20px;
+    margin-right:10px;
+    color:white;
+    cursor: pointer;
+}
+.left-tab-container .right-tab-choose{
+    color:#F8276C;
+}
+
+/*下方柱状图*/
+.left-bottom-content{
+    width:100%;
+    height:290px;
+}
+
+/*-----------------------右侧主体内容-----------------------*/
+.inner-right-container{
+    width:1819px;
+    height:100%;
+    background: #1c222a;
+    float: right;
+    padding-left:22px;
+    padding-top:38px;
+    padding-right:24px;
+    box-sizing: border-box;
+    position: relative;
+}
+.inner-right-container p{
+    margin:0;
+    padding:0
+}
+
+/*头部标题*/
+.inner-right-container .right-top-title{
+    color:white;
+    font-size: 36px;
+    margin-top:0 !important;
+    margin-bottom:40px;
+}
+
+/*<!--右侧上方时间温度等信息-->*/
+.inner-right-container .right-top-message{
+    width:347px;
+    height:69px;
+    background: url("../img/rightTop.png") no-repeat center center;
+    position: absolute;
+    top:19px;
+    right:24px;
+    padding-left:29px;
+    padding-top:7px;
+    box-sizing: border-box;
+    display: flex;
+    display: -webkit-flex;
+
+}
+.inner-right-container .right-top-message .right-top-message-container{
+   float: left;
+    flex:1;
+}
+
+.inner-right-container .right-top-message p{
+    color:#AFBED1;
+}
+
+.inner-right-container .right-top-message .top-message{
+    font-size:20px;
+}
+.inner-right-container .right-top-message .bottom-message{
+    font-size:16px;
+}
+
+/*右侧上方选项卡*/
+.right-tab-container .right-tab{
+    display: inline-block;
+    height:38px;
+    text-align: center;
+    line-height: 36px;
+    font-size:18px;
+    color:white;
+    cursor: pointer;
+}
+
+.right-tab-container .right-tab1{
+    width:138px;
+    background: url('../img/weijidian01.png') no-repeat center center;
+    padding-right:12px;
+    box-sizing: border-box;
+}
+.right-tab-container .right-tab2{
+    width:140px;
+    background: url('../img/weijidian02.png') no-repeat center center;
+    /*padding-left:38px;*/
+    box-sizing: border-box;
+    margin-left:-36px;
+}
+.right-tab-container .right-tab3{
+    width:127px;
+    background: url('../img/weijidian03.png') no-repeat center center;
+    padding-left:18px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+
+/*选中时的样式*/
+
+.right-tab-container .right-tab-choose0{
+    width:138px;
+    background: url('../img/dianji01.png') no-repeat center center;
+    padding-right:12px;
+    box-sizing: border-box;
+}
+.right-tab-container .right-tab-choose1{
+    width:140px;
+    background: url('../img/dianji02.png') no-repeat center center;
+    /*padding-left:38px;*/
+    box-sizing: border-box;
+    margin-left:-36px;
+}
+.right-tab-container .right-tab-choose2{
+    width:127px;
+    background: url('../img/dianji03.png') no-repeat center center;
+    padding-left:18px;
+    box-sizing: border-box;
+    margin-left:-34px;
+}
+
+/*------------------------------右侧下方主体内容---------------------*/
+.right-bottom-container{
+
+    background: white;
+    width:100%;
+    height:839px;
+    margin-left:3px;
+    padding-top:28px;
+    box-sizing: border-box;
+}
+
+/*主体部分上方选项卡*/
+.right-bottom-tab-container{
+    margin-left:34px;
+}
+.right-bottom-tab-container .right-bottom-tab{
+    width:125px;
+    height:38px;
+    display: inline-block;
+    background: url('../img/weixuanzhong.png') no-repeat center center;
+    text-align: center;
+    vertical-align: center;
+    line-height: 38px;
+    color:#B4B8BC;
+    margin-right:6px;
+    font-size:22px;
+    cursor: pointer;
+}
+
+.right-bottom-tab-container .right-bottom-tab-choose{
+    background: url('../img/xuanzhong.png') no-repeat center center !important;
+    color:white;
+}
+
+/*下方流程图容器*/
+.right-bottom-left-container{
+    margin-left:30px;
+    float: left;
+
+}
+
+.right-bottom-left-container img{
+    width:1228px;
+    height:698px;
+    display: none;
+}
+
+#right-container{
+    width:1228px;
+    height:698px;
+    float: left !important;
+    position: static !important;
+}
+
+/*下方右侧设备数据*/
+.right-bottom-right-container{
+    width:509px;
+    height:614px;
+    background: #E7E9EF;
+    float: right;
+    padding:20px 10px;
+    box-sizing: border-box;
+}
+
+.right-bottom-table{
+    width:100%;
+}
+
+.right-bottom-table thead th{
+    font-size:12px;
+    text-align: center;
+    color:#303030;
+}
+
+.right-bottom-table tbody td{
+    text-align: center;
+}
+.right-bottom-table tbody tr{
+    margin-bottom:8px;
+}
+
+.right-bottom-table tbody tr td .right-bottom-alarm:nth-child(3){
+    margin-bottom:10px;
+}
+
+.right-bottom-table .green-patch{
+    width:53px;
+    height:20px;
+    background: #09D188;
+    color:white;
+    display: inline-block;
+}
+
+.right-bottom-table .right-bottom-echart{
+    width:40px;
+    height:40px;
+    display: inline-block;
+}
+.right-bottom-table .right-bottom-alarm{
+    margin:0;
+    font-size:12px;
+}
+
+

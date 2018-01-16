@@ -1,0 +1,37 @@
+.gongdanList{
+    height: 61px;
+}
+.gongdanList li{
+
+    width: 180px;
+    margin-right: 20px;
+
+}
+.gongdanList li input,.gongdanList li select{
+
+    width: 178px;
+
+}
+.cycle-block{
+    height: 239px;
+}
+.cycle-block-week li{
+
+    line-height: 30px;
+
+    width: 120px;
+
+}
+.cycle-block-month li{
+
+    line-height: 30px;
+
+    width: 120px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    padding: 0 30px;
+
+}

@@ -5,7 +5,9 @@ var Login = function() {
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
     var _isProceLoaded = false;
-    var _indexUrl = "login_3.html";
+    //var _indexUrl = "shouye/index.html";
+    var _indexUrl = "new-nengyuanzonglan/";
+
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
@@ -39,7 +41,7 @@ var Login = function() {
                 }
             },
 
-            invalidHandler: function(event, validator) { //display error alert on form submit   
+            invalidHandler: function(event, validator) { //display error alert on form submit
                 showAlertInfo("请输入用户名和密码");
             },
 
@@ -71,6 +73,7 @@ var Login = function() {
                 }
                 if(sessionStorage.apiUrlPrefix)
                 {
+
                     var url = sessionStorage.apiUrlPrefix + "Account/Login2";
                     $.ajax({
                         url:url,
@@ -109,6 +112,7 @@ var Login = function() {
 
                                     }
                                 }
+                                sessionStorage.userInfo = JSON.stringify(res);
                                 getPointersByUser(name1);
                                 getAllOffices(name1);
                                 getAllEnergyItems();
@@ -369,7 +373,7 @@ var Login = function() {
         //保存当前的登录页面，提供给退出登录时候使用
         var curLoginPage = window.location.href;
         curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
-        console.log(curLoginPage);
+        //console.log(curLoginPage);
         sessionStorage.curLoginPage = curLoginPage;
         configSrc = src || configSrc;
         if(!sessionStorage.apiUrlPrefix) {
@@ -427,6 +431,10 @@ var Login = function() {
 
                     //是否多人审核出库单 入库单，0为关闭，1为不同登录ID审核
                     sessionStorage.ckAuditType = data["ckAuditType"] || '';
+
+                    //工单图片路径
+                    var imgPath = data["imgPath"] || '';
+                    sessionStorage.imgPath = imgPath;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

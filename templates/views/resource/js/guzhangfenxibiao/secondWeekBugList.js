@@ -95,7 +95,12 @@ $(function(){
         },
         {
             title:'平均故障处理时间',
-            data:'gdDealAVGTime'
+            data:'gdDealAVGTime',
+            render: function (data, type, row, meta){
+
+                return data.toFixed(1)
+
+            }
         },
         {
             title:'故障率',
@@ -166,7 +171,7 @@ $(function(){
         }
         //添加第三个
         var thirdTh = '<th class="third"></th>';
-        $('.third').attr('colspan',8).html('其中：累计故障类别');
+        $('.third').attr('colspan',9).html('其中：累计故障类别');
         if( firstTr.children('.third').length == 0 ){
             firstTr.append(thirdTh);
         }
@@ -329,6 +334,10 @@ $(function(){
             title:'处置情况',
             class: 'left-align',
             data:'gdDisposition'
+        },
+        {
+            title:'配件信息',
+            data:'gdWxCl'
         },
         {
             title:'处理人信息',

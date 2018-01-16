@@ -15,10 +15,10 @@ $(document).ready(function(){
         if(!godownNum){
             return false;
         }
-
+        console.log(_urls);
         $.ajax({
             type: 'post',
-            url: _urls + "YWCK/ywCKGetInStorageDetail",
+            url: _urls + "YWCK/ywCKGetInStorageDetailFold",
             timeout: theTimes,
             data:{
                 "orderNum": godownNum,
@@ -73,7 +73,7 @@ $(document).ready(function(){
                     "userID": _userIdName,
                     "userName": _userName
                 };
-                console.log(data);
+
                 $.ajax({
                     type:'post',
                     url:_urls + 'YWCK/ywCKGetInOutCate',
@@ -92,6 +92,8 @@ $(document).ready(function(){
                         console.log(jqXHR.responseText);
                     }
                 })
+                //单据号
+                $('.document-num b').html(data[0].orderNum2);
                 //获取自编号
                 $('.self-num b').html(data[0].orderNum);
                 //获取制单人
@@ -104,6 +106,8 @@ $(document).ready(function(){
                 $('.top-message span b').eq(5).html(data[0].remark);
                 //获取供货单位
                 $('#entry-datatables .unit-name').html(data[0].supName);
+                //获取联系人
+                $('#entry-datatables .linkman-name').html(data[0].contactName);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

@@ -38,6 +38,7 @@ var stationHtml = '<div class="add-input-father" style="margin-left:10px">' +
     '</div>';
 
 function addStationDom(dom){
+
     dom.after(stationHtml);
     dom.hide();
 
@@ -49,7 +50,7 @@ function addStationDom(dom){
         $(this).addClass('action');
         var index = $(this).index();
         classifyArrByInitial(stationArr,index);
-    })
+    });
 
     $('.ac_close').on('click',function(){
 
@@ -67,28 +68,20 @@ function addStationDom(dom){
 
 var ABCArr = [ABC,ABC1,ABC2,ABC3,ABC4,ABC5];
 
-//获得用户名
-var _userIdName = sessionStorage.getItem('userName');
-//获取本地url
-var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-
-
 ajaxFun();
  stationArr = [];
 
 function ajaxFun(){
     var prm = {
-        'userID':_userIdName,
+        'userID':sessionStorage.getItem('userName'),
         'ddName':''
     }
     $.ajax({
         type:'post',
-        url:_urls + 'YWDev/ywDMGetDDs',
+        url:sessionStorage.getItem("apiUrlPrefixYW") + 'YWDev/ywDMGetDDs',
         data:prm,
         success:function(result){
             //给select赋值
-            //console.log(result);
-
             $(result).each(function(i,o){
 
                 stationArr.push(o);
@@ -170,6 +163,50 @@ function classifyArrByInitial(arr,num){
         $('.add-select-block').hide();
 
     })
-
 }
+
+//当线路联动时，车站改变内容
+$('#line').change(function(){
+
+    stationArr.length = 0;
+
+    ////获得选中的线路的value
+    var values = $('#line').val();
+
+    if(values == ''){
+
+        for(var i=0;i<_allDataBM.length;i++){
+
+            stationArr.push(_allDataBM[i]) ;
+
+        }
+
+
+    }else{
+
+        for(var i=0;i<_lineArr.length;i++){
+
+            if(_lineArr[i].dlNum == $('#line').val()){
+
+                for(var j=0;j<_lineArr[i].deps.length;j++){
+
+                    stationArr.push(_lineArr[i].deps[j]);
+
+                }
+
+
+
+            }
+
+        }
+
+    }
+
+    $('.add-input-father').remove();
+
+    addStationDom($('#bumen').parent());
+
+    classifyArrByInitial(stationArr,0);
+
+});
 

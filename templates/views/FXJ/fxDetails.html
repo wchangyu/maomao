@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>返修件详情</title>
+    <!--MyCss-->
+    <link rel="stylesheet" href="../resource/css/bootstrap.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-1.css">
+    <link rel="stylesheet" href="../resource/css/css/assetManagement-2.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder.css">
+    <link rel="stylesheet" href="../resource/css/productionOrder_see.css">
+    <!--MyScript-->
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/vue.js"></script>
+    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../resource/js/vue-validator-v2.1.3.js"></script>
+    <script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+    <script src="../resource/TableTools/button/buttons.print.min.js"></script>
+    <script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+    <script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+    <script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+    <script src="../resource/TableTools/js/jszip.min.js"></script>
+    <script src="../resource/TableTools/js/pdfmake.min.js"></script>
+    <script src="../resource/TableTools/js/vfs_fonts.js"></script>
+    <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+
+    <style>
+        .dataTables_info{
+            display: none;
+        }
+        .single-labels{
+            width: auto !important;
+        }
+        .deal-with-list{
+            display: block;
+        }
+        #fxGoods1 input,select{
+
+            height: 30px;
+
+            line-height: 30px;
+
+            width: 200px !important;
+
+        }
+    </style>
+</head>
+<body>
+<div class="gd-wrap">
+    <!--<div style="border-bottom: 1px solid #ebebeb;margin-bottom: 20px;padding: 10px 0">-->
+        <!--<h1>返修件详情</h1>-->
+    <!--</div>-->
+    <div class="gongdanList" id="fxGoods">
+        <div style="width: 600px !important;float: left">
+            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                <div class="tipe-block">返修件基本信息</div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">返修件id：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">相关工单号：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">返修件编码：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">返修件名称：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">返修件序列号：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">规格型号：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">故障原因：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels">快递信息：</div>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels"><span class="user-defined-department"></span>：</div>
+                        <br>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
+                        <div class="single-labels"><span class="user-defined-workshop"></span>：</div>
+                        <br>
+                        <div class="single-block">
+                            <input >
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="fxGoods1" style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                <div class="tipe-block">操作部分</div>
+                <div style="padding: 10px;">
+                    <label>当前状态&nbsp;&nbsp;&nbsp;:</label>
+                    <input type="text" id="nowStatus" class="disabled-block" disabled="disabled" style="outline: none;margin-left: 20px;">
+                </div>
+                <div style="padding: 10px;display: none;">
+                    <label>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                    <select id="optioning" style="width: 160px;outline: none;margin-left: 20px;" disabled="disabled" class="disabled-block">
+                    </select>
+                </div>
+                <div class="ownRepair">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【维修材料清单】</div>
+
+                        <div class="tableHover">
+                            <table class="table table-hover cl-table" id="cl-list">
+                                <thead>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div style="padding: 10px;"><label>合计金额（元）:</label><input type="text" id="total" class="disabled-block" disabled="disabled" style="outline: none;margin-left: 20px;"></div>
+                            <div style="padding: 10px;"><label>自修单价（元）:</label><input type="text" id="hourFee" style="outline: none;margin-left: 20px;"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="factoryRepair">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【返厂修信息填写】</div>
+
+                        <div class="tableHover">
+                            <div style="padding: 10px;"><label>返厂修日期</label>:<input type="text" class="datatimeblock"></div>
+                            <div style="padding: 10px;"><label>厂家名称</label>:<input type="text" id="factory"></div>
+                            <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
+                            <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
+                            <div style="padding: 10px;"><label>预计到达时间</label>:<input type="text" class="datatimeblock"></div>
+                        </div>
+                        <hr>
+                        <div class="tableHover">
+                            <div style="padding: 10px;"><label>厂家发货日期</label>:<input type="text"></div>
+                            <div style="padding: 10px;"><label>快递公司</label>:<input type="text"></div>
+                            <div style="padding: 10px;"><label>快递单号</label>:<input type="text"></div>
+                            <div style="padding: 10px;"><label>收货地点</label>:<input type="text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="remarkRepair">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【备注】</div>
+                        <div class="tableHover">
+                            <textarea style="height: 70px;outline: none;border: 1px solid #cccccc;width: 100%;"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="majorBlock">
+                    <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                        <div class="tipe-block" style="border:none">【返回主库信息】</div>
+
+                        <div class="tableHover">
+                            <textarea style="border: 1px solid #cccccc;width: 100%;outline: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div style="width:344px !important;float: right">
+            <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 30px;">
+                <div class="tipe-block">处理过程</div>
+                <ul class="deal-with-list"></ul>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--图片详情显示-->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">图片</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <img src="" style="max-width: 667px;">
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--处理过程-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 500px;">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <div class="right-content">
+                        <!--<p style="margin-bottom: 0">处理记录</p>-->
+                        <div class="processing-record" style="height: 350px;overflow-y: visible">
+                            <ul style="font-size: 13px; ">
+
+                            </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/fxDetails.js"></script>
+</html>

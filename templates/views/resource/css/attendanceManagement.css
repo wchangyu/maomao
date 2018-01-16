@@ -1,0 +1,20 @@
+.gongdanList li{
+    line-height: 26px;
+}
+.gongdanList .inputblock{
+
+    width: 255px;
+    height: 99%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.gongdanList .datatimeblock{
+
+    width: 30px;
+    height: 25px;
+    vertical-align: middle;
+    font-size: 0;
+}
+.multiple-condition{
+    width: 135px !important;
+}

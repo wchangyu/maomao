@@ -68,6 +68,30 @@
         .table .noprint .option-see{
             margin-left:20px;
         }
+        #addSn{
+
+            width: 30px;height:30px;background:green;display: inline-block;vertical-align: middle;cursor: pointer;
+            background: url("../resource/img/plus.png") no-repeat;
+            background-size: 15px;
+            background-position: center;
+
+        }
+
+        .subBatch{
+
+            width: 30px;height: 30px;background:blue;display: inline-block;vertical-align: middle;float: right;
+            background: url("../resource/img/minus.png") no-repeat;
+            background-size: 15px;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .children-body{
+
+            width: 332px;height:200px;border:1px solid #a9a9a9;display: inline-block;vertical-align: middle;overflow-y: auto;
+
+        }
+
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -261,7 +285,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -424,8 +447,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/warehouseManagement-2.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -434,6 +455,9 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/warehouseManagement-2.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--模态框新增入库-->
@@ -462,7 +486,7 @@
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">供货方名称 ：<a href="providerManagement.html" target="_blank">【新增】</a><span class="refresh"></span></div>
+                            <div class="labels">供货方名称 ：<a href="providerManagement.html" target="_blank">【新增】</a><span class="refresh" id="reSupplier"></span></div>
                             <div class="input-blockeds">
                                 <select id="supplier" v-model="suppliermc" @change="selectSupplier()"></select>
                             </div>
@@ -480,7 +504,7 @@
                             </div>
                         </li>
                         <li class="gdList">
-                            <div class="labels">仓库选择 ：</div>
+                            <div class="labels colorTip">仓库选择 *：</div>
                             <div class="input-blockeds">
                                 <select id="ckselect" v-model="ckselect"></select>
                             </div>
@@ -495,6 +519,12 @@
                             <div class="labels">制单时间：</div>
                             <div class="input-blockeds automatic">
                                 <input type="text" v-model="shijian" class="automatic" placeholder="自动生成" readonly="readonly">
+                            </div>
+                        </li>
+                        <li class="gdList">
+                            <div class="labels">单据号：</div>
+                            <div class="input-blockeds">
+                                <input type="text" v-model="documentNumber">
                             </div>
                         </li>
                         <li class="gdList" style="width:410px !important;">
@@ -534,13 +564,16 @@
                             <tfoot>
                             <tr>
                                 <td>共计</td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                                <td colspan="1"></td>
-                                <td colspan="1" class="amount"></td>
-                                <td></td>
-                                <td class="count"></td>
                                 <td colspan="3"></td>
+                                <td colspan="1" class="amount"></td>
+                                <td colspan="1"></td>
+                                <td class="count"></td>
+                                <td colspan="1"></td>
+                                <td></td>
+                                <td colspan="2"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -571,6 +604,7 @@
                             </div>
                         </div>
                     </li>
+                    <button type="button" class="btn btn-default" id="batch-add" style="margin-top: 4px;">批量输入序列号</button>
                     <div class="clearfix"></div>
                 </ul>
                 <ul class="gongdanList" id="workDone">
@@ -585,7 +619,11 @@
                                 </div>
                             </li>
                             <li class="gdList" style="line-height: 26px;">
-                                <div class="labels colorTip">物品编号 *：<span v-show="$validation.bianhao.requireds" style="display: none">请选择物品编号</span></div>
+                                <div class="labels colorTip">物品编号 *：
+                                    <a href="warehouseManagement-1.html" target="_blank">【新增】</a>
+                                    <span class="refresh" id="reGoods" style="transform: rotate(59deg);"></span>
+                                    <span v-show="$validation.bianhao.requireds" style="display: none">请选择物品编号</span>
+                                </div>
                                 <div class="input-blockeds">
                                     <input type="text" class="not-editable inputType bianhao" v-model="bianhao" v-validate:bianhao= "['requireds']" initial='off' @keyup="searchbm()" style="cursor: pointer"><div class="selectBlock"></div>
                                     <ul class="accord-with-list hidden1" data-num="1" style="display: none">
@@ -649,7 +687,7 @@
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels">入库单价：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
+                                <div class="labels colorTip">入库单价 *：<span class="colorTip format-error1" style="display: none;">请输入格式正确的数</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="inprice" @keyup="addFun2()"@blur="addFun1()" class="inputType" placeholder="0.00">
                                 </div>
@@ -667,7 +705,7 @@
                                 </div>
                             </li>
                             <li class="gdList" style="margin-top: 27px;">
-                                <button type="button" class="btn btn-success inputType" id="addRK">添加</button>v
+                                <button type="button" class="btn btn-success inputType" id="addRK">添加</button>
                                 <button type="button" class="btn btn-success" id="addReset">重置</button>
                             </li>
                             <div class="clearfix"></div>
@@ -684,12 +722,13 @@
                         <tr>
                             <td>共计</td>
                             <td colspan="2"></td>
-                            <td colspan="2"></td>
                             <td colspan="1"></td>
                             <td colspan="1" class="amount1"></td>
-                            <td></td>
+                            <td colspan="1"></td>
                             <td class="count1"></td>
+                            <td></td>
                             <td colspan="3"></td>
+                            <td></td>
                         </tr>
                         </tfoot>
                     </table>
@@ -721,7 +760,8 @@
                                 </div>
                             </li>
                             <li class="gdList">
-                                <div class="labels colorTip">物品名称 *：</div>
+                                <div class="labels colorTip">物品名称 *：
+                                </div>
                                 <div class="input-blockeds disabled-block">
                                     <input type="text"  v-model="mingcheng" readonly="readonly" class="disabled-block">
                                 </div>
@@ -831,6 +871,45 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--删除提示框-->
+<div class="modal fade" id="spare-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除入库单-->
+<div class="modal fade" id="spareRKD-del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <!--删除成功-->
 <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -935,6 +1014,105 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--批量添加物品序列号-->
+<div class="modal fade" id="batchSn-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 352px;">
+        <div class="modal-content" style="height: 352px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="children-body">
+                    <div style="width: 200px;margin: auto;margin-top: 20px;">
+                        <div class="input-blocked">
+                            <input type="text">
+                        </div>
+                        <div id="addSn"></div>
+                    </div>
+                    <div style="height: 20px;">
+                        <span class="colorTip" style="margin-left: 100px;line-height: 30px;">序列号已存在！</span>
+                    </div>
+
+                    <!--当前已选中的表格中的序列号展示出来，避免重复-->
+                    <div style="width:200px;margin: auto;margin-top: 20px;">
+                        <span>已存在的序列号：</span>
+                        <div class="selected-sn" style="min-height: 30px;">
+
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="children-body" style="display: inline-block;overflow-y: auto">
+
+                    <div class="title-num" style="height: 30px;line-height: 30px;margin-left: 20px;">
+                        <div style="display: inline-block;vertical-align: middle;">当前输入：<span>8</span>个</div>
+                        <div style="display: inline-block;vertical-align: middle;">共计：<span>10</span>个</div>
+                    </div>
+
+                    <ul style="margin:10px 20px">
+                        <li style="line-height: 30px;"><span>0101-001</span><div class="subBatch"></div></li>
+                    </ul>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--耐用品查看按钮-->
+<div class="modal fade" id="spare-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 623px;width: 1020px!important;" >
+        <div class="modal-content" style="height: 623px;width: 1020px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择物品列表</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: scroll;height: 500px;">
+                <div style="margin-top: 0;padding: 20px;border:1px solid #ccc;width: 100%;">
+                    <table id="spare-table" class="table table-condensed b-t b-light row-border hover order-column" cellspacing="0">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div class="clearfix"></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--删除提示框-->
+<div class="modal fade" id="spare-delTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 170px;">
+        <div class="modal-content" style="height: 170px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确定要删除吗？</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>

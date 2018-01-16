@@ -20,8 +20,14 @@ var _userBMName = sessionStorage.getItem("userDepartName");
 //ajax延迟时间设置
 var _theTimes = 30000;
 
-//车间
+//获取登陆者信息
+var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
+
+//部门
 var _maintenanceTeam = sessionStorage.getItem("userDepartNum");
+
+//图片的路径
+var _urlImg = sessionStorage.getItem("imgPath");
 
 /*---------------------------时间初始化------------------------*/
 
@@ -46,6 +52,7 @@ function _yearDate(el){
         maxViewMode: 2,
         minViewMode:2,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -59,6 +66,7 @@ function _monthDate(el){
         maxViewMode: 2,
         minViewMode:1,
         forceParse: 0,
+        autoclose:1,
         format: "yyyy/mm",//选择日期后，文本框显示的日期格式
         language: "zh-CN" //汉化
     })
@@ -74,6 +82,22 @@ function _timeHMSComponentsFun(el,startView){
         todayHighlight: 1,
         startView: startView,  //1时间  2日期  3月份 4年份
         forceParse: 0,
+    });
+}
+
+//datatimepicker事件插件初始化(单一视图，只选择年/月/日/时间)
+function _timeOneComponentsFun(el,startView,maxView,minView,format){
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: startView,  //1时间  2日期  3月份 4年份
+        forceParse: 0,
+        minView:minView,
+        maxView:maxView,
+        format:format
     });
 }
 
@@ -99,22 +123,25 @@ function _timeComponentsFun(el){
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
-        format : "hh:mm:ss",//日期格式
+        format : "hh:ii",//日期格式
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
-        maxView : 'hour'
+        maxView : 'hour',
     });
 }
 
 /*-----------------------dataTable---------------------------*/
 
-//基本表格初始换(buttons=1按钮显示，其他按钮隐藏)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
+//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页)
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
             text: '导出',
-            className:'saveAs'
+            className:'saveAs',
+            exportOptions:{
+                columns:arr
+            }
         }
     ];
     var buttonHidden = [
@@ -129,11 +156,19 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     }else{
        buttons =  buttonHidden;
     }
-    ////是否可搜索
-    //var search = false;
-    //if(searching){
-    //    search = true;
-    //}
+
+    var dom;
+
+    if(domFlag){
+
+        dom = 't<"F">'
+
+    }else{
+
+        dom = 't<"F"lip>';
+
+    }
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -156,7 +191,76 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
                 "last":"尾页"
             }
         },
-        "dom":'t<"F"lip>',
+        "dom":dom,
+        'buttons':buttons,
+        "columns": col,
+        "fnRowCallback": fnRowCallback,
+        "drawCallback":drawCallback
+    });
+
+    if(flag){
+        _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
+    //报错时不弹出弹框
+    $.fn.dataTable.ext.errMode = function(s,h,m){
+        console.log('')
+    }
+
+}
+
+//
+function _tableInitS(tableId,col,buttons,searching,flag,fnRowCallback,drawCallback){
+    var buttonVisible = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs'
+        }
+    ];
+    var buttonHidden = [
+        {
+            extend: 'excelHtml5',
+            text: '导出',
+            className:'saveAs hiddenButton'
+        }
+    ];
+    if(buttons == 1){
+        buttons = buttonVisible;
+    }else{
+        buttons =  buttonHidden;
+    }
+    //是否可搜索
+    var search = false;
+
+    if(searching){
+        search = true;
+    }
+    var _tables = tableId.DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": search,
+        "ordering": false,
+        "iDisplayLength":50,//默认每页显示的条数
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'sSearch':'查询',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
+            }
+        },
+        "dom":'ft<"F"lip>',
         'buttons':buttons,
         "columns": col,
         "fnRowCallback": fnRowCallback,
@@ -167,7 +271,6 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback){
     }
 
 }
-
 //表格赋值
 function _datasTable(tableId,arr){
     var table = tableId.dataTable();
@@ -195,6 +298,7 @@ function _getProfession(url,el,attr,attrNum,attrName){
         timeout:_theTimes,
         success:function(result){
             var str = '<option value="">请选择</option>';
+
             if(attr){
                 for(var i=0;i<result[attr].length;i++){
                     str += '<option value="' + result[attr][i][attrNum] +
@@ -206,9 +310,40 @@ function _getProfession(url,el,attr,attrNum,attrName){
                         '">' + result[i][attrName] + '</option>'
                 }
             }
+
             el.empty().append(str);
         },
         error:function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+//需要保存数组的
+function _ajaxFun(url, allArr, select, text, num) {
+    var prm = {
+
+        'userID': _userIdNum
+
+    }
+    prm[text] = '';
+
+    $.ajax({
+        type: 'post',
+        url: _urls + url,
+        timeout:30000,
+        data: prm,
+        success: function (result) {
+            //给select赋值
+            var str = '<option value="">请选择</option>';
+            for (var i = 0; i < result.length; i++) {
+                str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
+                allArr.push(result[i]);
+            }
+            select.empty().append(str);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
             console.log(jqXHR.responseText);
         }
     })
@@ -404,7 +539,7 @@ function _FFExcel(tableId){
     var explorer = navigator.userAgent ;
     //判断是否是IE浏览器
     if(explorer.indexOf("Trident") >= 0){
-        AutoExcel(tableId);
+        _AutoExcel(tableId);
     }else{
         //获得id为mytable的table的html元素
         var table=tableId;
@@ -424,6 +559,21 @@ function _FFExcel(tableId){
         window.location.href = uri + base64(format(template, ctx));
     }
 }
+
+//导出为excel(需要导出样式的)
+function _exportExecl(dom){
+
+    dom.table2excel({
+        exclude: ".noExl",
+        name: "Excel Document Name",
+        filename: "myFileName" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+        fileext: ".xls",
+        exclude_img: true,
+        exclude_links: true,
+        exclude_inputs: true,
+        copy_table:true
+    });
+};
 
 /*--------------------------模态框设置--------------------------*/
 //控制模态框的设置，出现确定按钮的话，第三个参数传''，第四个才有效,用不到的参数一定要传''；istap,如果有值的话，内容改变，否则内容不变。
@@ -529,4 +679,12 @@ function _sortNumber(a,b)
 {
     return a - b
 }
+
+//2017-12-01-->2017/12/01
+function _formatTime(str11){
+
+    return str11.replace(/\//g,'-');
+
+}
+
 

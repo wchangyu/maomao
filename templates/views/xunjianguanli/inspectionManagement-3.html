@@ -557,7 +557,7 @@
                                         <select id="fzr" v-model="fzr"></select>
                                     </div>
                                 </li>
-                                <li class="floatLeft">
+                                <li class="floatLeft QY">
                                     <div class="labels colorTip">启用状态 *：</div>
                                     <div class="input-blockeds">
                                         <select name="" v-model="sfqy">
@@ -753,6 +753,12 @@
                 </ul>
                 <ul class="condition-query">
                     <li>
+                        <label for="">设备编码：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbbm">
+                        </div>
+                    </li>
+                    <li>
                         <label for="">设备名称：</label>
                         <div class="input-blocked">
                             <input type="text" class="sbmc">
@@ -764,17 +770,6 @@
                             <input type="text" class="ggxh">
                         </div>
                     </li>
-                    <!--<li>-->
-                        <!--<label for="">设备状态：</label>-->
-                        <!--<div class="input-blocked">-->
-                            <!--<select name="" id="zhuangtai">-->
-                                <!--<option value="0">全部</option>-->
-                                <!--<option value="1">正常</option>-->
-                                <!--<option value="2">维修</option>-->
-                                <!--<option value="3">报废</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</li>-->
                     <li>
                         <label for="">设备类型：</label>
                         <div class="input-blocked">
@@ -801,16 +796,6 @@
                         <div class="input-blocked">
                             <select name="" id="bumen">
                             </select>
-                        </div>
-                    </li>
-                    <li>
-                        <label for="">安装时间：</label>
-                        <div class="input-blocked">
-                            <input type="text" class="datatimeblock min" name="min">
-                        </div>
-                        <label for="">到</label>
-                        <div class="input-blocked">
-                            <input type="text" class="datatimeblock max" name="max">
                         </div>
                     </li>
                     <li><button class="btn btn-success" id="selected1">查询</button></li>
@@ -946,8 +931,8 @@
 </div>
 <!--从巡检内容添加的模态框-->
 <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 574px;width: 1200px !important;">
-        <div class="modal-content" style="height: 574px;width: 1200px !important;">
+    <div class="modal-dialog" style="height: 574px;width: 1250px !important;">
+        <div class="modal-content" style="height: 574px;width: 1250px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="">从巡检内容中添加步骤</h4>

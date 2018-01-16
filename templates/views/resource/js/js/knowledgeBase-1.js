@@ -8,6 +8,9 @@ $(function(){
             format: 'yyyy-mm-dd'
         }
     )
+
+    classFun();
+
     //知识浏览表格
     $('#browse-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -52,6 +55,10 @@ $(function(){
             {
                 title:'知识标题',
                 data:'f_KnowleTitle'
+            },
+            {
+                title:'分类',
+                data:'dsName'
             },
             {
                 title:'摘要',
@@ -108,6 +115,9 @@ $(function(){
         $('#myModal #delBtn').addClass('hidden');
         $('#myModal #thelist0').html('');
 
+        //分类初始化
+        $('.classify').val('');
+
         $('#myModal .btn-primary').off('click');
 
         $('#myModal .btn-primary').on('click',function(){
@@ -125,7 +135,18 @@ $(function(){
             //获取内容
             var f_KnowleContent = $('#myModal .textarea3').val();
 
-            console.log(_postKnowLedgeFileArr);
+            //设备分类
+            var name = '';
+
+            if($('#classify').val() == ''){
+
+                name = '';
+
+            }else{
+
+                name = $('#classify').children('option:selected').html();
+
+            }
 
             //数据传递给后台
             $.ajax({
@@ -141,7 +162,10 @@ $(function(){
                     "f_KnowleContent": f_KnowleContent,
                     "f_KnowleCreateDT": "",
                     "knowLedgeFiles": _postKnowLedgeFileArr,
-                    "userID": _userIdName
+                    "userID": _userIdName,
+                    //分类
+                    "dsNum":$('#classify').val(),
+                    "dsName":name
                 },
                 beforeSend: function () {
 
@@ -212,7 +236,7 @@ $(function(){
                 $('#theLoading').modal('hide');
                 $('#see-myModal').modal('show');
                 $('#see-myModal .btn-primary').removeClass('hidden');
-                console.log(data);
+
                 //标题
                 $('#see-myModal .knowledge-title').val(data.f_KnowleTitle);
                 //摘要
@@ -221,6 +245,8 @@ $(function(){
                 $('#see-myModal .textarea2').val(data.f_KnowleKeyword);
                 //内容
                 $('#see-myModal .textarea3').val(data.f_KnowleContent);
+                //分类
+                $('#classify1').val(data.dsNum);
                 //附件
                 var fileHtml = '';
                 if(data.knowLedgeFiles.length == 0){
@@ -272,7 +298,6 @@ $(function(){
     //修改知识库
     $('#browse-datatables_wrapper tbody').on('click','.option-edite',function(){
 
-
         //获取当前id
         var _postID = $(this).parents('tr').find('td').eq(1).html();
 
@@ -292,6 +317,9 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success: function (data) {
+
+                console.log(data);
+
                 $('#theLoading').modal('hide');
                 $('#myModal').modal('show');
                 $('#myModal .modal-title').html('知识信息');
@@ -299,8 +327,6 @@ $(function(){
                 $('#myModal #thelist0').html('');
                 $('#thelist').html('');
                 _postKnowLedgeFileArr = [];
-
-                console.log(data);
                 //标题
                 $('#myModal .knowledge-title').val(data.f_KnowleTitle);
                 //摘要
@@ -309,6 +335,8 @@ $(function(){
                 $('#myModal .textarea2').val(data.f_KnowleKeyword);
                 //内容
                 $('#myModal .textarea3').val(data.f_KnowleContent);
+                //设备分类
+                $('#classify').val(data.dsNum);
                 //附件
                 var fileHtml = '';
 
@@ -373,7 +401,7 @@ $(function(){
             //获取内容
             var f_KnowleContent = $('#myModal .textarea3').val();
 
-            console.log(_postKnowLedgeFileArr);
+
             //获取附件
             var fileNum = $('#thelist0 .thumbnail').length;
             for(var i=0; i<fileNum; i++){
@@ -400,7 +428,20 @@ $(function(){
                 //把信息对象加入集合中
                 _postKnowLedgeFileArr.push(obj);
             }
-            console.log(_postKnowLedgeFileArr);
+
+            //获取知识库分类
+            //设备分类
+            var name = '';
+
+            if($('#classify').val() == ''){
+
+                name = '';
+
+            }else{
+
+                name = $('#classify').children('option:selected').html();
+
+            }
 
             //数据传递给后台
             $.ajax({
@@ -416,7 +457,10 @@ $(function(){
                     "f_KnowleContent": f_KnowleContent,
                     "f_KnowleCreateDT": "",
                     "knowLedgeFiles": _postKnowLedgeFileArr,
-                    "userID": _userIdName
+                    "userID": _userIdName,
+                    //分类
+                    "dsNum":$('#classify').val(),
+                    "dsName":name
                 },
                 beforeSend: function () {
 
@@ -544,7 +588,8 @@ function getShowKnowledgeData(knowTitle,flag){
         url: _urls + "YWKnowledge/GetAllKnowledges",
         timeout: theTimes,
         data:{
-            "knowleTitle" : knowTitle
+            "knowleTitle" : knowTitle,
+            "dsNum":$('#classSelect').val()
 
         },
         beforeSend: function () {
@@ -923,4 +968,51 @@ function jumpNow(tableID,arr){
     var num = txt - 1;
     var dom = $(dom).children('span').children().eq(num);
     dom.click();
+}
+
+//分类接口
+function classFun(){
+
+    $.ajax({
+
+        type:'post',
+        url:_urls + 'YWDev/ywDMGetDSs',
+        data:{
+
+            "userID": _userIdNum,
+            "userName": _userIdName,
+
+        },
+        timeout:_theTimes,
+        success:function(result){
+
+            if(result){
+
+                var str = '<option value="">请选择</option>';
+
+                for(var i=0;i<result.length;i++){
+
+                    str += '<option value="' + result[i].dsNum +
+                        '">' + result[i].dsName +
+                        '</option>'
+
+                }
+
+                $('.classify').empty().append(str);
+
+            }
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            var info = JSON.parse(jqXHR.responseText).message;
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                myAlter("超时");
+            }else{
+                myAlter(info);
+            }
+
+        }
+
+    })
+
 }

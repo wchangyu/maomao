@@ -877,6 +877,14 @@ $(function(){
     //关单
     $('#myModal1').on('click','.guanbi',function(){
 
+        //提示
+        _moTaiKuang($('#confirm-Modal'),'提示','','istap','执行关单操作？','确定');
+
+    });
+
+    //关单【确定】
+    $('#confirm-Modal').on('click','.btn-primary',function(){
+
         var prm = {
             'gdCode':_gdCode,
             'pjBz': $('#pingjia').val(),
@@ -917,6 +925,8 @@ $(function(){
                                 conditionSelect();
 
                                 $('#myModal1').modal('hide');
+
+                                $('#confirm-Modal').modal('hide');
                             }else {
 
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单失败！', '');
@@ -939,7 +949,7 @@ $(function(){
             }
         })
 
-    });
+    })
 
     //维修项目表格
     var matterTable = $('#choose-metter').DataTable({
