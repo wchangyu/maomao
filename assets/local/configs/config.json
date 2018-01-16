@@ -4,93 +4,93 @@
     "alltypes": [
       {
         "etid": "01",
-        "ettype" : "100",
+        "ettype": "100",
         "etname": "电",
         "etunit": "kWh",
-        "img":"totalEner.png",
-        "color":"#bce3de",
-        "img2":"electricity.png",
-        "isShowItem":1
+        "img": "totalEner.png",
+        "color": "#bce3de",
+        "img2": "electricity.png",
+        "isShowItem": 1
       },
       {
         "etid": "211",
-        "ettype" : "200",
+        "ettype": "200",
         "etname": "水",
         "etunit": "t",
-        "img":"totalWater.png",
-        "color":"#fcbf92",
-        "img2":"water.png",
-        "isShowItem":1
+        "img": "totalWater.png",
+        "color": "#fcbf92",
+        "img2": "water.png",
+        "isShowItem": 1
       },
       {
         "etid": "311",
         "etname": "气",
-        "ettype" : "300",
+        "ettype": "300",
         "etunit": "m3",
-        "img":"totalQi.png",
-        "color":"#b1cade",
-        "img2":"gas.png",
-        "isShowItem":1
+        "img": "totalQi.png",
+        "color": "#b1cade",
+        "img2": "gas.png",
+        "isShowItem": 1
       },
       {
         "etid": "412",
-        "ettype" : "400",
+        "ettype": "400",
         "etname": "暖",
         "etunit": "MJ",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"hot.png",
-        "isShowItem":1
+        "img": "",
+        "color": "#b1cade",
+        "img2": "hot.png",
+        "isShowItem": 1
       },
       {
         "etid": "511",
-        "ettype" : "500",
+        "ettype": "500",
         "etname": "冷",
         "etunit": "MJ",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"cold.png",
-        "isShowItem":1
+        "img": "",
+        "color": "#b1cade",
+        "img2": "cold.png",
+        "isShowItem": 1
       },
       {
         "etid": "1011",
-        "ettype" : "1000",
+        "ettype": "1000",
         "etname": "汽油",
         "etunit": "l",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"cold.png",
-        "isShowItem":0
+        "img": "",
+        "color": "#b1cade",
+        "img2": "cold.png",
+        "isShowItem": 0
       },
       {
         "etid": "1211",
-        "ettype" : "1100",
+        "ettype": "1100",
         "etname": "柴油",
         "etunit": "l",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"cold.png",
-        "isShowItem":0
+        "img": "",
+        "color": "#b1cade",
+        "img2": "cold.png",
+        "isShowItem": 0
       },
       {
         "etid": "1411",
-        "ettype" : "1400",
+        "ettype": "1400",
         "etname": "光伏发电",
         "etunit": "kWh",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"cold.png",
-        "isShowItem":0
+        "img": "",
+        "color": "#b1cade",
+        "img2": "cold.png",
+        "isShowItem": 0
       },
       {
         "etid": "1511",
-        "ettype" : "1500",
+        "ettype": "1500",
         "etname": "太阳能光热",
         "etunit": "MJ",
-        "img":"",
-        "color":"#b1cade",
-        "img2":"cold.png",
-        "isShowItem":0
+        "img": "",
+        "color": "#b1cade",
+        "img2": "cold.png",
+        "isShowItem": 0
       }
 
 
@@ -119,29 +119,29 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.196/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.196/BEEWebAPI/api/",
-  "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixUEditor": "http://192.168.1.104/HQUeditorImage/controller.ashx",  
+  "apiUriPrefix": "http://localhost/BEEWebAPI",
+  "apiUriPrefixYW": "http://192.168.1.196/BEEWebAPI/api/",
+  "apiUriPrefix2": "http://localhost/BEEWebAPI/api/",
+  "apiUriPrefixUEditor": "http://192.168.1.104/HQUeditorImage/controller.ashx",
   "apiUriPrefixVE": "http://localhost/BEEWebAPI/api/",
-  "systemTitle":"重庆大学虚拟实验室",
-  "isShowTitleEprName":"0",
-  "isShowTitleEprNameComment":"是否在systemTitle的基础上追加企业名称",
-  "pageTitle":"重庆大学虚拟实验室",
-  "themeColor":"darkblue",
-  "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
-  "refreshInterval":"0",
-  "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
-  "alarmInterval":"10",
-  "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
-  "allPointerName" : "全院",
-  "alarmAlert":"0",
-  "alarmSong":"0",
-  "changeMenuByProcs":"1",
-  "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"10",
-  "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"EV/opts.html",
-  "gongdanIndustryType":"1",
-  "ckAuditType":"0"
+  "systemTitle": "重庆大学虚拟实验室",
+  "isShowTitleEprName": "0",
+  "isShowTitleEprNameComment": "是否在systemTitle的基础上追加企业名称",
+  "pageTitle": "重庆大学虚拟实验室",
+  "themeColor": "darkblue",
+  "themecolors": "blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
+  "refreshInterval": "0",
+  "refreshIntervalComment": "监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
+  "alarmInterval": "10",
+  "alarmIntervalComment": "首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
+  "allPointerName": "全院",
+  "alarmAlert": "0",
+  "alarmSong": "0",
+  "changeMenuByProcs": "1",
+  "changeMenuByProcsComment": "是否根据流程图动态绘制菜单",
+  "gongdanInterval": "10",
+  "gongdanIntervalComment": "工单是否自动刷新，0为不刷新，单位分钟",
+  "indexUrl": "EV/opts.html",
+  "gongdanIndustryType": "1",
+  "ckAuditType": "0"
 }

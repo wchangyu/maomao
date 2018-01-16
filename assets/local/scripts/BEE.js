@@ -185,7 +185,7 @@ var BEE = (function () {
             $('.totalTitle').html(systemName);
         }
 
-        var curLoginPage = sessionStorage.curLoginPage || "VE/signin.html";
+        var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
 
         if (sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0) {
             curLoginPage = "../" + curLoginPage;
@@ -1082,18 +1082,17 @@ var BEE = (function () {
         //判断是否有访问页面权限
         if (curMenu.indexOf(curPageName) == -1) {
             //如果没有则跳转到首页
-            window.location.href = "../VE/signin.html";
+            window.location.href = "login_3.html";
         }
     };
 
     return {
         //getMenu: getMenu
         init: function () {
-            sessionStorage.userName = "MRF";
             if (!sessionStorage.userName) {
                 //记录重定向的url
                 sessionStorage.redirectFromPage = window.location.href;
-                window.location.href = "../VE/signin.html";
+                window.location.href = "login_3.html";
 
             } else {
                 //获取菜单
