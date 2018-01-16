@@ -26,10 +26,6 @@ $(function(){
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
-    //选择设备时间
-    var _initStartSB = '';
-    var _initEndSB = '';
-
     //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);

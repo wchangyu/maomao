@@ -23,6 +23,7 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -301,12 +302,6 @@
                                                 <input type="text" class="datatimeblock max" name="max">
                                             </div>
                                         </li>
-                                        <li class="routeShow">
-                                            <label for="">线点：</label>
-                                            <div class="input-blocked">
-                                                <select id="line"></select>
-                                            </div>
-                                        </li>
                                         <li>
                                             <label for="">
                                                 <span class="user-defined-department"></span>
@@ -324,14 +319,13 @@
                                     <!-- 表格 -->
                                     <div class="table-title">
                                         <span class="spanhover">全部</span>
-                                        <span>等待资源</span>
-                                        <span>已发货</span>
-                                        <span>已闭环</span>
+                                        <span>处理中工单</span>
+                                        <span>已完成工单</span>
                                     </div>
                                     <div style="overflow: hidden;border: 1px solid #cccccc;border-top: none;padding:20px;padding-top:0">
                                         <div class="content-main-contents">
                                             <div class="main-contents-table">
-                                                <table id="scrap-datatables" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="scrap-datatables" class="table tablel table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -339,7 +333,7 @@
                                                 </table>
                                             </div>
                                             <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables1" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="scrap-datatables1" class="table tablel table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -347,7 +341,7 @@
                                                 </table>
                                             </div>
                                             <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables3" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="scrap-datatables3" class="table tablel table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -355,7 +349,7 @@
                                                 </table>
                                             </div>
                                             <div class="main-contents-table hide-block">
-                                                <table id="scrap-datatables2" class="tablel table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                <table id="scrap-datatables2" class="table tablel table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -364,6 +358,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -413,7 +408,6 @@
                             <div class="labels colorTip">工单来源 *：</div>
                             <div class="input-blockeds">
                                 <select v-model="gdly" class="gdly">
-
                                 </select>
                             </div>
                         </li>
@@ -583,7 +577,6 @@
                             <textarea id="bjremark" style="height: 50px;outline: none"></textarea>
                         </div>
                     </div>
-
                     <div class="divBlock bjpicture" style="margin-top: 10px;width: 611px;">
                         <button type="button" class="btn btn-info" id="viewBJImage">备件图片</button>
                         <div class="bjImg" style="display: none;border: 1px solid #cccccc;padding: 10px;"></div>
@@ -809,11 +802,10 @@
         Demo.init(); // init demo features
         BEE.init();
     });
-    var _clType = 3;
 </script>
 <script src="../resource/js/publicFun.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/js/productionOrder-11.js"></script>
+<script src="../resource/js/productionOrder-10.js"></script>
 <script src="../resource/js/publicGD.js"></script>
 <script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->

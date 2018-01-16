@@ -957,7 +957,7 @@ $(function(){
             clStatusId:$('#line-point').val(),
             userID:_userIdNum,
             userName:_userIdName,
-            clType:4,
+            clType:_clType,
             //bxKeshiNum:$('#station').val()
         };
 
@@ -1111,7 +1111,6 @@ $(function(){
             type:'post',
             url:_urls + 'YWGD/ywGDGetPjStatus',
             data:prm,
-            async:false,
             success:function(result){
                 if(flag == 1){
                     _stateArr = [];
@@ -1119,7 +1118,7 @@ $(function(){
                     var str ='<option value="">请选择</option>';
                     for(var i=0;i<result.statuses.length;i++){
                         _stateArr.push(result.statuses[i]);
-                        if(result.statuses[i].clType == 4){
+                        if(result.statuses[i].clType == _clType){
                             str += '<option value="' + result.statuses[i].clStatusID +
                                 '">' + result.statuses[i].clStatus + '</option>';
                         }
@@ -1131,7 +1130,8 @@ $(function(){
                     var str ='<option value="">请选择</option>';
                     var values = '';
                     for(var i=0;i<result.statuses.length;i++){
-                        if(result.statuses[i].clType == 4){
+                        if(result.statuses[i].clType == _clType){
+
                             if(result.statuses[i].clTo == ''){
                                 values = result.statuses[i].clStatusID;
                             }else{
