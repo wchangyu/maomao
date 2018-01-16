@@ -647,6 +647,12 @@
                                     </div>
                                 </li>
                                 <li class="gdList">
+                                    <div class="labels">单位：</div>
+                                    <div class="input-blockeds disabled-block">
+                                        <input type="text" v-model="wpunite"  initial='off' readonly="readonly" class="disabled-block">
+                                    </div>
+                                </li>
+                                <li class="gdList">
                                     <div class="labels colorTip">数量 *：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="wpsl" class="inputNum" v-validate:wpsl="['persons']" initial='off'>

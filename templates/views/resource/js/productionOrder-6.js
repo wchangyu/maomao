@@ -311,6 +311,10 @@ $(function(){
         {
             title:'数量',
             data:'clShul'
+        },
+        {
+            title:'单位',
+            data:'unitName'
         }
 
     ];

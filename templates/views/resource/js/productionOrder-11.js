@@ -29,10 +29,6 @@ $(function(){
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
-    //选择设备时间
-    var _initStartSB = '';
-    var _initEndSB = '';
-
     //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
@@ -299,16 +295,16 @@ $(function(){
             data:'wxClName'
         },
         {
-            title:'分类',
-            data:'cateName'
-        },
-        {
-            title:'规格',
+            title:'规格型号',
             data:'size'
         },
         {
             title:'数量',
             data:'clShul'
+        },
+        {
+            title:'单位',
+            data:'unitName'
         }
     ];
 
@@ -335,6 +331,10 @@ $(function(){
         {
             title:'数量',
             data:'clShul'
+        },
+        {
+            title:'单位',
+            data:'unitName'
         },
         {
             title:'操作',
@@ -407,6 +407,10 @@ $(function(){
     //表格中的操作
     $('.tablel')
         .on('click','.option-see',function(){
+
+            //初始化
+            detailInit();
+
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
@@ -492,6 +496,9 @@ $(function(){
             logInformation();
         })
         .on('click','.option-beijian',function(){
+
+            //初始化
+            bjInit();
 
             _moTaiKuang($('#myModal4'),'维修备件申请','','','','确定');
 
@@ -1780,4 +1787,72 @@ $(function(){
         }
 
     })
+
+    //查看初始化
+    function detailInit(){
+
+        //工单类型
+        app33.picked = '';
+        //工单来源
+        app33.gdly = '';
+        //任务级别
+        app33.rwlx = '';
+        //报修电话
+        app33.telephone = '';
+        //报修人信息
+        app33.person = '';
+        //故障位置
+        app33.place = '';
+        //车站
+        app33.section = '';
+        //系统类型
+        app33.matter = '';
+        //设备编码
+        app33.sbSelect = '';
+        //设备名称
+        app33.sbMC = '';
+        //维修班组
+        app33.sections = '';
+        //发生时间
+        $('#myApp33').find('.otime').val('');
+        //故障描述
+        app33.remarks = '';
+        //查看图片
+        $('.showImage').hide();
+        //表格
+        var arr = [];
+        //执行人
+        _datasTable($('#personTable1'),arr);
+        //备件
+        _datasTable($('#personTables1'),arr);
+        //处理记录
+        $('.deal-with-list').empty();
+
+    }
+
+    //备件初始化
+    function bjInit(){
+
+        //备件表格
+        var arr = [];
+        _datasTable($('#personTables11'),arr);
+
+        //当前状态
+        $('#myModal4').find('.nowState').removeAttr('bjstate');
+
+        $('#myModal4').find('.nowState').val('');
+
+        //备注
+        $('#myModal4').find('#bjremark').val('');
+
+        //备件图片隐藏
+        $('.bjImg').hide();
+
+        //处理记录
+        $('.deal-with-list').empty();
+
+        //操作
+        $('#stateConstant').val('');
+
+    }
 })
