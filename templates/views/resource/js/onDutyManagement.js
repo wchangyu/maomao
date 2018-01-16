@@ -102,16 +102,37 @@ $(function(){
 
                 if(full.isexamine == 1){
 
-                   return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                    "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                    "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
-                    "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                    if(full.shenpUserName == ''){
+
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
+                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                    }else{
+
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
+                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                    }
+
+
 
                 }else if(full.isexamine == 0){
 
-                   return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                    "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                    "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                    if(full.shenpUserName == ''){
+
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                    }else{
+
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+
+                    }
 
                 }
 

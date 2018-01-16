@@ -97,7 +97,6 @@ $(function(){
 
                     if(result.riqi){
 
-
                         if(_tables){
 
                             var html = '<table id="reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">' +
@@ -167,31 +166,12 @@ $(function(){
 
                         };
 
-                        //footer标签
-                        //插入foot
-                        var tfootStr = '';
-
-                        for(var i=0;i<col.length-1;i++){
-
-                            if(i==0){
-
-                                tfootStr += '<td colspan="2">合计：</td>';
-
-                            }else{
-
-                                tfootStr += '<td></td>';
-
-                            }
-
-
-                        };
-
                         //表格初始化
 
                         _tables = $('#reporting').DataTable({
                             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
                             "paging": true,   //是否分页
-                            //"destroy": true,//还原初始化了的datatable
+                            "destroy": true,//还原初始化了的datatable
                             "searching": false,
                             "ordering": false,
                             "iDisplayLength":50,//默认每页显示的条数
@@ -220,6 +200,27 @@ $(function(){
                             "fnRowCallback": '',
                             "drawCallback":totalNum
                         });
+
+                        //footer标签
+                        //插入foot
+                        var tfootStr = '';
+
+                        for(var i=0;i<col.length-1;i++){
+
+                            if(i==0){
+
+                                tfootStr += '<td colspan="2">合计：</td>';
+
+                            }else{
+
+                                tfootStr += '<td></td>';
+
+                            }
+
+
+                        };
+
+                        $('#reporting').find('tfoot').children().empty().append(tfootStr);
 
 
                         //表格数据赋值
