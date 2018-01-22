@@ -97,7 +97,6 @@ $(function(){
 
                     if(result.riqi){
 
-
                         if(_tables){
 
                             var html = '<table id="reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">' +
@@ -117,7 +116,6 @@ $(function(){
                             $('.main-contents-table').empty();
 
                             $('.main-contents-table').html(html);
-
                         };
 
 
@@ -156,51 +154,24 @@ $(function(){
                         };
 
 
-                            for(var i=0;i<arr.length;i++){
+                        for(var i=0;i<arr.length;i++){
 
-                                var obj = {};
+                            var obj = {};
 
-                                obj.title = arr[i];
+                            obj.title = arr[i];
 
-                                obj.data = data[i];
+                            obj.data = data[i];
 
-                                col.push(obj);
-
-                            };
-
-
-
-                        console.log(col);
-
-                        //footer标签
-                        //插入foot
-                        var tfootStr = '';
-
-                        for(var i=0;i<col.length-1;i++){
-
-                            if(i==0){
-
-                                tfootStr += '<td colspan="2">合计：</td>';
-
-                            }else{
-
-                                tfootStr += '<td></td>';
-
-                            }
-
+                            col.push(obj);
 
                         };
-
-                        //$('#reporting tfoot').children().empty().append(tfootStr);
-
-                        //_tables =  _tableInit($('#reporting'),col,1,true,'',totalNum,'','');
 
                         //表格初始化
 
                         _tables = $('#reporting').DataTable({
                             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
                             "paging": true,   //是否分页
-                            //"destroy": true,//还原初始化了的datatable
+                            "destroy": true,//还原初始化了的datatable
                             "searching": false,
                             "ordering": false,
                             "iDisplayLength":50,//默认每页显示的条数
@@ -226,9 +197,30 @@ $(function(){
                                 className:'saveAs hiddenButton'
                             },
                             "columns": col,
-                            "fnRowCallback": ''
-                            //"drawCallback":totalNum
+                            "fnRowCallback": '',
+                            "drawCallback":totalNum
                         });
+
+                        //footer标签
+                        //插入foot
+                        var tfootStr = '';
+
+                        for(var i=0;i<col.length-1;i++){
+
+                            if(i==0){
+
+                                tfootStr += '<td colspan="2">合计：</td>';
+
+                            }else{
+
+                                tfootStr += '<td></td>';
+
+                            }
+
+
+                        };
+
+                        $('#reporting').find('tfoot').children().empty().append(tfootStr);
 
 
                         //表格数据赋值
@@ -274,8 +266,6 @@ $(function(){
                             }
 
                         }
-
-                        console.log(dataNum);
 
                         _datasTable($('#reporting'),dataNum);
 

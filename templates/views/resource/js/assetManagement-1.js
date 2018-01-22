@@ -596,7 +596,6 @@ $(function(){
         $('.lujing').html(_currentPath);
         $( '#'+file.id ).find('p.state').text('已上传');
     });
-
     uploader.on( 'uploadError', function( file ) {
         $( '#'+file.id ).find('p.state').text('上传出错');
     });

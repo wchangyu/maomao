@@ -222,7 +222,7 @@ var ObjectSelection = function(){
                 },
                 onCheck:function(e,treeId,treeNode){
                         $(treeNode).css("background", "blue");
-                        console.log(treeNode.checked);
+
                         //如果当前页面存在支路
                         if($('#allBranch').length>0){
                             //获取当前楼宇下的支路

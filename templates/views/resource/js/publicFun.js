@@ -156,11 +156,6 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
     }else{
        buttons =  buttonHidden;
     }
-    ////是否可搜索
-    //var search = false;
-    //if(searching){
-    //    search = true;
-    //}
 
     var dom;
 
@@ -173,7 +168,7 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         dom = 't<"F"lip>';
 
     }
-    //B<"clear">lfrtip
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
         "paging": true,   //是否分页
@@ -202,8 +197,14 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
         "fnRowCallback": fnRowCallback,
         "drawCallback":drawCallback
     });
+
     if(flag){
         _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
+    }
+
+    //报错时不弹出弹框
+    $.fn.dataTable.ext.errMode = function(s,h,m){
+        console.log('')
     }
 
 }

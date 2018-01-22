@@ -3,13 +3,6 @@ var _gdCode = '';
 
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
-    //获得用户名id
-    var _userIdNum = sessionStorage.getItem('userName');
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('realUserName');
-
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
     //存放执行人信息的数组
     var _zhixingRens = [];
@@ -125,17 +118,6 @@ $(function(){
     var _ztChangeComplete = false;
     //重发是否完成
     var _reSendComplete = false;
-    //存放所有维保组的数组
-    var _InfluencingArr = [];
-
-    //维修班组数组
-    var _bzArr = [];
-
-    //标识在维保组中
-    var _isWBZ = false;
-
-    //标识在维修班组中
-    var _isBZ = false;
 
     //条件查询车站
     addStationDom($('#bumen').parent());
@@ -349,11 +331,14 @@ $(function(){
     $('#scrap-datatables tbody')
         //受理操作
         .on('click','.option-edit',function(){
+
+            //初始化
+            detailInit();
+
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'));
@@ -1096,6 +1081,9 @@ $(function(){
             },
             callback: {
                 onClick: function(e,treeId,treeNode){
+
+                    console.log(e);
+
                     //取消全部打钩的节点
                     zTreeObj.checkNode(treeNode,!treeNode.checked,true);
                     //输出选中节点
@@ -1334,5 +1322,48 @@ $(function(){
                 $('#myModal').modal('hide');
             }
         }
+    }
+    //模态框初始化
+    function detailInit(){
+
+        //工单号
+        workDones.gdCode = '';
+        //工单状态
+        workDones.state = '';
+        //工单类型
+        workDones.picked = '';
+        //工单来源
+        workDones.gdly = '';
+        //任务级别
+        workDones.rwlx = '';
+        //报修电话
+        workDones.telephone = '';
+        //报修人信息
+        workDones.person = '';
+        //故障位置
+        workDones.place = '';
+        //车站
+        workDones.section = '';
+        //系统类型
+        workDones.matter = '';
+        //设备编码
+        workDones.sbSelect = '';
+        //设备名称
+        workDones.sbMC = '';
+        //维修班组
+        workDones.weixiukeshis = '';
+        //发生时间
+        $('#workDones').find('.otime').val('');
+        //工单登记时间
+        $('#workDones').find('.dtime').val('');
+        //故障描述
+        workDones.remarks = '';
+        //维修内容
+        workDones.wxremark = '';
+        //查看图片
+        $('.showImage').hide();
+        //执行人表格
+        var arr = [];
+        _datasTable($('#personTable1'),arr);
     }
 })

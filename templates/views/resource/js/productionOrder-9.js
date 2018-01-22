@@ -29,10 +29,6 @@ $(function(){
      var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().format('YYYY/MM/DD');
 
-    //选择设备时间
-    var _initStartSB = '';
-    var _initEndSB = '';
-
     //显示时间
     $('.min').val(_initStart);
     $('.max').val(_initEnd);
@@ -83,7 +79,12 @@ $(function(){
 
     var _trend = '';
 
+    //标识维修备件申请窗口是否是打开状态
+    var _shenheModal = false;
+
+
     /*------------------------------表格初始化-----------------------------------------------*/
+
     //页面表格
     var table = $('#scrap-datatables').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -267,16 +268,16 @@ $(function(){
                 data:'wxClName'
             },
             {
-                title:'分类',
-                data:'cateName'
-            },
-            {
-                title:'规格',
+                title:'规格型号',
                 data:'size'
             },
             {
                 title:'数量',
                 data:'clShul'
+            },
+            {
+                title:'单位',
+                data:'unitName'
             }
         ]
     });
@@ -328,6 +329,10 @@ $(function(){
                 data:'clShul'
             },
             {
+                title:'单位',
+                data:'unitName'
+            },
+            {
                 title:'库存',
                 data:'kucun'
             }
@@ -353,13 +358,16 @@ $(function(){
     //表格中的操作
     $('#scrap-datatables')
         .on('click','.option-see',function(){
+
+            //初始化
+            detailInit();
+
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             //图片区域隐藏
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             moTaiKuang($('#myModal'),'查看详情','flag');
@@ -438,6 +446,11 @@ $(function(){
         })
         .on('click','.option-beijian',function(){
 
+            //初始化
+            bjInit();
+
+            _shenheModal = true;
+
             $('.bjImg').hide();
 
             moTaiKuang($('#myModal4'),'维修备件申请');
@@ -446,8 +459,7 @@ $(function(){
             $('.showImage').hide();
             //当前行变色
             var $this = $(this).parents('tr');
-            currentTr = $this;
-            currentFlat = true;
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
             $this.addClass('tables-hover');
             //获取详情
@@ -528,6 +540,31 @@ $(function(){
     $('#myModal4').on('click','.btn-primary:nth-child(2)',function(){
         applySparePart($(this));
     });
+
+    //关闭审核窗口，标识置为false
+    $('#myModal4').on('hidden.bs.modal',function(){
+
+        _shenheModal = false;
+
+    })
+
+    $(document).on('keyup',function(e){
+
+        if(_shenheModal){
+
+            if(e.keyCode == '13'){
+
+                applySparePart($(this),'flag',true);
+
+            }
+
+        }else{
+
+            return false;
+
+        }
+
+    })
 
     /*------------------------------其他方法-------------------------------------------------*/
     //条件查询
@@ -633,18 +670,15 @@ $(function(){
                     var str ='';
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.statuses[i].clType == 2){
-                        //    str += '<option value="' + result.statuses[i].clTo +
-                        //        '">' + result.statuses[i].clOpt + '</option>';
-                            str += '<button type="button" class="btn btn-primary"' + 'data-value='+ result.statuses[i].clTo +
+
+                            str += '<button type="button" class="btn btn-primary classSH"' + 'data-value='+ result.statuses[i].clTo +
                                 '>' + result.statuses[i].clOpt + '</button>'
                         }
-                        //<button type="button" class="btn btn-primary">确定</button>
                     }
-                    str += '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
-                    //$('#stateConstant').empty();
-                    //$('#stateConstant').append(str);
-                    $('#myModal4').find('.modal-footer').empty();
-                    $('#myModal4').find('.modal-footer').append(str);
+                    str += '<button type="button" class="btn btn-default classSH" data-dismiss="modal">关闭</button>';
+
+                    $('#myModal4').find('.modal-footer').empty().append(str);
+
                     for(var i=0;i<result.statuses.length;i++){
                         if(result.clStatus == result.statuses[i].clStatusID){
                             $('.nowState').val(result.statuses[i].clStatus);
@@ -686,7 +720,14 @@ $(function(){
     }
 
     //申请备件(同意【flag】，拒绝)
-    function applySparePart(el,flag){
+    function applySparePart(el,flag,keyup){
+
+        if(keyup){
+
+            el = $('#myModal4').find('.modal-footer').children();
+
+        }
+
         var stateTrend = el.attr('data-value');
 
         var stateHtml = el.html();
@@ -707,6 +748,11 @@ $(function(){
             "userID": _userIdNum,
             "userName": _userIdName
         }
+
+        console.log(prm);
+
+        return false;
+
         $.ajax({
             type:'post',
             url:_urls + 'YWGD/ywGDUptPeijStatus',
@@ -746,5 +792,70 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
+    }
+
+    //查看初始化
+    function detailInit(){
+
+        //工单类型
+        app33.picked = '';
+        //工单来源
+        app33.gdly = '';
+        //任务级别
+        app33.rwlx = '';
+        //报修电话
+        app33.telephone = '';
+        //报修人信息
+        app33.person = '';
+        //故障位置
+        app33.place = '';
+        //车站
+        app33.section = '';
+        //系统类型
+        app33.matter = '';
+        //设备编码
+        app33.sbSelect = '';
+        //设备名称
+        app33.sbMC = '';
+        //维修班组
+        app33.sections = '';
+        //发生时间
+        $('#myApp33').find('.otime').val('');
+        //故障描述
+        app33.remarks = '';
+        //查看图片
+        $('.showImage').hide();
+        //表格
+        var arr = [];
+        //执行人
+        _datasTable($('#personTable1'),arr);
+        //备件
+        _datasTable($('#personTables1'),arr);
+        //处理记录
+        $('.deal-with-list').empty();
+
+    }
+
+    //备件初始化
+    function bjInit(){
+
+        //备件表格
+        var arr = [];
+        _datasTable($('#personTables11'),arr);
+
+        //当前状态
+        $('#myModal4').find('.nowState').removeAttr('bjstate');
+
+        $('#myModal4').find('.nowState').val('');
+
+        //备注
+        $('#myModal4').find('#bjremark').val('');
+
+        //备件图片隐藏
+        $('.bjImg').hide();
+
+        //处理记录
+        $('.deal-with-list').empty();
+
     }
 })

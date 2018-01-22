@@ -202,12 +202,17 @@ $(function(){
             $('#myApp33').find('input').eq(0).attr('disabled',true).addClass('disabled-block');
         })
         .on('click','.option-delete',function(){
+
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
-            _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除')
+
+            _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除');
+
             //绑定数据
             bindData($(this),'YWCK/ywCKGetStorages');
+
             //都不可编辑
             $('#myApp33').find('input').attr('disabled',true).addClass('disabled-block');
+
             $('#myApp33').find('textarea').attr('disabled',true);
         })
 
@@ -317,13 +322,17 @@ $(function(){
 
     //绑定数据
     function bindData(el,url,flag){
+
         var $this = el.parents('tr');
+
         var $thisBM = $this.children('.bianma').html();
+
         var prm = {
             userID:_userIdNum,
             userName:_userIdName,
             b_UserRole:_userRole,
         }
+
         if(flag){
             prm.localNum=$thisBM
         }else{

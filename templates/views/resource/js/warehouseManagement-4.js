@@ -78,7 +78,7 @@ $(function(){
             {
                 title:'物品序列号',
                 data:'sn',
-                className:'hiddenButton'
+                className:'sn'
             },
             {
                 title:'是否耐用',

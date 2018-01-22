@@ -2,14 +2,7 @@
 var _gdCode = '';
 $(function(){
     /*--------------------------全局变量初始化设置----------------------------------*/
-    //获得用户名
-    var _userIdNum = sessionStorage.getItem('userName');
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('realUserName');
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
-    //图片ip
-    var _urlImg = 'http://211.100.28.180/ApService/dimg.aspx';
+
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -68,7 +61,8 @@ $(function(){
             wpmc:'',
             wpsl:'',
             wpsize:'',
-            flmc:''
+            flmc:'',
+            wpunite:''
         },
         methods:{
 
@@ -340,6 +334,10 @@ $(function(){
             data:'clShul'
         },
         {
+            title:'单位',
+            data:'unitName'
+        },
+        {
             title:'操作',
             "targets": -1,
             "data": null,
@@ -577,8 +575,16 @@ $(function(){
 
     //维修材料按钮
     $('.option-wxcl').click(function(){
+
+        //初始化
+        BJInit();
+
+        //模态框
+        _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '确认收货');
+
         //获取配件状态常量
         stateConstant();
+
         //获取处理过程
         logInformation();
 
@@ -650,6 +656,11 @@ $(function(){
                 title:'型号',
                 data:'size',
                 className:'size'
+            },
+            {
+                title:'单位',
+                data:'unitName',
+                className:'unite'
             }
         ];
         tableInit($('#weiXiuCaiLiaoTable'),col5,fn1);
@@ -665,6 +676,7 @@ $(function(){
         _bjObject.wpbm = $this.children('.wlbm').html();
         _bjObject.wpmc = $this.children('.wlmc').html();
         _bjObject.size = $this.children('.size').html();
+        _bjObject.unite = $this.children('.unite').html();
     });
 
     //点击确定选择的物料编码和名称
@@ -673,6 +685,7 @@ $(function(){
         wuLiaoInfo.wpmc = _bjObject.wpmc;
         wuLiaoInfo.wpsize = _bjObject.size;
         wuLiaoInfo.wpbm = _bjObject.wpbm;
+        wuLiaoInfo.wpunite = _bjObject.unite
     })
 
     //选择维修材料
@@ -689,6 +702,7 @@ $(function(){
             obj.clShul = wuLiaoInfo.wpsl;
             obj.cateName = wuLiaoInfo.flmc;
             obj.size = wuLiaoInfo.wpsize;
+            obj.unitName = wuLiaoInfo.wpunite;
             //判断是否是重复的
             if(_weiXiuCaiLiao.length == 0){
                 _weiXiuCaiLiao.push(obj);
@@ -740,6 +754,10 @@ $(function(){
     $('#scrap-datatables tbody')
         //查看详情
         .on('click','.option-edit',function(){
+
+            //初始化
+            detailInit();
+
             _gdCircle = $(this).parents('tr').children('.gongdanId').children('span').attr('gdcircle');
             $('.showImage').hide();
             //当前行变色
@@ -772,7 +790,6 @@ $(function(){
             $.ajax({
                 type:'post',
                 url: _urls + 'YWGD/ywGDGetDetail',
-                async:false,
                 data:prm,
                 success:function(result){
                     //绑定弹窗数据
@@ -1159,8 +1176,10 @@ $(function(){
             obj.clShul = _weiXiuCaiLiao[i].clShul;
             obj.gdCode = _gdCode;
             obj.size = _weiXiuCaiLiao[i].size;
+            obj.unitName = _weiXiuCaiLiao[i].unitName;
             cailiaoArr.push(obj);
         }
+
         var gdWxCl = {
             gdCode:_gdCode,
             gdWxCls:cailiaoArr,
@@ -1318,7 +1337,6 @@ $(function(){
 
                 if(_sparePart == bjState[0] || _sparePart == bjState[1]){
                     //确认收货
-                    _moTaiKuang($('#myModal4'),'维修备件申请','', '' ,'', '确认收货');
                     $('.tianJiaCaiLiao').hide();
                     $('.tableDeleted').attr('disabled',true);
                     $('#bjremark').attr('disabled',true);
@@ -1752,6 +1770,76 @@ $(function(){
         enterMCName();
 
     })
+
+    //模态框初始化
+    function detailInit(){
+
+        //工单信息部分
+        //工单类型
+        app33.picked = '';
+        //工单来源
+        app33.gdly = '';
+        //任务级别
+        app33.rwlx = '';
+        //报修电话
+        app33.telephone = '';
+        //报修人信息
+        app33.person = '';
+        //故障位置
+        app33.place = '';
+        //车站
+        app33.section = '';
+        //系统类型
+        app33.matter = '';
+        //设备编码
+        app33.sbSelect = '';
+        //设备名称
+        app33.sbMC = '';
+        //维修班组
+        app33.sections = '';
+        //发生时间
+        $('#myApp33').find('.otime').val('');
+        //故障描述
+        app33.remarks = '';
+        //查看图片
+        $('.showImage').hide();
+        //执行人员
+        var arr = [];
+        _datasTable($('#personTable1'),arr);
+
+        //维修反馈
+        //维修内容
+        $('#wxbeizhu').val('');
+        //进展
+        $('#newBeiZhu').val('');
+        //当前状态
+        $('.feedback').find('.current-state').val('');
+        //操作类型
+        $('#option-select').val('');
+        //等待原因
+        $('#watting').val('');
+        //预计完成时间
+        $('.yjshijian').val('');
+        //等待资源信息
+        $('.feedback').children('.waitingForResources').find('textarea').val('');
+
+
+    }
+
+    //备件申请初始化
+    function BJInit(){
+
+        var arr = [];
+
+        _datasTable($('#personTables1'),arr);
+
+        //备注
+        $('#bjremark').val('');
+
+        //处理记录
+        $('.deal-with-list').empty();
+
+    }
 
 
 })

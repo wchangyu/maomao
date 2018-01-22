@@ -54,10 +54,6 @@ $(function(){
     var col = [
 
         {
-            title:'id',
-            data:'id'
-        },
-        {
             title:'所属部门',
             data:'departName'
         },
@@ -78,8 +74,16 @@ $(function(){
             data:'shangbantime'
         },
         {
+            title:'签到时间',
+            data:'qiandaotime'
+        },
+        {
             title:'下班时间',
             data:'xiabantime'
+        },
+        {
+            title:'签退时间',
+            data:'qiantuitime'
         },
         {
             title:'班次',

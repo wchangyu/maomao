@@ -223,8 +223,16 @@ $(function(){
             data:'wxClName'
         },
         {
+            title:'规格型号',
+            data:'size'
+        },
+        {
             title:'数量',
             data:'clShul'
+        },
+        {
+            title:'单位',
+            data:'unitName'
         }
 
     ];

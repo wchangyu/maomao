@@ -40,19 +40,7 @@ $(function(){
         {
             title:'关联工单号',
             data:'gdCode2'
-        },
-        {
-            title:'所属车站',
-            data:'staName'
-        },
-        {
-            title:'车间',
-            data:'departName'
-        },
-        {
-            title:'配件申请耗时',
-            data:'timeConsume'
-        },
+        }
     ]
 
     _tableInit($('#report-datatables'),reportCol,1,'flag','','','','');
