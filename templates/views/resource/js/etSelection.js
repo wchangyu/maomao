@@ -12,8 +12,8 @@ var ETSelection = function(){
         var strEnergyType = sessionStorage.allEnergyType;
         if(!strEnergyType) { return ;}
         var allEnergyType = JSON.parse(strEnergyType);
-        this.initETSel(allEnergyType,$divETs,divETCssClassName,etCallBack);
-    }
+        this.initETSel(allEnergyType,$divETs,divETCssClassName,etCallBack,'01');
+    };
     //设置分户相关的能耗种类
     //$divETs：外层的div容器
     //divETCssClassName:div的css类名，必须是flex排布，如果没有此参数，则直接添加flex样式
@@ -24,13 +24,15 @@ var ETSelection = function(){
             return;
         }
         var officeEnergyType = JSON.parse(strEnergyType);
-        this.initETSel(officeEnergyType,$divETs,divETCssClassName,etCallBack);
-    }
+        this.initETSel(officeEnergyType,$divETs,divETCssClassName,etCallBack,'02');
+    };
 
-    this.initETSel = function(allEnergyType,$divETs,divETCssClassName,etCallBack){
+    this.initETSel = function(allEnergyType,$divETs,divETCssClassName,etCallBack,etType){
         $divETs.empty();
+        $divETs.attr('type',etType);
         if(divETCssClassName){
             $divETs.addClass(divETCssClassName);
+
         }else{
             $divETs.css("display" ,"flex");
             $divETs.css("display" ,"-webkit-flex");
@@ -50,10 +52,15 @@ var ETSelection = function(){
                 "cursor" : "pointer"
             });
             if(allTypes[i].img2){
-                $div.css("background","url(../resource/img/" + allTypes[i].img2 + ")no-repeat");
+                if(i == 0){
+                    $div.css("background","url(../new-resource/img/" + allTypes[i].selectImg + ")no-repeat");
+                }else{
+                    $div.css("background","url(../new-resource/img/" + allTypes[i].unSelectImg + ")no-repeat");
+                }
+
             }
-            $div.css("background-size","50px");
-            $div.css("background-position","top center");
+            $div.css("background-size","22px 28px");
+            $div.css("background-position","center 6px");
 
             $div.attr("value",allTypes[i].ettype);
 
