@@ -245,11 +245,11 @@ $(function(){
 
         _isDeng = true;
 
-        //初始化
-        detailedInit();
-
         //重新初始化表格
         ZBPersonInit();
+
+        //初始化
+        detailedInit();
 
         //模态框
         _moTaiKuang($('#ADD-Modal'),'新增','','','','新增');
@@ -1974,18 +1974,7 @@ $(function(){
                 data:'name',
                 render:function(data, type, full, meta){
 
-                    if(_isDeng){
-
-                        return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
-                            '">' + data +
-                            '</span>'
-                    }else{
-
-                        return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
-                            '">' + data + " （" + full.shangbantime.substring(0,4) + "-" + full.xiabantime.substring(0,4) + ")" +
-                            '</span>'
-
-                    }
+                    return '<span data-id="' + full.id + '">' + data + '</span>'
 
                 }
             },
@@ -1998,9 +1987,30 @@ $(function(){
                 data:'bcName',
                 render:function(data, type, full, meta){
 
-                    return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
-                        '">' + data +
-                        '</span>'
+                    console.log(_isDeng);
+
+                    if(_isDeng){
+
+                        return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                            '">' + data +
+                            '</span>'
+                    }else{
+
+                        if(full.shangbantime && full.xiabantime){
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data + " （" + full.shangbantime.substring(0,5) + "-" + full.xiabantime.substring(0,5) + ")" +
+                                '</span>'
+
+                        }else{
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data +
+                                '</span>'
+
+                        }
+
+                    }
 
                 }
             },
