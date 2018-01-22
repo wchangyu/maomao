@@ -58,6 +58,13 @@
     <style type="text/css" media=print>
         .noprint{display : none }
     </style>
+    <style>
+        #select-Dev{
+            color: #00b0f0;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -452,7 +459,7 @@
                                 </div>
                             </li>
                             <li class="floatLi">
-                                <div class="labels">设备编码：</div>
+                                <div class="labels">设备编码：<span id="select-Dev">【设备选择】</span></div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="sbSelect">
                                 </div>
@@ -586,17 +593,17 @@
                                     </div>
                                 </li>
                                 <li class="floatLi">
-                                    <div class="labels">维修设备：</div>
+                                    <div class="labels">维修设备：<span id="quick-Dev" style="color:#00b0f0;cursor: pointer ">选择设备</span></div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="sbSelect">
                                     </div>
                                 </li>
-                                <li class="floatLi">
-                                    <div class="labels">设备编码：</div>
-                                    <div class="input-blockeds">
-                                        <input type="text" v-model="sbLX">
-                                    </div>
-                                </li>
+                                <!--<li class="floatLi">-->
+                                    <!--<div class="labels">设备编码：<span id="quick-Dev" style="color:#00b0f0;cursor: pointer ">选择设备</span></div>-->
+                                    <!--<div class="input-blockeds">-->
+                                        <!--<input type="text" v-model="sbLX">-->
+                                    <!--</div>-->
+                                <!--</li>-->
                                 <li class="floatLi">
                                     <div class="labels">设备名称：</div>
                                     <div class="input-blockeds">
@@ -648,6 +655,73 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary quickDengji">快速报障</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--设备选择模态框-->
+<div class="modal fade" id="DEV-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 676px;width: 1000px !important;">
+        <div class="modal-content" style="height: 676px;width: 1000px !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">设备选择人</h4>
+            </div>
+            <div class="modal-body" style="height: 553px;overflow-y: auto">
+                <!--主体部分-->
+                <ul class="content-main-contents-header">
+                    <li class="main-contents-header-lists0">条件查询</li>
+                </ul>
+                <ul class="condition-query">
+                    <li>
+                        <label for="">设备编码：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbbm">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备名称：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="sbmc">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">规格型号：</label>
+                        <div class="input-blocked">
+                            <input type="text" class="ggxh">
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备系统：</label>
+                        <div class="input-blocked">
+                            <select name="" id="dev-system" disabled="disabled" class="disabled-block"></select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备类型：</label>
+                        <div class="input-blocked">
+                            <select name="" id="dev-type"></select>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="">设备部门：</label>
+                        <div class="input-blocked">
+                            <select name="" id="dev-depart" disabled="disabled" class="disabled-block"></select>
+                        </div>
+                    </li>
+                    <li><button class="btn btn-success" id="selected1">查询</button></li>
+                    <div class="clearfix"></div>
+                </ul>
+                <table id="dev-table" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary dengji">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -744,6 +818,7 @@
 <script src="../resource/js/publicQX.js"></script>
 <script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-1.js"></script>
+<script src="../resource/js/equipmentSelect.js"></script>
 <script src="../resource/js/publicGD.js"></script>
 <script src="../resource/station/chooseStation.js"></script>
 <!-- END JAVASCRIPTS -->

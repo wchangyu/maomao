@@ -236,7 +236,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -380,7 +379,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/personnelManagement.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -389,6 +387,8 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/personnelManagement.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--新增用户-->
@@ -407,25 +407,25 @@
                                 <li class="floatLeft">
                                     <div class="labels colorTip">用户名：<span v-show="$validation.username.notempty" style="display: none">请输入用户名</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="username" v-validate:username= "['notempty']" initial='off'>
+                                        <input type="text" class="not-edit" v-model="username" v-validate:username= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels colorTip">工号：<span v-show="$validation.jobnumber.notempty" style="display: none">请输入工号</span><span class="jobNumberExists" style="display: none">输入的工号已存在</span></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="jobnumber" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
+                                        <input type="text" class="not-edit" v-model="jobnumber" v-validate:jobnumber= "['notempty']" initial='off' @keyup="keyUpJob()" class="ghbm">
                                     </div>
                                 </li>
                                 <li class="floatLeft">
                                     <div class="labels">密码：</div>
                                     <div class="input-blockeds">
-                                        <input type="password" v-model="password" v-validate:password= "['notempty']" initial='off'>
+                                        <input type="password" class="not-edit" v-model="password" v-validate:password= "['notempty']" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatRight">
                                     <div class="labels">确认密码：<span class="confirmpassword" style="display: none">两次密码不一致</span></div>
                                     <div class="input-blockeds">
-                                        <input type="password" v-model="confirmpassword" @keyup="keyUp()" initial='off'>
+                                        <input type="password" class="not-edit" v-model="confirmpassword" @keyup="keyUp()" initial='off'>
                                     </div>
                                 </li>
                                 <li class="floatLeft">
@@ -473,9 +473,9 @@
                                     </div>
                                 </li>
                                 <li class="floatRight" style="line-height: 26px;">
-                                    <div class="labels">排序：</div>
+                                    <div class="labels">排序：<div class="multiple-condition numberType" style="width: 122px;display: none;"><span class="colorTip">请输入正整数</span></div></div>
                                     <div class="input-blockeds">
-                                        <input type="text" v-model="order" placeholder="请填写数字">
+                                        <input type="text" v-model="order" placeholder="请填写数字" @keyup="naturalNumber('order')">
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>
@@ -497,7 +497,7 @@
         </div><!-- /.modal -->
     </div>
 <!--所有提示框-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
@@ -511,6 +511,12 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+<!--loading图-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
 </div>
 </body>
 <!-- END BODY -->

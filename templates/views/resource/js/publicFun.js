@@ -297,7 +297,7 @@ function _getProfession(url,el,attr,attrNum,attrName){
         data:prm,
         timeout:_theTimes,
         success:function(result){
-            var str = '<option value="">请选择</option>';
+            var str = '<option value="">全部</option>';
 
             if(attr){
                 for(var i=0;i<result[attr].length;i++){
@@ -335,7 +335,7 @@ function _ajaxFun(url, allArr, select, text, num) {
         data: prm,
         success: function (result) {
             //给select赋值
-            var str = '<option value="">请选择</option>';
+            var str = '<option value="">全部</option>';
             for (var i = 0; i < result.length; i++) {
                 str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
                 allArr.push(result[i]);
