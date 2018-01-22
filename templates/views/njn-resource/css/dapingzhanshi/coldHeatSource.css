@@ -1,0 +1,248 @@
+
+/*页面主体左侧图片*/
+.right-bottom-content-left{
+
+    float: left;
+    height:750px;
+   padding-top:140px;
+    box-sizing: border-box;
+
+}
+
+.right-bottom-content-left .content-left-img{
+    width:580px;
+    height:417px;
+}
+
+/*页面右侧数据*/
+.right-bottom-content-right{
+    float: left;
+    width:1160px;
+    height:709px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/*上方数据统计*/
+.right-bottom-content-right .right-bottom-content-top{
+
+    height:350px;
+}
+
+/*换热站介绍*/
+.right-bottom-content-right .bottom-content-top-introduce{
+
+    width:250px;
+    height:100%;
+    float: left;
+    margin-right:10px;
+    padding-right:20px;
+    box-sizing: border-box;
+}
+
+.right-bottom-content-title{
+    font-size:20px;
+    font-weight: 600;
+    margin-bottom:35px;
+}
+
+.right-bottom-content-right .bottom-content-top-introduce .bottom-introduce{
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/*设备运行*/
+.bottom-content-top-operation .top-control{
+    height:150px;
+}
+
+.bottom-content-top-operation .top-control .top-control-span{
+    font-size:17px;
+    color:#ffd34d;
+    margin-right:20px;
+    cursor: pointer;
+    margin-bottom:8px !important;
+}
+
+.bottom-content-top-operation .top-control .top-control-content{
+    margin-bottom:20px;
+}
+
+.bottom-content-top-operation .top-control-content .left-span{
+
+    font-size:20px;
+    color:#cecece;
+    margin-right:22px;
+
+}
+
+.bottom-content-top-operation .top-control-content .right-span font{
+
+   width:18px;
+   height:18px;
+   color:white;
+    background: white;
+    display: inline-block;
+    border:1px solid #d1d1d1;
+    text-align: center;
+    margin-right: -4px;
+    cursor: pointer;
+}
+
+.bottom-content-top-operation .top-control-content .right-span .onClick{
+    background: #1caf9a;
+}
+
+/*设备运行下方echart图*/
+#bottom-content-chart{
+    height:120px;
+}
+
+/*设备报警*/
+.right-bottom-content-right .bottom-content-top-introduce .alarm-content{
+
+    font-size: 18px;
+    color:#c1c1c1;
+    margin-bottom:40px !important;
+    background: url('../../img/hantanhao.png') no-repeat  center 80px;
+    position: relative;
+}
+
+.right-bottom-content-right .bottom-content-top-introduce .alarm-content span{
+    margin-left:65px;
+}
+
+.right-bottom-content-right .bottom-content-top-introduce .alarm-content font{
+   position: absolute;
+    left:130px;
+    top:-2px;
+    height:29px;
+    width:29px;
+    background-color:#efcd49;
+    background-image: url('../../img/hantanhao.png');
+    background-position: center center;
+    background-repeat:no-repeat ;
+    display: inline-block;
+    border-radius: 100%;
+}
+
+/*换热效率*/
+.right-bottom-content-right .bottom-content-top-efficiency{
+
+    width:350px;
+    margin-right:0;
+    padding:0;
+    position: relative;
+}
+
+#bottom-efficiency-chart,#bottom-efficiency-chart1{
+    height:150px;
+}
+
+/*数据信息*/
+.right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message{
+    font-size:14px;
+    position: absolute;
+    left:190px;
+    top:89px;
+    font-weight: 500;
+}
+.right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message p{
+    margin-bottom:5px !important;
+}
+
+.right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message1{
+    font-size:14px;
+    position: absolute;
+    left:190px;
+    top:259px;
+    font-weight: 500;
+}
+
+/*图例*/
+.bottom-content-legend{
+
+    position: absolute;
+    right:-10px;
+    top:20px;
+    font-size:12px;
+    display: inline-block;
+    vertical-align: middle;
+    height:45px;
+}
+.bottom-content-legend .legend font{
+
+     display: inline-block;
+     width:18px;
+     height:10px;
+     border-radius: 4px;
+     background: #85ec85;
+     margin-right:3px;
+ }
+
+.bottom-content-legend .legend2 font{
+
+    background: #77c7e9;
+}
+
+.bottom-content-legend .legend3 font{
+
+    background: #ff9b00;
+}
+
+.bottom-content-legend .legend4 font{
+
+    background: #ff4100;
+}
+
+/*---------------------------能耗曲线----------------------------*/
+.right-bottom-content-right .bottom-content-bottom-consumption{
+    width:50% !important;
+    margin-right: 0px;
+    padding-top:30px;
+    position: relative;
+}
+
+.right-bottom-content-right .bottom-content-bottom-consumption{
+    margin-bottom:30px;
+}
+
+/*选项卡*/
+.right-bottom-content-right .consumption-container{
+
+    position: absolute;
+    display: inline-block;
+    right:10px;
+    top:33px;
+}
+.right-bottom-content-right .consumption-container span{
+
+    width:85px;
+    height:25px;
+    display: inline-block;
+    border:1px solid #dadada;
+    text-align: center;
+    line-height: 21px;
+    margin-right:-5px;
+    cursor: pointer;
+    vertical-align: bottom;
+}
+
+.right-bottom-content-right .consumption-container .onClick{
+    border-top:3px solid #36b0a9;
+}
+
+/*echart图高度*/
+.right-bottom-content-right .right-bottom-content-bottom-echart{
+
+    height:250px !important;
+}
+
+/*供热温度曲线*/
+.right-bottom-content-right .bottom-content-bottom-temperature .consumption-container span{
+
+    width:85px;
+    height:auto !important;
+    line-height:15px;
+}

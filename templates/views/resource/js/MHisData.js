@@ -215,7 +215,7 @@ function getDatas(){
 	var prm = {
 		dkid : dataId,
 		st : _startTime,
-		et : _endTime,
+		et : _endTime
 	};
 	var url = sessionStorage.apiUrlPrefix;
 	$.ajax({

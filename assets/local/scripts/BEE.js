@@ -1049,7 +1049,7 @@ var BEE = (function(){
         if(curMenu.indexOf(curPageName) == -1){
 
             //本地浏览时不需要跳转
-            if(curUrl.indexOf('localhost:') >= 0){
+            if(curUrl.indexOf('localhost:') >= 0 || curUrl.indexOf('jumpEnergyMonitor.html') >= 0){
 
                 return false;
             }

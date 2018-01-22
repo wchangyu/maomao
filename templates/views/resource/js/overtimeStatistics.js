@@ -98,14 +98,27 @@ $(function(){
                     if(result.riqi){
 
 
-                        //if(_tables){
-                        //    var datatable = $("#reporting").dataTable();
-                        //    //
-                        //    if (datatable) {
-                        //        datatable.fnClearTable();    //清空数据
-                        //        datatable.fnDestroy();         //销毁datatable
-                        //    }
-                        //}
+                        if(_tables){
+
+                            var html = '<table id="reporting" class="table table-striped table-bordered  table-hover" cellspacing="0" width="100%">' +
+                                '<caption style="font-size: 18px;color: #777;">' +
+
+                                '</caption>' +
+                                '<thead>' +
+                                '</thead>' +
+                                '<tbody>' +
+                                '</tbody>' +
+                                '<tfoot>' +
+                                '<tr>' +
+                                '</tr>' +
+                                '</tfoot>' +
+                                '</table>';
+
+                            $('.main-contents-table').empty();
+
+                            $('.main-contents-table').html(html);
+
+                        };
 
 
                         var arr = ['序号','姓名'];
@@ -141,23 +154,7 @@ $(function(){
                             }
 
                         };
-                        if(_tables){
-                            for(var i=0;i<arr.length;i++){
 
-                                var obj = {};
-
-                                obj.title = arr[i];
-
-                                obj.data = data[i];
-
-                                obj.mData = data[i];
-
-                                obj.sTitle = arr[i];
-
-                                col.push(obj);
-
-                            };
-                        }else {
 
                             for(var i=0;i<arr.length;i++){
 
@@ -171,7 +168,7 @@ $(function(){
 
                             };
 
-                        }
+
 
                         console.log(col);
 
@@ -194,7 +191,7 @@ $(function(){
 
                         };
 
-                        $('#reporting tfoot').children().empty().append(tfootStr);
+                        //$('#reporting tfoot').children().empty().append(tfootStr);
 
                         //_tables =  _tableInit($('#reporting'),col,1,true,'',totalNum,'','');
 
@@ -203,7 +200,7 @@ $(function(){
                         _tables = $('#reporting').DataTable({
                             "autoWidth": false,  //用来启用或禁用自动列的宽度计算
                             "paging": true,   //是否分页
-                            "destroy": true,//还原初始化了的datatable
+                            //"destroy": true,//还原初始化了的datatable
                             "searching": false,
                             "ordering": false,
                             "iDisplayLength":50,//默认每页显示的条数
@@ -229,8 +226,8 @@ $(function(){
                                 className:'saveAs hiddenButton'
                             },
                             "columns": col,
-                            "fnRowCallback": '',
-                            "drawCallback":totalNum
+                            "fnRowCallback": ''
+                            //"drawCallback":totalNum
                         });
 
 

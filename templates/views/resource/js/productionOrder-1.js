@@ -190,7 +190,7 @@ $(function(){
       }
     },
     {
-      title: '楼栋',
+      title:  __names.department,
       data: 'bxKeshi'
     },
     {

@@ -96,7 +96,7 @@ function getAlarmCameraData(){
             //获取摄像头回放开始时间
             var startTime = alarmCameraDataOBj.dataDate;
 
-            startTime = moment(startTime).format('YYYY-MM-DD hh:mm:ss');
+            startTime = moment(startTime).format('YYYY-MM-DD HH:mm:ss');
 
             startPlaybackTime =  startTime;
 

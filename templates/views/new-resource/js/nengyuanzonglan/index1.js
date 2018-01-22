@@ -59,6 +59,7 @@ $(function(){
 
         //获取实时能耗
         getRealTimeData();
+
     });
 
     //点击右下角切换楼宇或者科室的能耗排名数据
@@ -245,8 +246,6 @@ option = {
 
 
 var colors1=['#62A8DB','#33E3B6','#F08348','#fad797','#59ccf7','#c3b4df'];
-
-
 
 // 指定图表的配置项和数据 用于本日用能分项
 option1 = {
@@ -686,7 +685,7 @@ function getNowTime(){
          getNowTime();
 
      },15000)
-}
+};
 
 //获取工单统计信息
 function getOrderData(){
@@ -802,7 +801,7 @@ function getOrderData(){
         }
     })
 
-}
+};
 
 //------------------------------------右侧上方实时能耗数据-----------------------------------//
 
@@ -1119,6 +1118,7 @@ function getAllEnergyItemData(){
                 var obj = {};
                 //获取能耗数据
                 obj.value = o.energyItemValue.toFixed(1);
+
                 //获取能耗名称
                 obj.name = _getEcName(o.energyItemCode);
 

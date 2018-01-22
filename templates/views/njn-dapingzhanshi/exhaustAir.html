@@ -133,17 +133,17 @@
             <!--右侧下方选项卡-->
             <div class="right-tab-container">
 
-                <span class="right-tab right-tab1">总览</span>
-                <span class="right-tab right-tab2">冷热源</span>
-                <span class="right-tab right-tab2">空调机组</span>
-                <span class="right-tab right-tab2">电梯</span>
-                <span class="right-tab right-tab2">动环系统</span>
-                <span class="right-tab right-tab2">站房照明</span>
-                <span class="right-tab right-tab2">站台照明</span>
-                <span class="right-tab right-tab2  right-tab-choose1">送排风</span>
-                <span class="right-tab right-tab2">给排水</span>
-                <span class="right-tab right-tab2">能源管理</span>
-                <span class="right-tab right-tab3">运维联动</span>
+                <span class="right-tab right-tab1"><a href="">总览</a></span>
+                <span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>
+                <span class="right-tab right-tab2"><a href="airConditioner.html">空调机组</a></span>
+                <span class="right-tab right-tab2"><a href="">电梯</a></span>
+                <span class="right-tab right-tab2"><a href="">动环系统</a></span>
+                <span class="right-tab right-tab2"><a href="">站房照明</a></span>
+                <span class="right-tab right-tab2"><a href="">站台照明</a></span>
+                <span class="right-tab right-tab2  right-tab-choose1"><a href="exhaustAir.html">送排风</a></span>
+                <span class="right-tab right-tab2"><a href="">给排水</a></span>
+                <span class="right-tab right-tab2 "><a href="energyManagement.html">能源管理</a></span>
+                <span class="right-tab right-tab3"><a href="">运维联动</a></span>
 
             </div>
 
@@ -152,17 +152,17 @@
 
                 <!--上方选项卡-->
                 <!--右侧下方选项卡-->
-                <div class="right-bottom-tab-container">
+                <div class="right-bottom-tab-container" id="monitor-menu-container">
 
-                    <span class="right-bottom-tab ">-9.6m</span>
-                    <span class="right-bottom-tab ">0.0m</span>
-                    <span class="right-bottom-tab ">12.4m</span>
-                    <span class="right-bottom-tab ">17.1m</span>
-                    <span class="right-bottom-tab ">19.1m</span>
-                    <span class="right-bottom-tab right-bottom-tab-choose">22.4m</span>
-                    <span class="right-bottom-tab ">29.4m</span>
-                    <span class="right-bottom-tab ">东北角配楼</span>
-                    <span class="right-bottom-tab ">西南角配楼</span>
+                    <!--<span class="right-bottom-tab ">-9.6m</span>-->
+                    <!--<span class="right-bottom-tab ">0.0m</span>-->
+                    <!--<span class="right-bottom-tab ">12.4m</span>-->
+                    <!--<span class="right-bottom-tab ">17.1m</span>-->
+                    <!--<span class="right-bottom-tab ">19.1m</span>-->
+                    <!--<span class="right-bottom-tab right-bottom-tab-choose">22.4m</span>-->
+                    <!--<span class="right-bottom-tab ">29.4m</span>-->
+                    <!--<span class="right-bottom-tab ">东北角配楼</span>-->
+                    <!--<span class="right-bottom-tab ">西南角配楼</span>-->
 
                 </div>
 
@@ -589,8 +589,10 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 
 <!--页面js-->
+    <script src="../resource/js/publicFun.js"></script>
     <script src="../njn-resource/js/common.js"></script>
     <script src="../njn-resource/js/userMonitor1.js"></script>
+    <script src="../njn-resource/js/dapingzhanshi/exhaustAir.js"></script>
     <script>
         jQuery(document).ready(function() {
             Metronic.init(); // init metronic core components

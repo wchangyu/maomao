@@ -276,7 +276,9 @@ function _datasTable(tableId,arr){
     if(arr.length == 0){
         table.fnClearTable();
         table.fnDraw();
+
     }else{
+
         table.fnClearTable();
         table.fnAddData(arr);
         table.fnDraw();
@@ -288,7 +290,7 @@ function _datasTable(tableId,arr){
 function _getProfession(url,el,attr,attrNum,attrName){
     var prm ={
         userID:_userIdNum,
-        userName:_userIdName,
+        userName:_userIdName
     };
     $.ajax({
         type:'post',

@@ -215,6 +215,11 @@ var ObjectSelection = function(){
 
                     }
                 },
+                beforeClick:function(treeId,treeNode){
+
+                    $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
                 onCheck:function(e,treeId,treeNode){
                         $(treeNode).css("background", "blue");
                         console.log(treeNode.checked);
@@ -224,7 +229,12 @@ var ObjectSelection = function(){
                             GetAllBranches();
                         }
 
-                        if(getShowRadio){
+                        $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                         $('#' + treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+
+                    if(getShowRadio){
                             //获取楼宇ID
 
                             var id =  zTreePointer.getCheckedNodes(true)[0].id;
@@ -316,7 +326,19 @@ var ObjectSelection = function(){
                 fontCss : {'line-height':'30px'}
             },
             callback: {
-                onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)}
+                onClick: function(e,treeId,treeNode){zTreeOffice.checkNode(treeNode,!treeNode.checked,true)},
+                beforeClick:function(treeId,treeNode){
+
+                    $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+                onCheck:function(e,treeId,treeNode){
+
+                    $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#' + treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                }
             }
         };
         if(multiSelectionMode){
