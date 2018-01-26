@@ -44,9 +44,13 @@ var userMonitor = (function(){
     var _imgProcWidth;            //存放背景图宽度
     var _oldSpanDefArr = [];         //存放页面中构成流程图的元素
 
+    var jumpPageWidth = 1120/2;  //存放跳转页面流程图的宽度
+    var jumpPageHeight = 586/2;  //存放跳转页面流程图的高度
+
     $('.content-main-left').width(0);
 
     var init = function(){
+
         //获取到存储区的监控配置信息
         if(sessionStorage.menuArg){
             var args = sessionStorage.menuArg.split(",");
@@ -263,6 +267,7 @@ var userMonitor = (function(){
             success:function(data){
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
+                console.log(data);
                 //setProcList(_allProcs);
                 getProcsByPointerId();
             },
@@ -323,6 +328,7 @@ var userMonitor = (function(){
                 });
             }
         }
+
         if(!notSetProcList){
             setProcList(_allProcs);
         }
@@ -332,18 +338,21 @@ var userMonitor = (function(){
     //设置左侧的监控方案列表
     //如果selectedProc为空默认选中第一个，否则选中传值
     var setProcList = function(procs,selectedProc){
-        var $ul = $(".content-main-left>ul");
-        $(".content-main-left>ul li").remove();
+        //console.log(procs);
+
+        var $ul = $("#monitor-menu-container");
+
+        $("#monitor-menu-container span").remove();
         if(!procs || procs.length==0) return;
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
                 if(!procs[i].showProcName){
-                    $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                    $ul.append($("<span>",{text:procs[i].procName.split('M')[0]+'M',class:'right-bottom-tab ','data-procid':procs[i].procID}).on("click",(function(procId){
                         return function() {initializeProcSubs(procId);selectLi($(this));};
                     })(procs[i].procID)));
                 }else{
-                    $ul.append($("<li>",{text:procs[i].procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                    $ul.append($("<span>",{text:procs[i].procName.split('M')[0]+'M',class:'right-bottom-tab ','data-procid':procs[i].procID}).on("click",(function(procId){
                         return function() {initializeProcSubs(procId);selectLi($(this));};
                     })(procs[i].procID)));
                 }
@@ -361,10 +370,10 @@ var userMonitor = (function(){
                             isProcFind = true;
                         }
                         if(!procs[i].showProcName){
-                            $ul.append($("<li>",{text:obj.procName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                            $ul.append($("<span>",{text:obj.procName.split('M')[0]+'M',class:'right-bottom-tab ','data-procid':procs[i].procID}).on("click",(function(procId){
                                 return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
                         }else{
-                            $ul.append($("<li>",{text:obj.showProcName,class:'list-group-item','data-procid':procs[i].procID}).on("click",(function(procId){
+                            $ul.append($("<span>",{text:obj.showProcName,class:'right-bottom-tab ','data-procid':procs[i].procID}).on("click",(function(procId){
                                 return function() {initializeProcSubs(procId);selectLi($(this));}; })(obj.procID)));
                         }
 
@@ -372,15 +381,32 @@ var userMonitor = (function(){
                 }
             }
         }
+        //console.log(55);
+
         if(curProc){            //可能存在看不到任何监控方案的情况，没有权限
-            initializeProcSubs(curProc.procID);//选中默认的监控
-            selectLi($('.list-group-item[data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+
+            //console.log(curProc);
+
+            var procId = window.location.search.split('ckId=')[1];
+
+            //当前为跳转页面，直接获取页面url传递过来的监控方案
+            if(procId){
+                //initializeProcSubs(procId);//选中默认的监控
+
+                initializeProcSubs('3101007435');//选中默认的监控
+            }else{
+                initializeProcSubs(curProc.procID);//选中默认的监控
+            }
+
+            selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
         }
+
+        $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
     };
 
     function selectLi($li){
-        $(".list-group-item").removeClass("selected");
-        $li.addClass("selected");
+        $(".right-bottom-tab").removeClass("right-bottom-tab-choose");
+        $li.addClass("right-bottom-tab-choose");
     };
 
     //根据定义的方案类型，获取该类型下的监控方案，返回数据
@@ -424,6 +450,7 @@ var userMonitor = (function(){
 
     //获取到全部的方案，根据混合模式加载
     var getAllProcs = function(){
+
         $.ajax({
             type:"post",
             dataType:"json",
@@ -438,6 +465,7 @@ var userMonitor = (function(){
             },
             error:function(xhr,res,err){ logAjaxError("PR_GetAllProcsNew" , err);}
         })
+
     };
 
     //获取到当前配置文件中的类型和层级对应的监控方案数据 一.procType可以是配置文件中的配置参数;二.procType也可以是当前选择监控方案中的属性，procLv是当前选择方案中的属性
@@ -536,11 +564,13 @@ var userMonitor = (function(){
         var proc = _.findWhere(_allProcs,{"procID" : procId});        //underscore中的找到第一个匹配元素的方法
 
         if(proc){
+
             var imgWidth,imgHeight;
             if(proc.procStyle){
                 var $divMain = $("#content-main-right");
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
+
 
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
@@ -555,6 +585,17 @@ var userMonitor = (function(){
                     //实际宽度
                     var realWidth = 1228;
 
+                    var procId = window.location.search.split('ckId=')[1];
+
+                    //当前为跳转页面，获取跳转页面的流程图宽高
+                    if(procId){
+
+                        realWidth = jumpPageWidth;
+
+                        containHeight = jumpPageHeight;
+
+                    }
+
                     //console.log(realWidth);
 
                     //缩放比例计算
@@ -562,6 +603,7 @@ var userMonitor = (function(){
 
                     //获取底图高度
                     var imgHeight = proc.procStyle.imageSizeHeight;
+
 
                     //高度缩放比例
                     var ratioZoom1 = containHeight / imgHeight;
@@ -573,8 +615,12 @@ var userMonitor = (function(){
                     _scaleX = ratioZoom;
                     setScaleSign(_scaleX,_scaleStep);
 
+                    //console.log(realWidth);
+
                     //右侧容器宽度
                     $('#right-container').width(realWidth);
+
+                    //console.log(realWidth);
 
                     //判断左侧操作栏是否存在
                     var o1 = $(".content-main-left").css("display");
@@ -611,6 +657,19 @@ var userMonitor = (function(){
                         }
 
                         var norWidth1 = 1228;
+
+                        var procId = window.location.search.split('ckId=')[1];
+
+
+                        //当前为跳转页面，获取跳转页面的流程图宽高
+                        if(procId){
+
+                            norWidth1 = jumpPageWidth;
+
+                            containHeight = jumpPageHeight;
+
+                        }
+
                         //实际宽度
                         var realWidth1 = norWidth1 - _leftRealwidth;
 
@@ -721,6 +780,7 @@ var userMonitor = (function(){
             }
 
             if(proc["imgID"] != 1){     //1代表常用方案，此处用==号需要用到隐式转换,1的时候没有底图
+
                 $.ajax({
                     type:"post",
                     data:{"" : proc["imgID"]},
@@ -742,7 +802,10 @@ var userMonitor = (function(){
                         $("#content-main-right").append(img);
                         eageleEyeOnOff();
                     },
-                    error:function(xhr,res,err){ logAjaxError("bg GetHbProcImage" , err); }
+                    error:function(xhr,res,err){
+
+                        logAjaxError("bg GetHbProcImage" , err);
+                    }
                 });
             }
             //设置div的高和宽
@@ -1179,14 +1242,17 @@ var userMonitor = (function(){
                 $(this).html('切换正常模式');
 
             }else{
+
                 $(this).html('切换鹰眼模式');
 
                 var norWidth1 = $('.page-title').width();
 
                 //实际宽度
                 var realWidth1 = norWidth1 - _leftWidth - 20;
+
                 //缩放比例计算
                 var ratioZoom1 = realWidth1 / _imgProcWidth;
+
                 //对左上角放大缩小按钮重绘
                 _scaleX = ratioZoom1;
                 setScaleSign(_scaleX,_scaleStep);
@@ -1446,7 +1512,10 @@ var userMonitor = (function(){
             success:function(data){
                 $Img.attr("src",data["imgUrl"]);
             },
-            error:function(xhr,res,err){ logAjaxError("GetHbProcImage" , res) }
+            error:function(xhr,res,err){
+
+                logAjaxError("GetHbProcImage" , res)
+            }
         });
     };
 
@@ -1509,13 +1578,41 @@ var userMonitor = (function(){
                 return;
             }
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
-            if(proc){
-                _curProc = proc;
+
+
+            //如果新建模态框打开流程图
+            if( proc.prProcLnk == null || proc.prProcLnk.Startpos == 2) {
+
+                //获取当前ID
+                var id = procDef.ckId;
+
+                //获取弹窗的页面地址
+                var url = "http://localhost:8080/%E6%96%B0%E9%A1%B9%E7%9B%AE/BEE/templates/views/njn-dapingzhanshi/jumpEnergyMonitor.html?ckId="+id+"";
+
+                var html = '<div class="content-child-show">' +
+                                '<div class="content-child-show-container">' +
+                                    '<div class="close1">X</div>' +
+                                    '<iframe width="'+jumpPageWidth+'" scrolling="no" height="'+jumpPageHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+                                '</div>' +
+                             '</div>';
+
+
+                $('#right-container').append(html);
+
             }else{
-                _curProc = null;
+
+                if(proc){
+                    _curProc = proc;
+                }else{
+                    _curProc = null;
+                }
+                $("#content-main-right").empty();
+
+                displayAllProc();
+
             }
-            $("#content-main-right").empty();
-            displayAllProc();
+
+
         }else{
             if(isHaveControl(procDef.prDefId)){
                 if(_hasControlAuth) {
@@ -2433,62 +2530,62 @@ function changeTransform(o1){
 
 //给流程图增加拖动开关
 var ifProcMove = true;
-
-//流程图随鼠标拖动
-$("#content-main-right").hover(function(){
-
-    //拖动效果
-    $(document).mousedown(function(e){
-
-        var btnNum = event.button;
-
-        //点击鼠标左键
-        if(btnNum == 0 && ifProcMove){
-
-            //禁用浏览器自带的图片拖动事件
-            var dom = document.getElementById('imgProc');
-            if(dom){
-                dom.ondragstart=function (){return false;};
-            }
-
-
-            //获取鼠标初始位置
-            var pagex = e.pageX;
-            var pagey = e.pageY;
-
-            //获取最初的偏移值
-            var marginX = parseInt($('#content-main-right').css('marginLeft'));
-
-            var marginY = parseInt($('#content-main-right').css('marginTop'));
-
-            $("#right-container").mousemove(function(e){
-
-                var i = e.pageX - pagex;
-                var y = e.pageY - pagey;
-
-                var maxWidth = $("#right-container").width();
-                var maxHeight = $("#right-container").height();
-                var nowX = Math.max(Math.min(i,maxWidth),0);
-                var nowY = Math.max(Math.min(y,maxHeight),0);
-
-                //随鼠标改变元素的位置
-                $("#content-main-right").css({
-                    marginLeft:marginX + i,
-                    marginTop:marginY + y
-                });
-
-            });
-
-            $(document).mouseup(function(){
-
-                $("#right-container").unbind('mousemove');
-
-            });
-        }
-
-    });
-
-});
+//
+////流程图随鼠标拖动
+//$("#content-main-right").hover(function(){
+//
+//    //拖动效果
+//    $(document).mousedown(function(e){
+//
+//        var btnNum = event.button;
+//
+//        //点击鼠标左键
+//        if(btnNum == 0 && ifProcMove){
+//
+//            //禁用浏览器自带的图片拖动事件
+//            var dom = document.getElementById('imgProc');
+//            if(dom){
+//                dom.ondragstart=function (){return false;};
+//            }
+//
+//
+//            //获取鼠标初始位置
+//            var pagex = e.pageX;
+//            var pagey = e.pageY;
+//
+//            //获取最初的偏移值
+//            var marginX = parseInt($('#content-main-right').css('marginLeft'));
+//
+//            var marginY = parseInt($('#content-main-right').css('marginTop'));
+//
+//            $("#right-container").mousemove(function(e){
+//
+//                var i = e.pageX - pagex;
+//                var y = e.pageY - pagey;
+//
+//                var maxWidth = $("#right-container").width();
+//                var maxHeight = $("#right-container").height();
+//                var nowX = Math.max(Math.min(i,maxWidth),0);
+//                var nowY = Math.max(Math.min(y,maxHeight),0);
+//
+//                //随鼠标改变元素的位置
+//                $("#content-main-right").css({
+//                    marginLeft:marginX + i,
+//                    marginTop:marginY + y
+//                });
+//
+//            });
+//
+//            $(document).mouseup(function(){
+//
+//                $("#right-container").unbind('mousemove');
+//
+//            });
+//        }
+//
+//    });
+//
+//});
 
 //数组转化为对象
 function transform(obj){

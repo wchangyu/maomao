@@ -43,6 +43,12 @@
     margin: 0 !important;
   }
 }
+
+/*头部标题是否显示*/
+/*.page-title {*/
+  /*display: none !important;*/
+/*}*/
+
 /*
 table样式
 
@@ -2097,6 +2103,7 @@ Page content
   color: #666;
   margin: 0px 0px 10px 0px;
   font-weight: 300;
+
   /* subtitle */
 }
 .page-title small {

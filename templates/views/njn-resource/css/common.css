@@ -3,9 +3,16 @@
 .outer-container{
     width:2560px;
     height:1024px;
-
+    /*一屏展示时打开*/
+    /*transform-origin: left top 0px;*/
+    /*transform: scale(0.65, 0.65);*/
 }
-
+.right-tab-container a{
+    color:white;
+}
+.right-tab-container a:hover{
+    text-decoration: none;
+}
 /*---------------------左侧平台总览------------------*/
 .inner-left-container{
     width:741px;
@@ -261,6 +268,8 @@
 /*主体部分上方选项卡*/
 .right-bottom-tab-container{
     margin-left:34px;
+    height: 40px;
+    overflow: hidden;
 }
 .right-bottom-tab-container .right-bottom-tab{
     width:125px;
@@ -274,6 +283,7 @@
     margin-right:6px;
     font-size:22px;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .right-bottom-tab-container .right-bottom-tab-choose{
@@ -285,7 +295,6 @@
 .right-bottom-left-container{
     margin-left:30px;
     float: left;
-
 }
 
 .right-bottom-left-container img{
@@ -333,7 +342,7 @@
 }
 
 .right-bottom-table .green-patch{
-    width:53px;
+    width:66px;
     height:20px;
     background: #09D188;
     color:white;
@@ -348,6 +357,84 @@
 .right-bottom-table .right-bottom-alarm{
     margin:0;
     font-size:12px;
+}
+
+/*流程图弹窗*/
+.content-child-show{
+    position: absolute;
+    left:160px;
+    top:150px;
+    opacity: 0.95;
+}
+
+.right-bottom-container{
+    position: relative;
+}
+
+.content-child-show .close1{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: white;
+    font-size: 20px;
+    width:30px;
+    height:30px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+    opacity: 0.8;
+}
+
+.content-child-show .close1:hover{
+    background: orangered;
+}
+
+.content-child-show-container {
+    position: relative;
+}
+
+/*页面右上角切换按钮*/
+.inner-right-container .right-bottom-top-tab{
+    margin-right:20px;
+    position: absolute;
+    right:40px;
+    top:180px;
+    z-index: 999;
+}
+
+.inner-right-container  .right-bottom-top-tab span{
+    display: inline-block;
+    width:126px;
+    height:38px;
+    background-color:rgba(180,184,188,1);
+    border-radius: 6px ;
+    text-align: center;
+    line-height: 38px;
+    font-size:20px;
+    color:white;
+    cursor: pointer;
+    border-radius: 6px !important;
+    padding-left:20px;
+    box-sizing: border-box;
+}
+
+.inner-right-container  .right-bottom-top-tab span:nth-child(1){
+
+    background: url('../img/pingmian.png') no-repeat 5px center;
+    background-color:rgba(180,184,188,1);
+}
+.inner-right-container  .right-bottom-top-tab span:nth-child(2){
+
+    background: url('../img/zonglan.png') no-repeat 5px center;
+    background-color:rgba(180,184,188,1);
+}
+.inner-right-container  .right-bottom-top-tab span:nth-child(3){
+
+    background: url('../img/shebei.png') no-repeat 5px center;
+    background-color:rgba(180,184,188,1);
+}
+.inner-right-container  .right-bottom-top-tab .onChoose{
+    background-color: #2ED0B3 !important;
 }
 
 

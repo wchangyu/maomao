@@ -131,6 +131,12 @@ $(function(){
   //当前部门下的车站
   _stationData();
 
+  //判断当前是普通报障还是快速报障
+  var _commonFlag = false;
+
+  //判断当前是普通报障还是快速报障
+  var _quickFlag = false;
+
   /*-----------------------------------------------------表格初始化------------------------------------------*/
   var col = [
 
@@ -190,7 +196,7 @@ $(function(){
       }
     },
     {
-      title: '楼栋',
+      title:  __names.department,
       data: 'bxKeshi'
     },
     {
@@ -271,6 +277,9 @@ $(function(){
   //【登记】
   $('.creatButton').click(function(){
 
+    //普通标识
+    _commonFlag = true;
+
     $('#theLoading').modal('show');
 
     //初始化
@@ -306,6 +315,8 @@ $(function(){
   //【快速登记】
   $('.quickCreat').click(function(){
 
+    _quickFlag = true;
+
     $('#theLoading').modal('show');
 
     //初始化
@@ -322,6 +333,24 @@ $(function(){
 
     $('#wxbm').attr('data-num',_loginUser.departNum);
 
+
+  })
+
+  //模态框关闭的回调方法
+  $('#myModal').on('hide.bs.modal',function(){
+
+    _commonFlag = false;
+
+    _quickFlag = false;
+
+  })
+
+  //模态框关闭的回调方法
+  $('#myModal4').on('hide.bs.modal',function(){
+
+    _commonFlag = false;
+
+    _quickFlag = false;
 
   })
 
@@ -566,6 +595,31 @@ $(function(){
     editRegister('YWGD/ywGDUpt',true,'编辑成功！','编辑失败!');
 
   })
+
+  //确定选中的对象
+  $('#DEV-Modal .modal-footer').on('click','.btn-primary',function(){
+
+    $('#DEV-Modal').modal('hide');
+
+    if(_commonFlag){
+
+      detaileVue.sbSelect = $('#dev-table tbody').find('.tables-hover').children('.dNum').html();
+
+      detaileVue.sbMC = $('#dev-table tbody').find('.tables-hover').children().eq(1).html();
+
+    }
+
+    if(_quickFlag){
+
+      quickVue.sbSelect = $('#dev-table tbody').find('.tables-hover').children('.dNum').html();
+
+      quickVue.sbMC = $('#dev-table tbody').find('.tables-hover').children().eq(1).html();
+
+    }
+
+
+
+  });
 
   /*-------------------------------------------------------其他方法------------------------------------------*/
 
@@ -1073,4 +1127,5 @@ $(function(){
     $('#uniform-one1').children('span').addClass('checked');
 
   }
+
 })

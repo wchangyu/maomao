@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/echarts.min.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/etSelection.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../new-resource/js/showOrHidden.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <!--datatables-->
+    <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <!--时间插件-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+
+    <!--自定义样式-->
+    <link rel="stylesheet" href="../njn-resource/css/common.css">
+    <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
+    <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index.css">
+    <link rel="stylesheet" href="../new-resource/css/nengyuanzonglan/index1.css">
+
+    <link rel="stylesheet" href="../njn-resource/css/dapingzhanshi/coldHeatSource.css">
+</head>
+<body>
+
+<!--最外层包裹的容器-->
+<div class="outer-container">
+
+    <!--最左侧平台总览-->
+    <div class="inner-left-container">
+
+        <!--上方标题以及地图-->
+        <div class="inner-left-top">
+
+            <div style="height:145px;"></div>
+            <!--上方左侧整体数据-->
+            <div class="left-data-container">
+                <div class="left-specific-data-container">
+                    <span class="left-specific-data-title">接入客站</span>
+                    <span class="left-specific-data left-specific-data1">8</span>
+                </div>
+
+                <div class="left-specific-data-container">
+                    <span class="left-specific-data-title">设备报警</span>
+                    <span class="left-specific-data left-specific-data2">2</span>
+                </div>
+
+                <div class="left-specific-data-container">
+                    <span class="left-specific-data-title">能耗报警</span>
+                    <span class="left-specific-data left-specific-data3">2</span>
+                </div>
+
+                <div class="left-specific-data-container">
+                    <span class="left-specific-data-title">运营工单</span>
+                    <span class="left-specific-data left-specific-data4">6</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!--下方柱状图-->
+        <div class="inner-left-bottom">
+
+            <!--上方选项卡-->
+            <div class="left-tab-container">
+
+                <!--左侧选项卡-->
+                <div style="float:left">
+                    <span class="left-tab left-tab1 left-tab-choose0">设备报警</span>
+                    <span class="left-tab left-tab2">能耗报警</span>
+                    <span class="left-tab left-tab3">运维工单</span>
+                </div>
+
+                <div style="float:right">
+                    <span class="right-tab right-tab-choose">日</span>
+                    <span class="right-tab ">月</span>
+                    <span class="right-tab ">年</span>
+                </div>
+
+            </div>
+
+            <!--下方柱状图-->
+            <div class="left-bottom-content" id="echarts-left-bottom">
+
+            </div>
+        </div>
+    </div>
+
+    <!--右侧主体内容-->
+    <div class="inner-right-container">
+        <!--头部标题-->
+        <h2 class="right-top-title">南京南站（Nanjing South Railway Station）</h2>
+
+        <!--右侧上方时间温度等信息-->
+        <div class="right-top-message">
+            <!--时间-->
+            <div class="right-top-message-container">
+                <p class="top-message">15:34:50</p>
+                <p class="bottom-message">2017-12-19</p>
+            </div>
+            <!--室外温度-->
+            <div class="right-top-message-container">
+                <p class="top-message">26℃</p>
+                <p class="bottom-message">室外温度</p>
+            </div>
+            <!--相对湿度-->
+            <div class="right-top-message-container">
+                <p class="top-message">56%</p>
+                <p class="bottom-message">相对湿度</p>
+            </div>
+        </div>
+
+        <!--右侧下方选项卡-->
+        <div class="right-tab-container">
+
+            <span class="right-tab right-tab1"><a href="">总览</a></span>
+            <span class="right-tab right-tab2 right-tab-choose1"><a href="coldHeatSource.html">冷热源</a></span>
+            <span class="right-tab right-tab2"><a href="airConditioner.html">空调机组</a></span>
+            <span class="right-tab right-tab2"><a href="">电梯</a></span>
+            <span class="right-tab right-tab2"><a href="">动环系统</a></span>
+            <span class="right-tab right-tab2"><a href="">站房照明</a></span>
+            <span class="right-tab right-tab2"><a href="">站台照明</a></span>
+            <span class="right-tab right-tab2  "><a href="exhaustAir.html">送排风</a></span>
+            <span class="right-tab right-tab2"><a href="">给排水</a></span>
+            <span class="right-tab right-tab2 "><a href="energyManagement.html">能源管理</a></span>
+            <span class="right-tab right-tab3"><a href="">运维联动</a></span>
+
+        </div>
+
+        <!--右上角切换不同的功能-->
+        <div class="right-bottom-top-tab">
+
+            <span class="onChoose">系统总览</span>
+            <span>平面分布</span>
+            <span>设备列表</span>
+
+        </div>
+
+        <!--右侧下方主体内容-->
+        <div class="right-bottom-container">
+
+            <!--右侧下方选项卡-->
+            <div class="right-bottom-tab-container">
+
+                <span class="right-bottom-tab right-bottom-tab-choose">东冷站</span>
+                <span class="right-bottom-tab ">西冷站</span>
+                <span class="right-bottom-tab ">东换热机房</span>
+                <span class="right-bottom-tab ">西换热机房</span>
+
+
+            </div>
+
+            <!--下方主体内容1-->
+            <div class="right-bottom-content">
+
+                <!--页面左侧图片-->
+                <div class="right-bottom-content-left">
+
+                    <img class="content-left-img" alt="" src="../njn-resource/img/coldHeatSource.png">
+
+                </div>
+
+                <!--页面右侧数据-->
+                <div class="right-bottom-content-right">
+
+                    <!--上方数据统计-->
+                    <div class="right-bottom-content-top">
+
+                        <!--换热站介绍-->
+                        <div class="bottom-content-top-introduce">
+
+                            <h2 class="right-bottom-content-title">换热站介绍</h2>
+
+                            <p class="bottom-introduce">南京南站采暖采用华润热电厂0.7 MPa的饱和蒸汽，经减压至0.4 MP供末端使用。热交换站位于首层洞底中心内，东西各一个。每个机房内均设6台换热罐和4台热水泵。</p>
+                        </div>
+
+                        <!--设备运行-->
+                        <div class="bottom-content-top-introduce bottom-content-top-operation">
+
+                            <h2 class="right-bottom-content-title" style="margin-bottom:10px;">设备运行</h2>
+
+                            <div class="top-control">
+
+                                <span class="top-control-span">供暖初期模式</span> <span class="top-control-span">手动模式</span>
+
+                                <div class="top-control-content">
+                                    <span class="left-span">换热罐</span>
+
+                                    <span class="right-span">
+                                        <font class="onClick">1</font>
+                                        <font>2</font>
+                                        <font>3</font>
+                                        <font>4</font>
+                                    </span>
+                                    <br /><br />
+
+                                    <span class="left-span">采暖泵</span>
+
+                                    <span class="right-span">
+                                        <font class="onClick">1</font>
+                                        <font>2</font>
+                                        <font>3</font>
+                                        <font>4</font>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <h2 class="right-bottom-content-title" style="margin-bottom:5px;">负荷率</h2>
+                            <div id="bottom-content-chart">
+
+                            </div>
+
+                        </div>
+
+                        <!--运行报警-->
+                        <div class="bottom-content-top-introduce bottom-content-top-alarm">
+
+                            <h2 class="right-bottom-content-title">运行报警</h2>
+
+                            <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+
+                            <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+
+                            <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+
+                            <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+
+                        </div>
+
+                        <!--换热效率-->
+                        <div class="bottom-content-top-introduce bottom-content-top-efficiency">
+
+                            <h2 class="right-bottom-content-title" style="margin-bottom:0 !important;">换热效率</h2>
+
+                            <!--echart图-->
+                            <div id="bottom-efficiency-chart">
+
+                            </div>
+
+                            <!--数据信息-->
+                            <div class="bottom-efficiency-message">
+                                <p>输入蒸汽:<span>667.3</span>m³/h</p>
+                                <p>输入热量:<span>66.7</span>kW</p>
+                                <p>换热效率:<span>97</span>%</p>
+                            </div>
+
+
+                            <h2 class="right-bottom-content-title" style="margin-bottom:0 !important;">热水输送系数</h2>
+
+                            <!--echart图-->
+                            <div id="bottom-efficiency-chart1">
+
+                            </div>
+
+                            <!--数据信息-->
+                            <div class="bottom-efficiency-message bottom-efficiency-message1">
+                                <p>输送热量:<span>67.3</span>kW</p>
+                                <p>水泵耗电量:<span>66.7</span>kW</p>
+                                <p>输送系数:<span>97</span></p>
+                            </div>
+
+                            <!--图例-->
+                            <div class="bottom-content-legend">
+
+                                <span class="legend legend1"><font></font>出色</span><br />
+                                <span class="legend legend2"><font></font>良好</span><br />
+                                <span class="legend legend3"><font></font>一般</span><br />
+                                <span class="legend legend4"><font></font>急需改善</span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <!--下方折线图-->
+                    <div class="right-bottom-content-bottom">
+                        <div class="row">
+                            <!--能耗曲线-->
+                            <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption">
+
+                                <h2 class="right-bottom-content-title">能耗曲线</h2>
+
+                                <!--选项卡-->
+                                <div class="consumption-container">
+                                    <span class="onClick">总供热量</span>
+                                    <span>总蒸汽量曲线</span>
+                                    <span>总能耗量</span>
+                                </div>
+
+                                <div class="right-bottom-content-bottom-echart" id="consumotion-echart">
+
+                                </div>
+                            </div>
+
+                            <!--供热温度曲线-->
+                            <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption bottom-content-bottom-temperature">
+                                <h2 class="right-bottom-content-title">供热温度曲线</h2>
+
+                                <!--选项卡-->
+                                <div class="consumption-container">
+                                    <span class="onClick">总供回水<br />温度</span>
+                                    <span>末端1供<br />回水温度</span>
+                                    <span>末端2供<br />回水温度</span>
+                                    <span>末端3供<br />回水温度</span>
+                                </div>
+
+                                <div class="right-bottom-content-bottom-echart" id="temperature-echart">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!--右侧下方主体内容-->
+        <div class="right-bottom-container" style="display: none">
+
+            <!--上方选项卡-->
+            <!--右侧下方选项卡-->
+            <div class="right-bottom-tab-container" id="monitor-menu-container">
+
+                <!--<span class="right-bottom-tab ">-9.6m</span>-->
+                <!--<span class="right-bottom-tab ">0.0m</span>-->
+                <!--<span class="right-bottom-tab ">12.4m</span>-->
+                <!--<span class="right-bottom-tab ">17.1m</span>-->
+                <!--<span class="right-bottom-tab ">19.1m</span>-->
+                <!--<span class="right-bottom-tab right-bottom-tab-choose">22.4m</span>-->
+                <!--<span class="right-bottom-tab ">29.4m</span>-->
+                <!--<span class="right-bottom-tab ">东北角配楼</span>-->
+                <!--<span class="right-bottom-tab ">西南角配楼</span>-->
+
+            </div>
+
+            <!--下方左侧流程图-->
+            <div class="right-bottom-left-container">
+
+                <img src="../njn-resource/img/pingmiantu.png" alt="">
+
+            </div>
+
+            <!-- 下方左侧流程图 -->
+            <div id="right-container">
+
+                <div class="content-main-right" id="content-main-right">
+
+                    <!--浮动显示的控制按钮-->
+                    <div class="content-ctrls-show" id="content-ctrls">
+
+                    </div>
+
+                    <div class="content-menu-hide" id="content-menu">
+
+                        <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--datatable-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<!--时间插件-->
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<!--页面js-->
+<script src="../resource/js/publicFun.js"></script>
+<script src="../njn-resource/js/userMonitor1.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../njn-resource/js/common.js"></script>
+<script src="../njn-resource/js/dapingzhanshi/coldHeatSource.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+        userMonitor.init();
+    });
+</script>
+
+</body>
+</html>

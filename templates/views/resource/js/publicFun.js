@@ -277,7 +277,9 @@ function _datasTable(tableId,arr){
     if(arr.length == 0){
         table.fnClearTable();
         table.fnDraw();
+
     }else{
+
         table.fnClearTable();
         table.fnAddData(arr);
         table.fnDraw();
@@ -289,7 +291,7 @@ function _datasTable(tableId,arr){
 function _getProfession(url,el,attr,attrNum,attrName){
     var prm ={
         userID:_userIdNum,
-        userName:_userIdName,
+        userName:_userIdName
     };
     $.ajax({
         type:'post',
@@ -297,7 +299,7 @@ function _getProfession(url,el,attr,attrNum,attrName){
         data:prm,
         timeout:_theTimes,
         success:function(result){
-            var str = '<option value="">请选择</option>';
+            var str = '<option value="">全部</option>';
 
             if(attr){
                 for(var i=0;i<result[attr].length;i++){
@@ -335,7 +337,7 @@ function _ajaxFun(url, allArr, select, text, num) {
         data: prm,
         success: function (result) {
             //给select赋值
-            var str = '<option value="">请选择</option>';
+            var str = '<option value="">全部</option>';
             for (var i = 0; i < result.length; i++) {
                 str += '<option' + ' value="' + result[i][num] + '">' + result[i][text] + '</option>'
                 allArr.push(result[i]);

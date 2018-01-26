@@ -23,7 +23,10 @@ $(function(){
         _refresh = 1;
     }
 
+    _refresh = 1;
+
     $('#department').html(_wxBan);
+
     //开始/结束时间插件
     $('.datatimeblock').datepicker({
         language:  'zh-CN',
@@ -31,6 +34,7 @@ $(function(){
         todayHighlight: 1,
         format: 'yyyy/mm/dd',     forceParse: 0
     });
+
     //设置初始时间
     var _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
     var _initEnd = moment().add(1,'d').format('YYYY/MM/DD');
@@ -95,7 +99,7 @@ $(function(){
         }
         //固定表头的时候
         $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-    }
+    };
 
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
@@ -402,11 +406,14 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
+        console.log(33);
+
         var wxKeshiNum =  _wxBanNum;
 
         if( !_wxBanNum){
             return false;
-        }
+        };
+
         var prm = {
             "gdCode":'',
             "gdSt":_initStart,

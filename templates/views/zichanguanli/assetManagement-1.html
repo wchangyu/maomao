@@ -302,13 +302,13 @@
                                     <li>
                                         <label for=""><span class="user-defined-area"></span>：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="quyu">
+                                            <select name="" id="quyu" class="cwd">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
                                         <label for=""><span class="user-defined-department"></span>：</label>
-                                        <div class="input-blocked" style="display: none">
+                                        <div class="input-blocked">
                                             <select name="" id="bumen">
                                             </select>
                                         </div>
@@ -319,14 +319,14 @@
                                     <li>
                                         <label for="">设备系统：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="xitong">
+                                            <select name="" id="xitong" class="sbxt">
                                             </select>
                                         </div>
                                     </li>
                                     <li>
                                         <label for="">设备类别：</label>
                                         <div class="input-blocked">
-                                            <select name="" id="leixing">
+                                            <select name="" id="leixing" class="sblb">
                                             </select>
                                         </div>
                                     </li>
@@ -367,6 +367,7 @@
                                         </div>
                                     </li>
                                     <li><button class="btn btn-success" id="selected">查询</button></li>
+                                    <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li>
                                         <div class="cont-col1">
                                             <div class="creatButton label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
@@ -431,144 +432,113 @@
                 <ul class="gongdanList" id="myApp33">
                     <validator name="validation">
                         <form novalidate>
-                            <li class="floatLeft" style="line-height: 26px;display: none">
+                            <li class="floatLi autoInput" style="line-height: 26px;display: none">
                                 <div class="labels">设备编码 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="sbbm" placeholder="自动生成" readonly="readonly">
                                 </div>
                             </li>
-                            <li class="floatLeft">
-                                <div class="labels colorTip">设备名称 *：<span v-show="$validation.mingcheng.requireds">请输入设备名称</span></div>
-                                <div class="input-blockeds">
-                                    <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
-                                </div>
-                            </li>
-                            <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels">拼音简码 ：</div>
-                                <div class="input-blockeds">
-                                    <input type="text"  v-model="pinyin">
-                                </div>
-                            </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">设备编码 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="xsbbm">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi">
+                                <div class="labels colorTip">设备名称 *：<span v-show="$validation.mingcheng.requireds">请输入设备名称</span></div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off'>
+                                </div>
+                            </li>
+                            <li class="floatLi" style="line-height: 26px;">
+                                <div class="labels">拼音简码 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="text"  v-model="pinyin">
+                                </div>
+                            </li>
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">出厂编号：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="bianhao" placeholder="">
                                 </div>
                             </li>
-
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels colorTip "><span class="user-defined-area"></span> *：</div>
                                 <div class="input-blockeds">
-                                    <select name=""  v-model="ssQY" id="sbqy" @change = 'change1()'>
-                                        <option v-for="option in options1" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
+                                    <select id="sbqy"></select>
                                 </div>
                             </li>
-
-                            <li class="floatRight" style="line-height: 26px;">
-                                <div class="labels colorTip">设备系统 *：</div>
-                                <div class="input-blockeds">
-                                    <select name=""  v-model="ssXT" id="sbxt" @change = 'change()'>
-                                        <option v-for="option in options2" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </li>
-
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels colorTip"><span class="user-defined-department"></span> *：</div>
                                 <div class="input-blockeds">
-                                    <select name=""  v-model="ssbumen" id="sbbm">
-                                        <option v-for="option in options3" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
+                                    <select name=""  id="sbbm"></select>
                                 </div>
                             </li>
-
-
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
+                                <div class="labels colorTip">设备系统 *：</div>
+                                <div class="input-blockeds">
+                                    <select id="sbxt"  class="sbxt"></select>
+                                </div>
+                            </li>
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels colorTip">设备类别 *：</div>
                                 <div class="input-blockeds">
-                                    <select name=""  v-model="zcLX" id="sblx">
-                                        <option v-for="option in options" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
-                                    </select>
+                                    <select class="sblb"  id="sblx"></select>
                                 </div>
                             </li>
-
-
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">产地：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="chandi" placeholder="">
                                 </div>
                             </li>
-
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">状态 ：</div>
                                 <div class="input-blockeds">
                                     <select name=""  v-model="zhuangtai">
-                                        <option v-for="option in options4" v-bind:value="option.value">
-                                            {{ option.text }}
-                                        </option>
+                                        <option value="1">正常</option>
+                                        <option value="2">维修</option>
+                                        <option value="3">报废</option>
                                     </select>
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels colorTip">安装位置 *：</div>
                                 <div class="input-blockeds">
-                                    <input type="text"  id="weizhi">
+                                    <input type="text"  id="weizhi" v-model="weizhi">
                                 </div>
                             </li>
-                            <!--<li class="floatRight" style="line-height: 26px;">-->
-                            <!--<div class="labels">原值类型：</div>-->
-                            <!--<div class="input-blockeds">-->
-                            <!---->
-                            <!--</div>-->
-                            <!--</li>-->
-
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">品牌：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="pingpai">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">规格型号 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="guige">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">供应商：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="gongyingshang">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">生产商 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="shengchanshang">
                                 </div>
                             </li>
-                            <li class="floatRight" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">使用年限（年） ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="nianxian">
                                 </div>
                             </li>
-                            <li class="floatLeft" style="line-height: 26px;">
+                            <li class="floatLi" style="line-height: 26px;">
                                 <div class="labels">保修期（年） ：</div>
                                 <div class="input-blockeds">
                                     <input type="text"  v-model="baoxiu">
@@ -577,29 +547,24 @@
                             <div class="clearfix"></div>
                         </form>
                     </validator>
-                    <div class="floatLeft" style="line-height: 26px;">
+                    <div class="floatLi" style="line-height: 26px;">
                         <div class="labels">购置日期 ：</div>
                         <div class="input-blocked" style="width: 300px;border: 1px solid #ebebeb;">
                             <input type="text" class="datatimeblock" style="width: 288px;" id="gouzhi">
                         </div>
                     </div>
-                    <div class="floatRight" style="line-height: 26px;">
+                    <div class="floatLi" style="line-height: 26px;">
                         <div class="labels">安装日期 ：</div>
                         <div class="input-blocked" style="width: 300px;border: 1px solid #ebebeb;">
                             <input type="text" class="datatimeblock" style="width: 288px;" id="anzhuang">
                         </div>
                     </div>
-                    <li class="floatLeft" style="line-height: 26px;">
+                    <li class="floatLi" style="line-height: 26px;">
                         <div class="labels">设备原值（元）：</div>
                         <div class="input-blockeds">
-                            <input type="text"  v-model="yuanzhi" placeholder="" style="">
+                            <input type="text"  id="yuanzhi" placeholder="" style="">
 
                         </div>
-                        <!--<select name="" v-model="yuanzhileixing" style="width:100px;display: inline-block;    height: 28px !important; border: 1px solid #ebebeb;">-->
-                        <!--<option v-for="option in options5" v-bind:value="option.value">-->
-                        <!--{{ option.text }}-->
-                        <!--</option>-->
-                        <!--</select>-->
                     </li>
                     <div class="clearfix"></div>
                     <div>
@@ -681,7 +646,12 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
 
+    </div>
+</div>
 
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -722,10 +692,7 @@
 <!--select插件-->
 <!--<script src="../resource/TableTools/js/jquery.searchableSelect.js"></script>-->
 
-<script src="../bank-resource/js/common.js"></script>
-<script src="../resource/js/js/assetManagement-1.js"></script>
-<script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/station/chooseStation.js"></script>
+
 
 <script>
     jQuery(document).ready(function() {
@@ -736,7 +703,11 @@
     });
 </script>
 <!-- END JAVASCRIPTS -->
-
+<script src="../bank-resource/js/common.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/js/assetManagement-1.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 
 </body>
 <!-- END BODY -->

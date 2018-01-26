@@ -8,12 +8,6 @@ $(function(){
     //执行人数组
     var _workerArr = [];
 
-    //已选中的执行人
-    var _zhixingRens = [];
-
-    //当前选中的排班人
-    var _currentRens = [];
-
     //获取所有班次
     var _BCData = [];
 
@@ -58,6 +52,53 @@ $(function(){
 
     }
 
+    //当前值班所属的维修班组
+    var _$thisBZ = '';
+
+    //第二层执行人列表
+    var _currentSelect = [];
+
+    //当前班次日历数组
+    var _calendarArr = [];
+
+    //当前班次所对应的排班次
+    var _BCDayObj = {};
+
+    $('#fullcalendar-Modal').on('shown.bs.modal',function(){
+
+        var now = $('#ADD-Modal').find('.datatimeblock').val();
+
+        $('#calendar').fullCalendar('destroy');
+
+        //模态框首先默认显示
+        $('#calendar').fullCalendar({
+            theme: true,
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            monthNames:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            monthNamesShort:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            dayNames:['周日','周一','周二','周三','周四','周五','周六'],
+            dayNamesShort:['周日','周一','周二','周三','周四','周五','周六'],
+            today:['今天'],
+            firstDay:1,//第一天是周一还是周日；
+            buttonText:{
+                today:'本月',
+                month:'月',
+                week:'周',
+                day:'日',
+                prev:'上一月',
+                next:'下一月',
+            },
+            defaultDate: now,
+            events: _calendarArr
+        });
+
+    })
+
+
     /*--------------------------------------------------表格初始化----------------------------------------------*/
 
     //值班表格
@@ -84,7 +125,12 @@ $(function(){
         },
         {
             title:'部门名称',
-            data:'departName'
+            data:'departName',
+            render:function(data, type, row, meta){
+
+                return '<span data-num="' +  row.departNum + '">' + row.departName + '</span>'
+
+            }
         },
         {
             title:'创建人',
@@ -112,8 +158,7 @@ $(function(){
                     }else{
 
                         return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"+
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                            "<span class='data-option option-shenhe btn default btn-xs green-stripe'>审核</span>"
 
                     }
 
@@ -129,8 +174,8 @@ $(function(){
 
                     }else{
 
-                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                        return  "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
+
 
                     }
 
@@ -180,11 +225,16 @@ $(function(){
         //console.log('')
     };
 
-    //获取所有人员列表
-    //getRY(true);
+    //排班人表格初始化
+    ZBPersonInit();
 
     //获取当前条件查询
     conditionSelect();
+
+    //给表头添加全选、全不选按钮
+    var creatCheckBox = '<div class="checker"><span><input type="checkbox"></span></div>';
+
+    $('thead').find('.checkeds').prepend(creatCheckBox);
     /*--------------------------------------------------按钮事件------------------------------------------------*/
 
 
@@ -195,28 +245,28 @@ $(function(){
 
         _isDeng = true;
 
+        //重新初始化表格
+        ZBPersonInit();
+
         //初始化
         detailedInit();
 
         //模态框
         _moTaiKuang($('#ADD-Modal'),'新增','','','','新增');
 
-        //表格清空
-        $('#worker-table thead').empty();
-
-        $('#worker-table tbody').empty();
-
         //添加类
         $('#ADD-Modal').find('.btn-primary').removeClass('shenhe').removeClass('bianji').removeClass('shanchu').addClass('dengji');
 
         //添加人员类
-        $('#ADD-Modal').find('.QRButton').addClass('addWorker').removeClass('addPerson');
+        $('#Worker-Modal').find('.addZXR').addClass('addWorker').removeClass('addPerson');
 
         //可操作
         abledOption();
 
         //清空数组
         _allData.length = 0;
+
+        _datasTable($('#worker-table'),_allData);
 
         //loadding消失
         $('#theLoading').modal('hide');
@@ -225,11 +275,6 @@ $(function(){
 
     //选择人员
     $('#select-work').click(function(){
-
-        //将时间置为不可操作
-        //$('.datatimeblock').attr('disabled',true).addClass('disabled-block');
-        //
-        //$('.datatimeblock').parent().addClass('disabled-block');
 
         if($('.datatimeblock').val() == ''){
 
@@ -249,6 +294,9 @@ $(function(){
 
         $('#depart').val('');
 
+        //全选按钮默认不选
+        $('#zhixingRenTable thead').find('input').parent().removeClass('checked');
+
         _datasTable($('#zhixingRenTable'),_workerArr);
 
     })
@@ -261,59 +309,67 @@ $(function(){
     })
 
     //执行人表格选择
-    $('#zhixingRenTable').find('tbody').on( 'click', 'input', function () {
-        if($(this).parents('.checker').children('.checked').length == 0){
-            $(this).parent($('span')).addClass('checked');
-            $(this).parents('tr').addClass('tables-hover');
-            //如果所有复选框打钩，那么表头的复选框自动打钩；
-            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
-            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
-            if( rowNum == selectNum){
-                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
-            }
+    $('#zhixingRenTable').find('tbody').on( 'click', 'tr', function () {
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent().removeClass('checked');
+
+            $('#zhixingRenTable thead').find('input').parent().removeClass('checked');
+
         }else{
-            $(this).parent($('span')).removeClass('checked');
-            //$(this).parents('tr').css({'background':'#ffffff'});
-            $(this).parents('tr').removeClass('tables-hover');
-            //只要有一个复选框没选中，全选框不打勾，
-            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent().addClass('checked');
+
+            //判断是不是全选了(通过判断tables-hover的长度和tr的长度)
+            var hoverLengths = $('#zhixingRenTable').find('.tables-hover').length;
+
+            var trLength = $('#zhixingRenTable tbody').find('tr').length;
+
+            if(hoverLengths == trLength){
+
+                $('#zhixingRenTable thead').find('input').parent().addClass('checked');
+
+            }else{
+
+                $('#zhixingRenTable thead').find('input').parent().removeClass('checked');
+
+            }
+
+
         }
     });
 
-    //选中执行人
-    $('#Worker-Modal').on('click','.addZXR',function(){
+    //表头全选全不选按钮
+    $('#zhixingRenTable').find('thead').on('click','input',function(){
 
-        _zhixingRens.length = 0;
+        if($(this).parent().hasClass('checked')){
 
-        var checkedArr = $('#zhixingRenTable').find('.checked');
+            $(this).parent().removeClass('checked');
 
-        for(var i=0;i<checkedArr.length;i++){
+            //所有tbody的选中
+            $('#zhixingRenTable tbody').find('tr').removeClass('tables-hover');
 
-            var obj = {};
+            $('#zhixingRenTable tbody').find('input').parent('span').removeClass('checked');
 
-            obj.name = checkedArr.eq(i).parents('tr').children('.zxrname').html();
 
-            obj.num = checkedArr.eq(i).parents('tr').children('.zxrnum').html();
+        }else{
 
-            _zhixingRens.push(obj);
+            $(this).parent().addClass('checked');
 
-        }
+            //所有tbody的选中
+            $('#zhixingRenTable tbody').find('tr').addClass('tables-hover');
 
-        var str = '';
-
-        for(var i=0;i<_zhixingRens.length;i++){
-
-            str += '<li><div class="checker"><span><input type="checkbox"></span></div>' + '<span class="name">' + _zhixingRens[i].name +
-                '</span>' +'<span class="num">' + _zhixingRens[i].num +
-                '</span>'
-                '</li>'
+            $('#zhixingRenTable tbody').find('input').parent('span').addClass('checked');
 
         }
 
-        $('.on-duty-worker').empty().append(str);
 
-        $('#Worker-Modal').modal('hide');
-    })
+    });
 
     //已选中执行人员点击事件
     $('.on-duty-worker').on('click','li',function(){
@@ -335,93 +391,79 @@ $(function(){
     })
 
     //字符串拼接形成表格
-    $('#ADD-Modal').on('click','.addWorker',function(){
+    $('#Worker-Modal').on('click','.addWorker',function(){
 
-        //构成表格只需要有月份、已选中的人员、班次、足够；
-
-        //首先验证是否选中排班的人
-        var currentArr = $('.on-duty-worker').children('.tables-hover');
-
-        _currentRens.length = 0;
-
-        for(var i=0;i<currentArr.length;i++){
-
-            var obj = {};
-
-            obj.name = currentArr.eq(i).find('.name').html();
-
-            obj.num = currentArr.eq(i).find('.num').html();
-
-            _currentRens.push(obj);
-
-        }
-
-        if(_currentRens.length == 0){
+        //首先判断是否选中值班人
+        if($('#zhixingRenTable tbody').children('.tables-hover').length == 0){
 
             _moTaiKuang($('#myModal2'),'提示','flag','istap','请先选择人员！','');
 
         }else{
 
-            //验证班次是否选择
+            //判断有没有选择班次
+
             if( $('#shift').val() == '' ){
 
                 _moTaiKuang($('#myModal2'),'提示','flag','istap','请先选择班次！','');
 
             }else{
 
-                //比较一下 是否添加过
+                //将选中的人存入currentArr中
 
-                for(var i=0;i<_allData.length;i++){
+                _currentSelect.length = 0;
 
-                    for(var j=0;j<_currentRens.length;j++){
+                var currentArr = $('#zhixingRenTable tbody').find('.tables-hover');
 
+                for(var i=0;i<currentArr.length;i++){
 
-                        if(_allData[i].num == _currentRens[j].num){
+                    var obj = {};
 
-                            _currentRens.removeByValue(_currentRens[j].num,'num');
+                    obj.num = currentArr.eq(i).children('.zxrnum').html();
 
+                    obj.name = currentArr.eq(i).children('.zxrname').html();
 
-                        }else{
+                    obj.bcCode = $('#shift').val();
 
+                    obj.bcName = ($('#shift').val() == '')?'':$('#shift').children('option:selected').html();
 
+                    _currentSelect.push(obj);
+
+                }
+
+                //判断_allData
+
+                if(_allData.length == 0){
+
+                }else{
+
+                    //如果_allData中已存在当前选中的人id，直接去重
+                    for(var i=0;i<_allData.length;i++){
+
+                        for(var j=0;j<_currentSelect.length;j++){
+
+                            if(_allData[i].num == _currentSelect[j].num){
+
+                                _currentSelect.removeByValue(_currentSelect[j].num,'num');
+
+                            }
 
                         }
+
 
                     }
 
                 }
 
-                //新增需要传的数据
-                //确定姓名，id
-                for(var i=0;i<_currentRens.length;i++){
+                //去重之后的数组
+                for(var i=0;i<_currentSelect.length;i++){
 
-                    var personObj = {};
-
-                    personObj.name = _currentRens[i].name;
-
-                    personObj.num = _currentRens[i].num;
-
-                    personObj.bcCode = $('#shift').val();
-
-                    personObj.bcName = $('#shift').children('option:selected').html();
-
-                    _allData.push(personObj);
-                }
-
-                //通过_currentRens判断，如果是【】说明重复了，提示，
-
-                if(_currentRens.length == 0){
-
-                    _moTaiKuang($('#myModal2'),'提示','flag','istap','每个人员只能本月只能安排一次班！','');
-
-                }else{
-
-                    drawTable();
-
-                    //添加之后，就不能改变日期
-                    $('.datatimeblock').attr('disabled',true).addClass('disabled-block');
+                    _allData.push(_currentSelect[i]);
 
                 }
+
+                _datasTable($('#worker-table'),_allData);
+
+                $('#Worker-Modal').modal('hide');
 
             }
 
@@ -458,7 +500,6 @@ $(function(){
 
                 arr.push(obj);
             }
-
 
             //验证是否已排班
             if( arr.length == 0 ){
@@ -565,6 +606,60 @@ $(function(){
         //初始化
         detailedInit();
 
+        //重新初始化表格
+        var workCol = [
+
+            {
+                title:'姓名',
+                data:'name',
+                render:function(data, type, full, meta){
+
+                    return '<span data-id="' + full.id + '">' + data + '</span>'
+
+                }
+            },
+            {
+                title:'工号',
+                data:'num'
+            },
+            {
+                title:'班次',
+                data:'bcName',
+                render:function(data, type, full, meta){
+
+                    if(_isDeng){
+
+                        return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                            '">' + data +
+                            '</span>'
+                    }else{
+
+                        if(full.shangbantime && full.xiabantime){
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data + " （" + full.shangbantime.substring(0,5) + "-" + full.xiabantime.substring(0,5) + ")" +
+                                '</span>'
+
+                        }else{
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data +
+                                '</span>'
+
+                        }
+
+                    }
+
+                }
+            },
+            {
+                title:'操作',
+                defaultContent:'<span class="data-option option-delete option-Bdelete btn default btn-xs green-stripe">删除</span>'
+            }
+        ]
+
+        _tableInit($('#worker-table'),workCol,2,'','','','','');
+
         //模态框
         _moTaiKuang($('#ADD-Modal'),'编辑','','','','保存');
 
@@ -579,15 +674,10 @@ $(function(){
         $('#ADD-Modal').find('.btn-primary').removeClass('shenhe').removeClass('dengji').removeClass('shanchu').addClass('bianji');
 
         //人员你添加类
-        $('.addWorker').addClass('addPerson').removeClass('addWorker');
+        $('.addZXR').addClass('addPerson').removeClass('addWorker');
 
         //可操作
         abledOption();
-
-        //编辑的时候，先让日历操作为不可操作
-        $('.datatimeblock').attr('disabled',true).addClass('disabled-block');
-
-        $('.datatimeblock').parent('.input-blocked').addClass('disabled-block');
 
         _$that = $(this);
 
@@ -596,240 +686,49 @@ $(function(){
     //时间插件修改
     $('.datatimeblock').change(function(){
 
-        //对比时间,看当前选中的时间，是否已选中
+        //判断时间去重
+        var prm = {
 
-        var now = $('.datatimeblock').val() + '-' + '01';
+            //时间
+            watchtime:$('#ADD-Modal').find('.datatimeblock').val(),
+            //部门编号
+            departNum:_maintenanceTeam
+        }
 
-        if(_allList.indexOf(now)>=0){
+        $.ajax({
 
-            _moTaiKuang($('#myModal2'),'提示','flag','istap','值班表中已存在当前日期的排班，请选择其他时间！','');
+            type:'post',
+            url:_urls + 'YWFZ/WatChIsTimeExist',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
 
-            //按钮置灰，不可操作
-            $('#select-work,.addWorker').attr('disabled',true)
+                if(result == 99){
 
-        }else{
+                    $('#select-work').attr('disabled',false);
 
-            //按钮可操作
-            $('#select-work,.addWorker').attr('disabled',false);
+                    $('#ADD-Modal .modal-footer').find('.btn-primary').attr('disabled',false);
 
-            if( _isDeng ){
+                }else{
 
-                return false;
+                    _moTaiKuang($('#myModal2'),'提示',true,'istap','当前时间已排班，请选择其他时间','');
 
-            }else{
+                    $('#select-work').attr('disabled',true);
 
-                //表格清除
-                $('#worker-table thead').empty();
-
-                $('#worker-table tbody').empty();
-
-                //重绘表格
-                //获取今年
-
-                var year = $('.datatimeblock').val().split('-')[0];
-
-                var Monthnum = $('.datatimeblock').val().split('-')[1];
-
-
-                //首先确定当月有几天，
-                var day = new Date(year,Monthnum,0);
-
-                var daycount = day.getDate();
-
-                //表格头部------------------------------------------------------------------
-
-                var arr = ['操作','姓名','工号'];
-
-                var lengths = daycount +1;
-
-                for(var i=1;i<lengths;i++ ){
-
-                    var str = '';
-
-                    str = moment(String(Monthnum) + '/' + String(i)).format('MM/DD');
-
-                    var aa = moment().format('YYYY') + '-' + Monthnum + '-' + i;
-
-                    str += '<br><span data-num="' + moment(aa).format('d') +
-                        '">' + numWeek(moment(aa).format('d')) + '</span>';
-
-                    arr.push( str );
+                    $('#ADD-Modal .modal-footer').find('.btn-primary').attr('disabled',true);
 
                 }
 
-                //遍历arr生成表格头部
-                var headStr = '<tr>';
+            },
+            error:function(jqXHR, textStatus, errorThrown){
 
-                drawThead(arr,headStr);
-
-                //表格身体-------------------------------------------------------------------
-                var bodyStr = '';
-
-                //首先确定周期
-                var period = '';
-
-                for(var i=0;i<_readRens.length;i++){
-
-                    var BC = [];
-
-                    var BC0 = [];
-
-                    //首先根据班次code确定显示的具体值
-                    for(var j=0;j<_BCData.length;j++){
-
-                        if(_BCData[j].bccode == _readRens[i].bcNum){
-
-                            period = _BCData[j].period;
-
-                            BC = _BCData[j].banCiDetailList;
-
-                        }
-
-                    }
-
-                    //确定arr所对应body的值
-                    var dataArr = [];
-
-                    if( period == 1 ){
-
-                        //首先根据arr的值来确定
-                        for(var z = 0;z<arr.length;z++){
-
-                            var dataAttr = '';
-
-                            if(arr[z].indexOf('data-num')>0){
-
-                                dataAttr = arr[z].split('=')[1].split('"')[1];
-
-                                if(dataAttr == 0){
-
-                                    dataAttr = "7";
-
-                                }
-
-                            }else{
-
-                                dataAttr = '';
-
-                            }
-
-                            dataArr.push(dataAttr);
-
-
-                        }
-
-                    }else if(period == 2){
-
-                        for(var z = 0;z<arr.length;z++){
-
-                            var dataAttr = '';
-
-                            dataAttr = arr[z].split('<br>')[0].split('/')[1];
-
-                            if( typeof dataAttr == 'string'){
-
-                                if(dataAttr.slice(0,1) == 0){
-
-                                    dataAttr = dataAttr.slice(1,2);
-
-                                }else{
-
-                                    dataAttr = arr[z].split('<br>')[0].split('/')[1];
-
-                                }
-
-                            }else{
-
-                                dataAttr = '';
-
-                            }
-
-                            dataArr.push(dataAttr);
-
-                        }
-
-                    }
-
-                    //初始值首先确认为全'';
-                    for(var z=0;z<dataArr.length;z++){
-
-                        BC0.push('');
-
-                    }
-
-                    //确定BC0的值，有值不为''，无值为'';
-                    for(var z=0;z<dataArr.length;z++){
-
-                        for(var k=0;k<BC.length;k++){
-
-                            if(dataArr[z] == BC[k].selectedday){
-
-                                BC0[z] = BC[k].selectedday;
-
-                                break;
-
-                            }else{
-
-                                BC0[z] = ''
-
-                            }
-
-                        }
-
-                    }
-
-                    bodyStr += '<tr>';
-
-                    for(var z=0;z<BC0.length;z++){
-
-                        var values = ''
-
-                        if(BC0[z] == ''){
-
-                            if(z == 0){
-
-                                values = '<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>'
-
-                            }else if(z == 1){
-
-                                values = _readRens[i].name;
-
-                            }else if(z == 2){
-
-                                values = _readRens[i].num;
-
-                            }else{
-
-                                values = ''
-
-                            }
-
-
-
-                        }else{
-                            {
-
-                                values = _readRens[i].bcName;
-                            }
-
-                        }
-
-                        bodyStr += '<td>' + values +
-                            '</td>'
-
-                    }
-
-                    bodyStr += '</tr>';
-
-                }
-
-                $('#worker-table tbody').append(bodyStr);
+                console.log(jqXHR.responseText);
 
             }
 
-            _isDeng = false;
+        })
 
-        }
+        _isDeng = false;
 
     })
 
@@ -953,51 +852,55 @@ $(function(){
     })
 
     //添加执行人员
-    $('#ADD-Modal').on('click','.addPerson',function(){
+    $('#Worker-Modal').on('click','.addPerson',function(){
 
-        if( $('#shift').val() == ''){
+        //首先验证是否选中排班的人
+        var currentArr = $('#zhixingRenTable tbody').children('.tables-hover');
 
-            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请选择班次！', '');
+        if(currentArr.length == 0){
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请选择人员！', '');
 
         }else{
 
-            var arr = [];
+            if($('#shift').val() == ''){
 
-            //首先验证是否选中排班的人
-            var currentArr = $('.on-duty-worker').children('.tables-hover');
-
-            if(currentArr.length == 0){
-
-                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请选择人员！', '');
+                _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请选择班次！', '');
 
             }else{
 
-                _currentRens.length = 0;
+                _currentSelect.length = 0;
 
                 for(var i=0;i<currentArr.length;i++){
 
                     var obj = {};
 
-                    obj.name = currentArr.eq(i).find('.name').html();
+                    obj.num = currentArr.eq(i).children('.zxrnum').html();
 
-                    obj.num = currentArr.eq(i).find('.num').html();
+                    obj.name = currentArr.eq(i).children('.zxrname').html();
 
-                    _currentRens.push(obj);
+                    obj.bcCode = $('#shift').val();
+
+                    obj.bcName = ($('#shift').val() == '')?'':$('#shift').children('option:selected').html();
+
+                    _currentSelect.push(obj);
 
                 }
 
-                for(var i=0;i<_allData.length;i++){
-
-                    for(var j=0;j<_currentRens.length;j++){
+                if(_allData.length == 0){
 
 
-                        if(_allData[i].num == _currentRens[j].num){
+                }else{
 
-                            _currentRens.removeByValue(_currentRens[j].num,'num');
+                    for(var i=0;i<_allData.length;i++){
 
+                        for(var j=0;j<_currentSelect.length;j++){
 
-                        }else{
+                            if(_allData[i].num == _currentSelect[j].num){
 
+                                _currentSelect.removeByValue(_currentSelect[j].num,'num');
+
+                            }
 
                         }
 
@@ -1005,119 +908,80 @@ $(function(){
 
                 }
 
-                for(var i=0;i<_currentRens.length;i++){
+
+                var arr = [];
+
+                for(var i=0;i<_currentSelect.length;i++){
 
                     var obj = {};
 
-                    //值班人id
-                    obj.watchUser = _currentRens[i].num;
+                    obj.watchUser = _currentSelect[i].num;
 
-                    //值班人名字
-                    obj.watchUserName = _currentRens[i].name;
+                    obj.watchUserName = _currentSelect[i].name;
 
-                    //班次编号
-                    obj.bccode = $('#shift').val();
+                    obj.bcCode = _currentSelect[i].bcCode;
 
-                    //班次名称
-                    obj.bcname = $('#shift').children('option:selected').html().split(' ')[0];
+                    obj.bcName = _currentSelect[i].bcName;
 
                     arr.push(obj);
                 }
+                $.ajax({
 
-                if(arr.length == 0){
+                    type:'post',
+                    url:_urls + 'YWFZ/WPRAdd',
+                    timeout:_theTimes,
+                    data:{
 
-                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'选择的人本月已排班！', '');
+                        zbCode:_thisCode,
+                        wprList:arr
 
-                }else{
+                    },
+                    beforeSend: function () {
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+                        $('#theLoading').modal('hide');
+                    },
+                    success:function(result){
 
-                    $.ajax({
+                        if(result == 99){
 
-                        type:'post',
-                        url:_urls + 'YWFZ/WPRAdd',
-                        timeout:_theTimes,
-                        data:{
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员成功!');
 
-                            zbCode:_thisCode,
-                            wprList:arr
+                            conditionSelect();
 
-                        },
-                        beforeSend: function () {
-                            $('#theLoading').modal('show');
-                        },
-                        complete: function () {
-                            $('#theLoading').modal('hide');
-                        },
-                        success:function(result){
+                            //更新一下_allData
+                            allDate();
 
-                            if(result == 99){
+                            //将_readRens中也添加进去
+                            bindData(_$that,true);
 
-                                _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员成功!');
+                            //修改
+                            $('#worker-table tbody').children('tr').eq(1).children('td').eq(0).html('<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>')
 
-                                conditionSelect();
+                        }else{
 
-                                //更新一下_allData
-                                allDate();
-
-                                //将_readRens中也添加进去
-                                bindData(_$that,true);
-
-                                //修改
-                                $('#worker-table tbody').children('tr').eq(1).children('td').eq(0).html('<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>')
-
-                            }else{
-
-                                _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员失败!');
-
-                            }
-                        },
-                        error:function(jqXHR, textStatus, errorThrown){
-
-                            console.log(jqXHR.responseText);
+                            _moTaiKuang($('#myModal2'),'提示','flag','istap','添加人员失败!');
 
                         }
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
 
-                    })
+                        console.log(jqXHR.responseText);
 
-                }
+                    }
+
+                })
+
 
             }
 
         }
-
-    })
-
-
-    //删除执行人员
-    $('#ADD-Modal').on('click','.option-delete-worker',function(){
-
-        //提示
-        _moTaiKuang($('#DEL-Modal'),'提示','','istap','确定要删除该人员吗？','删除');
-
-        //添加类
-        $('#DEL-Modal').find('.btn-primary').addClass('table-shi-del');
-
-        //确定删除人id
-        _thisWorkerNum = $(this).parents('tr').children('td').eq(2).html();
-
-        //记录删除某一行
-        _thisRow = $(this).parents('tr');
 
     })
 
     //动态删除人员确定按钮
     $('#DEL-Modal').on('click','.table-shi-del',function(){
-
-        var id = '';
-
-        for(var i=0;i<_readRens.length;i++){
-
-            if(_thisWorkerNum == _readRens[i].num){
-
-                id = _readRens[i].id;
-
-            }
-
-        }
 
         $.ajax({
 
@@ -1125,7 +989,7 @@ $(function(){
             url:_urls + 'YWFZ/UPRDelete',
             data:{
 
-                id:id
+                id:_thisWorkerNum
 
             },
             beforeSend: function () {
@@ -1177,34 +1041,27 @@ $(function(){
 
         _thisRow = $(this).parents('tr');
 
-        _thisWorkerNum = $(this).parents('tr').children('td').eq(2).html();
+        _thisWorkerNum = $(this).parents('tr').children('td').eq(0).children().attr('data-id');
 
     })
 
     //静态删除确定按钮
     $('#DEL-Modal').on('click','.option-quite-worker',function(){
 
-        //表格首先删除
-        $(_thisRow).remove();
-
-        var arr = [];
-
         for(var i=0;i<_allData.length;i++){
 
-            if(_thisWorkerNum == _allData[i].num){
+            if(_allData[i].num == _thisWorkerNum){
 
-                arr.push(_allData[i])
+                _allData.remove(_allData[i]);
 
             }
 
         }
 
-        //数组其次删除
-        _allData.remove(arr[0]);
+        _datasTable($('#worker-table'),_allData);
 
         //模态框消失
         $('#DEL-Modal').modal('hide');
-
 
     })
 
@@ -1295,6 +1152,154 @@ $(function(){
 
     })
 
+    //查看某一人班次信息
+    $('#worker-table').on('click','.option-BC',function(){
+
+        //样式
+        $('#worker-table tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //生成数组[{title:'',start:'',end:''}];
+
+        var title = '';
+
+        //根据当前的班次编码，选择班次详情
+        for(var i=0;i<_BCData.length;i++){
+
+            if( $(this).attr('data-num') == _BCData[i].bccode ){
+
+                title = _BCData[i].name;
+
+                _BCDayObj.banCiDetailList = _BCData[i].banCiDetailList;
+
+                _BCDayObj.period = _BCData[i].period;
+            }
+
+        }
+
+        //首先确定当月有几天
+        var now = $('#ADD-Modal').find('.datatimeblock').val();
+
+        var year = (now != '')?now.split('-')[0]:'';
+
+        var Monthnum = (now != '')?now.split('-')[1]:'';
+        //首先确定当月有几天，
+        var day = new Date(year,Monthnum,0);
+
+        var daycount = day.getDate();
+
+        _calendarArr.length = 0;
+
+        //判断当前是日还是月1是周，2是月
+        if(_BCDayObj.period == 1){
+
+            for(var i=0;i<daycount;i++){
+
+                var times = moment(year + '-' + Monthnum + '-' + (i + 1)).format('YYYY-MM-DD');
+
+                var flag = false;
+
+                for(var j=0;j<_BCDayObj.banCiDetailList.length;j++){
+
+                    var weekNum = (moment(times).format('d') == 0)?7:moment(times).format('d');
+
+                    if(_BCDayObj.banCiDetailList[j].selectedday == weekNum){
+
+                        flag = true;
+
+                        break;
+
+                    }else{
+
+                        flag = false;
+
+                    }
+
+                }
+
+                if(flag){
+
+                    var obj = {};
+
+                    obj.title = title;
+
+                    obj.start = moment(year + '-' + Monthnum + '-' + (i + 1)).format('YYYY-MM-DD');
+
+                    obj.end = moment(year + '-' + Monthnum + '-' + (i + 1)).format('YYYY-MM-DD');
+
+                    _calendarArr.push(obj);
+
+                }
+
+            }
+
+
+        }else if( _BCDayObj.period == 2 ){
+
+            for(var i=0;i<_BCDayObj.banCiDetailList.length;i++){
+
+                var obj = {};
+
+                obj.title = title;
+
+                obj.start = moment(year + '-' + Monthnum + '-' + _BCDayObj.banCiDetailList[i].selectedday).format('YYYY-MM-DD');
+
+                obj.end = moment(year + '-' + Monthnum + '-' + _BCDayObj.banCiDetailList[i].selectedday).format('YYYY-MM-DD');
+
+                _calendarArr.push(obj);
+
+            }
+
+        }
+
+        //模态框显示
+        $('#fullcalendar-Modal').modal('show');
+
+    })
+
+    //动态删除某人的排班
+    $('#worker-table').on('click','.option-Bdelete',function(){
+
+        //样式
+        $('#worker-table tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //提示
+        _moTaiKuang($('#DEL-Modal'),'提示','','istap','确定要删除该人员吗？','删除');
+
+        //添加类
+        $('#DEL-Modal').find('.btn-primary').addClass('table-shi-del');
+
+        //确定删除人id
+        _thisWorkerNum = $(this).parents('tr').children('td').eq(0).children().attr('data-id');
+
+        //记录删除某一行
+        _thisRow = $(this).parents('tr');
+
+    })
+
+    //登记的时候静态删除
+    $('#worker-table').on('click','.option-Ddelete',function(){
+
+        //样式
+        $('#worker-table tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //模态框
+        _moTaiKuang($('#DEL-Modal'),'提示','','istap','确定要删除吗？','删除');
+
+        //添加类
+        $('#DEL-Modal').find('.btn-primary').removeClass('option-delete-worker').addClass('option-quite-worker');
+
+        _thisRow = $(this).parents('tr');
+
+        _thisWorkerNum = $(this).parents('tr').children('td').eq(1).html();
+
+    })
+
     /*--------------------------------------------------其他方法-------------------------------------------------*/
     //条件查询
     function conditionSelect(){
@@ -1320,7 +1325,13 @@ $(function(){
 
                 for(var i=0;i<result.length;i++){
 
-                    _allList.push(result[i].watchtime);
+                    var obj = {};
+
+                    obj.wxbz = result[i].departNum;
+
+                    obj.time = result[i].watchtime;
+
+                    _allList.push(obj);
 
                 }
 
@@ -1532,6 +1543,9 @@ $(function(){
         //获取编码
         var $thisCode = $this.parents('tr').children('.zbCode').children().attr('data-num');
 
+        //获取当前的班组
+        _$thisBZ = $this.parents('tr').children('td').eq(2).children().attr('data-num');
+
         $.ajax({
 
             type:'post',
@@ -1560,281 +1574,43 @@ $(function(){
 
                     $('#ADD-Modal').find('.datatimeblock').val(time);
 
-
-                    //表格清空
-                    $('#worker-table tbody').empty();
-
-                    //表格(根据姓名、id班组、时间、确定表格)
-
-                    //表头----------------------------------------------------------------------------
-                    //根据时间，确定arr
-                    var arr = ['操作','姓名','工号'];
-
-                    var day = new Date(result.watchtime.split('-')[0],month,0);
-
-                    var daycount = day.getDate();
-
-                    var lengths = daycount +1;
-
-                    for(var i=1;i<lengths;i++ ){
-
-                        var str = '';
-
-                        str = moment(String(month) + '/' + String(i)).format('MM/DD');
-
-                        var aa = moment().format('YYYY') + '-' + month + '-' + i;
-
-                        str += '<br><span data-num="' + moment(aa).format('d') +
-                            '">' + numWeek(moment(aa).format('d')) + '</span>';
-
-                        arr.push( str );
-
-                    }
-
-                    //遍历arr生成表格头部
-                    var headStr = '<tr>';
-
-                    for(var i=0;i<arr.length;i++){
-
-                        if(i == arr.length-1){
-
-                            headStr += '<th>' + arr[i] +
-                                '</th></tr>'
-
-                        }else{
-
-                            headStr += '<th>' + arr[i] +
-                                '</th>'
-
-                        }
-
-                    }
-
-                    $('#worker-table').children('thead').empty().append(headStr);
-
-                    var bodyStr = '';
-
-                    _readRens.length = 0;
-
                     _allData.length = 0;
 
-                    if(result.wprList){
+                    for(var i=0;i<result.wprList.length;i++){
 
-                        //表格数据绑定
-                        for(var i=0;i<result.wprList.length;i++){
+                        var obj = {};
 
-                            var workerObj = {};
+                        obj.name = result.wprList[i].watchUserName;
 
-                            workerObj.name = result.wprList[i].watchUserName;
+                        obj.num = result.wprList[i].watchUser;
 
-                            workerObj.num = result.wprList[i].watchUser;
+                        obj.bcCode = result.wprList[i].bccode;
 
-                            workerObj.bcNum = result.wprList[i].bccode;
+                        obj.bcName = result.wprList[i].bcname;
 
-                            workerObj.bcName = result.wprList[i].bcname;
+                        obj.id = result.wprList[i].id;
 
-                            workerObj.id = result.wprList[i].id;
+                        obj.shangbantime = result.wprList[i].shangbantime;
 
-                            _readRens.push(workerObj);
+                        obj.xiabantime = result.wprList[i].xiabantime;
 
-                            _allData.push(workerObj);
-
-                            //首先确定周期
-                            var period = '';
-
-                            var BC = [];
-
-                            var BC0 = [];
-
-                            //首先根据班次code确定显示的具体值
-                            for(var j=0;j<_BCData.length;j++){
-
-                                if(result.wprList[i].bccode == _BCData[j].bccode){
-
-                                    period = _BCData[j].period;
-
-                                    BC = _BCData[j].banCiDetailList;
-
-                                }
-                            }
-
-                            //确定arr所对应body的值
-                            var dataArr = [];
-
-                            if( period == 1 ){
-
-                                //首先根据arr的值来确定
-                                for(var z = 0;z<arr.length;z++){
-
-                                    var dataAttr = '';
-
-                                    if(arr[z].indexOf('data-num')>0){
-
-                                        dataAttr = arr[z].split('=')[1].split('"')[1];
-
-                                        if(dataAttr == 0){
-
-                                            dataAttr = "7";
-
-                                        }
-
-                                    }else{
-
-                                        dataAttr = '';
-
-                                    }
-
-                                    dataArr.push(dataAttr);
-
-
-                                }
-
-                            }else if(period == 2){
-
-                                for(var z = 0;z<arr.length;z++){
-
-                                    var dataAttr = '';
-
-                                    dataAttr = arr[z].split('<br>')[0].split('/')[1];
-
-                                    if( typeof dataAttr == 'string'){
-
-                                        if(dataAttr.slice(0,1) == 0){
-
-                                            dataAttr = dataAttr.slice(1,2);
-
-                                        }else{
-
-                                            dataAttr = arr[z].split('<br>')[0].split('/')[1];
-
-                                        }
-
-                                    }else{
-
-                                        dataAttr = '';
-
-                                    }
-
-                                    dataArr.push(dataAttr);
-
-                                }
-
-                            }
-
-                            //初始值首先确认为全'';
-                            for(var z=0;z<dataArr.length;z++){
-
-                                BC0.push('');
-
-                            }
-
-                            //确定BC0的值，有值不为''，无值为'';
-                            for(var z=0;z<dataArr.length;z++){
-
-                                for(var k=0;k<BC.length;k++){
-
-                                    if(dataArr[z] == BC[k].selectedday){
-
-                                        BC0[z] = BC[k].selectedday;
-
-                                        break;
-
-                                    }else{
-
-                                        BC0[z] = ''
-
-                                    }
-
-                                }
-
-                            }
-
-                            //console.log(BC0);
-
-                            bodyStr += '<tr>';
-
-                            for(var z=0;z<BC0.length;z++){
-
-                                var values = ''
-
-                                if(BC0[z] == ''){
-
-                                    if(z == 0){
-
-                                        values = '<span class="data-option option-delete-worker btn default btn-xs green-stripe">删除</span>'
-
-                                    }else if(z == 1){
-
-                                        values = result.wprList[i].watchUserName;
-
-                                    }else if(z == 2){
-
-                                        values = result.wprList[i].watchUser;
-
-                                    }else{
-
-                                        values = ''
-
-                                    }
-
-
-
-                                }else{
-                                    {
-
-                                        values = result.wprList[i].bcname;
-                                    }
-
-                                }
-
-                                bodyStr += '<td>' + values +
-                                    '</td>'
-
-                            }
-
-                            bodyStr += '</tr>';
-
-                        }
+                        _allData.push(obj);
 
                     }
 
-                    $('#worker-table').children('tbody').append(bodyStr);
+                    _datasTable($('#worker-table'),_allData);
 
-                    if(flag){
+                    if(!flag){
 
-                        //删除操作不显示
-                        $('#worker-table thead').children('tr').children().eq(0).show();
-
-                        var hidden = $('#worker-table tbody').children('tr')
-
-                        for(var i=0;i<hidden.length;i++ ){
-
-                            hidden.eq(i).children().eq(0).show();
-
-                        }
-
-                        //编辑的时候，先让日历操作为可操作
-                        $('.datatimeblock').attr('disabled',false).removeClass('disabled-block');
-
-                        $('.datatimeblock').parent('.input-blocked').removeClass('disabled-block');
+                        $('#worker-table').find('.option-delete').attr('disabled',true);
 
                     }else{
 
-                        //删除操作不显示
-                        $('#worker-table thead').children('tr').children().eq(0).hide();
-
-                        var hidden = $('#worker-table tbody').children('tr')
-
-                        for(var i=0;i<hidden.length;i++ ){
-
-                            hidden.eq(i).children().eq(0).hide();
-
-                        }
+                        $('#worker-table').find('.option-delete').attr('disabled',false);
 
                     }
 
                 }
-
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -2055,7 +1831,7 @@ $(function(){
 
         //最终确定bodyStr
 
-        for(var i=0;i<_currentRens.length;i++){
+        for(var i=0;i<_currentSelect.length;i++){
 
             bodyStr += '<tr>';
 
@@ -2067,11 +1843,11 @@ $(function(){
 
                     if(j == nameIndex){
 
-                        values = _currentRens[i].name;
+                        values = _currentSelect[i].name;
 
                     }else if(j == numIndex){
 
-                        values = _currentRens[i].num;
+                        values = _currentSelect[i].num;
 
                     }else{
 
@@ -2186,4 +1962,68 @@ $(function(){
         })
 
     }
-})
+
+    //值班详情值班人初始化
+    function ZBPersonInit(){
+
+        //排班表格
+        var workCol = [
+
+            {
+                title:'姓名',
+                data:'name',
+                render:function(data, type, full, meta){
+
+                    return '<span data-id="' + full.id + '">' + data + '</span>'
+
+                }
+            },
+            {
+                title:'工号',
+                data:'num'
+            },
+            {
+                title:'班次',
+                data:'bcName',
+                render:function(data, type, full, meta){
+
+                    console.log(_isDeng);
+
+                    if(_isDeng){
+
+                        return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                            '">' + data +
+                            '</span>'
+                    }else{
+
+                        if(full.shangbantime && full.xiabantime){
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data + " （" + full.shangbantime.substring(0,5) + "-" + full.xiabantime.substring(0,5) + ")" +
+                                '</span>'
+
+                        }else{
+
+                            return '<span class="data-option option-BC btn default btn-xs green-stripe" data-num="' + full.bcCode +
+                                '">' + data +
+                                '</span>'
+
+                        }
+
+                    }
+
+                }
+            },
+            {
+                title:'操作',
+                defaultContent:'<span class="data-option option-delete option-Ddelete btn default btn-xs green-stripe">删除</span>'
+            }
+        ]
+
+        _tableInit($('#worker-table'),workCol,2,'','','','','');
+
+    }
+
+
+
+});

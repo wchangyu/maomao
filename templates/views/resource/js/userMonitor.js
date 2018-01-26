@@ -906,6 +906,7 @@ var userMonitor = (function(){
                 defWidth = _procDefs[i].sizeW * divContentWidth;
                 defHeight = _procDefs[i].sizeH * divContentHeight;
             }
+
             var $spanDef = $("<span>");     //当前def的显示层
             //$spanDef.css("display","inline-block");
             setFlex($spanDef);
@@ -1125,7 +1126,8 @@ var userMonitor = (function(){
 
                 //获取要替换的元素
                 $(spanID).replaceWith($spanDef);
-            }
+            };
+
             $divContent.append($spanDef);
         }
         refreshData();
@@ -1509,6 +1511,7 @@ var userMonitor = (function(){
                 alertMessage("没有权限");
                 return;
             }
+            console.log(33);
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
             if(proc){
                 _curProc = proc;
@@ -1729,6 +1732,7 @@ var userMonitor = (function(){
         $divCtrls.append($table);
         setDivControlsVisible(true);
     };
+
     //绘制输入的控制面板
     var drawInputPanel = function(prDefId,left,top){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题

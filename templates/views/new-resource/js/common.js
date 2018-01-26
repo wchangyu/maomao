@@ -18,8 +18,11 @@ $('.time-options').click(function(){
 
 //点击上方能耗种类切换时
 $('.energy-types').on('click','div',function(){
+
     //获取当前的能耗类型
     var index = $(this).index();
+
+    var dom = $(this);
 
     //如果存在全部类型
     if($('.energy-types .all-energy-type').length > 0){
@@ -39,28 +42,54 @@ $('.energy-types').on('click','div',function(){
         //清除之前选中的类
         $('.energy-types .specific-energy').eq(i).removeClass(className);
     }
+
+    //获取当前的能耗类型
+    var ettype = $(this).attr('value');
+
+    //获取当前是楼宇还是分户
+    var flag = $(this).parent().attr('type');
+
+    //从本地配置中获取当前的能耗信息集合
+    var jsonText=JSON.parse(sessionStorage.getItem('allEnergyType'));
+
+    //需要获取分户的能耗类型
+    if(flag == '02'){
+
+        jsonText=JSON.parse(sessionStorage.getItem('officeEnergyType'));
+    }
+
+    //获取能耗信息的配置
+    var alltypes = jsonText.alltypes;
+
+    $(alltypes).each(function(i,o){
+
+        var imgUrl;
+
+        //如果当前是当前点击的能耗类型
+        if(ettype == o.ettype){
+
+            //获取当前的选中图片
+             imgUrl = '../new-resource/img/' + o.selectImg;
+
+        }else{
+
+            //获取当前的未选中图片
+             imgUrl = '../new-resource/img/' + o.unSelectImg;
+        }
+
+        $('.energy-types .specific-energy').eq(i).css({
+                "background":"url("+imgUrl+") center 6px no-repeat",
+                "backgroundSize": "22px 28px"
+            });
+
+    });
+
+
     //全部
     if(index == -1) {
         $(this).addClass('blueImg00');
 
-    //电
-    }else if(index == 0){
-        $(this).addClass('blueImg0');
-    //水
-    }else if(index == 1){
-        $(this).addClass('blueImg1');
-        //能耗类型为水时，单位变化
-        unitArr = unitArr2;
-    //气
-    }else if(index == 2){
-        $(this).addClass('blueImg2');
-    //暖
-    }else if(index == 3){
-        $(this).addClass('blueImg3');
-    //冷
-    }else if(index == 4){
-        $(this).addClass('blueImg4');
-    };
+    }
 
     $(this).addClass('selectedEnergy');
 
@@ -84,6 +113,7 @@ $('.energy-types').on('click','div',function(){
     $('#unit').html(html);
 
 });
+
 
 //初始化时间
 changeShowTimes('日');
@@ -152,6 +182,7 @@ changeShowTimes('日');
         "unitNum":"3"
     }
 ];
+
 //水的单位
  unitArr4 = [
     {
@@ -302,7 +333,20 @@ function getBranchZtree(EnItdata,flag,fun){
         },
         callback: {
             onClick:function (event,treeId,treeNode){
+
                 branchTreeObj.checkNode(treeNode,!treeNode.checked,false)
+            },
+            beforeClick:function(treeId,treeNode){
+
+                $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+            },
+            onCheck:function(e,treeId,treeNode){
+
+                $('#' + treeId).find('.curSelectedNode').removeClass('curSelectedNode');
+
+                $('#' + treeId).find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
             }
         }
     };

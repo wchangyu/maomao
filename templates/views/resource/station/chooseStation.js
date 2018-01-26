@@ -87,6 +87,7 @@ function ajaxFun(){
                 stationArr.push(o);
             });
             classifyArrByInitial(result,0);
+
         }
     })
 }

@@ -1119,6 +1119,17 @@ $(function(){
 
     })
 
+    //选择设备
+    $('#DEV-Modal .modal-footer').on('click','.btn-primary',function(){
+
+        detaileVue.sbSelect = $('#dev-table tbody').find('.tables-hover').children('.dNum').html();
+
+        detaileVue.sbMC = $('#dev-table tbody').find('.tables-hover').children().eq(1).html();
+
+        $('#DEV-Modal').modal('hide');
+
+    })
+
     /*-------------------------------------其他方法------------------------------------*/
 
     function conditionSelect(){
@@ -1579,7 +1590,7 @@ $(function(){
                 }
             },
             view:{
-                showIcon:false
+                showIcon:false,
             },
             callback: {
                 onClick: function(e,treeId,treeNode){
@@ -1592,12 +1603,29 @@ $(function(){
                         _determineDeObj.name = selectedNode[i].name;
                         _determineDeObj.id = selectedNode[i].id;
                     }
-
-                    return false;
-
-                    $('#xzmc').val(_determineDeObj.name);
-                    $('#zxbm').val(_determineDeObj.id);
                 },
+                beforeClick:function(){
+
+                    $('#deparmentTree').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                },
+                onCheck:function(e,treeId,treeNode){
+
+                    $('#deparmentTree').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#deparmentTree').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    zTreeObj.checkNode(treeNode,true,true);
+                    //输出选中节点
+                    var selectedNode = zTreeObj.getCheckedNodes(true);
+                    for(var i=0;i<selectedNode.length;i++){
+                        _determineDeObj.pId = selectedNode[i].pId;
+                        _determineDeObj.name = selectedNode[i].name;
+                        _determineDeObj.id = selectedNode[i].id;
+                    }
+
+                }
             }
         };
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);

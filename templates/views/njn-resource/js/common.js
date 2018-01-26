@@ -162,9 +162,11 @@ var option1 = {
     ]
 };
 
+//获取全部楼宇ID列表
+var pointerIdArr = getPointersId();
 
-//右侧表格中的下方柱状图
-var rightTableChart = echarts.init(document.getElementById('right-bottom-echart1'));
+//获取全部分户ID列表
+var officeIdArr = getOfficesId();
 
 
 //重绘chart图
@@ -237,25 +239,143 @@ $('.right-bottom-tab-container .right-bottom-tab').on('click',function(){
 
 });
 
+//点击右上角切换选项卡
+$('.right-bottom-top-tab span').on('click',function(){
+
+    $('.right-bottom-top-tab span').removeClass('onChoose');
+
+    $(this).addClass('onChoose');
+
+    //获取当前index
+    var index = $(this).index();
+
+    //显示选项卡对应的内容
+    $('.right-bottom-container').hide();
+
+    $('.right-bottom-container').eq(index).show();
+
+});
+
+//页面右上角时间刷新
+getNowTime();
+
+//获取温度湿度
+getWeatherParam();
 
 
-//给table中echart循环赋值
-echartAssignment();
+//关闭弹窗中的流程图
+$('#right-container').on('click','.close1',function(){
 
-function echartAssignment(){
+    //获取到要删除的元素
+    var dom = $(this).parents('.content-child-show');
 
-    //获取需要赋值的数量
-    var length = $('.right-bottom-table .right-bottom-echart').length;
+    dom.remove();
+});
 
-    for(var i=0; i<length; i++){
+//------------------------------------页面右上角时间温度-----------------------------------//
 
-        //获取当前ID
-        var id = $('.right-bottom-table .right-bottom-echart').eq(i).attr('id');
+//获取实时时间
+function getNowTime(){
 
-        var rightTableChart = echarts.init(document.getElementById(id));
 
-        rightTableChart.setOption(option1);
-    }
-}
+    var time1 = moment().format('HH:mm:ss');
+
+    var time2 = moment().format('YYYY-MM-DD');
+
+    $('.right-top-message-container .top-message').eq(0).html(time1);
+
+    $('.right-top-message-container .bottom-message').eq(0).html(time2);
+
+    setTimeout(function(){
+
+        getNowTime();
+
+    },1000)
+};
+
+//获取当年气象参数
+function getWeatherParam(){
+
+    //传递给后台的数据
+    var ecParams = {
+        pointerID : pointerIdArr[0]
+    };
+    //发送请求
+    $.ajax({
+        type:'get',
+        url:sessionStorage.apiUrlPrefix+'EnergyTopPageV2/GetWeatherByPointer',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+        },
+        success:function(result){
+
+            //console.log(result);
+            //无数据
+            if(result == null || result.length == 0){
+                //隐藏温度 和湿度
+                $('.right-top-message-container .top-message').eq(1).html(18 + '℃');
+
+                //湿度
+                $('.right-top-message-container .top-message').eq(2).html(56 + "%");
+
+                return false;
+            }
+            //给页面中赋值
+            //温度
+            $('.right-top-message-container .top-message').eq(1).html(result.temperatureData + '℃');
+
+            //湿度
+            $('.right-top-message-container .top-message').eq(2).html(result.humidityData + "%");
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
+
+//从本地存储中获取楼宇ID列表
+function getPointersId(){
+
+    //存放楼宇ID列表
+    var pointerIdArr = [];
+
+    var pointerArr = $.parseJSON(sessionStorage.getItem('pointers'));
+
+
+    $(pointerArr).each(function(i,o){
+
+        pointerIdArr.push(o.pointerID);
+    });
+
+    return pointerIdArr;
+};
+
+//从本地存储中获取分户ID列表
+function getOfficesId(){
+
+    //存放分户ID列表
+    var officeIdArr = [];
+
+    var officeArr = $.parseJSON(sessionStorage.getItem('offices'));
+
+
+    $(officeArr).each(function(i,o){
+
+        officeIdArr.push(o.f_OfficeID);
+    });
+
+    return officeIdArr;
+};
+
+
 
 

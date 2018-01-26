@@ -884,7 +884,7 @@ $(function(){
     //设备查询
     $('#selected1').click(function(){
 
-        //InfluencingUnit(false);
+        $('#theLoading').modal('show');
 
         choiceDevice(false,stationsFlag,wxBanzusFlag);
 
@@ -1912,25 +1912,9 @@ $(function(){
             type:'post',
             url:_urls + 'YWDev/ywDIGetDevsII',
             data:prm,
-            beforeSend: function () {
-                $('#theLoading').modal('hide');
-
-                $('#theLoading').modal('show');
-            },
-
-            complete: function () {
-
-                $('#theLoading').modal('hide');
-
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
-
-            },
             success:function(result){
+
+                $('#theLoading').modal('hide');
 
                 if(flag){
 
