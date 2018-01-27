@@ -7,12 +7,10 @@
     var myAnhsCV = null;
 
     window.onresize=function (ev) {
-        if(myeAnhsCV)
-        {
+        if(myeAnhsCV){
             myeAnhsCV.resize();
         }
-        if(myAnhsCV)
-        {
+        if(myAnhsCV){
             myAnhsCV.resize();
         }
     }
@@ -127,7 +125,7 @@
         jQuery('#itemizeBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix+ "Main/GetECPItemizeNowDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -205,7 +203,7 @@
         myEERLineMain = echarts.init(document.getElementById('eerLineMain'));
         var url = sessionStorage.apiUrlPrefix+"Main/GetEERNowChartViewDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -279,7 +277,7 @@
         myPowerLineMain = echarts.init(document.getElementById('powerLineMain'));
         var url= sessionStorage.apiUrlPrefix + "Main/GetPowerNowChartViewDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -352,7 +350,7 @@
         var colors = ['#5793f3', '#d14a61', '#675bba', '#ffa500'];
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowChartViewDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -493,7 +491,7 @@
         jQuery('#ubrvBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "Main/GetUBRVNowData";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -535,7 +533,7 @@
     var initElePriceColdData= function () {
         var url = sessionStorage.apiUrlPrefix + "Main/GetElePriceColdNowDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -556,7 +554,7 @@
         jQuery('#eAnMonBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonNowDs";
         $.post(url,{
-            pId:"8817180401",
+            pId:sessionStorage.PointerID,
             //SysrealDt:encodeURIComponent(sysrealdatetime())
             SysrealDt:encodeURIComponent('2017/07/24 14:20:00')
         },function (res) {
@@ -718,7 +716,7 @@
             });
             var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonHistorypreDs";
             $.post(url,{
-                pId:'8817180401',
+                pId:sessionStorage.PointerID,
                 preDTs:dts,
                 eiType:eiType,
                 prelgs:lgs
@@ -806,7 +804,7 @@
         });
         var url = sessionStorage.apiUrlPrefix + "Main/GetEAnMonHistorysglDs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             perDTs:perDTs,
             eiType:eiType
         },function (res) {
@@ -868,6 +866,12 @@
 
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             var eerVa=0.0;
             //切换实时数据曲线
             changeTab();

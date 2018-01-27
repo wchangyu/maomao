@@ -145,8 +145,8 @@
             jQuery('#reportBusy').showLoading();
             var eType = $('#eType').val();
             if (selectRpt.length > 0) {
-                var pId = '8817180401';
-                var pNt = encodeURIComponent('安利8#冷站');
+                var pId = sessionStorage.PointerID;
+                var pNt = encodeURIComponent(sessionStorage.PointerName);
                 if (selectRpt === "ztnx") {//整体报表
                     var url = sessionStorage.apiUrlPrefix + "ZTNXReport/ReportFormZTNXs?pId=" + pId
                         + "&pNt=" + encodeURIComponent(pNt)
@@ -192,6 +192,12 @@
 
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //切换并且选中报表类型

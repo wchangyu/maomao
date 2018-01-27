@@ -55,6 +55,12 @@
 
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             var mt = moment(dtnowstr());
             select_year = mt.year();
             select_month = addZeroToSingleNumber(parseInt(mt.month()) + 1);
@@ -131,7 +137,7 @@
         jQuery('#eerBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarECPAnalysisDs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             sp:todayDT
         },function (res) {
             if(res.code === 0){
@@ -199,7 +205,7 @@
         mycv = echarts.init(document.getElementById('itemizeMain'));
         var url = sessionStorage.apiUrlPrefix + "CalendarEER/GetCalendarEERAnalysisExpDs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             sp: encodeURIComponent(sp),
             dType: selectDType
         },function (res) {

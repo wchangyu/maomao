@@ -116,7 +116,7 @@
         jQuery('#historyBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "/History/GetDataCCodeTrvNodes";
         $.post(url,{
-            pId:'8817180401'
+            pId:sessionStorage.PointerID
         },function (res) {
             if(res.code === 0){
                 var zNodes = res.dctrVs;
@@ -167,7 +167,7 @@
             mycv = echarts.init(document.getElementById('historyMain'));
             var url = sessionStorage.apiUrlPrefix + "History/GetHistoryDatas";
             $.post(url,{
-                pId : '8817180401',
+                pId : sessionStorage.PointerID ,
                 cIds : cIds,
                 sp : sp,
                 ep : ep
@@ -309,8 +309,32 @@
         $("body").unbind("mousedown", onBodyDown);
     }
 
+    var queryHistoryDs = function () {
+        $("#hsyBtn").on("click", function () {
+            var cIds = "";
+            var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
+            var nodes = zTree.getCheckedNodes(true);
+            if (nodes.length == 0) {
+                alert("提示(历史数据):请选择一项监测因子查询历史数据");
+                return;
+            }
+            else {
+                for (var i = 0; i < nodes.length; i++) {
+                    cIds += (nodes[i].id + ",");
+                }
+            }
+            onAsyncSuccess(cIds);
+        });
+    }
+
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //打开TreeView选择框
@@ -318,21 +342,7 @@
             //默认选中节点
             defaultNodes(setting);
             //查询历史数据
-            $("#hsyBtn").on("click", function () {
-                var cIds = "";
-                var zTree = $.fn.zTree.getZTreeObj("DCTreeView");
-                var nodes = zTree.getCheckedNodes(true);
-                if (nodes.length == 0) {
-                    alert("提示(历史数据):请选择一项监测因子查询历史数据");
-                    return;
-                }
-                else {
-                    for (var i = 0; i < nodes.length; i++) {
-                        cIds += (nodes[i].id + ",");
-                    }
-                }
-                onAsyncSuccess(cIds);
-            });
+            queryHistoryDs();
         }
     }
 

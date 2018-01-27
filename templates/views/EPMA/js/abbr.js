@@ -134,7 +134,7 @@
         var eType = $("#eType").val();
         var url = sessionStorage.apiUrlPrefix + "AbbrEER/GetAbbrEERAnalysisDs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             arostr:arostr,
             sp:sp,
             ep:ep,
@@ -255,6 +255,12 @@
     
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //改变复选框的Checked选项

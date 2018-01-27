@@ -55,7 +55,7 @@ var Rate=function () {
         var ep = $('#epDT').val();
         var url = sessionStorage.apiUrlPrefix + "RateEER/GetRateEERs";
         $.post(url,{
-            pId:'8817180401',
+            pId:sessionStorage.PointerID,
             sp:sp,
             ep:ep
         },function (res) {
@@ -152,6 +152,12 @@ var Rate=function () {
     
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
             //获取负荷数据

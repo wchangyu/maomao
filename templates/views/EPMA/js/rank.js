@@ -127,9 +127,9 @@
         else{
             jQuery('#rankBusy').showLoading();
             var pIds = [];
-            pIds.push('8817180401');
+            pIds.push(sessionStorage.PointerID);
             var pNts = [];
-            pNts.push('安利8#冷站');
+            pNts.push(sessionStorage.PointerName);
             var url = sessionStorage.apiUrlPrefix + "RankEER/GetRankEERAnalysisDs";
             $.post(url,{
                 pIds:pIds,
@@ -745,6 +745,12 @@
 
     return {
         init: function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
             //初始化时间控件(默认是日)
             initdatetimepicker();
             //切换日月年时间类型
