@@ -1082,8 +1082,6 @@ $(function(){
             callback: {
                 onClick: function(e,treeId,treeNode){
 
-                    console.log(e);
-
                     //取消全部打钩的节点
                     zTreeObj.checkNode(treeNode,!treeNode.checked,true);
                     //输出选中节点
@@ -1093,8 +1091,29 @@ $(function(){
                         _determineDeObj.name = selectedNode[i].name;
                         _determineDeObj.id = selectedNode[i].id;
                     }
+                },
+                beforeClick:function(){
+
+                    $('#deparmentTree').find('.curSelectedNode').removeClass('curSelectedNode');
 
                 },
+                onCheck:function(e,treeId,treeNode){
+
+                    $('#deparmentTree').find('.curSelectedNode').removeClass('curSelectedNode');
+
+                    $('#deparmentTree').find('.radio_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    //取消全部打钩的节点
+                    zTreeObj.checkNode(treeNode,true,true);
+                    //输出选中节点
+                    var selectedNode = zTreeObj.getCheckedNodes(true);
+                    for(var i=0;i<selectedNode.length;i++){
+                        _determineDeObj.pId = selectedNode[i].pId;
+                        _determineDeObj.name = selectedNode[i].name;
+                        _determineDeObj.id = selectedNode[i].id;
+                    }
+
+                }
             }
         };
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);

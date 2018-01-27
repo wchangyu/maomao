@@ -1119,6 +1119,17 @@ $(function(){
 
     })
 
+    //选择设备
+    $('#DEV-Modal .modal-footer').on('click','.btn-primary',function(){
+
+        detaileVue.sbSelect = $('#dev-table tbody').find('.tables-hover').children('.dNum').html();
+
+        detaileVue.sbMC = $('#dev-table tbody').find('.tables-hover').children().eq(1).html();
+
+        $('#DEV-Modal').modal('hide');
+
+    })
+
     /*-------------------------------------其他方法------------------------------------*/
 
     function conditionSelect(){

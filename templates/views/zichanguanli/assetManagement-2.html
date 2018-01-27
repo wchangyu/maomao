@@ -415,18 +415,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-
-<script src="../../../assets/local/configs/setNames.js"></script>
-<script src="../resource/js/js/assetManagement-2.js"></script>
-<script src="../resource/station/chooseStation.js"></script>
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-</script>
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
@@ -459,7 +447,25 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
 <!-- END JAVASCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../../../assets/local/configs/setNames.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/js/assetManagement-2.js"></script>
+<script src="../resource/station/chooseStation.js"></script>
 </body>
 <!-- END BODY -->
 </html>

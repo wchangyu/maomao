@@ -1,27 +1,25 @@
 $(function(){
-    /*-----------------------------------------全局变量------------------------------------------*/
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
 
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    /*-----------------------------------------------变量-------------------------------------------------------*/
+    //存放所有数据的数组
+    var _allDepartmentArr = [];
 
-    //验证必填项（非空）
-    Vue.validator('notempty', function (val) {
-        //获取内容的时候先将首尾空格删除掉；
-        val=val.replace(/^\s+|\s+$/g,'');
-        return /[^.\s]{1,500}$/.test(val)
-    });
-
-    //新增用户登记对象
+    //vue对象
     var department = new Vue({
         el:'#department',
         data:{
+            //部门编码
             num:'',
+            //部门名称
             name:'',
+            //上级部门
             higherdepartment:'',
+            //上级部门下拉框
             option:[],
-            order:''
+            //排序
+            order:'',
+            //备注
+            remarks:''
         },
         methods:{
             keyUp:function(){
@@ -32,209 +30,243 @@ $(function(){
                     }
                 }
                 if(existFlag){
+
                     $('.isExist').show();
+
                 }else{
+
                     $('.isExist').hide();
+
                 }
             }
         }
     })
+    /*-----------------------------------------------表格初始化--------------------------------------------------*/
 
-    //存放所有部门列表
-    var _allDepartmentArr = [];
+    var mainCol = [
 
-    /*----------------------------------------表格初始化-----------------------------------------*/
-    var table = $('#personal-table').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "iDisplayLength":50,//默认每页显示的条数
-        "pagingType":"full_numbers",
-        "bStateSave":true,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+        {
+            title:'部门名',
+            data:'departName'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs'
-            }
-        ],
-        "dom":'t<"F"lip>',
-        "columns": [
-            {
-                title:'部门名',
-                data:'departName'
-            },
-            {
-                title:'部门编码',
-                data:'departNum',
-                className:'departNum'
-            },
-            {
-                title:'上级部门',
-                data:'parentNum'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+        {
+            title:'部门编码',
+            data:'departNum',
+            className:'departNum'
+        },
+        {
+            title:'上级部门',
+            data:'parentNum'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
-            }
-        ]
-    });
-
-    table.buttons().container().appendTo($('.excelButton'),table.table().container());
-
-    //表格数据
-    conditionSelect();
-    /*----------------------------------------按钮事件-------------------------------------------*/
-    //查询按钮
-    $('#selected').click(function(){
-        conditionSelect();
-    })
-
-    //重置
-    $('.resites').click(function(){
-        $('#bmmc').val('');
-    })
-
-    //新增按钮
-    $('.creatButton').click(function(){
-        //添加类名
-        $('#myModal').find('.btn-primary').addClass('dengji').removeClass('bianji').removeClass('shanchu');
-        //登记模态框出现
-        moTaiKuang($('#myModal'),'新增');
-        //初始化登记表
-        department.num = '';
-        department.name = '';
-        department.higherdepartment = department.option[0].value;
-        department.order = '';
-        var disableArea = $('#department').find('.input-blockeds');
-        disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
-        disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
-        disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
-    });
-
-    //操作确定按钮
-    $('#myModal')
-        //登记确定按钮功能
-        .on('click','.dengji',function(){
-            //发送请求
-            editOrView('RBAC/rbacAddDepart','登记成功!','登记失败!');
-        })
-        //编辑确定按钮功能
-        .on('click','.bianji',function(){
-            //发送请求
-            editOrView('RBAC/rbacUptDepart','编辑成功!','编辑失败!');
-        })
-        //删除确定按钮功能
-        .on('click','.shanchu',function(){
-            //发送请求
-            editOrView('RBAC/rbacDelDepart','删除成功!','删除失败!','flag');
-        });
-
-    //表格操作
-    $('#personal-table tbody')
-        //查看
-        .on('click','.option-see',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'查看','flag');
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
-            //绑定数据
-            bindingData($(this),'flag');
-        })
-        //编辑
-        .on('click','.option-edit',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'编辑');
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
-            //绑定数据
-            bindingData($(this));
-            $('.bmbm').attr('disabled',true).addClass('disabled-block');
-        })
-        //删除
-        .on('click','.option-delete',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'确定要删除吗？');
-            $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
-            //绑定数据
-            bindingData($(this),'flag');
-        });
-
-
-    /*---------------------------------------其他方法--------------------------------------------*/
-    //模态框自适应
-    function moTaiKuang(who,title,flag){
-        who.modal({
-            show:false,
-            backdrop:'static'
-        })
-        who.modal('show');
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        who.find('.modal-title').html(title);
-        if(flag){
-            who.find('.btn-primary').hide();
-        }else{
-            who.find('.btn-primary').show();
         }
-    };
 
-    //修改提示信息
-    function tipInfo(who,title,meg,flag){
-        moTaiKuang(who,title,flag);
-        who.find('.modal-body').html(meg);
-    }
+    ]
 
-    //获取条件查询flagy用来标识是所有列表还是下拉框
+    var excelCol = [0,1,2]
+
+    _tableInit($('#personal-table'),mainCol,1,true,'','','',excelCol);
+
+    conditionSelect();
+
+    /*-------------------------------------------------按钮事件--------------------------------------------------*/
+
+    //【查询】
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
+
+    //【重置】
+    $('.resites').click(function(){
+
+        $('#bmmc').val('')
+
+    })
+
+    //【新增】
+    $('.creatButton').click(function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
+
+        //初始化
+        detailInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
+
+        //是否可操作
+        abledOption();
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('bianji').removeClass('shanchu').addClass('dengji');
+
+        //loadding消失
+        $('#theLoading').modal('hide');
+
+    })
+
+    //表格【查看】
+    $('#personal-table').on('click','.option-see',function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
+
+        //初始化
+        detailInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '查看', true, '' ,'', '');
+
+        //绑定值
+        bindingData($(this));
+
+        //是否可操作
+        disabledOption();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
+
+    })
+
+    //表格【编辑】
+    $('#personal-table').on('click','.option-edit',function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
+
+        //初始化
+        detailInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
+
+        //绑定值
+        bindingData($(this));
+
+        //是否可操作
+        abledOption();
+
+        //部门编码不可操作
+        $('#department').find('.bmbm').attr('disabled',true).addClass('disabled-block');
+
+        //loadding消失
+        $('#theLoading').modal('hide');
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('dengji').removeClass('shanchu').addClass('bianji');
+
+    })
+
+    //表格【删除】
+    $('#personal-table').on('click','.option-delete',function(){
+
+        //loadding显示
+        $('#theLoading').modal('show');
+
+        //初始化
+        detailInit();
+
+        //模态框
+        _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除');
+
+        //绑定值
+        bindingData($(this));
+
+        //是否可操作
+        disabledOption();
+
+        //loadding消失
+        $('#theLoading').modal('hide');
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('dengji').removeClass('bianji').addClass('shanchu');
+
+    })
+
+    //登记【确定按钮】
+    $('#myModal').on('click','.dengji',function(){
+
+        buttonOption('RBAC/rbacAddDepart',true,'新增成功!','新增失败！');
+
+    })
+
+    //编辑【确定按钮】
+    $('#myModal').on('click','.bianji',function(){
+
+        buttonOption('RBAC/rbacUptDepart',true,'编辑成功!','编辑失败！');
+
+    })
+
+    //删除【确定按钮】
+    $('#myModal').on('click','.shanchu',function(){
+
+        buttonOption('RBAC/rbacDelDepart',false,'删除成功!','删除失败！');
+
+    })
+    /*-------------------------------------------------其他方法--------------------------------------------------*/
+
+    //条件查询
     function conditionSelect(){
         //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
         var prm = {
+            //部门名称
             "departName":$('#bmmc').val(),
-            "userID":_userIdName
+            //用户id
+            "userID":_userIdNum
         }
         $.ajax({
             type:'post',
             url: _urls + 'RBAC/rbacGetDeparts',
             data:prm,
-            success:function(result){
-                _allDepartmentArr = [];
-                for(var i=0;i<result.length;i++){
-                    _allDepartmentArr.push(result[i]);
+            timeout:_theTimes,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+                if($('.modal-backdrop').length > 0){
+
+                    $('div').remove('.modal-backdrop');
+
+                    $('#theLoading').hide();
                 }
-                datasTable($('#personal-table'),result);
+
+            },
+            success:function(result){
+
+                _allDepartmentArr = [];
+
+                for(var i=0;i<result.length;i++){
+
+                    _allDepartmentArr.push(result[i]);
+
+                }
+
+                _datasTable($('#personal-table'),result);
+
                 department.option = [];
+
                 var obj = {
                     text:'请选择',
                     value:''
                 }
                 department.option.push(obj);
+
                 for(var i=0;i<result.length;i++){
                     if(result[i].parentNum == ''){
                         var obj = {};
@@ -244,98 +276,190 @@ $(function(){
                     }
                 }
             },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //清除loadding
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+                }
+
             }
         })
     }
 
-    //表格赋值
-    function datasTable(tableId,arr){
-        var table = tableId.dataTable();
-        if(arr.length == 0){
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
-        }
-    }
+    //初始化
+    function detailInit(){
 
-    //编辑、登记方法
-    function editOrView(url,successMeg,errorMeg,flag){
-        //判断必填项是否为空
-        if( department.name == '' ){
-            tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
-        }else{
-            if( $('.isExist')[0].style.display == 'none' ){
-                //判断是编辑、登记、还是删除
-                if(flag){
-                    var prm = {
-                        "departNum":department.num,
-                        "departName":department.name,
-                        "userID":_userIdName
-                    };
-                }else{
-                    var prm = {
-                        "departNum":department.num,
-                        "departName":department.name,
-                        "parentNum":department.higherdepartment,
-                        "sort":department.order,
-                        "userID":_userIdName
-                    };
-                }
-                //发送数据
-                $.ajax({
-                    type:'post',
-                    url:_urls + url,
-                    data:prm,
-                    success:function(result){
-                        if(result == 99){
-                            //提示登记成功
-                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                            $('#myModal').modal('hide');
-                        }else if(result == 3){
-                            //提示登记失败
-                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
-                        }
-                        conditionSelect();
-                    },
-                    error:function(jqXHR, textStatus, errorThrown){
-                        console.log(jqXHR.responseText);
-                    }
-                })
-            }else{
-                tipInfo($('#myModal1'),'提示','部门编码已存在！','flag');
-            }
-        }
+        //部门编码
+        department.num = '';
+        //部门名称
+        department.name = '';
+        //上级部门
+        department.higherdepartment = '';
+        //排序
+        department.order = '';
+        //备注
+        department.remarks = '';
 
     }
 
-    //查看、删除绑定数据
-    function bindingData(el,flag){
+    //可操作
+    function abledOption(){
+
+        //input不可操作
+        $('#department').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        //select不可操作
+        $('#department').find('select').attr('disabled',false).removeClass('disabled-block');
+
+        //textarea不可操作
+        $('#department').find('textarea').attr('disabled',false).removeClass('disabled-block');
+
+    }
+
+    //不可操作
+    function disabledOption(){
+
+        //input不可操作
+        $('#department').find('input').attr('disabled',true).addClass('disabled-block');
+
+        //select不可操作
+        $('#department').find('select').attr('disabled',true).addClass('disabled-block');
+
+        //textarea不可操作
+        $('#department').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+    }
+
+    //绑定数据
+    function bindingData(el){
+
         var thisBM = el.parents('tr').children('.departNum').html();
+
         for(var i=0;i<_allDepartmentArr.length;i++){
+
             if( _allDepartmentArr[i].departNum == thisBM ){
+                //部门编码
                 department.num = _allDepartmentArr[i].departNum;
+                //部门名称
                 department.name = _allDepartmentArr[i].departName;
+                //上级部门
                 department.higherdepartment = _allDepartmentArr[i].parentNum;
+                //排序
                 department.order = _allDepartmentArr[i].sort
             }
         }
-        //查看不可操作
-        var disableArea = $('#department').find('.input-blockeds');
-        if(flag){
-            disableArea.children('input').attr('disabled',true).addClass('disabled-block');
-            disableArea.children('select').attr('disabled',true).addClass('disabled-block');
-            disableArea.children('textarea').attr('disabled',true).addClass('disabled-block');
-        }else{
-            disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
-            disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
-            disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
-        }
+
     }
 
+    //登记编辑功能(flag为真的时候是编辑和登记，假是删除)
+    function buttonOption(url,flag,successMeg,errorMeg){
+
+        //验证
+        if(department.name == ''){
+
+            _moTaiKuang($('#myModal2'),'提示',true,'istap','请填写红色必填项！','');
+
+        }else{
+
+            if(flag){
+
+                var prm = {
+                    //部门编码
+                    "departNum":department.num,
+                    //部门名称
+                    "departName":department.name,
+                    //上级部门
+                    "parentNum":department.higherdepartment,
+                    //排序
+                    "sort":department.order,
+                    //用户id
+                    "userID":_userIdNum
+
+                }
+
+            }else{
+
+                var prm = {
+                    //部门编码
+                    "departNum":department.num,
+                    //用户id
+                    "userID":_userIdNum
+                }
+
+            }
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + url,
+                data:prm,
+                timeout:_theTimes,
+                beforeSend: function () {
+                    $('#theLoading').modal('hide');
+
+                    $('#theLoading').modal('show');
+                },
+
+                complete: function () {
+
+                    $('#theLoading').modal('hide');
+
+                    //if($('.modal-backdrop').length > 0){
+                    //
+                    //    $('div').remove('.modal-backdrop');
+                    //
+                    //    $('#theLoading').hide();
+                    //}
+
+                },
+                success:function(result){
+
+                    if(result == 99){
+
+                        conditionSelect();
+
+                        $('#myModal').modal('hide');
+
+                        _moTaiKuang($('#myModal2'),'提示',true,'istap',successMeg,'');
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'),'提示',true,'istap',errorMeg,'');
+
+                    }
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    //清除loadding
+                    $('#theLoading').modal('hide');
+
+                    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                        _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+                    }else{
+
+                        _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+                    }
+
+                }
+
+            })
+
+
+        }
+
+    }
 
 })

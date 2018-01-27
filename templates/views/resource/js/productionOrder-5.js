@@ -337,6 +337,8 @@ $(function(){
 
                 }else{
 
+                    _pjIsSuccess = false;
+
                  _moTaiKuang($('#myModal2'),'提示',true,'istap','评价失败!','');
 
                 }
@@ -687,6 +689,7 @@ $(function(){
 
     //状态转换
     function getGongDan(){
+
         var gdInfo = {
             //工单号
             'gdCode':_gdCode,
@@ -705,6 +708,7 @@ $(function(){
             data:gdInfo,
             timeout:_theTimes,
             success:function(result){
+
                 if(result == 99){
 
                     _gdIsSuccess = true;
@@ -736,11 +740,11 @@ $(function(){
 
                 }
 
-                _moTaiKuang($('#myModal2'),'提示','istap',str,'');
+                _moTaiKuang($('#myModal2'),'提示','flag','istap',str,'');
 
                 if( _pjIsSuccess && _gdIsSuccess ){
 
-                    $('#myModal1').hide();
+                    $('#myModal1').modal('hide');
 
                     conditionSelect();
 

@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.portlet-title{
+    width: 100%;
+}
+
+.circle-ellipse{
+    cursor:pointer;
+    background-color:#93cede;
+    padding:10px;
+    margin:0 auto;
+    color:#fff;
+    vertical-align:middle;
+    border-radius:10px;
+    border-radius:50% !important;
+}
+
+.block-rectangle{
+    cursor:pointer;
+    background-color:#edebeb;
+    height:30px;
+    line-height:30px;
+    margin-right:50px;
+    padding-left:20px;
+    padding-right:20px;
+}
