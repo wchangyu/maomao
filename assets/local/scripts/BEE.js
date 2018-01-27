@@ -163,7 +163,7 @@ var BEE = (function(){
     var setHeaderInfo = function(){
         if(sessionStorage.pageTitle) { document.title = sessionStorage.pageTitle; }
         var username = sessionStorage.realUserName || "未登录";
-        $('.username').html(username.toUpperCase());
+        $('.username').html(username);
         var systemName = sessionStorage.systemName;
 
         //获取是否追加企业名称

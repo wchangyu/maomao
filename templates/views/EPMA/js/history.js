@@ -137,8 +137,8 @@
     var firstzNode = function (nodes, zTree) {
         var cIds = "";
         if (nodes.length === 0) {
-            return;
             jQuery('#historyBusy').hideLoading();
+            return;
         }
         if (nodes.length > 0) {
             jQuery('#historyBusy').hideLoading();
@@ -337,6 +337,7 @@
             sessionStorage.EprName = po.eprName;
             //初始化时间控件
             initdatetimepicker();
+            //var sp = Format(convertDate(sessionStorage.alaInsDataTime),'yyyy-MM-dd');
             //打开TreeView选择框
             openTrvBox();
             //默认选中节点
