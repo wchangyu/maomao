@@ -393,6 +393,10 @@ $(function(){
     //条件数据
     function conditionSelect(){
 
+        //更新时间
+        _initStart = moment().subtract(6,'months').format('YYYY/MM/DD');
+        _initEnd = moment().add(1,'d').format('YYYY/MM/DD');
+
         var wxKeshiNum =  _wxBanNum;
 
         if( !_wxBanNum){

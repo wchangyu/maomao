@@ -60,25 +60,41 @@
             <div style="height:145px;"></div>
             <!--上方左侧整体数据-->
             <div class="left-data-container">
+
                 <div class="left-specific-data-container">
+                    <span class="left-specific-data left-specific-data1">8</span><br/>
                     <span class="left-specific-data-title">接入客站</span>
-                    <span class="left-specific-data left-specific-data1">8</span>
+
                 </div>
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">设备报警</span>
-                    <span class="left-specific-data left-specific-data2">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">设备报警</span>-->
+                <!--<span class="left-specific-data left-specific-data2">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">能耗报警</span>
-                    <span class="left-specific-data left-specific-data3">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">能耗报警</span>-->
+                <!--<span class="left-specific-data left-specific-data3">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">运营工单</span>
-                    <span class="left-specific-data left-specific-data4">6</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">运营工单</span>-->
+                <!--<span class="left-specific-data left-specific-data4">6</span>-->
+                <!--</div>-->
+
+            </div>
+
+            <!--右侧图片及统计-->
+            <div class="right-picture-data">
+
+                <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
+                </p>
+
+                <p class="right-picture-statistics">接入系统：<span>10</span>个</p>
+
+                <p class="right-picture-statistics">接入设备：<span>1000</span>台</p>
+
+                <p class="right-picture-statistics">检测点位：<span>18000</span>点</p>
 
             </div>
         </div>
@@ -89,11 +105,11 @@
             <!--上方选项卡-->
             <div class="left-tab-container">
 
-                <!--左侧选项卡-->
-                <div style="float:left">
-                    <span class="left-tab left-tab1 left-tab-choose0">设备报警</span>
-                    <span class="left-tab left-tab2">能耗报警</span>
-                    <span class="left-tab left-tab3">运维工单</span>
+                <!--左侧展示内容-->
+                <div style="float:left" class="left-tab-data-container">
+                    <span class="left-tab-data left-tab-data1">设备报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data2">能耗报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data3">运维工单 <font>2</font> <b></b></span>
                 </div>
 
                 <div style="float:right">
@@ -101,16 +117,13 @@
                     <span class="right-tab ">月</span>
                     <span class="right-tab ">年</span>
                 </div>
-
             </div>
 
             <!--下方柱状图-->
             <div class="left-bottom-content" id="echarts-left-bottom">
 
             </div>
-
         </div>
-
     </div>
 
     <!--右侧主体内容-->
@@ -305,7 +318,7 @@
                     </div>
 
                     <div class="fenleinenghao fenleinenghao1" style="margin-right:0 !important;">
-                        <p class="title">总气耗(t)</p>
+                        <p class="title">总汽耗(t)</p>
                         <p class="data"></p>
                         <!--同比-->
                         <div class="child child1 equal">

@@ -44,17 +44,17 @@
         "arg": "1,3101007489",
         "iconclass": ""
       },
-      "测试一下1": {
+      "送排风1": {
         "type": "0",
-        "content": "测试一下1",
+        "content": "送排风1",
         "uri": "../njn-dapingzhanshi/exhaustAir.html",
         "uid": "",
         "arg": "2,24",
         "iconclass": ""
       },
-      "测试一下2": {
+      "空调机组22": {
         "type": "0",
-        "content": "测试一下2",
+        "content": "空调机组22",
         "uri": "../njn-dapingzhanshi/airConditioner.html",
         "uid": "",
         "arg": "2,19",
@@ -73,7 +73,31 @@
         "content": "冷热源3",
         "uri": "../njn-dapingzhanshi/coldHeatSource.html",
         "uid": "",
-        "arg": "0,16",
+        "arg": "2,16",
+        "iconclass": ""
+      },
+      "动环3": {
+        "type": "0",
+        "content": "动环3",
+        "uri": "../njn-dapingzhanshi/sealHead.html",
+        "uid": "",
+        "arg": "2,27",
+        "iconclass": ""
+      },
+      "站房照明3": {
+        "type": "0",
+        "content": "站房照明3",
+        "uri": "../njn-dapingzhanshi/stationBuilding.html",
+        "uid": "",
+        "arg": "0,20",
+        "iconclass": ""
+      },
+      "给排水3": {
+        "type": "0",
+        "content": "给排水3",
+        "uri": "../njn-dapingzhanshi/supDraWater.html",
+        "uid": "",
+        "arg": "2,23",
         "iconclass": ""
       },
       "变配电系统": {

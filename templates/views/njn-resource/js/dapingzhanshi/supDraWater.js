@@ -1,6 +1,7 @@
 /**
- * Created by admin on 2018/1/17.
+ * Created by admin on 2018/1/27.
  */
+
 $(function(){
 
     //绘制页面右侧的table
@@ -111,46 +112,6 @@ var monitorAreaArr = [
     {
         "areaName":"-9.6m",
         "areaId":"2"
-    },
-    {
-        "areaName":"0.0m",
-        "areaId":"3"
-    },
-    {
-        "areaName":"12.4m",
-        "areaId":"4"
-    },
-    {
-        "areaName":"17.1m",
-        "areaId":"15"
-    },
-    {
-        "areaName":"19.1m",
-        "areaId":"6"
-    },
-    {
-        "areaName":"22.4m",
-        "areaId":"7"
-    },
-    {
-        "areaName":"28.4m",
-        "areaId":"8"
-    },
-    {
-        "areaName":"东北角配楼1层",
-        "areaId":"9"
-    },
-    {
-        "areaName":"东北角配楼2层",
-        "areaId":"10"
-    },
-    {
-        "areaName":"西南角配楼1层",
-        "areaId":"11"
-    },
-    {
-        "areaName":"西南角配楼2层",
-        "areaId":"12"
     }
 ];
 //把区域信息放入到流程图页面中
@@ -162,8 +123,8 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 送排风为3
-    var devTypeID = 3;
+    //定义当前的设备类型 给排水为4
+    var devTypeID = 4;
 
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondLightWait', devTypeID, areaID);
@@ -307,57 +268,24 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'压差开关',
+            title:'高液位报警',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4121'){
+                    if(o.cTypeID == '12'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            return "报警"
                         }else{
-                            return "OFF";
+                            return "正常";
                         }
 
 
                     }
                 });
-
-                return '';
-
-            }
-        },
-        {
-            title:'启停控制',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4123'){
-
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'安全联动',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
 
                 return '';
 

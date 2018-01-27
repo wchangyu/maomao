@@ -57,25 +57,41 @@
             <div style="height:145px;"></div>
             <!--上方左侧整体数据-->
             <div class="left-data-container">
+
                 <div class="left-specific-data-container">
+                    <span class="left-specific-data left-specific-data1">8</span><br/>
                     <span class="left-specific-data-title">接入客站</span>
-                    <span class="left-specific-data left-specific-data1">8</span>
+
                 </div>
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">设备报警</span>
-                    <span class="left-specific-data left-specific-data2">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                    <!--<span class="left-specific-data-title">设备报警</span>-->
+                    <!--<span class="left-specific-data left-specific-data2">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">能耗报警</span>
-                    <span class="left-specific-data left-specific-data3">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                    <!--<span class="left-specific-data-title">能耗报警</span>-->
+                    <!--<span class="left-specific-data left-specific-data3">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">运营工单</span>
-                    <span class="left-specific-data left-specific-data4">6</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                    <!--<span class="left-specific-data-title">运营工单</span>-->
+                    <!--<span class="left-specific-data left-specific-data4">6</span>-->
+                <!--</div>-->
+
+            </div>
+
+            <!--右侧图片及统计-->
+            <div class="right-picture-data">
+
+                <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
+                </p>
+
+                <p class="right-picture-statistics">接入系统：<span></span>个</p>
+
+                <p class="right-picture-statistics">接入设备：<span></span>台</p>
+
+                <p class="right-picture-statistics">检测点位：<span></span>点</p>
 
             </div>
         </div>
@@ -86,11 +102,11 @@
             <!--上方选项卡-->
             <div class="left-tab-container">
 
-                <!--左侧选项卡-->
-                <div style="float:left">
-                    <span class="left-tab left-tab1 left-tab-choose0">设备报警</span>
-                    <span class="left-tab left-tab2">能耗报警</span>
-                    <span class="left-tab left-tab3">运维工单</span>
+                <!--左侧展示内容-->
+                <div style="float:left" class="left-tab-data-container">
+                    <span class="left-tab-data left-tab-data1">设备报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data2">能耗报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data3">运维工单 <font>2</font> <b></b></span>
                 </div>
 
                 <div style="float:right">
@@ -98,7 +114,6 @@
                     <span class="right-tab ">月</span>
                     <span class="right-tab ">年</span>
                 </div>
-
             </div>
 
             <!--下方柱状图-->
@@ -112,22 +127,40 @@
     <div class="inner-right-container">
 
         <!--右侧上方时间温度等信息-->
+        <!--<div class="right-top-message">-->
+            <!--&lt;!&ndash;时间&ndash;&gt;-->
+            <!--<div class="right-top-message-container">-->
+                <!--<p class="top-message">15:34:50</p>-->
+                <!--<p class="bottom-message">2017-12-19</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;室外温度&ndash;&gt;-->
+            <!--<div class="right-top-message-container">-->
+                <!--<p class="top-message">26℃</p>-->
+                <!--<p class="bottom-message">室外温度</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;相对湿度&ndash;&gt;-->
+            <!--<div class="right-top-message-container">-->
+                <!--<p class="top-message">56%</p>-->
+                <!--<p class="bottom-message">相对湿度</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
         <div class="right-top-message">
             <!--时间-->
-            <div class="right-top-message-container">
-                <p class="top-message">15:34:50</p>
+
+
                 <p class="bottom-message">2017-12-19</p>
-            </div>
+
+                <p class="top-message">15:34:50</p>
+
             <!--室外温度-->
-            <div class="right-top-message-container">
+
                 <p class="top-message">26℃</p>
-                <p class="bottom-message">室外温度</p>
-            </div>
+
             <!--相对湿度-->
-            <div class="right-top-message-container">
+
                 <p class="top-message">56%</p>
-                <p class="bottom-message">相对湿度</p>
-            </div>
+
         </div>
 
         <!--右侧下方主体内容-->
@@ -141,12 +174,20 @@
                 <!--冷热源-->
                 <div class="right-bottom-equipment-container">
 
-                    <h4 class="equipment-title">冷热源</h4>
+                    <h4 class="equipment-title"><a href="coldHeatSource.html">冷热源</a></h4>
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
                         <!--左侧电量-->
                         <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
 
                             <!--echart容器-->
                             <div class="bottom-equipment-chart" id="equipment-chart-electricity">
@@ -164,6 +205,13 @@
                         <!--右侧蒸汽-->
                         <div class="bottom-equipment-chart-container">
 
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
                             <!--echart容器-->
                             <div class="bottom-equipment-chart" id="equipment-chart-electricity1">
 
@@ -172,8 +220,8 @@
                             <!--下方统计数据-->
                             <div class="bottom-equipment-chart-data">
 
-                                <p class="chart-data">2560</p>
-                                <p class="chart-power1">报警点</p>
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span></p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
                             </div>
                         </div>
 
@@ -182,7 +230,531 @@
 
                 </div>
 
+                <!--空调机组-->
+                <div class="right-bottom-equipment-container">
+
+                    <h4 class="equipment-title conditioner-title"><a href="airConditioner.html">空调机组</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">148</span><br>
+                                <span class="">60</span><br>
+                                <span class="">20</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-conditioner">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+                        </div>
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-conditioner1">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--电梯系统-->
+                <div class="right-bottom-equipment-container">
+
+                    <h4 class="equipment-title elevator-title"><a href="elevator.html">电梯系统</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">148</span><br>
+                                <span class="">60</span><br>
+                                <span class="">20</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-elevator">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">148</span><br>
+                                <span class="">60</span><br>
+                                <span class="">20</span>
+                            </div>
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-elevator1">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--动环系统-->
+                <div class="right-bottom-equipment-container" style="margin-right:0">
+
+                    <h4 class="equipment-title rotating-title"><a href="sealHead.html">动换系统</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">148</span><br>
+                                <span class="">60</span><br>
+                                <span class="">20</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-rotating">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+                        </div>
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-rotating1">
+
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--站房照明-->
+                <div class="right-bottom-equipment-container right-bottom-equipment-container1">
+
+                    <h4 class="equipment-title station-title"><a href="stationBuilding.html">站房照明</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-station">
+
+                            </div>
+
+                        </div>
+
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container bottom-equipment-chart-container1">
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--站台照明-->
+                <div class="right-bottom-equipment-container right-bottom-equipment-container1">
+
+                    <h4 class="equipment-title platform-title"><a href="platform.html">站台照明</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-platform">
+
+                            </div>
+
+                        </div>
+
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container bottom-equipment-chart-container1">
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--送排风-->
+                <div class="right-bottom-equipment-container right-bottom-equipment-container1">
+
+                    <h4 class="equipment-title wind-title"><a href="exhaustAir.html">送排风</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-wind">
+
+                            </div>
+
+                        </div>
+
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container bottom-equipment-chart-container1">
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
+                <!--给排水-->
+                <div class="right-bottom-equipment-container right-bottom-equipment-container1" style="margin-right:0">
+
+                    <h4 class="equipment-title water-title"><a href="supDraWater.html">给排水</a></h4>
+                    <!--下方echarts图-->
+                    <div class="right-bottom-equipment-content">
+
+                        <!--左侧电量-->
+                        <div class="bottom-equipment-chart-container">
+
+                            <!--数据-->
+                            <div class="bottom-content-data">
+
+                                <span class="">600kw</span><br>
+                                <span class="">171kw</span>
+                            </div>
+
+
+                            <!--echart容器-->
+                            <div class="bottom-equipment-chart" id="equipment-chart-water">
+
+                            </div>
+
+                        </div>
+
+
+                        <!--右侧蒸汽-->
+                        <div class="bottom-equipment-chart-container bottom-equipment-chart-container1">
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+                                <p class="chart-data">2560<span>kw</span></p>
+                                <p class="chart-power">电功率</p>
+                            </div>
+
+                            <!--下方统计数据-->
+                            <div class="bottom-equipment-chart-data">
+
+
+                                <p class="chart-data"><font class="cur-data">2560</font><span class="total-data">/1000</span>
+                                </p>
+                                <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+
                 <div class="clearfix"></div>
+            </div>
+
+            <!--节能减排-->
+            <div class="right-bottom-centent right-bottom-conservation">
+
+                <h2 class="right-bottom-centent-title">节能减排</h2>
+
+                <!--累计节电量-->
+                <div class="right-bottom-centent-data">
+
+                    <p class="top-title">累计节电量</p>
+                    <p class="bottom-data"><font>5400</font><span> kwh</span></p>
+
+                </div>
+
+                <!--累计节水量-->
+                <div class="right-bottom-centent-data right-bottom-centent-data1">
+
+                    <p class="top-title">累计节水量</p>
+                    <p class="bottom-data bottom-data1"><font>1000</font><span> t</span></p>
+
+                </div>
+
+                <!--累计节气量-->
+                <div class="right-bottom-centent-data right-bottom-centent-data2">
+
+                    <p class="top-title">累计节气量</p>
+                    <p class="bottom-data bottom-data2"><font>500</font><span> t</span></p>
+
+                </div>
+
+                <!--累计减排量-->
+                <div class="right-bottom-centent-data right-bottom-centent-data3">
+
+                    <p class="top-title">累计减排量</p>
+                    <p class="bottom-data bottom-data3"><font>1000</font><span> t</span></p>
+
+                </div>
+
+                <!--安全联动-->
+                <h2 class="right-bottom-centent-title">安全联动</h2>
+
+                <div class="right-bottom-safe">
+                    <p>累计联动次数<span>16</span> 次</p>
+                    <p>保障安全运行<span>4000</span> h</p>
+                </div>
+
+            </div>
+
+            <!--能源管理-->
+            <div class="right-bottom-centent right-bottom-energyment">
+
+                <h2 class="right-bottom-centent-title"><a href="energyManagement.html">能源管理</a></h2>
+
+                <!--上方选项卡-->
+                <div class="left-tab-container">
+
+                    <!--左侧选项卡-->
+                    <div style="float:left">
+                        <span class="left-tab left-tab1 left-tab-choose0" style="padding-left:40px;">电</span>
+                        <span class="left-tab left-tab2" style="padding-left:50px;">水</span>
+                        <span class="left-tab left-tab3" style="padding-left:50px;">气</span>
+                    </div>
+
+                    <div style="float:right">
+                        <span class="right-tab right-tab-choose">日</span>
+                        <span class="right-tab ">月</span>
+                        <span class="right-tab ">年</span>
+                    </div>
+
+                </div>
+
+                <!--下方柱状图-->
+                <div class="left-bottom-content" id="echarts-left-bottom1">
+
+                </div>
+
+            </div>
+
+            <!--用电分项-->
+            <div class="right-bottom-centent right-bottom-energyment right-bottom-operation">
+
+                <h2 class="right-bottom-centent-title">用电分项</h2>
+
+                <!--下方环形图-->
+                <div class="right-bottom-content-chart" >
+                    <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--运维联动-->
+            <div class="right-bottom-centent right-bottom-energyment right-bottom-operation" style="margin-right:0">
+
+                <h2 class="right-bottom-centent-title">运维联动</h2>
+
+                <!--下方环形图-->
+                <div class="right-bottom-content-chart" style="border-radius: 15px 0 0 15px !important;">
+
+                    <div id="operation-chart-response" class="right-bottom-content-chart-content">
+
+                    </div>
+
+                    <!--头部小框-->
+                    <div class="chart-name-case">
+
+                        <span>工单响应</span>
+
+                    </div>
+
+                </div>
+
+                <div class="right-bottom-content-chart" style="border-radius:0  15px  15px 0!important;">
+
+                    <div id="operation-chart-response1" class="right-bottom-content-chart-content">
+
+                    </div>
+
+                    <!--头部小框-->
+                    <div class="chart-name-case">
+
+                        <span>工单分布</span>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

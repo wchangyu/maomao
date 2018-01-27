@@ -44,8 +44,8 @@ var userMonitor = (function(){
     var _imgProcWidth;            //存放背景图宽度
     var _oldSpanDefArr = [];         //存放页面中构成流程图的元素
 
-    var jumpPageWidth = 1120/2;  //存放跳转页面流程图的宽度
-    var jumpPageHeight = 586/2;  //存放跳转页面流程图的高度
+    var jumpPageWidth = 1120;  //存放跳转页面流程图的宽度
+    var jumpPageHeight = 586;  //存放跳转页面流程图的高度
 
     $('.content-main-left').width(0);
 
@@ -254,6 +254,17 @@ var userMonitor = (function(){
             if(bindKeyId){
                 getAllProcsByBind(_configArg2,bindKeyId);
             }
+        }else if(_configArg1 == 4){
+
+            var bindKeyId;
+            if(_configArg2 == '2'){       //bindType=2时候代表按照楼宇获取
+                if(sessionStorage.curPointerId){
+                    bindKeyId = sessionStorage.curPointerId;
+                }
+            }
+            if(bindKeyId){
+                getAllProcsByBind(_configArg2,bindKeyId);
+            }
         }
     };
 
@@ -319,8 +330,10 @@ var userMonitor = (function(){
                     pubProcTypeArr.push(typeNum)
                 }
             });
+
             //当arg参数为2（全部）时，对流程图根据系统类型进行筛选
             if(_configArg1==2){
+
                 $(_allProcs).each(function(i,o){
                     if(o.pubProcType != _configArg2){
                         _allProcs.remove(o);
@@ -340,10 +353,19 @@ var userMonitor = (function(){
     var setProcList = function(procs,selectedProc){
         //console.log(procs);
 
-        var $ul = $("#monitor-menu-container");
+        if(sessionStorage.monitorArea){
+            //大屏中绘制上方流程图选项卡
+            setProcList1(procs);
 
-        $("#monitor-menu-container span").remove();
+            return false;
+        }
+
+        var $ul = $("#monitor-menu-container0");
+
+        $("#monitor-menu-container0 span").remove();
+
         if(!procs || procs.length==0) return;
+
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
@@ -391,11 +413,122 @@ var userMonitor = (function(){
 
             //当前为跳转页面，直接获取页面url传递过来的监控方案
             if(procId){
-                //initializeProcSubs(procId);//选中默认的监控
+                initializeProcSubs(procId);//选中默认的监控
 
-                initializeProcSubs('3101007435');//选中默认的监控
+                //initializeProcSubs('3101007435');//选中默认的监控
             }else{
                 initializeProcSubs(curProc.procID);//选中默认的监控
+            }
+
+            selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+        }
+
+        $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
+    };
+
+    //绘制大屏中的上方流程图菜单
+    var setProcList1 = function(procs,selectedProc){
+        //console.log(procs);
+
+        //从session中获取本页显示的区域信息
+        var areaArr = JSON.parse(sessionStorage.monitorArea);
+
+        console.log(areaArr);
+
+        var $ul = $("#monitor-menu-container");
+
+        $("#monitor-menu-container span").remove();
+
+        if(!procs || procs.length==0) return;
+
+        var curProc = selectedProc || undefined;
+
+        var startNum = 0;
+        if(_isViewAllProcs){
+
+            $(areaArr).each(function(k,o){
+                //获取区域名称
+                var areaName = o.areaName;
+
+                //获取区域ID
+                var areaID = o.areaId;
+
+                for(var i=0;i<procs.length;i++){
+
+                        if(areaID == procs[i].bindKeyId && procs[i].bindType == 6){
+
+                            startNum ++;
+
+                            $ul.append($("<span>",{text:areaName,class:'right-bottom-tab ','data-procid':procs[i].procID,'data-district':areaID}).on("click",(function(procId){
+                                return function() {initializeProcSubs(procId);selectLi($(this));};
+                            })(procs[i].procID)));
+
+
+                            if(startNum == 1){
+
+                                curProc = curProc || procs[i];
+                            }
+
+                        }
+                }
+            });
+
+
+        }else {
+            if(_userProcIds){
+                var isProcFind = false;
+                $(areaArr).each(function(k,o){
+                    //获取区域名称
+                    var areaName = o.areaName;
+
+                    //获取区域ID
+                    var areaID = o.areaId;
+
+                    for(var i=0;i<procs.length;i++){
+
+                        if(areaID == procs[i].bindKeyId && procs[i].bindType == 6){
+
+                            startNum ++;
+
+                            var obj = procs[i];
+
+                            if(_userProcIds.indexOf(obj.procID)>=0){
+
+                                if(!isProcFind){
+                                    curProc = curProc || obj;
+                                    isProcFind = true;
+                                }
+
+                            }
+                            $ul.append($("<span>",{text:areaName,class:'right-bottom-tab ','data-procid':procs[i].procID}).on("click",(function(procId){
+                                return function() {initializeProcSubs(procId);selectLi($(this));};
+                            })(procs[i].procID)));
+
+                            if(k == 0){
+                                curProc = curProc || procs[i];
+                            }
+
+                        }
+                    }
+                });
+            }
+        }
+
+
+        if(curProc){            //可能存在看不到任何监控方案的情况，没有权限
+
+            //console.log(curProc);
+            var procId = window.location.search.split('ckId=')[1];
+
+            //当前为跳转页面，直接获取页面url传递过来的监控方案
+            if(procId){
+                initializeProcSubs(procId);//选中默认的监控
+
+                //initializeProcSubs('3101007435');//选中默认的监控
+            }else{
+                initializeProcSubs(curProc.procID);//选中默认的监控
+                //展示设备列表
+                $("#monitor-menu-container span").eq(0).click();
             }
 
             selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
@@ -421,6 +554,7 @@ var userMonitor = (function(){
             data:prms2,
             url:_urlPrefix + "PR/PR_GetAllProcsByParameter",
             success:function(data){
+
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
                 //setProcList(_allProcs);
@@ -438,6 +572,7 @@ var userMonitor = (function(){
                 data:{"":procLists},
                 url:_urlPrefix + "PR/PR_GetAllProcsByProcList",
                 success:function(data){
+
                     _allProcs = data;       //暂存全部方案
                     _allPointerProcs = data;
                     //setProcList(_allProcs);
@@ -456,6 +591,7 @@ var userMonitor = (function(){
             dataType:"json",
             url:_urlPrefix + "PR/PR_GetAllProcsNew",
             success:function(data){
+                //console.log(data);
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
                 var curProcs = getLocalProcsByParameter(_configArg2);   //获取当前菜单配置的方案
@@ -567,10 +703,10 @@ var userMonitor = (function(){
 
             var imgWidth,imgHeight;
             if(proc.procStyle){
+                //console.log(proc);
                 var $divMain = $("#content-main-right");
 
                 if(proc.procStyle.imageSizeWidth && proc.procStyle.imageSizeWidth>0) {
-
 
                     $divMain.width(proc.procStyle.imageSizeWidth);
                     imgWidth = proc.procStyle.imageSizeWidth;
@@ -620,7 +756,7 @@ var userMonitor = (function(){
                     //右侧容器宽度
                     $('#right-container').width(realWidth);
 
-                    //console.log(realWidth);
+                    console.log(realWidth);
 
                     //判断左侧操作栏是否存在
                     var o1 = $(".content-main-left").css("display");
@@ -2415,7 +2551,8 @@ var userMonitor = (function(){
         init:init,
         getProcsByPointerId:getProcsByPointerId,
         getUserProcs:getUserProcs,
-        setScaleSign:setScaleSign
+        setScaleSign:setScaleSign,
+        initializeProcSubs:initializeProcSubs
     };
 
 })();

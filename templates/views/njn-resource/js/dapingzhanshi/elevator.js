@@ -1,6 +1,7 @@
 /**
- * Created by admin on 2018/1/17.
+ * Created by admin on 2018/1/27.
  */
+
 $(function(){
 
     //绘制页面右侧的table
@@ -34,10 +35,10 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+var titleArr = ['','设备数','暂停占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
-var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
+var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
 
 //绘制页面右侧的table
 function drawDataTable(titleArr,areaArr){
@@ -84,6 +85,16 @@ function drawDataTable(titleArr,areaArr){
 
             '</td>' +
 
+            ' <!--回风平均温度-->' +
+            '<td>' +
+            ' <span class="table-small-patch table-small-patch-red">29</span>' +
+            '</td>' +
+
+            '<!--回风co2平均浓度-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-green">1000</span>' +
+            '</td>' +
+
             '<td>' +
 
             '<div class="right-bottom-echart" id="right-bottom-echart3">' +
@@ -111,10 +122,6 @@ var monitorAreaArr = [
     {
         "areaName":"-9.6m",
         "areaId":"2"
-    },
-    {
-        "areaName":"0.0m",
-        "areaId":"3"
     },
     {
         "areaName":"12.4m",
@@ -162,15 +169,17 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 送排风为3
-    var devTypeID = 3;
+    //定义当前的设备类型 空调机组为2
+    var devTypeID = 2;
 
     //获取当前的设备列表
-    getSecondColdHotSour('NJNDeviceShow/GetSecondLightWait', devTypeID, areaID);
+    getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
+
 
 });
 
 /*-------------------------------------------表格初始化--------------------------------------------*/
+
 var table = $('#equipment-datatables').DataTable({
     "bProcessing" : true,
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -235,13 +244,70 @@ var table = $('#equipment-datatables').DataTable({
             data:'serviceArea'
         },
         {
-            title:'运行状态',
+            title:'配电箱手自动状态',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '自动';
+
+            }
+        },
+        {
+            title:'季节模式',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4224'){
+                    if(o.cTypeID == '4021'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '冬季';
+
+            }
+        },
+        {
+            title:'控制模式',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'风阀节能模式',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'串级节能',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'启停状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4064'){
 
                         if(o.cDataValue == 1){
 
@@ -259,21 +325,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'手自动状态',
+            title:'送风温度设定（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4222'){
+                    if(o.cTypeID == '4065'){
 
-                        if(o.cDataValue == 1){
-
-                            return "自动"
-                        }else{
-                            return "手动";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -283,21 +343,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'故障状态',
+            title:'送风温度（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '4062'){
 
-                        if(o.cDataValue == 1){
-
-                            return "故障"
-                        }else{
-                            return "正常";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -307,21 +361,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'压差开关',
+            title:'回风温度设定（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4121'){
+                    if(o.cTypeID == '4065'){
 
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -331,21 +379,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'启停控制',
+            title:'回风温度（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4123'){
+                    if(o.cTypeID == '4029'){
 
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -355,17 +397,104 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'安全联动',
+            title:'CO2浓度设定（PPM）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
 
                 return '';
 
             }
+        },
+        {
+            title:'CO2浓度（PPM）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4024'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'水阀开度（%）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4048'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'新风阀开度（%）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4067'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'回风阀开度（%）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4025'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'累计运行时间（h）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'功率（kW）',
+            data:'powerValue'
         }
     ]
 });
-
 
 
 

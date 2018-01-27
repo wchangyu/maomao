@@ -1,6 +1,7 @@
 /**
- * Created by admin on 2018/1/17.
+ * Created by admin on 2018/1/27.
  */
+
 $(function(){
 
     //绘制页面右侧的table
@@ -34,10 +35,10 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+var titleArr = ['','设备数','暂停占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
-var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
+var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
 
 //绘制页面右侧的table
 function drawDataTable(titleArr,areaArr){
@@ -82,6 +83,16 @@ function drawDataTable(titleArr,areaArr){
 
             '</div>' +
 
+            '</td>' +
+
+            ' <!--回风平均温度-->' +
+            '<td>' +
+            ' <span class="table-small-patch table-small-patch-red">29</span>' +
+            '</td>' +
+
+            '<!--回风co2平均浓度-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-green">1000</span>' +
             '</td>' +
 
             '<td>' +
@@ -162,15 +173,17 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 送排风为3
-    var devTypeID = 3;
+    //定义当前的设备类型 空调机组为2
+    var devTypeID = 2;
 
     //获取当前的设备列表
-    getSecondColdHotSour('NJNDeviceShow/GetSecondLightWait', devTypeID, areaID);
+    getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
+
 
 });
 
 /*-------------------------------------------表格初始化--------------------------------------------*/
+
 var table = $('#equipment-datatables').DataTable({
     "bProcessing" : true,
     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -214,42 +227,131 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'设备位置',
-            data:'areaName',
-            className:'位置'
+            title:'机房名称',
+            data:'devName',
+            className:''
+        },
+        {
+            title:'机房位置',
+            data:'areaName'
         },
         {
             title:'所属系统',
             data:'typeName'
         },
         {
-            title:'设备名称',
-            data:'devName'
-        },
-        {
-            title:'设备编号',
-            data:'devNum'
-        },
-        {
             title:'服务区域',
             data:'serviceArea'
         },
         {
-            title:'运行状态',
+            title:'机房温度1（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4224'){
+                    if(o.cTypeID == '4321'){
 
-                        if(o.cDataValue == 1){
+                        return o.cDataValue;
+                    }
+                });
 
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
+                return '';
 
+            }
+        },
+        {
+            title:'机房温度2（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4321'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'机房湿度1（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4322'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'机房湿度2（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4322'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '';
+            }
+        },
+        {
+            title:'机房水浸1（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4323'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '';
+            }
+        },
+        {
+            title:'机房水浸2（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4323'){
+
+                        return o.cDataValue;
+                    }
+                });
+
+                return '';
+            }
+        },
+        {
+            title:'空开温度1（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4024'){
+
+                        return o.cTypeID
 
                     }
                 });
@@ -259,21 +361,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'手自动状态',
+            title:'空开温度2（℃）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4222'){
+                    if(o.cTypeID == '4024'){
 
-                        if(o.cDataValue == 1){
-
-                            return "自动"
-                        }else{
-                            return "手动";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -283,21 +379,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'故障状态',
+            title:'分电柜A相（V）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '4325'){
 
-                        if(o.cDataValue == 1){
-
-                            return "故障"
-                        }else{
-                            return "正常";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -307,21 +397,15 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'压差开关',
+            title:'分电柜B相（V）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4121'){
+                    if(o.cTypeID == '4325'){
 
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
@@ -331,33 +415,18 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'启停控制',
+            title:'分电柜C相（V）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4123'){
+                    if(o.cTypeID == '4325'){
 
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
+                        return o.cTypeID
 
                     }
                 });
-
-                return '';
-
-            }
-        },
-        {
-            title:'安全联动',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
 
                 return '';
 
@@ -365,7 +434,6 @@ var table = $('#equipment-datatables').DataTable({
         }
     ]
 });
-
 
 
 

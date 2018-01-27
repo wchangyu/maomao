@@ -9,8 +9,11 @@ $(function(){
     //获取实时能耗
     getRealTimeData();
 
-    //获取车站能耗排名
+    //获取车站总能耗排名
     getPointerRankData();
+
+    //获取所有车站能耗标煤排名（按分项）
+    getStationRankData();
 
     //获取本月能耗分类数据
     getTopPageEnergyData();
@@ -160,7 +163,7 @@ var option2 = {
                 }
             },
             data: [18203, 23489, 29034, 104970, 131744, 630230],
-            barWidth:25
+
         }
     ]
 };
@@ -177,7 +180,8 @@ var option3 = {
         trigger: 'axis',
         axisPointer: {
             type: 'shadow'
-        }
+        },
+        show:false
     },
     grid: {
         top: 10,
@@ -200,8 +204,119 @@ var option3 = {
             type: 'bar',
             itemStyle:{
                 normal:{
-                    color:'#0088ec'
+                    color:function(params){
+                        var colorList = [
+                            '#0088ec','#999'
+                        ];
+
+                        if(params.value == 2000){
+                            return '#999'
+                        }else{
+                            return '#0088ec'
+                        }
+                        //return colorList[params.dataIndex]
+
+                    },
+                    label : {
+                        show : true,
+                        formatter:function(params){
+
+                            if(params.value == 2000){
+                                return '暂无数据'
+                            }
+                        }
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : false,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '20',
+                            fontWeight : 'bold'
+                        }
+                    }
                 }
+
+            },
+            data: [18203, 23489, 29034, 104970, 131744, 630230],
+            barWidth:25
+        }
+    ]
+};
+
+var option31 = {
+    //title:{
+    //  text:''
+    //},
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        },
+        show:false
+    },
+    grid: {
+        top: 10,
+        bottom: 5,
+        right:2,
+        left:10,
+        containLabel: true
+    },
+    yAxis: {
+        type: 'value',
+        boundaryGap: [0, 0.01]
+    },
+    xAxis: {
+        type: 'category',
+        data: ['灼伤大楼','转化医学研究院','儿童住院部','门诊和急诊','外科楼','内科楼']
+    },
+    series: [
+        {
+            name: '总能耗',
+            type: 'bar',
+            itemStyle:{
+                normal:{
+                    color:function(params){
+                        var colorList = [
+                            '#0088ec','#999'
+                        ];
+
+                        if(params.value == 20){
+                            return '#999'
+                        }else{
+                            return '#0088ec'
+                        }
+                        //return colorList[params.dataIndex]
+
+                    },
+                    label : {
+                        show : true,
+                        formatter:function(params){
+
+                            if(params.value == 20){
+                                return '暂无数据'
+                            }
+                        }
+                    },
+                    labelLine : {
+                        show : false
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : false,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '20',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+
             },
             data: [18203, 23489, 29034, 104970, 131744, 630230],
             barWidth:25
@@ -227,11 +342,11 @@ var option4 = {
         }
     },
     grid: {
-        left: '3%',
+        left: '12%',
         right: '4%',
         bottom: '3%',
         top:'5%',
-        containLabel: true
+        containLabel: false
     },
     xAxis: {
         type : 'category',
@@ -426,7 +541,7 @@ var option8 = {
                 normal : {
                     color:function(params){
                         var colorList = [
-                            '#2ec8ab','#2f4554','#61a0a8','#fad797'
+                            '#2ec8ab','#2f4554','#61a0a8','#fad797', '#2ec8ab','#2f4554','#61a0a8','#fad797', '#2ec8ab','#2f4554','#61a0a8','#fad797'
                         ];
                         return colorList[params.dataIndex]
 
@@ -636,7 +751,7 @@ function getRealTimeData(){
 };
 
 //------------------------------------右侧上方中间能耗排名-----------------------------------//
-//获取楼宇能耗排名
+//获取车站总能耗排名
 function getPointerRankData(){
 
     //获取配置好的能耗类型数据
@@ -671,12 +786,12 @@ function getPointerRankData(){
         timeout:_theTimes,
         beforeSend:function(){
 
-            _myChart2.showLoading();
+            _myChart3.showLoading();
         },
         success:function(result){
 
-            //console.log(result);
-            _myChart2.hideLoading();
+            console.log(result);
+
 
             _myChart3.hideLoading();
 
@@ -697,14 +812,108 @@ function getPointerRankData(){
             //存放能耗数据
             var sArr = [];
 
+            var sArr1 = [];
+
             $(result).each(function(i,o){
                 //取前五名展示
                 if(i < 5){
                     //重绘Y轴
                     yArr.push(o.returnOBJName);
                     //添加数据
+                    var obj = {};
+
                     sArr.push(o.currentEnergyData.toFixed(1));
+
+                    if(o.currentEnergyData == 0){
+
+                        //定义值
+                        sArr1.push(2000);
+
+                    }else{
+
+                        sArr1.push(o.currentEnergyData.toFixed(1));
+
+                    }
                 }
+
+            });
+
+
+            //重绘Y轴
+            option3.series[0].data = sArr1;
+
+            option3.xAxis.data = yArr;
+
+            _myChart3.setOption(option3,true);
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            _myChart2.hideLoading();
+            _myChart3.hideLoading();
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+
+};
+
+//获取所有车站能耗标煤排名
+function getStationRankData(){
+
+
+    //传递给后台的数据
+    var ecParams = {
+        "startTime": startDate,
+        "endTime": endDate,
+        "pointerIDs": pointerIdArr,
+        "energyItemType": "01",
+        "energyRankFlag": -2
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetEnergyItemRankData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            _myChart2.showLoading();
+        },
+        success:function(result){
+
+            //console.log(result);
+
+            _myChart2.hideLoading();
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            //存放图例中数据
+            var legendArr = [];
+
+            //重新给echarts图中添加数据
+            //存放Y轴数据
+            var yArr = [];
+
+            //存放能耗数据
+            var sArr = [];
+
+            $(result).each(function(i,o){
+                //取前五名展示
+
+                    //重绘Y轴
+                    yArr.push(o.energyItemName.substring(0,4));
+                    //添加数据
+
+                    sArr.push(o.currentBiaoMeiData.toFixed(1));
 
             });
 
@@ -713,23 +922,15 @@ function getPointerRankData(){
 
             yArr.reverse();
 
-            ////图例赋值
-            //option2.legend.data = legendArr;
             //数据赋值
             option2.series[0].data = sArr;
-            ////重绘title
-            //option2.title.text = '楼';
+
             //重绘Y轴
             option2.yAxis.data = yArr;
-
-            option3.series[0].data = sArr;
-
-            option3.xAxis.data = yArr;
 
             //页面重绘数据
             _myChart2.setOption(option2,true);
 
-            _myChart3.setOption(option3,true);
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart2.hideLoading();
@@ -1086,24 +1287,15 @@ function getStationAreaRankData(){
                     //重绘Y轴
                     yArr.push(o.returnOBJName);
                     //添加数据
-                    sArr.push(o.currentEnergyData.toFixed(1));
+                    if(o.currentEnergyData == 0){
+                        sArr.push(2000)
+                    }else{
+                        sArr.push(o.currentEnergyData.toFixed(1));
+                    }
+
                 }
 
             });
-
-            //反序插入echart
-            sArr.reverse();
-
-            yArr.reverse();
-
-            ////图例赋值
-            //option2.legend.data = legendArr;
-            //数据赋值
-            //_myChart5.series[0].data = sArr;
-            ////重绘title
-            //_myChart5.title.text = '楼';
-            //重绘Y轴
-            //_myChart5.yAxis.data = yArr;
 
             option3.series[0].data = sArr;
 
@@ -1169,7 +1361,7 @@ function getTopPageKPIData(){
             }
 
             //单位面积能耗
-            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(2);
+            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(1);
 
             option6.title.text = '单位面积总标煤';
 
@@ -1184,7 +1376,7 @@ function getTopPageKPIData(){
                 if(o.energyItemID == '01'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
 
                     option6.title.text = '单位面积电耗';
 
@@ -1196,7 +1388,7 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '211'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
 
                     option6.title.text = '单位面积水耗';
 
@@ -1205,12 +1397,12 @@ function getTopPageKPIData(){
                     //页面重绘数据
                     _myChart71.setOption(option6,true);
 
-                }else if(o.energyItemID == '311'){
+                }else if(o.energyItemID == '44'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
 
-                    option6.title.text = '单位面积气耗';
+                    option6.title.text = '单位面积汽耗';
 
                     option6.title.subtext = 't/㎡';
 
@@ -1457,22 +1649,27 @@ function getStataionFootfallRank(){
                     //重绘Y轴
                     yArr.push(o.returnOBJName);
                     //添加数据
-                    sArr.push(o.currentEnergyData.toFixed(1));
+
+                    if(o.currentEnergyData == 0){
+                        sArr.push(20)
+                    }else{
+                        sArr.push(o.currentEnergyData.toFixed(1));
+                    }
                 }
 
             });
 
             //反序插入echart
-            sArr.reverse();
+            //sArr.reverse();
+            //
+            //yArr.reverse();
 
-            yArr.reverse();
+            option31.series[0].data = sArr;
 
-            option0.series[0].data = sArr;
-
-            option0.xAxis.data = yArr;
+            option31.xAxis.data = yArr;
 
             //页面重绘数据
-            _myChart0.setOption(option0,true);
+            _myChart0.setOption(option31,true);
 
         },
         error:function(jqXHR, textStatus, errorThrown){

@@ -1,23 +1,50 @@
 
 /*页面主体左侧图片*/
+.right-bottom-content{
+    padding-left:37px;
+    box-sizing: border-box;
+}
 .right-bottom-content-left{
 
     float: left;
     height:750px;
-   padding-top:140px;
+   padding-top:20px;
     box-sizing: border-box;
+    width:510px;
 
 }
 
 .right-bottom-content-left .content-left-img{
-    width:580px;
-    height:417px;
+    width:510px;
+    height:297px;
+    margin-bottom:75px;
 }
 
+/*左侧介绍信息*/
+.right-bottom-content-left .real-time-energy p{
+    font-size:14px;
+    color:#4C4C4C;
+    text-indent:25px;
+
+}
+
+.quota-data-bottom h3 {
+    font-size:18px;
+}
+
+h3 .left-patch {
+    display: inline-block;
+    width: 7px;
+    height: 18px;
+    background: #1d3b61;
+    position: absolute;
+    left: 2px;
+    top: 7px;
+}
 /*页面右侧数据*/
 .right-bottom-content-right{
     float: left;
-    width:1160px;
+    width:1225px;
     height:709px;
     padding: 15px;
     box-sizing: border-box;
@@ -54,15 +81,16 @@
 
 /*设备运行*/
 .bottom-content-top-operation .top-control{
-    height:150px;
+    height:130px;
 }
 
 .bottom-content-top-operation .top-control .top-control-span{
-    font-size:17px;
-    color:#ffd34d;
+    font-size:14px;
+    color:#2170F4;
     margin-right:20px;
     cursor: pointer;
-    margin-bottom:8px !important;
+    margin-bottom:18px !important;
+    display: inline-block;
 }
 
 .bottom-content-top-operation .top-control .top-control-content{
@@ -71,8 +99,8 @@
 
 .bottom-content-top-operation .top-control-content .left-span{
 
-    font-size:20px;
-    color:#cecece;
+    font-size:16px;
+    color:#4C4C4C;
     margin-right:22px;
 
 }
@@ -97,20 +125,23 @@
 /*设备运行下方echart图*/
 #bottom-content-chart{
     height:120px;
+    width:126px;
 }
 
 /*设备报警*/
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content{
 
-    font-size: 18px;
-    color:#c1c1c1;
+    font-size: 16px;
+    color:#4C4C4C;
     margin-bottom:40px !important;
     background: url('../../img/hantanhao.png') no-repeat  center 80px;
     position: relative;
 }
 
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content span{
-    margin-left:65px;
+    margin-left:70px;
+    font-size:20px;
+    color:#686868;
 }
 
 .right-bottom-content-right .bottom-content-top-introduce .alarm-content font{
@@ -119,37 +150,52 @@
     top:-2px;
     height:29px;
     width:29px;
-    background-color:#efcd49;
-    background-image: url('../../img/hantanhao.png');
+    background-image: url('../../img/yellowAlarm.png');
     background-position: center center;
     background-repeat:no-repeat ;
     display: inline-block;
-    border-radius: 100%;
+
 }
 
 /*换热效率*/
 .right-bottom-content-right .bottom-content-top-efficiency{
 
-    width:350px;
+    width:600px;
     margin-right:0;
     padding:0;
     position: relative;
 }
 
 #bottom-efficiency-chart,#bottom-efficiency-chart1{
-    height:150px;
+    height:130px;
+    width:300px;
+}
+
+.right-bottom-content-right .bottom-efficiency-container{
+    float: left;
+    width:50%;
+    position: relative;
+
+}
+
+.right-bottom-content-right .bottom-efficiency-container .right-bottom-content-title{
+    font-size:16px;
+    color:#3A3A3A;
+    margin-bottom:15px;
+    font-weight: 500;
 }
 
 /*数据信息*/
 .right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message{
     font-size:14px;
     position: absolute;
-    left:190px;
+    left:160px;
     top:89px;
     font-weight: 500;
 }
 .right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message p{
-    margin-bottom:5px !important;
+    margin-bottom:10px !important;
+    font-size: 12px;
 }
 
 .right-bottom-content-right .bottom-content-top-efficiency .bottom-efficiency-message1{
@@ -164,36 +210,42 @@
 .bottom-content-legend{
 
     position: absolute;
-    right:-10px;
-    top:20px;
+    left:1px;
+    top:47px;
     font-size:12px;
+
     display: inline-block;
     vertical-align: middle;
     height:45px;
+}
+
+.bottom-content-legend span{
+    margin-right:10px;
 }
 .bottom-content-legend .legend font{
 
      display: inline-block;
      width:18px;
      height:10px;
-     border-radius: 4px;
-     background: #85ec85;
-     margin-right:3px;
+     border-radius: 0px;
+     background: #2170F4;
+     margin-right:8px;
+
  }
 
 .bottom-content-legend .legend2 font{
 
-    background: #77c7e9;
+    background: #14E398;
 }
 
 .bottom-content-legend .legend3 font{
 
-    background: #ff9b00;
+    background: #EAD01E;
 }
 
 .bottom-content-legend .legend4 font{
 
-    background: #ff4100;
+    background: #F8276C;
 }
 
 /*---------------------------能耗曲线----------------------------*/
@@ -237,6 +289,7 @@
 .right-bottom-content-right .right-bottom-content-bottom-echart{
 
     height:250px !important;
+   width:577px;
 }
 
 /*供热温度曲线*/
@@ -245,4 +298,76 @@
     width:85px;
     height:auto !important;
     line-height:15px;
+}
+
+
+/*------------------------冷站-----------------------------*/
+.right-bottom-container .right-bottom-content1 .bottom-content-top-efficiency{
+
+    width:380px;
+
+}
+
+.right-bottom-content .right-bottom-content-right{
+    padding-left:50px;
+    box-sizing: border-box;
+}
+
+/*图例*/
+.right-bottom-content1 .bottom-content-legend {
+    position: absolute;
+    left: 200px !important;
+    top: 47px;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    height: 45px;
+}
+
+/*下方仪表盘*/
+.right-bottom-content1 .right-bottom-content-right .bottom-efficiency-container {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+/*仪表盘右侧数据*/
+.right-bottom-content1 .bottom-content-top-efficiency .bottom-efficiency-message {
+    font-size: 14px;
+    position: absolute;
+    left: 200px;
+    top: 29px;
+    font-weight: 500;
+}
+
+.right-bottom-content1 .bottom-content-top-efficiency .bottom-efficiency-message p{
+    margin-bottom:7px;
+    font-size: 12px;
+}
+
+.right-bottom-content .bottom-meter-chart{
+    height:130px;
+    margin-bottom:30px;
+}
+
+/*冷机中的负荷率*/
+#bottom-content-chart1{
+    height: 120px;
+}
+
+.right-bottom-content1 .right-bottom-content-bottom{
+    width:700px;
+}
+
+/*下方折线图*/
+.right-bottom-content1 .right-bottom-content-right .bottom-content-bottom-consumption {
+    width: 100% !important;
+    margin-right: 0px;
+    padding-top: 30px;
+    position: relative;
+}
+
+.right-bottom-content1 .right-bottom-content-right .right-bottom-content-bottom-echart {
+    height: 250px !important;
+    width: 690px;
 }

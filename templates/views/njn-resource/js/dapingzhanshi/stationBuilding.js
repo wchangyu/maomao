@@ -34,7 +34,7 @@ $(function(){
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比','报警'];
+var titleArr = ['','设备数','暂停占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -82,6 +82,16 @@ function drawDataTable(titleArr,areaArr){
 
             '</div>' +
 
+            '</td>' +
+
+            ' <!--回风平均温度-->' +
+            '<td>' +
+            ' <span class="table-small-patch table-small-patch-red">29</span>' +
+            '</td>' +
+
+            '<!--回风co2平均浓度-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-green">1000</span>' +
             '</td>' +
 
             '<td>' +
@@ -162,8 +172,8 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 送排风为3
-    var devTypeID = 3;
+    //定义当前的设备类型 站房照明为6
+    var devTypeID = 6;
 
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondLightWait', devTypeID, areaID);
@@ -214,7 +224,7 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'设备位置',
+            title:'支路位置',
             data:'areaName',
             className:'位置'
         },
@@ -223,11 +233,11 @@ var table = $('#equipment-datatables').DataTable({
             data:'typeName'
         },
         {
-            title:'设备名称',
+            title:'支路名称',
             data:'devName'
         },
         {
-            title:'设备编号',
+            title:'支路编号',
             data:'devNum'
         },
         {
@@ -235,13 +245,13 @@ var table = $('#equipment-datatables').DataTable({
             data:'serviceArea'
         },
         {
-            title:'运行状态',
+            title:'开关状态',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4224'){
+                    if(o.cTypeID == '4626'){
 
                         if(o.cDataValue == 1){
 
@@ -259,61 +269,13 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'手自动状态',
+            title:'开关控制',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4222'){
-
-                        if(o.cDataValue == 1){
-
-                            return "自动"
-                        }else{
-                            return "手动";
-                        }
-
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'故障状态',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '16'){
-
-                        if(o.cDataValue == 1){
-
-                            return "故障"
-                        }else{
-                            return "正常";
-                        }
-
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'压差开关',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4121'){
+                    if(o.cTypeID == '4625'){
 
                         if(o.cDataValue == 1){
 
@@ -331,33 +293,10 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'启停控制',
+            title:'照度',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4123'){
-
-                        if(o.cDataValue == 1){
-
-                            return "ON"
-                        }else{
-                            return "OFF";
-                        }
-
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'安全联动',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
 
                 return '';
 

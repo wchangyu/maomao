@@ -59,25 +59,41 @@
             <div style="height:145px;"></div>
             <!--上方左侧整体数据-->
             <div class="left-data-container">
+
                 <div class="left-specific-data-container">
+                    <span class="left-specific-data left-specific-data1">8</span><br/>
                     <span class="left-specific-data-title">接入客站</span>
-                    <span class="left-specific-data left-specific-data1">8</span>
+
                 </div>
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">设备报警</span>
-                    <span class="left-specific-data left-specific-data2">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">设备报警</span>-->
+                <!--<span class="left-specific-data left-specific-data2">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">能耗报警</span>
-                    <span class="left-specific-data left-specific-data3">2</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">能耗报警</span>-->
+                <!--<span class="left-specific-data left-specific-data3">2</span>-->
+                <!--</div>-->
 
-                <div class="left-specific-data-container">
-                    <span class="left-specific-data-title">运营工单</span>
-                    <span class="left-specific-data left-specific-data4">6</span>
-                </div>
+                <!--<div class="left-specific-data-container">-->
+                <!--<span class="left-specific-data-title">运营工单</span>-->
+                <!--<span class="left-specific-data left-specific-data4">6</span>-->
+                <!--</div>-->
+
+            </div>
+
+            <!--右侧图片及统计-->
+            <div class="right-picture-data">
+
+                <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
+                </p>
+
+                <p class="right-picture-statistics">接入系统：<span>10</span>个</p>
+
+                <p class="right-picture-statistics">接入设备：<span>1000</span>台</p>
+
+                <p class="right-picture-statistics">检测点位：<span>18000</span>点</p>
 
             </div>
         </div>
@@ -88,11 +104,11 @@
             <!--上方选项卡-->
             <div class="left-tab-container">
 
-                <!--左侧选项卡-->
-                <div style="float:left">
-                    <span class="left-tab left-tab1 left-tab-choose0">设备报警</span>
-                    <span class="left-tab left-tab2">能耗报警</span>
-                    <span class="left-tab left-tab3">运维工单</span>
+                <!--左侧展示内容-->
+                <div style="float:left" class="left-tab-data-container">
+                    <span class="left-tab-data left-tab-data1">设备报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data2">能耗报警 <font>2</font> <b></b></span>
+                    <span class="left-tab-data left-tab-data3">运维工单 <font>2</font> <b></b></span>
                 </div>
 
                 <div style="float:right">
@@ -100,7 +116,6 @@
                     <span class="right-tab ">月</span>
                     <span class="right-tab ">年</span>
                 </div>
-
             </div>
 
             <!--下方柱状图-->
@@ -137,7 +152,7 @@
         <!--右侧下方选项卡-->
         <div class="right-tab-container">
 
-            <span class="right-tab right-tab1"><a href="">总览</a></span>
+            <span class="right-tab right-tab1"><a href="pandectEnergy.html">总览</a></span>
             <span class="right-tab right-tab2 right-tab-choose1"><a href="coldHeatSource.html">冷热源</a></span>
             <span class="right-tab right-tab2"><a href="airConditioner.html">空调机组</a></span>
             <span class="right-tab right-tab2"><a href="">电梯</a></span>
@@ -161,54 +176,310 @@
         </div>
 
         <!--右侧下方主体内容-->
-        <div class="right-bottom-container">
+        <div class="right-bottom-container right-bottom-container1">
 
             <!--右侧下方选项卡-->
-            <div class="right-bottom-tab-container">
+            <div class="right-bottom-tab-container" id="monitor-menu-container">
 
-                <span class="right-bottom-tab right-bottom-tab-choose">东冷站</span>
-                <span class="right-bottom-tab ">西冷站</span>
+                <span class="right-bottom-tab right-bottom-tab-choose" data-district="60">东冷站</span>
+                <span class="right-bottom-tab " data-district="62">西冷站</span>
                 <span class="right-bottom-tab ">东换热机房</span>
                 <span class="right-bottom-tab ">西换热机房</span>
 
-
             </div>
 
-            <!--下方主体内容1-->
-            <div class="right-bottom-content">
 
-                <!--页面左侧图片-->
-                <div class="right-bottom-content-left">
+            <!--系统总览-->
+            <div class="right-bottom-show-type">
 
-                    <img class="content-left-img" alt="" src="../njn-resource/img/coldHeatSource.png">
+                <!--冷战站-->
+                <div class="right-bottom-content right-bottom-content1" >
 
+                    <!--页面左侧视频及介绍-->
+                    <div class="right-bottom-content-left">
+
+                        <img class="content-left-img" alt="" src="../njn-resource/img/lengzhan.png">
+                        <!--换热站介绍-->
+                        <div class="real-time-energy content-main-bottom quota-data-bottom">
+                            <!--头部信息-->
+                            <h3 style="">
+                                             <span class="left-patch">
+
+                                            </span>
+
+                                机房概况
+
+                            </h3>
+
+                            <p>  南京南站采暖采用华润热电厂0.7MPa 的饱和蒸汽，经减压至0.4MPa 供末端使用。热交换站位于首层动力中心内，东西各一个。每个机房内均设6 台换热罐和4台热水泵。
+
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+                    <!--页面右侧数据-->
+                    <div class="right-bottom-content-right">
+
+                        <!--上方数据统计-->
+                        <div class="right-bottom-content-top">
+
+                            <!--设备运行-->
+                            <div class="bottom-content-top-introduce bottom-content-top-operation quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:25px;">
+                                    <span class="left-patch"></span>
+
+                                    设备运行
+
+                                </h3>
+
+                                <div class="top-control">
+
+                                    <span class="top-control-span">供暖初期</span> <span class="top-control-span">手动模式</span>
+
+                                    <div class="top-control-content">
+                                        <span class="left-span">换热罐</span>
+
+                                    <span class="right-span">
+                                        <font class="onClick">1</font>
+                                        <font>2</font>
+                                        <font>3</font>
+                                        <font>4</font>
+                                        <font>5</font>
+                                        <font>6</font>
+                                    </span>
+                                        <br /><br />
+
+                                        <span class="left-span">采暖泵</span>
+
+                                    <span class="right-span">
+                                        <font class="onClick">1</font>
+                                        <font>2</font>
+                                        <font>3</font>
+                                        <font>4</font>
+                                    </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--负荷率-->
+                            <div class="bottom-content-top-introduce bottom-content-top-operation quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:25px;">
+                                    <span class="left-patch"></span>
+
+                                    负荷率
+
+                                </h3>
+
+                                <div id="bottom-content-chart1">
+
+                                </div>
+
+                            </div>
+
+                            <!--运行报警-->
+                            <div class="bottom-content-top-introduce bottom-content-top-alarm quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:20px;">
+                                    <span class="left-patch"></span>
+
+                                    运行报警
+
+                                </h3>
+
+                                <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+
+                                <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+
+                                <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+
+                                <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+
+                            </div>
+
+                            <!--换热效率-->
+                            <div class="bottom-content-top-introduce bottom-content-top-efficiency quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:80px;">
+                                    <span class="left-patch"></span>
+
+                                    系统冷效
+
+                                </h3>
+
+                                <!--离心式水冷机组系统-->
+                                <div class="bottom-efficiency-container">
+                                    <h2 class="right-bottom-content-title">离心式水冷机组系统</h2>
+                                    <!--echart图-->
+                                    <div id="bottom-refrigerator-chart" class="bottom-meter-chart">
+
+                                    </div>
+
+                                    <!--数据信息-->
+                                    <div class="bottom-efficiency-message">
+                                        <p>输入蒸汽:<span>667.3</span>m³/h</p>
+                                        <p>输入热量:<span>66.7</span>kW</p>
+                                        <p>换热效率:<span>97</span>%</p>
+                                    </div>
+
+                                </div>
+
+                                <!--溴化锂机组系统-->
+                                <div class="bottom-efficiency-container" >
+                                    <h2 class="right-bottom-content-title">溴化锂机组系统</h2>
+
+                                    <!--echart图-->
+                                    <div id="bottom-refrigerator-chart1" class="bottom-meter-chart">
+
+                                    </div>
+
+                                    <!--数据信息-->
+                                    <div class="bottom-efficiency-message">
+                                        <p>输送热量:<span>67.3</span>kW</p>
+                                        <p>水泵耗电量:<span>66.7</span>kW</p>
+                                        <p>输送系数:<span>97</span></p>
+                                    </div>
+                                </div>
+
+                                <!--热泵机组系统-->
+                                <div class="bottom-efficiency-container" >
+                                    <h2 class="right-bottom-content-title">热泵机组系统</h2>
+
+                                    <!--echart图-->
+                                    <div id="bottom-refrigerator-chart2" class="bottom-meter-chart">
+
+                                    </div>
+
+                                    <!--数据信息-->
+                                    <div class="bottom-efficiency-message">
+                                        <p>输送热量:<span>67.3</span>kW</p>
+                                        <p>水泵耗电量:<span>66.7</span>kW</p>
+                                        <p>输送系数:<span>97</span></p>
+                                    </div>
+                                </div>
+
+                                <!--图例-->
+                                <div class="bottom-content-legend">
+
+                                    <span class="legend legend1"><font></font>出色</span>
+                                    <span class="legend legend2"><font></font>良好</span><br />
+                                    <span class="legend legend3"><font></font>一般</span>
+                                    <span class="legend legend4"><font></font>急需改善</span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <!--下方折线图-->
+                        <div class="right-bottom-content-bottom">
+                            <div class="row">
+                                <!--能耗曲线-->
+                                <div class="col-lg-12 bottom-content-top-introduce bottom-content-bottom-consumption quota-data-bottom">
+
+                                    <!--头部信息-->
+                                    <h3 style="margin-bottom:20px;">
+                                        <span class="left-patch"></span>
+
+                                        能耗曲线
+
+                                    </h3>
+
+                                    <!--选项卡-->
+                                    <div class="consumption-container">
+                                        <span class="onClick">总电耗曲线</span>
+                                        <span>总冷量曲线</span>
+                                        <span>冷冻温度曲线</span>
+                                    </div>
+
+                                    <div class="right-bottom-content-bottom-echart" id="consumotion-echart0">
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
                 </div>
 
-                <!--页面右侧数据-->
-                <div class="right-bottom-content-right">
+                <!--换热机房-->
+                <div class="right-bottom-content"  style="display: none">
 
-                    <!--上方数据统计-->
-                    <div class="right-bottom-content-top">
+                    <!--页面左侧视频及介绍-->
+                    <div class="right-bottom-content-left">
 
+                        <img class="content-left-img" alt="" src="../njn-resource/img/coldHeatSource.png">
                         <!--换热站介绍-->
-                        <div class="bottom-content-top-introduce">
+                        <div class="real-time-energy content-main-bottom quota-data-bottom">
+                            <!--头部信息-->
+                            <h3 style="">
+                                             <span class="left-patch">
 
-                            <h2 class="right-bottom-content-title">换热站介绍</h2>
+                                            </span>
 
-                            <p class="bottom-introduce">南京南站采暖采用华润热电厂0.7 MPa的饱和蒸汽，经减压至0.4 MP供末端使用。热交换站位于首层洞底中心内，东西各一个。每个机房内均设6台换热罐和4台热水泵。</p>
+                                换热站介绍
+
+                            </h3>
+
+                            <p>  南京南站采暖采用华润热电厂0.7MPa 的饱和蒸汽，经减压至0.4MPa 供末端使用。热交换站位于首层动力中心内，东西各一个。每个机房内均设6 台换热罐和4台热水泵。
+                            </p>
+
                         </div>
 
-                        <!--设备运行-->
-                        <div class="bottom-content-top-introduce bottom-content-top-operation">
 
-                            <h2 class="right-bottom-content-title" style="margin-bottom:10px;">设备运行</h2>
+                    </div>
 
-                            <div class="top-control">
+                    <!--页面右侧数据-->
+                    <div class="right-bottom-content-right">
 
-                                <span class="top-control-span">供暖初期模式</span> <span class="top-control-span">手动模式</span>
+                        <!--上方数据统计-->
+                        <div class="right-bottom-content-top">
 
-                                <div class="top-control-content">
-                                    <span class="left-span">换热罐</span>
+                            <!--设备运行-->
+                            <div class="bottom-content-top-introduce bottom-content-top-operation quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="">
+                                    <span class="left-patch"></span>
+
+                                    设备运行
+
+                                </h3>
+
+                                <div class="top-control">
+
+                                    <span class="top-control-span">供暖初期</span> <span class="top-control-span">手动模式</span>
+
+                                    <div class="top-control-content">
+                                        <span class="left-span">换热罐</span>
+
+                                    <span class="right-span">
+                                        <font class="onClick">1</font>
+                                        <font>2</font>
+                                        <font>3</font>
+                                        <font>4</font>
+                                        <font>5</font>
+                                        <font>6</font>
+                                    </span>
+                                        <br /><br />
+
+                                        <span class="left-span">采暖泵</span>
 
                                     <span class="right-span">
                                         <font class="onClick">1</font>
@@ -216,182 +487,203 @@
                                         <font>3</font>
                                         <font>4</font>
                                     </span>
-                                    <br /><br />
 
-                                    <span class="left-span">采暖泵</span>
+                                    </div>
 
-                                    <span class="right-span">
-                                        <font class="onClick">1</font>
-                                        <font>2</font>
-                                        <font>3</font>
-                                        <font>4</font>
-                                    </span>
+                                </div>
+
+                                <!--头部信息-->
+                                <h3 style="">
+                                    <span class="left-patch"></span>
+
+                                    负荷率
+
+                                </h3>
+                                <div id="bottom-content-chart">
 
                                 </div>
 
                             </div>
 
-                            <h2 class="right-bottom-content-title" style="margin-bottom:5px;">负荷率</h2>
-                            <div id="bottom-content-chart">
+                            <!--运行报警-->
+                            <div class="bottom-content-top-introduce bottom-content-top-alarm quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:20px;">
+                                    <span class="left-patch"></span>
+
+                                    运行报警
+
+                                </h3>
+
+                                <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+
+                                <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+
+                                <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+
+                                <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
 
                             </div>
+
+                            <!--换热效率-->
+                            <div class="bottom-content-top-introduce bottom-content-top-efficiency quota-data-bottom">
+
+                                <!--头部信息-->
+                                <h3 style="margin-bottom:80px;">
+                                    <span class="left-patch"></span>
+
+                                    实时能效
+
+                                </h3>
+
+                                <!--换热效率-->
+                                <div class="bottom-efficiency-container">
+                                    <h2 class="right-bottom-content-title">换热效率</h2>
+                                    <!--echart图-->
+                                    <div id="bottom-efficiency-chart">
+
+                                    </div>
+
+                                    <!--数据信息-->
+                                    <div class="bottom-efficiency-message">
+                                        <p>输入蒸汽:<span>667.3</span>m³/h</p>
+                                        <p>输入热量:<span>66.7</span>kW</p>
+                                        <p>换热效率:<span>97</span>%</p>
+                                    </div>
+
+                                </div>
+
+                                <!--热水输送系数-->
+                                <div class="bottom-efficiency-container" >
+                                    <h2 class="right-bottom-content-title">热水输送系数</h2>
+
+                                    <!--echart图-->
+                                    <div id="bottom-efficiency-chart1">
+
+                                    </div>
+
+                                    <!--数据信息-->
+                                    <div class="bottom-efficiency-message">
+                                        <p>输送热量:<span>67.3</span>kW</p>
+                                        <p>水泵耗电量:<span>66.7</span>kW</p>
+                                        <p>输送系数:<span>97</span></p>
+                                    </div>
+                                </div>
+
+                                <!--图例-->
+                                <div class="bottom-content-legend">
+
+                                    <span class="legend legend1"><font></font>出色</span>
+                                    <span class="legend legend2"><font></font>良好</span><br />
+                                    <span class="legend legend3"><font></font>一般</span>
+                                    <span class="legend legend4"><font></font>急需改善</span>
+
+                                </div>
+
+                            </div>
+
 
                         </div>
 
-                        <!--运行报警-->
-                        <div class="bottom-content-top-introduce bottom-content-top-alarm">
+                        <!--下方折线图-->
+                        <div class="right-bottom-content-bottom">
+                            <div class="row">
+                                <!--能耗曲线-->
+                                <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption quota-data-bottom">
 
-                            <h2 class="right-bottom-content-title">运行报警</h2>
+                                    <!--头部信息-->
+                                    <h3 style="margin-bottom:20px;">
+                                        <span class="left-patch"></span>
 
-                            <p class="alarm-content">设备故障报警 <font></font> <span>X3</span></p>
+                                        能耗曲线
 
-                            <p class="alarm-content">故障超标报警 <font></font>  <span>X0</span></p>
+                                    </h3>
 
-                            <p class="alarm-content">能效数据报警 <font></font> <span>X0</span></p>
+                                    <!--选项卡-->
+                                    <div class="consumption-container">
+                                        <span class="onClick">总供热量</span>
+                                        <span>总蒸汽量曲线</span>
+                                        <span>总能耗量</span>
+                                    </div>
 
-                            <p class="alarm-content" style="margin-bottom:0 !important;">数据突变报警  <font></font> <span>X1</span></p>
+                                    <div class="right-bottom-content-bottom-echart" id="consumotion-echart">
 
+                                    </div>
+                                </div>
+
+                                <!--供热温度曲线-->
+                                <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption bottom-content-bottom-temperature quota-data-bottom">
+                                    <!--头部信息-->
+                                    <h3 style="margin-bottom:20px;">
+                                        <span class="left-patch"></span>
+
+                                        供热温度曲线
+
+                                    </h3>
+
+                                    <!--选项卡-->
+                                    <div class="consumption-container">
+                                        <span class="onClick">总供回水<br />温度</span>
+                                        <span>末端1供<br />回水温度</span>
+                                        <span>末端2供<br />回水温度</span>
+                                        <span>末端3供<br />回水温度</span>
+                                    </div>
+
+                                    <div class="right-bottom-content-bottom-echart" id="temperature-echart">
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-
-                        <!--换热效率-->
-                        <div class="bottom-content-top-introduce bottom-content-top-efficiency">
-
-                            <h2 class="right-bottom-content-title" style="margin-bottom:0 !important;">换热效率</h2>
-
-                            <!--echart图-->
-                            <div id="bottom-efficiency-chart">
-
-                            </div>
-
-                            <!--数据信息-->
-                            <div class="bottom-efficiency-message">
-                                <p>输入蒸汽:<span>667.3</span>m³/h</p>
-                                <p>输入热量:<span>66.7</span>kW</p>
-                                <p>换热效率:<span>97</span>%</p>
-                            </div>
-
-
-                            <h2 class="right-bottom-content-title" style="margin-bottom:0 !important;">热水输送系数</h2>
-
-                            <!--echart图-->
-                            <div id="bottom-efficiency-chart1">
-
-                            </div>
-
-                            <!--数据信息-->
-                            <div class="bottom-efficiency-message bottom-efficiency-message1">
-                                <p>输送热量:<span>67.3</span>kW</p>
-                                <p>水泵耗电量:<span>66.7</span>kW</p>
-                                <p>输送系数:<span>97</span></p>
-                            </div>
-
-                            <!--图例-->
-                            <div class="bottom-content-legend">
-
-                                <span class="legend legend1"><font></font>出色</span><br />
-                                <span class="legend legend2"><font></font>良好</span><br />
-                                <span class="legend legend3"><font></font>一般</span><br />
-                                <span class="legend legend4"><font></font>急需改善</span>
-
-                            </div>
-
-                        </div>
-
-
                     </div>
 
-                    <!--下方折线图-->
-                    <div class="right-bottom-content-bottom">
-                        <div class="row">
-                            <!--能耗曲线-->
-                            <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption">
-
-                                <h2 class="right-bottom-content-title">能耗曲线</h2>
-
-                                <!--选项卡-->
-                                <div class="consumption-container">
-                                    <span class="onClick">总供热量</span>
-                                    <span>总蒸汽量曲线</span>
-                                    <span>总能耗量</span>
-                                </div>
-
-                                <div class="right-bottom-content-bottom-echart" id="consumotion-echart">
-
-                                </div>
-                            </div>
-
-                            <!--供热温度曲线-->
-                            <div class="col-lg-6 bottom-content-top-introduce bottom-content-bottom-consumption bottom-content-bottom-temperature">
-                                <h2 class="right-bottom-content-title">供热温度曲线</h2>
-
-                                <!--选项卡-->
-                                <div class="consumption-container">
-                                    <span class="onClick">总供回水<br />温度</span>
-                                    <span>末端1供<br />回水温度</span>
-                                    <span>末端2供<br />回水温度</span>
-                                    <span>末端3供<br />回水温度</span>
-                                </div>
-
-                                <div class="right-bottom-content-bottom-echart" id="temperature-echart">
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <div class="clearfix"></div>
                 </div>
 
                 <div class="clearfix"></div>
             </div>
-        </div>
 
-        <!--右侧下方主体内容-->
-        <div class="right-bottom-container" style="display: none">
+            <!--平面分布-->
+            <div class="right-bottom-show-type" style="display: none">
+                <!-- 下方左侧流程图 -->
+                <div id="right-container" >
 
-            <!--上方选项卡-->
-            <!--右侧下方选项卡-->
-            <div class="right-bottom-tab-container" id="monitor-menu-container">
+                    <div class="content-main-right" id="content-main-right">
 
-                <!--<span class="right-bottom-tab ">-9.6m</span>-->
-                <!--<span class="right-bottom-tab ">0.0m</span>-->
-                <!--<span class="right-bottom-tab ">12.4m</span>-->
-                <!--<span class="right-bottom-tab ">17.1m</span>-->
-                <!--<span class="right-bottom-tab ">19.1m</span>-->
-                <!--<span class="right-bottom-tab right-bottom-tab-choose">22.4m</span>-->
-                <!--<span class="right-bottom-tab ">29.4m</span>-->
-                <!--<span class="right-bottom-tab ">东北角配楼</span>-->
-                <!--<span class="right-bottom-tab ">西南角配楼</span>-->
+                        <!--浮动显示的控制按钮-->
+                        <div class="content-ctrls-show" id="content-ctrls">
 
-            </div>
+                        </div>
 
-            <!--下方左侧流程图-->
-            <div class="right-bottom-left-container">
+                        <div class="content-menu-hide" id="content-menu">
 
-                <img src="../njn-resource/img/pingmiantu.png" alt="">
+                            <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
 
-            </div>
-
-            <!-- 下方左侧流程图 -->
-            <div id="right-container">
-
-                <div class="content-main-right" id="content-main-right">
-
-                    <!--浮动显示的控制按钮-->
-                    <div class="content-ctrls-show" id="content-ctrls">
-
-                    </div>
-
-                    <div class="content-menu-hide" id="content-menu">
-
-                        <button class="btn btn-default" id="monitor-hisdata">历史数据</button>
+                        </div>
 
                     </div>
 
                 </div>
 
+                <div class="clearfix"></div>
+
             </div>
 
+
+            <!--设备列表-->
+            <div class="right-bottom-show-type" style="display: none">
+                <!-- 下方设备列表 -->
+
+                <div class="clearfix"></div>
+
+            </div>
+
+
+
         </div>
+
     </div>
 </div>
 

@@ -126,7 +126,7 @@ function _timeComponentsFun(el){
         format : "hh:ii",//日期格式
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
-        maxView : 'hour',
+        maxView : 'hour'
     });
 }
 

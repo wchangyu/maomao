@@ -19,6 +19,7 @@
 .right-bottom-equipment{
 
     float: left;
+    width:1460px;
 }
 .right-bottom-centent .right-bottom-centent-title{
     margin:0;
@@ -31,6 +32,7 @@
 /*冷热源*/
 .right-bottom-equipment .right-bottom-equipment-container{
     float:left;
+    margin-bottom:15px;
 }
 .right-bottom-equipment .right-bottom-equipment-container h4{
     width:142px;
@@ -44,6 +46,49 @@
     line-height: 31px;
     margin:0;
 }
+
+.right-bottom-equipment .right-bottom-equipment-container h4 a{
+    color:white;
+    padding:5px;
+}
+.right-bottom-equipment .right-bottom-equipment-container h4 a:hover{
+    text-decoration: none;
+}
+
+.right-bottom-equipment .right-bottom-equipment-container h4 a:active{
+    text-decoration: none;
+}
+
+.right-bottom-equipment .right-bottom-equipment-container h4 a:active{
+    text-decoration: none;
+}
+
+.right-bottom-equipment .right-bottom-equipment-container h4 a:visited{
+    text-decoration: none;
+}
+
+
+.right-bottom-centent-title a{
+    color:white;
+    padding:5px;
+}
+.right-bottom-centent-title a:hover{
+    text-decoration: none;
+}
+
+.right-bottom-centent-title a:active{
+    text-decoration: none;
+}
+
+.right-bottom-centent-title a:active{
+    text-decoration: none;
+}
+
+.right-bottom-centent-title a:visited{
+    text-decoration: none;
+}
+
+
 .right-bottom-equipment .equipment-title{
     background: url('../../img/wind.png') no-repeat !important;
 }
@@ -51,17 +96,29 @@
     width:349px;
     height:311px;
     background:rgba(33,43,55,1);
+    border-radius: 0 20px 0 20px !important;
 }
 
 /*echart图*/
 .right-bottom-equipment .bottom-equipment-chart-container{
     width:50%;
     float: left;
+    position: relative;
 }
 .right-bottom-equipment .bottom-equipment-chart{
     height:216px;
     width:100%
 }
+/*echart中显示数据*/
+.right-bottom-equipment .bottom-content-data{
+    position: absolute;
+    right:90px;
+    top:65px;
+    color:white;
+    font-size: 12px;
+    line-height: 12px;
+}
+
 /*下方数据统计*/
 .right-bottom-equipment .bottom-equipment-chart-data .chart-data {
     color:white;
@@ -75,6 +132,20 @@
     font-size:12px;
     margin-left:5px;
 }
+.right-bottom-equipment .bottom-equipment-chart-data .chart-data .total-data{
+
+    font-size:12px;
+    margin-left:1px;
+    color:#959595;
+}
+
+.right-bottom-equipment .bottom-equipment-chart-data .chart-power1 .total-data{
+
+    font-size:12px;
+    margin-left:1px;
+    color:#959595;
+}
+
 
 .right-bottom-equipment .bottom-equipment-chart-data .chart-power {
 
@@ -87,6 +158,253 @@
 
     background: url(../../img/alarm.png) no-repeat 45px center;
     font-size:14px;
-    text-align: center;
+    text-align: right;
     color:white;
+    padding-right:20px;
+    box-sizing: border-box;
+}
+
+/*-------------------空调机组------------------------*/
+/*标题*/
+.right-bottom-equipment-container{
+    margin-right:20px;
+}
+.right-bottom-equipment-container .conditioner-title{
+    background: url('../../img/conditioner.png') no-repeat !important;
+}
+
+/*-------------------电梯系统------------------------*/
+
+.right-bottom-equipment-container .elevator-title{
+    background: url('../../img/elevator.png') no-repeat !important;
+}
+
+/*-------------------动环系统------------------------*/
+
+.right-bottom-equipment-container .rotating-title{
+    background: url('../../img/rotating.png') no-repeat !important;
+}
+
+/*-------------------站房照明------------------------*/
+
+.right-bottom-equipment-container .station-title{
+    background: url('../../img/station.png') no-repeat !important;
+}
+
+.right-bottom-container .right-bottom-equipment-container1 .right-bottom-equipment-content{
+    width:350px;
+    height:214px;
+}
+
+.right-bottom-container .bottom-equipment-chart-container1{
+    padding-top:45px;
+    box-sizing: border-box;
+}
+
+/*-------------------站台照明------------------------*/
+
+.right-bottom-equipment-container .platform-title{
+    background: url('../../img/platform.png') no-repeat !important;
+}
+
+
+/*-------------------送排风------------------------*/
+
+.right-bottom-equipment-container .wind-title{
+    background: url('../../img/wind.png') no-repeat !important;
+}
+
+
+/*-------------------送排风------------------------*/
+
+.right-bottom-equipment-container .water-title{
+    background: url('../../img/water.png') no-repeat !important;
+}
+
+
+/*右上角信息*/
+.right-top-message p{
+    float: left;
+    margin-right:10px;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+.right-top-message{
+    border:none !important;
+    background: none !important;
+}
+
+.inner-right-container .right-top-message{
+    position: absolute;
+    top:3px !important;
+    right:50px !important;
+}
+
+
+/*---------------------------右侧节能减排---------------------*/
+.right-bottom-container .right-bottom-conservation{
+
+    margin-left:15px;
+    width:265px;
+    float: left;
+    height: 647px;
+
+}
+
+/*累计节电量*/
+.right-bottom-container .right-bottom-centent-data{
+
+    width:255px;
+    height:83px;
+    background:url("../../img/yellowBorder.png") no-repeat;
+    margin-bottom:15px;
+}
+
+.right-bottom-container .right-bottom-centent-data p{
+    color:white;
+
+}
+.right-bottom-container .right-bottom-centent-data .top-title{
+    text-align: left;
+    padding:15px 20px;
+    padding-bottom:0;
+    box-sizing: border-box;
+}
+.right-bottom-container .right-bottom-centent-data .bottom-data{
+    text-align: right;
+    padding:10px 10px;
+    padding-bottom:0;
+    box-sizing: border-box;
+    background:url("../../img/yellowElect.png") no-repeat 45px 5px;
+    font-size:29px;
+    line-height: 20px;
+}
+.right-bottom-container .right-bottom-centent-data .bottom-data span{
+    font-size:12px;
+    display: inline-block;
+    width:30px;
+    text-align: left;
+    padding-left:8px;
+    box-sizing: border-box;
+}
+
+/*累计节水量*/
+.right-bottom-container .right-bottom-centent-data1{
+
+    background:url("../../img/greenBorder.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data1{
+
+    background:url("../../img/greenWater.png") no-repeat 45px 5px;
+
+}
+
+/*累计节气量*/
+.right-bottom-container .right-bottom-centent-data2{
+
+    background:url("../../img/blueBorder.png") no-repeat;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data2{
+
+    background:url("../../img/blueAir.png") no-repeat 45px 5px;
+
+}
+
+/*累计节水量*/
+.right-bottom-container .right-bottom-centent-data3{
+
+    background:url("../../img/redBorder.png") no-repeat;
+    margin-bottom:20px;
+
+}
+
+.right-bottom-container .right-bottom-centent-data .bottom-data3{
+
+    background:url("../../img/CO2.png") no-repeat 45px 5px;
+
+}
+
+/*安全联动*/
+.right-bottom-container .right-bottom-safe{
+    width:259px;
+    height:157px;
+    border:1px solid #2170F4;
+    padding-top:27px;
+    box-sizing: border-box;
+}
+.right-bottom-container .right-bottom-safe p{
+    font-size:16px;
+    height:50px;
+    line-height: 50px;
+    padding-left:30px;
+    box-sizing: border-box;
+    color:white;
+}
+.right-bottom-container .right-bottom-safe p span{
+    font-size:29px;
+    margin-left:22px;
+
+}
+
+/*能源管理*/
+.right-bottom-container .right-bottom-energyment{
+    float: left;
+    width:865px;
+    position: relative;
+}
+
+.right-bottom-container .left-bottom-content {
+    width: 100%;
+    height: 286px;
+}
+.right-bottom-container .left-tab-container {
+    width: 75%;
+    height: 60px;
+    position: absolute;
+    left:140px;
+    top:-5px;
+}
+
+/*用电分项*/
+.right-bottom-container .right-bottom-content-chart{
+    width:294px;
+    height:229px;
+    background:rgba(33,43,55,1);
+    border-radius: 15px !important;
+    float: left;
+    position: relative;
+}
+
+.right-bottom-container .right-bottom-content-chart-content{
+
+    width:100%;
+    height:100%;
+
+}
+
+/*运维联动*/
+.right-bottom-container .right-bottom-operation{
+
+    width:auto !important;
+    margin-right:15px;
+}
+
+
+/*上方小标题*/
+.right-bottom-content-chart .chart-name-case{
+    position: absolute;
+    top:0;
+    left:15%;
+    display: inline-block;
+    width:93px;
+    height:29px;
+    background:url("../../img/operation.png") no-repeat;
+    line-height: 29px;
+    color:white;
+    font-size: 18px;
+    text-align: center;
 }

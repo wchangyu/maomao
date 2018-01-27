@@ -2492,6 +2492,7 @@ $(function(){
                     obj.userNum = result.gdWxLeaders[i].wxRen;
                     obj.userName = result.gdWxLeaders[i].wxRName;
                     obj.mobile = result.gdWxLeaders[i].wxRDh;
+                    obj.pol = result.gdWxLeaders[i].pol;
                     arr.push(obj);
                 }
                 _datasTable($('#fzr-list'),arr);

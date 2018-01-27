@@ -30,7 +30,7 @@ $(function(){
             addressname:'',
             peoplename:'',
             age:'',
-            sex:'',
+            sex:'0',
             phone:'',
             telphone:'',
             duty:''
@@ -62,15 +62,9 @@ $(function(){
         }
     });
 
-    //获取部门（登记的时候）
-    getDepartment($('#djbm'));
-
     //条件查询
     //getDepartment($('#rybm'),'flag');
 
-
-    //获取楼宇
-    getBuild($('#peoplenameing'));
 
     $(document).on("show.bs.modal", ".modal", function(){
         $(this).draggable({
@@ -118,7 +112,7 @@ $(function(){
             {
                 title:'',
                 data:'lmid',
-                class:'hidden'
+                class:'hidden userNum'
             },
             {
                 title:'序号',
@@ -207,8 +201,9 @@ $(function(){
         user.addressname='';
         user.peoplename='';
         user.age='';
-        user.sex='';
+        user.sex='0';
         user.duty='';
+        user.telphone='';
         var disableArea = $('#user').find('.input-blockeds');
         disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
         disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
@@ -259,7 +254,7 @@ $(function(){
             $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
             //绑定数据
             bindingData($(this),'flag');
-        })
+        });
     /*---------------------------------------其他方法--------------------------------------------*/
     //模态框自适应
     function moTaiKuang(who,title,flag){
@@ -288,6 +283,20 @@ $(function(){
 
     //获取条件查询
     function conditionSelect(){
+
+        //判断用户是否有发送短信权限
+        if(sessionStorage.userAuth){
+            var userAuth = sessionStorage.userAuth;
+            console.log(userAuth.charAt(30));
+            if(userAuth.charAt(30)!="1"){
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'当前用户无操作权限', '');
+
+                return false;
+            }
+
+        }
+
         //获取条件
         // 单位名称
         var eprName = $('#filter_global input').val();
@@ -300,7 +309,7 @@ $(function(){
             url:_urls + 'Alarm/GetNoteLinkMans',
             data:prm,
             success:function(result){
-                console.log(result);
+                //console.log(result);
                 _allPersonalArr = [];
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
@@ -328,73 +337,110 @@ $(function(){
 
     //编辑、登记方法
     function editOrView(url,successMeg,errorMeg,flag,flag1){
+        //判断用户是否有发送短信权限
+        if(sessionStorage.userAuth){
+            var userAuth = sessionStorage.userAuth;
+            if(userAuth.charAt(30)!="1"){
+
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'当前用户无操作权限', '');
+
+                return false;
+            }
+
+        }
+
         //判断必填项是否为空
-        if( user.addressname == ''||user.age == ''||user.sex == ''||user.peoplename == '' ){
+        if( user.addressname == ''||user.peoplename == ''||user.telephone == ''){
             tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
         }else{
 
             //判断是编辑、登记、还是删除
             var prm = {};
             if(flag){
-                prm = {
-                    "userID":_userIdName
-                };
 
                 //获取当前ID
                 for(var i=0;i<_allPersonalArr.length;i++){
-                    if(_allPersonalArr[i].locnum == user.addressnum){
+                    if(_allPersonalArr[i].lmid == user.addressnum){
 
-                        prm.id = _allPersonalArr[i].id;
+                        prm.LmID = _allPersonalArr[i].lmid;
                     }
                 }
 
+                prm.UserID=_userIdName;
+
+                console.log(prm);
+
+                //发送数据
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:JSON.stringify(prm),
+                    contentType:'application/json',
+                    success:function(result){
+                        if(result == 99){
+                            //提示登记成功
+                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                            $('#myModal').modal('hide');
+                        }else if(result == 3){
+                            //提示登记失败
+                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                        }
+                        conditionSelect();
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
             }else{
-                //获取部门名称
-                var departName =  $("#djbm").find("option:selected").text();
-                //获取楼宇名称
-                var peoplenameName =  $("#peoplenameing").find("option:selected").text();
+
                 prm = {
-                    "locName":user.addressname,
-                    "floor": user.age,
-                    "departNum":user.sex,
-                    "departName":departName,
-                    "ddnum":user.peoplename,
-                    "ddname":peoplenameName,
-                    "memo":user.duty
-                    //"userID":_userIdName
+                    "lmid": 0,
+                    "lmEprName":user.addressname,
+                    "lmAge": user.age,
+                    "lmSex":user.sex,
+                    "lmName":user.peoplename,
+                    "lmTel":user.phone,
+                    "lmmp": user.telphone,
+                    "lmPost":user.duty,
+                    "userID":_userIdName
                 };
 
                 if(flag1){
                     //获取当前ID
                     for(var i=0;i<_allPersonalArr.length;i++){
-                        if(_allPersonalArr[i].locnum == user.addressnum){
+                        if(_allPersonalArr[i].lmid == user.addressnum){
 
-                            prm.id = _allPersonalArr[i].id;
+                            prm.lmid = _allPersonalArr[i].lmid;
                         }
                     }
                 }
 
-            }
-            //发送数据
-            $.ajax({
-                type:'post',
-                url:_urls + url,
-                data:prm,
-                success:function(result){
-                    if(result == 99){
-                        //提示登记成功
-                        tipInfo($('#myModal1'),'提示',successMeg,'flag');
-                        $('#myModal').modal('hide');
-                    }else if(result == 3){
-                        //提示登记失败
-                        tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+
+
+                //发送数据
+                $.ajax({
+                    type:'post',
+                    url:_urls + url,
+                    data:prm,
+                    success:function(result){
+                        if(result == 99){
+                            //提示登记成功
+                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
+                            $('#myModal').modal('hide');
+                        }else if(result == 3){
+                            //提示登记失败
+                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+                        }
+                        conditionSelect();
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
                     }
-                    conditionSelect();
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
-                }
-            })
+                })
+
+            }
+
 
 
         }
@@ -406,16 +452,17 @@ $(function(){
         //console.log(_allPersonalArr);
         //根据工号绑定数据
         for(var i=0;i<_allPersonalArr.length;i++){
-            if(_allPersonalArr[i].locnum == thisBM){
+            if(_allPersonalArr[i].lmid == thisBM){
                 console.log(_allPersonalArr[i]);
                 //绑定数据
-                user.addressnum = _allPersonalArr[i].locnum;
-                user.addressname = _allPersonalArr[i].locname;
-                user.age = _allPersonalArr[i].floor;
-                user.peoplename =  _allPersonalArr[i].ddnum;
-                user.sex = _allPersonalArr[i].departnum;
-                user.duty = _allPersonalArr[i].memo;
-
+                user.addressnum = _allPersonalArr[i].lmid;
+                user.addressname = _allPersonalArr[i].lmEprName;
+                user.age = _allPersonalArr[i].lmAge;
+                user.peoplename =  _allPersonalArr[i].lmName;
+                user.sex = _allPersonalArr[i].lmSex;
+                user.duty = _allPersonalArr[i].lmPost;
+                user.phone = _allPersonalArr[i].lmTel;
+                user.telphone = _allPersonalArr[i].lmmp;
             }
         }
 
@@ -432,65 +479,5 @@ $(function(){
         }
     }
 
-    //获取部门
-    function getDepartment(el,flag){
-        var prm = {
-            "departNum": "",
-            "departName": "",
-            "userID": _userIdName
-        }
-        $.ajax({
-            type:'post',
-            url:_urls + 'RBAC/rbacGetDeparts',
-            data:prm,
-            success:function(result){
-                //console.log(result);
-                var str = '';
-                if(flag){
-                    str = '<option value="">全部</option>';
-                }else{
-                    str = '<option value="">请选择</option>';
-                }
-                for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].departNum +
-                        '">' + result[i].departName + '</option>'
-                }
-                el.append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
 
-    //获取楼宇
-    function getBuild(el,flag){
-        var prm = {
-            "ddName":'',
-            "userID": _userIdName
-        };
-        $.ajax({
-            type:'post',
-            url:_urls + 'YWDev/ywDMGetDDs',
-            data:prm,
-            success:function(result){
-                var str = '';
-                if(flag){
-                    str = '<option value="">全部</option>';
-                }else{
-                    str = '<option value="">请选择</option>';
-                }
-                for(var i=0;i<result.length;i++){
-                    str += '<option value="' + result[i].ddNum +
-                        '">' + result[i].ddName + '</option>'
-                }
-                el.append(str);
-            },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
-            }
-        })
-    }
-
-
-})
+});
