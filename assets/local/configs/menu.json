@@ -1,8 +1,8 @@
 {
   "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
-  "高校机房":{
+  "高效机房":{
     "type":"1",
-    "content":"高校机房",
+    "content":"高效机房",
     "iconclass":"icon-home",
     "submenu":{
       "数据总览":{
