@@ -28,6 +28,8 @@ $(function(){
 
             //删除对应的类名
             $(this).parents('.left-tab-container').find('.left-tab').eq(i).removeClass(className);
+
+            $(this).parents('.left-tab-container').find('.left-tab').eq(i).removeClass('left-tab-choose');
         }
 
         //获取当前点击的index
@@ -39,6 +41,8 @@ $(function(){
         //给当前选中元素添加选中类名
         $(this).addClass(onClassName);
 
+        $(this).addClass('left-tab-choose');
+
     });
 
     //点击左侧日月年切换
@@ -49,6 +53,12 @@ $(function(){
 
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
+
+        //获取当前索引
+        var index = $(this).index();
+
+        //获取数据
+        getStationAlarmData(index);
 
     });
 
@@ -85,8 +95,8 @@ function drawRightTab(){
 
         //判断是否是要添加类名的页面
         if(pageUrl.indexOf(jumpUrl) > -1 && jumpUrl != ''){
-            console.log(pageUrl);
-            console.log(jumpUrl);
+            //console.log(pageUrl);
+            //console.log(jumpUrl);
             if(i != $('.inner-right-container .right-tab-container span').length -1){
 
                 $('.inner-right-container .right-tab-container span').eq(i).addClass('right-tab-choose1');
@@ -97,8 +107,7 @@ function drawRightTab(){
 
         }
     }
-}
-
+};
 
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
@@ -249,23 +258,23 @@ var option = {
 };
 
 var option1 = {
-    //title:{
-    //    text:'30%',
-    //    textStyle:{
-    //        color:'#09D188',
-    //        fontSize:8,
-    //        fontWeight:'normal'
-    //    },
-    //    bottom:"22%",
-    //    left:'20%'
-    //},
+    title:{
+        text:'30%',
+        textStyle:{
+            color:'#09D188',
+            fontSize:8,
+            fontWeight:'normal'
+        },
+        bottom:"22%",
+        left:'center'
+    },
     tooltip: {
         trigger: 'item',
         formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
     series: [
         {
-            name:'访问来源',
+            name:'占比',
             type:'pie',
             radius: ['50%', '70%'],
             avoidLabelOverlap: false,
@@ -384,9 +393,10 @@ $('.right-tab-container .right-tab').on('click',function(){
          onClassName = 'right-tab-choose2';
     }
 
-
     //给当前选中元素添加选中类名
     $(this).addClass(onClassName);
+
+
 
 });
 
@@ -425,7 +435,6 @@ getNowTime();
 //获取温度湿度
 getWeatherParam();
 
-
 //关闭弹窗中的流程图
 $('#right-container').on('click','.close1',function(){
 
@@ -434,7 +443,6 @@ $('#right-container').on('click','.close1',function(){
 
     dom.remove();
 });
-
 
 //------------------------------------页面右上角时间温度-----------------------------------//
 
@@ -658,7 +666,7 @@ function getStationAlarmNum(){
         }
     })
 
-}
+};
 
 //下方echarts图  index参数 1.设别报警 2.能耗报警 3.运维工单
 function getStationAlarmData(index){
@@ -755,16 +763,16 @@ function getStationAlarmData(index){
         }
     })
 
-}
-
+};
 
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
     //获取页面日期类型
-    var dateType = $('.left-tab-container .right-tab').html();
+    var dateType = $('.inner-left-bottom .left-tab-container .right-tab').html();
 
     //定义展示日期类型
     var showDateType = '';
+
     //定义用于选择日期类型
     var selectDateType = '';
 
@@ -826,7 +834,6 @@ function getPostTime(){
     return [startTime,endTime]
 };
 
-
 //根据区域ID以及设备类型从后台获取设备列表
 function getSecondColdHotSour(url,devTypeID,areaID){
 
@@ -847,7 +854,7 @@ function getSecondColdHotSour(url,devTypeID,areaID){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             _datasTable($('#equipment-datatables'),result);
         },

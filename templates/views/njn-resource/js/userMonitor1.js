@@ -420,10 +420,9 @@ var userMonitor = (function(){
                 initializeProcSubs(curProc.procID);//选中默认的监控
             }
 
-            selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
+            //selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
         }
 
-        $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
     };
 
     //绘制大屏中的上方流程图菜单
@@ -433,7 +432,7 @@ var userMonitor = (function(){
         //从session中获取本页显示的区域信息
         var areaArr = JSON.parse(sessionStorage.monitorArea);
 
-        console.log(areaArr);
+        //console.log(areaArr);
 
         var $ul = $("#monitor-menu-container");
 
@@ -444,6 +443,7 @@ var userMonitor = (function(){
         var curProc = selectedProc || undefined;
 
         var startNum = 0;
+        //console.log(procs);
         if(_isViewAllProcs){
 
             $(areaArr).each(function(k,o){
@@ -756,7 +756,7 @@ var userMonitor = (function(){
                     //右侧容器宽度
                     $('#right-container').width(realWidth);
 
-                    console.log(realWidth);
+                    //console.log(realWidth);
 
                     //判断左侧操作栏是否存在
                     var o1 = $(".content-main-left").css("display");

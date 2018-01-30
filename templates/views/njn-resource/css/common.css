@@ -425,7 +425,7 @@
 /*下方右侧设备数据*/
 .right-bottom-right-container{
     width:509px;
-    /*height:614px;*/
+    min-height:614px;
     background: #E7E9EF;
     float: right;
     padding:20px 10px;
@@ -444,6 +444,7 @@
 
 .right-bottom-table tbody td{
     text-align: center;
+    height: 61px;
 }
 .right-bottom-table tbody tr{
     margin-bottom:8px;
@@ -456,7 +457,7 @@
 .right-bottom-table .green-patch{
     width:66px;
     height:20px;
-    background: #09D188;
+    background: #989898;
     color:white;
     display: inline-block;
 }
@@ -466,11 +467,19 @@
     height:40px;
     display: inline-block;
 }
+
+.right-bottom-table .right-bottom-echart1{
+    width:60px;
+    height:40px;
+    display: inline-block;
+}
+
 .right-bottom-table .right-bottom-alarm{
     margin:0;
     font-size:12px;
     white-space:nowrap;
     max-width:120px;
+    text-align: left;
 }
 
 /*table中的颜色小块*/

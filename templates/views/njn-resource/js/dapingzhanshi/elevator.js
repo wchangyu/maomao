@@ -30,15 +30,21 @@ $(function(){
         }
     }
 
+    //获取右侧流程图数据
+    getSeAreaElevator();
+
 
 });
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
+var titleArr = ['','数量','正常运行','故障中','维修中','监控设备故障率','对讲设备故障率','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
+
+//清除浏览器中的关于地点信息的缓存
+sessionStorage.removeItem('monitorArea');
 
 //绘制页面右侧的table
 function drawDataTable(titleArr,areaArr){
@@ -116,65 +122,42 @@ function drawDataTable(titleArr,areaArr){
     $('.right-bottom-table tbody').html( bodyHtml);
 };
 
-
-//配置流程图页面中的区域位置
-var monitorAreaArr = [
-    {
-        "areaName":"-9.6m",
-        "areaId":"2"
-    },
-    {
-        "areaName":"12.4m",
-        "areaId":"4"
-    },
-    {
-        "areaName":"17.1m",
-        "areaId":"15"
-    },
-    {
-        "areaName":"19.1m",
-        "areaId":"6"
-    },
-    {
-        "areaName":"22.4m",
-        "areaId":"7"
-    },
-    {
-        "areaName":"28.4m",
-        "areaId":"8"
-    },
-    {
-        "areaName":"东北角配楼1层",
-        "areaId":"9"
-    },
-    {
-        "areaName":"东北角配楼2层",
-        "areaId":"10"
-    },
-    {
-        "areaName":"西南角配楼1层",
-        "areaId":"11"
-    },
-    {
-        "areaName":"西南角配楼2层",
-        "areaId":"12"
-    }
-];
-//把区域信息放入到流程图页面中
-sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
-
 //点击不同区域获取不同的设备列表
 $('#monitor-menu-container').on('click','span',function(){
+
+    //获取当前的arg参数
+    var arg = $(this).attr('data-arg');
+
+    if(arg){
+
+        sessionStorage.menuArg = arg;
+
+        //重新获取当前类型下的流程图
+        userMonitor.init();
+    }
 
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 空调机组为2
-    var devTypeID = 2;
+    //定义当前的设备类型
+    var devTypeID ;
+
+    //获取当前的索引
+    var index = $(this).index();
+
+    //直梯
+    if(index == 0){
+
+        //定义当前的设备类型 直梯为18
+       devTypeID = 18 ;
+    }else{
+
+        //定义当前的设备类型 扶梯为19
+        devTypeID = 19 ;
+    }
 
     //获取当前的设备列表
-    getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
-
+    getSecondColdHotSour('NJNDeviceShow/GetSecondElevator', devTypeID,areaID);
 
 });
 
@@ -244,70 +227,17 @@ var table = $('#equipment-datatables').DataTable({
             data:'serviceArea'
         },
         {
-            title:'配电箱手自动状态',
-            data:'',
-            render:function(data, type, row, meta){
-
-
-                return '自动';
-
-            }
+            title:'面板编号',
+            data:'panelNum'
         },
         {
-            title:'季节模式',
+            title:'上行状态',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4021'){
-
-                        return o.cDataValue;
-                    }
-                });
-
-                return '冬季';
-
-            }
-        },
-        {
-            title:'控制模式',
-            data:'',
-            render:function(data, type, row, meta){
-
-
-                return '';
-
-            }
-        },
-        {
-            title:'风阀节能模式',
-            data:'',
-            render:function(data, type, row, meta){
-
-
-                return '';
-
-            }
-        },
-        {
-            title:'串级节能',
-            data:'',
-            render:function(data, type, row, meta){
-
-
-                return '';
-
-            }
-        },
-        {
-            title:'启停状态',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4064'){
+                    if(o.cTypeID == '4421'){
 
                         if(o.cDataValue == 1){
 
@@ -315,8 +245,6 @@ var table = $('#equipment-datatables').DataTable({
                         }else{
                             return "OFF";
                         }
-
-
                     }
                 });
 
@@ -325,16 +253,20 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'送风温度设定（℃）',
+            title:'下行状态',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4065'){
+                    if(o.cTypeID == '4422'){
 
-                        return o.cTypeID
+                        if(o.cDataValue == 1){
 
+                            return "ON"
+                        }else{
+                            return "OFF";
+                        }
                     }
                 });
 
@@ -343,139 +275,19 @@ var table = $('#equipment-datatables').DataTable({
             }
         },
         {
-            title:'送风温度（℃）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4062'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
+            title:'维修状态',
+            data:'repairModel'
         },
         {
-            title:'回风温度设定（℃）',
-            data:'devCtypeDatas',
+            title:'故障状态',
+            data:'faultState',
             render:function(data, type, row, meta){
 
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4065'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'回风温度（℃）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4029'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'CO2浓度设定（PPM）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-
-                return '';
-
-            }
-        },
-        {
-            title:'CO2浓度（PPM）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4024'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'水阀开度（%）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4048'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'新风阀开度（%）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4067'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
-            }
-        },
-        {
-            title:'回风阀开度（%）',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4025'){
-
-                        return o.cTypeID
-
-                    }
-                });
-
-                return '';
-
+                        if(data == 1){
+                            return "故障"
+                        }else{
+                            return "无故障";
+                        }
             }
         },
         {
@@ -483,10 +295,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
-
-
                 return '';
-
             }
         },
         {
@@ -495,6 +304,218 @@ var table = $('#equipment-datatables').DataTable({
         }
     ]
 });
+
+
+//定义当前的设备类型 电梯为5 直梯为18 扶梯为19
+var devTypeID = 5;
+
+//-------------------------------------获取流程图右侧展示数据--------------------------//
+function getSeAreaElevator(){
+
+    //传递给后台的数据
+    var ecParams = {
+        "devTypeID": 5,
+        "pointerID": curPointerIDArr
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetSeAreaElevator',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            //leftBottomChart.showLoading();
+
+        },
+        success:function(result){
+
+            console.log(result);
+
+            return false;
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            //绘制数据
+            drawDataTableByResult(titleArr,result);
+
+
+
+
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //leftBottomChart.hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
+
+
+
+//绘制页面右侧的table
+function drawDataTableByResult(titleArr,areaDataArr){
+    //定义title
+    var titleHtml = '';
+
+    $(titleArr).each(function(i,o){
+
+        //拼接title的字符串
+        titleHtml += '<th>'+o+'</th>';
+
+    });
+
+    //把title放入到table中
+
+    $('.right-bottom-table thead tr').html(titleHtml);
+
+    //定义tbody中内容
+    var bodyHtml = '';
+
+    //存放要放到页面中展示的内容
+    var realShowArr = [];
+
+    //绘制table中主体数据
+    $(areaDataArr).each(function(i,o){
+
+        //获取当前区域ID
+        var areaID = o.areaInfo.areaID;
+
+        //是否在页面中绘制的标识
+        var isDraw = false;
+
+        $(monitorAreaArr).each(function(k,o){
+            //如果存在此区域ID 则允许重绘
+            if(o.areaId == areaID){
+
+                isDraw = true;
+                return false;
+            }
+        });
+
+        //如果不需要重绘 退出本次循环
+        if(!isDraw){
+            return true;
+        }
+
+        //将本项添加到页面要显示的内容中
+        realShowArr.push(o);
+
+        //拼接页面中的字符串
+        bodyHtml +=
+            '<tr>' +
+            '<td>' +
+            '<span class="green-patch">'+ o.areaInfo.areaName+'</span>' +
+            '</td>' +
+
+            '<td>'+o.devNum+'</td>' +
+            ' <td>' +
+
+            '<div class="right-bottom-echart" id="">' +
+
+            '</div>' +
+
+            '</td>' +
+
+            '<td>' +
+
+            '<div class="right-bottom-echart" id="">' +
+
+            '</div>' +
+
+            '</td>' +
+
+            ' <!--回风平均温度-->' +
+            '<td>' +
+            ' <span class="table-small-patch table-small-patch-red">'+ o.returnAirTemp.toFixed(1)+'</span>' +
+            '</td>' +
+
+            '<!--回风co2平均浓度-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-green">'+ o.co2MMol.toFixed(1)+'</span>' +
+            '</td>' +
+
+            '<td>' +
+
+            '<div class="right-bottom-echart" id="">' +
+
+            '</div>' +
+
+            '</td>' +
+
+            '<td>' +
+            '<p class="right-bottom-alarm">'+ o.excData2s[0].alarmSetName+'</p>' +
+            '<p class="right-bottom-alarm">'+ o.excData2s[1].alarmSetName+'</p>' +
+            '<p class="right-bottom-alarm">'+ o.excData2s[2].alarmSetName+'</p>' +
+            '</td>' +
+            '</tr>';
+    });
+
+    //把body放入到table中
+
+    $('.right-bottom-table tbody').html( bodyHtml);
+
+    //给echart图赋值
+    echartReDraw(realShowArr);
+
+};
+
+//给右侧流程图循环赋值
+function echartReDraw(realDataArr){
+
+    //根据页面中展示的数据给echarts循环赋值
+    $(realDataArr).each(function(i,o){
+
+        //运行占比
+        var runProp = o.runProp;
+
+        //自动运行占比
+        var autoRunProp = o.autoRunProp;
+
+        //故障占比
+        var alarmProp = o.alarmProp;
+
+        var dataArr = [runProp,autoRunProp,alarmProp];
+
+        var tableDom = document.getElementsByClassName('right-bottom-table')[0];
+
+        var tbodyDom = tableDom.getElementsByTagName('tbody')[0];
+
+        var trDom = tbodyDom.getElementsByTagName('tr')[i];
+
+        $(dataArr).each(function(k,o){
+
+            var echartDom = trDom.getElementsByClassName('right-bottom-echart')[k];
+
+            var data1 = (o * 100).toFixed(0);
+
+            var data2 = 100 - data1;
+
+            option1.series[0].data = [data1,data2];
+
+            option1.title.text = data1+ '%';
+
+            var rightTableChart = echarts.init(echartDom);
+
+            rightTableChart.setOption(option1);
+
+        });
+
+    });
+
+}
 
 
 

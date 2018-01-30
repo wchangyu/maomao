@@ -4,38 +4,14 @@
 
 $(function(){
 
-    //绘制页面右侧的table
-    drawDataTable(titleArr,areaArr);
-
-    var rightTableChart = echarts.init(document.getElementById('right-bottom-echart1'));
-
-    //给table中echart循环赋值
-    echartAssignment();
-
-    function echartAssignment(){
-
-        //获取需要赋值的数量
-        var length = $('.right-bottom-table .right-bottom-echart').length;
-
-        for(var i=0; i<length; i++){
-
-            ////获取当前ID
-            //var id = $('.right-bottom-table .right-bottom-echart').eq(i).attr('id');
-
-            var dom = document.getElementsByClassName('right-bottom-echart')[i];
-
-            var rightTableChart = echarts.init(dom);
-
-            rightTableChart.setOption(option1);
-        }
-    }
-
+    //获取流程图右侧table中数据
+    getSeAreaRotarySys();
 
 });
 
 
 //页面右侧Table的表头集合
-var titleArr = ['','设备数','暂停占比','自动运行占比','回风平均温度','回风CO2浓度','故障占比','报警'];
+var titleArr = ['','机房数','空开平均温度','机房平均温度','机房平均湿度','UPS平均温度','报警'];
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
@@ -434,6 +410,174 @@ var table = $('#equipment-datatables').DataTable({
         }
     ]
 });
+
+
+
+
+//-------------------------------------获取流程图右侧展示数据--------------------------//
+
+//定义当前的设备类型 动环系统为7
+var devTypeID = 7;
+
+function getSeAreaRotarySys(){
+
+    //传递给后台的数据
+    var ecParams = {
+        "devTypeID": devTypeID,
+        "pointerID": curPointerIDArr
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetSeAreaRotarySys',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            //leftBottomChart.showLoading();
+
+        },
+        success:function(result){
+
+            //console.log(result);
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            //绘制数据
+            drawDataTableByResult(titleArr,result);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //leftBottomChart.hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
+
+
+//绘制页面右侧的table
+function drawDataTableByResult(titleArr,areaDataArr){
+    //定义title
+    var titleHtml = '';
+
+    $(titleArr).each(function(i,o){
+
+        //拼接title的字符串
+        titleHtml += '<th>'+o+'</th>';
+
+    });
+
+    //把title放入到table中
+
+    $('.right-bottom-table thead tr').html(titleHtml);
+
+    //定义tbody中内容
+    var bodyHtml = '';
+
+    //存放要放到页面中展示的内容
+    var realShowArr = [];
+
+    //绘制table中主体数据
+    $(areaDataArr).each(function(i,o){
+
+        //获取当前区域ID
+        var areaID = o.areaInfo.areaID;
+
+        //是否在页面中绘制的标识
+        var isDraw = false;
+
+        $(monitorAreaArr).each(function(k,o){
+            //如果存在此区域ID 则允许重绘
+            if(o.areaId == areaID){
+
+                isDraw = true;
+                return false;
+            }
+        });
+
+        //如果不需要重绘 退出本次循环
+        if(!isDraw){
+            return true;
+        }
+
+        //将本项添加到页面要显示的内容中
+        realShowArr.push(o);
+
+        //拼接页面中的字符串
+        bodyHtml +=
+            '<tr>' +
+                '<td>' +
+                    '<span class="green-patch">'+ o.areaInfo.areaName+'</span>' +
+                '</td>' +
+
+                '<td>'+o.devNum+'</td>' +
+
+                ' <!--空开平均温度-->' +
+                '<td>' +
+                    ' <span class="table-small-patch table-small-patch-red">'+ o.airOpenTemp.toFixed(1)+'</span>' +
+                '</td>' +
+
+                '<!--机房平均温度-->' +
+                '<td>' +
+                    '<span class="table-small-patch table-small-patch-green">'+ o.computerTemp.toFixed(1)+'</span>' +
+                '</td>' +
+
+                //机房平均湿度
+                '<td>' +
+                         '<span class="table-small-patch table-small-patch-red">'+ o.computerHum.toFixed(1)+'</span>' +
+
+                '</td>' +
+
+                //USP平均温度
+                '<td>' +
+                    '<span class="table-small-patch table-small-patch-green">'+ o.upsTemp.toFixed(1)+'</span>' +
+
+                '</td>';
+
+            if(o.excData2s != null && o.excData2s.length > 0){
+
+                bodyHtml += '<td>';
+
+                $(o.excData2s).each(function(i,o){
+
+                    if(i < 3){
+
+                        bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    }
+
+                });
+
+                bodyHtml += '</td>';
+
+            }else{
+                bodyHtml +=   '<td>' +
+                                '<p class="right-bottom-alarm"></p>' +
+                                '<p class="right-bottom-alarm"></p>' +
+                                '<p class="right-bottom-alarm"></p>' +
+                              '</td>' ;
+            }
+
+        bodyHtml +=   '</tr>';
+    });
+
+    //把body放入到table中
+
+    $('.right-bottom-table tbody').html( bodyHtml);
+
+
+};
 
 
 
