@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/assets/local/configs/menu.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu.json" />
-      <change beforePath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/coldHeatSource.html" afterPath="$PROJECT_DIR$/templates/views/njn-dapingzhanshi/coldHeatSource.html" />
-      <change beforePath="$PROJECT_DIR$/templates/views/njn-resource/css/dapingzhanshi/coldHeatSource.css" afterPath="$PROJECT_DIR$/templates/views/njn-resource/css/dapingzhanshi/coldHeatSource.css" />
       <change beforePath="$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js" afterPath="$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,69 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="coldHeatSource.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/coldHeatSource.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="346" column="88" lean-forward="false" selection-start-line="346" selection-start-column="88" selection-end-line="346" selection-end-column="107" />
-              <folding>
-                <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#h3#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#2;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="coldHeatSource.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/css/dapingzhanshi/coldHeatSource.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="347" column="42" lean-forward="false" selection-start-line="347" selection-start-column="42" selection-end-line="347" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="coldHeatSource.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="116" column="23" lean-forward="false" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
-              <folding>
-                <element signature="e#366#503#0" expanded="false" />
-                <element signature="e#544#794#0" expanded="false" />
-                <element signature="e#828#1166#0" expanded="false" />
-                <element signature="e#1258#1362#0" expanded="false" />
-                <element signature="e#1466#1909#0" expanded="false" />
-                <element signature="n#!!block;n#getTDayGLWs#0" expanded="false" />
-                <element signature="n#!!block;n#getTDayCs#0" expanded="false" />
-                <element signature="n#!!block;n#getTDayQs#0" expanded="false" />
-                <element signature="n#!!block;n#getTDayEs#0" expanded="false" />
-                <element signature="e#3976#4303#0" expanded="false" />
-                <element signature="e#4325#5085#0" expanded="false" />
-                <element signature="n#!!block;n#getLDCAE#0" expanded="false" />
-                <element signature="n#!!block;n#getLQCAE#0" expanded="false" />
-                <element signature="n#!!block;n#getRBJAE#0" expanded="false" />
-                <element signature="e#7657#7762#0" expanded="false" />
-                <element signature="n#!!block;n#getXLJAE#0" expanded="false" />
-                <element signature="n#!!block;n#getLXJAE#0" expanded="false" />
-                <element signature="e#10724#12322#0" expanded="false" />
-                <element signature="e#12367#14351#0" expanded="false" />
-                <element signature="e#14624#16370#0" expanded="false" />
-                <element signature="e#16638#18571#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -107,6 +42,7 @@
       <find>_refrigeratorChart1</find>
       <find>bottom-meter-chart</find>
       <find>consumotion-echart0</find>
+      <find>LRYCMonitor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,10 +91,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="237" />
-    <option name="y" value="48" />
-    <option name="width" value="1241" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="92" />
+    <option name="y" value="32" />
+    <option name="width" value="1320" />
     <option name="height" value="913" />
   </component>
   <component name="ProjectView">
@@ -176,6 +112,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,7 +189,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -344,11 +280,13 @@
       <workItem from="1517299026843" duration="1793000" />
       <workItem from="1517300832424" duration="1801000" />
       <workItem from="1517302645098" duration="997000" />
+      <workItem from="1517363914499" duration="389000" />
+      <workItem from="1517368423829" duration="151000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81122000" />
+    <option name="totallyTimeSpent" value="81662000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -360,10 +298,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="237" y="48" width="1241" height="913" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2950956" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18703899" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -504,13 +441,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4092">
           <caret line="190" column="42" lean-forward="true" selection-start-line="190" selection-start-column="42" selection-end-line="190" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/calendar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="315" column="68" lean-forward="false" selection-start-line="315" selection-start-column="68" selection-end-line="315" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -679,7 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7238">
           <caret line="329" column="11" lean-forward="false" selection-start-line="329" selection-start-column="11" selection-end-line="329" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -722,7 +651,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18260">
           <caret line="830" column="9" lean-forward="false" selection-start-line="830" selection-start-column="9" selection-end-line="830" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -730,62 +658,48 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1804">
           <caret line="82" column="97" lean-forward="false" selection-start-line="82" selection-start-column="19" selection-end-line="82" selection-end-column="97" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/css/dapingzhanshi/coldHeatSource.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
+        <state relative-caret-position="7634">
           <caret line="347" column="42" lean-forward="false" selection-start-line="347" selection-start-column="42" selection-end-line="347" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/njn-dapingzhanshi/coldHeatSource.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
+        <state relative-caret-position="5918">
           <caret line="346" column="88" lean-forward="false" selection-start-line="346" selection-start-column="88" selection-end-line="346" selection-end-column="107" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#h3#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#2;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#2;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#3;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/njn-resource/js/dapingzhanshi/coldHeatSource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="116" column="23" lean-forward="false" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
+        <state relative-caret-position="6512">
+          <caret line="382" column="51" lean-forward="true" selection-start-line="382" selection-start-column="51" selection-end-line="382" selection-end-column="51" />
           <folding>
             <element signature="e#366#503#0" expanded="false" />
             <element signature="e#544#794#0" expanded="false" />
             <element signature="e#828#1166#0" expanded="false" />
             <element signature="e#1258#1362#0" expanded="false" />
             <element signature="e#1466#1909#0" expanded="false" />
-            <element signature="n#!!block;n#getTDayGLWs#0" expanded="false" />
-            <element signature="n#!!block;n#getTDayCs#0" expanded="false" />
-            <element signature="n#!!block;n#getTDayQs#0" expanded="false" />
-            <element signature="n#!!block;n#getTDayEs#0" expanded="false" />
-            <element signature="e#3976#4303#0" expanded="false" />
-            <element signature="e#4325#5085#0" expanded="false" />
-            <element signature="n#!!block;n#getLDCAE#0" expanded="false" />
-            <element signature="n#!!block;n#getLQCAE#0" expanded="false" />
-            <element signature="n#!!block;n#getRBJAE#0" expanded="false" />
-            <element signature="e#7657#7762#0" expanded="false" />
-            <element signature="n#!!block;n#getXLJAE#0" expanded="false" />
-            <element signature="n#!!block;n#getLXJAE#0" expanded="false" />
-            <element signature="e#10724#12322#0" expanded="false" />
-            <element signature="e#12367#14351#0" expanded="false" />
-            <element signature="e#14624#16370#0" expanded="false" />
-            <element signature="e#16638#18571#0" expanded="false" />
+            <element signature="e#3948#4275#0" expanded="false" />
+            <element signature="e#4297#5057#0" expanded="false" />
+            <element signature="e#7608#7713#0" expanded="false" />
+            <element signature="e#12304#14288#0" expanded="false" />
+            <element signature="e#14561#16307#0" expanded="false" />
+            <element signature="e#16575#18508#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/views/EPMA/calendar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="316" column="67" lean-forward="false" selection-start-line="316" selection-start-column="67" selection-end-line="316" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>

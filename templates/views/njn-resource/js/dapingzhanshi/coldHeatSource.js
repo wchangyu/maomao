@@ -115,7 +115,7 @@ $(function(){
 
 //获取[供冷温度曲线]历史数据
 function getTDayGLWs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayGLWDs";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayGLWDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -134,7 +134,7 @@ function getTDayGLWs() {
 
 //获取[冷量曲线]历史数据
 function getTDayCs(){
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayCDs";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayCDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -153,7 +153,7 @@ function getTDayCs(){
 
 //获取[汽耗曲线]历史数据
 function getTDayQs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayQDs";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayQDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -173,7 +173,7 @@ function getTDayQs() {
 //获取电耗曲线监测数据
 var _consumotionChart = echarts.init(document.getElementById('consumotion-echart0'));
 function getTDayEs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayEDs";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayEDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -237,7 +237,7 @@ var cc = [[0.23, '#2170F4'], [0.28, '#14E398'], [0.33, '#EAD01E'], [1, '#F8276C'
 //获取[冷冻侧系统]数据
 var chartViewLDCMain =  echarts.init(document.getElementById('bottom-childwater-chart4'));
 function getLDCAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLQCMonitorData";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLQCMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -266,7 +266,7 @@ function getLDCAE() {
 //获取[冷却侧系统]数据
 var chartViewLQCMain =  echarts.init(document.getElementById('bottom-coolwater-chart3'));
 function getLQCAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLQCMonitorData";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLQCMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -295,7 +295,7 @@ function getLQCAE() {
 //获取[热泵机组系统]数据
 var chartViewRBJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart2'));
 function getRBJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetRBMonitorData";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetRBMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -324,7 +324,7 @@ function getRBJAE() {
 //获取[溴锂机组系统]数据
 var chartViewXLJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart1'));
 function getXLJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetXLHMonitorData";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetXLHMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
@@ -353,7 +353,7 @@ function getXLJAE() {
 //获取[离心机组系统]数据
 var chartViewLXJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart'));
 function getLXJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLXJMonitorData";
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLXJMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
