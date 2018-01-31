@@ -76,6 +76,14 @@
         "uid":"",
         "arg":"",
         "iconclass":"icon-screen-tablet"
+      },
+      "计费方案":{
+        "type":"0",
+        "content":"计费方案",
+        "uri":"../EPMA/epgr.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-credit-card"
       }
     }
   },
