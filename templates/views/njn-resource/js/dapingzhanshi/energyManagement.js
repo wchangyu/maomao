@@ -1361,7 +1361,7 @@ function getTopPageKPIData(){
             }
 
             //单位面积能耗
-            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(1);
+            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(3);
 
             option6.title.text = '单位面积总标煤';
 
@@ -1376,7 +1376,7 @@ function getTopPageKPIData(){
                 if(o.energyItemID == '01'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
 
                     option6.title.text = '单位面积电耗';
 
@@ -1388,7 +1388,7 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '211'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
 
                     option6.title.text = '单位面积水耗';
 
@@ -1400,7 +1400,7 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '44'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(1);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
 
                     option6.title.text = '单位面积汽耗';
 

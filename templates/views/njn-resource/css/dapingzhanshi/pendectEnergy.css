@@ -99,6 +99,20 @@
     border-radius: 0 20px 0 20px !important;
 }
 
+/*背景圆形图*/
+.right-bottom-equipment .bottom-equipment-chart-container .bottom-equipment-chart-background{
+
+    width:120px;
+    height: 120px;
+    border-radius: 50% !important;
+    background: #2F3D4E;
+    border:1px solid #50637B;
+    position: absolute;
+    left: 28px;
+    top: 70px;
+}
+
+
 /*echart图*/
 .right-bottom-equipment .bottom-equipment-chart-container{
     width:50%;

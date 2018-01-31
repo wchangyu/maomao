@@ -157,7 +157,6 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的设备列表
    getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
 
-
 });
 
 //初始化流程图
@@ -517,6 +516,8 @@ function getSeAreaAirUnit(){
 
             //leftBottomChart.showLoading();
 
+
+
         },
         success:function(result){
 
@@ -599,6 +600,51 @@ function drawDataTableByResult(titleArr,areaDataArr){
         //将本项添加到页面要显示的内容中
         realShowArr.push(o);
 
+        //定义co2浓度框的颜色class名
+        var co2Color = 'table-small-patch-green';
+
+        //获取当前co2浓度
+        var co2MMol = o.co2MMol;
+
+        if(co2MMol > 800){
+
+            co2Color = 'table-small-patch-red';
+        }
+
+        //定义回风温度框的颜色class名
+        var returnAirColor = 'table-small-patch-green';
+
+        //获取当前回风温度
+        var returnAirTemp = o.returnAirTemp;
+
+        //获取当前年份
+        var year = moment().format('YYYY');
+
+        var curDate = moment().format('YYYY-MM-DD');
+
+        //夏季时间
+        var summerDate1 = year + '-03-15';
+
+        var summerDate2 = year + '-09-15';
+
+        //如果在夏季
+        if(curDate > summerDate1 && curDate < summerDate2){
+
+            if(returnAirTemp > 28){
+
+                returnAirColor = 'table-small-patch-red';
+            }
+
+        }else{
+
+            if(returnAirTemp < 16){
+
+                returnAirColor = 'table-small-patch-red';
+            }
+        }
+
+
+
         //拼接页面中的字符串
         bodyHtml +=
             '<tr>' +
@@ -625,12 +671,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 ' <!--回风平均温度-->' +
                 '<td>' +
-                    ' <span class="table-small-patch table-small-patch-red">'+ o.returnAirTemp.toFixed(1)+'</span>' +
+                    ' <span class="table-small-patch '+ returnAirColor+ '">'+ o.returnAirTemp.toFixed(1)+'</span>' +
                 '</td>' +
 
                 '<!--回风co2平均浓度-->' +
                 '<td>' +
-                    '<span class="table-small-patch table-small-patch-green">'+ o.co2MMol.toFixed(1)+'</span>' +
+                    '<span class="table-small-patch '+ co2Color+ '">'+ o.co2MMol.toFixed(1)+'</span>' +
                 '</td>' +
 
                 '<td>' +

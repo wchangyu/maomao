@@ -651,6 +651,12 @@ var colorArr2 = ['#14e398','#f8276c','#ead01e'];
 var echartNameArr = [_electricityEcharts,_electricityEcharts1,_conditionerEcharts,_conditionerEcharts1,_elevatorEcharts,_elevatorEcharts1, _rotatingEcharts, _rotatingEcharts1,
     _stationEcharts,_platformEcharts,_windEcharts,_waterEcharts ];
 
+//插入背景圆形图
+var cicleHtml =   '<div class="bottom-equipment-chart-background"></div>';
+
+$('.right-bottom-equipment-container .bottom-equipment-chart-container .bottom-content-data').before(cicleHtml);
+
+
 //获取数据
 function getTPDevMonitor(){
 
@@ -742,6 +748,8 @@ function getTPDevMonitor(){
             //检测点
             $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.coldHotSourceOBJ.alarmNum);
 
+            $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.coldHotSourceOBJ.cDataIDNum);
+
 
 
             //-----------------------------空调机组---------------------------//
@@ -770,7 +778,7 @@ function getTPDevMonitor(){
 
 
             //送风温度
-            var indoorTemp = result.airUnitOBJ.indoorTemp;
+            var indoorTemp = result.airUnitOBJ.sendExhaustTemp;
 
             //室内温度
             var steamData = result.airUnitOBJ.indoorTemp;
@@ -793,6 +801,8 @@ function getTPDevMonitor(){
 
             //检测点
             $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.airUnitOBJ.alarmNum);
+
+            $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.airUnitOBJ.cDataIDNum);
 
 
             //-----------------------------电梯系统---------------------------//
@@ -849,10 +859,12 @@ function getTPDevMonitor(){
             //检测点
             $('#equipment-chart-elevator1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.elevatorSysOBJ.alarmNum);
 
+            $('#equipment-chart-elevator1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.elevatorSysOBJ.cDataIDNum);
+
 
             //-----------------------------动环系统---------------------------//
             //机房数
-            var rotaryFaceallNum = result.rotaryFaceSysOBJ.allNum;
+            var rotaryFaceallNum = result.rotaryFaceSysOBJ.machineRoomNum;
 
             //运行中
             var rotaryFacerunNum = result.rotaryFaceSysOBJ.runNum;
@@ -899,6 +911,8 @@ function getTPDevMonitor(){
             //检测点
             $('#equipment-chart-rotating1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.rotaryFaceSysOBJ.alarmNum);
 
+            $('#equipment-chart-rotating1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.rotaryFaceSysOBJ.cDataIDNum);
+
 
             //-----------------------------站房照明---------------------------//
             //总回路
@@ -925,6 +939,8 @@ function getTPDevMonitor(){
 
             //检测点
             $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.statHouseLightOBJ.alarmNum);
+
+            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.statHouseLightOBJ.cDataIDNum);
 
 
             //-----------------------------站台照明---------------------------//
@@ -953,6 +969,8 @@ function getTPDevMonitor(){
             //检测点
             $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.platformLightOBJ.alarmNum);
 
+            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.platformLightOBJ.cDataIDNum)
+
             //-----------------------------送排风---------------------------//
             //总台数
             var sendExhaustAllTimesNum = result.sendExhaustOBJ.allSetNumber;
@@ -978,6 +996,8 @@ function getTPDevMonitor(){
 
             //检测点
             $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendExhaustOBJ.alarmNum);
+
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sendExhaustOBJ.cDataIDNum)
 
 
 
@@ -1006,6 +1026,8 @@ function getTPDevMonitor(){
 
             //检测点
             $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendDrainWaterOBJ.alarmNum);
+
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sendDrainWaterOBJ.cDataIDNum)
 
 
         },
@@ -1214,7 +1236,6 @@ function getFirstEnergyItemData(){
                 //if(i > 2){
                 //    return false;
                 //}
-
                 var obj = {};
                 //获取能耗数据
                 obj.value = o.energyItemValue.toFixed(1);
@@ -1258,7 +1279,22 @@ function getFirstEnergyItemData(){
 function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
     //定义总数
-    var allData = dataArr[0].data * 1.5;
+    var allData = 0;
+    if(echartsID == 'equipment-chart-rotating1'){
+
+        allData = 100;
+
+    }else{
+
+        if(colorArr == colorArr1){
+
+            allData = dataArr[0].data * 1.5;
+
+        }else{
+            allData = centerData.data;
+        }
+    }
+
 
     //定义图例集合
     var legendArr = [];

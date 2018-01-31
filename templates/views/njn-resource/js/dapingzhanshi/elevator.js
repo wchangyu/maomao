@@ -4,35 +4,9 @@
 
 $(function(){
 
-    //绘制页面右侧的table
-    drawDataTable(titleArr,areaArr);
-
-    var rightTableChart = echarts.init(document.getElementById('right-bottom-echart1'));
-
-    //给table中echart循环赋值
-    echartAssignment();
-
-    function echartAssignment(){
-
-        //获取需要赋值的数量
-        var length = $('.right-bottom-table .right-bottom-echart').length;
-
-        for(var i=0; i<length; i++){
-
-            ////获取当前ID
-            //var id = $('.right-bottom-table .right-bottom-echart').eq(i).attr('id');
-
-            var dom = document.getElementsByClassName('right-bottom-echart')[i];
-
-            var rightTableChart = echarts.init(dom);
-
-            rightTableChart.setOption(option1);
-        }
-    }
 
     //获取右侧流程图数据
     getSeAreaElevator();
-
 
 });
 
@@ -314,7 +288,7 @@ function getSeAreaElevator(){
 
     //传递给后台的数据
     var ecParams = {
-        "devTypeID": 5,
+        "devTypeID": devTypeID,
         "pointerID": curPointerIDArr
     };
 
@@ -331,22 +305,16 @@ function getSeAreaElevator(){
         },
         success:function(result){
 
-            console.log(result);
-
-            return false;
+            //console.log(result);
 
             //无数据
-            if(result == null || result.length == 0){
+            if(result == null){
 
                 return false;
             }
 
             //绘制数据
             drawDataTableByResult(titleArr,result);
-
-
-
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -362,8 +330,6 @@ function getSeAreaElevator(){
         }
     })
 };
-
-
 
 //绘制页面右侧的table
 function drawDataTableByResult(titleArr,areaDataArr){
@@ -417,12 +383,27 @@ function drawDataTableByResult(titleArr,areaDataArr){
         bodyHtml +=
             '<tr>' +
             '<td>' +
-            '<span class="green-patch">'+ o.areaInfo.areaName+'</span>' +
+            '<span class="green-patch">'+ o.typeName+'</span>' +
             '</td>' +
 
             '<td>'+o.devNum+'</td>' +
             ' <td>' +
 
+            ' <!--正常运行-->' +
+            '<td>' +
+            ' <span class="table-small-patch table-small-patch-green">'+ o.runNum+'</span>' +
+            '</td>' +
+
+            '<!--故障中-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-red">'+ o.faultNum+'</span>' +
+            '</td>' +
+
+            '<!--维修中-->' +
+            '<td>' +
+            '<span class="table-small-patch table-small-patch-yellow">'+ o.repairNum+'</span>' +
+            '</td>' +
+
             '<div class="right-bottom-echart" id="">' +
 
             '</div>' +
@@ -435,32 +416,32 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
             '</div>' +
 
-            '</td>' +
+            '</td>';
 
-            ' <!--回风平均温度-->' +
-            '<td>' +
-            ' <span class="table-small-patch table-small-patch-red">'+ o.returnAirTemp.toFixed(1)+'</span>' +
-            '</td>' +
+        if(o.excData2s != null && o.excData2s.length > 0){
 
-            '<!--回风co2平均浓度-->' +
-            '<td>' +
-            '<span class="table-small-patch table-small-patch-green">'+ o.co2MMol.toFixed(1)+'</span>' +
-            '</td>' +
+            bodyHtml += '<td>';
 
-            '<td>' +
+            $(o.excData2s).each(function(i,o){
 
-            '<div class="right-bottom-echart" id="">' +
+                if(i < 3){
 
-            '</div>' +
+                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                }
 
-            '</td>' +
+            });
 
-            '<td>' +
-            '<p class="right-bottom-alarm">'+ o.excData2s[0].alarmSetName+'</p>' +
-            '<p class="right-bottom-alarm">'+ o.excData2s[1].alarmSetName+'</p>' +
-            '<p class="right-bottom-alarm">'+ o.excData2s[2].alarmSetName+'</p>' +
-            '</td>' +
-            '</tr>';
+            bodyHtml += '</td>';
+
+        }else{
+            bodyHtml +=   '<td>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '</td>' ;
+        }
+
+        bodyHtml +=   '</tr>';
     });
 
     //把body放入到table中
@@ -478,16 +459,13 @@ function echartReDraw(realDataArr){
     //根据页面中展示的数据给echarts循环赋值
     $(realDataArr).each(function(i,o){
 
-        //运行占比
-        var runProp = o.runProp;
+        //监控设备故障率
+        var monitFaultProp = o.monitFaultProp;
 
-        //自动运行占比
-        var autoRunProp = o.autoRunProp;
+        //对讲设备故障率
+        var talkFaultProp = o.talkFaultProp;
 
-        //故障占比
-        var alarmProp = o.alarmProp;
-
-        var dataArr = [runProp,autoRunProp,alarmProp];
+        var dataArr = [monitFaultProp,talkFaultProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 

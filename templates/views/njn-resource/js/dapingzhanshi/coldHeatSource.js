@@ -63,6 +63,46 @@ $(function(){
     $('.consumption-container span').on('click',function(){
         $(this).parent().children().removeClass('onClick');
         $(this).addClass('onClick');
+
+        //获取当前索引
+        var index = $(this).index();
+
+        //获取当前的区域ID
+        var areaID = $(this).attr('data-district');
+
+        //获取当前是东冷站还是西冷站
+        var ew = '';
+
+        if(areaID == 60){
+            ew = 'E'
+        }else if(areaID == 62){
+            ew = 'W'
+        }
+
+        //电耗曲线
+        if(index == 0){
+
+            getTDayEs(ew);
+
+        //汽耗曲线
+        }else if(index == 1){
+
+            //获取[汽耗曲线]历史数据
+            getTDayQs(ew);
+
+        //冷量曲线
+        }else if(index == 2){
+
+            //获取[冷量曲线]历史数据
+            getTDayCs(ew);
+
+        //冷冻温度曲线
+        }else if(index == 3){
+
+            //获取[供冷温度曲线]历史数据
+            getTDayGLWs(ew);
+
+        }
     });
 
     //切换冷热站
@@ -84,46 +124,80 @@ $(function(){
     sessionStorage.PointerID = po.pointerID;
     sessionStorage.PointerName = po.pointerName;
 
-    //获取[离心机组系统]实时数据
-    getLXJAE();
+    ////获取[离心机组系统]实时数据
+    //getLXJAE('E');
+    //
+    ////获取[溴锂机组系统]实时数据
+    //getXLJAE('E');
+    //
+    ////获取[热泵机组系统]实时数据
+    //getRBJAE('E');
+    //
+    ////获取[冷却侧系统]实时数据
+    //getLQCAE('E');
+    //
+    ////获取[冷冻侧系统]实时数据
+    //getLDCAE('E');
+    //
+    ////获取[电耗曲线]历史数据
+    //getTDayEs('E');
 
-    //获取[溴锂机组系统]实时数据
-    getXLJAE();
 
-    //获取[热泵机组系统]实时数据
-    getRBJAE();
-
-    //获取[冷却侧系统]实时数据
-    getLQCAE();
-
-    //获取[冷冻侧系统]实时数据
-    getLDCAE();
-
-    //获取[电耗曲线]历史数据
-    getTDayEs();
-
-    //获取[汽耗曲线]历史数据
-    getTDayQs();
-
-    //获取[冷量曲线]历史数据
-    getTDayCs()
-
-    //获取[供冷温度曲线]历史数据
-    getTDayGLWs();
 
 });
 
 //获取[供冷温度曲线]历史数据
-function getTDayGLWs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayGLWDs";
+function getTDayGLWs(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayGLWDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
-    }
+        EW:ew
+    };
+    _consumotionChart.showLoading();
     $.post(url,par,function (res) {
+        _consumotionChart.hideLoading();
         if(res.code ===0){
-
+            var serary = [];
+            for (var i = 0; i< res.ys.length; i++){
+                var objser = {};
+                objser.name = res.lgs[i];
+                objser.type = 'line';
+                objser.data = [];
+                for (var j =0; j< res.ys[i].length; j++){
+                    objser.data.push(res.ys[i][j]);
+                }
+                serary.push(objser);
+            }
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: res.lgs
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: res.xs
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: serary
+            };
+            _consumotionChart.setOption( option,true);
         }else if(res.code === -1){
 
         }else{
@@ -133,16 +207,57 @@ function getTDayGLWs() {
 }
 
 //获取[冷量曲线]历史数据
-function getTDayCs(){
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayCDs";
+function getTDayCs(ew){
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayCDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    _consumotionChart.showLoading();
     $.post(url,par,function (res) {
+        _consumotionChart.hideLoading();
         if(res.code ===0){
-
+            var serary = [];
+            for (var i = 0; i< res.ys.length; i++){
+                var objser = {};
+                objser.name = res.lgs[i];
+                objser.type = 'line';
+                objser.data = [];
+                for (var j =0; j< res.ys[i].length; j++){
+                    objser.data.push(res.ys[i][j]);
+                }
+                serary.push(objser);
+            }
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: res.lgs
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: res.xs
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: serary
+            };
+            _consumotionChart.setOption( option,true);
         }else if(res.code === -1){
 
         }else{
@@ -152,16 +267,57 @@ function getTDayCs(){
 }
 
 //获取[汽耗曲线]历史数据
-function getTDayQs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayQDs";
+function getTDayQs(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayQDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
-    }
+        EW:ew
+    };
+    _consumotionChart.showLoading();
     $.post(url,par,function (res) {
+        _consumotionChart.hideLoading();
         if(res.code ===0){
-
+            var serary = [];
+            for (var i = 0; i< res.ys.length; i++){
+                var objser = {};
+                objser.name = res.lgs[i];
+                objser.type = 'line';
+                objser.data = [];
+                for (var j =0; j< res.ys[i].length; j++){
+                    objser.data.push(res.ys[i][j]);
+                }
+                serary.push(objser);
+            }
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: res.lgs
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: res.xs
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: serary
+            };
+            _consumotionChart.setOption( option,true);
         }else if(res.code === -1){
 
         }else{
@@ -172,14 +328,16 @@ function getTDayQs() {
 
 //获取电耗曲线监测数据
 var _consumotionChart = echarts.init(document.getElementById('consumotion-echart0'));
-function getTDayEs() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetTDayEDs";
+function getTDayEs(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetTDayEDs";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    _consumotionChart.showLoading();
     $.post(url,par,function (res) {
+        _consumotionChart.hideLoading();
         if(res.code === 0){
             var serary = [];
             for (var i = 0; i< res.ys.length; i++){
@@ -230,20 +388,20 @@ function getTDayEs() {
 }
 
 
-
-
 var cc = [[0.23, '#2170F4'], [0.28, '#14E398'], [0.33, '#EAD01E'], [1, '#F8276C']];
 
 //获取[冷冻侧系统]数据
 var chartViewLDCMain =  echarts.init(document.getElementById('bottom-childwater-chart4'));
-function getLDCAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLQCMonitorData";
+function getLDCAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLQCMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    chartViewLDCMain.showLoading();
     $.post(url,par,function (res) {
+        chartViewLDCMain.hideLoading();
         if(res.code === 0){
             $('#span_LDC_rVa_text').html(res.cVa);
             $('#span_LDC_eVa_text').html(res.eVa);
@@ -265,15 +423,18 @@ function getLDCAE() {
 
 //获取[冷却侧系统]数据
 var chartViewLQCMain =  echarts.init(document.getElementById('bottom-coolwater-chart3'));
-function getLQCAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLQCMonitorData";
+function getLQCAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLQCMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    chartViewLQCMain.showLoading();
     $.post(url,par,function (res) {
+        chartViewLQCMain.hideLoading();
         if(res.code === 0){
+
             $('#span_LQC_rVa_text').html(res.cVa);
             $('#span_LQC_eVa_text').html(res.eVa);
             $('#span_LQC_nxVa_text').html(res.nxVa);
@@ -294,15 +455,18 @@ function getLQCAE() {
 
 //获取[热泵机组系统]数据
 var chartViewRBJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart2'));
-function getRBJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetRBMonitorData";
+function getRBJAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetRBMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    chartViewRBJMain.showLoading();
     $.post(url,par,function (res) {
+        chartViewRBJMain.hideLoading();
         if(res.code === 0){
+
             $('#span_RBJ_cVa_text').html(res.cVa);
             $('#span_RBJ_eVa_text').html(res.eVa);
             $('#span_RBJ_nxVa_text').html(res.nxVa);
@@ -323,15 +487,18 @@ function getRBJAE() {
 
 //获取[溴锂机组系统]数据
 var chartViewXLJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart1'));
-function getXLJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetXLHMonitorData";
+function getXLJAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetXLHMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     }
+    chartViewXLJMain.showLoading();
     $.post(url,par,function (res) {
+        chartViewXLJMain.hideLoading();
         if(res.code === 0){
+
             $('#span_XLJ_cVa_text').html(res.cVa);
             $('#span_XLJ_qVa_text').html(res.eVa);
             $('#span_XLJ_nxVa_text').html(res.nxVa);
@@ -352,14 +519,16 @@ function getXLJAE() {
 
 //获取[离心机组系统]数据
 var chartViewLXJMain =  echarts.init(document.getElementById('bottom-refrigerator-chart'));
-function getLXJAE() {
-    var url = sessionStorage.apiUrlPrefix + "LRYCMonitor/GetLXJMonitorData";
+function getLXJAE(ew) {
+    var url = sessionStorage.apiUrlPrefix + "LRYC/GetLXJMonitorData";
     var par = {
         pId:sessionStorage.PointerID,
         dt:encodeURIComponent(sysrealdt()) ,
-        EW:'E'
+        EW:ew
     };
+    chartViewLXJMain.showLoading();
     $.post(url,par,function (res) {
+        chartViewLXJMain.hideLoading();
         if(res.code === 0) {
             $('#span_LXJ_cVa_text').html(res.cVa);
             $('#span_LXJ_eVa_text').html(res.eVa);
@@ -430,15 +599,6 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
         ]
     };
 }
-
-
-
-
-
-
-
-
-
 
 //负荷率
 // 指定图表的配置项和数据
@@ -707,16 +867,301 @@ var _myChart5 = echarts.init(document.getElementById('temperature-echart'));
 _myChart5.setOption( option2,true);
 
 
+//配置流程图页面中的区域位置
+var monitorAreaArr = [
+    {
+        "areaName":"东冷站",
+        "areaId":"60"
+    },
+    {
+        "areaName":"西冷站",
+        "areaId":"62"
+    }
+];
+//把区域信息放入到流程图页面中
+sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
+
+
 //点击不同区域获取不同的设备列表
 $('#monitor-menu-container').on('click','span',function(){
 
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
+
     //定义当前的设备类型
     var devTypeID = 1;
+
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondColdHotSour', devTypeID, areaID);
+
+    //获取当前是东冷站还是西冷站
+    var ew = '';
+
+    if(areaID == 60){
+        ew = 'E'
+    }else if(areaID == 62){
+        ew = 'W'
+    }
+
+    //获取[离心机组系统]实时数据
+    getLXJAE(ew);
+
+    //获取[溴锂机组系统]实时数据
+    getXLJAE(ew);
+
+    //获取[热泵机组系统]实时数据
+    getRBJAE(ew);
+
+    //获取[冷却侧系统]实时数据
+    getLQCAE(ew);
+
+    //获取[冷冻侧系统]实时数据
+    getLDCAE(ew);
+
+    //获取[电耗曲线]历史数据
+    getTDayEs(ew);
+
 });
+
+
+/*-------------------------------------------表格初始化--------------------------------------------*/
+var table = $('#equipment-datatables').DataTable({
+    "bProcessing" : true,
+    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+    //是否分页
+    "destroy": true,//还原初始化了的datatable
+    "paging":true,
+    "ordering": false,
+    'searching':false,
+    'language': {
+        'emptyTable': '没有数据',
+        'loadingRecords': '加载中...',
+        //这里很重要，如果你的加载中是文字，则直接写上文字即可，如果是gif的图片，使用img标签就可以加载
+        "sProcessing" : "<span style='color:#ff0000;'>正在加载</span>",
+        'lengthMenu': '每页 _MENU_ 条',
+        'zeroRecords': '没有数据',
+        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页  总记录数为 _TOTAL_ 条',
+        "sInfoEmpty" : "记录数为0",
+        "sInfoFiltered" : "(全部记录数 _MAX_ 条)",
+        'paginate': {
+            'first':      '第一页',
+            'last':       '最后一页',
+            'next':       '下一页',
+            'previous':   '上一页'
+        },
+        'infoEmpty': ''
+    },
+    'buttons': [
+
+    ],
+    "dom":'B<"clear">lfrtip',
+    //数据源
+    'columns':[
+        {
+            title:'序号',
+            data:'areaName',
+            render:function(data, type, row, meta){
+
+
+                return meta.row + 1;
+
+            }
+        },
+        {
+            title:'设备位置',
+            data:'areaName',
+            className:'位置'
+        },
+        {
+            title:'所属系统',
+            data:'typeName'
+        },
+        {
+            title:'设备名称',
+            data:'devName'
+        },
+        {
+            title:'设备编号',
+            data:'devNum'
+        },
+        {
+            title:'服务区域',
+            data:'serviceArea'
+        },
+        {
+            title:'季节模式',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'控制模式',
+            data:'',
+            render:function(data, type, row, meta){
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'手自动状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'运行状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4521'){
+
+                        if(o.cDataValue == 1){
+
+                            return "ON"
+                        }else{
+                            return "OFF";
+                        }
+
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'故障状态',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '16'){
+
+                        if(o.cDataValue == 1){
+
+                            return "ON"
+
+                        }else{
+                            return "OFF";
+                        }
+
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'冷冻进水温度（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4521'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'冷冻出水温度（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4523'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'冷却进水温度（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4524'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'冷却出水温度（℃）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+                $(data).each(function(i,o){
+
+                    if(o.cTypeID == '4525'){
+
+                        return o.cTypeID
+
+                    }
+                });
+
+                return '';
+
+            }
+        },
+        {
+            title:'累计运行时间（h）',
+            data:'devCtypeDatas',
+            render:function(data, type, row, meta){
+
+
+
+                return '';
+
+            }
+        },
+        {
+            title:'功率（kW）',
+            data:'powerValue'
+        }
+    ]
+});
+
+
+
 
 
 

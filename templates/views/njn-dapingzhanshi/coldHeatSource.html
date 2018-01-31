@@ -13,6 +13,10 @@
     <script src="../resource/js/moment.js"></script>
     <script src="../new-resource/js/showOrHidden.js"></script>
     <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <!--loading插件-->
+
+    <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
+
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -167,10 +171,10 @@
         <div class="right-bottom-container right-bottom-container1">
             <!--右侧下方选项卡-->
             <div class="right-bottom-tab-container" id="monitor-menu-container">
-                <span class="right-bottom-tab right-bottom-tab-choose" data-district="60">东冷站</span>
-                <span class="right-bottom-tab " data-district="62">西冷站</span>
-                <span class="right-bottom-tab ">东换热机房</span>
-                <span class="right-bottom-tab ">西换热机房</span>
+                <!--<span class="right-bottom-tab right-bottom-tab-choose" data-district="60">东冷站</span>-->
+                <!--<span class="right-bottom-tab " data-district="62">西冷站</span>-->
+                <!--<span class="right-bottom-tab ">东换热机房</span>-->
+                <!--<span class="right-bottom-tab ">西换热机房</span>-->
             </div>
             <!--系统总览-->
             <div class="right-bottom-show-type">
@@ -254,70 +258,76 @@
                                     <span class="left-patch"></span>
                                     系统能效
                                 </h3>
-                                <!--离心式水冷机组系统-->
-                                <div class="bottom-efficiency-container">
-                                    <h2 class="right-bottom-content-title">离心式水冷机组系统</h2>
-                                    <!--echart图-->
-                                    <div id="bottom-refrigerator-chart" class="bottom-meter-chart"></div>
-                                    <!--数据信息-->
-                                    <div class="bottom-efficiency-message">
-                                        <p>输出冷量:<span id="span_LXJ_cVa_text">0</span>KW</p>
-                                        <p>输入电量:<span id="span_LXJ_eVa_text">0</span>KW</p>
-                                        <p>离心机COP:<span id="span_LXJ_nxVa_text">0</span>KW/KW</p>
+
+                                <div style="max-height:600px;overflow: auto" class="scrollbar">
+                                    <!--离心式水冷机组系统-->
+                                    <div class="bottom-efficiency-container">
+                                        <h2 class="right-bottom-content-title">离心式水冷机组系统</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-refrigerator-chart" class="bottom-meter-chart"></div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>输出冷量:<span id="span_LXJ_cVa_text">0</span>KW</p>
+                                            <p>输入电量:<span id="span_LXJ_eVa_text">0</span>KW</p>
+                                            <p>离心机COP:<span id="span_LXJ_nxVa_text">0</span>KW/KW</p>
+                                        </div>
                                     </div>
+                                    <!--溴化锂机组系统-->
+                                    <div class="bottom-efficiency-container" >
+                                        <h2 class="right-bottom-content-title">溴化锂机组系统</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-refrigerator-chart1" class="bottom-meter-chart">
+                                        </div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>输出冷量:<span id="span_XLJ_cVa_text">0</span>KW</p>
+                                            <p>输入汽量:<span id="span_XLJ_qVa_text">0</span>KW</p>
+                                            <p>溴锂机能效:<span id="span_XLJ_nxVa_text">0</span>KW/KW</p>
+                                        </div>
+                                    </div>
+                                    <!--热泵机组系统-->
+                                    <div class="bottom-efficiency-container" >
+                                        <h2 class="right-bottom-content-title">热泵机组系统</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-refrigerator-chart2" class="bottom-meter-chart">
+                                        </div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>输出冷量:<span id="span_RBJ_cVa_text">0</span>KW</p>
+                                            <p>输入电量:<span id="span_RBJ_eVa_text">0</span>KW</p>
+                                            <p>热泵COP:<span id="span_RBJ_nxVa_text">0</span>KW/KW</p>
+                                        </div>
+                                    </div>
+                                    <!--冷却侧系统-->
+                                    <div class="bottom-efficiency-container" >
+                                        <h2 class="right-bottom-content-title">冷却侧系统</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-coolwater-chart3" class="bottom-meter-chart">
+                                        </div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>散热量:<span id="span_LQC_rVa_text">0</span>KW</p>
+                                            <p>水泵风机耗电量:<span id="span_LQC_eVa_text">0</span>KW</p>
+                                            <p>冷却输送系数:<span id="span_LQC_nxVa_text">0</span>KW/KW</p>
+                                        </div>
+                                    </div>
+                                    <!--冷冻侧系统-->
+                                    <div class="bottom-efficiency-container" >
+                                        <h2 class="right-bottom-content-title">冷冻侧系统</h2>
+                                        <!--echart图-->
+                                        <div id="bottom-childwater-chart4" class="bottom-meter-chart">
+                                        </div>
+                                        <!--数据信息-->
+                                        <div class="bottom-efficiency-message">
+                                            <p>供冷量:<span id="span_LDC_cVa_text">0</span>KW</p>
+                                            <p>一二次泵耗电量:<span id="span_LDC_eVa_text">0</span>KW</p>
+                                            <p>冷冻输送系数:<span id="span_LDC_nxVa_text">0</span>KW/KW</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"> </div>
                                 </div>
-                                <!--溴化锂机组系统-->
-                                <div class="bottom-efficiency-container" >
-                                    <h2 class="right-bottom-content-title">溴化锂机组系统</h2>
-                                    <!--echart图-->
-                                    <div id="bottom-refrigerator-chart1" class="bottom-meter-chart">
-                                    </div>
-                                    <!--数据信息-->
-                                    <div class="bottom-efficiency-message">
-                                        <p>输出冷量:<span id="span_XLJ_cVa_text">0</span>KW</p>
-                                        <p>输入汽量:<span id="span_XLJ_qVa_text">0</span>KW</p>
-                                        <p>溴锂机能效:<span id="span_XLJ_nxVa_text">0</span>KW/KW</p>
-                                    </div>
-                                </div>
-                                <!--热泵机组系统-->
-                                <div class="bottom-efficiency-container" >
-                                    <h2 class="right-bottom-content-title">热泵机组系统</h2>
-                                    <!--echart图-->
-                                    <div id="bottom-refrigerator-chart2" class="bottom-meter-chart">
-                                    </div>
-                                    <!--数据信息-->
-                                    <div class="bottom-efficiency-message">
-                                        <p>输出冷量:<span id="span_RBJ_cVa_text">0</span>KW</p>
-                                        <p>输入电量:<span id="span_RBJ_eVa_text">0</span>KW</p>
-                                        <p>热泵COP:<span id="span_RBJ_nxVa_text">0</span>KW/KW</p>
-                                    </div>
-                                </div>
-                                <!--冷却侧系统-->
-                                <div class="bottom-efficiency-container" >
-                                    <h2 class="right-bottom-content-title">冷却侧系统</h2>
-                                    <!--echart图-->
-                                    <div id="bottom-coolwater-chart3" class="bottom-meter-chart">
-                                    </div>
-                                    <!--数据信息-->
-                                    <div class="bottom-efficiency-message">
-                                        <p>散热量:<span id="span_LQC_rVa_text">0</span>KW</p>
-                                        <p>水泵风机耗电量:<span id="span_LQC_eVa_text">0</span>KW</p>
-                                        <p>冷却输送系数:<span id="span_LQC_nxVa_text">0</span>KW/KW</p>
-                                    </div>
-                                </div>
-                                <!--冷冻侧系统-->
-                                <div class="bottom-efficiency-container" >
-                                    <h2 class="right-bottom-content-title">冷冻侧系统</h2>
-                                    <!--echart图-->
-                                    <div id="bottom-childwater-chart4" class="bottom-meter-chart">
-                                    </div>
-                                    <!--数据信息-->
-                                    <div class="bottom-efficiency-message">
-                                        <p>供冷量:<span id="span_LDC_cVa_text">0</span>KW</p>
-                                        <p>一二次泵耗电量:<span id="span_LDC_eVa_text">0</span>KW</p>
-                                        <p>冷冻输送系数:<span id="span_LDC_nxVa_text">0</span>KW/KW</p>
-                                    </div>
-                                </div>
+
                                 <!--图例-->
                                 <div class="bottom-content-legend">
                                     <span class="legend legend1"><font></font>出色</span>
@@ -507,10 +517,12 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+
             <!--平面分布-->
-            <div class="right-bottom-show-type" style="display: none">
+            <div class="right-bottom-show-type " style="display: none">
                 <!-- 下方左侧流程图 -->
-                <div id="right-container" >
+                <div id="right-container" style="transform-origin: left top 0px;
+    transform: scale(1.2,1);margin-left:30px;">
                     <div class="content-main-right" id="content-main-right">
                         <!--浮动显示的控制按钮-->
                         <div class="content-ctrls-show" id="content-ctrls">
@@ -522,8 +534,20 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+
             <!--设备列表-->
-            <div class="right-bottom-show-type" style="display: none">
+            <div class="right-bottom-show-type right-bottom-show-type-table" style="display: none">
+
+                <table id="equipment-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                    <thead>
+
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
                 <!-- 下方设备列表 -->
                 <div class="clearfix"></div>
             </div>
@@ -564,12 +588,9 @@
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
 <!--时间插件-->
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
-<!--页面js-->
-<script src="../resource/js/publicFun.js"></script>
-<script src="../njn-resource/js/userMonitor1.js"></script>
-<script src="../new-resource/js/common.js"></script>
-<script src="../njn-resource/js/common.js"></script>
-<script src="../njn-resource/js/dapingzhanshi/coldHeatSource.js"></script>
+<!--loading插件-->
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
+
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -579,5 +600,13 @@
         userMonitor.init();
     });
 </script>
+
+<!--页面js-->
+<script src="../resource/js/publicFun.js"></script>
+<script src="../njn-resource/js/userMonitor1.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../njn-resource/js/common.js"></script>
+<script src="../njn-resource/js/dapingzhanshi/coldHeatSource.js"></script>
+
 </body>
 </html>

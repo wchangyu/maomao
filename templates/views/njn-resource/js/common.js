@@ -15,8 +15,6 @@ $(function(){
     //能耗报警
     getStationAlarmData(2);
 
-
-
     //点击左侧下方选项卡
     $('.left-tab-container .left-tab').on('click',function(){
 
@@ -79,6 +77,8 @@ function drawRightTab(){
         '<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
         '<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">自动检票</a></span>' +
+        '<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
     //插入页面中
@@ -851,8 +851,25 @@ function getSecondColdHotSour(url,devTypeID,areaID){
         //timeout:_theTimes * 2,
         beforeSend:function(){
 
+            var o1 = $(".right-bottom-show-type-table").css("display");
+
+            if(o1 != 'none'){
+
+                $('.right-bottom-show-type-table').showLoading();
+
+            }
+
         },
         success:function(result){
+
+            var o1 = $(".right-bottom-show-type-table").css("display");
+
+            if(o1 != 'none'){
+
+                $('.right-bottom-show-type-table').hideLoading();
+
+            }
+
 
             //console.log(result);
 

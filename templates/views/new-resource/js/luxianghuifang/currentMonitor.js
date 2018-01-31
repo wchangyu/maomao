@@ -57,8 +57,6 @@ $(function(){
 
                 },1000);
 
-
-
             }
         });
 
@@ -158,4 +156,4 @@ function getAlarmCameraData(){
 
         }
     })
-}
+};

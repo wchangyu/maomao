@@ -442,8 +442,9 @@ var userMonitor = (function(){
 
         var curProc = selectedProc || undefined;
 
+
         var startNum = 0;
-        //console.log(procs);
+        console.log(procs);
         if(_isViewAllProcs){
 
             $(areaArr).each(function(k,o){
@@ -595,6 +596,7 @@ var userMonitor = (function(){
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
                 var curProcs = getLocalProcsByParameter(_configArg2);   //获取当前菜单配置的方案
+
                 setProcList(curProcs);      //绘制左侧列表
                 //_allProcs = curProcs;
                 getProcsByPointerId(true);
