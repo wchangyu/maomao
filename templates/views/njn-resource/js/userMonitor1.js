@@ -1718,8 +1718,9 @@ var userMonitor = (function(){
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
 
 
+
             //如果新建模态框打开流程图
-            if( proc.prProcLnk == null || proc.prProcLnk.Startpos == 2) {
+            if( procDef.prProcLnk == null || procDef.prProcLnk.Startpos == 2) {
 
                 //获取当前ID
                 var id = procDef.ckId;
@@ -1746,7 +1747,7 @@ var userMonitor = (function(){
                 }
                 $("#content-main-right").empty();
 
-                displayAllProc();
+                initializeProcSubs(_curProc.procID);
 
             }
 
