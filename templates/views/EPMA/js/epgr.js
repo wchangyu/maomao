@@ -48,7 +48,7 @@ var EPGR=function () {
     var getpGrps = function() {
         jQuery('#epgrBusy').showLoading();
         var url = sessionStorage.apiUrlPrefix + "EPGr/GetPriceGrpDs";
-        $.post(url,{
+        $.get(url,{
             pId:sessionStorage.PointerID
         },function (res) {
             if(res.code === 0){
@@ -57,7 +57,7 @@ var EPGR=function () {
                 //重新赋值HTML
                 $('#spanepricecontent').html('编辑电价内容');
                 //计费方案列表
-                var pGrps = res.pGrps;
+                var pGrps = res.priceGrps;
                 var pgM = pGrps[0];
                 var prId = pgM.priceGroupID;
                 $('#priceGroupID').val(prId);
@@ -179,25 +179,16 @@ var EPGR=function () {
 
     //初始化多时间段分钟
     var initMultiDateTimeMinute = function () {
-        var HEADERHTML = '<div class="form_date_minute">'
+        var headerstr = '<div class="form_date_minute">'
             + '<div style="background:#EEE;height:30px;">'
-            + '<div style="float:left;margin-left:12px;line-height:30px;">'
-            + '<label><input type="checkbox" class="all_minute_select">'
-            + '<span style="position:relative;top:-2px;margin-left:2px;">全选/取消全选</span>'
-            + '</label></div>'
-            + '<div style="float:right;margin-right:10px;height:30px;line-height:30px;position:relative;top:10px;">'
-            + '<button type="button" class="close closeM">×</button></div>'
+            + '<div style="float:left;margin-left:12px;line-height:30px;"><label><input type="checkbox" class="all_minute_select"><span style="position:relative;top:-2px;margin-left:2px;">全选/取消全选</span></label></div>'
+            + '<div style="float:right;margin-right:10px;height:30px;line-height:30px;position:relative;top:10px;"><button type="button" class="close closeM">×</button></div>'
             + '</div>'
-            + '<table id="minuteTable" style="width:100%">'
-            + '<tbody class="minuteTBody">'
-            + '<tr><td>'
+            + '<table id="minuteTable" style="width:100%"><tbody class="minuteTBody"><tr><td>'
             + '</td><td></td><td></td>'
             + '<td></td>'
-            + '</tr>'
-            + '</tbody>'
-            + '</table>'
-            + '</div>';
-        $('.form_date_block').append(HEADERHTML);
+            + '</tr></tbody></table></div>'
+        $('.form_date_block').append(headerstr);
         //插入td(check-time)
         var time = 0;
         for (var i = 0; i < 6; i++) {
@@ -207,13 +198,10 @@ var EPGR=function () {
                 if (time < 10) {
                     time = '0' + time;
                 }
-                trs += '<td><div class="checkbox_minute">'
-                    + '<label><input type="checkbox">'
-                    + '<span style="position:relative;top:-2px;">' + time + ':00' + '</span>'
-                    + '</label></div></td>'
+                trs += '<td><div class="checkbox_minute"><label><input type="checkbox"><span style="position:relative;top:-2px;">' + time + ':00' + '</span></label></div></td>'
                 time++;
             }
-            trs += '</tr>';
+            trs += '</tr>'
             $('.minuteTBody').append(trs);
         }
         //插入确定
@@ -283,25 +271,6 @@ var EPGR=function () {
             prcDType = "";
             $(this).parents('.form_date_block').children('.form_date_minute').hide();
         });
-    }
-
-    return {
-        init:function () {
-            var pos = JSON.parse(sessionStorage.pointers);
-            var po = pos[0];
-            sessionStorage.PointerID = po.pointerID;
-            sessionStorage.PointerName = po.pointerName;
-            sessionStorage.EprID = po.enterpriseID;
-            sessionStorage.EprName = po.eprName;
-            //初始化时间控件
-            initdatetimepicker();
-            //初始化多时间段分钟
-            initMultiDateTimeMinute();
-            //获取电费单价内容
-            getpGrps();
-            //编辑或新增计费方案
-            saveOrModifypGrp();
-        }
     }
 
     //编辑或新增计费方案
@@ -427,6 +396,26 @@ var EPGR=function () {
             }
         });
     }
-    
+
+    return {
+        init:function () {
+            var pos = JSON.parse(sessionStorage.pointers);
+            var po = pos[0];
+            sessionStorage.PointerID = po.pointerID;
+            sessionStorage.PointerName = po.pointerName;
+            sessionStorage.EprID = po.enterpriseID;
+            sessionStorage.EprName = po.eprName;
+            //初始化时间控件
+            initdatetimepicker();
+            //初始化多时间段分钟
+            initMultiDateTimeMinute();
+            //获取电费单价内容
+            getpGrps();
+            //编辑或新增计费方案
+            saveOrModifypGrp();
+        }
+    }
+
+
 
 }();

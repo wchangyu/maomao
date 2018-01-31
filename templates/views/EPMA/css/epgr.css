@@ -4,5 +4,36 @@ body{
 }
 
 .form_date_block {
+    width: 464px;
+    height: 32px;
+    position: relative;
+}
+
+.form_date_minute {
+    width: 290px;
+    height: 232px;
+    border: 1px solid #ededed;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    display: none;
+    z-index: 10;
+    background-color: #FFFFFF;
+}
+
+.form_date_block {
     width: 100% !important;
+}
+
+table#minuteTable tr td input {
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.checkbox_minute {
+    text-align: center !important;
+}
+
+.checkbox_minute label input {
+    margin-top: 2px !important;
 }
