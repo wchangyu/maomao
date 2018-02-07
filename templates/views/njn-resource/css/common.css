@@ -68,7 +68,7 @@
 .inner-left-top{
     width:100%;
     height:683px;
-    background: url('../img/01ditu1.png') no-repeat center center;
+    background: url('../img/01ditu1.png') no-repeat top center;
     position: relative;
 
 }
@@ -522,7 +522,13 @@
 
 /*绿色小块*/
 .right-bottom-table .table-small-patch-green{
-    background: #09D188;
+     background: #09D188;
+
+ }
+
+/*黄色小块*/
+.right-bottom-table .table-small-patch-yellow{
+    background: #EAD01E;
 
 }
 

@@ -304,22 +304,23 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4064'){
+                    if(o.cTypeID == '4063'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result = "ON";
                         }else{
-                            return "OFF";
+                            result = "OFF";
                         }
-
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -328,16 +329,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4065'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -346,16 +349,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4062'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -364,16 +369,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4065'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -382,16 +389,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4029'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -409,17 +418,19 @@ var table = $('#equipment-datatables').DataTable({
             title:'CO2浓度（PPM）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4024'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
+
 
             }
         },
@@ -428,16 +439,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4048'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -446,16 +459,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4067'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -464,16 +479,19 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4025'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
+
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -516,12 +534,10 @@ function getSeAreaAirUnit(){
 
             //leftBottomChart.showLoading();
 
-
-
         },
         success:function(result){
 
-            //console.log(result);
+            console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -531,10 +547,6 @@ function getSeAreaAirUnit(){
 
             //绘制数据
             drawDataTableByResult(titleArr,result);
-
-
-
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -642,8 +654,6 @@ function drawDataTableByResult(titleArr,areaDataArr){
                 returnAirColor = 'table-small-patch-red';
             }
         }
-
-
 
         //拼接页面中的字符串
         bodyHtml +=

@@ -272,22 +272,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4626'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -296,22 +298,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4625'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },

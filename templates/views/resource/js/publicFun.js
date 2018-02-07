@@ -18,7 +18,7 @@ var _userBM = sessionStorage.getItem("userDepartNum");
 var _userBMName = sessionStorage.getItem("userDepartName");
 
 //ajax延迟时间设置
-var _theTimes = 30000;
+var _theTimes = 60000;
 
 //获取登陆者信息
 var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));

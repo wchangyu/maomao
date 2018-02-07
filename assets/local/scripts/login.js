@@ -255,8 +255,6 @@ var Login = function() {
 
             var id = theArr[i].enterpriseID;
 
-
-
             var isEnterpriseID  = false;
 
             for(var j=0; j<enterPriseListArr.length; j++){
@@ -423,6 +421,10 @@ var Login = function() {
                     //工单自动刷新开关
                     var gongdanInterval = data["gongdanInterval"] || '';
                     sessionStorage.gongdanInterval = gongdanInterval;
+
+                    //大屏幕自动刷新开关
+                    var dapinInterval = data["dapinInterval"] || '';
+                    sessionStorage.dapinInterval = dapinInterval;
 
                     //判断右上角信息走哪条分支
                     var gongdanIndustryType = data["gongdanIndustryType"] || '';

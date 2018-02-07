@@ -149,8 +149,8 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 空调机组为2
-    var devTypeID = 2;
+    //定义当前的设备类型 动环系统为7
+    var devTypeID = 7;
 
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
@@ -224,15 +224,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4321'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -241,81 +244,96 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4321'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
         {
-            title:'机房湿度1（℃）',
+            title:'机房湿度1（%）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4322'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
         {
-            title:'机房湿度2（℃）',
+            title:'机房湿度2（%）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4322'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
-            title:'机房水浸1（℃）',
+            title:'机房水浸1',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4323'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
-            title:'机房水浸2（℃）',
+            title:'机房水浸2',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4323'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
@@ -323,16 +341,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4024'){
+                    if(o.cTypeID == '4324'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -341,16 +361,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4024'){
+                    if(o.cTypeID == '4324'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -359,16 +381,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -377,16 +401,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -395,24 +421,23 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         }
     ]
 });
-
-
-
 
 //-------------------------------------获取流程图右侧展示数据--------------------------//
 

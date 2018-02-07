@@ -214,22 +214,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4224'){
+                    if(o.cTypeID == '4125'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -238,22 +241,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4222'){
+                    if(o.cTypeID == '4124'){
 
                         if(o.cDataValue == 1){
 
-                            return "自动"
+                            result =  "自动"
                         }else{
-                            return "手动";
+                            result =  "手动";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -262,22 +267,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '16' ||　o.cTypeID　== '19'){
 
                         if(o.cDataValue == 1){
 
-                            return "故障"
+                            result =  "故障"
                         }else{
-                            return "正常";
+                            result =  "正常";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -286,22 +293,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4121'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -310,22 +320,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4123'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },

@@ -700,7 +700,7 @@ function getBuildTree(){
                 }
 
             }
-            console.log(zNodes);
+
             $.fn.zTree.init($("#treeMultiple"), setting, zNodes);
 
             $('.treeFont').eq(0).click();

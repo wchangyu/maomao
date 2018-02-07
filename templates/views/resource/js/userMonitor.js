@@ -846,8 +846,9 @@ var userMonitor = (function(){
 
         //根据def绘制对象
         var defLength = _procDefs.length;
-        for(var i = 0;i < defLength;i++){
 
+        console.log( defLength);
+        for(var i = 0;i < defLength;i++){
 
             //如果是第一次加载
             if(!_ifCompareSpan){
@@ -894,6 +895,8 @@ var userMonitor = (function(){
 
             //需要进行重绘,获取当前页面元素ID
             var spanID = _defInsDataResults[i].procDefID;
+
+            //console.log(spanID);
 
             //显示文本或者图像
             //1.获取当先对象(def)的宽和高
@@ -1122,13 +1125,15 @@ var userMonitor = (function(){
             }
 
             //如果不是第一次加载
-            if(_oldSpanDefArr.length != 0){
+            if(_ifCompareSpan){
 
                 //获取要替换的元素
                 $(spanID).replaceWith($spanDef);
+            }else{
+
+                $divContent.append($spanDef);
             };
 
-            $divContent.append($spanDef);
         }
         refreshData();
     };

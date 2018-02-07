@@ -739,9 +739,9 @@ function getTopPageEnergyData(){
                 //用量
                 obj.ecData = o.currentEnergyData;
                 //环比
-                obj.dataDoD = (o.chainEnergyPercent).toFixed(1) + '%';
+                obj.dataDoD = (o.chainEnergyPercent * 100).toFixed(1) + '%';
                 //同比
-                obj.dataYoY = (o.lastYearEnergyPercent).toFixed(1) + '%';
+                obj.dataYoY = (o.lastYearEnergyPercent * 100).toFixed(1) + '%';
                 //能耗类型
                 obj.energyItemID = o.f_EnergyItemID;
 

@@ -68,7 +68,7 @@ $(function(){
         var index = $(this).index();
 
         //获取当前的区域ID
-        var areaID = $(this).attr('data-district');
+        var areaID = $('#monitor-menu-container .right-bottom-tab-choose').attr('data-district');
 
         //获取当前是东冷站还是西冷站
         var ew = '';
@@ -165,7 +165,9 @@ function getTDayGLWs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    objser.data.push(res.ys[i][j]);
+                    //objser.data.push(res.ys[i][j]);
+
+                    objser.data.push(0);
                 }
                 serary.push(objser);
             }
@@ -225,7 +227,9 @@ function getTDayCs(ew){
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    objser.data.push(res.ys[i][j]);
+                    //objser.data.push(res.ys[i][j]);
+
+                    objser.data.push(0);
                 }
                 serary.push(objser);
             }
@@ -285,7 +289,9 @@ function getTDayQs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    objser.data.push(res.ys[i][j]);
+                    //objser.data.push(res.ys[i][j]);
+
+                    objser.data.push(0);
                 }
                 serary.push(objser);
             }
@@ -346,7 +352,9 @@ function getTDayEs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    objser.data.push(res.ys[i][j]);
+                    //objser.data.push(res.ys[i][j]);
+
+                    objser.data.push(0);
                 }
                 serary.push(objser);
             }
@@ -604,7 +612,7 @@ var initareaoption = function (cc,minVa,maxVa,nxVa){
 // 指定图表的配置项和数据
 var option = {
     title:{
-        text: '30%',
+        text: '0%',
         textStyle:{
             fontSize:'20',
             fontWeight:'bold',
@@ -676,7 +684,7 @@ var option = {
                     show: false
                 }
             },
-            data:[30,70]
+            data:[0,100]
         }
     ]
 };
@@ -774,7 +782,7 @@ var option2 = {
         trigger: 'axis'
     },
     legend: {
-        data:['冷量','冷机']
+        data:['电量']
     },
     grid: {
         left: '3%',
@@ -796,7 +804,7 @@ var option2 = {
                 color:'#999'
             }
         },
-        data: ['周一','周二','周三','周四','周五','周六','周日']
+        data: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     },
     yAxis: {
         type: 'value',
@@ -808,7 +816,7 @@ var option2 = {
     },
     series: [
         {
-            name:'冷量',
+            name:'电量',
             type:'line',
             stack: '总量',
             itemStyle:{
@@ -828,7 +836,7 @@ var option2 = {
                     }])
                 }
             },
-            data:[120, 132, 101, 134, 90, 230, 210]
+            data:[]
         },
         {
             name:'冷机',
@@ -851,7 +859,7 @@ var option2 = {
                     }])
                 }
             },
-            data:[220, 182, 191, 234, 290, 330, 310]
+            data:[]
         }
     ]
 };
@@ -859,6 +867,9 @@ var option2 = {
 var _myChart4 = echarts.init(document.getElementById('consumotion-echart'));
 
 _myChart4.setOption( option2,true);
+
+
+//_consumotionChart.setOption( option2,true);
 
 
 //供热温度曲线
@@ -918,7 +929,7 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取[冷冻侧系统]实时数据
     getLDCAE(ew);
 
-    //获取[电耗曲线]历史数据
+    ////获取[电耗曲线]历史数据
     getTDayEs(ew);
 
 });
@@ -1026,22 +1037,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4521'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                             result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -1050,23 +1063,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '16'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
-
+                            result =  "故障"
                         }else{
-                            return "OFF";
+                            result =  "正常";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -1075,16 +1089,19 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4521'){
+                    if(o.cTypeID == '4522'){
 
-                        return o.cTypeID
+                        result =  o.cTypeID
 
                     }
                 });
 
-                return '';
+                return result;
+
 
             }
         },
@@ -1093,16 +1110,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4523'){
 
-                        return o.cTypeID
+                        result =  o.cTypeID
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -1111,16 +1130,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4524'){
 
-                        return o.cTypeID
+                        result =  o.cTypeID
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -1129,16 +1150,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4525'){
 
-                        return o.cTypeID
+                        result =  o.cTypeID
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },

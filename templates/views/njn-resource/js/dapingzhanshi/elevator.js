@@ -8,6 +8,11 @@ $(function(){
     //获取右侧流程图数据
     getSeAreaElevator();
 
+    //获取当前的设备列表
+    getSecondColdHotSour('NJNDeviceShow/GetSecondElevator', 18,'');
+
+    //页面刷新
+
 });
 
 
@@ -209,20 +214,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4421'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
+
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -231,20 +241,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4422'){
+                    if(o.cTypeID == '4522'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
+
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -278,7 +293,6 @@ var table = $('#equipment-datatables').DataTable({
         }
     ]
 });
-
 
 //定义当前的设备类型 电梯为5 直梯为18 扶梯为19
 var devTypeID = 5;
@@ -356,25 +370,25 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //绘制table中主体数据
     $(areaDataArr).each(function(i,o){
 
-        //获取当前区域ID
-        var areaID = o.areaInfo.areaID;
+        ////获取当前区域ID
+        //var areaID = o.areaInfo.areaID;
+        //
+        ////是否在页面中绘制的标识
+        //var isDraw = false;
 
-        //是否在页面中绘制的标识
-        var isDraw = false;
-
-        $(monitorAreaArr).each(function(k,o){
-            //如果存在此区域ID 则允许重绘
-            if(o.areaId == areaID){
-
-                isDraw = true;
-                return false;
-            }
-        });
-
-        //如果不需要重绘 退出本次循环
-        if(!isDraw){
-            return true;
-        }
+        //$(monitorAreaArr).each(function(k,o){
+        //    //如果存在此区域ID 则允许重绘
+        //    if(o.areaId == areaID){
+        //
+        //        isDraw = true;
+        //        return false;
+        //    }
+        //});
+        //
+        ////如果不需要重绘 退出本次循环
+        //if(!isDraw){
+        //    return true;
+        //}
 
         //将本项添加到页面要显示的内容中
         realShowArr.push(o);
@@ -387,7 +401,6 @@ function drawDataTableByResult(titleArr,areaDataArr){
             '</td>' +
 
             '<td>'+o.devNum+'</td>' +
-            ' <td>' +
 
             ' <!--正常运行-->' +
             '<td>' +
@@ -404,6 +417,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
             '<span class="table-small-patch table-small-patch-yellow">'+ o.repairNum+'</span>' +
             '</td>' +
 
+            '<td>' +
             '<div class="right-bottom-echart" id="">' +
 
             '</div>' +
@@ -455,6 +469,8 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
 //给右侧流程图循环赋值
 function echartReDraw(realDataArr){
+
+    //console.log(realDataArr);
 
     //根据页面中展示的数据给echarts循环赋值
     $(realDataArr).each(function(i,o){

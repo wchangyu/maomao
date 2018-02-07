@@ -44,7 +44,7 @@ $(function(){
     });
 
     //点击左侧日月年切换
-    $('.left-tab-container .right-tab').on('click',function(){
+    $('.inner-left-container .left-tab-container .right-tab').on('click',function(){
 
         //删除之前选中的类
         $(this).parents('.left-tab-container').find('.right-tab').removeClass('right-tab-choose');
@@ -52,15 +52,17 @@ $(function(){
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
 
-        //获取当前索引
-        var index = $(this).index();
+        //设备报警
+        getStationAlarmData(1);
 
-        //获取数据
-        getStationAlarmData(index);
+        //能耗报警
+        getStationAlarmData(2);
 
     });
 
 });
+
+$('.left-tab-data-container span font').html(0);
 
 //绘制页面上方的跳转选项卡
 drawRightTab();
@@ -112,7 +114,7 @@ function drawRightTab(){
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
 
-var option = {
+var leftBottomOption = {
     color: ['#3398DB'],
     tooltip : {
         trigger: 'axis',
@@ -132,7 +134,7 @@ var option = {
     xAxis : [
         {
             type : 'category',
-            data : ['1', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12'],
+            data : [],
             axisTick: {
                 alignWithLabel: true
             },
@@ -192,7 +194,7 @@ var option = {
                     }])
                 }
             },
-            data:[1010, 952, 1000, 1134,1090, 1130, 1020, 1252, 1000, 1034, 1190, 1230]
+            data:[]
         },
         {
             name:'能耗报警',
@@ -222,7 +224,7 @@ var option = {
                     }])
                 }
             },
-            data:[710, 752, 722, 765, 710, 850, 710,645, 698,796, 792, 610]
+            data:[]
         },
         {
             name:'能耗报警',
@@ -252,7 +254,152 @@ var option = {
                     }])
                 }
             },
-            data:[510, 552, 522, 565, 510, 650, 510,445, 498,596, 592, 410]
+            data:[]
+        }
+    ]
+};
+
+var option0 = {
+    color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '8%',
+        top:'9%',
+        containLabel: true,
+        borderColor:'#A8A8A8',
+        borderWidth:2
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : [],
+            axisTick: {
+                alignWithLabel: true
+            },
+            boundaryGap: false,//从起点开始
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            nameGap:1,
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            name:'单位：次',
+            nameLocation:'end',
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'设备报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#2170F4",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#2170F4'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#14E398",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#14E398'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#EAD01E",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#EAD01E'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
         }
     ]
 };
@@ -334,15 +481,17 @@ var option1 = {
 //获取全部楼宇ID列表
 var pointerIdArr = getPointersId();
 
+//接入客站数等于获取到的楼宇数
+$('.left-data-container .left-specific-data1').html( pointerIdArr.length);
+
 //当前楼宇ID
 var curPointerIDArr = ['3101800201'];
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
-
 //重绘chart图
-leftBottomChart.setOption(option);
+leftBottomChart.setOption(option0);
 
 //点击右侧上方选项卡
 $('.right-tab-container .right-tab').on('click',function(){
@@ -399,7 +548,6 @@ $('.right-tab-container .right-tab').on('click',function(){
 
 
 });
-
 
 //点击右侧主体内容中的选项卡
 $('.right-bottom-tab-container .right-bottom-tab').on('click',function(){
@@ -483,14 +631,14 @@ function getWeatherParam(){
         },
         success:function(result){
 
-            //console.log(result);
+            console.log(result);
             //无数据
             if(result == null || result.length == 0){
                 //隐藏温度 和湿度
-                $('.right-top-message .top-message').eq(1).html(18 + '℃');
+                $('.right-top-message .top-message').eq(1).html("");
 
                 //湿度
-                $('.right-top-message .top-message').eq(2).html(56 + "%");
+                $('.right-top-message .top-message').eq(2).html("");
 
                 return false;
             }
@@ -644,8 +792,18 @@ function getStationAlarmNum(){
             //无数据
             if(result == null || result.length == 0){
 
+                //设备报警
+                $('.left-tab-data-container .left-tab-data1 font').html(0);
+
+                //能耗报警
+                $('.left-tab-data-container .left-tab-data2 font').html(0);
+
+                //运维工单
+                $('.left-tab-data-container .left-tab-data3 font').html(0);
+
                 return false;
             }
+
             //设备报警
             $('.left-tab-data-container .left-tab-data1 font').html(result.facilityAlarmNum);
 
@@ -712,6 +870,10 @@ function getStationAlarmData(index){
             //无数据
             if(result == null || result.length == 0){
 
+                leftBottomOption.series[index-1].data = [];
+
+                leftBottomOption.series[2].data = [];
+
                 return false;
             }
 
@@ -725,29 +887,30 @@ function getStationAlarmData(index){
 
 
                 //获取能耗数据
-                dataArr.push(result.data);
+                dataArr.push(o.data);
 
                 //按天展示
                 if(selectDateType == "Day"){
 
-                    var date = result.dataDate.split('T')[1];
+                    var date = o.dataDate.split('T')[1];
 
                     xArr.push( date.split(':')[0]+":"+date.split(':')[1]);
 
                 }else{
 
-                    xArr.push( result.dataDate.split('T')[0]);
+                    xArr.push(o.dataDate.split('T')[0]);
                 }
 
             });
 
+            //console.log(leftBottomOption);
 
             //数据赋值
-            option.series[index].data = dataArr;
-            option.xAxis[0].data = xArr;
+            leftBottomOption.series[index-1].data = dataArr;
+            leftBottomOption.xAxis[0].data = xArr;
 
             //页面重绘数据
-            leftBottomChart.setOption(option,true);
+            leftBottomChart.setOption(leftBottomOption,true);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -768,7 +931,7 @@ function getStationAlarmData(index){
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
     //获取页面日期类型
-    var dateType = $('.inner-left-bottom .left-tab-container .right-tab').html();
+    var dateType = $('.inner-left-bottom .left-tab-container .right-tab-choose').html();
 
     //定义展示日期类型
     var showDateType = '';
@@ -807,7 +970,7 @@ function getShowDateType(){
 //获取给后台传递的时间
 function getPostTime(){
     //获取页面日期类型
-    var dateType = $('.left-tab-container .right-tab').html();
+    var dateType = $('.left-tab-container .right-tab-choose').html();
 
     //定义开始时间
     var startTime = '';

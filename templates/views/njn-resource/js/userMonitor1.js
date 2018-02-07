@@ -310,8 +310,10 @@ var userMonitor = (function(){
     };
 
     var getProcsByPointerId = function(notSetProcList){
+
         var pointerId = sessionStorage["curPointerId"];
         var menuusepointer = sessionStorage.menuusepointer;
+
         if(menuusepointer){
             if(!pointerId){
             }
@@ -417,7 +419,10 @@ var userMonitor = (function(){
 
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
-                initializeProcSubs(curProc.procID);//选中默认的监控
+                //initializeProcSubs(curProc.procID);//选中默认的监控
+
+
+                initializeProcSubs('3101007761');//选中默认的监控
             }
 
             //selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
@@ -442,9 +447,8 @@ var userMonitor = (function(){
 
         var curProc = selectedProc || undefined;
 
-
         var startNum = 0;
-        console.log(procs);
+        //console.log(procs);
         if(_isViewAllProcs){
 
             $(areaArr).each(function(k,o){
@@ -527,7 +531,8 @@ var userMonitor = (function(){
 
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
-                initializeProcSubs(curProc.procID);//选中默认的监控
+                //initializeProcSubs(curProc.procID);//选中默认的监控
+                initializeProcSubs('3101007761');//选中默认的监控
                 //展示设备列表
                 $("#monitor-menu-container span").eq(0).click();
             }
@@ -537,6 +542,7 @@ var userMonitor = (function(){
 
         $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
     };
+
 
     function selectLi($li){
         $(".right-bottom-tab").removeClass("right-bottom-tab-choose");
@@ -667,6 +673,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
     };
+
     //获取定义中对应的控制
     var initializeProcCtrl = function(procId){
         $.ajax({
@@ -681,6 +688,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetProcCtrls" , err)}
         })
     };
+
     //获取render
     var initializeProcRender = function (procId) {
         $.ajax({
@@ -1105,6 +1113,7 @@ var userMonitor = (function(){
                 defWidth = _procDefs[i].sizeW * divContentWidth;
                 defHeight = _procDefs[i].sizeH * divContentHeight;
             }
+
             var $spanDef = $("<span>");     //当前def的显示层
             //$spanDef.css("display","inline-block");
             setFlex($spanDef);
@@ -1125,6 +1134,11 @@ var userMonitor = (function(){
                 }
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
+
+                if(spanID == 31010077610122){
+                    console.log(_procDefs[i]);
+                    console.log(curPRR);
+                }
 
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){
@@ -1213,6 +1227,7 @@ var userMonitor = (function(){
 
                     //判断前台展示的类型，1为文本，2为图片，3为图片文本 ，4为视频
                     if(curPRR.showFlag == 1){
+                        $Txt.attr('title',curText);
                         $spanTxt.append($Txt);
                         $spanImg.width(0);
                         $spanTxt.width("100%");
@@ -1253,7 +1268,10 @@ var userMonitor = (function(){
                         }
                     }
                     $Txt.css("font-family",curPRR.fontName);        //字体设置
-                    if(curPRR.fontSize > 0) { $Txt.css("font-size",curPRR.fontSize);}
+                    if(curPRR.fontSize > 0) {
+                        var fontSize = curPRR.fontSize;
+                        $Txt.css("font-size",fontSize + 'px');
+                    }
                     if(curPRR.isFontBold) { $Txt.css("font-weight","bold");}
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
@@ -1964,6 +1982,7 @@ var userMonitor = (function(){
         $divCtrls.append($table);
         setDivControlsVisible(true);
     };
+
     //绘制输入的控制面板
     var drawInputPanel = function(prDefId,left,top){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
