@@ -419,10 +419,10 @@ var userMonitor = (function(){
 
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
-                //initializeProcSubs(curProc.procID);//选中默认的监控
+                initializeProcSubs(curProc.procID);//选中默认的监控
 
 
-                initializeProcSubs('3101007761');//选中默认的监控
+                //initializeProcSubs('3101007761');//选中默认的监控
             }
 
             //selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
@@ -531,8 +531,8 @@ var userMonitor = (function(){
 
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
-                //initializeProcSubs(curProc.procID);//选中默认的监控
-                initializeProcSubs('3101007761');//选中默认的监控
+                initializeProcSubs(curProc.procID);//选中默认的监控
+                //initializeProcSubs('3101007761');//选中默认的监控
                 //展示设备列表
                 $("#monitor-menu-container span").eq(0).click();
             }
@@ -1135,10 +1135,10 @@ var userMonitor = (function(){
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
 
-                if(spanID == 31010077610122){
-                    console.log(_procDefs[i]);
-                    console.log(curPRR);
-                }
+                //if(spanID == 31010077610122){
+                //    console.log(_procDefs[i]);
+                //    console.log(curPRR);
+                //}
 
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){

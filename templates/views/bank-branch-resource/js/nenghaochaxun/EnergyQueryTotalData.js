@@ -338,6 +338,7 @@ function getMainData(){
                     var dataJoin = dataSplit[0] + ':' + dataSplit[1];
 
                     xArr.push(dataJoin);
+                    sArr.push(o.data.toFixed(2));
                 });
 
             }else{
