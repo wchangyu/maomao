@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../resource/css/energyAnalysis-10.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
     <!--  <script src="../resource/bootstrap-datepicker-master/js/bootstrap-datepicker.js"></script>-->
     <script src="../resource/js/echarts.min.js"></script>
     <link rel="stylesheet" href="../resource/html5-date-range-picker/css/style.css">
@@ -282,48 +283,75 @@
                                             <div class="left-middle-header">对象选择</div>
                                             <div class="left-middle-main">
                                                 <div class="left-middle-content">
-                                                    <div class="left-middle-tab">区域位置</div>
+                                                    <div class="left-tab-contain">
+                                                        <div class="left-middle-tab left-middle-tab_aa_0">区域位置</div>
+                                                        <div class="left-middle-tab left-middle-tab_aa_0">分项</div>
+                                                    </div>
                                                 </div>
-                                                <div class="left-middle-select">
-                                                    <select name="" id="selectPointer">
-                                                    </select>
+                                                <div class="tree-1 tree-0" style="display: block;">
+                                                        <span class="allPointerOne">
+                                                            <div class="selectedRadio"></div>
+                                                        </span>
+                                                    <div class="left-middle-input">
+                                                        <input type="text" id="keys" class="empty form-control" placeholder="搜索...">
+                                                    </div>
+                                                    <div class="tipess"></div>
+                                                    <ul class="allPointer ztree" id="allPointer"></ul>
                                                 </div>
-                                                <div class="left-middle-input">
-                                                    <input type="text"  id="key" class="empty form-control" placeholder="搜索...">
-                                                </div>
-                                                <div class="tree-1">
-                                                    <div class="tipes"></div>
+                                                <div class="tree-1 tree-3" style="display: none;">
+                                                    <div class="left-middle-input">
+                                                        <input type="text" id="key" class="empty form-control" placeholder="搜索...">
+                                                    </div>
+                                                    <div class="tipes" style="display: none;">抱歉，没有您想要的结果</div>
                                                     <ul id="energyConsumption"class="ztree energyConsumption"></ul>
                                                 </div>
+                                                <!--<div class="left-middle-content">-->
+                                                    <!--<div class="left-middle-tab">区域位置</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="left-middle-select">-->
+                                                    <!--<select name="" id="selectPointer">-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                                <!--<div class="left-middle-input">-->
+                                                    <!--<input type="text"  id="key" class="empty form-control" placeholder="搜索...">-->
+                                                <!--</div>-->
+                                                <!--<div class="tree-1">-->
+                                                    <!--<div class="tipes"></div>-->
+                                                    <!--<ul id="energyConsumption"class="ztree energyConsumption"></ul>-->
+                                                <!--</div>-->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="content-main">
                                         <div class="select-times">
-                                            <div class="left-middle-header">时段选择</div>
-                                            <div class="left-middle-select">
-                                                <select class="types">
-                                                    <option value ="日">按日</option>
-                                                    <option value="周">按周</option>
-                                                    <option value="月">按月</option>
-                                                    <option value="年">按年</option>
-                                                </select>
-                                            </div>
+                                            <div class="left-middle-header">查询时间</div>
                                             <div id='wrapper'>
-                                                <div class="left-middle-input" style="height:auto;">
-                                                    <div class="datetimepickereType" style="display: none;"></div>
-                                                    <div style="width: 150px;display: inline-block;vertical-align: middle;line-height: 25px;">
-                                                        <div style="margin-bottom: 5px;overflow: hidden"><div style="float: left;margin-right: 10px;">开始</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeStart"></div></div>
-                                                        <div class="clearfix"></div>
-                                                        <div><div style="float: left;margin-right: 10px;">结束</div><div style="float: left;border: 1px solid #CCCCCC;width: 113px;height:25px;" class="datetimeEnd"></div></div>
+
+                                                <div class="time-options time-options-1">日</div>
+                                                <div class="time-options">周</div>
+                                                <div class="time-options">月</div>
+                                                <div class="time-options">年</div>
+                                                <div class="time-options">自定义</div>
+
+                                                <div>
+                                                    <div class="start-time-choose choose-time position-center">
+                                                        <label for="">选择时间：</label>
+                                                        <div class="input-blocked">
+                                                            <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
+                                                        </div>
                                                     </div>
-                                                    <div class="datetimeInput" style="float: none;display: inline-block;vertical-align: middle">
-                                                        <input type="text" id="datetimepicker">
+                                                    <div class="end-time-choose choose-time">
+                                                        <label for="">结束时间：</label>
+                                                        <div class="input-blocked">
+                                                            <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="clearfix"></div>
+
                                                 <div class="buttons">
+
                                                     <button class="btn btn-success">查询</button>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -439,11 +467,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-
-<script src="../resource/js/energyAnalysis-10.js"></script>
-<script src="../resource/js/showOrHidden.js"></script>
-
-<script src="../resource/js/alarm.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -452,6 +475,27 @@
         BEE.init();
     });
 </script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../new-resource/js/showOrHidden.js"></script>
+<script src="../resource/js/energyAnalysis-10.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="../resource/js/alarm.js"></script>
+<!--所有提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

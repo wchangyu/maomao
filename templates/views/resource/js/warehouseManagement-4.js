@@ -257,7 +257,7 @@ $(function(){
 
                 $('#mul-table').find('#kcs0').html(num);
 
-                $('#mul-table').find('#je0').html(amount);
+                $('#mul-table').find('#je0').html(amount.toFixed(2));
 
             }
 
@@ -353,8 +353,8 @@ $(function(){
                 var allResult = 0;
                 var allResult1 = 0;
                 for(var i=0;i<result.length;i++){
-                    allResult += result[i].num;
-                    allResult1 += result[i].amount;
+                    allResult += Number(result[i].num);
+                    allResult1 += Number(result[i].amount);
                 }
                 $('#kcs').html(allResult);
                 $('#je').html(formatNumber(allResult1));

@@ -869,14 +869,15 @@ $(function(){
         }
 
         var dom ='#'+ tableId[0].id + '_paginate';
-        //console.log(dom);
+
         var txt = $(dom).children('span').children('.current').html();
 
         _datasTable(tableId,arr);
+
         var num = txt - 1;
+
         var dom = $(dom).children('span').children().eq(num);
-        //console.log(txt);
-        //console.log(dom);
+
         dom.click();
     };
 

@@ -201,7 +201,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTable1'),rkwpCol,2,'','',drawFn);
+    _tableInit($('#personTable1'),rkwpCol,2,'','','');
 
     //第二层弹窗表格
     var rkwpCol2 = [
@@ -289,7 +289,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','',drawFn1);
+    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','','');
 
     //工单表格
     var gdCol = [
@@ -930,7 +930,7 @@ $(function(){
                 obj.num = _rukuArr[i].num;
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
-                obj.gdCode = _rukuArr[i].gdCode;
+                obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
                 //obj.gdCode2 = _rukuArr[i].gdCode2;
                 //obj.bxKeshi = _rukuArr[i].bxKeshi;
                 //obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
@@ -953,10 +953,10 @@ $(function(){
 
             //获取填写的入库信息
             var ckName = '';
-            if($('#ckselect').val() == ''){
+            if($('#ckselected').val() == ''){
                 ckName = ''
             }else{
-                ckName = $('#ckselect').children('option:selected').html();
+                ckName = $('#ckselected').children('option:selected').html();
             }
             var prm = {
                 'outType':putOutList.rkleixing,
@@ -966,8 +966,8 @@ $(function(){
                 'userName':_userIdName,
                 'b_UserRole':_userRole,
                 'storageName':ckName,
-                'storageNum':$('#ckselect').val(),
-                'contractOrder':putOutList.gdCode,
+                'storageNum':$('#ckselected').val(),
+                'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                 'cusName':putOutList.clymc,
                 'phone':putOutList.clydh,
                 'toStorageNum':putOutList.transferOut
@@ -1102,7 +1102,99 @@ $(function(){
 
 
         })
+    $('#myModal1')
+        .on('click','.dengji',function(){
+            //先判断 必填项
+            if(putOutList.rkleixing == '' || putOutList.transferOut == ''){
 
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
+            }else{
+                var outStoreDetails1 = [];
+                //工单的信息
+                var gdArr = [];
+                //材料工单
+                var clArr = [];
+
+                _rukuArr = _tempRKArr;
+
+                for(var i=0;i<_rukuArr.length;i++){
+                    var obj = {};
+                    obj.sn = _rukuArr[i].sn;
+                    obj.itemNum = _rukuArr[i].itemNum;
+                    obj.itemName = _rukuArr[i].itemName;
+                    obj.size = _rukuArr[i].size;
+                    obj.unitName = _rukuArr[i].unitName;
+                    obj.num = _rukuArr[i].num;
+                    obj.outPrice = _rukuArr[i].outPrice;
+                    obj.amount = _rukuArr[i].amount;
+                    obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
+                    //obj.gdCode2 = _rukuArr[i].gdCode2;
+                    //obj.bxKeshi = _rukuArr[i].bxKeshi;
+                    //obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
+                    obj.outMemo = _rukuArr[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = _rukuArr[i].storageName;
+                    obj.storageNum = _rukuArr[i].storageNum;
+                    obj.batchNum = _rukuArr[i].batchNum;
+                    obj.localNum = _rukuArr[i].localNum;
+                    obj.localName = _rukuArr[i].localName;
+                    obj.maintainDate = _rukuArr[i].maintainDate;
+                    outStoreDetails1.push(obj);
+                    //备件转换
+                    if(_rukuArr[i].gdCode){
+                        gdArr.push(_rukuArr[i].gdCode);
+                        clArr.push(_rukuArr[i].itemName);
+                    }
+                }
+
+                //获取填写的入库信息
+                var ckName = '';
+                if($('#ckselected').val() == ''){
+                    ckName = ''
+                }else{
+                    ckName = $('#ckselected').children('option:selected').html();
+                }
+                var prm = {
+                    'outType':putOutList.rkleixing,
+                    'remark':putOutList.remarks,
+                    'outStoreDetails':outStoreDetails1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
+                    'storageName':ckName,
+                    'storageNum':$('#ckselected').val(),
+                    'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
+                    'cusName':putOutList.clymc,
+                    'phone':putOutList.clydh,
+                    'toStorageNum':putOutList.transferOut
+                }
+                $.ajax({
+                    type:'post',
+                    url: _urls + 'YWCK/ywCKAddOutStorage',
+                    data:prm,
+                    success:function(result){
+
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记成功!', '');
+
+                            $('#myModal').modal('hide');
+
+                            $('#myModal1').modal('hide');
+
+                            conditionSelect();
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记失败!', '');
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }
+        })
     //删除确定按钮
     $('#myModal3').on('click','.daShanchu',function(){
 
@@ -1188,6 +1280,25 @@ $(function(){
 
             _datasTable($('#personTable1'),result);
 
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
+
         }
         detailInfo($thisDanhao,sucFun1);
 
@@ -1241,7 +1352,36 @@ $(function(){
                 _rukuArr.push(result[i]);
             }
 
-            _datasTable($('#personTable1'),result)
+            _datasTable($('#personTable1'),result);
+
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
+            if(_rukuArr.length == 0){
+
+                $('#ckselected').attr('disabled',false).removeClass('disabled-block');
+
+            }else{
+
+                $('#ckselected').attr('disabled',true).addClass('disabled-block');
+
+            }
+
         }
 
         detailInfo($thisDanhao,sucFun2);
@@ -1368,6 +1508,24 @@ $(function(){
 
             _datasTable($('#personTable1'),result)
 
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         }
         detailInfo($thisDanhao,sucFun3);
 
@@ -1423,26 +1581,61 @@ $(function(){
     //新增出库物品按钮
     $('.zhiXingRenYuanButton').click(function(){
 
-        //模态框显示
-        _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'', '确定');
+        if( $('#ckselected').val() == '' || $('#transferOut').val() == '' ){
 
-        //仓库下拉列表初始化
-        ckList(_ckArr);
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请先选择红色必填项！', '');
 
-        //将_rukuArr 付给 _tempArr
-        _tempRKArr.length = 0;
+        }else{
 
-        for(var i=0;i<_rukuArr.length;i++){
+            //模态框显示
+            _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'');
 
-            _tempRKArr.push(_rukuArr[i]);
+            //仓库下拉列表初始化
+            ckList(_ckArr);
+
+            //将_rukuArr 付给 _tempArr
+            _tempRKArr.length = 0;
+
+            for(var i=0;i<_rukuArr.length;i++){
+
+                _tempRKArr.push(_rukuArr[i]);
+
+            }
+
+            //第二层弹窗初始化
+            RKCPInit(true,_tempRKArr);
+
+            //自动刷新一下库存数据
+            goodsList();
+
+            //仓库赋值，并且不能操作
+            putOutGoods.ck = $('#ckselected').children('option:selected').html();
+
+            $('#workDone').find('.cangku').attr('data-num',$('#ckselected').val());
+
+            $('#workDone').find('.cangku').parent().addClass('disabled-block');
+
+            $('#workDone').find('.cangku').attr('disabled',true).addClass('disabled-block');
+
+            //遍历$('.pinzhixx').eq(0)里的ul，然后自动点一下
+            var lis = $('.pinzhixx').eq(0).children();
+
+            var attrs = $('#workDone').find('.cangku').attr('data-num');
+
+            for(var i=0;i<lis.length;i++){
+
+                if(attrs == lis.eq(i).attr('data-num')){
+
+                    lis.eq(i).addClass('li-color');
+
+                }
+
+            }
+
+            enterCK();
+
 
         }
-
-        //第二层弹窗初始化
-        RKCPInit(true,_tempRKArr);
-
-        //自动刷新一下库存数据
-        goodsList();
 
     });
 
@@ -1535,6 +1728,24 @@ $(function(){
         _rukuArr.remove(_tempObj[0]);
 
         _datasTable($('#personTable1'),_rukuArr);
+
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            num += Number(_rukuArr[i].num);
+
+            amount += Number(_rukuArr[i].amount);
+
+        }
+
+        $('#personTable1 tfoot').find('.totalnum').html(num);
+
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
         $('#myModal2').modal('hide');
 
@@ -1783,6 +1994,24 @@ $(function(){
 
         _datasTable($('#wuPinListTable1'),_tempRKArr);
 
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_tempRKArr.length;i++){
+
+            num += Number(_tempRKArr[i].num);
+
+            amount += Number(_tempRKArr[i].amount);
+
+        }
+
+        $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
         $('this').removeClass('removeButton');
 
         $('#myModal2').modal('hide');
@@ -1803,7 +2032,37 @@ $(function(){
 
         _datasTable($('#personTable1'),_rukuArr);
 
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            num += Number(_rukuArr[i].num);
+
+            amount += Number(_rukuArr[i].amount);
+
+        }
+
+        $('#personTable1 tfoot').find('.totalnum').html(num);
+
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         $('#personTable1 tbody').children('tr').find('.option-see1').addClass('hiddenButton');
+
+        if(_tempRKArr.length == 0){
+
+            $('#ckselected').attr('disabled',false).removeClass('disabled-block');
+
+        }else{
+
+            $('#ckselected').attr('disabled',true).addClass('disabled-block');
+
+        }
+
+
     })
 
     //第三层工单--------------------------------------------------------------
@@ -2169,7 +2428,16 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetOutStorageDetail',
             data:prm,
-            async:false,
+            timeout:_theTimes,
+            beforeSend: function () {
+
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 seccessFun(result);
             },
@@ -2910,6 +3178,24 @@ $(function(){
 
                     _datasTable($('#wuPinListTable1'),_tempRKArr);
 
+                    //共计
+                    //数量
+                    var num = 0;
+
+                    var amount = 0;
+
+                    for(var i=0;i<_tempRKArr.length;i++){
+
+                        num += Number(_tempRKArr[i].num);
+
+                        amount += Number(_tempRKArr[i].amount);
+
+                    }
+
+                    $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
                 }
 
             }else{
@@ -2970,7 +3256,8 @@ $(function(){
             'et':realityEnd,
             'orderNum':filterInput[0],
             'outType':2,
-            'storageNums':ckArr,
+            //'storageNums':ckArr,
+            'storageNum':$('#conditionStroage').val(),
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
@@ -2991,9 +3278,9 @@ $(function(){
                         confirmed.push(result[i])
                     }
                 }
-                _datasTable($('#scrap-datatables1'),confirm);
-                _datasTable($('#scrap-datatables2'),confirmed);
-                _datasTable($('#scrap-datatables'),result);
+                _jumpNow($('#scrap-datatables1'),confirm);
+                _jumpNow($('#scrap-datatables2'),confirmed);
+                _jumpNow($('#scrap-datatables'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3072,16 +3359,23 @@ $(function(){
 
                 var str = '<option value="">请选择</option>';
 
+                var str1 = '';
+
                 if(!flag){
 
                     for(var i=0;i<result.length;i++){
 
-                        str += '<option value="' + result[i].storageNum +
-                            '">' + result[i].storageName + '</option>'
+                        str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+
+                        str1 += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
 
                     }
 
                     $('#transferOut').empty().append(str);
+
+                    $('#ckselected').empty().append(str1);
+
+                    $('#conditionStroage').empty().append(str1);
 
                 }else{
 
@@ -3091,8 +3385,7 @@ $(function(){
 
                         _ckArr.push(result[i]);
 
-                        str += '<option value="' + result[i].storageNum +
-                            '">' + result[i].storageName + '</option>'
+                        str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>'
 
                     }
 
@@ -3169,7 +3462,6 @@ $(function(){
 
                 }
 
-                console.log(_wpListArr);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3357,12 +3649,37 @@ $(function(){
             //表格初始化
             _datasTable($('#personTable1'),arr);
 
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<arr.length;i++){
+
+                num += Number(arr[i].num);
+
+                amount += Number(arr[i].amount);
+
+            }
+
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         }else{
 
             //表格初始化
             _datasTable($('#personTable1'),emptyArr);
 
+            $('#personTable1 tfoot').find('.totalnum').html('0');
+
+            $('#personTable1 tfoot').find('.count').html('0.00');
+
         }
+
+        //仓库可操作
+        $('#ckselected').attr('disabled',false).removeClass('disabled-block');
 
     }
 
@@ -3457,9 +3774,33 @@ $(function(){
 
             _datasTable($('#wuPinListTable1'),arr);
 
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<arr.length;i++){
+
+                num += Number(arr[i].num);
+
+                amount += Number(arr[i].amount);
+
+            }
+
+            $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
         }else{
 
             _datasTable($('#wuPinListTable1'),emptyArr);
+
+            _datasTable($('#wuPinListTable1'),arr);
+
+            $('#wuPinListTable1 tfoot').find('.amount1').html('0');
+
+            $('#wuPinListTable1 tfoot').find('.count1').html('0.00');
 
         }
 

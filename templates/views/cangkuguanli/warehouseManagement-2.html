@@ -20,7 +20,6 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -342,6 +341,12 @@
                                             </select>
                                         </div>
                                     </li>
+                                    <li><label for="">仓库：</label>
+                                        <div class="input-blocked">
+                                            <select  style="width: 100%;height:100%;border: none" id="conditionStroage">
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1 resites" onclick="javascript:window.print();">打印</button></li>
@@ -581,6 +586,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <div class="colorTip" style="display: inline-block;vertical-align: middle">删除入库单，不会删除已经审核过的物品出入库信息！</div>
                 <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
@@ -735,7 +741,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary ruku">确定</button>
+                <button type="button" class="btn btn-primary dengji">保存物品和入库单</button>
+                <button type="button" class="btn btn-primary ruku">保存入库物品</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

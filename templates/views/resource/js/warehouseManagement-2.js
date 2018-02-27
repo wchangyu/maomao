@@ -297,8 +297,6 @@ $(function(){
             className:'orderNum',
             render:function(data, type, row, meta){
 
-                console.log(row.inType);
-
                 if(row.inType == 1){
 
                     return '<a href="godownEntry.html?orderNum=' + row.orderNum +
@@ -480,7 +478,7 @@ $(function(){
             }
         }
     ];
-    _tableInit($('#personTable1'),col1,'1','','',drawFn);
+    _tableInit($('#personTable1'),col1,'1','','','');
 
     function drawFn(){
 
@@ -597,7 +595,7 @@ $(function(){
             }
         }
     ];
-    _tableInit($('#wuPinListTable1,#spare-table'),col2,'1','','',drawFn1);
+    _tableInit($('#wuPinListTable1,#spare-table'),col2,'1','','','');
 
     function drawFn1(){
         var amount = 0;
@@ -816,6 +814,9 @@ $(function(){
         //自动填写的都置灰
         $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
 
+        //提示消息不显示
+        $('#myModal').find('.modal-footer').children('.colorTip').hide();
+
     });
 
     //入库单操作-------------------------------------------------------------------------------------------
@@ -867,6 +868,26 @@ $(function(){
                 _datasTable($('#personTable1'),spareArr);
 
                 $('#personTable1').find('.option-DelSpare,.option-shanchu').addClass('hiddenButton');
+
+
+                //共计
+                //数量
+                var num = 0;
+
+                var amount = 0;
+
+                for(var i=0;i<spareArr.length;i++){
+
+                    num += Number(spareArr[i].num);
+
+                    amount += Number(spareArr[i].amount);
+
+                }
+
+                $('#personTable1 tfoot').find('.amount').html(num);
+
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
             }
 
             detailInfo($thisDanhao,detailTable);
@@ -876,6 +897,9 @@ $(function(){
 
             //审核备注消失
             $('.shRemarks').show();
+
+            //提示消息不显示
+            $('#myModal').find('.modal-footer').children('.colorTip').hide();
 
         })
         //入库单【编辑】(首先判断是已审核还是未审核的入库单，已审核之后，就不能编辑，未审核的情况下可以编辑)；
@@ -920,6 +944,25 @@ $(function(){
                 foldFun(spareArr,data)
 
                 _datasTable($('#personTable1'),spareArr);
+
+                //共计
+                //数量
+                var num = 0;
+
+                var amount = 0;
+
+                for(var i=0;i<spareArr.length;i++){
+
+                    num += Number(spareArr[i].num);
+
+                    amount += Number(spareArr[i].amount);
+
+                }
+
+                $('#personTable1 tfoot').find('.amount').html(num);
+
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
             }
 
             //获取入库产品信息
@@ -987,6 +1030,9 @@ $(function(){
             //审核备注无法修改，只可查看
             $('.shRemarks').find('textarea').attr('readonly','readonly').addClass('disabled-block');
 
+            //提示消息不显示
+            $('#myModal').find('.modal-footer').children('.colorTip').hide();
+
         })
         //入库单【审核】
         .on('click','.option-confirm',function(){
@@ -1034,6 +1080,24 @@ $(function(){
                 _datasTable($('#personTable1'),spareArr);
 
                 $('#personTable1').find('.option-DelSpare,.option-shanchu').addClass('hiddenButton');
+
+                //共计
+                //数量
+                var num = 0;
+
+                var amount = 0;
+
+                for(var i=0;i<spareArr.length;i++){
+
+                    num += Number(spareArr[i].num);
+
+                    amount += Number(spareArr[i].amount);
+
+                }
+
+                $('#personTable1 tfoot').find('.amount').html(num);
+
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             //获取入库产品信息
@@ -1049,6 +1113,9 @@ $(function(){
 
             //添加审核类
             $('#myModal').find('.btn-primary').removeClass('dengji').removeClass('shanchu').removeClass('bianji').addClass('shenhe');
+
+            //提示消息不显示
+            $('#myModal').find('.modal-footer').children('.colorTip').hide();
 
         })
         //入库单【删除】
@@ -1092,6 +1159,24 @@ $(function(){
                 _datasTable($('#personTable1'),spareArr);
 
                 $('#personTable1').find('.option-DelSpare,.option-shanchu').addClass('hiddenButton');
+
+                //共计
+                //数量
+                var num = 0;
+
+                var amount = 0;
+
+                for(var i=0;i<spareArr.length;i++){
+
+                    num += Number(spareArr[i].num);
+
+                    amount += Number(spareArr[i].amount);
+
+                }
+
+                $('#personTable1 tfoot').find('.amount').html(num);
+
+                $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
             }
 
             detailInfo($thisDanhao,detailTable);
@@ -1101,6 +1186,9 @@ $(function(){
 
             //审核备注消失
             $('.shRemarks').show();
+
+            //提示消息显示
+            $('#myModal').find('.modal-footer').children('.colorTip').show();
 
         })
 
@@ -1127,7 +1215,15 @@ $(function(){
 
         })
 
+    //新增入库产品的时候直接添加入库单
+    $('#myModal1')
+        .on('click','.dengji',function(){
 
+            _rukuArr = _tempRukuArr;
+
+            djOrBj('YWCK/ywCKAddInStorage',false,'添加成功！','添加失败！',true);
+
+        })
     //第一层弹窗-------------------------------------------------------------------------------------------
 
     //【删除】'shanchu'删除入库单.'xiaoShanchu'删除入库产品（第一层）.'removeButton'删除入库产品（第二层）；
@@ -1136,13 +1232,13 @@ $(function(){
     $('.zhiXingRenYuanButton').click(function(){
 
         //是否已选中仓库
-        if(putInList.ckselect == ''){
+        if(putInList.ckselect == '' || putInList.rkleixing == ''){
 
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择仓库！', '');
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择红色必填项！', '');
 
         }else{
             //模态框显示
-            _moTaiKuang($('#myModal1'), '新增入库产品', '', '' ,'', '保存');
+            _moTaiKuang($('#myModal1'), '新增入库产品', '', '' ,'');
 
             _addGoods = true;
 
@@ -1163,6 +1259,24 @@ $(function(){
 
             //将已选中的入库产品填入表格中
             _datasTable($('#wuPinListTable1'),spareArr);
+
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<spareArr.length;i++){
+
+                num += Number(spareArr[i].num);
+
+                amount += Number(spareArr[i].amount);
+
+            }
+
+            $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
             //初始化
             newGoodsInit(true);
@@ -1690,6 +1804,24 @@ $(function(){
 
                     _datasTable($('#wuPinListTable1'),spareArr);
 
+                    //共计
+                    //数量
+                    var num = 0;
+
+                    var amount = 0;
+
+                    for(var i=0;i<spareArr.length;i++){
+
+                        num += Number(spareArr[i].num);
+
+                        amount += Number(spareArr[i].amount);
+
+                    }
+
+                    $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+                    $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
                     //清空
                     newGoodsInit();
 
@@ -1938,6 +2070,24 @@ $(function(){
         foldFun(spareArr,_rukuArr);
 
         _datasTable($('#personTable1'),spareArr);
+
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<spareArr.length;i++){
+
+            num += Number(spareArr[i].num);
+
+            amount += Number(spareArr[i].amount);
+
+        }
+
+        $('#personTable1 tfoot').find('.amount').html(num);
+
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
         $('#myModal1').modal('hide');
 
@@ -2509,16 +2659,17 @@ $(function(){
         }
         var realityStart = filterInput[1] + ' 00:00:00';
         var realityEnd = moment(filterInput[2]).add(1,'d').format('YYYY/MM/DD') + ' 00:00:00';
-        var ckArr = [];
-        for(var i=0;i<_ckArr.length;i++){
-            ckArr.push(_ckArr[i].storageNum);
-        }
+        //var ckArr = [];
+        //for(var i=0;i<_ckArr.length;i++){
+        //    ckArr.push(_ckArr[i].storageNum);
+        //}
         var prm = {
             'st':realityStart,
             'et':realityEnd,
             'orderNum':filterInput[0],
             'inType':$('.tiaojian').val(),
-            'storageNums':ckArr,
+            //'storageNums':ckArr,
+            'storageNum':$('#conditionStroage').val(),
             userID:_userIdNum,
             userName:_userIdName,
             b_UserRole:_userRole,
@@ -2543,11 +2694,11 @@ $(function(){
                         confirmed.push(result[i])
                     }
                 }
-                _datasTable($('#scrap-datatables1'),confirm);
+                _jumpNow($('#scrap-datatables1'),confirm);
 
-                _datasTable($('#scrap-datatables2'),confirmed);
+                _jumpNow($('#scrap-datatables2'),confirmed);
 
-                _datasTable($('#scrap-datatables'),result);
+                _jumpNow($('#scrap-datatables'),result);
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -2867,6 +3018,24 @@ $(function(){
 
                         _datasTable($('#wuPinListTable1'),_foldArr);
 
+                        //共计
+                        //数量
+                        var num = 0;
+
+                        var amount = 0;
+
+                        for(var i=0;i<_foldArr.length;i++){
+
+                            num += Number(_foldArr[i].num);
+
+                            amount += Number(_foldArr[i].amount);
+
+                        }
+
+                        $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
                     }
 
                 //聚焦到第一个
@@ -2955,9 +3124,6 @@ $(function(){
 
                 _moTaiKuang($('#myModal2'), '提示', '', 'istap' ,'确定要删除吗？', '删除');
 
-                //弹出框增加类（daShanchu是入库单删除、xiaoShanchu是第一层已选中的入库产品删除、removeButton是第二层已选中入库产品删除）
-                //$('#myModal2').find('.btn-primary').removeClass('daShanchu').removeClass('xiaoShanchu').addClass('removeButton');
-
             }
         }
     }
@@ -2975,6 +3141,34 @@ $(function(){
         foldFun(spareArr,arr);
 
         _datasTable(tableId,spareArr);
+
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<spareArr.length;i++){
+
+            num += Number(spareArr[i].num);
+
+            amount += Number(spareArr[i].amount);
+
+        }
+
+        if( tableId.attr('id') == 'personTable1' ){
+
+            tableId.find('tfoot').find('.amount').html(num);
+
+            tableId.find('tfoot').find('.count').html(amount.toFixed(2));
+
+        }else{
+
+            tableId.find('tfoot').find('.amount1').html(num);
+
+            tableId.find('tfoot').find('.count1').html(amount.toFixed(2));
+
+        }
 
         $('#myModal2').modal('hide');
 
@@ -3039,6 +3233,16 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetInStorageDetail',
             data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
 
                 seccessFun(result);
@@ -3051,7 +3255,7 @@ $(function(){
     }
 
     //入库单登记、编辑(true,编辑,false,登记)
-    function djOrBj(url,flag,successMeg,errorMeg){
+    function djOrBj(url,flag,successMeg,errorMeg,directAdd){
 
         //验证非空
         if( putInList.rkleixing == '' ){
@@ -3121,8 +3325,6 @@ $(function(){
 
             var name = '';
 
-            console.log($('#supplier').val());
-
             if( $('#supplier').val() == '' ){
 
                 name = '';
@@ -3188,7 +3390,16 @@ $(function(){
 
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,successMeg, '');
 
-                        $('#myModal').modal('hide');
+                        if(directAdd){
+
+                            $('#myModal').modal('hide');
+
+                            $('#myModal1').modal('hide');
+
+                        }else{
+
+                            $('#myModal').modal('hide');
+                        }
 
                         conditionSelect();
 
@@ -3431,6 +3642,13 @@ $(function(){
         _rukuArr = [];
 
         _datasTable($('#personTable1'),_rukuArr);
+
+        $('#personTable1 tfoot').find('.amount').html('0');
+
+        $('#personTable1 tfoot').find('.count').html('0.00');
+
+        //提示消息不显示
+        $('#myModal').find('.modal-footer').children('.colorTip').hide();
 
     }
 
@@ -4085,15 +4303,24 @@ $(function(){
             data:prm,
             success:function(result){
                 _ckArr.length = 0;
+
                 var str = '<option value="">请选择</option>';
+
+                var str1 = '';
+
                 for(var i=0;i<result.length;i++){
 
                     _ckArr.push(result[i]);
 
                     str += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
 
-                    $('#ckselect').empty().append(str);
+                    str1 += '<option value="' + result[i].storageNum + '">' +  result[i].storageName + '</option>';
+
                 }
+
+                $('#ckselect').empty().append(str);
+
+                $('#conditionStroage').empty().append(str1);
 
                 //条件查询
                 conditionSelect();
@@ -4319,15 +4546,6 @@ $(function(){
         })
 
     }
-
-    //删除任意对象
-    //定义数组删除某个元素的方法
-    //Array.prototype.remove = function(val) {
-    //    var index = this.indexOf(val);
-    //    if (index > -1) {
-    //        this.splice(index, 1);
-    //    }
-    //};
 
     //格式化数字，排除infinity NaN 其他格式
     function formatNumber(num){

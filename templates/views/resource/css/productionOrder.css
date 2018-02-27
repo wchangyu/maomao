@@ -193,8 +193,9 @@
     color: #23527c !important;
 }
 .current{
-    background: #eee !important;
+    background: #e1e8f2 !important;
     color: #333 !important;
+    border: 1px solid #333333 !important;
 }
 /*表格thead出现粗线*/
 .table>thead>tr>th{
@@ -773,5 +774,23 @@ textarea{
     background-size: 17px !important;
 
     border: 1px solid #a9a9a9;
+
+}
+.area-module{
+
+    border: 1px solid #cccccc;
+
+    padding: 10px;
+
+    position: relative;
+
+    margin-top: 20px;
+
+}
+.selectButton{
+
+    color: #428bca;
+
+    cursor: pointer;
 
 }

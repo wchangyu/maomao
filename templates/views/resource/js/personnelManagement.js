@@ -336,12 +336,14 @@ $(function(){
                 $('#theLoading').modal('hide');
             },
             success:function(result){
-                //console.log(result);
+
                 _allPersonalArr = [];
+
                 for(var i=0;i<result.length;i++){
                     _allPersonalArr.push(result[i]);
                 }
-                _datasTable($('#personal-table'),result);
+
+                _jumpNow($('#personal-table'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

@@ -275,12 +275,12 @@
                                             <input type="text" class="datatimeblock max" name="max">
                                         </div>
                                     </li>
-                                    <!--<li><label for="">单据类型：</label>-->
-                                        <!--<div class="input-blocked" style="width: 166px">-->
-                                            <!--<select name=""  style="width: 100%;height:100%;border: none" class="tiaojian">-->
-                                            <!--</select>-->
-                                        <!--</div>-->
-                                    <!--</li>-->
+                                    <li><label for="">仓库：</label>
+                                        <div class="input-blocked" style="width: 166px">
+                                            <select  style="width: 100%;height:100%;border: none" id="conditionStroage">
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
@@ -459,6 +459,13 @@
                                     <div class="labels colorTip">调拨仓库 *：</div>
                                     <div class="input-blockeds">
                                         <select name="" id="transferOut" v-model="transferOut">
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="gdList">
+                                    <div class="labels colorTip">待选仓库 *：</div>
+                                    <div class="input-blockeds">
+                                        <select name="" id="ckselected" v-model="ckselected">
                                         </select>
                                     </div>
                                 </li>
@@ -661,7 +668,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary ruku">确定</button>
+                <button type="button" class="btn btn-primary dengji">保存物品和出库单</button>
+                <button type="button" class="btn btn-primary ruku">保存出库物品</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->
@@ -886,6 +894,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
+                <div class="colorTip" style="display: inline-block;vertical-align: middle">删除出库单，不会删除已经审核过的物品出入库信息！</div>
                 <button type="button" class="btn btn-primary daShanchu">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>

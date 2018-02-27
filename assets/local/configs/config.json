@@ -179,7 +179,7 @@
   "alarmSong":"1",
   "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
-  "gongdanInterval":"10",
+  "gongdanInterval":"0.1",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
   "gongdanIndustryType":"1",

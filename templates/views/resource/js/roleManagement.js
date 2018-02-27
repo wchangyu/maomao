@@ -1,25 +1,23 @@
 $(function(){
-    /*-----------------------------------------全局变量------------------------------------------*/
-    //获得用户名
-    var _userIdName = sessionStorage.getItem('userName');
 
-    //获取本地url
-    var _urls = sessionStorage.getItem("apiUrlPrefixYW");
+    /*------------------------------------------变量----------------------------------------*/
 
-    //验证必填项（非空）
-    Vue.validator('notempty', function (val) {
-        //获取内容的时候先将首尾空格删除掉；
-        val=val.replace(/^\s+|\s+$/g,'');
-        return /[^.\s]{1,500}$/.test(val)
-    });
+    var _thisBM = '';
+
+    //所有角色的数组
+    var _allRoleArr = [];
 
     //新增用户登记对象
     var role = new Vue({
         el:'#role',
         data:{
+            //角色编码
             num:'',
+            //角色名称
             name:'',
+            //备注
             remarks:'',
+            //排序
             order:''
         },
         methods:{
@@ -39,258 +37,393 @@ $(function(){
         }
     })
 
+    //验证必填项（非空）
+    Vue.validator('notempty', function (val) {
+        //获取内容的时候先将首尾空格删除掉；
+        val=val.replace(/^\s+|\s+$/g,'');
+        return /[^.\s]{1,500}$/.test(val)
+    });
+    /*-----------------------------------------表格初始化-----------------------------------*/
 
-    //存放所有角色列表
-    var _allRoleArr = [];
-    /*----------------------------------------表格初始化-----------------------------------------*/
-    var table = $('#role-table').DataTable({
-        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
-        "destroy": true,//还原初始化了的datatable
-        "searching": true,
-        "ordering": false,
-        "iDisplayLength":50,//默认每页显示的条数
-        "pagingType":"full_numbers",
-        "bStateSave":true,
-        'language': {
-            'emptyTable': '没有数据',
-            'loadingRecords': '加载中...',
-            'processing': '查询中...',
-            'lengthMenu': '每页 _MENU_ 条',
-            'zeroRecords': '没有数据',
-            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
-            'infoEmpty': '没有数据',
-            'paginate':{
-                "previous": "上一页",
-                "next": "下一页",
-                "first":"首页",
-                "last":"尾页"
-            }
+    var mainCol = [
+
+        {
+            title:'角色编码',
+            data:'roleNum',
+            className:'roleNum'
         },
-        'buttons': [
-            {
-                extend: 'excelHtml5',
-                text: '导出',
-                className:'saveAs'
-            }
-        ],
-        "dom":'t<"F"lip>',
-        "columns": [
-            {
-                title:'角色编码',
-                data:'roleNum',
-                className:'roleNum'
-            },
-            {
-                title:'角色名',
-                data:'roleName'
-            },
-            {
-                title:'备注',
-                data:'remark'
-            },
-            {
-                title:'排序',
-                data:'sort'
-            },
-            {
-                title:'操作',
-                "targets": -1,
-                "data": null,
-                "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
-                "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+        {
+            title:'角色名',
+            data:'roleName'
+        },
+        {
+            title:'备注',
+            data:'remark'
+        },
+        {
+            title:'排序',
+            data:'sort'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
+            "<span class='data-option option-edit btn default btn-xs green-stripe'>编辑</span>" +
+            "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
 
-            }
-        ]
-    });
+        }
 
-    table.buttons().container().appendTo($('.excelButton'),table.table().container());
+    ];
 
-    //表格数据
-    conditionSelect();
-    /*----------------------------------------按钮事件-------------------------------------------*/
-    //查询按钮
+    var excelButton = [0,1,2,3];
+
+    _tableInit($('#role-table'),mainCol,1,true,'','','',excelButton,'','');
+
+    conditionSelect(true,successFun1,true);
+
+    /*-----------------------------------------按钮----------------------------------------*/
+
+    //【查询】
     $('#selected').click(function(){
-        conditionSelect();
+
+        conditionSelect(true);
+
     })
 
-    //重置
+    //【重置】
     $('.resites').click(function(){
-        $('.filterInput').val('');
+
+        $('.condition-query').eq(0).find('input').val('');
+
     })
 
-    //新增按钮
+    //【新增】
     $('.creatButton').click(function(){
-        //添加类名
-        $('#myModal').find('.btn-primary').addClass('dengji').removeClass('bianji').removeClass('shanchu');
-        //登记模态框出现
-        moTaiKuang($('#myModal'),'新增');
-        //初始化登记表
-        role.num='';
-        role.name='';
-        role.remark='';
-        role.order='';
-        $('#myModal').find('.input-blockeds').children('input').attr('disabled',false).removeClass('disabled-block');
-        $('#myModal').find('.input-blockeds').children('textarea').attr('disabled',false).removeClass('disabled-block');
-    });
 
-    //操作确定按钮
-    $('#myModal')
-    //登记确定按钮功能
-        .on('click','.dengji',function(){
-            //发送请求
-            editOrView('RBAC/rbacAddRole','登记成功!','登记失败!');
-        })
-        //编辑确定按钮功能
-        .on('click','.bianji',function(){
-            //发送请求(编码不许修改);
-            editOrView('RBAC/rbacUptRole','编辑成功!','编辑失败!');
-        })
-        //删除确定按钮功能
-        .on('click','.shanchu',function(){
-            //发送请求
-            editOrView('RBAC/rbacDelRole','删除成功!','删除失败!','false');
-        });
+        //初始化
+        detailInit()
 
-    //表格操作
-    $('#role-table tbody')
-    //查看
-        .on('click','.option-see',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'查看','flag');
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
-            //绑定数据
-            bindingData($(this),'flag');
-        })
-        //编辑
-        .on('click','.option-edit',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'编辑');
-            $('#myModal').find('.btn-primary').addClass('bianji').removeClass('dengji').removeClass('shanchu');
-            //绑定数据
-            bindingData($(this));
-            $('.xtbm').attr('disabled',true).addClass('disabled-block');
-        })
-        //删除
-        .on('click','.option-delete',function(){
-            //详情框
-            moTaiKuang($('#myModal'),'确定要删除吗？');
-            $('#myModal').find('.btn-primary').addClass('shanchu').removeClass('dengji').removeClass(('bianji'));
-            //绑定数据
-            bindingData($(this),'flag');
-        })
-        //分配权限
-        .on('click','.option-assigned',function(){
+        //模态框
+        _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
 
-        })
+        //是否可操作
+        abledOption();
 
-    /*---------------------------------------其他方法--------------------------------------------*/
-    //模态框自适应
-    function moTaiKuang(who,title,flag){
-        who.modal({
-            show:false,
-            backdrop:'static'
-        })
-        who.modal('show');
-        var markHeight = document.documentElement.clientHeight;
-        var markBlockHeight = who.find('.modal-dialog').height();
-        var markBlockTop = (markHeight - markBlockHeight)/2;
-        who.find('.modal-dialog').css({'margin-top':markBlockTop});
-        who.find('.modal-title').html(title);
-        if(flag){
-            who.find('.btn-primary').hide();
-        }else{
-            who.find('.btn-primary').show();
-        }
-    };
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('shanchu').removeClass('bianji').addClass('dengji');
 
-    //修改提示信息
-    function tipInfo(who,title,meg,flag){
-        moTaiKuang(who,title,flag);
-        who.find('.modal-body').html(meg);
-    }
+    })
 
-    //获取条件查询
-    function conditionSelect(){
-        //获取条件
-        var filterInput = [];
-        var filterInputValue = $('.condition-query').eq(0).find('.input-blocked').children('input');
-        for(var i=0;i<filterInputValue.length;i++){
-            filterInput.push(filterInputValue.eq(i).val());
-        }
+    //表格【查看】
+    $('#role-table tbody').on('click','.option-see',function(){
+
+        //初始化
+        detailInit();
+
+        //数据绑定
+        bindDate($(this));
+
+        //模态框
+        _moTaiKuang($('#myModal'), '查看', true, '' ,'', '');
+
+        //是否可操作
+        disAbledOption();
+
+    })
+
+    //表格【编辑】
+    $('#role-table tbody').on('click','.option-edit',function(){
+
+        //初始化
+        detailInit();
+
+        //数据绑定
+        bindDate($(this));
+
+        //模态框
+        _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
+
+        //是否可操作
+        abledOption();
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('shanchu').removeClass('dengji').addClass('bianji');
+
+        //角色编码不能修改
+        $('#role').find('.xtbm').attr('disabled',true).addClass('disabled-block');
+
+    })
+
+    //表格【删除】
+    $('#role-table tbody').on('click','.option-delete',function(){
+
+        //初始化
+        detailInit();
+
+        //数据绑定
+        bindDate($(this));
+
+        //模态框
+        _moTaiKuang($('#myModal'), '确定要删除吗？', '', '' ,'', '删除');
+
+        //是否可操作
+        disAbledOption();
+
+        //类
+        $('#myModal').find('.modal-footer').find('.btn-primary').removeClass('bianji').removeClass('dengji').addClass('shanchu');
+
+    })
+
+    //【登记确定按钮】
+    $('#myModal').on('click','.dengji',function(){
+
+        editOrView('RBAC/rbacAddRole','新增成功！','新增失败！',true);
+
+    })
+
+    //【编辑确定按钮】
+    $('#myModal').on('click','.bianji',function(){
+
+        editOrView('RBAC/rbacUptRole','编辑成功！','编辑失败！',true);
+
+    })
+
+    //【删除确定按钮】
+    $('#myModal').on('click','.shanchu',function(){
+
+        editOrView('RBAC/rbacDelRole','删除成功！','删除失败！',false);
+
+    })
+    /*-----------------------------------------其他方法------------------------------------*/
+
+    //flag为真，条件查询，为假，单个查询
+    function conditionSelect(flag,fun,arrFlag){
+
         var prm = {
-            "roleName":filterInput[0],
-            "userID":_userIdName
+
+            //用户id
+            userID:_userIdNum
+
         }
+        if(flag){
+            //角色名称
+            prm.roleName = $('.condition-query').eq(0).find('input').val();
+
+        }else{
+
+            //角色编码
+            prm.roleNum = _thisBM
+
+        }
+
         $.ajax({
+
             type:'post',
             url:_urls + 'RBAC/rbacGetRoles',
             data:prm,
-            success:function(result){
-                _allRoleArr = [];
-                for(var i=0;i<result.length;i++){
-                    _allRoleArr.push(result[i]);
-                }
-                datasTable($('#role-table'),result);
+            beforeSend: function () {
+
+                $('#theLoading').modal('show');
             },
-            error:function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR.responseText);
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
+            timeout:_theTimes,
+            success:function(result){
+
+                if(arrFlag){
+
+                    _allRoleArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _allRoleArr.push(result[i]);
+
+                    }
+                }
+
+                fun(result);
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                //清除loadding
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'超时!', '');
+
+                }else{
+
+                    _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请求失败!', '');
+
+                }
+
             }
         })
+
+
     }
 
-    //表格赋值
-    function datasTable(tableId,arr){
-        var table = tableId.dataTable();
-        if(arr.length == 0){
-            table.fnClearTable();
-            table.fnDraw();
-        }else{
-            table.fnClearTable();
-            table.fnAddData(arr);
-            table.fnDraw();
+    //刷新数据
+    function successFun1(result){
+
+        _jumpNow($('#role-table'),result)
+
+    }
+
+    //初始化
+    function detailInit(){
+
+        //角色编码
+        role.num = '';
+        //角色名称
+        role.name = '';
+        //备注
+        role.remarks = '';
+        //排序
+        role.order = '';
+
+    }
+
+    //不可以编辑
+    function disAbledOption(){
+
+        $('#role').find('input').attr('disabled',true).addClass('disabled-block');
+
+        $('#role').find('textarea').attr('disabled',true).addClass('disabled-block');
+
+    }
+
+    //可以编辑
+    function abledOption(){
+
+        $('#role').find('input').attr('disabled',false).removeClass('disabled-block');
+
+        $('#role').find('textarea').attr('disabled',false).removeClass('disabled-block');
+
+    }
+
+    //数据绑定
+    function bindDate(el){
+
+        //样式
+        $('#role-table tbody').children('tr').removeClass('tables-hover');
+
+        el.parents('tr').addClass('tables-hover');
+
+        _thisBM = el.parents('tr').find('.roleNum').html();
+
+        //获得详情
+        conditionSelect(false,successFun);
+
+    }
+
+    //绑定数据
+    function successFun(result){
+
+        //暂时通过roleNum过滤
+        for(var i=0;i<result.length;i++){
+
+            if(_thisBM == result[i].roleNum){
+
+                //绑定
+                //角色编码
+                role.num = result[i].roleNum;
+                //角色名称
+                role.name = result[i].roleName;
+                //备注
+                role.remarks = result[i].remark;
+                //排序
+                role.order = result[i].sort;
+
+            }
+
         }
+
+
     }
 
-    //编辑、登记方法
+    //登记、编辑、删除(flag为真表示登记、编辑、为假表示删除)
     function editOrView(url,successMeg,errorMeg,flag){
+
         //首先判断必填项是否为空
         if( role.name == '' ){
-            tipInfo($('#myModal1'),'提示','请填写红色必填项！','flag');
+
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请填写红色必填项！', '');
+
         }else{
+
             if($('.roleNum1')[0].style.display == 'none'){
+
                 //判断是编辑、登记、还是删除
+
                 if(flag){
+
                     var prm = {
+                        //角色编码
                         "roleNum":role.num,
+                        //角色名称
                         "roleName":role.name,
-                        "userID":_userIdName
-                    };
-                }else{
-                    var prm = {
-                        "roleNum":role.num,
-                        "roleName":role.name,
+                        //备注
                         "remark":role.remarks,
+                        //排序
                         "sort":role.order,
-                        "userID":_userIdName
+                        //用户id
+                        "userID":_userIdNum
                     };
+
+                }else{
+
+                    var prm = {
+                        //角色编码
+                        "roleNum":role.num,
+                        //角色名称
+                        "roleName":role.name,
+                        //用户id
+                        "userID":_userIdNum
+                    };
+
                 }
                 //发送数据
                 $.ajax({
                     type:'post',
                     url:_urls + url,
                     data:prm,
+                    timeout:_theTimes,
+                    beforeSend: function () {
+
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+
+                        $('#theLoading').modal('hide');
+
+                    },
                     success:function(result){
+
                         if(result == 99){
-                            //提示登记成功
-                            tipInfo($('#myModal1'),'提示',successMeg,'flag');
+
+                            //提示消息
+                            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,successMeg, '');
+
+                            //模态框消失
                             $('#myModal').modal('hide');
-                        }else if(result == 3){
-                            //提示登记失败
-                            tipInfo($('#myModal1'),'提示',errorMeg,'flag');
+
+                            //条件刷新
+                            conditionSelect(true,successFun1,true);
+
+                        }else{
+
+                            //提示消息
+                            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,errorMeg, '');
+
                         }
-                        conditionSelect();
+
                     },
                     error:function(jqXHR, textStatus, errorThrown){
                         console.log(jqXHR.responseText);
@@ -299,31 +432,6 @@ $(function(){
             }else{
                 tipInfo($('#myModal1'),'提示','角色编码已存在！','flag');
             }
-        }
-    }
-
-    //查看、删除绑定数据
-    function bindingData(el,flag){
-        var thisBM = el.parents('tr').children('.roleNum').html();
-        console.log(thisBM);
-        for(var i=0;i<_allRoleArr.length;i++){
-            if( _allRoleArr[i].roleNum == thisBM ){
-                role.num = _allRoleArr[i].roleNum;
-                role.name = _allRoleArr[i].roleName;
-                role.remark = _allRoleArr[i].remark;
-                role.order = _allRoleArr[i].sort
-            }
-        }
-        //查看不可操作
-        var disableArea = $('#role').find('.input-blockeds');
-        if(flag){
-            disableArea.children('input').attr('disabled',true).addClass('disabled-block');
-            disableArea.children('select').attr('disabled',true).addClass('disabled-block');
-            disableArea.children('textarea').attr('disabled',true).addClass('disabled-block');
-        }else{
-            disableArea.children('input').attr('disabled',false).removeClass('disabled-block');
-            disableArea.children('select').attr('disabled',false).removeClass('disabled-block');
-            disableArea.children('textarea').attr('disabled',false).removeClass('disabled-block');
         }
     }
 })

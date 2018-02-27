@@ -121,19 +121,36 @@ $(function(){
         },
         methods:{
             //生效时间
-            effectFun:function(){
+            effectFun:function(attr){
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                var error = el.parent().next();
 
                 var mny = /^\+?[1-9][0-9]*$/;
 
-                if(mny.test(workDone.sxsj)){
+                if(mny.test(workDone[attr])){
 
-                    $('.effectError').hide();
+                    error.hide();
 
                 }else{
 
-                    $('.effectError').show();
+                    error.show();
 
                 }
+
+            },
+            //日历插件
+            timeFun:function(){
+
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                _timeYMDComponentsFun(el);
 
             }
         }
@@ -157,7 +174,24 @@ $(function(){
     //设备部门
     deviceDep();
 
+    //第二层弹窗已选中的设备数组
+    var _secondSelectDivArr = [];
+
+    //第一层弹窗已选中的设备数组
+    var _firstDevArr = [];
+
+    //当前要删除的设备编码
+    var _thisDevNum = '';
+
+    //执行人去重后的数组
+    var _executorArr = [];
+
+    //当前的计划编码
+    var _thisPlanBM = '';
+
     /*------------------------------------------------表格初始化--------------------------------------------*/
+
+    //
 
     var col = [
         {
@@ -167,22 +201,13 @@ $(function(){
             "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
         },
         {
-            title:'设备编码',
-            data:'dNum',
-            className:'bianma',
-            render:function(data, type, full, meta){
-                return '<span data-num="' + full.dipNum +
-                    '">' + data +
-                    '</span>'
-            }
-        },
-        {
-            title:'设备名称',
-            data:'dName'
-        },
-        {
             title:'巡检计划名称',
             data:'dipName'
+        },
+        {
+            title:'巡检计划编码',
+            data:'dipNum',
+            className:'dipNum'
         },
         {
             title:'巡检部门',
@@ -227,10 +252,120 @@ $(function(){
         }
     ]
 
-    _tableInit($('.main-contents-tables').find('.table'),col,1,'flag','','');
+    _tableInit($('.main-contents-tables').find('.table'),col,1,'flag','','','','','');
+
+
+    $('.main-contents-tables').find('.table').on('click', 'tr',function(e){
+
+        if($(this).attr('class') == undefined || $(this).children().length == 1){
+
+            return false;
+
+        }else{
+
+            var $thisPlanBM = $(this).children('.dipNum').html();
+
+            _thisPlanBM = $thisPlanBM;
+
+            var tr = $(this).closest('tr');  //找到距离按钮最近的行tr;
+
+            var row = $(this).parents('.table').DataTable().row( tr );
+
+            var arr = [];
+
+            if ( row.child.isShown() ) {
+                row.child.hide();
+                tr.removeClass('shown');
+            }else{
+                // Open this row
+                //获取该计划下的设备集合
+                $.ajax({
+
+                    type:'post',
+                    url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
+                    data:{
+
+                        dipNum:$thisPlanBM,
+                        userID:_userIdNum
+                    },
+                    timeout:_theTimes,
+                    beforeSend: function () {
+                        $('#theLoading').modal('hide');
+
+                        $('#theLoading').modal('show');
+                    },
+                    complete: function () {
+
+                        $('#theLoading').modal('hide');
+
+                    },
+                    success:function(result){
+
+                        if(result.devInfoitems){
+
+                            for(var i=0;i<result.devInfoitems.length;i++){
+
+                                arr.push(result.devInfoitems[i]);
+
+                            }
+
+                            row.child( format(arr) ).show();
+
+                            tr.addClass('shown');
+
+
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR.responseText);
+                    }
+
+                })
+
+            }
+
+            e.stopPropagation();
+
+        }
+
+    });
+
+    function format ( d ) {
+        var theader = '<table class="table">' +
+            '<thead><tr><td>设备编号</td><td>设备名称</td><td>规格型号</td><td>安装地点</td><td>设备类型</td><td>操作</td></tr></thead>';
+        var theaders = '</table>';
+        var tbodyer = '<tbody>'
+
+        var str = '';
+
+        for(var i=0;i< d.length;i++){
+
+            if(d[i].isActive == 0){
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td><td><span class="data-option Alone-assign btn default btn-xs green-stripe">下发任务</span></td></tr>'
+
+            }else{
+
+                str += '<tr><td data-num="'+ d[i].dipNum + '"data-id=' +d[i].id + ' >' + d[i].dNum + '</td><td>' + d[i].dName + '</td><td>' + d[i].spec + '</td><td>' + d[i].installAddress + '</td><td>' + d[i].dcName + '</td></tr>'
+
+            }
+
+        }
+
+        var tbodyers = '</tbody>';
+
+        return theader + tbodyer + str + tbodyers + theaders;
+    }
 
     //选择设备
     var selectDevCol = [
+        {
+            class:'checkeds',
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='checker'><span><input type='checkbox'></span></div>"
+        },
         {
             title:'设备编号',
             data:'dNum',
@@ -320,7 +455,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTable1'),stepItem,2,'','','');
+    _tableInit($('#personTable1'),stepItem,2,'','','',true,'');
 
     //从巡检任务中添加
     var contentItem = [
@@ -337,12 +472,6 @@ $(function(){
         {
             title:'设备分类',
             data:'dicNum'
-        },
-        {
-            title:'操作',
-            "targets": -1,
-            "data": null,
-            "defaultContent": "<span class='data-option option-seeNR btn default btn-xs green-stripe'>查看</span>"
         }
     ];
 
@@ -373,7 +502,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTable3'),detailContent,2,'','','');
+    _tableInit($('#personTable3'),detailContent,2,'','','',true,'');
 
     //添加执行人
     var executorCol = [
@@ -401,7 +530,7 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTable2'),executorCol,2,'','','');
+    _tableInit($('#personTable2'),executorCol,2,'','','',true,'');
 
     //选择执行人
     var choiceWorkCol = [
@@ -450,6 +579,42 @@ $(function(){
 
     _tableInit($('#department-table'),departmentCol,2,'','','');
 
+    //已选中的设备表格
+    var selectDivCol = [
+
+        {
+            title:'设备编号',
+            data:'dNum',
+            className:'dNum'
+        },
+        {
+            title:'设备名称',
+            data:'dName',
+        },
+        {
+            title:'规格型号',
+            data:'spec',
+        },
+        {
+            title:'安装地点',
+            data:'installAddress',
+        },
+        {
+            title:'设备类型',
+            data:'dcName'
+        },
+        {
+            title:'操作',
+            "targets": -1,
+            "data": null,
+            "class":'caozuo',
+            "defaultContent": "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+        }
+
+    ];
+
+    _tableInit($('#selectedDiv'),selectDivCol,2,'','','',true,'');
+
     //添加表头复选框
     var creatCheckBox = '<div class="checker"><span><input type="checkbox"></span></div>';
 
@@ -465,9 +630,15 @@ $(function(){
         //数据
         conditionSelect(stationsFlag,wxBanzusFlag);
 
+        //获取所有班组
+        getDepart(true);
+
     }else if(_loginUser.isWx == 1){
 
         InfluencingUnit(true);
+
+        //执行人班组
+        getDepart(false);
 
     }
 
@@ -477,9 +648,6 @@ $(function(){
 
     //获取巡检内容
     xjnrSelect(true);
-
-    //获取部门
-    getDepart(true);
 
     //获取执行人
     getExecutor();
@@ -537,6 +705,8 @@ $(function(){
         //模态框
         _moTaiKuang($('#myModal'), '新增', '', '' ,'', '新增');
 
+        $('#myModal').find('.datatimeblock').click();
+
         //初始化
         detailedInit();
 
@@ -545,6 +715,8 @@ $(function(){
         _datasTable($('#personTable1'),arr);
 
         _datasTable($('#personTable2'),arr);
+
+        _datasTable($('#selectedDiv'),arr);
 
         //计划编码不可操作
         $('.jhbm').addClass('disabled-block');
@@ -557,8 +729,10 @@ $(function(){
 
         _zhixingRens.length = 0;
 
+        _firstDevArr.length = 0;
+
         //添加类
-        $('#myModal').find('.btn-primary').removeClass('bianij').addClass('dengji');
+        $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
 
         //新增按钮显示
         $('.addButton').show();
@@ -633,7 +807,13 @@ $(function(){
 
                     conditionSelect(stationsFlag,wxBanzusFlag);
 
+                    _moTaiKuang($('#myModal5'),'提示',true,'istap','删除成功!','');
+
                     $('#myModal2').modal('hide');
+                }else{
+
+                    _moTaiKuang($('#myModal5'),'提示',true,'istap','删除失败!','');
+
                 }
 
             },
@@ -647,55 +827,17 @@ $(function(){
 
     //下发（确定按钮）
     $('#myModal').on('click','.fenpei',function(){
-            var prm = {
-                dipNum:workDone.jhbm,
-                dipName:workDone.xjnrmc,
-                dNum:workDone.sbbm,
-                dName:workDone.sbmc,
-                activeDate:$('#sxsj').val(),
-                finishDate:$('#jssj').val(),
-                circleUnit:workDone.zqdw,
-                isActive:workDone.sfqy,
-                stCircle:workDone.jhzq,
-                userID:_userIdName
-            }
-            $.ajax({
-                type:'post',
-                url:_urls + 'YWDevIns/YWDIPAssignTask',
-                data:prm,
-                timeout:_theTimes,
-                beforeSend: function () {
-                    $('#theLoading').modal('hide');
 
-                    $('#theLoading').modal('show');
-                },
+        editRegister('YWDevIns/YWDIPAssignTask',true,'下发成功！','下发失败！');
 
-                complete: function () {
-
-                    $('#theLoading').modal('hide');
-
-                },
-                success:function(result){
-                    if(result == 99){
-
-                        _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,'启动任务巡检成功！', '');
-
-                        $('#myModal').modal('hide');
-
-                        conditionSelect(stationsFlag,wxBanzusFlag);
-                    }else{
-
-                        _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,'启动任务巡检失败！', '');
-
-                    }
-
-                }
-            })
-        })
+    })
 
     //表格中的按钮操作
     $('.main-contents-tables').find('.table').find('tbody')
-        .on('click','.option-see',function(){
+        .on('click','.option-see',function(e){
+            //初始化
+            detailedInit();
+
             //样式
             var $thisTable = $(this).parents('.main-contents-tables').find('.table');
             var $thiss = $(this).parents('tr');
@@ -722,8 +864,12 @@ $(function(){
 
             //启用状态显示
             $('.QY').show();
+
+            e.stopPropagation();
         })
-        .on('click','.option-edite',function(){
+        .on('click','.option-edite',function(e){
+            //初始化
+            detailedInit();
             //样式
             var $thisTable = $(this).parents('.main-contents-tables').find('.table');
             var $thiss = $(this).parents('tr');
@@ -736,16 +882,22 @@ $(function(){
             _shebeiBM = $.trim($this.find('.bianma').html());
             ckOrBj($(this),false);
             //确定按钮显示，并且添加bianji类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').addClass('bianji').html('编辑');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('fenpei').addClass('bianji');
             //新增按钮显示
             $('.addButton').show();
 
             abledBlock();
 
             //启用状态显示
-            $('.QY').show();
+            $('.QY').hide();
+
+            e.stopPropagation();
+
+            //模态框
+            _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
         })
-        .on('click','.option-delete',function(){
+        .on('click','.option-delete',function(e){
+
             //样式
             var $thisTable = $(this).parents('.main-contents-tables').find('.table');
             var $thiss = $(this).parents('tr');
@@ -759,33 +911,163 @@ $(function(){
 
             $('#myModal2').find('.btn-primary').removeClass('xiaoshanchu').addClass('dashanchu');
 
-            var $thisBM = $(this).parents('tr').children('.bianma').children().attr('data-num');
-            var $thisMC = $(this).parents('tr').children('.bianma').next().next().html();
+            var $thisBM = $(this).parents('tr').children().eq(2).html();
+            var $thisMC = $(this).parents('tr').children().eq(1).html();
 
             $('#xjtmbm').val($thisBM);
             $('#xjtmmc').val($thisMC);
             //启用状态显示
             $('.QY').show();
+
+            e.stopPropagation();
         })
-        .on('click','.option-assign',function(){
+        .on('click','.option-assign',function(e){
+            //初始化
+            detailedInit();
             var $this = $(this);
             _shebeiMC = $.trim($this.find('.bianma').next().next().html());
             _shebeiBM = $.trim($this.find('.bianma').children().attr('data-num'));
             ckOrBj($(this),true);
             //确定按钮显示，并且添加分配类
-            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务巡检');
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei');
 
             disabledBlock();
 
             //启用状态显示
             $('.QY').show();
+
+            e.stopPropagation();
+
+            _moTaiKuang($('#myModal'), '下发任务', '', '' ,'', '启动任务巡检');
+        })
+        .on('click','.Alone-assign',function(e){
+
+            //初始化
+            detailedInit();
+            //模态框
+            _moTaiKuang($('#myModal'),'下发','','','','下发');
+
+            var thisPlanBM = $(this).parents('tr').children().eq(0).attr('data-num');
+
+            var thisDevId = $(this).parents('tr').children().eq(0).attr('data-id');
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWDevIns/YWDIPGetInfo',
+                data:{
+
+                    //计划编码
+                    dipNum:thisPlanBM,
+                    //设备id
+                    id:thisDevId,
+                    //用户id
+                    userID:_userIdNum
+
+                },
+                timeout:_theTimes,
+                success:function(result){
+
+                    //基本信息绑定
+                    //计划编码
+                    workDone.jhbm = result.dipNum;
+                    //计划名称
+                    workDone.xjnrmc = result.dipName;
+                    //巡检部门名称
+                    workDone.xjbm = result.dipKeshi;
+                    //巡检部门编码
+                    $('.xjDep').attr('data-num',result.dipKeshiNum);
+                    //负责人
+                    //根据巡检部门编码，获取负责人
+                    getLeading(result.dipKeshiNum,true,bindFZR);
+
+                    function bindFZR(){
+
+                        workDone.fzr = result.manager;
+
+                        $('#fzr').val(result.manager);
+                    }
+
+                    //设备
+                    _firstDevArr.length = 0;
+
+                    for(var i=0;i<result.devInfoitems.length;i++){
+
+                        _firstDevArr.push(result.devInfoitems[i])
+
+                    }
+
+                    _datasTable($('#selectedDiv'),_firstDevArr);
+
+                    //计划条目
+                    _QCArr.length = 0;
+
+                    for(var i=0;i<result.dipItems.length;i++){
+
+                        _QCArr.push(result.dipItems[i]);
+
+                    }
+
+                    _datasTable($('#personTable1'),_QCArr);
+
+                    //开始时间
+                    $('#sxsj').val(result.activeDate);
+                    //结束时间
+                    $('#jssj').val(result.finishDate);
+                    //周期间隔
+                    workDone.jhzq = result.stCircle;
+                    //周期单位
+                    workDone.zqdw = result.circleUnit;
+                    //有效时间
+                    workDone.sxsj = result.dateRange;
+                    //是否启用
+                    workDone.sfqy = result.isActive;
+                    //备注
+                    $('#beizhu').val(result.remark);
+                    //执行人
+                    _zhixingRens.length = 0;
+
+                    for(var i=0;i<result.dipMembers.length;i++){
+
+                        var obj = {};
+                        obj.userName = result.dipMembers[i].dipRen;
+
+                        obj.userNum = result.dipMembers[i].dipRenNum;
+
+                        obj.mobile = result.dipMembers[i].dipDh;
+
+                        _zhixingRens.push(obj);
+
+                    }
+
+                    _datasTable($('#personTable2'),_zhixingRens);
+
+                    $('#personTable1').find('.option-delete').attr('disabled',true);
+
+                    $('#personTable2').find('.tableDeleted').attr('disabled',true);
+
+                    $('#selectedDiv').find('.option-delete').attr('disabled',true);
+
+                    disabledBlock();
+
+                },
+                error:function(jqXHR, textStatus, errorThrown){
+
+                    console.log(jqXHR.responseText);
+
+                }
+
+            })
+
+            $('#myModal').find('.btn-primary').show().removeClass('dengji').removeClass('bianji').addClass('fenpei').html('启动任务巡检');
+
         })
 
     //主表格选择
     var _table = $('.main-contents-tables').find('.table');
 
     //复选框点击事件（巡检内容）
-    _table.find('tbody').on( 'click', 'input', function () {
+    _table.find('tbody').on( 'click', 'input', function (e) {
         if($(this).parents('.checker').children('.checked').length == 0){
             $(this).parent($('span')).addClass('checked');
             //$(this).parents('tr').css({'background':'#FBEC88'});
@@ -803,21 +1085,15 @@ $(function(){
             //只要有一个复选框没选中，全选框不打勾，
             $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
         }
+
+        e.stopPropagation();
     });
 
     //点击thead复选框tbody的复选框全选中
     _table.find('thead').find('input').click(function(){
-        if($(this).parents('.checker').children('.checked').length == 0){
-            //点击选中状态
-            _table.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
-            //所有行的背景颜色置为黄色
-            //_table.find('tbody').find('tr').css({'background':'#fbec88'})
-            _table.find('tbody').find('tr').addClass('tables-hover');
-        }else{
-            _table.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            //_table.find('tbody').find('tr').css({'background':'#ffffff'})
-            _table.find('tbody').find('tr').removeClass('tables-hover')
-        }
+
+        AllSelectThead($(this),$(this).parents('table'));
+
     });
 
     //设备---------------------------------------------------------
@@ -838,6 +1114,9 @@ $(function(){
 
         _choiceDev = true;
 
+        //设备全选按钮初始化
+        $('#sbmcxz thead').find('input').parent().removeClass('checked');
+
     })
 
     $('#myModal3').on('shown.bs.modal',function(){
@@ -855,31 +1134,176 @@ $(function(){
     //设备选择点击
     $('#sbmcxz tbody').on('click','tr',function(){
         //样式
-        var $this = $(this)
 
-        $('#sbmcxz tbody').children('tr').removeClass('tables-hover');
+        if($(this).hasClass('tables-hover')){
 
-        $this.addClass('tables-hover');
+            $(this).removeClass('tables-hover');
 
-        _shebeiMC = $.trim($this.find('.dNum').next().html());
+            $(this).find('input').parent().removeClass('checked');
 
-        _shebeiBM = $.trim($this.find('.dNum').html());
-    })
+            //全选按钮不选中
+            $('#sbmcxz thead').find('input').parent().removeClass('checked');
+
+        }else{
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent().addClass('checked');
+
+            var arrLength = $('#sbmcxz tbody').find('tr').length;
+
+            var hoverLength = $('#sbmcxz tbody').find('.tables-hover').length;
+
+            if(arrLength == hoverLength){
+
+                //全选按钮选中
+                $('#sbmcxz thead').find('input').parent().addClass('checked');
+
+            }else{
+
+                $('#sbmcxz thead').find('input').parent().removeClass('checked');
+            }
+
+        }
+    });
 
     //设备选择确定按钮
     $('#myModal3').on('click','.selectSBMC',function(){
 
+        var checkedArr = $('#sbmcxz tbody').children('.tables-hover');
+
+        _secondSelectDivArr.length = 0;
+
+        for(var i=0;i<checkedArr.length;i++){
+
+            var obj = {};
+
+            //设备编号
+            obj.dNum = checkedArr.eq(i).children().eq(1).html();
+
+            //设备名称
+            obj.dName = checkedArr.eq(i).children().eq(2).html();
+
+            //设备规格型号
+            obj.spec = checkedArr.eq(i).children().eq(3).html();
+
+            //设备安装地点
+            obj.installAddress = checkedArr.eq(i).children().eq(4).html();
+
+            //设备设备类型
+            obj.dcName = checkedArr.eq(i).children().eq(5).html();
+
+            _secondSelectDivArr.push(obj);
+
+        }
+
+        //将_secondSelectDivArr去重，push进_firstDivArr
+        if(_firstDevArr.length == 0){
+
+            for(var i=0;i<_secondSelectDivArr.length;i++){
+
+                _firstDevArr.push(_secondSelectDivArr[i]);
+
+            }
+
+        }else{
+
+            //需要删除的重复的数组
+            var arr = [];
+
+            //首先将选中的数组的设备编码选出来
+            for(var i=0;i<_secondSelectDivArr.length;i++){
+
+                for(var j=0;j<_firstDevArr.length;j++){
+
+                    if(_secondSelectDivArr[i].dNum == _firstDevArr[j].dNum){
+
+                        arr.push(_secondSelectDivArr[i]);
+
+                    }
+
+                }
+
+            }
+
+            for(var i=0;i<arr.length;i++){
+
+                _secondSelectDivArr.remove(arr[i]);
+
+            }
+
+            for(var i=0;i<_secondSelectDivArr.length;i++){
+
+                _firstDevArr.push(_secondSelectDivArr[i]);
+
+            }
+
+        }
+
+        //模态框消失
         $('#myModal3').modal('hide');
 
-        $('#sbmc').val(_shebeiMC);
-
-        $('#sbbm').val(_shebeiBM);
-
-        workDone.sbmc = _shebeiMC;
-
-        workDone.sbbm = _shebeiBM;
+        _datasTable($('#selectedDiv'),_firstDevArr);
 
     });
+
+    //设备选择全选按钮
+    $('#sbmcxz thead').on('click','input',function(){
+
+        if($(this).parent().hasClass('checked')){
+
+            $(this).parent().removeClass('checked');
+
+            $('#sbmcxz tbody').children('tr').removeClass('tables-hover');
+
+            $('#sbmcxz tbody').children('tr').find('input').parent().removeClass('checked');
+
+        }else{
+
+            $(this).parent().addClass('checked');
+
+            $('#sbmcxz tbody').children('tr').addClass('tables-hover');
+
+            $('#sbmcxz tbody').children('tr').find('input').parent().addClass('checked');
+
+        }
+
+    })
+
+    //设备静态删除
+    $('#selectedDiv tbody').on('click','.option-delete',function(){
+
+        //样式
+        $('#selectedDiv tbody').children('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //获取当前的设备编号
+        _thisDevNum = $(this).parents('tr').children('.dNum').html();
+
+        //模态框
+        _moTaiKuang($('#DEL-Modal'),'提示','','istap','确定要删除吗？','删除');
+
+    })
+
+    //删除确定按钮
+    $('#DEL-Modal').on('click','.btn-primary',function(){
+
+        for(var i=0;i<_firstDevArr.length;i++){
+
+            if(_firstDevArr[i].dNum == _thisDevNum){
+
+                _firstDevArr.remove(_firstDevArr[i]);
+
+            }
+
+        }
+
+        _datasTable($('#selectedDiv'),_firstDevArr);
+
+        $('#DEL-Modal').modal('hide');
+
+    })
 
     //设备查询
     $('#selected1').click(function(){
@@ -967,7 +1391,6 @@ $(function(){
         //模态框
         _moTaiKuang($('#myModal1'), '选择巡检步骤项目', '', '' ,'', '选择');
 
-
         //初始化
         projectInit();
 
@@ -984,55 +1407,65 @@ $(function(){
     })
 
     //复选框点击事件（添加巡检步骤）
-    $('#zhiXingPerson').find('tbody').on( 'click', 'input', function () {
+    $('#zhiXingPerson').find('tbody').on( 'click', 'tr', function () {
 
-        if($(this).parents('.checker').children('.checked').length == 0){
+        if($(this).hasClass('tables-hover')){
 
-            $(this).parent($('span')).addClass('checked');
+            $(this).removeClass('tables-hover');
 
-            $(this).parents('tr').addClass('tables-hover');
+            $(this).find('input').parent().removeClass('checked');
 
-            //如果所有复选框打钩，那么表头的复选框自动打钩；
-            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
+            //全选按钮消失
+            $('#zhiXingPerson thead').find('input').parent().removeClass('checked');
 
-            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
+        }else{
 
-            if( rowNum == selectNum){
-                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent().addClass('checked');
+
+            var arrLength = $('#zhiXingPerson tbody').children('tr').length;
+
+            var hoverLength = $('#zhiXingPerson tbody').children('.tables-hover').length;
+
+            if(arrLength == hoverLength){
+
+                //全选按钮显示
+                $('#zhiXingPerson thead').find('input').parent().addClass('checked');
+
+            }else{
+
+                //全选按钮消失
+                $('#zhiXingPerson thead').find('input').parent().removeClass('checked');
+
             }
 
-        }else{
-            $(this).parent($('span')).removeClass('checked');
-
-            $(this).parents('tr').removeClass('tables-hover');
-
-            //只要有一个复选框没选中，全选框不打勾，
-            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
-        }
-    });
-
-    //点击thead复选框tbody的复选框全选中
-    $('#zhiXingPerson').find('thead').find('input').click(function(){
-
-        if($(this).parents('.checker').children('.checked').length == 0){
-
-            $(this).parent('span').addClass('checked');
-
-            //点击选中状态
-            $('#zhiXingPerson').find('tbody').find('input').parents('.checker').children('span').addClass('checked');
-
-            //所有行的背景颜色置为黄色
-            $('#zhiXingPerson').find('tbody').find('tr').css({'background':'#fbec88'})
-        }else{
-
-            $(this).parent('span').removeClass('checked');
-
-            $('#zhiXingPerson').find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-
-            $('#zhiXingPerson').find('tbody').find('tr').css({'background':'#ffffff'})
         }
 
     });
+
+    //选择巡检条目全选
+    $('#zhiXingPerson thead').on('click','input',function(){
+
+        if($(this).parent().hasClass('checked')){
+
+            $(this).parent().removeClass('checked');
+
+            $('#zhiXingPerson tbody').children('tr').removeClass('tables-hover');
+
+            $('#zhiXingPerson tbody').find('input').parent().removeClass('checked');
+
+        }else{
+
+            $(this).parent().addClass('checked');
+
+            $('#zhiXingPerson tbody').children('tr').addClass('tables-hover');
+
+            $('#zhiXingPerson tbody').find('input').parent().addClass('checked');
+
+        }
+
+    })
 
     //选择步骤确定按钮
     $('#myModal1').on('click','.selectTableList',function(){
@@ -1143,14 +1576,14 @@ $(function(){
     })
 
     //巡检内容下的步骤列表
-    $('#myModal6').on('click','.option-seeNR',function(){
+    $('#zhiXingPerson1').on('click','tr',function(){
 
         //样式
         $('#zhiXingPerson1 tbody').children('tr').removeClass('tables-hover');
 
-        $(this).parents('tr').addClass('tables-hover');
+        $(this).addClass('tables-hover');
 
-        var $thisBM = $(this).parents('tr').children('.bianma').html();
+        var $thisBM = $(this).children('.bianma').html();
 
         var prm = {
             dicNum:$thisBM,
@@ -1160,6 +1593,17 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/YWDIGetDICItems',
             data:prm,
+            beforeSend: function () {
+                $('#theLoading').modal('hide');
+
+                $('#theLoading').modal('show');
+            },
+
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 _allNRSelect.length = 0;
 
@@ -1216,9 +1660,12 @@ $(function(){
         executorInit(_zxrArr);
 
         //赋值
-        $('#bm').val(_selectedDepNum);
+        $('#bm').val(_selectedDepNum).attr('disabled',true).addClass('disabled-block');
 
         getExecutor();
+
+        //执行人全选按钮不选中
+        $('#zhixingRenTable tbody').find('input').parent().removeClass('checked');
 
     })
 
@@ -1231,35 +1678,61 @@ $(function(){
 
     //选择执行人员
     //复选框点击事件
-    $('#zhixingRenTable').find('tbody').on( 'click', 'input', function () {
-        if($(this).parents('.checker').children('.checked').length == 0){
-            $(this).parent($('span')).addClass('checked');
-            $(this).parents('tr').addClass('tables-hover');
-            //如果所有复选框打钩，那么表头的复选框自动打钩；
-            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
-            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
-            if( rowNum == selectNum){
-                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
-            }
+    $('#zhixingRenTable').find('tbody').on( 'click', 'tr', function () {
+
+        if($(this).hasClass('tables-hover')){
+
+            $(this).removeClass('tables-hover');
+
+            $(this).find('input').parent().removeClass('checked');
+
+            $('#zhixingRenTable thead').find('input').parent().removeClass('checked');
+
         }else{
-            $(this).parent($('span')).removeClass('checked');
-            //$(this).parents('tr').css({'background':'#ffffff'});
-            $(this).parents('tr').removeClass('tables-hover');
-            //只要有一个复选框没选中，全选框不打勾，
-            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
+
+            $(this).addClass('tables-hover');
+
+            $(this).find('input').parent().addClass('checked');
+
+            var arrLength = $('#zhixingRenTable tbody').children('tr').length;
+
+            var hoverLength = $('#zhixingRenTable tbody').children('.tables-hover').length;
+
+            if(arrLength == hoverLength){
+
+                $('#zhixingRenTable thead').find('input').parent().addClass('checked');
+
+            }else{
+
+                $('#zhixingRenTable thead').find('input').parent().removeClass('checked');
+
+            }
+
         }
+
     });
 
     //点击thead复选框tbody的复选框全选中
     $('#zhixingRenTable').find('thead').find('input').click(function(){
-        if($(this).parents('.checker').children('.checked').length == 0){
-            //点击选中状态
-            $('#zhixingRenTable').find('tbody').find('input').parents('.checker').children('span').addClass('checked');
-            $('#zhixingRenTable').find('tbody').find('tr').addClass('tables-hover');
+
+        if($(this).parent().hasClass('checked')){
+
+            $(this).parent().removeClass('checked');
+
+            $('#zhixingRenTable tbody').children('tr').removeClass('tables-hover');
+
+            $('#zhixingRenTable tbody').find('input').parent().removeClass('checked');
+
         }else{
-            $('#zhixingRenTable').find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            $('#zhixingRenTable').find('tbody').find('tr').removeClass('tables-hover')
+
+            $(this).parent().addClass('checked');
+
+            $('#zhixingRenTable tbody').children('tr').addClass('tables-hover');
+
+            $('#zhixingRenTable tbody').find('input').parent().addClass('checked');
+
         }
+
     });
 
     //选择执行人员的确定按钮
@@ -1282,6 +1755,8 @@ $(function(){
         }
 
         var vas = unique(_zhixingRens,'userNum');
+
+        _executorArr = vas;
 
         _datasTable($('#personTable2'),vas);
 
@@ -1316,6 +1791,16 @@ $(function(){
 
         $('#myModal8').modal('hide');
     })
+
+    //选择部门
+    $('#bm').change(function(){
+
+        var arr = [];
+
+        _datasTable($('#zhixingRenTable'),arr);
+
+    })
+
     /*------------------------------------------------其他方法---------------------------------------------*/
 
     //功能性----------------------------------------------------
@@ -1358,11 +1843,13 @@ $(function(){
             userID:_userIdNum,
             wxDepartNums:arr
         }
+
         $.ajax({
             type:'post',
             url:_urls + 'YWDevIns/YWDIPGetPlans',
             data:prm,
             success:function(result){
+
                 _allDataArr = [];
                 _weifenpeiArr = [];
                 _qiyongArr = [];
@@ -1426,9 +1913,29 @@ $(function(){
         //备注
         $('#beizhu').val('');
 
-        $('#xjDep').removeAttr('data-num');
+        //部门编码
+        $('.xjDep').removeAttr('data-num');
+
+        //负责人
+        $('#fzr').empty();
 
         $('#myModal').find('.datatimeblock').val('');
+
+        //清空设备，巡检条目，执行人
+        _firstDevArr.length = 0;
+
+        _datasTable($('#selectedDiv'),_firstDevArr);
+
+        _QCArr.length = 0;
+
+        _datasTable($('#personTable1'),_QCArr);
+
+        _zhixingRens.length = 0;
+
+        _datasTable($('#personTable2'),_zhixingRens);
+
+        //验证消息失败
+        $('.effectError').hide();
 
     }
 
@@ -1513,13 +2020,29 @@ $(function(){
     //登记、编辑
     function editRegister(url,flag,successMeg,errorMeg){
 
-        if( workDone.xjnrmc == '' || $('#sbmc').val()=='' || workDone.sbbm == ''|| workDone.xjbm == '' || workDone.fzr == '' || workDone.jhzq === '' || $('#sxsj').val() == '' || $('#jssj').val()== '' ){
+        //判断必填项
+
+        //计划名称、巡检部门、负责人、设备、巡检条目、有效时间、周期间隔、开始时间、结束时间、周期单位
+
+        if( workDone.xjnrmc == '' || workDone.xjbm == '' || workDone.fzr == '' || _firstDevArr.length == 0 || _QCArr.length == 0 || workDone.jhzq == '' || $('#sxsj').val() == '' || $('#jssj').val() == '' || workDone.zqdw == '' ){
 
             _moTaiKuang($('#myModal5'),'提示','flag','istap','请填写红色必填项！','');
 
         }else{
-            if(workDone.jhzq >=1 && isInteger(workDone.jhzq)){
 
+            //验证有效时间和周期间隔格式是否正确
+            var error1 = $('.effectError').eq(0).css('display');
+
+            var error2 = $('.effectError').eq(1).css('display');
+
+            if( error1 != 'none' || error2 != 'none' ){
+
+                _moTaiKuang($('#myModal5'),'提示','flag','istap','请填写格式正确的内容！','');
+
+
+            }else{
+
+                //判断开始时间和结束时间
                 //验证时间
 
                 var d1 = new Date($('#sxsj').val().replace(/\-/g, "\/"));
@@ -1531,6 +2054,7 @@ $(function(){
                     _moTaiKuang($('#myModal5'),'提示','flag','istap','开始时间不能大于结束时间！','提示');
 
                     return false;
+
                 }else{
 
                     var vas = unique(_QCArr,'ditNum');
@@ -1562,30 +2086,66 @@ $(function(){
                         personArr.push(obj);
                     }
 
-                    var prm={
+                    //设备
+                    var devArr = [];
 
+                    for(var i=0;i<_firstDevArr.length;i++){
+
+                        var obj = {};
+
+                        if(flag){
+
+                            obj.id = _firstDevArr[i].id;
+
+                        }
+
+                        obj.dNum = _firstDevArr[i].dNum;
+
+                        obj.dName = _firstDevArr[i].dName;
+
+                        devArr.push(obj);
+
+                    }
+
+                    var prm={
+                        //计划名称
                         dipName:workDone.xjnrmc,
-                        dNum:workDone.sbbm,
-                        dName:workDone.sbmc,
+                        //巡检部门名称
                         dipKeshi:workDone.xjbm,
+                        //巡检部门编码
                         dipKeshiNum:$('.xjDep').attr('data-num'),
+                        //负责人
                         manager:workDone.fzr,
-                        activeDate:$('#sxsj').val(),
-                        stCircle:workDone.jhzq,
-                        circleUnit:workDone.zqdw,
-                        remark:$('#beizhu').val(),
-                        isActive:workDone.sfqy,
+                        //设备
+                        devInfoitems:devArr,
+                        //巡检条目
                         dipItems:tableArr,
-                        dipMembers:personArr,
+                        //开始时间
+                        activeDate:$('#sxsj').val(),
+                        //结束时间
                         finishDate:$('#jssj').val(),
+                        //计划周期
+                        stCircle:workDone.jhzq,
+                        //周期单位
+                        circleUnit:workDone.zqdw,
+                        //生效时间
+                        dateRange :workDone.sxsj,
+                        //备注
+                        remark:$('#beizhu').val(),
+                        //执行人
+                        dipMembers:personArr,
+                        //登录用户
                         userID:_userIdNum,
-                        dateRange:workDone.sxsj
+                        //是否启用
+                        isActive:workDone.sfqy
+
                     };
+
                     if(flag){
 
                         prm.dipNum=workDone.jhbm;
 
-                    }
+                    };
 
                     $.ajax({
                         type:'post',
@@ -1629,46 +2189,28 @@ $(function(){
 
                 }
 
-            }else{
-
-                _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,'请填写大于1的整数间隔周期!', '');
-
             }
+
         }
 
     }
 
     //数据绑定
-    //查看/编辑赋值
     //查看/编辑赋值true的时候表格内容不可编辑
     function ckOrBj(el,flag){
         //确定按钮隐藏
-        //var $myModal = $('#myModal');
-        //moTaiKuang($myModal);
+
         _moTaiKuang($('#myModal'), '查看', 'flag', '' ,'', '');
         //设置数据
-        var $thisBM = el.parents('tr').children('.bianma').children('span').attr('data-num');
-        for(var i=0;i<_allDataArr.length;i++){
-            if(_allDataArr[i].dipNum == $thisBM){
-                //绑定数据
-                workDone.jhbm = _allDataArr[i].dipNum;
-                workDone.xjnrmc = _allDataArr[i].dipName;
-                workDone.sbmc = _allDataArr[i].dName;
-                workDone.sbbm = _allDataArr[i].dNum;
-                workDone.xjbm = _allDataArr[i].dipKeshi;
-                workDone.fzr = _allDataArr[i].manager;
-                workDone.jhzq = _allDataArr[i].stCircle;
-                workDone.zqdw = _allDataArr[i].circleUnit;
-                workDone.sfqy = _allDataArr[i].isActive;
-                $('#sxsj').val(_allDataArr[i].activeDate);
-                $('#beizhu').val(_allDataArr[i].remark);
-                $('#jssj').val(_allDataArr[i].finishDate);
-                workDone.sxsj = _allDataArr[i].dateRange;
-            }
-        }
+        var $thisBM = el.parents('tr').children('.dipNum').html();
+
+        _thisPlanBM = el.parents('tr').children('.dipNum').html();
+
         //获取巡检步骤
         var prm = {
+            //计划编码
             dipNum:$thisBM,
+            //当前用户
             userID:_userIdNum
         }
         $.ajax({
@@ -1680,7 +2222,6 @@ $(function(){
 
                 $('#theLoading').modal('show');
             },
-
             complete: function () {
 
                 $('#theLoading').modal('hide');
@@ -1688,15 +2229,66 @@ $(function(){
             },
             success:function(result){
 
-                _QCArr.length = 0;
+                //基本信息绑定
+                //计划编码
+                workDone.jhbm = result.dipNum;
+                //计划名称
+                workDone.xjnrmc = result.dipName;
+                //巡检部门名称
+                workDone.xjbm = result.dipKeshi;
+                //巡检部门编码
+                $('.xjDep').attr('data-num',result.dipKeshiNum);
 
-                _zhixingRens.length = 0;
+                _selectedDepNum = result.dipKeshiNum;
+                //负责人
+                //根据巡检部门编码，获取负责人
+                getLeading(result.dipKeshiNum,true,bindFZR);
+
+                function bindFZR(){
+
+                    workDone.fzr = result.manager;
+
+                    $('#fzr').val(result.manager);
+                }
+
+                //设备
+                _firstDevArr.length = 0;
+
+                for(var i=0;i<result.devInfoitems.length;i++){
+
+                    _firstDevArr.push(result.devInfoitems[i])
+
+                }
+
+                _datasTable($('#selectedDiv'),_firstDevArr);
+
+                //计划条目
+                _QCArr.length = 0;
 
                 for(var i=0;i<result.dipItems.length;i++){
 
                     _QCArr.push(result.dipItems[i]);
 
                 }
+
+                _datasTable($('#personTable1'),_QCArr);
+
+                //开始时间
+                $('#sxsj').val(result.activeDate);
+                //结束时间
+                $('#jssj').val(result.finishDate);
+                //周期间隔
+                workDone.jhzq = result.stCircle;
+                //周期单位
+                workDone.zqdw = result.circleUnit;
+                //有效时间
+                workDone.sxsj = result.dateRange;
+                //是否启用
+                workDone.sfqy = result.isActive;
+                //备注
+                $('#beizhu').val(result.remark);
+                //执行人
+                _zhixingRens.length = 0;
 
                 for(var i=0;i<result.dipMembers.length;i++){
 
@@ -1711,9 +2303,6 @@ $(function(){
 
                 }
 
-                //找到存放所有巡检步骤的数组，比较
-                _datasTable($('#personTable1'),_QCArr);
-
                 _datasTable($('#personTable2'),_zhixingRens);
 
                 if(flag){
@@ -1722,14 +2311,17 @@ $(function(){
 
                     $('#personTable2').find('.tableDeleted').attr('disabled',true);
 
+                    $('#selectedDiv').find('.option-delete').attr('disabled',true);
+
                 }else{
 
                     $('#personTable1').find('.option-delete').attr('disabled',false);
 
                     $('#personTable2').find('.tableDeleted').attr('disabled',false);
 
-                }
+                    $('#selectedDiv').find('.option-delete').attr('disabled',false);
 
+                }
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -2157,7 +2749,6 @@ $(function(){
         })
     }
 
-
     //获取部门(true时，获得所有数组)
     function getDepart(flag){
 
@@ -2201,7 +2792,7 @@ $(function(){
 
                 $('#bm').empty().append(str);
 
-                _datasTable($('#department-table'),_allDepart);
+                _datasTable($('#department-table'),result);
 
             },
             error:function(jqXHR, textStatus, errorThrown){
@@ -2257,7 +2848,7 @@ $(function(){
     }
 
     //获取负责人
-    function getLeading(departNum){
+    function getLeading(departNum,flag,fun){
 
         var prm = {
 
@@ -2288,6 +2879,10 @@ $(function(){
 
                 $('#fzr').empty().append(str);
 
+                if(flag){
+
+                    fun();
+                }
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(JSON.parse(jqXHR.responseText).message);
@@ -2302,11 +2897,6 @@ $(function(){
     //获取所属维保组和所属班组
     function InfluencingUnit(flag){
         var prm = {
-            "id": 0,
-            "ddNum": "",
-            "ddName": "",
-            "ddPy": "",
-            "daNum": "",
             "userID": _userIdNum,
             "userName": _userIdNum
         }
@@ -2361,12 +2951,56 @@ $(function(){
 
                 conditionSelect(stationsFlag,wxBanzusFlag);
 
+                //维修班组
+                _allDepart.length = 0;
+
+                if(stationsFlag){
+
+                    var arr = [];
+
+                    for(var i=0;i<_InfluencingArr.length;i++){
+
+                        if(_InfluencingArr[i].departNum == _maintenanceTeam){
+
+                            for(var j=0;j<_InfluencingArr[i].wxBanzus.length;j++){
+
+                                arr.push(_InfluencingArr[i].wxBanzus[j]);
+
+                                _allDepart.push(_InfluencingArr[i].wxBanzus[j]);
+
+                            }
+
+                        }
+
+                    }
+
+                    _datasTable($('#department-table'),arr);
+
+                }
+
+                if(wxBanzusFlag){
+
+                    var arr = [];
+
+                    for(var i=0;i<_bzArr.length;i++){
+
+                        if(_maintenanceTeam == _bzArr[i].departNum){
+
+                            arr.push(_bzArr[i]);
+
+                            _allDepart.push(_bzArr[i]);
+                        }
+
+                    }
+
+                    _datasTable($('#department-table'),arr);
+
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
             }
         })
     }
-
 
 })

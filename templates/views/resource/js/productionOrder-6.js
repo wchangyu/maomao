@@ -113,153 +113,188 @@ $(function(){
 
     /*--------------------------表格初始化---------------------------------------*/
     //页面表格
-    var mainCol = [
-
-        {
-            title:'工单号',
-            data:'gdCode2',
-            render:function(data, type, row, meta){
-                return '<span class="gongdanId" gdCode="' + row.gdCode +
-                    '"' + "gdCircle=" + row.gdCircle +
-                    '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle +
-                    '"' +
-                    'target="_blank">' + data + '</a>'
+    var table = $('#scrap-datatables').DataTable({
+        "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+        "paging": true,   //是否分页
+        "destroy": true,//还原初始化了的datatable
+        "searching": true,
+        "order": true,
+        //"pagingType":"full_numbers",
+        "iDisplayLength":50,//默认每页显示的条数
+        "bStateSave":true,
+        'language': {
+            'emptyTable': '没有数据',
+            'loadingRecords': '加载中...',
+            'processing': '查询中...',
+            'lengthMenu': '每页 _MENU_ 条',
+            'zeroRecords': '没有数据',
+            'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
+            'infoEmpty': '没有数据',
+            'paginate':{
+                "previous": "上一页",
+                "next": "下一页",
+                "first":"首页",
+                "last":"尾页"
             }
         },
-        {
-            title:'工单类型',
-            data:'gdJJ',
-            render:function(data, type, full, meta){
-                if(data == 0){
-                    return '普通'
-                }if(data == 1){
-                    return '快速'
+        'buttons': [
+            {
+                extend: 'excelHtml5',
+                text: '导出',
+                className:'saveAs',
+                exportOptions:{
+                    columns:[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
                 }
             }
-        },
-        {
-            title:'工单状态',
-            data:'gdZht',
-            className:'gongdanZt',
-            render:function(data, type, full, meta){
-                if(data == 1){
-                    return '待下发'
-                }if(data == 2){
-                    return '待分派'
-                }if(data == 3){
-                    return '待执行'
-                }if(data == 4){
-                    return '执行中'
-                }if(data == 5){
-                    return '等待资源'
-                }if(data == 6){
-                    return '待关单'
-                }if(data == 7){
-                    return '任务关闭'
-                }if(data == 999){
-                    return '任务取消'
+        ],
+        "dom":'t<"F"lip>',
+        "columns": [
+            {
+                title:'工单号',
+                data:'gdCode2',
+                render:function(data, type, row, meta){
+                    return '<span class="gongdanId" gdCode="' + row.gdCode +
+                        '"' + "gdCircle=" + row.gdCircle +
+                        '></span><a href="productionOrder_see.html?gdCode=' +  row.gdCode  +  '&gdCircle=' + row.gdCircle +
+                        '"' +
+                        'target="_blank">' + data + '</a>'
                 }
-            }
-        },
-        {
-            title:'任务级别',
-            data:'gdLeixing',
-            render:function(data, type, full, meta){
-                if(data == 1){
-                    return '一级任务'
-                }if(data == 2){
-                    return '二级任务'
-                }if(data == 3){
-                    return '三级任务'
-                }if(data == 4){
-                    return '四级任务'
+            },
+            {
+                title:'工单类型',
+                data:'gdJJ',
+                render:function(data, type, full, meta){
+                    if(data == 0){
+                        return '普通'
+                    }if(data == 1){
+                        return '快速'
+                    }
                 }
-            }
-        },
-        {
-            title:'工单来源',
-            data:'gdCodeSrc',
-            render:function(data, type, full, meta){
-                if(data == 1){
-                    return __names.department + '报修'
-                }else{
-                    return '现场人员报修'
+            },
+            {
+                title:'工单状态',
+                data:'gdZht',
+                className:'gongdanZt',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '待下发'
+                    }if(data == 2){
+                        return '待分派'
+                    }if(data == 3){
+                        return '待执行'
+                    }if(data == 4){
+                        return '执行中'
+                    }if(data == 5){
+                        return '等待资源'
+                    }if(data == 6){
+                        return '待关单'
+                    }if(data == 7){
+                        return '任务关闭'
+                    }if(data == 999){
+                        return '任务取消'
+                    }
                 }
-            }
-        },
-        {
-            title:'工单状态值',
-            data:'gdZht',
-            className:'ztz'
-        },
-        {
-            title:'系统类型',
-            data:'wxShiX'
-        },
-        {
-            title:'设备名称',
-            data:'dName'
-        },
-        {
-            title:__names.department,
-            data:'bxKeshi'
-        },
-        {
-            title:'故障位置',
-            data:'wxDidian'
-        },
-        {
-            title:'故障描述',
-            data:'bxBeizhu'
-        },
-        {
-            title:'最新处理情况',
-            data:'lastUpdateInfo'
-        },
-        {
-            title:'备件信息',
-            data:'wxClNames'
-        },
-        {
-            title:__names.group,
-            data:'wxKeshi'
-        },
-        {
-            title:'受理时间',
-            data:'shouLiShij'
-        },
-        {
-            title:'责任人',
-            data:'wxUserNames'
-        },
-        {
-            title:'超时',
-            data:'timeSpan',
-            render:function(data, type, full, meta){
-                if(data>0){
-                    return '<span style="color: red;">' + data + '</span>';
-                }else{
-                    return '<span style="color: green;">' + data + '</span>';
+            },
+            {
+                title:'任务级别',
+                data:'gdLeixing',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return '一级任务'
+                    }if(data == 2){
+                        return '二级任务'
+                    }if(data == 3){
+                        return '三级任务'
+                    }if(data == 4){
+                        return '四级任务'
+                    }
                 }
+            },
+            {
+                title:'工单来源',
+                data:'gdCodeSrc',
+                render:function(data, type, full, meta){
+                    if(data == 1){
+                        return __names.department + '报修'
+                    }else{
+                        return '现场人员报修'
+                    }
+                }
+            },
+            {
+                title:'工单状态值',
+                data:'gdZht',
+                className:'ztz'
+            },
+            {
+                title:'系统类型',
+                data:'wxShiX'
+            },
+            {
+                title:'设备名称',
+                data:'dName'
+            },
+            {
+                title:__names.department,
+                data:'bxKeshi'
+            },
+            {
+                title:'故障位置',
+                data:'wxDidian'
+            },
+            {
+                title:'故障描述',
+                data:'bxBeizhu'
+            },
+            {
+                title:'最新处理情况',
+                data:'lastUpdateInfo'
+            },
+            {
+                title:'备件信息',
+                data:'wxClNames'
+            },
+            {
+                title:__names.group,
+                data:'wxKeshi'
+            },
+            {
+                title:'受理时间',
+                data:'shouLiShij'
+            },
+            {
+                title:'责任人',
+                data:'wxUserNames'
+            },
+            {
+                title:'超时',
+                data:'timeSpan',
+                render:function(data, type, full, meta){
+                    if(data>0){
+                        return '<span style="color: red;">' + data + '</span>';
+                    }else{
+                        return '<span style="color: green;">' + data + '</span>';
+                    }
+                }
+            },
+            {
+                title:'操作',
+                "targets": -1,
+                "data": null,
+                "className":'noprint',
+                "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
             }
-        },
-        {
-            title:'操作',
-            "targets": -1,
-            "data": null,
-            "className":'noprint',
-            "defaultContent": "<span class='data-option option-edit btn default btn-xs green-stripe'>查看</span>"
-        }
-
-    ];
-
-    var excelCol = [0,1,2,3,4,6,7,8,9,10,11,12,13,14,15];
-
-    _tableInit($('#scrap-datatables'),mainCol,1,true,'','','',excelCol);
+        ]
+    });
+    table.buttons().container().appendTo($('.excelButton'),table.table().container());
 
     //影响单位
     InfluencingUnit();
 
+    //报错时不弹出弹框
+    $.fn.dataTable.ext.errMode = function(s,h,m){
+        console.log('')
+    }
     //执行人员表格
 
     var personCol = [
@@ -1405,10 +1440,23 @@ $(function(){
         //维修内容
         app33.wxbeizhu = '';
         //查看图片
+        _imgNum = 0;
         //图片区域隐藏
         $('.showImage').hide();
+        //报修按钮显示隐藏
+        $('.bxpicture').hide();
+        //备件数量
+        _imgBJNum = 0;
         //备件区域隐藏
         $('.bjImg').hide();
+        //备件按钮显示隐藏
+        $('.bjpicture').hide();
+        //完成图片
+        _imgWGNum = 0;
+        //完成图片区域隐藏
+        $('.wgImg').hide();
+        //完成图片按钮显示隐藏
+        $('.wgpicture').hide();
         //表格初始化
         var arr = [];
         //执行人员
@@ -1453,11 +1501,42 @@ $(function(){
         app33.remarks = result.bxBeizhu;
         //维修内容
         app33.wxbeizhu = result.wxBeizhu;
-        //查看图片
         //工单图片
         _imgNum = result.hasImage;
+        //按钮显示隐藏
+        if( _imgNum == 0 ){
+
+            $('.bxpicture').hide();
+
+        }else{
+
+            $('.bxpicture').show();
+
+        }
         //备件图片
         _imgBJNum = result.hasBjImage;
+        //按钮显示隐藏
+        if( _imgBJNum == 0 ){
+
+            $('.bjpicture').hide();
+
+        }else{
+
+            $('.bjpicture').show();
+
+        }
+        //完成图片
+        _imgWGNum = 0;
+        //按钮显示隐藏
+        if( _imgWGNum == 0 ){
+
+            $('.wgpicture').hide();
+
+        }else{
+
+            $('.wgpicture').show();
+
+        }
         //表格初始化
         //执行人员
         _datasTable($('#personTable1'),result.wxRens);

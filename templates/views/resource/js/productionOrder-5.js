@@ -591,8 +591,30 @@ $(function(){
                         detailVue.sbMC = result.dName;
                         //维修班组
                         detailVue.sections = result.wxKeshi;
-                        //图片
+                        //报修图片
                         _imgNum = result.hasImage;
+                        //按钮显示隐藏
+                        if(_imgNum == 0){
+
+                            $('.bxpicture').hide();
+
+                        }else{
+
+                            $('.bxpicture').show();
+
+                        }
+                        //备件图片
+                        _imgBJNum = result.hasBjImage;
+                        //按钮显示隐藏
+                        if( _imgBJNum == 0 ){
+
+                            $('.bjpicture').hide();
+
+                        }else{
+
+                            $('.bjpicture').show();
+
+                        }
                         //发生时间
                         $('#myApp33').find('.otime').val(result.gdFsShij);
                         //故障描述
@@ -630,7 +652,19 @@ $(function(){
                         evaluateVue.baoxiubeizhu = result.bxBeizhu;
                         //维修内容
                         evaluateVue.wxbeizhu = result.wxBeizhu;
+                        //完工图片
+                        _imgWGNum = result.hasWgImage;
 
+                        //按钮显示隐藏
+                        if( _imgWGNum == 0 ){
+
+                            $('.wgpicture').hide();
+
+                        }else{
+
+                            $('.wgpicture').show();
+
+                        }
                     }
 
 

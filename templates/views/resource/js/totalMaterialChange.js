@@ -150,7 +150,7 @@ $(function(){
         var prm = {
             "lastDayDate": startTime,
             "dayDate": endTime,
-            "storageNum": '',
+            "storageNum": '01',
             "userID":  _userIdNum,
             "userName": _userIdName
         };
