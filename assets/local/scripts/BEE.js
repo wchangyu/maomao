@@ -1047,13 +1047,14 @@ var BEE = (function(){
         if(curMenu.indexOf(curPageName) == -1){
 
             //本地浏览时不需要跳转
-            if(curUrl.indexOf('localhost:') >= 0 || curUrl.indexOf('jumpEnergyMonitor.html') >= 0){
+            if(curUrl.indexOf('localhost:') >= 0 || curPageName.indexOf('jumpEnergyMonitor.html') >= 0){
 
                 return false;
             }
 
             //如果没有则跳转到登陆页
-            window.location.href = _loginHtml;
+            window.history.go(-1);
+
         }
     };
 

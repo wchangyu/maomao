@@ -1,0 +1,27 @@
+﻿body {
+}
+
+.portlet-title{
+    width: 100%;
+}
+
+.circle-icon {
+    float: left;
+    line-height: 34px;
+    height: 34px;
+    width: 35px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #eeeeee;
+    text-align: center;
+}
+
+.btn-group{
+    margin-top:5px;
+}
+
+/*
+input[type=checkbox]{
+    margin-top:2px;
+}
+*/

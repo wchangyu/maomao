@@ -172,7 +172,7 @@ var Login = function() {
                 return false;
             }
         });
-    }
+    };
 
     //将用户权限转换成01的字符串
     var convertAuthTo01Str = function(hexstr){
@@ -192,7 +192,7 @@ var Login = function() {
             }
         }
         return arr.join("");
-    }
+    };
 
     var directToIndex = function(){
 
@@ -215,8 +215,7 @@ var Login = function() {
         //    }
         //}
 
-    }
-
+    };
 
     //根据用户名获取楼宇,存放到sessionstorage中
     var getPointersByUser = function(userId){
@@ -255,8 +254,6 @@ var Login = function() {
         for(var i=0; i<theArr.length; i++){
 
             var id = theArr[i].enterpriseID;
-
-
 
             var isEnterpriseID  = false;
 
@@ -318,7 +315,7 @@ var Login = function() {
     //获取到菜单配置文件
     var getMenu = function(){
 
-        var menuSrc = '../../assets/local/configs/menu.json';
+        var menuSrc = '../../assets/local/configs/menu.json?'+ Math.random();
         $.ajax({
                 url:menuSrc,
                 type:"get",
@@ -369,7 +366,7 @@ var Login = function() {
 
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
-        var configSrc = "../../assets/local/configs/config.json";
+        var configSrc = "../../assets/local/configs/config.json?"+ Math.random();
         //保存当前的登录页面，提供给退出登录时候使用
         var curLoginPage = window.location.href;
         curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
@@ -424,6 +421,10 @@ var Login = function() {
                     //工单自动刷新开关
                     var gongdanInterval = data["gongdanInterval"] || '';
                     sessionStorage.gongdanInterval = gongdanInterval;
+
+                    //大屏幕自动刷新开关
+                    var dapinInterval = data["dapinInterval"] || '';
+                    sessionStorage.dapinInterval = dapinInterval;
 
                     //判断右上角信息走哪条分支
                     var gongdanIndustryType = data["gongdanIndustryType"] || '';

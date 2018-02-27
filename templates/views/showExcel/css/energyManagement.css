@@ -1,0 +1,252 @@
+
+/*页面背景色*/
+.page-content{
+    background: #e3e9f5;
+}
+/*页面上方能耗*/
+.top-energyment-container{
+
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.top-energyment-container .top-energyment-data-container{
+
+    width:200px;
+    height:200px;
+    border-radius: 5px !important;
+    overflow: hidden;
+}
+
+/*能耗方块中的标题*/
+.top-energyment-data-container h3 {
+    height: 30px;
+    line-height: 30px;
+    border-bottom: none;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+    padding-left: 30px;
+    box-sizing: border-box;
+    background: #16c7bd;
+    color:white;
+}
+
+.top-energyment-data-container .top-energyment-data{
+
+     background: url('../img/dian.png') no-repeat 10px center;
+}
+
+.top-energyment-data-container1 h3 {
+
+    background: #53bcfe;
+}
+
+.top-energyment-data-container1 .top-energyment-data{
+
+    background: url('../img/shui.png') no-repeat 10px center;
+    background-size: 40px 40px;
+}
+
+.top-energyment-data-container2 h3 {
+
+    background: #ffcd01;
+}
+
+.top-energyment-data-container2 .top-energyment-data{
+
+    background: url('../img/ranqi.png') no-repeat 10px center;
+    background-size: 40px 40px;
+}
+
+.top-energyment-data-container3 h3 {
+
+    background: #ff9b4b;
+}
+
+.top-energyment-data-container3 .top-energyment-data{
+
+    background: url('../img/nuan.png') no-repeat 10px center;
+}
+
+.top-energyment-data-container4 h3 {
+
+    background: #773fe8;
+}
+
+.top-energyment-data-container4 .top-energyment-data{
+
+    background: url('../img/leng.png') no-repeat 10px center;
+}
+
+.top-energyment-data-container5 h3 {
+
+    background: #773fe8;
+}
+
+.top-energyment-data-container5 .top-energyment-data{
+
+    background: url('../img/zhengqi.png') no-repeat 10px center;
+}
+
+
+
+h3 .left-patch {
+    display: inline-block;
+    width: 4px;
+    height: 15px;
+    background: white;
+    position: absolute;
+    left: 15px;
+    top: 8px;
+}
+
+/*下方具体数据*/
+.top-energyment-data-container .top-energyment-data{
+    height:170px;
+    background-color: white;
+    padding-left:70px;
+    box-sizing: border-box;
+    font-weight: 600;
+    padding-top:20px;
+}
+
+/*分割div*/
+.division{
+  height: 30px;
+}
+
+.top-energyment-data-container .top-energyment-data .cur-data{
+    font-size: 20px;
+}
+
+.top-energyment-data-container .top-energyment-data .history-data{
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/*下方左侧分项选择*/
+.bottom-left-container .bottom-left-choose{
+
+    height: 608px;
+    background: white;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.bottom-left-container h3{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: none;
+    font-weight: 500;
+    font-size: 14px;
+    position: relative;
+    padding-left: 30px;
+    box-sizing: border-box;
+    background: #f7faff;
+    color:#666;
+}
+
+.bottom-left-container h3 .left-patch {
+    display: inline-block;
+    width: 4px;
+    height: 15px;
+    background: #666;
+    position: absolute;
+    left: 15px;
+    top: 12px;
+}
+
+/*下方时间选择*/
+.start-time-choose{
+    padding:8px 5px;
+}
+.datatimeblock {
+    background: url(../../new-resource/img/clendar.png) no-repeat #ffffff !important;
+    background-size: 25px !important;
+    background-position: 98% center !important;
+    cursor: pointer !important;
+    width:45%;
+    border-radius: 4px !important;
+    height: 30px;
+    border:1px solid #ccc !important;
+    padding-left:5px;
+    box-sizing: border-box;
+    color:#ccc;
+}
+
+
+/*下方树状图*/
+#treeMultiple span{
+    font-size: 14px !important;
+    margin-bottom:10px !important;
+
+}
+.level1{
+    margin-bottom:4px !important;
+    margin-left:20px !important;
+}
+.level1 .switch{
+      display: none !important;
+}
+.ztree li ul.line {
+    background: none;
+}
+
+.ztree li a.curSelectedNode {
+    padding-top: 0px;
+    background-color: #13c8bd;
+    color: white;
+    height: 21px;
+    opacity: 0.8;
+}
+
+
+/*右侧用电echart*/
+.data-container{
+    border-radius: 5px !important;
+    overflow: hidden;
+    position: relative;
+}
+
+/*单位*/
+.data-container .unit{
+    font-size:12px;
+    margin-left:20px;
+}
+
+.data-container .right-tab-container{
+    position: absolute;
+    right:20px;
+    top:10px;
+}
+
+.right-tab-container .right-tab{
+    padding:3px 10px;
+    color:#26405a;
+    border:1px solid #26405a;
+    margin-right:10px;
+}
+
+.right-tab-container .right-tab-choose{
+    background: #26405a;
+    color:white;
+}
+
+/*echart容器*/
+.bottom-echart-container{
+    height:280px;
+    background: white !important;
+}
+
+/*下方表格数据*/
+.bottom-table-container{
+    width:98%;
+    border-radius: 5px !important;
+    border:1px solid #ccc;
+    height:220px;
+    margin: 0px auto;
+}

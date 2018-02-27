@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- BEGIN HEAD -->
+<html>
 <head>
 <meta charset="utf-8"/>
 <title>请登录</title>
@@ -62,14 +63,14 @@
 			<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
 			<div class="input-icon">
 				<i class="fa fa-user"></i>
-				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username"/>
+				<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" name="username" id="username"/>
 			</div>
 		</div>
 		<div class="form-group">
 			<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
 			<div class="input-icon">
 				<i class="fa fa-lock"></i>
-				<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password"/>
+				<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" name="password" id="password"/>
 			</div>
 		</div>
 		<div class="form-actions">
@@ -122,7 +123,47 @@
 	  Layout.init(); // init current layout
 	  Login.init();
 	  Demo.init();
+
+		//获取用户名
+		var userName = window.location.search.split('para1=')[1].split('&para2=')[0];
+		//获取密码
+		var userPassWord = window.location.search.split('para2=')[1].split('&para3=')[0];
+
+		//如果存在用户名，密码
+		if(userName && userPassWord){
+
+			//给用户名进行解密
+			var passName = Went.utility.wCoder.wDecode(userName, "");
+
+			//给密码解密
+			var passWord = Went.utility.wCoder.wDecode(userPassWord,"");
+
+			//给页面中用户名密码赋值
+			$('#username').val(passName);
+
+			$('#password').val(passWord);
+
+			//进行登录操作
+			$('.login-form').submit();
+		}
+
 	});
+
+	function getQueryStr(name, ispe) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) {
+			var rs = r[2];
+			if (ispe) {
+				var pe = unescape(rs);
+				return pe;
+			}
+			else {
+				return rs;
+			}
+		}
+		return null;
+	}
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

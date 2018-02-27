@@ -177,6 +177,9 @@ function getPersonMessage(){
     $.ajax({
         type:'get',
         url:sessionStorage.apiUrlPrefix+'Alarm/GetNoteLinkMans',
+        data:{
+            "eprName":''
+        },
         beforeSend: function () {
 
             $('#theLoading').modal('show');

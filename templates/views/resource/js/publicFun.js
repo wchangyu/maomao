@@ -18,7 +18,7 @@ var _userBM = sessionStorage.getItem("userDepartNum");
 var _userBMName = sessionStorage.getItem("userDepartName");
 
 //ajax延迟时间设置
-var _theTimes = 30000;
+var _theTimes = 60000;
 
 //获取登陆者信息
 var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
@@ -126,7 +126,7 @@ function _timeComponentsFun(el){
         format : "hh:ii",//日期格式
         startView: 1,  //1时间  2日期  3月份 4年份
         forceParse: 0,
-        maxView : 'hour',
+        maxView : 'hour'
     });
 }
 

@@ -278,8 +278,6 @@ function getMainData(){
 
     //console.log(dateArr);
 
-
-
     //console.log(postArr);
     $.ajax({
         type: 'post',
@@ -322,11 +320,25 @@ function getMainData(){
 
             //console.log(title2);
             tArr.push(title2);
-            $(dataArr).each(function(i,o){
+            if(dateSign == '小时'){
 
-                xArr.push(o.dataDate.split('T')[0]);
-                sArr.push(o.data.toFixed(2));
-            });
+                $(dataArr).each(function(i,o){
+                    var dataSplit = o.dataDate.split('T')[1].split(':');
+                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+
+                    xArr.push(dataJoin);
+
+                    sArr.push(o.data.toFixed(2))
+                });
+
+            }else{
+
+                $(dataArr).each(function(i,o){
+
+                    xArr.push(o.dataDate.split('T')[0]);
+                    sArr.push(o.data.toFixed(2));
+                });
+            }
 
             option.series[0].data = sArr;
 

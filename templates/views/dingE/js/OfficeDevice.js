@@ -1440,8 +1440,8 @@ $(document).ready(function(){
         var idArr = [];
         for(var i=0; i<length; i++){
             if( $('#dateTables .tableCheck').eq(i).is(':checked')){
-                var id = parseInt($('#dateTables .tableCheck').eq(i).parent().next().html());
-                var id1 = $('#dateTables .tableCheck').eq(i).parent().next().next().html();
+                var id = parseInt($('#dateTables .tableCheck').eq(i).parents('td').next().html());
+                var id1 = $('#dateTables .tableCheck').eq(i).parents('td').next().next().html();
                 console.log(id1);
                 var obj = {Key:id1,ValueInt:id};
 

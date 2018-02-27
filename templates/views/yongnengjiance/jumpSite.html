@@ -91,6 +91,8 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
+
+
         //获取用户名
         var userName = sessionStorage.getItem('userName');
         var userPassWord = sessionStorage.getItem('userpassword');
@@ -116,6 +118,7 @@
 
         //给密码二次加密
         passWord = Went.utility.wCoder.wEncode(passWord, urlstring);
+
         //给日期进行加密
         var passTime = Went.utility.wCoder.wEncode(now, host+'hq');
 
@@ -123,6 +126,8 @@
         window.open(host+ "?para1="+passName+"&para2="+passWord+"&para3="+passTime+"");
 
         window.location.href = "../shouye/index.html";
+
+
     });
 </script>
 </body>

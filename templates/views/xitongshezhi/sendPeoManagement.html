@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title>地点管理</title>
+    <title></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -270,7 +270,7 @@
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
                                 <ul class="content-main-contents-header">
-                                    <li class="main-contents-header-lists0">地点管理</li>
+                                    <li class="main-contents-header-lists0">人员管理</li>
                                 </ul>
                                 <ul class="condition-query">
                                     <li><label for="">单位名称：</label>
@@ -442,7 +442,7 @@
                             <li class="floatRight" style="line-height: 26px;">
                                 <div class="labels">性别：</div>
                                 <div class="input-blockeds">
-                                    <select v-model="sex" id="djbm">
+                                    <select v-model="sex" id="djbm"  >
                                         <option value="0">男</option>
                                         <option value="1">女</option>
                                     </select>
@@ -500,6 +500,23 @@
             <div class="modal-body">请填写红色必填项</div>
             <div class="modal-footer">
                 <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirm">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div><!-- /.modal-content -->

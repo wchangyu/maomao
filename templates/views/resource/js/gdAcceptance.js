@@ -2155,6 +2155,10 @@ $(function(){
 
     //条件查询
     function conditionSelect(flag){
+        //refreshTime = 6000;
+        console.log(55);
+        console.log(refreshTime);
+
         var st = $('.min').val();
 
         var et = moment($('.max').val()).add(1,'d').format('YYYY/MM/DD');
@@ -2172,14 +2176,14 @@ $(function(){
 
         if($('.modal-backdrop').length > 0){
             theTimeout = setTimeout(function(){
-
+                console.log(66);
                 conditionSelect(true);
             },refreshTime);
 
             return false;
         }
 
-
+        console.log(77);
 
         $.ajax({
             type:'post',

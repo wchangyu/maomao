@@ -667,6 +667,8 @@ function getAlarmMessage(){
 
     var endDate = moment().add(1,'day').format('YYYY-MM-DD');
 
+
+
     $.ajax({
         type: 'post',
         url: IP + "/Alarm/GetAllExcData",

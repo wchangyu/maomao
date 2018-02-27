@@ -1,0 +1,645 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/index.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../resource/js/showOrHidden.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/themes/darkblue.css" id="style_color" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+    <!--SHOWLOADING START-->
+    <link href="../resource/jQuery-showLoading/css/showLoading.css" rel="stylesheet" type="text/css">
+    <!--SHOWLOADING END-->
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="../favicon.ico" rel="shortcut icon" />
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content">
+    <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header-inner">
+            <div class="page-logo">
+                <a href="./EnergyQueryTotalData.html">
+                    <img src="../../../assets/local/img/hq3-small.png" alt="logo" class="logo-default" />
+                </a>
+                <div class="menu-toggler sidebar-toggler hide">
+                </div>
+            </div>
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            </a>
+            <div class="totalTitle"></div>
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="icon-bell"></i>
+                            <span class="badge badge-danger">
+                                0
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="external">
+                                <h3><span class="bold">0 </span> 当日报警</h3>
+                                <a href="../baojingyujing/warningAlarm-3.html">查看详细</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown dropdown-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span class="username username-hide-on-mobile">
+                            </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a class="logout-page" href="../login.html">
+                                    <i class="icon-key"></i> 退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="page-container">
+        <div class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse">
+                <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="sidebar-toggler-wrapper">
+                        <div class="sidebar-toggler">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="theme-panel hidden-xs hidden-sm">
+                    <div class="toggler">
+                    </div>
+                    <div class="toggler-close">
+                    </div>
+                    <div class="theme-options">
+                        <div class="theme-option theme-colors clearfix">
+                            <span>
+                                配色
+                            </span>
+                            <ul>
+                                <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="默认">
+                                </li>
+                                <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="蓝黑">
+                                </li>
+                                <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="蓝色">
+                                </li>
+                                <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="灰色">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                布局
+                            </span>
+                            <select class="layout-option form-control input-sm">
+                                <option value="fluid" selected="selected">平铺</option>
+                                <option value="boxed">盒式</option>
+                            </select>
+                        </div>
+
+                        <div class="theme-option">
+                            <span>
+                                侧边菜单
+                            </span>
+                            <select class="sidebar-menu-option form-control input-sm">
+                                <option value="accordion" selected="selected">手风琴式</option>
+                                <option value="hover">鼠标悬停</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                侧边位置
+                            </span>
+                            <select class="sidebar-pos-option form-control input-sm">
+                                <option value="left" selected="selected">左</option>
+                                <option value="right">右</option>
+                            </select>
+                        </div>
+                        <div class="theme-option">
+                            <span>
+                                底部
+                            </span>
+                            <select class="page-footer-option form-control input-sm">
+                                <option value="fixed">位置固定</option>
+                                <option value="default" selected="selected">默认</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="page-title"></h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                    </ul>
+                    <div class="showOrHidden"></div>
+                    <div class="page-toolbar">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="total-warp">
+                            <div class="clearfix">
+                            </div>
+                            <div class="row margin-top-20">
+                                <div class="col-md-4 col-sm-5 col-xs-12">
+                                    <div id="ubrvBusy">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <span class="caption-subject uppercase">整体能效</span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="clearfix">
+                                                </div>
+                                                <div class="row" style="position:relative;">
+                                                    <div id="eerAreaMain" style="height:360px;width:100%;"></div>
+                                                    <div style="position:absolute;top:0;text-align:center;width:100px;float:left;margin-left:0px;" class="row pull-left">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div id="dialgc1" style="height:10px;width:20px; background-color:#90ee90;margin-bottom:1px;border-radius:5px !important;float:left;margin-top:4px;margin-right:2px;"></div>
+                                                            <span id="dialgt1" style="font-size:12px;float:left;">出色</span>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div id="dialgc2" style="height:10px;width:20px; background-color:#87ceeb;margin-bottom:1px;border-radius:5px !important;float:left;margin-top:4px;margin-right:2px;"></div>
+                                                            <span id="dialgt2" style="font-size:12px;float:left;">良好</span>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div id="dialgc3" style="height:10px;width:20px; background-color:#ffa500;margin-bottom:1px;border-radius:5px !important;float:left;margin-top:4px;margin-right:2px;"></div>
+                                                            <span id="dialgt3" style="font-size:12px;float:left;">一般</span>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <div id="dialgc4" style="height:10px;width:20px; background-color:#ff4500;margin-bottom:1px;border-radius:5px !important;float:left;margin-top:4px;margin-right:2px;"></div>
+                                                            <span id="dialgt4" style="font-size:12px;float:left;">急需改善</span>
+                                                        </div>
+                                                    </div>
+                                                    <div style="position:absolute;top:0;right:0;text-align:center;float:right;margin-left:0px;margin-right:10px;" class="row pull-right">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <span>电价冷量:<span id="spanEPrice">0</span>元/<span id="spanEPrice_Misc">RTH</span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-xs-6">
+                                                        <div class="row">
+                                                            <div style="height:70px;text-align:left;padding:0 50px 0 20px">
+                                                                <span id="lznowlv" style="font-weight:100;font-size:25px;">0</span>
+                                                                <span id="lznowlvMisc" style="font-weight:100;font-size:13px;">RT</span>
+                                                                <br />
+                                                                <span style="font-size:13px;">冷站输出冷量</span>
+                                                            </div>
+                                                            <div style="height:70px;text-align:left;padding:0 50px 0 20px">
+                                                                <span id="lznowp" style="font-weight:100;font-size:25px;">0</span>
+                                                                <span style="font-weight:100;font-size:13px;">KW</span>
+                                                                <br />
+                                                                <span style="font-size:13px;">冷站输入功率</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6  col-xs-6">
+                                                        <div class="row">
+                                                            <div style="height:70px;text-align:left;padding:0 50px 0 20px;">
+                                                                <span id="lzsrlv" style="font-weight:100;font-size:25px;">0</span>
+                                                                <span id="lzsrlvMisc" style="font-weight:100;font-size:13px;">RT</span>
+                                                                <br />
+                                                                <span style="font-size:13px;">冷站散热量</span>
+                                                            </div>
+                                                            <div id="nbrvSp" style="height:70px;text-align:left;padding:0 50px 0 20px;color:#ffa500;">
+                                                                <span id="lzbphlv" style="font-weight:100;font-size:25px;">0</span>
+                                                                <span style="font-weight:100;font-size:13px;">%</span>
+                                                                <br />
+                                                                <span style="font-size:13px;">热不平衡率</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-sm-7 col-xs-12">
+                                    <div id="itemizeBusy">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <span class="caption-subject uppercase">分项实时能效</span>
+                                                </div>
+                                                <div class="actions">
+                                                    <span class="caption-helper" style="font-size:12px;">E标识分项能效,单位为(<span id="itemizeMisc">KW/RT</span>) ; P标识输入功率,单位为(KW) </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="clearfix">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                                        <div style="height:80px;background-color:transparent;">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6" style="position:relative;">
+                                                                    <div style="position:absolute;top:0px;width:100%;float:left;margin-left:35px;margin-top:-10px;">
+                                                                        <span>冷机</span>
+                                                                    </div>
+                                                                    <img alt="冷机" src="img/cooler.png" style="margin-top:16px;margin-left:30px;" />
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>E:</span>
+                                                                        <span id="cev">0</span>
+                                                                    </div>
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>P:</span>
+                                                                        <span id="cpv">0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                                        <div style="height:80px;background-color:transparent;">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6" style="position:relative;">
+                                                                    <div style="position:absolute;top:0px;width:100%;float:left;margin-left:30px;margin-top:-10px;">
+                                                                        <span>冷冻泵</span>
+                                                                    </div>
+                                                                    <img alt="冷冻泵" src="img/chwp.png" style="margin-top:16px;margin-left:30px;" />
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>E:</span>
+                                                                        <span id="chwev">0</span>
+                                                                    </div>
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>P:</span>
+                                                                        <span id="chwpv">0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                                        <div style="height:80px;background-color:transparent;">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6" style="position:relative;">
+                                                                    <div style="position:absolute;top:0px;width:100%;float:left;margin-left:30px;margin-top:-10px;">
+                                                                        <span>冷却泵</span>
+                                                                    </div>
+                                                                    <img alt="冷却泵" src="img/chwp.png" style="margin-top:16px;margin-left:30px;" />
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>E:</span>
+                                                                        <span id="cwev">0</span>
+                                                                    </div>
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>P:</span>
+                                                                        <span id="cwpv">0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                                        <div style="height:80px;background-color:transparent;">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-6" style="position:relative;">
+                                                                    <div style="position:absolute;top:0px;width:100%;float:left;margin-left:30px;margin-top:-10px;">
+                                                                        <span>冷却塔</span>
+                                                                    </div>
+                                                                    <img alt="冷却塔" src="img/cwt.png" style="margin-top:16px;margin-left:30px;" />
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>E:</span>
+                                                                        <span id="ctev">0</span>
+                                                                    </div>
+                                                                    <div style="height:40px;line-height:40px;text-align:left;">
+                                                                        <span>P:</span>
+                                                                        <span id="ctpv">0</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="lineBusy">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title tabbable-line">
+                                                <div class="caption">
+                                                    <span class="caption-subject uppercase">数据曲线</span>
+                                                </div>
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active">
+                                                        <a href="#TAB_EER_LINE" data-toggle="tab" aria-expanded="true" style="text-decoration:none;" class="mytab">
+                                                            能效曲线
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#TAB_POWER_LINE" data-toggle="tab" aria-expanded="true" style="text-decoration:none;" class="mytab">
+                                                            功率曲线
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#TAB_RPH_LINE" data-toggle="tab" aria-expanded="true" style="text-decoration:none;" class="mytab">
+                                                            热不平衡率曲线
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="TAB_EER_LINE">
+                                                        <div id="eerLineMain" style="height:302px;width:100%;position:relative;"></div>
+                                                    </div>
+                                                    <div class="tab-pane" id="TAB_POWER_LINE">
+                                                        <div id="powerLineMain" style="height:302px;width:100%;position:relative;"></div>
+                                                    </div>
+                                                    <div class="tab-pane" id="TAB_RPH_LINE">
+                                                        <div id="therequiLineMain" style="height:302px;width:100%;position:relative;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                            <div id="eAnMonBusy">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <span class="caption-subject uppercase">能效对比</span>
+                                                </div>
+                                                <div class="actions">
+                                                    <span class="caption-helper" style="font-size:12px;">箭头向上表示能效提升,箭头向下表示能效下降,点击能效显示历史图表 </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="clearfix">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
+                                                        <div style="background-color:transparent;border-right:1px solid #edebeb;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 col-xs-3 col-sm-3">
+                                                                    <div style="line-height:180px;">
+                                                                        <span class="spanAnM circle-ellipse" title="查看日能效对比历史数据" id="spanAnM_day">日</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-9 col-xs-9 col-sm-9">
+                                                                    <div style="height:60px;text-align:center;">
+                                                                        <img src="img/arrowNormal.png" id="day-circle" alt="" class="img-circle" style="width:50px;height:50px;vertical-align:middle;" />
+                                                                        <span id="daymV" style="font-weight:bold;margin-left:20px;font-size:20px;">0</span>
+                                                                        <span style="height:29px;">%</span>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <!--data-toggle="modal" data-target="#myHistoryModal" -->
+                                                                        <div title="查看本日能效历史数据" id="jrdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">本日能效</span>
+                                                                            <span id="tyeV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看上日能效历史数据" id="zrdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">上日能效</span>
+                                                                            <span id="yseV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
+                                                        <div style="background-color:transparent;border-right:1px solid #edebeb;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 col-xs-3 col-sm-3">
+                                                                    <div style="line-height:180px;">
+                                                                        <span class="spanAnM circle-ellipse" title="查看周能效对比历史数据" id="spanAnM_week">周</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-9 col-xs-9 col-sm-9">
+                                                                    <div style="height:60px;text-align:center;">
+                                                                        <img src="img/arrowNormal.png" id="week-circle" alt="" class="img-circle" style="width:50px;height:50px;vertical-align:middle;" />
+                                                                        <span id="weekmV" style="font-weight:bold;margin-left:20px;font-size:20px;">0</span>
+                                                                        <span style="height:29px;">%</span>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看本周能效历史数据" id="bwdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">本周能效</span>
+                                                                            <span id="tweV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看上周能效历史数据" id="swdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">上周能效</span>
+                                                                            <span id="yweV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
+                                                        <div style="background-color:transparent;border-right:1px solid #edebeb;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 col-xs-3 col-sm-3">
+                                                                    <div style="line-height:180px;">
+                                                                        <span class="spanAnM circle-ellipse" title="查看月能效对比历史数据" id="spanAnM_month">月</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-9 col-xs-9 col-sm-9">
+                                                                    <div style="height:60px;text-align:center;">
+                                                                        <img src="img/arrowNormal.png" id="month-circle" alt="" class="img-circle" style="width:50px;height:50px;vertical-align:middle;" />
+                                                                        <span id="monthmV" style="font-weight:bold;margin-left:20px;font-size:20px;">0</span>
+                                                                        <span style="height:29px;">%</span>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看本月能效历史数据" id="bmdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">本月能效</span>
+                                                                            <span id="tmeV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看上月能效历史数据" id="smdt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">上月能效</span>
+                                                                            <span id="ymeV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
+                                                        <div style="background-color:transparent;border-right:0px solid #edebeb;">
+                                                            <div class="row">
+                                                                <div class="col-md-3 col-xs-3 col-sm-3">
+                                                                    <div style="line-height:180px;">
+                                                                        <span class="spanAnM circle-ellipse" title="查看年能效对比历史数据" id="spanAnM_year">年</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-9 col-xs-9 col-sm-9">
+                                                                    <div style="height:60px;text-align:center;">
+                                                                        <img src="img/arrowNormal.png" id="year-circle" alt="" class="img-circle" style="width:50px;height:50px;vertical-align:middle;" />
+                                                                        <span id="yearmV" style="font-weight:bold;margin-left:20px;font-size:20px;">0</span>
+                                                                        <span style="height:29px;">%</span>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看本年能效历史数据" id="bydt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">本年能效</span>
+                                                                            <span id="lyeV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style="height:60px;">
+                                                                        <div title="查看去年能效历史数据" id="sydt" class="mopenhistoryds block-rectangle">
+                                                                            <span style="float:left;">去年能效</span>
+                                                                            <span id="yyeV" style="float:right;">0</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                            </div>
+                            <!-- 能效对比（单时间段）历史数据：模态框（Modal） -->
+                            <div class="modal fade" id="MYHISTORYMODAL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div id="hysBusy">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    历史数据
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="AnhistoryMain" style="height:400px;width:568px;"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 能效对比（多时间段）历史数据：模态框（Modal） -->
+                            <div class="modal fade" id="MYEANHISTORYMODAL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div id="hysBusy">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel_eAn">
+                                                    历史数据
+                                                </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="eAnhistoryMain" style="height:400px;width:568px;"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="page-quick-sidebar-toggler"><i class="icon-close"></i></a>
+    </div>
+    <div class="page-footer">
+        <div class="page-footer-inner">
+            2016 &copy; Huaqin.
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!--ECHART START-->
+    <script src="../resource/js/echarts.min.js" type="text/javascript"></script>
+    <!--ECHART END-->
+    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+    <script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+    <!--SHOWLOADING START-->
+    <script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js" type="text/javascript"></script>
+    <!--SHOWLOADING END-->
+    <script src="../../../assets/local/scripts/BEE.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init();
+            BEE.init();
+            Layout.init();
+            Demo.init();
+            Main.init();
+        });
+    </script>
+</body>
+</html>
