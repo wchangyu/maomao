@@ -7,6 +7,7 @@ body{
     width: 2560px;
     height: 1024px;
     background: rgba(28,34,42,1);
+    overflow: auto;
 }
 li{
     list-style: none;
@@ -99,6 +100,8 @@ li{
 }
 .first-menu{
     float: left;
+    height: 100%;
+    overflow-y: auto;
 }
 .first-menu ul li{
     text-align: center;
@@ -120,20 +123,21 @@ li{
     margin-bottom: 0;
 }
 .second-menu{
-    width:129px;
+    width:120px;
     height:946px;
     background:rgba(34,42,56,1);
     float: right;
+    overflow-y: auto;
 }
 .second-menu ul{
     margin-top: 30px;
+    padding-left: 20px;
 }
 .second-menu ul li{
     font-size:14px;
     font-family:MicrosoftYaHei;
     color:rgba(157,169,184,1);
     line-height:26px;
-    text-indent: 26px;
     cursor: pointer;
 }
 .body-content{
@@ -433,4 +437,28 @@ li{
 
     color: #62a8db !important;
 
+}
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    border: 5px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: 1px 1px 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+    min-height: 20px;
+    background-clip: content-box;
+    box-shadow: 0 0 0 5px rgba(0,0,0,.2) inset;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }

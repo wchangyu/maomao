@@ -1113,7 +1113,7 @@ var BEE = (function(){
 
      //iframe只显示部分div
 
-     if( screen.width >=1900 ){
+     if( screen.width >=2500 ){
 
         $('.page-header').hide();
 
