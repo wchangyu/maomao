@@ -1112,7 +1112,8 @@ var BEE = (function(){
      };
 
      //iframe只显示部分div
-     if( window.location.href.indexOf('?nest') >=0 ){
+
+     if( screen.width >=1900 ){
 
         $('.page-header').hide();
 

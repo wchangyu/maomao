@@ -84,93 +84,75 @@ $(function(){
 
     },1000);
 
-    //温湿度
-    //$.ajax({
-    //
-    //    type:'get',
-    //    url:_urls + 'EnergyTopPageV2/GetWeatherByPointer',
-    //    success:function(result){
-    //
-    //        console.log(result);
-    //
-    //    }
-    //
-    //})
-
     /*-----------------------------------------获取菜单-----------------------------------------*/
 
-    var menuObj = {};
+    //读菜单
+    var menuObj = JSON.parse(sessionStorage.getItem('curMenuStr'));
 
-    $.ajax({
+    getMenu(menuObj);
 
-        type:'get',
-        url:'json/menu.json',
-        success:function(result){
+    function getMenu(result){
 
-            if(result){
+        //父目录字符串
+        var str = '';
 
-                menuObj = result;
+        //子目录字符串
+        var secStr = '';
 
-                if(result.firstMenu){
+        //记录父目录的index
+        var index = -1;
 
-                    var str = '';
+        //记录子目录的index
 
-                    var secStr = '';
+        var secIndex = -1;
 
-                    //记录第一层目录的index
-                    var index = -1;
+        for(var i in result ){
 
-                    //记录第二层目录的index
+            if(typeof result[i]  == 'object'){
 
-                    var secIndex = -1;
+                index ++;
 
-                    for(var i in result.firstMenu ){
+                if(index == 0){
 
-                        index ++;
+                    str += '<li class="selectedMenu"><img src="' + 'img/' + result[i]['icon-hover'] + '"><p>' + result[i].content + '</p></li>'
 
-                        if(index == 0){
+                    for(var j in result[i].submenu){
 
-                            str += '<li class="selectedMenu"><img src="img/' + result.firstMenu[i]['icon-hover'] + '" alt=""><p>' + result.firstMenu[i]['content'] + '</p></li>';
+                        secIndex ++;
 
-                            for( var j in result.firstMenu[i]['submenu'] ){
+                        if(secIndex == 0){
 
-                                secIndex ++ ;
+                            var src = result[i].submenu[j].uri + '';
 
-                                if(secIndex == 0){
+                            $('iframe').attr('src',src);
 
-                                    var src = result.firstMenu[i]['submenu'][j]['uri'] + '?nest'
-
-                                    $('iframe').attr('src',src);
-
-                                    secStr += '<li class="sec-hover" data-attr="' + result.firstMenu[i]['submenu'][j]['uri'] + '?nest">' + result.firstMenu[i]['submenu'][j]['content'] + '</li>'
-
-                                }else{
-
-                                    secStr += '<li data-attr="' + result.firstMenu[i]['submenu'][j]['uri'] + '?nest">' + result.firstMenu[i]['submenu'][j]['content'] + '</li>'
-
-                                }
-
-                            }
+                            secStr += '<li class="sec-hover" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
 
                         }else{
 
-                            str += '<li><img src="img/' + result.firstMenu[i]['icon-img'] + '" alt=""><p>' + result.firstMenu[i]['content'] + '</p></li>';
+                            secStr += '<li data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
 
                         }
 
                     }
 
-                    $('.first-menu ul').empty().append(str);
+                }else{
 
-                    $('.second-menu ul').empty().append(secStr);
+                    str += '<li><img src="' + 'img/' + result[i]['icon-img'] + '"><p>' + result[i].content + '</p></li>'
 
                 }
 
+
+
             }
 
-        },
-        error:function(){}
-    })
+        }
+
+        $('.first-menu ul').empty().append(str);
+
+        $('.second-menu ul').empty().append(secStr);
+
+    }
 
     /*----------------------------------------菜单点击事件---------------------------------------*/
 
@@ -196,24 +178,27 @@ $(function(){
 
         var index = -1;
 
-        for(var i in menuObj.firstMenu){
+        for(var i in menuObj){
 
-            index ++ ;
+            if(typeof menuObj[i] == 'object'){
 
-            $('.first-menu ul').children('li').children('img').eq(index).attr('src','img/' + menuObj.firstMenu[i]['icon-img']);
+                index ++ ;
+
+                $('.first-menu ul').children('li').children('img').eq(index).attr('src','img/' + menuObj[i]['icon-img']);
+
+            }
 
         }
 
-        $(this).children('img').attr('src','img/' + menuObj.firstMenu[thisAttr]['icon-hover']);
+        $(this).children('img').attr('src','img/' + menuObj[thisAttr]['icon-hover']);
 
         //二级菜单联动
 
         var secMenu = '';
 
-        for(var i in menuObj.firstMenu[thisAttr]['submenu']){
+        for(var i in menuObj[thisAttr]['submenu']){
 
-            secMenu += '<li data-attr="' + menuObj.firstMenu[thisAttr]['submenu'][i].uri + '?nest">' + menuObj.firstMenu[thisAttr]['submenu'][i].content +
-                '</li>'
+            secMenu += '<li data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
 
         }
 
@@ -222,6 +207,40 @@ $(function(){
     })
 
     /*--------------------------------------温度湿度--------------------------------------------*/
+
+    var pointerID = JSON.parse(sessionStorage.getItem('pointers'));
+
+    $.ajax({
+
+        type:'get',
+        url:_urls + 'EnergyTopPageV2/GetWeatherByPointer',
+        data:{
+            'pointerID':pointerID[0].pointerID
+        },
+        success:function(result){
+
+            var temperatureData = (result.temperatureData == '')?'':result.temperatureData + '℃';
+
+            var humidityData = (result.humidityData == '')?'':result.humidityData + '%';
+
+            //温度
+            $('.temperature-header').children('span').html(temperatureData);
+
+            //湿度
+            $('.humidity-header').children('span').html(humidityData);
+
+        },
+        error:function(){
+
+            //温度
+            $('.temperature-header').children('span').html('');
+
+            //湿度
+            $('.humidity-header').children('span').html('');
+
+        }
+
+    })
 
 
 
