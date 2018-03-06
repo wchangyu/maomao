@@ -969,6 +969,8 @@ $(function(){
         //动态添加类名dengji删除bianji类
         $('#myModal').find('.confirm').removeClass('bianji').removeClass('shanchu').removeClass('shenhe').addClass('dengji');
 
+        $('#myModal1').find('.saveCK').removeClass('bianji').addClass('dengji').html('保存出库单');
+
         //新增入库单弹窗初始化
         RKDInit();
 
@@ -1274,6 +1276,101 @@ $(function(){
                 })
             }
         })
+        .on('click','.bianji',function(){
+
+            if(putOutList.rkleixing == ''){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
+            }else{
+
+                //首先要获取所有物品的信息
+                _rukuArr = _tempRKArr;
+
+                var outStoreDetails1 = [];
+
+                for(var i=0;i<_rukuArr.length;i++){
+
+                    var obj = {};
+                    obj.sn = _rukuArr[i].sn;
+                    obj.itemNum = _rukuArr[i].itemNum;
+                    obj.itemName = _rukuArr[i].itemName;
+                    obj.size = _rukuArr[i].size;
+                    obj.unitName = _rukuArr[i].unitName;
+                    obj.num = _rukuArr[i].num;
+                    obj.outPrice = _rukuArr[i].outPrice;
+                    obj.amount = _rukuArr[i].amount;
+                    obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
+                    obj.gdCode2 = _rukuArr[i].gdCode2;
+                    obj.bxKeshi = (typeof _rukuArr[i].bxKeshi == 'undefined')?'':_rukuArr[i].bxKeshi;
+                    obj.bxKeshiNum = (typeof _rukuArr[i].bxKeshiNum == 'undefined')?'':_rukuArr[i].bxKeshiNum;
+                    obj.outMemo = _rukuArr[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = _rukuArr[i].storageName;
+                    obj.storageNum = _rukuArr[i].storageNum;
+                    obj.batchNum = _rukuArr[i].batchNum;
+                    obj.localNum = _rukuArr[i].localNum;
+                    obj.localName = _rukuArr[i].localName;
+                    outStoreDetails1.push(obj);
+                    //备件转换
+                    if(_rukuArr[i].gdCode){
+                        gdArr.push(_rukuArr[i].gdCode);
+                        clArr.push(_rukuArr[i].itemName);
+                    }
+                }
+
+                //获取填写的入库信息
+                var ckName = '';
+                if($('#ckselect').val() == ''){
+                    ckName = ''
+                }else{
+                    ckName = $('#ckselect').children('option:selected').html();
+                }
+
+                var prm = {
+                    'orderNum':putOutList.bianhao,
+                    'outType':putOutList.rkleixing,
+                    'remark':putOutList.remarks,
+                    'outStoreDetails':outStoreDetails1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
+                    'storageName':ckName,
+                    'storageNum':$('#ckselect').val(),
+                    'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
+                    'cusName':putOutList.clymc,
+                    'phone':putOutList.clydh
+                }
+
+                $.ajax({
+                    type:'post',
+                    url: _urls + 'YWCK/ywCKEditOutStorage',
+                    data:prm,
+                    success:function(result){
+
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'编辑成功!', '');
+
+                            $('#myModal').modal('hide');
+
+                            $('#myModal1').modal('hide');
+
+                            conditionSelect();
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'编辑失败!', '');
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }
+
+        })
+
 
     //删除确定按钮
     $('#myModal3').on('click','.daShanchu',function(){
@@ -1479,6 +1576,7 @@ $(function(){
         //删除添加类
         $('#myModal').find('.confirm').removeClass('dengji').removeClass('shanchu').removeClass('shenhe').addClass('bianji');
 
+        $('#myModal1').find('.saveCK').removeClass('dengji').addClass('bianji').html('保存出库单');
 
         if( $(this).next().html() == '已审核' ){
 
@@ -2112,12 +2210,14 @@ $(function(){
                 var gd = $this.find('.gdCode2').html();
                 for(var i=0;i<_tempRKArr.length;i++){
                     if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
+
+                        console.log()
                         _tempRKArr[i].num = putOutGoods.num;
                         _tempRKArr[i].outPrice = putOutGoods.outPrice;
                         _tempRKArr[i].amount = putOutGoods.amount;
-                        //_tempRKArr[i].gdCode2 = putOutGoods.gdCode;
-                        //_tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
-                        //_tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
+                        _tempRKArr[i].gdCode2 = putOutGoods.gdCode;
+                        _tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
+                        _tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
                         _tempRKArr[i].storageName = $('.cangku').attr('data-name');
                         _tempRKArr[i].storageNum = $('.cangku').attr('data-num');
                         _tempRKArr[i].outMemo = putOutGoods.remark;

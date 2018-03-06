@@ -869,6 +869,10 @@ $(function(){
                 userID: _userIdNum,
                 //用户名
                 userName: _userIdName,
+                //开始时间
+                ditST:$('.min').val(),
+                //结束时间
+                ditET:moment($('.max').val()).add(1,'d').format('YYYY/MM/DD')
 
             },
             beforeSend: function () {
@@ -917,6 +921,10 @@ $(function(){
                 userID: _userIdNum,
                 //用户名
                 userName: _userIdName,
+                //开始时间
+                ditST:$('.min').val(),
+                //结束时间
+                ditET:moment($('.max').val()).add(1,'d').format('YYYY/MM/DD')
 
             },
             beforeSend: function () {

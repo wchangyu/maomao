@@ -732,7 +732,7 @@ $(function(){
         _firstDevArr.length = 0;
 
         //添加类
-        $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
+        $('#myModal').find('.btn-primary').removeClass('bianji').removeClass('fenpei').addClass('dengji');
 
         //新增按钮显示
         $('.addButton').show();
@@ -745,25 +745,86 @@ $(function(){
     $('#qiyong').click(function(){
         _selectData = [];
 
-        yesOrNo('YWDevIns/YWDIPActivePlans',1,'请选择要启用的数据','启用操作成功！','停用状态下才可以进行启用操作！');
+        _selectData = _table.find('tbody').children('tr').find('.checked');
+
+        //模态框
+
+        if(_selectData.length == 0){
+
+            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,'请选择要启用的数据', '');
+
+        }else{
+
+            _moTaiKuang($('#Batch-QY-Modal'), '提示', '', 'istap' ,'确定要启用吗？', '启用');
+
+        }
+
+
         //flagQY = true;
     });
+
+    //启用确定
+    $('#Batch-QY-Modal').on('click','.btn-primary',function(){
+
+        yesOrNo('YWDevIns/YWDIPActivePlans',1,'请选择要启用的数据','启用操作成功！','停用状态下才可以进行启用操作！');
+
+    })
 
     //停用
     $('#jinyong').click(function(){
 
         _selectData = [];
 
-        yesOrNo('YWDevIns/YWDIPActivePlans',2,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
+        _selectData = _table.find('tbody').children('tr').find('.checked');
 
-        //flagQY = true;
+        //模态框
+
+        if(_selectData.length == 0){
+
+            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,'请选择要启用的数据', '');
+
+        }else{
+
+            _moTaiKuang($('#Batch-TY-Modal'), '提示', '', 'istap' ,'确定要停用吗？', '停用');
+
+        }
+
     });
+
+    //停用确定按钮
+    $('#Batch-TY-Modal').on('click','.btn-primary',function(){
+
+        yesOrNo('YWDevIns/YWDIPActivePlans',0,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
+
+    })
 
     //批量删除
     $('#batchDelete').click(function(){
+
         _selectData = [];
 
-        yesOrNo('YWDevIns/YWDIPDelPlans',0,'请选择要删除的数据','批量删除操作成功')
+        _selectData = _table.find('tbody').children('tr').find('.checked');
+
+        if(_selectData.length == 0){
+
+            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,'请选择要删除的数据', '');
+
+        }else{
+
+            //模态框
+            _moTaiKuang($('#Batch-DEL-Modal'), '提示', '', 'istap' ,'确定要批量删除吗？', '批量删除');
+
+        }
+
+
+
+    })
+
+    //批量删除确定按钮
+    $('#Batch-DEL-Modal').on('click','.btn-primary',function(){
+
+        yesOrNo('YWDevIns/YWDIPDelPlans',2,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
+
     })
 
     //登记(确定按钮)
@@ -2344,11 +2405,17 @@ $(function(){
         _selectData = _table.find('tbody').children('tr').find('.checked');
 
         if( _selectData.length ==0 ){
-            alert(info);
+
+            _moTaiKuang($('#myModal5'), '提示', true, 'istap' ,info, '');
+
         }else{
+
             var selectQiyongArr = [];
+
             for(var i=0;i<_selectData.length;i++){
-                selectQiyongArr.push(_selectData.eq(i).parents('tr').children('.bianma').children().attr('data-num'));
+
+                selectQiyongArr.push(_selectData.eq(i).parents('tr').children('.dipNum').html());
+
             }
 
             for(var i=0;i<_allDataArr.length;i++){
@@ -2358,7 +2425,46 @@ $(function(){
                     }
                 }
             }
-            if(_stateArr.indexOf(data)<0){
+
+            //启用状态下（已下发），不可以删除，其他情况可以删除，
+
+            var QYFlag = true;
+
+            if(data == 1 || data == 2){
+
+                //想要启用，必须全是data == 0的数
+
+                for(var i=0;i<_stateArr.length;i++){
+
+                    if(_stateArr[i] == 1){
+
+                        QYFlag = false;
+
+                        break;
+
+                    }
+
+                }
+
+
+
+            }else if(data == 0){
+
+                for(var i=0;i<_stateArr.length;i++){
+
+                    if(_stateArr[i] == 0){
+
+                        QYFlag = false;
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+            if(QYFlag){
                 var prm = {
                     dipNums:selectQiyongArr,
                     isActive:data,
@@ -2388,6 +2494,16 @@ $(function(){
 
                             //thead复选框不选中
                             $('.table thead').find('input').parent('span').removeClass('checked');
+
+                            $('#Batch-DEL-Modal').modal('hide');
+
+                            $('#Batch-QY-Modal').modal('hide');
+
+                            $('#Batch-TY-Modal').modal('hide');
+                        }else{
+
+                            _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,'操作失败!', '');
+
                         }
                     },
                     error:function(jqXHR, textStatus, errorThrown){
@@ -2399,6 +2515,12 @@ $(function(){
             }else{
 
                 _moTaiKuang($('#myModal5'), '提示', 'flag', 'istap' ,info3, '');
+
+                $('#Batch-DEL-Modal').modal('hide');
+
+                $('#Batch-QY-Modal').modal('hide');
+
+                $('#Batch-TY-Modal').modal('hide');
 
             }
         }

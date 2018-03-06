@@ -307,6 +307,10 @@ $(function(){
                     return '<a href="godownEntry1.html?orderNum=' + row.orderNum +
                         '" target="_blank">' + row.orderNum + '</a>'
 
+                }else{
+
+                    return row.orderNum
+
                 }
 
 

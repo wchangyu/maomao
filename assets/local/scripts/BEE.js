@@ -1111,7 +1111,26 @@ var BEE = (function(){
          });
      };
 
+     //iframe只显示部分div
+     if( window.location.href.indexOf('?nest') >=0 ){
+
+        $('.page-header').hide();
+
+         $('.page-sidebar-menu').hide();
+
+         $('.page-container').css({'margin-top':0});
+
+         $('.page-footer').hide();
+
+         $('.page-content').addClass('page-content-nest');
+
+         $('body').css({background:'#ffffff'});
+
+         $('.toggler').hide();
+     }
+
     return {
+
         //getMenu: getMenu
         //flag =true 则不需要判断用户的访问页面权限
         init:function(flag){
@@ -1144,4 +1163,7 @@ var BEE = (function(){
             }
         }
     }
+
+
+
 })();

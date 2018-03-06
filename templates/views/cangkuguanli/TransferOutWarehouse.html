@@ -635,6 +635,12 @@
                                     <input type="text" class="initBJ inputType" v-model="amount" placeholder="0.00" @keyup="addFun3()" @blur="addFun5()">
                                 </div>
                             </li>
+                            <li class="gdList" style="width: 400px;">
+                                <div class="labels">备注 ：</div>
+                                <div class="input-blockeds" style="position: relative">
+                                    <input type="text" v-model="remark" class="initBJ inputType" style="width: 100% !important;">
+                                </div>
+                            </li>
                             <li class="gdList" style="margin-top: 27px;">
                                 <button type="button" class="btn btn-success inputType" id="addRK">添加</button>
                                 <button type="button" class="btn btn-success" id="addReset">重置</button>
@@ -668,7 +674,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary dengji">保存物品和出库单</button>
+                <button type="button" class="btn btn-primary saveCK">保存物品和出库单</button>
                 <button type="button" class="btn btn-primary ruku">保存出库物品</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>

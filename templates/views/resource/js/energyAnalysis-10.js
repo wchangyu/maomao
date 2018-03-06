@@ -481,8 +481,6 @@ $(function(){
 			//楼宇id
 			pointerIds:pts[0].pointerID,
 
-			//建筑用户
-
 			//开始时间
 			startTime:st,
 
