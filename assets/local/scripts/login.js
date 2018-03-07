@@ -199,8 +199,8 @@ var Login = function() {
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
-            if(window.screen > 1800){
-                window.location.href = '../passengerStation/passengerStation.html';
+            if(window.screen.width > 2500){
+                window.location.href = 'passengerStation/passengerStation.html';
 
                 return false;
             }
