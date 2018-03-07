@@ -146,39 +146,21 @@ $(function(){
     /*--------------------------------------表格按钮事件-----------------------------------*/
     //选择巡检步骤（多选）
     //添加表头复选框
-    var creatCheckBox = '<input type="checkbox">';
+    var creatCheckBox = '<div class="checker"><span><input type="checkbox"></span></div>';
     $('thead').find('.checkeds').prepend(creatCheckBox);
 
     //复选框点击事件（添加巡检步骤）
-    _tableAdd.find('tbody').on( 'click', 'input', function () {
-        if($(this).parents('.checker').children('.checked').length == 0){
-            $(this).parent($('span')).addClass('checked');
-            $(this).parents('tr').css({'background':'#FBEC88'});
-            //如果所有复选框打钩，那么表头的复选框自动打钩；
-            var rowNum = $(this).parents('.table').find('tbody').find('.checkeds').length;
-            var selectNum =  $(this).parents('.table').find('tbody').find('.checked').length;
-            if( rowNum == selectNum){
-                $(this).parents('.table').find('thead').find('.checkeds').find('span').addClass('checked');
-            }
-        }else{
-            $(this).parent($('span')).removeClass('checked');
-            $(this).parents('tr').css({'background':'#ffffff'});
-            //只要有一个复选框没选中，全选框不打勾，
-            $(this).parents('.table').find('thead').find('.checkeds').find('span').removeClass('checked');
-        }
+    _tableAdd.find('tbody').on( 'click', 'tr', function () {
+
+        MultiselectTr($(this));
+
     });
 
     //点击thead复选框tbody的复选框全选中
     _tableAdd.find('thead').find('input').click(function(){
-        if($(this).parents('.checker').children('.checked').length == 0){
-            //点击选中状态
-            _tableAdd.find('tbody').find('input').parents('.checker').children('span').addClass('checked');
-            //所有行的背景颜色置为黄色
-            _tableAdd.find('tbody').find('tr').css({'background':'#fbec88'})
-        }else{
-            _tableAdd.find('tbody').find('input').parents('.checker').children('span').removeClass('checked');
-            _tableAdd.find('tbody').find('tr').css({'background':'#ffffff'})
-        }
+
+        AllSelectThead($(this),$('#zhiXingPerson'));
+
     });
 
     //点击确定已选择的步骤
@@ -705,4 +687,6 @@ $(function(){
         }
 
     }
+
+
 })

@@ -414,8 +414,18 @@ $(function(){
                     workDones.azAddress = result.installAddress;
                     workDones.weixiukeshis = result.wxKeshi;
                     workDones.remarks = result.bxBeizhu;
+                    //报修图片
                     _imgNum = result.hasImage;
+                    //按钮显示隐藏
+                    if( _imgNum == 0 ){
 
+                        $('.bxpicture').hide();
+
+                    }else{
+
+                        $('.bxpicture').show();
+
+                    }
                     workDones.wxremark = result.wxBeizhu;
                     workDones.gdly = result.gdCodeSrc;
                     workDones.gdCode = result.gdCode2;
@@ -1379,10 +1389,15 @@ $(function(){
         workDones.remarks = '';
         //维修内容
         workDones.wxremark = '';
+        //查看图片初始化
+        _imgNum = 0;
         //查看图片
         $('.showImage').hide();
+        //按钮显示隐藏
+        $('.bxpicture').hide();
         //执行人表格
         var arr = [];
+        //赋值
         _datasTable($('#personTable1'),arr);
     }
 })

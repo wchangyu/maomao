@@ -8,7 +8,7 @@ $(function(){
     //默认时间为半年
     var now = moment().format('YYYY-MM-DD');
 
-    var st = moment(now).subtract(6,'months').format('YYYY-MM-DD');
+    var st = moment(now).startOf('months').format('YYYY-MM-DD');
 
     $('.min').val(st);
 
@@ -16,6 +16,7 @@ $(function(){
 
     //获取所有部门
     _getProfession('RBAC/rbacGetDeparts',$('#dep'),false,'departNum','departName');
+    //_WxBanzuStationData(_BZList($('#dep')));
 
     //导出
     $('.excelButton11').eq(0).on('click',function(){
@@ -94,7 +95,7 @@ $(function(){
             data:'jcdtime'
         },
         {
-            title:'机早退时间',
+            title:'记早退时间',
             data:'jzttime'
         }
 
@@ -150,9 +151,20 @@ $(function(){
                 _datasTable($('#reporting'),result);
 
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                console.log(jqXHR.responseText);
+                $('#theLoading').modal('hide');
+
+                if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+
+                    myAlter("超时");
+
+                }else{
+
+                    myAlter("请求失败！");
+
+                }
+
             }
 
         })

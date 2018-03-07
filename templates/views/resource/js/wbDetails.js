@@ -107,11 +107,11 @@ $(function(){
             data:'localName'
         },
         {
-            title:__names.department,
+            title:'维保部',
             data:'bxKeshi'
         },
         {
-            title:__names.group,
+            title:'所属班组',
             data:'departName'
         },
         {

@@ -57,7 +57,7 @@ $(function(){
 
     _tableInit($('#reporting'),col,1,'flag','','','','');
 
-    getData();
+    getRYList();
 
     /*-----------------------------------------------按钮---------------------------------------------*/
 
@@ -95,11 +95,13 @@ $(function(){
             //所属部门
             departNum:$('#dep').val(),
             //值班人姓名
-            "watchUserName": $('#overTime').val(),
+            "watchUserName": ($('#overTime').val() == '')?'':$('#overTime').children('option:checked').html(),
+            //开始时间
             "begintime": $('.min').val(),
+            //结束时间
             "endtime": moment($('.max').val()).add(1,'d').format('YYYY-MM-DD'),
+            //状态
             "status": $('#state').val(),
-
 
         }
 
@@ -143,6 +145,51 @@ $(function(){
 
         })
 
+    }
+
+    //值班人员列表
+    function getRYList(){
+
+        var prm = {
+            //用户id
+            "usernum": _userIdNum,
+            //用户名
+            "username": _userIdName,
+            //部门编码
+            "departnum": _maintenanceTeam
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWFZ/ReturnUserList',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                if(result){
+
+                    var str = '<option value="">全部</option>';
+
+                    for(var i=0;i<result.length;i++){
+
+                        str += '<option value="' + result[i].userNum + '">' + result[i].userName + '</option>';
+
+                    }
+
+                }
+
+                $('#overTime').empty().append(str);
+
+                getData();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
     }
 
 

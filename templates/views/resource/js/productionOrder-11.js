@@ -252,7 +252,16 @@ $(function(){
     };
 
     //条件查询
-    conditionSelect();
+
+    if(_clType == 3){
+
+        _WxBanzuStationData(conditionSelect);
+
+    }else{
+
+        conditionSelect();
+
+    }
 
     //执行人员表格初始化
     var personTable1Col = [
@@ -1009,6 +1018,35 @@ $(function(){
 
         }
 
+        var arr = [];
+
+        if(_clType == 3){
+
+            if(_AisWBZ){
+
+                for(var i=0;i<_AWBZArr.length;i++){
+
+                    for(var j=0;j<_AWBZArr[i].wxBanzus.length;j++){
+
+                        arr.push(_AWBZArr[i].wxBanzus[j].departNum);
+
+                    }
+
+                }
+
+                prm.wxKeshiNums = arr;
+
+            }
+
+            if(_AisBZ){
+
+                prm.wxKeshiNum = _maintenanceTeam;
+
+            }
+
+
+
+        }
 
         $.ajax({
             type:'post',

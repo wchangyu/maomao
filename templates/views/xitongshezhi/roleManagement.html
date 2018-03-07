@@ -23,7 +23,6 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -239,7 +238,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -365,15 +363,6 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
-<script src="../resource/js/roleManagement.js"></script>
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-</script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--新增用户-->
@@ -426,7 +415,7 @@
     </div><!-- /.modal -->
 </div>
 <!--所有提示框-->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">
         <div class="modal-content" style="height: 168px;">
             <div class="modal-header">
@@ -441,6 +430,22 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/roleManagement.js"></script>
 </body>
 <!-- END BODY -->
 </html>

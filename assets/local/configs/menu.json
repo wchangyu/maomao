@@ -4,6 +4,8 @@
     "type":"1",
     "content":"高效机房",
     "iconclass":"icon-home",
+    "icon-img":"01.png",
+    "icon-hover":"01dian.png",
     "submenu":{
       "数据总览":{
         "type":"0",
@@ -91,6 +93,8 @@
     "type":"1",
     "content":"首页",
     "iconclass":"icon-home",
+    "icon-img":"02.png",
+    "icon-hover":"02dian.png",
     "submenu":{
       "能耗总览":{
         "type":"0",
@@ -653,7 +657,7 @@
       "巡检任务":{
         "type":"0",
         "content":"巡检任务",
-        "uri":"../xunjianguanli/inspectionManagement-4.html",
+        "uri":"../xunjianguanli/inspectionManagement-4_1.html",
         "uid":"",
         "arg":"",
         "iconclass":""

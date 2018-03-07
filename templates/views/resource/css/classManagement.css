@@ -13,7 +13,7 @@
 
 }
 .cycle-block{
-    height: 239px;
+    height: 408px;
 }
 .cycle-block-week li{
 
@@ -33,5 +33,12 @@
     vertical-align: middle;
 
     padding: 0 30px;
+
+}
+.time-range{
+
+    width: 105px;
+
+    outline: none;
 
 }

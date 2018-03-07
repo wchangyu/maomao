@@ -38,7 +38,6 @@ $(function(){
             gdly:''
         }
     });
-
     //表格初始换
     $('#personTable1').DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
@@ -174,8 +173,40 @@ $(function(){
             app33.sbBM = result.ddName;
             app33.azAddress = result.installAddress;
             app33.rwlx = result.gdLeixing;
+            //报修图片
             _imgNum = result.hasImage;
+            //按钮显示隐藏
+            if( _imgNum == 0 ){
+
+                $('.bxpicture').hide();
+
+            }else{
+
+                $('.bxpicture').show();
+
+            }
             _imgBJNum = result.hasBjImage;
+            //按钮显示隐藏
+            if( _imgBJNum == 0 ){
+
+                $('.bjpicture').hide();
+
+            }else{
+
+                $('.bjpicture').show();
+
+            }
+            _imgWGNum = 0;
+            //按钮显示隐藏
+            if( _imgWGNum == 0 ){
+
+                $('.wgpicture').hide();
+
+            }else{
+
+                $('.wgpicture').show();
+
+            }
             app33.gdly = result.gdCodeSrc;
             datasTable($('#personTable1'),result.wxRens);
             datasTable($('#personTables1'),result.wxCls);

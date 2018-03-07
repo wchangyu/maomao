@@ -17,9 +17,6 @@ $(function(){
     //所有已排班列表
     var  _allList = [];
 
-    //数据绑定的时候，读出的人
-    var _readRens = [];
-
     //当前选中的id；
     var _thisID = '';
 
@@ -42,8 +39,6 @@ $(function(){
     getShift();
 
     //部们列表
-    //_getProfession('RBAC/rbacGetDeparts',$('#depart'),false,'departNum','departName');
-
     _WxBanzuStationData(_BZ);
 
     function _BZ(){
@@ -235,6 +230,7 @@ $(function(){
     var creatCheckBox = '<div class="checker"><span><input type="checkbox"></span></div>';
 
     $('thead').find('.checkeds').prepend(creatCheckBox);
+
     /*--------------------------------------------------按钮事件------------------------------------------------*/
 
 
@@ -1169,7 +1165,7 @@ $(function(){
 
             if( $(this).attr('data-num') == _BCData[i].bccode ){
 
-                title = _BCData[i].name;
+                //title = _BCData[i].name;
 
                 _BCDayObj.banCiDetailList = _BCData[i].banCiDetailList;
 
@@ -1222,6 +1218,8 @@ $(function(){
 
                     var obj = {};
 
+                    title = _BCDayObj.banCiDetailList[j].sjDname + '('+ _BCDayObj.banCiDetailList[j].shangbantime + '-'+ _BCDayObj.banCiDetailList[j].xiabantime +')';
+
                     obj.title = title;
 
                     obj.start = moment(year + '-' + Monthnum + '-' + (i + 1)).format('YYYY-MM-DD');
@@ -1240,6 +1238,8 @@ $(function(){
             for(var i=0;i<_BCDayObj.banCiDetailList.length;i++){
 
                 var obj = {};
+
+                title = _BCDayObj.banCiDetailList[i].sjDname + '('+ _BCDayObj.banCiDetailList[i].shangbantime + '-'+ _BCDayObj.banCiDetailList[i].xiabantime +')';
 
                 obj.title = title;
 
@@ -1402,12 +1402,10 @@ $(function(){
 
                         }
 
-                        var timeStr = '  （' + st + '-' + et + '）';
-
                         str +='<option value="' + result[i].bccode +
                             '" data-attr="' + result[i].period +
                             '"><span>' + result[i].name +
-                            '</span>' + timeStr +
+                            '</span>' +
                             '</option>'
 
                     }
@@ -1478,41 +1476,6 @@ $(function(){
                 console.log(jqXHR.responseText);
             }
         })
-    }
-
-    //数字转化为中文周几
-    function numWeek(num){
-
-        if(num == 0){
-
-            return '周日'
-
-        }else if( num == 1){
-
-            return '周一'
-
-        }else if( num == 2 ){
-
-            return '周二'
-
-        }else if( num == 3 ){
-
-            return '周三'
-
-        }else if( num == 4 ){
-
-            return '周四'
-
-        }else if( num == 5 ){
-
-            return '周五'
-
-        }else if( num == 6 ){
-
-            return '周六'
-
-        }
-
     }
 
     //初始化
@@ -1620,261 +1583,6 @@ $(function(){
             }
 
         })
-
-    }
-
-    //表格绘制time:2017-12;
-    function drawTable(time){
-
-        //获取今年
-        var year = '';
-
-        var Monthnum = '';
-
-        if(time){
-
-            year = time.split('-')[0];
-
-            Monthnum = time.split('-')[1];
-
-        }else{
-
-            year = $('.datatimeblock').val().split('-')[0];
-
-            Monthnum = $('.datatimeblock').val().split('-')[1];
-        }
-
-        //首先确定当月有几天，
-        var day = new Date(year,Monthnum,0);
-
-        var daycount = day.getDate();
-
-        //表格头部------------------------------------------------------------------
-
-        var arr = ['操作','姓名','工号'];
-
-        var lengths = daycount +1;
-
-        for(var i=1;i<lengths;i++ ){
-
-            var str = '';
-
-            str = moment(String(Monthnum) + '/' + String(i)).format('MM/DD');
-
-            var aa = moment().format('YYYY') + '-' + Monthnum + '-' + i;
-
-            str += '<br><span data-num="' + moment(aa).format('d') +
-                '">' + numWeek(moment(aa).format('d')) + '</span>';
-
-            arr.push( str );
-
-        }
-
-        //遍历arr生成表格头部
-        var headStr = '<tr>';
-
-        drawThead(arr,headStr);
-
-        //表格身体-------------------------------------------------------------------
-        var bodyStr = '';
-
-        drawTbody(arr,bodyStr,1,2);
-
-        //添加删除按钮
-        var option = $('#table-block tbody').children('tr');
-
-        for(var i=0;i<option.length;i++){
-
-            option.eq(i).children('td').eq(0).empty().append('<span class="data-option option-quiet-worker btn default btn-xs green-stripe">删除</span>')
-
-        }
-
-    }
-
-    //绘制表头
-    function drawThead(arr,headStr){
-
-        for(var i=0;i<arr.length;i++){
-
-            if(i == arr.length-1){
-
-                headStr += '<th>' + arr[i] +
-                    '</th></tr>'
-
-            }else{
-
-                headStr += '<th>' + arr[i] +
-                    '</th>'
-
-            }
-
-        }
-
-        $('#worker-table').children('thead').empty().append(headStr);
-
-    }
-
-    //绘制表的身体
-    function drawTbody(arr,bodyStr,nameIndex,numIndex){
-
-        //确定周期，根据周期不同，表格显示内容不同
-        var  period = $('#shift').children('option:selected').attr('data-attr');
-
-        //确定arr所对应body的值
-        var dataArr = [];
-
-        if( period == 1 ){
-
-            //首先根据arr的值来确定
-            for(var i = 0;i<arr.length;i++){
-
-                var dataAttr = '';
-
-                if(arr[i].indexOf('data-num')>0){
-
-                    dataAttr = arr[i].split('=')[1].split('"')[1];
-
-                    if(dataAttr == 0){
-
-                        dataAttr = "7";
-
-                    }
-
-                }else{
-
-                    dataAttr = '';
-
-                }
-
-                dataArr.push(dataAttr);
-
-
-            }
-
-        }else if(period == 2){
-
-            for(var i = 0;i<arr.length;i++){
-
-                var dataAttr = '';
-
-                dataAttr = arr[i].split('<br>')[0].split('/')[1];
-
-                if( typeof dataAttr == 'string'){
-
-                    if(dataAttr.slice(0,1) == 0){
-
-                        dataAttr = dataAttr.slice(1,2);
-
-                    }else{
-
-                        dataAttr = arr[i].split('<br>')[0].split('/')[1];
-
-                    }
-
-                }else{
-
-                    dataAttr = '';
-
-                }
-
-                dataArr.push(dataAttr);
-
-            }
-
-        }
-
-        //本班次的值
-        var BC = [];
-
-        //根据本班次的值，确定td显示值['',1,'']
-        var BC0 = [];
-
-        //初始值首先确认为全'';
-        for(var i=0;i<dataArr.length;i++){
-
-            BC0.push('');
-
-        }
-
-        //根据所有班次筛选当前选中的班次，确定BC的值
-        for(var i=0;i<_BCData.length;i++){
-
-            if(_BCData[i].bccode == $('#shift').val()){
-
-                BC = _BCData[i].banCiDetailList;
-
-            }
-
-        }
-
-
-        //确定BC0的值，有值不为''，无值为'';
-        for(var i=0;i<dataArr.length;i++){
-
-            for(var j=0;j<BC.length;j++){
-
-                if(dataArr[i] == BC[j].selectedday){
-
-                    BC0[i] = BC[j].selectedday;
-
-                    break;
-
-                }else{
-
-                    BC0[i] = ''
-
-                }
-
-            }
-
-        }
-
-        //最终确定bodyStr
-
-        for(var i=0;i<_currentSelect.length;i++){
-
-            bodyStr += '<tr>';
-
-            for(var j=0;j<BC0.length;j++){
-
-                var values = ''
-
-                if(BC0[j] == ''){
-
-                    if(j == nameIndex){
-
-                        values = _currentSelect[i].name;
-
-                    }else if(j == numIndex){
-
-                        values = _currentSelect[i].num;
-
-                    }else{
-
-                        values = ''
-
-                    }
-
-
-
-                }else{
-                    {
-
-                        values = $('#shift').children('option:selected').html();
-                    }
-
-                }
-
-                bodyStr += '<td>' + values +
-                    '</td>'
-
-            }
-
-            bodyStr += '</tr>';
-
-        }
-
-        $('#worker-table').children('tbody').append(bodyStr);
 
     }
 
@@ -1986,8 +1694,6 @@ $(function(){
                 title:'班次',
                 data:'bcName',
                 render:function(data, type, full, meta){
-
-                    console.log(_isDeng);
 
                     if(_isDeng){
 

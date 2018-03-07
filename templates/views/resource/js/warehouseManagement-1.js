@@ -7,24 +7,71 @@ $(function(){
     var myApp33 = new Vue({
         el:'#myApp33',
         data:{
-            'bianhao':'',
-            'mingcheng':'',
-            'xiaxian':'',
-            'shangxian':'',
-            'danwei':'',
+            //分类编码
             'flbianma':'',
+            //分类名称
             'flmingcheng':'',
+            //物品编号
+            'bianhao':'',
+            //物品名称
+            'mingcheng':'',
+            //预警下限
+            'xiaxian':'',
+            //预警上限
+            'shangxian':'',
+            //单位
+            'danwei':'',
+            //是否耐用
+            'picked':0,
+            //是否返修
+            'isfix':0,
+            //规格
             'guige':'',
+            //颜色
             'yanse':'',
-            'miaoshu':'',
+            //主要供货商
             'gonghuoshang':'',
-            'beizhu':'',
-            'picked':0
+            //描述
+            'miaoshu':'',
+            //备注
+            'beizhu':''
         },
         methods:{
             'radios':function(){
                 $('.inpus').click(function(){
+                    //单选框选中
                     $('.inpus').parent('span').removeClass('checked');
+
+                    $(this).parent('span').addClass('checked');
+
+                    //非耐用品一定是非返修件,耐用品可以是返修件也可以是非返修件
+                    if($(this).attr('id') == 'twos'){
+
+                        $('.isfix').parent('span').removeClass('checked');
+
+                        $('#fours').parent('span').addClass('checked');
+
+                        //并且不可修改
+                        $('.isfix').attr('disabled',true);
+                    }else{
+
+                        $('.isfix').parent('span').removeClass('checked');
+
+                        $('#fours').parent('span').addClass('checked');
+
+                        //并且可修改
+                        $('.isfix').attr('disabled',false);
+
+                    }
+
+                })
+            },
+            'fixFun':function(){
+
+                $('.isfix').click(function(){
+
+                    $('.isfix').parent('span').removeClass('checked');
+
                     $(this).parent('span').addClass('checked');
                 })
             },
@@ -233,21 +280,9 @@ $(function(){
     $('.creatButton').on('click',function(){
         //确定按钮去掉修改类，添加登记类
         $('#myModal').find('.btn-primary').removeClass('xiugai').addClass('dengji');
-        //初始化登记框
-        myApp33.bianhao = '';
-        myApp33.mingcheng = '';
-        myApp33.xiaxian = '';
-        myApp33.shangxian = '';
-        myApp33.danwei = '';
-        myApp33.flbianma = '';
-        myApp33.flmingcheng = '';
-        myApp33.guige = '';
-        myApp33.yanse = '';
-        myApp33.miaoshu = '';
-        myApp33.gonghuoshang = '';
-        myApp33.beizhu = '';
-        myApp33.picked = 0;
-        $('#twos').parent().addClass('checked');
+        //初始化
+        detailInit();
+        //模态框
         _moTaiKuang($('#myModal'), '添加', '', '' ,'', '添加');
         //编码不能修改
         $('.shishi').attr('disabled',false).removeClass('disabled-block');
@@ -284,6 +319,8 @@ $(function(){
                     userName:_userIdName,
                     b_UserRole:_userRole,
                     'isSpare':myApp33.picked,
+                    //是否为返修件
+                    'isFX':myApp33.isfix
                 }
                 $.ajax({
                     type:'post',
@@ -344,9 +381,9 @@ $(function(){
     //修改弹窗确认按钮
     $('#myModal').on('click','.xiugai',function(){
         if(myApp33.mingcheng == '' || myApp33.flbianma == '' || myApp33.flmingcheng == ''){
-            $('#myModal2').find('.modal-body').html('请填写红色必填项!');
-            moTaiKuang($('#myModal2'),'提示','flag');
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '')
+
+            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项！', '');
+
         }else{
             var prm = {
                 'ItemNum':myApp33.bianhao,
@@ -364,7 +401,9 @@ $(function(){
                 userID:_userIdNum,
                 userName:_userIdName,
                 b_UserRole:_userRole,
-                'isSpare':myApp33.picked
+                'isSpare':myApp33.picked,
+                //是否为返修件
+                'isFX':myApp33.isfix
             }
             $.ajax({
                 type:'post',
@@ -373,7 +412,6 @@ $(function(){
                 beforeSend: function () {
                     $('#theLoading').modal('show');
                 },
-
                 complete: function () {
                     $('#theLoading').modal('hide');
                 },
@@ -410,39 +448,121 @@ $(function(){
             //loadding
             $('#theLoading').modal('show');
 
+            //初始化
+            detailInit();
+
+            //类
             $('#myModal').find('.btn-primary').removeClass('dengji').addClass('xiugai');
+
+            //样式
             var $this = $(this).parents('tr');
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
             $this.addClass('tables-hover');
+
             //首先绑定原有的信息
             var wlBianMa = $(this).parents('tr').find('.bianma').html();
+
             var wlMingCheng = $(this).parents('tr').find('.mingcheng').html();
-            for(var i = 0;i<allData.length;i++){
-                if(allData[i].itemNum == wlBianMa && allData[i].itemName == wlMingCheng){
-                    //绑定信息
-                    myApp33.bianhao = allData[i].itemNum;
-                    myApp33.mingcheng = allData[i].itemName;
-                    myApp33.xiaxian = allData[i].minNum;
-                    myApp33.shangxian = allData[i].maxNum;
-                    myApp33.danwei = allData[i].unitName;
-                    myApp33.flbianma = allData[i].cateNum;
-                    myApp33.flmingcheng = allData[i].cateName;
-                    myApp33.guige = allData[i].size;
-                    myApp33.yanse = allData[i].color;
-                    myApp33.gonghuoshang = allData[i].cusName;
-                    myApp33.miaoshu = allData[i].description;
-                    myApp33.beizhu = allData[i].remark;
-                    myApp33.picked = allData[i].isSpare;
-                    if(myApp33.picked == 0){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('.inpus').eq(1).parent('span').addClass('checked');
-                    }else if(myApp33.picked == 1){
-                        $('.inpus').parent('span').removeClass('checked');
-                        $('.inpus').eq(0).parent('span').addClass('checked');
-                    }
-                    _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
-                }
+
+            var prm = {
+                'ItemNum':wlBianMa,
+                'itemName':wlMingCheng,
+                userID:_userIdNum,
+                userName:_userIdName,
+                b_UserRole:_userRole,
             }
+
+            $.ajax({
+
+                type:'post',
+                url:_urls + 'YWCK/ywCKGetItems',
+                data:prm,
+                beforeSend: function () {
+                    $('#theLoading').modal('show');
+                },
+                complete: function () {
+                    $('#theLoading').modal('hide');
+                },
+                timeout:_theTimes,
+                success:function(result){
+
+                    if(result){
+
+                        //绑定数据
+                        //分类编码
+                        myApp33.flbianma = result[0].cateName;
+                        //分类名称
+                        myApp33.flmingcheng = result[0].cateNum;
+                        //物品编号
+                        myApp33.bianhao = result[0].itemNum;
+                        //物品名称
+                        myApp33.mingcheng = result[0].itemName;
+                        //预警下限
+                        myApp33.xiaxian = result[0].minNum;
+                        //预警上限
+                        myApp33.shangxian = result[0].maxNum;
+                        //单位
+                        myApp33.danwei = result[0].unitName;
+                        //是否耐用
+                        myApp33.picked = result[0].isSpare;
+                        //是否返修
+                        myApp33.isfix = result[0].isFX;
+                        //规格
+                        myApp33.guige =result[0].size;
+                        //颜色
+                        myApp33.yanse = result[0].color;
+                        //主要供货商
+                        myApp33.gonghuoshang = result[0].cusName;
+                        //描述
+                        myApp33.miaoshu = result[0].description;
+                        //备注
+                        myApp33.beizhu = result[0].remark;
+                        //是否耐用
+                        $('.inpus').parent().removeClass('checked');
+
+                        if( myApp33.picked == 1 ){
+
+                            $('#ones').parent().addClass('checked');
+
+                        }else{
+
+                            $('#twos').parent().addClass('checked');
+
+                        }
+                        //是否返修
+                        $('.isfix').parent().removeClass('checked');
+
+                        if( myApp33.isfix == 1 ){
+
+                            $('#threes').parent().addClass('checked');
+
+                        }else{
+
+                            $('#fours').parent().addClass('checked');
+
+                        }
+
+                    }
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    $('#theLoading').modal('hide');
+
+                    if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                        myAlter("超时");
+                    }else{
+                        myAlter("请求失败！");
+                    }
+
+                }
+
+            })
+
+            _moTaiKuang($('#myModal'), '编辑', '', '' ,'', '保存');
+
             //编码不能修改
             $('.shishi').attr('disabled',true).addClass('disabled-block');
 
@@ -454,15 +574,34 @@ $(function(){
         //删除td操作按钮
         .on('click','.option-delete',function(){
 
-            $('#theLoading').modal('show');
+            //初始化
+            //物品编码
+            $('#wpbm').val('');
+            //物品名称
+            $('#wpmc').val('');
+            //分类名称
+            $('#flmc').val('');
+            //分类编码
+            $('#flbm').val('');
 
+            //loadding显示
+            $('#theLoading').modal('show');
+            //样式
             var $this = $(this).parents('tr');
+
             $('#scrap-datatables tbody').children('tr').removeClass('tables-hover');
+
             $this.addClass('tables-hover');
+
+            //绑定数据
             var wlBianMa = $(this).parents('tr').find('.bianma').html();
+
             var wlMingCheng = $(this).parents('tr').find('.mingcheng').html();
+
             _thisBianhao = wlBianMa;
+
             _thisMingcheng = wlMingCheng;
+
             for(var i = 0;i<allData.length;i++){
                 if(allData[i].itemNum == wlBianMa && allData[i].itemName == wlMingCheng){
                     //绑定信息
@@ -473,7 +612,6 @@ $(function(){
                     _moTaiKuang($('#myModal3'), '确定要删除吗？', '', '' ,'', '删除');
                 }
             }
-            //删除按钮
 
             $('#theLoading').modal('hide');
 
@@ -601,10 +739,12 @@ $(function(){
             },
             success:function(result){
                 allData = [];
+
                 for(var i=0;i<result.length;i++){
                     allData.push(result[i])
                 }
-                _datasTable($("#scrap-datatables"),result);
+
+                _jumpNow($("#scrap-datatables"),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -733,8 +873,56 @@ $(function(){
         })
 
     }
+
+    //模态框初始化
+    function detailInit(){
+
+        //分类编码
+        myApp33.flbianma = '';
+        //分类名称
+        myApp33.flmingcheng = '';
+        //物品编号
+        myApp33.bianhao = '';
+        //物品名称
+        myApp33.mingcheng = '';
+        //预警下限
+        myApp33.xiaxian = '';
+        //预警上限
+        myApp33.shangxian = '';
+        //单位
+        myApp33.danwei = '';
+        //是否耐用
+        myApp33.picked = 0;
+        //是否返修
+        myApp33.isfix = 0;
+        //规格
+        myApp33.guige ='';
+        //颜色
+        myApp33.yanse = '';
+        //主要供货商
+        myApp33.gonghuoshang = '';
+        //描述
+        myApp33.miaoshu = '';
+        //备注
+        myApp33.beizhu = '';
+        //单选框
+        //是否耐用
+        $('.inpus').parent().removeClass('checked');
+        //否
+        $('#twos').parent().addClass('checked');
+        //是否返修
+        $('.isfix').parent().removeClass('checked');
+        //否
+        $('#fours').parent().addClass('checked');
+        //需要默认点一下，因为单选点击事件
+        $('#twos').click();
+
+        $('#fours').click();
+    }
+
     /*----------------------------打印部分去掉的东西-----------------------------*/
 
     //导出按钮,每页显示数据条数,表格页码打印隐藏
+
     $('.dt-buttons,.dataTables_length,.dataTables_info,.dataTables_paginate').addClass('noprint')
 })

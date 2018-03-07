@@ -761,7 +761,9 @@ $(function(){
     //查看图片初始化
     _imgNum = 0;
 
-    $('.showImage').html('没有图片');
+    $('.showImage').html('没有图片').hide();
+
+    $('.bxpicture').hide();
 
   }
 
@@ -1017,6 +1019,18 @@ $(function(){
           $('#myApp33').find('.dtime').val(result.gdShij);
           //故障描述
           $('#myApp33').find('.remarkDes').val(result.bxBeizhu);
+          //查看报修图片
+          _imgNum = result.hasImage;
+          //按钮显示隐藏
+          if( _imgNum == 0 ){
+
+            $('.bxpicture').hide();
+
+          }else{
+
+            $('.bxpicture').show();
+
+          }
         }
 
       },

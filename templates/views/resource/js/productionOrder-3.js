@@ -1271,9 +1271,12 @@ $(function(){
         //查看图片初始化
         _imgNum = 0;
 
-        $('.showImage').html('没有图片');
+        $('.showImage').html('没有图片').hide();
+
+        $('.bxpicture').hide();
         //表格初始化
         var arr = [];
+
         _datasTable($('#personTable1'),arr);
 
     }
@@ -1714,6 +1717,17 @@ $(function(){
                 $('#uniform-twos1').children('span').addClass('checked');
                 //查看图片初始化
                 _imgNum = result.hasImage;
+
+                //按钮显示隐藏
+                if( _imgNum == 0 ){
+
+                    $('.bxpicture').hide();
+
+                }else{
+
+                    $('.bxpicture').show();
+
+                }
                 //执行人
                 _zhixingRens.length = 0;
 

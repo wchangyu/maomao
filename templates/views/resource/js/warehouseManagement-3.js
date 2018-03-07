@@ -16,7 +16,7 @@ $(function(){
 
     //工单查询时间
     //查询工单号的时间
-    var gdTimeST = moment().subtract(30,'d').format('YYYY/MM/DD');
+    var gdTimeST = moment().subtract(2,'months').format('YYYY/MM/DD');
 
     var gdTimeET = moment().format('YYYY/MM/DD');
 
@@ -28,6 +28,10 @@ $(function(){
 
     var gdrealityStart = moment($('.gdTime').eq(0).val()).format('YYYY/MM/DD') + '00:00:00';
 
+    //车站数组
+    var _stationArr = [];
+
+    stationType();
     /*-------------------------------------------------表格初始化--------------------------------------------------------*/
 
     //出库单表格初始化
@@ -177,6 +181,16 @@ $(function(){
             className:'gdCode2'
         },
         {
+            title:__names.department,
+            data:'bxKeshi',
+            className:'station1',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.bxKeshiNum  + '">' + data + '</span>'
+
+            }
+        },
+        {
             title:'备注',
             data:'outMemo'
         },
@@ -201,7 +215,8 @@ $(function(){
         }
     ];
 
-    _tableInit($('#personTable1'),rkwpCol,2,'','',drawFn);
+    //_tableInit($('#personTable1'),rkwpCol,2,'','',drawFn);
+    _tableInit($('#personTable1'),rkwpCol,2,'','','');
 
     //第二层弹窗表格
     var rkwpCol2 = [
@@ -282,6 +297,16 @@ $(function(){
             className:'gdCode2'
         },
         {
+            title:__names.department,
+            data:'bxKeshi',
+            className:'station1',
+            render:function(data, type, full, meta){
+
+                return '<span data-num="' + full.bxKeshiNum  + '">' + data + '</span>'
+
+            }
+        },
+        {
             title:'备注',
             data:'outMemo'
         },
@@ -294,7 +319,8 @@ $(function(){
         }
     ];
 
-    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','',drawFn1);
+    //_tableInit($('#wuPinListTable1'),rkwpCol2,2,'','',drawFn1);
+    _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','','');
 
     //工单表格
     var gdCol = [
@@ -438,6 +464,10 @@ $(function(){
 
     //总计
     function drawFn(){
+
+
+        return false;
+
         var amount = 0;
 
         var total = 0;
@@ -578,6 +608,33 @@ $(function(){
 
     _tableInit($('#outPrince-table'),outPrinceCol,2,'','','');
 
+    //车站表格
+    var stationCol = [
+
+        {
+            title:'名称',
+            data:'ddName'
+        },
+        {
+            title:'编码',
+            data:'ddNum'
+        },
+        {
+            title:'拼音简写',
+            data:'ddPy'
+        },
+        {
+            title:'上级',
+            data:'ddParentNum'
+        }
+
+    ];
+
+    _tableInitS($('#station-table'),stationCol,2,true,'','','');
+
+    //车站列表
+    //stationData(true);
+
     /*-------------------------------------------------全局变量---------------------------------------------------------*/
     //存放所有仓库
     var _ckArr = [];
@@ -604,7 +661,10 @@ $(function(){
     var _cheArr = [];
 
     //所有工单列表
-    GDselect(5);
+    //材料申请是否已审批（默认已审批）
+    $('#isExamine').parent('span').removeClass('checked');
+
+    GDselect(0,true);
 
     //获取所有车站
     chezhan(true);
@@ -909,6 +969,8 @@ $(function(){
         //动态添加类名dengji删除bianji类
         $('#myModal').find('.confirm').removeClass('bianji').removeClass('shanchu').removeClass('shenhe').addClass('dengji');
 
+        $('#myModal1').find('.saveCK').removeClass('bianji').addClass('dengji').html('保存出库单');
+
         //新增入库单弹窗初始化
         RKDInit();
 
@@ -923,87 +985,90 @@ $(function(){
     //登记确定按钮、编辑
     $('#myModal')
         .on('click','.dengji',function(){
-        //先判断 必填项
-        if(putOutList.rkleixing == ''){
-            _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
-        }else{
-            var outStoreDetails1 = [];
-            //工单的信息
-            var gdArr = [];
-            //材料工单
-            var clArr = [];
-
-            for(var i=0;i<_rukuArr.length;i++){
-                var obj = {};
-                obj.sn = _rukuArr[i].sn;
-                obj.itemNum = _rukuArr[i].itemNum;
-                obj.itemName = _rukuArr[i].itemName;
-                obj.size = _rukuArr[i].size;
-                obj.unitName = _rukuArr[i].unitName;
-                obj.num = _rukuArr[i].num;
-                obj.outPrice = _rukuArr[i].outPrice;
-                obj.amount = _rukuArr[i].amount;
-                obj.gdCode = _rukuArr[i].gdCode;
-                obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = _rukuArr[i].bxKeshi;
-                obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
-                obj.outMemo = _rukuArr[i].outMemo;
-                obj.userID=_userIdNum;
-                obj.userName = _userIdName;
-                obj.storageName = _rukuArr[i].storageName;
-                obj.storageNum = _rukuArr[i].storageNum;
-                obj.batchNum = _rukuArr[i].batchNum;
-                obj.localNum = _rukuArr[i].localNum;
-                obj.localName = _rukuArr[i].localName;
-                outStoreDetails1.push(obj);
-                //备件转换
-                if(_rukuArr[i].gdCode){
-                    gdArr.push(_rukuArr[i].gdCode);
-                    clArr.push(_rukuArr[i].itemName);
-                }
-            }
-
-            //获取填写的入库信息
-            var ckName = '';
-            if($('#ckselect').val() == ''){
-                ckName = ''
+            //先判断 必填项
+            if(putOutList.rkleixing == ''){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
             }else{
-                ckName = $('#ckselect').children('option:selected').html();
-            }
-            var prm = {
-                'outType':putOutList.rkleixing,
-                'remark':putOutList.remarks,
-                'outStoreDetails':outStoreDetails1,
-                'userID':_userIdNum,
-                'userName':_userIdName,
-                'b_UserRole':_userRole,
-                'storageName':ckName,
-                'storageNum':$('#ckselect').val(),
-                'contractOrder':putOutList.gdCode,
-                'cusName':putOutList.clymc,
-                'phone':putOutList.clydh
-            }
-            $.ajax({
-                type:'post',
-                url: _urls + 'YWCK/ywCKAddOutStorage',
-                data:prm,
-                success:function(result){
+                var outStoreDetails1 = [];
+                //工单的信息
+                var gdArr = [];
+                //材料工单
+                var clArr = [];
 
-                    if(result == 99){
-                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记成功!', '');
-                        $('#myModal').modal('hide');
-                        conditionSelect();
-                    }else{
-                        _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记失败!', '');
+                for(var i=0;i<_rukuArr.length;i++){
+
+                    var obj = {};
+                    obj.sn = _rukuArr[i].sn;
+                    obj.itemNum = _rukuArr[i].itemNum;
+                    obj.itemName = _rukuArr[i].itemName;
+                    obj.size = _rukuArr[i].size;
+                    obj.unitName = _rukuArr[i].unitName;
+                    obj.num = _rukuArr[i].num;
+                    obj.outPrice = _rukuArr[i].outPrice;
+                    obj.amount = _rukuArr[i].amount;
+                    obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
+                    obj.gdCode2 = _rukuArr[i].gdCode2;
+                    obj.bxKeshi = (typeof _rukuArr[i].bxKeshi == 'undefined')?'':_rukuArr[i].bxKeshi;
+                    obj.bxKeshiNum = (typeof _rukuArr[i].bxKeshiNum == 'undefined')?'':_rukuArr[i].bxKeshiNum;
+                    obj.outMemo = _rukuArr[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = _rukuArr[i].storageName;
+                    obj.storageNum = _rukuArr[i].storageNum;
+                    obj.batchNum = _rukuArr[i].batchNum;
+                    obj.localNum = _rukuArr[i].localNum;
+                    obj.localName = _rukuArr[i].localName;
+                    outStoreDetails1.push(obj);
+                    //备件转换
+                    if(_rukuArr[i].gdCode){
+                        gdArr.push(_rukuArr[i].gdCode);
+                        clArr.push(_rukuArr[i].itemName);
                     }
-
-                },
-                error:function(jqXHR, textStatus, errorThrown){
-                    console.log(jqXHR.responseText);
                 }
-            })
-        }
-    })
+
+                //获取填写的入库信息
+                var ckName = '';
+                if($('#ckselect').val() == ''){
+                    ckName = ''
+                }else{
+                    ckName = $('#ckselect').children('option:selected').html();
+                }
+
+                var prm = {
+                    'outType':putOutList.rkleixing,
+                    'remark':putOutList.remarks,
+                    'outStoreDetails':outStoreDetails1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
+                    'storageName':ckName,
+                    'storageNum':$('#ckselect').val(),
+                    'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
+                    'cusName':putOutList.clymc,
+                    'phone':putOutList.clydh
+                }
+
+                $.ajax({
+                    type:'post',
+                    url: _urls + 'YWCK/ywCKAddOutStorage',
+                    data:prm,
+                    success:function(result){
+
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记成功!', '');
+                            $('#myModal').modal('hide');
+                            conditionSelect();
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记失败!', '');
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }
+        })
         .on('click','.bianji',function(){
 
             var outStoreDetails1 = [];
@@ -1019,8 +1084,8 @@ $(function(){
                 obj.outPrice = _rukuArr[i].outPrice;
                 obj.amount = _rukuArr[i].amount;
                 obj.gdCode2 = _rukuArr[i].gdCode2;
-                obj.bxKeshi = _rukuArr[i].bxKeshi;
-                obj.bxKeshiNum = _rukuArr[i].bxKeshiNum;
+                obj.bxKeshi = (typeof _rukuArr[i].bxKeshi == 'undefined')?'':_rukuArr[i].bxKeshi;
+                obj.bxKeshiNum = (typeof _rukuArr[i].bxKeshiNum == 'undefined')?'':_rukuArr[i].bxKeshiNum;
                 //obj.bxKeshi = $('#chezhan').children('option:selected').html();
                 //obj.bxKeshiNum = _rukuArr[i].chezhan;
                 obj.outMemo = _rukuArr[i].outMemo;
@@ -1054,6 +1119,7 @@ $(function(){
                 'cusName':putOutList.clymc,
                 'phone':putOutList.clydh
             }
+
             $.ajax({
                 type:'post',
                 url: _urls + 'YWCK/ywCKEditOutStorage',
@@ -1117,6 +1183,194 @@ $(function(){
 
 
         })
+
+    $('#myModal1')
+        .on('click','.dengji',function(){
+            //先判断 必填项
+            if(putOutList.rkleixing == ''){
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+            }else{
+                var outStoreDetails1 = [];
+                //工单的信息
+                var gdArr = [];
+                //材料工单
+                var clArr = [];
+
+                _rukuArr = _tempRKArr;
+
+                for(var i=0;i<_rukuArr.length;i++){
+
+                    var obj = {};
+                    obj.sn = _rukuArr[i].sn;
+                    obj.itemNum = _rukuArr[i].itemNum;
+                    obj.itemName = _rukuArr[i].itemName;
+                    obj.size = _rukuArr[i].size;
+                    obj.unitName = _rukuArr[i].unitName;
+                    obj.num = _rukuArr[i].num;
+                    obj.outPrice = _rukuArr[i].outPrice;
+                    obj.amount = _rukuArr[i].amount;
+                    obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
+                    obj.gdCode2 = _rukuArr[i].gdCode2;
+                    obj.bxKeshi = (typeof _rukuArr[i].bxKeshi == 'undefined')?'':_rukuArr[i].bxKeshi;
+                    obj.bxKeshiNum = (typeof _rukuArr[i].bxKeshiNum == 'undefined')?'':_rukuArr[i].bxKeshiNum;
+                    obj.outMemo = _rukuArr[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = _rukuArr[i].storageName;
+                    obj.storageNum = _rukuArr[i].storageNum;
+                    obj.batchNum = _rukuArr[i].batchNum;
+                    obj.localNum = _rukuArr[i].localNum;
+                    obj.localName = _rukuArr[i].localName;
+                    outStoreDetails1.push(obj);
+                    //备件转换
+                    if(_rukuArr[i].gdCode){
+                        gdArr.push(_rukuArr[i].gdCode);
+                        clArr.push(_rukuArr[i].itemName);
+                    }
+                }
+
+                //获取填写的入库信息
+                var ckName = '';
+                if($('#ckselect').val() == ''){
+                    ckName = ''
+                }else{
+                    ckName = $('#ckselect').children('option:selected').html();
+                }
+
+                var prm = {
+                    'outType':putOutList.rkleixing,
+                    'remark':putOutList.remarks,
+                    'outStoreDetails':outStoreDetails1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
+                    'storageName':ckName,
+                    'storageNum':$('#ckselect').val(),
+                    'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
+                    'cusName':putOutList.clymc,
+                    'phone':putOutList.clydh
+                }
+
+                $.ajax({
+                    type:'post',
+                    url: _urls + 'YWCK/ywCKAddOutStorage',
+                    data:prm,
+                    success:function(result){
+
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记成功!', '');
+
+                            $('#myModal').modal('hide');
+
+                            $('#myModal1').modal('hide');
+
+                            conditionSelect();
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'登记失败!', '');
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+            }
+        })
+        .on('click','.bianji',function(){
+
+            if(putOutList.rkleixing == ''){
+
+                _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
+
+            }else{
+
+                //首先要获取所有物品的信息
+                _rukuArr = _tempRKArr;
+
+                var outStoreDetails1 = [];
+
+                for(var i=0;i<_rukuArr.length;i++){
+
+                    var obj = {};
+                    obj.sn = _rukuArr[i].sn;
+                    obj.itemNum = _rukuArr[i].itemNum;
+                    obj.itemName = _rukuArr[i].itemName;
+                    obj.size = _rukuArr[i].size;
+                    obj.unitName = _rukuArr[i].unitName;
+                    obj.num = _rukuArr[i].num;
+                    obj.outPrice = _rukuArr[i].outPrice;
+                    obj.amount = _rukuArr[i].amount;
+                    obj.gdCode = typeof (_rukuArr[i].gdCode == 'undefined')?'':_rukuArr[i].gdCode;
+                    obj.gdCode2 = _rukuArr[i].gdCode2;
+                    obj.bxKeshi = (typeof _rukuArr[i].bxKeshi == 'undefined')?'':_rukuArr[i].bxKeshi;
+                    obj.bxKeshiNum = (typeof _rukuArr[i].bxKeshiNum == 'undefined')?'':_rukuArr[i].bxKeshiNum;
+                    obj.outMemo = _rukuArr[i].outMemo;
+                    obj.userID=_userIdNum;
+                    obj.userName = _userIdName;
+                    obj.storageName = _rukuArr[i].storageName;
+                    obj.storageNum = _rukuArr[i].storageNum;
+                    obj.batchNum = _rukuArr[i].batchNum;
+                    obj.localNum = _rukuArr[i].localNum;
+                    obj.localName = _rukuArr[i].localName;
+                    outStoreDetails1.push(obj);
+                    //备件转换
+                    if(_rukuArr[i].gdCode){
+                        gdArr.push(_rukuArr[i].gdCode);
+                        clArr.push(_rukuArr[i].itemName);
+                    }
+                }
+
+                //获取填写的入库信息
+                var ckName = '';
+                if($('#ckselect').val() == ''){
+                    ckName = ''
+                }else{
+                    ckName = $('#ckselect').children('option:selected').html();
+                }
+
+                var prm = {
+                    'orderNum':putOutList.bianhao,
+                    'outType':putOutList.rkleixing,
+                    'remark':putOutList.remarks,
+                    'outStoreDetails':outStoreDetails1,
+                    'userID':_userIdNum,
+                    'userName':_userIdName,
+                    'b_UserRole':_userRole,
+                    'storageName':ckName,
+                    'storageNum':$('#ckselect').val(),
+                    'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
+                    'cusName':putOutList.clymc,
+                    'phone':putOutList.clydh
+                }
+
+                $.ajax({
+                    type:'post',
+                    url: _urls + 'YWCK/ywCKEditOutStorage',
+                    data:prm,
+                    success:function(result){
+
+                        if(result == 99){
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'编辑成功!', '');
+
+                            $('#myModal').modal('hide');
+
+                            $('#myModal1').modal('hide');
+
+                            conditionSelect();
+                        }else{
+                            _moTaiKuang($('#myModal2'), '提示','flag', 'istap' ,'编辑失败!', '');
+                        }
+
+                    },
+                    error:function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR.responseText);
+                    }
+                })
+
+            }
+
+        })
+
 
     //删除确定按钮
     $('#myModal3').on('click','.daShanchu',function(){
@@ -1202,7 +1456,28 @@ $(function(){
 
             _datasTable($('#personTable1'),result);
 
+            //共计
+            //数量
+            var num = 0;
+
+            //金额
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            //赋值
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         }
+
         detailInfo($thisDanhao,sucFun1);
 
         $('#personTable1 tbody').children('tr').find('.option-shanchu').addClass('hiddenButton');
@@ -1263,7 +1538,37 @@ $(function(){
                 _rukuArr.push(result[i]);
             }
 
-            _datasTable($('#personTable1'),result)
+            _datasTable($('#personTable1'),result);
+
+            //共计
+            //数量
+            var num = 0;
+
+            //金额
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            //赋值
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
+            if(_rukuArr.length == 0){
+
+                $('#ckselect').attr('disabled',false).removeClass('disabled-block');
+
+            }else{
+
+                $('#ckselect').attr('disabled',true).addClass('disabled-block');
+
+            }
         }
 
         detailInfo($thisDanhao,sucFun2);
@@ -1271,6 +1576,7 @@ $(function(){
         //删除添加类
         $('#myModal').find('.confirm').removeClass('dengji').removeClass('shanchu').removeClass('shenhe').addClass('bianji');
 
+        $('#myModal1').find('.saveCK').removeClass('dengji').addClass('bianji').html('保存出库单');
 
         if( $(this).next().html() == '已审核' ){
 
@@ -1388,7 +1694,27 @@ $(function(){
 
             }
 
-            _datasTable($('#personTable1'),result)
+            _datasTable($('#personTable1'),result);
+
+            //共计
+            //数量
+            var num = 0;
+
+            //金额
+            var amount = 0;
+
+            for(var i=0;i<result.length;i++){
+
+                num += Number(result[i].num);
+
+                amount += Number(result[i].amount);
+
+            }
+
+            //赋值
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
 
         }
         detailInfo($thisDanhao,sucFun3);
@@ -1445,36 +1771,70 @@ $(function(){
     //新增出库物品按钮
     $('.zhiXingRenYuanButton').click(function(){
 
-        //模态框显示
-        _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'', '确定');
+        //首先验证仓库是否选择了
+        if($('#ckselect').val() == ''){
 
-        //仓库下拉列表初始化
-        ckList(_ckArr);
+            _moTaiKuang($('#myModal2'), '提示', true, 'istap' ,'请先选择仓库！', '确定');
 
-        //将_rukuArr 付给 _tempArr
-        _tempRKArr.length = 0;
+        }else{
 
-        for(var i=0;i<_rukuArr.length;i++){
+            //模态框显示
+            _moTaiKuang($('#myModal1'), '出库物品管理', '', '' ,'');
 
-            _tempRKArr.push(_rukuArr[i]);
+            //仓库下拉列表初始化
+            ckList(_ckArr);
+
+            //将_rukuArr 付给 _tempArr
+            _tempRKArr.length = 0;
+
+            for(var i=0;i<_rukuArr.length;i++){
+
+                _tempRKArr.push(_rukuArr[i]);
+
+            }
+
+            //第二层弹窗初始化
+            RKCPInit(true,_tempRKArr);
+
+            //自动刷新一下库存数据
+            goodsList();
+
+            //仓库赋值，并且不能操作
+            putOutGoods.ck = $('#ckselect').children('option:selected').html();
+
+            $('#workDone').find('.cangku').attr('data-num',$('#ckselect').val());
+
+            $('#workDone').find('.cangku').parent().addClass('disabled-block');
+
+            $('#workDone').find('.cangku').attr('disabled',true).addClass('disabled-block');
+
+            //遍历$('.pinzhixx').eq(0)里的ul，然后自动点一下
+            var lis = $('.pinzhixx').eq(0).children();
+
+            var attrs = $('#workDone').find('.cangku').attr('data-num');
+
+            for(var i=0;i<lis.length;i++){
+
+                if(attrs == lis.eq(i).attr('data-num')){
+
+                    lis.eq(i).addClass('li-color');
+
+                }
+
+            }
+
+            enterCK();
 
         }
 
-        //第二层弹窗初始化
-        RKCPInit(true,_tempRKArr);
-
-        //自动刷新一下库存数据
-        goodsList();
-
-        //确定车站、工单号、剩余数量
-        //console.log(_gdArr);
-
-        //console.log(_wpListArr);
-
-        //console.log(_cheArr);
-
-
     });
+
+    //出库产品框显示之后的回调函数
+    $('#myModal1').on('shown.bs.modal',function(){
+
+        $('#workDone').find('.kuwei').focus();
+
+    })
 
     //删除按钮
     //删除入库产品操作
@@ -1569,6 +1929,24 @@ $(function(){
 
         _datasTable($('#personTable1'),_rukuArr);
 
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            num += Number(_rukuArr[i].num);
+
+            amount += Number(_rukuArr[i].amount);
+
+        }
+
+        $('#personTable1 tfoot').find('.totalnum').html(num);
+
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         $('#myModal2').modal('hide');
 
         $(this).removeClass('xiaoShanchu');
@@ -1592,8 +1970,6 @@ $(function(){
 
             }else{
                 $(this).parents('.gdList').next('li').find('.inputType').focus();
-
-                //$(this).next('.inputType').focus();
 
             }
         }
@@ -1728,9 +2104,11 @@ $(function(){
             var kq = $this.find('.localName').children('span').attr('data-num');
             var sn = $this.find('.sn').html();
             var gd = $this.find('.gdCode2').html();
+            var cz = $this.find('.station1').children().attr('data-num');
+
 
             for(var i=0;i<_tempRKArr.length;i++){
-                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
+                if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd && cz == _tempRKArr[i].bxKeshiNum){
 
                     //赋值
                     putOutGoods.bianhao = _tempRKArr[i].itemNum;
@@ -1810,6 +2188,10 @@ $(function(){
 
                     }
 
+                    $('.chezhan').attr('data-num',_tempRKArr[i].bxKeshiNum);
+
+                    $('.chezhan').attr('data-name',_tempRKArr[i].bxKeshi);
+
                 }
             }
         })
@@ -1828,12 +2210,14 @@ $(function(){
                 var gd = $this.find('.gdCode2').html();
                 for(var i=0;i<_tempRKArr.length;i++){
                     if(_tempRKArr[i].itemNum == bm && _tempRKArr[i].storageNum == ck && _tempRKArr[i].localNum == kq && _tempRKArr[i].sn == sn && _tempRKArr[i].gdCode2 == gd){
+
+                        console.log()
                         _tempRKArr[i].num = putOutGoods.num;
                         _tempRKArr[i].outPrice = putOutGoods.outPrice;
                         _tempRKArr[i].amount = putOutGoods.amount;
-                        //_tempRKArr[i].gdCode2 = putOutGoods.gdCode;
-                        //_tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
-                        //_tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
+                        _tempRKArr[i].gdCode2 = putOutGoods.gdCode;
+                        _tempRKArr[i].bxKeshi = $('.chezhan').attr('data-name');
+                        _tempRKArr[i].bxKeshiNum = $('.chezhan').attr('data-num');
                         _tempRKArr[i].storageName = $('.cangku').attr('data-name');
                         _tempRKArr[i].storageNum = $('.cangku').attr('data-num');
                         _tempRKArr[i].outMemo = putOutGoods.remark;
@@ -1854,6 +2238,24 @@ $(function(){
 
         _datasTable($('#wuPinListTable1'),_tempRKArr);
 
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_tempRKArr.length;i++){
+
+            num += Number(_tempRKArr[i].num);
+
+            amount += Number(_tempRKArr[i].amount);
+
+        }
+
+        $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
         $('this').removeClass('removeButton');
 
         $('#myModal2').modal('hide');
@@ -1872,11 +2274,39 @@ $(function(){
 
         }
 
-        console.log(_rukuArr);
-
         _datasTable($('#personTable1'),_rukuArr);
 
+        //共计
+        //数量
+        var num = 0;
+
+        var amount = 0;
+
+        for(var i=0;i<_rukuArr.length;i++){
+
+            num += Number(_rukuArr[i].num);
+
+            amount += Number(_rukuArr[i].amount);
+
+        }
+
+        $('#personTable1 tfoot').find('.totalnum').html(num);
+
+        $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
+
         $('#personTable1 tbody').children('tr').find('.option-see1').addClass('hiddenButton');
+
+        if(_tempRKArr.length == 0){
+
+            $('#ckselect').attr('disabled',false).removeClass('disabled-block');
+
+        }else{
+
+            $('#ckselect').attr('disabled',true).addClass('disabled-block');
+
+        }
+
     })
 
     //第三层工单--------------------------------------------------------------
@@ -1884,7 +2314,7 @@ $(function(){
     $('.fdjImg').click(function(){
 
         //初始化
-        $('#gdzt').val(5);
+        $('#gdzt').val(0);
 
         $('#gdcode').val('');
 
@@ -1895,7 +2325,7 @@ $(function(){
         $('.returnEmpty').val('');
 
         //材料申请是否已审批（默认已审批）
-        $('#isExamine').parent('span').addClass('checked');
+        $('#isExamine').parent('span').removeClass('checked');
 
         GDselect($('#gdzt').val());
 
@@ -1949,7 +2379,40 @@ $(function(){
         $('.chezhan').attr('data-num',gd.children('.gdCodes').children().attr('data-czcode'));
 
         $('#myModal7').modal('hide');
+    });
+
+    //选择车站
+    $('#station-table tbody').on('click','tr',function(){
+
+        //样式
+        $('#station-table tbody').children().removeClass('tables-hover');
+
+        $(this).addClass('tables-hover');
+
     })
+
+    //确定选中的车站，赋值
+    $('#station-modal').on('click','.btn-primary',function(){
+
+        var thisRow = $('#station-table tbody').children('.tables-hover')
+
+        var num = thisRow.children('td').eq(1).html();
+
+        var name = thisRow.children('td').eq(0).html();
+
+        //模态框消失
+        $('#station-modal').modal('hide');
+
+        //赋值
+        $('#workDone').find('.chezhan').attr('data-name',name);
+
+        $('#workDone').find('.chezhan').attr('data-num',num);
+
+        //赋值
+        putOutGoods.chezhan = name;
+
+    })
+
 
     //选择出库物品，第四层弹窗-----------------------------------------------------------
     $('.tianJiaruku').click(function(){
@@ -2246,17 +2709,39 @@ $(function(){
     }
 
     //工单下拉列表初始化（arr，flag）
-    function gdsList(arr){
+    function gdsList(arr,flag){
         var str = '';
-        for(var i=0;i<arr.length;i++){
-            str += '<li data-dds="' + arr[i].bxKeshiNum +
-                '"data-ddsName="' + arr[i].bxKeshi +
-                '" data-gd="' + arr[i].gdCode +
-                '">' +'<span class="dataGD">' +
-                arr[i].gdCode2 +'</span><span style="margin:0 10px;">' + arr[i].wxClNames +
-                '</span>' + '<span>' + arr[i].bxKeshi +
-                '</span>' + '</li>';
+
+
+        if(flag){
+
+            for(var i=0;i<arr.length;i++){
+
+                str += '<li class="li-color" data-dds="' + arr[i].bxKeshiNum +
+                    '"data-ddsName="' + arr[i].bxKeshi +
+                    '" data-gd="' + arr[i].gdCode +
+                    '">' +'<span class="dataGD">' +
+                    arr[i].gdCode2 +'</span><span style="margin:0 10px;">' + arr[i].wxClNames +
+                    '</span>' + '<span>' + arr[i].bxKeshi +
+                    '</span>' + '</li>';
+            }
+
+        }else{
+
+            for(var i=0;i<arr.length;i++){
+
+                str += '<li data-dds="' + arr[i].bxKeshiNum +
+                    '"data-ddsName="' + arr[i].bxKeshi +
+                    '" data-gd="' + arr[i].gdCode +
+                    '">' +'<span class="dataGD">' +
+                    arr[i].gdCode2 +'</span><span style="margin:0 10px;">' + arr[i].wxClNames +
+                    '</span>' + '<span>' + arr[i].bxKeshi +
+                    '</span>' + '</li>';
+            }
+
         }
+
+
 
         $('#workDone').find('.pinzhixx').eq(1).empty().append(str);
     }
@@ -2284,6 +2769,16 @@ $(function(){
             type:'post',
             url:_urls + 'YWCK/ywCKGetOutStorageDetail',
             data:prm,
+            timeout:_theTimes,
+            beforeSend: function () {
+
+                $('#theLoading').modal('show');
+            },
+            complete: function () {
+
+                $('#theLoading').modal('hide');
+
+            },
             success:function(result){
                 seccessFun(result);
             },
@@ -2776,7 +3271,9 @@ $(function(){
 
                 $('.number1').parent('.input-blockeds').addClass('disabled-block');
 
-                putOutGoods.amount = putOutGoods.outPrice;
+                var outMoney = Number(checkedLi.attr('data-amount')) / Number(checkedLi.attr('data-num'));
+
+                putOutGoods.amount = outMoney.toFixed(2) ;
 
                 //聚焦到工单选择
                 setTimeout(function(){
@@ -2815,18 +3312,25 @@ $(function(){
         //首先判断的是每个工单的材料id
         for(var i=0;i<_gdArr.length;i++){
             //将工单中缺某个选择出来
-            var arrSplit = _gdArr[i].wxClIds.split(',');
 
-            for(var j=0;j<arrSplit.length;j++){
+            if(_gdArr[i].wxClIds){
 
-                if(putOutGoods.bianhao == arrSplit[j]){
+                var arrSplit = _gdArr[i].wxClIds.split(',');
 
-                    eligibleArr.push(_gdArr[i]);
+                for(var j=0;j<arrSplit.length;j++){
 
+                    if(putOutGoods.bianhao == arrSplit[j]){
+
+                        eligibleArr.push(_gdArr[i]);
+
+                    }
                 }
+
+                inconformityArr.push(_gdArr[i]);
+
             }
 
-            inconformityArr.push(_gdArr[i]);
+
         }
         for(var i=0;i<eligibleArr.length;i++){
             str1 += '<li data-dds="' + eligibleArr[i].bxKeshiNum +
@@ -2953,7 +3457,7 @@ $(function(){
     //工单输入事件
     var inputGD = function(){
 
-        inputFun(putOutGoods.gdCode2,_gdArr,'gdCode',$('#workDone').find('.pinzhixx').eq(1),gdsList);
+        inputFun(putOutGoods.gdCode,_gdArr,'gdCode2',$('#workDone').find('.pinzhixx').eq(1),gdsList);
 
     }
 
@@ -3013,12 +3517,12 @@ $(function(){
 
             if(o == 'none' && s == 'none' && a == 'none' && t =='none' && b == 'none'){
 
-                //首先判断输入过了没(根据仓库、库区、编号、序列号、工单号判断是否添加了)
+                //首先判断输入过了没(根据仓库、库区、编号、序列号、工单号、车站判断是否添加了)
                 var existFlag = false;
 
                 for(var i=0;i<_tempRKArr.length;i++){
 
-                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn && putOutGoods.gdCode == _tempRKArr[i].gdCode2){
+                    if(putOutGoods.bianhao == _tempRKArr[i].itemNum && $('.cangku').attr('data-num') == _tempRKArr[i].storageNum && $('.kuwei').attr('data-num') == _tempRKArr[i].localNum && putOutGoods.goodsId == _tempRKArr[i].sn && putOutGoods.gdCode == _tempRKArr[i].gdCode2 && $('#workDone').find('.chezhan').attr('data-num') == _tempRKArr[i].bxKeshiNum ){
 
                         existFlag = true;
 
@@ -3053,8 +3557,8 @@ $(function(){
                         rukuDan.localNum = $('.kuwei').attr('data-num');
                         rukuDan.localName = putOutGoods.kuwei;
                         //车间
-                        rukuDan.bxKeshi = $('.chezhan').attr('data-name');
-                        rukuDan.bxKeshiNum = $('.chezhan').attr('data-num');
+                        rukuDan.bxKeshi = (typeof $('.chezhan').attr('data-name') == 'undefined')?'':$('.chezhan').attr('data-name');
+                        rukuDan.bxKeshiNum = (typeof $('.chezhan').attr('data-num') == 'undefined')?'':$('.chezhan').attr('data-num');
                         rukuDan.outMemo = putOutGoods.remark;
                         rukuDan.userID = _userIdNum;
                         rukuDan.userName = _userIdName;
@@ -3063,6 +3567,25 @@ $(function(){
                         _tempRKArr.unshift(rukuDan);
 
                         _datasTable($('#wuPinListTable1'),_tempRKArr);
+
+                        //共计
+                        //数量
+                        var num = 0;
+
+                        //金额
+                        var amount = 0;
+
+                        for(var i=0;i<_tempRKArr.length;i++){
+
+                            num += Number(_tempRKArr[i].num);
+
+                            amount += Number(_tempRKArr[i].amount);
+
+                        }
+
+                        $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+                        $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
 
                     }else{
 
@@ -3179,7 +3702,8 @@ $(function(){
             'et':realityEnd,
             'orderNum':filterInput[0],
             'outType':1,
-            'storageNums':ckArr,
+            //'storageNums':ckArr,
+            'storageNum':$('#conditionStroage').val(),
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
@@ -3200,9 +3724,9 @@ $(function(){
                         confirmed.push(result[i])
                     }
                 }
-                _datasTable($('#scrap-datatables1'),confirm);
-                _datasTable($('#scrap-datatables2'),confirmed);
-                _datasTable($('#scrap-datatables'),result);
+                _jumpNow($('#scrap-datatables1'),confirm);
+                _jumpNow($('#scrap-datatables2'),confirmed);
+                _jumpNow($('#scrap-datatables'),result);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -3273,15 +3797,22 @@ $(function(){
 
                 var str = '<option value="">请选择</option>';
 
+                var str1 = '';
+
                 for(var i=0;i<result.length;i++){
 
                     _ckArr.push(result[i]);
 
-                    str += '<option value="' + result[i].storageNum +
-                        '">' + result[i].storageName + '</option>'
+                    str += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
+
+                    str1 += '<option value="' + result[i].storageNum + '">' + result[i].storageName + '</option>';
 
                 }
                 $('#ckSelect1').empty().append(str);
+
+                $('#ckselect').empty().append(str1);
+
+                $('#conditionStroage').empty().append(str1);
 
                 //加载数据
                 conditionSelect();
@@ -3410,7 +3941,7 @@ $(function(){
 
     //获取所有工单
     //工单条件查询
-    function GDselect(num){
+    function GDselect(num,first){
 
         if($('.gdTime').eq(0).val() == ''){
             gdrealityStart = ''
@@ -3432,17 +3963,31 @@ $(function(){
             userName:_userIdName,
             wxShiXNum:$('#xtlx').val(),
             gdCodeSrc:$('#gdly').val(),
-            bxKeshiNum:$('#station').val()
+            bxKeshiNum:$('#station').val(),
+            gdJJ:0
         }
-        if($('#isExamine').parent('.checked').length != 0){
 
-            prm.isApplyWxCl = 1
+        if(first){
+
+            prm.isApplyWxCl = 0
+
+        }else{
+
+            if($('#isExamine').parent('.checked').length != 0){
+
+                prm.isApplyWxCl = 1
+
+            }else{
+
+                prm.isApplyWxCl = 0
+
+            }
 
         }
 
         $.ajax({
             type:'post',
-            url:_urls + 'YWGD/ywGDGetZh2',
+            url:_urls + 'YWGD/ywGDGetZh3',
             data:prm,
             timeout:30000,
             beforeSend: function () {
@@ -3604,19 +4149,41 @@ $(function(){
             //表格初始化
             _datasTable($('#personTable1'),arr);
 
+            //共计
+            //数量
+            var num = 0;
+
+            var amount = 0;
+
+            for(var i=0;i<arr.length;i++){
+
+                num += Number(arr[i].num);
+
+                amount += Number(arr[i].amount);
+
+            }
+
+            $('#personTable1 tfoot').find('.totalnum').html(num);
+
+            $('#personTable1 tfoot').find('.count').html(amount.toFixed(2));
+
         }else{
 
             //表格初始化
             _datasTable($('#personTable1'),emptyArr);
 
+            $('#personTable1 tfoot').find('.totalnum').html('0');
+
+            $('#personTable1 tfoot').find('.count').html('0.00');
+
         }
 
-
+        //仓库可操作
+        $('#ckselect').attr('disabled',false).removeClass('disabled-block');
     }
 
     //新增出库物品初始化
     function RKCPInit(flag,arr){
-
 
         if(flag){
 
@@ -3705,9 +4272,30 @@ $(function(){
 
             _datasTable($('#wuPinListTable1'),arr);
 
+            //共计
+            //数量
+            var num = 0;
+
+            //金额
+            var amount = 0;
+
+            for(var i=0;i<arr.length;i++){
+
+                num += Number(arr[i].num);
+
+                amount += Number(arr[i].amount);
+
+            }
+
+            $('#wuPinListTable1 tfoot').find('.amount1').html(num);
+
+            $('#wuPinListTable1 tfoot').find('.count1').html(amount.toFixed(2));
+
         }else{
 
             _datasTable($('#wuPinListTable1'),emptyArr);
+
+            console.log(emptyArr);
 
         }
 
@@ -3719,11 +4307,213 @@ $(function(){
 
         $('#workDone').find('.initBJ').parent('.input-blockeds').removeAttr('disabled-block');
 
-        //所有下拉列表的li-color消失
-        //$('.hidden1').children().removeClass('li-color');
+        //仓库始终不可编辑
+        $('#workDone').find('.cangku').parent().addClass('disabled-block');
+
+        $('#workDone').find('.cangku').attr('disabled',true).addClass('disabled-block');
 
     }
 
+    //获取车站
+    function stationData(stationHtml,ABCArr){
 
+        var prm = {
+
+            //当前用户id
+            userID:_userIdNum,
+            //当前用户名
+            userName:_userIdName
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWDev/ywDMGetDDs',
+            data:prm,
+            timeout:_theTimes,
+            success:function(result){
+
+                _stationArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _stationArr.push(result[i]);
+
+                }
+
+                //页面插入station选择框
+                addStationDom($('#bumen').parent(),stationHtml,ABCArr);
+
+                classifyArrByInitial(result,0,ABCArr);
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+
+        })
+
+    }
+
+    //字母排序的车站
+    function stationType(){
+
+        var ABC = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+
+        var ABC1 = ['A','B','C','D','E'];
+        var ABC2 = ['F','G','H','I','J'];
+        var ABC3 = ['K','L','M','N','O'];
+        var ABC4 = ['P','Q','R','S','T'];
+        var ABC5 = ['U','V','W','X','Y','Z'];
+
+        //定义要插入的元素
+
+        var stationHtml = '<div class="add-select-block">' +
+                                '<div class="com_hotresults" id="thetable" style="width:440px">' +
+                                    '<div class="ac_title">' +
+                                        '<span>请根据拼音首字母进行选择</span>' +
+                                        '<a class="ac_close" style="cursor:pointer" title="关闭" onclick=""></a>' +
+                                    '</div>' +
+                                    '<ul class="AbcSearch clx" id="abc">' +
+                                        '<li index="1" method="liHotTab" onclick="" id="nav_list1" class="action">全部</li>' +
+                                        '<li index="2" method="liHotTab" onclick="" id="nav_list2" class="">ABCDE</li>' +
+                                        '<li index="3" method="liHotTab" onclick="" id="nav_list3" class="">FGHIJ</li>' +
+                                        '<li index="4" method="liHotTab" onclick="" id="nav_list4" class="">KLMNO</li>' +
+                                        '<li index="5" method="liHotTab" onclick="" id="nav_list5" class="">PQRST</li>' +
+                                        '<li index="6" method="liHotTab" onclick="" id="nav_list6" class="">UVWXYZ</li>' +
+                                    '</ul>' +
+                                    '<div id="ul_list2" style="height: 270px; display: block;overflow-y: auto"></div>'
+                                '</div>' +
+                            '</div>'
+
+        var ABCArr = [ABC,ABC1,ABC2,ABC3,ABC4,ABC5];
+
+        stationData(stationHtml,ABCArr);
+
+
+    }
+
+    function addStationDom(dom,html,ABCArr){
+
+        dom.after(html);
+
+        //dom.hide();
+
+        //控制显示隐藏
+        $('#myModal1').on('click','#station-record',function(){
+
+            $('.add-select-block').toggle();
+
+        });
+
+        //字母的tap切换
+        $('.AbcSearch').on('click','li',function(){
+
+            $('.AbcSearch li').removeClass('action');
+
+            $(this).addClass('action');
+
+            var index = $(this).index();
+
+            classifyArrByInitial(_stationArr,index,ABCArr);
+
+        });
+
+        //关闭
+        $('.ac_close').on('click',function(){
+
+            $('.add-select-block').hide();
+        });
+
+        $('.ac_title button').on('click',function(){
+            $('.add-input-select span').html('全部');
+            $('.add-input-select span').attr('values','');
+            $('#bumen').val('');
+            $('.add-select-block').hide();
+            //e.stopPropagation();
+        });
+    }
+
+
+    //根据首字母对数组分类
+    function classifyArrByInitial(arr,num,ABCArr){
+
+        //新建存放根据首字母分类后数据的数组
+        var classifyArr = [];
+        var curArr = ABCArr[num];
+        //新建存放拼接好的字符串的数组
+        var showString = '';
+
+        $(curArr).each(function(i,o){
+
+            var obj = {};
+            obj.key = o;
+            obj.value = [];
+            classifyArr.push(obj);
+        });
+
+        $(arr).each(function(i,o){
+            //获取首字母
+            var initial = o.ddPy.split('')[0];
+            //判断当前首字母是否符合要求
+            var index = curArr.indexOf(initial);
+            if(index != -1){
+                classifyArr[index].value.push(o);
+            }
+
+        });
+
+        $(classifyArr).each(function(i,o){
+            //获取当年的首字母
+            var initial = o.key;
+            var dataArr = o.value;
+            if(dataArr.length == 0){
+                return true;
+            }
+
+            //根据拼音顺序对车站进行排序
+            dataArr.sort(function(a,b){
+                if(b.ddPy > a.ddPy){
+                    return -1
+                }else{
+                    return 1
+                }
+
+            });
+
+            showString += '<ul class="popcitylist" style="overflow: auto; max-height: 260px; ">';
+            showString += '<li class="ac_letter">'+initial+'</li>';
+
+            $(dataArr).each(function(i,o){
+                showString += '<li class="ac_even openLi" values="'+ o.ddNum+'" title="'+o.ddName+'" data="'+ o.ddPy+'">' +o.ddName+'</li>';
+                if(i == dataArr.length -1){
+                    showString += '</ul>'
+                }
+            });
+
+        });
+
+        $('#ul_list2').html(showString);
+
+        $('.ac_even').off('click');
+
+        $('.ac_even').on('click',function(){
+
+            //赋值
+            $('#workDone').find('.chezhan').attr('data-num',$(this).attr('values'));
+
+            $('#workDone').find('.chezhan').attr('data-name',$(this).attr('title'));
+
+            putOutGoods.chezhan = $(this).attr('title');
+
+            $('.add-select-block').hide();
+
+            //自动聚焦到下一个input
+            $(this).parents('.gdList').next().find('input').focus();
+
+        })
+    }
 
 })

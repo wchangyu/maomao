@@ -3,6 +3,9 @@
 //工单报修图片的数量
 var _imgNum = 0;
 
+//工单完工图片的数量
+var _imgWGNum = 0;
+
 //备件图片数量
 var _imgBJNum = 0;
 
@@ -18,17 +21,18 @@ $('#viewImage,.viewImage').click(function(){
 
         if(_imgNum){
             var str = '';
+
             for(var i=0;i<_imgNum;i++){
-                str += '<img class="viewIMG" src="' +
-                    _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + '2' + (i + 1) +
-                    '">'
+
+                str += '<img class="viewIMG" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + '2' + (i + 1) + '">'
             }
-            $('.showImage').html('');
-            $('.showImage').append(str);
-            $('.showImage').show();
+
+            $('.showImage').html('').append(str).show();
+
         }else{
-            $('.showImage').html('没有图片');
-            $('.showImage').show();
+
+            $('.showImage').html('没有图片').show();
+
         }
 
         $('#theLoading').modal('hide');
@@ -66,19 +70,20 @@ $('#viewBJImage').click(function(){
         $('#theLoading').modal('show');
 
         if(_imgBJNum){
+
             var str = '';
+
             for(var i=0;i<_imgBJNum;i++){
 
-                str += '<img class="viewIMG" src="' +
-                    _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + (i + 1) +
-                    '">'
+                str += '<img class="viewIMG" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + (i + 1) + '">'
             }
-            $('.bjImg').html('');
-            $('.bjImg').append(str);
-            $('.bjImg').show();
+
+            $('.bjImg').html('').append(str).show();
+
         }else{
-            $('.bjImg').html('没有图片');
-            $('.bjImg').show();
+
+            $('.bjImg').html('没有图片').show();
+
         }
 
         $('#theLoading').modal('hide');
@@ -93,6 +98,57 @@ $('#viewBJImage').click(function(){
 
 //备件图片放大
 $('.bjImg').on('click','.viewIMG',function(){
+
+    _moTaiKuang($('#img-Modal'),'备件图片详情',true,'','','');
+
+    var imgSrc = $(this).attr('src');
+
+    $('#img-Modal').find('img').attr('src',imgSrc);
+
+    //模态框位置
+    $('#img-Modal').children().css({'marginTop':'30px'});
+
+})
+
+//完工图片
+$('#viewWGImage').click(function(){
+
+    var o = $('.wgImg').css('display');
+
+    if(o == 'none'){
+
+        //loadding
+        $('#theLoading').modal('show');
+
+        if(_imgWGNum){
+
+            var str = '';
+
+            for(var i=0;i<_imgWGNum;i++){
+
+                str += '<img class="viewIMG" src="' + _replaceIP(_urlImg,_urls) + '?gdcode=' + _gdCode + '&no=' + '3' + (i + 1) + '">'
+            }
+
+            $('.wgImg').html('').append(str).show();
+
+        }else{
+
+            $('.wgImg').html('没有图片').show();
+
+        }
+
+        $('#theLoading').modal('hide');
+
+    }else{
+
+        $('.wgImg').hide();
+
+    }
+
+})
+
+//完工图片放大
+$('.wgImg').on('click','.viewIMG',function(){
 
     _moTaiKuang($('#img-Modal'),'备件图片详情',true,'','','');
 
@@ -384,7 +440,7 @@ function _BZList(el,fun){
 
     }
 
-    var str = '<option value="">请选择</option>';
+    var str = '<option value="">全部</option>';
 
     for(var i=0;i<arr.length;i++){
 

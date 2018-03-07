@@ -19,7 +19,6 @@
     <script src="../resource/js/jquery-1.11.2.js"></script>
     <script src="../resource/js/echarts.min.js"></script>
     <script src="../resource/js/moment.js"></script>
-    <script src="../resource/js/showOrHidden.js"></script>
     <script src="../resource/js/pointersoffices.js"></script>
     <script src="../resource/js/etSelection.js"></script>
     <script src="../resource/js/vue.js"></script>
@@ -53,6 +52,13 @@
     <link rel="shortcut icon" href="../favicon.ico"/>
     <style type="text/css" media=print>
         .noprint{display : none }
+    </style>
+    <style>
+
+        .list-block{
+            display: inline-block;
+        }
+
     </style>
 </head>
 <!-- END HEAD -->
@@ -237,7 +243,6 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -354,6 +359,18 @@
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
+                                    <li>
+                                        <button type="button" class="btn red Fallback">
+                                            <i class="fa fa-trash"></i>
+                                            <span>回退</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn red delete cancelGD" title="未完成的工单可进行作废操作">
+                                            <i class="fa fa-trash"></i>
+                                            <span>取消</span>
+                                        </button>
+                                    </li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
                                 </ul>
@@ -721,13 +738,44 @@
     </div>
 <!--模态框确认撤销吗？-->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
+    <div class="modal-dialog" style="height: 440px;">
+        <div class="modal-content" style="height: 440px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel1">提示</h4>
+                <h4 class="modal-title" id="myModalLabel1">您确定要进行回退操作吗？</h4>
             </div>
-            <div class="modal-body">您确定要进行回退操作吗？</div>
+            <div class="modal-body">
+                <ul class="gongdanList">
+                    <li class="list-block">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdCode1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">工单状态：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdStatus1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修事项：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxItem1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修班组：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxClass1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                </ul>
+                <p>回退原因:</p>
+                <div class="input-blockeds" style="width: 100%;height: 90px;">
+                    <textarea  id="returnDes" style="height: 88px;width: 100%;overflow-y: auto;outline: none"></textarea>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -737,13 +785,44 @@
 </div>
 <!--模态框确认作废-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 168px;">
-        <div class="modal-content" style="height: 168px;">
+    <div class="modal-dialog" style="height: 440px;">
+        <div class="modal-content" style="height: 440px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+                <h4 class="modal-title" id="myModalLabel2">您确定要进行取消操作吗？</h4>
             </div>
-            <div class="modal-body">您确定要进行取消操作吗？</div>
+            <div class="modal-body">
+                <ul class="gongdanList">
+                    <li class="list-block">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdCode2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">工单状态：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdStatus2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修事项：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxItem2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修班组：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxClass2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                </ul>
+                <p>取消原因:</p>
+                <div class="input-blockeds" style="width: 100%;height: 90px;">
+                    <textarea  id="cancelDes" style="height: 88px;width: 100%;overflow-y: auto;outline: none"></textarea>
+                </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">确定</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
