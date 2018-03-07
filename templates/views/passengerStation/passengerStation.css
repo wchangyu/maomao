@@ -105,8 +105,7 @@ li{
 }
 .first-menu ul li{
     text-align: center;
-    padding-top: 32px;
-    padding-left: 15px;
+    padding:32px 10px 0px 10px;
     cursor: pointer;
 }
 .first-menu ul li img{
@@ -131,7 +130,6 @@ li{
 }
 .second-menu ul{
     margin-top: 30px;
-    padding-left: 20px;
 }
 .second-menu ul li{
     font-size:14px;
@@ -139,6 +137,8 @@ li{
     color:rgba(157,169,184,1);
     line-height:26px;
     cursor: pointer;
+    border-left:1px solid #324a62;
+    text-indent: 15px;
 }
 .body-content{
     display: inline-block;
@@ -436,6 +436,7 @@ li{
 .sec-hover{
 
     color: #62a8db !important;
+    border: 1px solid #222a38 !important;
 
 }
 ::-webkit-scrollbar {
@@ -461,4 +462,11 @@ li{
 
 ::-webkit-scrollbar-corner {
     background: transparent;
+}
+.current-hover{
+
+    color: #ffffff !important;
+
+    border-left: 1px solid rgba(98,168,219,1) !important;
+
 }

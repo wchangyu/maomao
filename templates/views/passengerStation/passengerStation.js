@@ -116,23 +116,34 @@ $(function(){
 
                     str += '<li class="selectedMenu"><img src="' + 'img/' + result[i]['icon-hover'] + '"><p>' + result[i].content + '</p></li>'
 
+                    //判断type=2的情况
                     for(var j in result[i].submenu){
 
-                        secIndex ++;
+                        if(result[i].submenu[j].type == 2){
 
-                        if(secIndex == 0){
-
-                            var src = result[i].submenu[j].uri + '';
-
-                            $('iframe').attr('src',src);
-
-                            secStr += '<li class="sec-hover" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
+                            secStr += '<li class="sec-hover">' + result[i].submenu[j].content + '</li>'
 
                         }else{
 
-                            secStr += '<li data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
+                            secIndex ++;
+
+                            if(secIndex == 0){
+
+                                var src = result[i].submenu[j].uri + '';
+
+                                $('iframe').attr('src',src);
+
+                                secStr += '<li class="current-hover ordinary-menu" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
+
+                            }else{
+
+                                secStr += '<li class="ordinary-menu" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
+
+                            }
 
                         }
+
+
 
                     }
 
@@ -156,11 +167,11 @@ $(function(){
 
     /*----------------------------------------菜单点击事件---------------------------------------*/
 
-    $('.second-menu ul').on('click','li',function(){
+    $('.second-menu ul').on('click','.ordinary-menu',function(){
 
-        $(this).parent('ul').children().removeClass('sec-hover');
+        $('.ordinary-menu').removeClass('current-hover');
 
-        $(this).addClass('sec-hover');
+        $(this).addClass('current-hover');
 
         var srcPath = $(this).attr('data-attr');
 
@@ -198,7 +209,15 @@ $(function(){
 
         for(var i in menuObj[thisAttr]['submenu']){
 
-            secMenu += '<li data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+            if(menuObj[thisAttr]['submenu'][i].type == 2){
+
+                secMenu += '<li class="sec-hover">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+
+            }else{
+
+                secMenu += '<li class="ordinary-menu" data-attr="' + menuObj[thisAttr]['submenu'][i].uri + '">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+
+            }
 
         }
 
