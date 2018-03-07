@@ -7,6 +7,10 @@
     "icon-img":"01.png",
     "icon-hover":"01dian.png",
     "submenu":{
+      "数据":{
+        "type":"2",
+        "content":"数据"
+      },
       "数据总览":{
         "type":"0",
         "content":"数据总览",
@@ -71,6 +75,10 @@
         "arg":"",
         "iconclass":"glyphicon glyphicon-sort-by-order"
       },
+      "报表":{
+        "type":"2",
+        "content":"报表"
+      },
       "报表导出":{
         "type":"0",
         "content":"报表导出",
@@ -96,6 +104,10 @@
     "icon-img":"02.png",
     "icon-hover":"02dian.png",
     "submenu":{
+      "数据":{
+        "type":"2",
+        "content":"数据"
+      },
       "能耗总览":{
         "type":"0",
         "content":"能耗总览",
