@@ -108,6 +108,14 @@ $(function(){
 
     $('.left-tab-container .day').html(curDay);
 
+    //给大屏页面添加返回按钮
+    var $button = $('<div class="right-info-header-logo"></div>');
+
+    //插入页面中
+    $('.inner-right-container').append($button);
+
+
+
 });
 
 //定义送排风 给排水弹出页面的宽高

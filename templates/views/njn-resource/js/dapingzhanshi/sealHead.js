@@ -474,7 +474,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 ' <!--空开平均温度-->' +
                 '<td>' +
-                    ' <span class="table-small-patch table-small-patch-red">'+ o.airOpenTemp.toFixed(1)+'</span>' +
+                    ' <span class="table-small-patch table-small-patch-green">'+ o.airOpenTemp.toFixed(1)+'</span>' +
                 '</td>' +
 
                 '<!--机房平均温度-->' +
@@ -484,7 +484,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 //机房平均湿度
                 '<td>' +
-                         '<span class="table-small-patch table-small-patch-red">'+ o.computerHum.toFixed(1)+'</span>' +
+                         '<span class="table-small-patch table-small-patch-green">'+ o.computerHum.toFixed(1)+'</span>' +
 
                 '</td>' +
 

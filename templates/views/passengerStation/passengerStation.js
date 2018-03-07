@@ -71,9 +71,73 @@ $(function(){
         ]
     };
 
+    var optionRing1 = {
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'],
+            show:false
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : ['30%', '50%'],
+                center: ['50%', '50%'],
+                label: {
+                    normal: {
+                        formatter: '{c|{c}}\n{hr|}\n{b|{b}}',
+                        rich: {
+                            hr: {
+                                width: '100%',
+                                borderWidth: 0.5,
+                                height: 0
+                            },
+                            b: {
+                                fontSize: 14,
+                                lineHeight: 33,
+                                color: '#ffffff',
+                            },
+                            c:{
+                                fontSize: 18,
+                                color: '#ffffff',
+                            }
+
+                        }
+                    }
+                },
+                data:[
+                    {value:225, name:'设备设施',label:{padding:[10,0,0,-20]}},
+                    {value:236, name:'照明',label:{padding:[0,0,0,-20]}},
+                    {value:220, name:'暖通空调',label:{padding:[0,-10,0,-10]}},
+                ],
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+
+                            var colorList = [
+                                '#14e398','#ead01e','#f8276c'
+                            ];
+                            return colorList[params.dataIndex]
+                        }
+                    },
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
     ringChartL.setOption(optionRing);
 
-    ringChartR.setOption(optionRing);
+    ringChartR.setOption(optionRing1);
 
     //时间
     setInterval(function(){
@@ -175,9 +239,15 @@ $(function(){
 
         var srcPath = $(this).attr('data-attr');
 
+        //如果是大屏页面 则直接跳转
+        if(srcPath.indexOf('njn-dapingzhanshi') > -1){
+
+            window.location.href = srcPath;
+        }
+
         $('iframe').attr('src',srcPath);
 
-    })
+    });
 
     $('.first-menu ul').on('click','li',function(){
 
@@ -263,4 +333,4 @@ $(function(){
 
 
 
-})
+});

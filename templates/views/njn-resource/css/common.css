@@ -30,6 +30,20 @@
     /*transform: scale(0.65, 0.65);*/
 }
 
+/*大屏页面切换普通页面按钮*/
+.right-info-header-logo {
+    width: 38px;
+    height: 30px;
+    border-radius: 5px;
+    background: url(../../passengerStation/img/qiehuan.png)no-repeat rgba(32,103,222,1);
+    background-size: 100%;
+    margin-right: 26px;
+    position: absolute;
+    right:360px;
+    top:12px;
+    cursor: pointer;
+}
+
 .right-tab-container a{
     color:white;
     padding:5px;
