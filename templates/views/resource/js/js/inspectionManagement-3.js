@@ -218,16 +218,26 @@ $(function(){
             data:'manager'
         },
         {
-            title:'是否启用',
+            title:'是否下发',
             className:'isActive',
             data:'isActive',
             render:function(data, type, full, meta){
                 if(data == 0){
                     return '未下发'
-                }if(data == 1){
+                }else{
                     return '已下发'
-                }if(data ==2){
+                }
+            }
+        },
+        {
+            title:'是否启用',
+            className:'isActive',
+            data:'isActive',
+            render:function(data, type, full, meta){
+                if(data ==2){
                     return '停用'
+                }else{
+                    return '启用'
                 }
             }
         },
@@ -794,7 +804,7 @@ $(function(){
     //停用确定按钮
     $('#Batch-TY-Modal').on('click','.btn-primary',function(){
 
-        yesOrNo('YWDevIns/YWDIPActivePlans',0,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
+        yesOrNo('YWDevIns/YWDIPActivePlans',2,'请选择要停用的数据','停用操作成功！','已下发状态下才可以进行停用操作！');
 
     })
 
@@ -823,7 +833,7 @@ $(function(){
     //批量删除确定按钮
     $('#Batch-DEL-Modal').on('click','.btn-primary',function(){
 
-        yesOrNo('YWDevIns/YWDIPDelPlans',2,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
+        yesOrNo('YWDevIns/YWDIPDelPlans',3,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
 
     })
 
@@ -2428,15 +2438,18 @@ $(function(){
 
             //启用状态下（已下发），不可以删除，其他情况可以删除，
 
+            //console.log(_stateArr);
+
             var QYFlag = true;
 
-            if(data == 1 || data == 2){
+            //启用
+            if(data == 1){
 
                 //想要启用，必须全是data == 0的数
 
                 for(var i=0;i<_stateArr.length;i++){
 
-                    if(_stateArr[i] == 1){
+                    if(_stateArr[i] != 2){
 
                         QYFlag = false;
 
@@ -2447,12 +2460,12 @@ $(function(){
                 }
 
 
-
-            }else if(data == 0){
+            //停用
+            }else if(data == 2){
 
                 for(var i=0;i<_stateArr.length;i++){
 
-                    if(_stateArr[i] == 0){
+                    if(_stateArr[i] != 1){
 
                         QYFlag = false;
 
@@ -2463,6 +2476,10 @@ $(function(){
                 }
 
             }
+
+            console.log(QYFlag);
+
+            return false;
 
             if(QYFlag){
                 var prm = {
