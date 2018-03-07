@@ -76,7 +76,7 @@ var safeDays = parseInt(total / (24*60*60));//计算整数天数
 //给页面中赋值
 $('.right-bottom-safe .safe-days').html(safeDays);
 
-console.log(safeDays);
+//console.log(safeDays);
 
 //冷热源echart
 var _electricityEcharts = echarts.init(document.getElementById('equipment-chart-electricity'));
@@ -613,7 +613,7 @@ var _useelectricityoption = {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '18',
                         fontWeight: 'bold'
                     }
                 }
@@ -643,7 +643,7 @@ var _useelectricityoption = {
                         show : true,
                         position : 'center',
                         textStyle : {
-                            fontSize : '30',
+                            fontSize : '18',
                             fontWeight : 'bold'
                         }
                     }
@@ -818,7 +818,7 @@ var _useelectricityoption1 = {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '18',
                         fontWeight: 'bold'
                     }
                 }
@@ -848,7 +848,7 @@ var _useelectricityoption1 = {
                         show : true,
                         position : 'center',
                         textStyle : {
-                            fontSize : '30',
+                            fontSize : '18',
                             fontWeight : 'bold'
                         }
                     }
@@ -983,6 +983,8 @@ function getTPDevMonitor(){
             //电冷能效
             var elecColdEffic = (result.coldHotSourceOBJ.elecColdEffic * 100).toFixed(1) + '%';
 
+            elecColdEffic = "80.8%";
+
             //输入电量
             var inputElecData = result.coldHotSourceOBJ.inputElecData;
 
@@ -1033,6 +1035,8 @@ function getTPDevMonitor(){
 
             //汽冷能效
             var steamColdEffic = (result.coldHotSourceOBJ.steamColdEffic * 100).toFixed(1) + '%';
+
+            steamColdEffic = "80.8%";
 
             //输入汽量
             var steamData = result.coldHotSourceOBJ.steamData;

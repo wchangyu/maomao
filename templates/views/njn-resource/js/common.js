@@ -55,8 +55,10 @@ $(function(){
         //设备报警
         getStationAlarmData(1);
 
-        //能耗报警
-        getStationAlarmData(2);
+        ////能耗报警
+        //getStationAlarmData(2);
+
+        getStationAlarmNum();
 
     });
 
@@ -861,11 +863,11 @@ function getStationAlarmNum(){
                 //设备报警
                 $('.left-tab-data-container .left-tab-data1 font').html(0);
 
-                //能耗报警
-                $('.left-tab-data-container .left-tab-data2 font').html(0);
-
-                //运维工单
-                $('.left-tab-data-container .left-tab-data3 font').html(0);
+                ////能耗报警
+                //$('.left-tab-data-container .left-tab-data2 font').html(0);
+                //
+                ////运维工单
+                //$('.left-tab-data-container .left-tab-data3 font').html(0);
 
                 return false;
             }
@@ -873,8 +875,8 @@ function getStationAlarmNum(){
             //设备报警
             $('.left-tab-data-container .left-tab-data1 font').html(result.facilityAlarmNum);
 
-            //能耗报警
-            $('.left-tab-data-container .left-tab-data2 font').html(result.energyAlarmNum);
+            ////能耗报警
+            //$('.left-tab-data-container .left-tab-data2 font').html(result.energyAlarmNum);
 
         },
         error:function(jqXHR, textStatus, errorThrown){

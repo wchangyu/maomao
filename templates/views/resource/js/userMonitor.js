@@ -1725,7 +1725,7 @@ var userMonitor = (function(){
             }
 
             //如果新建模态框打开流程图
-            if( procDef.prProcLnk === null ||procDef.prProcLnk !== undefined &&  procDef.prProcLnk.Startpos == 2 || procDef.cType == 503) {
+            if( procDef.prProcLnk == null ||  procDef.prProcLnk.Startpos == 2 || procDef.cType == 503) {
 
                 //获取当前ID
                 var id = procDef.ckId;
@@ -1759,9 +1759,7 @@ var userMonitor = (function(){
                 }
                 $("#content-main-right").empty();
 
-                initializeProcSubs(procDef.prdProcLnk.destid);
-
-
+                initializeProcSubs(_curProc.procID);
 
                 //displayAllProc();
             }
