@@ -12,7 +12,7 @@ var Login = function() {
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
         $('.alert-danger').show();
-    }
+    };
 
     var handleLogin = function() {
 
@@ -198,6 +198,12 @@ var Login = function() {
 
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
+
+            if(window.screen > 1800){
+                window.location.href = '../passengerStation/passengerStation.html';
+
+                return false;
+            }
 
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;

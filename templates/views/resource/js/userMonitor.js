@@ -564,10 +564,31 @@ var userMonitor = (function(){
         _procDefs = null;
         _procCtrls = null;
         _procRenders = null;
-        initializeProcDef(procId);
-        initializeProcCtrl(procId);
-        initializeProcRender(procId);
+        //initializeProcDef(procId);
+        //initializeProcCtrl(procId);
+        //initializeProcRender(procId);
+        initializeCollectModels(procId);
         initImg(procId);
+    };
+
+    //获取当前方案的定义 控制 以及render
+    var initializeCollectModels = function(procId){
+        $.ajax({
+            type:"post",
+            data:{"" : procId},
+            url:_urlPrefix + "PR/GetPRCollectModels",
+            success:function(data){
+                _isProcRenderLoaded = true;
+                _isProcDefLoaded = true;
+                _isProcCrtlLoaded = true;
+                _procDefs = data.prProcDefs;
+                _procCtrls = data.prProcCtrls;
+                _procRenders = data.prProcRenders;
+
+                getInstDatasByIds(procId);
+            },
+            error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
+        });
     };
 
     //获取当前方案的定义
@@ -584,6 +605,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
     };
+
     //获取定义中对应的控制
     var initializeProcCtrl = function(procId){
         $.ajax({
@@ -887,7 +909,7 @@ var userMonitor = (function(){
     };
 
     //获取实时数据
-    var getInstDatasByIds = function(){
+    var getInstDatasByIds = function(procId){
         if(_isProcDefLoaded && _isProcCrtlLoaded && _isProcRenderLoaded && !_isInstDataLoading){
             var CTypeCKIDs = "",DTypeDKIDs = "";        //控制量的ID，监测值的ID
             var DefIDs = [];
@@ -926,14 +948,12 @@ var userMonitor = (function(){
             _isInstDataLoading = true;
             //console.log(procRenders)
             var datas = {
-                "DTypeDKIDs":DTypeDKIDs,
-                "PRRenders":procRenders,
-                "PRDefIDs":DefIDs
+
             };
             $.ajax({
                 type:"post",
-                data: datas,
-                url:_urlPrefix + "PR/PR_GetInstDataNew",
+                data: {"" : procId},
+                url:_urlPrefix + "PR/GetPRCollectInstData",
                 success:function(data){
                     _defInsDataResults = data;
                     _isInstDataLoading = false;

@@ -1111,7 +1111,10 @@ var BEE = (function(){
 
      //iframe只显示部分div
 
-     if( screen.width >=1500 ){
+    //获取当前的url
+     var curUrl = window.parent.location.href;
+
+     if( curUrl.indexOf('passengerStation.html') > -1 ){
 
         $('.page-header').hide();
 
