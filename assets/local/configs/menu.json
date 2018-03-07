@@ -97,6 +97,31 @@
       }
     }
   },
+  "大屏幕":{
+    "type":"1",
+    "content":"大屏幕",
+    "iconclass":"icon-camcorder",
+    "icon-img":"01.png",
+    "icon-hover":"01dian.png",
+    "submenu":{
+      "首页":{
+        "type":"0",
+        "content":"首页",
+        "uri":"../njn-dapingzhanshi/pandectEnergy.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "空调机组":{
+        "type":"0",
+        "content":"空调机组",
+        "uri":"../njn-dapingzhanshi/airConditioner.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      }
+    }
+  },
   "首页":{
     "type":"1",
     "content":"首页",
@@ -412,8 +437,7 @@
         "content":"配电系统",
         "uri":"../yongnengjiance/energyMonitor.html?arg=11",
         "uid":"",
-        "arg":"1,1100007001",
-        "usepointer":"1",
+        "arg":"0,0",
         "iconclass":""
       },
       "能源站系统":{

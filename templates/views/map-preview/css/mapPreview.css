@@ -100,7 +100,7 @@ label {
     overflow-y: auto;
 }
 /*地图大小*/
-#container{
+#map-container{
     width:100%;
     height:900px;
 }
@@ -289,7 +289,7 @@ label {
 
 }
 /*右上角标注框开关*/
-#onOff{
+.onOff{
     width:85px;
     height:34px;
     padding-right: 12px;
@@ -303,6 +303,11 @@ label {
     padding-left:40px;
     margin-left:20px;
 }
+
+#onOff-people,#onOff-machine{
+    background:url('../img/offs.png') no-repeat 0 1.5px
+}
+
 /*#onOff:hover{*/
     /*color:#579afc;*/
     /*background:url('../img/offf.png') no-repeat 0 1.5px;*/
@@ -317,7 +322,7 @@ label {
 
 /*右上角控制框*/
 .toolContainer{
-    width:215px;
+    width:410px;
     height:34px;
     background:white;
     box-shadow: 1px 2px 1px rgba(0,0,0,.15);
@@ -340,7 +345,7 @@ label {
     font-size:12px;
     box-sizing:border-box;
     padding-left:40px;
-    margin-left:20px;
+    /*margin-left:20px;*/
 }
 .seek:hover{
     color:#579afc;

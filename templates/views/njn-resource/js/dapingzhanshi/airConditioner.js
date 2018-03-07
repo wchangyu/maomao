@@ -10,8 +10,8 @@ $(function(){
     ////给table中echart循环赋值
     //echartAssignment();
 
-    //获取流程图右侧展示数据
-    getSeAreaAirUnit();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaAirUnit);
 
 });
 
@@ -101,46 +101,7 @@ function drawDataTable(titleArr,areaArr){
 
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
-    {
-        "areaName":"-9.6m",
-        "areaId":"2"
-    },
-    {
-        "areaName":"12.4m",
-        "areaId":"4"
-    },
-    {
-        "areaName":"17.1m",
-        "areaId":"15"
-    },
-    {
-        "areaName":"19.1m",
-        "areaId":"6"
-    },
-    {
-        "areaName":"22.4m",
-        "areaId":"7"
-    },
-    {
-        "areaName":"28.4m",
-        "areaId":"8"
-    },
-    {
-        "areaName":"东北角配楼1层",
-        "areaId":"9"
-    },
-    {
-        "areaName":"东北角配楼2层",
-        "areaId":"10"
-    },
-    {
-        "areaName":"西南角配楼1层",
-        "areaId":"11"
-    },
-    {
-        "areaName":"西南角配楼2层",
-        "areaId":"12"
-    }
+
 ];
 //把区域信息放入到流程图页面中
 sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
@@ -155,7 +116,7 @@ $('#monitor-menu-container').on('click','span',function(){
     var areaID = $(this).attr('data-district');
 
     //获取当前的设备列表
-   getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
+    getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
 
 });
 
@@ -514,7 +475,6 @@ var table = $('#equipment-datatables').DataTable({
 });
 
 
-
 //-------------------------------------获取流程图右侧展示数据--------------------------//
 function getSeAreaAirUnit(){
 
@@ -537,7 +497,7 @@ function getSeAreaAirUnit(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             //无数据
             if(result == null || result.length == 0){
@@ -566,6 +526,7 @@ function getSeAreaAirUnit(){
 
 //绘制页面右侧的table
 function drawDataTableByResult(titleArr,areaDataArr){
+
     //定义title
     var titleHtml = '';
 
@@ -577,7 +538,6 @@ function drawDataTableByResult(titleArr,areaDataArr){
     });
 
     //把title放入到table中
-
     $('.right-bottom-table thead tr').html(titleHtml);
 
     //定义tbody中内容
@@ -699,25 +659,32 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
-                if(i < 3){
+                if(i == 0){
 
-                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    bodyHtml += getRightAlarmString(o,true)
+
+
+                }else{
+
+                    bodyHtml += getRightAlarmString(o);
+
                 }
 
             });
 
-            bodyHtml += '</td>';
+            bodyHtml += '</div></div></td>';
 
         }else{
-            bodyHtml +=   '<td>' +
+
+            bodyHtml +=   '<td><div>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
-                '</td>' ;
+                '</div></td>';
         }
 
         bodyHtml +=   '</tr>';
@@ -726,6 +693,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
     //给echart图赋值
     echartReDraw(realShowArr);
@@ -772,10 +745,10 @@ function echartReDraw(realDataArr){
             rightTableChart.setOption(option1);
 
         });
-
     });
-
 };
+
+
 
 
 

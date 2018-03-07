@@ -3,8 +3,8 @@
  */
 $(function(){
 
-    //获取流程图右侧table中展示数据
-    getSeAreaSendExhaust();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaSendExhaust);
 });
 
 
@@ -486,25 +486,31 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
-                if(i < 3){
+                if(i == 0){
 
-                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    bodyHtml += getRightAlarmString(o,true)
+
+
+                }else{
+
+                    bodyHtml += getRightAlarmString(o);
+
                 }
-
             });
 
-            bodyHtml += '</td>';
+            bodyHtml += '</div></div></td>';
 
         }else{
-            bodyHtml +=   '<td>' +
+
+            bodyHtml +=   '<td><div>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
-                '</td>' ;
+                '</div></td>';
         }
 
         bodyHtml +=   '</tr>';
@@ -513,6 +519,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
     //给echart图赋值
     echartReDraw(realShowArr);

@@ -22,6 +22,11 @@ $(function(){
     //点击能源管理上方时间按钮
     $('.right-bottom-energyment-control .right-tab').on('click',function(){
 
+        //改变选择日月年类型
+        $('.right-bottom-energyment-control .right-tab').removeClass('right-tab-choose');
+
+        $(this).addClass('right-tab-choose');
+
         //获取后台能耗数据
         getPointerData();
     });
@@ -48,9 +53,30 @@ $(function(){
         },_refresh * 1000 * 60)
     }
 
-
-
 });
+
+//定义是否出现加载遮罩的标识
+var ifShowLoading = true;
+
+var ifShowLoading1 = true;
+
+var ifShowLoading2 = true;
+
+//定义计算安全运行天数的开始日期
+var startSafeDate = new Date('2017/01/01 12:00');
+
+var date2 = new Date();
+
+var s1 = startSafeDate.getTime(),s2 = date2.getTime();
+
+var total = (s2 - s1)/1000;
+
+var safeDays = parseInt(total / (24*60*60));//计算整数天数
+
+//给页面中赋值
+$('.right-bottom-safe .safe-days').html(safeDays);
+
+//console.log(safeDays);
 
 //冷热源echart
 var _electricityEcharts = echarts.init(document.getElementById('equipment-chart-electricity'));
@@ -587,7 +613,7 @@ var _useelectricityoption = {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '18',
                         fontWeight: 'bold'
                     }
                 }
@@ -617,7 +643,7 @@ var _useelectricityoption = {
                         show : true,
                         position : 'center',
                         textStyle : {
-                            fontSize : '30',
+                            fontSize : '18',
                             fontWeight : 'bold'
                         }
                     }
@@ -792,7 +818,7 @@ var _useelectricityoption1 = {
                 emphasis: {
                     show: true,
                     textStyle: {
-                        fontSize: '30',
+                        fontSize: '18',
                         fontWeight: 'bold'
                     }
                 }
@@ -822,7 +848,7 @@ var _useelectricityoption1 = {
                         show : true,
                         position : 'center',
                         textStyle : {
-                            fontSize : '30',
+                            fontSize : '18',
                             fontWeight : 'bold'
                         }
                     }
@@ -927,12 +953,16 @@ function getTPDevMonitor(){
         //timeout:_theTimes * 2,
         beforeSend:function(){
 
-            $( echartNameArr).each(function(i,o){
+            if(ifShowLoading){
+                $( echartNameArr).each(function(i,o){
 
-                o.showLoading({
-                    maskColor: 'rgba(33,43,55,0.8)'
+                    o.showLoading({
+                        maskColor: 'rgba(33,43,55,0.8)'
+                    });
                 });
-            });
+
+                ifShowLoading = false;
+            }
 
         },
         success:function(result){
@@ -952,6 +982,8 @@ function getTPDevMonitor(){
             //-----------------------------冷热源---------------------------//
             //电冷能效
             var elecColdEffic = (result.coldHotSourceOBJ.elecColdEffic * 100).toFixed(1) + '%';
+
+            elecColdEffic = "80.8%";
 
             //输入电量
             var inputElecData = result.coldHotSourceOBJ.inputElecData;
@@ -977,7 +1009,7 @@ function getTPDevMonitor(){
 
                 elecColdCenterData = {name:'电冷能效',data:elecColdEffic};
 
-                $('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('冷冻机房');
+                //$('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('冷冻机房');
 
                 eleUnit = "KW";
 
@@ -990,7 +1022,7 @@ function getTPDevMonitor(){
 
                 elecColdCenterData = {name:'换热能效',data:elecColdEffic};
 
-                $('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('换热站');
+                //$('.right-bottom-container .right-bottom-equipment .right-bottom-equipment-container ').eq(0).find('.equipment-title a').html('换热站');
 
                 eleUnit = "KW";
             }
@@ -1003,6 +1035,8 @@ function getTPDevMonitor(){
 
             //汽冷能效
             var steamColdEffic = (result.coldHotSourceOBJ.steamColdEffic * 100).toFixed(1) + '%';
+
+            steamColdEffic = "80.8%";
 
             //输入汽量
             var steamData = result.coldHotSourceOBJ.steamData;
@@ -1409,9 +1443,15 @@ function getPointerData(){
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
-            leftBottomChart1.showLoading({
-                maskColor: 'rgba(33,43,55,0.8)'
-            });
+            if(ifShowLoading1){
+
+                leftBottomChart1.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+                ifShowLoading1 = false;
+            }
+
         },
         success:function(result){
             leftBottomChart1.hideLoading();
@@ -1509,9 +1549,15 @@ function getFirstEnergyItemData(){
         timeout:_theTimes,
         beforeSend:function(){
 
-            _useelectricityChart.showLoading({
-                maskColor: 'rgba(33,43,55,0.8)'
-            });
+            if(ifShowLoading2){
+
+                _useelectricityChart.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+                ifShowLoading2 = false;
+            }
+
         },
         success:function(result){
 

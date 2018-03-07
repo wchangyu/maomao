@@ -4,8 +4,8 @@
 
 $(function(){
 
-    //获取流程图右侧table中展示数据
-    getSeAreaDrainWater();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaDrainWater);
 
 });
 
@@ -15,73 +15,6 @@ var titleArr = ['','设备数','暂停占比','自动运行占比','故障占比
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
-
-//绘制页面右侧的table
-function drawDataTable(titleArr,areaArr){
-    //定义title
-    var titleHtml = '';
-
-    $(titleArr).each(function(i,o){
-
-        //拼接title的字符串
-        titleHtml += '<th>'+o+'</th>';
-
-    });
-
-    //把title放入到table中
-
-    $('.right-bottom-table thead tr').html(titleHtml);
-
-    //定义tbody中内容
-    var bodyHtml = '';
-
-    //绘制table中主体数据
-    $(areaArr).each(function(i,o){
-
-        bodyHtml +=
-            '<tr>' +
-            '<td>' +
-            '<span class="green-patch">'+ o+'</span>' +
-            '</td>' +
-
-            '<td>13</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart1">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart2">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart3">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
-            '</td>' +
-            '</tr>';
-    });
-
-    //把body放入到table中
-
-    $('.right-bottom-table tbody').html( bodyHtml);
-};
-
 
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
@@ -406,25 +339,32 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
-                if(i < 3){
+                if(i == 0){
 
-                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    bodyHtml += getRightAlarmString(o,true)
+
+
+                }else{
+
+                    bodyHtml += getRightAlarmString(o);
+
                 }
 
             });
 
-            bodyHtml += '</td>';
+            bodyHtml += '</div></div></td>';
 
         }else{
-            bodyHtml +=   '<td>' +
+
+            bodyHtml +=   '<td><div>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
-                '</td>' ;
+                '</div></td>';
         }
 
         bodyHtml +=   '</tr>';
@@ -433,6 +373,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
     //给echart图赋值
     echartReDraw(realShowArr);

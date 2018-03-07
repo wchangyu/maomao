@@ -90,11 +90,11 @@
                 <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
                 </p>
 
-                <p class="right-picture-statistics">接入系统：<span>10</span>个</p>
+                <p class="right-picture-statistics">接入系统：<span></span>个</p>
 
-                <p class="right-picture-statistics">接入设备：<span>1000</span>台</p>
+                <p class="right-picture-statistics">接入设备：<span></span>台</p>
 
-                <p class="right-picture-statistics">检测点位：<span>18000</span>点</p>
+                <p class="right-picture-statistics">检测点位：<span></span>点</p>
 
             </div>
         </div>
@@ -113,9 +113,13 @@
                 </div>
 
                 <div style="float:right">
-                    <span class="right-tab right-tab-choose">日</span>
-                    <span class="right-tab ">月</span>
+                    <font class="year small-times"></font>
                     <span class="right-tab ">年</span>
+                    <font class="month  small-times"></font>
+                    <span class="right-tab ">月</span>
+                    <font class="day  small-times"></font>
+                    <span class="right-tab right-tab-choose">日</span>
+
                 </div>
             </div>
 
@@ -293,7 +297,7 @@
 <!--页面js-->
 <script src="../resource/js/publicFun.js"></script>
 <script src="../njn-resource/js/common.js"></script>
-<script src="../njn-resource/js/userMonitor1.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/exhaustAir.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -301,7 +305,7 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
-        userMonitor.init();
+//        userMonitor.init("1200,698");
     });
 </script>
 </body>

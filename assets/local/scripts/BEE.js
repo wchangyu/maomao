@@ -299,7 +299,7 @@ var BEE = (function(){
                 //获取摄像头报警数量
                 cameraAlarmHistory();
 
-                //modificationImportInfo();
+                modificationImportInfo();
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
@@ -333,7 +333,7 @@ var BEE = (function(){
                 '<div class="modal-body">' + iframStr +
                 '</div>' +
                 '<div class="modal-footer"><button type="button" class="btn btn-default classNote" data-dismiss="modal">关闭</button></div>' +
-                '</div></div></div>'
+                '</div></div></div>';
             $('body').append(str);
 
             $('#myModal00').off('hidden.bs.modal',"**");
@@ -430,9 +430,7 @@ var BEE = (function(){
                 '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
                 '</li>';
 
-
          }
-
          //console.log(_cameraAlarmCount);
 
          if(_cameraAlarmCount > 0){

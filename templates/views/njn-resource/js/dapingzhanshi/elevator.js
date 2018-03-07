@@ -12,7 +12,6 @@ $(function(){
     getSecondColdHotSour('NJNDeviceShow/GetSecondElevator', 18,'');
 
     //页面刷新
-
 });
 
 
@@ -24,82 +23,6 @@ var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','�
 
 //清除浏览器中的关于地点信息的缓存
 sessionStorage.removeItem('monitorArea');
-
-//绘制页面右侧的table
-function drawDataTable(titleArr,areaArr){
-    //定义title
-    var titleHtml = '';
-
-    $(titleArr).each(function(i,o){
-
-        //拼接title的字符串
-        titleHtml += '<th>'+o+'</th>';
-
-    });
-
-    //把title放入到table中
-
-    $('.right-bottom-table thead tr').html(titleHtml);
-
-    //定义tbody中内容
-    var bodyHtml = '';
-
-    //绘制table中主体数据
-    $(areaArr).each(function(i,o){
-
-        bodyHtml +=
-            '<tr>' +
-            '<td>' +
-            '<span class="green-patch">'+ o+'</span>' +
-            '</td>' +
-
-            '<td>13</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart1">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart2">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            ' <!--回风平均温度-->' +
-            '<td>' +
-            ' <span class="table-small-patch table-small-patch-red">29</span>' +
-            '</td>' +
-
-            '<!--回风co2平均浓度-->' +
-            '<td>' +
-            '<span class="table-small-patch table-small-patch-green">1000</span>' +
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart3">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
-            '</td>' +
-            '</tr>';
-    });
-
-    //把body放入到table中
-
-    $('.right-bottom-table tbody').html( bodyHtml);
-};
 
 //点击不同区域获取不同的设备列表
 $('#monitor-menu-container').on('click','span',function(){
@@ -434,25 +357,32 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
-                if(i < 3){
+                if(i == 0){
 
-                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    bodyHtml += getRightAlarmString(o,true)
+
+
+                }else{
+
+                    bodyHtml += getRightAlarmString(o);
+
                 }
 
             });
 
-            bodyHtml += '</td>';
+            bodyHtml += '</div></div></td>';
 
         }else{
-            bodyHtml +=   '<td>' +
+
+            bodyHtml +=   '<td><div>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
-                '</td>' ;
+                '</div></td>';
         }
 
         bodyHtml +=   '</tr>';
@@ -461,6 +391,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
     //给echart图赋值
     echartReDraw(realShowArr);
@@ -509,7 +445,7 @@ function echartReDraw(realDataArr){
 
     });
 
-}
+};
 
 
 

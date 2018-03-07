@@ -30,6 +30,20 @@
     /*transform: scale(0.65, 0.65);*/
 }
 
+/*大屏页面切换普通页面按钮*/
+.right-info-header-logo {
+    width: 38px;
+    height: 30px;
+    border-radius: 5px;
+    background: url(../../passengerStation/img/qiehuan.png)no-repeat rgba(32,103,222,1);
+    background-size: 100%;
+    margin-right: 26px;
+    position: absolute;
+    right:360px;
+    top:12px;
+    cursor: pointer;
+}
+
 .right-tab-container a{
     color:white;
     padding:5px;
@@ -175,6 +189,13 @@
     margin-right:15px;
     position: relative;
 }
+.left-tab-container .left-tab-data-container .left-tab-data2 {
+    display: none;
+}
+.left-tab-container .left-tab-data-container .left-tab-data3{
+    display: none;
+}
+
 
 .left-tab-container .left-tab-data-container .left-tab-data font{
     font-size:44px;
@@ -263,6 +284,10 @@
 }
 
 /*右侧年月日*/
+.left-tab-container .small-times{
+    font-size:18px;
+    color:white;
+}
 .left-tab-container .right-tab{
     font-size:20px;
     margin-right:10px;
@@ -474,7 +499,9 @@
     margin-bottom:8px;
 }
 
-.right-bottom-table tbody tr td .right-bottom-alarm:nth-child(3){
+.right-bottom-table tbody tr td .carousel-container{
+    height: 51px;
+    overflow: hidden;
     margin-bottom:10px;
 }
 
@@ -499,11 +526,13 @@
 }
 
 .right-bottom-table .right-bottom-alarm{
-    margin:0;
+    margin:0 !important;
     font-size:12px;
     white-space:nowrap;
-    max-width:120px;
+    width:100px;
     text-align: left;
+    text-overflow:ellipsis;
+    overflow:hidden;
 }
 
 /*table中的颜色小块*/

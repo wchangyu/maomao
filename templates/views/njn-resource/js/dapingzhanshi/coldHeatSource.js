@@ -73,9 +73,9 @@ $(function(){
         //获取当前是东冷站还是西冷站
         var ew = '';
 
-        if(areaID == 60){
+        if(areaID == 20){
             ew = 'E'
-        }else if(areaID == 62){
+        }else if(areaID == 21){
             ew = 'W'
         }
 
@@ -119,32 +119,31 @@ $(function(){
         }
     });
 
-    var pos = JSON.parse(sessionStorage.pointers);
-    var po = pos[0];
-    sessionStorage.PointerID = po.pointerID;
-    sessionStorage.PointerName = po.pointerName;
+    //获取[离心机组系统]实时数据
+    getLXJAE('E');
 
-    ////获取[离心机组系统]实时数据
-    //getLXJAE('E');
-    //
-    ////获取[溴锂机组系统]实时数据
-    //getXLJAE('E');
-    //
-    ////获取[热泵机组系统]实时数据
-    //getRBJAE('E');
-    //
-    ////获取[冷却侧系统]实时数据
-    //getLQCAE('E');
-    //
-    ////获取[冷冻侧系统]实时数据
-    //getLDCAE('E');
-    //
-    ////获取[电耗曲线]历史数据
-    //getTDayEs('E');
+    //获取[溴锂机组系统]实时数据
+    getXLJAE('E');
 
+    //获取[热泵机组系统]实时数据
+    getRBJAE('E');
 
+    //获取[冷却侧系统]实时数据
+    getLQCAE('E');
+
+    //获取[冷冻侧系统]实时数据
+    getLDCAE('E');
+
+    //获取[电耗曲线]历史数据
+    getTDayEs('E');
+
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID);
 
 });
+
+//定义当前的设备类型 冷热源为1
+var devTypeID = 1;
 
 //获取[供冷温度曲线]历史数据
 function getTDayGLWs(ew) {
@@ -908,9 +907,9 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前是东冷站还是西冷站
     var ew = '';
 
-    if(areaID == 60){
+    if(areaID == 20){
         ew = 'E'
-    }else if(areaID == 62){
+    }else if(areaID == 21){
         ew = 'W'
     }
 

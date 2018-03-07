@@ -211,6 +211,7 @@ var ObjectSelection = function(){
 
                             alarmHistory()
                         }
+                        //刷新页面
                         window.location.reload();
 
                     }
