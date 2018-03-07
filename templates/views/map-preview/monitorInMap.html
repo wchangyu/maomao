@@ -40,28 +40,6 @@
     <!--自定义样式-->
     <link rel="stylesheet" href="../njn-resource/css/common.css">
     <link rel="stylesheet" href="../resource/css/userMonitor-1.css">
-    <style>
-        #right-container{
-            opacity: 0.98;
-            background: white;
-        }
-
-        #content-main-right{
-            background: black;
-            opacity: 0.9;
-        }
-        body{
-            background: black;
-        }
-
-        .content-child-show{
-            position: absolute;
-            left:0px !important;
-            top:0px !important;
-            opacity: 0.95;
-        }
-
-    </style>
 </head>
 <body>
 <!-- 下方左侧流程图 -->
@@ -120,13 +98,14 @@
 
 <!--页面js-->
 <script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/userMonitor.js"></script>
+<script src="../njn-resource/js/userMonitor1.js"></script>
 <script>
+
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
         Layout.init(); // init current layout
         Demo.init(); // init demo features
-        BEE.init(true);
+        BEE.init();
         userMonitor.init();
     });
 

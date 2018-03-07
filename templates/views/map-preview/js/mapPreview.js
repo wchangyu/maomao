@@ -12,6 +12,9 @@ var beginZoom = 8;
 var markerArr = [
 
 ];
+
+//存放人员信息
+var peopleArr = [];
 //获取本地url
 var _urls = sessionStorage.getItem("apiUrlPrefixYW");
 
@@ -41,13 +44,34 @@ var  mapStyle ={
     ]
 };
 
+var map;
+
+//获取当前楼宇信息
+var pointerArr = JSON.parse(sessionStorage.pointers);
+
+//定义当前页面的arg参数
+
+sessionStorage.menuArg = "3,2";
+
+var removeNum = 0;
+
+//用于判断是否在地图上显示人员信息
+var peopleRemoveNum = 0;
+
+//用于判断是否在地图上显示设备信息
+var machineRemoveNum = 0;
+
+var makeArr = [];
+
+//定义楼宇设备标记点集合
+var pointerMakerArr = [];
 
 //获取后台数据
 function getData(){
 
     $.ajax({
         type: 'post',
-        url: _urls + "/YWGD/ywGDGetLocInfo",
+        url: _urls + "YWGD/ywGDGetLocInfo",
         timeout: theTimes,
         data:{
             "userID": _userIdName
@@ -65,47 +89,11 @@ function getData(){
 
             markerArr = [];
 
-            //存放搜索框中内容
-            var html = '';
+            //保存获取到的人员信息
+            peopleArr = data;
 
-            $(data).each(function(i,o){
-
-                var obj =  {
-                    title: o.userName,
-                    point: ''+o.longitude+',' + o.latitude + '',
-                    address: "",
-                    tel: o.mobile,
-                    online: 0 ,
-                    class: o.depart,
-                    id: o.userID
-                };
-                html +=     '<li class="titles search-li" data-name='+ o.userName+' data-online="不在线"><span></span>'+o.userName+'</li>';
-
-                //添加数据
-                markerArr.push(obj)
-            });
-            console.log(markerArr);
-
-            //新建百度地图
-            map = new BMap.Map("container");
-
-            map.setMapStyle(mapStyle);
-
-            map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
-//可以进行缩放
-            map.enableScrollWheelZoom();
-            map.addControl(new BMap.NavigationControl());
-
-            //具体地点的文字标注与事件绑定
-            addWords();
-
-            //重构右上角搜索框中内容
-            $('#ul1').html(html);
-
-            detail();
-
-            //新的搜索对象
-            new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
+            //根据用户选择组合不同的页面展示信息
+            getShowData();
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -116,20 +104,157 @@ function getData(){
 
                 myAlter("超时");
             }else{
+
                 myAlter("请求失败！");
+
+                markerArr = [];
+
+                //根据用户选择组合不同的页面展示信息
+                getShowData(data);
             }
 
         }
     });
+};
+
+
+//根据用户选择组合不同的页面展示信息
+function getShowData(){
+
+    //存放搜索框中内容
+    var html = '';
+
+    markerArr.length = 0;
+
+    //显示人员信息
+    if(peopleRemoveNum % 2 == 0){
+
+        $(peopleArr).each(function(i,o){
+
+            var obj =  {
+                title: o.userName,
+                point: ''+o.longitude+',' + o.latitude + '',
+                address: "",
+                tel: o.mobile,
+                online: 0 ,
+                class: o.depart,
+                id: o.userID
+            };
+            html +=     '<li class="titles search-li" data-name='+ o.userName+' data-online="不在线"><span></span>'+o.userName+'</li>';
+
+            //添加数据
+            markerArr.push(obj)
+        });
+    }
+
+    //显示楼宇信息
+    if(machineRemoveNum % 2 == 0){
+
+        //添加楼宇标记点数据
+        $(pointerArr).each(function(i,o){
+
+            var obj =  {
+                title: o.pointerName,
+                point: ''+o.longitude+',' + o.latitude + '',
+                address: "",
+                online: 6 ,
+                id: o.pointerID
+            };
+
+            html +=     '<li class="titles search-li" data-name='+ o.pointerName+' data-online="6"><span style="background:#e6a91c "></span>'+o.pointerName+'</li>';
+            //添加数据
+            markerArr.push(obj);
+        });
+    }
+    //清除之前页面中的标记点
+    map.clearOverlays();
+
+    //具体地点的文字标注与事件绑定
+    addWords();
+
+    //重构右上角搜索框中内容
+    $('#ul1').html(html);
+
+    detail();
+
+    //新的搜索对象
+    new SEARCH_ENGINE("search-test-inner","search-value","search-value-list","search-li");
 }
 
-getData();
+//人物的显示与隐藏
+$('#onOff-people').on('click',function(){
 
-var map;
+    peopleRemoveNum ++;
+
+    if( peopleRemoveNum % 2){
+
+        // for(var i = 0 ; i < arr.length; i++){
+        // 	arr[i].setStyle({
+        // 		display:'none'
+        // 	})
+        $('#onOff-people').css({
+            background:'url("img/off.png") no-repeat 0 1.5px'
+        })
+
+    }else{
+
+        $('#onOff-people').css({
+            background:'url("img/offs.png") no-repeat 0 1.5px',
+
+        })
+    }
+
+    ////根据用户选择组合不同的页面展示信息
+    getShowData();
+});
+
+//设备的显示与隐藏
+$('#onOff-machine').on('click',function(){
+
+    machineRemoveNum ++;
+
+    if( machineRemoveNum % 2){
+
+        // for(var i = 0 ; i < arr.length; i++){
+        // 	arr[i].setStyle({
+        // 		display:'none'
+        // 	})
+        $('#onOff-machine').css({
+            background:'url("img/off.png") no-repeat 0 1.5px'
+        })
+
+    }else{
+
+        $('#onOff-machine').css({
+            background:'url("img/offs.png") no-repeat 0 1.5px'
+
+        })
+    }
+
+    //根据用户选择组合不同的页面展示信息
+    getShowData();
+});
 
 (function(){
     window.BMap_loadScriptTime = (new Date).getTime();
     document.write('<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=8d6c8b8f3749aed6b1aff3aad6f40e37&services=&t=20170803155555"></script>');
+
+    //可以进行缩放
+    setTimeout(function(){
+        //新建百度地图
+        map = new BMap.Map("map-container");
+
+        map.setMapStyle(mapStyle);
+
+        map.centerAndZoom(new BMap.Point(centerCoordinate[0], centerCoordinate[1]), beginZoom);
+
+        map.enableScrollWheelZoom();
+        map.addControl(new BMap.NavigationControl());
+        //获取后台人员数据
+        getData();
+
+    },1000);
+
 })();
 
 //右上角城市切换功能
@@ -143,10 +268,9 @@ function detail(){
 
                 var p0 = markerArr[i].point.split(",")[0];
                 var p1 = markerArr[i].point.split(",")[1];
-                map.centerAndZoom(new BMap.Point(p0, p1), 15);
+                map.centerAndZoom(new BMap.Point(p0, p1), 16);
 
                 $('.BMap_noprint').eq(i).click();
-
 
             });
         })(i)
@@ -181,25 +305,33 @@ function detail1(){
     }
 }
 
-var removeNum = 0;
-
-var makeArr = [];
 
 //地点的文字标注与事件绑定
 
 function addWords(){
     var arr = [];
     var points = [];
+
+    //console.log(markerArr);
+
     for (var i = 0; i < markerArr.length; i++) {
         var p0 = markerArr[i].point.split(",")[0];
         var p1 = markerArr[i].point.split(",")[1];
         var words = markerArr[i].title;
         var address = markerArr[i].address;
         var online = markerArr[i].online;
+
         //判断是否在线
-        if(online){
+        var icons;
+
+        //online = 0为不在线 在线蓝色 不在线红色 6为楼宇设备
+        if(online == 6){
+
+            icons = "img/shebei.png";
+
+        }else if(online){
             //这个是你要显示坐标的图片的相对路径
-            var icons = "img/red.png";
+             icons = "img/red.png";
             //右上角小圆圈颜色
             $('#ul1 li:eq('+i+') span').css({
                 'background':'red'
@@ -213,15 +345,20 @@ function addWords(){
             // //console.log(nodes[0])
             // //  nodes[0].style.width = 0;
 
-
         }else{
-            var icons = "img/blue.png";
+
+             icons = "img/renwu.png";
         }
 
         points[i]= new BMap.Point(p0,p1);
         var marker=new BMap.Marker(new BMap.Point(p0, p1));
-        addInfoWindow(marker, markerArr[i], i);
 
+        if(online != 6){
+            addInfoWindow(marker, markerArr[i], i);
+        }else{
+            //添加点击显示对应流程图弹窗事件
+            addMonitorWindow(marker,markerArr[i])
+        }
         makeArr.push(marker);
 
         var icon = new BMap.Icon(icons, new BMap.Size(55, 55)); //显示图标大小
@@ -238,7 +375,7 @@ function addWords(){
             o.setStyle({
                 display:'none'
             })
-        })
+        });
 
         // map.setViewport(points);
 
@@ -295,8 +432,6 @@ function addWords(){
                 background:'url("img/offs.png") no-repeat 0 1.5px'
             })
 
-
-
         }else{
 
 
@@ -310,7 +445,7 @@ function addWords(){
 
             })
         }
-    })
+    });
 
 }
 
@@ -353,6 +488,30 @@ function addInfoWindow(marker, poi) {
     //marker.addEventListener("mouseout", closeInfoWinFun);
     return openInfoWinFun;
 }
+
+//添加流程图窗口
+function addMonitorWindow(marker,message){
+
+    var openMonitorWindow = function () {
+
+        //获取楼宇id
+        var curPointerID = message.id;
+
+        sessionStorage.curPointerId = curPointerID;
+
+        sessionStorage.menuusepointer = 1;
+
+        userMonitor.init("1116,570");
+
+        //打开页面中存放流程图的模态框
+        $('#my-monitor').modal('show');
+    };
+
+    marker.addEventListener("click", openMonitorWindow);
+    //marker.addEventListener("mouseout", closeInfoWinFun);
+    return openMonitorWindow;
+}
+
 //获取完整的地址
 function getAreas(){
 
@@ -371,7 +530,7 @@ function display(){
 }
 $('.showTitle p .close').on('click',function(){
     closeCompany();
-})
+});
 
 //右上角关闭按钮
 function closeCompany(){
@@ -517,7 +676,8 @@ function showTrack(string,point){
     }
 
 
-}
+};
+
 //数据准备,
 var points = [];//原始点信息数组
 var bPoints = [];//百度化坐标数组。用于更新显示范围。
@@ -542,7 +702,6 @@ function addLine(points){
 
     polylineArr.push(polyline);
 }
-
 
 
 //生成新的点，加入到轨迹中。
@@ -701,7 +860,7 @@ SEARCH_ENGINE.prototype = {
         if(tempArray.length > 0){
 
             html += '<li class="tips">搜索结果（' + tempArray.length + '）</li>';
-
+            console.log(tempArray);
             for(var i=0;i<tempArray.length;i++){
                 var sArray = tempArray[i].split("&");
 
@@ -709,7 +868,10 @@ SEARCH_ENGINE.prototype = {
 
                 //判断是否在线
                 var color;
-                if(sArray[2] == '不在线'){
+                if(sArray[2] == '6'){
+
+                    color = '#e6a91c';
+                }else if(sArray[2] == '不在线'){
 
                     color = '#2097f3';
                 }else{
@@ -744,7 +906,7 @@ SEARCH_ENGINE.prototype = {
             //使默认的展示项关闭
             $('#ul1 li').css({
                 'display':'none'
-            })
+            });
             //临时存放找到的数组
             var tempArray = [];
 

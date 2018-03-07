@@ -12,8 +12,8 @@ $(function(){
     //设备报警
     getStationAlarmData(1);
 
-    //能耗报警
-    getStationAlarmData(2);
+    ////能耗报警
+    //getStationAlarmData(2);
 
     //点击左侧下方选项卡
     $('.left-tab-container .left-tab').on('click',function(){
@@ -60,7 +60,73 @@ $(function(){
 
     });
 
+    //点击不同区域获取不同的设备列表
+    $('#monitor-menu-container').on('click','span',function(){
+
+        //获取当前url
+        var url = window.location.href;
+
+        //如果是电梯页面 不走此方法
+        if(url.indexOf('elevator.html') > -1){
+
+            return false;
+        }
+
+        //获取当前的区域ID
+        var areaID = $(this).attr('data-district');
+
+        $(".right-bottom-tab").removeClass("right-bottom-tab-choose");
+        $(this).addClass("right-bottom-tab-choose");
+
+        sessionStorage.menuArg = '4,'+ areaID + "," + procType;
+
+        if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
+
+            //获取对应流程图
+            userMonitor.init("1200,698",jumpPageSize);
+
+        }else{
+
+            //获取对应流程图
+            userMonitor.init("1200,698");
+        }
+
+    });
+
+    //获取当前年月日放入页面中
+    var curYear = moment().format('YYYY');
+
+    var curMonth = moment().format('MM');
+
+    var curDay = moment().format('DD');
+
+    $('.left-tab-container .year').html(curYear);
+
+    $('.left-tab-container .month').html(curMonth);
+
+    $('.left-tab-container .day').html(curDay);
+
 });
+
+//定义送排风 给排水弹出页面的宽高
+var jumpPageSize = "1020,586";
+
+//定义初始的楼宇ID
+if(!sessionStorage.PointerID){
+
+    if(sessionStorage.pointers){
+        var pos = JSON.parse(sessionStorage.pointers);
+        var po = pos[0];
+        sessionStorage.PointerID = po.pointerID;
+        sessionStorage.PointerName = po.pointerName;
+    }
+
+}
+//定义流程图的方案类型
+var procType;
+
+//页面右侧报警刷新时间 单位（秒）
+var carouselTime = 5;
 
 $('.left-tab-data-container span font').html(0);
 
@@ -631,7 +697,7 @@ function getWeatherParam(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
             //无数据
             if(result == null || result.length == 0){
                 //隐藏温度 和湿度
@@ -1040,6 +1106,175 @@ function getSecondColdHotSour(url,devTypeID,areaID){
         },
         error:function(jqXHR, textStatus, errorThrown){
 
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
+
+//获取距离现在的时间描述
+function getTimeDescribe(dateString){
+
+    //获取到报警时间距离现在的分钟数
+    var minute = (new Date() - new Date(dateString)) / 1000 / 60;
+
+    if(minute < 1){
+
+        return '一分钟内';
+    }else if(minute > 1 && minute < 5){
+
+        return '五分钟内';
+    }else if(minute > 5 && minute < 60){
+
+        return '一小时内';
+    }else if(minute > 60 && minute < 1440){
+
+        return '一天内';
+    }else if(minute > 60 && minute < 1440 * 3){
+
+        return '三天内';
+    }else if(minute > 60 && minute < 1440 * 30){
+
+        return '一个月内';
+    }
+};
+
+//获取页面右侧报警数据字符串 flag代表是第一条报警
+function getRightAlarmString(alarmObj,flag){
+
+    //定义返回的字符串
+    var alarmString = '';
+
+    //获取报警时间
+    var dataDate = alarmObj.dataDate.split('T')[0] +' ' + alarmObj.dataDate.split('T')[1];
+
+    //展示时间
+    var showDate = getTimeDescribe(dataDate);
+
+    if(flag){
+
+        alarmString +=  '<div class="item active">' +
+                //报警时间
+            '<p class="right-bottom-alarm" title='+showDate+'>'+ '时间：'+showDate+'</p>'+
+
+                //报警类型
+            '<p class="right-bottom-alarm" title='+alarmObj.alarmSetName+'>'+ '类型：'+alarmObj.alarmSetName+'</p>'+
+                //设备名称
+            '<p class="right-bottom-alarm" title='+alarmObj.cDtnName+'>'+'设备：'+ alarmObj.cDtnName+'</p></div>';
+
+
+    }else{
+
+        alarmString +=  '<div class="item">' +
+                //报警时间
+            '<p class="right-bottom-alarm" title='+showDate+'>'+ '时间：'+showDate+'</p>'+
+
+                //报警类型
+            '<p class="right-bottom-alarm" title='+alarmObj.alarmSetName+'>'+ '类型：'+alarmObj.alarmSetName+'</p>'+
+
+                //设备名称
+            '<p class="right-bottom-alarm" title='+alarmObj.cDtnName+'>'+'设备：'+ alarmObj.cDtnName+'</p></div>';
+
+    }
+
+    return alarmString;
+};
+
+//获取页面中的上面要展示的区域及对应的ID
+function getDevTypeAreas(devTypeID,fn){
+
+    //获取当前楼宇ID
+    var PointerID = sessionStorage.PointerID;
+
+    var ecParams = {
+        "devTypeID": devTypeID,
+        "pointerID": PointerID
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetDevTypeAreas',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            //leftBottomChart.showLoading();
+
+        },
+        success:function(result){
+
+            //console.log(result);
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            var $ul = $("#monitor-menu-container");
+
+            //清空区域位置信息
+            monitorAreaArr.length = 0;
+
+            //给上方区域位置选项卡绑定元素
+            $(result).each(function(i,o){
+
+                //获取当前区域ID
+                var areaID = o.areaID;
+
+                //获取当前区域名称
+                var areaName = o.areaName;
+
+                $ul.append($("<span>",{text:areaName,class:'right-bottom-tab','data-district':areaID}));
+
+                var areaObj =  {
+                    "areaName":areaName,
+                    "areaId":areaID
+                };
+
+                monitorAreaArr.push(areaObj);
+
+            });
+
+            //获取流程图右侧展示数据
+            if(fn){
+                fn();
+            }
+
+            //初始化样式
+            $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
+
+            //获取方案类型
+            procType = result[0].procType;
+            //console.log(procType);
+
+            //默认获取首张流程图
+            sessionStorage.menuArg = '4,'+ monitorAreaArr[0].areaId + "," + procType;
+
+            //获取当前url
+            var url = window.location.href;
+
+            if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
+
+                //获取对应流程图
+                userMonitor.init("1200,698",jumpPageSize);
+
+            }else{
+
+                //获取对应流程图
+                userMonitor.init("1200,698");
+            }
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //leftBottomChart.hideLoading();
 
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况

@@ -5,10 +5,12 @@
 $(function() {
 
     //时间插件
-    _monthDate($('.datatimeblock'));
+    _timeYMDComponentsFun($('.datatimeblock'));
 
-    //获取当前年份并赋值
-    $('.min').val(moment().format('YYYY-MM'));
+    //获取当前时间并赋值
+    $('.min').val(moment().subtract('1','months').format('YYYY-MM-DD'));
+
+    $('.max').val(moment().format('YYYY-MM-DD'));
 
     //获取表格中的内容
     getEnergyCollectData();
@@ -38,9 +40,9 @@ function getEnergyCollectData(){
     //获取当前月份
     var month = $('.min').val();
     //开始时间
-    var st = moment(month).startOf('month').format('YYYY-MM-DD');
+    var st = $('.min').val();
     //结束时间
-    var et = moment(month).add('1','months').startOf('month').format('YYYY-MM-DD');
+    var et = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
 
     $.ajax({
         type: 'get',
@@ -78,7 +80,7 @@ function getEnergyCollectData(){
             $('#entry-datatables tbody').html(tableHtml);
 
             //数据时间
-            $('#entry-datatables thead').find('.data-times').html(' ' + month.split('-')[0] + '年' +month.split('-')[1] + '月 ');
+            $('#entry-datatables thead').find('.data-times').html(' ' + st + "--" + $('.max').val() );
 
             //导出时间
             var nowTime = moment().format('YYYY-MM-DD');

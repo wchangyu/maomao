@@ -424,6 +424,24 @@
 </div>
 
 
+<!--所有提示框-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
@@ -464,6 +482,7 @@
 <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/showOrHidden.js"></script>
+<script src="../resource/js/publicFun.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

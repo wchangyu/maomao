@@ -160,8 +160,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.115/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.115/BEEWebAPI/api/",
+  "apiUriPrefix":"http://211.100.28.180/BEEWebAPI180Test/api/",
+  "apiUriPrefixYW":"http://211.100.28.180/BEEWebAPI180Test/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -170,7 +170,7 @@
   "pageTitle":"能源管理系统",
   "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
-  "refreshInterval":"10",
+  "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
   "alarmInterval":"10",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",

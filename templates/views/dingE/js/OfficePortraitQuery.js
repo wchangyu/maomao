@@ -198,10 +198,15 @@ $(document).ready(function(){
         };
         console.log(seekArr);
 
+        //获取当前单位名称
+        var unitName = $(".datatimeblock").find("option:selected").text();
+
         if(seekArr.length == 0){
             myAlter('请先选择未结算周期后进行查询');
             return false;
         }
+
+        $('.right-table-title').html(unitName + ' 纵向比较列表');
 
         $.ajax({
             type: 'get',

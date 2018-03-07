@@ -868,20 +868,19 @@ function getPointerRankData(){
 //获取所有车站能耗标煤排名
 function getStationRankData(){
 
-
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
-        "pointerIDs": pointerIdArr,
-        "energyItemType": "01",
-        "energyRankFlag": -2
+        "pointerIDs": pointerIdArr
+        //"energyItemType": "01",
+        //"energyRankFlag": -2
     };
 
     //发送请求
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetEnergyItemRankData',
+        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetCustomBiaoMeiRankData',
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
@@ -938,7 +937,6 @@ function getStationRankData(){
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart2.hideLoading();
-            _myChart3.hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');

@@ -274,7 +274,7 @@ $(function(){
 
                 html += '<p>处理事件：'+o.sysLogEvent+'</p>';
 
-                html += '<p>处理时间：'+o.sysLogDate+'</p>';
+                html += '<p>处理时间：'+o.sysLogDate.split('T')[0] +" " + o.sysLogDate.split('T')[1]+'</p>';
 
                 html += '<p>处理人：'+o.sysLogUser+'</p>';
 
@@ -486,10 +486,8 @@ $(function(){
 
     $('#datatables tbody').on('click', '.clickButtons', function (){
         var $this = $(this);
-        userId = $this.parents('tr').children('.pointerID').html();
+        userId = sessionStorage.getItem('userName');
         _alaLogId = $this.parents('tr').children('.alaLogIDs').html();
-
-        console.log(userId,_alaLogId);
 
         $('.modal-body').val('');
 
@@ -499,6 +497,13 @@ $(function(){
     $('.submitNote').click(function(){
 
         _texts = $(this).parents('.modal-header').children('.modal-body').val();
+
+        //备注内容不能为空
+        if(_texts == ''){
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'备注不能为空', '');
+            return false;
+        }
+
         processingNote();
     });
 
@@ -954,8 +959,6 @@ $(function(){
             'alaLogId':_alaLogId,
             'alaMessage':_texts
         };
-
-        console.log(prm);
 
         $.ajax(
             {

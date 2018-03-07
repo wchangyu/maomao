@@ -105,14 +105,17 @@
                 <!--左侧展示内容-->
                 <div style="float:left" class="left-tab-data-container">
                     <span class="left-tab-data left-tab-data1">设备报警 <font></font> <b></b></span>
-                    <span class="left-tab-data left-tab-data2">能耗报警 <font></font> <b></b></span>
-                    <span class="left-tab-data left-tab-data3">运维工单 <font></font> <b></b></span>
+                    <!--<span class="left-tab-data left-tab-data2">能耗报警 <font></font> <b></b></span>-->
+                    <!--<span class="left-tab-data left-tab-data3">运维工单 <font></font> <b></b></span>-->
                 </div>
 
                 <div style="float:right">
-                    <span class="right-tab right-tab-choose">日</span>
+                    <font class="year small-times"></font>
+                    <span class="right-tab right-tab-choose">年</span>
+                    <font class="month  small-times"></font>
                     <span class="right-tab ">月</span>
-                    <span class="right-tab ">年</span>
+                    <font class="day  small-times"></font>
+                    <span class="right-tab ">日</span>
                 </div>
             </div>
 
@@ -669,8 +672,7 @@
                 <h2 class="right-bottom-centent-title">安全联动</h2>
 
                 <div class="right-bottom-safe">
-                    <p>累计联动次数<span>16</span> 次</p>
-                    <p>保障安全运行<span>4000</span> h</p>
+                    <p>安全运行天数<span class="safe-days"></span> 天</p>
                 </div>
 
             </div>
@@ -691,9 +693,12 @@
                     </div>
 
                     <div style="float:right">
-                        <span class="right-tab right-tab-choose">日</span>
+                        <font class="year small-times"></font>
+                        <span class="right-tab right-tab-choose">年</span>
+                        <font class="month  small-times"></font>
                         <span class="right-tab ">月</span>
-                        <span class="right-tab ">年</span>
+                        <font class="day  small-times"></font>
+                        <span class="right-tab ">日</span>
                     </div>
 
                 </div>
@@ -802,7 +807,6 @@
 <script src="../njn-resource/js/common.js"></script>
 <script src="../njn-resource/js/userMonitor1.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/pandectEnergy.js"></script>
-
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components

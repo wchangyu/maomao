@@ -39,6 +39,35 @@
     <link rel="stylesheet" href="../resource/TableTools/button/dataTables.tableTools.css">
     <link rel="stylesheet" href="../resource/TableTools/button/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../resource/TableTools/button/buttons.dataTables.min.css">
+    <style>
+        .content-child-show {
+            position: absolute;
+            left: 160px;
+            top: 150px;
+            opacity: 0.95;
+        }
+        .content-child-show-container {
+            position: relative;
+        }
+        .content-child-show .close1 {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            color: white;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            text-align: center;
+            line-height: 30px;
+            opacity: 0.8;
+        }
+
+        .content-child-show .close1:hover {
+            background: orangered;
+        }
+    </style>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -360,6 +389,15 @@
         Demo.init(); // init demo features
         BEE.init();
         userMonitor.init();
+    });
+
+    //关闭弹窗中的流程图
+    $('#right-container').on('click','.close1',function(){
+
+        //获取到要删除的元素
+        var dom = $(this).parents('.content-child-show');
+
+        dom.remove();
     });
 
     //关闭video模态框时 停止播放

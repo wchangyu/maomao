@@ -82,9 +82,14 @@
 
     <ul class="condition-query condition-query1 noprint">
         <li style="line-height: 26px;">
-            <label for="">选择月份：</label>
-            <div class="input-blocked">
+            <label for="">开始时间：</label>
+            <div class="input-blocked" style="margin-right:15px;">
                 <input type="text" class="datatimeblock min form-control"/>
+            </div>
+
+            <label for="">结束时间：</label>
+            <div class="input-blocked">
+                <input type="text" class="datatimeblock max form-control"/>
             </div>
         </li>
         <li><button class="btn btn-success btn1" id="selected">查询</button></li>
@@ -96,7 +101,7 @@
     <div class="bottom-main-table">
         <table id="entry-datatables" class="table" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black;border-collapse:collapse">
             <thead style="text-align:center">
-            <th colspan="7" style="font-size:22px;text-align:center;background: #ccffff;border:1px solid black"><span class="data-times"></span>用电明细表</th>
+            <th colspan="7" style="font-size:22px;text-align:center;background: #ccffff;border:1px solid black"><span class="data-times"></span>变压器能耗表</th>
             </tr>
             <!------------------------------------------医院--------------------------------->
             <tr class="hosptial1">
