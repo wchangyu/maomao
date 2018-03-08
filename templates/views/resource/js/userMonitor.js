@@ -415,7 +415,16 @@ var userMonitor = (function(){
     var setProcList = function(procs,selectedProc){
         var $ul = $(".content-main-left>ul");
         $(".content-main-left>ul li").remove();
-        if(!procs || procs.length==0) return;
+        if(!procs || procs.length==0) {
+
+            var $divContent = $("#content-main-right");
+
+            $divContent.empty();
+
+            _oldSpanDefArr.length = 0;
+
+            return false
+        };
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
@@ -556,6 +565,8 @@ var userMonitor = (function(){
         var $img = $("#imgProc");
         $img.attr("src","");
         $divContent.empty();
+
+        _oldSpanDefArr.length = 0;
 
         _isProcCrtlLoaded = false;
         _isProcDefLoaded = false;
@@ -1289,6 +1300,13 @@ var userMonitor = (function(){
                     $spanDef.css("cursor","pointer");
                     $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
                 }
+
+                //如果是弹出式摄像头
+                if( curProcDef.cType == 502){
+                    $spanDef.css("cursor","pointer");
+                    $spanDef.on("click",(function(procDef){return function(){ showMonitorByID(procDef); }})(_procDefs[i]));
+
+                }
             }
 
             //如果不是第一次加载
@@ -1704,6 +1722,54 @@ var userMonitor = (function(){
             error:function(xhr,res,err){ logAjaxError("GetHbProcVideo" , res) }
         });
     };
+
+    //模态框显示摄像头
+    function showMonitorByID(procDef){
+
+        //获取当前摄像头id
+        var cameraID = procDef.prcProcLnk.destid;
+
+        var cameraWidth = procDef.prcProcLnk.width;
+
+        var cameraHeight = procDef.prcProcLnk.height;
+
+        //定义当前弹窗的id
+        var modalID = procDef.prDefId + "camera";
+
+        //获取弹窗的页面地址
+        var url = jumpUrl + "new-luxianghuifang/insetCurrentMonitor.html?width="+cameraWidth+"height="+cameraHeight+"cameraID="+cameraID+"";
+
+        var html = '<div class=\'modal fade content-child-shows\' id="'+modalID+'" tabindex=\'-1\' role=\'dialog\' aria-labelledby=\'myModalLabel\' aria-hidden=\'true\' data-backdrop="static">' +
+        '    <div class=\'modal-dialog\' style=\'margin:15% auto;\'>' +
+        '        <div class=\'modal-content\'>' +
+        '            <div class=\'modal-header\'>' +
+
+        '                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+
+        '                <h4></h4>' +
+
+        '            </div>' +
+
+        '            <div class="modal-body">' +
+            '<iframe width="'+cameraWidth+'" scrolling="no" height="'+cameraHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+
+        '            </div>' +
+
+        '        </div>' +
+        '    </div>' +
+        '</div>';
+
+        $('#right-container').append(html);
+
+        $("#"+modalID).modal('show');
+
+        //视频名称
+        $("#"+modalID).find('h4').html(procDef.prcProcLnk.name);
+
+        //模态框宽度
+        $("#"+modalID).find('.modal-dialog').width(cameraWidth + 50);
+
+    }
 
     //模态框显示视频
     function showVideoByID(videoMessage){

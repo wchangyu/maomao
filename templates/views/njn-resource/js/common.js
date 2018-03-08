@@ -151,7 +151,7 @@ function drawRightTab(){
 
     var tabHtml = '<span class="right-tab right-tab1"><a href="pandectEnergy.html">总览</a></span>' +
         '<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="airConditioner.html">空调机组</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="airConditioner.html">组合空调</a></span>' +
         '<span class="right-tab right-tab2"><a href="elevator.html">电梯</a></span>' +
         '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
         '<span class="right-tab right-tab2"><a href="stationBuilding.html">站房照明</a></span>' +
@@ -956,14 +956,20 @@ function getStationAlarmData(index){
                 return false;
             }
 
+            if(result.length > 1){
+
+                //删除数组的最后一项
+                result.pop();
+            }
+
             //存放能耗数据
             var dataArr = [];
 
             //存放X轴
             var xArr = [];
 
-            $(result).each(function(i,o){
 
+            $(result).each(function(i,o){
 
                 //获取能耗数据
                 dataArr.push(o.data);
@@ -1284,6 +1290,8 @@ function getDevTypeAreas(devTypeID,fn){
                 //获取对应流程图
                 userMonitor.init("1200,698");
             }
+
+            $('#monitor-menu-container span').eq(0).click();
 
         },
         error:function(jqXHR, textStatus, errorThrown){

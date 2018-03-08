@@ -115,7 +115,7 @@ function getEnergyCollectData(){
                 $('.hosptial2').html(theadHtml22);
 
                 //高校模式
-            }else if(result.beeWebMode == 2){
+            }else if(result.beeWebMode == 0){
 
                 $('.hosptial1').html(theadHtml1);
                 $('.hosptial2').html(theadHtml2);

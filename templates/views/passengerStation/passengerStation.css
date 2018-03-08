@@ -309,6 +309,7 @@ li{
 }
 .three-block>div{
     position: absolute;
+    cursor: pointer;
 }
 .three-one{
     width:98px;

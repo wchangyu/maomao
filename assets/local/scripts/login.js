@@ -443,6 +443,10 @@ var Login = function() {
                     var imgPath = data["imgPath"] || '';
                     sessionStorage.imgPath = imgPath;
 
+                    //初始加载的页面
+                    var indexUrl = data["indexUrl"] || '';
+                    sessionStorage.indexUrl = indexUrl;
+
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}
 

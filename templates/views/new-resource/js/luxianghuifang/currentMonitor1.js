@@ -141,7 +141,7 @@ function getAlarmCameraData(){
                     //ip
                     var aisleNum = o.mappVideoRecorder.f_RecIP + "_"+ result[i].mappVideoRecorder.f_PortNum;
 
-                    console.log(aisleNum);
+                    //console.log(aisleNum);
 
                     //窗口号
                     g_iWndIndex = i;

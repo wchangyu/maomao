@@ -148,6 +148,15 @@ $(function(){
 
     },1000);
 
+    //是否传过来地址
+    var postUrl = '';
+
+    postUrl = window.location.search; //??sendUrl=EPMA/main.html
+
+
+    //配置项是否配置
+    var configureUrl = "../" + sessionStorage.getItem("indexUrl");
+
     /*-----------------------------------------获取菜单-----------------------------------------*/
 
     //读菜单
@@ -174,49 +183,8 @@ $(function(){
 
             if(typeof result[i]  == 'object'){
 
-                index ++;
-
-                if(index == 0){
-
-                    str += '<li class="selectedMenu"><img src="' + 'img/' + result[i]['icon-hover'] + '"><p>' + result[i].content + '</p></li>'
-
-                    //判断type=2的情况
-                    for(var j in result[i].submenu){
-
-                        if(result[i].submenu[j].type == 2){
-
-                            secStr += '<li class="sec-hover">' + result[i].submenu[j].content + '</li>'
-
-                        }else{
-
-                            secIndex ++;
-
-                            if(secIndex == 0){
-
-                                var src = result[i].submenu[j].uri + '';
-
-                                $('iframe').attr('src',src);
-
-                                secStr += '<li class="current-hover ordinary-menu" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
-
-                            }else{
-
-                                secStr += '<li class="ordinary-menu" data-attr="' + result[i].submenu[j].uri + '">' + result[i].submenu[j].content + '</li>'
-
-                            }
-
-                        }
-
-
-
-                    }
-
-                }else{
-
-                    str += '<li><img src="' + 'img/' + result[i]['icon-img'] + '"><p>' + result[i].content + '</p></li>'
-
-                }
-
+                //首先生成第一层目录
+                str += '<li><img src="' + 'img/' + result[i]['icon-img'] + '"><p>' + result[i].content + '</p></li>';
 
 
             }
@@ -225,7 +193,222 @@ $(function(){
 
         $('.first-menu ul').empty().append(str);
 
-        $('.second-menu ul').empty().append(secStr);
+        //根据生成的第一层目录确定第二层目录
+
+        //判断跳转项？配置项？默认项？
+        //跳转项
+        if(postUrl){
+
+            //?sendUrl=EPMA/main.html
+
+            var srcParhs = postUrl.split('=')[1];
+
+            for(var i in result){
+
+                var currentFirst = $('.first-menu ul').children('li');
+
+                for(var j in result[i]['submenu']){
+
+                    if( typeof result[i]['submenu'][j]['uri'] == 'string'){
+
+                        if( result[i]['submenu'][j].uri.indexOf(srcParhs) >= 0 ){
+
+                            for(var k= 0;k<currentFirst.length;k++){
+
+                                if( i == currentFirst.eq(k).children('p').html() ){
+
+                                    //添加类
+                                    currentFirst.eq(k).addClass('selectedMenu');
+
+                                    var imgSrc = 'img/' + result[i]['icon-hover'];
+
+                                    //图片
+                                    currentFirst.eq(k).children('img').attr('src',imgSrc);
+
+                                    //生成第二菜单
+
+                                    var secMenu = '';
+
+                                    for(var x in result[i]['submenu']){
+
+                                        if(result[i]['submenu'][x].type == 2){
+
+                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+
+                                        }else{
+
+                                            if(result[i]['submenu'][x].uri.indexOf(srcParhs)>=0 ){
+
+                                                secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                            }else{
+
+                                                secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                            }
+
+                                            var srcPath = '../' + srcParhs;
+
+                                            //跳转到指定页面
+                                            $('iframe').attr('src',srcPath);
+
+
+                                        }
+
+                                    }
+
+                                    $('.second-menu ul').empty().append(secMenu);
+
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+
+
+        //配置项
+        }else if(configureUrl){
+
+            for(var i in result){
+
+                var currentFirst = $('.first-menu ul').children('li');
+
+                for(var j in result[i]['submenu']){
+
+                    if( typeof result[i]['submenu'][j]['uri'] == 'string'){
+
+                        if( result[i]['submenu'][j].uri.indexOf(configureUrl) >= 0 ){
+
+                            for(var k= 0;k<currentFirst.length;k++){
+
+                                if( i == currentFirst.eq(k).children('p').html() ){
+
+                                    //添加类
+                                    currentFirst.eq(k).addClass('selectedMenu');
+
+                                    var imgSrc = 'img/' + result[i]['icon-hover'];
+
+                                    //图片
+                                    currentFirst.eq(k).children('img').attr('src',imgSrc);
+
+                                    //生成第二菜单
+
+                                    var secMenu = '';
+
+                                    for(var x in result[i]['submenu']){
+
+                                        if(result[i]['submenu'][x].type == 2){
+
+                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+
+                                        }else{
+
+                                            if(result[i]['submenu'][x].uri.indexOf(configureUrl)>=0 ){
+
+                                                secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                            }else{
+
+                                                secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+                                            }
+
+                                            var srcPath = configureUrl;
+
+                                            //跳转到指定页面
+                                            $('iframe').attr('src',srcPath);
+
+
+                                        }
+
+                                    }
+
+                                    $('.second-menu ul').empty().append(secMenu);
+
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+        //默认项
+        }else{
+
+            for(var i in result){
+
+                if(typeof result[i]  == 'object'){
+
+                    //第一层样式修改
+                    $('.first-menu ul').children('li').eq(0).addClass('selectedMenu');
+
+                    //图片修改
+                    if(i == $('.first-menu ul').children('li').eq(0).children('p').html()){
+
+                        var imgPath = 'img/' + result[i]['icon-hover'];
+
+                        $('.first-menu ul').children('li').eq(0).children('img').attr('src',imgPath);
+
+                        //加载第二层目录
+                        var secMenu = '';
+
+                        for(var x in result[i]['submenu']){
+
+                            if(result[i]['submenu'][x].type == 2){
+
+                                secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+
+                            }else{
+
+                                secIndex ++;
+
+                                if(secIndex == 0){
+
+                                    secMenu += '<li class="ordinary-menu current-hover" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                    var secPath = result[i]['submenu'][x]['uri'];
+
+                                    $('iframe').attr('src',secPath);
+
+                                }else{
+
+                                    secMenu += '<li class="ordinary-menu" data-attr="' + result[i]['submenu'][x].uri + '">' + result[i]['submenu'][x].content + '</li>'
+
+                                }
+
+                            }
+
+                        }
+
+                        $('.second-menu ul').empty().append(secMenu);
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+
+
 
     }
 
@@ -293,6 +476,15 @@ $(function(){
 
         $('.second-menu ul').empty().append(secMenu);
 
+    });
+
+    //点击页面右侧下方图标切换不同系统
+    $('.three-block').on('click','div',function(){
+
+        //获取要跳转的地址
+        var jumpUrl = $(this).attr('data-url');
+
+        window.location.href = jumpUrl;
     });
 
     /*--------------------------------------温度湿度--------------------------------------------*/
