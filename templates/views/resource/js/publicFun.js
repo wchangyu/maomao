@@ -18,7 +18,7 @@ var _userBM = sessionStorage.getItem("userDepartNum");
 var _userBMName = sessionStorage.getItem("userDepartName");
 
 //ajax延迟时间设置
-var _theTimes = 30000;
+var _theTimes = 60000;
 
 //获取登陆者信息
 var _loginUser = JSON.parse(sessionStorage.getItem("userInfo"));
@@ -132,8 +132,8 @@ function _timeComponentsFun(el){
 
 /*-----------------------dataTable---------------------------*/
 
-//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页)
-function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr){
+//基本表格初始换(buttons=1按钮显示，其他按钮隐藏,dom是真的时候，不显示分页和翻页,导出列,每页显示列数,最后一个是否分页)；
+function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,arr,num,isPaging){
     var buttonVisible = [
         {
             extend: 'excelHtml5',
@@ -169,13 +169,38 @@ function _tableInit(tableId,col,buttons,flag,fnRowCallback,drawCallback,domFlag,
 
     }
 
+    var length = 50;
+
+    if(num){
+
+        length = num;
+
+    }else{
+
+        length = 50;
+
+    }
+
+    var isPag = true;
+
+    if(isPaging){
+
+        isPag = false;
+
+    }else{
+
+        isPag = true;
+
+    }
+
     var _tables = tableId.DataTable({
         "autoWidth": false,  //用来启用或禁用自动列的宽度计算
-        "paging": true,   //是否分页
+        "paging": isPag,   //是否分页
         "destroy": true,//还原初始化了的datatable
         "searching": false,
         "ordering": false,
-        "iDisplayLength":50,//默认每页显示的条数
+        "bProcessing":true,
+        "iDisplayLength":length,//默认每页显示的条数
         'language': {
             'emptyTable': '没有数据',
             'loadingRecords': '加载中...',
@@ -689,4 +714,141 @@ function _formatTime(str11){
 
 }
 
+//数据量大的话，操作跳转到当前页
+//提交更改后跳转到当前页
+function _jumpNow(tableId,arr){
+
+    if(arr.length > 0){
+        arr.reverse();
+    }
+
+    var dom ='#'+ tableId[0].id + '_paginate';
+
+    var txt = $(dom).children('span').children('.current').html();
+
+    _datasTable(tableId,arr);
+
+    var num = txt - 1;
+
+    var dom = $(dom).children('span').children().eq(num);
+
+    dom.click();
+
+};
+
+//所有表格tr点击复选事件
+function MultiselectTr(el){
+
+    if(el.hasClass('tables-hover')){
+
+        el.removeClass('tables-hover');
+
+        el.find('input').parent().removeClass('checked');
+
+        el.parents('table').find('thead').find('input').parent('span').removeClass('checked');
+
+    }else{
+
+        el.addClass('tables-hover');
+
+        el.find('input').parent().addClass('checked');
+
+        var trLength = el.parents('table').find('tbody').children().length;
+
+        var hoverLength = el.parents('table').find('tbody').children('.tables-hover').length;
+
+        if(trLength == hoverLength){
+
+            el.parents('table').find('thead').find('input').parent('span').addClass('checked');
+
+        }else{
+
+            el.parents('table').find('thead').find('input').parent('span').removeClass('checked');
+
+        }
+
+    }
+
+}
+
+//表格全选事件
+function AllSelectThead(el,table){
+
+    if(el.parent().hasClass('checked')){
+
+        el.parent().removeClass('checked');
+
+        table.find('tbody').children().removeClass('tables-hover');
+
+        table.children().find('input').parent().removeClass('checked');
+
+    }else{
+
+        el.parent().addClass('checked');
+
+        table.find('tbody').children().addClass('tables-hover');
+
+        table.children().find('input').parent().addClass('checked');
+
+    }
+
+}
+
+//传入两个数组，去重
+function _uniqueArr(maxArr,minArr,attr){
+
+    if(maxArr.length == 0){
+
+        for(var i=0;i<minArr.length;i++){
+
+            maxArr.push(minArr[i]);
+
+        }
+
+    }else{
+
+        var arr = [];
+
+        for(var i=0;i<maxArr.length;i++){
+
+            for(var j=0;j<minArr.length;j++){
+
+                if(maxArr[i][attr] == minArr[j][attr]){
+
+                    arr.push(minArr[j]);
+
+                }
+
+            }
+
+        }
+
+        for(var i=0;i<arr.length;i++){
+
+            minArr.remove(arr[i])
+
+        }
+
+        for(var i=0;i<minArr.length;i++){
+
+            maxArr.push(minArr[i]);
+
+        }
+
+    }
+
+}
+
+//所有表格的点击翻页之后，全选按钮不显示
+//$('#myModal1').find('.gongdanContent').on('click',function(e){
+//
+//    var buttonName = e.toElement.className;
+//
+//    if(buttonName.indexOf('paginate_button') >= 0){
+//
+//        $(this).find('thead').find('input').parent('span').removeClass('checked');
+//
+//    }
+//
+//})
 

@@ -51,7 +51,9 @@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="../favicon.ico"/>
     <link rel="stylesheet" href="../resource/css/classManagement.css">
-
+    <!--fullcalendar-->
+    <link rel="stylesheet" href="../resource/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="../resource/fullcalendar/fullcalendar.print.css">
     <!--time-->
     <link rel="stylesheet" href="../resource/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
     <style type="text/css" media=print>
@@ -364,23 +366,12 @@
 <!--time-->
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../resource/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.zh-CN.js"></script>
-
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Layout.init(); // init current layout
-        Demo.init(); // init demo features
-        BEE.init();
-    });
-</script>
-<script src="../resource/js/publicFun.js"></script>
-<script src="../resource/js/classManagement.js"></script>
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 <!--新增模态框-->
 <div class="modal fade" id="ADD-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="height: 478px;width: 656px !important;">
-        <div class="modal-content" style="height: 478px;width: 656px !important;">
+    <div class="modal-dialog" style="height: 641px;width: 894px !important;">
+        <div class="modal-content" style="height: 641px;width: 894px !important;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">创建工单</h4>
@@ -408,7 +399,7 @@
                             </li>
                             <li class="floatLeft">
 
-                                <div class="labels colorTip">时间段 *：</div>
+                                <div class="labels">时间段：</div>
                                 <div class="input-blockeds">
                                     <select v-model="timeslot" id="time-slot">
 
@@ -416,36 +407,155 @@
                                 </div>
 
                             </li>
+                            <li class="floatLeft" style="margin-top: 27px;">
 
+                                <div class="cont-col1">
+                                    <div class="addStatic label label-sm label-warning" style="line-height: 34px;padding: 7px 14px;font-family: 微软雅黑;font-size: 14px;">
+                                        <i class="fa fa-plus" style="margin-right: 2px;"></i>添加
+                                    </div>
+                                </div>
+
+                            </li>
                         </form>
                     </validator>
                 </ul>
-                <ul class="cycle-block"></ul>
+                <ul class="cycle-block" style="display: none"></ul>
                 <ul class="cycle-block cycle-block-week" style="display: none">
-                    <li data-num="1">
-                        <input type="checkbox" checked>星期一
-                    </li>
-                    <li data-num="2">
-                        <input type="checkbox" checked>星期二
-                    </li>
-                    <li data-num="3">
-                        <input type="checkbox" checked>星期三
-                    </li>
-                    <li data-num="4">
-                        <input type="checkbox" checked>星期四
-                    </li>
-                    <li data-num="5">
-                        <input type="checkbox" checked>星期五
-                    </li>
-                    <li data-num="6">
-                        <input type="checkbox" checked>星期六
-                    </li>
-                    <li data-num="7">
-                        <input type="checkbox" checked>星期日
-                    </li>
+
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td><input type="checkbox">周一</td>
+                            <td><input type="checkbox">周二</td>
+                            <td><input type="checkbox">周三</td>
+                            <td><input type="checkbox">周四</td>
+                            <td><input type="checkbox">周五</td>
+                            <td><input type="checkbox">周六</td>
+                            <td><input type="checkbox">周日</td>
+                        </tr>
+                        <tr>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                            <td><select class="time-range"></select></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--<li data-num="1">-->
+                        <!--<input type="checkbox" checked>星期一-->
+                    <!--</li>-->
+                    <!--<li data-num="2">-->
+                        <!--<input type="checkbox" checked>星期二-->
+                    <!--</li>-->
+                    <!--<li data-num="3">-->
+                        <!--<input type="checkbox" checked>星期三-->
+                    <!--</li>-->
+                    <!--<li data-num="4">-->
+                        <!--<input type="checkbox" checked>星期四-->
+                    <!--</li>-->
+                    <!--<li data-num="5">-->
+                        <!--<input type="checkbox" checked>星期五-->
+                    <!--</li>-->
+                    <!--<li data-num="6">-->
+                        <!--<input type="checkbox" checked>星期六-->
+                    <!--</li>-->
+                    <!--<li data-num="7">-->
+                        <!--<input type="checkbox" checked>星期日-->
+                    <!--</li>-->
 
                 </ul>
-                <ul class="cycle-block cycle-block-month" style="display: none">
+                <ul class="cycle-block cycle-block-month" style="display: block">
+
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox">1日</td>
+                                <td><input type="checkbox">2日</td>
+                                <td><input type="checkbox">3日</td>
+                                <td><input type="checkbox">4日</td>
+                                <td><input type="checkbox">5日</td>
+                                <td><input type="checkbox">6日</td>
+                                <td><input type="checkbox">7日</td>
+                            </tr>
+                            <tr>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox">8日</td>
+                                <td><input type="checkbox">9日</td>
+                                <td><input type="checkbox">10日</td>
+                                <td><input type="checkbox">11日</td>
+                                <td><input type="checkbox">12日</td>
+                                <td><input type="checkbox">13日</td>
+                                <td><input type="checkbox">14日</td>
+                            </tr>
+                            <tr>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox">15日</td>
+                                <td><input type="checkbox">16日</td>
+                                <td><input type="checkbox">17日</td>
+                                <td><input type="checkbox">18日</td>
+                                <td><input type="checkbox">19日</td>
+                                <td><input type="checkbox">20日</td>
+                                <td><input type="checkbox">21日</td>
+                            </tr>
+                            <tr>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox">22日</td>
+                                <td><input type="checkbox">23日</td>
+                                <td><input type="checkbox">24日</td>
+                                <td><input type="checkbox">25日</td>
+                                <td><input type="checkbox">26日</td>
+                                <td><input type="checkbox">27日</td>
+                                <td><input type="checkbox">28日</td>
+                            </tr>
+                            <tr>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox">29日</td>
+                                <td><input type="checkbox">30日</td>
+                                <td><input type="checkbox">31日</td>
+                            </tr>
+                            <tr>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                                <td><select class="time-range"></select></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </ul>
             </div>
@@ -478,6 +588,17 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/fullcalendar/fullcalendar.js"></script>
+<script src="../resource/js/classManagement.js"></script>
 </body>
 <!-- END BODY -->
 </html>

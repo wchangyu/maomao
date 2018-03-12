@@ -150,7 +150,7 @@ $(function(){
         var prm = {
             "lastDayDate": startTime,
             "dayDate": endTime,
-            "storageNum": '',
+            "storageNum": '01',
             "userID":  _userIdNum,
             "userName": _userIdName
         };
@@ -178,42 +178,47 @@ $(function(){
                 obj.xmgt = null;
                 $(result.wbzItemUses).each(function(i,o){
                     count += o.amount;
-                    if(o.departName == '南昌维保组'){
+                    if(o.departName == '南昌车间'){
                         if(o.railType == '普速'){
                             obj.ncps = o.amount;
                         }else{
                             obj.ncgt = o.amount;
                         }
-                    }else  if(o.departName == '上饶维保组'){
+                    }else  if(o.departName == '上饶车间'){
                         if(o.railType == '普速'){
                             obj.srps = o.amount;
                         }else{
                             obj.srgt = o.amount;
                         }
-                    }else  if(o.departName == '赣州维保组'){
+                    }else  if(o.departName == '赣州车间'){
                         if(o.railType == '普速'){
                             obj.gzps = o.amount;
                         }else{
                             obj.gzgt = o.amount;
                         }
-                    }else  if(o.departName == '福州维保组'){
+                    }else  if(o.departName == '福州车间'){
                         if(o.railType == '普速'){
                             obj.fzps = o.amount;
                         }else{
                             obj.fzgt = o.amount;
                         }
-                    }else  if(o.departName == '厦门维保组'){
+                    }else  if(o.departName == '厦门车间'){
                         if(o.railType == '普速'){
                             obj.xmps = o.amount;
                         }else{
                             obj.xmgt = o.amount;
                         }
+                    }else if(o.departName == '综合维修中心'){
+
+                        obj.zhwx = o.amount;
+
                     }
                 });
 
                 obj.hz = count.toFixed(2);
                 tableArr.length = 0;
                 tableArr.push(obj);
+
                 _datasTable($("#scrap-datatables"), tableArr);
             },
             error:function(jqXHR, textStatus, errorThrown){

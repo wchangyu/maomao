@@ -12,7 +12,7 @@ var Login = function() {
         msg = msg || "出现错误,请联系管理员";
         $('.alert-danger span').html(msg);
         $('.alert-danger').show();
-    }
+    };
 
     var handleLogin = function() {
 
@@ -199,6 +199,12 @@ var Login = function() {
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
+            if(window.screen > 1800){
+                window.location.href = '../passengerStation/passengerStation.html';
+
+                return false;
+            }
+
             if(sessionStorage.redirectFromPage){
                 window.location.href = sessionStorage.redirectFromPage;
                 sessionStorage.removeItem('redirectFromPage');
@@ -254,8 +260,6 @@ var Login = function() {
         for(var i=0; i<theArr.length; i++){
 
             var id = theArr[i].enterpriseID;
-
-
 
             var isEnterpriseID  = false;
 
@@ -423,6 +427,10 @@ var Login = function() {
                     //工单自动刷新开关
                     var gongdanInterval = data["gongdanInterval"] || '';
                     sessionStorage.gongdanInterval = gongdanInterval;
+
+                    //大屏幕自动刷新开关
+                    var dapinInterval = data["dapinInterval"] || '';
+                    sessionStorage.dapinInterval = dapinInterval;
 
                     //判断右上角信息走哪条分支
                     var gongdanIndustryType = data["gongdanIndustryType"] || '';

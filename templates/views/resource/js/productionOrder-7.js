@@ -821,7 +821,16 @@ $(function(){
                     app33.sbBM = result.ddName;
                     app33.azAddress = result.installAddress;
                     _imgNum = result.hasImage;
+                    //按钮显示隐藏
+                    if( _imgNum == 0 ){
 
+                        $('.bxpicture').hide();
+
+                    }else{
+
+                        $('.bxpicture').show();
+
+                    }
                     $('.otime').val(result.gdFsShij);
                     //查看执行人员
                     _zhixingRens = [];
@@ -1802,7 +1811,11 @@ $(function(){
         //故障描述
         app33.remarks = '';
         //查看图片
+        _imgNum = 0;
+        //查看图片
         $('.showImage').hide();
+        //查看图片
+        $('.bxpicture').hide();
         //执行人员
         var arr = [];
         _datasTable($('#personTable1'),arr);

@@ -65,7 +65,8 @@ span .pay-not0 {
 #dateTables1_wrapper{
     width:800px;
 }
-td span{
+
+#dateTables1 td span{
     position:relative;
     width:120px !important;
     margin:0 auto;

@@ -344,7 +344,7 @@ var option4 = {
     grid: {
         left: '12%',
         right: '4%',
-        bottom: '3%',
+        bottom: '13%',
         top:'5%',
         containLabel: false
     },
@@ -698,7 +698,7 @@ function getRealTimeData(){
             //console.log(data);
 
             //如果为空直接返回
-            if(data == null && data.length == 0){
+            if(data == null  || data.length == 0){
                 return false;
             }
 
@@ -759,11 +759,15 @@ function getPointerRankData(){
     var txt = unitObj.alltypes;
 
     //获取能耗分项ID集合
-    var energyItemIDArr = [];
+    var energyItemIDArr = '';
 
     for(var i=0; i < txt.length; i++){
 
-        energyItemIDArr.push(txt[i].etid);
+        if(i == txt.length - 1){
+            energyItemIDArr += txt[i].etid + '';
+        }else{
+            energyItemIDArr += txt[i].etid + ',';
+        }
     }
 
     //传递给后台的数据
@@ -864,20 +868,19 @@ function getPointerRankData(){
 //获取所有车站能耗标煤排名
 function getStationRankData(){
 
-
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
-        "pointerIDs": pointerIdArr,
-        "energyItemType": "01",
-        "energyRankFlag": -2
+        "pointerIDs": pointerIdArr
+        //"energyItemType": "01",
+        //"energyRankFlag": -2
     };
 
     //发送请求
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetEnergyItemRankData',
+        url:sessionStorage.apiUrlPrefix+'EnergyAnalyzeV2/GetCustomBiaoMeiRankData',
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
@@ -934,7 +937,6 @@ function getStationRankData(){
         },
         error:function(jqXHR, textStatus, errorThrown){
             _myChart2.hideLoading();
-            _myChart3.hideLoading();
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
                 _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
@@ -980,23 +982,23 @@ function getTopPageEnergyData(){
             $('.fenleinenghao').eq(0).find('.data').html(result[0].currentEnergyData.toFixed(1));
 
             //同比
-            $('.fenleinenghao').eq(0).find('.child1 span').html(Math.abs(result[0].chainEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(0).find('.child1 span').html(Math.abs(result[0].lastYearEnergyPercent*100).toFixed(1) + '%');
 
             //环比
-            $('.fenleinenghao').eq(0).find('.child2 span').html(Math.abs(result[0].lastYearEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(0).find('.child2 span').html(Math.abs(result[0].chainEnergyPercent*100).toFixed(1) + '%');
 
             //判断箭头方向
-            if(result[0].chainEnergyPercent < 0){
+            if(result[0].lastYearEnergyPercent< 0){
 
                 $('.fenleinenghao').eq(0).find('.child1').addClass('down');
 
-            }else if(result[0].chainEnergyPercent == 0){
+            }else if(result[0].lastYearEnergyPercent  == 0){
 
                 $('.fenleinenghao').eq(0).find('.child1').addClass('equal');
 
             }
 
-            if(result[0].lastYearEnergyPercent < 0){
+            if(result[0].chainEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(0).find('.child2').addClass('down');
 
@@ -1010,23 +1012,23 @@ function getTopPageEnergyData(){
             $('.fenleinenghao').eq(1).find('.data').html(result[1].currentEnergyData.toFixed(1));
 
             //同比
-            $('.fenleinenghao').eq(1).find('.child1 span').html(Math.abs(result[1].chainEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(1).find('.child1 span').html(Math.abs(result[1].lastYearEnergyPercent*100).toFixed(1) + '%');
 
             //环比
-            $('.fenleinenghao').eq(1).find('.child2 span').html(Math.abs(result[1].lastYearEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(1).find('.child2 span').html(Math.abs(result[1].chainEnergyPercent*100).toFixed(1) + '%');
 
             //判断箭头方向
-            if(result[1].chainEnergyPercent < 0){
+            if(result[1].lastYearEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(1).find('.child1').addClass('down');
 
-            }else if(result[1].chainEnergyPercent == 0){
+            }else if(result[1].lastYearEnergyPercent == 0){
 
                 $('.fenleinenghao').eq(1).find('.child1').addClass('equal');
 
             }
 
-            if(result[1].lastYearEnergyPercent < 0){
+            if(result[1].chainEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(1).find('.child2').addClass('down');
 
@@ -1040,23 +1042,23 @@ function getTopPageEnergyData(){
             $('.fenleinenghao').eq(2).find('.data').html(result[2].currentEnergyData.toFixed(1));
 
             //同比
-            $('.fenleinenghao').eq(2).find('.child1 span').html(Math.abs(result[2].chainEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(2).find('.child1 span').html(Math.abs(result[2].lastYearEnergyPercent*100).toFixed(1) + '%');
 
             //环比
-            $('.fenleinenghao').eq(2).find('.child2 span').html(Math.abs(result[2].lastYearEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(2).find('.child2 span').html(Math.abs(result[2].chainEnergyPercent*100).toFixed(1) + '%');
 
             //判断箭头方向
-            if(result[2].chainEnergyPercent < 0){
+            if(result[2].lastYearEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(2).find('.child1').addClass('down');
 
-            }else if(result[2].chainEnergyPercent == 0){
+            }else if(result[2].lastYearEnergyPercent == 0){
 
                 $('.fenleinenghao').eq(2).find('.child1').addClass('equal');
 
             }
 
-            if(result[2].lastYearEnergyPercent < 0){
+            if(result[2].chainEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(2).find('.child2').addClass('down');
 
@@ -1066,31 +1068,31 @@ function getTopPageEnergyData(){
 
             }
 
-            //总气耗
-            $('.fenleinenghao').eq(3).find('.data').html(result[2].currentEnergyData.toFixed(1));
+            //总蒸汽耗
+            $('.fenleinenghao').eq(3).find('.data').html(result[3].currentEnergyData.toFixed(1));
 
             //同比
-            $('.fenleinenghao').eq(3).find('.child1 span').html(Math.abs(result[2].chainEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(3).find('.child1 span').html(Math.abs(result[3].lastYearEnergyPercent*100).toFixed(1) + '%');
 
             //环比
-            $('.fenleinenghao').eq(3).find('.child2 span').html(Math.abs(result[2].lastYearEnergyPercent*100).toFixed(1) + '%');
+            $('.fenleinenghao').eq(3).find('.child2 span').html(Math.abs(result[3].chainEnergyPercent*100).toFixed(1) + '%');
 
             //判断箭头方向
-            if(result[2].chainEnergyPercent < 0){
+            if(result[3].lastYearEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(3).find('.child1').addClass('down');
 
-            }else if(result[2].chainEnergyPercent == 0){
+            }else if(result[3].lastYearEnergyPercent == 0){
 
                 $('.fenleinenghao').eq(3).find('.child1').addClass('equal');
 
             }
 
-            if(result[2].lastYearEnergyPercent < 0){
+            if(result[3].chainEnergyPercent < 0){
 
                 $('.fenleinenghao').eq(3).find('.child2').addClass('down');
 
-            }else if(result[2].chainEnergyPercent == 0){
+            }else if(result[3].chainEnergyPercent == 0){
 
                 $('.fenleinenghao').eq(3).find('.child2').addClass('equal');
 
@@ -1229,18 +1231,22 @@ function getStationAreaRankData(){
     var txt = unitObj.alltypes;
 
     //获取能耗分项ID集合
-    var energyItemIDArr = [];
+    var energyItemIDArr = '';
 
     for(var i=0; i < txt.length; i++){
 
-        energyItemIDArr.push(txt[i].etid);
+        if(i == txt.length - 1){
+            energyItemIDArr += txt[i].etid + '';
+        }else{
+            energyItemIDArr += txt[i].etid + ',';
+        }
     }
 
     //传递给后台的数据
     var ecParams = {
         "energyNorm": {
             "energyItemID": energyItemIDArr,
-            "energyNormFlag": 0
+            "energyNormFlag": 2
         },
         "selectDateType": selectDateType,
         "startTime": startDate,
@@ -1397,7 +1403,7 @@ function getTopPageKPIData(){
                     //页面重绘数据
                     _myChart71.setOption(option6,true);
 
-                }else if(o.energyItemID == '44'){
+                }else if(o.energyItemID == '2011'){
 
                     //单位面积能耗
                     option6.series[0].data[0].value = o.energyNormData.toFixed(3);
@@ -1440,6 +1446,7 @@ function getAllEnergyItemData(){
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
+        "selectDateType": "日",
         "pointerIDs":  pointerIdArr
     };
 
@@ -1560,8 +1567,10 @@ function getFirstEnergyItemData(){
                 //给图例中存储数据
                 legendArr.push(o.energyItemName);
             });
+
             //图例赋值
             option8.legend.data = legendArr;
+
             //数据赋值
             option8.series[0].data = dataArr;
 
@@ -1592,11 +1601,15 @@ function getStataionFootfallRank(){
     var txt = unitObj.alltypes;
 
     //获取能耗分项ID集合
-    var energyItemIDArr = [];
+    var energyItemIDArr = '';
 
     for(var i=0; i < txt.length; i++){
 
-        energyItemIDArr.push(txt[i].etid);
+        if(i == txt.length - 1){
+            energyItemIDArr += txt[i].etid + '';
+        }else{
+            energyItemIDArr += txt[i].etid + ',';
+        }
     }
 
     //传递给后台的数据

@@ -169,7 +169,7 @@ $(function(){
             1
         ],
 
-        "drawCallback":drawFn
+        "drawCallback":''
     });
     _tables.buttons().container().appendTo($('.excelButton'),_tables.table().container());
 
@@ -295,7 +295,47 @@ $(function(){
             data:prm,
             timeout:30000,
             success:function(result){
+
                 datasTable($('#scrap-datatables'),result);
+
+                //合计金额
+
+                var rkTotal = 0;
+
+                var ckTotal = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    if( result[i].ivtType == '入库' ){
+
+                        rkTotal += Number(result[i].amount);
+
+                    }else if( result[i].ivtType == '出库' ){
+
+                        ckTotal += Number(result[i].amount);
+
+                    }
+
+                }
+
+                var html = '';
+
+                if(rkTotal == 0){
+
+                    html += '出库：' + ckTotal.toFixed(2);
+
+                }else if(ckTotal == 0){
+
+                    html += '入库：' + rkTotal.toFixed(2);
+
+                }else{
+
+                    html += '入库：' + rkTotal.toFixed(2) +  '&nbsp;&nbsp;&nbsp;&nbsp;' + '出库：' + ckTotal.toFixed(2);
+
+                }
+
+                $('.amount').html(html);
+
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);

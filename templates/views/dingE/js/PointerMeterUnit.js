@@ -368,7 +368,7 @@ $(document).ready(function(){
                 title:'<img src="img/asterisk.png"/>公摊比例(%)',
                 data:'f_EquallyShared',
                 render:function(data, type, row, meta){
-                    return '<input class="wait-change0" style="width:90px;border-radius:5px;" value="'+data * 100+'" >'
+                    return '<input class="wait-change0" style="width:90px;border-radius:5px;" value="'+(data * 100).toFixed(2)+'" >'
                 }
 
             },
@@ -700,7 +700,7 @@ function getBuildTree(){
                 }
 
             }
-            console.log(zNodes);
+
             $.fn.zTree.init($("#treeMultiple"), setting, zNodes);
 
             $('.treeFont').eq(0).click();

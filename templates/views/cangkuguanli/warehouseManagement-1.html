@@ -457,18 +457,25 @@
                                 </div>
                             </li>
                             <li class="floatLeft">
+                                <div class="labels">是否返修件 ：</div>
+                                <div class="input-blockeds">
+                                    <input type="radio" class="isfix" id="threes" value="1" v-model="isfix" v-on:click="fixFun" style="margin-left: -9px;"><label for="threes" style="line-height: 30px;">是</label>
+                                    <input type="radio" class="isfix" id="fours" value="0" v-model="isfix" v-on:click="fixFun" style="margin-left: -9px;"><label for="fours" style="line-height: 30px;">否</label>
+                                </div>
+                            </li>
+                            <li class="floatRight">
                                 <div class="labels">规格 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="guige">
                                 </div>
                             </li>
-                            <li class="floatRight">
+                            <li class="floatLeft">
                                 <div class="labels">颜色 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="yanse">
                                 </div>
                             </li>
-                            <li class="floatLeft">
+                            <li class="floatRight">
                                 <div class="labels">主要供货商 ：</div>
                                 <div class="input-blockeds">
                                     <input type="text" v-model="gonghuoshang">

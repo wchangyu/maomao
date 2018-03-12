@@ -4,8 +4,8 @@
 
 $(function(){
 
-    //获取流程图右侧table中数据
-    getSeAreaRotarySys();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaRotarySys);
 
 });
 
@@ -15,83 +15,6 @@ var titleArr = ['','机房数','空开平均温度','机房平均温度','机房
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','-9.6m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
-
-//绘制页面右侧的table
-function drawDataTable(titleArr,areaArr){
-    //定义title
-    var titleHtml = '';
-
-    $(titleArr).each(function(i,o){
-
-        //拼接title的字符串
-        titleHtml += '<th>'+o+'</th>';
-
-    });
-
-    //把title放入到table中
-
-    $('.right-bottom-table thead tr').html(titleHtml);
-
-    //定义tbody中内容
-    var bodyHtml = '';
-
-    //绘制table中主体数据
-    $(areaArr).each(function(i,o){
-
-        bodyHtml +=
-            '<tr>' +
-            '<td>' +
-            '<span class="green-patch">'+ o+'</span>' +
-            '</td>' +
-
-            '<td>13</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart1">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart2">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            ' <!--回风平均温度-->' +
-            '<td>' +
-            ' <span class="table-small-patch table-small-patch-red">29</span>' +
-            '</td>' +
-
-            '<!--回风co2平均浓度-->' +
-            '<td>' +
-            '<span class="table-small-patch table-small-patch-green">1000</span>' +
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart3">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
-            '</td>' +
-            '</tr>';
-    });
-
-    //把body放入到table中
-
-    $('.right-bottom-table tbody').html( bodyHtml);
-};
-
 
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
@@ -149,8 +72,8 @@ $('#monitor-menu-container').on('click','span',function(){
     //获取当前的区域ID
     var areaID = $(this).attr('data-district');
 
-    //定义当前的设备类型 空调机组为2
-    var devTypeID = 2;
+    //定义当前的设备类型 动环系统为7
+    var devTypeID = 7;
 
     //获取当前的设备列表
     getSecondColdHotSour('NJNDeviceShow/GetSecondAirUnit', devTypeID,areaID);
@@ -224,15 +147,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4321'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -241,81 +167,96 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4321'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
         {
-            title:'机房湿度1（℃）',
+            title:'机房湿度1（%）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4322'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
         {
-            title:'机房湿度2（℃）',
+            title:'机房湿度2（%）',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4322'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
-            title:'机房水浸1（℃）',
+            title:'机房水浸1',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4323'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
-            title:'机房水浸2（℃）',
+            title:'机房水浸2',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+
+                var result = '';
 
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4323'){
 
-                        return o.cDataValue;
+                        result = o.cDataValue;
+
                     }
                 });
 
-                return '';
+                return result;
             }
         },
         {
@@ -323,16 +264,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4024'){
+                    if(o.cTypeID == '4324'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -341,16 +284,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4024'){
+                    if(o.cTypeID == '4324'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -359,16 +304,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -377,16 +324,18 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -395,24 +344,23 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4325'){
 
-                        return o.cTypeID
+                        result = o.cDataValue;
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         }
     ]
 });
-
-
-
 
 //-------------------------------------获取流程图右侧展示数据--------------------------//
 
@@ -526,7 +474,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 ' <!--空开平均温度-->' +
                 '<td>' +
-                    ' <span class="table-small-patch table-small-patch-red">'+ o.airOpenTemp.toFixed(1)+'</span>' +
+                    ' <span class="table-small-patch table-small-patch-green">'+ o.airOpenTemp.toFixed(1)+'</span>' +
                 '</td>' +
 
                 '<!--机房平均温度-->' +
@@ -536,7 +484,7 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 //机房平均湿度
                 '<td>' +
-                         '<span class="table-small-patch table-small-patch-red">'+ o.computerHum.toFixed(1)+'</span>' +
+                         '<span class="table-small-patch table-small-patch-green">'+ o.computerHum.toFixed(1)+'</span>' +
 
                 '</td>' +
 
@@ -546,28 +494,35 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
                 '</td>';
 
-            if(o.excData2s != null && o.excData2s.length > 0){
+        if(o.excData2s != null && o.excData2s.length > 0){
 
-                bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
-                $(o.excData2s).each(function(i,o){
+            $(o.excData2s).each(function(i,o){
 
-                    if(i < 3){
+                if(i == 0){
 
-                        bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
-                    }
+                    bodyHtml += getRightAlarmString(o,true)
 
-                });
 
-                bodyHtml += '</td>';
+                }else{
 
-            }else{
-                bodyHtml +=   '<td>' +
-                                '<p class="right-bottom-alarm"></p>' +
-                                '<p class="right-bottom-alarm"></p>' +
-                                '<p class="right-bottom-alarm"></p>' +
-                              '</td>' ;
-            }
+                    bodyHtml += getRightAlarmString(o);
+
+                }
+
+            });
+
+            bodyHtml += '</div></div></td>';
+
+        }else{
+
+            bodyHtml +=   '<td><div>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '<p class="right-bottom-alarm"></p>' +
+                '</div></td>';
+        }
 
         bodyHtml +=   '</tr>';
     });
@@ -575,6 +530,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
 
 };

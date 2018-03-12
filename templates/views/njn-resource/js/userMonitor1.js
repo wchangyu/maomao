@@ -254,23 +254,40 @@ var userMonitor = (function(){
             if(bindKeyId){
                 getAllProcsByBind(_configArg2,bindKeyId);
             }
+         //按区域绘制对应流程图
         }else if(_configArg1 == 4){
 
-            var bindKeyId;
-            if(_configArg2 == '2'){       //bindType=2时候代表按照楼宇获取
-                if(sessionStorage.curPointerId){
-                    bindKeyId = sessionStorage.curPointerId;
-                }
-            }
+            //bindType=6时候代表按照区域获取
+            var bindType = 6;
+
+            //当前表示区域ID
+            var bindKeyId = _configArg2;
+
+            //表示当前方案类型（对象所属的系统）
+            var procTypeID = _configArg3;
+
             if(bindKeyId){
-                getAllProcsByBind(_configArg2,bindKeyId);
+                if(procTypeID){
+                    getAllProcsByBind(bindType,bindKeyId,procTypeID);
+                }else{
+                    getAllProcsByBind(bindType,bindKeyId);
+                }
+
             }
+
         }
     };
 
     //根据绑定类型和绑定值获取到监控方案列表
-    var getAllProcsByBind = function(bindType,bindKeyId){
-        var prm = {"bindType":bindType,"bindKeyId":bindKeyId};
+    var getAllProcsByBind = function(bindType,bindKeyId,procTypeID){
+
+        var prm = {};
+        if(procTypeID){
+            prm = {"bindType":bindType,"bindKeyId":bindKeyId,"procTypeID": procTypeID};
+        }else{
+            prm = {"bindType":bindType,"bindKeyId":bindKeyId};
+        }
+
         $.ajax({
             type:"post",
             data:prm,
@@ -278,13 +295,14 @@ var userMonitor = (function(){
             success:function(data){
                 _allProcs = data;       //暂存全部方案
                 _allPointerProcs = data;
-                console.log(data);
+                //console.log(data);
                 //setProcList(_allProcs);
                 getProcsByPointerId();
             },
             error:function(xhr,res,err){logAjaxError("PR_GetAllProcsByBindType",res)}
         })
     };
+
 
     Array.prototype.indexOf = function(val) {
         for (var i = 0; i < this.length; i++) {
@@ -310,8 +328,10 @@ var userMonitor = (function(){
     };
 
     var getProcsByPointerId = function(notSetProcList){
+
         var pointerId = sessionStorage["curPointerId"];
         var menuusepointer = sessionStorage.menuusepointer;
+
         if(menuusepointer){
             if(!pointerId){
             }
@@ -353,12 +373,12 @@ var userMonitor = (function(){
     var setProcList = function(procs,selectedProc){
         //console.log(procs);
 
-        if(sessionStorage.monitorArea){
-            //大屏中绘制上方流程图选项卡
-            setProcList1(procs);
-
-            return false;
-        }
+        //if(sessionStorage.monitorArea){
+        //    //大屏中绘制上方流程图选项卡
+        //    setProcList1(procs);
+        //
+        //    return false;
+        //}
 
         var $ul = $("#monitor-menu-container0");
 
@@ -367,6 +387,9 @@ var userMonitor = (function(){
         if(!procs || procs.length==0) return;
 
         var curProc = selectedProc || undefined;
+
+        console.log(procs);
+
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
                 if(!procs[i].showProcName){
@@ -418,6 +441,9 @@ var userMonitor = (function(){
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
                 initializeProcSubs(curProc.procID);//选中默认的监控
+
+
+                //initializeProcSubs('3101007761');//选中默认的监控
             }
 
             //selectLi($('.right-bottom-tab [data-procid="' + curProc.procID  + '"]'));//默认选中的样式
@@ -442,9 +468,8 @@ var userMonitor = (function(){
 
         var curProc = selectedProc || undefined;
 
-
         var startNum = 0;
-        console.log(procs);
+        //console.log(procs);
         if(_isViewAllProcs){
 
             $(areaArr).each(function(k,o){
@@ -528,6 +553,7 @@ var userMonitor = (function(){
                 //initializeProcSubs('3101007435');//选中默认的监控
             }else{
                 initializeProcSubs(curProc.procID);//选中默认的监控
+                //initializeProcSubs('3101007761');//选中默认的监控
                 //展示设备列表
                 $("#monitor-menu-container span").eq(0).click();
             }
@@ -537,6 +563,7 @@ var userMonitor = (function(){
 
         $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
     };
+
 
     function selectLi($li){
         $(".right-bottom-tab").removeClass("right-bottom-tab-choose");
@@ -667,6 +694,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
     };
+
     //获取定义中对应的控制
     var initializeProcCtrl = function(procId){
         $.ajax({
@@ -681,6 +709,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetProcCtrls" , err)}
         })
     };
+
     //获取render
     var initializeProcRender = function (procId) {
         $.ajax({
@@ -1105,6 +1134,7 @@ var userMonitor = (function(){
                 defWidth = _procDefs[i].sizeW * divContentWidth;
                 defHeight = _procDefs[i].sizeH * divContentHeight;
             }
+
             var $spanDef = $("<span>");     //当前def的显示层
             //$spanDef.css("display","inline-block");
             setFlex($spanDef);
@@ -1125,6 +1155,11 @@ var userMonitor = (function(){
                 }
                 var curPRR;     //当前render
                 curPRR = _.findWhere(_procRenders,{"id":curPD.procRenderID});
+
+                //if(spanID == 31010077610122){
+                //    console.log(_procDefs[i]);
+                //    console.log(curPRR);
+                //}
 
                 var curProcDef = _procDefs[i];
                 if(curProcDef.dType != 0){
@@ -1213,6 +1248,7 @@ var userMonitor = (function(){
 
                     //判断前台展示的类型，1为文本，2为图片，3为图片文本 ，4为视频
                     if(curPRR.showFlag == 1){
+                        $Txt.attr('title',curText);
                         $spanTxt.append($Txt);
                         $spanImg.width(0);
                         $spanTxt.width("100%");
@@ -1253,7 +1289,10 @@ var userMonitor = (function(){
                         }
                     }
                     $Txt.css("font-family",curPRR.fontName);        //字体设置
-                    if(curPRR.fontSize > 0) { $Txt.css("font-size",curPRR.fontSize);}
+                    if(curPRR.fontSize > 0) {
+                        var fontSize = curPRR.fontSize;
+                        $Txt.css("font-size",fontSize + 'px');
+                    }
                     if(curPRR.isFontBold) { $Txt.css("font-weight","bold");}
                     if(curPRR.isFontItalic) { $Txt.css("font-style","italic"); }
                     if(curPRR.isFontUnderline) { $Txt.css("text-decoration","underline"); }
@@ -1320,12 +1359,14 @@ var userMonitor = (function(){
             }
 
             //如果不是第一次加载
-            if(_oldSpanDefArr.length != 0){
+            if(_ifCompareSpan){
 
                 //获取要替换的元素
                 $(spanID).replaceWith($spanDef);
-            }
-            $divContent.append($spanDef);
+            }else{
+
+                $divContent.append($spanDef);
+            };
         }
         refreshData();
     };
@@ -1717,8 +1758,6 @@ var userMonitor = (function(){
             }
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
 
-
-
             //如果新建模态框打开流程图
             if( procDef.prProcLnk == null || procDef.prProcLnk.Startpos == 2) {
 
@@ -1964,6 +2003,7 @@ var userMonitor = (function(){
         $divCtrls.append($table);
         setDivControlsVisible(true);
     };
+
     //绘制输入的控制面板
     var drawInputPanel = function(prDefId,left,top){
         //组建当前def的ctrl,以鼠标点为左上角，组建一个3行的显示，其中第一列为"控制选项"标题
@@ -2555,7 +2595,8 @@ var userMonitor = (function(){
         getProcsByPointerId:getProcsByPointerId,
         getUserProcs:getUserProcs,
         setScaleSign:setScaleSign,
-        initializeProcSubs:initializeProcSubs
+        initializeProcSubs:initializeProcSubs,
+        getAllProcsByBind:getAllProcsByBind
     };
 
 })();

@@ -73,6 +73,7 @@ $(function(){
 
     },30000);
 
+
     //echart图自适应
     //浏览器echarts自适应
 

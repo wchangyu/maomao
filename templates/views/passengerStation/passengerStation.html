@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--框架中的css-->
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <!--能耗查询公共css-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../new-resource/css/common.css">
+    <!--ztree css-->
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/zTreeStyle/style.css">
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!--datepicker css-->
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css"/>
+    <link rel="stylesheet" href="../resource/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.standalone.css"/>
+    <!--本页面css-->
+    <link rel="stylesheet" href="passengerStation.css">
+
+</head>
+<body>
+    <div style="width: 100%;height: 100%;background: rgba(28,34,42,1);">
+        <div class="main-header">
+            <div class="main-logo">
+                <img src="img/logo.png" alt="">
+            </div>
+            <div class="logo-word">客运车站设备智能化管理系统</div>
+            <div class="right-info-header">
+                <div class="right-info-header-logo"></div>
+                <div class="data-header">2017-12-19 15:25:36</div>
+                <div class="temperature-header">
+                    <img src="img/wendu.png" alt="">
+                    <span>26℃</span>
+                </div>
+                <div class="humidity-header">
+                    <img src="img/shidu.png" alt="">
+                    <span>56%</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-body">
+            <div class="body-menu">
+                <div class="first-menu">
+                    <ul>
+                    </ul>
+                </div>
+                <div class="second-menu">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            <div class="body-content">
+                <div class="body-white-content">
+                    <iframe src="" id="iId" frameborder="0" style="width:100%;height:100%;"></iframe>
+                </div>
+            </div>
+            <div class="body-black-content">
+                <div class="black-one">
+                    <div class="on-top">
+                        <div class="black-title">南京南站<span>（Nanjing South Railway Station）</span></div>
+                        <div>
+                            <img src="img/nanjing.png" alt="">
+                            <div class="one-word">
+                                南京南站于2011年6月28日启用，是全国铁路客运特等站，连接8条高等级铁路的国家铁道枢纽站。南京南站总建筑面积约45.8万平方米，其中主站房面积达28.15万平方米,空调采暖面积12.53万平方米。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one-bottom">
+                        <div class="black-title">运维联动</div>
+                        <div class="one-bottom-content">
+                            <div class="one-bottom-children">
+                                <span class="one-bottom-children-tip">工单响应</span>
+                                <div class="one-echarts" style="position: relative">
+                                    <div  id="responseGD" style="height: 100%">
+                                    </div>
+                                    <div style="width: 50px;height: 50px;position: absolute;left:38%;top: 35%;text-align: center;"><span style="font-size: 25px;color: #ffffff">681</span><br><span style="font-size: 12px;color: #ffffff">工单量</span></div>
+                                </div>
+
+                            </div>
+                            <div class="one-bottom-children">
+                                <span class="one-bottom-children-tip">工单分布</span>
+                                <div class="one-echarts" style="position: relative">
+                                    <div  id="distributionGD" style="height: 100%">
+                                    </div>
+                                    <div style="width: 50px;height: 50px;position: absolute;left:38%;top: 35%;text-align: center;"><span style="font-size: 25px;color: #ffffff">681</span><br><span style="font-size: 12px;color: #ffffff">工单量</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="black-two">
+                    <div class="two-top">
+                        <div class="black-title">节能减排</div>
+                        <ul>
+                            <li>
+                                <div class="two-top-left">
+                                    <div class="two-top-title">累计节电量</div>
+                                    <div class="two-top-img">
+                                        <img src="img/dian.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="two-top-right">5400.7<span>kwh</span></div>
+                            </li>
+                            <li>
+                                <div class="two-top-left">
+                                    <div class="two-top-title">累计节水量</div>
+                                    <div class="two-top-img">
+                                        <img src="img/shui.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="two-top-right">1003.2<span>t</span></div>
+                            </li>
+                            <li>
+                                <div class="two-top-left">
+                                    <div class="two-top-title">累计节气量</div>
+                                    <div class="two-top-img">
+                                        <img src="img/qi.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="two-top-right">509.6<span>t</span></div>
+                            </li>
+                            <li>
+                                <div class="two-top-left">
+                                    <div class="two-top-title">累计减排量</div>
+                                    <div class="two-top-img">
+                                        <img src="img/co2.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="two-top-right">1023.5<span>t</span></div>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="two-bottom">
+                        <div class="black-title">安全联动</div>
+                        <div class="two-bottom-block">
+                            <p>安全运行天数<span>429</span>天</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="black-three">
+                    <div class="black-title">子系统导航</div>
+                    <div class="three-block">
+                        <div class="three-one"></div>
+                        <div class="three-two"></div>
+                        <div class="three-three"></div>
+                        <div class="three-four"></div>
+                        <div class="three-five"></div>
+                        <div class="three-six"></div>
+                        <div class="three-seven"></div>
+                        <div class="three-eight"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="../resource/js/jquery-1.11.2.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        //Metronic.init(); // init metronic core components
+        //Layout.init(); // init current layout
+        //Demo.init(); // init demo features
+        BEE.init();
+    });
+</script>
+<!--js-->
+<script src="../resource/js/moment.js"></script>
+<script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<!--echarts-->
+<script src="../resource/js/echarts.min.js"></script>
+<script src="../resource/js/moment.js"></script>
+<!--ztree js-->
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+
+<script src="../resource/js/pointersoffices.js"></script>
+<script src="../resource/js/etSelection.js"></script>
+<script src="../new-resource/js/showOrHidden.js"></script>
+<script src="../new-resource/js/common.js"></script>
+<script src="passengerStation.js"></script>
+</html>

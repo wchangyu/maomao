@@ -14,7 +14,6 @@
     box-sizing: border-box;
 }
 
-
 /*设备监控*/
 .right-bottom-equipment{
 
@@ -127,10 +126,11 @@
 .right-bottom-equipment .bottom-content-data{
     position: absolute;
     right:90px;
-    top:65px;
+    top:67px;
     color:white;
     font-size: 12px;
     line-height: 12px;
+    z-index: 1000;
 }
 
 /*下方数据统计*/
@@ -347,7 +347,7 @@
     width:259px;
     height:157px;
     border:1px solid #2170F4;
-    padding-top:27px;
+    padding-top:45px;
     box-sizing: border-box;
 }
 .right-bottom-container .right-bottom-safe p{

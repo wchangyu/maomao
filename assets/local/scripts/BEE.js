@@ -299,7 +299,7 @@ var BEE = (function(){
                 //获取摄像头报警数量
                 cameraAlarmHistory();
 
-                //modificationImportInfo();
+                modificationImportInfo();
                 var now = new Date();
                 sessionStorage.alaInsDataTime = now.toString();      //存储当前的数据载入时间
                 if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0'){
@@ -333,7 +333,7 @@ var BEE = (function(){
                 '<div class="modal-body">' + iframStr +
                 '</div>' +
                 '<div class="modal-footer"><button type="button" class="btn btn-default classNote" data-dismiss="modal">关闭</button></div>' +
-                '</div></div></div>'
+                '</div></div></div>';
             $('body').append(str);
 
             $('#myModal00').off('hidden.bs.modal',"**");
@@ -430,9 +430,7 @@ var BEE = (function(){
                 '   <a href="../baojingyujing/warningAlarm-3.html" target="_blank">查看详细</a>' +
                 '</li>';
 
-
          }
-
          //console.log(_cameraAlarmCount);
 
          if(_cameraAlarmCount > 0){
@@ -1047,13 +1045,14 @@ var BEE = (function(){
         if(curMenu.indexOf(curPageName) == -1){
 
             //本地浏览时不需要跳转
-            if(curUrl.indexOf('localhost:') >= 0 || curUrl.indexOf('jumpEnergyMonitor.html') >= 0){
+            if(curUrl.indexOf('localhost:') >= 0 || curPageName.indexOf('jumpEnergyMonitor.html') >= 0){
 
                 return false;
             }
 
             //如果没有则跳转到登陆页
-            window.location.href = _loginHtml;
+            window.history.go(-1);
+
         }
     };
 
@@ -1110,7 +1109,30 @@ var BEE = (function(){
          });
      };
 
+     //iframe只显示部分div
+
+    //获取当前的url
+     var curUrl = window.parent.location.href;
+
+     if( curUrl.indexOf('passengerStation.html') > -1 ){
+
+        $('.page-header').hide();
+
+         $('.page-sidebar-menu').hide();
+
+         $('.page-container').css({'margin-top':0});
+
+         $('.page-footer').hide();
+
+         $('.page-content').addClass('page-content-nest');
+
+         $('body').css({background:'#ffffff'});
+
+         $('.toggler').hide();
+     }
+
     return {
+
         //getMenu: getMenu
         //flag =true 则不需要判断用户的访问页面权限
         init:function(flag){
@@ -1143,4 +1165,7 @@ var BEE = (function(){
             }
         }
     }
+
+
+
 })();

@@ -3,8 +3,8 @@
  */
 $(function(){
 
-    //获取流程图右侧table中展示数据
-    getSeAreaSendExhaust();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaSendExhaust);
 });
 
 
@@ -214,22 +214,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4224'){
+                    if(o.cTypeID == '4125'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -238,22 +241,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4222'){
+                    if(o.cTypeID == '4124'){
 
                         if(o.cDataValue == 1){
 
-                            return "自动"
+                            result =  "自动"
                         }else{
-                            return "手动";
+                            result =  "手动";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -262,22 +267,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '16'){
+                    if(o.cTypeID == '16' ||　o.cTypeID　== '19'){
 
                         if(o.cDataValue == 1){
 
-                            return "故障"
+                            result =  "故障"
                         }else{
-                            return "正常";
+                            result =  "正常";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -286,22 +293,25 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4121'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -310,22 +320,24 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4123'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result =  "ON"
                         }else{
-                            return "OFF";
+                            result =  "OFF";
                         }
 
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -474,25 +486,31 @@ function drawDataTableByResult(titleArr,areaDataArr){
 
         if(o.excData2s != null && o.excData2s.length > 0){
 
-            bodyHtml += '<td>';
+            bodyHtml += '<td><div class="carousel-container carousel slide"><div class="carousel-inner">';
 
             $(o.excData2s).each(function(i,o){
 
-                if(i < 3){
+                if(i == 0){
 
-                    bodyHtml +=  '<p class="right-bottom-alarm">'+ o.alarmSetName+'</p>';
+                    bodyHtml += getRightAlarmString(o,true)
+
+
+                }else{
+
+                    bodyHtml += getRightAlarmString(o);
+
                 }
-
             });
 
-            bodyHtml += '</td>';
+            bodyHtml += '</div></div></td>';
 
         }else{
-            bodyHtml +=   '<td>' +
+
+            bodyHtml +=   '<td><div>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
                 '<p class="right-bottom-alarm"></p>' +
-                '</td>' ;
+                '</div></td>';
         }
 
         bodyHtml +=   '</tr>';
@@ -501,6 +519,12 @@ function drawDataTableByResult(titleArr,areaDataArr){
     //把body放入到table中
 
     $('.right-bottom-table tbody').html( bodyHtml);
+
+
+    //设置轮播时间
+    $('.carousel-container').carousel({
+        interval: carouselTime * 1000
+    });
 
     //给echart图赋值
     echartReDraw(realShowArr);

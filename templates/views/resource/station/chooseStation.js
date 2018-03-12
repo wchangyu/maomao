@@ -43,6 +43,9 @@ function addStationDom(dom){
     dom.hide();
 
     $('.add-input-block').on('click',function(){
+
+        console.log(11111111);
+
         $('.add-select-block').toggle();
     });
     $('.AbcSearch').on('click','li',function(){

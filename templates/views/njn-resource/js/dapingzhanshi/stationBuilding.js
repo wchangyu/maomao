@@ -4,8 +4,8 @@
 $(function(){
 
 
-    //获取流程图右侧table中展示数据
-    getSeAreaHouseLight();
+    //获取页面中的上面要展示的区域及对应的ID
+    getDevTypeAreas(devTypeID,getSeAreaHouseLight);
 
 });
 
@@ -61,83 +61,6 @@ var titleArr = ['','回路数','开启回路占比','故障回路占比','平均
 
 //页面右侧Table的统计位置集合
 var areaArr = ['-9.6m','0.0m','12.4m','17.1m','19.1m','22.4m','29.4m','东北角配楼','西南角配楼'];
-
-//绘制页面右侧的table
-function drawDataTable(titleArr,areaArr){
-    //定义title
-    var titleHtml = '';
-
-    $(titleArr).each(function(i,o){
-
-        //拼接title的字符串
-        titleHtml += '<th>'+o+'</th>';
-
-    });
-
-    //把title放入到table中
-
-    $('.right-bottom-table thead tr').html(titleHtml);
-
-    //定义tbody中内容
-    var bodyHtml = '';
-
-    //绘制table中主体数据
-    $(areaArr).each(function(i,o){
-
-        bodyHtml +=
-            '<tr>' +
-            '<td>' +
-            '<span class="green-patch">'+ o+'</span>' +
-            '</td>' +
-
-            '<td>13</td>' +
-            ' <td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart1">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart2">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            ' <!--回风平均温度-->' +
-            '<td>' +
-            ' <span class="table-small-patch table-small-patch-red">29</span>' +
-            '</td>' +
-
-            '<!--回风co2平均浓度-->' +
-            '<td>' +
-            '<span class="table-small-patch table-small-patch-green">1000</span>' +
-            '</td>' +
-
-            '<td>' +
-
-            '<div class="right-bottom-echart" id="right-bottom-echart3">' +
-
-            '</div>' +
-
-            '</td>' +
-
-            '<td>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-1 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-2 故障</p>' +
-            '<p class="right-bottom-alarm">东出站厅回路1-3 故障</p>' +
-            '</td>' +
-            '</tr>';
-    });
-
-    //把body放入到table中
-
-    $('.right-bottom-table tbody').html( bodyHtml);
-};
-
 
 //配置流程图页面中的区域位置
 var monitorAreaArr = [
@@ -272,22 +195,23 @@ var table = $('#equipment-datatables').DataTable({
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
+                var result = '';
+
                 $(data).each(function(i,o){
 
                     if(o.cTypeID == '4626'){
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result = "ON";
                         }else{
-                            return "OFF";
+                            result = "OFF";
                         }
-
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -295,6 +219,7 @@ var table = $('#equipment-datatables').DataTable({
             title:'开关控制',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
+                var result = '';
 
                 $(data).each(function(i,o){
 
@@ -302,16 +227,15 @@ var table = $('#equipment-datatables').DataTable({
 
                         if(o.cDataValue == 1){
 
-                            return "ON"
+                            result = "ON";
                         }else{
-                            return "OFF";
+                            result = "OFF";
                         }
-
 
                     }
                 });
 
-                return '';
+                return result;
 
             }
         },
@@ -330,8 +254,8 @@ var table = $('#equipment-datatables').DataTable({
 
 //-------------------------------------获取流程图右侧展示数据--------------------------//
 
-//定义当前的设备类型 站房照明为6
-var devTypeID = 6;
+//定义当前的设备类型 站房照明为21
+var devTypeID = 21;
 
 function getSeAreaHouseLight(){
 
@@ -380,7 +304,6 @@ function getSeAreaHouseLight(){
         }
     })
 };
-
 
 //绘制页面右侧的table
 function drawDataTableByResult(titleArr,areaDataArr){

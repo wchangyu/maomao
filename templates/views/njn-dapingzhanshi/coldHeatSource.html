@@ -14,7 +14,6 @@
     <script src="../new-resource/js/showOrHidden.js"></script>
     <script src="../../../assets/local/scripts/underscore-min.js"></script>
     <!--loading插件-->
-
     <link rel="stylesheet" href="../resource/jQuery-showLoading/css/showLoading.css"/>
 
     <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
@@ -91,11 +90,11 @@
                 <p class="right-picture-title">南京南站 <br/><span>（Nanjing South Railway Station）</span>
                 </p>
 
-                <p class="right-picture-statistics">接入系统：<span>10</span>个</p>
+                <p class="right-picture-statistics">接入系统：<span></span>个</p>
 
-                <p class="right-picture-statistics">接入设备：<span>1000</span>台</p>
+                <p class="right-picture-statistics">接入设备：<span></span>台</p>
 
-                <p class="right-picture-statistics">检测点位：<span>18000</span>点</p>
+                <p class="right-picture-statistics">检测点位：<span></span>点</p>
 
             </div>
         </div>
@@ -113,9 +112,12 @@
                 </div>
 
                 <div style="float:right">
-                    <span class="right-tab right-tab-choose">日</span>
-                    <span class="right-tab ">月</span>
+                    <font class="year small-times"></font>
                     <span class="right-tab ">年</span>
+                    <font class="month  small-times"></font>
+                    <span class="right-tab ">月</span>
+                    <font class="day  small-times"></font>
+                    <span class="right-tab right-tab-choose">日</span>
                 </div>
             </div>
 
@@ -178,11 +180,11 @@
             </div>
             <!--系统总览-->
             <div class="right-bottom-show-type">
-                <!--冷战站-->
+                <!--冷站-->
                 <div class="right-bottom-content right-bottom-content1" >
                     <!--页面左侧视频及介绍-->
                     <div class="right-bottom-content-left">
-                        <img class="content-left-img" alt="" src="../njn-resource/img/lengzhan.png">
+                        <video class="content-left-img" alt="" src="../njn-resource/video/dongji.mp4" controls="controls"></video>
                         <!--换热站介绍-->
                         <div class="real-time-energy content-main-bottom quota-data-bottom">
                             <!--头部信息-->
@@ -191,7 +193,9 @@
                                 机房概况
                             </h3>
                             <p>
-                                南京南站采暖采用华润热电厂0.7MPa 的饱和蒸汽，经减压至0.4MPa 供末端使用。热交换站位于首层动力中心内，东西各一个。每个机房内均设6 台换热罐和4台热水泵。
+                                南京南站一次热源由华润热电厂提供0.8MPa 的饱和蒸汽，夏季供蒸汽溴化锂吸收式冷水机组制冷，冬季将蒸汽减压至0.4MPa 的饱和蒸汽后，供空调换热机组使用。冷冻机房位于首层（动力中心）内，共设东、西各一个机房。每个机房内均设2 台蒸汽溴化锂吸收式冷水机组、2 台离心式电制冷冷水机组。南北侧的贵宾室分别设有独立的地源热泵系统，地源热泵冷热机房分别设于首层东西两侧的动力中心内，共2 个。室外东西埋管场地靠近机房，就近设置，西广场埋管占地约4000 m2，东广场埋管占地约2000m2。
+
+
                             </p>
                         </div>
                     </div>
@@ -207,24 +211,26 @@
                                     设备运行
                                 </h3>
                                 <div class="top-control">
-                                    <span class="top-control-span">供暖初期</span> <span class="top-control-span">手动模式</span>
+                                    <span class="top-control-span">非供冷季</span> <span class="top-control-span">手动模式</span>
                                     <div class="top-control-content">
-                                        <span class="left-span">换热罐</span>
-                                    <span class="right-span">
+
+                                        <span class="left-span">离心机组</span>
+                                    东<span class="right-span">
                                         <font class="onClick">1</font>
                                         <font>2</font>
-                                        <font>3</font>
-                                        <font>4</font>
-                                        <font>5</font>
-                                        <font>6</font>
+
                                     </span>
                                         <br /><br />
-                                        <span class="left-span">采暖泵</span>
-                                    <span class="right-span">
-                                        <font class="onClick">1</font>
+                                        <span class="left-span">离心机组</span>
+                                        东<span class="right-span">
+                                         <font class="onClick">1</font>
                                         <font>2</font>
-                                        <font>3</font>
-                                        <font>4</font>
+                                    </span>
+                                        <br /><br />
+                                        <span class="left-span">离心机组</span>
+                                        东<span class="right-span">
+                                         <font class="onClick">1</font>
+                                        <font>2</font>
                                     </span>
                                     </div>
                                 </div>
@@ -362,6 +368,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+
                 <!--换热机房-->
                 <div class="right-bottom-content"  style="display: none">
                     <!--页面左侧视频及介绍-->
@@ -474,6 +481,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!--下方折线图-->
                         <div class="right-bottom-content-bottom">
                             <div class="row">
@@ -597,16 +605,14 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
-        userMonitor.init();
+//        userMonitor.init();
     });
 </script>
-
 <!--页面js-->
 <script src="../resource/js/publicFun.js"></script>
-<script src="../njn-resource/js/userMonitor1.js"></script>
+<script src="../resource/js/userMonitor.js"></script>
 <script src="../new-resource/js/common.js"></script>
 <script src="../njn-resource/js/common.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/coldHeatSource.js"></script>
-
 </body>
 </html>

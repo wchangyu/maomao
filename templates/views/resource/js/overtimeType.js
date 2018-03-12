@@ -311,6 +311,9 @@ $(function(){
         //排序
         typeVue.sort = '';
 
+        //提示消息不显示
+        $('.multiple-condition').hide();
+
     }
 
     //登记、编辑方法、删除方法flag = true的时候

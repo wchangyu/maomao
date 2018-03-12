@@ -16,8 +16,6 @@ map.enableScrollWheelZoom();
 map.addControl(new BMap.NavigationControl());
 
 
-
-
 addWords();
 
 //地点得文字标注与事件绑定

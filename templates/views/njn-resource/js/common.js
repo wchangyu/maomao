@@ -12,8 +12,8 @@ $(function(){
     //设备报警
     getStationAlarmData(1);
 
-    //能耗报警
-    getStationAlarmData(2);
+    ////能耗报警
+    //getStationAlarmData(2);
 
     //点击左侧下方选项卡
     $('.left-tab-container .left-tab').on('click',function(){
@@ -44,7 +44,7 @@ $(function(){
     });
 
     //点击左侧日月年切换
-    $('.left-tab-container .right-tab').on('click',function(){
+    $('.inner-left-container .left-tab-container .right-tab').on('click',function(){
 
         //删除之前选中的类
         $(this).parents('.left-tab-container').find('.right-tab').removeClass('right-tab-choose');
@@ -52,15 +52,96 @@ $(function(){
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
 
-        //获取当前索引
-        var index = $(this).index();
+        //设备报警
+        getStationAlarmData(1);
 
-        //获取数据
-        getStationAlarmData(index);
+        ////能耗报警
+        //getStationAlarmData(2);
+
+        getStationAlarmNum();
 
     });
 
+    //点击不同区域获取不同的设备列表
+    $('#monitor-menu-container').on('click','span',function(){
+
+        //获取当前url
+        var url = window.location.href;
+
+        //如果是电梯页面 不走此方法
+        if(url.indexOf('elevator.html') > -1){
+
+            return false;
+        }
+
+        //获取当前的区域ID
+        var areaID = $(this).attr('data-district');
+
+        $(".right-bottom-tab").removeClass("right-bottom-tab-choose");
+        $(this).addClass("right-bottom-tab-choose");
+
+        sessionStorage.menuArg = '4,'+ areaID + "," + procType;
+
+        if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
+
+            //获取对应流程图
+            userMonitor.init("1200,698",jumpPageSize);
+
+        }else{
+
+            //获取对应流程图
+            userMonitor.init("1200,698");
+        }
+
+    });
+
+    //获取当前年月日放入页面中
+    var curYear = moment().format('YYYY');
+
+    var curMonth = moment().format('MM');
+
+    var curDay = moment().format('DD');
+
+    $('.left-tab-container .year').html(curYear);
+
+    $('.left-tab-container .month').html(curMonth);
+
+    $('.left-tab-container .day').html(curDay);
+
+    //给大屏页面添加返回按钮
+    var $button = $('<div class="right-info-header-logo"></div>');
+
+    //插入页面中
+    $('.inner-right-container').append($button);
+
+
+    $('.right-info-header-logo').on('click',function(){
+
+        window.location.href = "../passengerStation/passengerStation.html";
+    });
 });
+
+//定义送排风 给排水弹出页面的宽高
+var jumpPageSize = "1020,586";
+
+//定义初始的楼宇ID
+if(!sessionStorage.PointerID){
+
+    if(sessionStorage.pointers){
+        var pos = JSON.parse(sessionStorage.pointers);
+        var po = pos[0];
+        sessionStorage.PointerID = po.pointerID;
+        sessionStorage.PointerName = po.pointerName;
+    }
+
+}
+//定义流程图的方案类型
+var procType;
+
+//页面右侧报警刷新时间 单位（秒）
+var carouselTime = 5;
+
+$('.left-tab-data-container span font').html(0);
 
 //绘制页面上方的跳转选项卡
 drawRightTab();
@@ -112,7 +193,7 @@ function drawRightTab(){
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
 
-var option = {
+var leftBottomOption = {
     color: ['#3398DB'],
     tooltip : {
         trigger: 'axis',
@@ -132,7 +213,7 @@ var option = {
     xAxis : [
         {
             type : 'category',
-            data : ['1', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12'],
+            data : [],
             axisTick: {
                 alignWithLabel: true
             },
@@ -192,7 +273,7 @@ var option = {
                     }])
                 }
             },
-            data:[1010, 952, 1000, 1134,1090, 1130, 1020, 1252, 1000, 1034, 1190, 1230]
+            data:[]
         },
         {
             name:'能耗报警',
@@ -222,7 +303,7 @@ var option = {
                     }])
                 }
             },
-            data:[710, 752, 722, 765, 710, 850, 710,645, 698,796, 792, 610]
+            data:[]
         },
         {
             name:'能耗报警',
@@ -252,7 +333,152 @@ var option = {
                     }])
                 }
             },
-            data:[510, 552, 522, 565, 510, 650, 510,445, 498,596, 592, 410]
+            data:[]
+        }
+    ]
+};
+
+var option0 = {
+    color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '8%',
+        top:'9%',
+        containLabel: true,
+        borderColor:'#A8A8A8',
+        borderWidth:2
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : [],
+            axisTick: {
+                alignWithLabel: true
+            },
+            boundaryGap: false,//从起点开始
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            nameGap:1,
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            name:'单位：次',
+            nameLocation:'end',
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'设备报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#2170F4",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#2170F4'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#14E398",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#14E398'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#EAD01E",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#EAD01E'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
         }
     ]
 };
@@ -334,15 +560,17 @@ var option1 = {
 //获取全部楼宇ID列表
 var pointerIdArr = getPointersId();
 
+//接入客站数等于获取到的楼宇数
+$('.left-data-container .left-specific-data1').html( pointerIdArr.length);
+
 //当前楼宇ID
 var curPointerIDArr = ['3101800201'];
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
-
 //重绘chart图
-leftBottomChart.setOption(option);
+leftBottomChart.setOption(option0);
 
 //点击右侧上方选项卡
 $('.right-tab-container .right-tab').on('click',function(){
@@ -399,7 +627,6 @@ $('.right-tab-container .right-tab').on('click',function(){
 
 
 });
-
 
 //点击右侧主体内容中的选项卡
 $('.right-bottom-tab-container .right-bottom-tab').on('click',function(){
@@ -487,10 +714,10 @@ function getWeatherParam(){
             //无数据
             if(result == null || result.length == 0){
                 //隐藏温度 和湿度
-                $('.right-top-message .top-message').eq(1).html(18 + '℃');
+                $('.right-top-message .top-message').eq(1).html("");
 
                 //湿度
-                $('.right-top-message .top-message').eq(2).html(56 + "%");
+                $('.right-top-message .top-message').eq(2).html("");
 
                 return false;
             }
@@ -644,13 +871,23 @@ function getStationAlarmNum(){
             //无数据
             if(result == null || result.length == 0){
 
+                //设备报警
+                $('.left-tab-data-container .left-tab-data1 font').html(0);
+
+                ////能耗报警
+                //$('.left-tab-data-container .left-tab-data2 font').html(0);
+                //
+                ////运维工单
+                //$('.left-tab-data-container .left-tab-data3 font').html(0);
+
                 return false;
             }
+
             //设备报警
             $('.left-tab-data-container .left-tab-data1 font').html(result.facilityAlarmNum);
 
-            //能耗报警
-            $('.left-tab-data-container .left-tab-data2 font').html(result.energyAlarmNum);
+            ////能耗报警
+            //$('.left-tab-data-container .left-tab-data2 font').html(result.energyAlarmNum);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -712,6 +949,10 @@ function getStationAlarmData(index){
             //无数据
             if(result == null || result.length == 0){
 
+                leftBottomOption.series[index-1].data = [];
+
+                leftBottomOption.series[2].data = [];
+
                 return false;
             }
 
@@ -725,29 +966,30 @@ function getStationAlarmData(index){
 
 
                 //获取能耗数据
-                dataArr.push(result.data);
+                dataArr.push(o.data);
 
                 //按天展示
                 if(selectDateType == "Day"){
 
-                    var date = result.dataDate.split('T')[1];
+                    var date = o.dataDate.split('T')[1];
 
                     xArr.push( date.split(':')[0]+":"+date.split(':')[1]);
 
                 }else{
 
-                    xArr.push( result.dataDate.split('T')[0]);
+                    xArr.push(o.dataDate.split('T')[0]);
                 }
 
             });
 
+            //console.log(leftBottomOption);
 
             //数据赋值
-            option.series[index].data = dataArr;
-            option.xAxis[0].data = xArr;
+            leftBottomOption.series[index-1].data = dataArr;
+            leftBottomOption.xAxis[0].data = xArr;
 
             //页面重绘数据
-            leftBottomChart.setOption(option,true);
+            leftBottomChart.setOption(leftBottomOption,true);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -768,7 +1010,7 @@ function getStationAlarmData(index){
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
     //获取页面日期类型
-    var dateType = $('.inner-left-bottom .left-tab-container .right-tab').html();
+    var dateType = $('.inner-left-bottom .left-tab-container .right-tab-choose').html();
 
     //定义展示日期类型
     var showDateType = '';
@@ -807,7 +1049,7 @@ function getShowDateType(){
 //获取给后台传递的时间
 function getPostTime(){
     //获取页面日期类型
-    var dateType = $('.left-tab-container .right-tab').html();
+    var dateType = $('.left-tab-container .right-tab-choose').html();
 
     //定义开始时间
     var startTime = '';
@@ -877,6 +1119,175 @@ function getSecondColdHotSour(url,devTypeID,areaID){
         },
         error:function(jqXHR, textStatus, errorThrown){
 
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
+
+//获取距离现在的时间描述
+function getTimeDescribe(dateString){
+
+    //获取到报警时间距离现在的分钟数
+    var minute = (new Date() - new Date(dateString)) / 1000 / 60;
+
+    if(minute < 1){
+
+        return '一分钟内';
+    }else if(minute > 1 && minute < 5){
+
+        return '五分钟内';
+    }else if(minute > 5 && minute < 60){
+
+        return '一小时内';
+    }else if(minute > 60 && minute < 1440){
+
+        return '一天内';
+    }else if(minute > 60 && minute < 1440 * 3){
+
+        return '三天内';
+    }else if(minute > 60 && minute < 1440 * 30){
+
+        return '一个月内';
+    }
+};
+
+//获取页面右侧报警数据字符串 flag代表是第一条报警
+function getRightAlarmString(alarmObj,flag){
+
+    //定义返回的字符串
+    var alarmString = '';
+
+    //获取报警时间
+    var dataDate = alarmObj.dataDate.split('T')[0] +' ' + alarmObj.dataDate.split('T')[1];
+
+    //展示时间
+    var showDate = getTimeDescribe(dataDate);
+
+    if(flag){
+
+        alarmString +=  '<div class="item active">' +
+                //报警时间
+            '<p class="right-bottom-alarm" title='+showDate+'>'+ '时间：'+showDate+'</p>'+
+
+                //报警类型
+            '<p class="right-bottom-alarm" title='+alarmObj.alarmSetName+'>'+ '类型：'+alarmObj.alarmSetName+'</p>'+
+                //设备名称
+            '<p class="right-bottom-alarm" title='+alarmObj.cDtnName+'>'+'设备：'+ alarmObj.cDtnName+'</p></div>';
+
+
+    }else{
+
+        alarmString +=  '<div class="item">' +
+                //报警时间
+            '<p class="right-bottom-alarm" title='+showDate+'>'+ '时间：'+showDate+'</p>'+
+
+                //报警类型
+            '<p class="right-bottom-alarm" title='+alarmObj.alarmSetName+'>'+ '类型：'+alarmObj.alarmSetName+'</p>'+
+
+                //设备名称
+            '<p class="right-bottom-alarm" title='+alarmObj.cDtnName+'>'+'设备：'+ alarmObj.cDtnName+'</p></div>';
+
+    }
+
+    return alarmString;
+};
+
+//获取页面中的上面要展示的区域及对应的ID
+function getDevTypeAreas(devTypeID,fn){
+
+    //获取当前楼宇ID
+    var PointerID = sessionStorage.PointerID;
+
+    var ecParams = {
+        "devTypeID": devTypeID,
+        "pointerID": PointerID
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetDevTypeAreas',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            //leftBottomChart.showLoading();
+
+        },
+        success:function(result){
+
+            //console.log(result);
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            var $ul = $("#monitor-menu-container");
+
+            //清空区域位置信息
+            monitorAreaArr.length = 0;
+
+            //给上方区域位置选项卡绑定元素
+            $(result).each(function(i,o){
+
+                //获取当前区域ID
+                var areaID = o.areaID;
+
+                //获取当前区域名称
+                var areaName = o.areaName;
+
+                $ul.append($("<span>",{text:areaName,class:'right-bottom-tab','data-district':areaID}));
+
+                var areaObj =  {
+                    "areaName":areaName,
+                    "areaId":areaID
+                };
+
+                monitorAreaArr.push(areaObj);
+
+            });
+
+            //获取流程图右侧展示数据
+            if(fn){
+                fn();
+            }
+
+            //初始化样式
+            $('.right-bottom-tab').eq(0).addClass('right-bottom-tab-choose');
+
+            //获取方案类型
+            procType = result[0].procType;
+            //console.log(procType);
+
+            //默认获取首张流程图
+            sessionStorage.menuArg = '4,'+ monitorAreaArr[0].areaId + "," + procType;
+
+            //获取当前url
+            var url = window.location.href;
+
+            if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
+
+                //获取对应流程图
+                userMonitor.init("1200,698",jumpPageSize);
+
+            }else{
+
+                //获取对应流程图
+                userMonitor.init("1200,698");
+            }
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            //leftBottomChart.hideLoading();
 
             //错误提示信息
             if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
