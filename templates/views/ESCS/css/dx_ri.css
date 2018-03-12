@@ -1,0 +1,47 @@
+﻿.boxhgt {
+    height: 250px;
+}
+
+.legbox {
+    float:left;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.legboxText {
+    line-height:15px;
+    margin-left:2px;
+}
+
+.legexllbox {
+    width:18px;
+    height:18px; 
+    background-color:#77cdd0;
+    float:left;
+}
+
+.legcommbox {
+    width:18px;
+    height:18px; 
+    background-color:#ffe699;
+    float:left;
+}
+
+.legpoorbox {
+    width:18px;
+    height:18px; 
+    background-color:#f4b183;
+    float:left;
+}
+
+.canvasbox {
+   max-width:120px;
+   background-color:#ffe699;
+   margin:0 auto;
+   padding:5px;
+   text-align:center; 
+}
+
+a {
+    text-decoration: none;
+}
