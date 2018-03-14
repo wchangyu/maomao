@@ -3,6 +3,10 @@
     return {
 
         init: function () {
+
+            $('#spanDxDT').html(sessionStorage.DxDT);
+
+
         }
 
     }
