@@ -199,8 +199,8 @@ var Login = function() {
 
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
-            if(window.screen > 1800){
-                window.location.href = '../passengerStation/passengerStation.html';
+            if(window.screen.width > 2500){
+                window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
 
                 return false;
             }
@@ -442,6 +442,10 @@ var Login = function() {
                     //工单图片路径
                     var imgPath = data["imgPath"] || '';
                     sessionStorage.imgPath = imgPath;
+
+                    //初始加载的页面
+                    var indexUrl = data["indexUrl"] || '';
+                    sessionStorage.indexUrl = indexUrl;
 
                     //监控信息的刷新时间
                     if(data["refreshInterval"]){ sessionStorage.refreshInterval = data["refreshInterval"];}

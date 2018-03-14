@@ -11,7 +11,7 @@
 
 /*每项标题的小横框*/
 .left-middle-header {
-    background: #343959 !important;
+    background: #6E7FA0 !important;
 }
 
 .unit{
@@ -147,6 +147,14 @@
     margin-bottom:10px;
     display: none;
 }
+
+/*时间选框*/
+.chooseShowType{
+    margin-bottom:5px;
+    margin-left:50%;
+    display: none;
+}
+
 .position-center{
     padding-top:20px;
 }

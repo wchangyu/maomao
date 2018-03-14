@@ -5,7 +5,7 @@
 $(function() {
 
     //时间插件
-    _monthDate($('.datatimeblock'));
+    _monthDate11($('.datatimeblock'));
 
     //获取当前年份并赋值
     $('.min').val(moment().format('YYYY-MM'));

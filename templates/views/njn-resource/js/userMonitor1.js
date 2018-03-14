@@ -1790,7 +1790,6 @@ var userMonitor = (function(){
 
             }
 
-
         }else{
             if(isHaveControl(procDef.prDefId)){
                 if(_hasControlAuth) {

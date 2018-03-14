@@ -106,7 +106,7 @@ var monitorAreaArr = [
 //把区域信息放入到流程图页面中
 sessionStorage.monitorArea = JSON.stringify(monitorAreaArr);
 
-//定义当前的设备类型 空调机组为2
+//定义当前的设备类型 组合空调为2
 var devTypeID = 2;
 
 //点击不同区域获取不同的设备列表

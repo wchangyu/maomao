@@ -35,7 +35,7 @@ $('#monitor-menu-container').on('click','span',function(){
         sessionStorage.menuArg = arg;
 
         //重新获取当前类型下的流程图
-        userMonitor.init();
+        userMonitor.init("1200,698");
     }
 
     //获取当前的区域ID

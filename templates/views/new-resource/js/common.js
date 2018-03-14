@@ -207,6 +207,22 @@ $(unitArr1).each(function(i,o){
 
 $('#unit').html(html);
 
+//定义选择时间 展示方式选框
+var chooseTimeHtml = "<select class='chooseShowType'>" +
+                        "<option value='0'>按天展示</option>"+
+                        "<option value='1'>按小时展示</option>"+
+                        "<option value='2'>按分钟展示</option>"+
+                    "</select>";
+
+//插入页面中
+$('.start-time-choose').before(chooseTimeHtml);
+
+$('.chooseShowType').on('change',function(){
+
+    _selectTime("自定义");
+
+});
+
 //时间变化
 function changeShowTimes(dataType){
 
@@ -824,5 +840,47 @@ function _getEcName(etid){
 
     }
 };
+
+//获取当前的系统类型
+function getSystemType(num){
+
+    if(num == 1){
+
+        return "冷热源"
+    }else  if(num == 2){
+
+        return "空调机组"
+    }else  if(num == 3){
+
+        return "送排风"
+    }else  if(num == 4){
+
+        return "给排水"
+    }else  if(num == 5){
+
+        return "电梯"
+    }else  if(num == 6){
+
+        return "照明"
+    }else  if(num == 7){
+
+        return "动环"
+    }else  if(num == 8){
+
+        return "计量设备"
+    }else  if(num == 18){
+
+        return "直梯"
+    }else  if(num == 19){
+
+        return "扶梯"
+    }else  if(num == 20){
+
+        return "站台照明"
+    }else  if(num == 19){
+
+        return "站房照明"
+    }
+}
 
 

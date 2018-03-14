@@ -78,6 +78,7 @@ var theadHtml22 = ' <th style="text-align:center;background: #ccc;border:1px sol
     '                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
 
 
+
 //获取表格中的内容
 function getEnergyCollectData(){
 
@@ -115,7 +116,7 @@ function getEnergyCollectData(){
                 $('.hosptial2').html(theadHtml22);
 
                 //高校模式
-            }else if(result.beeWebMode == 2){
+            }else if(result.beeWebMode == 0){
 
                 $('.hosptial1').html(theadHtml1);
                 $('.hosptial2').html(theadHtml2);
@@ -240,6 +241,7 @@ function getTableHtml(arr,month,energyID){
             }else if(energyID == '-3'){
 
                 html = '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td></tr>';
+
              //水耗
             }else if(energyID == '211'){
 

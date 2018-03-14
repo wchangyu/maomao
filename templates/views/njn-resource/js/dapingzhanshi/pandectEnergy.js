@@ -29,6 +29,9 @@ $(function(){
 
         //获取后台能耗数据
         getPointerData();
+
+        //获取电耗分项数据
+        getFirstEnergyItemData();
     });
 
 
@@ -48,6 +51,9 @@ $(function(){
 
             //获取电耗分项数据
             getFirstEnergyItemData();
+
+            //设备报警
+            getStationAlarmData(1);
 
 
         },_refresh * 1000 * 60)
@@ -209,7 +215,7 @@ var _electricityoption = {
 //_electricityEcharts1.setOption(_electricityoption,true);
 
 
-//空调机组echart
+//组合空调echart
 var _conditionerEcharts = echarts.init(document.getElementById('equipment-chart-conditioner'));
 
 var _conditionerEcharts1 = echarts.init(document.getElementById('equipment-chart-conditioner1'));
@@ -1083,7 +1089,7 @@ function getTPDevMonitor(){
 
             $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.coldHotSourceOBJ.cDataIDNum);
 
-            //-----------------------------空调机组---------------------------//
+            //-----------------------------组合空调---------------------------//
             //总台数
             var allNum = result.airUnitOBJ.allNum;
 
@@ -1528,15 +1534,17 @@ function getPointerData(){
 //获取电耗分项数据
 function getFirstEnergyItemData(){
 
-    //获取开始结束时间
-    var startDate = moment().format('YYYY-MM-DD');
+    //获取开始时间
+    var startTime = getPostTime11()[0];
 
-    var endDate =  moment().add('1','days').format('YYYY-MM-DD');
+    //获取结束时间
+    var endTime = getPostTime11()[1];
+
 
     //传递给后台的数据
     var ecParams = {
-        "startTime": startDate,
-        "endTime": endDate,
+        "startTime": startTime,
+        "endTime": endTime,
         "energyItemType": '01',
         "pointerIDs":  curPointerIDArr
     };
