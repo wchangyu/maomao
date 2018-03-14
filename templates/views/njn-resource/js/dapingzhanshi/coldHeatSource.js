@@ -164,9 +164,7 @@ function getTDayGLWs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -226,9 +224,7 @@ function getTDayCs(ew){
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -288,9 +284,7 @@ function getTDayQs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -351,9 +345,7 @@ function getTDayEs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
