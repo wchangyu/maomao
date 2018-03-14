@@ -139,6 +139,20 @@ $(function(){
 
     ringChartR.setOption(optionRing1);
 
+    //定义计算安全运行天数的开始日期
+    var startSafeDate = new Date('2017/01/01 12:00');
+
+    var date2 = new Date();
+
+    var s1 = startSafeDate.getTime(),s2 = date2.getTime();
+
+    var total = (s2 - s1)/1000;
+
+    var safeDays = parseInt(total / (24*60*60));//计算整数天数
+
+//给页面中赋值
+    $('.two-bottom-block  p span').html(safeDays);
+
     //时间
     setInterval(function(){
 
@@ -277,6 +291,12 @@ $(function(){
 
         //配置项
         }else if(configureUrl){
+
+           if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
+
+               window.location.href = configureUrl;
+
+           }
 
             for(var i in result){
 

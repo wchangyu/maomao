@@ -200,7 +200,7 @@ var Login = function() {
         if(_isEnergyItemsLoaded && _isOfficesLoaded && _isPointersLoaded && _isMenuLoaded && _isProceLoaded){
 
             if(window.screen.width > 2500){
-                window.location.href = 'passengerStation/passengerStation.html';
+                window.location.href = 'njn-dapingzhanshi/pandectEnergy.html';
 
                 return false;
             }

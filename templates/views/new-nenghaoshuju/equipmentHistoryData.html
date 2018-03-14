@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
     <title></title>
+    <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+    <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -49,7 +46,8 @@
 
     <!--自定义样式-->
     <link rel="stylesheet" href="../new-resource/css/common.css">
-    <link rel="stylesheet" href="../new-resource/css/baobiaoguanli/statementManagement.css">
+    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/crosswiseCompare.css">
+    <link rel="stylesheet" href="../new-resource/css/nenghaoshuju/equipmentHistoryData.css">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -233,7 +231,7 @@
                         <i class="fa fa-angle-right"></i>
                     </li>
                 </ul>
-                <!--<div class="showOrHidden"></div>-->
+                <div class="showOrHidden"></div>
                 <div class="page-toolbar">
                     <!--<div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -264,64 +262,150 @@
                 <div class="col-md-12">
                     <div class="total-warp">
                         <div class="wrap container">
-                            <div class="content-main-left col-lg-8 col-md-8 col-sm-12 col-xs-12">
-
-                                <h3>报表生成</h3>
-
-                                <div class="row showStatement">
-                                    <div class="statement col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                        <div class="statement-contain curClick">
-                                            <div class="top-img">
-
+                            <div class="content-main-left col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                                <div class="content-main">
+                                    <div class="main-left-middle">
+                                        <div class="left-middle-header">区域位置</div>
+                                        <div class="left-middle-main">
+                                            <div class="tree-1 tree-0">
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                <div class="left-middle-input" style="display: none">
+                                                    <input type="text"  id="keys" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipess"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allPointer">
+                                                </ul>
                                             </div>
-                                            <p><a target="_blank" href="energyCollectStatement.html"></a>总能耗报表</p>
                                         </div>
                                     </div>
-
-                                    <div class="statement col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="statement-contain statement-contain1">
-                                            <div class="top-img">
-
-                                            </div>
-                                            <p><a target="_blank" href="areaEnergyDataStatement1.html"></a>区域能耗报表</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="statement col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="statement-contain ">
-                                            <div class="top-img">
-
-                                            </div>
-                                            <p><a target="_blank" href="officeEnergyDataManagement.html"></a>部门能耗报表</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="statement col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="statement-contain ">
-                                            <div class="top-img">
-
-                                            </div>
-                                            <p><a target="_blank" href="officePQCCDataManagement.html"></a>水电气分科报表</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="statement col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="statement-contain ">
-                                            <div class="top-img">
-
-                                            </div>
-                                            <p><a target="_blank" href="electroDetail.html"></a>变压器能耗报表</p>
-                                        </div>
-                                    </div>
-
                                 </div>
+                                <div class="content-main">
+                                    <div class="main-left-middle1">
+                                        <div class="left-middle-header">条件选择</div>
+                                        <div class="left-middle-main1">
+                                            <div style="height:45px;"></div>
+                                            <div class="tree-1 tree-0">
+                                                <h4>设备名称</h4>
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+                                                <div class="left-middle-input" style="">
+                                                    <input type="text"  id="key0" class="empty form-control" placeholder="搜索...">
+                                                </div>
+                                                <div class="tipess0"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allEquipment">
+                                                </ul>
+                                            </div>
 
+                                            <div class="tree-1 tree-0">
+                                                <h4 style="margin-left:10px;">查询属性</h4>
+                                                    <span class="allPointerOne">
+                                                        <div class="selectedRadio"></div>
+                                                    </span>
+
+                                                <div class="tipess0"></div>
+                                                <ul class="allPointer ztree scrollbar" id="allNature">
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!--已选择设备框-->
+                                    <div class="bottom-select-equipment">
+
+                                        <h4 style="margin-left:10px; font-size:14px;margin-bottom:5px;">已选设备 <span class="clear-list">全清</span></h4>
+                                        <div class="select-equipment-container scrollbar scrollbar1">
+                                            <!--<p>-->
+                                                <!--<span class="select-equipment">PY/PF-B1-19-->
+                                                   <!--<span class="select-nature">( <b>回路启停</b> <b>回路电流</b> )</span> <font></font>-->
+                                                <!--</span>-->
+                                            <!--</p>-->
+
+                                        </div>
+                                    </div>
+
+                                    <div style="height:80px;text-align: center">
+                                        <div class="start-time-choose choose-time">
+                                            <label for="">选择时间：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock min" name="min" id="datetimepicker">
+                                            </div>
+                                        </div>
+                                        <div class="end-time-choose choose-time">
+                                            <label for="">结束时间：</label>
+                                            <div class="input-blocked">
+                                                <input type="text" class="datatimeblock max" name="max" id="datetimepicker1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="buttons">
+
+                                        <button class="btn btn-success" style="background: #2170F4 !important;">查询</button>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="content-main-right col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="content-main-right col-lg-9 col-md-8 col-sm-12 col-xs-12">
                                 <div class="right-content">
+                                    <!--<div class="left-middle-header">-->
+                                    <!--<div class="header-one"></div>-->
+                                    <!--<div class="header-two"></div>-->
+                                    <!--<div class="header-three"></div>-->
+                                    <!--</div>-->
+                                    <div class="right-top">
+                                        <div class="right-header">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title"></span>
+                                            <!-- 标题右边 -->
+                                            <ul class="right-header-right">
+                                                <!-- 单位 -->
+                                                <li class="header-right-lists">
+                                                    <!--<label for="">单位：</label>-->
+                                                    <!--&lt;!&ndash;<select name="" id="unit"></select>&ndash;&gt;-->
+                                                    <!--<input type="text" style="width:80px;height:24px;" disabled="disabled" class="unit">-->
+                                                </li>
+                                            </ul>
+                                        </div>
 
 
+                                        <!--eChart图-->
+                                        <div class="rheader-content-left " id="rheader-content-16" style="margin-right:300px;">
 
+                                        </div>
+                                        <div class="right-header" style="margin-bottom:10px;">
+                                            <!-- 标题 -->
+                                            <span class="right-header-title">对比分析</span>
+                                            <!-- 标题右边 -->
+
+                                        </div>
+
+                                        <!--下方对比表格-->
+                                        <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 quota-data-bottom" >
+                                            <table class="table table-striped table-bordered table-advance table-hover
+" id="dateTables">
+                                                <thead>
+                                                <tr>
+                                                    <th>对象</th>
+                                                    <th>总值</th>
+                                                    <th>峰值</th>
+                                                    <th>出现时间</th>
+                                                    <th>谷值</th>
+                                                    <th>出现时间</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -403,7 +487,6 @@
 <script src="../resource/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.js"></script>
 <script src="../resource/js/alarm.js"></script>
 <script src="../resource/js/publicFun.js"></script>
-<script src="../../../assets/local/configs/setNames.js"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core components
@@ -413,7 +496,7 @@
     });
 </script>
 <script src="../new-resource/js/common.js"></script>
-<script src="../new-resource/js/baobiaoguanli/statementManagement.js"></script>
+<script src="../new-resource/js/nenghaoshuju/equipmentHistoryData.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

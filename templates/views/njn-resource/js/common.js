@@ -85,12 +85,12 @@ $(function(){
         if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
 
             //获取对应流程图
-            userMonitor.init("1200,698",jumpPageSize);
+            userMonitor.init("1200,698",jumpPageSize,1);
 
         }else{
 
             //获取对应流程图
-            userMonitor.init("1200,698");
+            userMonitor.init("1200,698",false,1);
         }
 
     });
@@ -117,7 +117,7 @@ $(function(){
 
     $('.right-info-header-logo').on('click',function(){
 
-        window.location.href = "../passengerStation/passengerStation.html";
+        window.location.href = "../passengerStation/passengerStation.html?sendUrl=new-nengyuanzonglan/new-index.html";
     });
 });
 
@@ -135,6 +135,7 @@ if(!sessionStorage.PointerID){
     }
 
 }
+
 //定义流程图的方案类型
 var procType;
 
@@ -150,16 +151,17 @@ drawRightTab();
 function drawRightTab(){
 
     var tabHtml = '<span class="right-tab right-tab1"><a href="pandectEnergy.html">总览</a></span>' +
-        '<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="airConditioner.html">组合空调</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="airConditioner.html">暖通系统</a></span>' +
         '<span class="right-tab right-tab2"><a href="elevator.html">电梯</a></span>' +
         '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
-        '<span class="right-tab right-tab2"><a href="stationBuilding.html">站房照明</a></span>' +
-        '<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
+        '<span class="right-tab right-tab2"><a href="stationBuilding.html">照明系统</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
+        //'<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">自动检票</a></span>' +
-        '<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">售检票</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">消防控制</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
     //插入页面中
@@ -189,6 +191,7 @@ function drawRightTab(){
         }
     }
 };
+
 
 //左侧下方柱状图
 var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
@@ -1283,12 +1286,12 @@ function getDevTypeAreas(devTypeID,fn){
             if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
 
                 //获取对应流程图
-                userMonitor.init("1200,698",jumpPageSize);
+                userMonitor.init("1200,698",jumpPageSize,1);
 
             }else{
 
                 //获取对应流程图
-                userMonitor.init("1200,698");
+                userMonitor.init("1200,698",false,1);
             }
 
             $('#monitor-menu-container span').eq(0).click();

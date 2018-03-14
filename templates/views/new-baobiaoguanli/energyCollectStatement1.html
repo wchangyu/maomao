@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head><!DOCTYPE html>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -96,106 +101,102 @@
     <div class="bottom-main-table">
         <table id="entry-datatables" class="table" cellspacing="0" width="100%" style="text-align:center;border: 1px solid black">
             <thead style="text-align:center">
-                <tr style="text-align:center">
-                    <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;">报表名称</th>
-                    <th colspan="8" style="text-align:center;background: #ccc;border:1px solid black">年总能耗报表</th>
-                </tr>
-                <tr>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">数据时间</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="8" class="data-time"></th>
-                </tr>
-                <tr>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">导出时间</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="8" class="derive-time"></th>
-                </tr>
-                <!------------------------------------------医院--------------------------------->
-                <tr class="hosptial1">
-                    <th style="text-align:center;background: #ccc;border:1px solid black">占地面积<br />（平米）</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black" class="land-area"></th>
+            <tr style="text-align:center">
+                <th style="text-align:center;background: #ccc;border:1px solid black;width:140px;">报表名称</th>
+                <th colspan="8" style="text-align:center;background: #ccc;border:1px solid black">年总能耗报表</th>
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black">数据时间</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black" colspan="8" class="data-time"></th>
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black">导出时间</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black" colspan="8" class="derive-time"></th>
+            </tr>
+            <!------------------------------------------医院--------------------------------->
+            <tr class="hosptial1">
+                <th style="text-align:center;background: #ccc;border:1px solid black">占地面积<br />（平米）</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black" class="land-area"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black">总床位<br />（个）</th>
-                    <th  class="bed-num" style="text-align:center;background: #ccc;border:1px solid black"></th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">总床位<br />（个）</th>
+                <th  class="bed-num" style="text-align:center;background: #ccc;border:1px solid black"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black">年营收<br />（万元）</th>
-                    <th class="year-revenue"  style="text-align:center;background: #ccc;border:1px solid black"></th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">年营收<br />（万元）</th>
+                <th class="year-revenue"  style="text-align:center;background: #ccc;border:1px solid black"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black">水单价<br />（元/吨）</th>
-                    <th  class="water-price" style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>
-                </tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black">水单价<br />（元/吨）</th>
+                <th  class="water-price" style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>
+            </tr>
 
-                <tr class="hosptial2">
-                    <th style="text-align:center;background: #ccc;border:1px solid black">建筑面积<br />（平米）</th>
-                    <th class="build-area" style="text-align:center;background: #ccc;border:1px solid black"></th>
+            <tr class="hosptial2">
+                <th style="text-align:center;background: #ccc;border:1px solid black">建筑面积<br />（平米）</th>
+                <th class="build-area" style="text-align:center;background: #ccc;border:1px solid black"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black">年就诊人次<br />（人次）</th>
-                    <th class="person-num" style="text-align:center;background: #ccc;border:1px solid black"></th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">年就诊人次<br />（人次）</th>
+                <th class="person-num" style="text-align:center;background: #ccc;border:1px solid black"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black">电单价<br />（元/度）</th>
-                    <th class="electricity-price" style="text-align:center;background: #ccc;border:1px solid black"></th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">电单价<br />（元/度）</th>
+                <th class="electricity-price" style="text-align:center;background: #ccc;border:1px solid black"></th>
 
-                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>
-                </tr>
-
-
-                <tr>
-                    <th style="text-align:center;background: #ccc;border:1px solid black" rowspan="2">日期</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">电耗</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">电费</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">水耗</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">水费</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">折合标煤</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">支出合计</th>
-                </tr>
-                <tr>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">度</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">吨</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">吨</th>
-                    <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
-                </tr>
-
-
+                <th style="text-align:center;background: #ccc;border:1px solid black"></th>
+                <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black" rowspan="2">日期</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">电耗</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">电费</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">水耗</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">水费</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">气耗</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">气费</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">折合标煤</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">支出合计</th>
+            </tr>
+            <tr>
+                <th style="text-align:center;background: #ccc;border:1px solid black">度</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">吨</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">立方米</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">吨</th>
+                <th style="text-align:center;background: #ccc;border:1px solid black">元</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td style="text-align:center;border:1px solid black">1月</td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;border:1px solid black">2月</td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                </tr>
-                <tr>
-                    <td style="text-align:center;border:1px solid black">3月</td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                    <td style="text-align:center;border:1px solid black"></td>
-                </tr>
+            <tr>
+                <td style="text-align:center;border:1px solid black">1月</td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+            </tr>
+            <tr>
+                <td style="text-align:center;border:1px solid black">2月</td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+            </tr>
+            <tr>
+                <td style="text-align:center;border:1px solid black">3月</td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+                <td style="text-align:center;border:1px solid black"></td>
+            </tr>
             </tbody>
             <tfoot>
             <tr>
@@ -262,10 +263,14 @@
 <script src="../resource/js/publicFun.js"></script>
 <script src="../bank-resource/js/common.js"></script>
 <script src="../new-resource/src/jquery.table2excel.js"></script>
-<script src="../new-resource/js/baobiaoguanli/energyCollectStatement.js"></script>
+<script src="../new-resource/js/baobiaoguanli/energyCollectStatement1.js"></script>
 <!--<script src="../resource/js/js/godownEntry.js"></script>-->
 <!-- END JAVASCRIPTS -->
 <!--弹窗-->
 </body>
 <!-- END BODY -->
+</html>
+<body>
+
+</body>
 </html>

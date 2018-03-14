@@ -41,11 +41,12 @@ function getAlarmCameraData(){
                 //给密码解密
                 password = Went.utility.wCoder.wDecode(password,"");
 
+
                 //端口
                 var port = result.mappVideoRecorder.f_PortNum;
 
                 //通道号
-                var aisleNum = result.mappVideoRecorder.f_AisleNum;
+                var aisleNum = result.f_AisleNum;
 
                 console.log(password);
 

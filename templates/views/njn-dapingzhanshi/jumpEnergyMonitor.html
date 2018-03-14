@@ -127,7 +127,19 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init(true);
-        userMonitor.init();
+
+        //获取当前流程图宽高
+        //获取宽度
+        var  curWidth =  window.location.href.split("width=")[1].split("height=")[0];
+
+        //获取屏幕高度
+        var curHeight =  window.location.href.split("height=")[1].split("ckId=")[0];
+
+        var postSize = curWidth + "," + curHeight;
+
+        userMonitor.init(postSize,false,1);
+
+//        userMonitor.init();
     });
 
 </script>

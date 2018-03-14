@@ -11,7 +11,7 @@ var BEE = (function(){
     var _isAlarmShow = false;
     var _alarmCount = 0;
      //登陆页面地址
-     var _loginHtml = "../login_3.html";
+     var _loginHtml = "login_3.html";
     //摄像头报警
     var _cameraAlarmCount = 0;
 
@@ -190,7 +190,7 @@ var BEE = (function(){
             $('.totalTitle').html(systemName);
         }
 
-        var curLoginPage = sessionStorage.curLoginPage || "login_3.html";
+        var curLoginPage = sessionStorage.curLoginPage || _loginHtml;
 
         if(sessionStorage.menuUri && sessionStorage.menuUri.indexOf("../") == 0){
             curLoginPage = "../" + curLoginPage;
@@ -1139,7 +1139,7 @@ var BEE = (function(){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
-                window.location.href = _loginHtml;
+                window.location.href = "../"+ _loginHtml;
 
             }else{
                 //获取菜单

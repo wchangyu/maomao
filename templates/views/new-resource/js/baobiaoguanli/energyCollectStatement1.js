@@ -1,4 +1,7 @@
 /**
+ * Created by admin on 2018/3/9.
+ */
+/**
  * Created by admin on 2017/12/5.
  */
 $(function() {
@@ -45,8 +48,8 @@ var theadHtml2 = '    <th style="text-align:center;background: #ccc;border:1px s
     '                    <th style="text-align:center;background: #ccc;border:1px solid black">电单价<br />（元/度）</th>' +
     '                    <th class="electricity-price" style="text-align:center;background: #ccc;border:1px solid black"></th>' +
 
-    '                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>' +
-    '                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
+    '                    <th style="text-align:center;background: #ccc;border:1px solid black">气单价<br />（元/m³）</th>' +
+    '                    <th class="air-price" style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
 
 //医院模式数据
 
@@ -74,8 +77,8 @@ var theadHtml22 = ' <th style="text-align:center;background: #ccc;border:1px sol
     '                    <th style="text-align:center;background: #ccc;border:1px solid black">电单价<br />（元/度）</th>' +
     '                    <th class="electricity-price" style="text-align:center;background: #ccc;border:1px solid black"></th>' +
 
-    '                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>' +
-    '                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
+    '                    <th style="text-align:center;background: #ccc;border:1px solid black">气单价<br />（元/m³）</th>' +
+    '                    <th class="air-price" style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
 
 
 
@@ -133,6 +136,8 @@ function getEnergyCollectData(){
                 tableHtml += getTableHtml(result.energyCollectItems,k,'01');
                 //水耗数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'211');
+                //气耗数据
+                tableHtml += getTableHtml(result.energyCollectItems,k,'2011');
                 //标煤数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'-2');
                 //合计数据
@@ -193,21 +198,33 @@ function getEnergyCollectData(){
             //定义电单价
             var electricityPrice = 0;
 
+            //定义气单价
+            var  ariPrice = 0;
+
             //遍历存放能耗单价的数组
             $(result.energyPriceDatas).each(function(i,o){
                 //如果是电分项
                 if(o.energyItemId == '01'){
 
                     electricityPrice = o.energyPrice.toFixed(2);
-                //如果是水分项
+
+                    //如果是水分项
                 }else if(o.energyItemId == '211'){
 
                     waterPrice = o.energyPrice.toFixed(2);
+
+                    //如果是气
+                }else if(o.energyItemId == '311'){
+
+                    ariPrice = o.energyPrice.toFixed(2);
                 }
             });
 
             //水单价
             $('#entry-datatables thead').find('.water-price').html(waterPrice);
+
+            //气单价
+            $('#entry-datatables thead').find('.air-price').html(ariPrice);
 
             //电单价
             $('#entry-datatables thead').find('.electricity-price').html(electricityPrice);
@@ -221,6 +238,7 @@ function getEnergyCollectData(){
 }
 //
 function getTableHtml(arr,month,energyID){
+
     var html = '';
     $(arr).each(function(i,o){
 
@@ -233,22 +251,30 @@ function getTableHtml(arr,month,energyID){
                     '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
                         //电水费
                     '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td>';
-            //折合标煤
+                //折合标煤
             }else if(energyID == '-2'){
 
                 html = '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>';
-            //合计
+                //合计
             }else if(energyID == '-3'){
 
                 html = '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td></tr>';
 
-             //水耗
+                //水耗
             }else if(energyID == '211'){
 
                 html = //电水耗
                     '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td><td></td><td></td>';
+                    '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td>';
+
+                //气耗
+            }else if(energyID == '311'){
+
+                html = //电水耗
+                    '<td style="text-align:center;border:1px solid black">'+ o.energyData.toFixed(2)+'</td>'+
+                        //电水费
+                    '<td style="text-align:center;border:1px solid black">'+ o.energyPriceData.toFixed(2)+'</td>';
             }
 
             return false;
@@ -277,7 +303,13 @@ function getTableHtml(arr,month,energyID){
                 html = //电水耗
                     '<td style="text-align:center;border:1px solid black"></td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black"></td><td style="text-align:center;border:1px solid black"></td><td style="text-align:center;border:1px solid black"></td>';
+                    '<td style="text-align:center;border:1px solid black"></td>';
+            }else if(energyID == '311'){
+
+                html = //电水耗
+                    '<td style="text-align:center;border:1px solid black"></td>'+
+                        //电水费
+                    '<td style="text-align:center;border:1px solid black"></td>';
             }
         }
 

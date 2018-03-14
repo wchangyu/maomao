@@ -52,6 +52,9 @@ $(function(){
             //获取电耗分项数据
             getFirstEnergyItemData();
 
+            //设备报警
+            getStationAlarmData(1);
+
 
         },_refresh * 1000 * 60)
     }
