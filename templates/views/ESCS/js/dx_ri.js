@@ -1,5 +1,16 @@
 ﻿var dx_ri = function () {
 
+    var addZeroToSingleNumber = function (num) {
+        var curnum = "";
+        if (num < 10) {
+            curnum = "0" + num;
+        }
+        else {
+            curnum += num;
+        }
+        return curnum;
+    }
+
     //初始化时间控件
     var initdatetimepicker = function () {
         var nowDt = new Date();
@@ -25,7 +36,7 @@
             forceParse: 0,
             pickerPosition: "bottom-left"
         });
-    };
+    }
 
     //转换诊断时间格式
     var convertDxDT = function (DT) {
@@ -45,92 +56,6 @@
         getDxChw();
         //获取综合冷机能效诊断数据
         getDxCh();
-    }
-
-    var getWholeNX = function () {
-        jQuery('#busy').showLoading();
-        var url = sessionStorage.apiUrlPrefix + "Dx/DxriWholeNXs";
-        $.post(url, {
-            pId: sessionStorage.PointerID,
-            sp: encodeURIComponent($('#spDT').val())
-        }, function (res) {
-            if (res.code === 0) {
-                //1=已查询；0=未查询；
-                sessionStorage.DxNX = "1";
-                $('#eer_Text').html(ResponseModel.eer);
-                $('#chw_Text').html(ResponseModel.chw);
-                $('#cop_Text').html(ResponseModel.cop);
-                $('#cw_Text').html(ResponseModel.cw);
-                $('#ct_Text').html(ResponseModel.ct);
-                $('#nx_Text').html(ResponseModel.nx);
-                //(优良=b)蓝色77cdd0;(一般=y)黄色ffe699;(欠佳=r)红色f4b183
-                if (ResponseModel.eerQuo === 'b') {
-                    $('#canvas_eer').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.eerQuo === 'r') {
-                    $('#canvas_eer').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.eerQuo === 'y') {
-                    $('#canvas_eer').css('background-color', '#ffe699');
-                }
-                //冷源能效
-                if (ResponseModel.nxQuo === 'b') {
-                    $('#canvas_nx').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.nxQuo === 'r') {
-                    $('#canvas_nx').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.nxQuo === 'y') {
-                    $('#canvas_nx').css('background-color', '#ffe699');
-                }
-                //冷冻水输送系数
-                if (ResponseModel.chwQuo === 'b') {
-                    $('#canvas_chw').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.chwQuo === 'r') {
-                    $('#canvas_chw').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.chwQuo === 'y') {
-                    $('#canvas_chw').css('background-color', '#ffe699');
-                }
-                //综合冷机能效值
-                if (ResponseModel.copQuo === 'b') {
-                    $('#canvas_cop').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.copQuo === 'r') {
-                    $('#canvas_cop').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.copQuo === 'y') {
-                    $('#canvas_cop').css('background-color', '#ffe699');
-                }
-                //冷却水输送系数
-                if (ResponseModel.cwQuo === 'b') {
-                    $('#canvas_cw').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.cwQuo === 'r') {
-                    $('#canvas_cw').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.cwQuo === 'y') {
-                    $('#canvas_cw').css('background-color', '#ffe699');
-                }
-                //冷却塔风机输送系数
-                if (ResponseModel.ctQuo === 'b') {
-                    $('#canvas_ctc').css('background-color', '#77cdd0');
-                }
-                else if (ResponseModel.ctQuo === 'r') {
-                    $('#canvas_ctc').css('background-color', '#f4b183');
-                }
-                else if (ResponseModel.ctQuo === 'y') {
-                    $('#canvas_ctc').css('background-color', '#ffe699');
-                }
-                jQuery('#busy').hideLoading();
-            } else if (res.code === -1) {
-                jQuery('#busy').hideLoading();
-                alert('异常错误(系统诊断):' + res.msg);
-            } else {
-                jQuery('#busy').hideLoading();
-            }
-        })
     }
 
     //获取综合冷机能效诊断数据
@@ -673,8 +598,93 @@
         }
     }
 
-    return {
+    var getWholeNX = function () {
+        jQuery('#dxbusy').showLoading();
+        var url = sessionStorage.apiUrlPrefix + "Dx/GetDxriWholeNXs";
+        $.post(url, {
+            pId: sessionStorage.PointerID,      
+            sp: encodeURIComponent($('#spDT').val())
+        }, function (res) {
+            if (res.code === 0) {
+                //1=已查询；0=未查询；
+                sessionStorage.DxNX = "1";
+                $('#eer_Text').html(ResponseModel.eer);
+                $('#chw_Text').html(ResponseModel.chw);
+                $('#cop_Text').html(ResponseModel.cop);
+                $('#cw_Text').html(ResponseModel.cw);
+                $('#ct_Text').html(ResponseModel.ct);
+                $('#nx_Text').html(ResponseModel.nx);
+                //(优良=b)蓝色77cdd0;(一般=y)黄色ffe699;(欠佳=r)红色f4b183
+                if (ResponseModel.eerQuo === 'b') {
+                    $('#canvas_eer').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.eerQuo === 'r') {
+                    $('#canvas_eer').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.eerQuo === 'y') {
+                    $('#canvas_eer').css('background-color', '#ffe699');
+                }
+                //冷源能效
+                if (ResponseModel.nxQuo === 'b') {
+                    $('#canvas_nx').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.nxQuo === 'r') {
+                    $('#canvas_nx').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.nxQuo === 'y') {
+                    $('#canvas_nx').css('background-color', '#ffe699');
+                }
+                //冷冻水输送系数
+                if (ResponseModel.chwQuo === 'b') {
+                    $('#canvas_chw').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.chwQuo === 'r') {
+                    $('#canvas_chw').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.chwQuo === 'y') {
+                    $('#canvas_chw').css('background-color', '#ffe699');
+                }
+                //综合冷机能效值
+                if (ResponseModel.copQuo === 'b') {
+                    $('#canvas_cop').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.copQuo === 'r') {
+                    $('#canvas_cop').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.copQuo === 'y') {
+                    $('#canvas_cop').css('background-color', '#ffe699');
+                }
+                //冷却水输送系数
+                if (ResponseModel.cwQuo === 'b') {
+                    $('#canvas_cw').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.cwQuo === 'r') {
+                    $('#canvas_cw').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.cwQuo === 'y') {
+                    $('#canvas_cw').css('background-color', '#ffe699');
+                }
+                //冷却塔风机输送系数
+                if (ResponseModel.ctQuo === 'b') {
+                    $('#canvas_ctc').css('background-color', '#77cdd0');
+                }
+                else if (ResponseModel.ctQuo === 'r') {
+                    $('#canvas_ctc').css('background-color', '#f4b183');
+                }
+                else if (ResponseModel.ctQuo === 'y') {
+                    $('#canvas_ctc').css('background-color', '#ffe699');
+                }
+                jQuery('#dxbusy').hideLoading();
+            } else if (res.code === -1) {
+                jQuery('#dxbusy').hideLoading();
+                alert('异常错误(系统诊断):' + res.msg);
+            } else {
+                jQuery('#dxbusy').hideLoading();
+            }
+        })
+    }
 
+    return {
         init: function () {
             var pos = JSON.parse(sessionStorage.pointers);
             var po = pos[0];
@@ -686,17 +696,12 @@
             initdatetimepicker();
             //获取诊断
             getDx();
-            //sessionStorage.PointerID = "8816180101";
-            $('#DxriBtn').on('click', function () {
-                sessionStorage.DxCh = "0";
-                sessionStorage.DxChw = "0";
-                sessionStorage.DxCW = "0";
-                sessionStorage.DxCT = "0";
-                //sessionStorage.DxNX = "0";
-                getDx();
-            });
         }
-
     }
+
+
+
+   
+
 
 }();
