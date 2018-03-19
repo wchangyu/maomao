@@ -2,13 +2,18 @@
  * Created by admin on 2018/3/11.
  */
 $(function(){
-
-    //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
-
     //获取区域位置的数据
     getDevAreaByType();
 
+    _selectTime("自定义");
+
+    //时间插件
+    _timeComponentsFunHour($('.datatimeblock'));
+
+
+    $('.min').val(moment().subtract('1','days').format("YYYY-MM-DD 00:00"));
+
+    $('.max').val(moment().format("YYYY-MM-DD 00:00"));
 
     ////默认勾选前两个楼宇
     //var zTree = $.fn.zTree.getZTreeObj("allPointer");
@@ -23,26 +28,9 @@ $(function(){
     /*---------------------------------buttonEvent------------------------------*/
     //查询按钮
     $('.buttons').children('.btn-success').click(function(){
-        //获得选择的能耗类型
-        _ajaxEcType =_getEcTypeValue(_ajaxEcType);
 
+        getPointerData();
 
-        //先判断获取的是楼宇还是科室
-        var o = $('.tree-0')[0].style.display;
-
-        if(o != 'none'){
-            //楼宇数据
-            getPointerData('EnergyQueryV2/GetPointerHorCompareData',1);
-
-        }else if(a == 'block'){
-            //分户数据
-            getPointerData('EnergyQueryV2/GetOfficeHorCompareData',2);
-
-        }else if(s == 'block'){
-            //支路数据
-            getPointerData('EnergyQueryV2/GetBranchHorCompareData',3);
-
-        }
     });
 
 
@@ -131,21 +119,113 @@ $(function(){
 
     });
 
-
-
-
 });
 
+/*---------------------------------table-----------------------------------*/
+//右上角楼宇table
+var table = $('#dateTables').DataTable({
+    "bProcessing" : true, //DataTables载入数据时，是否显示‘进度’提示
+    "autoWidth": false,  //用来启用或禁用自动列的宽度计算
+    //是否分页
+    "destroy": false,//还原初始化了的datatable
+    "paging":true,
+    "bPaginate": false,
+    "ordering": false,
+    'searching':false,
+    'info':false,
+    //"scrollY": '400px', //支持垂直滚动
+    //"scrollCollapse": true,
+    'language': {
+        'emptyTable': '没有数据',
+        'loadingRecords': '加载中...',
+        'processing': '查询中...',
+        'lengthMenu': '每页 _MENU_ 件',
+        'zeroRecords': '没有数据',
+        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+        'paginate': {
+            'first':      '第一页',
+            'last':       '最后一页',
+            'next':       '下一页',
+            'previous':   '上一页'
+        },
+        'infoEmpty': ''
+    },
+    'buttons': [
+    ],
+    "dom":'B<"clear">lfrtip',
+    //数据源
+    'columns':[
+        {
+            title:'对象',
+            class:'',
+            data:"returnOBJName"
+        },
+        {
+            title:'单位',
+            data:"returnOBJUnit"
+        },
+        {
+            title:'峰值',
+            data:"maxMetaData",
+            render:function(data, type, full, meta){
 
+                return data;
+            }
+        },
+        {
+            title:'出现时间',
+            data:"maxMetaDataDT"
+        },
+        {
+            title:'谷值',
+            data:"minMetaData"
+        },
+        {
+            title:'出现时间',
+            data:"minMetaDataDT"
+        },
+        {
+            title:'平均值',
+            data:"avgMetaData"
+        }
+    ]
+});
 
 /*---------------------------------echart-----------------------------------*/
-//定义存放返回数据的数组（本期 X Y）
-var allData = [];
-var allDataX = [];
-var allDataY = [];
 
 //折线图
 var myChartTopLeft = echarts.init(document.getElementById('rheader-content-16'));
+
+var echartObj =  {name:'累计值',
+    type:'line',
+    smooth:true,
+    //markPoint : {
+    //    data : [
+    //        {type : 'max', name: '最大值'},
+    //        {type : 'min', name: '最小值'}
+    //    ],
+    //    itemStyle : {
+    //        normal:{
+    //            color:'#019cdf'
+    //        }
+    //    },
+    //    label:{
+    //        normal:{
+    //            textStyle:{
+    //                color:'#d02268'
+    //            }
+    //        }
+    //    }
+    //},
+    //markLine : {
+    //    data : [
+    //        {type : 'average', name: '平均值'}
+    //
+    //
+    //    ]
+    //},
+    data:[]
+};
 
 //折线图配置项
 var optionLine = {
@@ -232,9 +312,6 @@ var equipmentArr = [
     }
 ];
 
-//获取设备列表
-getEquipmentZtree(equipmentArr,1,false,false,equipmentObj);
-
 var natureObj;
 
 //定义当前的属性列表
@@ -261,9 +338,6 @@ var natureArr = [
     }
 ];
 
-//获取属性列表
-getEquipmentZtree(natureArr,2,false,'#allNature',natureObj);
-
 var areaObj;
 
 //获取当前系统类型
@@ -274,6 +348,8 @@ var devTypeName = getSystemType(devTypeID);
 
 //获取全部楼宇ID列表
 var pointerIdArr = getPointersId();
+
+$('.curSystem').html(devTypeName);
 
 /*---------------------------------otherFunction------------------------------*/
 
@@ -297,7 +373,7 @@ function getDevAreaByType(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -321,335 +397,72 @@ function getDevAreaByType(){
 
         }
     })
-}
-
-
-
-var echartObj =  {name:'累计值',
-    type:'line',
-    smooth:true,
-    markPoint : {
-        data : [
-            {type : 'max', name: '最大值'},
-            {type : 'min', name: '最小值'}
-        ],
-        itemStyle : {
-            normal:{
-                color:'#019cdf'
-            }
-        },
-        label:{
-            normal:{
-                textStyle:{
-                    color:'#d02268'
-                }
-            }
-        }
-    },
-    markLine : {
-        data : [
-            {type : 'average', name: '平均值'}
-
-
-        ]
-    },
-    data:[]
 };
 
-//获取数据
-//flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
-function getPointerData(url,flag){
+//根据设备类型获取设备名称及监测点类型
+function getDevInfoCTypes(equipObj){
 
-    var totalAllData = 0;
+    //console.log(equipObj);
 
-    //存放要传的楼宇集合
-    var postPointerID = [];
+    //获取当前选中名称及id
 
-    //存放要传递的分户集合
-    var officeID = [];
+    var chooseID = equipObj.id;
 
-    //存放要传的支路ID
-    var serviceID = [];
+    var chooseName = equipObj.name;
 
-    //存放要传递的指标类型
-    var energyNormItemObj = {};
+    //获取父级元素ID
 
-    //获取指标ID
-    var normItemID = $('.left-middle-main1 .curChoose').attr('data-num');
+    var parentID = equipObj.pId;
 
-    if(normItemID){
-        //在指标类型中寻找对应项
-        $(energyNormItemArr).each(function(i,o){
+    var parentNode = equipObj.getParentNode();
 
-            if(o.normIndex == normItemID){
+    var parentName = parentNode.name;
 
-                energyNormItemObj = o
-            }
-        });
-    }
-
-    //获取名称
-    var areaName = '';
-
-    //楼宇数据
-    if(flag == 1){
-        //确定楼宇id
-        var pts = _pointerZtree.getSelectedPointers();
-
-        //比较对象不能超过三个
-        if(pts.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
-
-        $(pts).each(function(i,o){
-
-            postPointerID.push(o.pointerID);
-
-            //页面上方展示信息
-            areaName += o.pointerName + " -- ";
-        });
-
-        //分户数据
-    }else if(flag == 2){
-        //确定分户id
-        var ofs = _officeZtree.getSelectedOffices();
-
-        console.log(ofs);
-        //比较对象不能超过三个
-        if(ofs.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
-
-        $( ofs).each(function(i,o){
-
-            officeID.push(o.f_OfficeID);
-
-            //页面上方展示信息
-            areaName += o.f_OfficeName+ " -- ";
-        });
-
-    }else if(flag == 3){
-        //确定支路id
-        var nodes = branchTreeObj.getCheckedNodes(true);
-
-        //比较对象不能超过三个
-        if(nodes.length > 3){
-            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'比较对象不能超过三个', '');
-
-            return false;
-        }
-        $( nodes).each(function(i,o){
-
-            serviceID.push(o.id);
-
-            //页面上方展示信息
-            areaName += o.name+ " -- ";
-        });
-
-        //本地构建energyNormItemObj对象
-        energyNormItemObj.energyItemID = _ajaxEcType;
-
-        energyNormItemObj.energyNormFlag = 1;
-    }
-
-    //判断是否标煤
-    if($('.selectedEnergy p').html() == '标煤'){
-        _ajaxEcType = -2;
-    }
-
-    //获取展示日期类型
-    var showDateType = getShowDateType()[0];
-
-    //获取用户选择日期类型
-    var selectDateType = getShowDateType()[1];
-
-    //获取开始时间
-    var startTime = getPostTime()[0];
-
-    //获取开始时间
-    var endTime = getPostTime()[1];
-
-    //定义获得数据的参数
+    //传递给后台的数据
     var ecParams = {
-        "energyNorm":energyNormItemObj ,
-        "energyItemID": _ajaxEcType,
-        "pointerIDs": postPointerID,
-        "officeIDs": officeID,
-        "serviceIDs": serviceID,
-        "unityType": 0,
-        "showDateType": showDateType,
-        "selectDateType": selectDateType,
-        "startTime": startTime,
-        "endTime": endTime
+
+        "devAreaID": parentID,
+        "devTypeID": chooseID
     };
 
     //发送请求
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix+url,
+        url:sessionStorage.apiUrlPrefix+"NJNDeviceShow/GetDevInfoCTypes",
         data:ecParams,
         timeout:_theTimes,
         beforeSend:function(){
-            myChartTopLeft.showLoading();
+
         },
         success:function(result){
-            myChartTopLeft.hideLoading();
 
-            //console.log(result);
+
+            console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
+
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
-            //改变头部显示信息
-            var energyName = '';
 
-            if($('.left-middle-main1 .curChoose').length > 0){
-                energyName = $('.left-middle-main1 .curChoose').html();
-            }
-
-
-            //改变头部日期
-            var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
-
-            $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
-
-            //首先处理本期的数据
-            allData.length = 0;
-
-            $(result).each(function(i,o){
-                allData.push(o.ecMetaDatas);
-            });
-
-            //首先处理实时数据
-            allDataX.length = 0;
-            allDataY.length = 0;
-
-            //绘制echarts
-            if(showDateType == 'Hour' ){
-                //确定x轴
-                for(var i=0;i<allData[0].length;i++){
-                    var dataSplit = allData[0][i].dataDate.split('T')[1].split(':');
-                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
-                    if(allDataX.indexOf(dataJoin)<0){
-                        allDataX.push(dataJoin);
-                    }
-                }
-            }else{
-                //确定x轴
-                for(var i=0;i<allData[0].length;i++){
-                    var dataSplit = allData[0][i].dataDate.split('T')[0];
-
-                    if(allDataX.indexOf(dataJoin)<0){
-                        allDataX.push(dataSplit);
-                    }
-                }
-            };
-
-            optionLine.series = [];
-
-            optionLine.legend.data = [];
-
-            //确定本期y轴
-            for(var i=0;i<allData.length;i++){
-
-                //创建echart series中的对象
-                var obj = {};
-
-                deepCopy(echartObj,obj);
-
-                //对象值初始化
-                obj.data.length = 0;
-
-                var data = [];
-
-                for(var j=0; j < allData[i].length; j++){
-
-                    data.push(allData[i][j].data.toFixed(2));
-                }
-
-                //给对象赋值
-                obj.data = data;
-                obj.name = result[i].returnOBJName;
-
-                optionLine.series.push(obj);
-                //改变上方图例
-                optionLine.legend.data.push(result[i].returnOBJName);
-
-            }
-
-            //echart柱状图
-            optionLine.xAxis[0].data = allDataX;
-
-            myChartTopLeft.setOption(optionLine,true);
-
-            //下方表格
-            var tableHtml = '';
-            //获取第一项的累计值
-            var total = result[0].sumMetaData;
-            //获取第一项的峰值
-            var max = result[0].sumMetaData;
-            //获取第一项的谷值
-            var min = result[0].sumMetaData;
-            //获取第一项的平均值
-            var avg = result[0].sumMetaData;
+            //清空设备列表
+            equipmentArr.length = 0;
 
             $(result).each(function(i,o){
 
-                var index = i+1;
-                tableHtml += '<tr>' +
-                    '<td>'+ index+'</td>'+
-                    '<td>'+ o.returnOBJName+'</td>'+
-                    '<td>'+ o.sumMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.maxMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.minMetaData.toFixed(2)+'</td>'+
-                    '<td>'+ o.avgMetaData.toFixed(2)+'</td>'+
+                var obj = {
 
-                    '</tr>';
+                    id : o.id,
+                    name : o.devName,
+                    devCNameTModels : o.devCNameTModels
+                };
 
-                if(i != 0){
-                    //计算累计值百分比
-                    var totalPercent = (((o.sumMetaData - total) / total * 100).toFixed(1)) + '%';
-
-                    if( total == 0){
-                        totalPercent = 0 + '%';
-                    }
-                    //计算峰值百分比
-                    var maxPercent = ((o.maxMetaData - max) / total * 100).toFixed(1) + '%';
-
-                    if( max == 0){
-                        maxPercent = 0 + '%';
-                    }
-                    //计算谷值百分比
-                    var minPercent = ((o.minMetaData - min) / total * 100).toFixed(1) + '%';
-
-                    if( min == 0){
-                        minPercent = 0 + '%';
-                    }
-                    //计算平均值百分比
-                    var avgPercent = ((o.avgMetaData - avg) / total * 100).toFixed(1) + '%';
-
-                    if( avg == 0){
-                        avgPercent = 0 + '%';
-                    }
-
-                    tableHtml += '<tr>' +
-                        '<td colspan="2">'+ index+'对比1</td>'+
-                        '<td>'+ totalPercent+'</td>'+
-                        '<td>'+ maxPercent+'</td>'+
-                        '<td>'+ minPercent+'</td>'+
-                        '<td>'+ avgPercent+'</td>'+
-                        '</tr>';
-
-                }
+                equipmentArr.push(obj);
             });
 
-            $('#dateTables tbody').html(tableHtml);
+            //获取设备列表
+            getEquipmentZtree(equipmentArr,1,false,false,equipmentObj);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -663,7 +476,130 @@ function getPointerData(url,flag){
 
         }
     })
-}
+
+};
+
+//获取数据
+//flag = 1 楼宇数据 flag = 2 分户数据 flag = 3 支路数据
+function getPointerData(){
+
+    //判断是否选择设备
+    if($('.select-equipment-container p').length == 0){
+
+        _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择设备后查看', '');
+    }
+
+    //定义属性ID集合
+    var cNameTIDs = [];
+
+    //定义获得数据的参数
+    for(var i=0; i<$('.select-equipment-container p b').length; i++){
+
+        //设备ID
+        var devId = $('.select-equipment-container p b').eq(i).attr('id');
+
+
+        cNameTIDs.push(devId);
+    }
+
+    //获取查询时间
+    var startDate = $('.min').val();
+
+    var endDate = moment($('.max').val()).add(1,'days').format("YYYY-MM-DD");
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+"NJNDeviceShow/GetDevHistoryData",
+        data:{
+            "startTime": startDate,
+            "endTime": endDate,
+            "cNameTIDs": cNameTIDs
+        },
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            myChartTopLeft.showLoading();
+        },
+        success:function(result){
+
+            myChartTopLeft.hideLoading();
+
+            //判断是否返回数据
+            if(result == null || result.length == 0){
+
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
+                return false;
+            }
+
+            //改变头部日期
+            var date = startDate +" — " + $('.max').val();
+
+            $('.curTime').html(date);
+
+            var xArr = [];
+
+            var sArr = [];
+
+            var ledArr = [];
+
+            $(result.devInfoDatas[0].ecMetaDatas).each(function(i,o){
+
+                xArr.push(o.dataDate.split('T')[0] + " " + o.dataDate.split('T')[1]);
+            });
+
+            //echart柱状图
+            optionLine.xAxis[0].data = xArr;
+
+            $(result.devInfoDatas).each(function(i,o){
+
+                //创建echart series中的对象
+                var obj = {};
+
+                deepCopy(echartObj,obj);
+
+                //对象值初始化
+                obj.data.length = 0;
+
+                obj.name = o.returnOBJName;
+
+                ledArr.push(o.returnOBJName);
+
+                var dataArr = [];
+
+                $(o.ecMetaDatas).each(function(j,k){
+
+                    dataArr.push(k.data);
+                });
+
+                obj.data = dataArr;
+
+                optionLine.series[i] = obj;
+            });
+
+            optionLine.legend.data = ledArr;
+
+
+            myChartTopLeft.setOption(optionLine,true);
+
+            //下方表格
+            _datasTable($('#dateTables'),result.devInfoTables);
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+
+            myChartTopLeft.hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+};
 
 //获取指标类型
 //flag 是否默认加载数据
@@ -737,7 +673,6 @@ function GetShowEnergyNormItem(energyType,flag){
 
 };
 
-
 function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
     var setting = {
@@ -761,6 +696,48 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
             onClick:function (event,treeId,treeNode){
 
                 treeObj.checkNode(treeNode,!treeNode.checked,false)
+
+                //如果是点击属性选择树状图
+                if(flag == 2){
+                    $('#' + treeId).find('.checkbox_true_full_focus').next('a').addClass('curSelectedNode');
+
+                    var treeObj = $.fn.zTree.getZTreeObj("allNature");
+
+                    //获取当前已选中的属性
+                    var pts = treeObj.getCheckedNodes(true);
+
+                    //获取当前选中的设备
+                    var eqps = $.fn.zTree.getZTreeObj("allEquipment").getCheckedNodes(true);
+
+                    //调用绘制设备列表的函数
+                    drawEquipmentList(eqps[0],pts);
+
+                }
+
+                //如果点击区域位置树状图
+                if(flag == 3){
+
+                    var treeObj = $.fn.zTree.getZTreeObj("allPointer");
+
+                    //获取当前已选中的属性
+                    var pts = treeObj.getCheckedNodes(true);
+
+                    getDevInfoCTypes(pts[0]);
+
+
+                }
+
+                //如果点击设备名称树状图
+                if(flag == 1){
+
+                    var treeObj = $.fn.zTree.getZTreeObj("allEquipment");
+
+                    //获取当前已选中的属性
+                    var pts = treeObj.getCheckedNodes(true);
+
+                    getNatureTree(pts[0].id);
+
+                }
             },
             beforeClick:function(treeId,treeNode){
 
@@ -787,6 +764,32 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
                     //调用绘制设备列表的函数
                     drawEquipmentList(eqps[0],pts);
+
+                }
+
+                //如果点击区域位置树状图
+                if(flag == 3){
+
+                    var treeObj = $.fn.zTree.getZTreeObj("allPointer");
+
+                    //获取当前已选中的属性
+                    var pts = treeObj.getCheckedNodes(true);
+
+                    getDevInfoCTypes(pts[0]);
+
+
+                }
+
+                //如果点击设备名称树状图
+                if(flag == 1){
+
+                    var treeObj = $.fn.zTree.getZTreeObj("allEquipment");
+
+                    //获取当前已选中的属性
+                    var pts = treeObj.getCheckedNodes(true);
+
+                    getNatureTree(pts[0].id);
+
                 }
             }
         }
@@ -820,7 +823,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 //根据参数绘制页面中已选设备列表
 function drawEquipmentList(equipObj,natureArr){
 
-    console.log(equipObj.id)
+    //console.log(equipObj.id)
 
     //定义属性列表的字符串
     var natureHtml = "";
@@ -929,6 +932,43 @@ function getZNodes2(EnItdata){
 
 };
 
+//获取当前设备下的属性集合
+function getNatureTree(equipID){
+
+    //清空存放属性的集合
+    natureArr.length = 0;
+
+    var obj = {
+            name:"全部",
+            id:0
+    };
+
+    natureArr.push(obj);
+
+    $(equipmentArr).each(function(i,o){
+
+        if(o.id == equipID){
+            console.log(o.devCNameTModels);
+
+            $(o.devCNameTModels).each(function(i,o){
+
+                var obj = {
+                    name : o.cNameT,
+                    id : o.cNameTID
+                };
+
+                natureArr.push(obj);
+            });
+
+            return false;
+        }
+
+
+    });
+
+    //获取属性列表
+    getEquipmentZtree(natureArr,2,false,'#allNature',natureObj);
+};
 
 //从本地存储中获取楼宇ID列表
 function getPointersId(){
@@ -945,6 +985,23 @@ function getPointersId(){
     });
 
     return pointerIdArr;
+};
+
+//时间插件精确到小时
+function _timeComponentsFunHour(el){
+    el.datepicker('destroy');
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        format : "yyyy-mm-dd hh:00",//日期格式
+        startView: 2,  //1时间  2日期  3月份 4年份
+        forceParse: true,
+        minView : 1,
+        minuteStep:0
+    });
 };
 
 //搜索
@@ -978,7 +1035,7 @@ function searchNode(e,node) {
     }
     updateNodes(true);
 
-}
+};
 
 //搜索框
 var key;
@@ -999,7 +1056,8 @@ function updateNodes(highlight) {
         findParent(zTree,nodeList[n]);
     }
     zTree.showNodes(nodeList);
-}
+};
+
 //确定父子关系
 function findParent(zTree,node){
     //展开 / 折叠 指定的节点
@@ -1014,7 +1072,7 @@ function findParent(zTree,node){
         nodeList.push(pNode);
         findParent(zTree,pNode);
     }
-}
+};
 function filter(node) {
     return !node.isParent && node.isFirstNode;
 }

@@ -12,7 +12,6 @@ $(function(){
 
 });
 
-
 //获取当前摄像头报警数据
 function getAlarmCameraData(){
 
@@ -38,8 +37,8 @@ function getAlarmCameraData(){
                 //密码
                 var password = result.mappVideoRecorder.f_Password;
 
-                //给密码解密
-                password = Went.utility.wCoder.wDecode(password,"");
+                ////给密码解密
+                //password = Went.utility.wCoder.wDecode(password,"");
 
 
                 //端口
@@ -48,7 +47,7 @@ function getAlarmCameraData(){
                 //通道号
                 var aisleNum = result.f_AisleNum;
 
-                console.log(password);
+                //console.log(password);
 
                 //登录当前设备
                 clickLogin1(account,address,password,port);
