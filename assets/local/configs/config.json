@@ -42,16 +42,16 @@
         "etunitZH":"立方米"
       },
       {
-        "etid": "2011",
+        "etid": "20111",
         "etname": "汽",
-        "ettype" : "2000",
+        "ettype" : "1400",
         "etunit": "t",
         "img":"totalQi.png",
-        "unSelectImg":"zhengqi3.png",
-        "selectImg":"zhengqi33.png",
+        "unSelectImg":"qi33.png",
+        "selectImg":"qi3.png",
         "color":"#b1cade",
         "img2":"gas.png",
-        "isShowItem":1,
+        "isShowItem":0,
         "etunitZH":"吨"
       },
       {
@@ -68,7 +68,7 @@
         "etunitZH":"兆焦"
       },
       {
-        "etid": "512",
+        "etid": "511",
         "ettype" : "500",
         "etname": "冷",
         "etunit": "MJ",
@@ -160,8 +160,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://192.168.1.108/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.108/BEEWebAPI/api/",
+  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",
@@ -170,7 +170,7 @@
   "pageTitle":"能源管理系统",
   "themeColor":"blue",
   "themecolors":"blue/darkblue/default/grey/light/light2,default=default,light和light2废弃",
-  "refreshInterval":"20",
+  "refreshInterval":"0",
   "refreshIntervalComment":"监控模块的数据刷新间隔,单位秒,0为不刷新,建议最低20秒",
   "alarmInterval":"10",
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
@@ -181,8 +181,6 @@
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "dapinInterval":"10",
-  "dapinIntervalComment":"大屏幕是否自动刷新，0为不刷新，单位分钟",
   "indexUrl":"shouye/index.html",
   "gongdanIndustryType":"1",
   "ckAuditType":"0",

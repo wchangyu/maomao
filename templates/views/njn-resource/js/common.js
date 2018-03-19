@@ -986,7 +986,7 @@ function getStationAlarmData(index){
 
                 }else{
 
-                    xArr.push(o.dataDate.split('T')[0]);
+                    //xArr.push(o.dataDate.split('T')[0]);
                 }
 
             });
