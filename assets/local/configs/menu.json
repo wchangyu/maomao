@@ -1,24 +1,57 @@
 {
   "content": "type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
-  "大屏幕":{
+  "大屏幕": {
+    "type": "1",
+    "content": "大屏幕",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "首页": {
+        "type": "0",
+        "content": "首页",
+        "uri": "../njn-dapingzhanshi/pandectEnergy.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "空调机组": {
+        "type": "0",
+        "content": "空调机组",
+        "uri": "../njn-dapingzhanshi/airConditioner.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
+   "环境监测":{
     "type":"1",
-    "content":"大屏幕",
+    "content":"环境监测",
     "iconclass":"icon-camcorder",
     "icon-img":"01.png",
     "icon-hover":"01dian.png",
     "submenu":{
-      "首页":{
-        "type":"0",
-        "content":"首页",
-        "uri":"../njn-dapingzhanshi/pandectEnergy.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
+      "环境监测-吉大医院": {
+        "type": "0",
+        "content": "环境监测-吉大医院",
+        "uri": "../EPSM/envir.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       },
-      "空调机组":{
+      "环境监测-总行": {
+        "type": "0",
+        "content": "环境监测-四川总行",
+        "uri": "../bank-evrm/EnvironmentallyMonitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "环境监测-分行":{
         "type":"0",
-        "content":"空调机组",
-        "uri":"../njn-dapingzhanshi/airConditioner.html",
+        "content":"环境监测-四川分行",
+        "uri":"../bank-evrm/EnvironmentallyMonitorBranch.html",
         "uid":"",
         "arg":"",
         "iconclass":""
