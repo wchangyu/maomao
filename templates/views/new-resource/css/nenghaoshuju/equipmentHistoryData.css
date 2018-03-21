@@ -137,3 +137,40 @@
 .table thead tr th,.table tbody tr td{
     text-align: center;
 }
+
+.ztree {
+
+    overflow-x: auto;
+}
+
+.ztree li {
+    margin: 0 10px;
+    width: auto;
+}
+
+/*右侧背景色*/
+.content-main-right {
+    min-height: 800px;
+    background: #F9F9F9;
+}
+
+.quota-data-bottom {
+    height: 700px;
+    background: rgba(255,255,255,1);
+    border-radius: 8px !important;
+    border: 1px solid #E2E9F2;
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.table-title {
+    color: #3C3C3C;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/*隐藏选择每页展示多少条的选框*/
+.dataTables_length{
+    display: none;
+}

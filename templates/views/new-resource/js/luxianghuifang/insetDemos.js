@@ -113,7 +113,7 @@ function showOPInfo(szInfo, status, xmlDoc) {
     szTip += "</div>";
 
     $("#opinfo").html(szTip + $("#opinfo").html());
-    console.log(status);
+    //console.log(status);
 }
 
 // 显示回调信息
@@ -504,7 +504,7 @@ function clickGetDigitalChannelInfo() {
 
 // 开始预览
 function clickStartRealPlay(iStreamType) {
-    console.log(g_iWndIndex);
+    //console.log(g_iWndIndex);
     var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
         szDeviceIdentify = $("#ip").val(),
         iRtspPort = parseInt($("#rtspport").val(), 10),

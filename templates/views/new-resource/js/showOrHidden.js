@@ -231,8 +231,6 @@ function _selectTime(dataType){
             $('.datatimeblock').datetimepicker('remove');
         }
 
-
-
         $('.end-time-choose').hide();
         //获取上年
         var date = moment().format('YYYY');

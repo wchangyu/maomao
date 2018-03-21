@@ -30,8 +30,6 @@ $(function(){
 
     });
 
-
-
     //改变能耗类型 改变对应的指标
     $('.energy-types').on('click','div',function(){
 
@@ -41,8 +39,6 @@ $(function(){
         GetShowEnergyNormItem(energyType);
 
     });
-
-
 
     //删除设备列表中的项目
     $('.select-equipment-container').on('click',"font",function(){
@@ -171,7 +167,7 @@ function getDevAreaByType(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -252,13 +248,13 @@ function getPointerData(){
                 _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'无数据', '');
                 return false;
             }
+
             //改变头部显示信息
             var energyName = '';
 
             if($('.left-middle-main1 .curChoose').length > 0){
                 energyName = $('.left-middle-main1 .curChoose').html();
             }
-
 
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
@@ -278,7 +274,7 @@ function getPointerData(){
 
         }
     })
-}
+};
 
 
 function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
@@ -304,6 +300,13 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
             onClick:function (event,treeId,treeNode){
 
                 treeObj.checkNode(treeNode,!treeNode.checked,false)
+
+                var treeObj = $.fn.zTree.getZTreeObj("allPointer");
+
+                //获取当前已选中的属性
+                var pts = treeObj.getCheckedNodes(true);
+
+                drawEquipmentList(pts[0])
             },
             beforeClick:function(treeId,treeNode){
 

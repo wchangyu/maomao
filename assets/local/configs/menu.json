@@ -25,13 +25,13 @@
       }
     }
   },
-   "环境监测":{
-    "type":"1",
-    "content":"环境监测",
-    "iconclass":"icon-camcorder",
-    "icon-img":"01.png",
-    "icon-hover":"01dian.png",
-    "submenu":{
+  "环境监测": {
+    "type": "1",
+    "content": "环境监测",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
       "环境监测-吉大医院": {
         "type": "0",
         "content": "环境监测-吉大医院",
@@ -48,13 +48,13 @@
         "arg": "",
         "iconclass": ""
       },
-      "环境监测-分行":{
-        "type":"0",
-        "content":"环境监测-四川分行",
-        "uri":"../bank-evrm/EnvironmentallyMonitorBranch.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":""
+      "环境监测-分行": {
+        "type": "0",
+        "content": "环境监测-四川分行",
+        "uri": "../bank-evrm/EnvironmentallyMonitorBranch.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
       }
     }
   },
@@ -62,7 +62,13 @@
     "type": "1",
     "content": "高效机房",
     "iconclass": "icon-home",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
     "submenu": {
+      "数据": {
+        "type": "2",
+        "content": "数据"
+      },
       "数据总览": {
         "type": "0",
         "content": "数据总览",
@@ -127,6 +133,10 @@
         "arg": "",
         "iconclass": "glyphicon glyphicon-sort-by-order"
       },
+      "报表": {
+        "type": "2",
+        "content": "报表"
+      },
       "报表导出": {
         "type": "0",
         "content": "报表导出",
@@ -142,40 +152,9 @@
         "uid": "",
         "arg": "",
         "iconclass": "icon-credit-card"
-      },
-      "系统诊断": {
-        "type": "0",
-        "content": "系统诊断",
-        "uri": "../ESCS/dx_ri.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-ban"
       }
     }
-  },
-  "首页": {
-    "type": "1",
-    "content": "首页",
-    "iconclass": "icon-home",
-    "submenu": {
-      "能耗总览": {
-        "type": "0",
-        "content": "能耗总览",
-        "uri": "../shouye/index.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-bar-chart"
-      },
-      "3D地图": {
-        "type": "0",
-        "content": "3D地图",
-        "uri": "../shouye/infoMap.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "icon-map"
-      }
-    }
-  },
+  }, 
   "设备监控": {
     "type": "1",
     "content": "设备监控",
@@ -226,7 +205,7 @@
         "content": "冷热源3",
         "uri": "../njn-dapingzhanshi/coldHeatSource.html",
         "uid": "",
-        "arg": "2,16",
+        "arg": "1,3101007761",
         "iconclass": ""
       },
       "电梯3": {
@@ -462,8 +441,7 @@
         "content": "配电系统",
         "uri": "../yongnengjiance/energyMonitor.html?arg=11",
         "uid": "",
-        "arg": "1,1100007001",
-        "usepointer": "1",
+        "arg": "1,3101008143",
         "iconclass": ""
       },
       "能源站系统": {
@@ -473,6 +451,13 @@
         "uid": "",
         "arg": "0,5",
         "usepointer": "1",
+        "iconclass": ""
+      },
+      "实时数据": {
+        "type": "0",
+        "content": "实时数据",
+        "uri": "../new-nenghaoshuju/equipmentRealTimeData.html?arg=2",
+        "uid": "",
         "iconclass": ""
       }
     }
@@ -720,7 +705,7 @@
       "巡检任务": {
         "type": "0",
         "content": "巡检任务",
-        "uri": "../xunjianguanli/inspectionManagement-4.html",
+        "uri": "../xunjianguanli/inspectionManagement-4_1.html",
         "uid": "",
         "arg": "",
         "iconclass": ""
