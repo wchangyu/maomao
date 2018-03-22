@@ -1,16 +1,21 @@
-﻿var Monitor = function () {
-  
-    var oTable=null;
-    
-    var getMonitorDs = function () {
+﻿//多区域实时数据
+var Monitor = function () {
+
+    //默认区域是东冷站
+    var area = 60;
+
+    var oTable = null;
+
+    var getMoDs = function () {
         jQuery('#IsBusy').showLoading();
-        var url = sessionStorage.apiUrlPrefix + "Monitor/GetMonitorInstDs";
-        $.post(url,{
-            sSearch:sessionStorage.PointerID
-        },function (res) {
-            var dataArr=[];
+        var url = sessionStorage.apiUrlPrefix + "MultiAreaMonitor/GetMultiAreaMonitorDs";
+        $.post(url, {
+            sSearch: sessionStorage.PointerID,
+            sSearch_1:area
+        }, function (res) {
+            var dataArr = [];
             dataArr = res.aaData;
-            if(oTable===null){
+            if (oTable === null) {
                 oTable = $("#table").dataTable({
                     "autoWidth": false,  //用来启用或禁用自动列的宽度计算
                     "paging": true,   //是否分页
@@ -18,12 +23,12 @@
                     "searching": false,
                     "ordering": false,
                     "bFilter": false,
-                    "pagingType":"full_numbers",
+                    "pagingType": "full_numbers",
                     "bPaginate": true, //翻页功能
                     //"bStateSave":true,
                     "bSort": false,
                     "bProcessing": false,
-                    "iDisplayLength":20,//默认每页显示的条数,
+                    "iDisplayLength": 20,//默认每页显示的条数,
                     'language': {
                         'emptyTable': '没有数据',
                         'loadingRecords': '加载中...',
@@ -32,29 +37,14 @@
                         'zeroRecords': '没有数据',
                         'info': '第_PAGE_页/共_PAGES_页/共 _TOTAL_ 条数据',
                         'infoEmpty': '没有数据',
-                        'paginate':{
+                        'paginate': {
                             "previous": "上一页",
                             "next": "下一页",
-                            "first":"首页",
-                            "last":"尾页"
+                            "first": "首页",
+                            "last": "尾页"
                         }
                     },
                     "aoColumns": [, , , , ]
-                    // "columns":[
-                    //     {
-                    //         title:'对象',
-                    //         data:'',
-                    //         visible:false,
-                    //     },{
-                    //         title:'整体值'
-                    //     },{
-                    //         title:'平均值'
-                    //     },{
-                    //         title:'10%最优平均值'
-                    //     },{
-                    //         title:'10%最差平均值'
-                    //     }
-                    // ]
                 });
                 //$('.dataTables_info').hide();
                 $('#table_length').hide();
@@ -68,7 +58,7 @@
             jQuery('#IsBusy').hideLoading();
         });
     }
-    
+
     return {
         init: function () {
             var pos = JSON.parse(sessionStorage.pointers);
@@ -77,9 +67,16 @@
             sessionStorage.PointerName = po.pointerName;
             sessionStorage.EprID = po.enterpriseID;
             sessionStorage.EprName = po.eprName;
+            $('.areabtn').on('click', function () {
+                $('.areabtn').removeClass('green');
+                $(this).addClass('green');
+                area = $(this).attr('data-area');
+                getMoDs();
+            })
             //查询实时数据
-            getMonitorDs()
+            getMoDs()
         }
     }
+
 
 }();
