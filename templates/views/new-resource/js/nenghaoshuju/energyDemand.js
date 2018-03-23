@@ -337,6 +337,7 @@ function getPointerData(url,flag){
         //确定楼宇id
         var pts = _pointerZtree.getSelectedPointers(),pointerID;
 
+
         $(pts).each(function(i,o){
 
             postPointerID.push(o.pointerID)
@@ -369,7 +370,6 @@ function getPointerData(url,flag){
         isBiaoMeiEnergy = 1;
     }
 
-
     //获取展示日期类型
     var showDateType = getShowDateType()[0];
 
@@ -381,6 +381,37 @@ function getPointerData(url,flag){
 
     //获取开始时间
     var endTime = getPostTime()[1];
+
+    //如果当前选择的是自定义
+    var dateType = $('.time-options-1').html();
+
+    if(dateType == '自定义'){
+
+        //获取当前展示类型
+        var showType = $('.chooseShowType').val();
+
+        endTime = $('#datetimepicker1').val();
+
+        //按日展示
+        if(showType == 0){
+
+            showDateType = 'Day';
+
+         //按小时展示
+        }else if(showType == 1){
+
+            showDateType = 'Hour';
+
+            endTime = moment(endTime).add('1','h').format("YYYY-MM-DD hh:00");
+
+        //按分钟展示
+        }else if(showType == 2){
+
+            showDateType = 'Minute';
+
+            endTime = moment(endTime).add('1','mm').format("YYYY-MM-DD hh:mm");
+        }
+    }
 
     //定义获得数据的参数
     var ecParams = {
@@ -419,6 +450,12 @@ function getPointerData(url,flag){
             //改变头部日期
             var date = startTime +" — " + moment(endTime).subtract('1','days').format('YYYY-MM-DD');
 
+            if(dateType == '自定义'){
+
+                date = startTime +" — " + $('#datetimepicker1').val();
+
+            }
+
             $('.right-header-title').html(energyName + ' &nbsp;' + areaName + ' &nbsp;' + date);
 
             //首先处理本期的数据
@@ -433,7 +470,19 @@ function getPointerData(url,flag){
             allDataY.length = 0;
 
             //绘制echarts
-            if(showDateType == 'Hour' ){
+            if(dateType == '自定义'){
+                if (showDateType == "Minute" || showDateType == "Hour"){
+
+                    //确定x轴
+                    for(var i=0;i<allData.length;i++){
+
+                        allDataX.push(allData[i].dataDate.split('T')[0] + " " + allData[i].dataDate.split('T')[1]);
+                    }
+
+                }
+
+            } else if(showDateType == 'Hour' ){
+
                 //确定x轴
                 for(var i=0;i<allData.length;i++){
                     var dataSplit = allData[i].dataDate.split('T')[1].split(':');
@@ -442,6 +491,7 @@ function getPointerData(url,flag){
                         allDataX.push(dataJoin);
                     }
                 }
+
             }else{
                 //确定x轴
                 for(var i=0;i<allData.length;i++){

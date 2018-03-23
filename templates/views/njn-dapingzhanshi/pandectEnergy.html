@@ -99,31 +99,38 @@
         <!--下方柱状图-->
         <div class="inner-left-bottom">
 
-            <!--上方选项卡-->
-            <div class="left-tab-container">
+            <div class="right-bottom-centent right-bottom-energyment">
 
-                <!--左侧展示内容-->
-                <div style="float:left" class="left-tab-data-container">
-                    <span class="left-tab-data left-tab-data1">设备报警 <font></font> <b></b></span>
-                    <!--<span class="left-tab-data left-tab-data2">能耗报警 <font></font> <b></b></span>-->
-                    <!--<span class="left-tab-data left-tab-data3">运维工单 <font></font> <b></b></span>-->
+                <h2 class="right-bottom-centent-title"><a href="energyManagement.html">能源管理</a></h2>
+
+                <!--上方选项卡-->
+                <div class="left-tab-container right-bottom-energyment-control">
+
+                    <!--左侧选项卡-->
+                    <div style="float:left">
+                        <span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>
+                        <span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>
+                        <span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>
+                    </div>
+
+                    <div style="float:right">
+                        <font class="year small-times"></font>
+                        <span class="right-tab ">年</span>
+                        <font class="month  small-times"></font>
+                        <span class="right-tab ">月</span>
+                        <font class="day  small-times"></font>
+                        <span class="right-tab right-tab-choose">日</span>
+                    </div>
+
                 </div>
 
-                <div style="float:right">
-                    <font class="year small-times"></font>
-                    <span class="right-tab ">年</span>
-                    <font class="month  small-times"></font>
-                    <span class="right-tab ">月</span>
-                    <font class="day  small-times"></font>
-                    <span class="right-tab right-tab-choose">日</span>
+                <!--下方柱状图-->
+                <div class="left-bottom-content" id="echarts-left-bottom1">
+
                 </div>
-            </div>
-
-            <!--下方柱状图-->
-            <div class="left-bottom-content" id="echarts-left-bottom">
-
             </div>
         </div>
+
     </div>
 
     <!--右侧主体内容-->
@@ -177,7 +184,15 @@
                 <!--冷热源-->
                 <div class="right-bottom-equipment-container">
 
-                    <h4 class="equipment-title"><a href="coldHeatSource.html">冷热源</a></h4>
+                    <h4 class="equipment-title" jump-data="0"><a href="coldHeatSource.html">暖通空调</a></h4>
+
+                    <!--跳转二级页面浮窗-->
+                    <div class='jump-containers'>
+                        <span><a href='coldHeatSource.html'>冷热源</a></span>
+                        <span><a href='airConditioner.html'>空调机组</a></span>
+                        <span><a href='exhaustAir.html'>送排风</a></span>
+                    </div>
+
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -213,6 +228,7 @@
                             <div class="bottom-content-data">
 
                                 <span class="">600kw</span><br>
+                                <span class="">171kw</span><br>
                                 <span class="">171kw</span>
                             </div>
 
@@ -234,10 +250,17 @@
 
                 </div>
 
-                <!--空调机组-->
+                <!--照明系统-->
                 <div class="right-bottom-equipment-container">
 
-                    <h4 class="equipment-title conditioner-title"><a href="airConditioner.html">空调机组</a></h4>
+                    <h4 class="equipment-title conditioner-title" jump-data="1"><a href="stationBuilding.html">照明系统</a></h4>
+
+                    <!--跳转二级页面浮窗-->
+                    <div class='jump-containers'>
+                        <span><a href='stationBuilding.html'>站房照明</a></span>
+                        <span><a href='platform.html'>站台照明</a></span>
+                    </div>
+
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -420,10 +443,10 @@
 
                 </div>
 
-                <!--站房照明-->
+                <!--给排水-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1">
 
-                    <h4 class="equipment-title station-title"><a href="stationBuilding.html">站房照明</a></h4>
+                    <h4 class="equipment-title station-title"><a href="supDraWater.html">给排水</a></h4>
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -433,8 +456,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600kw</span><br>
-                                <span class="">171kw</span>
+                                <span class="">600</span><br>
+                                <span class="">171</span><br>
+                                <span class="">171</span>
                             </div>
 
 
@@ -472,10 +496,10 @@
 
                 </div>
 
-                <!--站台照明-->
+                <!--消防系统-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1">
 
-                    <h4 class="equipment-title platform-title"><a href="platform.html">站台照明</a></h4>
+                    <h4 class="equipment-title platform-title"><a href="platform.html">消防系统</a></h4>
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -524,10 +548,16 @@
 
                 </div>
 
-                <!--送排风-->
+                <!--自动售检票-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1">
 
-                    <h4 class="equipment-title wind-title"><a href="exhaustAir.html">送排风</a></h4>
+                    <h4 class="equipment-title wind-title" jump-data="2"><a href="automaticSale.html">自动售检票</a></h4>
+                    <!--跳转二级页面浮窗-->
+                    <div class='jump-containers'>
+                        <span><a href='automaticSale.html'>自动售票</a></span>
+                        <span><a href='automaticCheck.html'>自动检票</a></span>
+                    </div>
+
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -537,8 +567,9 @@
                             <!--数据-->
                             <div class="bottom-content-data">
 
-                                <span class="">600kw</span><br>
-                                <span class="">171kw</span>
+                                <span class="">600</span><br />
+                                <span class="">171</span><br />
+                                <span class="">131</span>
                             </div>
 
 
@@ -556,8 +587,8 @@
                             <!--下方统计数据-->
                             <div class="bottom-equipment-chart-data">
 
-                                <p class="chart-data">0<span>kw</span></p>
-                                <p class="chart-power">电功率</p>
+                                <p class="chart-data">0<span>%</span></p>
+                                <p class="chart-power chart-fault">故障率</p>
                             </div>
 
                             <!--下方统计数据-->
@@ -576,10 +607,10 @@
 
                 </div>
 
-                <!--给排水-->
+                <!--能源管理-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1" style="margin-right:0">
 
-                    <h4 class="equipment-title water-title"><a href="supDraWater.html">给排水</a></h4>
+                    <h4 class="equipment-title water-title"><a href="energyManagement.html">能源管理</a></h4>
                     <!--下方echarts图-->
                     <div class="right-bottom-equipment-content">
 
@@ -609,7 +640,7 @@
                             <div class="bottom-equipment-chart-data">
 
                                 <p class="chart-data">0<span>kw</span></p>
-                                <p class="chart-power">电功率</p>
+                                <p class="chart-power chart-cost">总费用</p>
                             </div>
 
                             <!--下方统计数据-->
@@ -629,18 +660,26 @@
                 </div>
 
                 <div class="clearfix"></div>
+
             </div>
 
             <!--节能减排-->
             <div class="right-bottom-centent right-bottom-conservation">
 
-                <h2 class="right-bottom-centent-title">节能减排</h2>
+                <div class="right-bottom-safe">
+                    <p>安全运行天数</p>
+
+                    <p class="safe-day"><span class="safe-days"></span> 天</p>
+                </div>
+
+
+                <h2 class="right-bottom-centent-title">节能减排(预估)</h2>
 
                 <!--累计节电量-->
                 <div class="right-bottom-centent-data">
 
                     <p class="top-title">累计节电量</p>
-                    <p class="bottom-data"><font>5400.7</font><span> kwh</span></p>
+                    <p class="bottom-data"><font>112.4万</font><span> kwh</span></p>
 
                 </div>
 
@@ -656,7 +695,7 @@
                 <div class="right-bottom-centent-data right-bottom-centent-data2">
 
                     <p class="top-title">累计节汽量</p>
-                    <p class="bottom-data bottom-data2"><font>509.6</font><span> t</span></p>
+                    <p class="bottom-data bottom-data2"><font>9400.6</font><span> t</span></p>
 
                 </div>
 
@@ -664,32 +703,24 @@
                 <div class="right-bottom-centent-data right-bottom-centent-data3">
 
                     <p class="top-title">累计减排量</p>
-                    <p class="bottom-data bottom-data3"><font>1023.5</font><span> t</span></p>
+                    <p class="bottom-data bottom-data3"><font>3038.5</font><span> t</span></p>
 
                 </div>
 
-                <!--安全联动-->
-                <h2 class="right-bottom-centent-title">安全联动</h2>
 
-                <div class="right-bottom-safe">
-                    <p>安全运行天数<span class="safe-days"></span> 天</p>
-                </div>
 
             </div>
 
             <!--能源管理-->
             <div class="right-bottom-centent right-bottom-energyment">
 
-                <h2 class="right-bottom-centent-title"><a href="energyManagement.html">能源管理</a></h2>
-
                 <!--上方选项卡-->
-                <div class="left-tab-container right-bottom-energyment-control">
+                <div class="left-tab-container">
 
-                    <!--左侧选项卡-->
-                    <div style="float:left">
-                        <span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>
-                        <span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>
-                        <span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>
+                    <!--左侧展示内容-->
+                    <div style="float:left" class="left-tab-data-container">
+                        <span class="left-tab-data left-tab-data1">设备报警 <font>2</font></span>
+
                     </div>
 
                     <div style="float:right">
@@ -699,27 +730,13 @@
                         <span class="right-tab ">月</span>
                         <font class="day  small-times"></font>
                         <span class="right-tab right-tab-choose">日</span>
-                    </div>
 
+                    </div>
                 </div>
 
                 <!--下方柱状图-->
-                <div class="left-bottom-content" id="echarts-left-bottom1">
+                <div class="left-bottom-content" id="echarts-left-bottom">
 
-                </div>
-
-            </div>
-
-            <!--用电分项-->
-            <div class="right-bottom-centent right-bottom-energyment right-bottom-operation">
-
-                <h2 class="right-bottom-centent-title">用电分项</h2>
-
-                <!--下方环形图-->
-                <div class="right-bottom-content-chart" >
-                    <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
-
-                    </div>
                 </div>
 
             </div>
@@ -745,7 +762,7 @@
 
                 </div>
 
-                <div class="right-bottom-content-chart" style="border-radius:0  15px  15px 0!important;">
+                <div class="right-bottom-content-chart" style="border-radius:0  0px  0px 0!important;">
 
                     <div id="operation-chart-response1" class="right-bottom-content-chart-content">
 
@@ -755,6 +772,21 @@
                     <div class="chart-name-case">
 
                         <span>工单分布</span>
+
+                    </div>
+
+                </div>
+
+                <div class="right-bottom-content-chart" style="border-radius:0  15px  15px 0!important;">
+
+                    <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
+
+                    </div>
+
+                    <!--头部小框-->
+                    <div class="chart-name-case">
+
+                        <span>设备故障</span>
 
                     </div>
 
@@ -804,6 +836,7 @@
 
 <!--页面js-->
 <script src="../resource/js/publicFun.js"></script>
+<script src="../new-resource/js/common.js"></script>
 <script src="../njn-resource/js/common.js"></script>
 <script src="../njn-resource/js/userMonitor1.js"></script>
 <script src="../njn-resource/js/dapingzhanshi/pandectEnergy.js"></script>

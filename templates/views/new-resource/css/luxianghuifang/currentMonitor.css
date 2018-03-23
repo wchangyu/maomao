@@ -13,9 +13,9 @@
 }
 
 /*!*调试时打开*!*/
-/*.debug{*/
-    /*display: block !important;*/
-/*}*/
+.debug{
+    display: block !important;
+}
 
 
 /*右侧统计信息*/

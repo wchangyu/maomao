@@ -141,8 +141,8 @@ $(function(){
 
     //王常宇
     addSearchBox();
+});
 
-})
 //选中的能耗种类
 function getEcType(){
     var aaa =[];
@@ -230,8 +230,6 @@ function _selectTime(dataType){
         if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
             $('.datatimeblock').datetimepicker('remove');
         }
-
-
 
         $('.end-time-choose').hide();
         //获取上年

@@ -415,7 +415,7 @@
     <script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
     <script src="../bank-branch-resource/js/lib/bootstrap-datepicker.js"></script>
     <script src="../bank-branch-resource/js/lib/moment.min.js"></script>
-    <script rel="stylesheet" src="../bank-branch-resource/js/lib/echarts.common.min.js"></script>
+    <script src="../bank-branch-resource/js/lib/echarts.common.min.js" rel="stylesheet" ></script>
     <script src="../bank-branch-resource/js/common.js"></script>
     <script>
         jQuery(document).ready(function () {
@@ -512,7 +512,6 @@
                 CloseDT: endDT
             };
             //console.log(parms);
-
             var url = IP + "/EnvironmentallyMonitor/GetEnvironMonitorDs";
             $.ajax({
                 type: 'POST',

@@ -101,30 +101,35 @@
         <!--下方柱状图-->
         <div class="inner-left-bottom">
 
-            <!--上方选项卡-->
-            <div class="left-tab-container">
+            <div class="right-bottom-centent right-bottom-energyment">
 
-                <!--左侧展示内容-->
-                <div style="float:left" class="left-tab-data-container">
-                    <span class="left-tab-data left-tab-data1">设备报警 <font>2</font> <b></b></span>
-                    <span class="left-tab-data left-tab-data2">能耗报警 <font>2</font> <b></b></span>
-                    <span class="left-tab-data left-tab-data3">运维工单 <font>2</font> <b></b></span>
+                <h2 class="right-bottom-centent-title"><a href="energyManagement.html">能源管理</a></h2>
+
+                <!--上方选项卡-->
+                <div class="left-tab-container right-bottom-energyment-control">
+
+                    <!--左侧选项卡-->
+                    <div style="float:left">
+                        <span class="left-tab left-tab1 left-tab-choose0 left-tab-choose"  unit-type="01" style="padding-left:40px;">电</span>
+                        <span class="left-tab left-tab2" unit-type="211" style="padding-left:50px;">水</span>
+                        <span class="left-tab left-tab3" unit-type="2011" style="padding-left:50px;">汽</span>
+                    </div>
+
+                    <div style="float:right">
+                        <font class="year small-times"></font>
+                        <span class="right-tab ">年</span>
+                        <font class="month  small-times"></font>
+                        <span class="right-tab ">月</span>
+                        <font class="day  small-times"></font>
+                        <span class="right-tab right-tab-choose">日</span>
+                    </div>
+
                 </div>
 
-                <div style="float:right">
-                    <font class="year small-times"></font>
-                    <span class="right-tab ">年</span>
-                    <font class="month  small-times"></font>
-                    <span class="right-tab ">月</span>
-                    <font class="day  small-times"></font>
-                    <span class="right-tab right-tab-choose">日</span>
+                <!--下方柱状图-->
+                <div class="left-bottom-content" id="echarts-left-bottom1">
 
                 </div>
-            </div>
-
-            <!--下方柱状图-->
-            <div class="left-bottom-content" id="echarts-left-bottom">
-
             </div>
         </div>
     </div>
@@ -158,7 +163,7 @@
 
             <span class="right-tab right-tab1"><a href="">总览</a></span>
             <span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>
-            <span class="right-tab right-tab2 right-tab-choose1"><a href="airConditioner.html">空调机组</a></span>
+            <span class="right-tab right-tab2 right-tab-choose1"><a href="airConditioner.html">组合空调</a></span>
             <span class="right-tab right-tab2"><a href="">电梯</a></span>
             <span class="right-tab right-tab2"><a href="">动环系统</a></span>
             <span class="right-tab right-tab2"><a href="">站房照明</a></span>
@@ -302,7 +307,6 @@
         Layout.init(); // init current layout
         Demo.init(); // init demo features
         BEE.init();
-        userMonitor.init("1200,698");
     });
 </script>
 </body>

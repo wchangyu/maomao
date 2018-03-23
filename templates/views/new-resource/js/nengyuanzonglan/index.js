@@ -27,14 +27,16 @@ $(function(){
     //获取本日电耗分项数据
     getFirstEnergyItemData();
 
-    //获取本日楼宇能耗排名
-    getPointerRankData();
+    ////获取本日楼宇能耗排名
+    //getPointerRankData();
 
     //获取本日KPI指标
     getTopPageKPIData();
 
     //获取所有报警数据
     alarmHistory();
+
+    getRankingDataByConfig();
 
 //------------------------------------页面点击事件-----------------------------------//
 
@@ -48,23 +50,28 @@ $(function(){
         getRealTimeData();
     });
 
-    //点击右下角切换楼宇或者科室的能耗排名数据
-    $('.header-right-btn span').on('click',function(){
-
-           $('.header-right-btn span').removeClass('cur-on-choose');
-            //给当年点击的增加标识
-            $(this).addClass('cur-on-choose');
-
-            //切换显示楼宇或者科室
-            if($(this).index() == 0){
-                //楼宇能耗排名
-
-                getPointerRankData();
-            }else{
-                //科室能耗排名
-                getOfficeRankData();
-            }
-    });
+    ////点击右下角切换楼宇或者科室的能耗排名数据
+    //$('.header-right-btn').on('click','span',function(){
+    //
+    //       $('.header-right-btn span').removeClass('cur-on-choose');
+    //
+    //        //给当年点击的增加标识
+    //        $(this).addClass('cur-on-choose');
+    //
+    //        //切换显示楼宇或者科室
+    //        if($(this).attr('data-id') == 1){
+    //            //楼宇能耗排名
+    //
+    //            getPointerRankData();
+    //        }else if($(this).attr('data-id') == 2){
+    //            //科室能耗排名
+    //            getOfficeRankData();
+    //
+    //        }else if($(this).attr('data-id') == 0){
+    //            //科室能耗排名
+    //            getOfficeRankData();
+    //        }
+    //});
 
     //点击页面左下方切换显示日期
     $('.time-options').on('click',function(){
@@ -81,14 +88,17 @@ $(function(){
         //获取本日KPI指标
         getTopPageKPIData();
 
-        var index = $('.cur-on-choose').index();
+        var index = $('.cur-on-choose').attr('data-id');
 
         //切换显示楼宇或者科室
-        if(index == 0){
-            //楼宇能耗排名
+        if(index == 1){
+            //项目
+            getProjectRankData();
+        }else if(index == 2){
+            //科室能耗排名
+            getOfficeRankData();
 
-            getPointerRankData();
-        }else{
+        }else if(index == 0){
             //科室能耗排名
             getOfficeRankData();
         }
@@ -352,7 +362,74 @@ var pointerIdArr = getPointersId();
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
+
+
+
 //------------------------------------页面主体方法-----------------------------------//
+
+//从配置项中获取右下角能耗排名所展示信息
+function getRankingDataByConfig(){
+
+    //获取当前的url
+    var curUrl = window.location.href;
+
+    //获取当前页面的配置信息
+    $(__systemConfigArr).each(function(i,o){
+
+        //获取当前配置项中的url
+        var thisUrl = o.pageUrl;
+
+        //找到了当前页面对应的配置项
+        if(curUrl.indexOf(thisUrl) > -1){
+
+            //获取到具体的能耗排名配置信息
+            var btnArr = o.indexPageRandingObj.btnMessage;
+
+            var html = "";
+
+            $(btnArr).each(function(i,o){
+
+                if(o.isShow == 1){
+
+                    //获取当前id
+                    var id = o.btnId;
+
+                    html += "<span data-id='"+id+"'>"+ o.btnName+"</span>";
+                }
+            });
+
+            $('.header-right-btn').html(html);
+
+            //点击右下角切换楼宇或者科室的能耗排名数据
+            $('.header-right-btn').on('click','span',function(){
+
+                $('.header-right-btn span').removeClass('cur-on-choose');
+
+                //给当年点击的增加标识
+                $(this).addClass('cur-on-choose');
+
+                //切换显示楼宇或者科室
+                if($(this).attr('data-id') == 1){
+                    //项目
+                    getPointerRankData();
+
+                }else if($(this).attr('data-id') == 2){
+                    //科室能耗排名
+                    getOfficeRankData();
+
+                }else if($(this).attr('data-id') == 0){
+                    //科室能耗排名
+                    getProjectRankData();
+                }
+            });
+
+            //默认获取数据
+            $('.header-right-btn').find('span').eq(0).click();
+
+        }
+    });
+
+};
 
 //获取页面左上角新闻轮播图
 function getNewsCarousel(){
@@ -1199,6 +1276,119 @@ function getOfficeRankData(){
 
             //console.log(result);
 
+            _myChart2.hideLoading();
+
+            //无数据
+            if(result == null || result.length == 0){
+
+                return false;
+            }
+
+            //存放图例中数据
+            var legendArr = [];
+
+            //重新给echarts图中添加数据
+            //存放Y轴数据
+            var yArr = [];
+
+            //存放能耗数据
+            var sArr = [];
+
+            $(result).each(function(i,o){
+                //取前五名展示
+                if(i < 5){
+                    //重绘Y轴
+                    yArr.push(o.returnOBJName);
+                    //添加数据
+                    sArr.push(o.currentEnergyData.toFixed(1));
+                }
+
+            });
+
+            //反序插入echart
+            sArr.reverse();
+
+            yArr.reverse();
+
+            ////图例赋值
+            //option2.legend.data = legendArr;
+            //数据赋值
+            option2.series[0].data = sArr;
+            ////重绘title
+            //option2.title.text = '楼';
+            //重绘Y轴
+            option2.yAxis.data = yArr;
+
+            //页面重绘数据
+            _myChart2.setOption(option2,true);
+
+            //改变上方的title显示信息
+            $('.content-main-bottom-center h3').html('本' + $('.time-options-1').html() +"能耗排名");
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            _myChart2.hideLoading();
+
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'超时', '');
+            }else{
+                _moTaiKuang($('#myModal2'),'提示', true, 'istap' ,'请求失败', '');
+            }
+
+        }
+    })
+
+};
+
+//获取本日项目能耗排名
+function getProjectRankData(){
+
+    //获取用户选择的日期类型
+    var selectDateType = getShowDateType()[1];
+
+    //获取开始结束时间
+    var startDate = getPostTime1()[0];
+
+    var endDate = getPostTime1()[1];
+
+    //获取配置好的能耗类型数据
+    var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+    var txt = unitObj.alltypes;
+
+    //获取能耗分项ID集合
+    var energyItemIDArr = [];
+
+    for(var i=0; i < txt.length; i++){
+
+        energyItemIDArr.push(txt[i].etid);
+    }
+
+    //传递给后台的数据
+    var ecParams = {
+        "energyNorm": {
+            "energyItemID": energyItemIDArr,
+            "energyNormFlag": 0
+        },
+        "selectDateType": selectDateType,
+        "startTime": startDate,
+        "endTime": endDate,
+        "pointerIDs": pointerIdArr
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyManageV2/GetEnterpriseRankData',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+
+            _myChart2.showLoading();
+        },
+        success:function(result){
+
+            //console.log(result);
             _myChart2.hideLoading();
 
             //无数据

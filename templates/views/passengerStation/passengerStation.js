@@ -139,6 +139,20 @@ $(function(){
 
     ringChartR.setOption(optionRing1);
 
+    //定义计算安全运行天数的开始日期
+    var startSafeDate = new Date('2017/01/01 12:00');
+
+    var date2 = new Date();
+
+    var s1 = startSafeDate.getTime(),s2 = date2.getTime();
+
+    var total = (s2 - s1)/1000;
+
+    var safeDays = parseInt(total / (24*60*60));//计算整数天数
+
+//给页面中赋值
+    $('.two-bottom-block  p span').html(safeDays);
+
     //时间
     setInterval(function(){
 
@@ -155,7 +169,7 @@ $(function(){
 
 
     //配置项是否配置
-    var configureUrl = sessionStorage.getItem("menuUri");
+    var configureUrl = "../" + sessionStorage.getItem("indexUrl");
 
     /*-----------------------------------------获取菜单-----------------------------------------*/
 
@@ -168,6 +182,12 @@ $(function(){
 
         //父目录字符串
         var str = '';
+
+        //子目录字符串
+        var secStr = '';
+
+        //记录父目录的index
+        var index = -1;
 
         //记录子目录的index
 
@@ -227,7 +247,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -272,6 +292,12 @@ $(function(){
         //配置项
         }else if(configureUrl){
 
+           if(configureUrl.indexOf("njn-dapingzhanshi") > -1){
+
+               window.location.href = configureUrl;
+
+           }
+
             for(var i in result){
 
                 var currentFirst = $('.first-menu ul').children('li');
@@ -302,7 +328,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -366,7 +392,7 @@ $(function(){
 
                             if(result[i]['submenu'][x].type == 2){
 
-                                secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
+                                secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
 
                             }else{
 
@@ -458,7 +484,7 @@ $(function(){
 
             if(menuObj[thisAttr]['submenu'][i].type == 2){
 
-                secMenu += '<li class="sec-hover">+   ' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+                secMenu += '<li class="sec-hover">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
 
             }else{
 
@@ -470,7 +496,16 @@ $(function(){
 
         $('.second-menu ul').empty().append(secMenu);
 
-    })
+    });
+
+    //点击页面右侧下方图标切换不同系统
+    $('.three-block').on('click','div',function(){
+
+        //获取要跳转的地址
+        var jumpUrl = $(this).attr('data-url');
+
+        window.location.href = jumpUrl;
+    });
 
     /*--------------------------------------温度湿度--------------------------------------------*/
 

@@ -1,79 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/templates/views/passengerStation/passengerStation.js" line="269" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="82" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" line="2010" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" line="2383" />
     <bookmark url="file://$PROJECT_DIR$/templates/views/downloadPage/downloadPage.html" line="166" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="1">
+    <list default="true" id="1af96855-af84-4b37-9f06-ee03021bd231" name="Default" comment="3.23">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/admin/layout/css/layout.css" afterPath="$PROJECT_DIR$/assets/admin/layout/css/layout.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/config.json" afterPath="$PROJECT_DIR$/assets/local/configs/config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/menu.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/menu2.json" afterPath="$PROJECT_DIR$/assets/local/configs/menu2.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/configs/setNames.js" afterPath="$PROJECT_DIR$/assets/local/configs/setNames.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/scripts/BEE.js" afterPath="$PROJECT_DIR$/assets/local/scripts/BEE.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/local/scripts/login.js" afterPath="$PROJECT_DIR$/assets/local/scripts/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/baojingyujing/warningAlarm-2.html" afterPath="$PROJECT_DIR$/templates/views/baojingyujing/warningAlarm-2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/TransferOutWarehouse.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/TransferOutWarehouse.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/totalMaterialChange.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/totalMaterialChange.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-1.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-2.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-3.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-5.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/warehouseManagement-5.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html" afterPath="$PROJECT_DIR$/templates/views/cangkuguanli/wbDetails.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-6.html" afterPath="$PROJECT_DIR$/templates/views/gongdangunali/productionOrder-6.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/gdAcceptance.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/gdAcceptance.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/gdImplement.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/gdImplement.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/gdOrderRepair.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/gdOrderRepair.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/gdShowData.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/gdShowData.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/gongdanxitong/gdShowData1.html" afterPath="$PROJECT_DIR$/templates/views/gongdanxitong/gdShowData1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/login_4.html" afterPath="$PROJECT_DIR$/templates/views/login_4.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-nenghaoshuju/energyDemand-1.html" afterPath="$PROJECT_DIR$/templates/views/new-nenghaoshuju/energyDemand-1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-nengyuanzonglan/new-index1.html" afterPath="$PROJECT_DIR$/templates/views/new-nengyuanzonglan/new-index1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-resource/css/nengyuanzonglan/index.css" afterPath="$PROJECT_DIR$/templates/views/new-resource/css/nengyuanzonglan/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-resource/css/nengyuanzonglan/index1.css" afterPath="$PROJECT_DIR$/templates/views/new-resource/css/nengyuanzonglan/index1.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-resource/js/nenghaoshuju/energyDemand.js" afterPath="$PROJECT_DIR$/templates/views/new-resource/js/nenghaoshuju/energyDemand.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-resource/js/nengyuanzonglan/index1.js" afterPath="$PROJECT_DIR$/templates/views/new-resource/js/nengyuanzonglan/index1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/new-resource/js/showOrHidden.js" afterPath="$PROJECT_DIR$/templates/views/new-resource/js/showOrHidden.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/njn-resource/js/common.js" afterPath="$PROJECT_DIR$/templates/views/njn-resource/js/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/passengerStation/passengerStation.js" afterPath="$PROJECT_DIR$/templates/views/passengerStation/passengerStation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/css/3DMap2.css" afterPath="$PROJECT_DIR$/templates/views/resource/css/3DMap2.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/css/energyAnalysis-5.css" afterPath="$PROJECT_DIR$/templates/views/resource/css/energyAnalysis-5.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/css/productionOrder.css" afterPath="$PROJECT_DIR$/templates/views/resource/css/productionOrder.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/TransferOutWarehouse.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/TransferOutWarehouse.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/energyAnalysis-5.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/energyAnalysis-5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdAcceptance.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdClosing.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdClosing.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdImplement.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdImplement.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdOrderRepair.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdOrders.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdOrders.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdShowData.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdShowData.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/gdShowData1.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/gdShowData1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/materialMonthlyReport.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/materialMonthlyReport.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-4.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/productionOrder-4.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/publicFun.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/publicGD.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/publicGD.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/totalMaterialChange.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/totalMaterialChange.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/userMonitor.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/userMonitor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-3.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-4.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-4.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-5.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warehouseManagement-5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/warningAlarm-2.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/warningAlarm-2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/js/wbDetails.js" afterPath="$PROJECT_DIR$/templates/views/resource/js/wbDetails.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/resource/station/chooseStation.js" afterPath="$PROJECT_DIR$/templates/views/resource/station/chooseStation.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/shouye/infoMap2.html" afterPath="$PROJECT_DIR$/templates/views/shouye/infoMap2.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-3.html" afterPath="$PROJECT_DIR$/templates/views/xunjianguanli/inspectionManagement-3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-10.html" afterPath="$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-10.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-5.html" afterPath="$PROJECT_DIR$/templates/views/yongnengfenxi/energyAnalysis-5.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -98,8 +33,8 @@
       <file leaf-file-name="inspectionManagement-4_1.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.63468206">
-              <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.3849711">
+              <caret line="128" column="22" selection-start-line="128" selection-start-column="22" selection-end-line="128" selection-end-column="22" />
               <folding>
                 <element signature="e#1063#1984#0" expanded="false" />
                 <element signature="e#3129#4723#0" expanded="false" />
@@ -294,84 +229,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -594,7 +451,13 @@
       <option name="project" value="LOCAL" />
       <updated>1520405768708</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="3.23">
+      <created>1521800213708</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1521800213708</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -610,14 +473,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24077977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24077977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.02056277" sideWeight="0.7581665" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833958" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -635,7 +499,6 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972974" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="消息" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41125542" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="找到" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06810811" sideWeight="0.4915701" order="18" side_tool="false" content_ui="tabs" />
@@ -692,14 +555,15 @@
     <MESSAGE value="大屏菜单" />
     <MESSAGE value="大屏默认加载" />
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="3.23" />
+    <option name="LAST_COMMIT_MESSAGE" value="3.23" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/templates/views/resource/js/publicFun.js</url>
-          <line>380</line>
+          <line>393</line>
           <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
@@ -720,53 +584,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="460" column="54" selection-start-line="460" selection-start-column="54" selection-end-line="460" selection-end-column="54" />
           <folding>
-            <element signature="e#19#111#0" expanded="false" />
-            <element signature="e#301#2406#0" expanded="false" />
-            <element signature="e#321#412#0" expanded="false" />
-            <element signature="e#430#578#0" expanded="false" />
-            <element signature="e#597#2400#0" expanded="false" />
-            <element signature="e#611#2390#0" expanded="false" />
-            <element signature="e#776#1538#0" expanded="false" />
-            <element signature="e#806#1520#0" expanded="false" />
-            <element signature="e#900#1498#0" expanded="false" />
-            <element signature="e#934#1104#0" expanded="false" />
-            <element signature="e#1137#1312#0" expanded="false" />
-            <element signature="e#1344#1471#0" expanded="false" />
-            <element signature="e#1561#1802#0" expanded="false" />
-            <element signature="e#1831#2376#0" expanded="false" />
-            <element signature="e#1861#2163#0" expanded="false" />
-            <element signature="e#1911#2141#0" expanded="false" />
-            <element signature="e#1958#2051#0" expanded="false" />
-            <element signature="e#2195#2358#0" expanded="false" />
-            <element signature="e#2431#4537#0" expanded="false" />
-            <element signature="e#2451#2542#0" expanded="false" />
-            <element signature="e#2560#2708#0" expanded="false" />
-            <element signature="e#2727#4531#0" expanded="false" />
-            <element signature="e#2741#4521#0" expanded="false" />
-            <element signature="e#2906#3668#0" expanded="false" />
-            <element signature="e#2936#3650#0" expanded="false" />
-            <element signature="e#3030#3628#0" expanded="false" />
-            <element signature="e#3064#3234#0" expanded="false" />
-            <element signature="e#3267#3442#0" expanded="false" />
-            <element signature="e#3474#3601#0" expanded="false" />
-            <element signature="e#3691#3933#0" expanded="false" />
-            <element signature="e#3962#4507#0" expanded="false" />
-            <element signature="e#3992#4294#0" expanded="false" />
-            <element signature="e#4042#4272#0" expanded="false" />
-            <element signature="e#4089#4182#0" expanded="false" />
-            <element signature="e#4326#4489#0" expanded="false" />
-            <element signature="e#4654#4773#0" expanded="false" />
-            <element signature="e#4963#5053#0" expanded="false" />
-            <element signature="e#5185#12288#0" expanded="false" />
-            <element signature="e#5620#5636#0" expanded="false" />
-            <element signature="e#5670#8137#0" expanded="false" />
-            <element signature="e#12294#12383#0" expanded="false" />
-            <element signature="e#12448#12786#0" expanded="false" />
-            <element signature="e#12681#12737#0" expanded="false" />
-            <element signature="e#13663#13844#0" expanded="false" />
-            <element signature="e#13924#14014#0" expanded="false" />
-            <element signature="e#14191#14249#0" expanded="false" />
-            <element signature="e#14694#14867#0" expanded="false" />
+            <element signature="e#16182#16272#0" expanded="false" />
+            <element signature="e#16449#16507#0" expanded="false" />
+            <element signature="e#16952#17125#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -979,116 +799,116 @@
             <element signature="n#!!block;n#_monthDate#0" expanded="false" />
             <element signature="n#!!block;n#_timeHMSComponentsFun#0" expanded="false" />
             <element signature="n#!!block;n#_timeOneComponentsFun#0" expanded="false" />
-            <element signature="e#2405#2650#0" expanded="false" />
+            <element signature="e#2681#2926#0" expanded="false" />
             <element signature="n#!!block;n#_timeComponentsFun#0" expanded="false" />
-            <element signature="e#3255#3442#0" expanded="false" />
-            <element signature="e#3265#3436#0" expanded="false" />
-            <element signature="e#3383#3426#0" expanded="false" />
-            <element signature="e#3467#3596#0" expanded="false" />
-            <element signature="e#3477#3590#0" expanded="false" />
-            <element signature="e#3618#3658#0" expanded="false" />
-            <element signature="e#3662#3701#0" expanded="false" />
-            <element signature="e#3732#3764#0" expanded="false" />
-            <element signature="e#3768#3804#0" expanded="false" />
-            <element signature="e#3839#3870#0" expanded="false" />
-            <element signature="e#3874#3904#0" expanded="false" />
-            <element signature="e#4050#4925#0" expanded="false" />
-            <element signature="e#4323#4772#0" expanded="false" />
-            <element signature="e#4623#4762#0" expanded="false" />
-            <element signature="e#5108#5139#0" expanded="false" />
+            <element signature="e#3531#3718#0" expanded="false" />
+            <element signature="e#3541#3712#0" expanded="false" />
+            <element signature="e#3659#3702#0" expanded="false" />
+            <element signature="e#3743#3872#0" expanded="false" />
+            <element signature="e#3753#3866#0" expanded="false" />
+            <element signature="e#3894#3934#0" expanded="false" />
+            <element signature="e#3938#3977#0" expanded="false" />
+            <element signature="e#4008#4040#0" expanded="false" />
+            <element signature="e#4044#4080#0" expanded="false" />
+            <element signature="e#4115#4146#0" expanded="false" />
+            <element signature="e#4150#4180#0" expanded="false" />
+            <element signature="e#4326#5201#0" expanded="false" />
+            <element signature="e#4599#5048#0" expanded="false" />
+            <element signature="e#4899#5038#0" expanded="false" />
+            <element signature="e#5384#5415#0" expanded="false" />
             <element signature="n#!!block;n#_tableInitS#0" expanded="false" />
-            <element signature="e#5256#5372#0" expanded="false" />
-            <element signature="e#5266#5366#0" expanded="false" />
-            <element signature="e#5397#5526#0" expanded="false" />
-            <element signature="e#5407#5520#0" expanded="false" />
-            <element signature="e#5548#5588#0" expanded="false" />
-            <element signature="e#5592#5632#0" expanded="false" />
-            <element signature="e#5687#5717#0" expanded="false" />
-            <element signature="e#5754#6681#0" expanded="false" />
-            <element signature="e#5995#6519#0" expanded="false" />
-            <element signature="e#6370#6509#0" expanded="false" />
-            <element signature="e#6696#6798#0" expanded="false" />
+            <element signature="e#5532#5648#0" expanded="false" />
+            <element signature="e#5542#5642#0" expanded="false" />
+            <element signature="e#5673#5802#0" expanded="false" />
+            <element signature="e#5683#5796#0" expanded="false" />
+            <element signature="e#5824#5864#0" expanded="false" />
+            <element signature="e#5868#5908#0" expanded="false" />
+            <element signature="e#5963#5993#0" expanded="false" />
+            <element signature="e#6030#6957#0" expanded="false" />
+            <element signature="e#6271#6795#0" expanded="false" />
+            <element signature="e#6646#6785#0" expanded="false" />
+            <element signature="e#6972#7074#0" expanded="false" />
             <element signature="n#!!block;n#_datasTable#0" expanded="false" />
-            <element signature="e#6904#6966#0" expanded="false" />
-            <element signature="e#6970#7062#0" expanded="false" />
+            <element signature="e#7180#7242#0" expanded="false" />
+            <element signature="e#7246#7338#0" expanded="false" />
             <element signature="n#!!block;n#_getProfession#0" expanded="false" />
-            <element signature="e#7209#7272#0" expanded="false" />
-            <element signature="e#7285#8107#0" expanded="false" />
-            <element signature="e#7410#7989#0" expanded="false" />
-            <element signature="e#7487#7722#0" expanded="false" />
-            <element signature="e#7543#7708#0" expanded="false" />
-            <element signature="e#7726#7942#0" expanded="false" />
-            <element signature="e#7776#7928#0" expanded="false" />
-            <element signature="e#8045#8101#0" expanded="false" />
+            <element signature="e#7485#7548#0" expanded="false" />
+            <element signature="e#7561#8383#0" expanded="false" />
+            <element signature="e#7686#8265#0" expanded="false" />
+            <element signature="e#7763#7998#0" expanded="false" />
+            <element signature="e#7819#7984#0" expanded="false" />
+            <element signature="e#8002#8218#0" expanded="false" />
+            <element signature="e#8052#8204#0" expanded="false" />
+            <element signature="e#8321#8377#0" expanded="false" />
             <element signature="n#!!block;n#_ajaxFun#0" expanded="false" />
-            <element signature="e#8188#8226#0" expanded="false" />
-            <element signature="e#8259#8847#0" expanded="false" />
-            <element signature="e#8386#8725#0" expanded="false" />
-            <element signature="e#8518#8675#0" expanded="false" />
-            <element signature="e#8784#8841#0" expanded="false" />
+            <element signature="e#8464#8502#0" expanded="false" />
+            <element signature="e#8535#9123#0" expanded="false" />
+            <element signature="e#8662#9001#0" expanded="false" />
+            <element signature="e#8794#8951#0" expanded="false" />
+            <element signature="e#9060#9117#0" expanded="false" />
             <element signature="n#!!block;n#_AutoExcel#0" expanded="false" />
-            <element signature="e#9410#9478#0" expanded="false" />
-            <element signature="e#9546#11316#0" expanded="false" />
-            <element signature="e#9618#11309#0" expanded="false" />
-            <element signature="e#9763#11002#0" expanded="false" />
-            <element signature="e#9818#10360#0" expanded="false" />
-            <element signature="e#9843#10006#0" expanded="false" />
-            <element signature="e#10364#10987#0" expanded="false" />
-            <element signature="e#10389#10576#0" expanded="false" />
-            <element signature="e#11006#11298#0" expanded="false" />
+            <element signature="e#9686#9754#0" expanded="false" />
+            <element signature="e#9822#11592#0" expanded="false" />
+            <element signature="e#9894#11585#0" expanded="false" />
+            <element signature="e#10039#11278#0" expanded="false" />
+            <element signature="e#10094#10636#0" expanded="false" />
+            <element signature="e#10119#10282#0" expanded="false" />
+            <element signature="e#10640#11263#0" expanded="false" />
+            <element signature="e#10665#10852#0" expanded="false" />
+            <element signature="e#11282#11574#0" expanded="false" />
             <element signature="n#!!block;n#_FFExcel#0" expanded="false" />
-            <element signature="e#13497#13533#0" expanded="false" />
-            <element signature="e#13537#15006#0" expanded="false" />
-            <element signature="e#15079#15369#0" expanded="false" />
+            <element signature="e#13773#13809#0" expanded="false" />
+            <element signature="e#13813#15282#0" expanded="false" />
+            <element signature="e#15355#15645#0" expanded="false" />
             <element signature="n#!!block;n#_moTaiKuang#0" expanded="false" />
-            <element signature="e#15592#15647#0" expanded="false" />
-            <element signature="e#15974#16022#0" expanded="false" />
-            <element signature="e#16028#16153#0" expanded="false" />
-            <element signature="e#16167#16217#0" expanded="false" />
+            <element signature="e#15868#15923#0" expanded="false" />
+            <element signature="e#16250#16298#0" expanded="false" />
+            <element signature="e#16304#16429#0" expanded="false" />
+            <element signature="e#16443#16493#0" expanded="false" />
             <element signature="n#!!block;n#_isEqual#0" expanded="false" />
-            <element signature="e#16355#16415#0" expanded="false" />
-            <element signature="e#16443#16503#0" expanded="false" />
+            <element signature="e#16631#16691#0" expanded="false" />
+            <element signature="e#16719#16779#0" expanded="false" />
             <element signature="n#!!block;n#_noPrint#0" expanded="false" />
             <element signature="n#!!block;n#_selectRadio#0" expanded="false" />
-            <element signature="e#16688#16811#0" expanded="false" />
+            <element signature="e#16964#17087#0" expanded="false" />
             <element signature="n#!!block;n#_replaceIP#0" expanded="false" />
-            <element signature="e#16887#16908#0" expanded="false" />
-            <element signature="e#16939#16957#0" expanded="false" />
-            <element signature="e#17078#17221#0" expanded="false" />
-            <element signature="e#17117#17219#0" expanded="false" />
-            <element signature="e#17152#17213#0" expanded="false" />
-            <element signature="e#17272#17378#0" expanded="false" />
-            <element signature="e#17316#17361#0" expanded="false" />
-            <element signature="e#17435#17532#0" expanded="false" />
-            <element signature="e#17492#17530#0" expanded="false" />
+            <element signature="e#17163#17184#0" expanded="false" />
+            <element signature="e#17215#17233#0" expanded="false" />
+            <element signature="e#17354#17497#0" expanded="false" />
+            <element signature="e#17393#17495#0" expanded="false" />
+            <element signature="e#17428#17489#0" expanded="false" />
+            <element signature="e#17548#17654#0" expanded="false" />
+            <element signature="e#17592#17637#0" expanded="false" />
+            <element signature="e#17711#17808#0" expanded="false" />
+            <element signature="e#17768#17806#0" expanded="false" />
             <element signature="n#!!block;n#_unique#0" expanded="false" />
-            <element signature="e#17638#17861#0" expanded="false" />
-            <element signature="e#17723#17802#0" expanded="false" />
+            <element signature="e#17914#18137#0" expanded="false" />
+            <element signature="e#17999#18078#0" expanded="false" />
             <element signature="n#!!block;n#_sortNumber#0" expanded="false" />
             <element signature="n#!!block;n#_formatTime#0" expanded="false" />
-            <element signature="e#18038#18055#0" expanded="false" />
+            <element signature="e#18314#18331#0" expanded="false" />
             <element signature="n#!!block;n#_jumpNow#0" expanded="false" />
-            <element signature="e#18125#18155#0" expanded="false" />
+            <element signature="e#18401#18431#0" expanded="false" />
             <element signature="n#!!block;n#MultiselectTr#0" expanded="false" />
-            <element signature="e#18488#18692#0" expanded="false" />
-            <element signature="e#18696#19232#0" expanded="false" />
-            <element signature="e#19000#19109#0" expanded="false" />
-            <element signature="e#19113#19225#0" expanded="false" />
+            <element signature="e#18764#18968#0" expanded="false" />
+            <element signature="e#18972#19508#0" expanded="false" />
+            <element signature="e#19276#19385#0" expanded="false" />
+            <element signature="e#19389#19501#0" expanded="false" />
             <element signature="n#!!block;n#AllSelectThead#0" expanded="false" />
-            <element signature="e#19321#19516#0" expanded="false" />
-            <element signature="e#19520#19706#0" expanded="false" />
+            <element signature="e#19597#19792#0" expanded="false" />
+            <element signature="e#19796#19982#0" expanded="false" />
             <element signature="n#!!block;n#_uniqueArr#0" expanded="false" />
-            <element signature="e#19791#19890#0" expanded="false" />
-            <element signature="e#19834#19883#0" expanded="false" />
-            <element signature="e#19894#20336#0" expanded="false" />
-            <element signature="e#19960#20152#0" expanded="false" />
-            <element signature="e#20007#20141#0" expanded="false" />
-            <element signature="e#20064#20126#0" expanded="false" />
-            <element signature="e#20191#20238#0" expanded="false" />
-            <element signature="e#20280#20329#0" expanded="false" />
+            <element signature="e#20067#20166#0" expanded="false" />
+            <element signature="e#20110#20159#0" expanded="false" />
+            <element signature="e#20170#20612#0" expanded="false" />
+            <element signature="e#20236#20428#0" expanded="false" />
+            <element signature="e#20283#20417#0" expanded="false" />
+            <element signature="e#20340#20402#0" expanded="false" />
+            <element signature="e#20467#20514#0" expanded="false" />
+            <element signature="e#20556#20605#0" expanded="false" />
             <element signature="n#!!block;n#_formatNumber#0" expanded="false" />
-            <element signature="e#20526#20547#0" expanded="false" />
-            <marker date="1521688706076" expanded="false" signature="14518:14545" placeholder="..." />
+            <element signature="e#20802#20823#0" expanded="false" />
+            <marker date="1521800263938" expanded="false" signature="14794:14821" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -4267,8 +4087,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/views/resource/js/js/inspectionManagement-4_1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63468206">
-          <caret line="137" column="29" selection-start-line="137" selection-start-column="29" selection-end-line="137" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.3849711">
+          <caret line="128" column="22" selection-start-line="128" selection-start-column="22" selection-end-line="128" selection-end-column="22" />
           <folding>
             <element signature="e#1063#1984#0" expanded="false" />
             <element signature="e#3129#4723#0" expanded="false" />

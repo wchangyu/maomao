@@ -106,7 +106,7 @@ $(function(){
     });
 
     //切换冷热站
-    $('.right-bottom-container1 .right-bottom-tab-container span').on('click',function(){
+    $('.right-bottom-container1 .right-bottom-tab-container').on('click','span',function(){
         //获取当前点击的元素的index
         var index = $(this).index();
         //冷站
@@ -164,9 +164,7 @@ function getTDayGLWs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -226,9 +224,7 @@ function getTDayCs(ew){
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -288,9 +284,7 @@ function getTDayQs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -351,9 +345,7 @@ function getTDayEs(ew) {
                 objser.type = 'line';
                 objser.data = [];
                 for (var j =0; j< res.ys[i].length; j++){
-                    //objser.data.push(res.ys[i][j]);
-
-                    objser.data.push(0);
+                    objser.data.push(res.ys[i][j]);
                 }
                 serary.push(objser);
             }
@@ -419,7 +411,7 @@ function getLDCAE(ew) {
             $('#span_LDC_rVa_text').html('0');
             $('#span_LDC_eVa_text').html('0');
             $('#span_LDC_nxVa_text').html('0');
-            alert('异常错误(冷冻侧):' + res.msg);
+            console.log('异常错误(冷冻侧):' + res.msg);
         }else{
             $('#span_LDC_rVa_text').html('0');
             $('#span_LDC_eVa_text').html('0');
@@ -451,7 +443,7 @@ function getLQCAE(ew) {
             $('#span_LQC_rVa_text').html('0');
             $('#span_LQC_eVa_text').html('0');
             $('#span_LQC_nxVa_text').html('0');
-            alert('异常错误(冷却侧):' + res.msg);
+            console.log('异常错误(冷却侧):' + res.msg);
         }else{
             $('#span_LQC_rVa_text').html('0');
             $('#span_LQC_eVa_text').html('0');
@@ -483,7 +475,7 @@ function getRBJAE(ew) {
             $('#span_RBJ_cVa_text').html('0');
             $('#span_RBJ_eVa_text').html('0');
             $('#span_RBJ_nxVa_text').html('0');
-            alert('异常错误(热泵机组):' + res.msg);
+            console.log('异常错误(热泵机组):' + res.msg);
         }else{
             $('#span_RBJ_cVa_text').html('0');
             $('#span_RBJ_eVa_text').html('0');
@@ -515,7 +507,7 @@ function getXLJAE(ew) {
             $('#span_XLJ_cVa_text').html('0');
             $('#span_XLJ_qVa_text').html('0');
             $('#span_XLJ_nxVa_text').html('0');
-            alert('异常错误(溴锂机组):' + res.msg);
+            console.log('异常错误(溴锂机组):' + res.msg);
         }else{
             $('#span_XLJ_cVa_text').html('0');
             $('#span_XLJ_qVa_text').html('0');
@@ -546,7 +538,7 @@ function getLXJAE(ew) {
             $('#span_LXJ_cVa_text').html('0');
             $('#span_LXJ_eVa_text').html('0');
             $('#span_LXJ_nxVa_text').html('0');
-            alert('异常错误(离心机组):' + res.msg);
+            console.log('异常错误(离心机组):' + res.msg);
         }else {
             $('#span_LXJ_cVa_text').html('0');
             $('#span_LXJ_eVa_text').html('0');

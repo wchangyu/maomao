@@ -1,5 +1,5 @@
 ﻿var Monitor = function () {
-
+  
     var oTable=null;
     
     var getMonitorDs = function () {

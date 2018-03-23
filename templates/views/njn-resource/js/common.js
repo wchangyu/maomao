@@ -6,14 +6,11 @@ $(function(){
     //获取页面左侧站点数据
     getStationInfo();
 
+    //获取下方能源管理数据
+    getPointerData();
+
     //获取页面左侧下方统计数据
     getStationAlarmNum();
-
-    //设备报警
-    getStationAlarmData(1);
-
-    ////能耗报警
-    //getStationAlarmData(2);
 
     //点击左侧下方选项卡
     $('.left-tab-container .left-tab').on('click',function(){
@@ -52,13 +49,8 @@ $(function(){
         //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
 
-        //设备报警
-        getStationAlarmData(1);
-
-        ////能耗报警
-        //getStationAlarmData(2);
-
-        getStationAlarmNum();
+        //获取下方能源管理数据
+        getPointerData();
 
     });
 
@@ -85,13 +77,34 @@ $(function(){
         if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
 
             //获取对应流程图
-            userMonitor.init("1200,698",jumpPageSize);
+            userMonitor.init("1200,698",jumpPageSize,1);
 
         }else{
 
             //获取对应流程图
-            userMonitor.init("1200,698");
+            userMonitor.init("1200,698",false,1);
         }
+
+    });
+
+    //点击能源管理上方切换能耗类型按钮
+    $('.right-bottom-energyment-control .left-tab').on('click',function(){
+
+        //获取后台能耗数据
+        getPointerData();
+
+    });
+
+    //点击能源管理上方时间按钮
+    $('.right-bottom-energyment-control .right-tab').on('click',function(){
+
+        //改变选择日月年类型
+        $('.right-bottom-energyment-control .right-tab').removeClass('right-tab-choose');
+
+        $(this).addClass('right-tab-choose');
+
+        //获取后台能耗数据
+        getPointerData();
 
     });
 
@@ -117,9 +130,57 @@ $(function(){
 
     $('.right-info-header-logo').on('click',function(){
 
-        window.location.href = "../passengerStation/passengerStation.html";
+        window.location.href = "../passengerStation/passengerStation.html?sendUrl=new-nengyuanzonglan/new-index.html";
     });
+
+    //当鼠标放到系统选项卡上时
+    $('.right-tab-container').on('hover','span',function(){
+
+        var jumpData = $(this).attr('jump-data');
+
+        //暖通系统
+        if(jumpData){
+
+            jumpData = parseInt(jumpData);
+
+            $(".jump-container").eq(jumpData).show();
+
+        }
+
+    });
+
+    $('.right-tab-container').on('hover','.jump-container',function(){
+
+        $(this).show();
+    });
+
+
+
+    //当鼠标离开系统选项卡上时
+    $('.right-tab-container').on('mouseleave','span',function(){
+
+        var jumpData = $(this).attr('jump-data');
+
+        //暖通系统
+        if(jumpData){
+
+            jumpData = parseInt(jumpData);
+
+
+            $(".jump-container").eq(jumpData).hide();
+
+        }
+
+    });
+
+    $('.right-tab-container').on('mouseleave','.jump-container',function(){
+
+        $(this).hide();
+    });
+
 });
+
+var ifShowLoading1 = true;
 
 //定义送排风 给排水弹出页面的宽高
 var jumpPageSize = "1020,586";
@@ -135,6 +196,7 @@ if(!sessionStorage.PointerID){
     }
 
 }
+
 //定义流程图的方案类型
 var procType;
 
@@ -150,20 +212,46 @@ drawRightTab();
 function drawRightTab(){
 
     var tabHtml = '<span class="right-tab right-tab1"><a href="pandectEnergy.html">总览</a></span>' +
-        '<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="airConditioner.html">空调机组</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
+        '<span class="right-tab right-tab2 " jump-data="0"><a href="javascript:;">暖通系统</a></span>' +
         '<span class="right-tab right-tab2"><a href="elevator.html">电梯</a></span>' +
         '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
-        '<span class="right-tab right-tab2"><a href="stationBuilding.html">站房照明</a></span>' +
-        '<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
+        '<span class="right-tab right-tab2" jump-data="1"><a href="javascript:;">照明系统</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
+        //'<span class="right-tab right-tab2 "><a href="exhaustAir.html">送排风</a></span>' +
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">自动检票</a></span>' +
-        '<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
+        '<span class="right-tab right-tab2" jump-data="2"><a href="automaticCheck.html">售检票</a></span>' +
+        //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">消防控制</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
     //插入页面中
     $('.inner-right-container .right-tab-container').html(tabHtml);
+
+    var html = "<div class='jump-container'>" +
+                    "<span><a href='coldHeatSource.html'>冷热源</a></span>" +
+                    "<span><a href='airConditioner.html'>空调机组</a></span>" +
+                    "<span><a href='exhaustAir.html'>送排风</a></span>" +
+                "</div>";
+
+    //插入页面中
+    $('.inner-right-container .right-tab-container').append(html);
+
+    var html1 = "<div class='jump-container jump-container1'>" +
+        "<span><a href='stationBuilding.html'>站房照明</a></span>" +
+        "<span><a href='platform.html'>站台照明</a></span>" +
+        "</div>";
+
+    //插入页面中
+    $('.inner-right-container .right-tab-container').append(html1);
+
+    var html2 = "<div class='jump-container jump-container2'>" +
+        "<span><a href='automaticSale.html'>自动售票</a></span>" +
+        "<span><a href='automaticCheck.html'>自动检票</a></span>" +
+        "</div>";
+
+    //插入页面中
+    $('.inner-right-container .right-tab-container').append(html2);
 
     //获取当前页面url
     var pageUrl = window.location.href;
@@ -176,24 +264,38 @@ function drawRightTab(){
 
         //判断是否是要添加类名的页面
         if(pageUrl.indexOf(jumpUrl) > -1 && jumpUrl != ''){
-            //console.log(pageUrl);
-            //console.log(jumpUrl);
-            if(i != $('.inner-right-container .right-tab-container span').length -1){
 
-                $('.inner-right-container .right-tab-container span').eq(i).addClass('right-tab-choose1');
+            if(i != $('.inner-right-container .right-tab-container .right-tab').length -1){
+
+                $('.inner-right-container .right-tab-container .right-tab').eq(i).addClass('right-tab-choose1');
 
             }else{
-                $('.inner-right-container .right-tab-container span').eq(i).addClass('right-tab-choose2');
+                $('.inner-right-container .right-tab-container .right-tab').eq(i).addClass('right-tab-choose2');
             }
 
         }
     }
+
+    //如果是暖通系统
+    if(pageUrl.indexOf('exhaustAir.html') > -1 || pageUrl.indexOf('airConditioner.html') > -1 ||pageUrl.indexOf('coldHeatSource.html') > -1){
+
+        $('.inner-right-container .right-tab-container .right-tab').eq(1).addClass('right-tab-choose1');
+    }
+
+    //如果是照明系统
+    if(pageUrl.indexOf('stationBuilding.html') > -1 || pageUrl.indexOf('platform.html') > -1){
+
+        $('.inner-right-container .right-tab-container .right-tab').eq(4).addClass('right-tab-choose1');
+    }
+
 };
 
-//左侧下方柱状图
-var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
 
-var leftBottomOption = {
+//能源管理echart
+//左侧下方柱状图
+var leftBottomChart1 = echarts.init(document.getElementById('echarts-left-bottom1'));
+
+var option = {
     color: ['#3398DB'],
     tooltip : {
         trigger: 'axis',
@@ -202,10 +304,10 @@ var leftBottomOption = {
         }
     },
     grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '8%',
-        top:'9%',
+        left: '2%',
+        right: '2%',
+        bottom: '12%',
+        top:'8%',
         containLabel: true,
         borderColor:'#A8A8A8',
         borderWidth:2
@@ -213,15 +315,13 @@ var leftBottomOption = {
     xAxis : [
         {
             type : 'category',
-            data : [],
+            data : ['1', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12'],
             axisTick: {
                 alignWithLabel: true
             },
-            boundaryGap: false,//从起点开始
             nameTextStyle:{
                 color:'#DCF1FF'
             },
-            nameGap:1,
             axisLine:{
                 lineStyle:{
                     color:'#DCF1FF'
@@ -235,8 +335,6 @@ var leftBottomOption = {
             nameTextStyle:{
                 color:'#DCF1FF'
             },
-            name:'单位：次',
-            nameLocation:'end',
             axisLine:{
                 lineStyle:{
                     color:'#DCF1FF'
@@ -246,97 +344,17 @@ var leftBottomOption = {
     ],
     series : [
         {
-            name:'设备报警',
-            type:'line',
-            symbol: "circle",//拐点样式
-            symbolSize: 8,//拐点大小
-            smooth:true,
-            itemStyle:{
-                normal:{
-                    color:'#fff',
-                    borderColor: "#2170F4",
-                    lineStyle:{
-                        width:2,
-                        color:'#fff'
-                    }
-
-                }
-            },
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#2170F4'
-                    }, {
-                        offset: 1,
-                        color: '#61854f'
-                    }])
-                }
-            },
-            data:[]
-        },
-        {
-            name:'能耗报警',
-            type:'line',
-            symbol: "circle",//拐点样式
-            symbolSize: 8,//拐点大小
-            smooth:true,
-            itemStyle:{
-                normal:{
-                    color:'#fff',
-                    borderColor: "#14E398",
-                    lineStyle:{
-                        width:2,
-                        color:'#fff'
-                    }
-
-                }
-            },
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#14E398'
-                    }, {
-                        offset: 1,
-                        color: '#61854f'
-                    }])
-                }
-            },
-            data:[]
-        },
-        {
-            name:'能耗报警',
-            type:'line',
-            symbol: "circle",//拐点样式
-            symbolSize: 8,//拐点大小
-            smooth:true,
-            itemStyle:{
-                normal:{
-                    color:'#fff',
-                    borderColor: "#EAD01E",
-                    lineStyle:{
-                        width:2,
-                        color:'#fff'
-                    }
-
-                }
-            },
-            areaStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: '#EAD01E'
-                    }, {
-                        offset: 1,
-                        color: '#61854f'
-                    }])
-                }
-            },
-            data:[]
+            name:'总能耗',
+            type:'bar',
+            barWidth: '60%',
+            data:[810, 952, 900, 934, 890, 730, 1020, 952, 900, 934, 890, 730]
         }
     ]
 };
+
+//重绘chart图
+leftBottomChart1.setOption(option);
+
 
 var option0 = {
     color: ['#3398DB'],
@@ -350,7 +368,7 @@ var option0 = {
         left: '3%',
         right: '4%',
         bottom: '8%',
-        top:'9%',
+        top:'8%',
         containLabel: true,
         borderColor:'#A8A8A8',
         borderWidth:2
@@ -380,7 +398,7 @@ var option0 = {
             nameTextStyle:{
                 color:'#DCF1FF'
             },
-            name:'单位：次',
+            //name:'单位：次',
             nameLocation:'end',
             axisLine:{
                 lineStyle:{
@@ -568,9 +586,6 @@ var curPointerIDArr = ['3101800201'];
 
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
-
-//重绘chart图
-leftBottomChart.setOption(option0);
 
 //点击右侧上方选项卡
 $('.right-tab-container .right-tab').on('click',function(){
@@ -937,7 +952,9 @@ function getStationAlarmData(index){
         timeout:_theTimes,
         beforeSend:function(){
 
-            leftBottomChart.showLoading();
+            leftBottomChart.showLoading({
+                maskColor: 'rgba(33,43,55,0.8)'
+            });
 
         },
         success:function(result){
@@ -956,14 +973,20 @@ function getStationAlarmData(index){
                 return false;
             }
 
+            //if(result.length > 1){
+            //
+            //    //删除数组的最后一项
+            //    result.pop();
+            //}
+
             //存放能耗数据
             var dataArr = [];
 
             //存放X轴
             var xArr = [];
 
-            $(result).each(function(i,o){
 
+            $(result).each(function(i,o){
 
                 //获取能耗数据
                 dataArr.push(o.data);
@@ -1010,7 +1033,7 @@ function getStationAlarmData(index){
 //展示日期类型 用户选择日期类型
 function getShowDateType(){
     //获取页面日期类型
-    var dateType = $('.inner-left-bottom .left-tab-container .right-tab-choose').html();
+    var dateType = $('.right-bottom-container .left-tab-container .right-tab-choose').html();
 
     //定义展示日期类型
     var showDateType = '';
@@ -1277,13 +1300,15 @@ function getDevTypeAreas(devTypeID,fn){
             if(url.indexOf('exhaustAir.html') > -1 || url.indexOf('supDraWater.html') > -1){
 
                 //获取对应流程图
-                userMonitor.init("1200,698",jumpPageSize);
+                userMonitor.init("1200,698",jumpPageSize,1);
 
             }else{
 
                 //获取对应流程图
-                userMonitor.init("1200,698");
+                userMonitor.init("1200,698",false,1);
             }
+
+            $('#monitor-menu-container span').eq(0).click();
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1298,5 +1323,323 @@ function getDevTypeAreas(devTypeID,fn){
 
         }
     })
+};
+
+//获取下方能源管理数据
+function getPointerData(){
+    //定义存放返回数据的数组（本期 X Y）
+    var allData = [];
+    var allDataX = [];
+    var allDataY = [];
+    var totalAllData = 0;
+
+    //存放要传的楼宇集合
+    var postPointerID = [];
+
+    //存放要传的分户ID
+    var officeID = '';
+
+    //存放要传的支路ID
+    var serviceID = '';
+
+    //是否标煤
+    var isBiaoMeiEnergy = 0;
+
+    //单位类型 0为kwh t
+    var unitType = '0';
+
+    //确定楼宇id
+
+    postPointerID.push(curPointerIDArr);
+
+    //能耗类型
+    _ajaxEcType = $('.right-bottom-energyment-control .left-tab-choose').attr('unit-type');
+
+    //获取展示日期类型
+    var showDateType = getShowDateType1()[0];
+
+    //获取用户选择日期类型
+    var selectDateType = getShowDateType1()[1];
+
+    //获取开始时间
+    var startTime = getPostTime11()[0];
+
+    //获取开始时间
+    var endTime = getPostTime11()[1];
+
+    //定义获得数据的参数
+    var ecParams = {
+        "energyItemID": _ajaxEcType,
+        "isBiaoMeiEnergy": isBiaoMeiEnergy,
+        "pointerIDs": postPointerID,
+        "officeID": officeID,
+        "serviceID": serviceID,
+        "unityType": unitType,
+        "showDateType": showDateType,
+        "selectDateType": selectDateType,
+        "startTime": startTime,
+        "endTime": endTime
+    };
+
+    //发送请求
+    $.ajax({
+        type:'post',
+        url:sessionStorage.apiUrlPrefix+'EnergyQueryV2/GetPointerEnergyQuery',
+        data:ecParams,
+        timeout:_theTimes,
+        beforeSend:function(){
+            if(ifShowLoading1){
+
+                leftBottomChart1.showLoading({
+                    maskColor: 'rgba(33,43,55,0.8)'
+                });
+
+                ifShowLoading1 = false;
+            }
+
+        },
+        success:function(result){
+            leftBottomChart1.hideLoading();
+            //console.log(result);
+
+            //判断是否返回数据
+            if(result == null){
+
+                option.xAxis[0].data = [];
+                option.series[0].data = [];
+
+                leftBottomChart1.setOption(option);
+
+                return false;
+            }
+
+
+            //首先处理本期的数据
+            allData.length = 0;
+
+            $(result.ecMetaDatas).each(function(i,o){
+                allData.push(o);
+            });
+
+            //首先处理实时数据
+            allDataX.length = 0;
+            allDataY.length = 0;
+
+            //绘制echarts
+            if(showDateType == 'Hour' ){
+                //确定x轴
+                for(var i=0;i<allData.length;i++){
+                    var dataSplit = allData[i].dataDate.split('T')[1].split(':');
+                    var dataJoin = dataSplit[0] + ':' + dataSplit[1];
+                    if(allDataX.indexOf(dataJoin)<0){
+                        allDataX.push(dataJoin);
+                    }
+                }
+            }else{
+                //确定x轴
+                for(var i=0;i<allData.length;i++){
+                    var dataSplit = allData[i].dataDate.split('T')[0];
+
+                    if(allDataX.indexOf(dataJoin)<0){
+                        allDataX.push(dataSplit);
+                    }
+                }
+            };
+
+            //确定本期y轴
+            for(var i=0;i<allData.length;i++){
+                allDataY.push(allData[i].data.toFixed(1));
+            }
+
+            //echart柱状图
+            option.xAxis[0].data = allDataX;
+            option.series[0].data = allDataY;
+
+            leftBottomChart1.setOption(option);
+
+
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            leftBottomChart1.hideLoading();
+            //错误提示信息
+            if (textStatus == 'timeout') {//超时,status还有success,error等值的情况
+                _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'超时', '');
+            }
+            _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请求失败', '');
+        }
+    })
+};
+
+//展示日期类型 用户选择日期类型以及开始结束时间
+function getShowDateType1(){
+    //获取页面日期类型
+    var dateType = $('.right-bottom-energyment-control .right-tab-choose').html();
+
+    //定义展示日期类型
+    var showDateType = '';
+
+    //定义用于选择日期类型
+    var selectDateType = '';
+
+    if(dateType == '日'){
+
+        showDateType = "Hour";
+        selectDateType = "Day"
+
+    }else if(dateType == '周'){
+
+        showDateType = "Day";
+        selectDateType = "Week"
+
+    }else if(dateType == '月'){
+
+        showDateType = "Day";
+        selectDateType = "Month"
+
+    }else if(dateType == '年'){
+
+        showDateType = "Month";
+        selectDateType = "Year"
+    }else if(dateType == '自定义'){
+
+        showDateType = "Custom";
+        selectDateType = "Custom"
+    }
+
+    return [showDateType,selectDateType]
+};
+
+
+//获取开始结束时间
+function getPostTime11(){
+    //获取页面日期类型
+    var dateType = $('.right-bottom-energyment-control .right-tab-choose').html();
+
+    //定义开始时间
+    var startTime = '';
+
+    if($('.min').length > 0){
+
+        startTime = $('.min').val();
+    }
+
+    //定义结束时间
+    var endTime = '';
+
+    if(dateType == '日'){
+
+        startTime = moment().format('YYYY-MM-DD');
+        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '周'){
+
+        startTime = startTime;
+
+        endTime = moment(startTime).add('7','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '月'){
+
+        startTime = moment().startOf('month').format('YYYY-MM-DD');
+
+        endTime = moment(startTime).add('1','months').startOf('month').format('YYYY-MM-DD');
+    }else if(dateType == '年'){
+
+        endTime = moment().endOf('year').add(1,'days').format('YYYY-MM-DD');
+        startTime = moment().startOf('year').format('YYYY-MM-DD');
+
+    }else if(dateType == '自定义'){
+
+        startTime = startTime;
+        endTime = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
+    }
+
+    return [startTime,endTime]
+};
+
+//展示日期类型 用户选择日期类型以及开始结束时间
+function getShowDateTypeByDom(dom){
+    //获取页面日期类型
+    var dateType = $(dom).html();
+
+    //定义展示日期类型
+    var showDateType = '';
+
+    //定义用于选择日期类型
+    var selectDateType = '';
+
+    if(dateType == '日'){
+
+        showDateType = "Hour";
+        selectDateType = "Day"
+
+    }else if(dateType == '周'){
+
+        showDateType = "Day";
+        selectDateType = "Week"
+
+    }else if(dateType == '月'){
+
+        showDateType = "Day";
+        selectDateType = "Month"
+
+    }else if(dateType == '年'){
+
+        showDateType = "Month";
+        selectDateType = "Year"
+    }else if(dateType == '自定义'){
+
+        showDateType = "Custom";
+        selectDateType = "Custom"
+    }
+
+    return [showDateType,selectDateType]
+};
+
+
+//获取开始结束时间
+function getPostTimeByDom(dom){
+
+    //获取页面日期类型
+    var dateType = $(dom).html();
+
+    //定义开始时间
+    var startTime = '';
+
+    if($('.min').length > 0){
+
+        startTime = $('.min').val();
+    }
+
+    //定义结束时间
+    var endTime = '';
+
+    if(dateType == '日'){
+
+        startTime = moment().format('YYYY-MM-DD');
+        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '周'){
+
+        startTime = startTime;
+
+        endTime = moment(startTime).add('7','days').format('YYYY-MM-DD');
+
+    }else if(dateType == '月'){
+
+        startTime = moment().startOf('month').format('YYYY-MM-DD');
+
+        endTime = moment(startTime).add('1','months').startOf('month').format('YYYY-MM-DD');
+    }else if(dateType == '年'){
+
+        endTime = moment().endOf('year').add(1,'days').format('YYYY-MM-DD');
+        startTime = moment().startOf('year').format('YYYY-MM-DD');
+
+    }else if(dateType == '自定义'){
+
+        startTime = startTime;
+        endTime = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
+    }
+
+    return [startTime,endTime]
 };
 

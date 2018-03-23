@@ -6,31 +6,27 @@ $(function(){
     //获取页面主题部分数据
     getTPDevMonitor();
 
-    //获取下方能源管理数据
-    getPointerData();
+    ////获取电耗分项数据
+    //getFirstEnergyItemData();
 
-    //获取电耗分项数据
-    getFirstEnergyItemData();
+    //设备报警
+    getStationAlarmData(1);
 
-    //点击能源管理上方切换能耗类型按钮
-    $('.right-bottom-energyment-control .left-tab').on('click',function(){
+    //点击能源管理上方切换时间按钮
+    $('.right-bottom-container .right-tab').on('click',function(){
 
-        //获取后台能耗数据
-        getPointerData();
-    });
+        //删除之前选中的类
+        $(this).parents('.left-tab-container').find('.right-tab').removeClass('right-tab-choose');
 
-    //点击能源管理上方时间按钮
-    $('.right-bottom-energyment-control .right-tab').on('click',function(){
-
-        //改变选择日月年类型
-        $('.right-bottom-energyment-control .right-tab').removeClass('right-tab-choose');
-
+        //给当前选中元素添加选中类名
         $(this).addClass('right-tab-choose');
 
-        //获取后台能耗数据
-        getPointerData();
-    });
+        //设备报警
+        getStationAlarmData(1);
 
+        getStationAlarmNum();
+
+    });
 
     //默认刷新时间
     var _refresh = sessionStorage.getItem("dapinInterval");
@@ -43,22 +39,215 @@ $(function(){
             //获取页面主题部分数据
             getTPDevMonitor();
 
-            //获取下方能源管理数据
-            getPointerData();
+            //设备报警
+            getStationAlarmData(1);
 
-            //获取电耗分项数据
-            getFirstEnergyItemData();
+            //设备报警
+            getStationAlarmData(1);
 
 
         },_refresh * 1000 * 60)
-    }
+    };
+
+    ////当鼠标放到系统选项卡上时
+    //$('.right-bottom-equipment-container').on('hover','.equipment-title',function(){
+    //
+    //    var jumpData = $(this).attr('jump-data');
+    //
+    //    //暖通系统
+    //    if(jumpData){
+    //
+    //        jumpData = parseInt(jumpData);
+    //
+    //        $(".jump-containers").eq(jumpData).show();
+    //
+    //    }
+    //
+    //});
+    //
+    //$('.right-bottom-equipment-container').on('hover','.jump-containers',function(){
+    //
+    //    $(this).show();
+    //});
+    //
+    //
+    ////当鼠标离开系统选项卡上时
+    //$('.right-bottom-equipment-container').on('mouseleave','.equipment-title',function(){
+    //
+    //    var jumpData = $(this).attr('jump-data');
+    //
+    //    //暖通系统
+    //    if(jumpData){
+    //
+    //        jumpData = parseInt(jumpData);
+    //
+    //
+    //        $(".jump-containers").eq(jumpData).hide();
+    //
+    //    }
+    //
+    //});
+    //
+    //$('.right-bottom-equipment-container').on('mouseleave','.jump-containers',function(){
+    //
+    //    $(this).hide();
+    //});
 
 });
 
+//左侧下方柱状图
+var leftBottomChart = echarts.init(document.getElementById('echarts-left-bottom'));
+
+var leftBottomOption = {
+    color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '8%',
+        top:'7%',
+        containLabel: true,
+        borderColor:'#A8A8A8',
+        borderWidth:2
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : [],
+            axisTick: {
+                alignWithLabel: true
+            },
+            boundaryGap: false,//从起点开始
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            nameGap:1,
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            nameTextStyle:{
+                color:'#DCF1FF'
+            },
+            //name:'单位：次',
+            nameLocation:'end',
+            axisLine:{
+                lineStyle:{
+                    color:'#DCF1FF'
+                }
+            }
+        }
+    ],
+    series : [
+        {
+            name:'设备报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#2170F4",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#2170F4'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#14E398",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#14E398'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        },
+        {
+            name:'能耗报警',
+            type:'line',
+            symbol: "circle",//拐点样式
+            symbolSize: 8,//拐点大小
+            smooth:true,
+            itemStyle:{
+                normal:{
+                    color:'#fff',
+                    borderColor: "#EAD01E",
+                    lineStyle:{
+                        width:2,
+                        color:'#fff'
+                    }
+
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#EAD01E'
+                    }, {
+                        offset: 1,
+                        color: '#61854f'
+                    }])
+                }
+            },
+            data:[]
+        }
+    ]
+};
+
+//重绘chart图
+leftBottomChart.setOption(option0);
+
 //定义是否出现加载遮罩的标识
 var ifShowLoading = true;
-
-var ifShowLoading1 = true;
 
 var ifShowLoading2 = true;
 
@@ -108,18 +297,18 @@ var _electricityoption = {
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         top: '115',
-        itemGap: -5,
+        itemGap: -2,
         textBaseline:'middle',
         textStyle : {
             color : 'white',
             fontFamily : '微软雅黑',
-            fontSize : 26,
-            fontWeight : 'bolder',
+            fontSize : 24,
+            fontWeight : 'normal',
             lineHeight:26
         },
         subtextStyle:{
             color:'white',
-            fontSize : 16
+            fontSize : 12
         }
     },
     tooltip : {
@@ -209,7 +398,7 @@ var _electricityoption = {
 //_electricityEcharts1.setOption(_electricityoption,true);
 
 
-//空调机组echart
+//组合空调echart
 var _conditionerEcharts = echarts.init(document.getElementById('equipment-chart-conditioner'));
 
 var _conditionerEcharts1 = echarts.init(document.getElementById('equipment-chart-conditioner1'));
@@ -222,18 +411,18 @@ var _conditioneroption = {
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
         left: 'center',
         top: '115',
-        itemGap: -5,
+        itemGap: -2,
         textBaseline:'middle',
         textStyle : {
             color : 'white',
             fontFamily : '微软雅黑',
-            fontSize : 26,
-            fontWeight : 'bolder',
+            fontSize : 24,
+            fontWeight : 'normal',
             lineHeight:26
         },
         subtextStyle:{
             color:'white',
-            fontSize : 16
+            fontSize : 12
         }
     },
     tooltip : {
@@ -496,75 +685,125 @@ var _waterEcharts = echarts.init(document.getElementById('equipment-chart-water'
 
 //_waterEcharts.setOption( _stationoption,true);
 
+//能源管理echart配置
 
-
-//能源管理echart
-//左侧下方柱状图
-var leftBottomChart1 = echarts.init(document.getElementById('echarts-left-bottom1'));
-
-var option = {
-    color: ['#3398DB'],
-    tooltip : {
-        trigger: 'axis',
-        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+var _energyOption = {
+    title: {
+        text: '2255',
+        subtext: '总能耗',
+        //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
+        left: 'center',
+        top: '116',
+        itemGap: -5,
+        textBaseline:'middle',
+        textStyle : {
+            color : 'white',
+            fontFamily : '微软雅黑',
+            fontSize : 26,
+            fontWeight : 'bolder',
+            lineHeight:26
+        },
+        subtextStyle:{
+            color:'white',
+            fontSize : 16
         }
     },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '8%',
-        top:'2%',
-        containLabel: true,
-        borderColor:'#A8A8A8',
-        borderWidth:2
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b}: {c} ({d}%)"
     },
-    xAxis : [
-        {
-            type : 'category',
-            data : ['1', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12'],
-            axisTick: {
-                alignWithLabel: true
-            },
-            nameTextStyle:{
-                color:'#DCF1FF'
-            },
-            axisLine:{
-                lineStyle:{
-                    color:'#DCF1FF'
-                }
-            }
+    legend: {
+        orient : 'vertical',
+        right : 85,
+        y : 10,
+        itemGap:2,
+        data:[],
+        show:true,
+        itemWidth:20,
+        itemHeight:10,
+        textStyle:{
+            color:'white',
+            fontSize:10
         }
-    ],
-    yAxis : [
+    },
+    series: [
         {
-            type : 'value',
-            nameTextStyle:{
-                color:'#DCF1FF'
-            },
-            axisLine:{
-                lineStyle:{
-                    color:'#DCF1FF'
+            name:'',
+            type:'pie',
+            radius: ['58%', '72%'],
+            center:['50%', '60%'],
+            avoidLabelOverlap: false,
+            label: {
+                normal: {
+                    show: false,
+                    position: 'outside'
+                },
+                emphasis: {
+                    show: false,
+                    textStyle: {
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                    }
                 }
-            }
-        }
-    ],
-    series : [
-        {
-            name:'总能耗',
-            type:'bar',
-            barWidth: '60%',
-            data:[810, 952, 900, 934, 890, 730, 1020, 952, 900, 934, 890, 730]
+            },
+            itemStyle : {
+                normal : {
+                    color:function(params){
+                        var colorList = [
+                            '#14E398', '#2170F4','#EAD01E', '#33E3B6', '#ead01e','#f8276c', '#33E3B6', '#ead01e','#f8276c'
+                        ];
+                        return colorList[params.dataIndex]
+
+                    },
+                    label : {
+                        show : false,
+                        formatter:'{d}'+'%'+ '\n{b}',
+                        color:'white'
+                    },
+                    labelLine : {
+                        show : false,
+                        color:'white'
+
+                    }
+                },
+                emphasis : {
+                    label : {
+                        show : false,
+                        position : 'center',
+                        textStyle : {
+                            fontSize : '18',
+                            fontWeight : 'bold'
+                        }
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data:[
+                {
+                    name:'已完成',
+                    value:100
+                },
+                {
+                    name:'派单中',
+                    value:80
+                },
+                {
+                    name:'进行中',
+                    value:45
+                }
+            ]
         }
     ]
 };
 
-//重绘chart图
-leftBottomChart1.setOption(option);
+//能管重绘数据
 
 
-
-//用电分项echart图
+//设备故障echart图
 var _useelectricityChart = echarts.init(document.getElementById('echarts-left-bottom2'));
 
 var _useelectricityoption = {
@@ -673,15 +912,14 @@ var _useelectricityoption = {
 };
 
 
-
 // 指定图表的配置项和数据 用于本日用能分项
 var option8 = {
     title: {
         text: '225',
         subtext: '工单量',
         //sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
-        left: '120',
-        top: '122',
+        left: '160',
+        top: '115',
         itemGap: -5,
         textBaseline:'middle',
         textStyle : {
@@ -704,7 +942,7 @@ var option8 = {
         orient: 'vertical',
         x: 'left',
         y:'10px',
-        data:[],
+        data:['暖通系统','照明系统','电梯系统','动环系统','给排水','消防系统','自动售检票','能源管理'],
         textStyle:{
             color:'white'
         }
@@ -714,8 +952,8 @@ var option8 = {
         {
             name:'',
             type:'pie',
-            radius: ['50%', '70%'],
-            center:['60%', '60%'],
+            radius: ['50%', '65%'],
+            center:['65%', '56%'],
             avoidLabelOverlap: false,
             label: {
                 normal: {
@@ -723,7 +961,7 @@ var option8 = {
                     position: 'center'
                 },
                 emphasis: {
-                    show: true,
+                    show: false,
                     textStyle: {
                         fontSize: '30',
                         fontWeight: 'bold'
@@ -734,7 +972,7 @@ var option8 = {
                 normal : {
                     color:function(params){
                         var colorList = [
-                            '#14E398', '#0BA3C3','#0353F7', '#3C27D5', '#6512D7','#f8276c', '#33E3B6', '#ead01e','#f8276c'
+                            '#0d9dcb', '#0cd34c','#cfcf14', '#d36e12', '#dc2612','#b70723', '#7c05cb', '#1c39d9','#f8276c'
                         ];
                         return colorList[params.dataIndex]
 
@@ -748,7 +986,7 @@ var option8 = {
                 },
                 emphasis : {
                     label : {
-                        show : true,
+                        show : false,
                         position : 'center',
                         textStyle : {
                             fontSize : '30',
@@ -762,10 +1000,47 @@ var option8 = {
                     show: false
                 }
             },
-            data:[]
+            data:[
+                {
+                    name:'暖通系统',
+                    value:50
+                },
+                {
+                    name:'照明系统',
+                    value:45
+                },
+                {
+                    name:'电梯系统',
+                    value:35
+                },
+                {
+                    name:'动环系统',
+                    value:30
+                },
+                {
+                    name:'给排水',
+                    value:25
+                },
+                {
+                    name:'消防系统',
+                    value:20
+                },
+                {
+                    name:'自动售检票',
+                    value:10
+                },
+                {
+                    name:'能源管理',
+                    value:10
+                }
+            ]
         }
     ]
 };
+
+
+//设备故障页面重绘数据
+//_useelectricityChart.setOption(option8,true);
 
 
 //重绘chart图
@@ -885,7 +1160,7 @@ var _operationresponseChart1 = echarts.init(document.getElementById('operation-c
 //重绘chart图
 _operationresponseChart.setOption(_useelectricityoption);
 
-_operationresponseChart1.setOption(_useelectricityoption1);
+_operationresponseChart1.setOption(option8);
 
 //清空数据
 $('.bottom-content-data span').html('');
@@ -899,7 +1174,7 @@ var colorArr2 = ['#14e398','#f8276c','#ead01e'];
 
 //定义echart集合
 var echartNameArr = [_electricityEcharts,_electricityEcharts1,_conditionerEcharts,_conditionerEcharts1,_elevatorEcharts,_elevatorEcharts1, _rotatingEcharts, _rotatingEcharts1,
-    _stationEcharts,_platformEcharts,_windEcharts,_waterEcharts ];
+    _stationEcharts,_platformEcharts,_windEcharts,_waterEcharts,  _useelectricityChart];
 
 //插入背景圆形图
 var cicleHtml =   '<div class="bottom-equipment-chart-background"></div>';
@@ -948,7 +1223,7 @@ function getTPDevMonitor(){
     //发送请求
     $.ajax({
         type:'post',
-        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetTPDevMonitor',
+        url:sessionStorage.apiUrlPrefix+'NJNDeviceShow/GetTPDevMonitorNew',
         data:ecParams,
         //timeout:_theTimes * 2,
         beforeSend:function(){
@@ -967,8 +1242,6 @@ function getTPDevMonitor(){
         },
         success:function(result){
 
-            //console.log(result);
-
             $( echartNameArr).each(function(i,o){
 
                 o.hideLoading();
@@ -979,17 +1252,58 @@ function getTPDevMonitor(){
                 return false;
             }
 
-            //-----------------------------冷热源---------------------------//
-            //电冷能效
-            var elecColdEffic = (result.coldHotSourceOBJ.elecColdEffic * 100).toFixed(1) + '%';
+            //定义设备故障的数组
+            var alarmNumArr = [];
 
-            elecColdEffic = "80.8%";
+            //暖通系统
+            alarmNumArr.push({name:"暖通系统",value:result.hvacAirsOBJ.alarmNum});
+
+            //照明系统
+            alarmNumArr.push({name:"照明系统",value:result.lightSysOBJ.alarmNum});
+
+            //电梯系统
+            alarmNumArr.push({name:"电梯系统",value:result.elevatorSysOBJ.alarmNum});
+
+            //动环系统
+            alarmNumArr.push({name:"动环系统",value:result.rotaryFaceSysOBJ.alarmNum});
+
+            //给排水系统
+            alarmNumArr.push({name:"给排水",value:result.sendDrainWaterOBJ.alarmNum});
+
+            //消防系统
+            alarmNumArr.push({name:"消防系统",value:result.fireControlSysOBJ.alarmNum});
+
+            //售检票系统
+            alarmNumArr.push({name:"自动售检票",value:result.sellCheckTicketOBJ.alarmNum});
+
+            //能管系统
+            alarmNumArr.push({name:"能源管理",value:result.energyManagerOBJ.alarmNum});
+
+            option8.series[0].data = alarmNumArr;
+
+            var totalAlarmNum = 0;
+
+            $(alarmNumArr).each(function(i,o){
+
+                totalAlarmNum += o.value;
+            });
+
+            option8.title.text = totalAlarmNum;
+
+            _useelectricityChart.setOption(option8,true);
+
+            //-----------------------------暖通系统---------------------------//
+
+            //电冷能效
+           var elecColdEffic = result.hvacAirsOBJ.hvacAirData.nxVa + '%';
+
+            //elecColdEffic = "80.8%";
 
             //输入电量
-            var inputElecData = result.coldHotSourceOBJ.inputElecData;
+            var inputElecData = parseFloat(result.hvacAirsOBJ.hvacAirData.qeVa);
 
             //输出电冷量
-            var elecColdData = result.coldHotSourceOBJ.elecColdData;
+            var elecColdData = parseFloat(result.hvacAirsOBJ.hvacAirData.rcVa);
 
             //获取当前是冬季夏季 夏季为1 冬季为2 非冬夏0
 
@@ -1000,7 +1314,7 @@ function getTPDevMonitor(){
             var eleUnit = '';
 
             //如果是夏天
-            if(result.coldHotSourceOBJ.winterORSummer == 1){
+            if(result.hvacAirsOBJ.hvacAirData.ty == 1){
 
                 elecColdDataArr = [
                     {name:'输入电量',data:inputElecData},
@@ -1016,8 +1330,8 @@ function getTPDevMonitor(){
             }else{
 
                 elecColdDataArr = [
-                    {name:'东输入蒸汽',data:inputElecData},
-                    {name:'东输出热量',data:elecColdData}
+                    {name:'输入蒸汽',data:inputElecData},
+                    {name:'输出热量',data:elecColdData}
                 ];
 
                 elecColdCenterData = {name:'换热能效',data:elecColdEffic};
@@ -1031,70 +1345,51 @@ function getTPDevMonitor(){
             //给echarts赋值
             drawEcharts(elecColdDataArr,'equipment-chart-electricity',colorArr1,elecColdCenterData, _electricityoption, eleUnit);
 
-            var eleUnit1 = '';
+            //运行故障数
 
-            //汽冷能效
-            var steamColdEffic = (result.coldHotSourceOBJ.steamColdEffic * 100).toFixed(1) + '%';
-
-            steamColdEffic = "80.8%";
-
-            //输入汽量
-            var steamData = result.coldHotSourceOBJ.steamData;
-
-            //输出汽冷量
-            var steamColdData = result.coldHotSourceOBJ.steamColdData;
-
-            var steamColdEfficData;
-
-            var steamDataArr;
-
-            //夏季为1
-            if(result.coldHotSourceOBJ.winterORSummer == 1){
-
-                steamDataArr = [
-                    {name:'输入蒸汽',data:steamData},
-                    {name:'输出冷量',data:steamColdData}
-                ];
-
-                steamColdEfficData = {name:'汽冷能效',data:steamColdEffic};
-
-                eleUnit1 = "KW";
-
-            }else{
-
-                steamDataArr = [
-                    {name:'西输入蒸汽',data:steamData},
-                    {name:'西输出热量',data:steamColdData}
-                ];
-
-                steamColdEfficData = {name:'换热能效',data:steamColdEffic};
-
-                eleUnit1 = "KW";
-            }
-
-            //给echarts赋值
-            drawEcharts(steamDataArr,'equipment-chart-electricity1',colorArr1,steamColdEfficData, _electricityoption, eleUnit1);
-
-            //电功率
-            $('#equipment-chart-electricity').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.coldHotSourceOBJ.elecPower.toFixed(1) + '<span>kw</span>');
-
-            //检测点
-            $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.coldHotSourceOBJ.alarmNum);
-
-            $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.coldHotSourceOBJ.cDataIDNum);
-
-            //-----------------------------空调机组---------------------------//
             //总台数
-            var allNum = result.airUnitOBJ.allNum;
+            var hvacallNum = result.hvacAirsOBJ.allNum;
 
             //运行中
-            var runNum = result.airUnitOBJ.runNum;
+            var hvacrunNum = result.hvacAirsOBJ.runNum;
 
             //故障中
-            var faultNum = result.airUnitOBJ.faultNum;
+            var hvacfaultNum = result.hvacAirsOBJ.faultNum;
 
             //维修中
-            var repairNum = result.airUnitOBJ.repairNum;
+            var hvacrepairNum = result.hvacAirsOBJ.repairNum;
+
+            var hvacairDataArr = [
+                {name:'运行中',data:hvacrunNum},
+                {name:'故障中',data:hvacfaultNum},
+                {name:'维修中',data:hvacrepairNum}
+            ];
+
+            var hvacairCenterData = {name:'总台数',data:hvacallNum};
+
+            //给echarts赋值
+            drawEcharts(hvacairDataArr,'equipment-chart-electricity1',colorArr2,hvacairCenterData, _conditioneroption,'');
+
+            //电功率
+            $('#equipment-chart-electricity').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.hvacAirsOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+
+            //检测点
+            $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.hvacAirsOBJ.alarmNum);
+
+            $('#equipment-chart-electricity1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.hvacAirsOBJ.cDataIDNum);
+
+            //-----------------------------照明系统---------------------------//
+            //总台数
+            var allNum = result.lightSysOBJ.houseLightAllNum;
+
+            //运行中
+            var runNum = result.lightSysOBJ.houseLightRunNum;
+
+            //故障中
+            var faultNum = result.lightSysOBJ.houseLightFaultNum;
+
+            //维修中
+            var repairNum = result.lightSysOBJ.houseLightRepairNum;
 
             var airDataArr = [
                 {name:'运行中',data:runNum},
@@ -1102,38 +1397,47 @@ function getTPDevMonitor(){
                 {name:'维修中',data:repairNum}
             ];
 
-            var airCenterData = {name:'总台数',data:allNum};
+            var airCenterData = {name:'站房回数',data:allNum};
 
             //给echarts赋值
             drawEcharts(airDataArr,'equipment-chart-conditioner',colorArr2,airCenterData, _conditioneroption,'');
 
 
-            //送风温度
-            var indoorTemp = result.airUnitOBJ.sendExhaustTemp;
+            //-----------------------------站台照明---------------------------//
+            //总回路
+            //var platformAllTimesNum = result.lightSysOBJ.platformLightAllNum;
 
-            //室内湿度
-            var steamData = result.airUnitOBJ.indoorHumidity;
+            var platformAllTimesNum = 268;
 
-            //室内温度
-            var outdoorTemp = result.airUnitOBJ.indoorTemp;
+            //运行中
+            //var platformrunNum = result.lightSysOBJ.platformLightRunNum;
 
-            var TempArr = [
-                {name:'室内温度',data:outdoorTemp},
-                {name:'室内湿度',data:steamData}
+            var platformrunNum = 107;
+
+            //故障中
+            var platformfaultNum = result.lightSysOBJ.platformLightFaultNum;
+
+            //维修中
+            var platformrepairNum = result.lightSysOBJ.platformLightRepairNum;
+
+            var platformArr = [
+                {name:'运行中',data:platformrunNum},
+                {name:'故障中',data:platformfaultNum},
+                {name:'维修中',data:platformrepairNum}
             ];
 
-            var indoorTempData = {name:'送风温度',data:indoorTemp};
+            var platformData = {name:'站台回路',data:platformAllTimesNum};
 
             //给echarts赋值
-            drawEcharts(TempArr,'equipment-chart-conditioner1',colorArr1,indoorTempData, _electricityoption,'℃');
+            drawEcharts(platformArr,'equipment-chart-conditioner1',colorArr2,platformData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-conditioner').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.airUnitOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-conditioner').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data').html(result.lightSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
 
             //检测点
-            $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.airUnitOBJ.alarmNum);
+            $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.lightSysOBJ.alarmNum);
 
-            $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.airUnitOBJ.cDataIDNum);
+            $('#equipment-chart-conditioner1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.lightSysOBJ.cDataIDNum);
 
 
             //-----------------------------电梯系统---------------------------//
@@ -1245,125 +1549,160 @@ function getTPDevMonitor(){
             $('#equipment-chart-rotating1').parents('.bottom-equipment-chart-container').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.rotaryFaceSysOBJ.cDataIDNum);
 
 
-            //-----------------------------站房照明---------------------------//
+            //-----------------------------给排水---------------------------//
             //总回路
-            var allTimesNum = result.statHouseLightOBJ.allTimesNum;
+            var allTimesNum = result.sendDrainWaterOBJ.allSetNumber;
 
             //运行中
-            var statHouserunNum = result.statHouseLightOBJ.runNum;
+            var statHouserunNum = result.sendDrainWaterOBJ.runNum;
 
             //故障中
-            var statHousefaultNum = result.statHouseLightOBJ.faultNum;
+            var statHousefaultNum = result.sendDrainWaterOBJ.faultNum;
+
+            //维修中
+            var statHouseRepairNum = result.sendDrainWaterOBJ.repairNum;
 
             var statHouseArr = [
                 {name:'运行中',data:statHouserunNum},
-                {name:'故障中',data:statHousefaultNum}
+                {name:'故障中',data:statHousefaultNum},
+                {name:'维修中',data:statHouseRepairNum}
             ];
 
-            var statHouseData = {name:'总回路',data:allTimesNum};
+            var statHouseData = {name:'总台数',data:allTimesNum};
 
             //给echarts赋值
-            drawEcharts(statHouseArr,'equipment-chart-station',colorArr2,statHouseData, _electricityoption,'');
+            drawEcharts(statHouseArr,'equipment-chart-station',colorArr2,statHouseData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.statHouseLightOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sendDrainWaterOBJ.elecPower.toFixed(1) + '<span>kw</span>');
 
             //检测点
-            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.statHouseLightOBJ.alarmNum);
+            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendDrainWaterOBJ.alarmNum);
 
-            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.statHouseLightOBJ.cDataIDNum);
+            $('#equipment-chart-station').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sendDrainWaterOBJ.cDataIDNum);
 
-            //-----------------------------站台照明---------------------------//
-            //总回路
-            //var platformAllTimesNum = result.platformLightOBJ.allTimesNum;
 
-            var platformAllTimesNum = 268;
+            //-----------------------------消防系统---------------------------//
+            //总台数
+            var fireControlAllTimesNum = result.fireControlSysOBJ.allTimesNum;
+
+             fireControlAllTimesNum = 268;
 
             //运行中
-            //var platformrunNum = result.platformLightOBJ.runNum;
+            //var fireControlrunNum = result.fireControlSysOBJ.runNum;
 
-            var platformrunNum = 107;
+            var fireControlrunNum = 107;
 
             //故障中
-            var platformfaultNum = result.platformLightOBJ.faultNum;
+            var fireControlfaultNum = result.fireControlSysOBJ.faultNum;
 
-            var platformArr = [
-                {name:'运行中',data:platformrunNum},
-                {name:'故障中',data:platformfaultNum}
+            //维修中
+            var fireControlrepairNum = result.fireControlSysOBJ.repairNum;
+
+            var fireControlArr = [
+                {name:'运行中',data:fireControlrunNum},
+                {name:'故障中',data:fireControlfaultNum},
+                {name:'维修中',data:fireControlrepairNum}
             ];
 
-            var platformData = {name:'总回路',data:platformAllTimesNum};
+            var fireControlData = {name:'总台数',data:fireControlAllTimesNum};
 
             //给echarts赋值
-            drawEcharts(platformArr,'equipment-chart-platform',colorArr2,platformData, _electricityoption,'');
+            drawEcharts(fireControlArr,'equipment-chart-platform',colorArr2,fireControlData, _conditioneroption,'');
 
             //电功率
-            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.platformLightOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.fireControlSysOBJ.elecPower.toFixed(1) + '<span>kw</span>');
 
             //检测点
-            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.platformLightOBJ.alarmNum);
+            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.fireControlSysOBJ.alarmNum);
 
-            //$('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.platformLightOBJ.cDataIDNum)
+            //$('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.fireControlSysOBJ.cDataIDNum)
 
             $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+"268");
 
-            //-----------------------------送排风---------------------------//
+
+            //-----------------------------自动售检票---------------------------//
             //总台数
-            var sendExhaustAllTimesNum = result.sendExhaustOBJ.allSetNumber;
+            var sendExhaustAllTimesNum = result.sellCheckTicketOBJ.allSetNumber;
 
             //运行中
-            var sendExhaustrunNum = result.sendExhaustOBJ.runNum;
+            var sendExhaustrunNum = result.sellCheckTicketOBJ.runNum;
 
             //故障中
-            var sendExhaustfaultNum = result.sendExhaustOBJ.faultNum;
+            var sendExhaustfaultNum = result.sellCheckTicketOBJ.faultNum;
+
+            //维修中
+            var sendExhaustrepairNum = result.sellCheckTicketOBJ.repairNum;
+
 
             var sendExhaustArr = [
                 {name:'运行中',data:sendExhaustrunNum},
-                {name:'故障中',data:sendExhaustfaultNum}
+                {name:'故障中',data:sendExhaustfaultNum},
+                {name:'维修中',data:sendExhaustrepairNum}
             ];
 
             var sendExhaustData = {name:'总台数',data:sendExhaustAllTimesNum};
 
             //给echarts赋值
-            drawEcharts(sendExhaustArr,'equipment-chart-wind',colorArr2,sendExhaustData, _electricityoption,'');
+            drawEcharts(sendExhaustArr,'equipment-chart-wind',colorArr2,sendExhaustData, _conditioneroption,'');
 
-            //电功率
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sendExhaustOBJ.elecPower.toFixed(1) + '<span>kw</span>');
-
-            //检测点
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendExhaustOBJ.alarmNum);
-
-            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sendExhaustOBJ.cDataIDNum)
-
-
-
-            //-----------------------------给排水---------------------------//
-            //总台数
-            var sendDrainWaterAllTimesNum = result.sendDrainWaterOBJ.allSetNumber;
-
-            //运行中
-            var sendDrainWaterrunNum = result.sendDrainWaterOBJ.runNum;
-
-            //故障中
-            var sendDrainWaterfaultNum = result.sendDrainWaterOBJ.faultNum;
-
-            var sendDrainWaterArr = [
-                {name:'运行中',data:sendDrainWaterrunNum},
-                {name:'故障中',data:sendDrainWaterfaultNum}
-            ];
-
-            var sendDrainWaterData = {name:'总台数',data:sendDrainWaterAllTimesNum};
-
-            //给echarts赋值
-            drawEcharts(sendDrainWaterArr,'equipment-chart-water',colorArr2,sendDrainWaterData, _electricityoption,'');
-
-            //电功率
-            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sendDrainWaterOBJ.elecPower.toFixed(1) + '<span>kw</span>');
+            //故障率
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.sellCheckTicketOBJ.runPercent.toFixed(1) + '<span>%</span>');
 
             //检测点
-            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sendDrainWaterOBJ.alarmNum);
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.sellCheckTicketOBJ.alarmNum);
 
-            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sendDrainWaterOBJ.cDataIDNum)
+            $('#equipment-chart-wind').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.sellCheckTicketOBJ.cDataIDNum);
+
+
+            //-----------------------------能源管理---------------------------//
+
+            //获取存放能耗的数组
+            var energyArr = result.energyManagerOBJ.energyKeyValues;
+
+            //存放页面中显示的数据
+            var dataArr = [];
+
+            //存放图例
+            var legendArr = [];
+
+            $(energyArr).each(function(i,o){
+
+                //排除气的能耗
+                if(o.energyItemID != "311"){
+
+                    var obj = {};
+
+                    //获取当前的能耗名称
+                    obj.name = _getEcName(o.energyItemID);
+
+                    legendArr.push(_getEcName(o.energyItemID));
+
+                    //获取当前的能耗数值
+                    obj.value = o.energyData.toFixed(2);
+
+                    dataArr.push(obj);
+                }
+            });
+
+
+            //总能耗
+            _energyOption.title.text = result.energyManagerOBJ.allEnergyData.toFixed(0);
+
+            _energyOption.series[0].data = dataArr;
+
+            _energyOption.legend.data = legendArr;
+
+            //能管重绘数据
+            _waterEcharts.setOption(_energyOption,true);
+
+            //总费用
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data').eq(0).html(result.energyManagerOBJ.allEnergyCostData.toFixed(1) + '<span>元</span>');
+
+            //检测点
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .cur-data').html(result.energyManagerOBJ.alarmNum);
+
+            $('#equipment-chart-water').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.energyManagerOBJ.cDataIDNum)
 
 
         },
@@ -1528,15 +1867,17 @@ function getPointerData(){
 //获取电耗分项数据
 function getFirstEnergyItemData(){
 
-    //获取开始结束时间
-    var startDate = moment().format('YYYY-MM-DD');
+    //获取开始时间
+    var startTime = getPostTime11()[0];
 
-    var endDate =  moment().add('1','days').format('YYYY-MM-DD');
+    //获取结束时间
+    var endTime = getPostTime11()[1];
+
 
     //传递给后台的数据
     var ecParams = {
-        "startTime": startDate,
-        "endTime": endDate,
+        "startTime": startTime,
+        "endTime": endTime,
         "energyItemType": '01',
         "pointerIDs":  curPointerIDArr
     };
@@ -1625,7 +1966,6 @@ function getFirstEnergyItemData(){
     });
 };
 
-
 //重新绘制echarts方法
 function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
@@ -1633,7 +1973,7 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
     var allData = 0;
 
     //如果是温度和湿度
-    if(echartsID == 'equipment-chart-rotating1' || echartsID == 'equipment-chart-conditioner1'){
+    if(echartsID == 'equipment-chart-rotating1'){
 
         allData = 70;
 
@@ -1649,6 +1989,7 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
             allData =13630 * 2;
         }
+
         //如果是冷热源 汽数据
     }else if(echartsID == 'equipment-chart-electricity1'){
 
@@ -1733,7 +2074,7 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
                 thisData = dataArr[i].data;
             }
 
-            if(echartsID == 'equipment-chart-rotating1' && i == 1 || echartsID == 'equipment-chart-conditioner1' && i == 1){
+            if(echartsID == 'equipment-chart-rotating1' && i == 1){
 
                     $('#'+ echartsID).prev('.bottom-content-data').find('span').eq(i).html(thisData+'%');
 
@@ -1771,6 +2112,24 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 
     option.legend.data = legendArr;
 
+    //运维中有关运行 故障的数据
+    if(colorArr != colorArr1){
+
+        //当前总台数
+        var totalNum = centerData.data;
+
+        //运行台数
+        var runNum = dataArr[0].data;
+
+        option.title.text = (runNum/totalNum * 100).toFixed(1) + "%";
+
+        if(totalNum == 0){
+            option.title.text =  "0.0%";
+        }
+
+        option.title.subtext = centerData.name +" "+ totalNum;
+    }
+
     //重绘echarts
     var thisCharts = echarts.init(document.getElementById(echartsID));
 
@@ -1779,88 +2138,3 @@ function drawEcharts(dataArr,echartsID,colorArr,centerData,option,unit){
 };
 
 
-//展示日期类型 用户选择日期类型以及开始结束时间
-function getShowDateType1(){
-    //获取页面日期类型
-    var dateType = $('.right-bottom-energyment-control .right-tab-choose').html();
-
-    //定义展示日期类型
-    var showDateType = '';
-
-    //定义用于选择日期类型
-    var selectDateType = '';
-
-    if(dateType == '日'){
-
-        showDateType = "Hour";
-        selectDateType = "Day"
-
-    }else if(dateType == '周'){
-
-        showDateType = "Day";
-        selectDateType = "Week"
-
-    }else if(dateType == '月'){
-
-        showDateType = "Day";
-        selectDateType = "Month"
-
-    }else if(dateType == '年'){
-
-        showDateType = "Month";
-        selectDateType = "Year"
-    }else if(dateType == '自定义'){
-
-        showDateType = "Custom";
-        selectDateType = "Custom"
-    }
-
-    return [showDateType,selectDateType]
-};
-
-
-//获取开始结束时间
-function getPostTime11(){
-    //获取页面日期类型
-    var dateType = $('.right-bottom-energyment-control .right-tab-choose').html();
-
-    //定义开始时间
-    var startTime = '';
-
-    if($('.min').length > 0){
-
-        startTime = $('.min').val();
-    }
-
-    //定义结束时间
-    var endTime = '';
-
-    if(dateType == '日'){
-
-        startTime = moment().format('YYYY-MM-DD');
-        endTime = moment(startTime).add('1','days').format('YYYY-MM-DD');
-
-    }else if(dateType == '周'){
-
-        startTime = startTime;
-
-        endTime = moment(startTime).add('7','days').format('YYYY-MM-DD');
-
-    }else if(dateType == '月'){
-
-        startTime = moment().startOf('month').format('YYYY-MM-DD');
-
-        endTime = moment(startTime).add('1','months').startOf('month').format('YYYY-MM-DD');
-    }else if(dateType == '年'){
-
-        endTime = moment().endOf('year').add(1,'days').format('YYYY-MM-DD');
-        startTime = moment().startOf('year').format('YYYY-MM-DD');
-
-    }else if(dateType == '自定义'){
-
-        startTime = startTime;
-        endTime = moment($('.max').val()).add('1','days').format('YYYY-MM-DD');
-    }
-
-    return [startTime,endTime]
-};

@@ -72,6 +72,19 @@ function _monthDate(el){
     })
 }
 
+function _monthDate11(el){
+    el.datepicker('destroy');
+    el.datepicker({
+        startView: 1,
+        maxViewMode: 2,
+        minViewMode:1,
+        forceParse: 0,
+        autoclose:1,
+        format: "yyyy-mm",//选择日期后，文本框显示的日期格式
+        language: "zh-CN" //汉化
+    })
+}
+
 //datatimepicker事件插件初始化（日月年时分秒）
 function _timeHMSComponentsFun(el,startView){
     el.datetimepicker({

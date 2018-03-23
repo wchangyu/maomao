@@ -49,7 +49,57 @@ $(function(){
 
     });
 
+    //点击能耗分类中的年月日时
+    $('.left-tab-container .right-tab').on('click',function(){
+
+         startDate = getPostTimeByDom('.left-tab-container .right-tab-choose')[0];
+
+         endDate =  getPostTimeByDom('.left-tab-container .right-tab-choose')[1];
+
+         selectDateType = getShowDateTypeByDom('.left-tab-container .right-tab-choose')[1];
+
+        //获取实时数据中上方的能耗种类
+        getEcTypeByDeploy();
+
+        //获取车站总能耗排名
+        getPointerRankData();
+
+        //获取所有车站能耗标煤排名（按分项）
+        getStationRankData();
+
+        //获取本月能耗分类数据
+        getTopPageEnergyData();
+
+        //获取能耗费用数据
+        getAllEnergyItemMoney();
+
+        //获取车站单位面积能耗排名
+        getStationAreaRankData();
+
+        //单位面积KPI指标
+        getTopPageKPIData();
+
+        //获取能耗分项
+        getAllEnergyItemData();
+
+        //获取电耗分项
+        getFirstEnergyItemData();
+
+        //获取车站单位客流量排名
+        getStataionFootfallRank();
+
+    });
+
 });
+
+//获取用户选择的日期类型
+var selectDateType = getShowDateTypeByDom('.left-tab-container .right-tab-choose')[1];
+
+//获取开始结束时间
+var startDate = getPostTimeByDom('.left-tab-container .right-tab-choose')[0];
+
+var endDate =  getPostTimeByDom('.left-tab-container .right-tab-choose')[1];
+
 
 //------------------------------------定义变量-----------------------------------//
 
@@ -453,13 +503,23 @@ var option6 = {
             axisLine: {            // 坐标轴线
                 lineStyle: {       // 属性lineStyle控制线条样式
                     color: [[0.2, '#62A8DB'], [0.8, '#33E3B6'], [1, '#ffa90b']],
-                    width: 18
+                    width: 14
+                }
+            },
+            splitLine:{
+               length:14
+            },
+            axisLabel: {
+                show:true,
+                formatter: function (value) {
+                    return value.toFixed(2);
                 }
             },
             data: [{value:5}]
         }
     ]
 };
+
 
 // 指定图表的配置项和数据 用于KPI指标
 var option7 = {
@@ -541,7 +601,7 @@ var option8 = {
                 normal : {
                     color:function(params){
                         var colorList = [
-                            '#2ec8ab','#2f4554','#61a0a8','#fad797', '#2ec8ab','#2f4554','#61a0a8','#fad797', '#2ec8ab','#2f4554','#61a0a8','#fad797'
+                            '#2ec8ab','#2f4554','#61a0a8','#fad797', '#f8276c', '#0BA3C3','#ffa90b', '#0353F7', '#3C27D5','#6512D7', '#283DDA', '#901AD3','#f8276c'
                         ];
                         return colorList[params.dataIndex]
 
@@ -624,13 +684,6 @@ var pointerIdArr = getPointersId();
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
-//获取用户选择的日期类型
-var selectDateType = "Day";
-
-//获取开始结束时间
-var startDate = moment().format('YYYY-MM-DD');
-
-var endDate =  moment().add('1','days').format('YYYY-MM-DD');
 
 //------------------------------------右侧上方实时能耗数据-----------------------------------//
 
@@ -732,7 +785,7 @@ function getRealTimeData(){
             option.xAxis[0].data = xArr;
 
             //重绘chart图
-            myChart.setOption(option);
+            myChart.setOption(option,true);
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -954,6 +1007,7 @@ function getStationRankData(){
 //获取能耗分类数据
 function getTopPageEnergyData(){
 
+
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
@@ -1141,7 +1195,7 @@ function getAllEnergyItemMoney(){
         },
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
             _myChart4.hideLoading();
 
             //无数据
@@ -1163,6 +1217,12 @@ function getAllEnergyItemMoney(){
 
             $(result).each(function(i,o){
 
+                //如果是冷或者暖的数据
+                if(o.energyItemCode == 412 || o.energyItemCode == 512){
+
+                    return true;
+                }
+
                 dataArr.push(o.energyItemValue.toFixed(1));
 
 
@@ -1172,7 +1232,6 @@ function getAllEnergyItemMoney(){
                 xArr.push(_getEcName(o.energyItemCode));
             });
 
-            console.log(totalMoney);
 
             //添加总量
             dataArr.unshift(totalMoney.toFixed(1));
@@ -1330,10 +1389,12 @@ function getStationAreaRankData(){
 //获取本日单位面积KPI指标
 function getTopPageKPIData(){
 
+
     //传递给后台的数据
     var ecParams = {
         "startTime": startDate,
         "endTime": endDate,
+        "selectDateType": selectDateType,
         "pointerIDs":  pointerIdArr
     };
 
@@ -1367,11 +1428,18 @@ function getTopPageKPIData(){
             }
 
             //单位面积能耗
-            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(3);
+            option6.series[0].data[0].value = result.areaKPIData.energyNormData.toFixed(2);
 
             option6.title.text = '单位面积总标煤';
 
             option6.title.subtext = 'Kgce/㎡';
+
+
+            option6.series[0].max = result.areaKPIData.kpiConfigBad;
+
+            option6.series[0].axisLine.lineStyle.color = [
+                [result.areaKPIData.kpiConfigExcellent/result.areaKPIData.kpiConfigBad, '#62A8DB'], [result.areaKPIData.kpiConfigOrdinary/result.areaKPIData.kpiConfigBad, '#33E3B6'], [result.areaKPIData.kpiConfigWorse/result.areaKPIData.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+            ];
 
             //页面重绘数据
             _myChart6.setOption(option6,true);
@@ -1382,7 +1450,14 @@ function getTopPageKPIData(){
                 if(o.energyItemID == '01'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
+
+                    option6.series[0].max = o.kpiConfigBad.toFixed(1);
+
+                    option6.series[0].axisLine.lineStyle.color = [
+                        [o.kpiConfigExcellent/o.kpiConfigBad, '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad, '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+
+                    ];
 
                     option6.title.text = '单位面积电耗';
 
@@ -1394,11 +1469,18 @@ function getTopPageKPIData(){
                 }else if(o.energyItemID == '211'){
 
                     //单位面积能耗
-                    option6.series[0].data[0].value = o.energyNormData.toFixed(3);
+                    option6.series[0].data[0].value = o.energyNormData.toFixed(2);
 
                     option6.title.text = '单位面积水耗';
 
                     option6.title.subtext = 't/㎡';
+
+                    option6.series[0].max = o.kpiConfigBad.toFixed(3);
+
+                    option6.series[0].axisLine.lineStyle.color = [
+                        [o.kpiConfigExcellent/o.kpiConfigBad, '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad, '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+
+                    ];
 
                     //页面重绘数据
                     _myChart71.setOption(option6,true);
@@ -1409,6 +1491,13 @@ function getTopPageKPIData(){
                     option6.series[0].data[0].value = o.energyNormData.toFixed(3);
 
                     option6.title.text = '单位面积汽耗';
+
+                    option6.series[0].max = o.kpiConfigBad.toFixed(1);
+
+                    option6.series[0].axisLine.lineStyle.color = [
+                        [o.kpiConfigExcellent/o.kpiConfigBad, '#62A8DB'], [o.kpiConfigOrdinary/o.kpiConfigBad, '#33E3B6'], [o.kpiConfigWorse/o.kpiConfigBad, '#ffa90b'],[1, '#f8276c']
+
+                    ];
 
                     option6.title.subtext = 't/㎡';
 
@@ -1440,7 +1529,6 @@ function getTopPageKPIData(){
 
 //获取能耗分项数据
 function getAllEnergyItemData(){
-
 
     //传递给后台的数据
     var ecParams = {
@@ -1479,6 +1567,11 @@ function getAllEnergyItemData(){
 
             $(result).each(function(i,o){
 
+                if(o.energyItemCode == 412 || o.energyItemCode == 512 ){
+
+                    return true
+                }
+
                 var obj = {};
                 //获取能耗数据
                 obj.value = o.energyItemValue.toFixed(1);
@@ -1490,6 +1583,7 @@ function getAllEnergyItemData(){
                 //给图例中存储数据
                 legendArr.push(o.energyItemName);
             });
+
             //图例赋值
             option8.legend.data = legendArr;
             //数据赋值
@@ -1497,7 +1591,6 @@ function getAllEnergyItemData(){
 
             //页面重绘数据
             _myChart8.setOption(option8,true);
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){

@@ -1,5 +1,4 @@
 
-
 .right-bottom-container {
     background: none !important;
 
@@ -32,6 +31,7 @@
 .right-bottom-equipment .right-bottom-equipment-container{
     float:left;
     margin-bottom:15px;
+    position: relative;
 }
 .right-bottom-equipment .right-bottom-equipment-container h4{
     width:142px;
@@ -122,6 +122,7 @@
     height:216px;
     width:100%
 }
+
 /*echart中显示数据*/
 .right-bottom-equipment .bottom-content-data{
     position: absolute;
@@ -161,13 +162,24 @@
 }
 
 
+.right-bottom-equipment .bottom-equipment-chart-data .chart-fault {
+
+   background: url(../../img/guzhang.png) no-repeat 45px center !important;
+
+}
+.right-bottom-equipment .bottom-equipment-chart-data .chart-cost {
+
+    background: url(../../img/feiyong.png) no-repeat 45px center !important;
+
+}
 .right-bottom-equipment .bottom-equipment-chart-data .chart-power {
 
-   background: url(../../img/electricity.png) no-repeat 50px center;
+    background: url(../../img/electricity.png) no-repeat 50px center;
     font-size:14px;
     text-align: center;
     color:white;
 }
+
 .right-bottom-equipment .bottom-equipment-chart-data .chart-power1 {
 
     background: url(../../img/alarm.png) no-repeat 45px center;
@@ -178,7 +190,7 @@
     box-sizing: border-box;
 }
 
-/*-------------------空调机组------------------------*/
+/*-------------------组合空调------------------------*/
 /*标题*/
 .right-bottom-equipment-container{
     margin-right:20px;
@@ -222,19 +234,18 @@
 }
 
 
-/*-------------------送排风------------------------*/
+/*-------------------自动售检票------------------------*/
 
 .right-bottom-equipment-container .wind-title{
-    background: url('../../img/wind.png') no-repeat !important;
+    background: url('../../img/saleTicket.png') no-repeat !important;
 }
 
 
 /*-------------------送排风------------------------*/
 
 .right-bottom-equipment-container .water-title{
-    background: url('../../img/water.png') no-repeat !important;
+    background: url('../../img/energy.png') no-repeat !important;
 }
-
 
 /*右上角信息*/
 .right-top-message p{
@@ -262,7 +273,8 @@
     width:265px;
     float: left;
     height: 647px;
-
+    padding-top: 75px;
+    box-sizing: border-box;
 }
 
 /*累计节电量*/
@@ -345,22 +357,29 @@
 /*安全联动*/
 .right-bottom-container .right-bottom-safe{
     width:259px;
-    height:157px;
+    height:130px;
     border:1px solid #2170F4;
-    padding-top:45px;
+    /*padding-top:45px;*/
     box-sizing: border-box;
+    margin-bottom:20px;
+    background: url(../../img/anquan.png) no-repeat;
+    background-size: 100% 100%;
 }
+
 .right-bottom-container .right-bottom-safe p{
     font-size:16px;
     height:50px;
     line-height: 50px;
-    padding-left:30px;
+    padding-left:20px;
     box-sizing: border-box;
     color:white;
 }
+.right-bottom-container .right-bottom-safe .safe-day{
+    background: url("../../img/safeTime.png") no-repeat 50px 10px;
+}
 .right-bottom-container .right-bottom-safe p span{
     font-size:29px;
-    margin-left:22px;
+    margin-left:130px;
 
 }
 
@@ -376,11 +395,9 @@
     height: 286px;
 }
 .right-bottom-container .left-tab-container {
-    width: 75%;
-    height: 60px;
-    position: absolute;
-    left:140px;
-    top:-5px;
+    width: 90%;
+    height: 40px;
+
 }
 
 /*用电分项*/
@@ -412,7 +429,7 @@
 .right-bottom-content-chart .chart-name-case{
     position: absolute;
     top:0;
-    left:15%;
+    left:33%;
     display: inline-block;
     width:93px;
     height:29px;
@@ -421,4 +438,33 @@
     color:white;
     font-size: 18px;
     text-align: center;
+}
+
+/*跳转二级页面悬浮窗*/
+.jump-containers{
+    background: #8391a9;
+    position: absolute;
+    left:0px;
+    top:32px;
+    min-width: 150px;
+    min-height: 40px;
+    z-index: 100;
+    display: none;
+    padding-left:5px;
+    padding-top:5px;
+    box-sizing: border-box;
+    opacity: 0.95;
+}
+.jump-containers span{
+    margin-right:8px;
+}
+.jump-containers a{
+    color: white;
+    padding: 2px;
+    font-size:18px;
+    border-bottom: 1px solid white;
+
+}
+.jump-containers a:hover{
+    text-decoration: none;
 }

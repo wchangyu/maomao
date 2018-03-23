@@ -138,6 +138,11 @@
     margin-bottom:10px;
     display: none;
 }
+
+/*时间选框*/
+.chooseShowType{
+    float: right;
+}
 .position-center{
     padding-top:20px;
 }

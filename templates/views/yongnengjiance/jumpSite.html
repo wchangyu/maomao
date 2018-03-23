@@ -122,11 +122,12 @@
         //给日期进行加密
         var passTime = Went.utility.wCoder.wEncode(now, host+'hq');
 
+        return false;
+
         //打开的地址
         window.open(host+ "?para1="+passName+"&para2="+passWord+"&para3="+passTime+"");
 
         window.location.href = "../shouye/index.html";
-
 
     });
 </script>

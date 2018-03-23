@@ -367,7 +367,7 @@ function getPointerData(){
         success:function(result){
             myChartTopLeft.hideLoading();
 
-            console.log(result);
+            //console.log(result);
 
             //判断是否返回数据
             if(result == null || result.length == 0){
@@ -434,7 +434,7 @@ function getEmphasisBranches(flag){
         timeout:_theTimes,
         success: function (result) {
 
-            console.log(result);
+            //console.log(result);
 
             //保存重点用能支路数据
             energyNormItemArr = result;
