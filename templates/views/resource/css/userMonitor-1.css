@@ -168,7 +168,7 @@ body{
 	border:1px solid grey;
 	padding:2px;
 	background-color: #90b4e8;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 
 .content-menu-show{

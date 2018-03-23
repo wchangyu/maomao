@@ -478,18 +478,26 @@ var BEE = (function(){
                                  num2 ++;
                              }
                          });
-                         //加入待审核备件信息
-                         infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html','../gongdangunali/');
 
-                         //获取待审核备件
+                         //加入待审核备件信息
+                         if(num2 != 0){
+                             infoHtml += addInfoMessage(num2,'待审核备件','productionOrder-8.html','../gongdangunali/');
+                         }
+
+                         //获取待闭环备件
                          var num3 = 0;
                          $(data.clstatus).each(function(i,o){
                              if(o == 6){
                                  num3 ++;
                              }
                          });
+
                          //加入待闭环备件信息
-                         infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+                         if(num3 != 0){
+
+                             infoHtml += addInfoMessage(num3,'待闭环备件','productionOrder-8.html','../gongdangunali/');
+                         }
+
 
                          //给悬浮窗插入指定信息
                          $dropdownMenu.html(infoHtml);

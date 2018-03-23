@@ -1078,7 +1078,6 @@ var userMonitor = (function(){
                 });
 
             }
-
             //如果不需要重绘，跳出本次循环 进入下一个循环
             if(ifRedrawSpan == false){
 
@@ -1205,10 +1204,10 @@ var userMonitor = (function(){
                     $spanTxt.width(0);
 
                     //如果是嵌入流程图
-                }else if(curProcDef.dType == 506){
+                }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk.procLnkBase.type == 502 && curProcDef.prdProcLnk.procLnkBase.startpos != 3){
                     //console.log(curProcDef);
 
-                        id = curProcDef.prdProcLnk.destid;
+                        id = curProcDef.prdProcLnk.paras[0];
 
                         jumpPageWidth = defWidth;
 
@@ -1331,7 +1330,7 @@ var userMonitor = (function(){
                 var curProcCtrl = _.findWhere(_procCtrls,{"prDefId":_procDefs[i].prDefId});
 
                 //如果当前def存在控件或者标签的类型为166（即导航标签），则绘制
-                if((curProcCtrl && curProcDef.cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122 || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131 || curProcDef.cType == 503 || curProcDef.dType == 503
+                if((curProcCtrl && curProcDef.cType>0) || curProcDef.cType==166 || curProcDef.cType==3 || curProcDef.cType==122 || curProcDef.cType==100|| curProcDef.cType==133|| curProcDef.cType==131 || curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase.type == 502  || curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase.startpos == 3
                 ){
                     if(curPD.enableScriptResult){
 
@@ -1770,7 +1769,7 @@ var userMonitor = (function(){
     };
 
     function loadDefImg1(id,$Img){
-        console.log(id)
+        console.log(id);
 
         $Img.addClass(id + "img");
         $.ajax({
@@ -1887,37 +1886,50 @@ var userMonitor = (function(){
 
     //根据当前的def跳转到下一级的procs
     var setActionByDef = function(procDef){
+        //console.log(33);
         if(!procDef) return;
         if(_refreshAction){ clearTimeout(_refreshAction); }
-        if(procDef.cType == 166 || procDef.cType == 503 || procDef.dType == 503){       //方案跳转
+        if(procDef.cType == 166 || procDef.cType >= 500 && procDef.cType <= 600 || procDef.dType >= 500 && procDef.dType <= 600){       //方案跳转
             if(!_isViewAllProcs && _userProcIds.indexOf(procDef.ckId)<0){       //在跳转图中ckId的值就是需要跳转的procID
                 alertMessage("没有权限");
                 return;
             }
             var proc = _.findWhere(_allProcs,{"procID":procDef.ckId});
 
-            if(procDef.dType == 503){
+            //流程图内部跳转
+            if( procDef.prdProcLnk && procDef.prdProcLnk.procLnkBase.startpos == 3){
 
                 $("#content-main-right").empty();
 
-
-                initializeProcSubs(procDef.prdProcLnk.destid);
+                initializeProcSubs(procDef.prdProcLnk.paras[0]);
 
                 return false;
             }
 
+            //流程图内部跳转
+            if( procDef.prcProcLnk && procDef.prcProcLnk.procLnkBase.startpos == 3){
+
+                $("#content-main-right").empty();
+
+                initializeProcSubs(procDef.prcProcLnk.paras[0]);
+
+                return false;
+
+            }
+
             //如果新建模态框打开流程图
-            if( procDef.prProcLnk == null ||  procDef.prProcLnk.Startpos == 2 || procDef.cType == 503) {
+            if( procDef.prProcLnk == null ||  procDef.prProcLnk.Startpos == 2 || procDef.prcProcLnk&& procDef.prcProcLnk.procLnkBase.type == 502) {
 
                 //获取当前ID
                 var id = procDef.ckId;
 
-                if(procDef.cType == 503){
-                    id = procDef.prcProcLnk.destid;
+                if(procDef.prcProcLnk && procDef.prcProcLnk.procLnkBase.type == 502){
 
-                    jumpPageWidth = procDef.prcProcLnk.width;
+                    id = procDef.prcProcLnk.paras[0];
 
-                    jumpPageHeight = procDef.prcProcLnk.height;
+                    jumpPageWidth = procDef.prcProcLnk.procLnkBase.width;
+
+                    jumpPageHeight = procDef.prcProcLnk.procLnkBase.height;
                 }
 
                 //获取弹窗的页面地址
@@ -1946,6 +1958,7 @@ var userMonitor = (function(){
                 //displayAllProc();
             }
         }else{
+
             if(isHaveControl(procDef.prDefId)){
                 if(_hasControlAuth) {
                     _isOperating = true;
@@ -1956,6 +1969,7 @@ var userMonitor = (function(){
                 }
                 return;
             }
+
             if(procDef.cType == 3 || procDef.cType == 133 || procDef.cType == 131){       //AO操作
                 if(_hasControlAuth){
                     var ptNow = getMousePos();

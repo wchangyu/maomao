@@ -42,7 +42,7 @@
         "etunitZH":"立方米"
       },
       {
-        "etid": "20111",
+        "etid": "2011",
         "etname": "汽",
         "ettype" : "1400",
         "etunit": "t",
@@ -51,7 +51,7 @@
         "selectImg":"qi3.png",
         "color":"#b1cade",
         "img2":"gas.png",
-        "isShowItem":0,
+        "isShowItem":1,
         "etunitZH":"吨"
       },
       {
@@ -160,8 +160,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://localhost/BEEWebAPI/api/",
-  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefix":"http://192.168.1.108/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.108/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",

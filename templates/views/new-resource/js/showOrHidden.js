@@ -141,8 +141,8 @@ $(function(){
 
     //王常宇
     addSearchBox();
+});
 
-})
 //选中的能耗种类
 function getEcType(){
     var aaa =[];
