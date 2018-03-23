@@ -437,7 +437,23 @@
         "content":"配电系统",
         "uri":"../yongnengjiance/energyMonitor.html?arg=11",
         "uid":"",
-        "arg":"1,3101008143",
+        "arg":"2,4",
+        "iconclass":""
+      },
+      "空调历史数据":{
+        "type":"0",
+        "content":"空调历史数据",
+        "uri":"../new-nenghaoshuju/equipmentHistoryData.html?arg=2",
+        "uid":"",
+        "arg":"",
+        "iconclass":""
+      },
+      "空调实时史数据":{
+        "type":"0",
+        "content":"空调实时史数据",
+        "uri":"../new-nenghaoshuju/equipmentRealTimeData.html?arg=2",
+        "uid":"",
+        "arg":"",
         "iconclass":""
       },
       "能源站系统":{
@@ -445,7 +461,7 @@
         "content":"能源站系统",
         "uri":"../yongnengjiance/energyMonitor.html?arg=4",
         "uid":"",
-        "arg":"0,5",
+        "arg":"1,3101008142",
         "usepointer":"1",
         "iconclass":""
       },

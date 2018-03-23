@@ -44,10 +44,15 @@
     cursor: pointer;
 }
 
+.right-tab-container{
+    position: relative;
+}
+
 .right-tab-container a{
     color:white;
     padding:5px;
     text-decoration: none !important;
+
 }
 .right-tab-container a:hover{
     text-decoration: none;
@@ -170,6 +175,20 @@
     box-sizing: border-box;
     padding-right:25px;
 }
+
+.inner-left-bottom .right-bottom-centent{
+    width: 100%;
+    position: relative;
+}
+.inner-left-bottom .left-tab-container {
+    width: 80%;
+    height: 60px;
+    position: absolute;
+    left: 140px;
+    top: -5px;
+}
+
+
 /*选项卡*/
 .left-tab-container{
     width:100%;
@@ -180,12 +199,25 @@
 .left-tab-container .left-tab-data-container{
     color:white;
     position: absolute;
-    top:-25px;
+    top:-10px;
     left:15px;
 }
 
+.right-bottom-centent .right-bottom-centent-title {
+    margin: 0;
+    height: 25px;
+    font-size: 26px;
+    color: white;
+    /* margin-bottom: 20px; */
+}
+.right-bottom-centent-title a {
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+
 .left-tab-container .left-tab-data-container .left-tab-data{
-    font-size:18px;
+    font-size:24px;
     margin-right:15px;
     position: relative;
 }
@@ -198,7 +230,7 @@
 
 
 .left-tab-container .left-tab-data-container .left-tab-data font{
-    font-size:44px;
+    font-size:28px;
 }
 
 .left-tab-container .left-tab-data-container .left-tab-data1 font{
@@ -664,6 +696,83 @@
 /*隐藏datatables中每页展示条数的选择框*/
 .dataTables_length{
     display: none !important;
+}
+
+/*选择系统的悬浮窗*/
+.jump-container{
+    background: url('../img/tanchu.png') no-repeat;
+    background-position: 100%;
+    width:283px;
+    height:38px;
+    position: absolute;
+    left:72px;
+    top:37px;
+    min-width: 150px;
+    min-height: 40px;
+    z-index: 100;
+    display: none;
+    padding-left:35px;
+    padding-top:5px;
+    box-sizing: border-box;
+
+}
+.jump-container span{
+    margin-right:8px;
+}
+.jump-container a{
+    color: white;
+    padding: 2px;
+    font-size:18px;
+   border-bottom: 1px solid white;
+
+}
+
+.jump-container1{
+
+    position: absolute;
+    left:384px;
+    top:36px;
+}
+
+.jump-container1 span{
+    margin-right:28px;
+}
+
+.jump-container2{
+
+    position: absolute;
+    left:592px;
+    top:36px;
+}
+
+.jump-container2 span{
+    margin-right:28px;
+}
+
+/*能耗页面中 能耗分类与kpi指标中的日月年*/
+.choose-time-container{
+    position:absolute;
+    left:380px;
+    top:5px;
+}
+
+.choose-time-container .right-tab {
+    font-size: 18px;
+    margin-right: 10px;
+    color: black;
+    cursor: pointer;
+}
+
+.choose-time-container .small-times {
+    font-size: 16px;
+}
+
+.choose-time-container .right-tab-choose {
+    color: #F8276C;
+}
+
+.content-main-middle-left{
+    position: relative;
 }
 
 
