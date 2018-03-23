@@ -25,6 +25,31 @@
       }
     }
   },
+  "暖通空调": {
+    "type": "1",
+    "content": "暖通空调",
+    "iconclass": "icon-camcorder",
+    "icon-img": "01.png",
+    "icon-hover": "01dian.png",
+    "submenu": {
+      "实时数据": {
+        "type": "0",
+        "content": "实时数据",
+        "uri": "../HAVC/monitor.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "历史数据": {
+        "type": "0",
+        "content": "历史数据",
+        "uri": "../HAVC/history.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      }
+    }
+  },
   "环境监测": {
     "type": "1",
     "content": "环境监测",
@@ -154,7 +179,7 @@
         "iconclass": "icon-credit-card"
       }
     }
-  }, 
+  },
   "设备监控": {
     "type": "1",
     "content": "设备监控",
