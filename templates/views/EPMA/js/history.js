@@ -283,10 +283,6 @@
         $("#btnSel").on("click", function () {
             var obj = $(this);
             var ofst = $(this).offset();
-            //$("#treeCNT").
-            // css({ left: ofst.left + "px",
-            // top: ofst.top + obj.outerHeight() + "px" })
-            // .slideDown("fast");
             var ofstLeft = ofst.left - 240;
             var ofstTop = ofst.top - 90;
             $("#treeCNT")
