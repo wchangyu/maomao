@@ -155,8 +155,21 @@ $(function(){
                 }
             },
             {
-                title:'创建时间',
-                data:'createTime'
+                title:'创建日期',
+                data:'createTime',
+                render:function(data, type, full, meta){
+
+                    if(data == ''){
+
+                        return ''
+
+                    }else{
+
+                        return data.split(' ')[0]
+
+                    }
+
+                }
             },
             {
                 title:'操作人',

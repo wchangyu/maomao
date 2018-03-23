@@ -771,6 +771,19 @@ $(function(){
     //确认关单
     $('#confirm-Modal').on('click','.closeGD1',function(){
 
+        $('#theLoading').modal('show');
+
+        //维修材料
+        addCL();
+
+        //执行人
+        addWorks();
+
+        //关闭申请
+        closingApplication();
+
+        return false;
+
         if( $('#receiver').val() == '' ){
 
             _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请选择验收人！', '');
@@ -779,16 +792,7 @@ $(function(){
 
         }else{
 
-            $('#theLoading').modal('show');
 
-            //维修材料
-            addCL();
-
-            //执行人
-            addWorks();
-
-            //关闭申请
-            closingApplication();
 
         }
 
@@ -1135,7 +1139,7 @@ $(function(){
             className:'gdCode',
             render:function(data, type, full, meta){
                 return '<span data-zht="' + full.gdZht +
-                    '" data-circle="' + full.gdCircle +
+                    '"data-gdCircle="' + full.gdCircle +
                     '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
                     '"target="_blank">' + data + '</a>' +
                     '</span>'
@@ -1162,7 +1166,8 @@ $(function(){
         },
         {
             title:'维修事项',
-            data:'wxXm'
+            data:'wxXm',
+            className:'WXSX'
         },
         {
             title:'故障描述',
@@ -1181,6 +1186,11 @@ $(function(){
             data:'paiGongShij'
         },
         {
+            title:'维修科室',
+            data:'wxKeshi',
+            className:'WXBZ'
+        },
+        {
             title:'报修科室',
             data:'bxKeshi'
         },
@@ -1195,11 +1205,76 @@ $(function(){
         {
             title:'操作',
             data:null,
-            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>"
+            defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>" +
+            "<span class='data-option option-callback btn default btn-xs green-stripe'>回退</span>" +
+            "<span class='data-option option-cancel btn default btn-xs green-stripe'>取消</span>"
         }
     ];
 
     _tableInit($('#waiting-list'),waitingListCol,'2','','','');
+
+    //等待资源
+    var waitingMaterial = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '"data-gdCircle="' + full.gdCircle +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm',
+            className:'WXSX'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        {
+            title:'接单时间',
+            data:'paiGongShij'
+        },
+        {
+            title:'维修科室',
+            data:'wxKeshi',
+            className:'WXBZ'
+        },
+        {
+            title:'等待原因',
+            data:'dengyy'
+        },
+        {
+            title:'预计完成时间',
+            data:'yjShij'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看记录</span>" +
+            "<span class='data-option option-callback btn default btn-xs green-stripe'>回退</span>" +
+            "<span class='data-option option-cancel btn default btn-xs green-stripe'>取消</span>"
+        }
+    ]
+
+    _tableInit($('#waiting-material'),waitingMaterial,'2','','','');
 
     var daiWaitingListCol = [
         {
@@ -1273,6 +1348,7 @@ $(function(){
             title:'操作',
             data:null,
             defaultContent: "<span class='data-option option-close btn default btn-xs green-stripe'>申请关单</span>"
+
         }
     ];
 
@@ -2064,33 +2140,35 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('hide');
-
-                $('#theLoading').modal('show');
-            },
-
-            complete: function () {
-
-                $('#theLoading').modal('hide');
-
-                if($('.modal-backdrop').length > 0){
-
-                    $('div').remove('.modal-backdrop');
-
-                    $('#theLoading').hide();
-                }
-
-            },
+            //beforeSend: function () {
+            //    $('#theLoading').modal('hide');
+            //
+            //    $('#theLoading').modal('show');
+            //},
+            //
+            //complete: function () {
+            //
+            //    $('#theLoading').modal('hide');
+            //
+            //    if($('.modal-backdrop').length > 0){
+            //
+            //        $('div').remove('.modal-backdrop');
+            //
+            //        $('#theLoading').hide();
+            //    }
+            //
+            //},
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht=[],my=[],other=[];
+                var zht=[],zht5=[],my=[],other=[];
 
                 for(var i=0;i<result.length;i++){
+
                     if(result[i].gdZht == 4){
 
                         var reg = ',' + _userIdNum + ',';
+
                         if(result[i].wxUserIDs.indexOf(reg)>=0){
 
                             my.push(result[i]);
@@ -2101,19 +2179,25 @@ $(function(){
 
                         }
 
+                    }else if(result[i].gdZht == 5){
+
+                        zht5.push(result[i]);
+
                     }else{
 
                         zht.push(result[i]);
 
                     }
                 }
+
                 //执行中
                 _datasTable($('#waiting-list'),my);
                 //待执行中
-                console.log(other);
                 _datasTable($('#dai-waiting-list'),other);
                 //历史
                 _datasTable($('#in-execution'),zht);
+                //等待资源
+                _datasTable($('#waiting-material'),zht5);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseText);
@@ -2494,7 +2578,11 @@ $(function(){
                 }
                 if( _gbIsSuccess == 'true'){
 
-                    str += '申请关单成功！'
+                    str += '申请关单成功！';
+
+                    //BEE.init(false,true);
+
+                    BEE.modificationImportInfo();
 
                 }else if( _gbIsSuccess == 'false' ){
 
@@ -2961,4 +3049,401 @@ $(function(){
     $('#choose-people-table_length').hide();
     $('#choose-department-table_length').hide();
     $('#choose-worker-table_length').hide();
+
+    //记录当前回退工单的状态
+    var _thisStateNum = '';
+
+    var _thisState = '';
+
+    //记录当前回退工单的工单号
+    var _thisCodeNum = '';
+
+    //记录当前工单维修事项
+    var _thisWXSX = '';
+
+    //记录当前工单维修班组
+    var _thisWXBZ = '';
+
+    //当前工单重发值
+    var _thisCFZ = '';
+
+    //当前负责人数组
+    var _fuZeRen = [];
+
+    //当前执行人数组
+    var _zhixingRens = [];
+
+    //删除负责人是否成功
+    var delFzrIsSuccess = false;
+
+    //删除执行人是否成功
+    var delZxrIsSuccess = false;
+
+    //工单回退功能
+    $('.table').on('click','.option-callback',function(){
+
+        //样式
+        $(this).parents('tbody').find('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //初始化
+        $('#Fallback-Modal').find('.modal-body').find('input').val('');
+
+        $('#Fallback-Modal').find('.modal-body').find('textarea').val('');
+
+        //首先判断是是能回退
+
+        _thisStateNum = $(this).parents('tr').find('.gdCode').children().attr('data-zht');
+
+        _thisState = GDDes(_thisStateNum);
+
+        _thisCodeNum = $(this).parents('tr').find('.gdCode').find('a').html();
+
+        _thisWXSX = $(this).parents('tr').children('.WXSX').html();
+
+        _thisWXBZ = $(this).parents('tr').children('.WXBZ').html();
+
+        _thisCFZ = $(this).parents('tr').find('.gdCode').children().attr('data-gdcircle');
+
+        $('#gdCode1').val(_thisCodeNum);
+
+        $('#gdStatus1').val(_thisState);
+
+        $('#gdWxItem1').val(_thisWXSX);
+
+        $('#gdWxClass1').val(_thisWXBZ);
+
+        _moTaiKuang($('#Fallback-Modal'), '您确定要进行回退操作吗？', '', '' ,'', '确定');
+
+        //调详情
+        var prm = {
+            //工单号
+            gdCode:_thisCodeNum,
+            //用户id
+            userID:_userIdNum,
+            //用户名
+            userName:_userIdName,
+            //所属部门
+            b_UserRole:_userBM,
+            //重发值
+            gdCircle:_thisCFZ,
+            //状态
+            gdZht:_thisStateNum
+
+        }
+
+        $.ajax({
+
+            type:'post',
+            url:_urls + 'YWGD/ywGDGetDetail',
+            data:prm,
+            success:function(result){
+
+                _fuZeRen = result.gdWxLeaders;
+
+                _zhixingRens = result.wxRens;
+
+            },
+            error:function(){
+
+            }
+
+        })
+
+    })
+
+    //回退确定功能
+    $('#Fallback-Modal').on('click','.btn-primary',function(){
+
+        var htState = 0;
+
+        if(_thisStateNum == 2){
+
+            htState = 1;//回退工长和状态
+
+        }else if( _thisStateNum == 4 || _thisStateNum == 5 ){
+
+            htState = 2;//回退执行人、状态、材料
+
+        }
+
+        var gdInfo = {
+
+            "gdCode": _thisCodeNum,
+
+            "gdZht": htState,
+
+            "userID": _userIdNum,
+
+            'userName':_userIdName,
+
+            'backReason':$('#returnDes').val()
+        }
+
+        $.ajax({
+            type:'post',
+            url:_urls + 'YWGD/ywGDUptZht',
+            data:gdInfo,
+            success:function(result){
+
+                if(result == 99){
+
+                    if(htState == 1){
+                        //删除该工单负责人
+                        if(_fuZeRen.length>0){
+
+                            manager('YWGD/ywGDDelWxLeader','flag');
+
+                        }
+                    }else if(htState == 2){
+                        //删除该工单的执行人
+                        if(_zhixingRens.length>0){
+
+                            Worker('YWGD/ywGDDelWxR','flag');
+
+                        }
+
+                    }
+
+                }else{
+                    var str = '退回失败！';
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+
+            }
+        })
+
+    })
+
+    //工单状态
+    function GDDes(data){
+
+        if(data == 1){
+            return '待下发'
+        }if(data == 2){
+            return '待分派'
+        }if(data == 3){
+            return '待执行'
+        }if(data == 4){
+            return '执行中'
+        }if(data == 5){
+            return '等待资源'
+        }if(data == 6){
+            return '待关单'
+        }if(data == 7){
+            return '任务关闭'
+        }if(data == 999){
+            return '任务取消'
+        }if(data == 11){
+            return '申诉'
+        }
+
+    }
+
+    //删除责任人
+    function manager(url,flag){
+        var fzrArrr = [];
+        for(var i=0;i<_fuZeRen.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxrID = _fuZeRen[i].wxrID;
+            }
+            obj.wxRen = _fuZeRen[i].wxRen;
+            obj.wxRName = _fuZeRen[i].wxRName;
+            obj.wxRDh = _fuZeRen[i].wxRDh;
+            obj.gdCode = _gdCode;
+            fzrArrr.push(obj);
+        }
+        var gdWR = {
+            gdCode:_thisCodeNum,
+            gdWxRs:fzrArrr,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWR,
+            async:false,
+            success:function(result){
+
+                if(result == 99){
+
+                    delFzrIsSuccess = true;
+
+                }else{
+
+                    delFzrIsSuccess = false;
+
+                }
+
+                if( delFzrIsSuccess ){
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'回退成功！', '');
+
+                    $('#Fallback-Modal').modal('hide');
+
+                    conditionSelect();
+
+                }else{
+
+                    var str = '工长删除失败,退回成功！';
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
+
+    //删除执行人方法
+    function Worker(url,flag){
+        var workerArr = [];
+        for(var i=0; i<_zhixingRens.length;i++){
+            var obj = {};
+            if(flag){
+                obj.wxrID = _zhixingRens[i].wxrID;
+            }
+            obj.wxRen = _zhixingRens[i].wxRen;
+            obj.wxRName = _zhixingRens[i].wxRName;
+            obj.wxRDh = _zhixingRens[i].wxRDh;
+            obj.gdCode = _gdCode;
+            workerArr.push(obj);
+        }
+        var gdWR = {
+            gdCode :_gdCode,
+            gdWxRs:workerArr,
+            userID:_userIdNum,
+            userName:_userIdName
+        }
+        $.ajax({
+            type:'post',
+            url:_urls + url,
+            data:gdWR,
+            success:function(result){
+
+                if(result == 99){
+
+                    delZxrIsSuccess = true;
+
+                }else{
+
+                    delZxrIsSuccess = false;
+
+                }
+
+                if( delZxrIsSuccess ){
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'回退成功！', '');
+
+                    $('#Fallback-Modal').modal('hide');
+
+                    conditionSelect();
+
+                }else{
+
+                    var str = '执行人删除失败,退回成功！';
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,str, '');
+
+                }
+
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+
+                console.log(jqXHR.responseText);
+            }
+        });
+    }
+
+    //取消
+    $('.table').on('click','.option-cancel',function(){
+
+        //样式
+        $(this).parents('tbody').find('tr').removeClass('tables-hover');
+
+        $(this).parents('tr').addClass('tables-hover');
+
+        //初始化
+        $('#Cancel-Modal').find('.modal-body').find('input').val('');
+
+        $('#Cancel-Modal').find('.modal-body').find('textarea').val('');
+
+        //首先判断是是能回退
+
+        _thisStateNum = $(this).parents('tr').find('.gdCode').children().attr('data-zht');
+
+        _thisState = GDDes(_thisStateNum);
+
+        _thisCodeNum = $(this).parents('tr').find('.gdCode').find('a').html();
+
+        _thisWXSX = $(this).parents('tr').children('.WXSX').html();
+
+        _thisWXBZ = $(this).parents('tr').children('.WXBZ').html();
+
+        _thisCFZ = $(this).parents('tr').find('.gdCode').children().attr('data-gdcircle');
+
+        $('#gdCode2').val(_thisCodeNum);
+
+        $('#gdStatus2').val(_thisState);
+
+        $('#gdWxItem2').val(_thisWXSX);
+
+        $('#gdWxClass2').val(_thisWXBZ);
+
+        _moTaiKuang($('#Cancel-Modal'), '您确定要进行取消操作吗？', '', '' ,'', '确定');
+
+    })
+
+    //取消确定按钮
+    $('#Cancel-Modal').on('click','.btn-primary',function(){
+
+        var gdInfo = {
+            //工单号
+            "gdCode": _thisCodeNum,
+
+            "userID": _userIdNum,
+
+            'userName':_userIdName,
+
+            "delReason":$('#cancelDes').val()
+        }
+
+        $.ajax({
+            type:'post',
+            url: _urls + 'YWGD/ywGDDel',
+            data:gdInfo,
+            success:function(result){
+                if(result == 99){
+
+                    conditionSelect();
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'工单取消成功！', '');
+
+                    $('#Cancel-Modal').hide();
+
+                }else{
+
+                    _moTaiKuang($('#myModal3'), '提示', 'flag', 'istap' ,'工单取消失败！', '');
+
+                }
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+            }
+        })
+
+    })
+
 })

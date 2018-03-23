@@ -34,7 +34,9 @@ $(function(){
             //描述
             'miaoshu':'',
             //备注
-            'beizhu':''
+            'beizhu':'',
+            //品牌
+            'brand':''
         },
         methods:{
             'radios':function(){
@@ -303,24 +305,42 @@ $(function(){
 
                 //获取填写数据
                 var prm ={
-                    'ItemNum':myApp33.bianhao,
-                    'ItemName':myApp33.mingcheng,
-                    'MinNum':myApp33.xiaxian,
-                    'MaxNum':myApp33.shangxian,
-                    'UnitName':myApp33.danwei,
+                    //分类编码
                     'CateNum':myApp33.flbianma,
+                    //分类名称
                     'CateName':myApp33.flmingcheng,
-                    'Size':myApp33.guige,
-                    'Color':myApp33.yanse,
-                    'Description':myApp33.miaoshu,
-                    'CusName':myApp33.gonghuoshang,
-                    'remark':myApp33.beizhu,
-                    userID:_userIdNum,
-                    userName:_userIdName,
-                    b_UserRole:_userRole,
+                    //物品编码
+                    'ItemNum':myApp33.bianhao,
+                    //物品名称
+                    'ItemName':myApp33.mingcheng,
+                    //预警下限
+                    'MinNum':myApp33.xiaxian,
+                    //预警上线
+                    'MaxNum':myApp33.shangxian,
+                    //单位
+                    'UnitName':myApp33.danwei,
+                    //是否耐用
                     'isSpare':myApp33.picked,
                     //是否为返修件
-                    'isFX':myApp33.isfix
+                    'isFX':myApp33.isfix,
+                    //规格
+                    'Size':myApp33.guige,
+                    //颜色
+                    'Color':myApp33.yanse,
+                    //主要供货商
+                    'CusName':myApp33.gonghuoshang,
+                    //描述
+                    'Description':myApp33.miaoshu,
+                    //备注
+                    'remark':myApp33.beizhu,
+                    //登录id
+                    userID:_userIdNum,
+                    //登录名
+                    userName:_userIdName,
+                    //角色
+                    b_UserRole:_userRole,
+                    //品牌
+                    'brand':myApp33.brand
                 }
                 $.ajax({
                     type:'post',
@@ -905,6 +925,8 @@ $(function(){
         myApp33.miaoshu = '';
         //备注
         myApp33.beizhu = '';
+        //品牌
+        myApp33.brand = '';
         //单选框
         //是否耐用
         $('.inpus').parent().removeClass('checked');

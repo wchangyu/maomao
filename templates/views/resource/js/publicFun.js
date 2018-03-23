@@ -839,6 +839,17 @@ function _uniqueArr(maxArr,minArr,attr){
 
 }
 
+//格式化数字，排除infinity NaN 其他格式
+function _formatNumber(num){
+    if(num===Infinity){
+        return 0.00;
+    }
+    if(+num===num){
+        return num.toFixed(2);
+    }
+    return 0.00;
+}
+
 //所有表格的点击翻页之后，全选按钮不显示
 //$('#myModal1').find('.gongdanContent').on('click',function(e){
 //

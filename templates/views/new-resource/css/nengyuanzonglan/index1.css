@@ -15,6 +15,18 @@ p{
 
 .left-middle-header {
     background: none !important;
+
+    font-size: 18px;
+
+    color: #2B2B2B;
+
+    font-family: MicrosoftYaHei;
+
+    font-weight: normal;
+
+    padding: 10px 0;
+
+    height: auto;
 }
 
 .top-system-message ul .date{
@@ -54,7 +66,12 @@ p{
     }
 }
 
+/*医院统计*/
+.inside-data .data{
 
+    font-size: 16px !important;
+
+}
 /*温度*/
 .top-system-message .temperature{
     width:87px;
@@ -116,20 +133,12 @@ p{
 .content-main-left {
     border: none;
     position: relative;
+
+
 }
 
 .content-main-left .content-main {
     background: none;
-}
-
-/*医院统计*/
-.left-middle-header{
-
-    background: none;
-    color:#000;
-    font-size:20px;
-    font-weight: 600;
-    text-indent: 0px;
 }
 
 /*总面积*/
@@ -139,7 +148,7 @@ p{
     color:white !important;
     float:left;
     background: url('../../img/fangzi.png') no-repeat 89% 89%;
-    background-color: #62A8DB;
+    background-color: rgba(98,168,219,1);
     background-size: 30% 30% !important;
     overflow: hidden;
 }
@@ -155,14 +164,14 @@ p{
 .inside-data2{
 
     background: url('../../img/chuang.png') no-repeat 89% 89%;
-    background-color: #F08348;
+    background-color: rgba(243,130,115,1);
     background-size: 30% 30% !important;
     overflow: hidden;
 }
 
 .inside-data p{
     color:white !important;
-    padding-left:5px !important;
+    padding-left:10px !important;
     font-size:14px;
 }
 
@@ -170,8 +179,7 @@ p{
 .left-energy-statistics .energy-data{
     width:100%;
     height:250px;
-    background: #62A8DB;
-    color:white;
+    color:#959595;
     padding:8px;
     box-sizing: border-box;
 }
@@ -182,13 +190,13 @@ p{
 
 .left-energy-statistics .energy-data .specific-data{
     width:50%;
-    height:60px;
     text-align: center;
     float: left;
     overflow: hidden;
 }
 .left-energy-statistics .energy-data .specific-data .the-data{
     /*font-size:24px;*/
+    font-weight: bold;
     font-size: 2.4rem;
 }
 .left-energy-statistics .energy-data .specific-data .unit{
@@ -251,7 +259,7 @@ p{
     border-bottom: none;
     font-weight: 700;
     margin-bottom: 5px;
-    font-size: 20px;
+    font-size: 18px;
     position: relative;
     padding-left:15px;
     box-sizing: border-box;
@@ -262,17 +270,17 @@ p{
     border: none;
     float: left;
     padding: 0;
-    background: #FBFBFB;
+    background: #FFFFFF;
 }
 
 h3 .left-patch{
     display: inline-block;
-    width:9px;
-    height:22px;
+    width:6px;
+    height:18px;
     background: #1d3b61;
     position: absolute;
     left:0;
-    top:5px;
+    top:8px;
 }
 
 .onClicks {
@@ -308,12 +316,15 @@ h3 .left-patch{
 
 /*报警数据*/
 .content-main-top-right {
-    height: 303px !important;
+    height: 321px !important;
+    padding: 15px;
+    background: #ffffff;
+    margin-top: 15px;
 }
 .content-main-top-right .new-alarm{
-    text-align: left !important;
-    background: #FBFBFB;
-    margin-bottom:30px !important;
+    padding: 14px 0;
+
+    border-bottom: 1px solid #DCDCDC;
 }
 
 .new-alarm span{
@@ -323,27 +334,31 @@ h3 .left-patch{
 /*分类能耗*/
 .fenleinenghao{
     width:33%;
-    padding:10px;
-    background: #DEEFFE !important;
+    padding:0 10px;
+    margin-top: 10px!important;
     box-sizing: border-box;
     float: left;
-    height: 180px;
+    height: 120px;
     border: none;
+    border-right: 1px solid #DCDCDC;
 }
-.fenleinenghao1{
 
-    background: #FBFBFB !important;
+.fenleinenghao:nth-last-child(2){
+
+    border: none;
+
 }
 
 .fenleinenghao .title{
     font-size:14px;
     margin-bottom:10px !important;
+    color: #959595;
 }
 
 .fenleinenghao .data{
-    font-size:20px;
-    font-weight: 600;
+    font-size:26px;
     text-align: center;
+    color: #2B2B2B;
 
 }
 .fenleinenghao .child{
@@ -389,8 +404,8 @@ h3 .left-patch{
 /*能耗排名*/
 .header-right-btn{
     position: absolute;
-    left: 30% !important;
-    top: 10px !important;
+    left: 22% !important;
+    top: 20px !important;
 }
 
 .header-right-btn .cur-on-choose {
@@ -398,3 +413,314 @@ h3 .left-patch{
     color: #F2285C;
 }
 
+/*左padding没有*/
+.noLeftPadding{
+
+    padding-left: 0;
+
+}
+.noRightPadding{
+
+    padding-right: 0;
+
+}
+
+.shadowEffect{
+
+    box-shadow: 10px 10px 10px #eceff1;
+
+    -moz-box-shadow:10px 10px 10px #eceff1;
+
+    -webkit-box-shadow: 10px 10px 10px #eceff1;
+
+    border-radius: 4px !important;
+
+}
+.carousel-caption{
+
+    font-size: 16px;
+
+    color: #2B2B2B;
+
+    font-family: Microsoft YaHei;
+
+    text-shadow:none;
+
+    width: auto !important;
+
+    position: relative;
+
+    left: 0;
+
+    padding: 20px;
+
+    background: rgb(249,249,249);
+}
+
+#myCarousel{
+
+    background: rgb(249,249,249);
+
+    box-shadow:1px 3px 3px rgba(43,75,99,0.14);
+
+}
+
+.energyElectric{
+
+    color: #69E3C3;
+}
+.energyWater{
+
+    color: #62A8DB;
+    
+}
+
+.the-data span{
+
+    font-size: 12px !important;
+
+    color: #959595 !important;
+
+    margin-left: 5px;
+
+    font-weight: normal;
+
+}
+.left-middle-main1{
+
+    height: auto;
+
+}
+.top-cut li:nth-child(1),.top-cut1 li:nth-child(1){
+
+    border-radius: 4px  0px   0px  4px !important;
+
+    background: #ffffff;
+
+}
+.top-cut li:nth-last-child(2),.top-cut1 li:nth-last-child(1){
+
+    border-radius: 0px  4px   4px  0px !important;
+
+}
+
+.top-cut li,.top-cut1 li{
+
+    border: 1px solid #C0CAD6;
+
+}
+.top-cut1 li{
+    float: left;
+    font-size: 16px;
+    width: 33px;
+    height: 26px;
+    background: #C0CAD6;
+    text-align: center;
+    margin-left: 0;
+}
+.top-cut li a{
+
+    color: #ffffff;
+
+}
+.alarmChildren{
+
+    width: 50%;
+
+    float: left;
+
+}
+.alarmType{
+
+    font-size: 14px;
+
+    color: #959595;
+
+}
+.alarmIcon{
+
+    width: 143px;
+
+    height: 35px;
+
+    background: green;
+
+}
+.alarmNum{
+
+    font-size: 32px;
+
+    height: 55px;
+
+    color: #4C4C4C;
+
+    line-height: 55px;
+
+    text-align: right;
+
+    margin-right: 50px;
+
+}
+.alarmTip{
+
+    /*width: 50px;*/
+
+    height: 55px;
+
+    background: yellow;
+
+    float: right;
+}
+.real-time-energy{
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    margin-top: 15px;
+
+}
+.content-main-middle-left{
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    margin-top: 15px;
+
+}
+.content-main-middle-center{
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #ffffff;
+
+}
+.content-main-bototm-left{
+
+    background: #ffffff;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+}
+
+.content-main-bottom-center{
+
+    background: #ffffff;
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+}
+.child p{
+
+    font-size: 12px;
+
+    color: #000000;
+
+    font-weight: normal;
+
+}
+.child p span{
+
+    margin-left: 5px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+}
+.page-bar{
+
+    background: #E2E9F2;
+
+}
+.header-right-btn span{
+
+    border: 1px solid #C0CAD6;
+
+    margin-right: 0!important;
+
+    display: block;
+
+    float: left;
+
+    border-radius: 0 !important;
+
+    height: 26px;
+
+    font-size: 16px;
+
+    font-family: "Micorsoft Yahei";
+
+    background: #C0CAD6;
+
+    color: #ffffff;
+
+}
+
+.header-right-btn span:nth-child(1){
+
+    border-radius: 4px  0px   0px  4px !important;
+
+}
+.header-right-btn span:nth-last-child(1){
+
+    border-radius: 0px  4px   4px  0px !important;
+
+}
+.carousel-indicators li{
+
+    width:16px;
+    height:6px;
+    background:none;
+    border-radius: 2px !important;
+    border: 1px solid #62A8DB;
+
+}
+.carousel-indicators .active{
+
+    width:16px;
+    height:6px;
+    background:rgba(98,168,219,1);
+    border-radius: 2px !important;
+    border: 1px solid #62A8DB;
+    margin: 1px;
+}
+.carousel-indicators{
+
+    left: 70%;
+    text-indent: 100px;
+
+}
+.new-alarm:nth-child(1) .alarmIcon{
+
+    background: url("../../../resource/img/newAlarm.png") no-repeat 0 10px;
+
+}
+.new-alarm:nth-child(2) .alarmIcon{
+
+    background: url("../../../resource/img/UntreatedAlarm.png") no-repeat 0 10px;
+
+}
+.new-alarm:nth-child(3) .alarmIcon{
+
+    background: url("../../../resource/img/treatedAlarm.png") no-repeat 0 10px;
+
+
+}
+.new-alarm:nth-child(3){
+
+    border-bottom: none;
+
+}
+.energy-data>div{
+
+    line-height: 40px;
+
+}

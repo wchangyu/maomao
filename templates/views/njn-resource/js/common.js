@@ -115,7 +115,10 @@ $(function(){
     $('.inner-right-container').append($button);
 
 
+    $('.right-info-header-logo').on('click',function(){
 
+        window.location.href = "../passengerStation/passengerStation.html";
+    });
 });
 
 //定义送排风 给排水弹出页面的宽高

@@ -31,11 +31,11 @@ var stationHtml = '<div class="add-input-father" style="margin-left:10px">' +
     '                <li index="4" method="liHotTab" onclick="" id="nav_list4" class="">KLMNO</li>' +
     '                <li index="5" method="liHotTab" onclick="" id="nav_list5" class="">PQRST</li>' +
     '                <li index="6" method="liHotTab" onclick="" id="nav_list6" class="">UVWXYZ</li>' +
-    '            </ul>' +
-    '            <div id="ul_list2" style="height: 270px; display: block;overflow-y: auto"></div>' +
-    '        </div>' +
-    '    </div>' +
-    '</div>';
+'            </ul>' +
+'            <div id="ul_list2" style="height: 270px; display: block;overflow-y: auto"></div>' +
+'        </div>' +
+'    </div>' +
+'</div>';
 
 function addStationDom(dom){
 
@@ -43,8 +43,6 @@ function addStationDom(dom){
     dom.hide();
 
     $('.add-input-block').on('click',function(){
-
-        console.log(11111111);
 
         $('.add-select-block').toggle();
     });

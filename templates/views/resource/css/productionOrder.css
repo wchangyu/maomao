@@ -687,6 +687,7 @@ textarea{
     width:200px;
     display: inline-block;
     vertical-align: middle;
+    position: relative;
 }
 .single-block input{
     width: 100%;
@@ -792,5 +793,44 @@ textarea{
     color: #428bca;
 
     cursor: pointer;
+
+}
+.fuzzy-search{
+
+    border: 1px solid #cccccc;
+
+    position: absolute;
+
+    max-height: 272px;
+
+    z-index: 1;
+
+    overflow-y: auto;
+
+    left: -1px;
+
+    top: 30px;
+
+    background: #ffffff;
+
+}
+.fuzzy-search li{
+
+    line-height: 30px;
+
+    text-indent: 10px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+.fuzzy-search li span{
+
+    margin-right: 5px;
 
 }

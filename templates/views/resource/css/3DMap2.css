@@ -7,59 +7,69 @@ html {
 }
 .page-content{
     min-width:980px!important;
+    background: #f9f9f9;
 }
 
 /*标题*/
 .left-main-content h2{
     font-weight:500;
-    font-size:3rem;
+    font-size:30px;
     text-align: center;
-    max-width: 640px;
+    /*max-width: 640px;*/
 }
 
 .left-main-content h2 span{
     font-size:1.7rem;
 }
 .left-main-content .synopsis{
-   margin-bottom:20px !important;
-    max-width: 620px !important;
+   margin-bottom:0px !important;
+    /*max-width: 620px !important;*/
     min-height:485px;
     font-size:14px;
+    /*line-height: 28px;*/
+}
+
+.synopsis img{
+
+    width: 385px;
+
+    padding-right: 15px;
+
 }
 
 /*下方三个按钮*/
 .bottom-icon-contain{
     height:90px;
     border-radius: 4px !important;
-    background: url('../../new-resource/img/01.png') no-repeat 15% center;
+    background: url('../../new-resource/img/nengyuan.png') no-repeat 15% center;
     background-color: #62A8DB;
-    background-size: 26%;
+    background-size: 23%;
     cursor: pointer;
     text-align: right;
-    padding-top:10%;
+    padding-top:15px;
     box-sizing: border-box;
     color:white;
 }
 
 .bottom-icon-contain1{
 
-    background: url('../../new-resource/img/02.png') no-repeat 15% center;
+    background: url('../../new-resource/img/shebui.png') no-repeat 15% center;
     background-color: #35DAAF;
-    background-size: 26%;
+    background-size: 20%;
 
 }
 
 .bottom-icon-contain2{
-    background: url('../../new-resource/img/$R8V16JB.png') no-repeat 15% center;
+    background: url('../../new-resource/img/houqin.png') no-repeat 15% center;
     background-color: #F08348;
-    background-size: 24%;
+    background-size: 20%;
 }
 
 .bottom-icon-contain .title{
    padding-left:46%;
     box-sizing: border-box;
-    font-size:20px;
-    margin-bottom:5px !important;
+    font-size:22px;
+    margin-bottom:10px !important;
     text-align: left;
 
 }
@@ -70,7 +80,8 @@ html {
     text-align: left;
 }
 .bottom-jump-icon{
-    max-width: 680px !important;
+
+    margin: 21px 0;
 }
 
 @media (max-width: 1366px){
@@ -80,12 +91,16 @@ html {
         font-size:12px;
     }
 
+    .left-main-content h2{
+
+        font-size:26px;
+    }
 
     /*下方三个按钮*/
     .bottom-icon-contain{
         height:78px;
         border-radius: 4px !important;
-        background: url('../../new-resource/img/01.png') no-repeat 15% center;
+        background: url('../../new-resource/img/nengyuan.png') no-repeat 15% center;
         background-color: #62A8DB;
         background-size: 26%;
         cursor: pointer;
@@ -97,14 +112,14 @@ html {
 
     .bottom-icon-contain1{
 
-        background: url('../../new-resource/img/02.png') no-repeat 15% center;
+        background: url('../../new-resource/img/shebui.png') no-repeat 15% center;
         background-color: #35DAAF;
         background-size: 26%;
 
     }
 
     .bottom-icon-contain2{
-        background: url('../../new-resource/img/$R8V16JB.png') no-repeat 15% center;
+        background: url('../../new-resource/img/houqin.png') no-repeat 15% center;
         background-color: #F08348;
         background-size: 24%;
     }
@@ -123,5 +138,67 @@ html {
         font-size:12px;
         text-align: left;
     }
+
+}
+.left-date{
+
+    font-size: 22px !important;
+
+    color: #2B2B2B;
+
+}
+.left-main-content{
+
+    padding: 15px;
+
+    background: #ffffff;
+
+    box-shadow: 10px 10px 10px #eceff1;
+
+    -moz-box-shadow:10px 10px 10px #eceff1;
+
+    -webkit-box-shadow: 10px 10px 10px #eceff1;
+
+    border-radius: 4px !important;
+}
+.bottom-icon-contain{
+
+    box-shadow: 1px 5px 20px #7bbbea;
+
+    -moz-box-shadow:1px 5px 20px #7bbbea;
+
+    -webkit-box-shadow: 1px 5px 20px #7bbbea;
+
+}
+.bottom-icon-contain1{
+
+    box-shadow: 1px 5px 20px #48e2ba;
+
+    -moz-box-shadow:1px 5px 20px #48e2ba;
+
+    -webkit-box-shadow: 1px 5px 20px #48e2ba;
+
+}
+.bottom-icon-contain2{
+
+    box-shadow: 1px 5px 20px #ef978c;
+
+    -moz-box-shadow:1px 5px 20px #ef978c;
+
+    -webkit-box-shadow: 1px 5px 20px #ef978c;
+
+}
+.thd-content{
+
+    box-shadow: 10px 10px 10px #eceff1;
+
+    -moz-box-shadow:10px 10px 10px #eceff1;
+
+    -webkit-box-shadow: 10px 10px 10px #eceff1;
+
+}
+.supplementBlock{
+
+    display: block;
 
 }

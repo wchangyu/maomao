@@ -59,6 +59,12 @@
             display: inline-block;
         }
 
+        td{
+
+            max-width:300px !important;
+
+        }
+
     </style>
 </head>
 <!-- END HEAD -->
@@ -285,12 +291,6 @@
                                             <input type="text" class="global_filter" id="gdCode">
                                         </div>
                                     </li>
-                                    <!--<li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">车站：</label>
-                                        <div class="input-blocked">
-                                            <select id="station"></select>
-                                        </div>
-                                    </li>-->
                                     <li>
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">报修时间：</label>
                                         <div class="input-blocked">
@@ -302,7 +302,32 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="" style="display: inline-block;width: 70px;text-align: right">维修班组：</label>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修科室：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="bxks">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修人：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" id="bxren">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;width: 70px;text-align: right">报修方式：</label>
+                                        <div class="input-blocked">
+                                            <select  id="bxtype">
+                                                <option value="" selected>全部</option>
+                                                <option value="2">手机</option>
+                                                <option value="1">电话</option>
+                                                <option value="4">电脑</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <label for="" style="display: inline-block;text-align: right">
+                                            <span class="user-defined-group"></span>
+                                            ：</label>
                                         <div class="input-blocked">
                                             <input type="text" id="wxbz">
                                         </div>
@@ -311,22 +336,15 @@
                                         <label for="" style="display: inline-block;width: 70px;text-align: right">工单状态：</label>
                                         <div class="input-blocked">
                                             <select  id="gdzt">
-                                               <!-- <option value="0" selected>全部</option>
-                                                <option value="1">待下发</option>
-                                                <option value="2">待分派</option>
-                                                <option value="3">待执行</option>
-                                                <option value="4">执行中</option>
-                                                <option value="5">等待资源</option>
-                                                <option value="6">待关单</option>
-                                                <option value="7">任务关闭</option>
-                                                <option value="999">任务取消</option>-->
                                                 <option value="0" selected>全部</option>
                                                 <option value="1">待受理</option>
                                                 <option value="2">待接单</option>
                                                 <option value="4">执行中</option>
+                                                <option value="5">等待材料</option>
                                                 <option value="6">待关单</option>
                                                 <option value="7">已关单</option>
                                                 <option value="11">申诉工单</option>
+                                                <option value="999">已取消</option>
                                             </select>
                                         </div>
                                     </li>
@@ -359,13 +377,13 @@
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
                                     <li><button class="btn btn-success btn1 resites">重置</button></li>
                                     <li><button class="btn btn-success btn1" onclick="javascript:window.print();">打印</button></li>
-                                    <li>
+                                    <li style="display: none">
                                         <button type="button" class="btn red Fallback">
                                             <i class="fa fa-trash"></i>
                                             <span>回退</span>
                                         </button>
                                     </li>
-                                    <li>
+                                    <li style="display: none">
                                         <button type="button" class="btn red delete cancelGD" title="未完成的工单可进行作废操作">
                                             <i class="fa fa-trash"></i>
                                             <span>取消</span>
@@ -446,6 +464,7 @@
 <script src="../resource/TableTools/js/pdfmake.min.js"></script>
 <script src="../resource/TableTools/js/vfs_fonts.js"></script>
 <script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<script src="../../../assets/local/configs/setNames.js"></script>
 <script src="../resource/js/productionOrder-4.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -457,7 +476,7 @@
 </script>
 <!-- END JAVASCRIPTS -->
 <!--模态框详情-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="height: 711px;width:1000px !important;">
             <div class="modal-content" style="height: 711px;width: 1000px !important;">
                 <div class="modal-header">

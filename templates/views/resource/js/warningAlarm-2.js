@@ -190,19 +190,6 @@ $(function(){
         }
     });
 
-    //根据不同的时间类型初始化时间控件
-    $('.types').change(function(){
-        var bbaa = $('.types').find('option:selected').val();
-        if(bbaa == '月'){
-            monthDate();
-        }else if(bbaa == '年'){
-            yearDate();
-        }else{
-            initDate();
-        }
-        $('.datetimepickereType').empty();
-    })
-
     //改变时段选择下拉框
     $('.types').on('change',function(){
 
@@ -213,6 +200,7 @@ $(function(){
             _ajaxEndTime_1 = moment().add('1','days').format('YYYY/MM/DD');
 
             $('.datetimeStart').html( _ajaxStartTime_1);
+
             $('.datetimeEnd').html( _ajaxStartTime_1);
 
         }else if($(this).val() == '月'){
@@ -224,6 +212,7 @@ $(function(){
             _ajaxEndTime_1 = moment().add('1','months').startOf('month').format('YYYY/MM/DD');
 
             $('.datetimeStart').html( _ajaxStartTime_1);
+
             $('.datetimeEnd').html( endTime);
 
         }else if($(this).val() == '周'){
@@ -238,6 +227,7 @@ $(function(){
             _ajaxEndTime_1 = moment(startTime).add('1','day').format('YYYY/MM/DD');
 
             $('.datetimeStart').html( _ajaxStartTime_1);
+
             $('.datetimeEnd').html( startTime);
 
         }else if($(this).val() == '年'){
@@ -249,6 +239,7 @@ $(function(){
             _ajaxEndTime_1 = moment().add('1','years').startOf('year').format('YYYY/MM/DD');
 
             $('.datetimeStart').html( _ajaxStartTime_1);
+
             $('.datetimeEnd').html( endTime);
         }
 
@@ -698,7 +689,7 @@ $(function(){
         if(sessionStorage.getItem('menuArg')){
             localType = sessionStorage.getItem('menuArg').split(',')[1];
         }
-        console.log(localType);
+
         if(localType && localType != -1) {
             typeFlag = true;
         }
@@ -818,22 +809,23 @@ $(function(){
             localType = '';
         }
 
-        //if( _pointer_ID[0].pointerID == '0'){
-        //    pointer = [0];
-        //}
 
         if(_alarm_ID.length !=0){
             alarm = _alarm_ID[0].id;
-            if( _alarm_ID[0].id=='000' ){
-                alarm = '';
-            }
+
+            //if( _alarm_ID[0].id=='000' ){
+            //
+            //    alarm = '';
+            //}
         }
+
         if( _energy_ID.length !=0){
             energy = _energy_ID[0].id;
             if( _energy_ID[0].id=='000' ){
                 energy==''
             }
         }
+
         //设置初始值
         //获取楼宇id
         var prm = {

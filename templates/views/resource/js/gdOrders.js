@@ -1288,17 +1288,17 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('hide');
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-                if($('.modal-backdrop').length > 0){
-                    $('div').remove('.modal-backdrop');
-                    $('#theLoading').hide();
-                }
-            },
+            //beforeSend: function () {
+            //    $('#theLoading').modal('hide');
+            //    $('#theLoading').modal('show');
+            //},
+            //complete: function () {
+            //    $('#theLoading').modal('hide');
+            //    if($('.modal-backdrop').length > 0){
+            //        $('div').remove('.modal-backdrop');
+            //        $('#theLoading').hide();
+            //    }
+            //},
             success:function(result){
 
                 //根据状态值给表格赋值
@@ -1639,7 +1639,7 @@ $(function(){
         //是否执行完毕
         if( _wxIsComplete && _fzrComplete &&  _ztChangeComplete ){
 
-            //$('#theLoading').modal('hide');
+            $('#theLoading').modal('hide');
 
             //提示
             if(_fzrSuccess && _wxIsSuccess && _ztChangeSuccess){
@@ -1648,7 +1648,13 @@ $(function(){
 
                 $('#myModal').modal('hide');
 
+                //BEE.init(false,true);
+
+                BEE.modificationImportInfo();
+
                 conditionSelect();
+
+
             }else{
                 var str = '';
                 if( _fzrSuccess == false ){
@@ -1665,6 +1671,11 @@ $(function(){
                     str += '工单接单失败！'
                 }else{
                     str += '工单接单成功！'
+
+                    //BEE.init(false,true);
+
+                    BEE.modificationImportInfo();
+
                 }
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
             }
@@ -1708,7 +1719,7 @@ $(function(){
     function secondXF(){
         if(_wxIsComplete && _fzrComplete && _reSendComplete){
 
-            //$('#theLoading').modal('hide');
+            $('#theLoading').modal('hide');
 
             if(_fzrSuccess && _wxIsSuccess && _reSendSuccess){
 
@@ -1716,7 +1727,12 @@ $(function(){
 
                 $('#myModal').modal('hide');
 
-                conditionSelect()
+                conditionSelect();
+
+                //BEE.init(false,true);
+
+                BEE.modificationImportInfo();
+
             }else{
                 var str = '';
                 if( _fzrSuccess == false ){
@@ -1733,6 +1749,11 @@ $(function(){
                     str += '工单重新派工失败！'
                 }else{
                     str += '工单重新派工成功！'
+
+                    //BEE.init(false,true);
+
+                    BEE.modificationImportInfo();
+
                 }
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,str, '');
             }

@@ -1,7 +1,7 @@
 $(function(){
 
     //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
+    //_timeYMDComponentsFun($('.datatimeblock'));
 
     //记录页面
      _energyTypeSel = new ETSelection();

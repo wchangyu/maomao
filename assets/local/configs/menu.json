@@ -1,5 +1,34 @@
 {
   "content":"type:0代表具体菜单,1代表上级菜单;content:显示文本;uri:模块地址;uid:模块Id,唯一;arg:参数，每次保存在sessionStorage.menuArg中;iconclass:图标class;",
+  "首页":{
+    "type":"1",
+    "content":"首页",
+    "iconclass":"icon-home",
+    "icon-img":"02.png",
+    "icon-hover":"02dian.png",
+    "submenu":{
+      "数据":{
+        "type":"2",
+        "content":"数据"
+      },
+      "能耗总览":{
+        "type":"0",
+        "content":"能耗总览",
+        "uri":"../shouye/index.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-bar-chart"
+      },
+      "3D地图":{
+        "type":"0",
+        "content":"3D地图",
+        "uri":"../shouye/infoMap.html",
+        "uid":"",
+        "arg":"",
+        "iconclass":"icon-map"
+      }
+    }
+  },
   "高效机房":{
     "type":"1",
     "content":"高效机房",
@@ -119,35 +148,6 @@
         "uid":"",
         "arg":"",
         "iconclass":""
-      }
-    }
-  },
-  "首页":{
-    "type":"1",
-    "content":"首页",
-    "iconclass":"icon-home",
-    "icon-img":"02.png",
-    "icon-hover":"02dian.png",
-    "submenu":{
-      "数据":{
-        "type":"2",
-        "content":"数据"
-      },
-      "能耗总览":{
-        "type":"0",
-        "content":"能耗总览",
-        "uri":"../shouye/index.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":"icon-bar-chart"
-      },
-      "3D地图":{
-        "type":"0",
-        "content":"3D地图",
-        "uri":"../shouye/infoMap.html",
-        "uid":"",
-        "arg":"",
-        "iconclass":"icon-map"
       }
     }
   },
@@ -437,7 +437,7 @@
         "content":"配电系统",
         "uri":"../yongnengjiance/energyMonitor.html?arg=11",
         "uid":"",
-        "arg":"0,0",
+        "arg":"1,8816008016",
         "iconclass":""
       },
       "能源站系统":{

@@ -50,7 +50,7 @@ var userMonitor = (function(){
     var jumpPageWidth = 1120;  //存放跳转页面流程图的宽度
     var jumpPageHeight = 586;  //存放跳转页面流程图的高度
 
-    var jumpUrl ="http://localhost:8080/%E6%96%B0%E9%A1%B9%E7%9B%AE/BEE/templates/views/";//存放弹窗的页面地址
+    var jumpUrl ="http://localhost:63342/bbee/BEE/templates/views/";//存放弹窗的页面地址
 
     var imgSrcArr = [];       //存放页面中所有图片的路径
 
@@ -415,7 +415,16 @@ var userMonitor = (function(){
     var setProcList = function(procs,selectedProc){
         var $ul = $(".content-main-left>ul");
         $(".content-main-left>ul li").remove();
-        if(!procs || procs.length==0) return;
+        if(!procs || procs.length==0) {
+
+            var $divContent = $("#content-main-right");
+
+            $divContent.empty();
+
+            _oldSpanDefArr.length = 0;
+
+            return false
+        };
         var curProc = selectedProc || undefined;
         if(_isViewAllProcs){
             for(var i=0;i<procs.length;i++){
@@ -557,6 +566,8 @@ var userMonitor = (function(){
         $img.attr("src","");
         $divContent.empty();
 
+        _oldSpanDefArr.length = 0;
+
         _isProcCrtlLoaded = false;
         _isProcDefLoaded = false;
         _isProcRenderLoaded = false;
@@ -564,10 +575,31 @@ var userMonitor = (function(){
         _procDefs = null;
         _procCtrls = null;
         _procRenders = null;
-        initializeProcDef(procId);
-        initializeProcCtrl(procId);
-        initializeProcRender(procId);
+        //initializeProcDef(procId);
+        //initializeProcCtrl(procId);
+        //initializeProcRender(procId);
+        initializeCollectModels(procId);
         initImg(procId);
+    };
+
+    //获取当前方案的定义 控制 以及render
+    var initializeCollectModels = function(procId){
+        $.ajax({
+            type:"post",
+            data:{"" : procId},
+            url:_urlPrefix + "PR/GetPRCollectModels",
+            success:function(data){
+                _isProcRenderLoaded = true;
+                _isProcDefLoaded = true;
+                _isProcCrtlLoaded = true;
+                _procDefs = data.prProcDefs;
+                _procCtrls = data.prProcCtrls;
+                _procRenders = data.prProcRenders;
+
+                getInstDatasByIds(procId);
+            },
+            error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
+        });
     };
 
     //获取当前方案的定义
@@ -584,6 +616,7 @@ var userMonitor = (function(){
             error:function(xhr,res,err){logAjaxError("PR_GetDefByProcID" , err)}
         });
     };
+
     //获取定义中对应的控制
     var initializeProcCtrl = function(procId){
         $.ajax({
@@ -887,7 +920,7 @@ var userMonitor = (function(){
     };
 
     //获取实时数据
-    var getInstDatasByIds = function(){
+    var getInstDatasByIds = function(procId){
         if(_isProcDefLoaded && _isProcCrtlLoaded && _isProcRenderLoaded && !_isInstDataLoading){
             var CTypeCKIDs = "",DTypeDKIDs = "";        //控制量的ID，监测值的ID
             var DefIDs = [];
@@ -926,14 +959,12 @@ var userMonitor = (function(){
             _isInstDataLoading = true;
             //console.log(procRenders)
             var datas = {
-                "DTypeDKIDs":DTypeDKIDs,
-                "PRRenders":procRenders,
-                "PRDefIDs":DefIDs
+
             };
             $.ajax({
                 type:"post",
-                data: datas,
-                url:_urlPrefix + "PR/PR_GetInstDataNew",
+                data: {"" : procId},
+                url:_urlPrefix + "PR/GetPRCollectInstData",
                 success:function(data){
                     _defInsDataResults = data;
                     _isInstDataLoading = false;
@@ -1268,6 +1299,13 @@ var userMonitor = (function(){
                 ){
                     $spanDef.css("cursor","pointer");
                     $spanDef.on("click",(function(procDef){return function(){ setActionByDef(procDef); }})(_procDefs[i]));
+                }
+
+                //如果是弹出式摄像头
+                if( curProcDef.cType == 502){
+                    $spanDef.css("cursor","pointer");
+                    $spanDef.on("click",(function(procDef){return function(){ showMonitorByID(procDef); }})(_procDefs[i]));
+
                 }
             }
 
@@ -1684,6 +1722,54 @@ var userMonitor = (function(){
             error:function(xhr,res,err){ logAjaxError("GetHbProcVideo" , res) }
         });
     };
+
+    //模态框显示摄像头
+    function showMonitorByID(procDef){
+
+        //获取当前摄像头id
+        var cameraID = procDef.prcProcLnk.destid;
+
+        var cameraWidth = procDef.prcProcLnk.width;
+
+        var cameraHeight = procDef.prcProcLnk.height;
+
+        //定义当前弹窗的id
+        var modalID = procDef.prDefId + "camera";
+
+        //获取弹窗的页面地址
+        var url = jumpUrl + "new-luxianghuifang/insetCurrentMonitor.html?width="+cameraWidth+"height="+cameraHeight+"cameraID="+cameraID+"";
+
+        var html = '<div class=\'modal fade content-child-shows\' id="'+modalID+'" tabindex=\'-1\' role=\'dialog\' aria-labelledby=\'myModalLabel\' aria-hidden=\'true\' data-backdrop="static">' +
+        '    <div class=\'modal-dialog\' style=\'margin:15% auto;\'>' +
+        '        <div class=\'modal-content\'>' +
+        '            <div class=\'modal-header\'>' +
+
+        '                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+
+        '                <h4></h4>' +
+
+        '            </div>' +
+
+        '            <div class="modal-body">' +
+            '<iframe width="'+cameraWidth+'" scrolling="no" height="'+cameraHeight+'" frameborder="0" allowtransparency="true" src='+url+'></iframe>' +
+
+        '            </div>' +
+
+        '        </div>' +
+        '    </div>' +
+        '</div>';
+
+        $('#right-container').append(html);
+
+        $("#"+modalID).modal('show');
+
+        //视频名称
+        $("#"+modalID).find('h4').html(procDef.prcProcLnk.name);
+
+        //模态框宽度
+        $("#"+modalID).find('.modal-dialog').width(cameraWidth + 50);
+
+    }
 
     //模态框显示视频
     function showVideoByID(videoMessage){

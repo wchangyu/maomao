@@ -263,7 +263,8 @@ $(function(){
 
         //获取时间
         var st = $('.min').val() + '/01';
-        var et = $('.max').val() + '/01';
+        var et = moment($('.max').val()).add(1,'months').format('YYYY/MM') + '/01';
+
         //获取条件
         if(searchNum == 0){
             var postTime =window.location.search.split('?')[1];

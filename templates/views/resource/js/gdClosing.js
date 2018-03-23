@@ -927,6 +927,11 @@ $(function(){
                                 $('#myModal1').modal('hide');
 
                                 $('#confirm-Modal').modal('hide');
+
+                                //BEE.init(false,true);
+
+                                BEE.modificationImportInfo();
+
                             }else {
 
                                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'关单失败！', '');
@@ -1358,17 +1363,17 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('hide');
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-                if($('.modal-backdrop').length > 0){
-                    $('div').remove('.modal-backdrop');
-                    $('#theLoading').hide();
-                }
-            },
+            //beforeSend: function () {
+            //    $('#theLoading').modal('hide');
+            //    $('#theLoading').modal('show');
+            //},
+            //complete: function () {
+            //    $('#theLoading').modal('hide');
+            //    if($('.modal-backdrop').length > 0){
+            //        $('div').remove('.modal-backdrop');
+            //        $('#theLoading').hide();
+            //    }
+            //},
             success:function(result){
 
                 //根据状态值给表格赋值

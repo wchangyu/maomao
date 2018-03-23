@@ -169,12 +169,6 @@ $(function(){
         //父目录字符串
         var str = '';
 
-        //子目录字符串
-        var secStr = '';
-
-        //记录父目录的index
-        var index = -1;
-
         //记录子目录的index
 
         var secIndex = -1;
@@ -233,7 +227,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -308,7 +302,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -372,7 +366,7 @@ $(function(){
 
                             if(result[i]['submenu'][x].type == 2){
 
-                                secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                secMenu += '<li class="sec-hover">+   ' + result[i]['submenu'][x].content + '</li>'
 
                             }else{
 
@@ -464,7 +458,7 @@ $(function(){
 
             if(menuObj[thisAttr]['submenu'][i].type == 2){
 
-                secMenu += '<li class="sec-hover">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+                secMenu += '<li class="sec-hover">+   ' + menuObj[thisAttr]['submenu'][i].content + '</li>'
 
             }else{
 

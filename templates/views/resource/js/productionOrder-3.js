@@ -1631,6 +1631,7 @@ $(function(){
                 }
             }
         };
+
         var zTreeObj = $.fn.zTree.init($("#deparmentTree"), setting, _departmentArr);
     }
 

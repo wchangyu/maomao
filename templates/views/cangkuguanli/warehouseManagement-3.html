@@ -75,6 +75,9 @@
 
             top:241px;
         }
+        .touchingTime{
+            width: 192px !important;
+        }
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -285,7 +288,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">时间：</label>
+                                        <label for="">日期：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min" name="min">
                                         </div>
@@ -416,9 +419,9 @@
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels">制单时间：</div>
-                                    <div class="input-blockeds automatic">
-                                        <input type="text" v-model="shijian" class="automatic" placeholder="自动生成" readonly="readonly">
+                                    <div class="labels">制单日期：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="shijian" class="datatimeblock touchingTime" @focus="time()">
                                     </div>
                                 </li>
                                 <li class="gdList">
@@ -431,6 +434,12 @@
                                     <div class="labels">备注：</div>
                                     <div class="input-blockeds">
                                         <input type="text" v-model="remarks" style="width:100% !important;">
+                                    </div>
+                                </li>
+                                <li class="gdList shRemarks">
+                                    <div class="labels">审核日期：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="shenheTime" class="datatimeblock touchingTime" @focus="time1()">
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>

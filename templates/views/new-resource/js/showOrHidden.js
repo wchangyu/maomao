@@ -160,19 +160,40 @@ function getEcType(){
 
 //日历时间
 function _selectTime(dataType){
+
+    //隐藏选择展示类型的选框
+    $('.chooseShowType').hide();
+
     //改变提示信息
     $('.start-time-choose label').html('选择时间：');
     $('.end-time-choose').show();
     //开始时间选框居中
     $('.start-time-choose').addClass('position-center');
     if(dataType == '日'){
+
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            $('.datatimeblock').datetimepicker('remove');
+        }
+
         _initDate1();
 
         $('.end-time-choose').hide();
         //获取昨天
         var date = moment().format('YYYY-MM-DD');
         $('.min').val(date);
+
     }else if(dataType == '周'){
+
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            $('.datatimeblock').datetimepicker('remove');
+        }
+
         _initDate1();
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
@@ -186,6 +207,13 @@ function _selectTime(dataType){
         $('.start-time-choose').removeClass('position-center');
 
     }else if(dataType == '月'){
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            $('.datatimeblock').datetimepicker('remove');
+        }
+
         _monthDate1();
 
         $('.end-time-choose').hide();
@@ -195,12 +223,61 @@ function _selectTime(dataType){
     }else if(dataType == '年'){
         _yearDate1();
 
+
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            $('.datatimeblock').datetimepicker('remove');
+        }
+
+
+
         $('.end-time-choose').hide();
         //获取上年
         var date = moment().format('YYYY');
         $('.min').val(date);
     }else{
-        _initDate1();
+
+        var curUrl = window.location.href;
+
+        //如果是能耗查询页面
+        if(curUrl.indexOf("new-nenghaoshuju/energyDemand-1.html") > -1){
+            //展示选择展示类型的选框
+            $('.chooseShowType').show();
+
+            $('.datatimeblock').datepicker('destroy');
+
+            $('.datatimeblock').datetimepicker('remove');
+
+            //获取当前的展示类型
+            //获取当前展示类型
+            var showType = $('.chooseShowType').val();
+
+            //按日展示
+            if(showType == 0){
+
+                //时间插件
+                _timeYMDComponentsFun($('.datatimeblock'));
+
+                //按小时展示
+            }else if(showType == 1){
+
+                //时间插件
+                _timeComponentsFun2($('.datatimeblock'));
+
+
+                //按分钟展示
+            }else if(showType == 2){
+                console.log(44);
+
+                _timeComponentsFun1($('.datatimeblock'))
+            }
+
+
+        }else{
+            _initDate1();
+        }
         //改变提示信息
         $('.start-time-choose label').html('开始时间：');
         $('.min').val('');
@@ -209,6 +286,38 @@ function _selectTime(dataType){
         $('.start-time-choose').removeClass('position-center');
     }
 }
+
+function _timeComponentsFun1(el){
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        format : "yyyy-mm-dd hh:ii",//日期格式
+        startView: 4,  //1时间  2日期  3月份 4年份
+        forceParse: true,
+        minView :0,
+        minuteStep:0
+    });
+};
+
+//时间插件精确到小时
+function _timeComponentsFun2(el){
+    el.datetimepicker({
+        language:  'zh-CN',//此处修改
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        format : "yyyy-mm-dd hh:00",//日期格式
+        startView: 4,  //1时间  2日期  3月份 4年份
+        forceParse: true,
+        minView : 1,
+        minuteStep:0
+    });
+};
+
 //月的时间初始化
 function _monthDate1(){
     $('#datetimepicker').datepicker('destroy');
@@ -226,6 +335,7 @@ function _monthDate1(){
 
 //年的时间初始化
 function _yearDate1(){
+
     $('#datetimepicker').datepicker('destroy');
     $('#datetimepicker').datepicker({
         startView: 2,

@@ -255,8 +255,7 @@ $(function(){
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
                         "<span class='data-option option-assign btn default btn-xs green-stripe' title='下发任务'>下发任务</span>"
                 }if(data !=0){
-                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
                 }
             }
         }
@@ -2438,11 +2437,9 @@ $(function(){
 
             //启用状态下（已下发），不可以删除，其他情况可以删除，
 
-            //console.log(_stateArr);
-
             var QYFlag = true;
 
-            //启用
+            //启用(已下发和停用状态下才可以启用)
             if(data == 1){
 
                 //想要启用，必须全是data == 0的数
@@ -2460,7 +2457,7 @@ $(function(){
                 }
 
 
-            //停用
+            //停用(已下发和启用状态下才可以停用)
             }else if(data == 2){
 
                 for(var i=0;i<_stateArr.length;i++){
@@ -2475,17 +2472,28 @@ $(function(){
 
                 }
 
+            //批量删除
+            }else{
+
+                for(var i=0;i<_stateArr.length;i++){
+
+                    if( _stateArr[i] != 0 ){
+
+                        QYFlag = false;
+
+                        break;
+
+                    }
+
+                }
+
             }
-
-            console.log(QYFlag);
-
-            return false;
 
             if(QYFlag){
                 var prm = {
                     dipNums:selectQiyongArr,
                     isActive:data,
-                    userID:_userIdName
+                    userID:_userIdNum
                 }
                 $.ajax({
                     type:'post',

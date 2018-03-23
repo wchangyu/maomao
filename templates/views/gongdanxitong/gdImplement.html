@@ -65,6 +65,10 @@
         #dai-waiting-list_filter{
             display: none;
         }
+        .list-block{
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -316,6 +320,7 @@
                                     </ul>
                                     <div class="table-title">
                                         <span class="spanhover">执行中</span>
+                                        <span>等待材料</span>
                                         <span>历史工单</span>
                                         <span>待关单申请</span>
                                     </div>
@@ -324,6 +329,16 @@
                                         <div class="content-main-contents">
                                             <div class="main-contents-table">
                                                 <table id="waiting-list" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents content-main-contents1 hide-block">
+                                            <div class="main-contents-table">
+                                                <table id="waiting-material" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -1251,6 +1266,101 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<!--回退-->
+<div class="modal fade" id="Fallback-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 440px;">
+        <div class="modal-content" style="height: 440px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">您确定要进行回退操作吗？</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="gongdanList">
+                    <li class="list-block">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdCode1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">工单状态：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdStatus1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修事项：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxItem1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修班组：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxClass1" disabled class="disabled-block">
+                        </div>
+                    </li>
+                </ul>
+                <p>回退原因:</p>
+                <div class="input-blockeds" style="width: 100%;height: 90px;">
+                    <textarea  id="returnDes" style="height: 88px;width: 100%;overflow-y: auto;outline: none"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--模态框确认作废-->
+<div class="modal fade" id="Cancel-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 440px;">
+        <div class="modal-content" style="height: 440px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="">您确定要进行取消操作吗？</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="gongdanList">
+                    <li class="list-block">
+                        <div class="labels">工单号：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdCode2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">工单状态：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdStatus2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修事项：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxItem2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                    <li class="list-block">
+                        <div class="labels">维修班组：</div>
+                        <div class="input-blockeds">
+                            <input type="text" id="gdWxClass2" disabled class="disabled-block">
+                        </div>
+                    </li>
+                </ul>
+                <p>取消原因:</p>
+                <div class="input-blockeds" style="width: 100%;height: 90px;">
+                    <textarea  id="cancelDes" style="height: 88px;width: 100%;overflow-y: auto;outline: none"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 <!--所有提示框-->
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="height: 168px;">

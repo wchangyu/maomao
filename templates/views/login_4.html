@@ -32,8 +32,7 @@
 	<style>
 		.login{
 
-			background: url("resource/img/houtaidengluye.jpg") no-repeat;
-			background-size: 100% 100%;
+			background: rgba(30, 40, 52, 1)!important;
 
 		}
 		.input-word{
@@ -50,6 +49,7 @@
 			display: inline-block;
 			vertical-align: middle;
 			width: 241px !important;
+			border: 1px solid #ffffff !important;
 		}
 
 		.input-icon input{
@@ -61,8 +61,8 @@
 
 			background-color: inherit !important;
 			width: 445px !important;
-			background: url("resource/img/beijingkuang.png") no-repeat;
-			background-size: 100% 100%;
+			/*background: url("resource/img/beijingkuang.png") no-repeat;
+			background-size: 100% 100%;*/
 			/*height: 273px !important;*/
 
 		}
@@ -75,20 +75,12 @@
 		}
 		.green-haze.btn{
 
-			background: #e88625;
-			margin-right: 27px;
-			margin-left: 149px;
-		}
-		.reflection{
-
-			width:436px;height:300px!important;position:absolute;top:282px;
-			left: 287px;
-
-			background: url("resource/img/beijingkuang.png") 0 -290px no-repeat;
-
+			background: #2170f4;
+			margin-right: 71px;
+			margin-left: 17px;
 		}
 		.green-haze:hover{
-			background: #e88625 !important;
+			background: #2170f4 !important;
 
 		}
 		.copyright{
@@ -99,11 +91,11 @@
 			color: #d2d7dd;
 		}
 		.erweima{
-			width: 100px;
-			height: 100px;
+			width: 80px;
+			height: 80px;
 			background: 200px;
-			position: fixed;
-			right: 5%;
+			position: absolute;
+			right: 24%;
 			bottom: 10%;
 		}
 
@@ -112,71 +104,211 @@
 			vertical-align: middle;
 			margin-top: -43px !important;
 		}
+		.form-title{
+
+			width: 175px;
+		}
+		.input-icon > .form-control{
+
+			padding-left: 9px;
+
+			padding-right: 20px;
+
+		}
+
+		.form-control{
+
+			 background: url("resource/img/yonghuming.png")no-repeat 210px 8px #ffffff!important;
+
+			 background-size: 17px !important;
+
+			border: none !important;
+
+			border-radius: 2px !important;
+
+		 }
+		.form-control1{
+
+			background: url("resource/img/mima.png")no-repeat 210px 8px #ffffff!important;
+
+			background-size: 17px !important;
+
+			border-radius: 2px !important;
+		}
+		.login-left{
+
+			height: 100%;
+
+			background: url("resource/img/houtaidengluye.png") no-repeat;
+
+			background-size: 100% 100%;
+
+			margin-right: 400px;
+
+			line-height: 500px;
+
+			padding-top: 20%;
+
+
+		}
+		.login-right{
+
+			width: 400px;
+
+			height:100%;
+
+			float: right;
+		}
+		.login .login-main:before{
+
+			height: 0;
+
+		}
+		.login-main{
+
+			position: relative;
+
+			background: url("resource/img/rightflex.png") no-repeat;
+
+			background-size: 100%;
+
+		}
+		.login .content .input-icon{
+
+			border-left: none!important;
+
+			border: 3px solid #213043;
+
+		}
+
+		.login-left img{
+
+			width: 60%;
+
+			display: block;
+
+			margin: auto;
+
+		}
+
+		@media screen and (min-width: 1200px){
+
+
+			.login-left img{
+
+				width: 700px;
+
+			}
+
+			.login-left{
+
+				padding-top: 27%;
+
+			}
+
+		}
+
+		@media screen and (min-width: 1601px){
+
+
+			.login-left img{
+
+				width: 900px;
+
+			}
+
+			.login-left{
+
+				padding-top: 20%;
+
+			}
+
+		}
+
+		@media screen and (max-width: 1100px){
+
+
+			.login-left img{
+
+				width: 500px;
+
+			}
+
+			.login-left{
+
+				padding-top: 30%;
+
+			}
+
+		}
+
 
 	</style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="login">
+<div class="login-right">
+	<div class="login-main">
 
-<div class="login-main" style="position: relative">
+		<div class="login-main1">
 
-	<div class="login-main1">
-<!-- BEGIN LOGO -->
-	<div class="logo " style="position: absolute;left:0;top:36% !important;width:100%;text-align: center;margin-top:-150px">
-		<div style="display: inline-block;width:96%">
-			<img src="resource/img/biaoti.png" style="width: 60%;" alt="">
-		</div>
+			<!-- BEGIN LOGIN -->
+			<div style="position: absolute;top: 50%;left: 50%;margin-top: -120px;margin-left: -222px;">
+				<div class="content" >
 
-	</div>
-
-<!-- END LOGO -->
-
-<!-- BEGIN LOGIN -->
-		<div style="position: relative">
-			<div class="content" >
-
-				<!-- BEGIN LOGIN FORM -->
-				<form class="login-form" action="" method="post" >
-					<h3 class="form-title" style="color: #e6f4ff;font-size: 28px;">登录</h3>
-					<div class="alert alert-danger display-hide">
-						<button class="close" data-close="alert"></button>
+					<!-- BEGIN LOGIN FORM -->
+					<form class="login-form" action="" method="post" >
+						<img class="form-title" src="resource/img/logo.png" alt="">
+						<div class="alert alert-danger display-hide">
+							<button class="close" data-close="alert"></button>
 			<span>
 			请输入用户名和密码 </span>
-					</div>
-					<div class="form-group">
-						<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-						<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
-						<div class="input-word">用户名</div>
-						<div class="input-icon">
-							<i class="fa fa-user"></i>
-							<input class="form-control placeholder-no-fix" type="text" autocomplete="off" name="username"/>
 						</div>
-					</div>
-					<div class="form-group">
-						<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
-						<div class="input-word" style="margin-right:11px;">密&nbsp;&nbsp;&nbsp;码</div>
-						<div class="input-icon">
-							<i class="fa fa-lock"></i>
-							<input class="form-control placeholder-no-fix" type="password" autocomplete="off"  name="password"/>
+						<div class="form-group">
+							<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+							<!--<label class="control-label visible-ie8 visible-ie9">Username</label>-->
+							<div class="input-icon">
+								<!--<i class="fa fa-user"></i>-->
+								<input class="form-control placeholder-no-fix" type="text" autocomplete="off" name="username"/>
+							</div>
 						</div>
-					</div>
-					<div class="form-actions">
-						<label class="checkbox">
-							<input type="checkbox" name="remember" value="1"/> 记住密码 </label>
-						<button type="submit" class="btn green-haze pull-right">
-							登录 <i class="m-icon-swapright m-icon-white"></i>
-						</button>
-					</div>
-				</form>
-				<!-- END LOGIN FORM -->
+						<div class="form-group">
+							<!--<label class="control-label visible-ie8 visible-ie9">Password</label>-->
+							<div class="input-icon">
+								<!--<i class="fa fa-lock"></i>-->
+								<input class="form-control form-control1 placeholder-no-fix" type="password" autocomplete="off"  name="password"/>
+							</div>
+						</div>
+						<div class="form-actions">
+							<label class="checkbox">
+								<input type="checkbox" name="remember" value="1"/> 记住密码 </label>
+							<button type="submit" class="btn green-haze pull-right">
+								登录 <i style="display: none" class="m-icon-swapright m-icon-white"></i>
+							</button>
+						</div>
+					</form>
+					<!-- END LOGIN FORM -->
+				</div>
+				<div class="reflection"></div>
 			</div>
-			<div class="reflection"></div>
+
+			<!-- END LOGIN -->
 		</div>
 
-<!-- END LOGIN -->
+		<div class="erweima">
+			<img src="resource/img/erweima%20(2).png" style="width: 100px;height: 100px;">
+		</div>
+
 	</div>
+
 </div>
+<div class="login-left">
+
+	<img src="resource/img/biaoti%20(2).png" alt="">
+
+</div>
+
 
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
@@ -216,11 +348,22 @@ jQuery(document).ready(function() {
   Demo.init();
 });
 </script>
-<!-- END JAVASCRIPTS -->
+<script>
 
-<div class="erweima">
-	<img src="resource/img/erweima1.png" style="width: 100px;height: 100px;">
-</div>
+	$('.form-control').on('focus',function(){
+
+		$(this).parent('.input-icon').css('cssText','border:3px solid #2170f4!important');
+
+	})
+
+	$('.form-control').on('blur',function(){
+
+		$(this).parent('.input-icon').css('cssText','border:3px solid #213043!important');
+
+	})
+
+</script>
+<!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>

@@ -1111,7 +1111,10 @@ var BEE = (function(){
 
      //iframe只显示部分div
 
-     if( screen.width >=2500 ){
+    //获取当前的url
+     var curUrl = window.parent.location.href;
+
+     if( curUrl.indexOf('passengerStation.html') > -1 ){
 
         $('.page-header').hide();
 
@@ -1132,35 +1135,48 @@ var BEE = (function(){
 
         //getMenu: getMenu
         //flag =true 则不需要判断用户的访问页面权限
-        init:function(flag){
+        init:function(flag,rebrush){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
                 window.location.href = _loginHtml;
 
             }else{
-                //获取菜单
-                getMenu();
-                //setHeaderInfo();
-                //判断已登陆用户是否有访问页面的权限
-                if(!flag){
 
-                    permitJumpPage();
+                //rebrush为真表示刷新右上角工单信息
+
+                if(rebrush){
+
+                    modificationImportInfo();
+
+                }else{
+
+                    //获取菜单
+                    getMenu();
+                    //setHeaderInfo();
+                    //判断已登陆用户是否有访问页面的权限
+                    if(!flag){
+
+                        permitJumpPage();
+
+                    }
+                    setTheme();
+                    insertionPointer();
+
+                    //重绘页面右上角信息
+                    modificationImportInfo();
+
+                    if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+
+                        getAlarmInfo();
+
+                    }
 
                 }
-                setTheme();
-                insertionPointer();
 
-                //重绘页面右上角信息
-                modificationImportInfo();
-
-                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
-
-                    getAlarmInfo();
-
-                }
             }
-        }
+        },
+        modificationImportInfo:modificationImportInfo
     }
 
 

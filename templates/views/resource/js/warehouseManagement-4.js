@@ -72,6 +72,10 @@ $(function(){
                 className:'itemName'
             },
             {
+                title:'品牌',
+                data:'brand'
+            },
+            {
                 title:'规格',
                 data:'size'
             },
