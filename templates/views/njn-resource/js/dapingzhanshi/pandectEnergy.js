@@ -83,6 +83,7 @@ $(function(){
 
     //点击打开消防系统
     $('.platform-title').on('click',function(){
+        console.log(44);
 
         window.open ="rdsp-bs-js:{'fcfid':'2','type':'2'}"
     });
