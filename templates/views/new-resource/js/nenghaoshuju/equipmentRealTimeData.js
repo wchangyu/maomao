@@ -136,7 +136,11 @@ var table = $('#dateTables').DataTable({
         },
         {
             title:'数据',
-            data:"data"
+            data:"data",
+            render:function(data, type, full, meta){
+
+                return data.toFixed(2);
+            }
         },
         {
             title:'单位',
@@ -237,7 +241,7 @@ function getPointerData(){
         success:function(result){
 
 
-            console.log(result);
+            //console.log(result);
 
             _datasTable($('#dateTables'),result);
 
@@ -276,7 +280,6 @@ function getPointerData(){
     })
 };
 
-
 function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
     var setting = {
@@ -299,9 +302,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
         callback: {
             onClick:function (event,treeId,treeNode){
 
-                treeObj.checkNode(treeNode,!treeNode.checked,false)
-
                 var treeObj = $.fn.zTree.getZTreeObj("allPointer");
+
+                treeObj.checkNode(treeNode,!treeNode.checked,false);
 
                 //获取当前已选中的属性
                 var pts = treeObj.getCheckedNodes(true);
@@ -476,7 +479,6 @@ function getPointersId(){
 
     return pointerIdArr;
 };
-
 
 //搜索框
 var key;

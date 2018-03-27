@@ -49,6 +49,44 @@ $(function(){
         },_refresh * 1000 * 60)
     };
 
+    //点击报警信息弹出报警弹窗 并展示数据
+    $(".alarm-data-container").on('click',function(){
+
+        //显示悬浮窗
+        $('#alarm-message').modal('show');
+
+        //获取当前系统名称
+        var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
+
+        console.log(title);
+
+        //放入到弹窗标题中
+        $('#alarm-message .systematic-name').html(title);
+
+    });
+
+    //点击运行信息弹出运行弹窗 并展示数据
+    $(".bottom-equipment-chart-show").on('click',function(){
+
+        //显示悬浮窗
+        $('#run-number-message').modal('show');
+
+        //获取当前系统名称
+        var title = $(this).parents(".right-bottom-equipment-container").find(".equipment-title a").html();
+
+        console.log(title);
+
+        //放入到弹窗标题中
+        $('#run-number-message .systematic-name').html(title);
+
+    });
+
+    //点击打开消防系统
+    $('.platform-title').on('click',function(){
+
+        window.open ="rdsp-bs-js:{'fcfid':'2','type':'2'}"
+    });
+
     ////当鼠标放到系统选项卡上时
     //$('.right-bottom-equipment-container').on('hover','.equipment-title',function(){
     //
@@ -1618,7 +1656,7 @@ function getTPDevMonitor(){
 
             //$('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.fireControlSysOBJ.cDataIDNum)
 
-            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+"268");
+            $('#equipment-chart-platform').parents('.right-bottom-equipment-content').find('.bottom-equipment-chart-data .chart-data .total-data').html('/'+result.fireControlSysOBJ.cDataIDNum);
 
 
             //-----------------------------自动售检票---------------------------//
@@ -1799,10 +1837,10 @@ function getPointerData(){
             //判断是否返回数据
             if(result == null){
 
-                option.xAxis[0].data = [];
-                option.series[0].data = [];
+                option00.xAxis[0].data = [];
+                option00.series[0].data = [];
 
-                leftBottomChart1.setOption(option);
+                leftBottomChart1.setOption(option00);
 
                 return false;
             }
@@ -1846,10 +1884,10 @@ function getPointerData(){
             }
 
             //echart柱状图
-            option.xAxis[0].data = allDataX;
-            option.series[0].data = allDataY;
+            option00.xAxis[0].data = allDataX;
+            option00.series[0].data = allDataY;
 
-            leftBottomChart1.setOption(option);
+            leftBottomChart1.setOption(option00);
 
 
         },

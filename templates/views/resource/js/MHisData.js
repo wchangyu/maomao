@@ -310,8 +310,6 @@ function tableImg(){
 			dt.fnDraw();
 		}
 	})
-
-
 };
 
 //左箭头功能图表

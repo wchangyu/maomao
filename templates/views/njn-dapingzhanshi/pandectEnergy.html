@@ -233,12 +233,12 @@
                             </div>
 
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-electricity1">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-show" id="equipment-chart-electricity1">
 
                             </div>
 
                             <!--下方统计数据-->
-                            <div class="bottom-equipment-chart-data">
+                            <div class="bottom-equipment-chart-data alarm-data-container">
 
                                 <p class="chart-data"><font class="cur-data">0</font><span class="total-data">/1000</span></p>
                                 <p class="chart-power1">报警点<span class="total-data">/监测点</span></p>
@@ -551,7 +551,7 @@
                 <!--自动售检票-->
                 <div class="right-bottom-equipment-container right-bottom-equipment-container1">
 
-                    <h4 class="equipment-title wind-title" jump-data="2"><a href="automaticSale.html">自动售检票</a></h4>
+                    <h4 class="equipment-title wind-title" jump-data="2"><a href="automaticSale.html">售检票</a></h4>
                     <!--跳转二级页面浮窗-->
                     <div class='jump-containers'>
                         <span><a href='automaticSale.html'>自动售票</a></span>
@@ -793,12 +793,382 @@
                 </div>
 
             </div>
-
-
         </div>
 
     </div>
 </div>
+
+<!--报警点弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='alarm-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>报警点位信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">报警类型</label>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">紧急</option>
+                            <option value="">一般</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input type="text" />
+                    </li>
+
+                    <li>
+                        <label for="">报警名称</label>
+                        <input type="text" />
+                    </li>
+
+                    <li>
+                       <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables">
+                        <thead>
+                            <tr>
+                                <th>设备名称</th>
+                                <th>报警名称</th>
+                                <th>位置</th>
+                                <th>服务区域</th>
+                                <th>类型</th>
+                                <th>级别</th>
+                                <th>报警时间</th>
+                                <th>是否已报单</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                            <tr>
+                                <td>1号冷机</td>
+                                <td>冷机运行故障</td>
+                                <td>西冷站</td>
+                                <td>12.4m</td>
+                                <td>设备报警</td>
+                                <td>三级</td>
+                                <td>2018/03/20 09:20</td>
+                                <td>已报单</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--运行数弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='run-number-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>设备运行参数信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">设备类型</label>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">冷机</option>
+                            <option value="">热机</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables1">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>位置</th>
+                            <th>服务区域</th>
+                            <th>状态</th>
+                            <th>故障状态</th>
+                            <th>累计运行时间</th>
+                            <th>本次运行时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--室内温湿度弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='humiture-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>设备运行参数信息</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+                    <li>
+                        <label for="">设备类型</label>
+                        <select name="" id="">
+                            <option value="">全部</option>
+                            <option value="">冷机</option>
+                            <option value="">热机</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">设备名称</label>
+                        <input type="text" />
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-humiture">
+                        <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>位置</th>
+                            <th>服务区域</th>
+                            <th>状态</th>
+                            <th>故障状态</th>
+                            <th>累计运行时间</th>
+                            <th>本次运行时间</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        <tr>
+                            <td>东机房1号冷机</td>
+                            <td>制冷</td>
+                            <td>西冷站</td>
+                            <td>12.4m</td>
+                            <td>停止</td>
+                            <td>维修中</td>
+                            <td>65889.2h</td>
+                            <td>89.2h</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>
