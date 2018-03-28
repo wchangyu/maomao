@@ -784,6 +784,7 @@
    width:777px;
    height:383px;
    background: url('../img/alarm-background.png') no-repeat;
+    background-size:100% 100%;
 }
 
 .big-screen-message .modal-header {
@@ -945,3 +946,33 @@
 .bottom-equipment-chart-show{
     cursor: pointer;
 }
+
+/*室内温湿度外层包裹div*/
+.bottom-equipment-chart-humiture{
+    cursor: pointer;
+}
+
+#humiture-message .modal-content{
+    width:800px;
+}
+
+/*电功率外层包裹div*/
+.bottom-equipment-chart-electric{
+
+    cursor: pointer;
+}
+
+#electric-message .modal-content{
+    width:500px;
+}
+
+/*故障率外层包裹div*/
+.bottom-equipment-chart-fault{
+
+    cursor: pointer;
+}
+
+#failure-message .modal-content{
+    width:600px;
+}
+

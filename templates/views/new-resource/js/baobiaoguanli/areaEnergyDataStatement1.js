@@ -34,6 +34,9 @@ $(function() {
 
 });
 
+//获取当前的楼宇列表
+var pointerIdArr = getPointersId();
+
 //获取表格中的内容
 function getEnergyCollectData(){
 
@@ -45,10 +48,11 @@ function getEnergyCollectData(){
     var et = (parseInt(year) + 1) + '-01-01';
 
     $.ajax({
-        type: 'get',
+        type: 'post',
         data:{
             'startTime':st,
-            'endTime':et
+            'endTime':et,
+            "pointerIDs": pointerIdArr
         },
         beforeSend: function () {
             $('#theLoading').modal('hide');
