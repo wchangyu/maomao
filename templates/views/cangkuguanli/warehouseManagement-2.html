@@ -661,7 +661,7 @@
                             <li class="gdList">
                                 <div class="labels colorTip">库区 *:<span class="kuweiReq" v-show="$validation.kuwei.requireds" style="display: none">请选择库位</span></div>
                                 <div class="input-blockeds" style="position: relative">
-                                    <input type="text" class="not-editable inputType kuwei" v-model="kuwei" v-validate:kuwei= "['requireds']" initial='off' @keyup="kuweiFun()"><div class="selectBlock"></div>
+                                    <input type="text" class="not-editable inputType kuwei focusEle" v-model="kuwei" v-validate:kuwei= "['requireds']" initial='off' @keyup="kuweiFun()" @focus="kuweiFun()"><div class="selectBlock"></div>
                                     <ul class="kuqu-list hidden1" style="display: none">
                                     </ul>
                                 </div>
@@ -673,16 +673,16 @@
                                     <span v-show="$validation.bianhao.requireds" style="display: none">请选择物品编号</span>
                                 </div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="not-editable inputType bianhao" v-model="bianhao" v-validate:bianhao= "['requireds']" initial='off' @keyup="searchbm()" style="cursor: pointer"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="1" style="display: none">
+                                    <input type="text" class="not-editable inputType bianhao focusEle" v-model="bianhao" v-validate:bianhao= "['requireds']" initial='off' @keyup="searchbm()" @focus="searchbm()" style="cursor: pointer"><div class="selectBlock"></div>
+                                    <ul class="accord-with-list hidden1 wpbm" data-num="1" style="display: none">
                                     </ul>
                                 </div>
                             </li>
                             <li class="gdList">
                                 <div class="labels colorTip">物品名称 *：<span v-show="$validation.mingcheng.requireds"  style="display: none">请输入物品名称</span></div>
                                 <div class="input-blockeds">
-                                    <input type="text" class="not-editable auto-input inputType"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()"><div class="selectBlock"></div>
-                                    <ul class="accord-with-list hidden1" data-num="2" style="display: none">
+                                    <input type="text" class="not-editable auto-input inputType focusEle"  v-model="mingcheng" v-validate:mingcheng= "['requireds']" initial='off' @keyup="searchmc()" @focus="searchmc()"><div class="selectBlock"></div>
+                                    <ul class="accord-with-list hidden1 wpmc" data-num="2" style="display: none">
                                     </ul>
                                 </div>
                             </li>
@@ -714,7 +714,7 @@
                             <li class="gdList">
                                 <div class="labels">品质：</div>
                                 <div class="input-blockeds" style="position: relative">
-                                   <input type="text" v-model="quality" class="inputType quality" data-pznum="1" @focus="focusFun()" @keyup="selectFun()" v-on:click="clickFun"><div class="selectBlock"></div>
+                                   <input type="text" v-model="quality" class="inputType quality" data-pznum="1" @focus="selectFun()" @keyup="selectFun()" v-on:click="clickFun"><div class="selectBlock"></div>
                                     <ul class="pinzhixx hidden1" style="width:200px;position: absolute;top: 30px;left: 0;display: none">
                                         <li data-value="1" class="li-color">新件</li>
                                         <li data-value="2">良品</li>

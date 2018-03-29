@@ -41,7 +41,7 @@ html {
 .bottom-icon-contain{
     height:90px;
     border-radius: 4px !important;
-    background: url('../../new-resource/img/nengyuan.png') no-repeat 15% center;
+    background: url('../../shouye/infoMap/img/nengyuan.png') no-repeat 15% center;
     background-color: #62A8DB;
     background-size: 23%;
     cursor: pointer;
@@ -53,14 +53,14 @@ html {
 
 .bottom-icon-contain1{
 
-    background: url('../../new-resource/img/shebui.png') no-repeat 15% center;
+    background: url('../../shouye/infoMap/img/shebui.png') no-repeat 15% center;
     background-color: #35DAAF;
     background-size: 20%;
 
 }
 
 .bottom-icon-contain2{
-    background: url('../../new-resource/img/houqin.png') no-repeat 15% center;
+    background: url('../../shouye/infoMap/img/houqin.png') no-repeat 15% center;
     background-color: #F08348;
     background-size: 20%;
 }

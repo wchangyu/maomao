@@ -184,7 +184,10 @@ var Demo = function() {
         // handle theme colors
         var setColor = function(color) {
             var color_ = (Metronic.isRTL() ? color + '-rtl' : color);
+
             $('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".css");
+
+
             localStorage.themeColor = color_;
         };
 

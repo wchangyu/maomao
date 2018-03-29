@@ -172,15 +172,15 @@ $(function(){
 
         {
             title:'执行人员',
-            data:'dipRen'
+            data:'itkRen'
         },
         {
             title:'工号',
-            data:'dipRenNum'
+            data:'itkRenNum'
         },
         {
             title:'联系电话',
-            data:'dipDh'
+            data:'ITKDH'
         }
 
     ];
@@ -274,7 +274,7 @@ $(function(){
 
             _datasTable($('#personTable1'),result.dipItems);
 
-            _datasTable($('#personTable2'),result.dipMembers);
+            _datasTable($('#personTable2'),result.itkMembers);
 
         }
 
@@ -438,6 +438,13 @@ $(function(){
 
     });
 
+    //查询
+    $('#selected').click(function(){
+
+        conditionSelect();
+
+    })
+
 
     /*-------------------------------------------------其他方法-------------------------------------------*/
 
@@ -491,12 +498,16 @@ $(function(){
             type:'post',
             url:_urls + 'YWDevIns/YWDITGetTasks',
             data:prm,
+            timeout:_theTimes,
             success:function(result){
                 _allDataArr = [];
                 for(var i=0;i<result.length;i++){
                     _allDataArr.push(result[i]);
                 }
                 _datasTable($('#scrap-datatables'),result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseText);
             }
         })
     }
@@ -513,50 +524,50 @@ $(function(){
 
         //当前点击的任务编码
         var $thisBM = $that.parents('tr').children('.bianma').html();
-
-        for(var i=0;i<_allDataArr.length;i++){
-
-            if(_allDataArr[i].itkNum == $thisBM){
-
-                //是否启用
-                el.sfqy = _allDataArr[i].isActive;
-                //任务单号
-                el.rwdh = _allDataArr[i].itkNum;
-                //任务名称
-                el.rwmc = _allDataArr[i].itkName;
-                //设备名称
-                el.sbmc = _allDataArr[i].dName;
-                //设备编码
-                el.sbbm = _allDataArr[i].dNum;
-                //责任单位部门
-                el.zrdwbm = _allDataArr[i].dipKeshi;
-                //负责人
-                el.fzr = _allDataArr[i].manager;
-                //执行人
-                el.zxr = _allDataArr[i].itkRen;
-                //计划编码
-                el.jhbm = _allDataArr[i].dipNum;
-                //接单时间
-                $('#jdsj').val(_allDataArr[i].tkRecTime);
-                //开始时间
-                $('#kssj').val(_allDataArr[i].tkTime);
-                //完成时间
-                $('#wcsj').val(_allDataArr[i].tkCompTime);
-                //备注
-                $('#beizhu').val(_allDataArr[i].remark);
-
-            }
-
-        }
+        //
+        //for(var i=0;i<_allDataArr.length;i++){
+        //
+        //    if(_allDataArr[i].itkNum == $thisBM){
+        //
+        //        //是否启用
+        //        el.sfqy = _allDataArr[i].isActive;
+        //        //任务单号
+        //        el.rwdh = _allDataArr[i].itkNum;
+        //        //任务名称
+        //        el.rwmc = _allDataArr[i].itkName;
+        //        //设备名称
+        //        el.sbmc = _allDataArr[i].dName;
+        //        //设备编码
+        //        el.sbbm = _allDataArr[i].dNum;
+        //        //责任单位部门
+        //        el.zrdwbm = _allDataArr[i].dipKeshi;
+        //        //负责人
+        //        el.fzr = _allDataArr[i].manager;
+        //        //执行人
+        //        el.zxr = _allDataArr[i].itkRen;
+        //        //计划编码
+        //        el.jhbm = _allDataArr[i].dipNum;
+        //        //接单时间
+        //        $('#jdsj').val(_allDataArr[i].tkRecTime);
+        //        //开始时间
+        //        $('#kssj').val(_allDataArr[i].tkTime);
+        //        //完成时间
+        //        $('#wcsj').val(_allDataArr[i].tkCompTime);
+        //        //备注
+        //        $('#beizhu').val(_allDataArr[i].remark);
+        //
+        //    }
+        //
+        //}
 
         //加载表格下属步骤和执行人
         var prm = {
-            dipNum:el.jhbm,
+            itkNum:$thisBM,
             userID:_userIdNum
         }
         $.ajax({
             type:'post',
-            url:_urls + 'YWDevIns/YWDIPGetItemAndMembers',
+            url:_urls + 'YWDevIns/YWITKGetItemAndMembers',
             data:prm,
             beforeSend: function () {
                 $('#theLoading').modal('hide');
@@ -570,6 +581,44 @@ $(function(){
 
             },
             success:function(result){
+
+                //赋值
+                //是否启用
+                el.sfqy = result.isActive;
+                //任务单号
+                el.rwdh = result.itkNum;
+                //任务名称
+                el.rwmc = result.itkName;
+                //设备名称
+                el.sbmc = result.dName;
+                //设备编码
+                el.sbbm = result.dNum;
+                //责任单位部门
+                el.zrdwbm = result.dipKeshi;
+                //负责人
+                el.fzr = result.manager;
+                //执行人
+                el.zxr = result.itkRen;
+                //计划编码
+                el.jhbm = result.dipNum;
+                //接单时间
+                var tkRecTime = result.tkRecTime == ''?'':result.tkRecTime.split('T')[0];
+
+                $('#jdsj').val(tkRecTime);
+
+                //开始时间
+                var tkTime = result.tkTime == ''?'':result.tkTime.split('T')[0];
+
+                $('#kssj').val(tkTime);
+
+                //完成时间
+                var tkCompTime = result.tkCompTime == ''?'':result.tkCompTime.split('T')[0];
+
+
+                $('#wcsj').val(tkCompTime);
+
+                //备注
+                $('#beizhu').val(result.remark);
 
                 callback(result);
             },

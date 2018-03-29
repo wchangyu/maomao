@@ -247,7 +247,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">+&nbsp;&nbsp;' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -328,7 +328,7 @@ $(function(){
 
                                         if(result[i]['submenu'][x].type == 2){
 
-                                            secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                            secMenu += '<li class="sec-hover">+&nbsp;&nbsp;' + result[i]['submenu'][x].content + '</li>'
 
                                         }else{
 
@@ -392,7 +392,7 @@ $(function(){
 
                             if(result[i]['submenu'][x].type == 2){
 
-                                secMenu += '<li class="sec-hover">' + result[i]['submenu'][x].content + '</li>'
+                                secMenu += '<li class="sec-hover">+&nbsp;&nbsp;' + result[i]['submenu'][x].content + '</li>'
 
                             }else{
 
@@ -484,7 +484,7 @@ $(function(){
 
             if(menuObj[thisAttr]['submenu'][i].type == 2){
 
-                secMenu += '<li class="sec-hover">' + menuObj[thisAttr]['submenu'][i].content + '</li>'
+                secMenu += '<li class="sec-hover">+&nbsp;&nbsp;' + menuObj[thisAttr]['submenu'][i].content + '</li>'
 
             }else{
 

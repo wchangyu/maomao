@@ -10,8 +10,22 @@ var BEE = (function(){
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
     var _alarmCount = 0;
+
      //登陆页面地址
      var _loginHtml = "login_3.html";
+
+     //获取当前地址
+
+     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
+
+     if(_LurlLength == 4){
+
+         _loginHtml = "../login_3.html";
+
+         _assetsPath = '../../../../assets/';
+
+     }
+
     //摄像头报警
     var _cameraAlarmCount = 0;
 
@@ -413,7 +427,7 @@ var BEE = (function(){
      var modificationImportInfo = function(){
 
          //定义给悬浮窗中插入的信息
-         var infoHtml = '<li class="top-close" style="height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
+         var infoHtml = '<li class="top-close" style="padding-right: 10px;height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
 
          var $badge = $("#header_notification_bar .badge");
          var $dropdownMenu = $("#header_notification_bar .dropdown-menu");

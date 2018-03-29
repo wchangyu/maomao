@@ -765,8 +765,6 @@ $(function(){
 
         }
 
-        console.log(_firstPersonArr);
-
         _datasTable($('#selected-Person-table'),_firstPersonArr);
 
         $('#Person-Modal').modal('hide');
@@ -1136,6 +1134,8 @@ $(function(){
 
             var personArr = [];
 
+
+
             //执行人编码
             for(var i=0;i<_firstPersonArr.length;i++){
 
@@ -1146,6 +1146,9 @@ $(function(){
 
                 //执行人工号
                 obj.itkRen = _firstPersonArr[i].userName;
+
+                //执行人电话
+                obj.ITKDH = _firstPersonArr[i].mobile;
 
                 personArr.push(obj);
 

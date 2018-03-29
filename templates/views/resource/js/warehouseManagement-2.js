@@ -174,7 +174,9 @@ $(function(){
             },
             //质保期失去焦点
             selectFun:function(e){
+
                 upDown(e,$('.pinzhixx'),enterQualityName,inputQualityName);
+
             },
             //质保期选择
             time:function(){
@@ -195,12 +197,15 @@ $(function(){
             },
             //物品编码输入事件
             searchbm:function(e){
+
                 upDown(e,$('.accord-with-list').eq(0),enterBMName,inputBMName);
+
             },
             //名称输入事件
             searchmc:function(e){
                 upDown(e,$('.accord-with-list').eq(1),enterMCName,inputMCName);
             }
+
 
         }
     });
@@ -285,6 +290,24 @@ $(function(){
 
     //耐用品弹窗数组
     var _spareArr = [];
+
+    //品质数组
+    var _qualityArr = [
+
+        {
+            title:'新件',
+            data:'1'
+        },
+        {
+            title:'良品',
+            data:'2'
+        },
+        {
+            title:'坏件',
+            data:'3'
+        }
+
+    ];
 
 
     /*--------------------------------------------表格初始化------------------------------------------------*/
@@ -2603,50 +2626,80 @@ $(function(){
     })
 
     /*------------------------------------------------入库产品点击事件-------------------------------------*/
-    //点击下拉三角，出现的地方
-    $('.selectBlock').click(function(e){
+    //点击其他地方所有下拉框都消失
+    $(document).click(function(e){
 
-        if($(this).parent('.input-blockeds').hasClass('disabled-block')){
+        var e = e||window.event;
 
-            return false;
+        if(e.srcElement.className.indexOf('focusEle')>=0){
+
+            $('.hidden1').hide();
+
+            var el = $(e.srcElement);
+
+            el.next().next().show();
+
+        }else if( e.srcElement.className.indexOf('selectBlock')>=0 ){
+
+            if($(this).parent('.input-blockeds').hasClass('disabled-block')){
+
+                        return false;
+
+                    }else{
+
+
+                        if( $(this).next('.kuqu-list').length != 0 ){
+
+                            //库区
+
+                            //过滤后的下拉列表
+                            inputFQName();
+
+                        }else if($(this).next('.wpbm').length != 0){
+
+                            //物品编码
+
+                            //过滤后的下拉列表
+                            inputBMName();
+
+                        }else if( $(this).next('.wpmc').length != 0 ){
+
+                            //物品名称
+
+                            //过滤后的下拉列表
+                            inputMCName();
+
+                        }
+
+                        var this1 = $(e.srcElement);
+
+                        if( this1.next()[0].style.display == 'none' ){
+
+                            this1.next().show();
+
+                        }else if( this1.next()[0].style.display != 'none' ){
+
+                            this1.next().hide();
+
+                        }
+
+                    }
+
+        }else if( e.srcElement.className.indexOf('quality')>=0 ){
+
+            $('.hidden1').hide();
+
+            var this1 = $(e.srcElement);
+
+
+            this1.next().next().show();
 
         }else{
 
-            //初始化库区、物品下拉列表
-            if($(this).next('.kuqu-list').length != 0){
+            $('.hidden1').hide();
 
-                var data = $('#ckselect').val();
-
-                getKQ(data);
-
-            }else if($(this).next('.accord-with-list').length != 0){
-
-                var str = '';
-
-                arrList(str,_wpListArr,false);
-            }
-
-            var e = event || window.event;
-
-            var this1 = $(this);
-
-            if(this1.next()[0].style.display == 'none'){
-
-                this1.next().show();
-
-            }else if(this1.next()[0].style.display != 'none'){
-
-                this1.next().hide();
-
-            }
-
-            e.stopPropagation();
         }
-    });
 
-    //点击其他地方所有下拉框都消失
-    $(document).click(function(){
-        $('.hidden1').hide();
     });
 
     //所有下拉框的mouseover事件
@@ -2668,9 +2721,16 @@ $(function(){
     })
 
     //物品编号选择
-    $('.accord-with-list').on('click','li',function(){
+    $('.wpbm').on('click','li',function(){
 
         enterBMName();
+
+    })
+
+    //物品名称
+    $('.wpmc').on('click','li',function(){
+
+        enterMCName();
 
     })
 
@@ -4126,6 +4186,8 @@ $(function(){
 
             }else{
 
+                $('.hidden1').hide();
+
                 if(putInGoods.goodsId != ''){
 
                     $('.inputType').eq(8).focus();
@@ -4137,6 +4199,7 @@ $(function(){
                 }
 
             }
+
         },300);
 
         //初始化
@@ -4304,7 +4367,66 @@ $(function(){
     //品质输入事件
     var inputQualityName = function(){
 
+        var searchValue = putInGoods.quality;
 
+        var str = '';
+
+        var arr = [];
+
+        var isWho = false;
+
+        for(var i=0;i<_qualityArr.length;i++){
+
+            if( searchValue ==  _qualityArr[i].title ){
+
+                arr.push(_qualityArr[i]);
+
+
+            }else{
+
+                if( _qualityArr[i].title.indexOf(searchValue)>=0 ){
+
+                    arr.push(_qualityArr[i]);
+
+                }
+            }
+        }
+
+        if(arr.length == 1){
+
+            isWho = true;
+
+        }else{
+
+            isWho = false;
+
+        }
+
+        if(isWho){
+
+            for(var i=0;i<arr.length;i++){
+
+                str += '<li class="li-color" data-value="' + arr[i].data + '">' + arr[i].title +'</li>'
+
+            }
+
+        }else{
+
+            for(var i=0;i<arr.length;i++){
+
+                str += '<li data-value="' + arr[i].data + '">' + arr[i].title +'</li>'
+
+            }
+
+        }
+
+        $('.pinzhixx').eq(0).empty().append(str);
+
+        if(arr.length>0){
+
+            $('.pinzhixx').eq(0).show();
+
+        }
 
     }
 
@@ -4312,6 +4434,8 @@ $(function(){
     var enterQualityName = function(){
 
         putInGoods.quality = $('.pinzhixx').children('.li-color').html();
+
+        $('.quality').attr('data-pznum',$('.pinzhixx').children('.li-color').attr('data-value'));
 
         $('.pinzhixx').hide();
 
