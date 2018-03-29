@@ -209,8 +209,8 @@
                                             <div class="portlet box blue-madison calendar">
                                                 <div class="portlet-title">
                                                     <div class="caption" style="width:100%;">
-                                                        <div class="row">
-                                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                                        <div class="row" id="lgbx">
+                                                            <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                                                 <span id="spanM" style="font-size:18px;font-weight:200;color:#fff;">
                                                                     2016年11月
                                                                 </span>
@@ -229,7 +229,7 @@
                                                                 <span style="font-size:13px;">
                                                                     P(日制电量)KWH
                                                                 </span>
-                                                            </div>
+                                                            </div>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="icon-bar-chart font-green-sharp hide"></i>
-                                                    <span class="caption-subject font-green-sharp bold uppercase">能效对比</span>
+                                                    <span class="caption-subject font-green-sharp bold uppercase" id="TOP1">冷价对比</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
@@ -257,34 +257,157 @@
                                                             <button id="monthBtn" type="button" class="btn btn-default green" style="border:0px;">月数据</button>
                                                             <button id="dayBtn" type="button" class="btn btn-default" style="border:0px;">日数据</button>
                                                         </div>
-                                                        <span id="todayDT" class="caption-subject bold uppercase" style="position:absolute;line-height:22px;margin-left:15px;">2016年11月14日</span>
-                                                        <div class="pull-right" style="margin-right:20px;">
-                                                            <span>潜力 : </span>
-                                                            <span id="latentV" style="color:#f4b70a;">0</span>
-                                                            <span style="color:#ffd800;margin-left:2px;">%</span>
-                                                        </div>
+                                                        <span id="todayDT" class="caption-subject bold uppercase" 
+                                                              style="position:absolute;line-height:22px;margin-left:15px;">                                                                
+                                                        </span>                                                       
                                                     </div>
                                                 </div>
-                                                <div class="row" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                <!--东西冷站_冷站总体-->
+                                                <div id="CZTCBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>电量 : </span>
+                                                        <span id="e_w_c_zt_eV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>蒸汽量 : </span>
+                                                        <span id="e_w_c_zt_gV_text">0</span>
+                                                        <span>T</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>冷量 : </span>
+                                                        <span id="e_w_c_zt_cV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>电费 : </span>
+                                                        <span id="e_w_c_zt_ePrc_text">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>蒸汽费 : </span>
+                                                        <span id="e_w_c_zt_gPrc_text">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>冷量单价 : </span>
+                                                        <span id="e_w_c_zt_cPrc_text">0</span>
+                                                        <span>元/<span>KWH</span></span>
+                                                    </div>
+                                                </div>
+                                                <!--东西冷站_溴理机-->
+                                                <div id="CXLJBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>蒸汽量 : </span>
+                                                        <span id="e_w_c_xl_eV_text">0</span>
+                                                        <span>T</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>溴理机制冷效率 : </span>
+                                                        <span id="e_w_c_xl_cop_text">0</span>
+                                                        <span>T</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>供冷量 : </span>
+                                                        <span id="e_w_c_xl_gV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                </div>
+                                                <!--东西冷站_离心机-->
+                                                <div id="CLXJBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                         <span>电量 : </span>
-                                                        <span id="eer_com_eV">0</span>
+                                                        <span id="e_w_c_lx_eV_text">0</span>
                                                         <span>KWH</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                                         <span>冷量 : </span>
-                                                        <span id="eer_com_cV">0</span>
-                                                        <span id="eer_com_c_misc">RTH</span>
+                                                        <span id="e_w_c_lx_cV_text">0</span>
+                                                        <span>KWH</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
                                                         <span>电费 : </span>
-                                                        <span id="eer_com_priceV">0</span>
+                                                        <span id="e_w_c_lx_ePrc_text">0</span>
                                                         <span>元</span>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
                                                         <span>冷量单价 : </span>
-                                                        <span id="eer_com_cpirceV">0</span>
-                                                        <span>元/<span id="eer_com_cpirceV_misc">RTH</span></span>
+                                                        <span id="e_w_c_lx_cPrc_text">0</span>
+                                                        <span>元/<span>KWH</span></span>
+                                                    </div>
+                                                </div>
+                                                <!--东西冷站_地源主机-->
+                                                <div id="CDYJBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>电量 : </span>
+                                                        <span id="e_w_c_rb_eV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>冷量 : </span>
+                                                        <span id="e_w_c_rb_cV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>电费 : </span>
+                                                        <span id="e_w_c_rb_ePrc_text">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>冷量单价 : </span>
+                                                        <span id="e_w_c_rb_cPrc_text">0</span>
+                                                        <span>元/<span>KWH</span></span>
+                                                    </div>
+                                                </div>
+                                                <!--东西热站_热站总体-->
+                                                <div id="HZTCBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>电量 : </span>
+                                                        <span id="e_w_h_zt_eV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>蒸汽量 : </span>
+                                                        <span id="e_w_h_zt_gV_text">0</span>
+                                                        <span>T</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                                                        <span>热量 : </span>
+                                                        <span id="e_w_h_zt_rV_text">0</span>
+                                                        <span>KWH</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>电费 : </span>
+                                                        <span id="e_w_h_zt_ePrc_text">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>蒸汽费 : </span>
+                                                        <span id="e_w_h_zt_gPrc_text">0</span>
+                                                        <span>元</span>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>热量单价 : </span>
+                                                        <span id="e_w_h_zt_rPrc_text">0</span>
+                                                        <span>元/<span>KWH</span></span>
+                                                    </div>
+                                                </div>
+                                                <!--东西热站_蒸汽热水交换器-->
+                                                <div id="HHRBBOX" class="row BOX" style="width:80%;margin:0 auto;margin-top:20px;border:none;">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>耗蒸汽量 : </span>
+                                                        <span id="e_w_h_rg_gV_text">0</span>
+                                                        <span>T</span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                                        <span>换热罐换热效率 : </span>
+                                                        <span id="e_w_h_rg_cop_text">0</span>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-top:10px;">
+                                                        <span>供热量 : </span>
+                                                        <span id="e_w_h_rg_rV_text">0</span>
+                                                        <span>KWH</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -295,7 +418,7 @@
                                             <div class="portlet-title">
                                                 <div class="caption">
                                                     <i class="icon-bar-chart font-green-sharp hide"></i>
-                                                    <span class="caption-subject font-green-sharp bold uppercase">分项图</span>
+                                                    <span class="caption-subject font-green-sharp bold uppercase" id="TOP2">分项费用</span>
                                                 </div>
                                             </div>
                                             <div class="portlet-body">
