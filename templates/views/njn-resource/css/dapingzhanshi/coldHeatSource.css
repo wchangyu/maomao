@@ -109,7 +109,7 @@ h3 .left-patch {
 
    width:18px;
    height:18px;
-   color:white;
+   color:black;
     background: white;
     display: inline-block;
     border:1px solid #d1d1d1;
@@ -120,12 +120,14 @@ h3 .left-patch {
 
 .bottom-content-top-operation .top-control-content .right-span .onClick{
     background: #1caf9a;
+    color:white;
 }
 
 /*设备运行下方echart图*/
 #bottom-content-chart{
     height:120px;
     width:126px;
+
 }
 
 /*设备报警*/

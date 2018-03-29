@@ -881,6 +881,23 @@ function getSystemType(num){
 
         return "站房照明"
     }
-}
+};
+
+//从本地存储中获取楼宇ID列表
+function getPointersId(){
+
+    //存放楼宇ID列表
+    var pointerIdArr = [];
+
+    var pointerArr = $.parseJSON(sessionStorage.getItem('pointers'));
+
+
+    $(pointerArr).each(function(i,o){
+
+        pointerIdArr.push(o.pointerID);
+    });
+
+    return pointerIdArr;
+};
 
 

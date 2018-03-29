@@ -1,28 +1,12 @@
 /**
+ * Created by admin on 2018/3/28.
+ */
+/**
  * Created by admin on 2018/3/11.
  */
 $(function(){
     //获取区域位置的数据
-    getDevAreaByType();
-
-    _selectTime("自定义");
-
-    //时间插件
-    _timeComponentsFunHour($('.datatimeblock'));
-
-
-    $('.min').val(moment().subtract('1','days').format("YYYY-MM-DD 00:00"));
-
-    $('.max').val(moment().format("YYYY-MM-DD 00:00"));
-
-    ////默认勾选前两个楼宇
-    //var zTree = $.fn.zTree.getZTreeObj("allPointer");
-    //var nodes = zTree.getNodes();
-    //
-    //zTree.checkNode(nodes[0], false, false);  //父节点不被选中
-    //zTree.setChkDisabled(nodes[0], true); //父节点禁止勾选
-    //
-    //zTree.checkNode(nodes[0].children[0].children[0], true, true);
+    //getDevAreaByType();
 
 
     /*---------------------------------buttonEvent------------------------------*/
@@ -30,60 +14,6 @@ $(function(){
     $('.buttons').children('.btn-success').click(function(){
 
         getPointerData();
-
-    });
-
-
-    //点击切换楼宇或单位时，改变上方能耗类型
-    $('.left-middle-main .left-middle-tab').on('click',function(){
-
-        //判断页面中是否存在能耗类型选项
-        if(typeof _energyTypeSel!="undefined" ){
-            if($(this).index() == 0){
-
-                _energyTypeSel.initPointers($(".energy-types"),undefined,function(){
-                    getEcType();
-                });
-
-            }else if($(this).index() == 1){
-
-                _energyTypeSel.initOffices($(".energy-types"),undefined,function(){
-                    getEcType();
-                });
-            }
-            //改变右上角单位
-            var html = '';
-            $(unitArr3).each(function(i,o){
-                html += '<option value="'+ o.unitNum+'">'+ o.unitName+'</option>'
-            });
-
-            $('#unit').html(html);
-
-            //如果当前页面存在支路
-            if($('#allBranch').length > 0){
-                //获取当前楼宇下的支路
-                GetAllBranches(2);
-            }
-            //默认选中第一个能耗
-            $('.selectedEnergy').addClass('blueImg0');
-        }else{
-
-        };
-
-        //获取指标类型
-        var energyType = $('.selectedEnergy').attr('value');
-
-        GetShowEnergyNormItem(energyType);
-
-    });
-
-    //改变能耗类型 改变对应的指标
-    $('.energy-types').on('click','div',function(){
-
-        //获取当前能耗类型
-        var energyType = $('.selectedEnergy').attr('value');
-
-        GetShowEnergyNormItem(energyType);
 
     });
 
@@ -156,16 +86,16 @@ var table = $('#dateTables').DataTable({
     //数据源
     'columns':[
         {
-            title:'对象',
+            title:'事件名称',
             class:'',
             data:"returnOBJName"
         },
         {
-            title:'单位',
+            title:'报警类型',
             data:"returnOBJUnit"
         },
         {
-            title:'峰值',
+            title:'报警等级',
             data:"maxMetaData",
             render:function(data, type, full, meta){
 
@@ -173,11 +103,11 @@ var table = $('#dateTables').DataTable({
             }
         },
         {
-            title:'出现时间',
+            title:'报警依据',
             data:"maxMetaDataDT"
         },
         {
-            title:'谷值',
+            title:'报警条件',
             data:"minMetaData",
             render:function(data, type, full, meta){
 
@@ -185,11 +115,11 @@ var table = $('#dateTables').DataTable({
             }
         },
         {
-            title:'出现时间',
+            title:'重复间隔',
             data:"minMetaDataDT"
         },
         {
-            title:'平均值',
+            title:'是否启用',
             data:"avgMetaData"
         }
     ]
@@ -948,8 +878,8 @@ function getNatureTree(equipID){
     natureArr.length = 0;
 
     var obj = {
-            name:"全部",
-            id:0
+        name:"全部",
+        id:0
     };
 
     natureArr.push(obj);

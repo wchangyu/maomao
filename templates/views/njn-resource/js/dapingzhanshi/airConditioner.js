@@ -316,7 +316,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4062'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
                     }
                 });
@@ -356,7 +356,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4029'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
                     }
                 });
@@ -385,7 +385,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4024'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
                     }
                 });
@@ -406,7 +406,7 @@ var table = $('#equipment-datatables').DataTable({
 
                     if(o.cTypeID == '4048'){
 
-                        result = o.cDataValue;
+                        result = o.cDataValue.toFixed(2);
 
                     }
                 });
