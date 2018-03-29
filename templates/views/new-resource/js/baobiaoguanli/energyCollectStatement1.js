@@ -29,6 +29,10 @@ $(function() {
 
 });
 
+//获取当前的楼宇列表
+var pointerIdArr = getPointersId();
+
+
 //高校模式table表头中的数据
 
 //第一个tr中的数据
@@ -93,10 +97,11 @@ function getEnergyCollectData(){
     var et = (parseInt(year) + 1) + '-01-01';
 
     $.ajax({
-        type: 'get',
+        type: 'post',
         data:{
             'startTime':st,
-            'endTime':et
+            'endTime':et,
+            "pointerIDs": pointerIdArr
         },
         beforeSend: function () {
             $('#theLoading').modal('hide');
@@ -134,12 +139,16 @@ function getEnergyCollectData(){
 
                 //电耗数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'01');
+
                 //水耗数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'211');
+
                 //气耗数据
-                tableHtml += getTableHtml(result.energyCollectItems,k,'2011');
+                tableHtml += getTableHtml(result.energyCollectItems,k,'311');
+
                 //标煤数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'-2');
+
                 //合计数据
                 tableHtml += getTableHtml(result.energyCollectItems,k,'-3');
 
@@ -240,6 +249,7 @@ function getEnergyCollectData(){
 function getTableHtml(arr,month,energyID){
 
     var html = '';
+
     $(arr).each(function(i,o){
 
         //是否满足条件
@@ -278,6 +288,7 @@ function getTableHtml(arr,month,energyID){
             }
 
             return false;
+
         }
 
         if(i == arr.length -1){
@@ -286,30 +297,30 @@ function getTableHtml(arr,month,energyID){
             if(energyID == '01'){
 
                 html = //电水耗
-                    '<td style="text-align:center;border:1px solid black"></td>'+
+                    '<td style="text-align:center;border:1px solid black">0.00</td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black"></td>';
+                    '<td style="text-align:center;border:1px solid black">0.00</td>';
                 //折合标煤
             }else if(energyID == '-2'){
 
-                html = '<td style="text-align:center;border:1px solid black"></td>';
+                html = '<td style="text-align:center;border:1px solid black">0.00</td>';
                 //合计
             }else if(energyID == '-3'){
 
-                html = '<td style="text-align:center;border:1px solid black"></td></tr>';
+                html = '<td style="text-align:center;border:1px solid black">0.00</td></tr>';
 
             }else if(energyID == '211'){
 
                 html = //电水耗
-                    '<td style="text-align:center;border:1px solid black"></td>'+
+                    '<td style="text-align:center;border:1px solid black">0.00</td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black"></td>';
+                    '<td style="text-align:center;border:1px solid black">0.00</td>';
             }else if(energyID == '311'){
 
                 html = //电水耗
-                    '<td style="text-align:center;border:1px solid black"></td>'+
+                    '<td style="text-align:center;border:1px solid black">0.00</td>'+
                         //电水费
-                    '<td style="text-align:center;border:1px solid black"></td>';
+                    '<td style="text-align:center;border:1px solid black">0.00</td>';
             }
         }
 

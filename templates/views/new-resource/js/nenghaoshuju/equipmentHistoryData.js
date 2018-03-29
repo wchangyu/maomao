@@ -169,7 +169,7 @@ var table = $('#dateTables').DataTable({
             data:"maxMetaData",
             render:function(data, type, full, meta){
 
-                return data;
+                return data.toFixed(1);
             }
         },
         {
@@ -178,7 +178,11 @@ var table = $('#dateTables').DataTable({
         },
         {
             title:'谷值',
-            data:"minMetaData"
+            data:"minMetaData",
+            render:function(data, type, full, meta){
+
+                return data.toFixed(1);
+            }
         },
         {
             title:'出现时间',
@@ -551,6 +555,9 @@ function getPointerData(){
             //echart柱状图
             optionLine.xAxis[0].data = xArr;
 
+            //清空optionLine
+            optionLine.series.length = 0;
+
             $(result.devInfoDatas).each(function(i,o){
 
                 //创建echart series中的对象
@@ -695,7 +702,9 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
         callback: {
             onClick:function (event,treeId,treeNode){
 
-                treeObj.checkNode(treeNode,!treeNode.checked,false)
+                var treeObj1 = $.fn.zTree.getZTreeObj(treeId);
+
+                treeObj1.checkNode(treeNode,!treeNode.checked,false);
 
                 //如果是点击属性选择树状图
                 if(flag == 2){
@@ -779,7 +788,6 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
 
 
                 }
-
                 //如果点击设备名称树状图
                 if(flag == 1){
 
@@ -819,6 +827,7 @@ function getEquipmentZtree(EnItdata,flag,fun,node,treeObj){
     }
 
 };
+
 
 //根据参数绘制页面中已选设备列表
 function drawEquipmentList(equipObj,natureArr){

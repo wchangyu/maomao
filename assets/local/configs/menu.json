@@ -32,6 +32,14 @@
     "icon-img": "01.png",
     "icon-hover": "01dian.png",
     "submenu": {
+      "数据总览": {
+        "type": "0",
+        "content": "数据总览",
+        "uri": "../HAVC/main.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
       "实时数据": {
         "type": "0",
         "content": "实时数据",
@@ -44,6 +52,14 @@
         "type": "0",
         "content": "历史数据",
         "uri": "../HAVC/history.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": ""
+      },
+      "能效日历": {
+        "type": "0",
+        "content": "能效日历",
+        "uri": "../HAVC/calendar.html",
         "uid": "",
         "arg": "",
         "iconclass": ""

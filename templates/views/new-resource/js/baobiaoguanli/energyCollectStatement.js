@@ -77,6 +77,8 @@ var theadHtml22 = ' <th style="text-align:center;background: #ccc;border:1px sol
     '                    <th style="text-align:center;background: #ccc;border:1px solid black"></th>' +
     '                    <th style="text-align:center;background: #ccc;border:1px solid black" colspan="2"></th>';
 
+//获取当前的楼宇列表
+var pointerIdArr = getPointersId();
 
 
 //获取表格中的内容
@@ -90,10 +92,11 @@ function getEnergyCollectData(){
     var et = (parseInt(year) + 1) + '-01-01';
 
     $.ajax({
-        type: 'get',
+        type: 'post',
         data:{
             'startTime':st,
-            'endTime':et
+            'endTime':et,
+            "pointerIDs": pointerIdArr
         },
         beforeSend: function () {
             $('#theLoading').modal('hide');
@@ -219,6 +222,7 @@ function getEnergyCollectData(){
         }
     })
 }
+
 //
 function getTableHtml(arr,month,energyID){
     var html = '';

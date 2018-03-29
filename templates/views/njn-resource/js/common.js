@@ -213,8 +213,8 @@ function drawRightTab(){
 
     var tabHtml = '<span class="right-tab right-tab1"><a href="pandectEnergy.html">总览</a></span>' +
         //'<span class="right-tab right-tab2"><a href="coldHeatSource.html">冷热源</a></span>' +
-        '<span class="right-tab right-tab2 " jump-data="0"><a href="javascript:;">暖通系统</a></span>' +
-        '<span class="right-tab right-tab2"><a href="elevator.html">电梯</a></span>' +
+        '<span class="right-tab right-tab2 " jump-data="0"><a href="javascript:;">暖通空调</a></span>' +
+        '<span class="right-tab right-tab2"><a href="elevator.html">电梯系统</a></span>' +
         '<span class="right-tab right-tab2"><a href="sealHead.html">动环系统</a></span>' +
         '<span class="right-tab right-tab2" jump-data="1"><a href="javascript:;">照明系统</a></span>' +
         //'<span class="right-tab right-tab2"><a href="platform.html">站台照明</a></span>' +
@@ -222,7 +222,7 @@ function drawRightTab(){
         '<span class="right-tab right-tab2"><a href="supDraWater.html">给排水</a></span>' +
         '<span class="right-tab right-tab2" jump-data="2"><a href="automaticCheck.html">售检票</a></span>' +
         //'<span class="right-tab right-tab2"><a href="automaticSale.html">自动售票</a></span>' +
-        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">消防控制</a></span>' +
+        '<span class="right-tab right-tab2 "><a href="automaticCheck.html">消防系统</a></span>' +
         '<span class="right-tab right-tab3 "><a href="energyManagement.html">能源管理</a></span>';
 
     //插入页面中
@@ -295,7 +295,7 @@ function drawRightTab(){
 //左侧下方柱状图
 var leftBottomChart1 = echarts.init(document.getElementById('echarts-left-bottom1'));
 
-var option = {
+var option00 = {
     color: ['#3398DB'],
     tooltip : {
         trigger: 'axis',
@@ -353,8 +353,7 @@ var option = {
 };
 
 //重绘chart图
-leftBottomChart1.setOption(option);
-
+leftBottomChart1.setOption(option00);
 
 var option0 = {
     color: ['#3398DB'],
@@ -1072,7 +1071,7 @@ function getShowDateType(){
 //获取给后台传递的时间
 function getPostTime(){
     //获取页面日期类型
-    var dateType = $('.left-tab-container .right-tab-choose').html();
+    var dateType = $('.right-bottom-container .left-tab-container .right-tab-choose').html();
 
     //定义开始时间
     var startTime = '';
@@ -1135,10 +1134,9 @@ function getSecondColdHotSour(url,devTypeID,areaID){
 
             }
 
-
             //console.log(result);
-
             _datasTable($('#equipment-datatables'),result);
+
         },
         error:function(jqXHR, textStatus, errorThrown){
 
@@ -1327,6 +1325,7 @@ function getDevTypeAreas(devTypeID,fn){
 
 //获取下方能源管理数据
 function getPointerData(){
+
     //定义存放返回数据的数组（本期 X Y）
     var allData = [];
     var allDataX = [];
@@ -1399,16 +1398,17 @@ function getPointerData(){
 
         },
         success:function(result){
+
             leftBottomChart1.hideLoading();
             //console.log(result);
 
             //判断是否返回数据
             if(result == null){
 
-                option.xAxis[0].data = [];
-                option.series[0].data = [];
+                option00.xAxis[0].data = [];
+                option00.series[0].data = [];
 
-                leftBottomChart1.setOption(option);
+                leftBottomChart1.setOption(option00);
 
                 return false;
             }
@@ -1452,11 +1452,10 @@ function getPointerData(){
             }
 
             //echart柱状图
-            option.xAxis[0].data = allDataX;
-            option.series[0].data = allDataY;
+            option00.xAxis[0].data = allDataX;
+            option00.series[0].data = allDataY;
 
-            leftBottomChart1.setOption(option);
-
+            leftBottomChart1.setOption(option00);
 
         },
         error:function(jqXHR, textStatus, errorThrown){
@@ -1508,7 +1507,6 @@ function getShowDateType1(){
 
     return [showDateType,selectDateType]
 };
-
 
 //获取开始结束时间
 function getPostTime11(){
@@ -1595,7 +1593,6 @@ function getShowDateTypeByDom(dom){
     return [showDateType,selectDateType]
 };
 
-
 //获取开始结束时间
 function getPostTimeByDom(dom){
 
@@ -1641,5 +1638,38 @@ function getPostTimeByDom(dom){
     }
 
     return [startTime,endTime]
+};
+
+//对后台返回的表格数据进行包装，方便datatables插件进行调用
+function packagingTableData(tableData){
+
+    //定义新生产的table数组
+    var newTableArr = [];
+
+    //获取到名称数组
+    var titleArr = tableData.columns;
+
+    //获取数据数组
+    var dataArr = tableData.data;
+
+    //遍历数据数组
+    $(dataArr).each(function(i,o){
+
+        //定义新的对象
+        var obj = {};
+
+        //取出每行的数据
+        var lineArr = o;
+
+        $(lineArr).each(function(i,o){
+
+            obj[titleArr[i]] = o;
+        });
+
+        //把对象放入到新的数组中
+        newTableArr.push(obj);
+    });
+
+    return newTableArr;
 };
 

@@ -715,7 +715,6 @@ var userMonitor = (function(){
                         containHeight = jumpPageHeight;
 
                         realWidth = norWidth;
-
                     }
 
                     //缩放比例计算
@@ -1167,7 +1166,7 @@ var userMonitor = (function(){
                 $spanDef.append($spanTxt);
 
                 //如果是嵌入式视频
-                if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk.procLnkBase.type == 503){
+                if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase && curProcDef.prdProcLnk.procLnkBase.type == 503){
                     //console.log(curProcDef);
                         $Video.css({"width":defWidth,"height":defHeight});
                         //是否自动播放
@@ -1187,7 +1186,7 @@ var userMonitor = (function(){
                     //}
 
                     //如果是嵌入式摄像头
-                }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk.procLnkBase.type == 504){
+                }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase && curProcDef.prdProcLnk.procLnkBase.type == 504){
                     //console.log(curProcDef);
 
                     //获取当前摄像头id
@@ -1204,7 +1203,7 @@ var userMonitor = (function(){
                     $spanTxt.width(0);
 
                     //如果是嵌入流程图
-                }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk.procLnkBase.type == 502 && curProcDef.prdProcLnk.procLnkBase.startpos != 3){
+                }else if(curProcDef.dType >= 500 &&  curProcDef.dType <=600 && curProcDef.prdProcLnk && curProcDef.prdProcLnk.procLnkBase && curProcDef.prdProcLnk.procLnkBase.type == 502 && curProcDef.prdProcLnk.procLnkBase.startpos != 3){
                     //console.log(curProcDef);
 
                         id = curProcDef.prdProcLnk.paras[0];
@@ -1344,7 +1343,7 @@ var userMonitor = (function(){
                 }
 
                 //如果是弹出式摄像头
-                if(curProcDef.cType >= 500 &&  curProcDef.cType <=600 && curProcDef.prcProcLnk.procLnkBase.type == 504){
+                if(curProcDef.cType >= 500 &&  curProcDef.cType <=600  && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 504){
 
                     if(curPD.enableScriptResult){
 
@@ -1356,7 +1355,7 @@ var userMonitor = (function(){
                 }
 
                 //如果是弹出式视频
-                if(curProcDef.cType >= 500 &&  curProcDef.cType <=600 && curProcDef.prcProcLnk.procLnkBase.type == 503){
+                if(curProcDef.cType >= 500 &&  curProcDef.cType <=600  && curProcDef.prcProcLnk && curProcDef.prcProcLnk.procLnkBase && curProcDef.prcProcLnk.procLnkBase.type == 503){
 
                     if(curPD.enableScriptResult){
 
@@ -2724,10 +2723,13 @@ var userMonitor = (function(){
                     setContextMenuVisible(false);
                     var curDef = JSON.parse(sessionStorage.historyData_ProcDef);
                     var iTop = (window.screen.availHeight - 600) / 2,iLeft = (window.screen.availWidth - 700) / 2;
-                    window.open("MHisData.html?mflag=" + curDef.prDefId,"",
+                    window.open("../yongnengjiance/MHisData.html?mflag=" + curDef.prDefId,"",
                         "height=600,width=700,top=" + iTop + ",left=" + iLeft + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
                 });
             }
+            console.log(left);
+            console.log(top);
+            console.log(_scaleX);
 
             $contextMenu.css({     //将顶点减一保证鼠标当前在控制面板的范围内
                 "left" : ((left - 1) / _scaleX) + "px",

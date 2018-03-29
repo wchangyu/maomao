@@ -221,20 +221,23 @@
                                     <div class="top-control-content">
 
                                         <span class="left-span">离心机组</span>
-                                    东<span class="right-span">
+                                    <span class="control-area-span">东</span>
+                                        <span class="right-span">
                                         <font class="onClick">1</font>
                                         <font>2</font>
 
                                     </span>
                                         <br /><br />
-                                        <span class="left-span">离心机组</span>
-                                        东<span class="right-span">
+                                        <span class="left-span">溴锂机组</span>
+                                        <span class="control-area-span">东</span>
+                                        <span class="right-span">
                                          <font class="onClick">1</font>
                                         <font>2</font>
                                     </span>
                                         <br /><br />
-                                        <span class="left-span">离心机组</span>
-                                        东<span class="right-span">
+                                        <span class="left-span">热泵机组</span>
+                                        <span class="control-area-span">东</span>
+                                        <span class="right-span">
                                          <font class="onClick">1</font>
                                         <font>2</font>
                                     </span>
@@ -376,7 +379,7 @@
                 </div>
 
                 <!--换热机房-->
-                <div class="right-bottom-content"  style="display: none">
+                <div class="right-bottom-content right-bottom-content2"  style="display: none">
                     <!--页面左侧视频及介绍-->
                     <div class="right-bottom-content-left">
                         <img class="content-left-img" alt="" src="../njn-resource/img/coldHeatSource.png">
@@ -408,7 +411,7 @@
                                     <div class="top-control-content">
                                         <span class="left-span">换热罐</span>
                                         <span class="right-span">
-                                            <font class="onClick">1</font>
+                                            <font class="">1</font>
                                             <font>2</font>
                                             <font>3</font>
                                             <font>4</font>
@@ -418,7 +421,7 @@
                                         <br /><br />
                                         <span class="left-span">采暖泵</span>
                                         <span class="right-span">
-                                            <font class="onClick">1</font>
+                                            <font class="">1</font>
                                             <font>2</font>
                                             <font>3</font>
                                             <font>4</font>
@@ -460,9 +463,9 @@
                                     </div>
                                     <!--数据信息-->
                                     <div class="bottom-efficiency-message">
-                                        <p>输入蒸汽:<span>667.3</span>m³/h</p>
-                                        <p>输入热量:<span>66.7</span>kW</p>
-                                        <p>换热效率:<span>97</span>%</p>
+                                        <p>输入蒸汽:<span id="span_HRXL_rVa_text"></span>m³/h</p>
+                                        <p>输入热量:<span id="span_HRXL_eVa_text"></span>kW</p>
+                                        <p>换热效率:<span id="span_HRXL_nxVa_text"></span>%</p>
                                     </div>
                                 </div>
                                 <!--热水输送系数-->
@@ -473,9 +476,9 @@
                                     </div>
                                     <!--数据信息-->
                                     <div class="bottom-efficiency-message">
-                                        <p>输送热量:<span>67.3</span>kW</p>
-                                        <p>水泵耗电量:<span>66.7</span>kW</p>
-                                        <p>输送系数:<span>97</span></p>
+                                        <p>输送热量:<span id="span_SSXS_rVa_text">67.3</span>kW</p>
+                                        <p>水泵耗电量:<span id="span_SSXS_eVa_text">66.7</span>kW</p>
+                                        <p>输送系数:<span id="span_SSXS_nxVa_text">97</span></p>
                                     </div>
                                 </div>
                                 <!--图例-->
@@ -499,7 +502,7 @@
                                         能耗曲线
                                     </h3>
                                     <!--选项卡-->
-                                    <div class="consumption-container">
+                                    <div class="consumption-container consumption-container1">
                                         <span class="onClick">总供热量</span>
                                         <span>总蒸汽量曲线</span>
                                         <span>总能耗量</span>
