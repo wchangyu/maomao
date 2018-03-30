@@ -10,8 +10,22 @@ var BEE = (function(){
     var _localConfigsPath = 'local/configs/';
     var _isAlarmShow = false;
     var _alarmCount = 0;
+
      //登陆页面地址
      var _loginHtml = "login_3.html";
+
+     //获取当前地址
+
+     var _LurlLength = window.document.location.href.split('templates')[1].split('/').length-1;
+
+     if(_LurlLength == 4){
+
+         _loginHtml = "../login_3.html";
+
+         _assetsPath = '../../../../assets/';
+
+     }
+
     //摄像头报警
     var _cameraAlarmCount = 0;
 
@@ -413,7 +427,7 @@ var BEE = (function(){
      var modificationImportInfo = function(){
 
          //定义给悬浮窗中插入的信息
-         var infoHtml = '<li class="top-close" style="height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
+         var infoHtml = '<li class="top-close" style="padding-right: 10px;height:10px;background: #eaedf2;padding-top: 3px;overflow: hidden;box-sizing: content-box"><strong class="close" style="display: inline-block;background: url(\'../resource/img/close.png\') no-repeat center;background-size:100%" ></strong></li>';
 
          var $badge = $("#header_notification_bar .badge");
          var $dropdownMenu = $("#header_notification_bar .dropdown-menu");
@@ -1143,35 +1157,48 @@ var BEE = (function(){
 
         //getMenu: getMenu
         //flag =true 则不需要判断用户的访问页面权限
-        init:function(flag){
+        init:function(flag,rebrush){
             if(!sessionStorage.userName)
             {
                 sessionStorage.redirectFromPage = window.location.href;      //记录重定向的url
                 window.location.href = "../"+ _loginHtml;
 
             }else{
-                //获取菜单
-                getMenu();
-                //setHeaderInfo();
-                //判断已登陆用户是否有访问页面的权限
-                if(!flag){
 
-                    permitJumpPage();
+                //rebrush为真表示刷新右上角工单信息
+
+                if(rebrush){
+
+                    modificationImportInfo();
+
+                }else{
+
+                    //获取菜单
+                    getMenu();
+                    //setHeaderInfo();
+                    //判断已登陆用户是否有访问页面的权限
+                    if(!flag){
+
+                        permitJumpPage();
+
+                    }
+                    setTheme();
+                    insertionPointer();
+
+                    //重绘页面右上角信息
+                    modificationImportInfo();
+
+                    if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
+
+                        getAlarmInfo();
+
+                    }
 
                 }
-                setTheme();
-                insertionPointer();
 
-                //重绘页面右上角信息
-                modificationImportInfo();
-
-                if(sessionStorage.alarmInterval && sessionStorage.alarmInterval!='0') {
-
-                    getAlarmInfo();
-
-                }
             }
-        }
+        },
+        modificationImportInfo:modificationImportInfo
     }
 
 

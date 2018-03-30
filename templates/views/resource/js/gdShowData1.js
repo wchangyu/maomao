@@ -156,6 +156,10 @@ $(function(){
 
                         return '<span style="color: #0da570">'+ data + '</span>';
 
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
+
                     }else{
                         return '<span style="color: #4472c4">'+ data + '</span>';
                     }
@@ -430,7 +434,7 @@ $(function(){
             "wxdidian":'',
             "isCalcTimeSpan":1,
             "userName":_userIdName,
-            "gdZhts":['1','2','4']
+            "gdZhts":['1','2','4','5']
             //"wxKeshiNum":_wxBanNum
         };
 
@@ -448,6 +452,8 @@ $(function(){
                 var dataArr2 = [];
                 //执行中
                 var dataArr3 = [];
+                //等待资源
+                var dataArr5 = [];
 
                 $(result).each(function(i,o){
 
@@ -461,6 +467,9 @@ $(function(){
                     }else if(o.gdZht == 2){
 
                         dataArr2.push(o);
+                    }else if(o.gdZht == 5){
+
+                        dataArr5.push(o);
                     }else {
 
                         dataArr3.push(o);
@@ -471,6 +480,8 @@ $(function(){
                 dataArr =  dataArr1.concat(dataArr2);
                 //执行中放在最后
                 dataArr =  dataArr.concat(dataArr3);
+                //等待材料放最后
+                dataArr = dataArr.concat(dataArr5);
 
                 //声音
                 var audioStr = '<audio src="../resource/song/alert.mp3" id="audioMain" controls="controls" autoplay="autoplay" style="display: none"></audio>';

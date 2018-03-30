@@ -146,6 +146,10 @@ $(function(){
 
                         return '<span style="color: #4472c4">'+ data + '</span>';
 
+                    }else if( row.gdZht == 5 ){
+
+                        return '<span style="color: #ffcf00">'+ data + '</span>';
+
                     }else{
                         return '<span style="color: #333333">'+ data + '</span>';
                     }
@@ -420,7 +424,7 @@ $(function(){
             "wxdidian":'',
             "isCalcTimeSpan":1,
             "userName":_userIdName,
-            "gdZhts":['2','4']
+            "gdZhts":['2','4','5']
             //"wxKeshiNum":_wxBanNum
         };
         $.ajax({

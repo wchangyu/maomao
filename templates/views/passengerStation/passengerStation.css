@@ -127,6 +127,9 @@ li{
     background:rgba(34,42,56,1);
     float: right;
     overflow-y: auto;
+    /*position: absolute;*/
+    /*left: 82px;*/
+    /*background: red;*/
 }
 .second-menu ul{
     margin-top: 30px;
@@ -139,6 +142,8 @@ li{
     cursor: pointer;
     border-left:1px solid #324a62;
     text-indent: 15px;
+    height: 26px;
+    overflow: hidden;
 }
 .body-content{
     display: inline-block;
@@ -469,5 +474,27 @@ li{
     color: #ffffff !important;
 
     border-left: 1px solid rgba(98,168,219,1) !important;
+
+}
+.body-menu{
+
+    position: relative;
+
+}
+.second-menu-button{
+
+    position: absolute;
+
+    width: 30px;
+
+    height: 30px;
+
+    background: yellow;
+
+    top:10px;
+
+    left: 80%;
+
+    cursor: pointer;
 
 }

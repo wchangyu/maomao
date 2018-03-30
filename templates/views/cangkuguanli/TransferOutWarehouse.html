@@ -56,6 +56,9 @@
         .right-justify{
             text-align: right !important;
         }
+        .touchingTime{
+            width: 192px !important;
+        }
     </style>
     <style type="text/css" media=print>
         .noprint{display : none }
@@ -266,7 +269,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <label for="">时间：</label>
+                                        <label for="">日期：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min" name="min">
                                         </div>
@@ -444,9 +447,9 @@
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels">制单时间：</div>
-                                    <div class="input-blockeds automatic">
-                                        <input type="text" v-model="shijian" class="automatic" placeholder="自动生成" readonly="readonly">
+                                    <div class="labels">制单日期：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="shijian" class="datatimeblock touchingTime" @focus="time()">
                                     </div>
                                 </li>
                                 <li class="gdList" style="width: 400px;">
@@ -456,17 +459,23 @@
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels colorTip">调拨仓库 *：</div>
+                                    <div class="labels colorTip">调拨去向仓库 *：</div>
                                     <div class="input-blockeds">
                                         <select name="" id="transferOut" v-model="transferOut">
                                         </select>
                                     </div>
                                 </li>
                                 <li class="gdList">
-                                    <div class="labels colorTip">待选仓库 *：</div>
+                                    <div class="labels colorTip">当前仓库 *：</div>
                                     <div class="input-blockeds">
                                         <select name="" id="ckselected" v-model="ckselected">
                                         </select>
+                                    </div>
+                                </li>
+                                <li class="gdList shRemarks">
+                                    <div class="labels">审核日期：</div>
+                                    <div class="input-blockeds">
+                                        <input type="text" v-model="shenheTime" class="datatimeblock touchingTime" @focus="time1()">
                                     </div>
                                 </li>
                                 <div class="clearfix"></div>

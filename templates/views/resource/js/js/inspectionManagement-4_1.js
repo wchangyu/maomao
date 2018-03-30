@@ -119,15 +119,23 @@ $(function(){
         },
         {
             title:'状态',
-            data:'IsAllot',
+            data:'isAllot',
             render:function(data, type, full, meta){
 
                 if(data == 1){
+
                     return '已下发'
+
                 }else{
+
                     return '待下发'
+
                 }
             }
+        },
+        {
+            title:'执行人',
+            data:'memberLike'
         },
         {
             title:'巡检部门',
@@ -757,8 +765,6 @@ $(function(){
 
         }
 
-        console.log(_firstPersonArr);
-
         _datasTable($('#selected-Person-table'),_firstPersonArr);
 
         $('#Person-Modal').modal('hide');
@@ -1128,6 +1134,8 @@ $(function(){
 
             var personArr = [];
 
+
+
             //执行人编码
             for(var i=0;i<_firstPersonArr.length;i++){
 
@@ -1138,6 +1146,9 @@ $(function(){
 
                 //执行人工号
                 obj.itkRen = _firstPersonArr[i].userName;
+
+                //执行人电话
+                obj.ITKDH = _firstPersonArr[i].mobile;
 
                 personArr.push(obj);
 

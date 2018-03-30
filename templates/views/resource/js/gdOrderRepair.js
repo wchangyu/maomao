@@ -42,6 +42,112 @@ $(function(){
                     $('.datepicker').hide();
                 },200)
             },
+            //报修聚焦事件
+            phoneFocus:function(){
+
+                $('.fuzzy-search').hide();
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                el.next().show();
+
+                if(gdObj.bxtel == ''){
+
+                    phoneList($('.fuzzy-search').eq(0),_phoneArr);
+
+                }else{
+
+                    FuzzySearchFun(gdObj.bxtel,_phoneArr,'phone',$('.fuzzy-search').eq(0),phoneList);
+
+                }
+
+                $('.fuzzy-search').eq(0).show();
+
+            },
+            //报修电话事件
+            phoneInput:function(){
+
+                upDown($('.fuzzy-search').eq(0),bxTelEnterFun,bxTelInputFun);
+
+            },
+            //维修事项聚焦事件
+            wxShiXFocus:function(){
+
+                $('.fuzzy-search').hide();
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                el.next().show();
+
+                if(gdObj.wxshx == ''){
+
+                    wxShiXList($('.fuzzy-search').eq(1),_wxShiXArr);
+
+                }else{
+
+                    FuzzySearchFun(gdObj.wxshx,_wxShiXArr,'wxname',$('.fuzzy-search').eq(1),wxShiXList);
+
+                }
+
+                $('.fuzzy-search').eq(1).show();
+
+            },
+            //维修事项键盘事件
+            wxShiXInput:function(){
+
+                upDown($('.fuzzy-search').eq(1),wxShiXEnterFun,wxShiXInputFun);
+
+            },
+            //故障位置聚焦事件
+            gzwzFocus:function(){
+
+                $('.fuzzy-search').hide();
+
+                var e = e||window.event;
+
+                var el = $(e.srcElement);
+
+                el.next().show();
+
+                if(gdObj.bxkesh == ''){
+
+                    if(gdObj.gzplace == ''){
+
+                        gzwzList($('.fuzzy-search').eq(2),_faultLocationArr);
+
+                    }else{
+
+                        FuzzySearchFun(gdObj.gzplace,_faultLocationArr,'locname',$('.fuzzy-search').eq(2),gzwzList);
+
+                    }
+
+
+
+                }else{
+
+                    if( gdObj.gzplace == '' ){
+
+                        gzwzList($('.fuzzy-search').eq(5),_faultLocationArr);
+
+                    }else{
+
+                        FuzzySearchFun(gdObj.gzplace,_faultLocationArr,'locname',$('.fuzzy-search').eq(5),gzwzList);
+
+                    }
+
+                }
+
+            },
+            //故障位置键盘事件
+            gawzInput:function(){
+
+                upDown($('.fuzzy-search').eq(2),gzwzEnterFun,gzwzInputFun);
+
+            }
         }
     });
 
@@ -107,6 +213,23 @@ $(function(){
 
     //获取员工方法
     workerData();
+
+    //所有电话数组
+    var _phoneArr = [];
+
+    //过滤后的数组
+    var _phoneFilterArr = [];
+
+    //获取所有的电话
+    getPhone();
+
+    //维修事项
+    getMatter(true);
+
+    var _faultLocationArr = [];
+
+    //故障位置
+    getArea();
 
     /*---------------------------------------------表格初始化----------------------------------------------*/
 
@@ -401,6 +524,64 @@ $(function(){
     ];
 
     _tableInit($('#in-execution'),inExecutionCol,'2','','','');
+
+    //等待资源
+    var waitingMaterial = [
+        {
+            title:'工单号',
+            data:'gdCode',
+            className:'gdCode',
+            render:function(data, type, full, meta){
+                return '<span data-zht="' + full.gdZht +
+                    '">' + '<a href="gdDetails.html?gdCode=' + full.gdCode + '&gdCircle=' + full.gdCircle +
+                    '"target="_blank">' + data + '</a>' +
+                    '</span>'
+            }
+        },
+        {
+            title:'故障位置',
+            data:'wxDidian'
+        },
+        {
+            title:'维修事项',
+            data:'wxXm'
+        },
+        {
+            title:'故障描述',
+            data:'bxBeizhu'
+        },
+        {
+            title:'报修时间',
+            data:'gdShij'
+        },
+        {
+            title:'接单时间',
+            data:'paiGongShij'
+        },
+        {
+            title:'维修科室',
+            data:'wxKeshi'
+        },
+        {
+            title:'等待原因',
+            data:'dengyy'
+        },
+        {
+            title:'预计完成时间',
+            data:'yjShij'
+        },
+        {
+            title:'联系电话',
+            data:'bxDianhua'
+        },
+        {
+            title:'操作',
+            data:null,
+            defaultContent: "<span class='data-option option-see btn default btn-xs green-stripe'>查看记录</span>"
+        }
+    ]
+
+    _tableInit($('#waiting-material'),waitingMaterial,'2','','','');
 
     //待关单表格
     var waitingListCol = [
@@ -713,7 +894,6 @@ $(function(){
         //显示模态框
         _moTaiKuang($('#myModal'), '报修', '', '' ,'', '报修');
 
-
         //增加报修类
         $('#myModal').find('.btn-primary').removeClass('bianji').addClass('dengji');
 
@@ -778,7 +958,6 @@ $(function(){
         $('.gzDesc').val(aa);
         //$('.gzDesc').val($('#gzDesc').val());
     })
-
 
     //报修确定按钮
     $('#myModal')
@@ -1225,7 +1404,9 @@ $(function(){
     $('#choose-building').on('shown.bs.modal', function () {
 
         $('#add-select').val(' ');
-        getMatter();
+
+        _datasTable($('#choose-metter'),_wxShiXArr);
+
 
     });
 
@@ -1325,7 +1506,9 @@ $(function(){
 
     //选择故障地点弹窗打开后
     $('#choose-area').on('shown.bs.modal', function () {
-        getArea();
+
+        _datasTable($('#choose-area-table'),_faultLocationArr);
+
     });
 
     $('#choose-area').on('click','.tableCheck',function(){
@@ -1382,7 +1565,7 @@ $(function(){
                 "wxclassname":type
             },
             success:function(result){
-                //return false;
+
                 datasTable($('#choose-metter'),result);
             }
         })
@@ -1390,7 +1573,10 @@ $(function(){
 
     //选择电话弹窗打开后
     $('#choose-phone').on('shown.bs.modal', function () {
-        getPhone();
+
+        //初始化
+        _datasTable($('#choose-phone-table'),_phoneArr);
+
     });
 
     //选择电话确定按钮
@@ -1413,6 +1599,54 @@ $(function(){
         _moTaiKuang($('#myModal2'),'提示', false, 'istap' ,'请选择对应电话', '')
 
     });
+
+    //失去焦点
+    $(document).on('click',function(e){
+
+        if( e.srcElement.className.indexOf('fuzzy-input')<0){
+
+            $('.fuzzy-search').hide();
+
+        }
+
+    })
+
+    //模糊搜索下拉框
+    $('.fuzzy-search').on('mouseover','li',function(){
+
+        $(this).parent('ul').children().removeClass('li-color');
+
+        $(this).addClass('li-color');
+
+    })
+
+    //模糊搜索选中-报修电话
+    $('.fuzzy-search').eq(0).on('click','li',function(){
+
+        var selected =  $(this).parent('ul').find('.li-color');
+
+        //赋值
+        phoneAssignment(selected);
+
+    })
+
+    //维修事项
+    $('.fuzzy-search').eq(1).on('click','li',function(){
+
+        var selected =  $(this).parent('ul').find('.li-color');
+
+        wxShiXAssignment(selected);
+
+    })
+
+    //故障位置
+    $('.fuzzy-search').eq(2).on('click','li',function(){
+
+        var selected =  $(this).parent('ul').find('.li-color');
+
+        gzwzAssignment(selected);
+
+    })
 
     /*------------------------------------------------其他方法--------------------------------------------*/
     //获取日志信息（备件logType始终传2）
@@ -1459,8 +1693,11 @@ $(function(){
         })
     }
 
+    //维修事项数组
+    var _wxShiXArr = [];
+
     //获取维修事项
-    function getMatter(){
+    function getMatter(flag){
 
         $.ajax({
             type:'post',
@@ -1469,8 +1706,22 @@ $(function(){
                 "wxnum": ""
             },
             success:function(result){
-                //return false;
-                datasTable($('#choose-metter'),result);
+
+                if(flag){
+
+                    _wxShiXArr.length = 0;
+
+                    for(var i=0;i<result.length;i++){
+
+                        _wxShiXArr.push(result[i]);
+
+                    }
+
+                }else{
+
+                    datasTable($('#choose-metter'),result);
+
+                }
 
             }
         })
@@ -1490,8 +1741,19 @@ $(function(){
                 "ddname": ""
             },
             success:function(result){
-                //return false;
-                datasTable($('#choose-area-table'),result);
+
+                _faultLocationArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _faultLocationArr.push(result[i]);
+
+                }
+
+                //直接将故障位置赋值
+                gdObj.gzplace = $('.fuzzy-search').eq(2).children().eq(0).children().eq(0).html();
+
+                //datasTable($('#choose-area-table'),result);
             }
         })
     };
@@ -1601,21 +1863,21 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetDJ',
             data:prm,
             timeout:_theTimes,
-            beforeSend: function () {
-                $('#theLoading').modal('hide');
-                $('#theLoading').modal('show');
-            },
-            complete: function () {
-                $('#theLoading').modal('hide');
-                if($('.modal-backdrop').length > 0){
-                    $('div').remove('.modal-backdrop');
-                    $('#theLoading').hide();
-                }
-            },
+            //beforeSend: function () {
+            //    $('#theLoading').modal('hide');
+            //    $('#theLoading').modal('show');
+            //},
+            //complete: function () {
+            //    $('#theLoading').modal('hide');
+            //    if($('.modal-backdrop').length > 0){
+            //        $('div').remove('.modal-backdrop');
+            //        $('#theLoading').hide();
+            //    }
+            //},
             success:function(result){
 
                 //根据状态值给表格赋值
-                var zht0=[], zht1=[],zht2=[],zht4=[],zht6=[],zht7=[];
+                var zht0=[], zht1=[],zht2=[],zht4=[],zht5=[],zht6=[],zht7=[];
                 for(var i=0;i<result.length;i++){
                     if(result[i].gdZht != 7){
                         zht0.push(result[i]);
@@ -1630,6 +1892,9 @@ $(function(){
                         zht6.push(result[i]);
                     }else if(result[i].gdZht == 7){
                         zht7.push(result[i]);
+                    }else if(result[i].gdZht == 5){
+
+                        zht5.push(result[i]);
                     }
                 }
                 //全部
@@ -1640,6 +1905,8 @@ $(function(){
                 _datasTable($('#not-entertained'),zht2);
                 //执行中
                 _datasTable($('#in-execution'),zht4);
+                //等待材料
+                _datasTable($('#waiting-material'),zht5);
                 //待关单
                 _datasTable($('#waiting-list'),zht6);
                 //已关单
@@ -1732,7 +1999,7 @@ $(function(){
                 'userID': _userIdNum,
                 'userName': _userIdName,
                 'b_UserRole':_userRole,
-                'gdSrc': 2,
+                'gdSrc': 4,
                 'gdLeixing':4
             }
             if(flag){
@@ -1756,6 +2023,9 @@ $(function(){
                         _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap',successMeg, '');
 
                         $('#myModal').modal('hide');
+
+                        //刷新右上角的报警功能
+                        BEE.modificationImportInfo();
 
                         //刷新表格
                         conditionSelect();
@@ -1902,6 +2172,14 @@ $(function(){
             },
             success:function(result){
 
+                _phoneArr.length = 0;
+
+                for(var i=0;i<result.length;i++){
+
+                    _phoneArr.push(result[i]);
+
+                }
+
                 datasTable($('#choose-phone-table'),result);
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -1915,5 +2193,243 @@ $(function(){
     //隐藏分页
     $('#choose-metter_length').hide();
     $('#choose-area-table_length').hide();
+
+    //报修电话li
+    function phoneList(el,arr){
+
+        console.log(arr);
+
+        var str = '';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<li>' + '<span>' + arr[i].phone  + '</span>' + '<span>' + arr[i].departname + '</span>' +  '<span>' + arr[i].info + '</span>'  + '</li>'
+
+        }
+
+        el.empty().append(str);
+
+    }
+
+    //电话报修赋值（点击、回车事件）
+    function phoneAssignment(thisLi){
+
+        gdObj.bxtel = thisLi.children('span').eq(0).html();
+
+        $('#binding-phone').val(gdObj.bxtel);
+
+    }
+
+    //模糊搜索
+    function FuzzySearchFun(values,arr,attr,el,fun){
+
+        var values = $.trim(values);
+
+        //过滤后的数组
+        var filterArr = [];
+
+        for(var i=0;i<arr.length;i++){
+
+            if(arr[i][attr].indexOf(values) >= 0){
+
+                filterArr.push(arr[i]);
+
+            }
+
+        }
+
+        fun(el,filterArr);
+
+    }
+
+    //维修事项li
+    function wxShiXList(el,arr){
+
+        var str = '';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<li>' + '<span>' + arr[i].wxname  + '</span>' + '<span>' + arr[i].wxclassname + '</span>' +  '<span>' + arr[i].memo + '</span>' + '<span style="display: none">' + arr[i].wxnum + '</span>'  + '</li>'
+
+        }
+
+        el.empty().append(str);
+
+    }
+
+    //维修事项赋值（点击、回车事件）
+    function wxShiXAssignment(thisLi){
+
+        gdObj.wxshx = thisLi.children('span').eq(0).html();
+
+        var attrValues = thisLi.children('span').eq(3).html();
+
+        //属性值
+        $('#matter').attr('data-mnum',attrValues);
+
+    }
+
+    //故障位置li
+    function gzwzList(el,arr){
+
+        var str = '';
+
+        for(var i=0;i<arr.length;i++){
+
+            str += '<li>' + '<span>' + arr[i].locname  + '</span>' + '<span>' + arr[i].departname + '</span>' +  '<span>' + arr[i].ddname + '</span>' + '<span style="display: none;">'+ arr[i].dsNum +'</span>' + '<span>' + arr[i].departnum + '</span>' +'</li>'
+
+        }
+
+        el.empty().append(str);
+
+    }
+
+    //故障位置（点击、回车事件）
+    function gzwzAssignment(thisLi){
+
+        gdObj.gzplace = thisLi.children('span').eq(0).html();
+
+    }
+
+    //下拉列表(上下键记录)
+    var _numIndex = -1;
+
+    function upDown(ul,enterFun,inputFun){
+
+        var e = e||window.event;
+
+        var chils = ul.children();
+
+        var lengths = chils.length;
+
+        if(e.keyCode == 40){
+
+            if(_numIndex < lengths -1){
+
+                _numIndex ++ ;
+
+            }else{
+
+                _numIndex = lengths -1;
+
+            }
+
+            ul.children().removeClass('li-color');
+
+            ul.children().eq(_numIndex).addClass('li-color');
+
+            //滚动条问题
+            if(_numIndex> 4){
+
+                var moveDis = (_numIndex - 4)*26;
+
+                ul.scrollTop(moveDis);
+            }
+
+        }else if(e.keyCode == 38){
+
+            if(_numIndex < 1){
+
+                _numIndex =0;
+
+            }else{
+
+                _numIndex--;
+
+            }
+
+            ul.children().removeClass('li-color');
+
+            ul.children().eq(_numIndex).addClass('li-color');
+
+            //滚动条问题
+            if(lengths-4>_numIndex){
+
+                var moveDis = (_numIndex - 4)*26;
+
+                ul.scrollTop(moveDis);
+
+            }
+
+        }else if(e.keyCode == 13){
+
+            enterFun();
+
+        }else if(e != 9){
+
+            _numIndex = -1;
+
+            inputFun();
+
+        }
+    }
+
+    //报修电话输入事件
+    var bxTelInputFun = function(){
+
+        FuzzySearchFun(gdObj.bxtel,_phoneArr,'phone',$('.fuzzy-search').eq(0),phoneList);
+
+    }
+
+    //报修电话回车事件
+    var bxTelEnterFun = function(){
+
+        var selected =  $('.fuzzy-search').eq(0).find('.li-color');
+
+        //赋值
+        phoneAssignment(selected);
+
+        _numIndex = -1;
+
+        $('.fuzzy-search').eq(0).hide();
+
+    }
+
+    //维修事项输入事件
+    var wxShiXInputFun = function(){
+
+        FuzzySearchFun(gdObj.wxshx,_wxShiXArr,'wxname',$('.fuzzy-search').eq(1),wxShiXList);
+
+    }
+
+    //维修事项回车事件
+    var wxShiXEnterFun = function(){
+
+        var selected =  $('.fuzzy-search').eq(1).find('.li-color');
+
+        //赋值
+        wxShiXAssignment(selected);
+
+        _numIndex = -1;
+
+        $('.fuzzy-search').eq(1).hide();
+
+    }
+
+    //故障位置输入事件
+    var gzwzInputFun = function(){
+
+        if( gdObj.bxkesh == '' ){
+
+            FuzzySearchFun(gdObj.gzplace,_faultLocationArr,'locname',$('.fuzzy-search').eq(2),gzwzList);
+
+        }else{
+
+            FuzzySearchFun(gdObj.gzplace,_faultLocationArr,'locname',$('.fuzzy-search').eq(2),gzwzList);
+
+        }
+
+    }
+
+    //故障位置回车事件
+    var gzwzEnterFun = function(){
+
+        var selected =  $('.fuzzy-search').eq(2).find('.li-color');
+
+        gzwzAssignment(selected);
+
+        $('.fuzzy-search').eq(2).hide();
+
+    }
 
 })

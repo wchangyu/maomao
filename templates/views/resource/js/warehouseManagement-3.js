@@ -67,12 +67,38 @@ $(function(){
             data:'phone'
         },
         {
-            title:'创建时间',
-            data:'createTime'
+            title:'创建日期',
+            data:'createTime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return data.split(' ')[0]
+
+                }
+
+            }
         },
         {
-            title:'审核时间',
-            data:'auditTime'
+            title:'审核日期',
+            data:'auditTime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return data.split(' ')[0]
+
+                }
+
+            }
         },
         {
             title:'制单人',
@@ -200,14 +226,22 @@ $(function(){
             "data": null,
             render:function(data, type, full, meta){
                 var html = "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span>";
-                if(full.gdCode2 != ''){
-                    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
+
+                html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
                         "&a2=" + full.orderNum +
                         "&a3=" + full.itemNum +
                         "&a4=" + full.storageNum +
                         "&a5=" + full.sn +
                         "' target=_blank>用料单</a></span>"
-                }
+
+                //if(full.gdCode2 != ''){
+                //    html +=   "<span class='data-option option-materials btn default btn-xs green-stripe'><a href='materialOdd.html?a1=" + full.gdCode2 +
+                //        "&a2=" + full.orderNum +
+                //        "&a3=" + full.itemNum +
+                //        "&a4=" + full.storageNum +
+                //        "&a5=" + full.sn +
+                //        "' target=_blank>用料单</a></span>"
+                //}
                 return html;
             }
             //"defaultContent": "<span class='data-option option-see1 btn default btn-xs green-stripe'>查看</span><span class='data-option option-shanchu btn default btn-xs green-stripe'>删除</span><span class='data-option option-materials btn default btn-xs green-stripe'>用料单</span>"
@@ -215,7 +249,6 @@ $(function(){
         }
     ];
 
-    //_tableInit($('#personTable1'),rkwpCol,2,'','',drawFn);
     _tableInit($('#personTable1'),rkwpCol,2,'','','');
 
     //第二层弹窗表格
@@ -319,7 +352,6 @@ $(function(){
         }
     ];
 
-    //_tableInit($('#wuPinListTable1'),rkwpCol2,2,'','',drawFn1);
     _tableInit($('#wuPinListTable1'),rkwpCol2,2,'','','');
 
     //工单表格
@@ -461,69 +493,6 @@ $(function(){
     ];
 
     _tableInit($('#wuPinListTable'),col4,2,'','','');
-
-    //总计
-    function drawFn(){
-
-
-        return false;
-
-        var amount = 0;
-
-        var total = 0;
-        var tds = $('#personTable1').find('tbody').children('tr').length;
-
-        for(var i=0;i<tds;i++){
-            //获取金额
-            var count = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
-
-            var num = parseFloat($('#personTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
-
-            amount += count;
-
-            total += num;
-        }
-
-        if(isNaN(formatNumber(amount))){
-            $('#personTable1 .count').html(0.00);
-        }else{
-            $('#personTable1 .count').html(formatNumber(amount));
-        }
-
-        if(isNaN(total)){
-            $('#personTable1 .totalnum').html(0);
-        }else{
-            $('#personTable1 .totalnum').html(total);
-        }
-
-    };
-
-
-    function drawFn1(){
-        var amount = 0;
-        //数量
-        var amount1 = 0;
-        var tds = $('#wuPinListTable1').find('tbody').children('tr').length;
-
-        for(var i=0;i<tds;i++){
-            //获取金额
-            var count = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(7).html());
-            //获取数量
-            var count1 = parseFloat($('#wuPinListTable1').find('tbody').children('tr').eq(i).find('td').eq(5).html());
-
-            amount += count;
-            amount1 += count1;
-        }
-
-        if(isNaN(formatNumber(amount))){
-            $('#wuPinListTable1 .count1').html(0.00);
-            $('#wuPinListTable1 .amout1').html(0);
-        }else{
-            $('#wuPinListTable1 .count1').html(formatNumber(amount));
-            $('#wuPinListTable1 .amount1').html(amount1);
-        }
-
-    };
 
     //物品明细表格
     var outPrinceCol = [
@@ -709,8 +678,35 @@ $(function(){
 
             remarks:'',
 
-            shRemarks:''
+            shRemarks:'',
 
+            shenheTime:''
+
+        },
+        methods:{
+
+            time:function(){
+
+                $('.datatimeblock').eq(2).datepicker({
+                    language:  'zh-CN',
+                    todayBtn: 1,
+                    todayHighlight: 1,
+                    format: 'yyyy/mm/dd',
+                    autoclose:1
+                });
+
+            },
+            time1:function(){
+
+                $('.datatimeblock').eq(3).datepicker({
+                    language:  'zh-CN',
+                    todayBtn: 1,
+                    todayHighlight: 1,
+                    format: 'yyyy/mm/dd',
+                    autoclose:1
+                });
+
+            }
         }
 
     })
@@ -982,9 +978,22 @@ $(function(){
 
     })
 
+    $('#myModal').on('shown.bs.modal',function(){
+
+        $('.touchingTime').focus().blur();
+
+        if($('.datepicker:visible')){
+
+            $('.datepicker').hide();
+
+        }
+
+    })
+
     //登记确定按钮、编辑
     $('#myModal')
         .on('click','.dengji',function(){
+
             //先判断 必填项
             if(putOutList.rkleixing == ''){
                 _moTaiKuang($('#myModal2'), '提示', 'flag', 'istap' ,'请填写红色必填项!', '');
@@ -1045,7 +1054,9 @@ $(function(){
                     'storageNum':$('#ckselect').val(),
                     'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                     'cusName':putOutList.clymc,
-                    'phone':putOutList.clydh
+                    'phone':putOutList.clydh,
+                    //制单时间
+                    'createTime':putOutList.shijian
                 }
 
                 $.ajax({
@@ -1176,7 +1187,6 @@ $(function(){
                     //审核
                     shenheFun();
 
-
                 }
 
             }
@@ -1248,7 +1258,9 @@ $(function(){
                     'storageNum':$('#ckselect').val(),
                     'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                     'cusName':putOutList.clymc,
-                    'phone':putOutList.clydh
+                    'phone':putOutList.clydh,
+                    //制单时间
+                    'createTime':putOutList.shijian
                 }
 
                 $.ajax({
@@ -1404,6 +1416,8 @@ $(function(){
     //查看
     $('.main-contents-table .table tbody').on('click','.option-see',function(){
 
+        RKDInit();
+
         //可操作项(input\select\textarea\新增按钮\审核备注)
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
 
@@ -1440,11 +1454,30 @@ $(function(){
                 putOutList.remarks = _allData[i].remark;
                 putOutList.gysphone = _allData[i].phone;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.gdCode = _allData[i].contractOrder;
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
                 putOutList.shRemarks = _allData[i].auditMemo;
+
+                var shenheTime = '';
+
+                if(_allData[i].auditTime){
+
+                    shenheTime = _allData[i].auditTime.split(' ')[0];
+
+                }
+
+                putOutList.shenheTime = shenheTime;
             }
         }
 
@@ -1486,6 +1519,7 @@ $(function(){
     //编辑
     $('.main-contents-table .table tbody').on('click','.option-edit',function(){
 
+        RKDInit();
 
         //样式
         var $this = $(this).parents('tr');
@@ -1506,7 +1540,16 @@ $(function(){
                 putOutList.remarks = _allData[i].remark;
                 putOutList.gysphone = _allData[i].phone;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.gdCode = _allData[i].contractOrder;
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
@@ -1626,10 +1669,22 @@ $(function(){
         //自动生成的不可操作
         $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
 
+        //审核部分隐藏
+        $('.shRemarks').hide();
+
     })
 
     //审核
     $('.main-contents-table .table tbody').on('click','.option-confirm',function(){
+
+        RKDInit();
+
+        //样式
+        var $this = $(this).parents('tr');
+
+        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+
+        $this.addClass('tables-hover');
 
         //可操作项(input\select\textarea\新增按钮\审核备注)
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
@@ -1646,8 +1701,12 @@ $(function(){
         //审核备注显示
         $('#myApp33').find('.shRemarks').show();
 
-        //审核备注不可操作
+        //审核备注可操作
         $('#myApp33').find('.shRemarks').find('textarea').removeAttr('readonly').removeClass('disabled-block');
+
+        $('#myApp33').find('.shRemarks').find('input').removeAttr('readonly').removeClass('disabled-block');
+
+        $('#myApp33').find('.shRemarks').find('.input-blockeds').removeAttr('readonly').removeClass('disabled-block');
 
         //删除添加类
         $('#myModal').find('.confirm').removeClass('dengji').removeClass('shanchu').removeClass('bianji').addClass('shenhe');
@@ -1665,13 +1724,23 @@ $(function(){
             if(_allData[i].orderNum == $thisDanhao){
 
                 //绑定数据
+                putOutList.bianhao = _allData[i].orderNum;
                 putOutList.rkleixing = _allData[i].outType;
                 putOutList.gdCode = _allData[i].contractOrder;
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
                 putOutList.ckselect = _allData[i].storageNum;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.remarks = _allData[i].remark;
                 putOutList.shRemarks = _allData[i].auditMemo;
                 //判断制单人和审核人是不是一样(相等的话是false)
@@ -1720,6 +1789,9 @@ $(function(){
         detailInfo($thisDanhao,sucFun3);
 
         $('#personTable1 tbody').children('tr').find('.option-shanchu').addClass('hiddenButton');
+
+        //审核时间默认
+        $('.touchingTime').val(moment().format('YYYY/MM/DD'));
 
     })
 
@@ -4076,7 +4148,8 @@ $(function(){
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
-            'auditMemo':putOutList.shRemarks
+            'auditMemo':putOutList.shRemarks,
+            'auditTime':putOutList.shenheTime
         }
 
         $.ajax({
@@ -4136,11 +4209,13 @@ $(function(){
         //制单人
         putOutList.zhidanren = '';
         //制单时间
-        putOutList.shijian = '';
+        putOutList.shijian = _initEnd;
         //备注
         putOutList.remarks = '';
         //审核备注
         putOutList.shRemarks = '';
+        //审核时间
+        putOutList.shenheTime = '';
 
         var emptyArr = [];
 

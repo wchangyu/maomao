@@ -176,14 +176,18 @@
   "alarmIntervalComment":"首页的报警数据刷新间隔，单位分钟，0为不刷新，建议最低10分钟",
   "allPointerName" : "全院",
   "alarmAlert":"0",
-  "alarmSong":"1",
+  "alarmSong":"0",
   "changeMenuByProcs":"0",
   "changeMenuByProcsComment":"是否根据流程图动态绘制菜单",
   "gongdanInterval":"10",
   "gongdanIntervalComment":"工单是否自动刷新，0为不刷新，单位分钟",
-  "indexUrl":"shouye/index.html",
+  "indexUrl":"../../new-nengyuanzonglan/new-index1.html",
   "gongdanIndustryType":"1",
   "ckAuditType":"0",
   "imgPath":"http://1.1.1.1/ApService/dimg.aspx",
-  "imgPathComment":"查看图片的路径"
+  "imgPathComment":"查看图片的路径",
+  "indexImg":"../../../assets/local/img/img1.png",
+  "indexImgComment":"首页图片路径",
+  "indexWord":"吉林大学第一医院坐落在吉林省长春市，始建于1949年，医院现有2个院区，总建筑面积54.95万平方米，主体建筑包括1号儿科楼、2号门急诊楼、3号外科楼、5/6/7号病房楼、8号高干楼等。共有床位，在职员工。吉大一院主要用能设备包括：空调采暖用直燃机机组、医疗消毒用蒸汽锅炉、空调通风末端设备、照明、插座、电梯、医疗设备等。",
+  "indexWordComment":"首页图片简介"
 }

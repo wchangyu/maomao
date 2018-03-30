@@ -115,8 +115,20 @@ $(function(){
             data:'departName'
         },
         {
-            title:'时间',
-            data:'createTime'
+            title:'日期',
+            data:'createTime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return data.split(' ')[0]
+
+                }
+            }
         },
         {
             title:'工单号',
@@ -172,7 +184,8 @@ $(function(){
             url:_urls + 'YWGD/ywGDGetWxBanzuStation',
             data:{
                 "userID": _userIdNum,
-                "userName": _userIdNum
+                "userName": _userIdNum,
+                "hasWx2":2
             },
             success:function(result){
                 var str = '<option value="">请选择</option>';
@@ -195,7 +208,8 @@ $(function(){
 
                         for(var i=0;i<result.stations.length;i++){
                             _InfluencingArr.push(result.stations[i]);
-                            str += '<option value="' + result.stations[i].departNum +
+                            str += '<option data-attr="' + result.stations[i].isWx +
+                                '" value="' + result.stations[i].departNum +
                                 '">' + result.stations[i].departName + '</option>';
                         }
 
@@ -230,7 +244,8 @@ $(function(){
             ckNum = $('#storage').val();
             ckArr = [];
         }
-        var endTime1 = moment(endTime).add(1,'d').format('YYYY/MM/DD')
+        var endTime1 = moment(endTime).add(1,'d').format('YYYY/MM/DD');
+        var isWx = $('#yxdw').children('option:selected').attr('data-attr');
         var prm ={
             st:$('.min').val(),
             et:endTime1,
@@ -241,9 +256,9 @@ $(function(){
             localNum:$('#kqSelect').val(),
             userID:_userIdNum,
             userName:_userIdName,
-            outType:$('#tiaojian').val()
+            outType:$('#tiaojian').val(),
+            isWx:isWx
         }
-
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptGetDepOutDetail',

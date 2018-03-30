@@ -59,7 +59,15 @@
         .table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
              border-top: 2px solid #ddd !important;
         }
+        .footTd span{
 
+            display: inline-block;
+            width: 30%;
+
+        }
+    </style>
+    <style type="text/css" media=print>
+        .noprint{display : none }
     </style>
 </head>
 <!-- END HEAD -->
@@ -234,7 +242,7 @@
             </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title">
+            <h3 class="page-title noprint">
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -276,11 +284,11 @@
                         <div class="wrap">
                             <!-- 标题 -->
                             <div class="content-main-contents content-main-right">
-                                <ul class="content-main-contents-header">
+                                <ul class="content-main-contents-header noprint">
                                     <li class="main-contents-header-lists0">物品管理</li>
                                 </ul>
-                                <ul class="condition-query">
-                                    <li>
+                                <ul class="condition-query noprint">
+                                    <li style="display:none;">
                                         <label for="">时间：</label>
                                         <div class="input-blocked">
                                             <input type="text" class="datatimeblock min" name="min">
@@ -290,13 +298,14 @@
                                             <input type="text" class="datatimeblock max" name="max">
                                         </div>
                                     </li>
-                                    <!--<li>
-                                        <label for="">仓库：</label>
-                                        <select id="stroage"></select>
-                                    </li>-->
+                                    <li>
+                                        <label for="">时间：</label>
+                                        <div class="input-blocked">
+                                            <input type="text" class="datatimeblock monthS">
+                                        </div>
+                                    </li>
                                     <li><button class="btn btn-success btn1" id="selected">查询</button></li>
-                                    <!--<li><button class="btn btn-success btn1 resites">重置</button></li>-->
-                                    <li><button class="btn btn-success btn1">打印</button></li>
+                                    <li><button class="btn btn-success btn1 " onclick="javascript:window.print();">打印</button></li>
                                     <li><button class="btn btn-success excelButton11">导出</button></li>
                                     <li class="excelButton"></li>
                                     <div class="clearfix"></div>
@@ -307,7 +316,7 @@
                                         <table id="scrap-datatables" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                             <caption>
                                                 <h2 style="text-align: center">材料支出汇总表</h2>
-                                                <div class="table-head">
+                                                <div class="table-head" style="display:none;">
                                                     <div>制表日期：<span class="table-time"></span></div>
                                                     <div>制表人：<span class="table-person"></span></div>
                                                 </div>
@@ -315,7 +324,7 @@
                                             <thead>
                                                 <tr>
                                                     <td rowspan="3">种类/用途</td>
-                                                    <td colspan="12">各  维 保 组 材  料 支 出  明  细</td>
+                                                    <td colspan="12">各  维  保  车  间  材  料  支  出  明  细</td>
                                                     <td rowspan="3">库存结余</td>
                                                 </tr>
                                                 <tr>
@@ -354,6 +363,15 @@
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
+
+                                                <tr><td colspan="14" class="footTd">
+
+                                                    <span style="">维保部</span>
+                                                    <span style="">审核</span>
+                                                    <span style="">编制</span>
+
+                                                </td></tr>
+
                                             </tfoot>
                                         </table>
                                         <!--<img src="../resource/img/loading.gif" alt="">-->

@@ -1,6 +1,11 @@
 $(function(){
     //时间插件
-    _timeYMDComponentsFun($('.datatimeblock'));
+    //_timeYMDComponentsFun($('.datatimeblock'));
+
+    //月份插件
+    _monthDate($('.monthS'));
+
+    $('.monthS').val(moment().format('YYYY/MM'));
 
     //默认时间
     var nowTime = moment().format('YYYY/MM/DD');
@@ -111,8 +116,7 @@ $(function(){
 
     };
 
-    _tableInit($('#scrap-datatables'),col,2,totalFn,drawFn);
-
+    _tableInit($('#scrap-datatables'),col,2,false,totalFn,drawFn,true);
 
     //表格时间
     $('.table-time').html(nowTime);
@@ -144,9 +148,14 @@ $(function(){
 
     /*-------------------------------------其他方法--------------------------------*/
     function conditionSelect(){
+
         //获取时间
-        var startTime = $('.min').val();
-        var endTime = $('.max').val();
+        //var startTime = $('.min').val();
+        //var endTime = $('.max').val();
+
+        var startTime = moment($('.monthS').val()).startOf('month').format('YYYY/MM/DD');
+        var endTime = moment($('.monthS').val()).endOf('month').format('YYYY/MM/DD');
+
         var prm = {
             "lastDayDate": startTime,
             "dayDate": endTime,
@@ -154,6 +163,10 @@ $(function(){
             "userID":  _userIdNum,
             "userName": _userIdName
         };
+
+        //设置表头
+        $('#scrap-datatables').find('h2').html($('.monthS').val() + '    材料支出汇总表');
+
         $.ajax({
             type:'post',
             url:_urls + 'YWCK/ywCKRptGetDepartOut',

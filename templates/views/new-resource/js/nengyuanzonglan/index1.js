@@ -56,7 +56,8 @@ $(function(){
 
         $(this).parents('ul').find('a').removeClass('onClicks');
         $(this).addClass('onClicks');
-
+        $('.top-cut li').css({background:'#C0CAD6'})
+        $(this).parent('li').css({background:'#ffffff'});
         //获取实时能耗
         getRealTimeData();
 
@@ -66,6 +67,7 @@ $(function(){
     $('.header-right-btn span').on('click',function(){
 
         $('.header-right-btn span').removeClass('cur-on-choose');
+
         //给当年点击的增加标识
         $(this).addClass('cur-on-choose');
 
@@ -86,7 +88,11 @@ $(function(){
 
         $('.top-cut1 a').removeClass('onClicks');
 
+        $('.top-cut1 li').css({background:'#C0CAD6'});
+
         $(this).addClass('onClicks');
+
+        $(this).parent('li').css({background:'#ffffff'});
 
         //获取本月能耗数据
         getTopPageEnergyData();
@@ -189,7 +195,7 @@ option = {
         }
     ],
     grid: {
-        left: '12%',
+        left: '5%',
         right: '5%',
         bottom:'15%',
         top:'5%',
@@ -205,41 +211,26 @@ option = {
             symbolSize: 10,//拐点大小
             itemStyle:{
                 normal:{
-                    color:'#62A8DB',
-                    borderColor: "white",
+                    color:'#ffffff',
+                    borderColor: "#F2285C",
                     lineStyle:{
-                        width:3,
-                        color:'#62A8DB'
+                        width:4,
+                        color:'#F2285C'
                     }
 
                 }
             },
-            //markPoint : {
-            //    data : [
-            //        {type : 'max', name: '最大值'},
-            //        {type : 'min', name: '最小值'}
-            //    ],
-            //    itemStyle : {
-            //        normal:{
-            //            color:'#019cdf'
-            //        }
-            //    },
-            //    label:{
-            //        normal:{
-            //            textStyle:{
-            //                color:'#d02268'
-            //            }
-            //        }
-            //    }
-            //},
-            //markLine : {
-            //    data : [
-            //
-            //        {type : 'average', name: '平均值'}
-            //
-            //    ]
-            //},
-            //barMaxWidth: '60'
+            smooth:true
+        },
+        { // For shadow
+            type: 'bar',
+            itemStyle: {
+                normal: {color: 'rgba(0,0,0,0.01)'}
+            },
+            barGap:'-100%',
+            barCategoryGap:'40%',
+            data: [],
+            animation: false
         }
     ]
 };
@@ -590,21 +581,21 @@ function getLeftEnergyData(){
 
             //日数据
             //电
-            $('.left-energy-statistics .left-data').eq(0).find('.the-data').html(result.energySTATItemDay[0].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .left-data').eq(0).find('.the-data').html(result.energySTATItemDay[0].currentEnergyData.toFixed(1) + '<span>kWh</span>');
             //水
-            $('.left-energy-statistics .right-data').eq(0).find('.the-data').html(result.energySTATItemDay[1].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .right-data').eq(0).find('.the-data').html(result.energySTATItemDay[1].currentEnergyData.toFixed(1) + '<span>t</span>');
 
             //月数据
             //电
-            $('.left-energy-statistics .left-data').eq(1).find('.the-data').html(result.energySTATItemMonth[0].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .left-data').eq(1).find('.the-data').html(result.energySTATItemMonth[0].currentEnergyData.toFixed(1) + '<span>kWh</span>');
             //水
-            $('.left-energy-statistics .right-data').eq(1).find('.the-data').html(result.energySTATItemMonth[1].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .right-data').eq(1).find('.the-data').html(result.energySTATItemMonth[1].currentEnergyData.toFixed(1) + '<span>t</span>');
 
             //年数据
             //电
-            $('.left-energy-statistics .left-data').eq(2).find('.the-data').html(result.energySTATItemYear[0].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .left-data').eq(2).find('.the-data').html(result.energySTATItemYear[0].currentEnergyData.toFixed(1) + '<span>kWh</span>');
             //水
-            $('.left-energy-statistics .right-data').eq(2).find('.the-data').html(result.energySTATItemYear[1].currentEnergyData.toFixed(1));
+            $('.left-energy-statistics .right-data').eq(2).find('.the-data').html(result.energySTATItemYear[1].currentEnergyData.toFixed(1) + '<span>t</span>');
 
 
         },
@@ -885,10 +876,13 @@ function getRealTimeData(){
             var xArr = [];
             //数据
             var sArr = [];
+            //所有数据
+            var dataArr = [];
             $(data.hourMetaDatas).each(function(i,o){
 
-
                 sArr.push(o.data.toFixed(2));
+
+                dataArr.push(o.data.toFixed(2));
 
                 xArr.push(i);
             });
@@ -901,6 +895,23 @@ function getRealTimeData(){
 
             option.series[0].data = sArr;
             option.xAxis[0].data = xArr;
+
+
+            var yMax = dataArr.sort(function(a,b){
+
+                return b-a;
+
+            })[0];
+
+            var shadowArr = [];
+
+            for(var i=0;i<dataArr.length;i++){
+
+                shadowArr.push(maxNum(yMax))
+
+            }
+
+            option.series[1].data = shadowArr;
 
             //重绘chart图
             myChart.setOption(option);
@@ -1656,8 +1667,9 @@ function alarmHistory(){
 
             //新增报警条数
             var countAlarm = result.length;
+
             //页面赋值
-            $('.new-alarm').eq(0).find('span').html(countAlarm);
+            $('.new-alarm').eq(0).find('.alarmNum').html(countAlarm);
 
             //已处理条数
             var isDispose = 0;
@@ -1679,9 +1691,9 @@ function alarmHistory(){
 
             //页面赋值
             //未处理
-            $('.new-alarm').eq(1).find('span').html(noDispose);
+            $('.new-alarm').eq(1).find('.alarmNum').html(noDispose);
             //已处理
-            $('.new-alarm').eq(2).find('span').html(isDispose);
+            $('.new-alarm').eq(2).find('.alarmNum').html(isDispose);
         }
     });
 };
@@ -1835,3 +1847,18 @@ function setEnergyBlock(et,ec){
     $div.append($divComp);
     return $div;
 };
+
+//数字取整
+function maxNum(num){
+
+    //首先判断是几位数
+    num = Math.ceil(num/5);
+
+    //位数
+    var length = num.toString().length;
+
+    //获取最高位
+    var heightNum = Number(num.toString().slice(0,1)) + 1;
+
+    return Math.pow(10,length-1)*heightNum *5;
+}

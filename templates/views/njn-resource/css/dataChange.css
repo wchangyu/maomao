@@ -1,0 +1,335 @@
+*{
+    font-family: "Micorsoft Yahei";
+}
+
+body{
+
+    background: #ffffff;
+
+}
+
+.outer-container{
+
+    padding: 20px;
+
+}
+
+.title-block{
+
+    font-size:26px;
+
+    color: rgba(43,43,43,1);
+
+}
+
+.title-name{
+
+    margin-right: 20px;
+
+}
+
+.title-button{
+
+    margin-right: 17px;
+
+}
+
+.title-block span,.content-block span{
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+}
+
+.title-button{
+
+    font-size: 14px;
+
+    color: rgba(220,220,220,1);
+
+    padding: 2px 18px;
+
+    cursor: pointer;
+
+}
+
+.content-children{
+
+    float: left;
+
+    margin-right: 23px;
+
+}
+
+.content-children{
+
+    width: 320px;
+
+    padding: 15px;
+
+    border: 1px solid #DCDCDC;
+
+}
+
+.button-block{
+
+    float: right;
+
+}
+
+.content-block .title-name,.gd-block .title-name{
+
+    font-size: 22px;
+
+    color: rgba(93,93,93,1);
+
+}
+
+.title-list{
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+.title-list li{
+
+    list-style: none;
+
+    width: 142px;
+
+    display: inline-block;
+
+    vertical-align: middle;
+
+    margin-bottom: 13px;
+}
+
+.title-list li label{
+
+    width: 60px;
+
+    color: rgba(93,93,93,1);
+
+    font-size: 14px;
+
+}
+
+.title-list li input{
+
+    height: 24px;
+
+    border: 1px solid #959595;
+
+    width: 68px;
+
+    outline: none;
+
+    text-indent: 5px;
+
+}
+
+.text-right{
+
+    text-align: right;
+
+}
+
+.title-button:nth-child(2){
+
+    margin-right: 0;
+
+}
+
+.list-title span{
+
+    display: inline-block;
+
+    width: 142px;
+
+    height: 36px;
+
+    line-height: 36px;
+
+    color:rgba(43,43,43,1);
+
+}
+
+.text-distance{
+
+    text-indent: 29px;
+
+}
+
+.content-wrap{
+
+    height: 400px;
+
+    display: inline-block;
+
+    vertical-align: top;
+
+}
+
+.dev-alarm{
+
+    width: 186px;
+
+    height: 233px;
+
+    border: 1px solid #DCDCDC;
+
+    padding: 15px;
+
+}
+
+.bottom-children{
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    margin-right: 23px;
+}
+
+.gd-block{
+
+    width: 250px;
+
+    display: inline-block;
+
+    vertical-align: top;
+
+}
+
+.gd-block-last{
+
+    width: 171px;
+
+}
+
+.gd-block li{
+
+    width: 172px;
+
+}
+
+.title-input input{
+
+    height: 24px;
+
+    border: 1px solid #959595;
+
+    width: 68px;
+
+    outline: none;
+
+    text-indent: 5px;
+
+}
+
+.button-on{
+
+    background: url("../img/kaiqi.png") no-repeat;
+
+}
+
+.button-off{
+
+    background: url("../img/guanbi.png") no-repeat;
+
+}
+
+.button-submit{
+
+    background: url("../img/tijiao.png") no-repeat;
+
+}
+
+.button-reset{
+
+    background: url("../img/chongzhi.png") no-repeat;
+
+}
+
+#season-range{
+
+    width: 68px;
+
+    height: 24px;
+
+}
+
+.ztree-block{
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    width: 320px;
+
+    height: 334px;
+
+    margin-right: 23px;
+
+    margin-top: -40px;
+
+    border: 1px solid #6E7FA0;
+
+}
+
+.ztree-title{
+
+    font-size: 26px;
+
+    color: #2B2B2B;
+
+    text-indent: 11px;
+
+    border-bottom: 1px solid #6E7FA0;
+
+}
+
+.ztree-block button{
+
+    background: #2170F4;
+
+    color: #ffffff;
+
+}
+.ztree-block .button-block{
+
+    text-align: center;
+
+    float: none;
+
+}
+
+.show-name{
+
+    text-align: center;
+
+    font-size: 22px;
+
+    color: #757575;
+
+    margin-top: 10px;
+
+}
+
+#ztreeStation{
+
+    height:190px;
+
+    margin-bottom: 10px;
+
+    overflow: auto;
+
+}
+.switch-button{
+
+    color:rgba(1,1,1,0);
+
+}

@@ -182,15 +182,15 @@ function _gdSource(){
 
 /*------------------------------------------------------线路配置----------------------------------------*/
 
-if( !__routeShow){
-
-    $('.routeShow').hide();
-
-}else{
-
-    $('.routeShow').show();
-
-}
+//if( !__routeShow){
+//
+//    $('.routeShow').hide();
+//
+//}else{
+//
+//    $('.routeShow').show();
+//
+//}
 
 //页面加载的时候，首先要判断用户所属的班组，是属于车间还是维保组。（权限）
 
@@ -409,7 +409,7 @@ function _stationData(){
 }
 
 //根据用户班组，生成班组下拉列表
-function _BZList(el,fun){
+function _BZList(el,fun,flag){
 
     //生成维修班组
     var arr = [];
@@ -440,7 +440,15 @@ function _BZList(el,fun){
 
     }
 
-    var str = '<option value="">全部</option>';
+    if(flag){
+
+        var str = '';
+
+    }else{
+
+        var str = '<option value="">全部</option>';
+
+    }
 
     for(var i=0;i<arr.length;i++){
 

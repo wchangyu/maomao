@@ -1,12 +1,16 @@
 var Login = function() {
 
+    //首先获取url根目录
+    var _Lurls = window.document.location.href.split('templates')[0];
+
+
     var _isPointersLoaded = false;
     var _isOfficesLoaded = false;
     var _isEnergyItemsLoaded = false;
     var _isMenuLoaded = false;
     var _isProceLoaded = false;
-    //var _indexUrl = "shouye/index.html";
-    var _indexUrl = "new-nengyuanzonglan/";
+    var _indexUrl = "shouye/index.html";
+    //var _indexUrl = "new-nengyuanzonglan/";
 
     var showAlertInfo = function(msg){
         msg = msg || "出现错误,请联系管理员";
@@ -322,7 +326,10 @@ var Login = function() {
     //获取到菜单配置文件
     var getMenu = function(){
 
-        var menuSrc = '../../assets/local/configs/menu.json?'+ Math.random();
+        //var menuSrc = '../../assets/local/configs/menu.json?'+ Math.random();
+
+        var menuSrc = _Lurls + 'assets/local/configs/menu.json?'+ Math.random();
+
         $.ajax({
                 url:menuSrc,
                 type:"get",
@@ -373,7 +380,10 @@ var Login = function() {
 
     //获取配置文件，保存到存储区域
     var initConfig = function (src) {
-        var configSrc = "../../assets/local/configs/config.json?"+ Math.random();
+        //var configSrc = "../../assets/local/configs/config.json?"+ Math.random();
+
+        var configSrc =  _Lurls + "assets/local/configs/config.json?"+ Math.random();
+
         //保存当前的登录页面，提供给退出登录时候使用
         var curLoginPage = window.location.href;
         curLoginPage = curLoginPage.substring(curLoginPage.lastIndexOf("/") + 1,curLoginPage.length);
@@ -444,6 +454,14 @@ var Login = function() {
                     var imgPath = data["imgPath"] || '';
                     sessionStorage.imgPath = imgPath;
 
+                    //首页图片路径
+                    var indexImg = data["indexImg"] || '';
+                    sessionStorage.indexImg = indexImg;
+
+                    //首页图片简介
+                    var indexWord = data["indexWord"] || '';
+                    sessionStorage.indexWord = indexWord;
+
                     //初始加载的页面
                     var indexUrl = data["indexUrl"] || '';
                     sessionStorage.indexUrl = indexUrl;
@@ -490,6 +508,7 @@ var Login = function() {
                     //系统的theme
                     if(!localStorage.themeColor){
                         var themeColor = data["themeColor"];
+
                         if(themeColor){
                             localStorage.themeColor = themeColor;
                         }else{

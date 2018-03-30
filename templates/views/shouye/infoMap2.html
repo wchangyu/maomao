@@ -249,12 +249,47 @@
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="row" style="padding:15px 0;overflow: hidden">
+                <div class="col-lg-7 col-md-8 col-sm-12 col-xs-12" style="padding-right: 0 !important;">
+                    <div class="bottom-jump-icon row">
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                            <div class="bottom-icon-contain">
+
+                                <p class="title">能源管理</p>
+
+                                <p class="small-title">驾驶舱</p>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+
+                            <div class="bottom-icon-contain bottom-icon-contain1">
+
+                                <p class="title">设备监控</p>
+                                <p class="small-title">监控总览</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="bottom-icon-contain bottom-icon-contain2">
+                                <p class="title">后勤管理</p>
+                                <p class="small-title">工单综合</p>
+                            </div>
+
+                        </div>
+
+                    </div>
                     <div class="left-main-content">
                         <h2>重庆医科大学附属儿童医院简介
+                            <span class="left-date">(2017年2月)</span>
                         </h2>
                         <p class="synopsis">
+                            <img src="../resource/img/01 (1).png" alt="" align="left">
                             &nbsp;&nbsp;&nbsp;&nbsp;（一）建设背景<br />
                             &nbsp;&nbsp;&nbsp;&nbsp;重庆医科大学附属儿童医院于1956年由上海医学院儿科系迁渝创建，是集医教研为一体的国家三级甲等综合性儿童医院。本着“重管理、保安全、抓服务、讲效率、求发展”的后勤管理理念，以及“安全、优质、 高效；规范化、专业化、标准化、精细化、科学化” 的后勤管理目标，构建后勤信息管理平台，实现后勤机电设备的集中管理、院区能耗的精细化管理以及设备维保和物资供应的信息化管理。<br />
                             <span style="height:10px;display: block"></span>
@@ -267,50 +302,16 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;（四）统一平台<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;能源管理、后勤管理和设备运行管理系统融为一体，即一个统一的平台。
                         </p>
-
-                        <div class="bottom-jump-icon row">
-
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-
-                                <div class="bottom-icon-contain">
-
-                                    <p class="title">能源管理</p>
-
-                                    <p class="small-title">驾驶舱</p>
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-
-                                <div class="bottom-icon-contain bottom-icon-contain1">
-
-                                   <p class="title">设备监控</p>
-                                    <p class="small-title">监控总览</p>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                                <div class="bottom-icon-contain bottom-icon-contain2">
-                                    <p class="title">后勤管理</p>
-                                    <p class="small-title">工单综合</p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                        <span class="supplementBlock"></span>
                     </div>
-
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="position: relative">
+                <div class="col-lg-5 col-md-4 col-sm-12 col-xs-12" style="position: relative;">
 
                     <div class="thd-content">
-                        <img id="img2"  class="mapper" src="../new-resource/img/pingmiantu.jpg" style="width:100%;" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
-
+                        <img id="img2"  class="mapper" src="../new-resource/img/02 (1).png" style="width: 100%" usemap="#mapInfos" >               <!--响应鼠标事件的图-->
+                        <span class="supplementBlock"></span>
                     </div>
+
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
@@ -417,7 +418,7 @@
         //驾驶舱
         if(index == 0){
 
-            window.location.href="../new-nengyuanzonglan/new-index2.html";
+            window.location.href="../new-nengyuanzonglan/new-index1.html";
 
         }
 
@@ -437,6 +438,42 @@
 
 
     });
+
+    //页面加载完之后，使两列等高
+    $(function(){
+
+        equalHigh();
+
+        $(window).resize(function(){
+
+            equalHigh();
+
+        })
+
+
+    })
+
+    function equalHigh(){
+
+        //获得右边高度
+
+        var rightHeight = $('.thd-content').height();
+
+        var leftHeight = $('.left-main-content').parent().height();
+
+        var heights = Number(rightHeight) - Number(leftHeight);
+
+        if(heights>=0){
+
+            $('.supplementBlock').eq(0).css({'height':heights});
+
+        }else{
+
+            return false;
+
+        }
+
+    }
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

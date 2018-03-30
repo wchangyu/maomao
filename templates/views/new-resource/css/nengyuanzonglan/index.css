@@ -12,7 +12,7 @@
     bottom: 68px !important;
 }
 .carousel-caption{
-    bottom:-10px;
+
     color:#666;
 }
 
@@ -29,7 +29,6 @@
 .left-middle-main1 {
     height: 115px;
     overflow-y: auto;
-    padding-top:10px;
 }
 .left-middle-main1 p {
 
@@ -170,8 +169,11 @@
 }
 .top-cut li {
     float: left;
-    margin-left: 15px;
     font-size: 16px;
+    width: 33px;
+    height: 26px;
+    background: #C0CAD6;
+    text-align: center;
 }
 .top-cut li a {
     color: #666;

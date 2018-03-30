@@ -218,16 +218,26 @@ $(function(){
             data:'manager'
         },
         {
-            title:'是否启用',
+            title:'是否下发',
             className:'isActive',
             data:'isActive',
             render:function(data, type, full, meta){
                 if(data == 0){
                     return '未下发'
-                }if(data == 1){
+                }else{
                     return '已下发'
-                }if(data ==2){
+                }
+            }
+        },
+        {
+            title:'是否启用',
+            className:'isActive',
+            data:'isActive',
+            render:function(data, type, full, meta){
+                if(data ==2){
                     return '停用'
+                }else{
+                    return '启用'
                 }
             }
         },
@@ -245,8 +255,7 @@ $(function(){
                         "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>" +
                         "<span class='data-option option-assign btn default btn-xs green-stripe' title='下发任务'>下发任务</span>"
                 }if(data !=0){
-                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>" +
-                        "<span class='data-option option-delete btn default btn-xs green-stripe'>删除</span>"
+                    return "<span class='data-option option-see btn default btn-xs green-stripe'>查看</span>"
                 }
             }
         }
@@ -794,7 +803,7 @@ $(function(){
     //停用确定按钮
     $('#Batch-TY-Modal').on('click','.btn-primary',function(){
 
-        yesOrNo('YWDevIns/YWDIPActivePlans',0,'请选择要停用的数据','停用操作成功！','启用状态下才可以进行停用操作！');
+        yesOrNo('YWDevIns/YWDIPActivePlans',2,'请选择要停用的数据','停用操作成功！','已下发状态下才可以进行停用操作！');
 
     })
 
@@ -823,7 +832,7 @@ $(function(){
     //批量删除确定按钮
     $('#Batch-DEL-Modal').on('click','.btn-primary',function(){
 
-        yesOrNo('YWDevIns/YWDIPDelPlans',2,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
+        yesOrNo('YWDevIns/YWDIPDelPlans',3,'请选择要删除的数据','批量删除操作成功！','启用状态不能删!');
 
     })
 
@@ -2430,13 +2439,14 @@ $(function(){
 
             var QYFlag = true;
 
-            if(data == 1 || data == 2){
+            //启用(已下发和停用状态下才可以启用)
+            if(data == 1){
 
                 //想要启用，必须全是data == 0的数
 
                 for(var i=0;i<_stateArr.length;i++){
 
-                    if(_stateArr[i] == 1){
+                    if(_stateArr[i] != 2){
 
                         QYFlag = false;
 
@@ -2447,12 +2457,27 @@ $(function(){
                 }
 
 
-
-            }else if(data == 0){
+            //停用(已下发和启用状态下才可以停用)
+            }else if(data == 2){
 
                 for(var i=0;i<_stateArr.length;i++){
 
-                    if(_stateArr[i] == 0){
+                    if(_stateArr[i] != 1){
+
+                        QYFlag = false;
+
+                        break;
+
+                    }
+
+                }
+
+            //批量删除
+            }else{
+
+                for(var i=0;i<_stateArr.length;i++){
+
+                    if( _stateArr[i] != 0 ){
 
                         QYFlag = false;
 
@@ -2468,7 +2493,7 @@ $(function(){
                 var prm = {
                     dipNums:selectQiyongArr,
                     isActive:data,
-                    userID:_userIdName
+                    userID:_userIdNum
                 }
                 $.ajax({
                     type:'post',

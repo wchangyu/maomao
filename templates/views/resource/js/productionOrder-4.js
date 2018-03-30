@@ -91,7 +91,7 @@ $(function(){
         "destroy": true,//还原初始化了的datatable
         "searching": true,
         "ordering": true,
-        "order":[[ 5, "desc" ]],
+        "order":[],
         "pagingType":"full_numbers",
         'language': {
             'emptyTable': '没有数据',
@@ -174,13 +174,31 @@ $(function(){
 
             },
             {
+                title:'报修科室',
+                data:'bxKeshi'
+            },
+            {
                 title:'报修时间',
                 data:'gdFsShij'
             },
-            {
-                title:'维修备注',
-                data:'wxBeizhu'
-            },
+            //{
+            //    title:'报修方式',
+            //    data:'gdSrc',
+            //    render:function(data, type, full, meta){
+            //        if(data == 2){
+            //            return '手机'
+            //        }else if(data == 1){
+            //
+            //            return '电话'
+            //
+            //        }else if( data == 4 ){
+            //
+            //            return '电脑'
+            //
+            //        }
+            //    }
+            //
+            //},
             {
                 title:'故障位置',
                 data:'wxDidian'
@@ -188,6 +206,10 @@ $(function(){
             {
                 title:'故障描述',
                 data:'bxBeizhu'
+            },
+            {
+                title:'维修备注',
+                data:'wxBeizhu'
             },
             {
                 title:'报修人',
@@ -818,7 +840,6 @@ $(function(){
             "gdCode":$('#gdCode').val(),
             "gdSt":realityStart,
             "gdEt":realityEnd,
-            "bxKeshi":$('#station').val(),
             "wxKeshi":$('#wxbz').val(),
             "gdZht":$('#gdzt').val(),
             "pjRen":$('#pjr').val(),
@@ -829,7 +850,13 @@ $(function(){
             "wxRen":$('#zxr').val(),
             "wxdidian":$('#gzwz').val(),
             "isCalcTimeSpan":1,
-            "userName":_userIdName
+            "userName":_userIdName,
+            //报修科室
+            "bxKeshi":$('#bxks').val(),
+            //报修人
+            "bxRen":$('#bxren').val(),
+            //报修方式
+            "gdSrc":$('#bxtype').val()
         }
         $.ajax({
             type:'post',
@@ -837,7 +864,82 @@ $(function(){
             data:prm,
             async:false,
             success:function(result){
-                _jumpNow($("#scrap-datatables"),result);
+
+                //排序(超时[工单状态为2并且result[i].exceedTimePaig != null && result[i].exceedTimePaig != '']、待受理、待接单、执行中、待关单、已取消、已关单顺序)
+                //console.log(result);
+                //待受理1、待接单2、执行中4、等待5、待关单6、已取消999、已关单7
+
+                var zht1=[],zht2=[],zht4=[],zht5=[],zht6=[],zht999=[],zht7=[],zhtMt=[],zhtTotal=[];
+
+                for(var i=0;i<result.length;i++){
+
+                    if(result[i].gdZht == 1){
+
+                        zht1.push(result[i])
+
+                    }else if(result[i].gdZht == 2){
+
+                        if( result[i].exceedTimePaig != null && result[i].exceedTimePaig != '' ){
+
+                            zhtMt.push(result[i]);
+
+                        }
+
+                        zht2.push(result[i])
+
+                    }else if(result[i].gdZht == 4){
+
+                        zht4.push(result[i])
+
+                    }else if(result[i].gdZht == 5){
+
+                        zht5.push(result[i])
+
+                    }else if(result[i].gdZht == 6){
+
+                        zht6.push(result[i])
+
+                    }else if( result[i].gdZht == 999 ){
+
+                        zht999.push(result[i])
+
+                    }else if( result[i].gdZht == 7 ){
+
+                        zht7.push(result[i])
+
+                    }
+
+                }
+
+                var newMT = zhtMt.sort(compare('gdFsShij'));
+
+                var newZht1 = zht1.sort(compare('gdFsShij'));
+
+                var newZht2 = zht2.sort(compare('gdFsShij'));
+
+                var newZht4 = zht4.sort(compare('gdFsShij'));
+
+                var newZht5 = zht5.sort(compare('gdFsShij'));
+
+                var newZht6 = zht6.sort(compare('gdFsShij'));
+
+                var newZht999 = zht999.sort(compare('gdFsShij'));
+
+                var newZht7 = zht7.sort(compare('gdFsShij'));
+
+                var arr = [newMT,newZht1,newZht2,newZht4,newZht5,newZht6,newZht999,newZht7];
+
+                for(var i=0;i<arr.length;i++){
+
+                    for(var j=0;j<arr[i].length;j++){
+
+                        zhtTotal.unshift(arr[i][j]);
+
+                    }
+
+                }
+
+                _jumpNow($("#scrap-datatables"),zhtTotal);
             },
             error:function(jqXHR, textStatus, errorThrown){
                 console.log(jqXHR.responseText);
@@ -1061,4 +1163,11 @@ $(function(){
 
     };
 
+    function compare(property){
+        return function(obj1,obj2){
+            var value1 = obj1[property];
+            var value2 = obj2[property];
+            return value1 == value2?0:((value1 > value2)?-1:1);     // 升序
+        }
+    }
 })

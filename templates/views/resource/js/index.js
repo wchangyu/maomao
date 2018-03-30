@@ -5,6 +5,19 @@ const _ColdYC = 300;  //冷量的年耗,100MJ/m2
 const _HeatYC = 300;  //热量的年耗,100MJ/m2
 
 $(function(){
+
+    //读取图片路径
+    var _imgPath = sessionStorage.getItem('indexImg');
+
+    $('.content-main img').attr('src',_imgPath);
+
+    //读取图片简介
+    var _imgWord = sessionStorage.getItem('indexWord');
+
+    $('.left-top').html(_imgWord);
+
+    $('.left-top').attr('title',_imgWord);
+
     //上日上年标题部分
     titleChange();
     //读取楼宇和科室的zTree；

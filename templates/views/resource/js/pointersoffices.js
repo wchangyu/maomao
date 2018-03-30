@@ -137,7 +137,7 @@ var ObjectSelection = function(){
     //获取选中的楼宇，返回楼宇数组，多个楼宇{楼宇id,楼宇名}
     this.getSelectedPointers = function(){
         var treeObj = $.fn.zTree.getZTreeObj(this._$ulPointers.attr('id'));
-        console.log(this._$ulPointers.attr('id'));
+
         if(!treeObj){
             return;
         }
@@ -274,6 +274,7 @@ var ObjectSelection = function(){
         }
 
         if(this._$ulPointers){
+
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
             //console.log(nodes);

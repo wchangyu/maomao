@@ -74,6 +74,10 @@
         .dataTables_filter{
             float: left !important;
         }
+        .single-line{
+
+            overflow: visible !important;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -329,6 +333,7 @@
                                         <span>未受理</span>
                                         <span>未接单</span>
                                         <span>执行中</span>
+                                        <span>等待材料</span>
                                         <span>待关单</span>
                                         <span>已关单</span>
                                     </div>
@@ -366,6 +371,16 @@
                                         <div class="content-main-contents hide-block">
                                             <div class="main-contents-table">
                                                 <table id="in-execution" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="content-main-contents hide-block">
+                                            <div class="main-contents-table">
+                                                <table id="waiting-material" class="table table-striped table-bordered table-advance table-hover" cellspacing="0" width="100%">
                                                     <thead>
                                                     </thead>
                                                     <tbody>
@@ -474,16 +489,16 @@
 <!--弹窗-->
 
 <!--模态框创建工单-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="height: 500px;width: 1000px !important;">
-            <div class="modal-content" style="height: 500px;width: 1000px !important;">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="height: 650px;width: 1000px !important;">
+            <div class="modal-content" style="height: 650px;width: 1000px !important;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel">创建工单</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="height:528px;">
                     <!--主体部分-->
-                    <div class="gongdanList" id="myApp33" style="max-height: 400px;overflow-y: auto;font-size: 14px;overflow-x:hidden">
+                    <div class="gongdanList" id="myApp33" style="height: 500px;overflow-y: auto;font-size: 14px;overflow-x:hidden">
                         <validator name="validation">
                             <form novalidate>
                                 <div style="border: 1px solid #cccccc;padding: 10px;position: relative;margin-top: 20px;">
@@ -496,20 +511,14 @@
                                             </div>
                                             <span class="colorTip noteTip" v-show="$validation.bxren.isEmpty" style="display: none">请输入报修人</span>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line" style="display: none">
-                                            <div class="single-labels">楼栋：</div>
-                                            <div class="single-block">
-                                                <input v-model="pointer">
-                                            </div>
-                                            <span class="colorTip noteTip"></span>
-                                        </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">报修电话：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="bxtel" v-validate:bxtel= "['isEmpty']" initial='off' readonly="readonly" class="disabled-block bx-choose">
+                                                <input type="text" v-model="bxtel" class="fuzzy-input" v-validate:bxtel= "['isEmpty']" initial='off' @keyup="phoneInput()" @focus="phoneFocus()" readonly="readonly" class="disabled-block bx-choose">
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-phone'>
                                             <span class="colorTip noteTip" v-show="$validation.bxtel.isEmpty" style="display: none">请输入电话号码</span>
@@ -536,7 +545,8 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 single-line one-line">
                                             <div class="single-labels starRed">维修项目：</div>
                                             <div class="single-block">
-                                                <input type="text" v-model="wxshx" v-validate:wxshx= "['isEmpty']" initial='off'  placeholder="请选择维修事项" id="matter">
+                                                <input type="text" v-model="wxshx" class="fuzzy-input" v-validate:wxshx= "['isEmpty']" initial='off'  placeholder="请选择维修事项" id="matter" @focus="wxShiXFocus()" @keyup="wxShiXInput()">
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-building'>
@@ -549,12 +559,13 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 single-line one-line">
                                             <div class="single-labels starRed">故障位置：</div>
-                                            <div class="single-block" style="width: 690px;">
-                                                <input type="text" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off' style="width: 688px;">
+                                            <div class="single-block">
+                                                <input type="text" class="fuzzy-input" @focus="gzwzFocus()" @keyup="gzwzInput()" v-model="gzplace" v-validate:gzplace= "['isEmpty']" initial='off'>
+                                                <ul class="fuzzy-search"></ul>
                                             </div>
                                             <!--点击图标-->
                                             <img class='fdjImg' src="../resource/img/fdj.png" alt="" data-toggle='modal' data-target='#choose-area'>
-                                            <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none">请输入故障位置</span>
+                                            <span class="colorTip noteTip" v-show="$validation.gzplace.isEmpty" style="display: none;max-width: 320px !important;">请填写故障位置，例如：6号楼10层层流病房1床</span>
                                         </div>
                                     </div>
                                     <div class="row">

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--MY STYLE-->
+    <link rel="stylesheet" href="../resource/css/leftBat.css">
+    <link rel="stylesheet" href="../resource/css/energyAnalysis-3.css">
+    <script src="../resource/js/jquery-1.11.2.js"></script>
+    <script src="../resource/js/pointersoffices.js"></script>
+    <script src="../resource/js/etSelection.js"></script>
+    <script src="../new-resource/js/showOrHidden.js"></script>
+    <script src="../resource/js/moment.js"></script>
+    <script src="../../../assets/local/scripts/underscore-min.js"></script>
+    <link rel="stylesheet" href="../resource/zTree_v3-master/css/metroStyle/metroStyle.css">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+    <link id="style_color" href="../../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css"/>
+    <link href="../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../favicon.ico"/>
+    <!--页面css-->
+    <link rel="stylesheet" href="../njn-resource/css/dataChange.css">
+</head>
+<body>
+<!--最外层包裹的容器-->
+<div class="outer-container">
+    <div class="title-block" style="padding-left: 345px;">
+        <span class="title-name">设备监控</span>
+        <span class="title-button equipmentSystem-button switch-button">开启</span>
+    </div>
+    <div class="content-block">
+        <div>
+            <div style="height: 400px;width:343px;display: inline-block;vertical-align: top">
+                <div class="ztree-block">
+                    <div class="ztree-title">区域选择</div>
+                    <ul class="ztree" id="ztreeStation"></ul>
+                    <div class="button-block">
+                        <button type="button" class="btn">确定</button>
+                    </div>
+                    <div class="show-name">南京南高铁站</div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">暖通系统</span>
+                        <div class="button-block">
+                            <span class="title-button HVAC-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span>
+                                <select id="season-range">
+                                    <option value="1">夏天</option>
+                                    <option value="2">冬天</option>
+                                    <option value="0">其他</option>
+                                </select>
+                            </span>
+                            
+                        </div>
+                        <ul class="title-list HVAC">
+                            <li>
+                                <label>输入蒸汽</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>输出蒸汽</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>换热能效</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>总台数</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">照明系统</span>
+                        <div class="button-block">
+                            <span class="title-button LIGHT-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span>站房照明</span>
+                            <span class="text-distance">站台照明</span>
+                        </div>
+                        <ul class="title-list LIGHT">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>站房回数</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>站台回数</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li></li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">电梯系统</span>
+                        <div class="button-block">
+                            <span class="title-button ELEVATOR-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span>直梯</span>
+                            <span class="text-distance">扶梯</span>
+                        </div>
+                        <ul class="title-list ELEVATOR">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>直梯数</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>扶梯数</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li></li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">动环系统</span>
+                        <div class="button-block">
+                            <span class="title-button RING-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list RING">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>室内温度</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>室内湿度</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>机房数</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">安全运行天数</span>
+                        <div class="button-block" style="margin-bottom: 10px;">
+                            <span class="title-button safe-button switch-button">开启</span>
+                        </div>
+                        <ul class="title-list safeRunningDays">
+                            <li>
+                                <label>天数</label>
+                                <input type="text">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">给排水</span>
+                        <div class="button-block">
+                            <span class="title-button water-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list WaterSupply">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label>总台数</label>
+                                <input type="text">
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">消防系统</span>
+                        <div class="button-block">
+                            <span class="title-button fire-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list FireControl">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>电功率</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label>总台数</label>
+                                <input type="text">
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">自动售检票</span>
+                        <div class="button-block">
+                            <span class="title-button ticket-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list TicketsForSale">
+                            <li>
+                                <label>运行中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>故障率</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>故障中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>维修中</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>运行占比</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label>总台数</label>
+                                <input type="text">
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">能源管理</span>
+                        <div class="button-block">
+                            <span class="title-button ENERGY-button switch-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list ENERGY">
+                            <li>
+                                <label>用电量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>报警点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>用水量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                                <label>监测点</label>
+                                <input type="text">
+                            </li>
+                            <li>
+                                <label>蒸汽量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label>总能耗</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrap">
+                <div class="content-children">
+                    <div class="content-block">
+                        <span class="title-name">节能减排</span>
+                        <div class="button-block">
+                            <span class="title-button switch-button energy1-button">开启</span>
+                        </div>
+                        <div class="list-title">
+                            <span></span>
+                            <span class="text-distance"></span>
+                        </div>
+                        <ul class="title-list energyConservation">
+                            <li>
+                                <label style="width: 70px;">累计节电量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+                            </li>
+                            <li>
+                                <label style="width: 70px;">累计节水量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label style="width: 70px;">累计节汽量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+                            <li>
+                                <label style="width: 70px;">累计减排量</label>
+                                <input type="text">
+                            </li>
+                            <li class="text-right">
+
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="bottom-children">
+            <div class="title-block">
+                <span class="title-name">设备报警</span>
+            </div>
+            <div class="dev-alarm">
+                <div class="content-block">
+                    <span class="title-name"></span>
+                    <div class="button-block">
+                        <span class="title-button equipment-button switch-button">开启</span>
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list equipmentAlarm">
+                        <li>
+                            <label>设备报警</label>
+                            <input type="text">
+                        </li>
+                        <li class="text-right">
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-children">
+            <div class="title-block" style="width: 300px">
+                <span class="title-name">运维联动</span>
+                <div class="button-block">
+                    <span class="title-button GD-button switch-button">开启</span>
+                </div>
+            </div>
+            <div style="padding: 15px;border: 1px solid #DCDCDC;" >
+                <div class="gd-block">
+                    <div >
+                        <span class="title-name">工单响应</span>
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list responseGD">
+                        <li>
+                            <label>运行中</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>派单中</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>已完成</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="gd-block">
+                    <div >
+                        <span class="title-name">工单分布</span>
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list distributionGD">
+                        <li>
+                            <label>暖通系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>照明系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>电梯系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>动环系统</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="gd-block gd-block-last">
+                    <div class="title-input numberGD">
+                        <label>工单量</label>
+                        <input type="text">
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list distributionGD1">
+                        <li>
+                            <label style="width: 100px;">给排水</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">消防系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">自动售检票系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">能源管理</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-children">
+            <div class="title-block" style="width: 402px;">
+                <span class="title-name">设备故障报警占比</span>
+                <div class="button-block">
+                    <span class="title-button fault-button switch-button">开启</span>
+                </div>
+            </div>
+            <div style="padding: 15px;border: 1px solid #DCDCDC;" >
+                <div class="gd-block">
+                    <div >
+                        <span class="title-name">工单响应</span>
+                    </div>
+                    <div class="list-title ">
+                        <span></span>
+                    </div>
+                    <ul class="title-list responseGD1">
+                        <li>
+                            <label>运行中</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>派单中</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>已完成</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="gd-block">
+                    <div >
+                        <span class="title-name">工单分布</span>
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list distributionGD2">
+                        <li>
+                            <label>暖通系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>照明系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>电梯系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label>动环系统</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="gd-block gd-block-last">
+                    <div class="title-input numberGD1">
+                        <label>工单量</label>
+                        <input type="text">
+                    </div>
+                    <div class="list-title">
+                        <span></span>
+                    </div>
+                    <ul class="title-list distributionGD3">
+                        <li>
+                            <label style="width: 100px;">给排水</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">消防系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">自动售检票系统</label>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <label style="width: 100px;">能源管理</label>
+                            <input type="text">
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sub-block" style="display: inline-block;vertical-align: bottom">
+            <div class="title-block">
+                <span class="title-button button-submit">提交</span>
+                <span class="title-button button-reset">重置</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--所有提示框-->
+<div class="modal fade" id="tip-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="height: 168px;">
+        <div class="modal-content" style="height: 168px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">提示</h4>
+            </div>
+            <div class="modal-body">请填写红色必填项</div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-primary confirm">确定</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--等待load-->
+<div class='modal fade' id='theLoading' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog'style='width:92px;height:124px;margin:25% auto;background:url("../bank-resource/img/timg3.gif") no-repeat center center;background-size:80px 80px;background-color:none'>
+
+    </div>
+</div>
+<script src="../../../assets/global/plugins/respond.min.js"></script>
+<script src="../../../assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../assets/local/scripts/BEE.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.all.js"></script>
+<script src="../resource/zTree_v3-master/js/jquery.ztree.exhide.js"></script>
+<!--datatable-->
+<script src="../resource/TableTools/js/jquery.dataTables.min.js"></script>
+<script src="../resource/TableTools/button/buttons.print.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.buttons.min.js"></script>
+<script src="../resource/TableTools/button/buttons.colVis.min.js"></script>
+<script src="../resource/TableTools/button/dataTables.tableTools.min.js"></script>
+<script src="../resource/TableTools/js/jszip.min.js"></script>
+<script src="../resource/TableTools/js/pdfmake.min.js"></script>
+<script src="../resource/TableTools/js/vfs_fonts.js"></script>
+<script src="../resource/TableTools/button/buttons.html5.min.js"></script>
+<!--loading插件-->
+<script src="../resource/jQuery-showLoading/js/jquery/jquery.showLoading.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        Demo.init(); // init demo features
+        BEE.init();
+//        userMonitor.init("1200,698");
+    });
+</script>
+<!--页面js-->
+<script src="../resource/js/showOrHidden.js"></script>
+<script src="../resource/js/publicFun.js"></script>
+<script src="../resource/js/pointersoffices.js"></script>
+<script src="../njn-resource/js/dataChange.js"></script>
+</body>
+</html>

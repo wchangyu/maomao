@@ -67,12 +67,38 @@ $(function(){
             data:'phone'
         },
         {
-            title:'创建时间',
-            data:'createTime'
+            title:'创建日期',
+            data:'createTime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return data.split(' ')[0]
+
+                }
+
+            }
         },
         {
-            title:'审核时间',
-            data:'auditTime'
+            title:'审核日期',
+            data:'auditTime',
+            render:function(data, type, full, meta){
+
+                if(data == ''){
+
+                    return ''
+
+                }else{
+
+                    return data.split(' ')[0]
+
+                }
+
+            }
         },
         {
             title:'制单人',
@@ -643,10 +669,37 @@ $(function(){
 
             transferOut:'',
 
-            shRemarks:''
+            shRemarks:'',
+
+            shenheTime:''
+
+        },
+        methods:{
+
+            time:function(){
+
+                $('.datatimeblock').eq(2).datepicker({
+                    language:  'zh-CN',
+                    todayBtn: 1,
+                    todayHighlight: 1,
+                    format: 'yyyy/mm/dd',
+                    autoclose:1
+                });
+
+            },
+            time1:function(){
+
+                $('.datatimeblock').eq(3).datepicker({
+                    language:  'zh-CN',
+                    todayBtn: 1,
+                    todayHighlight: 1,
+                    format: 'yyyy/mm/dd',
+                    autoclose:1
+                });
+
+            }
 
         }
-
     })
 
     //新增入库物品vue对象
@@ -716,11 +769,11 @@ $(function(){
                         }else{
                             $('.format-error2').hide();
                         }
-                        if(putOutGoods.picked == 1 && putOutGoods.num != 1){
-                            $('.format-error4').show();
-                        }else{
-                            $('.format-error4').hide();
-                        }
+                        //if(putOutGoods.picked == 1 && putOutGoods.num != 1){
+                        //    $('.format-error4').show();
+                        //}else{
+                        //    $('.format-error4').hide();
+                        //}
                     }else{
                         $('.format-error').show();
                     }
@@ -907,6 +960,18 @@ $(function(){
 
     })
 
+    $('#myModal').on('shown.bs.modal',function(){
+
+        $('.touchingTime').focus().blur();
+
+        if($('.datepicker:visible')){
+
+            $('.datepicker').hide();
+
+        }
+
+    })
+
     //登记确定按钮、编辑
     $('#myModal')
         .on('click','.dengji',function(){
@@ -1022,10 +1087,10 @@ $(function(){
                 outStoreDetails1.push(obj);
             }
             var ckName = '';
-            if($('#ckselect').val() == ''){
+            if($('#ckselected').val()== ''){
                 ckName = ''
             }else{
-                ckName = $('#ckselect').children('option:selected').html();
+                ckName = $('#ckselected').children('option:selected').html();
             }
             var prm = {
                 'orderNum':putOutList.bianhao,
@@ -1036,11 +1101,14 @@ $(function(){
                 'userName':_userIdName,
                 'b_UserRole':_userRole,
                 'storageName':ckName,
-                'storageNum':$('#ckselect').val(),
+                'storageNum':$('#ckselected').val(),
                 'contractOrder':putOutList.gdCode,
                 'cusName':putOutList.clymc,
-                'phone':putOutList.clydh
+                'phone':putOutList.clydh,
+                'createTime':putOutList.shijian,
+                'toStorageNum':putOutList.transferOut
             }
+
             $.ajax({
                 type:'post',
                 url: _urls + 'YWCK/ywCKEditOutStorage',
@@ -1170,7 +1238,8 @@ $(function(){
                     'contractOrder':(typeof putOutList.gdCode == 'undefined')?'':putOutList.gdCode,
                     'cusName':putOutList.clymc,
                     'phone':putOutList.clydh,
-                    'toStorageNum':putOutList.transferOut
+                    'toStorageNum':putOutList.transferOut,
+                    'createTime':putOutList.shijian
                 }
                 $.ajax({
                     type:'post',
@@ -1322,6 +1391,9 @@ $(function(){
     //查看
     $('.main-contents-table .table tbody').on('click','.option-see',function(){
 
+        //初始化
+        RKDInit();
+
         //可操作项(input\select\textarea\新增按钮\审核备注)
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
 
@@ -1351,19 +1423,38 @@ $(function(){
         //赋值
         for(var i=0;i<_allData.length;i++){
             if(_allData[i].orderNum == $thisDanhao){
-
                 //绑定数据
                 putOutList.rkleixing = _allData[i].outType;
                 putOutList.bianhao = _allData[i].orderNum;
                 putOutList.remarks = _allData[i].remark;
                 putOutList.gysphone = _allData[i].phone;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.gdCode = _allData[i].contractOrder;
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
                 putOutList.shRemarks = _allData[i].auditMemo;
+
+                var shenheTime = '';
+
+                if(_allData[i].auditTime){
+
+                    shenheTime = _allData[i].auditTime.split(' ')[0];
+
+                }
+
+                putOutList.shenheTime = shenheTime;
                 putOutList.transferOut = _allData[i].toStorageNum;
+                putOutList.shijian = _allData[i].createTime;
             }
         }
 
@@ -1403,6 +1494,8 @@ $(function(){
     //编辑
     $('.main-contents-table .table tbody').on('click','.option-edit',function(){
 
+        //初始化
+        RKDInit();
 
         //自动生成的不可操作
         $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
@@ -1426,7 +1519,16 @@ $(function(){
                 putOutList.remarks = _allData[i].remark;
                 putOutList.gysphone = _allData[i].phone;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.gdCode = _allData[i].contractOrder;
                 putOutList.clymc = _allData[i].cusName;
                 putOutList.clydh = _allData[i].phone;
@@ -1534,10 +1636,26 @@ $(function(){
         //自动生成的不可操作
         $('#myApp33').find('.automatic').attr('readonly','readonly').addClass('disabled-block');
 
+        //审核部分不可见
+        $('.shRemarks').hide();
+
+        //去向仓库可以修改
+        $('#transferOut').attr('disabled',false).removeClass('disabled-block');
+
     })
 
     //审核
     $('.main-contents-table .table tbody').on('click','.option-confirm',function(){
+
+        //初始化
+        RKDInit();
+
+        //样式
+        var $this = $(this).parents('tr');
+
+        $('.main-contents-table .table tbody').children('tr').removeClass('tables-hover');
+
+        $this.addClass('tables-hover');
 
         //可操作项(input\select\textarea\新增按钮\审核备注)
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
@@ -1554,8 +1672,12 @@ $(function(){
         //审核备注显示
         $('#myApp33').find('.shRemarks').show();
 
-        //审核备注不可操作
+        //审核备注可操作
         $('#myApp33').find('.shRemarks').find('textarea').removeAttr('readonly').removeClass('disabled-block');
+
+        $('#myApp33').find('.shRemarks').find('input').removeAttr('readonly').removeClass('disabled-block');
+
+        $('#myApp33').find('.shRemarks').find('.input-blockeds').removeAttr('readonly').removeClass('disabled-block');
 
         //删除添加类
         $('#myModal').find('.confirm').removeClass('dengji').removeClass('shanchu').removeClass('bianji').addClass('shenhe');
@@ -1578,10 +1700,29 @@ $(function(){
                 putOutList.clydh = _allData[i].phone;
                 putOutList.ckselect = _allData[i].storageNum;
                 putOutList.zhidanren = _allData[i].createUser;
-                putOutList.shijian = _allData[i].createTime;
+
+                var zhidanTime = '';
+
+                if(_allData[i].createTime){
+
+                    zhidanTime = _allData[i].createTime.split(' ')[0]
+
+                }
+
+                putOutList.shijian = zhidanTime;
                 putOutList.remarks = _allData[i].remark;
                 putOutList.shRemarks = _allData[i].auditMemo;
                 putOutList.transferOut = _allData[i].toStorageNum;
+
+                var shenheTime = '';
+
+                if(_allData[i].auditTime){
+
+                    shenheTime = _allData[i].auditTime.split(' ')[0];
+
+                }
+
+                putOutList.shijian = shenheTime;
                 //判断制单人和审核人是不是一样(相等的话是false)
                 if(_allData[i].createUser == _userIdNum){
                     _examineRen = false;
@@ -1627,10 +1768,16 @@ $(function(){
 
         $('#personTable1 tbody').children('tr').find('.option-shanchu').addClass('hiddenButton');
 
+        //审核时间默认
+        $('.touchingTime').val(moment().format('YYYY/MM/DD'));
+
     })
 
     //审核
     $('.main-contents-table .table tbody').on('click','.option-delete',function(){
+
+        //初始化
+        RKDInit();
 
         //可操作项(input\select\textarea\新增按钮\审核备注)
         $('#myApp33').find('input').attr('readonly','readonly').addClass('disabled-block');
@@ -2689,6 +2836,7 @@ $(function(){
 
         }
 
+        _numIndex = -1;
 
     }
 
@@ -3030,18 +3178,18 @@ $(function(){
                 $('.inpus').parent('span').eq(0).addClass('checked');
 
                 //数量必须为1，并且不可操作
-                putOutGoods.num = 1;
+                //putOutGoods.num = 1;
 
-                $('.number1').attr('readonly','readonly').addClass('disabled-block');
-
-                $('.number1').parent('.input-blockeds').addClass('disabled-block');
-
-                putOutGoods.amount = putOutGoods.outPrice;
+                //$('.number1').attr('readonly','readonly').addClass('disabled-block');
+                //
+                //$('.number1').parent('.input-blockeds').addClass('disabled-block');
+                //
+                //putOutGoods.amount = putOutGoods.outPrice;
 
                 //聚焦到工单选择
                 setTimeout(function(){
 
-                    $('#workDone').find('#outprince').focus();
+                    $('#workDone').find('.number1').focus();
 
                 },600)
 
@@ -3335,6 +3483,7 @@ $(function(){
     //获取数据方法---------------------------------------------------------------------------
     //条件查询工单号
     function conditionSelect(){
+
         //获取条件
         var filterInput = [];
         var filterInputValue = $('.condition-query').find('.input-blocked').children('input');
@@ -3473,6 +3622,8 @@ $(function(){
 
                     $('#conditionStroage').empty().append(str1);
 
+                    conditionSelect();
+
                 }else{
 
                     _ckArr.length = 0;
@@ -3486,9 +3637,6 @@ $(function(){
                     }
 
                     $('#ckSelect1').empty().append(str);
-
-                    //加载数据
-                    conditionSelect();
                 }
 
             },
@@ -3667,7 +3815,8 @@ $(function(){
             'userID':_userIdNum,
             'userName':_userIdName,
             'b_UserRole':_userRole,
-            'auditMemo':putOutList.shRemarks
+            'auditMemo':putOutList.shRemarks,
+            'auditTime':putOutList.shenheTime
         }
 
         $.ajax({
@@ -3737,6 +3886,8 @@ $(function(){
         putOutList.transferOut = '';
         //审核备注
         putOutList.shRemarks = '';
+        //审核时间
+        putOutList.shenheTime = '';
 
         var emptyArr = [];
 
