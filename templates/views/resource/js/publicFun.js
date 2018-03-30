@@ -850,7 +850,41 @@ function _uniqueArr(maxArr,minArr,attr){
 
     }
 
-}
+};
+
+
+//对后台返回的表格数据进行包装，方便datatables插件进行调用
+function packagingTableData(tableData){
+
+    //定义新生产的table数组
+    var newTableArr = [];
+
+    //获取到名称数组
+    var titleArr = tableData.columns;
+
+    //获取数据数组
+    var dataArr = tableData.data;
+
+    //遍历数据数组
+    $(dataArr).each(function(i,o){
+
+        //定义新的对象
+        var obj = {};
+
+        //取出每行的数据
+        var lineArr = o;
+
+        $(lineArr).each(function(i,o){
+
+            obj[titleArr[i]] = o;
+        });
+
+        //把对象放入到新的数组中
+        newTableArr.push(obj);
+    });
+
+    return newTableArr;
+};
 
 //所有表格的点击翻页之后，全选按钮不显示
 //$('#myModal1').find('.gongdanContent').on('click',function(e){

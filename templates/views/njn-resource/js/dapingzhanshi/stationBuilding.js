@@ -409,7 +409,9 @@ function echartReDraw(realDataArr){
 
         optionBar.series[0].data = [referenceData,realData];
 
-        var dataArr = [openLoopProp,alarmLoopProp];
+        //var dataArr = [openLoopProp,alarmLoopProp];
+
+        var dataArr = [openLoopProp];
 
         var tableDom = document.getElementsByClassName('right-bottom-table')[0];
 

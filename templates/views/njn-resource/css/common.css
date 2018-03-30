@@ -976,3 +976,59 @@
     width:600px;
 }
 
+
+/*总能耗外层包裹div*/
+.bottom-equipment-chart-energy{
+
+    cursor: pointer;
+}
+
+#energy-message .modal-content{
+    width:800px;
+}
+
+/*时间选择框*/
+.datatimeblock{
+    cursor: pointer;
+}
+
+
+/*总费用外层包裹div*/
+.bottom-equipment-chart-cost{
+
+    cursor: pointer;
+}
+
+#cost-message .modal-content{
+    width:800px;
+}
+
+/*节能减排外层包裹div*/
+.right-bottom-centent-conservation{
+
+    cursor: pointer;
+}
+
+#conservation-message .modal-content{
+    width:700px;
+    height: auto;
+}
+#conservation-message .table tbody{
+    height: 200px !important;
+}
+
+/*节能减排外层包裹div*/
+.right-bottom-content-trouble{
+
+    cursor: pointer;
+}
+
+#trouble-message .modal-content{
+    width:700px;
+    height: auto;
+}
+
+
+
+
+

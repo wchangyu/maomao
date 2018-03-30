@@ -625,9 +625,8 @@
                                 <span class="">171kw</span>
                             </div>
 
-
                             <!--echart容器-->
-                            <div class="bottom-equipment-chart" id="equipment-chart-water">
+                            <div class="bottom-equipment-chart bottom-equipment-chart-energy" id="equipment-chart-water">
 
                             </div>
 
@@ -638,7 +637,7 @@
                         <div class="bottom-equipment-chart-container bottom-equipment-chart-container1">
 
                             <!--下方统计数据-->
-                            <div class="bottom-equipment-chart-data">
+                            <div class="bottom-equipment-chart-data bottom-equipment-chart-cost">
 
                                 <p class="chart-data">0<span>kw</span></p>
                                 <p class="chart-power chart-cost">总费用</p>
@@ -677,7 +676,7 @@
                 <h2 class="right-bottom-centent-title">节能减排(预估)</h2>
 
                 <!--累计节电量-->
-                <div class="right-bottom-centent-data">
+                <div class="right-bottom-centent-data right-bottom-centent-conservation">
 
                     <p class="top-title">累计节电量</p>
                     <p class="bottom-data"><font>112.4万</font><span> kwh</span></p>
@@ -685,7 +684,7 @@
                 </div>
 
                 <!--累计节水量-->
-                <div class="right-bottom-centent-data right-bottom-centent-data1">
+                <div class="right-bottom-centent-data right-bottom-centent-data1 right-bottom-centent-conservation">
 
                     <p class="top-title">累计节水量</p>
                     <p class="bottom-data bottom-data1"><font>1003.2</font><span> t</span></p>
@@ -693,7 +692,7 @@
                 </div>
 
                 <!--累计节汽量-->
-                <div class="right-bottom-centent-data right-bottom-centent-data2">
+                <div class="right-bottom-centent-data right-bottom-centent-data2 right-bottom-centent-conservation">
 
                     <p class="top-title">累计节汽量</p>
                     <p class="bottom-data bottom-data2"><font>9400.6</font><span> t</span></p>
@@ -701,7 +700,7 @@
                 </div>
 
                 <!--累计减排量-->
-                <div class="right-bottom-centent-data right-bottom-centent-data3">
+                <div class="right-bottom-centent-data right-bottom-centent-data3 right-bottom-centent-conservation">
 
                     <p class="top-title">累计减排量</p>
                     <p class="bottom-data bottom-data3"><font>3038.5</font><span> t</span></p>
@@ -778,7 +777,7 @@
 
                 </div>
 
-                <div class="right-bottom-content-chart" style="border-radius:0  15px  15px 0!important;">
+                <div class="right-bottom-content-chart right-bottom-content-trouble" style="border-radius:0  15px  15px 0!important;">
 
                     <div id="echarts-left-bottom2" class="right-bottom-content-chart-content">
 
@@ -1253,8 +1252,336 @@
     </div>
 </div>
 
+<!--总能耗弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='energy-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>总能耗</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">开始时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <label for="">结束时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-energy">
+                        <thead>
+                        <tr>
+                            <th>时间段</th>
+                            <th>用电量</th>
+                            <th>用水量</th>
+                            <th>用汽量</th>
+                            <th>总能耗</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--总费用弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='cost-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>总费用</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">开始时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <label for="">结束时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-cost">
+                        <thead>
+                        <tr>
+                            <th>时间段</th>
+                            <th>电费</th>
+                            <th>水费</th>
+                            <th>蒸汽费</th>
+                            <th>总费用</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        <tr>
+                            <td>00:00--02:00</td>
+                            <td>256</td>
+                            <td>568</td>
+                            <td>165</td>
+                            <td>1025</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--累计节能量弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='conservation-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4>累计节<span class="systematic-name">电</span>量</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
 
 
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-conservation">
+                        <thead>
+                        <tr>
+                            <th>去年同期用电数据</th>
+                            <th>今年同期用电数据</th>
+                            <th>节能措施</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1" style="height: 100px;" >
+                        <tr>
+                            <td>368</td>
+                            <td>256</td>
+                            <td>调整了冷机的使用时间 <br />
+                                调整了冷冻泵的使用时间</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--设备故障弹出信息弹窗-->
+<div class='modal fade big-screen-message' id='trouble-message' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true' data-backdrop="static">
+    <div class='modal-dialog' style='margin:15% auto;'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+
+                <h4><span class="systematic-name"></span>设备故障报警占比</h4>
+
+            </div>
+
+            <div class="modal-body">
+
+                <!--存放查询条件-->
+                <ul class="demand-condition-container">
+
+                    <li>
+                        <label for="">开始时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <label for="">结束时间</label>
+                        <input type="text" class="datatimeblock"/>
+                    </li>
+
+                    <li>
+                        <button class="demand-button"></button>
+                    </li>
+
+                    <!--清除浮动-->
+                    <div class="clearfix"></div>
+                </ul>
+
+                <div class="bottom-table-data-container">
+                    <table class="table-alarm table table-striped table-bordered table-advance" id="dateTables-trouble">
+                        <thead>
+                        <tr>
+                            <th>设备</th>
+                            <th>故障数量</th>
+                            <th>百分比</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="scrollbar1">
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>暖通系统</td>
+                            <td>256</td>
+                            <td>12%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script src="../../../assets/global/plugins/respond.min.js"></script>
 <script src="../../../assets/global/plugins/excanvas.min.js"></script>

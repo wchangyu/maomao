@@ -12,6 +12,9 @@ $(function(){
     //设备报警
     getStationAlarmData(1);
 
+    //时间插件初始化
+    _timeYMDComponentsFun($('.datatimeblock'));
+
     //点击能源管理上方切换时间按钮
     $('.right-bottom-container .right-tab').on('click',function(){
 
@@ -153,6 +156,45 @@ $(function(){
 
         //放入到弹窗标题中
         $('#failure-message .systematic-name').html(title);
+
+    });
+
+    //点击能耗信息弹出能耗弹窗 并展示数据
+    $(".bottom-equipment-chart-energy").on('click',function(){
+
+        //显示悬浮窗
+        $('#energy-message').modal('show');
+
+
+    });
+
+    //点击能耗费用信息弹出能耗费用弹窗 并展示数据
+    $(".bottom-equipment-chart-cost").on('click',function(){
+
+        //显示悬浮窗
+        $('#cost-message').modal('show');
+
+    });
+
+    //点击节能减排信息弹出能耗费用弹窗 并展示数据
+    $(".right-bottom-centent-conservation").on('click',function(){
+
+        //获取当前能耗类型
+        var title = $(this).find('.top-title').html();
+
+        //放入到弹窗标题中
+        $('#conservation-message h4').html(title);
+
+        //显示悬浮窗
+        $('#conservation-message').modal('show');
+
+    });
+
+    //点击能耗费用信息弹出能耗费用弹窗 并展示数据
+    $(".right-bottom-content-trouble").on('click',function(){
+
+        //显示悬浮窗
+        $('#trouble-message').modal('show');
 
     });
 
@@ -1997,7 +2039,7 @@ function getTableData(condition,dom){
 
             var dataArr = packagingTableData(result[1]);
 
-            console.log(dataArr);
+            //console.log(dataArr);
 
             //获取到table中数据
             var tableData = result[1].data;
@@ -2008,7 +2050,7 @@ function getTableData(condition,dom){
             //遍历table中数据进行拼接
             $(tableData).each(function(i,o){
 
-                tableHtml += "<tr>"
+                tableHtml += "<tr>";
 
                  var lineArr = o;
 
@@ -2032,7 +2074,6 @@ function getTableData(condition,dom){
         }
     })
 }
-
 
 
 //获取电耗分项数据

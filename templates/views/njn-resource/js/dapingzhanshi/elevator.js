@@ -133,7 +133,7 @@ var table = $('#equipment-datatables').DataTable({
             data:'panelNum'
         },
         {
-            title:'上行状态',
+            title:'当前运行状态',
             data:'devCtypeDatas',
             render:function(data, type, row, meta){
 
@@ -142,40 +142,16 @@ var table = $('#equipment-datatables').DataTable({
 
                 $(data).each(function(i,o){
 
-                    if(o.cTypeID == '4421'){
+                    if(o.cTypeID == '4422'){
 
-                        if(o.cDataValue == 1){
+                        if(o.cDataValue == 2){
 
-                            result =  "ON"
+                            result =  "上行"
+                        }else if(o.cDataValue == 1){
+                            result =  "下行";
+
                         }else{
-                            result =  "OFF";
-                        }
-
-
-                    }
-                });
-
-                return result;
-
-            }
-        },
-        {
-            title:'下行状态',
-            data:'devCtypeDatas',
-            render:function(data, type, row, meta){
-
-
-                var result = '';
-
-                $(data).each(function(i,o){
-
-                    if(o.cTypeID == '4522'){
-
-                        if(o.cDataValue == 1){
-
-                            result =  "ON"
-                        }else{
-                            result =  "OFF";
+                            result =  "停止";
                         }
 
 

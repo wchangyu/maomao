@@ -1,7 +1,7 @@
-
 /**
- * Created by admin on 2017/12/12.
+ * Created by admin on 2018/3/29.
  */
+
 $(function(){
 
     //获取设想头信息
@@ -24,17 +24,13 @@ $(function(){
             if(o.pK_Camera == curID){
 
                 //账号
-                var account = 'admin';
+                var account = o.mappVideoRecorder.f_User;
                 //地址
                 var address = o.mappVideoRecorder.f_RecIP;
                 //密码
                 var password = o.mappVideoRecorder.f_Password;
-
                 //给密码解密
                 password = Went.utility.wCoder.wDecode(password,"");
-
-                console.log(password);
-
                 //端口
                 var port = o.mappVideoRecorder.f_PortNum;
                 //通道号
@@ -54,8 +50,6 @@ $(function(){
                     //开始预览
                     clickStartRealPlay();
 
-                    //始终只有一个回放窗口
-                    changeWndNum(1);
 
                 },1000);
 
@@ -67,7 +61,7 @@ $(function(){
 });
 
 //定义从后台获取的摄像头报警数据
-var alarmCameraDataArr = [];
+var alarmCameraDataArr = {};
 
 //定义回放时间
 var startPlaybackTime;
@@ -80,7 +74,7 @@ function getAlarmCameraData(){
         url:sessionStorage.apiUrlPrefix + 'Alarm/GetAllCameraData',
         success:function(result){
 
-            console.log(result);
+            //console.log(result);
 
             alarmCameraDataArr = result;
 
@@ -93,71 +87,64 @@ function getAlarmCameraData(){
                 //对摄像头字符串进行拼接
                 monitorMessageHtml += ' <li data-num="'+ o.pK_Camera+'">'+
                         //摄像头名称
-                    '<span>'+(i+1)+'.</span>'+ o.f_Name+
+                    '<span>'+(i+1)+'</span>'+ o.f_Name+
                         //安装地点
                     '('+  o.f_Address+
                     ')</li>';
 
-            });
+                if(i < 4){
 
-            //页面赋值
-            $('.monitor-message').html(monitorMessageHtml);
+                    //账号
+                    var account = result[i].mappVideoRecorder.f_User;
+                    //地址
+                    var address = result[i].mappVideoRecorder.f_RecIP;
+                    //密码
+                    var password = result[i].mappVideoRecorder.f_Password;
 
-            //登陆当前摄像头
-            $(result).each(function(i,o){
+                    //端口
+                    var port = result[i].mappVideoRecorder.f_PortNum;
 
-                //账号
-                var account = result[i].mappVideoRecorder.f_User;
-                //地址
-                var address = result[i].mappVideoRecorder.f_RecIP;
-                //密码
-                var password = result[i].mappVideoRecorder.f_Password;
+                    console.log(password);
 
-                //端口
-                var port = result[i].mappVideoRecorder.f_PortNum;
-
-                console.log(password);
-
-                //登录当前设备
-                clickLogin1(account,address,password,port);
-
-            });
+                    //登录当前设备
+                    clickLogin1(account,address,password,port);
 
 
-            //几个账号打开几个窗口
-            if (result.length > 9) {
-                changeWndNum(4);
-            } else {
-                if (result.length > 4) {
-                    changeWndNum(3);
-                } else {
-                    changeWndNum(2);
                 }
-            }
+
+            });
 
             setTimeout(function(){
 
                 $(result).each(function(i,o){
 
-                    //ip
-                    var aisleNum = o.mappVideoRecorder.f_RecIP + "_"+ result[i].mappVideoRecorder.f_PortNum;
+                    if(i < 4){
 
-                    //console.log(aisleNum);
+                        //ip
+                        var aisleNum = o.mappVideoRecorder.f_RecIP + "_"+ result[i].mappVideoRecorder.f_PortNum;
 
-                    //窗口号
-                    g_iWndIndex = i;
+                        //console.log(aisleNum);
 
-                    //console.log(g_iWndIndex);
+                        //窗口号
+                        g_iWndIndex = i;
 
-                    //进入当前ip
-                    $('#ip').val(aisleNum);
+                        //console.log(g_iWndIndex);
 
-                    //开始预览
-                    clickStartRealPlay();
+                        //进入当前ip
+                        $('#ip').val(aisleNum);
+
+                        //开始预览
+                        clickStartRealPlay();
+
+                    }
 
                 });
 
             },5000);
+
+            //页面赋值
+            $('.monitor-message').html(monitorMessageHtml);
+
 
         },
         error:function(){
