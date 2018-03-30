@@ -171,16 +171,20 @@ var Calendar = function () {
             select_month
             + "-" +
             select_day
-            );
+        ).format('YYYY-MM-DD');
     }
 
     //获取日历数据
     var getKPIs = function () {
+
         $('#monthBtn').addClass('green');
+
         $('#dayBtn').removeClass('green');
+
         selectDType = "M";//默认选中月数据
         var queryDt = initQueryDt();
         var url = sessionStorage.apiUrlPrefix + "MultiAreaCalendar/GetEWCHKPI";
+
         $.post(url, {
             pId: sessionStorage.PointerID,
             area: selectAREA,
@@ -189,16 +193,16 @@ var Calendar = function () {
         }, function (res) {
             if (res.code === 0) {
                 var eds = [];
-                for (var i = 0; i < req.ecps.length; i++) {
+                for (var i = 0; i < res.ecps.length; i++) {
                     var object = {};
-                    object.title = req.ecps[i].title;
-                    var y = req.ecps[i].y;
-                    var m = req.ecps[i].m;
-                    var d = req.ecps[i].d;
-                    var h = req.ecps[i].h;
+                    object.title = res.ecps[i].title;
+                    var y = res.ecps[i].y;
+                    var m = res.ecps[i].m;
+                    var d = res.ecps[i].d;
+                    var h = res.ecps[i].h;
                     var startDt = new Date(y, (m - 1), d, h);
                     object.start = startDt;
-                    if (req.ecps[i].type === "E") {
+                    if (res.ecps[i].type === "E") {
                         //object.backgroundColor = req.ecps[i].color;
                     }
                     else {
@@ -206,6 +210,8 @@ var Calendar = function () {
                     }
                     eds.push(object);
                 }
+
+
                 $('#calendar').fullCalendar('destroy');
                 $('#calendar').fullCalendar({
                     handleWindowResize: true,
@@ -255,6 +261,7 @@ var Calendar = function () {
             })
             //查询数据
             $('#queryBtn').on('click', function () {
+
                 getKPIs();
             })
         }

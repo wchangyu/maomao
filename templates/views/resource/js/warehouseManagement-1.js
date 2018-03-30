@@ -423,7 +423,9 @@ $(function(){
                 b_UserRole:_userRole,
                 'isSpare':myApp33.picked,
                 //是否为返修件
-                'isFX':myApp33.isfix
+                'isFX':myApp33.isfix,
+                //品牌
+                'brand':myApp33.brand
             }
             $.ajax({
                 type:'post',
@@ -539,6 +541,8 @@ $(function(){
                         myApp33.miaoshu = result[0].description;
                         //备注
                         myApp33.beizhu = result[0].remark;
+                        //品牌
+                        myApp33.brand = result[0].brand;
                         //是否耐用
                         $('.inpus').parent().removeClass('checked');
 

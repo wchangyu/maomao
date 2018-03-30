@@ -274,6 +274,7 @@ var ObjectSelection = function(){
         }
 
         if(this._$ulPointers){
+
             zTreePointer  = $.fn.zTree.init(this._$ulPointers,setting1,this._allPointers);
             var nodes = zTreePointer.getNodes();
             //console.log(nodes);
