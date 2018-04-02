@@ -813,7 +813,7 @@ $(function(){
                 },
 
                 //工单量
-                numberGD:$('.numberGD').children('input').val(),
+                numberGD:$('.numberGD').children('input').val() == ''?0:Number($('.numberGD').children('input').val()),
 
                 //开关
                 switch:$('.GD-button').hasClass('button-on')?1:0
@@ -867,7 +867,7 @@ $(function(){
                 },
 
                 //工单量
-                numberGD:$('.numberGD1').children('input').val(),
+                numberGD:$('.numberGD1').children('input').val() == ''?0:Number($('.numberGD1').children('input').val()),
 
                 //开关
                 switch:$('.fault-button').hasClass('button-on')?1:0
@@ -919,6 +919,9 @@ $(function(){
                 if(result == 99){
 
                     _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'提交成功!', '');
+
+
+                    readData();
 
                 }else{
 
@@ -976,7 +979,8 @@ $(function(){
 
                 if(result == ''){
 
-                    return false;
+                    $('.switch-button').removeClass('button-on').addClass('button-off');
+
 
                 }else{
 

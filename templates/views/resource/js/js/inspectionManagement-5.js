@@ -524,41 +524,6 @@ $(function(){
 
         //当前点击的任务编码
         var $thisBM = $that.parents('tr').children('.bianma').html();
-        //
-        //for(var i=0;i<_allDataArr.length;i++){
-        //
-        //    if(_allDataArr[i].itkNum == $thisBM){
-        //
-        //        //是否启用
-        //        el.sfqy = _allDataArr[i].isActive;
-        //        //任务单号
-        //        el.rwdh = _allDataArr[i].itkNum;
-        //        //任务名称
-        //        el.rwmc = _allDataArr[i].itkName;
-        //        //设备名称
-        //        el.sbmc = _allDataArr[i].dName;
-        //        //设备编码
-        //        el.sbbm = _allDataArr[i].dNum;
-        //        //责任单位部门
-        //        el.zrdwbm = _allDataArr[i].dipKeshi;
-        //        //负责人
-        //        el.fzr = _allDataArr[i].manager;
-        //        //执行人
-        //        el.zxr = _allDataArr[i].itkRen;
-        //        //计划编码
-        //        el.jhbm = _allDataArr[i].dipNum;
-        //        //接单时间
-        //        $('#jdsj').val(_allDataArr[i].tkRecTime);
-        //        //开始时间
-        //        $('#kssj').val(_allDataArr[i].tkTime);
-        //        //完成时间
-        //        $('#wcsj').val(_allDataArr[i].tkCompTime);
-        //        //备注
-        //        $('#beizhu').val(_allDataArr[i].remark);
-        //
-        //    }
-        //
-        //}
 
         //加载表格下属步骤和执行人
         var prm = {
@@ -602,17 +567,17 @@ $(function(){
                 //计划编码
                 el.jhbm = result.dipNum;
                 //接单时间
-                var tkRecTime = result.tkRecTime == ''?'':result.tkRecTime.split('T')[0];
+                var tkRecTime = result.tkRecTime === null?'':result.tkRecTime.split('T')[0];
 
                 $('#jdsj').val(tkRecTime);
 
                 //开始时间
-                var tkTime = result.tkTime == ''?'':result.tkTime.split('T')[0];
+                var tkTime = result.tkTime === null?'':result.tkTime.split('T')[0];
 
                 $('#kssj').val(tkTime);
 
                 //完成时间
-                var tkCompTime = result.tkCompTime == ''?'':result.tkCompTime.split('T')[0];
+                var tkCompTime = result.tkCompTime === null?'':result.tkCompTime.split('T')[0];
 
 
                 $('#wcsj').val(tkCompTime);

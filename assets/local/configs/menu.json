@@ -1716,26 +1716,6 @@
         "target": "blank",
         "arg2": "admin,WXBZ01"
       },
-      "后勤服务热线值班记录": {
-        "type": "0",
-        "content": "后勤服务热线值班记录",
-        "uri": "../gongdanxitong/dutyRecordList.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "target": "blank",
-        "arg2": "admin,WXBZ01"
-      },
-      "服务热线工作统计": {
-        "type": "0",
-        "content": "服务热线工作统计（总）",
-        "uri": "../gongdanxitong/serviceWorkStatisticsAll.html",
-        "uid": "",
-        "arg": "",
-        "iconclass": "",
-        "target": "blank",
-        "arg2": "admin,WXBZ01"
-      },
       "服务热线月统计": {
         "type": "0",
         "content": "服务热线月统计",
@@ -1746,14 +1726,14 @@
         "target": "blank",
         "arg2": "admin,WXBZ01"
       },
-      "科室明细": {
+      "服务热线周统计": {
         "type": "0",
-        "content": "科室明细",
-        "uri": "../gongdanxitong/sectionDetail.html",
+        "content": "服务热线周统计",
+        "uri": "../gongdanxitong/serviceWorkStatisticsWeek.html",
         "uid": "",
         "arg": "",
         "iconclass": "",
-        "target": "blank",
+        "target": "",
         "arg2": "admin,WXBZ01"
       }
     }
