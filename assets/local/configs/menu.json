@@ -1734,10 +1734,30 @@
         "target": "blank",
         "arg2": "admin,WXBZ01"
       },
-      "服务热线工作统计（总）": {
+      "服务热线工作统计": {
         "type": "0",
         "content": "服务热线工作统计（总）",
         "uri": "../gongdanxitong/serviceWorkStatisticsAll.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "blank",
+        "arg2": "admin,WXBZ01"
+      },
+      "服务热线月统计": {
+        "type": "0",
+        "content": "服务热线月统计",
+        "uri": "../gongdanxitong/serviceWorkStatisticsMonth.html",
+        "uid": "",
+        "arg": "",
+        "iconclass": "",
+        "target": "blank",
+        "arg2": "admin,WXBZ01"
+      },
+      "科室明细": {
+        "type": "0",
+        "content": "科室明细",
+        "uri": "../gongdanxitong/sectionDetail.html",
         "uid": "",
         "arg": "",
         "iconclass": "",

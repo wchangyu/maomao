@@ -586,7 +586,7 @@ function _FFExcel(tableId){
         // 克隆（复制）此table元素，这样对复制品进行修改（如添加或改变table的标题等），导出复制品，而不影响原table在浏览器中的展示。
         table = table.cloneNode(true);
         //下面五行代码就是用来改变table中的某些信息的，不需要的话可以注释，或修改。
-        var name=$(".big-title").text();
+        var name='';
         var caption_orig = table.getElementsByTagName("caption");
 
         // 下面的代码才是真正用来将html table导出Excel表格（我从stackoverflow上看到的，修改了一点点，不会再有中文乱码问题了。）
@@ -595,7 +595,7 @@ function _FFExcel(tableId){
             , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))); }
             , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }); };
         if (!table.nodeType) table = document.getElementById('dateTables');
-        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
+        var ctx = { worksheet: name || '', table: table.innerHTML };
         window.location.href = uri + base64(format(template, ctx));
     }
 }
@@ -863,16 +863,36 @@ function _formatNumber(num){
     return 0.00;
 }
 
-//所有表格的点击翻页之后，全选按钮不显示
-//$('#myModal1').find('.gongdanContent').on('click',function(e){
-//
-//    var buttonName = e.toElement.className;
-//
-//    if(buttonName.indexOf('paginate_button') >= 0){
-//
-//        $(this).find('thead').find('input').parent('span').removeClass('checked');
-//
-//    }
-//
-//})
+//对后台返回的表格数据进行包装，方便datatables插件进行调用
+function _packagingTableData(tableData){
+
+    //定义新生产的table数组
+    var newTableArr = [];
+
+    //获取到名称数组
+    var titleArr = tableData.columns;
+
+    //获取数据数组
+    var dataArr = tableData.data;
+
+    //遍历数据数组
+    $(dataArr).each(function(i,o){
+
+        //定义新的对象
+        var obj = {};
+
+        //取出每行的数据
+        var lineArr = o;
+
+        $(lineArr).each(function(i,o){
+
+            obj[titleArr[i]] = o;
+        });
+
+        //把对象放入到新的数组中
+        newTableArr.push(obj);
+    });
+
+    return newTableArr;
+};
 
