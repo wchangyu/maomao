@@ -108,6 +108,8 @@ var userMonitor = (function(){
             //如果是非跳转页面 则清除页面中缓存的宽高
             if(procId){
 
+
+
             }else{
                 sessionStorage.monitorSize = "";
             }
@@ -710,6 +712,10 @@ var userMonitor = (function(){
                     //当前为跳转页面，获取跳转页面的流程图宽高
                     if(procId){
 
+                        jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
+
+                        jumpPageHeight = parseInt(window.location.search.split('height=')[1].split('ckId=')[0]);
+
                         norWidth = jumpPageWidth;
 
                         containHeight = jumpPageHeight;
@@ -792,6 +798,10 @@ var userMonitor = (function(){
 
                         //当前为跳转页面，获取跳转页面的流程图宽高
                         if(procId){
+
+                            jumpPageWidth = parseInt(window.location.search.split('width=')[1].split('height=')[0]);
+
+                            jumpPageHeight = parseInt(window.location.search.split('height=')[1].split('ckId=')[0]);
 
                             norWidth1 = jumpPageWidth;
 

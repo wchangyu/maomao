@@ -950,6 +950,7 @@ var BEE = (function(){
          if(uri.indexOf('energyMonitor.html') == -1){
              //非流程图界面判断角色权限；
              return retainChildMenu1(childMenu);
+
          }else{
 
             // 获取全部流程图
@@ -985,17 +986,32 @@ var BEE = (function(){
 
      //根据角色权限判断子菜单是否需要保留
      var retainChildMenu1 = function(childMenu){
+
          //首先判断是否存在角色权限参数
          var arg2 = childMenu.arg2;
+
+         var arg3 = childMenu.arg3;
+
          if(arg2){
             //获取权限参数
              var role = sessionStorage.userRole;
              if(role && arg2.indexOf(role) >= 0 ){
                  return true;
              }else{
+                 //return false;
+             }
+         }
+
+         if(arg3){
+             //获取权限参数
+             var depart = sessionStorage.userDepartNum;
+             if(depart && arg3.indexOf(depart) >= 0 ){
+                 //return true;
+             }else{
                  return false;
              }
          }
+
          return true;
      };
 

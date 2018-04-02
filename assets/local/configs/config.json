@@ -13,6 +13,7 @@
         "color":"#bce3de",
         "img2":"electricity.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"度"
       },
       {
@@ -26,6 +27,7 @@
         "color":"#fcbf92",
         "img2":"water.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"吨"
       },
       {
@@ -39,6 +41,7 @@
         "color":"#b1cade",
         "img2":"gas.png",
         "isShowItem":0,
+        "secondEnergy":0,
         "etunitZH":"立方米"
       },
       {
@@ -52,6 +55,7 @@
         "color":"#b1cade",
         "img2":"gas.png",
         "isShowItem":1,
+        "secondEnergy":0,
         "etunitZH":"吨"
       },
       {
@@ -65,10 +69,11 @@
         "color":"#b1cade",
         "img2":"hot.png",
         "isShowItem":1,
+        "secondEnergy":1,
         "etunitZH":"兆焦"
       },
       {
-        "etid": "511",
+        "etid": "512",
         "ettype" : "500",
         "etname": "冷",
         "etunit": "MJ",
@@ -78,6 +83,7 @@
         "color":"#b1cade",
         "img2":"cold.png",
         "isShowItem":1,
+        "secondEnergy":1,
         "etunitZH":"兆焦"
       },
       {
@@ -160,8 +166,8 @@
       }
     ]
   },
-  "apiUriPrefix":"http://huaqin.vicp.io:25708/BEEWebAPIys/api/",
-  "apiUriPrefixYW":"http://huaqin.vicp.io:25708/BEEWebAPIys/api/",
+  "apiUriPrefix":"http://192.168.1.110/BEEWebAPI/api/",
+  "apiUriPrefixYW":"http://192.168.1.110/BEEWebAPI/api/",
   "apiUriPrefix2":"http://localhost/BEEWebAPI/api/",
   "apiUriPrefixUEditor":"http://192.168.1.104/HQUeditorImage/controller.ashx",
   "systemTitle":"中国人民银行成都分行能源监管平台",

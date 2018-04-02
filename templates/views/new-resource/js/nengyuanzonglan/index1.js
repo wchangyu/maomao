@@ -430,6 +430,10 @@ var pointerIdArr = getPointersId();
 //获取全部分户ID列表
 var officeIdArr = getOfficesId();
 
+//获取配置好的能耗类型数据
+var unitObj = $.parseJSON(sessionStorage.getItem('allEnergyType'));
+var allEnergyArr = unitObj.alltypes;
+
 //------------------------------------页面主体方法-----------------------------------//
 
 //获取页面左上角新闻轮播图
@@ -677,6 +681,8 @@ function getNowTime(){
 
      },15000)
 };
+
+
 
 //获取工单统计信息
 function getOrderData(){
@@ -1126,18 +1132,36 @@ function getAllEnergyItemData(){
 
             $(result).each(function(i,o){
 
+
                 var obj = {};
+
+                //获取当前的能耗类型
+                var energyID = o.energyItemCode;
+
                 //获取能耗数据
                 obj.value = o.energyItemValue.toFixed(1);
 
                 //获取能耗名称
                 obj.name = _getEcName(o.energyItemCode);
 
-                dataArr.push(obj);
+                $(allEnergyArr).each(function(i,o){
 
-                //给图例中存储数据
-                legendArr.push(obj.name);
+                    if(energyID == o.etid){
+
+                        //判断是否是二次能源 不是二次能源的才能展示
+                        if(!o.secondEnergy){
+
+                            dataArr.push(obj);
+
+                            //给图例中存储数据
+                            legendArr.push(obj.name);
+
+                        }
+                    }
+
+                });
             });
+
             //图例赋值
             option1.legend.data = legendArr;
             //数据赋值
@@ -1146,7 +1170,6 @@ function getAllEnergyItemData(){
 
             //页面重绘数据
             _myChart.setOption(option1,true);
-
 
         },
         error:function(jqXHR, textStatus, errorThrown){

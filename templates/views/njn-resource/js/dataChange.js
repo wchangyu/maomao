@@ -813,7 +813,7 @@ $(function(){
                 },
 
                 //工单量
-                numberGD:$('.numberGD').children('input').val(),
+                numberGD:$('.numberGD').children('input').val() == ''?0:Number($('.numberGD').children('input').val()),
 
                 //开关
                 switch:$('.GD-button').hasClass('button-on')?1:0
@@ -867,7 +867,7 @@ $(function(){
                 },
 
                 //工单量
-                numberGD:$('.numberGD1').children('input').val(),
+                numberGD:$('.numberGD1').children('input').val() == ''?0:Number($('.numberGD1').children('input').val()),
 
                 //开关
                 switch:$('.fault-button').hasClass('button-on')?1:0
@@ -880,15 +880,17 @@ $(function(){
         var prm = {
 
             //数据
-            fileStr:JSON.stringify(obj),
+            "fileStr":JSON.stringify(obj),
 
             //楼宇id
-            pointerID:pts[0].id,
+            "pointerID":pts[0].id,
 
             //用户id
-            userID:_userIdNum
+            "userID":_userIdNum
 
-        }
+        };
+
+        console.log(prm);
 
         $.ajax({
 
@@ -908,10 +910,7 @@ $(function(){
 
             },
 
-            data:JSON.stringify(prm),
-
-            contentType:'application/json',
-
+            data:prm,
             timeout:_theTimes,
 
             success:function(result){
@@ -919,6 +918,9 @@ $(function(){
                 if(result == 99){
 
                     _moTaiKuang($('#tip-Modal'), '提示', 'flag', 'istap' ,'提交成功!', '');
+
+
+                    readData();
 
                 }else{
 
@@ -967,7 +969,6 @@ $(function(){
             data:{
 
                 pointerID:pts[0].id
-
             },
 
             timeout:_theTimes,
@@ -976,11 +977,14 @@ $(function(){
 
                 if(result == ''){
 
-                    return false;
+                    $('.switch-button').removeClass('button-on').addClass('button-off');
+
 
                 }else{
 
                     var result1 = JSON.parse(result);
+                    console.log(result1);
+
 
                     //赋值
                     //暖通系统
